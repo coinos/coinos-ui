@@ -71,13 +71,14 @@
 			<h1
 				class="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto leading-tight"
 			>
-				The <span class="relative"
-					>easiest<img
+				The <span class="relative">
+					easiest
+					<img
 						src="/icons/rays.svg"
 						alt="rays"
 						class="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24"
-					/></span
-				> way to accept Bitcoin in your store.
+					/>
+				</span> way to accept Bitcoin in your store.
 			</h1>
 			<h2
 				class="text-center text-secondary w-full md:w-3/5 lg:w-2/5 max-w-3xl mx-auto text-xl leading-normal font-medium"
@@ -89,17 +90,16 @@
 				<PrimaryButton title="Start in Seconds" />
 			</div>
 		</div>
-
-		<div
-			class="bg-gradient-to-br from-[#F5F7FA] via-[#EAF2FF] to-[#DEDFFF] rounded-full w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] 2xl:w-[650px] 2xl:h-[650px] mx-auto mt-20 flex justify-center items-center"
-		>
-			<img src="/images/hero-image.svg" alt="tablet-pos" />
-		</div>
+		<!-- hero image -->
+		<img
+			src="/images/hero-image.png"
+			alt="tablet-pos"
+			class="w-full md:w-2/3 max-w-5xl mx-auto mt-20"
+		/>
 	</div>
 
 	<!-- landing info 1 -->
 	<LandingInfoCard
-		gradients="from-[#FFF9FF] via-[#F7FBFE] to-[#ECEFFF]"
 		image="lightning-qr"
 		title="Instant payments via Lightning."
 		description="The moment your customer sends a payment, it’s there. No waiting for bank settlements or
@@ -109,7 +109,6 @@
 
 	<!-- landing info 2 -->
 	<LandingInfoCard
-		gradients="from-[#F5F7FA] via-[#EAF2FF] to-[#DEDFFF]"
 		image="phone-checkout"
 		title="Simple to use, custodial by default."
 		order="reverse"
@@ -125,7 +124,7 @@
 
 	<!-- landing info 3 -->
 	<LandingInfoCard
-		gradients="from-[#FFF9FF] via-[#F7FBFE] to-[#ECEFFF]"
+		image="lightning-qr"
 		title="Brand it your way!"
 		description="Customize your point of sale look and feel, or keep it on default - totally up to you."
 	/>
