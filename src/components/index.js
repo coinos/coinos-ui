@@ -1,4 +1,5 @@
 export { default as LandingHeader } from './LandingHeader.svelte';
+export { default as LandingHero } from './LandingHero.svelte';
 export { default as LandingInfoCard } from './LandingInfoCard.svelte';
 export { default as HowItWorksCard } from './HowItWorksCard.svelte';
 export { default as FaqCard } from './FaqCard.svelte';
