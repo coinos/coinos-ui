@@ -124,7 +124,7 @@
 
 	<!-- landing info 3 -->
 	<LandingInfoCard
-		image="lightning-qr"
+		image="customize"
 		title="Brand it your way!"
 		description="Customize your point of sale look and feel, or keep it on default - totally up to you."
 	/>
