@@ -1,6 +1,12 @@
 <script>
 	import { scroll } from '../lib/utils';
-	import { HowItWorksCard, FaqCard } from '../components';
+	import {
+		LandingInfoCard,
+		HowItWorksCard,
+		FaqCard,
+		PrimaryButton,
+		SecondaryButton
+	} from '../components';
 
 	let howItWorks;
 	let faq;
@@ -48,12 +54,12 @@
 		<a href="/">
 			<img src="/icons/logo.svg" alt="logo" class="mx-auto mb-5 lg:mb-0" />
 		</a>
-		<div class="hidden space-x-10 font-medium md:flex flex-wrap justify-center items-center">
+		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
 			<button on:click={() => scroll(howItWorks)}>How It Works</button>
 			<button on:click={() => scroll(faq)}>FAQ</button>
 			<button>About</button>
-			<button class="border rounded-full px-3 py-1">Start in Seconds</button>
-			<button class="bg-black text-white border rounded-full px-3 py-1">Login</button>
+			<SecondaryButton title="Start in Seconds" />
+			<PrimaryButton title="Login" />
 		</div>
 	</nav>
 </header>
@@ -80,9 +86,7 @@
 				Point of Sale. No software or hardware required.
 			</h2>
 			<div class="flex justify-center">
-				<button class="bg-black text-white border rounded-full px-3 py-1 font-medium"
-					>Start in Seconds</button
-				>
+				<PrimaryButton title="Start in Seconds" />
 			</div>
 		</div>
 
@@ -94,55 +98,37 @@
 	</div>
 
 	<!-- landing info 1 -->
-	<div class="block lg:flex justify-center lg:space-x-20 items-center">
-		<div
-			class="bg-gradient-to-r from-[#FFF9FF] via-[#F7FBFE] to-[#ECEFFF] rounded-full w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[350px] lg:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[500px] 2xl:h-[500px] flex justify-center items-center mx-auto lg:mx-0 mb-10 lg:mb-0"
-		>
-			<img src="/images/lightning-qr.svg" alt="lightning-qr" class="w-5/6" />
-		</div>
-		<div class="w-full lg:w-1/2 max-w-3xl space-y-10 mx-auto lg:mx-0">
-			<h3 class="text-5xl font-medium text-left">Instant payments via Lightning.</h3>
-			<p class="text-secondary text-xl font-medium w-full lg:w-3/4 mx-auto lg:mx-0">
-				The moment your customer sends a payment, it’s there. No waiting for bank settlements or
-				worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card
-				processing fees.
-			</p>
-		</div>
-	</div>
+	<LandingInfoCard
+		gradients="from-[#FFF9FF] via-[#F7FBFE] to-[#ECEFFF]"
+		image="lightning-qr"
+		title="Instant payments via Lightning."
+		description="The moment your customer sends a payment, it’s there. No waiting for bank settlements or
+    worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card
+    processing fees."
+	/>
 
 	<!-- landing info 2 -->
-	<div class="block lg:flex justify-center lg:space-x-20 items-center">
-		<div
-			class="md:order-last bg-gradient-to-r from-[#F5F7FA] via-[#EAF2FF] to-[#DEDFFF] rounded-full w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[350px] lg:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[500px] 2xl:h-[500px] flex justify-center items-center mx-auto lg:mx-0 mb-10 lg:mb-0"
-		>
-			<img src="/images/phone-checkout.svg" alt="phone-checkout" class="w-5/6" />
-		</div>
-		<div class="w-full lg:w-1/2 max-w-3xl space-y-10 mx-auto lg:mx-0">
-			<h3 class="text-5xl font-medium text-left">Simple to use, custodial by default.</h3>
-			<p class="text-secondary text-xl font-medium w-full lg:w-3/4 mx-auto lg:mx-0">
-				Just enter an amount, share QR code and you’re done.
-				<br /><br />
-				CoinOS is custodial by default, which eliminates the need to understand how bitcoin/lightning
-				works. We do all the heavy lifting so you can focus on your business.
-				<br /><br />
-				You always have the option of
-				<span class="underline underline-offset-4">taking custody</span> of your own keys.
-			</p>
-		</div>
-	</div>
+	<LandingInfoCard
+		gradients="from-[#F5F7FA] via-[#EAF2FF] to-[#DEDFFF]"
+		image="phone-checkout"
+		title="Simple to use, custodial by default."
+		order="reverse"
+	>
+		Just enter an amount, share QR code and you’re done.
+		<br /><br />
+		CoinOS is custodial by default, which eliminates the need to understand how bitcoin/lightning works.
+		We do all the heavy lifting so you can focus on your business.
+		<br /><br />
+		You always have the option of
+		<span class="underline underline-offset-4">taking custody</span> of your own keys.
+	</LandingInfoCard>
 
 	<!-- landing info 3 -->
-	<div class="block lg:flex justify-center lg:space-x-20 items-center">
-		<div
-			class="bg-gradient-to-r from-[#FFF9FF] via-[#F7FBFE] to-[#ECEFFF] rounded-full w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[350px] lg:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[500px] 2xl:h-[500px] flex justify-center items-center mx-auto lg:mx-0 mb-10 lg:mb-0"
-		/>
-		<div class="w-full lg:w-1/2 max-w-3xl space-y-10 mx-auto lg:mx-0">
-			<h3 class="text-5xl font-medium text-left">Brand it your way!</h3>
-			<p class="text-secondary text-xl font-medium w-full lg:w-3/4 mx-auto lg:mx-0">
-				Customize your point of sale look and feel, or keep it on default - totally up to you.
-			</p>
-		</div>
-	</div>
+	<LandingInfoCard
+		gradients="from-[#FFF9FF] via-[#F7FBFE] to-[#ECEFFF]"
+		title="Brand it your way!"
+		description="Customize your point of sale look and feel, or keep it on default - totally up to you."
+	/>
 
 	<!-- how it works -->
 	<div bind:this={howItWorks}>
