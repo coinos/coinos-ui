@@ -64,7 +64,7 @@
 	</nav>
 </header>
 
-<main class="space-y-40 py-20 md:py-40 px-5 md:px-0">
+<main class="space-y-40 py-20 md:py-32 lg:py-40 px-5 md:px-0">
 	<!-- hero -->
 	<div>
 		<div class="space-y-10">
