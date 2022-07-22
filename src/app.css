@@ -10,3 +10,8 @@
 html {
 	font-family: PublicSans, sans-serif;
 }
+
+::selection {
+	color: black;
+	background: #eaf2ff;
+}
