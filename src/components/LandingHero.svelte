@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { PrimaryButton, Icon, Image } from '$comp';
+	import { Icon, Image } from '$comp';
 </script>
 
 <div>
@@ -20,7 +20,12 @@
 			of Sale. No software or hardware required.
 		</h2>
 		<div class="flex justify-center">
-			<PrimaryButton title="Start in Seconds" click={() => goto('/register')} />
+			<button
+				class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+				on:click={() => goto('/register')}
+			>
+				Start in Seconds
+			</button>
 		</div>
 	</div>
 
