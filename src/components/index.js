@@ -5,3 +5,6 @@ export { default as HowItWorksCard } from './HowItWorksCard.svelte';
 export { default as FaqCard } from './FaqCard.svelte';
 export { default as PrimaryButton } from './PrimaryButton.svelte';
 export { default as SecondaryButton } from './SecondaryButton.svelte';
+export { default as Icon } from './Icon.svelte';
+export { default as Image } from './Image.svelte';
+export { default as RegisterOrLogin } from './RegisterOrLogin.svelte';

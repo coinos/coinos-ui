@@ -1,5 +1,6 @@
 <script>
-	import { PrimaryButton } from '../components';
+	import { goto } from '$app/navigation';
+	import { PrimaryButton, Icon, Image } from '$comp';
 </script>
 
 <div>
@@ -9,11 +10,7 @@
 		>
 			The <span class="relative">
 				easiest
-				<img
-					src="/icons/rays.svg"
-					alt="rays"
-					class="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24"
-				/>
+				<Icon icon="rays" style="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24" />
 			</span> way to accept Bitcoin in your store.
 		</h1>
 		<h2
@@ -23,13 +20,9 @@
 			of Sale. No software or hardware required.
 		</h2>
 		<div class="flex justify-center">
-			<PrimaryButton title="Start in Seconds" />
+			<PrimaryButton title="Start in Seconds" click={() => goto('/register')} />
 		</div>
 	</div>
 	<!-- hero image -->
-	<img
-		src="/images/hero-image.png"
-		alt="tablet-pos"
-		class="w-full md:w-2/3 max-w-5xl mx-auto mt-20"
-	/>
+	<Image image="hero-image" style="w-full md:w-2/3 max-w-5xl mx-auto mt-20" />
 </div>

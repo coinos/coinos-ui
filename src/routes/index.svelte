@@ -1,11 +1,5 @@
 <script>
-	import {
-		LandingHeader,
-		LandingHero,
-		LandingInfoCard,
-		HowItWorksCard,
-		FaqCard
-	} from '../components';
+	import { LandingHeader, LandingHero, LandingInfoCard, HowItWorksCard, FaqCard } from '$comp';
 
 	let howItWorks;
 	let faq;
