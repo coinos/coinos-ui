@@ -1,4 +1,6 @@
 <script>
+	// we will want to dynamically use the users avatar on this screen if they have uploaded one
+
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
 </script>

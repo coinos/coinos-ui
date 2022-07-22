@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { scroll } from '../lib/utils';
-	import { PrimaryButton, SecondaryButton, Icon } from '$comp';
+	import { Icon } from '$comp';
 
 	export let howItWorks;
 	export let faq;
@@ -17,8 +17,15 @@
 			<button on:click={() => scroll(howItWorks)}>How It Works</button>
 			<button on:click={() => scroll(faq)}>FAQ</button>
 			<button>About</button>
-			<SecondaryButton title="Start in Seconds" click={() => goto('/register')} />
-			<PrimaryButton title="Sign In" click={() => goto('/login')} />
+			<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
+				>Start in Seconds</button
+			>
+			<button
+				class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+				on:click={() => goto('/login')}
+			>
+				Sign in
+			</button>
 		</div>
 	</nav>
 </header>
