@@ -4,7 +4,8 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				secondary: '#858A92'
+				secondary: '#858A92',
+				input: '#F5F7FA'
 			}
 		}
 	},
