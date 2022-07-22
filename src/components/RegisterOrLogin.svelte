@@ -33,7 +33,7 @@
 						on:click={() => (revealPassword = !revealPassword)}
 						class="absolute right-5 top-10"
 					>
-						<Icon icon="eye" />
+						<Icon icon={revealPassword ? "eye" : 'eye-off'} />
 					</button>
 				</div>
 
