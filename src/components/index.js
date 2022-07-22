@@ -8,3 +8,4 @@ export { default as SecondaryButton } from './SecondaryButton.svelte';
 export { default as Icon } from './Icon.svelte';
 export { default as Image } from './Image.svelte';
 export { default as RegisterOrLogin } from './RegisterOrLogin.svelte';
+export { default as AppHeader } from './AppHeader.svelte';
