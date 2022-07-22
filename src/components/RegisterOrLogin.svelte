@@ -57,7 +57,8 @@
 				<a
 					href={page === 'Register' ? '/login' : '/register'}
 					class="block md:inline text-black underline underline-offset-4"
-					>{page === 'Register' ? 'Sign in' : 'Register'}
+				>
+					{page === 'Register' ? 'Sign in' : 'Register'}
 				</a>
 			</p>
 		</div>

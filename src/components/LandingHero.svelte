@@ -23,6 +23,7 @@
 			<PrimaryButton title="Start in Seconds" click={() => goto('/register')} />
 		</div>
 	</div>
+
 	<!-- hero image -->
 	<Image image="hero-image" style="w-full md:w-2/3 max-w-5xl mx-auto mt-20" />
 </div>
