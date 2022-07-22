@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { scroll } from '../lib/utils';
+	import { scroll } from '$utils';
 	import { Icon } from '$comp';
 
 	export let howItWorks;
