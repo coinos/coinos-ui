@@ -18,7 +18,7 @@
 			<form class="space-y-5">
 				<div>
 					<label for="username" class="font-semibold">Username</label>
-					<input type="text" required class="bg-input p-4 rounded-2xl w-full" />
+					<input type="text" required class="bg-primary p-4 rounded-2xl w-full" />
 				</div>
 
 				<div class="relative">
@@ -26,14 +26,14 @@
 					<input
 						type={revealPassword ? 'text' : 'password'}
 						required
-						class="block bg-input p-4 rounded-2xl w-full"
+						class="block bg-primary p-4 rounded-2xl w-full"
 					/>
 					<button
 						type="button"
 						on:click={() => (revealPassword = !revealPassword)}
 						class="absolute right-5 top-10"
 					>
-						<Icon icon={revealPassword ? "eye" : 'eye-off'} />
+						<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
 					</button>
 				</div>
 
