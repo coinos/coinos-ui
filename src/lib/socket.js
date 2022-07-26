@@ -1,4 +1,10 @@
 import { rate, ws } from '$lib/store';
+
+const token =
+	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYiIsImlhdCI6MTY1ODc5NDkxMX0._zFTEADrbLffcXa5sIMrJtJ483VdIiYmsdt2ofibxu4';
+
+let interval, socket;
+
 export const messages = (data) => ({
 	rate() {
 		rate.set(data);
@@ -6,22 +12,30 @@ export const messages = (data) => ({
 
 	payment() {
 		console.log(data);
+	},
+
+	connected() {
+		socket.send(JSON.stringify({ type: 'login', data: token }));
 	}
 });
 
-const token =
-	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYiIsImlhdCI6MTY1ODc5NDkxMX0._zFTEADrbLffcXa5sIMrJtJ483VdIiYmsdt2ofibxu4';
 const initialReconnectDelay = 1000;
 const maxReconnectDelay = 16000;
 
 let currentReconnectDelay = initialReconnectDelay;
-let socket;
 
 export function connect() {
+	clearInterval(interval);
+
 	socket = new WebSocket('ws://localhost:3119/ws');
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
 	socket.addEventListener('message', onWebsocketMessage);
+
+	interval = setInterval(
+		() => socket.readyState === 1 && socket.send(JSON.stringify({ type: 'heartbeat' })),
+		5000
+	);
 
 	ws.set(socket);
 }
@@ -33,7 +47,6 @@ function onWebsocketMessage(msg) {
 
 function onWebsocketOpen() {
 	currentReconnectDelay = initialReconnectDelay;
-	socket.send(JSON.stringify({ type: 'login', data: token }));
 }
 
 function onWebsocketClose() {
