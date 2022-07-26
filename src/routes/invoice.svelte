@@ -1,13 +1,12 @@
 <script>
-  import { rate } from "$lib/store";
-  import { onMount } from "svelte";
+	import { rate } from '$lib/store';
+	import { onMount } from 'svelte';
 
-  onMount(() => {
+  export let text;
+</script>
 
-  });
-  </script>
+QR code
 
-  QR code
+{text}
 
-  {$rate}
-
+{$rate}
