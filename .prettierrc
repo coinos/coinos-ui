@@ -3,5 +3,5 @@
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 100,
-  "plugins": ["./node_modules/prettier-plugin-svelte"]
+	"plugins": ["./node_modules/prettier-plugin-svelte"]
 }

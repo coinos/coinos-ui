@@ -18,9 +18,9 @@ export const messages = (data) => ({
 		socket.send(JSON.stringify({ type: 'login', data: token }));
 	},
 
-  login() {
-    user.set(data);
-  } 
+	login() {
+		user.set(data);
+	}
 });
 
 const initialReconnectDelay = 1000;
