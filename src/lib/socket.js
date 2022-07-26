@@ -1,7 +1,5 @@
-import { rate, user, ws } from '$lib/store';
-
-const token =
-	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYiIsImlhdCI6MTY1ODc5NDkxMX0._zFTEADrbLffcXa5sIMrJtJ483VdIiYmsdt2ofibxu4';
+import { get } from "svelte/store";
+import { rate, user, token, ws } from '$lib/store';
 
 let interval, socket;
 
@@ -15,7 +13,7 @@ export const messages = (data) => ({
 	},
 
 	connected() {
-		socket.send(JSON.stringify({ type: 'login', data: token }));
+		socket.send(JSON.stringify({ type: 'login', data: { token: get(token) } }));
 	},
 
 	login() {
@@ -31,6 +29,7 @@ let currentReconnectDelay = initialReconnectDelay;
 export function connect() {
 	clearInterval(interval);
 
+  if (socket) socket.close();
 	socket = new WebSocket('ws://localhost:3119/ws');
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
