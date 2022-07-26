@@ -1,9 +1,29 @@
 <script>
 	import { Icon } from '$comp';
+	import { post } from '$lib/utils';
+	import { token } from '$lib/store';
+	import { connect } from '$lib/socket';
+	import { goto } from '$app/navigation';
 
 	export let page;
 
+	let username, password;
+
 	let revealPassword = false;
+
+	let url = {
+		Register: '/register',
+		'Sign in': '/login'
+	}[page];
+
+	let submit = () =>
+		post(url, { username, password }).then((r) =>
+			r.json().then((r) => {
+				$token = r.token;
+				connect();
+				goto('/receive');
+			})
+		);
 </script>
 
 <div class="pt-10">
@@ -15,19 +35,34 @@
 		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
 			<h1 class="text-2xl font-bold text-center">{page}</h1>
 
-			<form class="space-y-5">
+			<form class="space-y-5" on:submit|preventDefault={submit}>
 				<div>
 					<label for="username" class="font-semibold">Username</label>
-					<input type="text" required class="bg-primary p-4 rounded-2xl w-full" />
+					<input
+						type="text"
+						required
+						class="bg-primary p-4 rounded-2xl w-full"
+						bind:value={username}
+					/>
 				</div>
 
 				<div class="relative">
 					<label for="password" class="block font-semibold">Password</label>
-					<input
-						type={revealPassword ? 'text' : 'password'}
-						required
-						class="block bg-primary p-4 rounded-2xl w-full"
-					/>
+					{#if revealPassword}
+						<input
+							type="text"
+							required
+							class="block bg-primary p-4 rounded-2xl w-full"
+							bind:value={password}
+						/>
+					{:else}
+						<input
+							type="password"
+							required
+							class="block bg-primary p-4 rounded-2xl w-full"
+							bind:value={password}
+						/>
+					{/if}
 					<button
 						type="button"
 						on:click={() => (revealPassword = !revealPassword)}
