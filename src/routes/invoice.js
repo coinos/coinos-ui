@@ -10,11 +10,11 @@ export async function GET({ params }) {
 		})
 		.text();
 
-	let body = await got
+	await got
 		.post('http://localhost:3119/invoice', {
 			json: { invoice: { text, network }, user: { username } }
 		})
 		.json();
 
-	return { body };
+	return { body: { text } };
 }
