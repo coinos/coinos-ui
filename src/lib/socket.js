@@ -1,4 +1,4 @@
-import { rate, ws } from '$lib/store';
+import { rate, user, ws } from '$lib/store';
 
 const token =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYiIsImlhdCI6MTY1ODc5NDkxMX0._zFTEADrbLffcXa5sIMrJtJ483VdIiYmsdt2ofibxu4';
@@ -16,7 +16,11 @@ export const messages = (data) => ({
 
 	connected() {
 		socket.send(JSON.stringify({ type: 'login', data: token }));
-	}
+	},
+
+  login() {
+    user.set(data);
+  } 
 });
 
 const initialReconnectDelay = 1000;

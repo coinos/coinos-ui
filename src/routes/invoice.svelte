@@ -1,5 +1,5 @@
 <script>
-	import { rate } from '$lib/store';
+	import { rate, user } from '$lib/store';
 	import { onMount } from 'svelte';
 
   export let text;
@@ -10,3 +10,11 @@ QR code
 {text}
 
 {$rate}
+
+{$user?.username}
+
+
+{#each $user.payments as p}
+  {p.amount}<br/>
+{/each}
+
