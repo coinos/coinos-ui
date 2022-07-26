@@ -1,6 +1,7 @@
 <script>
 	// in the future we will want to allow users to set their fiat currency in the settings
 	import { AppHeader, Icon } from '$comp';
+  import { goto } from "$app/navigation";
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -62,8 +63,8 @@
 		<!-- buttons -->
 		<div class="space-y-3">
 			<button
-				class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"
-				><Icon icon="qr" style="mr-2" /> Show QR</button
+				class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"  on:click={() => goto('/invoice')}
+    ><Icon icon="qr" style="mr-2" /> Show QR</button
 			>
 			<button
 				class="bg-primary rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"
