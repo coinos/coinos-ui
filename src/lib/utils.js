@@ -11,4 +11,4 @@ export const post = (url, body) =>
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: { accept: 'application/json', 'content-type': 'application/json' }
-	}).then((r) => r.json);
+	}).then((r) => r.json());
