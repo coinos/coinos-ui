@@ -14,10 +14,10 @@
 			><Icon icon="clock" style="mx-auto" /></button
 		>
 		<button class="bg-white p-2 rounded-full  w-12 h-12"
-			><Icon icon="menu" style="mx-auto" /></button
+			><Icon icon="profile" style="mx-auto" /></button
 		>
 		<button class="bg-white p-2 rounded-full  w-12 h-12"
-			><Icon icon="profile" style="mx-auto" /></button
+			><Icon icon="menu" style="mx-auto" /></button
 		>
 	</nav>
 	<div
