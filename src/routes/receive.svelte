@@ -160,4 +160,10 @@
 			</div>
 		</div>
 	</div>
+{:else}
+	<div class="px-3">
+		<div
+			class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-primary mt-20 mb-3 mx-auto rounded-xl"
+		/>
+	</div>
 {/if}
