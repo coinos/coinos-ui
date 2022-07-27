@@ -6,6 +6,7 @@
 </script>
 
 QR code
+{#if $user}
 
 {text}
 
@@ -16,3 +17,4 @@ QR code
 {#each $user.payments as p}
 	{p.amount}<br />
 {/each}
+{/if}

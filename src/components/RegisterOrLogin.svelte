@@ -2,7 +2,7 @@
 	import { Icon } from '$comp';
 	import { post } from '$lib/utils';
 	import { token } from '$lib/store';
-	import { connect } from '$lib/socket';
+	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
 
 	export let page;
@@ -16,14 +16,13 @@
 		'Sign in': '/login'
 	}[page];
 
-	let submit = () =>
-		post(url, { username, password }).then((r) =>
-			r.json().then((r) => {
-				$token = r.token;
-				connect();
-				goto('/receive');
-			})
-		);
+	let submit = async () => {
+		let r = await post(url, { username, password });
+		if (!r.token) r = await post('/login', { username, password });
+		$token = r.token;
+		auth();
+		goto('/receive');
+	};
 </script>
 
 <div class="pt-10">
