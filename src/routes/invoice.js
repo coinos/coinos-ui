@@ -1,21 +1,12 @@
-import got from 'got';
+import { post } from '$lib/utils';
 import { invoiceAmount } from '$lib/store';
 
 const username = 'bob',
 	network = 'lightning';
 
 export async function GET({ params }) {
-	let text = await got
-		.post('http://localhost:3119/lightning/invoice', {
-			json: { amount: invoiceAmount }
-		})
-		.text();
-
-	await got
-		.post('http://localhost:3119/invoice', {
-			json: { invoice: { text, network }, user: { username } }
-		})
-		.json();
+	let { text } = await post('/lightning/invoice', { amount: invoiceAmount });
+	await post('/invoice', { invoice: { text, network }, user: { username } });
 
 	return { body: { text } };
 }
