@@ -1,7 +1,6 @@
 import { rate, user, ws } from '$lib/store';
 
-const token =
-	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYiIsImlhdCI6MTY1ODc5NDkxMX0._zFTEADrbLffcXa5sIMrJtJ483VdIiYmsdt2ofibxu4';
+const token = import.meta.env.VITE_COINOS_TOKEN;
 
 let interval, socket;
 

@@ -1,4 +1,5 @@
 import got from 'got';
+import { invoiceAmount } from '$lib/store';
 
 const username = 'bob',
 	network = 'lightning';
@@ -6,7 +7,7 @@ const username = 'bob',
 export async function GET({ params }) {
 	let text = await got
 		.post('http://localhost:3119/lightning/invoice', {
-			json: { amount: 100 }
+			json: { amount: invoiceAmount }
 		})
 		.text();
 
