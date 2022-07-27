@@ -1,13 +1,5 @@
-import got from 'got';
+import { post } from '$lib/utils';
 
 export async function POST({ request }) {
-  let json = await request.json();
-
-  let body = await got
-		.post('http://localhost:3119/login', {
-			json
-		})
-		.json();
-
-	return { body };
+	return { body: await post('/login', await request.json()) };
 }
