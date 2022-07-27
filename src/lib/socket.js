@@ -1,8 +1,16 @@
-import { rate, user, ws } from '$lib/store';
-
-const token = import.meta.env.VITE_COINOS_TOKEN;
+import { get } from 'svelte/store';
+import { rate, user, token } from '$lib/store';
 
 let interval, socket;
+
+export const auth = () => {
+	let t = get(token);
+	if (t) send('login', t);
+};
+
+export const send = (type, data) => {
+	socket?.readyState === 1 && socket.send(JSON.stringify({ type, data }));
+};
 
 export const messages = (data) => ({
 	rate() {
@@ -13,9 +21,7 @@ export const messages = (data) => ({
 		console.log(data);
 	},
 
-	connected() {
-		socket.send(JSON.stringify({ type: 'login', data: token }));
-	},
+	connected: auth,
 
 	login() {
 		user.set(data);
@@ -30,17 +36,14 @@ let currentReconnectDelay = initialReconnectDelay;
 export function connect() {
 	clearInterval(interval);
 
+	if (socket) return auth();
+
 	socket = new WebSocket('ws://localhost:3119/ws');
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
 	socket.addEventListener('message', onWebsocketMessage);
 
-	interval = setInterval(
-		() => socket.readyState === 1 && socket.send(JSON.stringify({ type: 'heartbeat' })),
-		5000
-	);
-
-	ws.set(socket);
+	interval = setInterval(() => send('heartbeat'), 5000);
 }
 
 function onWebsocketMessage(msg) {
@@ -53,7 +56,7 @@ function onWebsocketOpen() {
 }
 
 function onWebsocketClose() {
-	ws.set(null);
+	socket = null;
 	setTimeout(() => {
 		reconnectToWebsocket();
 	}, currentReconnectDelay + Math.floor(Math.random() * 3000));
