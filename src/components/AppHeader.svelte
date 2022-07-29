@@ -2,18 +2,14 @@
 	// we will want to dynamically use the users avatar on this screen if they have uploaded one
 
 	import { goto } from '$app/navigation';
-	import { Icon } from '$comp';
+	import { Icon, LocaleSelector } from '$comp';
 
   import { locale, locales } from 'svelte-i18n';
 </script>
 
 <header class="bg-gradient-to-r from-primary to-gradient h-[20vh] w-full relative">
 	<nav class="flex justify-end items-center space-x-4 p-5">
-    <select bind:value={$locale}>
-      {#each $locales as locale}
-        <option value={locale}>{locale}</option>
-      {/each}
-    </select>
+    <LocaleSelector />
 
 		<button class="bg-white p-2 rounded-full w-12 h-12" on:click={() => goto('/receive')}
 			><Icon icon="numpad" style="mx-auto" /></button
