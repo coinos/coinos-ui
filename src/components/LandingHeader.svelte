@@ -3,6 +3,8 @@
 	import { scroll } from '$lib/utils';
 	import { Icon } from '$comp';
 
+  import { _ } from 'svelte-i18n';
+
 	export let howItWorks;
 	export let faq;
 </script>
@@ -14,17 +16,17 @@
 		</a>
 
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
-			<button on:click={() => scroll(howItWorks)}>How It Works</button>
-			<button on:click={() => scroll(faq)}>FAQ</button>
-			<button>About</button>
+			<button on:click={() => scroll(howItWorks)}>{$_('howItWorks')}</button>
+			<button on:click={() => scroll(faq)}>{$_('FAQ')}</button>
+			<button>{$_('about')}</button>
 			<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
-				>Start in Seconds</button
+				>{$_('startInSeconds')}</button
 			>
 			<button
 				class="bg-black text-white border rounded-full px-6 py-2 font-bold"
 				on:click={() => goto('/login')}
 			>
-				Sign in
+        {$_('signIn')}
 			</button>
 		</div>
 	</nav>
