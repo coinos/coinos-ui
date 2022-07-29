@@ -1,3 +1,8 @@
 {
-  "langname": "Français"
+  "langname": "Français",
+  "howItWorks": "Comment Ça Fonctionne",
+  "faq": "FAQ",
+  "about": "À Propos",
+  "startInSeconds": "Commence en Secondes",
+  "signIn": "Connexion"
 }
