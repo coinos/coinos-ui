@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { scroll } from '$lib/utils';
-	import { Icon } from '$comp';
+	import { Icon, LocaleSelector } from '$comp';
 
   import { _, locale, locales } from 'svelte-i18n';
 
@@ -15,11 +15,7 @@
 			<Icon icon="logo" style="mx-auto mb-5 xl:mb-0" />
 		</a>
 
-    <select bind:value={$locale}>
-      {#each $locales as locale}
-        <option value={locale}>{locale}</option>
-      {/each}
-    </select>
+    <LocaleSelector />
 
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
 			<button on:click={() => scroll(howItWorks)}>{$_('howItWorks')}</button>
