@@ -32,6 +32,8 @@
 		if (useFiat) {
 			if (amountFiat === 0 && value !== '.' && value !== '<' && value !== '0') {
 				amountFiat = value;
+			} else if ((amountFiat === 0 || amountFiat === '0') && value === '0') {
+				return;
 			} else if (amountFiat === 0 && value === '.') {
 				amountFiat = '0.';
 			} else if (amountFiat !== 0 && amountFiat.includes('.') && value === '.') {
@@ -41,6 +43,7 @@
 					amountFiat = amountFiat.slice(0, amountFiat.length - 1);
 					if (amountFiat.length === 0) {
 						amountFiat = 0;
+						amountSats = 0;
 					}
 				}
 			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $rate) {
@@ -92,7 +95,10 @@
 						if (useFiat) {
 							amountSats = (amountFiat / ($rate / 100000000)).toFixed(0).toString();
 						} else {
-							amountFiat = (amountSats * ($rate / 100000000)).toFixed(2).toString();
+							amountFiat =
+								(amountSats * ($rate / 100000000)).toFixed(2) > 0.0
+									? (amountSats * ($rate / 100000000)).toFixed(2).toString()
+									: 0;
 						}
 						useFiat = !useFiat;
 					}}><Icon icon="swap" style="inline" /></button
@@ -163,7 +169,7 @@
 {:else}
 	<div class="px-3">
 		<div
-			class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-primary mt-20 mb-3 mx-auto rounded-xl"
+			class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-gray-400 mt-20 mb-3 mx-auto rounded-xl"
 		/>
 	</div>
 {/if}

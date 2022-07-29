@@ -77,7 +77,9 @@
 					</p>
 				{:else}
 					<div class="flex justify-end items-center">
-						<a href="/forgot" class="underline underline-offset-4 text-black text-sm">Forgot Password?</a>
+						<a href="/forgot" class="underline underline-offset-4 text-black text-sm"
+							>Forgot Password?</a
+						>
 					</div>
 				{/if}
 
