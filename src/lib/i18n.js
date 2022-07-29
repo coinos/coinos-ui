@@ -1,14 +1,25 @@
 import { register, init, getLocaleFromNavigator } from 'svelte-i18n';
 
-// list of locales to load
+/** The list of locales to look for */
 const localeCodes = ['en', 'fr'];
 
-// load locales
+/** The directory where locale files are stored */
+const localeDirectory = "../locales";
+
+/**
+ * Adds a new locale from the appropriate JSON file
+ * @param {string} localeCode - the code of the locale to add
+ */
 function addLocale(localeCode) {
-  register(localeCode, () => import(`../locales/${localeCode}.json`));
+  register(localeCode, () => import(`${localeDirectory}/${localeCode}.json`));
 }
 
-// determine locale
+/**
+ * Determines the default locale.
+ * @param {string} navigatorLocale - the locale given by the navigator
+ * @param {array<string>} avalableLocales - a list of the available locales
+ * @returns {string} chosen default locale
+ */
 function pickLocale(navigatorLocale, availableLocales) {
   // determine langugage part of locale
   // (e.g. if navigatorLocale is 'en-US', languageCode is 'en')
@@ -30,7 +41,9 @@ function pickLocale(navigatorLocale, availableLocales) {
   }
 }
 
-// setup internationalization
+/**
+ * Loads all of the locales, picks a default locale, and sets up internationalization in that locale.
+ */
 export function setupI18n() {
   localeCodes.forEach(addLocale);
   let initialLocale = pickLocale(getLocaleFromNavigator(), localeCodes);
