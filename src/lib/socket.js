@@ -24,7 +24,6 @@ export const messages = (data) => ({
 	connected: auth,
 
 	login() {
-		console.log('OY', data);
 		user.set(data);
 	}
 });
