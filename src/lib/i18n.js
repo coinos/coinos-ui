@@ -5,7 +5,7 @@ const localeCodes = ['en', 'fr'];
 
 // load locales
 function addLocale(localeCode) {
-  register(localeCode, () => import('../locales/' + localeCode + '.json'));
+  register(localeCode, () => import(`../locales/${localeCode}.json`));
 }
 
 // determine locale
