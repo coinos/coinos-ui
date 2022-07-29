@@ -3,7 +3,7 @@
 	import { scroll } from '$lib/utils';
 	import { Icon } from '$comp';
 
-  import { _ } from 'svelte-i18n';
+  import { _, locale, locales } from 'svelte-i18n';
 
 	export let howItWorks;
 	export let faq;
@@ -14,6 +14,12 @@
 		<a href="/">
 			<Icon icon="logo" style="mx-auto mb-5 xl:mb-0" />
 		</a>
+
+    <select bind:value={$locale}>
+      {#each $locales as locale}
+        <option value={locale}>{locale}</option>
+      {/each}
+    </select>
 
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
 			<button on:click={() => scroll(howItWorks)}>{$_('howItWorks')}</button>
