@@ -41,15 +41,11 @@ function pickLocale(navigatorLocale, availableLocales) {
   }
 }
 
-/**
- * Loads all of the locales, picks a default locale, and sets up internationalization in that locale.
- */
-export function setupI18n() {
-  localeCodes.forEach(addLocale);
-  let initialLocale = pickLocale(getLocaleFromNavigator(), localeCodes);
+// add locales
+localeCodes.forEach(addLocale);
 
-  init({
-    fallbackLocale: 'en',
-    initialLocale: initialLocale,
-  });
-}
+let initialLocale = pickLocale(getLocaleFromNavigator(), localeCodes);
+init({
+  fallbackLocale: 'en',
+  initialLocale: initialLocale,
+});
