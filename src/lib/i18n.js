@@ -1,13 +1,12 @@
 import { register, init, getLocaleFromNavigator } from 'svelte-i18n';
 
-let localeCodes = ['en', 'fr'];
+// list of locales to load
+const localeCodes = ['en', 'fr'];
 
 // load locales
 function addLocale(localeCode) {
   register(localeCode, () => import('../locales/' + localeCode + '.json'));
-  console.log("Loaded locale '" + localeCode + "'");
 }
-localeCodes.forEach(addLocale);
 
 // determine locale
 function pickLocale(navigatorLocale, availableLocales) {
@@ -31,10 +30,13 @@ function pickLocale(navigatorLocale, availableLocales) {
   }
 }
 
-let initialLocale = pickLocale(getLocaleFromNavigator(), localeCodes);
-console.log("Selected locale '" + initialLocale + "'");
+// setup internationalization
+export function setupI18n() {
+  localeCodes.forEach(addLocale);
+  let initialLocale = pickLocale(getLocaleFromNavigator(), localeCodes);
 
-init({
-  fallbackLocale: 'en',
-  initialLocale: initialLocale,
-});
+  init({
+    fallbackLocale: 'en',
+    initialLocale: initialLocale,
+  });
+}
