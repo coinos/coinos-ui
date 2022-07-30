@@ -22,7 +22,7 @@
 		if (!r.token) r = await post('/login', { username, password });
 		$token = r.token;
 		auth();
-    user.subscribe(({ username }) => goto(`/${username}/receive`));
+		user.subscribe(({ username }) => goto(`/${username}/receive`));
 	};
 </script>
 

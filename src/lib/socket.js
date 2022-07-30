@@ -47,8 +47,8 @@ export function connect() {
 }
 
 export function close() {
-  if (socket) socket.close();
-} 
+	if (socket) socket.close();
+}
 
 function onWebsocketMessage(msg) {
 	let { type, data } = JSON.parse(msg.data);

@@ -2,8 +2,6 @@
 	import { AppHeader, Icon } from '$comp';
 	import { user } from '$lib/store';
 	export let username;
-
-	console.log($user, username);
 </script>
 
 {#if $user?.username === username}
