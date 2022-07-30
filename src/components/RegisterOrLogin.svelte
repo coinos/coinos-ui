@@ -21,7 +21,6 @@
 		let r = await post(url, { username, password });
 		if (!r.token) r = await post('/login', { username, password });
 		$token = r.token;
-		console.log('new token', r.token);
 		auth();
 		goto('/receive');
 	};
