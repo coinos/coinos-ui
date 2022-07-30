@@ -85,7 +85,6 @@
 {#if $user}
 	<AppHeader />
 
-	<!-- step 1 input amount and generate QR code -->
 	<div class="flex justify-center items-center mt-20 mb-3 px-3">
 		{#if $rate}
 			<div class="space-y-5">
