@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	export let text;
-  export let amount;
+	export let amount;
 
 	let tipPercent = 0;
 	const setRate = ($invoiceAmountFiat / $invoiceAmount) * 100000000;
@@ -64,7 +64,7 @@
 
 	onMount(async () => {
 		if (browser) {
-      let { default: QRCodeStyling } = await import('qr-code-styling');
+			let { default: QRCodeStyling } = await import('qr-code-styling');
 			const qrCode = new QRCodeStyling({
 				width: window.screen.width < 640 ? 250 : 300,
 				type: 'svg',
