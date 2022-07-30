@@ -7,6 +7,7 @@
 	import { page, session } from '$app/stores';
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
+	import { LoadingSplash } from '$comp';
 
 	browser && ($token ||= $session.token);
 	let protectedRoutes = [/receive/];
@@ -27,4 +28,6 @@
 {#if ready}
 	<SvelteToast />
 	<slot />
+{:else}
+	<LoadingSplash />
 {/if}

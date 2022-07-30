@@ -1,5 +1,5 @@
 <script>
-	import { AppHeader, Icon } from '$comp';
+	import { AppHeader, Icon, PageNotFound } from '$comp';
 	import { user } from '$lib/store';
 	export let username;
 </script>
@@ -22,4 +22,6 @@
 			</div>
 		</div>
 	</div>
+{:else}
+	<PageNotFound />
 {/if}
