@@ -1,5 +1,6 @@
 <script>
 	import { SvelteToast } from '@zerodevx/svelte-toast';
+	import { toast } from '@zerodevx/svelte-toast';
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
@@ -15,7 +16,10 @@
 
 	onMount(() => {
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
-			if (!$token) goto('/login');
+			if (!$token) {
+				goto('/login');
+				toast.push('Please login to continue.', { dismissable: false });
+			}
 			user.subscribe((u) => (ready = true));
 		} else {
 			ready = true;
