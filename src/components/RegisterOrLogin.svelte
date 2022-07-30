@@ -7,7 +7,8 @@
 
 	export let page;
 
-	let username = "bob", password = "pw";
+	let username = 'bob',
+		password = 'pw';
 
 	let revealPassword = false;
 
@@ -20,7 +21,7 @@
 		let r = await post(url, { username, password });
 		if (!r.token) r = await post('/login', { username, password });
 		$token = r.token;
-    console.log("new token", r.token)
+		console.log('new token', r.token);
 		auth();
 		goto('/receive');
 	};
@@ -43,7 +44,7 @@
 						required
 						class="bg-primary p-4 rounded-2xl w-full"
 						bind:value={username}
-      autofocus
+						autofocus
 					/>
 				</div>
 
