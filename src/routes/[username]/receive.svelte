@@ -1,22 +1,10 @@
 <script>
 	// in the future we will want to allow users to set their fiat currency in the settings
-	import { onMount } from 'svelte';
-	import { AppHeader, Icon, LoadingSplash } from '$comp';
+	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
 	import { post } from '$lib/utils';
 	import { page } from '$app/stores';
-
-	onMount(async () => {
-		if (browser) {
-			let { default: toast } = await import('@zerodevx/svelte-toast');
-
-			if (!$user && typeof window !== 'undefined') {
-				window.location = '/login';
-				toast.push('Please login to continue.');
-			}
-		}
-	});
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -196,6 +184,4 @@
 			/>
 		{/if}
 	</div>
-{:else}
-	<LoadingSplash />
 {/if}

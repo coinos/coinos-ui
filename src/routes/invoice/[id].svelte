@@ -7,10 +7,6 @@
 
 	export let amount, rate, text;
 
-	if (!$user && typeof window !== 'undefined') {
-		window.location = '/login';
-	}
-
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
 	let tipPercent = 0;
@@ -104,6 +100,9 @@
 	};
 
 	let customInput;
+
+	let qrSkeleton = true;
+	setTimeout(() => (qrSkeleton = false), 1000);
 </script>
 
 {#if $user}
@@ -225,8 +224,14 @@
 						id="qr"
 						class="border {showMobileTip
 							? 'border-gray-400'
-							: 'border-lightgrey'} rounded-3xl block md:flex justify-center items-center"
-					/>
+							: 'border-lightgrey'} rounded-3xl block md:flex justify-center items-center h-[300px] w-[250px] md:w-[300px] relative"
+					>
+						<div
+							class="z-100 h-[300px] w-[250px] md:w-[300px] animate-pulse absolute top-0 left-0 bg-gray-400 rounded-3xl {qrSkeleton
+								? 'block'
+								: 'hidden'}"
+						/>
+					</div>
 
 					<div class="px-5 space-y-3">
 						<div class="flex justify-between">
