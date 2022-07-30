@@ -2,7 +2,11 @@
 	// in the future we will want to allow users to set their fiat currency in the settings
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
-	import { invoiceAmount, invoiceAmountFiat, rate } from '$lib/store';
+	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
+
+	if (!$user && typeof window !== 'undefined') {
+		window.location = '/login';
+	}
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -78,98 +82,102 @@
 	};
 </script>
 
-<AppHeader />
+{#if $user}
+	<AppHeader />
 
-<!-- step 1 input amount and generate QR code -->
-<div class="flex justify-center items-center mt-20 mb-3 px-3">
-	{#if $rate}
-		<div class="space-y-5">
-			<!-- amounts -->
-			<div class="text-center">
-				<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
-					{useFiat ? `$${amountFiat}` : amountSatsFormatted}<span
-						class="tracking-normal text-base font-normal">{useFiat ? 'USD' : 'SATS'}</span
+	<!-- step 1 input amount and generate QR code -->
+	<div class="flex justify-center items-center mt-20 mb-3 px-3">
+		{#if $rate}
+			<div class="space-y-5">
+				<!-- amounts -->
+				<div class="text-center">
+					<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
+						{useFiat ? `$${amountFiat}` : amountSatsFormatted}<span
+							class="tracking-normal text-base font-normal">{useFiat ? 'USD' : 'SATS'}</span
+						>
+					</div>
+					<span class="text-secondary mr-1"
+						>{useFiat ? `${amountSatsConverted} SATS` : `${amountFiatConverted} USD`}</span
+					>
+					<button
+						on:click={() => {
+							if (useFiat) {
+								amountSats = (amountFiat / ($rate / 100000000)).toFixed(0).toString();
+							} else {
+								amountFiat =
+									(amountSats * ($rate / 100000000)).toFixed(2) > 0.0
+										? (amountSats * ($rate / 100000000)).toFixed(2).toString()
+										: 0;
+							}
+							useFiat = !useFiat;
+						}}><Icon icon="swap" style="inline" /></button
 					>
 				</div>
-				<span class="text-secondary mr-1"
-					>{useFiat ? `${amountSatsConverted} SATS` : `${amountFiatConverted} USD`}</span
-				>
-				<button
-					on:click={() => {
-						if (useFiat) {
-							amountSats = (amountFiat / ($rate / 100000000)).toFixed(0).toString();
-						} else {
-							amountFiat =
-								(amountSats * ($rate / 100000000)).toFixed(2) > 0.0
-									? (amountSats * ($rate / 100000000)).toFixed(2).toString()
-									: 0;
-						}
-						useFiat = !useFiat;
-					}}><Icon icon="swap" style="inline" /></button
-				>
-			</div>
 
-			<!-- error message -->
-			{#if message}
-				<div
-					class="text-orange-500 text-sm text-center font-bold bg-primary p-2 rounded-xl flex justify-center items-center space-x-1"
-				>
-					<Icon icon="info" style="w-5" />
-					<p>{message}</p>
-				</div>
-			{/if}
+				<!-- error message -->
+				{#if message}
+					<div
+						class="text-orange-500 text-sm text-center font-bold bg-primary p-2 rounded-xl flex justify-center items-center space-x-1"
+					>
+						<Icon icon="info" style="w-5" />
+						<p>{message}</p>
+					</div>
+				{/if}
 
-			<!-- numpad -->
-			<div class="grid grid-cols-3 gap-2 w-full md:w-[300px] mx-auto">
-				{#each numPad as value}
-					{#if value === '<'}
-						<button
-							class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center"
-							on:click={() => handleInput(value)}
-						>
-							<svg
-								class="w-5"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
+				<!-- numpad -->
+				<div class="grid grid-cols-3 gap-2 w-full md:w-[300px] mx-auto">
+					{#each numPad as value}
+						{#if value === '<'}
+							<button
+								class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center"
+								on:click={() => handleInput(value)}
 							>
-								<path
-									d="M15 19L8 12L15 5"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-						</button>
-					{:else}
-						<button
-							class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white"
-							on:click={() => handleInput(value)}>{value}</button
-						>
-					{/if}
-				{/each}
-			</div>
+								<svg
+									class="w-5"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M15 19L8 12L15 5"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</button>
+						{:else}
+							<button
+								class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white"
+								on:click={() => handleInput(value)}>{value}</button
+							>
+						{/if}
+					{/each}
+				</div>
 
-			<!-- buttons -->
-			<div class="space-y-3 w-full md:w-[300px] mx-auto">
-				<button
-					class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm {$invoiceAmount ===
-					0
-						? 'opacity-50'
-						: 'opacity-100'}"
-					on:click={() => goto(`/invoice/${$invoiceAmount}`)}
-					disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> Show QR</button
-				>
-				<button
-					class="bg-primary rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"
-					disabled={true}><Icon icon="send" style="mr-2" /> Send Invoice</button
-				>
+				<!-- buttons -->
+				<div class="space-y-3 w-full md:w-[300px] mx-auto">
+					<button
+						class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm {$invoiceAmount ===
+						0
+							? 'opacity-50'
+							: 'opacity-100'}"
+						on:click={() => goto(`/invoice/${$invoiceAmount}`)}
+						disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> Show QR</button
+					>
+					<button
+						class="bg-primary rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"
+						disabled={true}><Icon icon="send" style="mr-2" /> Send Invoice</button
+					>
+				</div>
 			</div>
-		</div>
-	{:else}
-		<div class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-gray-400 rounded-xl" />
-	{/if}
-</div>
+		{:else}
+			<div
+				class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-gray-400 rounded-xl"
+			/>
+		{/if}
+	</div>
+{/if}
