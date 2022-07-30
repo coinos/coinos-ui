@@ -6,6 +6,11 @@ export function scroll(section) {
 
 const base = browser ? '' : import.meta.env.VITE_COINOS_URL;
 
+export const get = (url) =>
+	fetch(base + url, {
+		headers: { accept: 'application/json'}
+	}).then((r) => r.json());
+
 export const post = (url, body) =>
 	fetch(base + url, {
 		method: 'POST',

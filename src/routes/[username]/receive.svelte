@@ -3,11 +3,15 @@
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
+	import { post } from '$lib/utils';
+	import { page } from '$app/stores';
 
 	let useFiat = true;
 	let amountFiat = 0;
 	let amountSats = 0;
 	let message = '';
+
+	$: amount = useFiat ? Math.round(amountFiat / ($rate / 100000000)) : amountSats;
 
 	$: $invoiceAmount = parseInt(amountSats === 0 ? amountFiat / ($rate / 100000000) : amountSats);
 	$: $invoiceAmountFiat = parseInt(
@@ -75,6 +79,12 @@
 				amountSats = amountSats + value;
 			}
 		}
+	};
+
+	let submit = async () => {
+    let { id } = await post('/invoice', { amount, username: $page.params.username });
+    console.log(id)
+		goto(`/invoice/${id}`);
 	};
 </script>
 
@@ -160,7 +170,7 @@
 						0
 							? 'opacity-50'
 							: 'opacity-100'}"
-						on:click={() => goto(`/invoice/${$invoiceAmount}`)}
+						on:click={submit}
 						disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> Show QR</button
 					>
 					<button

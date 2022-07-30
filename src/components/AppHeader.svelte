@@ -8,9 +8,11 @@
 
 <header class="bg-gradient-to-r from-primary to-gradient h-[20vh] w-full relative">
 	<nav class="flex justify-end items-center space-x-4 p-5">
-		<button class="bg-white p-2 rounded-full w-12 h-12" on:click={() => goto('/receive')}
+    <a href={`/${$user.username}/receive`}>
+		<button class="bg-white p-2 rounded-full w-12 h-12"
 			><Icon icon="numpad" style="mx-auto" /></button
 		>
+    </a>
 		<button class="bg-white p-2 rounded-full  w-12 h-12"
 			><Icon icon="clock" style="mx-auto" /></button
 		>
