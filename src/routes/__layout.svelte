@@ -18,7 +18,7 @@
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) {
 				goto('/login');
-				toast.push('Please login to continue.', { dismissable: false });
+				toast.push('Please login to continue.');
 			}
 			user.subscribe((u) => (ready = true));
 		} else {
