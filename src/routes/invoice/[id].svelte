@@ -224,10 +224,10 @@
 						id="qr"
 						class="border {showMobileTip
 							? 'border-gray-400'
-							: 'border-lightgrey'} rounded-3xl block md:flex justify-center items-center h-[300px] w-[250px] md:w-[300px] relative"
+							: 'border-lightgrey'} rounded-3xl block md:flex md:p-5 justify-center items-center h-[300px] md:h-[342px] w-[250px] md:w-[342px] relative"
 					>
 						<div
-							class="z-100 h-[300px] w-[250px] md:w-[300px] animate-pulse absolute top-0 left-0 bg-gray-400 rounded-3xl {qrSkeleton
+							class="z-100 h-[300px] md:h-[342px] w-[250px] md:w-[342px] animate-pulse absolute top-0 left-0 bg-gray-400 rounded-3xl {qrSkeleton
 								? 'block'
 								: 'hidden'}"
 						/>
