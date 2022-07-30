@@ -8,8 +8,7 @@ const persisted = (k, i) => {
 			: i
 	);
 
-  s.subscribe((v) => browser && sessionStorage.setItem(k, JSON.stringify(v))
-  );
+	s.subscribe((v) => browser && sessionStorage.setItem(k, JSON.stringify(v)));
 
 	return s;
 };
@@ -17,4 +16,5 @@ const persisted = (k, i) => {
 export const rate = writable();
 export const user = writable();
 export const invoiceAmount = writable();
+export const invoiceAmountFiat = writable();
 export const token = persisted('token');

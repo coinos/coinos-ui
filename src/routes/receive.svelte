@@ -2,7 +2,7 @@
 	// in the future we will want to allow users to set their fiat currency in the settings
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
-	import { invoiceAmount, rate } from '$lib/store';
+	import { invoiceAmount, invoiceAmountFiat, rate } from '$lib/store';
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -10,6 +10,9 @@
 	let message = '';
 
 	$: $invoiceAmount = parseInt(amountSats === 0 ? amountFiat / ($rate / 100000000) : amountSats);
+	$: $invoiceAmountFiat = parseInt(
+		amountFiat === 0 ? amountSats * ($rate / 100000000) : amountFiat
+	);
 	$: amountSatsFormatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
 		amountSats
 	);
@@ -63,6 +66,7 @@
 					amountSats = amountSats.slice(0, amountSats.length - 1);
 					if (amountSats.length === 0) {
 						amountSats = 0;
+						amountFiat = 0;
 					}
 				}
 			} else if (value !== '<' && parseInt(amountSats + value) > 100000000) {
@@ -77,8 +81,8 @@
 <AppHeader />
 
 <!-- step 1 input amount and generate QR code -->
-{#if $rate}
-	<div class="flex justify-center items-center mt-20 mb-3 px-3">
+<div class="flex justify-center items-center mt-20 mb-3 px-3">
+	{#if $rate}
 		<div class="space-y-5">
 			<!-- amounts -->
 			<div class="text-center">
@@ -165,11 +169,7 @@
 				>
 			</div>
 		</div>
-	</div>
-{:else}
-	<div class="px-3">
-		<div
-			class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-gray-400 mt-20 mb-3 mx-auto rounded-xl"
-		/>
-	</div>
-{/if}
+	{:else}
+		<div class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-gray-400 rounded-xl" />
+	{/if}
+</div>
