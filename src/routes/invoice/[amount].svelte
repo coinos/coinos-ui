@@ -1,11 +1,12 @@
 <script>
+	import { browser } from '$app/env';
 	import { rate, user, invoiceAmount, invoiceAmountFiat } from '$lib/store';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import QRCodeStyling from 'qr-code-styling';
 
 	export let text;
+  export let amount;
 
 	let tipPercent = 0;
 	const setRate = ($invoiceAmountFiat / $invoiceAmount) * 100000000;
@@ -61,21 +62,24 @@
 		customTipAmount = e.target.value;
 	};
 
-	onMount(() => {
-		const qrCode = new QRCodeStyling({
-			width: window.screen.width < 640 ? 250 : 300,
-			type: 'svg',
-			data: text,
-			image: '/images/invoice.svg',
-			dotsOptions: {
-				type: 'rounded'
-			},
-			imageOptions: {
-				hideBackgroundDots: false
-			}
-		});
+	onMount(async () => {
+		if (browser) {
+      let { default: QRCodeStyling } = await import('qr-code-styling');
+			const qrCode = new QRCodeStyling({
+				width: window.screen.width < 640 ? 250 : 300,
+				type: 'svg',
+				data: text,
+				image: '/images/invoice.svg',
+				dotsOptions: {
+					type: 'rounded'
+				},
+				imageOptions: {
+					hideBackgroundDots: false
+				}
+			});
 
-		qrCode.append(document.getElementById('qr'));
+			qrCode.append(document.getElementById('qr'));
+		}
 	});
 </script>
 

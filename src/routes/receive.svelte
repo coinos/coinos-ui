@@ -160,7 +160,7 @@
 					0
 						? 'opacity-50'
 						: 'opacity-100'}"
-					on:click={() => goto('/invoice')}
+     on:click={() => goto(`/invoice/${$invoiceAmount}`)}
 					disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> Show QR</button
 				>
 				<button
