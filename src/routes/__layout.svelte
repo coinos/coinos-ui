@@ -25,6 +25,6 @@
 </script>
 
 {#if ready}
-<SvelteToast />
+	<SvelteToast />
 	<slot />
 {/if}
