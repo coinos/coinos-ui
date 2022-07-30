@@ -4,10 +4,6 @@
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
 
-	if (!$user && typeof window !== 'undefined') {
-		window.location = '/login';
-	}
-
 	let useFiat = true;
 	let amountFiat = 0;
 	let amountSats = 0;
