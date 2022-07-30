@@ -46,6 +46,10 @@ export function connect() {
 	interval = setInterval(() => send('heartbeat'), 5000);
 }
 
+export function close() {
+  if (socket) socket.close();
+} 
+
 function onWebsocketMessage(msg) {
 	let { type, data } = JSON.parse(msg.data);
 	messages(data)[type] && messages(data)[type]();

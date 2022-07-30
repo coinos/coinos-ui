@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from '$comp';
 	import { post } from '$lib/utils';
-	import { token } from '$lib/store';
+	import { user, token } from '$lib/store';
 	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
 
@@ -22,7 +22,7 @@
 		if (!r.token) r = await post('/login', { username, password });
 		$token = r.token;
 		auth();
-		goto('/receive');
+    user.subscribe(({ username }) => goto(`/${username}/receive`));
 	};
 </script>
 
