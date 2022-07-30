@@ -82,7 +82,7 @@
 	};
 
 	let submit = async () => {
-    let { id } = await post('/invoice', { amount, username: $page.params.username });
+    let { id } = await post('/invoice', { amount, rate: $rate, username: $page.params.username });
     console.log(id)
 		goto(`/invoice/${id}`);
 	};
