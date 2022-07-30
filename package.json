@@ -13,6 +13,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@zerodevx/svelte-toast": "^0.7.2",
 		"autoprefixer": "^10.4.7",
 		"cookie": "^0.5.0",
 		"postcss": "^8.4.14",
