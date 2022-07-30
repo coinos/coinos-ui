@@ -14,7 +14,7 @@
 	onMount(() => {
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) goto('/login');
-      user.subscribe((u) => (ready = true));
+			user.subscribe((u) => (ready = true));
 		} else {
 			ready = true;
 		}
