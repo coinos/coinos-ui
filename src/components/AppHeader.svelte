@@ -14,9 +14,11 @@
 		<button class="bg-white p-2 rounded-full  w-12 h-12"
 			><Icon icon="clock" style="mx-auto" /></button
 		>
-		<button class="bg-white p-2 rounded-full  w-12 h-12"
+    <a href={`/${$user.username}`}>
+    <button class="bg-white p-2 rounded-full  w-12 h-12"
 			><Icon icon="profile" style="mx-auto" /></button
 		>
+    </a>
 		<button class="bg-white p-2 rounded-full  w-12 h-12"
 			><Icon icon="menu" style="mx-auto" /></button
 		>
