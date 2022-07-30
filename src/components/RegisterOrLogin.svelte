@@ -27,9 +27,11 @@
 </script>
 
 <div class="pt-10">
-	<a href="/">
-		<Icon icon="logo" style="mx-auto mb-10" />
-	</a>
+	<div class="w-[243px] mx-auto mb-10">
+		<a href="/">
+			<Icon icon="logo" />
+		</a>
+	</div>
 
 	<div class="flex justify-center items-center">
 		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
