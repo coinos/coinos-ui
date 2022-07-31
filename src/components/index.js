@@ -9,3 +9,4 @@ export { default as RegisterOrLogin } from './RegisterOrLogin.svelte';
 export { default as AppHeader } from './AppHeader.svelte';
 export { default as LoadingSplash } from './LoadingSplash.svelte';
 export { default as PageNotFound } from './404.svelte';
+export { default as About } from './About.svelte';

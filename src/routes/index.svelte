@@ -1,5 +1,13 @@
 <script>
-	import { LandingHeader, LandingHero, LandingInfoCard, HowItWorksCard, FaqCard } from '$comp';
+	import {
+		LandingHeader,
+		LandingHero,
+		LandingInfoCard,
+		HowItWorksCard,
+		FaqCard,
+		Image,
+		About
+	} from '$comp';
 
 	let howItWorks;
 	let faq;
@@ -81,7 +89,7 @@
 
 	<!-- how it works -->
 	<div bind:this={howItWorks}>
-		<h3 class="text-5xl font-medium mb-20 text-center">How it works</h3>
+		<h3 class="text-5xl font-medium mb-10 text-center">How it works</h3>
 		<div
 			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 lg:space-x-10 text-center"
 		>
@@ -98,4 +106,7 @@
 			<FaqCard question={question.question} answer={question.answer} />
 		{/each}
 	</div>
+
+	<!-- about -->
+	<About />
 </main>
