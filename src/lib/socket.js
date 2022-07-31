@@ -18,7 +18,7 @@ export const messages = (data) => ({
 	},
 
 	payment() {
-		console.log(data);
+		console.log(data, 'payment');
 	},
 
 	connected: auth,
