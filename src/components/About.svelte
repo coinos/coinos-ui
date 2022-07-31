@@ -1,5 +1,14 @@
 <script>
 	import { Image, Icon } from '$comp';
+
+	const aboutAdam = [
+		'Running Bitcoin since 2011',
+		'20+ years web development experience in government and industry',
+		'Early Bitcoin Vancouver meetup organizer',
+		'Founder of The Bitcoin Co-op and early supporter of Decentral Vancouver',
+		'Yogi, permaculturist, anarchist, decentralist',
+		'Husband, father, brother, son'
+	];
 </script>
 
 <h3 class="text-5xl font-medium mb-10 text-center">About</h3>
@@ -68,11 +77,8 @@
 	<ul
 		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
 	>
-		<li>Running Bitcoin since 2011</li>
-		<li>20+ years web development experience in government and industry</li>
-		<li>Early Bitcoin Vancouver meetup organizer</li>
-		<li>Founder of The Bitcoin Co-op and early supporter of Decentral Vancouver</li>
-		<li>Yogi, permaculturist, anarchist, decentralist</li>
-		<li>Husband, father, brother, son</li>
+		{#each aboutAdam as about}
+			<li>{about}</li>
+		{/each}
 	</ul>
 </div>
