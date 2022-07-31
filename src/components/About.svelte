@@ -16,33 +16,22 @@
 	class="md:px-10 lg:px-0 block lg:flex justify-center text-secondary text-xl lg:space-x-20 mx-auto max-w-7xl relative"
 >
 	<p class="w-full lg:w-5/12">
-		Coinos is an open source bitcoin web wallet, point of sale, ecommerce marketplace and exchange
-		platform. Development started in Vancouver in September 2012 as a way to provide local merchants
-		with a convenient way to accept bitcoin payments.
+		<strong>CoinOS is</strong> an <strong>open source</strong> bitcoin web wallet, point of sale,
+		ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012
+		as a way to provide local merchants with a convenient way to accept bitcoin payments.
 		<br /><br />
 		The feature set has grown over the years to accomodate a wide variety of use cases with the goal
 		of making it as easy as possible for anyone to get started using Bitcoin quickly, cheaply, and securely.
 		<br /><br />
-		Anyone can download the source code and host their own instance of the platform backed by their own
-		bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.
-		<Image
-			image="swoosh"
-			style="w-32 absolute -bottom-20 left-28 md:left-72 xl:left-96 lg:bottom-0"
-		/>
 	</p>
 	<p class="w-full lg:w-5/12">
-		Once signed in, you can create both custodial and non-custodial wallets within your account. The
-		default custodial wallet allows funds to be deposited on any of the bitcoin, liquid or lightning
-		networks and seamlessly withdrawn over any other network without any conversion process or fee.
-		<br /><br />
-		Using a non-custodial wallet means keys are generated client-side in your browser so we never have
-		access to the funds. Transactions from these accounts are subject to on-chain transaction fees and
-		Lightning Network payments are not supported but we advise using this account type or a paper wallet
-		for storing larger amounts.
+		Anyone can download the source code and host their own instance of the platform backed by their
+		own bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.
 		<br /><br />
 		Intra-account transfers between custodial wallets of different users on our server are completely
 		free, instant, and unlimited.
 	</p>
+	<Image image="swoosh" style="w-32 absolute -bottom-20 lg:bottom-0 right-0 md:right-10" />
 </div>
 
 <div class="px-5 block lg:flex justify-center lg:space-x-32 items-center mt-40 lg:mt-20">
