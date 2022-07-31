@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { scroll } from '$lib/utils';
 	import { Icon } from '$comp';
+	import { user } from '$lib/store';
 
 	export let howItWorks;
 	export let faq;
@@ -17,15 +18,24 @@
 			<button on:click={() => scroll(howItWorks)}>How It Works</button>
 			<button on:click={() => scroll(faq)}>FAQ</button>
 			<button>About</button>
-			<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
-				>Start in Seconds</button
-			>
-			<button
-				class="bg-black text-white border rounded-full px-6 py-2 font-bold"
-				on:click={() => goto('/login')}
-			>
-				Sign in
-			</button>
+			{#if !$user}
+				<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
+					>Start in Seconds</button
+				>
+				<button
+					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+					on:click={() => goto('/login')}
+				>
+					Sign in
+				</button>
+			{:else}
+				<button
+					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+					on:click={() => goto('/logout')}
+				>
+					Sign out
+				</button>
+			{/if}
 		</div>
 	</nav>
 </header>
