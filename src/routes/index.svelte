@@ -6,7 +6,8 @@
 		HowItWorksCard,
 		FaqCard,
 		Image,
-		About
+		About,
+		Footer
 	} from '$comp';
 
 	let howItWorks;
@@ -112,3 +113,5 @@
 		<About />
 	</div>
 </main>
+
+<Footer />
