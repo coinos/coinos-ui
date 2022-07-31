@@ -4,7 +4,7 @@
 	import { user } from '$lib/store';
 </script>
 
-<div>
+<div class="mt-[96.88px] md:mt-0">
 	<div class="space-y-10">
 		<h1
 			class="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto leading-tight"
