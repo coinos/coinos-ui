@@ -30,8 +30,17 @@
 </script>
 
 {#if ready}
-	<SvelteToast />
+	<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 	<slot />
 {:else}
 	<LoadingSplash />
 {/if}
+
+<style>
+	:root {
+		--toastContainerTop: auto;
+		--toastContainerRight: auto;
+		--toastContainerBottom: 8rem;
+		--toastContainerLeft: calc(50vw - 8rem);
+	}
+</style>
