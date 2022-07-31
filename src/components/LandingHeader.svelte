@@ -21,8 +21,8 @@
 			<button on:click={() => scroll(about)}>About</button>
 			{#if !$user}
 				<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
-					>Start in Seconds</button
-				>
+					>Start in Seconds
+				</button>
 				<button
 					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto('/login')}
@@ -30,6 +30,11 @@
 					Sign in
 				</button>
 			{:else}
+				<button
+					class="border rounded-full px-6 py-2 font-bold"
+					on:click={() => goto(`/${$user.username}/dashboard`)}
+					>Account
+				</button>
 				<button
 					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto('/logout')}
