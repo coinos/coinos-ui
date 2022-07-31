@@ -6,6 +6,7 @@
 
 	export let howItWorks;
 	export let faq;
+	export let about;
 </script>
 
 <header class="w-full lg:w-5/6 pt-10 mx-auto">
@@ -17,7 +18,7 @@
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
 			<button on:click={() => scroll(howItWorks)}>How It Works</button>
 			<button on:click={() => scroll(faq)}>FAQ</button>
-			<button>About</button>
+			<button on:click={() => scroll(about)}>About</button>
 			{#if !$user}
 				<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
 					>Start in Seconds</button

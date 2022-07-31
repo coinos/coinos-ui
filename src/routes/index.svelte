@@ -50,7 +50,7 @@
 	];
 </script>
 
-<LandingHeader {howItWorks} {faq} />
+<LandingHeader {howItWorks} {faq} {about} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-40 px-5 md:px-0">
 	<!-- hero -->
@@ -108,5 +108,7 @@
 	</div>
 
 	<!-- about -->
-	<About />
+	<div bind:this={about}>
+		<About />
+	</div>
 </main>
