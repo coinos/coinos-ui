@@ -18,7 +18,6 @@
 	}[page];
 
 	let submit = async () => {
-    console.log("HI")
 		let r = await post(url, { username, password });
 		if (!r.token) r = await post('/login', { username, password });
 		$token = r.token;
@@ -42,7 +41,7 @@
 			<form class="space-y-5" on:submit|preventDefault={submit}>
 				<div>
 					<label for="username" class="font-semibold">Username</label>
-          <!-- svelte-ignore a11y-autofocus -->
+					<!-- svelte-ignore a11y-autofocus -->
 					<input
 						type="text"
 						required
