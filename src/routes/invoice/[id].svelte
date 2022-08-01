@@ -67,10 +67,10 @@
 	let init = async (ready) => {
 		if (!ready) return;
 		let { default: QRCodeStyling } = await import('qr-code-styling');
-		console.log('text', text);
+
 		const qrCode = new QRCodeStyling({
 			width: window.screen.width < 640 ? 250 : 300,
-			type: 'svg',
+			type: 'canvas',
 			data: text,
 			image: '/images/invoice.svg',
 			backgroundOptions: {
@@ -102,9 +102,6 @@
 	};
 
 	let customInput;
-
-	let qrSkeleton = true;
-	setTimeout(() => (qrSkeleton = false), 1000);
 </script>
 
 {#if $user}
@@ -227,13 +224,7 @@
 						class="border {showMobileTip
 							? 'border-gray-400'
 							: 'border-lightgrey'} rounded-3xl block md:flex md:p-5 justify-center items-center h-[300px] md:h-[342px] w-[250px] md:w-[342px] relative"
-					>
-						<div
-							class="z-100 h-[300px] md:h-[342px] w-[250px] md:w-[342px] animate-pulse absolute top-0 left-0 bg-gray-400 rounded-3xl {qrSkeleton
-								? 'block'
-								: 'hidden'}"
-						/>
-					</div>
+					/>
 
 					<div class="px-5 space-y-3">
 						<div class="flex justify-between">

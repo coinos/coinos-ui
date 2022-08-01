@@ -8,7 +8,7 @@ export async function POST({ request }) {
 	} catch (e) {
 		return {
 			status: 500,
-			body: e,
+			body: e
 		};
 	}
 }
