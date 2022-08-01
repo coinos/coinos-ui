@@ -10,6 +10,7 @@
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
 	let tipPercent = 0;
+	let qr;
 
 	$: tipAmount = customTipAmount
 		? customTipAmount < 0
@@ -62,29 +63,29 @@
 		customTipAmount = e.target.value;
 	};
 
-	onMount(async () => {
-		if (browser) {
-			let { default: QRCodeStyling } = await import('qr-code-styling');
-      console.log("text", text)
-			const qrCode = new QRCodeStyling({
-				width: window.screen.width < 640 ? 250 : 300,
-				type: 'svg',
-				data: text,
-				image: '/images/invoice.svg',
-				backgroundOptions: {
-					color: 'rgba(0, 0, 0, 0)'
-				},
-				dotsOptions: {
-					type: 'rounded'
-				},
-				imageOptions: {
-					hideBackgroundDots: false
-				}
-			});
+	$: init(browser && $user);
+	let init = async (ready) => {
+		if (!ready) return;
+		let { default: QRCodeStyling } = await import('qr-code-styling');
+		console.log('text', text);
+		const qrCode = new QRCodeStyling({
+			width: window.screen.width < 640 ? 250 : 300,
+			type: 'svg',
+			data: text,
+			image: '/images/invoice.svg',
+			backgroundOptions: {
+				color: 'rgba(0, 0, 0, 0)'
+			},
+			dotsOptions: {
+				type: 'rounded'
+			},
+			imageOptions: {
+				hideBackgroundDots: false
+			}
+		});
 
-			qrCode.append(document.getElementById('qr'));
-		}
-	});
+		qrCode.append(qr);
+	};
 
 	let showMobileTip = false;
 
@@ -222,7 +223,7 @@
 					>
 
 					<div
-						id="qr"
+						bind:this={qr}
 						class="border {showMobileTip
 							? 'border-gray-400'
 							: 'border-lightgrey'} rounded-3xl block md:flex md:p-5 justify-center items-center h-[300px] md:h-[342px] w-[250px] md:w-[342px] relative"
