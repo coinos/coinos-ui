@@ -1,6 +1,14 @@
 import { post } from '$lib/utils';
 
 export async function POST({ request }) {
-	let user = await request.json();
-	return { body: await post('/register', { user }) };
+	try {
+		let user = await request.json();
+		let body = await post('/register', { user });
+		return { body };
+	} catch (e) {
+		return {
+			status: 500,
+			body: e,
+		};
+	}
 }
