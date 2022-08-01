@@ -65,6 +65,7 @@
 	onMount(async () => {
 		if (browser) {
 			let { default: QRCodeStyling } = await import('qr-code-styling');
+      console.log("text", text)
 			const qrCode = new QRCodeStyling({
 				width: window.screen.width < 640 ? 250 : 300,
 				type: 'svg',
