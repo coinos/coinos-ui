@@ -47,26 +47,31 @@
 				</button>
 			</a>
 			<div class="relative">
-				<button class="bg-white p-2 rounded-full  w-12 h-12" on:click={() => (showMenu = !showMenu)}
-					><Icon icon="menu" style="mx-auto" />
-				</button>
-				<div
-					class="{showMenu
-						? 'block'
-						: 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z"
-				>
-					<ul class="space-y-5 w-32">
-						{#each menuButtons as button}
-							<li>
-								<button
-									class="flex justify-center items-center font-semibold text-sm"
-									on:click={() => handleMenuItemClick(button.goto)}
-									><Icon icon={button.icon} style="mr-1" /> {button.title}
-								</button>
-							</li>
-						{/each}
-					</ul>
-				</div>
+				<OutClick on:outclick={() => (showMenu = false)}>
+					<button
+						class="bg-white p-2 rounded-full  w-12 h-12"
+						on:click={() => (showMenu = !showMenu)}
+						><Icon icon="menu" style="mx-auto" />
+					</button>
+
+					<div
+						class="{showMenu
+							? 'block'
+							: 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z"
+					>
+						<ul class="space-y-5 w-32">
+							{#each menuButtons as button}
+								<li>
+									<button
+										class="flex justify-center items-center font-semibold text-sm"
+										on:click={() => handleMenuItemClick(button.goto)}
+										><Icon icon={button.icon} style="mr-1" /> {button.title}
+									</button>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				</OutClick>
 			</div>
 		{:else}
 			<a href="/login">
