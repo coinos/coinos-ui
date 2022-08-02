@@ -147,7 +147,7 @@
 				<div
 					class="w-[100%] md:w-auto absolute {showMobileTip
 						? 'bottom-0'
-						: '-bottom-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
+						: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
 				>
 					<h1 class="hidden md:block text-4xl font-semibold">Add a tip?</h1>
 
