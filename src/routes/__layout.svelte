@@ -11,7 +11,7 @@
 	import { LoadingSplash } from '$comp';
 
 	browser && ($token ||= $session.token);
-	let protectedRoutes = [/receive/];
+	let protectedRoutes = [/receive/, /customers/, /dashboard/, /settings/, /transactions/];
 	let ready = false;
 
 	onMount(() => {

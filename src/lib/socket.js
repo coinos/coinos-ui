@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { rate, user, token } from '$lib/store';
+import { rate, user, token, invoicePaid, preferredCurrency } from '$lib/store';
 
 let interval, socket;
 
@@ -18,13 +18,14 @@ export const messages = (data) => ({
 	},
 
 	payment() {
-		console.log(data, 'payment');
+		invoicePaid.set(true);
 	},
 
 	connected: auth,
 
 	login() {
 		user.set(data);
+		preferredCurrency.set(data.currency);
 	}
 });
 

@@ -7,8 +7,7 @@
 	import { copy } from '$lib/utils';
 	export let username;
 
-	//this needs to be pulled from user
-	let lightning = 'lnbc1p3dzl8tpp5jgq2dxefjdhvmvs3uvtjc';
+	let lightningAddress = `${username}@coinos.io`;
 
 	onMount(async () => {
 		if (browser) {
@@ -39,7 +38,7 @@
 	setTimeout(() => (qrSkeleton = false), 100);
 
 	const handleCopy = () => {
-		copy(lightning);
+		copy(lightningAddress);
 		toast.push('Copied!', {
 			theme: {
 				'--toastBarBackground': '#2F855A'
@@ -84,7 +83,7 @@
 				<div
 					class="bg-primary font-semibold rounded-xl text-sm py-2 px-3 flex flex-wrap justify-center items-center"
 				>
-					<span>{lightning}</span>
+					<span>{lightningAddress}</span>
 					<button on:click={handleCopy}>
 						<Icon icon="copy" style="ml-2" />
 					</button>
