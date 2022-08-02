@@ -18,5 +18,5 @@ export const user = writable();
 export const invoiceAmount = writable();
 export const invoiceAmountFiat = writable();
 export const token = persisted('token');
-export const invoicePaid = writable();
+export const invoices = writable({});
 export const preferredCurrency = writable();

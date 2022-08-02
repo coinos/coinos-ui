@@ -5,9 +5,10 @@ export async function GET({ params }) {
 	let {
 		amount,
 		rate,
+		status,
 		text,
 		user: { username }
 	} = await get(`/invoice?uuid=${id}`);
 
-	return { body: { amount, rate, username, text } };
+	return { body: { amount, id, rate, username, status, text } };
 }
