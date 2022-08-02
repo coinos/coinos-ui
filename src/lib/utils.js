@@ -6,10 +6,8 @@ export function scroll(section) {
 
 const base = browser ? '' : import.meta.env.VITE_COINOS_URL;
 
-export const get = (url) =>
-	fetch(base + url, {
-		headers: { accept: 'application/json' }
-	})
+export const get = (url, headers = { accept: 'application/json' }) =>
+	fetch(base + url, { headers })
 		.then((r) => r.text())
 		.then((body) => {
 			try {
@@ -38,3 +36,5 @@ export function reverseFormat(val, locale) {
 	reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.');
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
+
+export let protectedRoutes = [/receive/, /customers/, /dashboard/, /settings/, /transactions/];
