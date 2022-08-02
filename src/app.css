@@ -9,6 +9,7 @@
 
 html {
 	font-family: PublicSans, sans-serif;
+	overflow: hidden;
 }
 
 ::selection {
