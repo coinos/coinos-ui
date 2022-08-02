@@ -9,9 +9,9 @@
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
+	import { protectedRoutes } from '$lib/utils';
 
 	browser && ($token ||= $session.token);
-	let protectedRoutes = [/receive/, /customers/, /dashboard/, /settings/, /transactions/];
 	let ready = false;
 
 	onMount(() => {
@@ -20,7 +20,7 @@
 				goto('/login');
 				toast.push('Please sign in to continue.');
 			}
-			user.subscribe((u) => (ready = true));
+			user.subscribe((u) => u?.username && (ready = true));
 		} else {
 			ready = true;
 		}
