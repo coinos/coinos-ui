@@ -1,13 +1,15 @@
 <script>
+	import { toast } from '@zerodevx/svelte-toast';
 	import { Icon } from '$comp';
 	import { post } from '$lib/utils';
-	import { token } from '$lib/store';
-	import { connect } from '$lib/socket';
+	import { user, token } from '$lib/store';
+	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
 
 	export let page;
 
-	let username, password;
+	let username = 'bob',
+		password = 'pw';
 
 	let revealPassword = false;
 
@@ -16,20 +18,27 @@
 		'Sign in': '/login'
 	}[page];
 
-	let submit = () =>
-		post(url, { username, password }).then((r) =>
-			r.json().then((r) => {
-				$token = r.token;
-				connect();
-				goto('/receive');
-			})
-		);
+	let submit = async () => {
+		try {
+			let r = await post(url, { username, password });
+			if (!r.token) r = await post('/login', { username, password });
+			$token = r.token;
+			auth();
+		} catch (e) {
+			if (!e.message) e.message = 'Login failed';
+			toast.push(e.message);
+		}
+	};
+
+	$: if ($user) goto(`/${username}/receive`);
 </script>
 
 <div class="pt-10">
-	<a href="/">
-		<Icon icon="logo" style="mx-auto mb-10" />
-	</a>
+	<div class="w-[243px] mx-auto mb-10">
+		<a href="/">
+			<Icon icon="logo" />
+		</a>
+	</div>
 
 	<div class="flex justify-center items-center">
 		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
@@ -38,11 +47,13 @@
 			<form class="space-y-5" on:submit|preventDefault={submit}>
 				<div>
 					<label for="username" class="font-semibold">Username</label>
+					<!-- svelte-ignore a11y-autofocus -->
 					<input
 						type="text"
 						required
 						class="bg-primary p-4 rounded-2xl w-full"
 						bind:value={username}
+						autofocus
 					/>
 				</div>
 
@@ -78,7 +89,9 @@
 					</p>
 				{:else}
 					<div class="flex justify-end items-center">
-						<a href="" class="underline underline-offset-4 text-black text-sm">Forgot Password?</a>
+						<a href="/forgot" class="underline underline-offset-4 text-black text-sm"
+							>Forgot Password?</a
+						>
 					</div>
 				{/if}
 

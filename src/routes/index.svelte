@@ -1,5 +1,14 @@
 <script>
-	import { LandingHeader, LandingHero, LandingInfoCard, HowItWorksCard, FaqCard } from '$comp';
+	import {
+		LandingHeader,
+		LandingHero,
+		LandingInfoCard,
+		HowItWorksCard,
+		FaqCard,
+		Image,
+		About,
+		Footer
+	} from '$comp';
 
 	let howItWorks;
 	let faq;
@@ -42,9 +51,9 @@
 	];
 </script>
 
-<LandingHeader {howItWorks} {faq} />
+<LandingHeader {howItWorks} {faq} {about} />
 
-<main class="space-y-40 py-20 md:py-32 lg:py-40 px-5 md:px-0">
+<main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
 	<!-- hero -->
 	<LandingHero />
 
@@ -73,15 +82,18 @@
 	</LandingInfoCard>
 
 	<!-- landing info 3 -->
-	<LandingInfoCard
-		image="customize"
-		title="Brand it your way!"
-		description="Customize your point of sale look and feel, or keep it on default - totally up to you."
-	/>
+	<div>
+		<LandingInfoCard
+			image="customize"
+			title="Brand it your way!"
+			description="Customize your point of sale look and feel, or keep it on default - totally up to you."
+		/>
+		<div bind:this={howItWorks} />
+	</div>
 
 	<!-- how it works -->
-	<div bind:this={howItWorks}>
-		<h3 class="text-5xl font-medium mb-20 text-center">How it works</h3>
+	<div>
+		<h3 class="text-5xl font-medium mb-10 text-center">How it works</h3>
 		<div
 			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 lg:space-x-10 text-center"
 		>
@@ -89,13 +101,24 @@
 				<HowItWorksCard image={step.image} step={step.step} description={step.description} />
 			{/each}
 		</div>
+		<div bind:this={faq} />
 	</div>
 
 	<!-- faq -->
-	<div class="space-y-10" bind:this={faq}>
-		<h3 class="text-5xl font-medium text-center">FAQ</h3>
-		{#each faqQuestions as question}
-			<FaqCard question={question.question} answer={question.answer} />
-		{/each}
+	<div>
+		<div class="space-y-10">
+			<h3 class="text-5xl font-medium text-center">FAQ</h3>
+			{#each faqQuestions as question}
+				<FaqCard question={question.question} answer={question.answer} />
+			{/each}
+		</div>
+		<div bind:this={about} />
+	</div>
+
+	<!-- about -->
+	<div>
+		<About />
 	</div>
 </main>
+
+<Footer />
