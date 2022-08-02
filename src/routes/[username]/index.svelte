@@ -47,7 +47,6 @@
 	};
 </script>
 
-<!-- need to update this IF statement to only show if the username matches a user in the DB -->
 {#if username}
 	<AppHeader avatarPosition="left-[calc(15vw-48px)]" />
 
