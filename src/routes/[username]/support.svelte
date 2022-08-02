@@ -8,7 +8,7 @@
 	<AppHeader />
 
 	<div class="my-20">
-		<h1 class="text-center text-4xl font-semibold mb-10">Support</h1>
+		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">Support</h1>
 
 		<form class="space-y-5 mx-auto w-11/12 md:w-[350px]">
 			<div>

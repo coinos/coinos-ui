@@ -36,7 +36,7 @@
 
 	<div class="px-3 md:px-0 flex justify-center items-center mt-10 lg:mt-0 mb-20">
 		<div>
-			<h1 class="text-4xl font-semibold mb-8">Dashboard</h1>
+			<h1 class="text-3xl md:text-4xl font-semibold mb-8">Dashboard</h1>
 
 			<span class="text-secondary mx-auto text-lg font-bold"
 				>Bitcoin Price: <span class="text-black">{$rate ? btcPrice : 'fetching rate...'}</span>
