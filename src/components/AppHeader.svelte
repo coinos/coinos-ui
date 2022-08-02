@@ -8,7 +8,7 @@
 	export let avatarPosition = 'left-[calc(50vw-48px)]';
 
 	const menuButtons = [
-		{ title: 'Customers', icon: 'customers', goto: 'customers' },
+		// { title: 'Customers', icon: 'customers', goto: 'customers' },
 		{ title: 'Dashboard', icon: 'dash', goto: 'dashboard' },
 		{ title: 'Settings', icon: 'settings', goto: 'settings' },
 		{ title: 'Support', icon: 'support', goto: 'support' },

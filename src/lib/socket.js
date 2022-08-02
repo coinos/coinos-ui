@@ -25,7 +25,7 @@ export const messages = (data) => ({
 
 	login() {
 		user.set(data);
-		preferredCurrency.set(data.currency);
+		preferredCurrency.set('USD');
 	}
 });
 
