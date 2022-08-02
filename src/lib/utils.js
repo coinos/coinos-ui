@@ -9,13 +9,15 @@ const base = browser ? '' : import.meta.env.VITE_COINOS_URL;
 export const get = (url) =>
 	fetch(base + url, {
 		headers: { accept: 'application/json' }
-	}).then((r) => r.text()).then((body) => {
-    try {
-      return JSON.parse(body);
-    } catch(e) {
-      throw Error(body);
-    } 
-  }) 
+	})
+		.then((r) => r.text())
+		.then((body) => {
+			try {
+				return JSON.parse(body);
+			} catch (e) {
+				throw Error(body);
+			}
+		});
 
 export const post = (url, body) =>
 	fetch(base + url, {
@@ -27,3 +29,12 @@ export const post = (url, body) =>
 export const copy = (text) => {
 	navigator.clipboard.writeText(text);
 };
+
+export function reverseFormat(val, locale) {
+	let parts = new Intl.NumberFormat(locale).formatToParts(1111.1);
+	let group = parts.find((part) => part.type === 'group').value;
+	let decimal = parts.find((part) => part.type === 'decimal').value;
+	let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '');
+	reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.');
+	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
+}
