@@ -1,11 +1,15 @@
 <script>
+	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/env';
-	import { user } from '$lib/store';
-	import { Icon } from '$comp';
+	import { user, invoicePaid, preferredCurrency } from '$lib/store';
+	import { Icon, Image } from '$comp';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { copy } from '$lib/utils';
 
 	export let amount, rate, text;
+
+	console.log($user);
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
@@ -34,7 +38,7 @@
 	$: totalAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency: 'USD'
-	}).format(amountFiat + tipAmount);
+	}).format(amountFiat + parseFloat(tipAmount));
 
 	const amountFormatted = new Intl.NumberFormat('en-US', {
 		maximumFractionDigits: 0
@@ -51,6 +55,8 @@
 
 	const handleTipButtonClick = (amount) => {
 		customTipAmount = '';
+		customInput.value = '';
+
 		if (amount === 'None') {
 			tipPercent = 0;
 		} else {
@@ -102,9 +108,26 @@
 	};
 
 	let customInput;
+
+	const handleCopy = () => {
+		copy(text);
+		toast.push('Copied!', {
+			theme: {
+				'--toastBarBackground': '#2F855A'
+			}
+		});
+	};
+
+	const handleDoneClick = () => {
+		if ($user) {
+			goto(`/${user.username}/receive`);
+		} else {
+			goto('/');
+		}
+	};
 </script>
 
-{#if $user}
+{#if $user && !invoicePaid}
 	<div class:full-shadow={showMobileTip}>
 		<button class="ml-5 md:ml-20 mt-5 md:mt-10" on:click={handleBackButton}>
 			<Icon icon="arrow-left" style="w-10" />
@@ -116,7 +139,7 @@
 			>
 				<!-- tipping section  -->
 				<div
-					class="absolute {showMobileTip
+					class="w-[100%] md:w-auto absolute {showMobileTip
 						? 'bottom-0'
 						: '-bottom-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none transition-all md:transition-none ease-in-out duration-500 left-0 md:static text-center space-y-5"
 				>
@@ -138,6 +161,7 @@
 						class="px-2"
 						on:input={(e) => {
 							customTipAmount = '';
+							customInput.value = '';
 							tipPercent = e.target.value;
 						}}
 					/>
@@ -145,9 +169,10 @@
 					<div>
 						{#each tipAmounts as amount}
 							<button
-								class="bg-primary w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {tipPercent ===
-									amount.slice(0, 2) ||
-								((tipPercent === 0 || tipPercent === '0') && amount === 'None')
+								class="bg-primary w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
+									? ''
+									: tipPercent === amount.slice(0, 2) ||
+									  ((tipPercent === 0 || tipPercent === '0') && amount === 'None')
 									? '!bg-black text-white'
 									: ''}"
 								on:click={() => handleTipButtonClick(amount)}>{amount}</button
@@ -221,9 +246,10 @@
 
 					<div
 						bind:this={qr}
+						on:click={handleCopy}
 						class="border {showMobileTip
 							? 'border-gray-400'
-							: 'border-lightgrey'} rounded-3xl block md:flex md:p-5 justify-center items-center h-[300px] md:h-[342px] w-[250px] md:w-[342px] relative"
+							: 'border-lightgrey'} rounded-3xl block md:flex justify-center items-center cursor-pointer"
 					/>
 
 					<div class="px-5 space-y-3">
@@ -254,6 +280,16 @@
 				</div>
 			</div>
 		</div>
+	</div>
+{:else}
+	<div class="text-center mt-20 md:mt-0">
+		<Image image="success" style="w-full md:w-3/4 xl:w-1/2 mx-auto max-w-3xl" />
+		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment Successful!</h1>
+		<h2 class="text-2xl md:text-3xl font-semibold">{totalAmountFormatted} {$preferredCurrency}</h2>
+		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SATS)</h3>
+		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold" on:click={handleDoneClick}>
+			Done
+		</button>
 	</div>
 {/if}
 
