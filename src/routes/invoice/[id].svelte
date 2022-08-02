@@ -2,15 +2,15 @@
 	import { toast } from '@zerodevx/svelte-toast';
 	import { get, post, reverseFormat } from '$lib/utils';
 	import { browser } from '$app/env';
-	import { user, invoicePaid, preferredCurrency } from '$lib/store';
+	import { invoices, user, preferredCurrency } from '$lib/store';
 	import { Icon, Image } from '$comp';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
-	export let amount, rate, text, username;
+	export let amount, id, rate, status, text, username;
 
-	console.log($user);
+	$invoices[id] = { amount, id, rate, status, text, username };
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
@@ -133,16 +133,20 @@
 
 	const handleDoneClick = () => {
 		if ($user) {
-			goto(`/${user.username}/receive`);
+			goto(`/${$user.username}/receive`);
 		} else {
 			goto('/');
 		}
 	};
 </script>
 
-{#if $user && !invoicePaid}
+{#if $invoices[id]?.status !== 'paid'}
 	<div class:full-shadow={showMobileTip}>
-		<button class="ml-5 md:ml-20 mt-5 md:mt-10" on:click={handleBackButton}>
+		<button
+			class="ml-5 md:ml-20 mt-5 md:mt-10"
+			class:invisible={!$user}
+			on:click={handleBackButton}
+		>
 			<Icon icon="arrow-left" style="w-10" />
 		</button>
 
