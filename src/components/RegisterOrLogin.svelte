@@ -1,7 +1,6 @@
 <script>
-	import { toast } from '@zerodevx/svelte-toast';
 	import { Icon } from '$comp';
-	import { post } from '$lib/utils';
+	import { post, failure } from '$lib/utils';
 	import { user, token } from '$lib/store';
 	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
@@ -26,7 +25,7 @@
 			auth();
 		} catch (e) {
 			if (!e.message) e.message = 'Login failed';
-			toast.push(e.message);
+			failure(e.message);
 		}
 	};
 
