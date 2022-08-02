@@ -1,9 +1,10 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { Icon, Image } from '$comp';
+	import { user } from '$lib/store';
 </script>
 
-<div>
+<div class="mt-[96.88px] md:mt-0">
 	<div class="space-y-10">
 		<h1
 			class="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto leading-tight"
@@ -19,14 +20,16 @@
 			Grow your customer base and revenue by accepting Bitcoin with an easy-to-use and managed Point
 			of Sale. No software or hardware required.
 		</h2>
-		<div class="flex justify-center">
-			<button
-				class="bg-black text-white border rounded-full px-6 py-2 font-bold"
-				on:click={() => goto('/register')}
-			>
-				Start in Seconds
-			</button>
-		</div>
+		{#if !$user}
+			<div class="flex justify-center">
+				<button
+					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+					on:click={() => goto('/register')}
+				>
+					Start in Seconds
+				</button>
+			</div>
+		{/if}
 	</div>
 
 	<!-- hero image -->
