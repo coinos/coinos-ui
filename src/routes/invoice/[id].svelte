@@ -1,5 +1,6 @@
 <script>
 	import { toast } from '@zerodevx/svelte-toast';
+	import { get, post, reverseFormat } from '$lib/utils';
 	import { browser } from '$app/env';
 	import { user, invoicePaid, preferredCurrency } from '$lib/store';
 	import { Icon, Image } from '$comp';
@@ -7,7 +8,7 @@
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
-	export let amount, rate, text;
+	export let amount, rate, text, username;
 
 	console.log($user);
 
@@ -34,6 +35,17 @@
 	$: totalAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
 		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
 	);
+
+	$: update(tipAmountSats);
+	let update = async (n) => {
+		let { id } = await post('/invoice', {
+			amount: amount + reverseFormat(n),
+			rate,
+			text,
+			username
+		});
+		({ text } = await get(`/invoice/${id}`));
+	};
 
 	$: totalAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
@@ -69,8 +81,9 @@
 		customTipAmount = e.target.value;
 	};
 
-	$: init(browser && $user);
-	let init = async (ready) => {
+	$: generate(text);
+	let generate = async (ready) => {
+		console.log('GENERATE', text);
 		if (!ready) return;
 		let { default: QRCodeStyling } = await import('qr-code-styling');
 
@@ -133,10 +146,10 @@
 			<Icon icon="arrow-left" style="w-10" />
 		</button>
 
-		<div class="flex justify-center items-center mb-20 md:mt-[20px] px-3">
-			<div
-				class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-24"
-			>
+	<div class="flex justify-center items-center mb-20 md:mt-[20px] px-3">
+		<div
+			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-24"
+		>
 				<!-- tipping section  -->
 				<div
 					class="w-[100%] md:w-auto absolute {showMobileTip
@@ -145,12 +158,12 @@
 				>
 					<h1 class="hidden md:block text-4xl font-semibold">Add a tip?</h1>
 
-					<div>
-						<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
-							class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SATS)`}</span
-						>
-						<span class="block text-secondary text-sm">{tipPercent}%</span>
-					</div>
+				<div>
+					<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
+						class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SATS)`}</span
+					>
+					<span class="block text-secondary text-sm">{tipPercent}%</span>
+				</div>
 
 					<input
 						id="slider"
@@ -199,50 +212,51 @@
 										? 'opacity-50'
 										: 'opacity-100'
 									: !customTipAmount
-									? 'opacity-50'
-									: 'opacity-100'}"
-								disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
-								>Done</button
-							>
-						</div>
+
+								? 'opacity-50'
+								: 'opacity-100'}"
+							disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
+							on:click={() => (showMobileTip = false)}>Done</button
+						>
 					</div>
 				</div>
+			</div>
 
-				<div
-					class="hidden md:block h-[1px] lg:h-[600px] w-full lg:w-[1px] bg-lightgrey rounded-xl"
-					id="section-divider"
-				/>
+			<div
+				class="hidden md:block h-[1px] lg:h-[600px] w-full lg:w-[1px] bg-lightgrey rounded-xl"
+				id="section-divider"
+			/>
 
-				<!-- invoice section -->
-				<div class="text-center space-y-5">
-					<button
-						class="block md:hidden bg-black {showMobileTip
-							? 'text-white/50'
-							: 'text-white'} rounded-xl px-6 py-3 block text-sm font-semibold mx-auto flex justify-center items-center"
-						on:click={() => (showMobileTip = true)}
-						disabled={showMobileTip}
+			<!-- invoice section -->
+			<div class="text-center space-y-5">
+				<button
+					class="block md:hidden bg-black {showMobileTip
+						? 'text-white/50'
+						: 'text-white'} rounded-xl px-6 py-3 block text-sm font-semibold mx-auto flex justify-center items-center"
+					on:click={() => (showMobileTip = true)}
+					disabled={showMobileTip}
+				>
+					<svg
+						width="24"
+						height="24"
+						class="mr-1"
+						viewBox="0 0 24 24"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
 					>
-						<svg
-							width="24"
-							height="24"
-							class="mr-1"
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M4.31802 6.31802C2.56066 8.07538 2.56066 10.9246 4.31802 12.682L12.0001 20.364L19.682 12.682C21.4393 10.9246 21.4393 8.07538 19.682 6.31802C17.9246 4.56066 15.0754 4.56066 13.318 6.31802L12.0001 7.63609L10.682 6.31802C8.92462 4.56066 6.07538 4.56066 4.31802 6.31802Z"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/>
-						</svg> Add a tip
-					</button>
+						<path
+							d="M4.31802 6.31802C2.56066 8.07538 2.56066 10.9246 4.31802 12.682L12.0001 20.364L19.682 12.682C21.4393 10.9246 21.4393 8.07538 19.682 6.31802C17.9246 4.56066 15.0754 4.56066 13.318 6.31802L12.0001 7.63609L10.682 6.31802C8.92462 4.56066 6.07538 4.56066 4.31802 6.31802Z"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg> Add a tip
+				</button>
 
-					<span class="text-secondary block"
-						>Scan to pay <span class="text-black font-semibold">{$user.username}</span></span
-					>
+				<span class="text-secondary block"
+					>Scan to pay <span class="text-black font-semibold">{username}</span></span
+				>
 
 					<div
 						bind:this={qr}
