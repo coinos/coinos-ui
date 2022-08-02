@@ -1,4 +1,5 @@
 <script>
+	import { toast } from '@zerodevx/svelte-toast';
 	import { Icon } from '$comp';
 	import { post } from '$lib/utils';
 	import { user, token } from '$lib/store';
@@ -18,10 +19,15 @@
 	}[page];
 
 	let submit = async () => {
-		let r = await post(url, { username, password });
-		if (!r.token) r = await post('/login', { username, password });
-		$token = r.token;
-		auth();
+		try {
+			let r = await post(url, { username, password });
+			if (!r.token) r = await post('/login', { username, password });
+			$token = r.token;
+			auth();
+		} catch (e) {
+			if (!e.message) e.message = 'Login failed';
+			toast.push(e.message);
+		}
 	};
 
 	$: if ($user) goto(`/${username}/receive`);
