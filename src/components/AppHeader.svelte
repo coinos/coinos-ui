@@ -21,6 +21,7 @@
 		if (item === 'logout') {
 			goto('/logout');
 		} else {
+			showMenu = false;
 			goto(`/${$user.username + '/' + item}`);
 		}
 	};
