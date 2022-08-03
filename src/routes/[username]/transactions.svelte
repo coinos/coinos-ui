@@ -1,6 +1,8 @@
 <script>
 	import { AppHeader } from '$comp';
-	import { user } from '$lib/store';
+	import { user, newPayment } from '$lib/store';
+
+	$newPayment = false;
 
 	$: transactions = $user.payments;
 </script>

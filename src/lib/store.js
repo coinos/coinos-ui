@@ -20,3 +20,5 @@ export const invoiceAmountFiat = writable();
 export const token = persisted('token');
 export const invoices = writable({});
 export const preferredCurrency = writable();
+export const newPayment = writable();
+export const colorTheme = writable('from-primary to-gradient');

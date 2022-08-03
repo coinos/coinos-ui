@@ -42,6 +42,6 @@
 		--toastContainerRight: auto;
 		--toastContainerBottom: 8rem;
 		--toastContainerLeft: calc(50vw - 8rem);
-    --toastBackground: #292929;
+		--toastBackground: #292929;
 	}
 </style>
