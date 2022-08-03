@@ -15,9 +15,7 @@
 	};
 </script>
 
-<header
-	class="w-full lg:w-5/6 py-5 xl:pb-0 xl:pt-10 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
->
+<header class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90">
 	<nav class="block xl:flex flex-wrap justify-between items-center">
 		<a href="/" class="hidden md:block">
 			<Icon icon="logo" style="mx-auto mb-5 xl:mb-0" />

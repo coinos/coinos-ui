@@ -220,7 +220,7 @@
 				/>
 
 				<!-- invoice section -->
-				<div class="text-center space-y-5">
+				<div class="w-[325px] text-center space-y-5">
 					<button
 						class="block md:hidden bg-black {showMobileTip
 							? 'text-white/50'
@@ -255,7 +255,7 @@
 						on:click={() => copy(text)}
 						class="border {showMobileTip
 							? 'border-gray-400'
-							: 'border-lightgrey'} px-5 md:px-0 w-[292px] h-[302px] md:w-[300px] md:h-[300px] rounded-3xl block md:flex justify-center items-center cursor-pointer"
+							: 'border-lightgrey'} px-5 md:px-0 w-[292px] h-[302px] md:w-[300px] md:h-[300px] rounded-3xl block md:flex justify-center items-center cursor-pointer mx-auto"
 					/>
 
 					<div class="px-5 space-y-3">
@@ -275,8 +275,8 @@
 							>
 						</div>
 
-						<div class="flex justify-between">
-							<span class="font-bold">Total</span>
+						<div class="flex flex-wrap justify-between">
+							<span class="font-bold mr-1">Total</span>
 							<span class="font-bold"
 								>{totalAmountFormatted}
 								<span class="text-secondary font-normal">{`(${totalAmountSats} SATS)`}</span></span
