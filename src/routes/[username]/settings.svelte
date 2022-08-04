@@ -72,6 +72,15 @@
 			</div>
 
 			<div>
+				<label for="address" class="font-bold mb-1 block">Business Address</label>
+				<input
+					type="text"
+					name="address"
+					class="block border rounded-xl p-3 w-full"
+				/>
+			</div>
+
+			<div>
 				<div class="flex justify-between items-center">
 					<span class="font-bold">Email Notifications</span>
 					<Toggle id="email-notify" />

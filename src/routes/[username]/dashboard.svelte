@@ -56,14 +56,12 @@
 			>
 
 			<span class="text-secondary text-xl block"
-				>{accountBalanceBtc} BTC ({accountBalanceSats} SATS)
+				>{accountBalanceSats} SATS
 			</span>
 
 			<button class="rounded-full border py-2 font-bold w-28 mt-4">Withdraw</button>
-			<p class="text-secondary mt-2 w-full md:w-[550px]">
-				You will be charged a 1% withdrawal fee (<span class="text-black"
-					>{$rate ? feeAmount : 'fetching rate...'}</span
-				>) on your balance.
+			<p class="text-secondary mt-2">
+				You will be charged a 1% withdrawal fee on the amount.
 			</p>
 		</div>
 	</div>
