@@ -18,11 +18,12 @@ export const get = (url, headers = { accept: 'application/json' }) =>
 			}
 		});
 
-export const post = (url, body) =>
-	fetch(base + url, {
+export const post = (url, body, headers) => {
+  headers = { ...headers,  accept: 'application/json', 'content-type': 'application/json' };
+	return fetch(base + url, {
 		method: 'POST',
 		body: JSON.stringify(body),
-		headers: { accept: 'application/json', 'content-type': 'application/json' }
+		headers 
 	})
 		.then((r) => r.text())
 		.then((body) => {
@@ -37,6 +38,7 @@ export const post = (url, body) =>
 
 			return body;
 		});
+}
 
 export const copy = (text) => {
 	navigator.clipboard.writeText(text);
