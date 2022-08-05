@@ -1,6 +1,28 @@
 <script>
+	import { post, failure } from '$lib/utils';
+	import { tick } from 'svelte';
 	import { AppHeader } from '$comp';
 	import { rate, user, preferredCurrency } from '$lib/store';
+
+	let payreq = '',
+		payreqField,
+		withdrawing;
+
+	let toggle = async () => {
+		withdrawing = !withdrawing;
+		await tick();
+		if (withdrawing) payreqField.focus();
+	};
+
+	let withdraw = async () => {
+		try {
+			await post('/withdraw', { payreq });
+			withdrawing = false;
+		} catch (e) {
+			console.log(e);
+      failure("Withdrawal failed, please contact support.");
+		}
+	};
 
 	$: btcPrice = new Intl.NumberFormat('en-US', {
 		style: 'currency',
@@ -18,7 +40,7 @@
 		$user.account.balance
 	);
 
-	$: feeAmount = new Intl.NumberFormat('en-US', {
+	$: feepayreq = new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency: 'USD'
 	}).format(($user.account.balance * ($rate / 100000000)) / 100);
@@ -55,14 +77,25 @@
 				>{$rate ? accountBalanceFiat : 'fetching rate...'}</span
 			>
 
-			<span class="text-secondary text-xl block"
-				>{accountBalanceSats} SATS
-			</span>
+			<span class="text-secondary text-xl block">{accountBalanceSats} SATS </span>
 
-			<button class="rounded-full border py-2 font-bold w-28 mt-4">Withdraw</button>
-			<p class="text-secondary mt-2">
-				You will be charged a 1% withdrawal fee on the amount.
-			</p>
+			<button class="rounded-full border py-2 font-bold w-28 mt-4" on:click={toggle}
+				>Withdraw</button
+			>
+			<p class="text-secondary mt-2">You will be charged a 1% withdrawal fee on the payreq.</p>
+
+			{#if withdrawing}
+				<input
+					bind:this={payreqField}
+					type="text"
+					name="payreq"
+					bind:value={payreq}
+					class="block border rounded-xl p-3 w-full"
+				/>
+				<button class="rounded-full border py-2 font-bold w-28 mt-4" on:click={withdraw}
+					>Submit</button
+				>
+			{/if}
 		</div>
 	</div>
 {/if}
