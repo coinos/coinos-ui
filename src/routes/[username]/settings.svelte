@@ -73,11 +73,7 @@
 
 			<div>
 				<label for="address" class="font-bold mb-1 block">Business Address</label>
-				<input
-					type="text"
-					name="address"
-					class="block border rounded-xl p-3 w-full"
-				/>
+				<input type="text" name="address" class="block border rounded-xl p-3 w-full" />
 			</div>
 
 			<div>
