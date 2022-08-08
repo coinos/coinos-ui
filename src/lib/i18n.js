@@ -3,15 +3,12 @@ import { register, init, getLocaleFromNavigator } from 'svelte-i18n';
 // The list of locales to look for
 const localeCodes = ['en', 'fr'];
 
-// The directory where locale files are stored
-const localeDirectory = "../locales";
-
 // the default locale to use if none was found
 const defaultLocale = "en";
 
 // Adds a new locale based on its code
 function addLocale(localeCode) {
-  register(localeCode, () => import(`${localeDirectory}/${localeCode}.json`));
+  register(localeCode, () => import(`../locales/${localeCode}.json`));
 }
 
 // Picks the default locale based on navigator locale and the list of available locales
