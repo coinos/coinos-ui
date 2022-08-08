@@ -12,4 +12,4 @@ to get started clone the repo and run `pnpm install`, then `pnpm run dev` to get
 
 ## Internationalization
 
-CoinOS has a system for translation using [`svelte-i18n`](https://www.npmjs.com/package/svelte-i18n).  For more info, click (here)[./doc/i18n.md].
+CoinOS has a system for translation using [`svelte-i18n`](https://www.npmjs.com/package/svelte-i18n).  For more info, click [here](./doc/i18n.md).
