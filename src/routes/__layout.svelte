@@ -1,6 +1,5 @@
 <script>
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { toast } from '@zerodevx/svelte-toast';
 	import '../app.css';
   import '$lib/i18n';
 	import { onMount } from 'svelte';
@@ -10,16 +9,17 @@
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
-	import { protectedRoutes } from '$lib/utils';
+	import { warning, protectedRoutes } from '$lib/utils';
 
 	browser && ($token ||= $session.token);
+
 	let ready = false;
 
 	onMount(() => {
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) {
 				goto('/login');
-				toast.push('Please sign in to continue.');
+				warning('Please sign in to continue.');
 			}
 			user.subscribe((u) => u?.username && (ready = true));
 		} else {
@@ -43,5 +43,6 @@
 		--toastContainerRight: auto;
 		--toastContainerBottom: 8rem;
 		--toastContainerLeft: calc(50vw - 8rem);
+		--toastBackground: #292929;
 	}
 </style>

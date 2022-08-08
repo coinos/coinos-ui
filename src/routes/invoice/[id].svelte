@@ -1,5 +1,4 @@
 <script>
-	import { toast } from '@zerodevx/svelte-toast';
 	import { get, post, reverseFormat } from '$lib/utils';
 	import { browser } from '$app/env';
 	import { invoices, user, preferredCurrency } from '$lib/store';
@@ -83,7 +82,6 @@
 
 	$: generate(text);
 	let generate = async (ready) => {
-		console.log('GENERATE', text);
 		if (!ready) return;
 		let { default: QRCodeStyling } = await import('qr-code-styling');
 
@@ -122,15 +120,6 @@
 
 	let customInput;
 
-	const handleCopy = () => {
-		copy(text);
-		toast.push('Copied!', {
-			theme: {
-				'--toastBarBackground': '#2F855A'
-			}
-		});
-	};
-
 	const handleDoneClick = () => {
 		if ($user) {
 			goto(`/${$user.username}/receive`);
@@ -158,7 +147,7 @@
 				<div
 					class="w-[100%] md:w-auto absolute {showMobileTip
 						? 'bottom-0'
-						: '-bottom-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none transition-all md:transition-none ease-in-out duration-500 left-0 md:static text-center space-y-5"
+						: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
 				>
 					<h1 class="hidden md:block text-4xl font-semibold">Add a tip?</h1>
 
@@ -231,7 +220,7 @@
 				/>
 
 				<!-- invoice section -->
-				<div class="text-center space-y-5">
+				<div class="w-[325px] text-center space-y-5">
 					<button
 						class="block md:hidden bg-black {showMobileTip
 							? 'text-white/50'
@@ -258,15 +247,15 @@
 					</button>
 
 					<span class="text-secondary block"
-						>Scan to pay <span class="text-black font-semibold">{username}</span></span
+						>Scan to pay <a href="/{username}" class="text-black font-semibold">{username}</a></span
 					>
 
 					<div
 						bind:this={qr}
-						on:click={handleCopy}
+						on:click={() => copy(text)}
 						class="border {showMobileTip
 							? 'border-gray-400'
-							: 'border-lightgrey'} rounded-3xl block md:flex justify-center items-center cursor-pointer"
+							: 'border-lightgrey'} px-5 md:px-0 w-[292px] h-[302px] md:w-[300px] md:h-[300px] rounded-3xl block md:flex justify-center items-center cursor-pointer mx-auto"
 					/>
 
 					<div class="px-5 space-y-3">
@@ -286,8 +275,8 @@
 							>
 						</div>
 
-						<div class="flex justify-between">
-							<span class="font-bold">Total</span>
+						<div class="flex flex-wrap justify-between">
+							<span class="font-bold mr-1">Total</span>
 							<span class="font-bold"
 								>{totalAmountFormatted}
 								<span class="text-secondary font-normal">{`(${totalAmountSats} SATS)`}</span></span
@@ -302,7 +291,10 @@
 	<div class="text-center mt-20 md:mt-0">
 		<Image image="success" style="w-full md:w-3/4 xl:w-1/2 mx-auto max-w-3xl" />
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment Successful!</h1>
-		<h2 class="text-2xl md:text-3xl font-semibold">{totalAmountFormatted} {$preferredCurrency}</h2>
+		<h2 class="text-2xl md:text-3xl font-semibold">
+			{totalAmountFormatted}
+			{$preferredCurrency}
+		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SATS)</h3>
 		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold" on:click={handleDoneClick}>
 			Done

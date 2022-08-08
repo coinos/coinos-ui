@@ -23,7 +23,7 @@
 		{
 			image: 'bolt',
 			step: '2. Ask for payments',
-			description: 'The same as you normally would, but with Bitcoin.'
+			description: 'The same as you normally would, but with bitcoin.'
 		},
 		{
 			image: 'smile',
