@@ -1,4 +1,5 @@
 import { browser } from '$app/env';
+import { toast } from '@zerodevx/svelte-toast';
 
 export function scroll(section) {
 	section.scrollIntoView({ behavior: 'smooth' });
@@ -17,11 +18,12 @@ export const get = (url, headers = { accept: 'application/json' }) =>
 			}
 		});
 
-export const post = (url, body) =>
-	fetch(base + url, {
+export const post = (url, body, headers) => {
+	headers = { ...headers, accept: 'application/json', 'content-type': 'application/json' };
+	return fetch(base + url, {
 		method: 'POST',
 		body: JSON.stringify(body),
-		headers: { accept: 'application/json', 'content-type': 'application/json' }
+		headers
 	})
 		.then((r) => r.text())
 		.then((body) => {
@@ -36,9 +38,11 @@ export const post = (url, body) =>
 
 			return body;
 		});
+};
 
 export const copy = (text) => {
 	navigator.clipboard.writeText(text);
+	success('Copied!');
 };
 
 export function reverseFormat(val, locale) {
@@ -50,4 +54,45 @@ export function reverseFormat(val, locale) {
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes = [/receive/, /customers/, /dashboard/, /settings/, /transactions/];
+export let protectedRoutes = [
+	/receive/,
+	/customers/,
+	/dashboard/,
+	/settings/,
+	/transactions/,
+	/support/
+];
+
+export const success = (m) => {
+	toast.pop();
+	toast.push(m, {
+		theme: {
+			'--toastBarBackground': '#16A34A'
+		}
+	});
+};
+
+export const warning = (m) => {
+	toast.pop();
+	toast.push(m, {
+		theme: {
+			'--toastBarBackground': '#FFCE22'
+		}
+	});
+};
+export const failure = (m) => {
+	toast.pop();
+	toast.push(m, {
+		theme: {
+			'--toastBarBackground': '#E93535'
+		}
+	});
+};
+export const info = (m) => {
+	toast.pop();
+	toast.push(m, {
+		theme: {
+			'--toastBarBackground': '#1C69FF'
+		}
+	});
+};

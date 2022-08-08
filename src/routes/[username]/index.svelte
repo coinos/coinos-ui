@@ -1,5 +1,4 @@
 <script>
-	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
 	import { AppHeader, Icon, PageNotFound } from '$comp';
@@ -14,7 +13,7 @@
 			let { default: QRCodeStyling } = await import('qr-code-styling');
 			const qrCode = new QRCodeStyling({
 				width: window.screen.width < 640 ? 250 : 300,
-				type: 'svg',
+				type: 'canvas',
 				data: 'add static qr here',
 				image: '/images/invoice.svg',
 				backgroundOptions: {
@@ -33,18 +32,6 @@
 	});
 
 	let followed = false;
-
-	let qrSkeleton = true;
-	setTimeout(() => (qrSkeleton = false), 100);
-
-	const handleCopy = () => {
-		copy(lightningAddress);
-		toast.push('Copied!', {
-			theme: {
-				'--toastBarBackground': '#2F855A'
-			}
-		});
-	};
 </script>
 
 {#if username}
@@ -57,33 +44,30 @@
 
 				<p class="text-secondary">Address goes here</p>
 
-				<button
+				<!--
+        we need to hook this up
+        <button
 					class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
 					on:click={() => (followed = !followed)}
 					><Icon icon={followed ? 'minus' : 'plus'} style="mr-1" />
 					{followed ? 'Remove' : 'Follow'}
 				</button>
+        -->
 			</div>
 
 			<div class="space-y-5 static xl:absolute top-[255px] left-[calc(50vw-150px)]">
 				<div
 					id="qr"
-					class="border border-lightgrey rounded-3xl flex md:p-5 justify-center items-center relative"
-				>
-					<div
-						class="z-100 h-[300px] md:h-[342px] w-[250px] md:w-[342px] animate-pulse absolute top-0 left-0 bg-gray-400 rounded-3xl {qrSkeleton
-							? 'block'
-							: 'hidden'}"
-					/>
-				</div>
+					class="w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative"
+				/>
 
-				<p class="text-secondary text-center font-semibold">Scan to pay with Bitcoin</p>
+				<p class="text-secondary text-center font-semibold">Scan to pay with bitcoin</p>
 
 				<div
 					class="bg-primary font-semibold rounded-xl text-sm py-2 px-3 flex flex-wrap justify-center items-center"
 				>
 					<span>{lightningAddress}</span>
-					<button on:click={handleCopy}>
+					<button on:click={() => copy(lightningAddress)}>
 						<Icon icon="copy" style="ml-2" />
 					</button>
 				</div>

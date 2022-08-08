@@ -2,10 +2,10 @@
 	import { Image, Icon } from '$comp';
 
 	const aboutAdam = [
-		'Running Bitcoin since 2011',
+		'Running bitcoin since 2011',
 		'20+ years web development experience in government and industry',
-		'Early Bitcoin Vancouver meetup organizer',
-		'Founder of The Bitcoin Co-op and early supporter of Decentral Vancouver',
+		'Early bitcoin Vancouver meetup organizer',
+		'Founder of The bitcoin Co-op and early supporter of Decentral Vancouver',
 		'Yogi, permaculturist, anarchist, decentralist',
 		'Husband, father, brother, son'
 	];
@@ -21,7 +21,7 @@
 		as a way to provide local merchants with a convenient way to accept bitcoin payments.
 		<br /><br />
 		The feature set has grown over the years to accomodate a wide variety of use cases with the goal
-		of making it as easy as possible for anyone to get started using Bitcoin quickly, cheaply, and securely.
+		of making it as easy as possible for anyone to get started using bitcoin quickly, cheaply, and securely.
 		<br /><br />
 	</p>
 	<p class="w-full lg:w-5/12">

@@ -9,7 +9,6 @@
 
 	const companyLinks = [
 		{ url: 'mailto:support@coinos.io', title: 'Support' },
-		{ url: '/community', title: 'Community' },
 		{ url: '/jobs', title: 'Jobs' }
 	];
 </script>

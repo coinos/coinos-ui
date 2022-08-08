@@ -3,13 +3,12 @@
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
-	import { post } from '$lib/utils';
+	import { post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
 
 	let useFiat = true;
 	let amountFiat = 0;
 	let amountSats = 0;
-	let message = '';
 
 	$: amount = useFiat ? Math.round(amountFiat / ($rate / 100000000)) : amountSats;
 
@@ -33,9 +32,6 @@
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
 	const handleInput = (value) => {
-		if (message) {
-			message = '';
-		}
 		if (useFiat) {
 			if (amountFiat === 0 && value !== '.' && value !== '<' && value !== '0') {
 				amountFiat = value;
@@ -54,7 +50,7 @@
 					}
 				}
 			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $rate) {
-				message = 'Please enter an amount less than 1 bitcoin.';
+				warning('Please enter an amount less than 1 bitcoin.');
 			} else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
 				return;
 			} else {
@@ -74,7 +70,7 @@
 					}
 				}
 			} else if (value !== '<' && parseInt(amountSats + value) > 100000000) {
-				message = 'Please enter an amount less than 1 bitcoin.';
+				warning('Please enter an amount less than 1 bitcoin.');
 			} else {
 				amountSats = amountSats + value;
 			}
@@ -117,16 +113,6 @@
 						}}><Icon icon="swap" style="inline" /></button
 					>
 				</div>
-
-				<!-- error message -->
-				{#if message}
-					<div
-						class="text-orange-500 text-sm text-center font-bold bg-primary p-2 rounded-xl flex justify-center items-center space-x-1"
-					>
-						<Icon icon="info" style="w-5" />
-						<p>{message}</p>
-					</div>
-				{/if}
 
 				<!-- numpad -->
 				<div class="grid grid-cols-3 gap-2 w-full md:w-[300px] mx-auto">
@@ -172,10 +158,12 @@
 						on:click={submit}
 						disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> Show QR</button
 					>
+					<!--
 					<button
 						class="bg-primary rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"
 						disabled={true}><Icon icon="send" style="mr-2" /> Send Invoice</button
 					>
+          -->
 				</div>
 			</div>
 		{:else}
