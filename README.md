@@ -34,7 +34,7 @@ Each translation of CoinOS is stored in a special *locale file*.  These files ca
 }
 ```
 
-Each line (other than the opening and closing braces) contains a **text name**, then a colon (`:`), then the **translated text**.  All lines other than the last end in a comma.  The text name is a word that is the same in all translations, and is used by the code to access that string.  **Both the text name and translated text must be inside quotation marks (`"`).**
+Each line (other than the opening and closing braces) contains a **text name**, then a colon (`:`), then the **translated text**.  All lines other than the last end in a comma.  The text name is a word that is the same in all translations, and is used by the code to access that piece of text.  **Both the text name and translated text must be inside quotation marks (`"`).**
 
 ### The Language List
 
@@ -42,7 +42,7 @@ At the top of the file `src/lib/i18n.js`, there is a list of translations that l
 
 ```js
 // The list of locales to look for
-// ADD ALL NEW LOCALES TO THIS LIST
+// ADD ALL NEW LANGUAGE CODES TO THIS LIST
 const localeCodes = ["en", "fr"];
 ```
 
@@ -53,14 +53,14 @@ In order for a translation to be recognized by the CoinOS system, you need to ad
 Follow these steps to create a new translation.  You will need a GitHub account to do this:
 1. Determine the langage code of your language, using [this list](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).  For these instructions, I will be using the fictional code `xx` - replace that code with the code of whatever language you are translating to.
 2. Go to the `src` folder, then the `locales` folder, then create a file `xx.json` inside that folder using either a text editor (e.g. Notepad), or GitHub.
-[](./img/create_locale_github.png)
+![Creating a new translation in GitHub](./img/create_locale_github.png)
 3. Copy the text from `en.json` into this new file.
-4. Translate all of the strings on the right.  **Do not translate or alter in any way the strings on the left!**
-[](./img/translate_github.png)
+4. Translate all of the pieces of text on the right.  **Do not translate or alter in any way the pieces of text on the left!**
+![Translating in GitHub](./img/translate_github.png)
 5. Scroll down and use the green button to commit the file.
 6. Go to the `src` folder again, then `lib`, then `i18n.js`.
 7. Use the pencil icon on the top-right to edit the file, then add your language code (**in quotation marks**) to the list.
-[](./img/add_locale_github.png)
+![Adding a new translation in GitHub](./img/add_locale_github.png)
 8. Commit your changes like you did in step 5.
 
 ## Adding to an Existing Translation
@@ -68,9 +68,10 @@ Follow these steps to create a new translation.  You will need a GitHub account 
 Follow these steps to add to an existing translation.  You will also need a GitHub account to do this:
 1. Determine the langage code of your language, using [this list](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).  For these instructions, I will be using the fictional code `xx` - replace that code with the code of whatever language you are translating to.
 2. Go to the `src` folder, then `locales`, then `en.json`.
-3. Find the line with the string that you want to translate.
+3. Find the line with the piece of text that you want to translate.
 4. Find your translation's file, at `src/locales/xx.json`.
-5. Add the line from step 3 to the file, in between the `{}` braces.  Make sure the previous line has a comma at the end.
-6. Use the pencil icon on the top-right to edit the file.  Translate the string on the right, keeping the quotes surrounding it.  **Do not translate or alter in any way the strings on the left!**
-7. Repeat steps 3-6 for every string you want to translate (you should probably open `en.json` in another tab, so that your changes from step 6 aren't erased).
-8. Scroll down and use the green button to commit the file.
+5. Use the pencil icon on the top-right to edit the file.
+6. Add the whole line (both left and right parts) from step 3 to this file, in between the `{}` braces.  Make sure the previous line has a comma at the end.
+7. Translate the piece of text on the right, keeping the quotes surrounding it.  **Do not translate or alter in any way the piece of text on the left!**
+8. Repeat steps 3-7 for every piece of text you want to translate (you should probably open `en.json` in another tab, so that your changes from step 6 aren't erased).
+9. Scroll down and use the green button to commit the file.
