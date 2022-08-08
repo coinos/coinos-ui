@@ -1,7 +1,7 @@
 import { register, init, getLocaleFromNavigator } from 'svelte-i18n';
 
 // The list of locales to look for
-// ADD ALL NEW LOCALES TO THIS LIST
+// ADD ALL NEW LANGUAGE CODES TO THIS LIST
 const localeCodes = ["en", "fr"];
 
 // the default locale to use if none was found
