@@ -35,7 +35,7 @@ function pickLocale(navigatorLocale, availableLocales) {
   } else if (availableLocales.includes(languageCode)) {
     return languageCode;
   } else {
-    return null;
+    return navigatorLocale;
   }
 }
 
