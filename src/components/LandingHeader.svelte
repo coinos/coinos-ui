@@ -23,10 +23,10 @@
 		</a>
 		<Icon icon="logo" style="block md:hidden ml-5 w-48" />
 
-    <LocaleSelector />
-
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
+      <LocaleSelector />
+
 			<button on:click={() => scroll(howItWorks)}>{$_('howItWorks')}</button>
 			<button on:click={() => scroll(faq)}>{$_('FAQ')}</button>
 			<button on:click={() => scroll(about)}>{$_('about')}</button>
@@ -68,6 +68,8 @@
 				: 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-white"
 		>
 			<div class="space-y-8 mt-24 ml-10 font-bold text-xl">
+        <LocaleSelector />
+
 				<button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
 					>{$_('howItWorks')}</button
 				>
@@ -77,7 +79,7 @@
 					<button
 						class="border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto('/register')}
-						>{$_('startInSeconds')}
+						>{$_('signIn')}
 					</button>
 					<button
 						class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
@@ -99,7 +101,6 @@
 					</button>
 				{/if}
 			</div>
->>>>>>> master
 		</div>
 	</nav>
 </header>
