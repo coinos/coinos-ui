@@ -1,5 +1,5 @@
 <script>
-	import { AppHeader, Icon, Toggle } from '$comp';
+	import { AppHeader, Icon, Toggle, LocaleSelector } from '$comp';
 	import { user, colorTheme } from '$lib/store';
 
 	let setting = 'account';
@@ -44,6 +44,11 @@
 		</div>
 
 		{#if setting === 'account'}
+			<div>
+				<label for="language" class="font-bold block mb-1">Language</label>
+				<LocaleSelector style="block py-3 w-full" />
+			</div>
+
 			<div>
 				<label for="username" class="font-bold mb-1 block">Username</label>
 				<input

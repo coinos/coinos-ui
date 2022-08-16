@@ -9,3 +9,7 @@ this repository is the front-end code for the coinos web application, it uses `s
 ## commands
 
 to get started clone the repo and run `pnpm install`, then `pnpm run dev` to get your dev environment setup, and `pnpm format` to format the codebase when making changes.
+
+## Internationalization
+
+CoinOS has a system for translation using [`svelte-i18n`](https://www.npmjs.com/package/svelte-i18n). For more information and instructions on how to translate CoinOS, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).
