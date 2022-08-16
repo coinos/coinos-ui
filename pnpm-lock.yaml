@@ -2,10 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@sveltejs/adapter-auto': next
-  '@sveltejs/kit': next
+  '@sveltejs/kit': 1.0.0-next.405
   '@zerodevx/svelte-toast': ^0.7.2
   autoprefixer: ^10.4.7
   cookie: ^0.5.0
+  leaflet: ^1.8.0
   postcss: ^8.4.14
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.7.0
@@ -26,6 +27,7 @@ devDependencies:
   '@zerodevx/svelte-toast': 0.7.2
   autoprefixer: 10.4.7_postcss@8.4.14
   cookie: 0.5.0
+  leaflet: 1.8.0
   postcss: 8.4.14
   prettier: 2.7.1
   prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
@@ -904,6 +906,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /leaflet/1.8.0:
+    resolution: {integrity: sha512-gwhMjFCQiYs3x/Sf+d49f10ERXaEFCPr+nVTryhAW8DWbMGqJqt9G4XuIaHmFW08zYvhgdzqXGr8AlW8v8dQkA==}
+    dev: true
+
   /lilconfig/2.0.6:
     resolution: {integrity: sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==}
     engines: {node: '>=10'}
@@ -1462,7 +1468,6 @@ packages:
   /svelte/3.49.0:
     resolution: {integrity: sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==}
     engines: {node: '>= 8'}
-    dev: true
 
   /tailwindcss/3.1.6:
     resolution: {integrity: sha512-7skAOY56erZAFQssT1xkpk+kWt2NrO45kORlxFPXUt3CiGsVPhH1smuH5XoDH6sGPXLyBv+zgCKA2HWBsgCytg==}
