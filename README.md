@@ -9,6 +9,7 @@ This repository is the latest front-end code for the CoinOS web application.
 ## Commands
 
 To get started, clone or download the repo, then:
+
 - run `pnpm install` inside the repo once to install all dependencies (and whenever you pull new commits)
 - run `pnpm run dev` every time you want to start up the UI
 - run `pnpm format` to format the code before committing any changes
@@ -16,6 +17,7 @@ To get started, clone or download the repo, then:
 ## Libraries
 
 This UI uses the following libraries:
+
 - [`sveltekit`](https://kit.svelte.dev/) as the JavaScript framework
 - [`tailwindcss`](https://tailwindcss.com/) for inline styling
 - [`pnpm`](https://pnpm.io/) as the recommended package manager
