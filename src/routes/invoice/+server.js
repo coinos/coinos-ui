@@ -1,3 +1,4 @@
+import { json as json$1 } from '@sveltejs/kit';
 import { post } from '$lib/utils';
 
 let network = 'lightning';
@@ -10,5 +11,5 @@ export async function POST({ request }) {
 		user: { username }
 	});
 
-	return { body: { id } };
+	return json$1({ id });
 }

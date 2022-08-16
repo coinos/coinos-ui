@@ -1,6 +1,6 @@
 import { get } from '$lib/utils';
 
-export async function GET({ params }) {
+export async function load({ params }) {
 	let { id } = params;
 	let {
 		amount,
@@ -10,5 +10,5 @@ export async function GET({ params }) {
 		user: { username }
 	} = await get(`/invoice?uuid=${id}`);
 
-	return { body: { amount, id, rate, username, status, text } };
+	return { amount, id, rate, username, status, text };
 }
