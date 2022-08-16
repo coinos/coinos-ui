@@ -25,6 +25,7 @@
 			<Icon icon="logo" style="block md:hidden ml-5 w-48" />
 			<LocaleSelector style="hidden md:block py-1 mb-5 xl:mb-0" />
 		</div>
+
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
 			<button on:click={() => scroll(howItWorks)}>{$_('nav.howItWorks')}</button>
@@ -100,7 +101,6 @@
 						Sign out
 					</button>
 				{/if}
-
 				<LocaleSelector style="py-1" />
 			</div>
 		</div>
