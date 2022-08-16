@@ -2,14 +2,27 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/dc5c8c09-6b16-4878-afb4-a288c26cc9b1/deploy-status)](https://app.netlify.com/sites/coinos/deploys)
 
-coinos is an easy to use bitcoin point of sale application for businesses and wallet for customers, connecting the bitcoin circular economy together.
+CoinOS is an easy to use bitcoin point of sale application for businesses and wallet for customers, connecting the bitcoin circular economy together.
 
-this repository is the front-end code for the coinos web application, it uses `sveltekit` as the javascript framework, `tailwindcss` for inline styling, `pnpm` as the recommended package manager and `prettier` for code formatting.
+This repository is the latest front-end code for the CoinOS web application.
 
-## commands
+## Commands
 
-to get started clone the repo and run `pnpm install`, then `pnpm run dev` to get your dev environment setup, and `pnpm format` to format the codebase when making changes.
+To get started, clone or download the repo, then:
+- run `pnpm install` inside the repo once to install all dependencies (and whenever you pull new commits)
+- run `pnpm run dev` every time you want to start up the UI
+- run `pnpm format` to format the code before committing any changes
 
-## Internationalization
+## Libraries
+
+This UI uses the following libraries:
+- [`sveltekit`](https://kit.svelte.dev/) as the JavaScript framework
+- [`tailwindcss`](https://tailwindcss.com/) for inline styling
+- [`pnpm`](https://pnpm.io/) as the recommended package manager
+- [`prettier`](https://prettier.io/) as the code formatting standard and tool
+
+## Extra Features
+
+### Internationalization
 
 CoinOS has a system for translation using [`svelte-i18n`](https://www.npmjs.com/package/svelte-i18n). For more information and instructions on how to translate CoinOS, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).
