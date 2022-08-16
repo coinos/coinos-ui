@@ -1,11 +1,10 @@
 {
-  "langname": "English",
-  "nav": {
-  "howItWorks": "How It Works",
-  "faq": "FAQ",
-  "about": "About",
-  "startInSeconds": "Start in Seconds",
-  "signIn": "Sign In"
-}
-
+	"langname": "English",
+	"nav": {
+		"howItWorks": "How It Works",
+		"faq": "FAQ",
+		"about": "About",
+		"startInSeconds": "Start in Seconds",
+		"signIn": "Sign In"
+	}
 }

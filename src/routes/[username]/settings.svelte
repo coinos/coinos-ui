@@ -44,10 +44,10 @@
 		</div>
 
 		{#if setting === 'account'}
-		<div>
-      <label for="language" class="font-bold block mb-1">Language</label>
-  <LocaleSelector style='block py-3 w-full'/>
-    </div>
+			<div>
+				<label for="language" class="font-bold block mb-1">Language</label>
+				<LocaleSelector style="block py-3 w-full" />
+			</div>
 
 			<div>
 				<label for="username" class="font-bold mb-1 block">Username</label>
