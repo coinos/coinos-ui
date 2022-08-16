@@ -1,17 +1,19 @@
 <script context="module">
-	export function load({ error, status }) {
-		if (error.message.includes('not found')) {
-			error.message = 'Page not found.';
-			status = 404;
-		}
+	throw new Error("@migration task: Replace error load function (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3293209)");
 
-		return {
-			props: {
-				error,
-				status
-			}
-		};
-	}
+	// export function load({ error, status }) {
+	// 	if (error.message.includes('not found')) {
+	// 		error.message = 'Page not found.';
+	// 		status = 404;
+	// 	}
+
+	// 	return {
+	// 		props: {
+	// 			error,
+	// 			status
+	// 		}
+	// 	};
+	// }
 </script>
 
 <script>

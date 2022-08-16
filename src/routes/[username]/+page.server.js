@@ -1,6 +1,6 @@
 import { get } from '$lib/utils';
 
-export async function GET({ params }) {
+export async function load({ params }) {
 	let { username } = params;
 	let body;
 
@@ -10,5 +10,5 @@ export async function GET({ params }) {
 		body = {};
 	}
 
-	return { body };
+	return body;
 }
