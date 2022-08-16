@@ -4,7 +4,7 @@
 	import OutClick from 'svelte-outclick';
 	import { user, newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
-	import { Icon, LocaleSelector } from '$comp';
+	import { Icon } from '$comp';
 
 	export let avatarPosition = 'left-[calc(50vw-48px)]';
 
@@ -30,7 +30,6 @@
 
 <header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative">
 	<nav class="flex justify-end items-center space-x-4 p-5">
-    <LocaleSelector />
 		{#if $user}
 			<a href={`/${$user.username}/receive`}>
 				<button class="bg-white p-2 rounded-full w-12 h-12"
@@ -89,7 +88,6 @@
 				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm">Sign in </button>
 			</a>
 		{/if}
->>>>>>> master
 	</nav>
 	<div
 		class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24"
