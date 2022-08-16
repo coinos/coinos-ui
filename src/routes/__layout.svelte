@@ -1,15 +1,6 @@
-<script context="module">
-	import { waitLocale } from 'svelte-i18n';
- import '$lib/i18n';
-
-	export async function preload() {
-		// awaits for the loading of the 'en-US' and 'en' dictionaries
-		return waitLocale();
-	}
-</script>
-
 <script>
 	import { SvelteToast } from '@zerodevx/svelte-toast';
+ import '$lib/i18n';
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
