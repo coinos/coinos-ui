@@ -31,11 +31,9 @@
 	});
 </script>
 
-{#if ready}
+{#if ready && !$isLoading}
 	<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 	<slot />
-{:else if $isLoading}
-  The page is still loading.  Please reload the page.
 {:else}
 	<LoadingSplash />
 {/if}
