@@ -1,8 +1,8 @@
 <script>
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-  import '$lib/i18n';
-  import { isLoading, locale } from 'svelte-i18n';
-  import '../app.css';
+	import '$lib/i18n';
+	import { isLoading, locale } from 'svelte-i18n';
+	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
 	import { user, token } from '$lib/store';
@@ -17,13 +17,13 @@
 	let ready = false;
 
 	onMount(() => {
-    // get locale from local storage
-    let localStorageLocale = localStorage.getItem('svelte-i18n-locale');
-    if (localStorageLocale) locale.set(localStorageLocale);
+		// get locale from local storage
+		let localStorageLocale = localStorage.getItem('svelte-i18n-locale');
+		if (localStorageLocale) locale.set(localStorageLocale);
 
-    locale.subscribe((lng) => {
-      if (lng) localStorage.setItem('svelte-i18n-locale', lng);
-    });
+		locale.subscribe((lng) => {
+			if (lng) localStorage.setItem('svelte-i18n-locale', lng);
+		});
 
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) {
