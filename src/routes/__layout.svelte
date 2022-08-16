@@ -1,7 +1,8 @@
 <script>
 	import { SvelteToast } from '@zerodevx/svelte-toast';
- import '$lib/i18n';
-	import '../app.css';
+  import '$lib/i18n';
+  import { isLoading } from 'svelte-i18n';
+  import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
 	import { user, token } from '$lib/store';
@@ -33,6 +34,8 @@
 {#if ready}
 	<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 	<slot />
+{:else if $isLoading}
+  The page is still loading.  Please reload the page.
 {:else}
 	<LoadingSplash />
 {/if}
