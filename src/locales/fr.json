@@ -1,9 +1,15 @@
 {
 	"langname": "Français",
+  "about": {
+    "header": "À Propos"
+  },
+  "faq": {
+    "header": "FAQ"
+  },
+  "howItWorks": {
+    "header": "Comment Elle Fonctionne"
+  },
 	"nav": {
-		"howItWorks": "Comment Ça Fonctionne",
-		"faq": "FAQ",
-		"about": "À Propos",
 		"startInSeconds": "Commence en Secondes",
 		"signIn": "Connexion"
 	}

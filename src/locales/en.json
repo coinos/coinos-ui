@@ -22,11 +22,68 @@
 		  "familialRelationships": "Husband, father, brother, son"
     }
   },
+  "faq": {
+    "header": "FAQ",
+		"cost": {
+			"question": "What does it cost?",
+			"answer": "CoinOS is free to use. You only pay a 1% fee if/when you withdraw your funds. Compare this to 3% typically charged by a credit card processor."
+		},
+		"compatibility": {
+			"question": "Do I need any special device or software?",
+			"answer": "No. CoinOS is web-based, so as long as you have an internet connection, you can use it on any device or hardware. Most merchants might use it on a phone or a tablet."
+		},
+		"safety": {
+			"question": "Are my funds safe?",
+			"answer": "Your funds are stored on our secure server, however we recommend that you withdraw them to your own cold storage for long-term savings."
+		}
+  },
+  "footer": {
+    "followUs": "Follow Us",
+    "twitter": "Twitter",
+    "github": "GitHub",
+    "company": "Company",
+    "telegram": "Telegram",
+    "support": "Support",
+    "jobs": "Jobs"
+  },
+  "howItWorks": {
+    "header": "How It Works",
+    "step1": {
+			"header": "1. Create your account",
+			"description": "A username & password is all you need to get started."
+    },
+    "step2": {
+			"header": "2. Ask for payments",
+			"description": "The same as you normally would, but with bitcoin."
+    },
+    "step3": {
+			"header": "3. That's all!",
+			"description": "You can convert to local currency at any point."
+    }
+  },
+  "landing": {
+    "header_before_icon": "The",
+    "header_with_icon": "easiest",
+    "header_after_icon": "way to accept bitcoin in your store.",
+    "subheader": "Grow your customer base and revenue by accepting bitcoin with an easy-to-use and managed Point of Sale. No software or hardware required.",
+    "info1": {
+      "title": "Instant payments via Lightning",
+      "description": "The moment your customer sends a payment, it’s there. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
+    },
+    "info2": {
+      "title": "Simple to use, custodial by default",
+      "description1": "Just enter an amount, share QR code and you’re done.",
+      "description2": "CoinOS is custodial by default, which eliminates the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
+      "description3": "You always have the option of <span class=\"underline underline-offset-4\">taking custody</span> of your own keys."
+    },
+    "info3": {
+      "title": "Brand it your way!",
+      "description": "Customize your point of sale look and feel, or keep it on default - totally up to you."
+    }
+  },
 	"nav": {
-		"howItWorks": "How It Works",
-		"faq": "FAQ",
-		"about": "About",
 		"startInSeconds": "Start in Seconds",
+    "account": "Account",
 		"signIn": "Sign In",
     "signOut": "Sign Out",
     "dashboard": "Dashboard",

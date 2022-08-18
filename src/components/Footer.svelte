@@ -1,15 +1,16 @@
 <script>
 	import { Icon } from '$comp';
+  import { _ } from 'svelte-i18n';
 
 	const followLinks = [
-		{ url: 'https://twitter.com/coinoswallet', title: 'Twitter' },
-		{ url: 'https://github.com/coinos', title: 'GitHub' },
-		{ url: 'https://t.me/coinos', title: 'Telegram' }
+		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
+		{ url: 'https://github.com/coinos', titleID: 'github' },
+		{ url: 'https://t.me/coinos', titleID: 'telegram' }
 	];
 
 	const companyLinks = [
-		{ url: 'mailto:support@coinos.io', title: 'Support' },
-		{ url: '/jobs', title: 'Jobs' }
+		{ url: 'mailto:support@coinos.io', titleID: 'support' },
+		{ url: '/jobs', titleID: 'jobs' }
 	];
 </script>
 
@@ -17,19 +18,19 @@
 	<Icon icon="logo" style="w-48 mx-auto md:mx-0" />
 
 	<div class="text-center md:text-left">
-		<p class="font-semibold">Follow Us</p>
+		<p class="font-semibold">{$_('footer.followUs')}</p>
 		<ul class="mt-5 text-secondary space-y-3 font-medium">
 			{#each followLinks as link}
-				<li><a href={link.url} target="_blank" rel="noreferrer">{link.title}</a></li>
+				<li><a href={link.url} target="_blank" rel="noreferrer">{$_('footer.' + link.titleID)}</a></li>
 			{/each}
 		</ul>
 	</div>
 
 	<div class="text-center md:text-left">
-		<p class="font-semibold">Company</p>
+		<p class="font-semibold">{$_('footer.company')}</p>
 		<ul class="mt-5 text-secondary space-y-3">
 			{#each companyLinks as link}
-				<li><a href={link.url}>{link.title}</a></li>
+				<li><a href={link.url}>{$_('footer.' + link.titleID)}</a></li>
 			{/each}
 		</ul>
 	</div>

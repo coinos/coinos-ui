@@ -28,9 +28,9 @@
 
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
-			<button on:click={() => scroll(howItWorks)}>{$_('nav.howItWorks')}</button>
-			<button on:click={() => scroll(faq)}>{$_('nav.faq')}</button>
-			<button on:click={() => scroll(about)}>{$_('nav.about')}</button>
+			<button on:click={() => scroll(howItWorks)}>{$_('howItWorks.header')}</button>
+			<button on:click={() => scroll(faq)}>{$_('faq.header')}</button>
+			<button on:click={() => scroll(about)}>{$_('about.header')}</button>
 			{#if !$user}
 				<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
 					>{$_('nav.startInSeconds')}
@@ -45,13 +45,13 @@
 				<button
 					class="border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto(`/${$user.username}/dashboard`)}
-					>Account
+					>{$_('nav.account')}
 				</button>
 				<button
 					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto('/logout')}
 				>
-					Sign out
+					{$_('nav.signOut')}
 				</button>
 			{/if}
 		</div>
@@ -92,13 +92,13 @@
 					<button
 						class="border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto(`/${$user.username}/dashboard`)}
-						>Account
+						>{$_('nav.account')}
 					</button>
 					<button
 						class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto('/logout')}
 					>
-						Sign out
+            {$_('nav.signOut')}
 					</button>
 				{/if}
 				<LocaleSelector style="py-1" />
