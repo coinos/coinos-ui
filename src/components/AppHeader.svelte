@@ -5,15 +5,15 @@
 	import { user, newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
+  import { _ } from 'svelte-i18n';
 
 	export let avatarPosition = 'left-[calc(50vw-48px)]';
 
 	const menuButtons = [
-		// { title: 'Customers', icon: 'customers', goto: 'customers' },
-		{ title: 'Dashboard', icon: 'dash', goto: 'dashboard' },
-		{ title: 'Settings', icon: 'settings', goto: 'settings' },
-		{ title: 'Support', icon: 'support', goto: 'support' },
-		{ title: 'Sign out', icon: 'logout', goto: 'logout' }
+		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },
+		{ stringID: 'nav.settings', icon: 'settings', goto: 'settings' },
+		{ stringID: 'nav.support', icon: 'support', goto: 'support' },
+		{ stringID: 'nav.signOut', icon: 'logout', goto: 'logout' }
 	];
 
 	let showMenu = false;
@@ -75,7 +75,7 @@
 									<button
 										class="flex justify-center items-center font-semibold text-sm"
 										on:click={() => handleMenuItemClick(button.goto)}
-										><Icon icon={button.icon} style="mr-1" /> {button.title}
+										><Icon icon={button.icon} style="mr-1" /> {$_(button.stringID)}
 									</button>
 								</li>
 							{/each}
@@ -85,7 +85,7 @@
 			</div>
 		{:else}
 			<a href="/login">
-				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm">Sign in </button>
+				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm">{$_('nav.signIn')}</button>
 			</a>
 		{/if}
 	</nav>

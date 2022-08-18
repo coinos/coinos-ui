@@ -1,51 +1,36 @@
 <script>
 	import { Image, Icon } from '$comp';
-
-	const aboutAdam = [
-		'Running bitcoin since 2011',
-		'20+ years web development experience in government and industry',
-		'Early bitcoin Vancouver meetup organizer',
-		'Founder of The bitcoin Co-op and early supporter of Decentral Vancouver',
-		'Yogi, permaculturist, anarchist, decentralist',
-		'Husband, father, brother, son'
-	];
+  import { _ } from 'svelte-i18n';
 </script>
 
-<h3 class="text-5xl font-medium mb-10 text-center">About</h3>
+<h3 class="text-5xl font-medium mb-10 text-center">{$_('about.header')}</h3>
 <div
 	class="md:px-10 lg:px-0 block lg:flex justify-center text-secondary text-xl lg:space-x-20 mx-auto max-w-7xl relative"
 >
 	<p class="w-full lg:w-5/12">
-		<strong>CoinOS is</strong> an <strong>open source</strong> bitcoin web wallet, point of sale,
-		ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012
-		as a way to provide local merchants with a convenient way to accept bitcoin payments.
+    {@html $_('about.p1')}
 		<br /><br />
-		The feature set has grown over the years to accomodate a wide variety of use cases with the goal
-		of making it as easy as possible for anyone to get started using bitcoin quickly, cheaply, and securely.
+    {@html $_('about.p2')}
 		<br /><br />
 	</p>
 	<p class="w-full lg:w-5/12">
-		Anyone can download the source code and host their own instance of the platform backed by their
-		own bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.
+    {@html $_('about.p3')}
 		<br /><br />
-		Intra-account transfers between custodial wallets of different users on our server are completely
-		free, instant, and unlimited.
+    {@html $_('about.p4')}
 	</p>
 	<Image image="swoosh" style="w-32 absolute -bottom-20 lg:bottom-0 right-0 md:right-10" />
 </div>
 
 <div class="px-5 block lg:flex justify-center lg:space-x-32 items-center mt-40 lg:mt-20">
 	<div class="space-y-5 mb-5 lg:mb-0">
-		<h3 class="text-5xl font-medium mb-10 text-center lg:text-right">The Founder</h3>
+		<h3 class="text-5xl font-medium mb-10 text-center lg:text-right">{$_('about.founder.header')}</h3>
 
 		<Image image="adam" style="rounded-full mx-auto lg:mx-0 lg:ml-auto w-40" />
 
 		<div class="space-y-2">
-			<span class="text-2xl text-center font-semibold block lg:text-right">Adam Soltys</span>
+			<span class="text-2xl text-center font-semibold block lg:text-right">{$_('about.founder.name')}</span>
 			<span class="text-xl text-center text-secondary block lg:text-right"
-				>Chief Technical Officer</span
-			>
-		</div>
+				>{$_('about.founder.position')}</div>
 
 		<div class="flex justify-center lg:justify-end items-center space-x-5">
 			<a
@@ -66,8 +51,11 @@
 	<ul
 		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
 	>
-		{#each aboutAdam as about}
-			<li>{about}</li>
-		{/each}
+      <li>{$_('about.founder.bitcoin')}</li>
+      <li>{$_('about.founder.webDev')}</li>
+      <li>{$_('about.founder.bitcoinVancouver')}</li>
+      <li>{$_('about.founder.bitcoinCoop')}</li>
+      <li>{$_('about.founder.beliefs')}</li>
+      <li>{$_('about.founder.familialRelationships')}</li>
 	</ul>
 </div>

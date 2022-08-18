@@ -1,5 +1,6 @@
 <script>
 	import { Icon } from '$comp';
+  import { _ } from 'svelte-i18n';
 </script>
 
 <div class="flex justify-center items-center mt-20">
@@ -10,7 +11,7 @@
 
 		<Icon icon="question" style="mx-auto w-56" />
 
-		<h1 class="font-bold text-5xl">404</h1>
-		<p>Page not found.</p>
+		<h1 class="font-bold text-5xl">{$_('404.404')}</h1>
+		<p>{$_('404.pageNotFound')}</p>
 	</div>
 </div>
