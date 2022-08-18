@@ -1,26 +1,28 @@
 import { get, writable } from 'svelte/store';
 import { browser } from '$app/env';
 
-const persistSession = (k, i) => {
+// creates a Svelte store synced to sessionStorage with the given key and default value
+const persistSession = (key, defaultValue) => {
 	let s = writable(
-		browser && sessionStorage.getItem(k) && sessionStorage.getItem(k) !== 'undefined'
-			? JSON.parse(sessionStorage.getItem(k))
-			: i
+		browser && sessionStorage.getItem(key) && sessionStorage.getItem(key) !== 'undefined'
+			? JSON.parse(sessionStorage.getItem(key))
+			: defaultValue
 	);
 
-	s.subscribe((v) => browser && sessionStorage.setItem(k, JSON.stringify(v)));
+	s.subscribe((v) => browser && sessionStorage.setItem(key, JSON.stringify(v)));
 
 	return s;
 };
 
-const persistLocal = (k, i) => {
+// creates a Svelte store synced to localStorage with the given key and default value
+const persistLocal = (key, defaultValue) => {
 	let s = writable(
-		browser && localStorage.getItem(k) && localStorage.getItem(k) !== 'undefined'
-			? JSON.parse(localStorage.getItem(k))
-			: i
+		browser && localStorage.getItem(key) && localStorage.getItem(key) !== 'undefined'
+			? JSON.parse(localStorage.getItem(key))
+			: defaultValue
 	);
 
-	s.subscribe((v) => browser && localStorage.setItem(k, JSON.stringify(v)));
+	s.subscribe((v) => browser && localStorage.setItem(key, JSON.stringify(v)));
 
 	return s;
 };
@@ -32,5 +34,5 @@ export const invoiceAmountFiat = writable();
 export const token = persistSession('token');
 export const invoices = writable({});
 export const preferredCurrency = writable();
-export const newPayment = persistLocal();
+export const newPayment = persistLocal('newPayment');
 export const colorTheme = writable('from-primary to-gradient');
