@@ -26,7 +26,8 @@
   },
   "error": {
     "header": "Error",
-    "message": "Please try again or contact support."
+    "message": "Please try again or contact support.",
+    "signIn": "Please sign in to continue."
   },
   "faq": {
     "header": "FAQ",
@@ -157,6 +158,8 @@
       "themeDescription": "Select from the default color themes.",
       "localCurrency": "Local Currency",
       "btcUnit": "Display bitcoin in:",
+      "bitcoin": "Bitcoin",
+      "satoshis": "Satoshis",
       "securityPIN": "Security PIN",
       "securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",
       "setPIN": "Set PIN",
