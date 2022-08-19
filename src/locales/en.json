@@ -22,6 +22,10 @@
 		  "familialRelationships": "Husband, father, brother, son"
     }
   },
+  "error": {
+    "header": "Error",
+    "message": "Please try again or contact support."
+  },
   "faq": {
     "header": "FAQ",
 		"cost": {
@@ -114,5 +118,67 @@
     "dashboard": "Dashboard",
     "settings": "Settings",
     "support": "Support"
-	}
+	},
+  "user": {
+    "addressGoesHere": "Address goes here",
+    "follow": "Follow",
+    "remove": "Remove",
+    "scanToPayBTC": "Scan to pay with bitcoin",
+    "dashboard": {
+      "ACCOUNT_BALANCE": "ACCOUNT BALANCE",
+      "bitcoinPrice": "Bitcoin Price:",
+      "conversionFeeWarning": "You will be charged a 1% conversion fee if you withdraw more of a certain type of Bitcoin than you deposit.",
+      "dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
+      "fetchingRate": "fetching rate...",
+      "optionalNote": "Note (Optional)",
+      "send": "Send",
+      "withdraw": "Withdraw"
+    },
+    "receive": {
+      "lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",
+      "showQR": "Show QR"
+    },
+    "settings": {
+      "header": "Settings",
+      "ACCOUNT": "ACCOUNT",
+      "POINT_OF_SALE": "POINT OF SALE",
+      "SECURITY": "SECURITY",
+      "locale": "Language",
+      "username": "Username",
+      "newPassword": "New Password",
+      "businessAddress": "Business Address",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
+      "smsNotifications": "SMS Notifications",
+      "smsNotificationsDescription": "CoinOS will send you text notifications when this is enabled.",
+      "theme": "Color Theme",
+      "themeDescription": "Select from the default color themes.",
+      "localCurrency": "Local Currency",
+      "btcUnit": "Display bitcoin in:",
+      "securityPIN": "Security PIN",
+      "securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",
+      "setPIN": "Set PIN",
+      "autoLock": "Auto-Lock Timer",
+      "autoLockDescription": "Your account will go into a secure mode automatically after a specified time:",
+      "twofa": "2-Factor Authentication",
+      "twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
+      "twofaSetup": "Set up 2FA"
+    },
+    "support": {
+      "header": "Support",
+      "email": "Email",
+      "accountName": "Account Name",
+      "message": "Message",
+      "send": "Send"
+    },
+    "transactions": {
+      "header": "Transaction History",
+      "AMOUNT": "AMOUNT",
+      "TYPE": "TYPE",
+      "TIME": "TIME",
+      "sent": "Sent",
+      "received": "Received",
+      "empty": "No transactions yet."
+    }
+  }
 }

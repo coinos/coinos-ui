@@ -5,6 +5,7 @@
 	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
 	import { post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
+  import { _, number } from 'svelte-i18n';
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -50,7 +51,7 @@
 					}
 				}
 			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $rate) {
-				warning('Please enter an amount less than 1 bitcoin.');
+				warning($_('user.receive.lessThan1BTCWarning'));
 			} else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
 				return;
 			} else {
@@ -70,7 +71,7 @@
 					}
 				}
 			} else if (value !== '<' && parseInt(amountSats + value) > 100000000) {
-				warning('Please enter an amount less than 1 bitcoin.');
+				warning($_('user.receive.lessThan1BTCWarning'));
 			} else {
 				amountSats = amountSats + value;
 			}
@@ -93,11 +94,11 @@
 				<div class="text-center">
 					<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
 						{useFiat ? `$${amountFiat}` : amountSatsFormatted}<span
-							class="tracking-normal text-base font-normal">{useFiat ? 'USD' : 'SATS'}</span
+							class="tracking-normal text-base font-normal">{useFiat ? 'USD' : 'SAT'}</span
 						>
 					</div>
 					<span class="text-secondary mr-1"
-						>{useFiat ? `${amountSatsConverted} SATS` : `${amountFiatConverted} USD`}</span
+						>{useFiat ? `${amountSatsConverted} SAT` : `${amountFiatConverted} USD`}</span
 					>
 					<button
 						on:click={() => {
@@ -156,7 +157,7 @@
 							? 'opacity-50'
 							: 'opacity-100'}"
 						on:click={submit}
-						disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> Show QR</button
+						disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> {$_('user.receive.showQR')}</button
 					>
 					<!--
 					<button

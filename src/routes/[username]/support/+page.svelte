@@ -2,6 +2,7 @@
 	// this needs to be hooked up to the backend
 	import { AppHeader } from '$comp';
 	import { user } from '$lib/store';
+  import { _ } from 'svelte-i18n';
 	let email;
 	let message;
 </script>
@@ -10,11 +11,11 @@
 	<AppHeader />
 
 	<div class="my-20">
-		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">Support</h1>
+		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">{$_('user.support.header')}</h1>
 
 		<form class="space-y-5 mx-auto w-11/12 md:w-[350px]">
 			<div>
-				<label for="email" class="font-semibold">Email</label>
+				<label for="email" class="font-semibold">{$_('user.support.email')}</label>
 				<input
 					class="block border rounded-xl p-2 w-full"
 					type="email"
@@ -25,7 +26,7 @@
 			</div>
 
 			<div>
-				<label for="account" class="font-semibold">Account Name</label>
+				<label for="account" class="font-semibold">{$_('user.support.accountName')}</label>
 				<input
 					class="block border rounded-xl p-2 w-full"
 					type="text"
@@ -37,7 +38,7 @@
 			</div>
 
 			<div>
-				<label for="message" class="font-semibold">Message</label>
+				<label for="message" class="font-semibold">{$_('user.support.message')}</label>
 				<textarea
 					rows={5}
 					class="block border rounded-xl p-2 w-full"
@@ -53,7 +54,7 @@
 				class="{!email || !message
 					? 'opacity-50'
 					: 'opacity-100'} bg-black text-white font-bold rounded-xl py-3 w-full mx-auto"
-				>Send</button
+				>{$_('user.support.send')}</button
 			>
 		</form>
 	</div>
