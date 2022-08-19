@@ -61,6 +61,12 @@
 			"description": "You can convert to local currency at any point."
     }
   },
+  "invoice": {
+    "addTip": "Add a tip",
+    "addTipq": "Add a tip?",
+    "done": "Done",
+    "paymentSuccessful": "Payment Successful!"
+  },
   "jobs": {
     "header": "Jobs",
     "subheader": "Current Openings",

@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
+  import { _, number } from 'svelte-i18n';
 
   export let data;
   $: ({ amount, id, rate, status, text, username } = data);
@@ -150,7 +151,7 @@
 						? 'bottom-0'
 						: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
 				>
-					<h1 class="hidden md:block text-4xl font-semibold">Add a tip?</h1>
+					<h1 class="hidden md:block text-4xl font-semibold">{$_('invoice.addTipq')}</h1>
 
 					<div>
 						<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
@@ -244,7 +245,7 @@
 								stroke-linecap="round"
 								stroke-linejoin="round"
 							/>
-						</svg> Add a tip
+						</svg> {$_('invoice.addTip')}
 					</button>
 
 					<span class="text-secondary block"
@@ -264,7 +265,7 @@
 							<span class="font-semibold text-sm">Invoice</span>
 							<span class="font-semibold text-sm"
 								>{invoiceAmountFiatFormatted}
-								<span class="text-secondary font-normal">{`(${amountFormatted} SATS)`}</span></span
+								<span class="text-secondary font-normal">{`(${amountFormatted} SAT)`}</span></span
 							>
 						</div>
 
@@ -272,7 +273,7 @@
 							<span class="font-semibold text-sm">Tip</span>
 							<span class="font-semibold text-sm"
 								>{tipAmountFormatted}
-								<span class="text-secondary font-normal">{`(${tipAmountSats} SATS)`}</span></span
+								<span class="text-secondary font-normal">{`(${tipAmountSats} SAT)`}</span></span
 							>
 						</div>
 
@@ -280,7 +281,7 @@
 							<span class="font-bold mr-1">Total</span>
 							<span class="font-bold"
 								>{totalAmountFormatted}
-								<span class="text-secondary font-normal">{`(${totalAmountSats} SATS)`}</span></span
+								<span class="text-secondary font-normal">{`(${totalAmountSats} SAT)`}</span></span
 							>
 						</div>
 					</div>
@@ -291,14 +292,14 @@
 {:else}
 	<div class="text-center mt-20 md:mt-0">
 		<Image image="success" style="w-full md:w-3/4 xl:w-1/2 mx-auto max-w-3xl" />
-		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment Successful!</h1>
+		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$_('invoice.paymentSuccessful')}</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
 			{totalAmountFormatted}
 			{$preferredCurrency}
 		</h2>
-		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SATS)</h3>
+		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SAT)</h3>
 		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold" on:click={handleDoneClick}>
-			Done
+			{$_('invoice.done)}
 		</button>
 	</div>
 {/if}
