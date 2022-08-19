@@ -126,8 +126,8 @@
 			<div>
 				<label for="btc-unit" class="font-bold block mb-1">{$_('user.settings.btcUnit')}</label>
 				<select disabled name="btc-unit" class="block py-3 w-full">
-					<option value="SATS">Satoshi (SAT)</option>
-					<option value="BTC">Bitcoin (BTC)</option>
+					<option value="SATS">{$_('user.settings.satoshis')} (SAT)</option>
+					<option value="BTC">{$_('user.settings.bitcoin')} (BTC)</option>
 				</select>
 			</div>
 		{:else}

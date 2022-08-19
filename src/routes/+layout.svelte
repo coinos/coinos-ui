@@ -11,6 +11,7 @@
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
+  import { _ } from 'svelte-i18n';
 
 	browser && ($token ||= $session.token);
 
@@ -28,7 +29,7 @@
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) {
 				goto('/login');
-				warning('Please sign in to continue.');
+				warning($_('error.signIn'));
 			}
 			user.subscribe((u) => u?.username && (ready = true));
 		} else {
