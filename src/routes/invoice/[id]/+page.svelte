@@ -299,7 +299,7 @@
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SAT)</h3>
 		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold" on:click={handleDoneClick}>
-			{$_('invoice.done)}
+			{$_('invoice.done')}
 		</button>
 	</div>
 {/if}
