@@ -1,6 +1,6 @@
 <script>
 	import { Image, Icon } from '$comp';
-  import { _ } from 'svelte-i18n';
+  import { _, json } from 'svelte-i18n';
 </script>
 
 <h3 class="text-5xl font-medium mb-10 text-center">{$_('about.header')}</h3>
@@ -51,11 +51,8 @@
 	<ul
 		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
 	>
-      <li>{$_('about.founder.bitcoin')}</li>
-      <li>{$_('about.founder.webDev')}</li>
-      <li>{$_('about.founder.bitcoinVancouver')}</li>
-      <li>{$_('about.founder.bitcoinCoop')}</li>
-      <li>{$_('about.founder.beliefs')}</li>
-      <li>{$_('about.founder.familialRelationships')}</li>
-	</ul>
+    {#each $json('about.founder.qualifications') as qualification}
+      <li>{qualification}</li>
+    {/each}
+  </ul>
 </div>
