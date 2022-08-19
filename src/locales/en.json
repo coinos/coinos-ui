@@ -61,6 +61,14 @@
 			"description": "You can convert to local currency at any point."
     }
   },
+  "jobs": {
+    "header": "Jobs",
+    "subheader": "Current Openings",
+    "pitch1": "CoinOS is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
+    "pitch2": "Excited about working on open source bitcoin? Then take a look at our repositories on",
+    "github": "GitHub",
+    "pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
+  },
   "landing": {
     "header_before_icon": "The",
     "header_with_icon": "easiest",
