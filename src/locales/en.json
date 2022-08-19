@@ -81,6 +81,17 @@
       "description": "Customize your point of sale look and feel, or keep it on default - totally up to you."
     }
   },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "passwordRecommendation": "We recommend a long, random password generated with a password manager.",
+    "forgotPassword": "Forgot Password?",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "signIn": "Sign In",
+    "failed": "Login failed"
+  },
 	"nav": {
 		"startInSeconds": "Start in Seconds",
     "account": "Account",

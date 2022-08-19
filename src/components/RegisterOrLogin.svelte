@@ -4,8 +4,9 @@
 	import { user, token } from '$lib/store';
 	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
+  import { _ } from 'svelte-i18n';
 
-	export let page;
+	export let pageID;
 
 	let username = 'bob',
 		password = 'pw';
@@ -13,9 +14,9 @@
 	let revealPassword = false;
 
 	let url = {
-		Register: '/register',
-		'Sign in': '/login'
-	}[page];
+		register: '/register',
+		signIn: '/login'
+	}[pageID];
 
 	let submit = async () => {
 		try {
@@ -24,7 +25,7 @@
 			$token = r.token;
 			auth();
 		} catch (e) {
-			if (!e.message) e.message = 'Login failed';
+			if (!e.message) e.message = $_('login.failed');
 			failure(e.message);
 		}
 	};
@@ -41,11 +42,11 @@
 
 	<div class="flex justify-center items-center">
 		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
-			<h1 class="text-2xl font-bold text-center">{page}</h1>
+			<h1 class="text-2xl font-bold text-center">{$_('login.' + pageID)}</h1>
 
 			<form class="space-y-5" on:submit|preventDefault={submit}>
 				<div>
-					<label for="username" class="font-semibold">Username</label>
+					<label for="username" class="font-semibold">{$_('login.username')}</label>
 					<!-- svelte-ignore a11y-autofocus -->
 					<input
 						type="text"
@@ -57,7 +58,7 @@
 				</div>
 
 				<div class="relative">
-					<label for="password" class="block font-semibold">Password</label>
+					<label for="password" class="block font-semibold">{$_('login.password')}</label>
 					{#if revealPassword}
 						<input
 							type="text"
@@ -82,30 +83,30 @@
 					</button>
 				</div>
 
-				{#if page === 'Register'}
+				{#if pageID === 'register'}
 					<p class="text-secondary text-sm">
-						We recommend a long, random password generated with a password manager.
+            {$_('login.passwordRecommendation')}
 					</p>
 				{:else}
 					<div class="flex justify-end items-center">
 						<a href="/forgot" class="underline underline-offset-4 text-black text-sm"
-							>Forgot Password?</a
+							>{$_('login.forgotPassword')}</a
 						>
 					</div>
 				{/if}
 
 				<button type="submit" class="bg-black text-white w-full rounded-2xl p-4 font-semibold"
-					>{page}
+					>{$_('login.' + pageID)}
 				</button>
 			</form>
 
 			<p class="text-secondary text-center font-medium">
-				{page === 'Register' ? 'Already have an account?' : "Don't have an account?"}
+				{pageID === 'register' ? $_('login.haveAccount') : $_('login.noAccount')}
 				<a
-					href={page === 'Register' ? '/login' : '/register'}
+					href={pageID === 'register' ? '/login' : '/register'}
 					class="block md:inline text-black underline underline-offset-4"
 				>
-					{page === 'Register' ? 'Sign in' : 'Register'}
+					{pageID === 'register' ? $_('login.signIn') : $_('login.register')}
 				</a>
 			</p>
 		</div>
