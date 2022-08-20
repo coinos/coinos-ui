@@ -7,7 +7,7 @@ const opts = {
 	path: '/'
 };
 
-export async function load({ request: { headers } }) {
+export async function load({ setHeaders }) {
 	setHeaders({
 		'set-cookie': [
 			cookie.serialize('token', '', {
