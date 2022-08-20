@@ -6,9 +6,8 @@
 	import { copy } from '$lib/utils';
   import { _ } from 'svelte-i18n';
 	export let data;
-	$: ({ username } = data);
 
-	let lightningAddress = `${username}@coinos.io`;
+	let lightningAddress = `${data?.username}@coinos.io`;
 
 	onMount(async () => {
 		if (browser) {
@@ -36,13 +35,13 @@
 	let followed = false;
 </script>
 
-{#if username}
+{#if data?.username}
 	<AppHeader avatarPosition="left-[calc(15vw-48px)]" />
 
 	<div class="flex xl:block justify-center items-center my-20 px-3">
 		<div class="space-y-10 xl:space-y-0">
 			<div class="xl:ml-[calc(15vw-48px)] space-y-2 w-full md:w-72">
-				<h1 class="text-3xl font-bold">{username}</h1>
+				<h1 class="text-3xl font-bold">{data.username}</h1>
 
 				<p class="text-secondary">{$_('user.addressGoesHere')}</p>
 

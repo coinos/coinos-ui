@@ -4,7 +4,7 @@
 	import { user, token } from '$lib/store';
 	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
 	export let pageID;
 
@@ -13,22 +13,10 @@
 
 	let revealPassword = false;
 
-	let url = {
+	let action = {
 		register: '/register',
 		signIn: '/login'
 	}[pageID];
-
-	let submit = async () => {
-		try {
-			let r = await post(url, { username, password });
-			if (!r.token) r = await post('/login', { username, password });
-			$token = r.token;
-			auth();
-		} catch (e) {
-			if (!e.message) e.message = $_('login.failed');
-			failure(e.message);
-		}
-	};
 
 	$: if ($user) goto(`/${username}/receive`);
 </script>
@@ -44,11 +32,12 @@
 		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
 			<h1 class="text-2xl font-bold text-center">{$_('login.' + pageID)}</h1>
 
-			<form class="space-y-5" on:submit|preventDefault={submit}>
+			<form class="space-y-5" {action} method="POST">
 				<div>
 					<label for="username" class="font-semibold">{$_('login.username')}</label>
 					<!-- svelte-ignore a11y-autofocus -->
 					<input
+						name="username"
 						type="text"
 						required
 						class="bg-primary p-4 rounded-2xl w-full"
@@ -61,6 +50,7 @@
 					<label for="password" class="block font-semibold">{$_('login.password')}</label>
 					{#if revealPassword}
 						<input
+							name="password"
 							type="text"
 							required
 							class="block bg-primary p-4 rounded-2xl w-full"
@@ -68,6 +58,7 @@
 						/>
 					{:else}
 						<input
+							name="password"
 							type="password"
 							required
 							class="block bg-primary p-4 rounded-2xl w-full"
@@ -85,7 +76,7 @@
 
 				{#if pageID === 'register'}
 					<p class="text-secondary text-sm">
-            {$_('login.passwordRecommendation')}
+						{$_('login.passwordRecommendation')}
 					</p>
 				{:else}
 					<div class="flex justify-end items-center">

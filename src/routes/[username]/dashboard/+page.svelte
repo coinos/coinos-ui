@@ -83,7 +83,7 @@
 				<span class="text-secondary text-xl block">{accountBalanceSats} SAT</span>
 
 				<button class="rounded-full border py-2 font-bold w-28 mt-4" on:click={toggle}
-					>$_('user.dashboard.withdraw')</button
+            >{$_('user.dashboard.withdraw')}</button
 				>
 				<p class="text-secondary my-2">{$_('user.dashboard.conversionFeeWarning')}</p>
 			{:else}

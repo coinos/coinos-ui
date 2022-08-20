@@ -6,19 +6,20 @@
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
 	import { user, token } from '$lib/store';
-	import { page, session } from '$app/stores';
+	import { page } from '$app/stores';
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
   import { _ } from 'svelte-i18n';
 
-	browser && ($token ||= $session.token);
+  $: $token = data.token
+
+  export let data;
 
 	let ready = false;
 
 	onMount(() => {
-		// get locale from local storage
 		let localStorageLocale = localStorage.getItem('svelte-i18n-locale');
 		if (localStorageLocale) locale.set(localStorageLocale);
 
@@ -27,6 +28,7 @@
 		});
 
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
+      console.log("TOKEN", $token)
 			if (!$token) {
 				goto('/login');
 				warning($_('error.signIn'));

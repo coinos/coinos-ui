@@ -1,3 +1,4 @@
+import cookie from 'cookie';
 import { browser } from '$app/env';
 import { toast } from '@zerodevx/svelte-toast';
 
@@ -94,5 +95,23 @@ export const info = (m) => {
 		theme: {
 			'--toastBarBackground': '#1C69FF'
 		}
+	});
+};
+
+export const login = async (user, setHeaders) => {
+	let maxAge = 30 * 24 * 60 * 60;
+	let { token } = await post('/login', user);
+
+	let expires = new Date();
+	expires.setSeconds(expires.getSeconds() + maxAge);
+
+	setHeaders({
+		'set-cookie': cookie.serialize('token', token, {
+			httpOnly: true,
+			maxAge,
+			sameSite: 'lax',
+			path: '/',
+			expires
+		})
 	});
 };

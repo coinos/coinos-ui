@@ -1,21 +1,8 @@
-import { post } from '$lib/utils';
-import cookie from 'cookie';
-
-let maxAge = 30 * 24 * 60 * 60;
+import { login, post } from '$lib/utils';
 
 export async function POST({ setHeaders, request }) {
-	let body = await post('/login', await request.json());
+	let user = Object.fromEntries(await request.formData());
+  await login(user, setHeaders);
 
-	let expires = new Date();
-	expires.setSeconds(expires.getSeconds() + maxAge);
-
-	setHeaders({
-		'set-cookie': cookie.serialize('token', body.token, {
-			httpOnly: true,
-			maxAge,
-			sameSite: 'lax',
-			path: '/',
-			expires
-		})
-	});
+	return { location: `/${data.username}/dashboard` };
 }
