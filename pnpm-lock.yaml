@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@sveltejs/adapter-auto': next
+  '@sveltejs/adapter-auto': 1.0.0-next.64
   '@sveltejs/kit': 1.0.0-next.427
   '@zerodevx/svelte-toast': ^0.7.2
   autoprefixer: ^10.4.7
