@@ -2,7 +2,7 @@
 	import { AppHeader, Icon, Toggle, LocaleSelector } from '$comp';
 	import { user, colorTheme, rates, token } from '$lib/store';
 	import { _ } from 'svelte-i18n';
-	import { success, failure, post } from '$lib/utils';
+	import { success, failure, put } from '$lib/utils';
 
 	let setting = 'account';
 	let password;
@@ -27,11 +27,8 @@
 
 	const updateFiat = async (e) => {
 		try {
-			await post(
-				'/user',
-				{ currency: e.target.value },
-				{ authorization: `Bearer ${$token}` }
-			);
+			$user.currency = e.target.value;
+			let r = await put('/' + $user.username, { user: $user });
 			success('Local currency updated!');
 		} catch (e) {
 			failure(e.message);
