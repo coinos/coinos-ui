@@ -45,3 +45,9 @@ Strings are internationalized by simply using `svelte-i18n`'s [`$format`](https:
 ## The Locale Selector
 
 CoinOS also has a `LocaleSelector` component, which should be used to select locales. It is a dropdown that allows you to select & update the locale.
+
+## The Guided Translation Script
+
+CoinOS has a Python script that helps you with the technical parts of translation.  It is located at `src/locales/guided_translation.py`.  It also has some utility functions:
+- `nested_dict_keys` - gets a list of keys of a nested dictionary in dot-separated shallow format (e.g. a.b.c)
+- `localize_string` - localizes a string interactively
