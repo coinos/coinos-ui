@@ -1,5 +1,5 @@
 <script>
-	import { Image, Icon } from '$comp';
+	import { Image, Icon, LocationsMap } from '$comp';
 	import { _, json } from 'svelte-i18n';
 </script>
 
@@ -61,4 +61,15 @@
 			<li>{qualification}</li>
 		{/each}
 	</ul>
+</div>
+
+<div class="mt-20">
+	<h3 class="text-5xl font-medium mb-5 text-center">Locations</h3>
+	<p class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10">
+		These are businesses that are accepting bitcoin using CoinOS point of sale. If you are using our
+		application, please <a href="mailto:contact@coinos.io" class="underline underline-offset-4"
+			>let us know!</a
+		>
+	</p>
+	<LocationsMap />
 </div>
