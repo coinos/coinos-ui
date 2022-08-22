@@ -37,7 +37,7 @@ Each locale in `coinos-ui-v2` is defined by a JSON file in `src/locales`. Its na
 Strings are internationalized by simply using `svelte-i18n`'s [`$format`](https://github.com/kaisermann/svelte-i18n/blob/96a5adab7560249c8881e0612454e01c09273400/docs/Formatting.md) function. A localized string looks like this:
 
 ```
-{$_('stringID')}
+{$t('stringID')}
 ```
 
 (`$_` is a convenient alias for `$format`.)

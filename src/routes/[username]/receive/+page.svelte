@@ -5,7 +5,7 @@
 	import { invoiceAmount, invoiceAmountFiat, selectedRate, user } from '$lib/store';
 	import { post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
-	import { _, number } from 'svelte-i18n';
+  import { t } from '$lib/translations';
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -53,7 +53,7 @@
 					}
 				}
 			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $selectedRate) {
-				warning($_('user.receive.lessThan1BTCWarning'));
+				warning($t('user.receive.lessThan1BTCWarning'));
 			} else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
 				return;
 			} else {
@@ -73,7 +73,7 @@
 					}
 				}
 			} else if (value !== '<' && parseInt(amountSats + value) > 100000000) {
-				warning($_('user.receive.lessThan1BTCWarning'));
+				warning($t('user.receive.lessThan1BTCWarning'));
 			} else {
 				amountSats = amountSats + value;
 			}
@@ -185,7 +185,7 @@
 							: 'opacity-100'}"
 						on:click={submit}
 						disabled={$invoiceAmount === 0}
-						><Icon icon="qr" style="mr-2" /> {$_('user.receive.showQR')}</button
+						><Icon icon="qr" style="mr-2" /> {$t('user.receive.showQR')}</button
 					>
 					<!--
 					<button

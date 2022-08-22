@@ -1,5 +1,5 @@
 <script>
-	import { _, locale, locales } from 'svelte-i18n';
+  import { locale, locales } from '$lib/translations';
 	export let style;
 </script>
 

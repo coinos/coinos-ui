@@ -5,7 +5,7 @@
 	import { user, newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 
 	export let avatarPosition = 'left-[calc(50vw-48px)]';
 
@@ -75,7 +75,7 @@
 									<button
 										class="flex justify-center items-center font-semibold text-sm"
 										on:click={() => handleMenuItemClick(button.goto)}
-										><Icon icon={button.icon} style="mr-1" /> {$_(button.stringID)}
+										><Icon icon={button.icon} style="mr-1" /> {$t(button.stringID)}
 									</button>
 								</li>
 							{/each}
@@ -86,7 +86,7 @@
 		{:else}
 			<a href="/login">
 				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
-					>{$_('nav.signIn')}</button
+					>{$t('nav.signIn')}</button
 				>
 			</a>
 		{/if}

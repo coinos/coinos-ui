@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 </script>
 
 <a href="/">
@@ -11,22 +11,22 @@
 	<button on:click={() => goto('/')}>
 		<Icon icon="arrow-left" style="w-8" />
 	</button>
-	<h1 class="text-5xl font-medium">{$_('jobs.header')}</h1>
+	<h1 class="text-5xl font-medium">{$t('jobs.header')}</h1>
 
-	<h2 class="text-2xl font-medium">{$_('jobs.subheader')}</h2>
+	<h2 class="text-2xl font-medium">{$t('jobs.subheader')}</h2>
 
 	<p class="text-justify text-xl text-secondary">
-		{$_('jobs.pitch1')}
+		{$t('jobs.pitch1')}
 		<br /><br />
-		{$_('jobs.pitch2')}
+		{$t('jobs.pitch2')}
 		<a
 			href="https://github.com/coinos"
 			target="_blank"
 			rel="noreferrer"
-			class="underline underline-offset-4">{$_('jobs.github')}</a
+			class="underline underline-offset-4">{$t('jobs.github')}</a
 		>.
 		<br /><br />
-		{$_('jobs.pitch3')}
+		{$t('jobs.pitch3')}
 		<a href="mailto:contact@coinos.io" class="underline underline-offset-4">contact@coinos.io</a>.
 	</p>
 </div>

@@ -1,6 +1,6 @@
 <script>
 	import { Icon } from '$comp';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 
 	const followLinks = [
 		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
@@ -18,21 +18,21 @@
 	<Icon icon="logo" style="w-48 mx-auto md:mx-0" />
 
 	<div class="text-center md:text-left">
-		<p class="font-semibold">{$_('footer.followUs')}</p>
+		<p class="font-semibold">{$t('footer.followUs')}</p>
 		<ul class="mt-5 text-secondary space-y-3 font-medium">
 			{#each followLinks as link}
 				<li>
-					<a href={link.url} target="_blank" rel="noreferrer">{$_('footer.' + link.titleID)}</a>
+					<a href={link.url} target="_blank" rel="noreferrer">{$t('footer.' + link.titleID)}</a>
 				</li>
 			{/each}
 		</ul>
 	</div>
 
 	<div class="text-center md:text-left">
-		<p class="font-semibold">{$_('footer.company')}</p>
+		<p class="font-semibold">{$t('footer.company')}</p>
 		<ul class="mt-5 text-secondary space-y-3">
 			{#each companyLinks as link}
-				<li><a href={link.url}>{$_('footer.' + link.titleID)}</a></li>
+				<li><a href={link.url}>{$t('footer.' + link.titleID)}</a></li>
 			{/each}
 		</ul>
 	</div>

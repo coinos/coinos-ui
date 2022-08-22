@@ -1,7 +1,7 @@
 <script>
 	import { AppHeader, Icon, Toggle, LocaleSelector } from '$comp';
 	import { user, colorTheme, rates, token } from '$lib/store';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 	import { success, failure, put } from '$lib/utils';
 
 	let setting = 'account';
@@ -41,31 +41,31 @@
 
 	<div class="my-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
-			{$_('user.settings.header')}
+			{$t('user.settings.header')}
 		</h1>
 
 		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
 			<button class:selected={setting === 'account'} on:click={() => (setting = 'account')}
-				>{$_('user.settings.ACCOUNT')}</button
+				>{$t('user.settings.ACCOUNT')}</button
 			>
 
 			<button class:selected={setting === 'pos'} on:click={() => (setting = 'pos')}
-				>{$_('user.settings.POINT_OF_SALE')}</button
+				>{$t('user.settings.POINT_OF_SALE')}</button
 			>
 
 			<button class:selected={setting === 'security'} on:click={() => (setting = 'security')}
-				>{$_('user.settings.SECURITY')}</button
+				>{$t('user.settings.SECURITY')}</button
 			>
 		</div>
 
 		{#if setting === 'account'}
 			<div>
-				<label for="language" class="font-bold block mb-1">{$_('user.settings.locale')}</label>
+				<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
 				<LocaleSelector style="block py-3 w-full" />
 			</div>
 
 			<div>
-				<label for="username" class="font-bold mb-1 block">{$_('user.settings.username')}</label>
+				<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
 				<input
 					type="text"
 					disabled
@@ -77,7 +77,7 @@
 
 			<div class="relative">
 				<label for="password" class="block font-bold block mb-1"
-					>{$_('user.settings.newPassword')}</label
+					>{$t('user.settings.newPassword')}</label
 				>
 				{#if revealPassword}
 					<input type="text" class="block border rounded-xl p-3 w-full" bind:value={password} />
@@ -95,34 +95,34 @@
 
 			<div>
 				<label for="address" class="font-bold mb-1 block"
-					>{$_('user.settings.businessAddress')}</label
+					>{$t('user.settings.businessAddress')}</label
 				>
 				<input type="text" name="address" class="block border rounded-xl p-3 w-full" />
 			</div>
 
 			<div>
 				<div class="flex justify-between items-center">
-					<span class="font-bold">{$_('user.settings.emailNotifications')}</span>
+					<span class="font-bold">{$t('user.settings.emailNotifications')}</span>
 					<Toggle id="email-notify" />
 				</div>
 				<p class="text-secondary mt-1 w-9/12">
-					{$_('user.settings.emailNotificationsDescription')}
+					{$t('user.settings.emailNotificationsDescription')}
 				</p>
 			</div>
 
 			<div>
 				<div class="flex justify-between items-center">
-					<span class="font-bold">{$_('user.settings.smsNotifications')}</span>
+					<span class="font-bold">{$t('user.settings.smsNotifications')}</span>
 					<Toggle id="sms-notify" />
 				</div>
 				<p class="text-secondary mt-1 w-9/12">
-					{$_('user.settings.smsNotificationsDescription')}
+					{$t('user.settings.smsNotificationsDescription')}
 				</p>
 			</div>
 
 			<div>
-				<span class="font-bold mb-1 block">{$_('user.settings.theme')}</span>
-				<p class="text-secondary mb-1">{$_('user.settings.themeDescription')}</p>
+				<span class="font-bold mb-1 block">{$t('user.settings.theme')}</span>
+				<p class="text-secondary mb-1">{$t('user.settings.themeDescription')}</p>
 				{#each colorThemes as colors}
 					<button
 						class="mr-2 w-10 h-10 bg-gradient-to-r {colors.color1} {colors.color2} rounded-xl border-2 {selectedTheme ===
@@ -136,7 +136,7 @@
 		{:else if setting === 'pos'}
 			<div>
 				<label for="currency" class="font-bold block mb-1"
-					>{$_('user.settings.localCurrency')}</label
+					>{$t('user.settings.localCurrency')}</label
 				>
 				<select name="currency" on:change={updateFiat} class="block py-3 w-full">
 					{#each fiats as fiat}
@@ -146,27 +146,27 @@
 			</div>
 
 			<div>
-				<label for="btc-unit" class="font-bold block mb-1">{$_('user.settings.btcUnit')}</label>
+				<label for="btc-unit" class="font-bold block mb-1">{$t('user.settings.btcUnit')}</label>
 				<select disabled name="btc-unit" class="block py-3 w-full">
-					<option value="SATS">{$_('user.settings.satoshis')} (SAT)</option>
-					<option value="BTC">{$_('user.settings.bitcoin')} (BTC)</option>
+					<option value="SATS">{$t('user.settings.satoshis')} (SAT)</option>
+					<option value="BTC">{$t('user.settings.bitcoin')} (BTC)</option>
 				</select>
 			</div>
 		{:else}
 			<div>
-				<span class="font-bold mb-1">{$_('user.settings.securityPIN')}</span>
+				<span class="font-bold mb-1">{$t('user.settings.securityPIN')}</span>
 				<p class="text-secondary mb-1">
-					{$_('user.settings.securityPINDescription')}
+					{$t('user.settings.securityPINDescription')}
 				</p>
 				<button class="p-3 border rounded-3xl font-bold flex justify-center items-center"
-					><Icon icon="lock" style="mr-1" /> {$_('user.settings.setPIN')}</button
+					><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
 				>
 			</div>
 
 			<div>
-				<label for="auto-lock" class="font-bold mb-1">{$_('user.settings.autoLock')}</label>
+				<label for="auto-lock" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
 				<p class="text-secondary mb-1">
-					{$_('user.settings.autoLockDescription')}
+					{$t('user.settings.autoLockDescription')}
 				</p>
 				<select name="auto-lock" class="block py-3 w-full">
 					<option value="5">5 min</option>
@@ -178,12 +178,12 @@
 			</div>
 
 			<div>
-				<span class="font-bold mb-1">{$_('user.settings.twofa')}</span>
+				<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
 				<p class="text-secondary mb-1">
-					{$_('user.settings.twofaDescription')}
+					{$t('user.settings.twofaDescription')}
 				</p>
 				<button class="p-3 border rounded-3xl font-bold flex justify-center items-center"
-					><Icon icon="mobile" style="mr-1" /> {$_('user.settings.twofaSetup')}</button
+					><Icon icon="mobile" style="mr-1" /> {$t('user.settings.twofaSetup')}</button
 				>
 			</div>
 		{/if}
