@@ -155,7 +155,7 @@
 
 					<div>
 						<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
-							class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SATS)`}</span
+							class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
 						>
 						<span class="block text-secondary text-sm">{tipPercent}%</span>
 					</div>
