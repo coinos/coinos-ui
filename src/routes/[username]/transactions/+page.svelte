@@ -31,7 +31,7 @@
 								<span class="block mb-1"
 									>{tx.amount > 0 ? '+' : ''}{new Intl.NumberFormat('en-US', {
 										style: 'currency',
-										currency: 'USD'
+										currency: tx.currency
 									}).format(tx.amount * (tx.rate / 100000000))}
 								</span>
 

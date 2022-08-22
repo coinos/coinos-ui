@@ -2,7 +2,7 @@
 	// in the future we will want to allow users to set their fiat currency in the settings
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
-	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
+	import { invoiceAmount, invoiceAmountFiat, selectedRate, user } from '$lib/store';
 	import { post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { _, number } from 'svelte-i18n';
@@ -11,11 +11,13 @@
 	let amountFiat = 0;
 	let amountSats = 0;
 
-	$: amount = useFiat ? Math.round(amountFiat / ($rate / 100000000)) : amountSats;
+	$: amount = useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats;
 
-	$: $invoiceAmount = parseInt(amountSats === 0 ? amountFiat / ($rate / 100000000) : amountSats);
+	$: $invoiceAmount = parseInt(
+		amountSats === 0 ? amountFiat / ($selectedRate / 100000000) : amountSats
+	);
 	$: $invoiceAmountFiat = parseInt(
-		amountFiat === 0 ? amountSats * ($rate / 100000000) : amountFiat
+		amountFiat === 0 ? amountSats * ($selectedRate / 100000000) : amountFiat
 	);
 	$: amountSatsFormatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
 		amountSats
@@ -23,11 +25,11 @@
 
 	$: amountFiatConverted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: 'USD'
-	}).format(amountSats * ($rate / 100000000));
+		currency: $user.currency
+	}).format(amountSats * ($selectedRate / 100000000));
 
 	$: amountSatsConverted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-		amountFiat / ($rate / 100000000)
+		amountFiat / ($selectedRate / 100000000)
 	);
 
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
@@ -50,7 +52,7 @@
 						amountSats = 0;
 					}
 				}
-			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $rate) {
+			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $selectedRate) {
 				warning($_('user.receive.lessThan1BTCWarning'));
 			} else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
 				return;
@@ -60,7 +62,7 @@
 		} else {
 			if (value === '.') {
 				return;
-			} else if (amountSats === 0 && value !== '<' && value !== '0') {
+			} else if (amountSats === '0' && value !== '<' && value !== '0') {
 				amountSats = value;
 			} else if (value === '<') {
 				if (amountSats !== 0) {
@@ -79,7 +81,11 @@
 	};
 
 	let submit = async () => {
-		let { id } = await post('/invoice', { amount, rate: $rate, username: $page.params.username });
+		let { id } = await post('/invoice', {
+			amount,
+			rate: $selectedRate,
+			username: $page.params.username
+		});
 		goto(`/invoice/${id}`);
 	};
 </script>
@@ -88,26 +94,47 @@
 	<AppHeader />
 
 	<div class="flex justify-center items-center mt-20 mb-3 px-3">
-		{#if $rate}
+		{#if $selectedRate}
 			<div class="space-y-5">
 				<!-- amounts -->
 				<div class="text-center">
 					<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
-						{useFiat ? `$${amountFiat}` : amountSatsFormatted}<span
-							class="tracking-normal text-base font-normal">{useFiat ? 'USD' : 'SAT'}</span
+						{useFiat
+							? `${
+									$user.currency === 'USD' ||
+									$user.currency === 'CAD' ||
+									$user.currency === 'AUD' ||
+									$user.currency === 'NZD' ||
+									$user.currency === 'MXN' ||
+									$user.currency === 'BRL' ||
+									$user.currency === 'HKD' ||
+									$user.currency === 'TWD'
+										? '$'
+										: $user.currency === 'JPY' || $user.currency === 'CNY'
+										? '¥'
+										: $user.currency === 'GBP'
+										? '£'
+										: $user.currency === 'EUR'
+										? '€'
+										: $user.currency === 'KRW'
+										? '₩'
+										: ''
+							  }${amountFiat}`
+							: amountSatsFormatted}<span class="tracking-normal text-base font-normal"
+							>{useFiat ? $user.currency : 'SAT'}</span
 						>
 					</div>
 					<span class="text-secondary mr-1"
-						>{useFiat ? `${amountSatsConverted} SAT` : `${amountFiatConverted} USD`}</span
+						>{useFiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
 					>
 					<button
 						on:click={() => {
 							if (useFiat) {
-								amountSats = (amountFiat / ($rate / 100000000)).toFixed(0).toString();
+								amountSats = (amountFiat / ($selectedRate / 100000000)).toFixed(0).toString();
 							} else {
 								amountFiat =
-									(amountSats * ($rate / 100000000)).toFixed(2) > 0.0
-										? (amountSats * ($rate / 100000000)).toFixed(2).toString()
+									(amountSats * ($selectedRate / 100000000)).toFixed(2) > 0.0
+										? (amountSats * ($selectedRate / 100000000)).toFixed(2).toString()
 										: 0;
 							}
 							useFiat = !useFiat;
