@@ -18,15 +18,12 @@
 	$rates = data.rates;
 	$: $selectedRate = data.user && $rate * (data.rates[data.user.currency] / data.rates.USD);
 
-	let ready = false;
-
 	onMount(() => {
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) {
 				goto('/login');
 				warning($t('error.signIn'));
 			}
-			user.subscribe((u) => u?.username && (ready = true));
 		} else {
 			ready = true;
 		}
@@ -35,12 +32,8 @@
 	});
 </script>
 
-{#if ready}
-	<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
-	<slot />
-{:else}
-	<LoadingSplash />
-{/if}
+<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
+<slot />
 
 <style>
 	:root {
