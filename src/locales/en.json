@@ -22,7 +22,11 @@
 				"Yogi, permaculturist, anarchist, decentralist",
 				"Husband, father, brother, son"
 			]
-		}
+		},
+    "locations": {
+      "header": "Locations",
+      "description": "These are businesses that are accepting bitcoin using CoinOS point of sale. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">let us know!</a>"
+    }
 	},
 	"error": {
 		"header": "Error",
