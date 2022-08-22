@@ -2,7 +2,7 @@
 	import { post, failure } from '$lib/utils';
 	import { tick } from 'svelte';
 	import { AppHeader, Icon } from '$comp';
-	import { rate, user, preferredCurrency } from '$lib/store';
+	import { selectedRate, user } from '$lib/store';
 	import { _ } from 'svelte-i18n';
 
 	let payreq = '',
@@ -26,24 +26,19 @@
 
 	$: btcPrice = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: 'USD'
-	}).format($rate);
+		currency: $user.currency
+	}).format($selectedRate);
 
 	$: accountBalanceFiat = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: 'USD'
-	}).format($user.account.balance * ($rate / 100000000));
+		currency: $user.currency
+	}).format($user.account.balance * ($selectedRate / 100000000));
 
 	$: accountBalanceBtc = $user.account.balance / 100000000;
 
 	$: accountBalanceSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
 		$user.account.balance
 	);
-
-	$: feepayreq = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency: 'USD'
-	}).format(($user.account.balance * ($rate / 100000000)) / 100);
 </script>
 
 {#if $user}
@@ -64,8 +59,9 @@
 			{#if !withdrawing}
 				<span class="text-secondary mx-auto text-lg font-bold"
 					>{$_('user.dashboard.bitcoinPrice')}
-					<span class="text-black">{$rate ? btcPrice : $_('user.dashboard.fetchingRate')}</span>
-					{$preferredCurrency}
+					<span class="text-black"
+						>{$selectedRate ? btcPrice : $_('user.dashboard.fetchingRate')}</span
+					>
 				</span>
 
 				<span class="text-secondary block mt-1">{@html $_('user.dashboard.dataFromBinance')} </span>
@@ -75,7 +71,7 @@
 				</h3>
 
 				<span class="text-3xl font-bold block mb-1"
-					>{$rate ? accountBalanceFiat : $_('user.dashboard.fetchingRate')}</span
+					>{$selectedRate ? accountBalanceFiat : $_('user.dashboard.fetchingRate')}</span
 				>
 
 				<span class="text-secondary text-xl block">{accountBalanceSats} SAT</span>

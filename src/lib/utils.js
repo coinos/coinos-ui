@@ -22,7 +22,7 @@ export const get = (url, headers = { accept: 'application/json' }) =>
 export const post = (url, body, headers) => {
 	headers = { ...headers, accept: 'application/json', 'content-type': 'application/json' };
 	return fetch(base + url, {
-    method: "POST",
+		method: 'POST',
 		body: JSON.stringify(body),
 		headers
 	})
@@ -44,7 +44,7 @@ export const post = (url, body, headers) => {
 export const put = (url, body, headers) => {
 	headers = { ...headers, 'content-type': 'application/json' };
 	return fetch(base + url, {
-    method: "PUT",
+		method: 'PUT',
 		body: JSON.stringify(body),
 		headers
 	});

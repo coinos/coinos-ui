@@ -1,7 +1,7 @@
 <script>
 	import { get, post, reverseFormat } from '$lib/utils';
 	import { browser } from '$app/env';
-	import { invoices, user, preferredCurrency } from '$lib/store';
+	import { invoices, user } from '$lib/store';
 	import { Icon, Image } from '$comp';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -26,7 +26,7 @@
 
 	$: tipAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: 'USD'
+		currency: $user.currency
 	}).format(tipAmount);
 
 	$: tipAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
@@ -50,7 +50,7 @@
 
 	$: totalAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: 'USD'
+		currency: $user.currency
 	}).format(amountFiat + parseFloat(tipAmount));
 
 	const amountFormatted = new Intl.NumberFormat('en-US', {
@@ -59,7 +59,7 @@
 
 	$: invoiceAmountFiatFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: 'USD'
+		currency: $user.currency
 	}).format(amountFiat);
 
 	let customTipAmount;
@@ -296,7 +296,6 @@
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$_('invoice.paymentSuccessful')}</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
 			{totalAmountFormatted}
-			{$preferredCurrency}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SAT)</h3>
 		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold" on:click={handleDoneClick}>
