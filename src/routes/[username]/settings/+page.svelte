@@ -1,7 +1,7 @@
 <script>
 	import { AppHeader, Icon, Toggle, LocaleSelector } from '$comp';
 	import { user, colorTheme } from '$lib/store';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
 	let setting = 'account';
 	let password;
@@ -28,7 +28,9 @@
 	<AppHeader />
 
 	<div class="my-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
-		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">{$_('user.settings.header')}</h1>
+		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+			{$_('user.settings.header')}
+		</h1>
 
 		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
 			<button class:selected={setting === 'account'} on:click={() => (setting = 'account')}
@@ -62,7 +64,9 @@
 			</div>
 
 			<div class="relative">
-				<label for="password" class="block font-bold block mb-1">{$_('user.settings.newPassword')}</label>
+				<label for="password" class="block font-bold block mb-1"
+					>{$_('user.settings.newPassword')}</label
+				>
 				{#if revealPassword}
 					<input type="text" class="block border rounded-xl p-3 w-full" bind:value={password} />
 				{:else}
@@ -78,7 +82,9 @@
 			</div>
 
 			<div>
-				<label for="address" class="font-bold mb-1 block">{$_('user.settings.businessAddress')}</label>
+				<label for="address" class="font-bold mb-1 block"
+					>{$_('user.settings.businessAddress')}</label
+				>
 				<input type="text" name="address" class="block border rounded-xl p-3 w-full" />
 			</div>
 
@@ -88,7 +94,7 @@
 					<Toggle id="email-notify" />
 				</div>
 				<p class="text-secondary mt-1 w-9/12">
-          {$_('user.settings.emailNotificationsDescription')}
+					{$_('user.settings.emailNotificationsDescription')}
 				</p>
 			</div>
 
@@ -117,7 +123,9 @@
 			</div>
 		{:else if setting === 'pos'}
 			<div>
-				<label for="currency" class="font-bold block mb-1">{$_('user.settings.localCurrency')}</label>
+				<label for="currency" class="font-bold block mb-1"
+					>{$_('user.settings.localCurrency')}</label
+				>
 				<select name="currency" class="block py-3 w-full">
 					<option value="USD">USD</option>
 				</select>

@@ -5,7 +5,7 @@
 	import { user, newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
 	export let avatarPosition = 'left-[calc(50vw-48px)]';
 
@@ -85,7 +85,9 @@
 			</div>
 		{:else}
 			<a href="/login">
-				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm">{$_('nav.signIn')}</button>
+				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
+					>{$_('nav.signIn')}</button
+				>
 			</a>
 		{/if}
 	</nav>

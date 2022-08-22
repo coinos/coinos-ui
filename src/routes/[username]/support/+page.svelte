@@ -2,7 +2,7 @@
 	// this needs to be hooked up to the backend
 	import { AppHeader } from '$comp';
 	import { user } from '$lib/store';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 	let email;
 	let message;
 </script>
@@ -11,7 +11,9 @@
 	<AppHeader />
 
 	<div class="my-20">
-		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">{$_('user.support.header')}</h1>
+		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+			{$_('user.support.header')}
+		</h1>
 
 		<form class="space-y-5 mx-auto w-11/12 md:w-[350px]">
 			<div>

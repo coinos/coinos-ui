@@ -1,7 +1,7 @@
 <script>
 	import { AppHeader } from '$comp';
 	import { user, newPayment } from '$lib/store';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
 	$newPayment = false;
 
@@ -44,7 +44,9 @@
 							</div>
 
 							<div class="text-center">
-								<span class="text-secondary">{$_('user.transactions.' + (tx.amount < 0 ? 'sent' : 'received'))}</span>
+								<span class="text-secondary"
+									>{$_('user.transactions.' + (tx.amount < 0 ? 'sent' : 'received'))}</span
+								>
 							</div>
 
 							<div class="text-secondary text-right">

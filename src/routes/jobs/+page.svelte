@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 </script>
 
 <a href="/">
@@ -16,9 +16,9 @@
 	<h2 class="text-2xl font-medium">{$_('jobs.subheader')}</h2>
 
 	<p class="text-justify text-xl text-secondary">
-    {$_('jobs.pitch1')}
+		{$_('jobs.pitch1')}
 		<br /><br />
-    {$_('jobs.pitch2')}
+		{$_('jobs.pitch2')}
 		<a
 			href="https://github.com/coinos"
 			target="_blank"
@@ -26,7 +26,7 @@
 			class="underline underline-offset-4">{$_('jobs.github')}</a
 		>.
 		<br /><br />
-    {$_('jobs.pitch3')}
+		{$_('jobs.pitch3')}
 		<a href="mailto:contact@coinos.io" class="underline underline-offset-4">contact@coinos.io</a>.
 	</p>
 </div>

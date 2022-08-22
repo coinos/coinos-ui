@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { Icon, Image } from '$comp';
 	import { user } from '$lib/store';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 </script>
 
 <div class="mt-[96.88px] md:mt-0">
@@ -10,15 +10,17 @@
 		<h1
 			class="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto leading-tight"
 		>
-			{$_('landing.header_before_icon')} <span class="relative">
+			{$_('landing.header_before_icon')}
+			<span class="relative">
 				{$_('landing.header_with_icon')}
 				<Icon icon="rays" style="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24" />
-			</span> {$_('landing.header_after_icon')}
+			</span>
+			{$_('landing.header_after_icon')}
 		</h1>
 		<h2
 			class="text-center text-secondary w-full md:w-3/5 lg:w-2/5 max-w-3xl mx-auto text-xl leading-normal font-medium"
 		>
-      {$_('landing.subheader')}
+			{$_('landing.subheader')}
 		</h2>
 		{#if !$user}
 			<div class="flex justify-center">

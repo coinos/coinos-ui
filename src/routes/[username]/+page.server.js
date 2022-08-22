@@ -10,7 +10,7 @@ export async function load({ params }) {
 		body = {};
 	}
 
-  console.log("BODY", body)
+	console.log('BODY', body);
 
 	return body;
 }

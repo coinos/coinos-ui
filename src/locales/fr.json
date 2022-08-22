@@ -1,14 +1,14 @@
 {
 	"langname": "Français",
-  "about": {
-    "header": "À Propos"
-  },
-  "faq": {
-    "header": "FAQ"
-  },
-  "howItWorks": {
-    "header": "Comment Elle Fonctionne"
-  },
+	"about": {
+		"header": "À Propos"
+	},
+	"faq": {
+		"header": "FAQ"
+	},
+	"howItWorks": {
+		"header": "Comment Elle Fonctionne"
+	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
 		"signIn": "Connexion"

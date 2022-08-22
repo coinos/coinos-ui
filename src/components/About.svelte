@@ -1,6 +1,6 @@
 <script>
 	import { Image, Icon } from '$comp';
-  import { _, json } from 'svelte-i18n';
+	import { _, json } from 'svelte-i18n';
 </script>
 
 <h3 class="text-5xl font-medium mb-10 text-center">{$_('about.header')}</h3>
@@ -8,29 +8,35 @@
 	class="md:px-10 lg:px-0 block lg:flex justify-center text-secondary text-xl lg:space-x-20 mx-auto max-w-7xl relative"
 >
 	<p class="w-full lg:w-5/12">
-    {@html $_('about.p1')}
+		{@html $_('about.p1')}
 		<br /><br />
-    {@html $_('about.p2')}
+		{@html $_('about.p2')}
 		<br /><br />
 	</p>
 	<p class="w-full lg:w-5/12">
-    {@html $_('about.p3')}
+		{@html $_('about.p3')}
 		<br /><br />
-    {@html $_('about.p4')}
+		{@html $_('about.p4')}
 	</p>
 	<Image image="swoosh" style="w-32 absolute -bottom-20 lg:bottom-0 right-0 md:right-10" />
 </div>
 
 <div class="px-5 block lg:flex justify-center lg:space-x-32 items-center mt-40 lg:mt-20">
 	<div class="space-y-5 mb-5 lg:mb-0">
-		<h3 class="text-5xl font-medium mb-10 text-center lg:text-right">{$_('about.founder.header')}</h3>
+		<h3 class="text-5xl font-medium mb-10 text-center lg:text-right">
+			{$_('about.founder.header')}
+		</h3>
 
 		<Image image="adam" style="rounded-full mx-auto lg:mx-0 lg:ml-auto w-40" />
 
 		<div class="space-y-2">
-			<span class="text-2xl text-center font-semibold block lg:text-right">{$_('about.founder.name')}</span>
+			<span class="text-2xl text-center font-semibold block lg:text-right"
+				>{$_('about.founder.name')}</span
+			>
 			<span class="text-xl text-center text-secondary block lg:text-right"
-				>{$_('about.founder.position')}</div>
+				>{$_('about.founder.position')}</span
+			>
+		</div>
 
 		<div class="flex justify-center lg:justify-end items-center space-x-5">
 			<a
@@ -51,8 +57,8 @@
 	<ul
 		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
 	>
-    {#each $json('about.founder.qualifications') as qualification}
-      <li>{qualification}</li>
-    {/each}
-  </ul>
+		{#each $json('about.founder.qualifications') as qualification}
+			<li>{qualification}</li>
+		{/each}
+	</ul>
 </div>
