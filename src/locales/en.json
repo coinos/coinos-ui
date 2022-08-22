@@ -14,14 +14,14 @@
 			"header": "The Founder",
 			"name": "Adam Soltys",
 			"position": "Chief Technical Officer",
-			"qualifications": [
-				"Running bitcoin since 2011",
-				"20+ years web development experience in government and industry",
-				"Early bitcoin Vancouver meetup organizer",
-				"Founder of The bitcoin Co-op and early supporter of Decentral Vancouver",
-				"Yogi, permaculturist, anarchist, decentralist",
-				"Husband, father, brother, son"
-			]
+			"qualifications": {
+				"bitcoin": "Running bitcoin since 2011",
+				"webDev": "20+ years web development experience in government and industry",
+				"bitcoinVancouver": "Early bitcoin Vancouver meetup organizer",
+				"bitcoinCoop": "Founder of The bitcoin Co-op and early supporter of Decentral Vancouver",
+				"beliefs": "Yogi, permaculturist, anarchist, decentralist",
+				"familialRelationships": "Husband, father, brother, son"
+			}
 		},
 		"locations": {
 			"header": "Locations",
