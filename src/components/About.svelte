@@ -57,7 +57,7 @@
 	<ul
 		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
 	>
-		{#each $json('about.founder.qualifications') as qualification}
+		{#each Object.values($json('about.founder.qualifications')) as qualification}
 			<li>{qualification}</li>
 		{/each}
 	</ul>
