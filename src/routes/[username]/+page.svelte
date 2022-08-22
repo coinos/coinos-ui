@@ -4,7 +4,7 @@
 	import { AppHeader, Icon, PageNotFound } from '$comp';
 	import { user } from '$lib/store';
 	import { copy } from '$lib/utils';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 	export let data;
 
 	let lightningAddress = `${data?.username}@coinos.io`;
@@ -43,7 +43,7 @@
 			<div class="xl:ml-[calc(15vw-48px)] space-y-2 w-full md:w-72">
 				<h1 class="text-3xl font-bold">{data.username}</h1>
 
-				<p class="text-secondary">{$_('user.addressGoesHere')}</p>
+				<p class="text-secondary">{$t('user.addressGoesHere')}</p>
 
 				<!--
         we need to hook this up
@@ -51,7 +51,7 @@
 					class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
 					on:click={() => (followed = !followed)}
 					><Icon icon={followed ? 'minus' : 'plus'} style="mr-1" />
-					{$_('user.' + (followed ? 'remove' : 'follow'))}
+					{$t('user.' + (followed ? 'remove' : 'follow'))}
 				</button>
         -->
 			</div>
@@ -62,7 +62,7 @@
 					class="w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative"
 				/>
 
-				<p class="text-secondary text-center font-semibold">{$_('user.scanToPayBTC')}</p>
+				<p class="text-secondary text-center font-semibold">{$t('user.scanToPayBTC')}</p>
 
 				<div
 					class="bg-primary font-semibold rounded-xl text-sm py-2 px-3 flex flex-wrap justify-center items-center"

@@ -3,7 +3,7 @@
 	import { scroll } from '$lib/utils';
 	import { Icon, LocaleSelector } from '$comp';
 	import { user } from '$lib/store';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 
 	export let howItWorks;
 	export let faq;
@@ -28,30 +28,30 @@
 
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
-			<button on:click={() => scroll(howItWorks)}>{$_('howItWorks.header')}</button>
-			<button on:click={() => scroll(faq)}>{$_('faq.header')}</button>
-			<button on:click={() => scroll(about)}>{$_('about.header')}</button>
+			<button on:click={() => scroll(howItWorks)}>{$t('howItWorks.header')}</button>
+			<button on:click={() => scroll(faq)}>{$t('faq.header')}</button>
+			<button on:click={() => scroll(about)}>{$t('about.header')}</button>
 			{#if !$user}
 				<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
-					>{$_('nav.startInSeconds')}
+					>{$t('nav.startInSeconds')}
 				</button>
 				<button
 					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto('/login')}
 				>
-					{$_('nav.signIn')}
+					{$t('nav.signIn')}
 				</button>
 			{:else}
 				<button
 					class="border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto(`/${$user.username}/dashboard`)}
-					>{$_('nav.account')}
+					>{$t('nav.account')}
 				</button>
 				<button
 					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
 					on:click={() => goto('/logout')}
 				>
-					{$_('nav.signOut')}
+					{$t('nav.signOut')}
 				</button>
 			{/if}
 		</div>
@@ -70,35 +70,35 @@
 		>
 			<div class="space-y-8 mt-24 ml-10 font-bold text-xl">
 				<button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
-					>{$_('nav.howItWorks')}</button
+					>{$t('nav.howItWorks')}</button
 				>
-				<button on:click={() => mobileMenuButtonClick(faq)} class="block">{$_('nav.faq')}</button>
+				<button on:click={() => mobileMenuButtonClick(faq)} class="block">{$t('nav.faq')}</button>
 				<button on:click={() => mobileMenuButtonClick(about)} class="block"
-					>{$_('nav.about')}</button
+					>{$t('nav.about')}</button
 				>
 				{#if !$user}
 					<button
 						class="border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto('/register')}
-						>{$_('nav.startInSeconds')}
+						>{$t('nav.startInSeconds')}
 					</button>
 					<button
 						class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto('/login')}
 					>
-						{$_('nav.signIn')}
+						{$t('nav.signIn')}
 					</button>
 				{:else}
 					<button
 						class="border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto(`/${$user.username}/dashboard`)}
-						>{$_('nav.account')}
+						>{$t('nav.account')}
 					</button>
 					<button
 						class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto('/logout')}
 					>
-						{$_('nav.signOut')}
+						{$t('nav.signOut')}
 					</button>
 				{/if}
 				<LocaleSelector style="py-1" />

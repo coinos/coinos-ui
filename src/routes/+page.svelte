@@ -10,7 +10,7 @@
 		Footer
 	} from '$comp';
 
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 
 	let howItWorks;
 	let faq;
@@ -34,32 +34,32 @@
 	<!-- landing info 1 -->
 	<LandingInfoCard
 		image="lightning-qr"
-		title={$_('landing.info1.title')}
-		description={$_('landing.info1.description')}
+		title={$t('landing.info1.title')}
+		description={$t('landing.info1.description')}
 	/>
 
 	<!-- landing info 2 -->
-	<LandingInfoCard image="phone-checkout" title={$_('landing.info2.title')} order="reverse">
-		{$_('landing.info2.description1')}
+	<LandingInfoCard image="phone-checkout" title={$t('landing.info2.title')} order="reverse">
+		{$t('landing.info2.description1')}
 		<br /><br />
-		{$_('landing.info2.description2')}
+		{$t('landing.info2.description2')}
 		<br /><br />
-		{@html $_('landing.info2.description3')}
+		{@html $t('landing.info2.description3')}
 	</LandingInfoCard>
 
 	<!-- landing info 3 -->
 	<div>
 		<LandingInfoCard
 			image="customize"
-			title={$_('landing.info3.title')}
-			description={$_('landing.info3.description')}
+			title={$t('landing.info3.title')}
+			description={$t('landing.info3.description')}
 		/>
 		<div bind:this={howItWorks} />
 	</div>
 
 	<!-- how it works -->
 	<div>
-		<h3 class="text-5xl font-medium mb-10 text-center">{$_('howItWorks.header')}</h3>
+		<h3 class="text-5xl font-medium mb-10 text-center">{$t('howItWorks.header')}</h3>
 		<div
 			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 lg:space-x-10 text-center"
 		>
@@ -73,7 +73,7 @@
 	<!-- faq -->
 	<div>
 		<div class="space-y-10">
-			<h3 class="text-5xl font-medium text-center">{$_('faq.header')}</h3>
+			<h3 class="text-5xl font-medium text-center">{$t('faq.header')}</h3>
 			{#each faqIDs as faqID}
 				<FaqCard questionID={faqID} />
 			{/each}

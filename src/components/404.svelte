@@ -1,6 +1,6 @@
 <script>
 	import { Icon } from '$comp';
-	import { _ } from 'svelte-i18n';
+	import { t } from '$lib/translations';
 </script>
 
 <div class="flex justify-center items-center mt-20">
@@ -11,7 +11,7 @@
 
 		<Icon icon="question" style="mx-auto w-56" />
 
-		<h1 class="font-bold text-5xl">{$_('404.404')}</h1>
-		<p>{$_('404.pageNotFound')}</p>
+		<h1 class="font-bold text-5xl">{$t('404.404')}</h1>
+		<p>{$t('404.pageNotFound')}</p>
 	</div>
 </div>
