@@ -1,7 +1,4 @@
-import cookie from 'cookie';
 import { post, login } from '$lib/utils';
-
-let maxAge = 30 * 24 * 60 * 60;
 
 export async function POST({ request, setHeaders }) {
 	let user = Object.fromEntries(await request.formData());

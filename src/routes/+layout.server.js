@@ -1,3 +1,4 @@
+import { error } from "@sveltejs/kit";
 import cookie from 'cookie';
 import { protectedRoutes } from '$lib/utils';
 import { get } from '$lib/utils';
@@ -10,7 +11,7 @@ export async function load({ request, setHeaders, url, params }) {
 	if (token) {
 		user = await get('/me', { accept: 'application/json', authorization: `Bearer ${token}` });
 		if (protectedRoutes.find((p) => url.pathname.match(p))) {
-			if (user.username !== params.username) throw new Error('user not found');
+			if (user.username !== params.username) throw error(404, 'user not found');
 		}
 	}
 
