@@ -66,7 +66,7 @@
 <div class="mt-20">
 	<h3 class="text-5xl font-medium mb-5 text-center">{$_('about.locations.header')}</h3>
 	<p class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10">
-    {@html $_('about.locations.description')}
+		{@html $_('about.locations.description')}
 	</p>
 	<LocationsMap />
 </div>

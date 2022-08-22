@@ -5,7 +5,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
-	import { user, token } from '$lib/store';
+	import { user, token, rate, rates, selectedRate, conversion } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
@@ -16,6 +16,10 @@
 	$: $token = data.token;
 
 	export let data;
+
+	$rates = data.rates;
+	$: $conversion = data.rates[data.user.currency] / $rate;
+	$: $selectedRate = $rate * $conversion;
 
 	let ready = false;
 

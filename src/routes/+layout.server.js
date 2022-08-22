@@ -5,6 +5,7 @@ import { get } from '$lib/utils';
 export async function load({ request, setHeaders, url, params }) {
 	let { token } = cookie.parse(request.headers.get('cookie') || '');
 	let user;
+	let rates;
 
 	if (token) {
 		user = await get('/me', { accept: 'application/json', authorization: `Bearer ${token}` });
@@ -13,5 +14,7 @@ export async function load({ request, setHeaders, url, params }) {
 		}
 	}
 
-	return { user, token };
+	rates = await get('/rates');
+
+	return { user, token, rates };
 }

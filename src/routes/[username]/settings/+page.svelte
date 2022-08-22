@@ -1,11 +1,13 @@
 <script>
 	import { AppHeader, Icon, Toggle, LocaleSelector } from '$comp';
-	import { user, colorTheme } from '$lib/store';
+	import { user, colorTheme, rates, token } from '$lib/store';
 	import { _ } from 'svelte-i18n';
+	import { success, failure, post } from '$lib/utils';
 
 	let setting = 'account';
 	let password;
 	let revealPassword = false;
+	const fiats = Object.keys($rates);
 
 	const colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
@@ -21,6 +23,19 @@
 	const handleThemeClick = (colors) => {
 		selectedTheme = colors.theme;
 		$colorTheme = colors.color1 + ' ' + colors.color2;
+	};
+
+	const updateFiat = async (e) => {
+		try {
+			await post(
+				'/user',
+				{ currency: e.target.value },
+				{ authorization: `Bearer ${$token}` }
+			);
+			success('Local currency updated!');
+		} catch (e) {
+			failure(e.message);
+		}
 	};
 </script>
 
@@ -126,8 +141,10 @@
 				<label for="currency" class="font-bold block mb-1"
 					>{$_('user.settings.localCurrency')}</label
 				>
-				<select name="currency" class="block py-3 w-full">
-					<option value="USD">USD</option>
+				<select name="currency" on:change={updateFiat} class="block py-3 w-full">
+					{#each fiats as fiat}
+						<option value={fiat} selected={$user.currency === fiat}>{fiat}</option>
+					{/each}
 				</select>
 			</div>
 
