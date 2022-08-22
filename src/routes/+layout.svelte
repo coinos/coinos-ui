@@ -18,7 +18,7 @@
 	export let data;
 
 	$rates = data.rates;
-	$: $selectedRate = $rate * (data.rates[data.user.currency] / data.rates.USD);
+	$: $selectedRate = data.user && $rate * (data.rates[data.user.currency] / data.rates.USD);
 
 	let ready = false;
 
