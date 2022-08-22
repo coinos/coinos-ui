@@ -10,7 +10,7 @@
 		Footer
 	} from '$comp';
 
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
 	let howItWorks;
 	let faq;
@@ -22,7 +22,7 @@
 		{ image: 'smile', stepID: 'step3' }
 	];
 
-  const faqIDs = ["cost", "compatibility", "safety"];
+	const faqIDs = ['cost', 'compatibility', 'safety'];
 </script>
 
 <LandingHeader {howItWorks} {faq} {about} />
@@ -34,28 +34,24 @@
 	<!-- landing info 1 -->
 	<LandingInfoCard
 		image="lightning-qr"
-    title={$_('landing.info1.title')}
-    description={$_('landing.info1.description')}
+		title={$_('landing.info1.title')}
+		description={$_('landing.info1.description')}
 	/>
 
 	<!-- landing info 2 -->
-	<LandingInfoCard
-		image="phone-checkout"
-    title={$_('landing.info2.title')}
-		order="reverse"
-	>
-    {$_('landing.info2.description1')}
+	<LandingInfoCard image="phone-checkout" title={$_('landing.info2.title')} order="reverse">
+		{$_('landing.info2.description1')}
 		<br /><br />
-    {$_('landing.info2.description2')}
+		{$_('landing.info2.description2')}
 		<br /><br />
-    {@html $_('landing.info2.description3')}
+		{@html $_('landing.info2.description3')}
 	</LandingInfoCard>
 
 	<!-- landing info 3 -->
 	<div>
 		<LandingInfoCard
 			image="customize"
-      title={$_('landing.info3.title')}
+			title={$_('landing.info3.title')}
 			description={$_('landing.info3.description')}
 		/>
 		<div bind:this={howItWorks} />
@@ -79,7 +75,7 @@
 		<div class="space-y-10">
 			<h3 class="text-5xl font-medium text-center">{$_('faq.header')}</h3>
 			{#each faqIDs as faqID}
-				  <FaqCard questionID={faqID} />
+				<FaqCard questionID={faqID} />
 			{/each}
 		</div>
 		<div bind:this={about} />

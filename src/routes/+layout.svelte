@@ -11,11 +11,11 @@
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
-  $: $token = data.token
+	$: $token = data.token;
 
-  export let data;
+	export let data;
 
 	let ready = false;
 
@@ -28,7 +28,7 @@
 		});
 
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
-      console.log("TOKEN", $token)
+			console.log('TOKEN', $token);
 			if (!$token) {
 				goto('/login');
 				warning($_('error.signIn'));

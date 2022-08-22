@@ -5,7 +5,7 @@
 	import { invoiceAmount, invoiceAmountFiat, rate, user } from '$lib/store';
 	import { post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
-  import { _, number } from 'svelte-i18n';
+	import { _, number } from 'svelte-i18n';
 
 	let useFiat = true;
 	let amountFiat = 0;
@@ -157,7 +157,8 @@
 							? 'opacity-50'
 							: 'opacity-100'}"
 						on:click={submit}
-						disabled={$invoiceAmount === 0}><Icon icon="qr" style="mr-2" /> {$_('user.receive.showQR')}</button
+						disabled={$invoiceAmount === 0}
+						><Icon icon="qr" style="mr-2" /> {$_('user.receive.showQR')}</button
 					>
 					<!--
 					<button

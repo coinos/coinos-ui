@@ -6,10 +6,10 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
-  import { _, number } from 'svelte-i18n';
+	import { _, number } from 'svelte-i18n';
 
-  export let data;
-  $: ({ amount, id, rate, status, text, username } = data);
+	export let data;
+	$: ({ amount, id, rate, status, text, username } = data);
 
 	$invoices[id] = { amount, id, rate, status, text, username };
 
@@ -245,7 +245,8 @@
 								stroke-linecap="round"
 								stroke-linejoin="round"
 							/>
-						</svg> {$_('invoice.addTip')}
+						</svg>
+						{$_('invoice.addTip')}
 					</button>
 
 					<span class="text-secondary block"

@@ -1,6 +1,6 @@
 <script>
 	import { Icon } from '$comp';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 </script>
 
 <div class="flex justify-center items-center mt-20">

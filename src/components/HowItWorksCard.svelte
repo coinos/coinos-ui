@@ -1,6 +1,6 @@
 <script>
 	import Icon from './Icon.svelte';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 	export let image;
 	export let stepID;
 </script>

@@ -98,7 +98,7 @@
 						class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
 						on:click={() => goto('/logout')}
 					>
-            {$_('nav.signOut')}
+						{$_('nav.signOut')}
 					</button>
 				{/if}
 				<LocaleSelector style="py-1" />

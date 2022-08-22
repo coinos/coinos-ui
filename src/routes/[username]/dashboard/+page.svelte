@@ -3,7 +3,7 @@
 	import { tick } from 'svelte';
 	import { AppHeader, Icon } from '$comp';
 	import { rate, user, preferredCurrency } from '$lib/store';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 
 	let payreq = '',
 		payreqField,
@@ -63,14 +63,12 @@
 			</h1>
 			{#if !withdrawing}
 				<span class="text-secondary mx-auto text-lg font-bold"
-				  >{$_('user.dashboard.bitcoinPrice')}
-            <span class="text-black">{$rate ? btcPrice : $_('user.dashboard.fetchingRate')}</span>
+					>{$_('user.dashboard.bitcoinPrice')}
+					<span class="text-black">{$rate ? btcPrice : $_('user.dashboard.fetchingRate')}</span>
 					{$preferredCurrency}
 				</span>
 
-				<span class="text-secondary block mt-1"
-					>{@html $_('user.dashboard.dataFromBinance')}
-				</span>
+				<span class="text-secondary block mt-1">{@html $_('user.dashboard.dataFromBinance')} </span>
 
 				<h3 class="text-secondary font-bold border-b pb-1 mt-10 mb-6 w-full md:w-[500px]">
 					{$_('user.dashboard.ACCOUNT_BALANCE')}
@@ -83,7 +81,7 @@
 				<span class="text-secondary text-xl block">{accountBalanceSats} SAT</span>
 
 				<button class="rounded-full border py-2 font-bold w-28 mt-4" on:click={toggle}
-            >{$_('user.dashboard.withdraw')}</button
+					>{$_('user.dashboard.withdraw')}</button
 				>
 				<p class="text-secondary my-2">{$_('user.dashboard.conversionFeeWarning')}</p>
 			{:else}
@@ -105,7 +103,9 @@
 					</div>
 
 					<div>
-						<label for="note" class="font-bold mb-1 block">{$_('user.dashboard.optionalNote')}</label>
+						<label for="note" class="font-bold mb-1 block"
+							>{$_('user.dashboard.optionalNote')}</label
+						>
 						<textarea name="note" rows={2} class="block rounded-2xl p-3 w-full bg-primary" />
 					</div>
 

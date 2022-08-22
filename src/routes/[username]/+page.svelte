@@ -4,7 +4,7 @@
 	import { AppHeader, Icon, PageNotFound } from '$comp';
 	import { user } from '$lib/store';
 	import { copy } from '$lib/utils';
-  import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 	export let data;
 
 	let lightningAddress = `${data?.username}@coinos.io`;
