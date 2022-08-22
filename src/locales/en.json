@@ -93,13 +93,13 @@
 		},
 		"info2": {
 			"title": "Simple to use, custodial by default",
-			"description1": "Just enter an amount, share QR code and you’re done.",
+			"description1": "Just enter an amount, share the QR code and you’re done.",
 			"description2": "CoinOS is custodial by default, which eliminates the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
 			"description3": "You always have the option of <span class=\"underline underline-offset-4\">taking custody</span> of your own keys."
 		},
 		"info3": {
 			"title": "Brand it your way!",
-			"description": "Customize your point of sale look and feel, or keep it on default - totally up to you."
+			"description": "Customize your point of sale look and feel, or keep it on default - it's totally up to you."
 		}
 	},
 	"login": {
@@ -130,7 +130,7 @@
 		"dashboard": {
 			"ACCOUNT_BALANCE": "ACCOUNT BALANCE",
 			"bitcoinPrice": "Bitcoin Price:",
-			"conversionFeeWarning": "You will be charged a 1% conversion fee if you withdraw more of a certain type of Bitcoin than you deposit.",
+			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",
 			"dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
 			"fetchingRate": "fetching rate...",
 			"optionalNote": "Note (Optional)",
