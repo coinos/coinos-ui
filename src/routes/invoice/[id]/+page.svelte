@@ -3,54 +3,85 @@
 	import { browser } from '$app/env';
 	import { invoices, user } from '$lib/store';
 	import { Icon, Image } from '$comp';
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { goto, invalidate } from '$app/navigation';
+	import { onMount, tick } from 'svelte';
 	import { copy } from '$lib/utils';
 	import { t } from '$lib/translations';
 
 	export let data;
-	$: ({ amount, id, rate, status, text, username } = data);
 
-	$invoices[id] = { amount, id, rate, status, text, username };
+	$: refresh(data);
+	let { invoice, id } = data;
+	let {
+		amount,
+		rate,
+		status,
+		text,
+		tip,
+		user: { username, currency }
+	} = invoice;
+
+	amount -= tip;
+
+	let refresh = (data) => {
+		({ invoice, id } = data);
+		({
+			amount,
+			rate,
+			status,
+			text,
+			tip,
+			user: { username, currency }
+		} = invoice);
+
+		amount -= tip;
+
+		tipPercent = Math.round((tip / amount) * 100);
+	};
+
+	$invoices[id] = { amount, id, rate, status, text, tip, username };
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
 	let tipPercent = 0;
 	let qr;
 
-	$: tipAmount = customTipAmount
-		? customTipAmount < 0
-			? (customTipAmount = 0)
-			: customTipAmount
-		: (amountFiat / 100) * tipPercent;
+	$: tipAmount = (amountFiat / 100) * tipPercent;
 
 	$: tipAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: $user.currency
+		currency
 	}).format(tipAmount);
 
-	$: tipAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-		tipAmount / (rate / 100000000)
-	);
+	$: tipAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(tip);
 
 	$: totalAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
 		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
 	);
 
-	$: update(tipAmountSats);
-	let update = async (n) => {
-		let { id } = await post('/invoice', {
-			amount: amount + reverseFormat(n),
+	let apply = async () => {
+		tipAmount = customTipAmount;
+		tipPercent = Math.round((tipAmount / amountFiat) * 100);
+		update();
+	};
+
+	let update = async () => {
+		await tick();
+		tip = (tipAmount * 100000000) / rate;
+		let r = await post(`/invoice`, {
+			amount: amount + tip,
 			rate,
+			tip,
 			text,
 			username
 		});
-		({ text } = await get(`/invoice/${id}`));
+
+		goto(`/invoice/${r}`);
 	};
 
 	$: totalAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: $user.currency
+		currency
 	}).format(amountFiat + parseFloat(tipAmount));
 
 	const amountFormatted = new Intl.NumberFormat('en-US', {
@@ -59,12 +90,21 @@
 
 	$: invoiceAmountFiatFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: $user.currency
+		currency
 	}).format(amountFiat);
 
 	let customTipAmount;
 
 	const tipAmounts = ['None', '10%', '15%', '20%'];
+
+	let timeout;
+	const handleSlide = (e) => {
+		customTipAmount = '';
+		customInput.value = '';
+		tipPercent = e.target.value;
+		clearTimeout(timeout);
+		timeout = setTimeout(update, 100);
+	};
 
 	const handleTipButtonClick = (amount) => {
 		customTipAmount = '';
@@ -75,6 +115,8 @@
 		} else {
 			tipPercent = amount.slice(0, 2);
 		}
+
+		update();
 	};
 
 	const handleCustomTipAmount = (e) => {
@@ -83,8 +125,8 @@
 	};
 
 	$: generate(text);
-	let generate = async (ready) => {
-		if (!ready) return;
+	let generate = async (text) => {
+		if (!(browser && text)) return;
 		let { default: QRCodeStyling } = await import('qr-code-styling');
 
 		const qrCode = new QRCodeStyling({
@@ -103,6 +145,7 @@
 			}
 		});
 
+		while (qr.firstChild) qr.removeChild(qr.lastChild);
 		qrCode.append(qr);
 	};
 
@@ -116,18 +159,14 @@
 			tipAmount = 0;
 			showMobileTip = false;
 		} else {
-			goto(`/${$user.username}/receive`);
+			goto(`/${username}/receive`);
 		}
 	};
 
 	let customInput;
 
 	const handleDoneClick = () => {
-		if ($user) {
-			goto(`/${$user.username}/receive`);
-		} else {
-			goto('/');
-		}
+		goto(`/${username}/receive`);
 	};
 </script>
 
@@ -167,11 +206,7 @@
 						max="100"
 						value={tipPercent}
 						class="px-2"
-						on:input={(e) => {
-							customTipAmount = '';
-							customInput.value = '';
-							tipPercent = e.target.value;
-						}}
+						on:input={handleSlide}
 					/>
 
 					<div>
@@ -210,7 +245,7 @@
 									? 'opacity-50'
 									: 'opacity-100'}"
 								disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
-								on:click={() => (showMobileTip = false)}>Done</button
+								on:click={apply}>Apply</button
 							>
 						</div>
 					</div>
