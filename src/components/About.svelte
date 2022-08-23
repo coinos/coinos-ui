@@ -54,9 +54,14 @@
 		</div>
 	</div>
 
-	<ul
-		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
-	/>
+	<ul class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5">
+      <li>{$t('about.founder.qualifications.bitcoin')}</li>
+      <li>{$t('about.founder.qualifications.webDev')}</li>
+      <li>{$t('about.founder.qualifications.bitcoinVancouver')}</li>
+      <li>{$t('about.founder.qualifications.bitcoinCoop')}</li>
+      <li>{$t('about.founder.qualifications.beliefs')}</li>
+      <li>{$t('about.founder.qualifications.familialRelationships')}</li>
+  </ul>
 </div>
 
 <div class="mt-20">
