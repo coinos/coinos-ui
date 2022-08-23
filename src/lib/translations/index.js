@@ -3,6 +3,7 @@ import lang from './lang.json';
 
 const config = {
 	initLocale: 'en',
+  fallbackLocale: 'en',
   translations: {
     en: { lang },
     fr: { lang }
