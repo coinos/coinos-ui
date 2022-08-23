@@ -5,7 +5,7 @@
 	import { invoiceAmount, invoiceAmountFiat, selectedRate, user } from '$lib/store';
 	import { post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
-  import { t } from '$lib/translations';
+	import { t } from '$lib/translations';
 
 	let useFiat = true;
 	let amountFiat = 0;

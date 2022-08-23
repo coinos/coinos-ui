@@ -6,7 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
-  import { t } from '$lib/translations';
+	import { t } from '$lib/translations';
 
 	export let data;
 	$: ({ amount, id, rate, status, text, username } = data);
