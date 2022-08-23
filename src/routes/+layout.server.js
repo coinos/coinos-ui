@@ -1,4 +1,4 @@
-import { error } from "@sveltejs/kit";
+import { error } from '@sveltejs/kit';
 import cookie from 'cookie';
 import { protectedRoutes } from '$lib/utils';
 import { get } from '$lib/utils';

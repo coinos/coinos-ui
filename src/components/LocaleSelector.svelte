@@ -1,5 +1,5 @@
 <script>
-  import { locale, locales } from '$lib/translations';
+	import { locale, locales } from '$lib/translations';
 	export let style;
 </script>
 

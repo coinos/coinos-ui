@@ -56,8 +56,7 @@
 
 	<ul
 		class="w-full mx-auto md:w-[700px] lg:w-[500px] xl:w-auto text-secondary px-1 md:px-10 text-xl list-disc space-y-5"
-	>
-	</ul>
+	/>
 </div>
 
 <div class="mt-20">
