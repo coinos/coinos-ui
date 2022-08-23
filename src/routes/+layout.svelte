@@ -24,8 +24,6 @@
 				goto('/login');
 				warning($t('error.signIn'));
 			}
-		} else {
-			ready = true;
 		}
 
 		connect();

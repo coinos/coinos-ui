@@ -47,6 +47,8 @@ export const put = (url, body, headers) => {
 		method: 'PUT',
 		body: JSON.stringify(body),
 		headers
+	}).then(async (r) => {
+		if (!r.ok) throw new Error('put failed');
 	});
 };
 

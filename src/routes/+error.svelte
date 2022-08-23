@@ -15,9 +15,9 @@
 
 			<Icon icon="error" style="mx-auto w-56" />
 
-			<h1 class="font-bold text-5xl">{($t('error.header'), { default: 'Error' })}</h1>
-			<p class="px-1 w-full md:w-96 break-all font-bold">{$page.error.message.toUpperCase()}</p>
-			<p>{($t('error.message'), { default: 'Please try again or contact support.' })}</p>
+			<h1 class="font-bold text-5xl">{$t('error.header')}</h1>
+			<p class="px-1 w-full md:w-96 break-all font-bold">{$page.error.message}</p>
+			<p>{$t('error.message')}</p>
 		</div>
 	</div>
 {/if}
