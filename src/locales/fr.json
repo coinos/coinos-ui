@@ -29,9 +29,34 @@
 	"howItWorks": {
 		"header": "Comment Elle Fonctionne"
 	},
+	"landing": {
+		"header_before_icon": "Le",
+		"header_with_icon": "façon",
+		"header_after_icon": "le plus façile d'accepter bitcoin en votre magasin.",
+		"subheader": "Aggrandir votre clientèle et chiffre d'affaires par accepter bitcoin avec un point de vente façile à utiliser et dirigé. Logiciel et matériel informatique non obligatoire.",
+		"info1": {
+			"title": "Paiements instants avec Lightning",
+			"description": "Le moment que votre client envoie un paiment, c'est la. Vous ne devez pas attendre pour les décisions de banques ou vous inquieter pour des rejets de débit. Décisions instant, en secondes. Dis au revoir aux frais de dossir 3% des cartes de crédit."
+		},
+		"info2": {
+			"title": "Simple à utiliser, en garde par défaut",
+			"description1": "Juste entrer une quantité, partager le code QR et c'est tout!",
+			"description2": "Tes contes sont en garde par défaut, qui élimine le nécessité de comprendre comment bitcoin/lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous pouvez vous concentrer sur votre entreprise.",
+			"description3": "Vous toujours avez l'option de <span class=\"underline undeline-offset-4\">prendre garde</span> de vos clés."
+		},
+		"info3": {
+			"title": "Personalise-le comment vous voulez",
+			"description": "Personalisez votre point de vente, ou rettenez-le au défaut - c'est votre chois."
+		}
+  },
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
-		"signIn": "Connexion"
+		"account": "Conte",
+		"signIn": "Connexion",
+		"signOut": "Déconnexion",
+		"dashboard": "Tableau de bord",
+		"settings": "Préférences",
+		"support": "Assistance"
 	},
 	"404": {
 		"404": "404",
