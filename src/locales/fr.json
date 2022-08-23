@@ -15,7 +15,7 @@
 				"bitcoinVancouver": "Organisateur précoce de la rencontre bitcoin Vancouver",
 				"bitcoinCoop": "Fondateur de The Bitcoin Co-op et défenseur précoce de Decentral Vancouver",
 				"beliefs": "Yogi, permaculturiste, anarchiste, décentraliste",
-				"familialRelationships": "Mari, papa, frère, fils"
+				"familialRelationships": "Mari, père, frère, fils"
 			}
 		},
 		"locations": {
@@ -48,7 +48,7 @@
 			"title": "Personalise-le comment vous voulez",
 			"description": "Personalisez votre point de vente, ou rettenez-le au défaut - c'est votre chois."
 		}
-  },
+	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
 		"account": "Conte",
