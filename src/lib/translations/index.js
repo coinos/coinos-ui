@@ -1,13 +1,28 @@
 import i18n from 'sveltekit-i18n';
 import lang from './lang.json';
 
+// setup loaders & translations from lang.json data
+function createLocaleLoader(localeCode) {
+  return {
+    locale: localeCode,
+    key: '',
+    loader: async () => (
+      await import(`../../locales/${localeCode}.json`)
+    ).default
+  };
+}
+
+const availableLocales = Object.keys(lang);
+const translations = {};
+for (let i = 0; i < availableLocales.length; i++) {
+  translations[availableLocales[i]] = { lang };
+}
+const loaders = availableLocales.map(createLocaleLoader);
+
 const config = {
 	initLocale: 'en',
   fallbackLocale: 'en',
-  translations: {
-    en: { lang },
-    fr: { lang }
-  },
+  translations: translations,
   loaders: [
     {
       locale: 'en',
