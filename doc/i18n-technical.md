@@ -13,9 +13,9 @@ CoinOS's internationalization system depends on the `npm` package [`sveltekit-i1
 The main code for CoinOS's internationalization is at `src/lib/translations/index.js`. When imported, it does the following:
 
 1. Load all of the locales asynchronously, based on .
-3. Initialize `sveltekit-i18n`.
+2. Initialize `sveltekit-i18n`.
 
-It also defines important constants, including the list of available locales and the default locale. This code is loaded by importing `$lib/translations` in `src/routes/+layout.svelte`.  This code, which runs in the frontend, also persists the locale in `localStorage`.
+It also defines important constants, including the list of available locales and the default locale. This code is loaded by importing `$lib/translations` in `src/routes/+layout.svelte`. This code, which runs in the frontend, also persists the locale in `localStorage`.
 
 ## Locale Files
 

@@ -10,7 +10,7 @@ export async function POST({ request }) {
 
 	({ text } = await post('/lightning/invoice', { amount }, headers));
 	let invoice = { amount, currency, network, rate, tip, text };
-	let { uuid }  = await post('/invoice', { invoice, user: { username } }, headers);
+	let { uuid } = await post('/invoice', { invoice, user: { username } }, headers);
 
 	return new Response(JSON.stringify(uuid), { headers: { 'content-type': 'application/json' } });
 }

@@ -110,19 +110,6 @@
 						: 'opacity-100'} rounded-2xl border py-3 font-bold w-full mt-2 bg-black text-white"
 					on:click={withdraw}>{$t('user.dashboard.send')}</button
 				>
-
-				<div>
-					<label for="note" class="font-bold mb-1 block">{$t('user.dashboard.optionalNote')}</label>
-					<textarea name="note" rows={2} class="block rounded-2xl p-3 w-full bg-primary" />
-				</div>
-
-				<button
-					disabled={!payreq}
-					class="{!payreq
-						? 'opacity-50'
-						: 'opacity-100'} rounded-2xl border py-3 font-bold w-full mt-2 bg-black text-white"
-					on:click={withdraw}>{$t('user.dashboard.send')}</button
-				>
 			</div>
 		{/if}
 	</div>
