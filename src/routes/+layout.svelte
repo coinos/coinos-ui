@@ -11,7 +11,7 @@
 	import { warning, protectedRoutes } from '$lib/utils';
 	import { t, locale } from '$lib/translations';
 
-  const localeLocalStorageKey = 'sveltekit-i18n-locale';
+	const localeLocalStorageKey = 'sveltekit-i18n-locale';
 
 	$: $token = data.token;
 
@@ -21,7 +21,7 @@
 	$: $selectedRate = data.user && $rate * (data.rates[data.user.currency] / data.rates.USD);
 
 	onMount(() => {
-    let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
+		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
 		if (localStorageLocale) locale.set(localStorageLocale);
 
 		locale.subscribe((lng) => {
