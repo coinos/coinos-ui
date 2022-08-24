@@ -24,10 +24,44 @@
 		}
 	},
 	"faq": {
-		"header": "FAQ"
+		"header": "FAQ",
+		"cost": {
+			"question": "Qu'est-ce que c'est le coût?",
+			"answer": "CoinOS est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre Bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
+		},
+		"compatibility": {
+			"question": "Est-ce que j'ai besoin du logiciel ou appareil special?",
+			"answer": "Non. CoinOS est un site Web, alors vous pouvez l'utiliser sur n'importe quelle appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
+		},
+		"safety": {
+			"question": "Sont mes fonds saufs?",
+			"answer": "Vos fonds sont entreposés en notre serveur sécurisé, mais nous recommendons que vous les retirez à votre propre entreposage pour les sauvegarder à long terme."
+		}
+	},
+	"footer": {
+		"followUs": "Suivez-Nous",
+		"twitter": "Twitter",
+		"github": "GitHub",
+		"company": "Entreprise",
+		"telegram": "Telegram",
+		"support": "Assistance",
+		"jobs": "Jobs"
 	},
 	"howItWorks": {
-		"header": "Comment Elle Fonctionne"
+		"header": "Comment Elle Fonctionne",
+		"step1": {
+			"header": "1. Crée votre compte",
+			"description": "Un nom d'utilateur et mot de passe est tout qui est besoin pour commencer."
+		},
+		"step2": {
+			"header": "2. Demande pour des paiements",
+			"description": "Comme vous faisiez normalement, mais avec bitcoin."
+		},
+		"step3": {
+			"header": "3. C'est tout!",
+			"description": "Vous pouvez convertir au monnaie local n'importe quand."
+		}
+
 	},
 	"landing": {
 		"header_before_icon": "Le",
