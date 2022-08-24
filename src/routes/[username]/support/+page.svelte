@@ -24,6 +24,7 @@
 					name="email"
 					bind:value={email}
 					required
+					disabled
 				/>
 			</div>
 
