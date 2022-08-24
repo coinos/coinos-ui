@@ -1,4 +1,8 @@
 {
+	"404": {
+		"404": "404",
+		"pageNotFound": "Page non trouvée."
+	},
 	"about": {
 		"header": "À Propos",
 		"p1": "<strong>CoinOS</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
@@ -22,6 +26,11 @@
 			"header": "Établissements",
 			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente CoinOS. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
 		}
+	},
+	"error": {
+		"header": "Erreur",
+		"message": "S'il vous plait réessayez ou contactez l'assistance.",
+		"signIn": "Vous devez connecter pour continuer."
 	},
 	"faq": {
 		"header": "FAQ",
@@ -61,7 +70,6 @@
 			"header": "3. C'est tout!",
 			"description": "Vous pouvez convertir au monnaie local n'importe quand."
 		}
-
 	},
 	"landing": {
 		"header_before_icon": "Le",
@@ -83,6 +91,17 @@
 			"description": "Personalisez votre point de vente, ou rettenez-le au défaut - c'est votre chois."
 		}
 	},
+	"login": {
+		"username": "Nom d'utilisateur",
+		"password": "Mot de passe",
+		"passwordRecommendation": "Nous recommendons un mot de passe long et au hazard, généré par un gestionnaire de mots de passe.",
+		"forgotPassword": "Oublié ton mot de passe?",
+		"haveAccount": "Avez-vous déjà une conte?",
+		"noAccount": "N'avez-vous pas un conte?",
+		"register": "Enregistrer",
+		"signIn": "Connexion",
+		"failed": "Connexion failli"
+	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
 		"account": "Conte",
@@ -92,12 +111,18 @@
 		"settings": "Préférences",
 		"support": "Assistance"
 	},
-	"404": {
-		"404": "404",
-		"pageNotFound": "Page non trouvée."
+	"invoice": {
+		"addTip": "Ajoutez un pourboire",
+		"addTipq": "Ajouter un pourboire?",
+		"done": "Fini",
+		"paymentSuccessful": "Paiement réussi!"
 	},
-	"error": {
-		"header": "Erreur",
-		"message": "S'il vous plait réessayez ou contactez l'assistance."
+	"jobs": {
+		"header": "Emplois",
+		"subheader": "Postes disponibles actuels",
+		"pitch1": "CoinOS recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
+		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
+		"github": "GitHub",
+		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
 	}
 }
