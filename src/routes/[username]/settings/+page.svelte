@@ -65,6 +65,11 @@
 			</div>
 
 			<div>
+				<label for="email" class="font-bold mb-1 block">Email</label>
+				<input type="email" disabled name="email" class="block border rounded-xl p-3 w-full" />
+			</div>
+
+			<div>
 				<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
 				<input
 					type="text"
