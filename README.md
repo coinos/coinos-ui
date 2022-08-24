@@ -14,6 +14,8 @@ To get started, clone or download the repo, then:
 - run `pnpm run dev` every time you want to start up the UI
 - run `pnpm format` to format the code before committing any changes
 
+This is a frontend for [`coinos-server`](https://github.com/coinos/coinos-server), so you will need to have that running in order for this UI to be useful.
+
 ## Libraries
 
 This UI uses the following libraries:
@@ -27,4 +29,4 @@ This UI uses the following libraries:
 
 ### Internationalization
 
-CoinOS has a system for translation using [`svelte-i18n`](https://www.npmjs.com/package/svelte-i18n). For more information and instructions on how to translate CoinOS, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).
+CoinOS has a system for translation using [`sveltekit-i18n`](https://www.npmjs.com/package/sveltekit-i18n). For more information and instructions on how to translate CoinOS, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).

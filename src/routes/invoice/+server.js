@@ -1,16 +1,16 @@
-import { json as json$1 } from '@sveltejs/kit';
-import { post } from '$lib/utils';
-import { user } from '$lib/store';
-
-let network = 'lightning';
+import cookie from 'cookie';
+import { get, post } from '$lib/utils';
 
 export async function POST({ request }) {
-	let { amount, rate, username, text } = await request.json();
-	if (!text) ({ text } = await post('/lightning/invoice', { amount }));
-	let { uuid: id } = await post('/invoice', {
-		invoice: { amount, currency: user.currency, network, rate, text },
-		user: { username }
-	});
+	let { token } = cookie.parse(request.headers.get('cookie') || '');
 
-	return json$1({ id });
+	let network = 'lightning';
+	let { amount, currency, rate, tip, text, username } = await request.json();
+	let headers = { authorization: `Bearer ${token}` };
+
+	({ text } = await post('/lightning/invoice', { amount }, headers));
+	let invoice = { amount, currency, network, rate, tip, text };
+	let { uuid }  = await post('/invoice', { invoice, user: { username } }, headers);
+
+	return new Response(JSON.stringify(uuid), { headers: { 'content-type': 'application/json' } });
 }
