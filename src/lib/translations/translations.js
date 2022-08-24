@@ -120,7 +120,7 @@ export default {
 			password: 'Password',
 			passwordRecommendation:
 				'We recommend a long, random password generated with a password manager.',
-			forgotPassword: 'Forgot Password?',
+			forgotUserOrPassword: 'Forgot Username or Password?',
 			haveAccount: 'Already have an account?',
 			noAccount: "Don't have an account?",
 			register: 'Register',

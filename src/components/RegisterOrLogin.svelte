@@ -9,7 +9,8 @@
 	export let pageID;
 
 	let username = 'bob',
-		password = 'pw';
+		password = 'pw',
+		email = 'satoshi@nakamoto.com';
 
 	let revealPassword = false;
 
@@ -33,6 +34,20 @@
 			<h1 class="text-2xl font-bold text-center">{$t('login.' + pageID)}</h1>
 
 			<form class="space-y-5" {action} method="POST">
+				{#if pageID === 'register'}
+					<div>
+						<label for="email" class="font-semibold">Email</label>
+						<!-- svelte-ignore a11y-autofocus -->
+						<input
+							name="email"
+							type="email"
+							required
+							class="bg-primary p-4 rounded-2xl w-full"
+							bind:value={email}
+							autofocus
+						/>
+					</div>
+				{/if}
 				<div>
 					<label for="username" class="font-semibold">{$t('login.username')}</label>
 					<!-- svelte-ignore a11y-autofocus -->
@@ -42,7 +57,7 @@
 						required
 						class="bg-primary p-4 rounded-2xl w-full"
 						bind:value={username}
-						autofocus
+						autofocus={pageID === 'signIn'}
 					/>
 				</div>
 
@@ -81,7 +96,7 @@
 				{:else}
 					<div class="flex justify-end items-center">
 						<a href="/forgot" class="underline underline-offset-4 text-black text-sm"
-							>{$t('login.forgotPassword')}</a
+							>{$t('login.forgotUserOrPassword')}</a
 						>
 					</div>
 				{/if}
