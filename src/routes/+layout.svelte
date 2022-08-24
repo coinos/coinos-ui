@@ -9,7 +9,9 @@
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
-	import { t } from '$lib/translations';
+	import { t, locale } from '$lib/translations';
+
+  const localeLocalStorageKey = 'sveltekit-i18n-locale';
 
 	$: $token = data.token;
 
@@ -19,13 +21,18 @@
 	$: $selectedRate = data.user && $rate * (data.rates[data.user.currency] / data.rates.USD);
 
 	onMount(() => {
+    let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
+		if (localStorageLocale) locale.set(localStorageLocale);
+
+		locale.subscribe((lng) => {
+			if (lng) localStorage.setItem(localeLocalStorageKey, lng);
+		});
+
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
 			if (!$token) {
 				goto('/login');
 				warning($t('error.signIn'));
 			}
-		} else {
-			ready = true;
 		}
 
 		connect();

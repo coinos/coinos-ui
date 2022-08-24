@@ -1,16 +1,128 @@
 {
-	"langname": "Français",
+	"404": {
+		"404": "404",
+		"pageNotFound": "Page non trouvée."
+	},
 	"about": {
-		"header": "À Propos"
+		"header": "À Propos",
+		"p1": "<strong>CoinOS</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
+		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation avec le but de rendre commencer utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
+		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenu par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installalons pour vous avec plaisir.",
+		"p4": "Transferts entre comptes de garde d'utilisateurs différents en notre serveur sont complètement gratuits, instants et sans limites.",
+		"founder": {
+			"header": "Le Fondateur",
+			"name": "Adam Soltys",
+			"position": "Officier Technique Principal",
+			"qualifications": {
+				"bitcoin": "Utilisant bitcoin depuis 2011",
+				"webDev": "20+ ans d'experience de programmation web en gouvernement et industrie",
+				"bitcoinVancouver": "Organisateur précoce de la rencontre bitcoin Vancouver",
+				"bitcoinCoop": "Fondateur de The Bitcoin Co-op et défenseur précoce de Decentral Vancouver",
+				"beliefs": "Yogi, permaculturiste, anarchiste, décentraliste",
+				"familialRelationships": "Mari, père, frère, fils"
+			}
+		},
+		"locations": {
+			"header": "Établissements",
+			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente CoinOS. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+		}
+	},
+	"error": {
+		"header": "Erreur",
+		"message": "S'il vous plait réessayez ou contactez l'assistance.",
+		"signIn": "Vous devez connecter pour continuer."
 	},
 	"faq": {
-		"header": "FAQ"
+		"header": "FAQ",
+		"cost": {
+			"question": "Qu'est-ce que c'est le coût?",
+			"answer": "CoinOS est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre Bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
+		},
+		"compatibility": {
+			"question": "Est-ce que j'ai besoin du logiciel ou appareil special?",
+			"answer": "Non. CoinOS est un site Web, alors vous pouvez l'utiliser sur n'importe quelle appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
+		},
+		"safety": {
+			"question": "Sont mes fonds saufs?",
+			"answer": "Vos fonds sont entreposés en notre serveur sécurisé, mais nous recommendons que vous les retirez à votre propre entreposage pour les sauvegarder à long terme."
+		}
+	},
+	"footer": {
+		"followUs": "Suivez-Nous",
+		"twitter": "Twitter",
+		"github": "GitHub",
+		"company": "Entreprise",
+		"telegram": "Telegram",
+		"support": "Assistance",
+		"jobs": "Jobs"
 	},
 	"howItWorks": {
-		"header": "Comment Elle Fonctionne"
+		"header": "Comment Elle Fonctionne",
+		"step1": {
+			"header": "1. Crée votre compte",
+			"description": "Un nom d'utilateur et mot de passe est tout qui est besoin pour commencer."
+		},
+		"step2": {
+			"header": "2. Demande pour des paiements",
+			"description": "Comme vous faisiez normalement, mais avec bitcoin."
+		},
+		"step3": {
+			"header": "3. C'est tout!",
+			"description": "Vous pouvez convertir au monnaie local n'importe quand."
+		}
+	},
+	"landing": {
+		"header_before_icon": "Le",
+		"header_with_icon": "façon",
+		"header_after_icon": "le plus façile d'accepter bitcoin en votre magasin.",
+		"subheader": "Aggrandir votre clientèle et chiffre d'affaires par accepter bitcoin avec un point de vente façile à utiliser et dirigé. Logiciel et matériel informatique non obligatoire.",
+		"info1": {
+			"title": "Paiements instants avec Lightning",
+			"description": "Le moment que votre client envoie un paiment, c'est la. Vous ne devez pas attendre pour les décisions de banques ou vous inquieter pour des rejets de débit. Décisions instant, en secondes. Dis au revoir aux frais de dossir 3% des cartes de crédit."
+		},
+		"info2": {
+			"title": "Simple à utiliser, en garde par défaut",
+			"description1": "Juste entrer une quantité, partager le code QR et c'est tout!",
+			"description2": "Tes contes sont en garde par défaut, qui élimine le nécessité de comprendre comment bitcoin/lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous pouvez vous concentrer sur votre entreprise.",
+			"description3": "Vous toujours avez l'option de <span class=\"underline undeline-offset-4\">prendre garde</span> de vos clés."
+		},
+		"info3": {
+			"title": "Personalise-le comment vous voulez",
+			"description": "Personalisez votre point de vente, ou rettenez-le au défaut - c'est votre chois."
+		}
+	},
+	"login": {
+		"username": "Nom d'utilisateur",
+		"password": "Mot de passe",
+		"passwordRecommendation": "Nous recommendons un mot de passe long et au hazard, généré par un gestionnaire de mots de passe.",
+		"forgotPassword": "Oublié ton mot de passe?",
+		"haveAccount": "Avez-vous déjà une conte?",
+		"noAccount": "N'avez-vous pas un conte?",
+		"register": "Enregistrer",
+		"signIn": "Connexion",
+		"failed": "Connexion failli"
 	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
-		"signIn": "Connexion"
+		"account": "Conte",
+		"signIn": "Connexion",
+		"signOut": "Déconnexion",
+		"dashboard": "Tableau de bord",
+		"settings": "Préférences",
+		"support": "Assistance"
+	},
+	"invoice": {
+		"addTip": "Ajoutez un pourboire",
+		"addTipq": "Ajouter un pourboire?",
+		"done": "Fini",
+		"paymentSuccessful": "Paiement réussi!"
+	},
+	"jobs": {
+		"header": "Emplois",
+		"subheader": "Postes disponibles actuels",
+		"pitch1": "CoinOS recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
+		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
+		"github": "GitHub",
+		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
 	}
 }

@@ -81,7 +81,7 @@
 	};
 
 	let submit = async () => {
-		let { id } = await post('/invoice', {
+		let id = await post('/invoice', {
 			amount,
 			rate: $selectedRate,
 			username: $page.params.username
