@@ -61,13 +61,13 @@ if __name__ == "__main__":
     args_parser.add_argument('to_locale', nargs='?', type=str,
                              help="which locale to translate to")
     args_parser.add_argument('-v', '--verbose', action='count', default=0,
-                             help="show more information")
+                             help="show more information (use twice for even more)")
     args_parser.add_argument('-V', '--version', action='store_true',
                              help="show version info and exit")
     args = args_parser.parse_args()
 
     if args.version:
-        print("Guided Translation Script version 0.2.0")
+        print("Guided Translation Script version 0.3.0")
         sys.exit(0)
 
     from_locale = args.from_locale or input("Which locale do you want to translate from (default: %s)? "
@@ -110,17 +110,20 @@ if __name__ == "__main__":
                  len(to_id_list), to_locale)
     logging.debug("List of strings: %s", to_id_list)
 
-    # localize strings!
-    try:
-        for string_id in from_id_list:
-            if string_id not in to_id_list:
-                localize_string(string_id, from_data, to_data)
-                to_id_list.append(string_id)
-    except KeyboardInterrupt:
-        print("\nProgram interrupted.  Saving strings...")
+    if set(from_id_list) == set(to_id_list):
+        print("Translations are already complete.")
+    else:
+        # localize strings!
+        try:
+            for string_id in from_id_list:
+                if string_id not in to_id_list:
+                    localize_string(string_id, from_data, to_data)
+                    to_id_list.append(string_id)
+        except KeyboardInterrupt:
+            print("\nProgram interrupted.  Saving strings...")
 
-    # save localized data
-    with open(to_locale + ".json", 'w', encoding='utf-8') as to_file:
-        json.dump(to_data, to_file, ensure_ascii=False, indent='\t')
-        to_file.write('\n')
-    logging.info("Saved %d localized strings to %s.json", len(to_id_list), to_locale)
+        # save localized data
+        with open(to_locale + ".json", 'w', encoding='utf-8') as to_file:
+            json.dump(to_data, to_file, ensure_ascii=False, indent='\t')
+            to_file.write('\n')
+        logging.info("Saved %d localized strings to %s.json", len(to_id_list), to_locale)
