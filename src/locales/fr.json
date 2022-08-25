@@ -94,8 +94,9 @@
 	"login": {
 		"username": "Nom d'utilisateur",
 		"password": "Mot de passe",
+    "email": "Courriel",
 		"passwordRecommendation": "Nous recommendons un mot de passe long et au hazard, généré par un gestionnaire de mots de passe.",
-		"forgotUserOrPassword": "Oublié ton mot de passe?",
+		"forgotUserOrPassword": "Oublié ton nom d'utilisateur ou mot de passe?",
 		"haveAccount": "Avez-vous déjà une conte?",
 		"noAccount": "N'avez-vous pas un conte?",
 		"register": "Enregistrer",
