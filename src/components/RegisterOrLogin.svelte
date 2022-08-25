@@ -36,7 +36,7 @@
 			<form class="space-y-5" {action} method="POST">
 				{#if pageID === 'register'}
 					<div>
-						<label for="email" class="font-semibold">Email</label>
+						<label for="email" class="font-semibold">{$t('login.email')}</label>
 						<!-- svelte-ignore a11y-autofocus -->
 						<input
 							name="email"
