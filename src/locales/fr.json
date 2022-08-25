@@ -94,7 +94,7 @@
 	"login": {
 		"username": "Nom d'utilisateur",
 		"password": "Mot de passe",
-    "email": "Courriel",
+		"email": "Courriel",
 		"passwordRecommendation": "Nous recommendons un mot de passe long et au hazard, généré par un gestionnaire de mots de passe.",
 		"forgotUserOrPassword": "Oublié ton nom d'utilisateur ou mot de passe?",
 		"haveAccount": "Avez-vous déjà une conte?",
@@ -125,5 +125,69 @@
 		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
 		"github": "GitHub",
 		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
+	},
+	"user": {
+		"addressGoesHere": "Addresse ici",
+		"follow": "Suivre",
+		"remove": "Enlève",
+		"scanToPayBTC": "Scanner pour payer avec Bitcoin",
+		"dashboard": {
+			"ACCOUNT_BALANCE": "SOLDE",
+			"bitcoinPrice": "Prix de Bitcoin:",
+			"conversionFeeWarning": "Il y a un prix de 1% pour convertir entre Bitcoin, Liquid et Lightning.",
+			"dataFromBinance": "Données de <span class=\"text-black\">Binance</span>.",
+			"fetchingRate": "cherchant taut de change...",
+			"optionalNote": "Note (optionel)",
+			"send": "Envoie",
+			"withdraw": "Retire"
+		},
+		"receive": {
+			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
+			"showQR": "Voire QR"
+		},
+		"settings": {
+			"header": "Préférences",
+			"ACCOUNT": "CONTE",
+			"POINT_OF_SALE": "POINT DE VENTE",
+			"SECURITY": "SÉCURITÉ",
+			"locale": "Langue",
+			"username": "Nom d'Utilisateur",
+			"newPassword": "Mot de Passe Nouveau",
+			"businessAddress": "Addresse d'Entreprise",
+			"emailNotifications": "Notifications par Courriel",
+			"emailNotificationsDescription": "Nous pouvons vous notifier par courriel quand votre conte change ou quand vous recevez des paiements",
+			"smsNotifications": "Notifications par SMS",
+			"smsNotificationsDescription": "Nous vous envoyons des notifications par texte quand ceci est activé",
+			"theme": "Thème",
+			"themeDescription": "Sélectionnez des thèmes dèfauts.",
+			"localCurrency": "Monnaie Local",
+			"btcUnit": "Voire bitcoin en:",
+			"bitcoin": "Bitcoin",
+			"satoshis": "Satoshis",
+			"securityPIN": "NIP de Sécurité",
+			"securityPINDescription": "Choisir un NIP de sécurité qui sera necessaire pour ouvrir tes préférences et pour envoyer des paiements sortants.",
+			"setPIN": "Choisir Votre NIP",
+			"autoLock": "Auto-Verouillage",
+			"autoLockDescription": "Ta conte activera une mode sécuritaire après une durée spécifiée:",
+			"twofa": "Authentification à 2 Facteurs",
+			"twofaDescription": "Ajoutez un autre niveau de sécurité par activez l'authentication à deux facteurs.",
+			"twofaSetup": "Activer A2F"
+		},
+		"support": {
+			"header": "Assistance",
+			"email": "Courriel",
+			"accountName": "Nom d'utilisateur",
+			"message": "Message",
+			"send": "Envoie"
+		},
+		"transactions": {
+			"header": "Histoire des Transactions",
+			"AMOUNT": "QUANTITÉ",
+			"TYPE": "TYPE",
+			"TIME": "HEURE",
+			"sent": "Envoyé",
+			"received": "Recevé",
+			"empty": "Vous n'avez pas des transactions."
+		}
 	}
 }
