@@ -13,12 +13,13 @@
 
 	const localeLocalStorageKey = 'sveltekit-i18n-locale';
 
-	$: $token = data.token;
-
 	export let data;
 
+	$: $token = data.token;
+	$: $user = data.user;
+
 	$rates = data.rates;
-	$: $selectedRate = data.user && $rate * (data.rates[data.user.currency] / data.rates.USD);
+	$: $selectedRate = $user && $rate * (data.rates[data.user.currency] / data.rates.USD);
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
