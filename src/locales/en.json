@@ -152,6 +152,7 @@
 			"SECURITY": "SECURITY",
 			"locale": "Language",
 			"username": "Username",
+      "email": "Email",
 			"newPassword": "New Password",
 			"businessAddress": "Business Address",
 			"emailNotifications": "Email Notifications",
