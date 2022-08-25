@@ -126,3 +126,8 @@ export const login = async (user, setHeaders) => {
 		})
 	});
 };
+
+export const auth = (req) => {
+	let { token } = cookie.parse(req.headers.get('cookie') || '');
+	return { authorization: `Bearer ${token}` };
+};
