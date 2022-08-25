@@ -27,7 +27,7 @@
 
 	$: amountFiatConverted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: $user ? $user.currency : 'USD'
+		currency: $user.currency
 	}).format(amountSats * ($selectedRate / 100000000));
 
 	$: amountSatsConverted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
