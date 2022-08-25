@@ -14,18 +14,20 @@
 	$: amount = useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats;
 
 	$: $invoiceAmount = parseInt(
-		amountSats === 0 ? amountFiat / ($selectedRate / 100000000) : amountSats
+		amountSats === 0 || amountSats === '0' ? amountFiat / ($selectedRate / 100000000) : amountSats
 	);
+
 	$: $invoiceAmountFiat = parseInt(
 		amountFiat === 0 ? amountSats * ($selectedRate / 100000000) : amountFiat
 	);
+
 	$: amountSatsFormatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
 		amountSats
 	);
 
 	$: amountFiatConverted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency: $user.currency
+		currency: $user ? $user.currency : 'USD'
 	}).format(amountSats * ($selectedRate / 100000000));
 
 	$: amountSatsConverted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
