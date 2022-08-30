@@ -3,4 +3,4 @@
 	export let style;
 </script>
 
-<img src="/icons/{icon}.svg" alt={icon} class={style} style="width: 26px; height: 26px" />
+<img src="/icons/{icon}.svg" alt={icon} class={style} />
