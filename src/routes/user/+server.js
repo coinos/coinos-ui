@@ -1,8 +1,8 @@
-import { auth, post } from "$lib/utils";
+import { auth, post } from '$lib/utils';
 import cookie from 'cookie';
 
 export async function PUT({ request, setHeaders }) {
-  console.log(setHeaders)
+	console.log(setHeaders);
 	let user = await request.json();
 	let res = await post('/user', user, auth(request));
 
@@ -12,7 +12,7 @@ export async function PUT({ request, setHeaders }) {
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
 	setHeaders({
-    'content-type': 'application/json',
+		'content-type': 'application/json',
 		'set-cookie': cookie.serialize('token', res.token, {
 			httpOnly: true,
 			maxAge,

@@ -108,7 +108,7 @@
 	"login": {
 		"username": "Username",
 		"password": "Password",
-    "email": "Email",
+		"email": "Email",
 		"passwordRecommendation": "We recommend a long, random password generated with a password manager.",
 		"forgotUserOrPassword": "Forgot Username or Password?",
 		"haveAccount": "Already have an account?",
@@ -152,7 +152,7 @@
 			"SECURITY": "SECURITY",
 			"locale": "Language",
 			"username": "Username",
-      "email": "Email",
+			"email": "Email",
 			"newPassword": "New Password",
 			"businessAddress": "Business Address",
 			"emailNotifications": "Email Notifications",
