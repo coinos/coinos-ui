@@ -1,9 +1,8 @@
-<svelte:options accessors={true} />
-
 <script>
 	import { rates, user } from '$lib/store';
 	import { Icon, Toggle, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
+	import { success, failure, put } from '$lib/utils';
 
 	const fiats = Object.keys($rates);
 

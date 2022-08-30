@@ -3,10 +3,8 @@
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
 
-	import { AppHeader, Icon } from '$comp';
-	import { user, colorTheme, rates, token } from '$lib/store';
+	import { AppHeader } from '$comp';
 	import { t } from '$lib/translations';
-	import { success, failure, put } from '$lib/utils';
 
 	let tab = 'account';
 
@@ -19,7 +17,6 @@
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 </script>
 
-{#if $user}
 	<AppHeader />
 
 	<div class="my-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
@@ -37,4 +34,3 @@
 
 		<svelte:component this={comp} />
 	</div>
-{/if}
