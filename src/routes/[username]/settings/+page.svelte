@@ -3,7 +3,7 @@
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
 
-	import { AppHeader } from '$comp';
+	import { AppHeader, Icon } from '$comp';
 	import { t } from '$lib/translations';
 
 	let tab = 'account';
@@ -17,20 +17,27 @@
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 </script>
 
-	<AppHeader />
+<AppHeader />
 
-	<div class="my-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
-		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
-			{$t('user.settings.header')}
-		</h1>
+<div class="my-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
+	<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+		{$t('user.settings.header')}
+	</h1>
 
-		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
-			{#each tabs as { name, key }}
-				<button class:text-black={tab === name} on:click={() => (tab = name)}
-					>{$t(`user.settings.${key}`)}</button
-				>
-			{/each}
-		</div>
-
-		<svelte:component this={comp} />
+	<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
+		{#each tabs as { name, key }}
+			<button class:text-black={tab === name} on:click={() => (tab = name)}
+				>{$t(`user.settings.${key}`)}</button
+			>
+		{/each}
 	</div>
+
+	<svelte:component this={comp} />
+</div>
+
+<div class="fixed bottom-0 bg-white shadow border w-full">
+	<button class="rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto">
+		<Icon icon="save" style="m-auto mr-2" />
+		<div class="my-auto">Save Settings</div>
+	</button>
+</div>

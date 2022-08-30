@@ -24,14 +24,13 @@
 
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-	<input type="email" disabled name="email" class="block border rounded-xl p-3 w-full" />
+  <input type="email" name="email" class="block border rounded-xl p-3 w-full" bind:value={$user.email} />
 </div>
 
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
 	<input
 		type="text"
-		disabled
 		name="username"
 		value={$user.username}
 		class="block border rounded-xl p-3 w-full"
