@@ -8,6 +8,6 @@
 		$token = null;
 		$user = null;
 		close();
-    goto('/');
+		goto('/');
 	});
 </script>
