@@ -3,9 +3,9 @@
 	import { Icon, Toggle, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 
-	let password;
 	let selectedTheme = 1;
 	let revealPassword = false;
+	let password;
 
 	const colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
@@ -15,6 +15,13 @@
 		{ theme: 5, color1: 'from-[#F3E7E9]', color2: 'to-[#E3EEFF]' },
 		{ theme: 6, color1: 'from-[#F5F7FA]', color2: 'via-[#EAF2FF] to-[#DEDFFF]' }
 	];
+
+	const handleThemeClick = (colors) => {
+		selectedTheme = colors.theme;
+		$colorTheme = colors.color1 + ' ' + colors.color2;
+	};
+
+	$: $user.password = $user.confirm = password;
 </script>
 
 <div>
@@ -24,7 +31,12 @@
 
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-  <input type="email" name="email" class="block border rounded-xl p-3 w-full" bind:value={$user.email} />
+	<input
+		type="email"
+		name="email"
+		class="block border rounded-xl p-3 w-full"
+		bind:value={$user.email}
+	/>
 </div>
 
 <div>
@@ -32,7 +44,7 @@
 	<input
 		type="text"
 		name="username"
-		value={$user.username}
+		bind:value={$user.username}
 		class="block border rounded-xl p-3 w-full"
 	/>
 </div>
@@ -55,7 +67,12 @@
 
 <div>
 	<label for="address" class="font-bold mb-1 block">{$t('user.settings.businessAddress')}</label>
-	<input type="text" name="address" class="block border rounded-xl p-3 w-full" />
+	<input
+		type="text"
+		name="address"
+		class="block border rounded-xl p-3 w-full"
+		bind:value={$user.address}
+	/>
 </div>
 
 <div>
@@ -83,6 +100,7 @@
 	<p class="text-secondary mb-1">{$t('user.settings.themeDescription')}</p>
 	{#each colorThemes as colors}
 		<button
+			type="button"
 			class="mr-2 w-10 h-10 bg-gradient-to-r {colors.color1} {colors.color2} rounded-xl border-2 {selectedTheme ===
 			colors.theme
 				? 'border-black'
