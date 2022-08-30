@@ -1,39 +1,22 @@
 <script>
-	import { AppHeader, Icon, Toggle, LocaleSelector } from '$comp';
+	import Account from './_account.svelte';
+	import Pos from './_pos.svelte';
+	import Security from './_security.svelte';
+
+	import { AppHeader, Icon } from '$comp';
 	import { user, colorTheme, rates, token } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { success, failure, put } from '$lib/utils';
 
-	let setting = 'account';
-	let password;
-	let revealPassword = false;
-	const fiats = Object.keys($rates);
+	let tab = 'account';
 
-	const colorThemes = [
-		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
-		{ theme: 2, color1: 'from-[#FDFCFB]', color2: 'to-[#E2D1C3]' },
-		{ theme: 3, color1: 'from-[#E6E9F0]', color2: 'to-[#EEF1F5]' },
-		{ theme: 4, color1: 'from-[#D5D4D0]', color2: 'to-[#EEEEEC]' },
-		{ theme: 5, color1: 'from-[#F3E7E9]', color2: 'to-[#E3EEFF]' },
-		{ theme: 6, color1: 'from-[#F5F7FA]', color2: 'via-[#EAF2FF] to-[#DEDFFF]' }
+	let tabs = [
+		{ name: 'account', key: 'ACCOUNT', comp: Account },
+		{ name: 'pos', key: 'POINT_OF_SALE', comp: Pos },
+		{ name: 'security', key: 'SECURITY', comp: Security }
 	];
-	// need to update this to use the new backend field
-	let selectedTheme = 1;
 
-	const handleThemeClick = (colors) => {
-		selectedTheme = colors.theme;
-		$colorTheme = colors.color1 + ' ' + colors.color2;
-	};
-
-	const updateFiat = async (e) => {
-		try {
-			$user.currency = e.target.value;
-			let r = await put('/' + $user.username, { user: $user });
-			success('Local currency updated!');
-		} catch (e) {
-			failure(e.message);
-		}
-	};
+	$: ({ comp } = tabs.find((t) => t.name === tab));
 </script>
 
 {#if $user}
@@ -45,158 +28,13 @@
 		</h1>
 
 		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
-			<button class:selected={setting === 'account'} on:click={() => (setting = 'account')}
-				>{$t('user.settings.ACCOUNT')}</button
-			>
-
-			<button class:selected={setting === 'pos'} on:click={() => (setting = 'pos')}
-				>{$t('user.settings.POINT_OF_SALE')}</button
-			>
-
-			<button class:selected={setting === 'security'} on:click={() => (setting = 'security')}
-				>{$t('user.settings.SECURITY')}</button
-			>
+			{#each tabs as { name, key }}
+				<button class:text-black={tab === name} on:click={() => (tab = name)}
+					>{$t(`user.settings.${key}`)}</button
+				>
+			{/each}
 		</div>
 
-		{#if setting === 'account'}
-			<div>
-				<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
-				<LocaleSelector style="block py-3 w-full" />
-			</div>
-
-			<div>
-				<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-				<input type="email" disabled name="email" class="block border rounded-xl p-3 w-full" />
-			</div>
-
-			<div>
-				<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
-				<input
-					type="text"
-					disabled
-					name="username"
-					value={$user.username}
-					class="block border rounded-xl p-3 w-full"
-				/>
-			</div>
-
-			<div class="relative">
-				<label for="password" class="block font-bold block mb-1"
-					>{$t('user.settings.newPassword')}</label
-				>
-				{#if revealPassword}
-					<input type="text" class="block border rounded-xl p-3 w-full" bind:value={password} />
-				{:else}
-					<input type="password" class="block border rounded-xl p-3 w-full" bind:value={password} />
-				{/if}
-				<button
-					type="button"
-					on:click={() => (revealPassword = !revealPassword)}
-					class="absolute right-5 top-10"
-				>
-					<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
-				</button>
-			</div>
-
-			<div>
-				<label for="address" class="font-bold mb-1 block"
-					>{$t('user.settings.businessAddress')}</label
-				>
-				<input type="text" name="address" class="block border rounded-xl p-3 w-full" />
-			</div>
-
-			<div>
-				<div class="flex justify-between items-center">
-					<span class="font-bold">{$t('user.settings.emailNotifications')}</span>
-					<Toggle id="email-notify" />
-				</div>
-				<p class="text-secondary mt-1 w-9/12">
-					{$t('user.settings.emailNotificationsDescription')}
-				</p>
-			</div>
-
-			<div>
-				<div class="flex justify-between items-center">
-					<span class="font-bold">{$t('user.settings.smsNotifications')}</span>
-					<Toggle id="sms-notify" />
-				</div>
-				<p class="text-secondary mt-1 w-9/12">
-					{$t('user.settings.smsNotificationsDescription')}
-				</p>
-			</div>
-
-			<div>
-				<span class="font-bold mb-1 block">{$t('user.settings.theme')}</span>
-				<p class="text-secondary mb-1">{$t('user.settings.themeDescription')}</p>
-				{#each colorThemes as colors}
-					<button
-						class="mr-2 w-10 h-10 bg-gradient-to-r {colors.color1} {colors.color2} rounded-xl border-2 {selectedTheme ===
-						colors.theme
-							? 'border-black'
-							: ''}"
-						on:click={() => handleThemeClick(colors)}
-					/>
-				{/each}
-			</div>
-		{:else if setting === 'pos'}
-			<div>
-				<label for="currency" class="font-bold block mb-1"
-					>{$t('user.settings.localCurrency')}</label
-				>
-				<select name="currency" on:change={updateFiat} class="block py-3 w-full">
-					{#each fiats as fiat}
-						<option value={fiat} selected={$user.currency === fiat}>{fiat}</option>
-					{/each}
-				</select>
-			</div>
-
-			<div>
-				<label for="btc-unit" class="font-bold block mb-1">{$t('user.settings.btcUnit')}</label>
-				<select disabled name="btc-unit" class="block py-3 w-full">
-					<option value="SATS">{$t('user.settings.satoshis')} (SAT)</option>
-					<option value="BTC">{$t('user.settings.bitcoin')} (BTC)</option>
-				</select>
-			</div>
-		{:else}
-			<div>
-				<span class="font-bold mb-1">{$t('user.settings.securityPIN')}</span>
-				<p class="text-secondary mb-1">
-					{$t('user.settings.securityPINDescription')}
-				</p>
-				<button class="p-3 border rounded-3xl font-bold flex justify-center items-center"
-					><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
-				>
-			</div>
-
-			<div>
-				<label for="auto-lock" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
-				<p class="text-secondary mb-1">
-					{$t('user.settings.autoLockDescription')}
-				</p>
-				<select name="auto-lock" class="block py-3 w-full">
-					<option value="5">5 min</option>
-					<option value="10">10 min</option>
-					<option value="30">30 min</option>
-					<option value="60">1 h</option>
-					<option value="480">8 h</option>
-				</select>
-			</div>
-
-			<div>
-				<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
-				<p class="text-secondary mb-1">
-					{$t('user.settings.twofaDescription')}
-				</p>
-				<button class="p-3 border rounded-3xl font-bold flex justify-center items-center"
-					><Icon icon="mobile" style="mr-1" /> {$t('user.settings.twofaSetup')}</button
-				>
-			</div>
-		{/if}
+		<svelte:component this={comp} />
 	</div>
 {/if}
-
-<style>
-	.selected {
-		color: black;
-	}
-</style>
