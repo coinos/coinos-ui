@@ -1,4 +1,3 @@
-<svelte:options accessors={true} />
 <script>
 	import { t } from '$lib/translations';
 	import { Icon } from '$comp';

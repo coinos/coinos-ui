@@ -1,5 +1,3 @@
-<svelte:options accessors={true} />
-
 <script>
 	import { user, colorTheme, rates } from '$lib/store';
 	import { Icon, Toggle, LocaleSelector } from '$comp';
