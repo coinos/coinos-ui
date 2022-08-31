@@ -97,7 +97,6 @@
 						<input
 							name="token"
 							type="text"
-							required
 							class="bg-primary p-4 rounded-2xl w-full"
 							bind:value={twofa}
 							autofocus={pageID === 'signIn'}
