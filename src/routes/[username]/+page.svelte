@@ -43,7 +43,7 @@
 			<div class="xl:ml-[calc(15vw-48px)] space-y-2 w-full md:w-72">
 				<h1 class="text-3xl font-bold">{data.username}</h1>
 
-				<p class="text-secondary">{$t('user.addressGoesHere')}</p>
+				<p class="text-secondary">{$user.address}</p>
 
 				<!--
         we need to hook this up
