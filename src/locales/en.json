@@ -145,8 +145,8 @@
 			"showQR": "Show QR"
 		},
 		"settings": {
-      "oneTimeCode": "Enter one-time code to enable",
-      "accountId": "Account ID",
+			"oneTimeCode": "Enter one-time code to enable",
+			"accountId": "Account ID",
 			"header": "Settings",
 			"ACCOUNT": "ACCOUNT",
 			"POINT_OF_SALE": "POINT OF SALE",
@@ -174,7 +174,7 @@
 			"twofa": "2-Factor Authentication",
 			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
 			"twofaSetup": "Set up 2FA",
-      "twofaDisable": "Disable 2FA"
+			"twofaDisable": "Disable 2FA"
 		},
 		"support": {
 			"header": "Support",

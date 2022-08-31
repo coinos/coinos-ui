@@ -30,7 +30,7 @@
 
 <AppHeader />
 
-<form on:submit|preventDefault={save} class="mb-20">
+<form on:submit|preventDefault={save} class="mb-28">
 	<div class="my-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
 			{$t('user.settings.header')}
@@ -46,11 +46,10 @@
 
 		<svelte:component this={comp} />
 	</div>
-	<div class="fixed bottom-0 bg-white shadow border w-full">
+	<div class="z-10 fixed bottom-0 bg-white shadow border w-full">
 		<button type="submit" class="primary">
 			<Icon icon="save" style="w-6 h-6 mr-1" />
 			<div class="my-auto">Save Settings</div>
 		</button>
 	</div>
 </form>
-

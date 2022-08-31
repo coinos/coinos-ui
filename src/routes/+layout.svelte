@@ -52,5 +52,7 @@
 		--toastBackground: #292929;
 	}
 
-  button.primary { @apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:bg-primary }
+	button.primary {
+		@apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:bg-primary;
+	}
 </style>
