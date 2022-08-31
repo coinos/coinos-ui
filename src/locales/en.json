@@ -106,6 +106,7 @@
 		}
 	},
 	"login": {
+		"token": "2FA Token",
 		"username": "Username",
 		"password": "Password",
 		"email": "Email",
@@ -145,8 +146,8 @@
 			"showQR": "Show QR"
 		},
 		"settings": {
-			"oneTimeCode": "Enter one-time code to enable",
-			"accountId": "Account ID",
+      "oneTimeCode": "Enter one-time code",
+      "accountId": "Account Secret",
 			"header": "Settings",
 			"ACCOUNT": "ACCOUNT",
 			"POINT_OF_SALE": "POINT OF SALE",

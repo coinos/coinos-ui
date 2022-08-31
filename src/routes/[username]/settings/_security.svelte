@@ -14,11 +14,17 @@
 	let tokenInput, pinInput;
 
 	$: if (settingPin) pinInput && tick().then(pinInput.focusFirstInput);
-	$: if (setting2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
+	$: if (setting2fa || disabling2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
+
+	let reset = () => {
+		token = '';
+		code = [];
+		return true;
+	};
 
 	let togglePin = () => (settingPin = !settingPin);
-	let toggleEnabling = () => (setting2fa = !setting2fa);
-	let toggleDisabling = () => (disabling2fa = !disabling2fa);
+	let toggleEnabling = () => reset() && (setting2fa = !setting2fa);
+	let toggleDisabling = () => reset() && (disabling2fa = !disabling2fa);
 
 	$: enable2fa(token);
 	let enable2fa = async (twoFa) => {
@@ -47,6 +53,8 @@
 			failure('Failed to disable 2fa, try again');
 		}
 	};
+
+	$: otpUri = `otpauth://totp/coinos:${$user.username}?secret=${$user.otpsecret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
 </script>
 
 <div>
@@ -90,12 +98,15 @@
 
 <div>
 	{#if setting2fa}
-		<Qr text={$user.otpsecret} />
+		<a href={otpUri}>
+			<Qr text={otpUri} />
+		</a>
 
 		<div class="text-center my-4">
 			{$t('user.settings.accountId')}<br />
 			<b>{$user.otpsecret}</b>
 		</div>
+
 		<div class="text-center my-4">
 			{$t('user.settings.oneTimeCode')}<br />
 			<Pincode bind:code bind:value={token} bind:this={tokenInput}>
@@ -108,17 +119,15 @@
 			</Pincode>
 		</div>
 	{:else if disabling2fa}
-		<div class="text-center my-4">
-			{$t('user.settings.oneTimeCode')}<br />
-			<Pincode bind:code bind:value={token} bind:this={tokenInput}>
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-			</Pincode>
-		</div>
+		{$t('user.settings.oneTimeCode')}<br />
+		<Pincode bind:code bind:value={token} bind:this={tokenInput}>
+			<PincodeInput />
+			<PincodeInput />
+			<PincodeInput />
+			<PincodeInput />
+			<PincodeInput />
+			<PincodeInput />
+		</Pincode>
 	{:else}
 		<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
 		<p class="text-secondary mb-1">
@@ -130,10 +139,21 @@
 				{$t('user.settings.twofaDisable')}
 			</button>
 		{:else}
-			<button type="button" class="primary" on:click={toggleEnabling}>
-				<Icon icon="mobile" style="mr-1" />
-				{$t('user.settings.twofaSetup')}
-			</button>
+			<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
+			<p class="text-secondary mb-1">
+				{$t('user.settings.twofaDescription')}
+			</p>
+			{#if $user.twofa}
+				<button type="button" class="primary" on:click={toggleDisabling}>
+					<Icon icon="mobile" style="mr-1" />
+					{$t('user.settings.twofaDisable')}
+				</button>
+			{:else}
+				<button type="button" class="primary" on:click={toggleEnabling}>
+					<Icon icon="mobile" style="mr-1" />
+					{$t('user.settings.twofaSetup')}
+				</button>
+			{/if}
 		{/if}
 	{/if}
 </div>
