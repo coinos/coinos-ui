@@ -127,7 +127,6 @@
 		"support": "Support"
 	},
 	"user": {
-		"addressGoesHere": "Address goes here",
 		"follow": "Follow",
 		"remove": "Remove",
 		"scanToPayBTC": "Scan to pay with bitcoin",
@@ -146,6 +145,8 @@
 			"showQR": "Show QR"
 		},
 		"settings": {
+      "oneTimeCode": "Enter one-time code to enable",
+      "accountId": "Account ID",
 			"header": "Settings",
 			"ACCOUNT": "ACCOUNT",
 			"POINT_OF_SALE": "POINT OF SALE",
@@ -172,7 +173,8 @@
 			"autoLockDescription": "Your account will go into a secure mode automatically after a specified time:",
 			"twofa": "2-Factor Authentication",
 			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
-			"twofaSetup": "Set up 2FA"
+			"twofaSetup": "Set up 2FA",
+      "twofaDisable": "Disable 2FA"
 		},
 		"support": {
 			"header": "Support",
