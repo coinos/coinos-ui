@@ -10,7 +10,8 @@
 
 	let username = 'bob',
 		password = 'pw',
-		email = 'satoshi@nakamoto.com';
+		email = 'satoshi@nakamoto.com',
+		twofa = '';
 
 	let revealPassword = false;
 
@@ -88,6 +89,21 @@
 						<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
 					</button>
 				</div>
+
+				{#if pageID === 'signIn'}
+					<div>
+						<label for="token" class="font-semibold">{$t('login.token')}</label>
+						<!-- svelte-ignore a11y-autofocus -->
+						<input
+							name="token"
+							type="text"
+							required
+							class="bg-primary p-4 rounded-2xl w-full"
+							bind:value={twofa}
+							autofocus={pageID === 'signIn'}
+						/>
+					</div>
+				{/if}
 
 				{#if pageID === 'register'}
 					<p class="text-secondary text-sm">
