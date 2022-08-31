@@ -79,7 +79,7 @@ export const success = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
-			'--toastBarBackground': '#16A34A'
+			'--toastBarBackground': '#F5F7FA'
 		}
 	});
 };
