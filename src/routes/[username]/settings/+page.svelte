@@ -48,7 +48,7 @@
 	</div>
 	<div class="z-10 fixed bottom-0 bg-white shadow border w-full">
 		<button type="submit" class="primary">
-			<Icon icon="save" style="w-6 h-6 mr-1" />
+			<Icon icon="save" style="mr-1" />
 			<div class="my-auto">Save Settings</div>
 		</button>
 	</div>
