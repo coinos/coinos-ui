@@ -8,7 +8,7 @@
 	<p class="text-secondary mb-1">
 		{$t('user.settings.securityPINDescription')}
 	</p>
-	<button type="submit" class="p-3 border rounded-3xl font-bold flex justify-center items-center"
+	<button type="button" class="p-3 border rounded-3xl font-bold flex justify-center items-center"
 		><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
 	>
 </div>
@@ -32,7 +32,7 @@
 	<p class="text-secondary mb-1">
 		{$t('user.settings.twofaDescription')}
 	</p>
-	<button type="submit" class="p-3 border rounded-3xl font-bold flex justify-center items-center"
+	<button type="button" class="p-3 border rounded-3xl font-bold flex justify-center items-center"
 		><Icon icon="mobile" style="mr-1" /> {$t('user.settings.twofaSetup')}</button
 	>
 </div>

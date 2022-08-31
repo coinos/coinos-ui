@@ -2,7 +2,6 @@ import { auth, post } from '$lib/utils';
 import cookie from 'cookie';
 
 export async function PUT({ request, setHeaders }) {
-	console.log(setHeaders);
 	let user = await request.json();
 	let res = await post('/user', user, auth(request));
 

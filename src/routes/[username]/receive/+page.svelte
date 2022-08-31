@@ -178,7 +178,6 @@
 					{/each}
 				</div>
 
-				<!-- buttons -->
 				<div class="space-y-3 w-full md:w-[300px] mx-auto">
 					<button
 						class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm {$invoiceAmount ===
@@ -189,12 +188,6 @@
 						disabled={$invoiceAmount === 0}
 						><Icon icon="qr" style="mr-2" /> {$t('user.receive.showQR')}</button
 					>
-					<!--
-					<button
-						class="bg-primary rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm"
-						disabled={true}><Icon icon="send" style="mr-2" /> Send Invoice</button
-					>
-          -->
 				</div>
 			</div>
 		{:else}
