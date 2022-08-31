@@ -27,7 +27,7 @@
 				await put('/enable2fa', { token });
 				success('2fa enabled');
 				$user.twofa = 1;
-        toggleEnabling();
+				toggleEnabling();
 			}
 		} catch (e) {
 			failure('Failed to enable 2fa, try again');
@@ -41,7 +41,7 @@
 				await put('/disable2fa', { token });
 				success('2fa disabled');
 				$user.twofa = 0;
-        toggleDisabling();
+				toggleDisabling();
 			}
 		} catch (e) {
 			failure('Failed to disable 2fa, try again');
@@ -88,50 +88,52 @@
 	</select>
 </div>
 
-{#if setting2fa}
-	<Qr text={$user.otpsecret} />
+<div>
+	{#if setting2fa}
+		<Qr text={$user.otpsecret} />
 
-	<div class="text-center my-4">
-		{$t('user.settings.accountId')}<br />
-		<b>{$user.otpsecret}</b>
-	</div>
-	<div class="text-center my-4">
-		{$t('user.settings.oneTimeCode')}<br />
-		<Pincode bind:code bind:value={token} bind:this={tokenInput}>
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-		</Pincode>
-	</div>
-{:else if disabling2fa}
-	<div class="text-center my-4">
-		{$t('user.settings.oneTimeCode')}<br />
-		<Pincode bind:code bind:value={token} bind:this={tokenInput}>
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-			<PincodeInput />
-		</Pincode>
-	</div>
-{:else}
-	<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
-	<p class="text-secondary mb-1">
-		{$t('user.settings.twofaDescription')}
-	</p>
-	{#if $user.twofa}
-		<button type="button" class="primary" on:click={toggleDisabling}>
-			<Icon icon="mobile" style="mr-1" />
-			{$t('user.settings.twofaDisable')}
-		</button>
+		<div class="text-center my-4">
+			{$t('user.settings.accountId')}<br />
+			<b>{$user.otpsecret}</b>
+		</div>
+		<div class="text-center my-4">
+			{$t('user.settings.oneTimeCode')}<br />
+			<Pincode bind:code bind:value={token} bind:this={tokenInput}>
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+			</Pincode>
+		</div>
+	{:else if disabling2fa}
+		<div class="text-center my-4">
+			{$t('user.settings.oneTimeCode')}<br />
+			<Pincode bind:code bind:value={token} bind:this={tokenInput}>
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+				<PincodeInput />
+			</Pincode>
+		</div>
 	{:else}
-		<button type="button" class="primary" on:click={toggleEnabling}>
-			<Icon icon="mobile" style="mr-1" />
-			{$t('user.settings.twofaSetup')}
-		</button>
+		<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
+		<p class="text-secondary mb-1">
+			{$t('user.settings.twofaDescription')}
+		</p>
+		{#if $user.twofa}
+			<button type="button" class="primary" on:click={toggleDisabling}>
+				<Icon icon="mobile" style="mr-1" />
+				{$t('user.settings.twofaDisable')}
+			</button>
+		{:else}
+			<button type="button" class="primary" on:click={toggleEnabling}>
+				<Icon icon="mobile" style="mr-1" />
+				{$t('user.settings.twofaSetup')}
+			</button>
+		{/if}
 	{/if}
-{/if}
+</div>

@@ -1,11 +1,11 @@
 <script>
-  import { browser } from "$app/env";
+	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
 	export let image, text;
 
-  let qr;
+	let qr;
 
 	onMount(async () => {
 		if (!(browser && text)) return;
@@ -35,8 +35,7 @@
 
 <style>
 	div {
-		@apply 
-      px-5 
+		@apply px-5 
       md:px-0 
       w-[292px] 
       h-[302px]

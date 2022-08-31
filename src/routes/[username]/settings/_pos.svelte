@@ -10,7 +10,7 @@
 		try {
 			$user.currency = e.target.value;
 			let r = await put('/' + $user.username, { user: $user });
-			success('Local currency updated!');
+			success('Local currency updated');
 		} catch (e) {
 			failure(e.message);
 		}
