@@ -47,12 +47,10 @@
 		<svelte:component this={comp} />
 	</div>
 	<div class="fixed bottom-0 bg-white shadow border w-full">
-		<button
-			type="submit"
-			class="rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:bg-primary"
-		>
+		<button type="submit" class="primary">
 			<Icon icon="save" style="w-6 h-6 mr-1" />
 			<div class="my-auto">Save Settings</div>
 		</button>
 	</div>
 </form>
+

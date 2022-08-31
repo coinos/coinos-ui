@@ -1,6 +1,18 @@
 <script>
+  import { tick } from "svelte";
 	import { t } from '$lib/translations';
 	import { Icon } from '$comp';
+	import { Pincode, PincodeInput } from 'svelte-pincode';
+	import { user } from '$lib/store';
+
+	let settingPin, setting2fa;
+	let togglePin = () => (settingPin = !settingPin);
+	let toggle2fa = () => (setting2fa = !setting2fa);
+	let code = [];
+	let pin = '';
+  let pinInput;
+
+  $: if (settingPin) pinInput && tick().then(pinInput.focusFirstInput)
 </script>
 
 <div>
@@ -8,9 +20,24 @@
 	<p class="text-secondary mb-1">
 		{$t('user.settings.securityPINDescription')}
 	</p>
-	<button type="button" class="p-3 border rounded-3xl font-bold flex justify-center items-center"
-		><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
-	>
+	{#if settingPin}
+		<div class="flex my-4">
+			<div class="mx-auto">
+        <Pincode bind:code bind:value={$user.pin} bind:this={pinInput}>
+          <PincodeInput />
+					<PincodeInput />
+					<PincodeInput />
+					<PincodeInput />
+					<PincodeInput />
+					<PincodeInput />
+				</Pincode>
+			</div>
+		</div>
+	{:else}
+		<button type="button" class="primary" on:click={togglePin}
+			><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
+		>
+	{/if}
 </div>
 
 <div>
@@ -27,12 +54,17 @@
 	</select>
 </div>
 
-<div>
-	<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
-	<p class="text-secondary mb-1">
-		{$t('user.settings.twofaDescription')}
-	</p>
-	<button type="button" class="p-3 border rounded-3xl font-bold flex justify-center items-center"
-		><Icon icon="mobile" style="mr-1" /> {$t('user.settings.twofaSetup')}</button
-	>
-</div>
+{#if setting2fa}
+	QR
+{:else}
+	<div>
+		<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
+		<p class="text-secondary mb-1">
+			{$t('user.settings.twofaDescription')}
+		</p>
+		<button type="button" class="primary">
+			<Icon icon="mobile" style="mr-1" />
+			{$t('user.settings.twofaSetup')}
+		</button>
+	</div>
+{/if}

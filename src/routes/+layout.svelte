@@ -43,7 +43,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 <slot />
 
-<style>
+<style global>
 	:root {
 		--toastContainerTop: auto;
 		--toastContainerRight: auto;
@@ -51,4 +51,6 @@
 		--toastContainerLeft: calc(50vw - 8rem);
 		--toastBackground: #292929;
 	}
+
+  button.primary { @apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:bg-primary }
 </style>
