@@ -134,13 +134,12 @@
 				<PincodeInput />
 			</Pincode>
 		</div>
-	{/if}
-	{#if $user.twofa && !disabling2fa && !setting2fa}
+	{:else if $user.twofa}
 		<button type="button" class="primary" on:click={toggleDisabling}>
 			<Icon icon="mobile" style="mr-1" />
 			{$t('user.settings.twofaDisable')}
 		</button>
-	{:else if !$user.twofa && !disabling2fa && !setting2fa}
+	{:else}
 		<button type="button" class="primary" on:click={toggleEnabling}>
 			<Icon icon="mobile" style="mr-1" />
 			{$t('user.settings.twofaSetup')}
