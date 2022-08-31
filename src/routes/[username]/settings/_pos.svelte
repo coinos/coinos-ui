@@ -28,7 +28,7 @@
 
 <div>
 	<label for="unit" class="font-bold block mb-1">{$t('user.settings.btcUnit')}</label>
-  <select name="unit" class="block py-3 w-full" bind:value={$user.unit}>
+	<select name="unit" class="block py-3 w-full" bind:value={$user.unit}>
 		<option value="SAT">{$t('user.settings.satoshis')} (SAT)</option>
 		<option value="BTC">{$t('user.settings.bitcoin')} (BTC)</option>
 	</select>
