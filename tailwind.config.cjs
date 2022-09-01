@@ -7,7 +7,8 @@ module.exports = {
 				primary: '#F5F7FA',
 				secondary: '#70757E',
 				gradient: '#C3CFE2',
-				lightgrey: '#EAECEF'
+				lightgrey: '#EAECEF',
+				grey: '#70757E'
 			}
 		}
 	},
