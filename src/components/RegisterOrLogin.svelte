@@ -43,7 +43,7 @@
 							name="email"
 							type="email"
 							required
-							class="bg-primary p-4 rounded-2xl w-full"
+							class="bg-primary"
 							bind:value={email}
 							autofocus
 						/>
@@ -56,7 +56,7 @@
 						name="username"
 						type="text"
 						required
-						class="bg-primary p-4 rounded-2xl w-full"
+						class="bg-primary"
 						bind:value={username}
 						autofocus={pageID === 'signIn'}
 					/>
@@ -69,7 +69,7 @@
 							name="password"
 							type="text"
 							required
-							class="block bg-primary p-4 rounded-2xl w-full"
+							class="bg-primary"
 							bind:value={password}
 						/>
 					{:else}
@@ -77,7 +77,7 @@
 							name="password"
 							type="password"
 							required
-							class="block bg-primary p-4 rounded-2xl w-full"
+							class="bg-primary"
 							bind:value={password}
 						/>
 					{/if}
@@ -97,7 +97,7 @@
 						<input
 							name="token"
 							type="text"
-							class="bg-primary p-4 rounded-2xl w-full"
+							class="bg-primary"
 							bind:value={twofa}
 							autofocus={pageID === 'signIn'}
 						/>
@@ -133,3 +133,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+  input {
+    @apply border-none;
+  } 
+  </style>

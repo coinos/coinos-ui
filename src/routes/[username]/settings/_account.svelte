@@ -34,7 +34,6 @@
 	<input
 		type="email"
 		name="email"
-		class="block border rounded-xl p-3 w-full"
 		bind:value={$user.email}
 	/>
 </div>
@@ -45,16 +44,15 @@
 		type="text"
 		name="username"
 		bind:value={$user.username}
-		class="block border rounded-xl p-3 w-full"
 	/>
 </div>
 
 <div class="relative">
 	<label for="password" class="block font-bold block mb-1">{$t('user.settings.newPassword')}</label>
 	{#if revealPassword}
-		<input type="text" class="block border rounded-xl p-3 w-full" bind:value={password} />
+		<input type="text" bind:value={password} />
 	{:else}
-		<input type="password" class="block border rounded-xl p-3 w-full" bind:value={password} />
+		<input type="password" bind:value={password} />
 	{/if}
 	<button
 		type="button"
@@ -70,7 +68,6 @@
 	<input
 		type="text"
 		name="address"
-		class="block border rounded-xl p-3 w-full"
 		bind:value={$user.address}
 	/>
 </div>
