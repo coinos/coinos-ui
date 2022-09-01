@@ -193,7 +193,7 @@
 						min="0"
 						max="100"
 						value={tipPercent}
-						class="px-2"
+						class="px-2 py-0"
 						on:input={handleSlide}
 					/>
 
@@ -212,7 +212,7 @@
 
 						<div class="relative">
 							<span
-								class="absolute top-[20px] left-5 font-semibold {!customTipAmount
+								class="absolute top-[18px] left-5 font-semibold {!customTipAmount
 									? 'opacity-50'
 									: 'opacity-100'}">$</span
 							>
@@ -221,7 +221,7 @@
 								type="number"
 								min="0"
 								on:input={(e) => handleCustomTipAmount(e)}
-								class="bg-primary rounded-2xl py-3 px-10 font-semibold mt-2 mr-1 w-full md:w-auto"
+								class="pl-10"
 								placeholder="Other"
 							/>
 							<button

@@ -55,4 +55,19 @@
 	button.primary {
 		@apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:bg-primary;
 	}
+
+	input {
+		@apply block border rounded-2xl px-5 py-4 w-full outline-none;
+	}
+
+	select {
+		@apply border rounded-2xl py-4 px-5;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background: transparent;
+		background-image: url('/icons/down.svg');
+		background-repeat: no-repeat;
+		background-position-x: 100%;
+		background-position-y: 0.7em;
+	}
 </style>
