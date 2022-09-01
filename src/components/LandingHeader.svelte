@@ -70,11 +70,11 @@
 		>
 			<div class="space-y-8 mt-24 ml-10 font-bold text-xl">
 				<button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
-					>{$t('nav.howItWorks')}</button
+					>{$t('howItWorks.header')}</button
 				>
-				<button on:click={() => mobileMenuButtonClick(faq)} class="block">{$t('nav.faq')}</button>
+				<button on:click={() => mobileMenuButtonClick(faq)} class="block">{$t('faq.header')}</button>
 				<button on:click={() => mobileMenuButtonClick(about)} class="block"
-					>{$t('nav.about')}</button
+					>{$t('about.header')}</button
 				>
 				{#if !$user}
 					<button

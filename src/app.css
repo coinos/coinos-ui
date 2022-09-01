@@ -15,3 +15,7 @@ html {
 	color: black;
 	background: #eaf2ff;
 }
+
+:fullscreen {
+	background-color: white;
+}

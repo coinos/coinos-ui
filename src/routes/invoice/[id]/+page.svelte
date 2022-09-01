@@ -63,6 +63,7 @@
 		tipAmount = customTipAmount;
 		tipPercent = Math.round((tipAmount / amountFiat) * 100);
 		update();
+		showMobileTip = false;
 	};
 
 	let update = async () => {
@@ -130,7 +131,7 @@
 		let { default: QRCodeStyling } = await import('qr-code-styling');
 
 		const qrCode = new QRCodeStyling({
-			width: window.screen.width < 640 ? 250 : 300,
+			width: 250,
 			type: 'canvas',
 			data: text,
 			image: '/images/invoice.svg',
@@ -168,6 +169,16 @@
 	const handleDoneClick = () => {
 		goto(`/${username}/receive`);
 	};
+
+	function toggleFullscreen() {
+		if (!document.fullscreenElement) {
+			qr.requestFullscreen().catch((err) => {
+				alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+			});
+		} else {
+			document.exitFullscreen();
+		}
+	}
 </script>
 
 {#if $invoices[id]?.status !== 'paid'}
@@ -257,7 +268,7 @@
 				/>
 
 				<!-- invoice section -->
-				<div class="w-[325px] text-center space-y-5">
+				<div class="text-center space-y-5">
 					<button
 						class="block md:hidden bg-black {showMobileTip
 							? 'text-white/50'
@@ -290,11 +301,20 @@
 
 					<div
 						bind:this={qr}
-						on:click={() => copy(text)}
+						on:click={toggleFullscreen}
 						class="border {showMobileTip
 							? 'border-gray-400'
-							: 'border-lightgrey'} px-5 md:px-0 w-[292px] h-[302px] md:w-[300px] md:h-[300px] rounded-3xl block md:flex justify-center items-center cursor-pointer mx-auto"
+							: 'border-lightgrey'} px-5 md:px-0 w-[292px] h-[302px] md:w-[300px] md:h-[300px] rounded-3xl block md:flex justify-center items-center mx-auto cursor-pointer"
 					/>
+
+					<div>
+						<button class="border border-lightgrey rounded-md p-2 mx-2" on:click={toggleFullscreen}
+							><Icon icon="expand" /></button
+						>
+						<button class="border border-lightgrey rounded-md p-2 mx-2" on:click={() => copy(text)}
+							><Icon icon="copy" /></button
+						>
+					</div>
 
 					<div class="px-5 space-y-3">
 						<div class="flex justify-between">
