@@ -31,20 +31,12 @@
 
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-	<input
-		type="email"
-		name="email"
-		bind:value={$user.email}
-	/>
+	<input type="email" name="email" bind:value={$user.email} />
 </div>
 
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
-	<input
-		type="text"
-		name="username"
-		bind:value={$user.username}
-	/>
+	<input type="text" name="username" bind:value={$user.username} />
 </div>
 
 <div class="relative">
@@ -65,11 +57,7 @@
 
 <div>
 	<label for="address" class="font-bold mb-1 block">{$t('user.settings.businessAddress')}</label>
-	<input
-		type="text"
-		name="address"
-		bind:value={$user.address}
-	/>
+	<input type="text" name="address" bind:value={$user.address} />
 </div>
 
 <div>
@@ -90,6 +78,42 @@
 	<p class="text-secondary mt-1 w-9/12">
 		{$t('user.settings.smsNotificationsDescription')}
 	</p>
+</div>
+
+<div>
+	<div class="flex justify-between items-center">
+		<span class="font-bold">{$t('user.settings.profileImage')}</span>
+	</div>
+
+	<div class="flex">
+		<div class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24">
+			<Icon icon="logo-symbol-white" style="mx-auto" />
+		</div>
+		<div class="ml-2">
+			<button
+				type="button"
+				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
+				>Select</button
+			>
+			<div class="mt-2 text-sm">gumbo.jpg</div>
+		</div>
+	</div>
+</div>
+
+<div>
+	<div class="flex justify-between items-center">
+		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
+	</div>
+  <p class="text-secondary mb-4">
+    Recommended size: 1920x540px
+    </p>
+    <div class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4"></div>
+			<button
+				type="button"
+				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
+				>Select</button
+			>
+			<div class="mt-2 text-sm">gumbo.jpg</div>
 </div>
 
 <div>
