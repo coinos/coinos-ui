@@ -2,14 +2,13 @@
 	import { get, post, reverseFormat } from '$lib/utils';
 	import { browser } from '$app/env';
 	import { invoices, user } from '$lib/store';
-	import { Icon, Image } from '$comp';
+	import { Icon, Image, Qr } from '$comp';
 	import { goto, invalidate } from '$app/navigation';
 	import { onMount, tick } from 'svelte';
 	import { copy } from '$lib/utils';
 	import { t } from '$lib/translations';
 
 	export let data;
-
 	$: refresh(data);
 	let { invoice, id } = data;
 	let {
@@ -20,6 +19,9 @@
 		tip,
 		user: { username, currency }
 	} = invoice;
+
+	let image = '/images/invoice.svg';
+	let qr;
 
 	amount -= tip;
 
@@ -44,7 +46,6 @@
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
 	let tipPercent = 0;
-	let qr;
 
 	$: tipAmount = (amountFiat / 100) * tipPercent;
 
@@ -125,31 +126,6 @@
 		customTipAmount = e.target.value;
 	};
 
-	$: generate(text);
-	let generate = async (text) => {
-		if (!(browser && text)) return;
-		let { default: QRCodeStyling } = await import('qr-code-styling');
-
-		const qrCode = new QRCodeStyling({
-			width: 250,
-			type: 'canvas',
-			data: text,
-			image: '/images/invoice.svg',
-			backgroundOptions: {
-				color: 'rgba(0, 0, 0, 0)'
-			},
-			dotsOptions: {
-				type: 'rounded'
-			},
-			imageOptions: {
-				hideBackgroundDots: false
-			}
-		});
-
-		while (qr.firstChild) qr.removeChild(qr.lastChild);
-		qrCode.append(qr);
-	};
-
 	let showMobileTip = false;
 
 	const handleBackButton = () => {
@@ -172,6 +148,7 @@
 
 	function toggleFullscreen() {
 		if (!document.fullscreenElement) {
+			console.log(qr);
 			qr.requestFullscreen().catch((err) => {
 				alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
 			});
@@ -299,13 +276,9 @@
 						>Scan to pay <a href="/{username}" class="text-black font-semibold">{username}</a></span
 					>
 
-					<div
-						bind:this={qr}
-						on:click={toggleFullscreen}
-						class="border {showMobileTip
-							? 'border-gray-400'
-							: 'border-lightgrey'} px-5 md:px-0 w-[292px] h-[302px] md:w-[300px] md:h-[300px] rounded-3xl block md:flex justify-center items-center mx-auto cursor-pointer"
-					/>
+					<div class="border border-gray-200 rounded-2xl">
+						<Qr {text} {image} bind:qr />
+					</div>
 
 					<div>
 						<button class="border border-lightgrey rounded-md p-2 mx-2" on:click={toggleFullscreen}

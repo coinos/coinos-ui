@@ -3,9 +3,7 @@
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
-	export let image, text;
-
-	let qr;
+	export let image, text, qr;
 
 	onMount(async () => {
 		if (!(browser && text)) return;
@@ -21,6 +19,8 @@
 			dotsOptions: {
 				type: 'rounded'
 			},
+
+      image,
 			imageOptions: {
 				hideBackgroundDots: false
 			}
