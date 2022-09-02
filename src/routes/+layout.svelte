@@ -57,7 +57,7 @@
 	}
 
 	input {
-		@apply block border rounded-2xl px-5 py-4 w-full outline-none;
+		@apply block border rounded-2xl px-5 py-4 w-full;
 	}
 
 	select {

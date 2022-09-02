@@ -23,7 +23,7 @@
 				<Icon icon="logo" style="mb-5 xl:mb-0" />
 			</a>
 			<Icon icon="logo" style="block md:hidden ml-5 w-48" />
-			<LocaleSelector style="hidden md:block py-1 mb-5 xl:mb-0" />
+			<LocaleSelector style="w-40 hidden md:block mb-5 xl:mb-0" />
 		</div>
 
 		<!-- desktop nav -->
@@ -72,7 +72,8 @@
 				<button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
 					>{$t('howItWorks.header')}</button
 				>
-				<button on:click={() => mobileMenuButtonClick(faq)} class="block">{$t('faq.header')}</button>
+				<button on:click={() => mobileMenuButtonClick(faq)} class="block">{$t('faq.header')}</button
+				>
 				<button on:click={() => mobileMenuButtonClick(about)} class="block"
 					>{$t('about.header')}</button
 				>
