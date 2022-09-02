@@ -8,6 +8,14 @@ const config = {
 		alias: {
 			$comp: path.resolve('src/components/index.js')
 		}
+	},
+	server: {
+		proxy: {
+			'/api': {
+				target: 'http://localhost:3119',
+				rewrite: (path) => path.replace(/^\/api/, '')
+			}
+		}
 	}
 };
 

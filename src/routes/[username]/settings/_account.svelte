@@ -1,13 +1,17 @@
 <script>
+	import { tick } from 'svelte';
 	import { user, colorTheme, rates } from '$lib/store';
 	import { Icon, Toggle, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
+	import { upload } from '$lib/upload';
 
 	let selectedTheme = 1;
 	let revealPassword = false;
 	let password;
+	let profileFile;
+	let selectFile = () => profileFile.click();
 
-	const colorThemes = [
+	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
 		{ theme: 2, color1: 'from-[#FDFCFB]', color2: 'to-[#E2D1C3]' },
 		{ theme: 3, color1: 'from-[#E6E9F0]', color2: 'to-[#EEF1F5]' },
@@ -16,9 +20,19 @@
 		{ theme: 6, color1: 'from-[#F5F7FA]', color2: 'via-[#EAF2FF] to-[#DEDFFF]' }
 	];
 
-	const handleThemeClick = (colors) => {
+	let handleThemeClick = (colors) => {
 		selectedTheme = colors.theme;
 		$colorTheme = colors.color1 + ' ' + colors.color2;
+	};
+
+	let percent;
+	let progress = async (event) => {
+		percent = Math.round((event.loaded / event.total) * 100);
+	};
+	let handleFile = async ({ target: { files } }) => {
+    let file = files[0];
+    file.filename = "squirt";
+		let filename = await upload(file, progress);
 	};
 
 	$: $user.password = $user.confirm = password;
@@ -86,15 +100,18 @@
 	</div>
 
 	<div class="flex">
-		<div class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24">
+		<div
+			class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24 my-auto"
+		>
 			<Icon icon="logo-symbol-white" style="mx-auto" />
 		</div>
-		<div class="ml-2">
+		<div class="ml-2 border border-dashed border-2 p-2 border-white hover:border-secondary w-full">
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
-				>Select</button
+				on:click={selectFile}>Select</button
 			>
+			<input type="file" class="hidden" bind:this={profileFile} on:change={handleFile} />
 			<div class="mt-2 text-sm">gumbo.jpg</div>
 		</div>
 	</div>
