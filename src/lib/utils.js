@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 
 export function scroll(section) {

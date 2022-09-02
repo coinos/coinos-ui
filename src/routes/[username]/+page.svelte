@@ -1,5 +1,5 @@
 <script>
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { AppHeader, Icon, PageNotFound } from '$comp';
 	import { user } from '$lib/store';

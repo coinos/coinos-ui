@@ -10,12 +10,13 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "1.0.0-next.64",
-		"@sveltejs/kit": "1.0.0-next.427",
+		"@sveltejs/adapter-node": "next",
+		"@sveltejs/kit": "next",
 		"@zerodevx/svelte-toast": "^0.7.2",
 		"autoprefixer": "^10.4.7",
 		"cookie": "^0.5.0",
 		"leaflet": "^1.8.0",
+		"pm2": "^5.2.0",
 		"postcss": "^8.4.14",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.7.0",
@@ -26,7 +27,7 @@
 		"svelte-preprocess": "^4.10.7",
 		"sveltekit-i18n": "^2.2.2",
 		"tailwindcss": "^3.1.6",
-		"vite": "^3.0.3"
+		"vite": "^3.1.0-beta.1"
 	},
 	"type": "module"
 }

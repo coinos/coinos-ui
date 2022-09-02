@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 
 // creates a Svelte store synced to sessionStorage with the given key and default value
 const persistSession = (key, defaultValue) => {
