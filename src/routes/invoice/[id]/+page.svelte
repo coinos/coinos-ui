@@ -1,6 +1,6 @@
 <script>
 	import { get, post, reverseFormat } from '$lib/utils';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { invoices, user } from '$lib/store';
 	import { Icon, Image, Qr } from '$comp';
 	import { goto, invalidate } from '$app/navigation';

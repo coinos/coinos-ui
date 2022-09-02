@@ -5,7 +5,7 @@
 	import { connect } from '$lib/socket';
 	import { user, token, rate, rates, selectedRate } from '$lib/store';
 	import { page } from '$app/stores';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { LoadingSplash } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
