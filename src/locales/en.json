@@ -146,8 +146,8 @@
 			"showQR": "Show QR"
 		},
 		"settings": {
-      "bannerImage": "Banner Image",
-      "profileImage": "Profile Image",
+			"bannerImage": "Banner Image",
+			"profileImage": "Profile Image",
 			"oneTimeCode": "Enter one-time code",
 			"accountId": "Account Secret",
 			"header": "Settings",

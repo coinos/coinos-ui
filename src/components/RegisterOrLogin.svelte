@@ -65,13 +65,7 @@
 				<div class="relative">
 					<label for="password" class="block font-semibold">{$t('login.password')}</label>
 					{#if revealPassword}
-						<input
-							name="password"
-							type="text"
-							required
-							class="bg-primary"
-							bind:value={password}
-						/>
+						<input name="password" type="text" required class="bg-primary" bind:value={password} />
 					{:else}
 						<input
 							name="password"
@@ -135,7 +129,7 @@
 </div>
 
 <style>
-  input {
-    @apply border-none;
-  } 
-  </style>
+	input {
+		@apply border-none;
+	}
+</style>

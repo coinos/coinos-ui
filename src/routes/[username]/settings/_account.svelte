@@ -104,16 +104,13 @@
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
-  <p class="text-secondary mb-4">
-    Recommended size: 1920x540px
-    </p>
-    <div class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4"></div>
-			<button
-				type="button"
-				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
-				>Select</button
-			>
-			<div class="mt-2 text-sm">gumbo.jpg</div>
+	<p class="text-secondary mb-4">Recommended size: 1920x540px</p>
+	<div class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4" />
+	<button
+		type="button"
+		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary">Select</button
+	>
+	<div class="mt-2 text-sm">gumbo.jpg</div>
 </div>
 
 <div>

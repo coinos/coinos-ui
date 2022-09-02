@@ -20,7 +20,7 @@
 				type: 'rounded'
 			},
 
-      image,
+			image,
 			imageOptions: {
 				hideBackgroundDots: false
 			}
