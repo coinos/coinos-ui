@@ -8,7 +8,7 @@ export function scroll(section) {
 
 const base = browser ? '' : import.meta.env.VITE_COINOS_URL;
 
-export const get = (url, headers = { accept: 'application/json' }) =>
+export const get = (url, headers = {}) =>
 	fetch(base + url, { headers })
 		.then((r) => r.text())
 		.then((body) => {
@@ -20,7 +20,7 @@ export const get = (url, headers = { accept: 'application/json' }) =>
 		});
 
 export const post = (url, body, headers) => {
-	headers = { ...headers, accept: 'application/json', 'content-type': 'application/json' };
+	headers = { ...headers, 'content-type': 'application/json' };
 	return fetch(base + url, {
 		method: 'POST',
 		body: JSON.stringify(body),
