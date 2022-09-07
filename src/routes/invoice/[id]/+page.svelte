@@ -69,9 +69,9 @@
 
 	let update = async () => {
 		await tick();
-		tip = (tipAmount * 100000000) / rate;
+		tip = Math.round((tipAmount * 100000000) / rate);
 		let r = await post(`/invoice`, {
-			amount: amount + tip,
+			amount: parseInt(amount + tip),
 			rate,
 			tip,
 			text,

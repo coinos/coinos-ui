@@ -20,12 +20,8 @@ export const get = (url, headers = {}) =>
 		});
 
 export const post = (url, body, headers) => {
-	headers = { ...headers, 'content-type': 'application/json' };
-	return fetch(base + url, {
-		method: 'POST',
-		body: JSON.stringify(body),
-		headers
-	})
+	headers = { ...headers, 'content-type': 'application/json', accept: 'application/json' };
+	return fetch(base + url, { method: 'POST', body: JSON.stringify(body), headers })
 		.then((r) => r.text())
 		.then((body) => {
 			try {

@@ -1,6 +1,4 @@
 <script>
-	// we will want to dynamically use the users avatar on this screen if they have uploaded one
-
 	import OutClick from 'svelte-outclick';
 	import { user, newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
@@ -26,9 +24,11 @@
 			goto(`/${$user.username + '/' + item}`);
 		}
 	};
+
+	$: background = $user?.banner ? `url(/api/public/${$user.username}-banner.png)` : undefined;
 </script>
 
-<header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative">
+<header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative" style:background>
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if $user}
 			<a href={`/${$user.username}/receive`}>
@@ -91,11 +91,20 @@
 			</a>
 		{/if}
 	</nav>
-	<div
-		class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24"
-	>
-		<Icon icon="logo-symbol-white" style="mx-auto" />
-	</div>
+	{#if $user.profile}
+		<div class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full overflow-hidden text-center w-24 h-24 my-auto">
+			<img
+				src={`/api/public/${$user.username}-profile.png`}
+				class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+			/>
+		</div>
+	{:else}
+		<div
+			class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24"
+		>
+			<Icon icon="logo-symbol-white" style="mx-auto" />
+		</div>
+	{/if}
 </header>
 
 <style>
