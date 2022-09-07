@@ -1,12 +1,10 @@
 import { get } from 'svelte/store';
 import { token } from '$lib/store';
 
-export const upload = async (file, progress) => {
-	let url = '/api/profile';
+export const upload = async (file, type, progress) => {
+	let url = `/api/upload/${type}`;
 	let formData = new FormData();
 	formData.append('file', file);
-
-	console.log('uploading', file);
 
 	return new Promise((resolve, reject) => {
 		let ajax = new XMLHttpRequest();

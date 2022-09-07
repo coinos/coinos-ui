@@ -1,5 +1,4 @@
-import cookie from 'cookie';
-import { get, post } from '$lib/utils';
+import { get } from '$lib/utils';
 
 export async function load({ params }) {
 	let { id } = params;

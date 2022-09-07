@@ -9,7 +9,10 @@
 	let revealPassword = false;
 	let password;
 	let profileFile;
-	let selectFile = () => profileFile.click();
+	let select = (type) => files[type].el.click();
+
+	$: profile = files.profile.src || user.profile;
+	$: banner = files.banner.src || user.banner;
 
 	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
@@ -29,10 +32,18 @@
 	let progress = async (event) => {
 		percent = Math.round((event.loaded / event.total) * 100);
 	};
-	let handleFile = async ({ target: { files } }) => {
-    let file = files[0];
-    file.filename = "squirt";
-		let filename = await upload(file, progress);
+
+	let files = { profile: {}, banner: {} };
+	let handleFile = async ({ target }, type) => {
+		let file = target.files[0];
+		var reader = new FileReader();
+		reader.onload = async (e) => {
+			files[type].src = e.target.result;
+		};
+		reader.readAsDataURL(file);
+		console.log(file);
+		files[type].filename = file.name;
+		await upload(file, type, progress);
 	};
 
 	$: $user.password = $user.confirm = password;
@@ -100,19 +111,38 @@
 	</div>
 
 	<div class="flex">
+		{#if profile}
+			<div class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto">
+				<img
+					src={profile}
+					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+				/>
+			</div>
+		{:else}
+			<div
+				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24 my-auto"
+			>
+				<Icon icon="logo-symbol-white" style="mx-auto" />
+			</div>
+		{/if}
 		<div
-			class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24 my-auto"
+			class="ml-2 border border-dashed border-2 p-2 border-white hover:border-secondary w-full cursor-pointer"
+			on:click={() => select('profile')}
 		>
-			<Icon icon="logo-symbol-white" style="mx-auto" />
-		</div>
-		<div class="ml-2 border border-dashed border-2 p-2 border-white hover:border-secondary w-full">
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
-				on:click={selectFile}>Select</button
+				>Select</button
 			>
-			<input type="file" class="hidden" bind:this={profileFile} on:change={handleFile} />
-			<div class="mt-2 text-sm">gumbo.jpg</div>
+			<input
+				type="file"
+				class="hidden"
+				bind:this={files.profile.el}
+				on:change={(e) => handleFile(e, 'profile')}
+			/>
+			{#if files.profile.filename}
+				<div class="mt-2 text-sm">{files.profile.filename}</div>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -122,12 +152,28 @@
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
 	<p class="text-secondary mb-4">Recommended size: 1920x540px</p>
-	<div class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4" />
+	{#if banner}
+		<img src={banner} class="w-full object-cover object-center visible overflow-hidden h-48 mb-4" />
+	{:else}
+		<div
+			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer"
+			on:click={() => select('banner')}
+		/>
+	{/if}
 	<button
 		type="button"
-		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary">Select</button
+		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
+		on:click={() => select('banner')}>Select</button
 	>
-	<div class="mt-2 text-sm">gumbo.jpg</div>
+	<input
+		type="file"
+		class="hidden"
+		bind:this={files.banner.el}
+		on:change={(e) => handleFile(e, 'banner')}
+	/>
+	{#if files.banner.filename}
+		<div class="mt-2 text-sm">{files.banner.filename}</div>
+	{/if}
 </div>
 
 <div>

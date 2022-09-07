@@ -5,7 +5,8 @@
 
 	export let image, text, qr;
 
-	onMount(async () => {
+	$: update(text);
+	let update = async (text) => {
 		if (!(browser && text)) return;
 		let { default: QRCodeStyling } = await import('qr-code-styling');
 
@@ -28,7 +29,7 @@
 
 		while (qr.firstChild) qr.removeChild(qr.lastChild);
 		qrCode.append(qr);
-	});
+	}
 </script>
 
 <div bind:this={qr} on:click={() => copy(text)} />
