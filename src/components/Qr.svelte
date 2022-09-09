@@ -29,7 +29,7 @@
 
 		while (qr.firstChild) qr.removeChild(qr.lastChild);
 		qrCode.append(qr);
-	}
+	};
 </script>
 
 <div bind:this={qr} on:click={() => copy(text)} />
