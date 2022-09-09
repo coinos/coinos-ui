@@ -2,6 +2,8 @@ import { get } from 'svelte/store';
 import { rate, user, token, invoices, newPayment } from '$lib/store';
 import { success } from '$lib/utils';
 
+const socketUrl = import.meta.env.VITE_SOCKET;
+
 let interval, socket;
 
 export const auth = () => {
@@ -45,7 +47,7 @@ export function connect() {
 
 	if (socket) return auth();
 
-	socket = new WebSocket('ws://localhost:3119/ws');
+	socket = new WebSocket(socketUrl);
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
 	socket.addEventListener('message', onWebsocketMessage);
