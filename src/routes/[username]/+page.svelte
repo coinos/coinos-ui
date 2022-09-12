@@ -15,7 +15,7 @@
 			const qrCode = new QRCodeStyling({
 				width: window.screen.width < 640 ? 250 : 300,
 				type: 'canvas',
-				data: 'add static qr here',
+				data: lightningAddress,
 				image: '/images/invoice.svg',
 				backgroundOptions: {
 					color: 'rgba(0, 0, 0, 0)'
