@@ -41,6 +41,8 @@
 		tipPercent = (tip / amount) * 100;
 	};
 
+	$: tip = Math.round((amount / 100) * tipPercent);
+
 	$invoices[id] = { amount, id, rate, status, text, tip, username };
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
@@ -60,16 +62,6 @@
 		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
 	);
 
-	$: updateTip(tipPercent);
-	let updateTip = (tipPercent) => {
-		tip = Math.round((amount / 100) * tipPercent);
-		tipAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(tip);
-    tipAmount = ((tip * rate) / 100000000).toFixed(2);
-		tipAmountFormatted = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency
-		}).format(tipAmount);
-	};
 
 	let apply = async () => {
 		tipPercent = (customTipAmount / amountFiat) * 100;
@@ -210,8 +202,8 @@
 							<button
 								class="bg-primary w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
 									? ''
-									: tipPercent === amount.slice(0, 2) ||
-									  ((tipPercent === 0 || tipPercent === '0') && amount === 'None')
+									: Math.round(tipPercent) === parseInt(amount.slice(0, 2)) ||
+									  (!tipPercent && amount === 'None')
 									? '!bg-black text-white'
 									: ''}"
 								on:click={() => handleTipButtonClick(amount)}>{amount}</button
