@@ -38,7 +38,7 @@
 
 		amount -= tip;
 
-		tipPercent = Math.round((tip / amount) * 100);
+		tipPercent = (tip / amount) * 100;
 	};
 
 	$invoices[id] = { amount, id, rate, status, text, tip, username };
@@ -47,7 +47,7 @@
 
 	let tipPercent = 0;
 
-	$: tipAmount = (amountFiat / 100) * tipPercent;
+	$: tipAmount = ((tip * rate) / 100000000).toFixed(2);
 
 	$: tipAmountFormatted = new Intl.NumberFormat('en-US', {
 		style: 'currency',
@@ -60,16 +60,25 @@
 		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
 	);
 
+	$: updateTip(tipPercent);
+	let updateTip = (tipPercent) => {
+		tip = Math.round((amount / 100) * tipPercent);
+		tipAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(tip);
+    tipAmount = ((tip * rate) / 100000000).toFixed(2);
+		tipAmountFormatted = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency
+		}).format(tipAmount);
+	};
+
 	let apply = async () => {
-		tipAmount = customTipAmount;
-		tipPercent = Math.round((tipAmount / amountFiat) * 100);
+		tipPercent = (customTipAmount / amountFiat) * 100;
 		update();
 		showMobileTip = false;
 	};
 
 	let update = async () => {
 		await tick();
-		tip = Math.round((tipAmount * 100000000) / rate);
 		let r = await post(`/invoice`, {
 			amount: parseInt(amount + tip),
 			rate,
@@ -115,7 +124,7 @@
 		if (amount === 'None') {
 			tipPercent = 0;
 		} else {
-			tipPercent = amount.slice(0, 2);
+			tipPercent = parseInt(amount.slice(0, 2));
 		}
 
 		update();
@@ -148,7 +157,6 @@
 
 	function toggleFullscreen() {
 		if (!document.fullscreenElement) {
-			console.log(qr);
 			qr.requestFullscreen().catch((err) => {
 				alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
 			});
@@ -184,7 +192,7 @@
 						<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
 							class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
 						>
-						<span class="block text-secondary text-sm">{tipPercent}%</span>
+						<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
 					</div>
 
 					<input
