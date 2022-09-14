@@ -23,8 +23,7 @@
 
 	let image = '/images/invoice.svg';
 	let qr;
-
-	amount -= tip;
+	let tipPercent = 0;
 
 	let refresh = (data) => {
 		({ invoice, id } = data);
@@ -47,8 +46,6 @@
 	$invoices[id] = { amount, id, rate, status, text, tip, username };
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
-
-	let tipPercent = 0;
 
 	$: tipAmount = ((tip * rate) / 100000000).toFixed(2);
 
