@@ -1,6 +1,6 @@
 <script>
 	import OutClick from 'svelte-outclick';
-	import { user, newPayment, colorTheme } from '$lib/store';
+	import { user, newPayment, colorTheme, tempProfileFiles } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
@@ -25,7 +25,7 @@
 		}
 	};
 
-	$: background = $user?.banner ? `url(/api/public/${$user.username}-banner.png)` : undefined;
+	$: background = $tempProfileFiles && $tempProfileFiles.banner ? `url(${$tempProfileFiles.banner})` : $user?.banner ? `url(/api/public/${$user.username}-banner.png)` : undefined;
 </script>
 
 <header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative" style:background>
@@ -94,7 +94,7 @@
 	{#if $user.profile}
 		<div class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full overflow-hidden text-center w-24 h-24 my-auto">
 			<img
-				src={`/api/public/${$user.username}-profile.png`}
+				src={$tempProfileFiles && $tempProfileFiles.profile ? $tempProfileFiles.profile : `/api/public/${$user.username}-profile.png`}
 				class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 			/>
 		</div>
