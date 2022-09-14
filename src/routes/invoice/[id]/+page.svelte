@@ -62,7 +62,6 @@
 		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
 	);
 
-
 	let apply = async () => {
 		tipPercent = (customTipAmount / amountFiat) * 100;
 		update();
@@ -235,6 +234,7 @@
 								disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
 								on:click={apply}>Apply</button
 							>
+							<!-- found missing translation --->
 						</div>
 					</div>
 				</div>
@@ -272,6 +272,7 @@
 						{$t('invoice.addTip')}
 					</button>
 
+					<!-- found missing translation --->
 					<span class="text-secondary block"
 						>Scan to pay <a href="/{username}" class="text-black font-semibold">{username}</a></span
 					>
@@ -291,6 +292,7 @@
 
 					<div class="px-5 space-y-3">
 						<div class="flex justify-between">
+							<!-- found missing translation --->
 							<span class="font-semibold text-sm">Invoice</span>
 							<span class="font-semibold text-sm"
 								>{invoiceAmountFiatFormatted}
@@ -299,6 +301,7 @@
 						</div>
 
 						<div class="flex justify-between">
+							<!-- found missing translation --->
 							<span class="font-semibold text-sm">Tip</span>
 							<span class="font-semibold text-sm"
 								>{tipAmountFormatted}
@@ -307,6 +310,7 @@
 						</div>
 
 						<div class="flex flex-wrap justify-between">
+							<!-- found missing translation --->
 							<span class="font-bold mr-1">Total</span>
 							<span class="font-bold"
 								>{totalAmountFormatted}
