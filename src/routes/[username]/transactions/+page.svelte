@@ -2,6 +2,7 @@
 	import { AppHeader } from '$comp';
 	import { user, newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
+      import { f, s } from "$lib/utils";
 
 	$newPayment = false;
 
@@ -28,16 +29,11 @@
 					<div class="grid grid-cols-3 border-b pb-5">
 						<div class="font-bold">
 							<span class="block mb-1"
-								>{tx.amount > 0 ? '+' : ''}{new Intl.NumberFormat('en-US', {
-									style: 'currency',
-									currency: tx.currency
-								}).format(tx.amount * (tx.rate / 100000000))}
+								>{tx.amount > 0 ? '+' : ''}{f(tx.amount * (tx.rate / 100000000), tx.currency)}
 							</span>
 
 							<span class="text-secondary"
-								>{tx.amount > 0 ? '+' : ''}{new Intl.NumberFormat('en-US', {
-									maximumFractionDigits: 0
-								}).format(tx.amount)}
+								>{tx.amount > 0 ? '+' : ''}{s(tx.amount)}
 								SAT
 							</span>
 						</div>

@@ -1,12 +1,11 @@
 <script>
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
-	import { get, post, reverseFormat } from '$lib/utils';
+	import { copy, f, get, post, reverseFormat, s } from '$lib/utils';
 	import { browser } from '$app/environment';
 	import { invoices, user } from '$lib/store';
 	import { Icon, Image, Qr } from '$comp';
 	import { goto, invalidate } from '$app/navigation';
 	import { onMount, tick } from 'svelte';
-	import { copy } from '$lib/utils';
 	import { t } from '$lib/translations';
 
 	export let data;
@@ -49,14 +48,11 @@
 
 	$: tipAmount = ((tip * rate) / 100000000).toFixed(2);
 
-	$: tipAmountFormatted = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency
-	}).format(tipAmount);
+	$: tipAmountFormatted = f(tipAmount, currency);
 
-	$: tipAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(tip);
+	$: tipAmountSats = s(tip);
 
-	$: totalAmountSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
+	$: totalAmountSats = s(
 		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
 	);
 
@@ -79,19 +75,11 @@
 		goto(`/invoice/${r}`);
 	};
 
-	$: totalAmountFormatted = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency
-	}).format(amountFiat + parseFloat(tipAmount));
+	$: totalAmountFormatted = f(amountFiat + parseFloat(tipAmount), currency);
 
-	const amountFormatted = new Intl.NumberFormat('en-US', {
-		maximumFractionDigits: 0
-	}).format(amount);
+	const amountFormatted = f(amount, currency);
 
-	$: invoiceAmountFiatFormatted = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency
-	}).format(amountFiat);
+	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 
 	let customTipAmount;
 

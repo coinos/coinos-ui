@@ -1,5 +1,5 @@
 <script>
-	import { post, failure } from '$lib/utils';
+	import { f, s, post, failure } from '$lib/utils';
 	import { tick } from 'svelte';
 	import { AppHeader, Icon } from '$comp';
 	import { selectedRate } from '$lib/store';
@@ -27,21 +27,13 @@
 		}
 	};
 
-	$: btcPrice = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency: user.currency
-	}).format($selectedRate);
+	$: btcPrice = f($selectedRate, user.currency);
 
-	$: accountBalanceFiat = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency: user.currency
-	}).format(user.account.balance * ($selectedRate / 100000000));
+	$: accountBalanceFiat = f(user.account.balance * ($selectedRate / 100000000), user.currency);
 
 	$: accountBalanceBtc = user.account.balance / 100000000;
 
-	$: accountBalanceSats = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-		user.account.balance
-	);
+	$: accountBalanceSats = s(user.account.balance);
 </script>
 
 <AppHeader avatarPosition="left-[calc(50vw-48px)] lg:left-[calc(15vw-48px)]" />
