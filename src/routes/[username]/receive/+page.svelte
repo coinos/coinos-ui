@@ -11,10 +11,10 @@
 	let amountFiat = 0;
 	let amountSats = 0;
 
-	$: amount = useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats;
+	$: amount = parseInt(useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats);
 
 	$: $invoiceAmount = parseInt(
-		amountSats === 0 || amountSats === '0' ? amountFiat / ($selectedRate / 100000000) : amountSats
+		!amountSats ? amountFiat / ($selectedRate / 100000000) : amountSats
 	);
 
 	$: $invoiceAmountFiat = parseInt(
@@ -64,11 +64,11 @@
 		} else {
 			if (value === '.') {
 				return;
-			} else if (amountSats === '0' && value !== '<' && value !== '0') {
-				amountSats = value;
+			} else if (!amountSats && value !== '<' && value !== '0') {
+				amountSats = parseInt(value);
 			} else if (value === '<') {
 				if (amountSats !== 0) {
-					amountSats = amountSats.slice(0, amountSats.length - 1);
+					amountSats = Math.floor(amountSats / 10);
 					if (amountSats.length === 0) {
 						amountSats = 0;
 						amountFiat = 0;
@@ -77,7 +77,7 @@
 			} else if (value !== '<' && parseInt(amountSats + value) > 100000000) {
 				warning($t('user.receive.lessThan1BTCWarning'));
 			} else {
-				amountSats = amountSats + value;
+				amountSats = parseInt(amountSats + value);
 			}
 		}
 	};
@@ -132,11 +132,11 @@
 					<button
 						on:click={() => {
 							if (useFiat) {
-								amountSats = (amountFiat / ($selectedRate / 100000000)).toFixed(0).toString();
+								amountSats = parseInt((amountFiat / ($selectedRate / 100000000)).toFixed(0));
 							} else {
 								amountFiat =
 									(amountSats * ($selectedRate / 100000000)).toFixed(2) > 0.0
-										? (amountSats * ($selectedRate / 100000000)).toFixed(2).toString()
+										? (amountSats * ($selectedRate / 100000000)).toFixed(2)
 										: 0;
 							}
 							useFiat = !useFiat;
