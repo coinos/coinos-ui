@@ -1,5 +1,4 @@
 <script>
-	// in the future we will want to allow users to set their fiat currency in the settings
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, selectedRate, user } from '$lib/store';
