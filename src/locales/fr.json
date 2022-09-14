@@ -5,7 +5,7 @@
 	},
 	"about": {
 		"header": "À Propos",
-		"p1": "<strong>CoinOS</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
+		"p1": "<strong>coinos</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
 		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation avec le but de rendre commencer utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
 		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenu par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installalons pour vous avec plaisir.",
 		"p4": "Transferts entre comptes de garde d'utilisateurs différents en notre serveur sont complètement gratuits, instants et sans limites.",
@@ -24,7 +24,7 @@
 		},
 		"locations": {
 			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente CoinOS. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
 		}
 	},
 	"error": {
@@ -36,11 +36,11 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "Qu'est-ce que c'est le coût?",
-			"answer": "CoinOS est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre Bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
+			"answer": "coinos est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre Bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
 		},
 		"compatibility": {
 			"question": "Est-ce que j'ai besoin du logiciel ou appareil special?",
-			"answer": "Non. CoinOS est un site Web, alors vous pouvez l'utiliser sur n'importe quelle appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
+			"answer": "Non. coinos est un site Web, alors vous pouvez l'utiliser sur n'importe quelle appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
 		},
 		"safety": {
 			"question": "Sont mes fonds saufs?",
@@ -121,7 +121,7 @@
 	"jobs": {
 		"header": "Emplois",
 		"subheader": "Postes disponibles actuels",
-		"pitch1": "CoinOS recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
+		"pitch1": "coinos recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
 		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
 		"github": "GitHub",
 		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"

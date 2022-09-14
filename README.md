@@ -2,9 +2,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/dc5c8c09-6b16-4878-afb4-a288c26cc9b1/deploy-status)](https://app.netlify.com/sites/coinos/deploys)
 
-CoinOS is an easy to use bitcoin point of sale application for businesses and wallet for customers, connecting the bitcoin circular economy together.
+coinos is an easy to use bitcoin point of sale application for businesses and wallet for customers, connecting the bitcoin circular economy together.
 
-This repository is the latest front-end code for the CoinOS web application.
+This repository is the latest front-end code for the coinos web application.
 
 ## Commands
 
@@ -29,4 +29,4 @@ This UI uses the following libraries:
 
 ### Internationalization
 
-CoinOS has a system for translation using [`sveltekit-i18n`](https://www.npmjs.com/package/sveltekit-i18n). For more information and instructions on how to translate CoinOS, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).
+coinos has a system for translation using [`sveltekit-i18n`](https://www.npmjs.com/package/sveltekit-i18n). For more information and instructions on how to translate coinos, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).
