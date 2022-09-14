@@ -1,4 +1,5 @@
 <script>
+	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { get, post, reverseFormat } from '$lib/utils';
 	import { browser } from '$app/environment';
 	import { invoices, user } from '$lib/store';
@@ -324,7 +325,18 @@
 	</div>
 {:else}
 	<div class="text-center mt-20 md:mt-0">
-		<Image image="success" style="w-full md:w-3/4 xl:w-1/2 mx-auto max-w-3xl" />
+		{#if typeof window !== 'undefined'}
+			<div class="w-full mx-auto max-w-xl">
+				<LottiePlayer
+					src="/lottie/success.json"
+					autoplay={true}
+					loop={true}
+					controls={false}
+					renderer="svg"
+					background="transparent"
+				/>
+			</div>
+		{/if}
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
 			{totalAmountFormatted}
