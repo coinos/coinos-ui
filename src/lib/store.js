@@ -37,3 +37,6 @@ export const token = persistSession('token');
 export const invoices = writable({});
 export const newPayment = persistLocal('newPayment');
 export const colorTheme = writable('from-primary to-gradient');
+export const tempProfileFiles = writable();
+export const avatarUpload = writable()
+export const bannerUpload = writable()

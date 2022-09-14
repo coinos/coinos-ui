@@ -225,7 +225,7 @@
 								placeholder="Other"
 							/>
 							<button
-								class="w-full md:w-auto mt-2 md:mt-0 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
+								class="w-full md:w-auto mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
 									? !customTipAmount && !tipAmount
 										? 'opacity-50'
 										: 'opacity-100'

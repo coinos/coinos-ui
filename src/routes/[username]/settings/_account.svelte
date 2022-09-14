@@ -1,6 +1,6 @@
 <script>
 	import { tick } from 'svelte';
-	import { user, colorTheme, rates } from '$lib/store';
+	import { user, colorTheme, rates, tempProfileFiles, avatarUpload, bannerUpload } from '$lib/store';
 	import { Icon, Toggle, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 	import { upload } from '$lib/upload';
@@ -13,6 +13,7 @@
 
 	$: profile = files.profile.src || user.profile;
 	$: banner = files.banner.src || user.banner;
+$: $tempProfileFiles = {profile: files.profile.src, banner: files.banner.src}
 
 	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
@@ -41,9 +42,15 @@
 			files[type].src = e.target.result;
 		};
 		reader.readAsDataURL(file);
-		console.log(file);
+	
 		files[type].filename = file.name;
-		await upload(file, type, progress);
+if (type === 'profile') {
+$avatarUpload = {file, type, progress}
+}
+else if (type === 'banner') {
+$bannerUpload = {file, type, progress}
+}
+
 	};
 
 	$: $user.password = $user.confirm = password;
@@ -51,7 +58,7 @@
 
 <div>
 	<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
-	<LocaleSelector style="block py-3 w-full" />
+	<LocaleSelector style="select-styles block py-3 w-full" />
 </div>
 
 <div>
@@ -74,7 +81,7 @@
 	<button
 		type="button"
 		on:click={() => (revealPassword = !revealPassword)}
-		class="absolute right-5 top-10"
+		class="absolute right-5 top-11"
 	>
 		<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
 	</button>
@@ -106,10 +113,7 @@
 </div>
 
 <div>
-	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.profileImage')}</span>
-	</div>
-
 	<div class="flex">
 		{#if profile}
 			<div class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto">
@@ -118,20 +122,28 @@
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 				/>
 			</div>
-		{:else}
+		{:else if $user.profile}
+			<div class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto">
+				<img
+					src={`/api/public/${$user.username}-profile.png`}
+					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+				/>
+			</div>
+{:else}
 			<div
-				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24 my-auto"
+				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto"
 			>
 				<Icon icon="logo-symbol-white" style="mx-auto" />
 			</div>
 		{/if}
 		<div
-			class="ml-2 border border-dashed border-2 p-2 border-white hover:border-secondary w-full cursor-pointer"
-			on:click={() => select('profile')}
+			class="ml-2 p-2"
+
 		>
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
+on:click={() => select('profile')}
 				>Select</button
 			>
 			<input
@@ -151,15 +163,19 @@
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
+<!-- found missing translation -->
 	<p class="text-secondary mb-4">Recommended size: 1920x540px</p>
 	{#if banner}
 		<img src={banner} class="w-full object-cover object-center visible overflow-hidden h-48 mb-4" />
-	{:else}
+	{:else if $user.banner}
+	<img src={`/api/public/${$user.username}-banner.png`} class="w-full object-cover object-center visible overflow-hidden h-48 mb-4" />
+{:else}
 		<div
 			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer"
 			on:click={() => select('banner')}
 		/>
 	{/if}
+<!-- found missing translation -->
 	<button
 		type="button"
 		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
