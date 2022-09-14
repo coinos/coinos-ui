@@ -87,7 +87,7 @@
 	<p class="text-secondary mb-1">
 		{$t('user.settings.autoLockDescription')}
 	</p>
-	<select name="auto-lock" class="block py-3 w-full">
+	<select name="auto-lock" class="select-styles block py-3 w-full">
 		<option value="5">5 min</option>
 		<option value="10">10 min</option>
 		<option value="30">30 min</option>

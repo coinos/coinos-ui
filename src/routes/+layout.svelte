@@ -60,7 +60,7 @@
 		@apply block border rounded-2xl px-5 py-4 w-full;
 	}
 
-	select {
+	.select-styles {
 		@apply border rounded-2xl py-4 px-5;
 		-webkit-appearance: none;
 		-moz-appearance: none;
