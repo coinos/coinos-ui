@@ -20,16 +20,14 @@
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 
 	let save = async () => {
-
 		try {
 			await put('/user', $user);
-if ($avatarUpload) {
-
-		await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress);
-}
-if ($bannerUpload) {
-		await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress);
-}
+			if ($avatarUpload) {
+				await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress);
+			}
+			if ($bannerUpload) {
+				await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress);
+			}
 			success('Settings saved');
 		} catch (e) {
 			failure('Something went wrong');
