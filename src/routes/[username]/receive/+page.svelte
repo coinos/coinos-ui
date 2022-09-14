@@ -13,9 +13,7 @@
 
 	$: amount = parseInt(useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats);
 
-	$: $invoiceAmount = parseInt(
-		!amountSats ? amountFiat / ($selectedRate / 100000000) : amountSats
-	);
+	$: $invoiceAmount = parseInt(!amountSats ? amountFiat / ($selectedRate / 100000000) : amountSats);
 
 	$: $invoiceAmountFiat = parseInt(
 		amountFiat === 0 ? amountSats * ($selectedRate / 100000000) : amountFiat
