@@ -18,8 +18,8 @@
 	let profileFile;
 	let select = (type) => files[type].el.click();
 
-	$: profile = files.profile.src || user.profile;
-	$: banner = files.banner.src || user.banner;
+	$: profile = files.profile.src;
+	$: banner = files.banner.src;
 	$: $tempProfileFiles = { profile: files.profile.src, banner: files.banner.src };
 
 	let colorThemes = [
