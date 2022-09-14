@@ -127,3 +127,13 @@ export const auth = (req) => {
 	let { token } = cookie.parse(req.headers.get('cookie') || '');
 	return { authorization: `Bearer ${token}` };
 };
+
+export const f = (s, currency) =>
+	new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency
+	})
+		.format(s)
+		.replace('CA', '');
+
+export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);

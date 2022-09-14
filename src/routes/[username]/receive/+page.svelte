@@ -3,7 +3,7 @@
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, selectedRate, user } from '$lib/store';
-	import { post, warning } from '$lib/utils';
+	import { f, s, post, warning } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { t } from '$lib/translations';
 
@@ -19,18 +19,11 @@
 		amountFiat === 0 ? amountSats * ($selectedRate / 100000000) : amountFiat
 	);
 
-	$: amountSatsFormatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-		amountSats
-	);
+	$: amountSatsFormatted = s(amountSats);
 
-	$: amountFiatConverted = new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency: $user.currency
-	}).format(amountSats * ($selectedRate / 100000000));
+	$: amountFiatConverted = f(amountSats * ($selectedRate / 100000000), $user.currency);
 
-	$: amountSatsConverted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-		amountFiat / ($selectedRate / 100000000)
-	);
+	$: amountSatsConverted = s(amountFiat / ($selectedRate / 100000000));
 
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
