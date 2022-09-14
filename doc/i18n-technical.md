@@ -1,4 +1,4 @@
-# CoinOS Internationalization - Technical Information
+# coinos Internationalization - Technical Information
 
 _NOTE: This documentation was written for people with a technical background. If you do not have a technical background, consider reading [this guide](./i18n.md) instead._
 
@@ -6,11 +6,11 @@ Last Updated: 2022-08-23
 
 ## Dependencies
 
-CoinOS's internationalization system depends on the `npm` package [`sveltekit-i18n`](https://www.npmjs.com/package/sveltekit-i18n). Consider reading [its documentation](https://github.com/sveltekit-i18n/lib/tree/master/docs/README.md) in addition to this.
+coinos's internationalization system depends on the `npm` package [`sveltekit-i18n`](https://www.npmjs.com/package/sveltekit-i18n). Consider reading [its documentation](https://github.com/sveltekit-i18n/lib/tree/master/docs/README.md) in addition to this.
 
 ## Internationalization Code
 
-The main code for CoinOS's internationalization is at `src/lib/translations/index.js`. When imported, it does the following:
+The main code for coinos's internationalization is at `src/lib/translations/index.js`. When imported, it does the following:
 
 1. Load all of the locales asynchronously, based on .
 2. Initialize `sveltekit-i18n`.
@@ -41,11 +41,11 @@ Strings are internationalized by simply using `sveltekit-i18n`'s `$t` function. 
 
 ## The Locale Selector
 
-CoinOS also has a `LocaleSelector` component, which should be used to select locales. It is a dropdown that allows you to select & update the locale.
+coinos also has a `LocaleSelector` component, which should be used to select locales. It is a dropdown that allows you to select & update the locale.
 
 ## The Guided Translation Script
 
-CoinOS has a Python script that helps you with the technical parts of translation. It is located at `src/locales/guided_translation.py`. It also has some utility functions:
+coinos has a Python script that helps you with the technical parts of translation. It is located at `src/locales/guided_translation.py`. It also has some utility functions:
 
 - `nested_dict_keys` - gets a list of keys of a nested dictionary in dot-separated shallow format (e.g. a.b.c)
 - `create_locale` - adds a new locale to the lang.json file
