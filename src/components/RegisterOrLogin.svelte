@@ -8,9 +8,9 @@
 
 	export let pageID;
 
-	let username = 'bob',
-		password = 'pw',
-		email = 'satoshi@nakamoto.com',
+	let username,
+		password,
+		email,
 		twofa = '';
 
 	let revealPassword = false;
@@ -35,20 +35,20 @@
 			<h1 class="text-2xl font-bold text-center">{$t('login.' + pageID)}</h1>
 
 			<form class="space-y-5" {action} method="POST">
-				{#if pageID === 'register'}
-					<div>
-						<label for="email" class="font-semibold">{$t('login.email')}</label>
-						<!-- svelte-ignore a11y-autofocus -->
-						<input
-							name="email"
-							type="email"
-							required
-							class="bg-primary"
-							bind:value={email}
-							autofocus
-						/>
-					</div>
-				{/if}
+				<!-- {#if pageID === 'register'} -->
+				<!-- 	<div> -->
+				<!-- 		<label for="email" class="font-semibold">{$t('login.email')}</label> -->
+				<!-- 		&#60;&#33;&#45;&#45; svelte-ignore a11y-autofocus &#45;&#45;&#62; -->
+				<!-- 		<input -->
+				<!-- 			name="email" -->
+				<!-- 			type="email" -->
+				<!-- 			required -->
+				<!-- 			class="bg-primary" -->
+				<!-- 			bind:value={email} -->
+				<!-- 			autofocus -->
+				<!-- 		/> -->
+				<!-- 	</div> -->
+				<!-- {/if} -->
 				<div>
 					<label for="username" class="font-semibold">{$t('login.username')}</label>
 					<!-- svelte-ignore a11y-autofocus -->
@@ -86,7 +86,7 @@
 
 				{#if pageID === 'signIn'}
 					<div>
-						<label for="token" class="font-semibold">{$t('login.token')}</label>
+            <label for="token" class="font-semibold">{$t('login.token')} <span class="text-secondary">({$t('login.optional')})</span></label>
 						<!-- svelte-ignore a11y-autofocus -->
 						<input
 							name="token"
@@ -103,11 +103,12 @@
 						{$t('login.passwordRecommendation')}
 					</p>
 				{:else}
-					<div class="flex justify-end items-center">
-						<a href="/forgot" class="underline underline-offset-4 text-black text-sm"
-							>{$t('login.forgotUserOrPassword')}</a
-						>
-					</div>
+          <!-- TODO -->
+					<!-- <div class="flex justify-end items-center"> -->
+					<!-- 	<a href="/forgot" class="underline underline-offset-4 text-black text-sm" -->
+					<!-- 		>{$t('login.forgotUserOrPassword')}</a -->
+					<!-- 	> -->
+					<!-- </div> -->
 				{/if}
 
 				<button type="submit" class="bg-black text-white w-full rounded-2xl p-4 font-semibold"

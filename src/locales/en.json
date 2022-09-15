@@ -107,6 +107,7 @@
 		}
 	},
 	"login": {
+    "optional": "Optional",
 		"token": "2FA Token",
 		"username": "Username",
 		"password": "Password",
@@ -140,6 +141,7 @@
 			"fetchingRate": "fetching rate...",
 			"optionalNote": "Note (Optional)",
 			"send": "Send",
+      "receive": "Receive a Payment",
 			"withdraw": "Withdraw"
 		},
 		"receive": {
