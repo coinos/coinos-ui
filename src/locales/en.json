@@ -9,17 +9,17 @@
 		"p2": "The feature set has grown over the years to accomodate a wide variety of use cases with the goal of making it as easy as possible for anyone to get started using bitcoin quickly, cheaply, and securely.",
 		"p3": "Anyone can download the source code and host their own instance of the platform backed by their own bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.",
 		"p4": "Intra-account transfers between custodial wallets of different users on our server are completely free, instant, and unlimited.",
-		"founder": {
-			"header": "The Founder",
-			"name": "Adam Soltys",
-			"position": "Chief Technical Officer",
-			"qualifications": {
-				"bitcoin": "Running bitcoin since 2011",
-				"webDev": "20+ years web development experience in government and industry",
-				"bitcoinVancouver": "Early bitcoin Vancouver meetup organizer",
-				"bitcoinCoop": "Founder of The bitcoin Co-op and early supporter of Decentral Vancouver",
-				"beliefs": "Yogi, permaculturist, anarchist, decentralist",
-				"familialRelationships": "Husband, father, brother, son"
+		"team": {
+			"header": "The Team",
+      "adam": {
+        "name": "Adam Soltys",
+        "position": "Chief Technical Officer",
+        "bio": "Adam found Bitcoin in 2011"
+			},
+      "cole": {
+        "name": "Cole Goodwin",
+        "position": "Bitcoin Professional",
+        "bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across Bitcoin in 2016 and studied it in depth. In summer 2021 he quit his 9-5 job due to the passive income from Bitcoin & ASIC Mining.  After discovering The Lightning Network, Cole met Adam.  Now being a part of the Coinos team, we want to introduce the lightning network to as many users as possible."
 			}
 		},
 		"locations": {
