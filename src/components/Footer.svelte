@@ -1,5 +1,5 @@
 <script>
-	import { Icon } from '$comp';
+	import { Icon, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 
 	const followLinks = [
@@ -9,13 +9,21 @@
 	];
 
 	const companyLinks = [
+		{ url: '/news', titleID: 'news' },
 		{ url: 'mailto:support@coinos.io', titleID: 'support' },
 		{ url: '/jobs', titleID: 'jobs' }
 	];
 </script>
 
 <footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around items-center mb-20">
-	<Icon icon="logo" style="w-48 mx-auto md:mx-0" />
+	<div>
+		<div class="text-center w-full mb-8">
+			<a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
+		</div>
+		<div class="text-center">
+			<LocaleSelector style="p-3 rounded-md" />
+		</div>
+	</div>
 
 	<div class="text-center md:text-left">
 		<p class="font-semibold">{$t('footer.followUs')}</p>

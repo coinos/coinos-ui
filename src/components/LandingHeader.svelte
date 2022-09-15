@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { scroll } from '$lib/utils';
-	import { Icon, LocaleSelector } from '$comp';
+	import { Icon } from '$comp';
 	import { user } from '$lib/store';
 	import { t } from '$lib/translations';
 
@@ -23,7 +23,6 @@
 				<Icon icon="logo" style="mb-5 xl:mb-0" />
 			</a>
 			<Icon icon="logo" style="block md:hidden ml-5 w-48" />
-			<LocaleSelector style="py-1 rounded-md hidden md:block mb-5 xl:mb-0" />
 		</div>
 
 		<!-- desktop nav -->
@@ -102,7 +101,6 @@
 						{$t('nav.signOut')}
 					</button>
 				{/if}
-				<LocaleSelector style="py-1 rounded-md" />
 			</div>
 		</div>
 	</nav>
