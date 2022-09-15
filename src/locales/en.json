@@ -5,7 +5,7 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "<strong>coinos</strong> is an <strong>open source</strong> bitcoin web wallet, point of sale, ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p1": "<strong>Coinos</strong> is an <strong>open source</strong> bitcoin web wallet, point of sale, ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
 		"p2": "The feature set has grown over the years to accomodate a wide variety of use cases with the goal of making it as easy as possible for anyone to get started using bitcoin quickly, cheaply, and securely.",
 		"p3": "Anyone can download the source code and host their own instance of the platform backed by their own bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.",
 		"p4": "Intra-account transfers between custodial wallets of different users on our server are completely free, instant, and unlimited.",
@@ -24,7 +24,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "These are businesses that are accepting bitcoin using coinos point of sale. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">let us know!</a>"
+			"description": "These are businesses that are accepting bitcoin with Coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">let us know!</a>"
 		}
 	},
 	"error": {
@@ -36,11 +36,11 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "coinos is free to use. You only pay a 1% fee if/when you withdraw your funds. Compare this to 3% typically charged by a credit card processor."
+			"answer": "Coinos is free to use. You only pay a 1% fee if/when you withdraw your funds. Compare this to 3% typically charged by a credit card processor."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. coinos is web-based, so as long as you have an internet connection, you can use it on any device or hardware. Most merchants might use it on a phone or a tablet."
+			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device or hardware. Most merchants might use it on a phone or a tablet."
 		},
 		"safety": {
 			"question": "Are my funds safe?",
@@ -81,7 +81,7 @@
 	"jobs": {
 		"header": "Jobs",
 		"subheader": "Current Openings",
-		"pitch1": "coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
+		"pitch1": "Coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
 		"pitch2": "Excited about working on open source bitcoin? Then take a look at our repositories on",
 		"github": "GitHub",
 		"pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
@@ -98,7 +98,7 @@
 		"info2": {
 			"title": "Simple to use, custodial by default",
 			"description1": "Just enter an amount, share the QR code and you’re done.",
-			"description2": "coinos is custodial by default, which eliminates the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
+			"description2": "Coinos is custodial by default, which eliminates the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
 			"description3": "You always have the option of <span class=\"underline underline-offset-4\">taking custody</span> of your own keys."
 		},
 		"info3": {
@@ -163,7 +163,7 @@
 			"emailNotifications": "Email Notifications",
 			"emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
 			"smsNotifications": "SMS Notifications",
-			"smsNotificationsDescription": "coinos will send you text notifications when this is enabled.",
+			"smsNotificationsDescription": "Coinos will send you text notifications when this is enabled.",
 			"theme": "Color Theme",
 			"themeDescription": "Select from the default color themes.",
 			"localCurrency": "Local Currency",
