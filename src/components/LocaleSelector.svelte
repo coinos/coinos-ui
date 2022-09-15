@@ -8,3 +8,12 @@
 		<option value={locale}>{$t(`lang.${locale}`)}</option>
 	{/each}
 </select>
+
+<style>
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+}
+  </style>

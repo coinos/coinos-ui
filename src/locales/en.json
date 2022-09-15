@@ -48,13 +48,14 @@
 		}
 	},
 	"footer": {
-		"followUs": "Follow Us",
-		"twitter": "Twitter",
-		"github": "GitHub",
 		"company": "Company",
-		"telegram": "Telegram",
+		"followUs": "Follow Us",
+		"github": "GitHub",
+		"jobs": "Jobs",
 		"support": "Support",
-		"jobs": "Jobs"
+		"telegram": "Telegram",
+		"twitter": "Twitter",
+    "news": "News"
 	},
 	"howItWorks": {
 		"header": "How It Works",
