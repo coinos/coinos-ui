@@ -49,29 +49,31 @@
 			{withdrawing ? 'Withdraw' : 'Dashboard'}
 		</h1>
 		{#if !withdrawing}
-			<span class="text-secondary mx-auto text-lg font-bold"
-				>{$t('user.dashboard.bitcoinPrice')}
-				<span class="text-black"
-					>{$selectedRate ? btcPrice : $t('user.dashboard.fetchingRate')}</span
-				>
-			</span>
-
-			<span class="text-secondary block mt-1">{@html $t('user.dashboard.dataFromBinance')} </span>
-
+			<!-- <span class="text-secondary mx-auto text-lg font-bold" -->
+			<!-- 	>{$t('user.dashboard.bitcoinPrice')} -->
+			<!-- 	<span class="text-black" -->
+			<!-- 		>{$selectedRate ? btcPrice : $t('user.dashboard.fetchingRate')}</span -->
+			<!-- 	> -->
+			<!-- </span> -->
+      <!--  -->
 			<h3 class="text-secondary font-bold border-b pb-1 mt-10 mb-6 w-full md:w-[500px]">
 				{$t('user.dashboard.ACCOUNT_BALANCE')}
 			</h3>
 
 			<span class="text-3xl font-bold block mb-1"
-				>{$selectedRate ? accountBalanceFiat : $t('user.dashboard.fetchingRate')}</span
+				>{accountBalanceSats} SAT</span
 			>
 
-			<span class="text-secondary text-xl block">{accountBalanceSats} SAT</span>
+			<span class="text-secondary text-xl block">{$selectedRate ? accountBalanceFiat : $t('user.dashboard.fetchingRate')}</span>
 
-			<button class="rounded-full border py-2 font-bold w-28 mt-4" on:click={toggle}
+      <div class="flex space-x-5">
+			<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
+				>{$t('user.dashboard.receive')}</button
+			>
+			<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
 				>{$t('user.dashboard.withdraw')}</button
 			>
-			<p class="text-secondary my-2">{$t('user.dashboard.conversionFeeWarning')}</p>
+      </div>
 		{:else}
 			<div class="space-y-3 w-[250px] md:w-[500px] md:pr-20">
 				<button on:click={() => (withdrawing = false)}>
