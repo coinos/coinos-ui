@@ -12,6 +12,12 @@
 		},
 		{ name: 'cole', socials: [] },
 		{
+			name: 'gene',
+			socials: [
+				{ type: 'twitter', url: 'https://twitter.com/cogentgene', color: 'bg-[#1D9BF0]' }
+			]
+		},
+		{
 			name: 'john',
 			socials: []
 		},
