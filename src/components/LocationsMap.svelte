@@ -34,15 +34,11 @@
 			});
 
 			leaflet
-				.tileLayer('http://{s}tile.stamen.com/toner/{z}/{x}/{y}.png', {
-					// leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				.tileLayer('https://coinos.io/toner/{z}/{x}/{y}.png', {
 					maxZoom: 19,
 					subdomains: ['', 'a.', 'b.', 'c.', 'd.']
 				})
 				.addTo(map);
-
-			// let tonerLayer = new L.StamenTileLayer("toner");
-			// map.addLayer(tonerLayer);
 
 			leaflet
 				.marker([49.27034, -123.141373])
