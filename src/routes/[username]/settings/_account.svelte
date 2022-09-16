@@ -97,25 +97,26 @@
 	<input type="text" name="address" bind:value={$user.address} />
 </div>
 
-<div>
-	<div class="flex justify-between items-center">
-		<span class="font-bold">{$t('user.settings.emailNotifications')}</span>
-		<Toggle id="email-notify" />
-	</div>
-	<p class="text-secondary mt-1 w-9/12">
-		{$t('user.settings.emailNotificationsDescription')}
-	</p>
-</div>
-
-<div>
-	<div class="flex justify-between items-center">
-		<span class="font-bold">{$t('user.settings.smsNotifications')}</span>
-		<Toggle id="sms-notify" />
-	</div>
-	<p class="text-secondary mt-1 w-9/12">
-		{$t('user.settings.smsNotificationsDescription')}
-	</p>
-</div>
+<!-- TODO -->
+<!-- <div> -->
+<!-- 	<div class="flex justify-between items-center"> -->
+<!-- 		<span class="font-bold">{$t('user.settings.emailNotifications')}</span> -->
+<!-- 		<Toggle id="email-notify" /> -->
+<!-- 	</div> -->
+<!-- 	<p class="text-secondary mt-1 w-9/12"> -->
+<!-- 		{$t('user.settings.emailNotificationsDescription')} -->
+<!-- 	</p> -->
+<!-- </div> -->
+<!--  -->
+<!-- <div> -->
+<!-- 	<div class="flex justify-between items-center"> -->
+<!-- 		<span class="font-bold">{$t('user.settings.smsNotifications')}</span> -->
+<!-- 		<Toggle id="sms-notify" /> -->
+<!-- 	</div> -->
+<!-- 	<p class="text-secondary mt-1 w-9/12"> -->
+<!-- 		{$t('user.settings.smsNotificationsDescription')} -->
+<!-- 	</p> -->
+<!-- </div> -->
 
 <div>
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
