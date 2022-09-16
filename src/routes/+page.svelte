@@ -25,6 +25,18 @@
 	const faqIDs = ['cost', 'compatibility', 'safety'];
 </script>
 
+<!-- banner -->
+<div class="mt-[101.7px] md:mt-0 w-full text-center py-4 border border-b-black text-secondary">
+	<p>
+		Welcome to the <a href="/news" class="underline underline-offset-4 text-black"
+			>new and improved coinos</a
+		>, focused on merchant adoption! Looking for the old coinos? Visit
+		<a href="https://classic.coinos.io" class="underline underline-offset-4 text-black"
+			>classic.coinos.io</a
+		>.
+	</p>
+</div>
+
 <LandingHeader {howItWorks} {faq} {about} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
