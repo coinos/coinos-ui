@@ -26,7 +26,7 @@
 	</select>
 </div>
 
-<!-- hide for now
+<!-- TODO
 <div>
 	<label for="unit" class="font-bold block mb-1">{$t('user.settings.btcUnit')}</label>
 	<select disabled name="unit" class="select-styles block py-3 w-full" bind:value={$user.unit}>
