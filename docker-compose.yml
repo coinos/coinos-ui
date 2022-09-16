@@ -11,3 +11,7 @@ services:
       PORT: 3121
     extra_hosts:
       - host.docker.internal:host-gateway
+networks: 
+  default: 
+    name: net
+    external: true
