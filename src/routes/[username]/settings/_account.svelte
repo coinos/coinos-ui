@@ -72,9 +72,10 @@
 	<input type="email" name="email" bind:value={$user.email} />
 </div> -->
 
+<!-- TODO fix breaking changes when user updates this field -->
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
-	<input type="text" name="username" bind:value={$user.username} />
+	<input disabled type="text" name="username" bind:value={$user.username} />
 </div>
 
 <div class="relative">
@@ -144,7 +145,7 @@
 			</div>
 		{/if}
 		<div class="ml-2 p-2">
-<!-- found missing translation -->
+			<!-- found missing translation -->
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
