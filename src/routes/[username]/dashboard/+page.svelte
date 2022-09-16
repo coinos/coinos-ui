@@ -3,6 +3,7 @@
 	import { tick } from 'svelte';
 	import { AppHeader, Icon } from '$comp';
 	import { selectedRate } from '$lib/store';
+	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
 	export let data;
@@ -66,11 +67,12 @@
 				>{$selectedRate ? accountBalanceFiat : $t('user.dashboard.fetchingRate')}</span
 			>
 
-			<div class="flex space-x-5">
-				<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
-					>{$t('user.dashboard.receive')}</button
+			<div class="md:flex md:space-x-5">
+				<button
+					class="rounded-full border py-2 px-5 font-bold mt-4 block md:inline"
+					on:click={() => goto(`/${user.username}/receive`)}>{$t('user.dashboard.receive')}</button
 				>
-				<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
+				<button class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4" on:click={toggle}
 					>{$t('user.dashboard.withdraw')}</button
 				>
 			</div>
