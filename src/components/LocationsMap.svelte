@@ -37,26 +37,26 @@
 				.tileLayer('http://{s}tile.stamen.com/toner/{z}/{x}/{y}.png', {
 					// leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 					maxZoom: 19,
-					subdomains: ['', 'a.', 'b.', 'c.', 'd.'],
+					subdomains: ['', 'a.', 'b.', 'c.', 'd.']
 				})
 				.addTo(map);
 
 			// let tonerLayer = new L.StamenTileLayer("toner");
 			// map.addLayer(tonerLayer);
 
-
-
 			leaflet
 				.marker([49.27034, -123.141373])
 				.addTo(map)
 				.bindPopup(
 					'Rolf Vancouver <br> 1628 W 1st Ave #231, Vancouver <br> <a href="https://www.rolfbodywork.com" target="_blank" rel="noreferrer">www.rolfbodywork.com</a>'
-				)._icon.classList.add("huechange");
+				)
+				._icon.classList.add('huechange');
 
 			leaflet
 				.marker([49.26419, -123.15702])
 				.addTo(map)
-				.bindPopup('Tacos Jorge <br> 2287 W Broadway, Vancouver')._icon.classList.add("huechange");
+				.bindPopup('Tacos Jorge <br> 2287 W Broadway, Vancouver')
+				._icon.classList.add('huechange');
 		}
 	});
 

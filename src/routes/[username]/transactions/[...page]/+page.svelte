@@ -5,11 +5,14 @@
 	import { f, s } from '$lib/utils';
 	export let data;
 
-  let { user } = data;
+	let { user } = data;
 
 	$newPayment = false;
-  let page, total, transactions = [], pages = [];
-  $: data && ({ page, pages, total, transactions } = data);
+	let page,
+		total,
+		transactions = [],
+		pages = [];
+	$: data && ({ page, pages, total, transactions } = data);
 </script>
 
 <AppHeader />
@@ -20,17 +23,17 @@
 	</h1>
 
 	<div class="container w-full mx-auto flex px-10 lg:px-40 mb-8 text-right">
-    <div class="ml-auto flex">
-		{#if pages.length > 1}
-			{#each pages as _, i}
-        <a href={`/${user.username}/transactions/${i+1}`} class:active={page === i + 1}>
-				<div class="border p-4 px-6 border-r-0 last:border-r">
-					{i + 1}
-				</div>
-        </a>
-			{/each}
-		{/if}
-    </div>
+		<div class="ml-auto flex">
+			{#if pages.length > 1}
+				{#each pages as _, i}
+					<a href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
+						<div class="border p-4 px-6 border-r-0 last:border-r">
+							{i + 1}
+						</div>
+					</a>
+				{/each}
+			{/if}
+		</div>
 	</div>
 
 	<div class="container w-full mx-auto md:text-lg px-10 lg:px-40">
@@ -74,5 +77,7 @@
 </div>
 
 <style>
-  .active { @apply font-bold; }
+	.active {
+		@apply font-bold;
+	}
 </style>

@@ -55,25 +55,25 @@
 			<!-- 		>{$selectedRate ? btcPrice : $t('user.dashboard.fetchingRate')}</span -->
 			<!-- 	> -->
 			<!-- </span> -->
-      <!--  -->
+			<!--  -->
 			<h3 class="text-secondary font-bold border-b pb-1 mt-10 mb-6 w-full md:w-[500px]">
 				{$t('user.dashboard.ACCOUNT_BALANCE')}
 			</h3>
 
-			<span class="text-3xl font-bold block mb-1"
-				>{accountBalanceSats} SAT</span
+			<span class="text-3xl font-bold block mb-1">{accountBalanceSats} SAT</span>
+
+			<span class="text-secondary text-xl block"
+				>{$selectedRate ? accountBalanceFiat : $t('user.dashboard.fetchingRate')}</span
 			>
 
-			<span class="text-secondary text-xl block">{$selectedRate ? accountBalanceFiat : $t('user.dashboard.fetchingRate')}</span>
-
-      <div class="flex space-x-5">
-			<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
-				>{$t('user.dashboard.receive')}</button
-			>
-			<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
-				>{$t('user.dashboard.withdraw')}</button
-			>
-      </div>
+			<div class="flex space-x-5">
+				<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
+					>{$t('user.dashboard.receive')}</button
+				>
+				<button class="rounded-full border py-2 font-bold mt-4" on:click={toggle}
+					>{$t('user.dashboard.withdraw')}</button
+				>
+			</div>
 		{:else}
 			<div class="space-y-3 w-[250px] md:w-[500px] md:pr-20">
 				<button on:click={() => (withdrawing = false)}>

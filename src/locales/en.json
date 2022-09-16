@@ -11,30 +11,30 @@
 		"p4": "Intra-account transfers between custodial wallets of different users on our server are completely free, instant, and unlimited.",
 		"team": {
 			"header": "The Team",
-      "adam": {
-        "name": "Adam Soltys",
-        "position": "Chief Technical Officer",
-        "bio": "Adam is a Web Developer and bitcoin enthusiast who believes sound money is a key tool to liberate humanity and increase global prosperity. He started working on a simple page for merchants to do price conversion and take bitcoin payments in 2012 and the rest is history! He lives in Vancouver with his wife Chelsea and two children."
+			"adam": {
+				"name": "Adam Soltys",
+				"position": "Chief Technical Officer",
+				"bio": "Adam is a Web Developer and bitcoin enthusiast who believes sound money is a key tool to liberate humanity and increase global prosperity. He started working on a simple page for merchants to do price conversion and take bitcoin payments in 2012 and the rest is history! He lives in Vancouver with his wife Chelsea and two children."
 			},
-      "secondl1ght": {
-        "name": "secondl1ght",
-        "position": "Web Developer",
-        "bio": "A self-taught Web Developer, secondl1ght dove head first down the bitcoin rabbit hole and left his fiat job to focus on bitcoin development full-time. He contributes to open source projects, is a privacy advocate, and freedom lover."
+			"secondl1ght": {
+				"name": "secondl1ght",
+				"position": "Web Developer",
+				"bio": "A self-taught Web Developer, secondl1ght dove head first down the bitcoin rabbit hole and left his fiat job to focus on bitcoin development full-time. He contributes to open source projects, is a privacy advocate, and freedom lover."
 			},
-      "shauna": {
-        "name": "Shauna",
-        "position": "Operations & Marketing",
-        "bio": "Strategic & Project Management. Jack of all Trades. Can always find time to meet for coffee."
+			"shauna": {
+				"name": "Shauna",
+				"position": "Operations & Marketing",
+				"bio": "Strategic & Project Management. Jack of all Trades. Can always find time to meet for coffee."
 			},
-      "cole": {
-        "name": "Cole Goodwin",
-        "position": "Bitcoin Professional",
-        "bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. In summer 2021 he quit his 9-5 job due to the passive income from bitcoin & ASIC Mining. After discovering the lightning network, Cole met Adam. Now being a part of the coinos team, we want to introduce the lightning network to as many users as possible."
+			"cole": {
+				"name": "Cole Goodwin",
+				"position": "Bitcoin Professional",
+				"bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. In summer 2021 he quit his 9-5 job due to the passive income from bitcoin & ASIC Mining. After discovering the lightning network, Cole met Adam. Now being a part of the coinos team, we want to introduce the lightning network to as many users as possible."
 			},
-      "john": {
-        "name": "John Barratt",
-        "position": "Full Stack Web Developer",
-        "bio": "When not coding you can find John out in the woods hiking all the great trails that BC has to offer."
+			"john": {
+				"name": "John Barratt",
+				"position": "Full Stack Web Developer",
+				"bio": "When not coding you can find John out in the woods hiking all the great trails that BC has to offer."
 			}
 		},
 		"locations": {
@@ -70,7 +70,7 @@
 		"support": "Support",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
-    "news": "News"
+		"news": "News"
 	},
 	"howItWorks": {
 		"header": "How It Works",
@@ -122,7 +122,7 @@
 		}
 	},
 	"login": {
-    "optional": "Optional",
+		"optional": "Optional",
 		"token": "2FA Token",
 		"username": "Username",
 		"password": "Password",
@@ -156,7 +156,7 @@
 			"fetchingRate": "fetching rate...",
 			"optionalNote": "Note (Optional)",
 			"send": "Send",
-      "receive": "Receive a Payment",
+			"receive": "Receive a Payment",
 			"withdraw": "Withdraw"
 		},
 		"receive": {
