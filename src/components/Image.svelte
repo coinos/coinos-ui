@@ -3,4 +3,4 @@
 	export let style;
 </script>
 
-<img src="/images/{image}.png" alt={image} class={style} />
+<img src="/images/{image}.webp" alt={image} class={style} />
