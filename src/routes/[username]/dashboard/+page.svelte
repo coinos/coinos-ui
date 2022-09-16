@@ -14,6 +14,7 @@
 		withdrawing;
 
 	let toggle = async () => {
+payreq = ''
 		withdrawing = !withdrawing;
 		await tick();
 		if (withdrawing) payreqField.focus();
@@ -69,10 +70,10 @@
 
 			<div class="md:flex md:space-x-5">
 				<button
-					class="rounded-full border py-2 px-5 font-bold mt-4 block md:inline"
+					class="rounded-full border py-2 px-5 font-bold mt-4 block md:inline hover:bg-primary"
 					on:click={() => goto(`/${user.username}/receive`)}>{$t('user.dashboard.receive')}</button
 				>
-				<button class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4" on:click={toggle}
+				<button class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4 hover:bg-primary" on:click={toggle}
 					>{$t('user.dashboard.withdraw')}</button
 				>
 			</div>
@@ -83,7 +84,8 @@
 				</button>
 
 				<div>
-					<label for="invoice" class="font-bold mb-1 block">Invoice</label>
+<!-- found missing translation -->
+					<label for="invoice" class="font-bold mb-1 block">Lightning Invoice</label>
 					<input
 						bind:this={payreqField}
 						type="text"
@@ -94,10 +96,13 @@
 					/>
 				</div>
 
+<!-- TODO -->
+<!--
 				<div>
 					<label for="note" class="font-bold mb-1 block">{$t('user.dashboard.optionalNote')}</label>
-					<textarea name="note" rows={2} class="block rounded-2xl p-3 w-full bg-primary" />
+					<textarea name="note" rows={2} class="block border rounded-2xl p-3 w-full bg-primary" />
 				</div>
+-->
 
 				<button
 					disabled={!payreq}
