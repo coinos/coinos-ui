@@ -1,12 +1,15 @@
 <script>
 	import { AppHeader } from '$comp';
-	import { user, newPayment } from '$lib/store';
+	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
-      import { f, s } from "$lib/utils";
+	import { f, s } from '$lib/utils';
+	export let data;
+
+  let { user } = data;
 
 	$newPayment = false;
-
-	$: transactions = $user.payments;
+  let page, total, transactions = [], pages = [];
+  $: data && ({ page, pages, total, transactions } = data);
 </script>
 
 <AppHeader />
@@ -16,7 +19,21 @@
 		{$t('user.transactions.header')}
 	</h1>
 
-	<div class="max-w-5xl w-11/12 md:w-3/4 xl:w-1/2 mx-auto md:text-lg">
+	<div class="container w-full mx-auto flex px-10 lg:px-40 mb-8 text-right">
+    <div class="ml-auto flex">
+		{#if pages.length > 1}
+			{#each pages as _, i}
+        <a href={`/${user.username}/transactions/${i+1}`} class:active={page === i + 1}>
+				<div class="border p-4 px-6 border-r-0 last:border-r">
+					{i + 1}
+				</div>
+        </a>
+			{/each}
+		{/if}
+    </div>
+	</div>
+
+	<div class="container w-full mx-auto md:text-lg px-10 lg:px-40">
 		<div class="text-secondary grid grid-cols-3 mb-5">
 			<h2>{$t('user.transactions.AMOUNT')}</h2>
 			<h2 class="text-center">{$t('user.transactions.TYPE')}</h2>
@@ -55,3 +72,7 @@
 		</div>
 	</div>
 </div>
+
+<style>
+  .active { @apply font-bold; }
+</style>
