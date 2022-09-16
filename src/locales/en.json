@@ -144,6 +144,11 @@
 		"settings": "Settings",
 		"support": "Support"
 	},
+	"news": {
+		"header": "News",
+		"subheader": "Latest Updates",
+		"update1": ""
+	},
 	"user": {
 		"follow": "Follow",
 		"remove": "Remove",
