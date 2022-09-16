@@ -58,7 +58,7 @@
 
 			<div class="space-y-5 static xl:absolute top-[255px] left-[calc(50vw-150px)]">
 				<div
-on:click={() => copy(lightningAddress)}
+					on:click={() => copy(lightningAddress)}
 					id="qr"
 					class=" cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative"
 				/>

@@ -14,7 +14,7 @@
 		withdrawing;
 
 	let toggle = async () => {
-payreq = ''
+		payreq = '';
 		withdrawing = !withdrawing;
 		await tick();
 		if (withdrawing) payreqField.focus();
@@ -73,8 +73,9 @@ payreq = ''
 					class="rounded-full border py-2 px-5 font-bold mt-4 block md:inline hover:bg-primary"
 					on:click={() => goto(`/${user.username}/receive`)}>{$t('user.dashboard.receive')}</button
 				>
-				<button class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4 hover:bg-primary" on:click={toggle}
-					>{$t('user.dashboard.withdraw')}</button
+				<button
+					class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4 hover:bg-primary"
+					on:click={toggle}>{$t('user.dashboard.withdraw')}</button
 				>
 			</div>
 		{:else}
@@ -84,7 +85,7 @@ payreq = ''
 				</button>
 
 				<div>
-<!-- found missing translation -->
+					<!-- found missing translation -->
 					<label for="invoice" class="font-bold mb-1 block">Lightning Invoice</label>
 					<input
 						bind:this={payreqField}
@@ -96,8 +97,8 @@ payreq = ''
 					/>
 				</div>
 
-<!-- TODO -->
-<!--
+				<!-- TODO -->
+				<!--
 				<div>
 					<label for="note" class="font-bold mb-1 block">{$t('user.dashboard.optionalNote')}</label>
 					<textarea name="note" rows={2} class="block border rounded-2xl p-3 w-full bg-primary" />

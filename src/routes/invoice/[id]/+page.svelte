@@ -266,11 +266,13 @@
 					</div>
 
 					<div>
-						<button class="border border-lightgrey rounded-md p-2 mx-2 hover:bg-primary" on:click={toggleFullscreen}
-							><Icon icon="expand" /></button
+						<button
+							class="border border-lightgrey rounded-md p-2 mx-2 hover:bg-primary"
+							on:click={toggleFullscreen}><Icon icon="expand" /></button
 						>
-						<button class="border border-lightgrey rounded-md p-2 mx-2 hover:bg-primary" on:click={() => copy(text)}
-							><Icon icon="copy" /></button
+						<button
+							class="border border-lightgrey rounded-md p-2 mx-2 hover:bg-primary"
+							on:click={() => copy(text)}><Icon icon="copy" /></button
 						>
 					</div>
 
