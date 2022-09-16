@@ -45,7 +45,7 @@
 
 				<p class="text-secondary">{$user.address ? $user.address : ''}</p>
 
-				<!--
+				<!-- TODO
         we need to hook this up
         <button
 					class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
@@ -58,8 +58,9 @@
 
 			<div class="space-y-5 static xl:absolute top-[255px] left-[calc(50vw-150px)]">
 				<div
+on:click={() => copy(lightningAddress)}
 					id="qr"
-					class="w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative"
+					class=" cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative"
 				/>
 
 				<p class="text-secondary text-center font-semibold">{$t('user.scanToPayBTC')}</p>
