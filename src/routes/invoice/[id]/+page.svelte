@@ -261,7 +261,7 @@
 						>Scan to pay <a href="/{username}" class="text-black font-semibold">{username}</a></span
 					>
 
-					<div class="border border-gray-200 rounded-2xl">
+					<div class="border border-gray-200 rounded-2xl md:p-4">
 						<Qr {text} {image} bind:qr />
 					</div>
 
