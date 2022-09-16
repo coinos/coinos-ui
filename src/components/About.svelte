@@ -10,7 +10,27 @@
 				{ type: 'github', url: 'https://github.com/asoltys', color: 'bg-gray-800' }
 			]
 		},
-		{ name: 'cole', socials: [] }
+	{ name: 'cole', socials: [] },
+		{
+			name: 'john',
+			socials: [			]
+		},
+		{
+			name: 'secondl1ght',
+			socials: [
+				{ type: 'twitter', url: 'https://www.twitter.com/secondl1ght', color: 'bg-[#1D9BF0]' },
+				{ type: 'github', url: 'https://github.com/secondl1ght', color: 'bg-gray-800' }
+			]
+		},
+		{
+			name: 'shauna',
+			socials: [
+				{ type: 'twitter', url: 'https://twitter.com/ShaunaCollister', color: 'bg-[#1D9BF0]' },
+				{ type: 'linkedin', url: 'https://www.linkedin.com/in/shauna-collister-32905214', color: 'bg-[#0a66c2]' }
+			]
+		},
+
+
 	];
 </script>
 
@@ -32,22 +52,27 @@
 	<Image image="swoosh" style="w-32 absolute -bottom-20 lg:bottom-0 right-0 md:right-10" />
 </div>
 
-<div class="container grid grid-cols-2">
+<div class='flex justify-center'>
+<div class="container mt-40 lg:mt-20">
+	<h3 class="text-5xl font-medium mb-10 text-center">
+		{$t('about.team.header')}
+	</h3>
+<div class='space-y-10 2xl:space-y-0 2xl:grid gap-y-10 grid-cols-2'>
 	{#each team as member}
-		<div class="flex">
-			<div class="flex">
-				<Image image={member.name} style="rounded-full mx-auto lg:mx-0 lg:ml-auto w-40" />
+<div class='md:flex justify-center items-center 2xl:items-start md:space-x-10'>
+			<div>
+				<Image image={member.name} style="rounded-full mx-auto w-40 h-40 mb-5 object-cover" />
 
 				<div class="space-y-2">
-					<span class="text-2xl text-center font-semibold block lg:text-right"
+					<span class="text-2xl text-center font-semibold block"
 						>{$t(`about.team.${member.name}.name`)}</span
 					>
-					<span class="text-xl text-center text-secondary block lg:text-right"
+					<span class="text-xl text-center text-secondary block"
 						>{$t(`about.team.${member.name}.position`)}</span
 					>
 				</div>
 
-				<div class="flex justify-center lg:justify-end items-center space-x-5">
+				<div class="mt-2 flex justify-center items-center space-x-5">
 					{#each member.socials as social}
 						<a
 							href={social.url}
@@ -57,12 +82,15 @@
 						>
 					{/each}
 				</div>
-			</div>
+
 		</div>
-		<div class="text-secondary text-xl">
+		<div class="mt-5 md:mt-0 text-secondary text-xl w-full md:w-[450px]">
 			{$t(`about.team.${member.name}.bio`)}
 		</div>
+</div>
 	{/each}
+</div>
+</div>
 </div>
 
 <div class="mt-20">
