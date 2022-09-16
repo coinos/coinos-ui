@@ -34,9 +34,9 @@
 			});
 
 			leaflet
-				.tileLayer('https://coinos.io/toner/{z}/{x}/{y}.png', {
+				.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
 					maxZoom: 19,
-					subdomains: ['', 'a.', 'b.', 'c.', 'd.']
+					subdomains: ['a', 'b', 'c', 'd']
 				})
 				.addTo(map);
 
