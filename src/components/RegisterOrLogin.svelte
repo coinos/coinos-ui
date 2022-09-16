@@ -131,9 +131,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	input {
-		@apply border-none;
-	}
-</style>
