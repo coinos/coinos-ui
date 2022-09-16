@@ -8,7 +8,6 @@ services:
       - '3121:3121'
     environment:
       NODE_ENV: production
-      NODE_OPTIONS: "--es-module-specifier-resolution=node --experimental-modules --loader ./loader.js --openssl-legacy-provider"
       PORT: 3121
     extra_hosts:
       - host.docker.internal:host-gateway
