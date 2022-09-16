@@ -75,7 +75,7 @@
 
 	$: totalAmountFormatted = f(amountFiat + parseFloat(tipAmount), currency);
 
-	const amountFormatted = f(amount, currency);
+	const amountFormatted = s(amount);
 
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 
