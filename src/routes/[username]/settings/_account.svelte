@@ -65,7 +65,8 @@
 	<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
 	<LocaleSelector style="select-styles block py-3 w-full" />
 </div>
-<!-- hide for now
+
+<!-- TODO
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
 	<input type="email" name="email" bind:value={$user.email} />
@@ -143,6 +144,7 @@
 			</div>
 		{/if}
 		<div class="ml-2 p-2">
+<!-- found missing translation -->
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
@@ -180,6 +182,7 @@
 			on:click={() => select('banner')}
 		/>
 	{/if}
+
 	<!-- found missing translation -->
 	<button
 		type="button"

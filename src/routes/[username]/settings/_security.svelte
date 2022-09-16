@@ -82,6 +82,7 @@
 	{/if}
 </div>
 
+<!-- TODO -->
 <div>
 	<label for="auto-lock" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
 	<p class="text-secondary mb-1">
