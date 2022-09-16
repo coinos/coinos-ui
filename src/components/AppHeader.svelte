@@ -5,7 +5,7 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 
-	export let avatarPosition = 'left-[calc(50vw-48px)]';
+	export let avatarPosition = 'left-[calc(50vw-48px)] bottom-[-48px]';
 
 	const menuButtons = [
 		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },
@@ -37,12 +37,12 @@
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if $user}
 			<a href={`/${$user.username}/receive`}>
-				<button class="bg-white p-2 rounded-full w-12 h-12"
+				<button class="bg-white p-2 rounded-full w-12 h-12 shadow-xl"
 					><Icon icon="numpad" style="mx-auto" />
 				</button>
 			</a>
 			<a href={`/${$user.username}/transactions`}>
-				<button class="bg-white p-2 rounded-full w-12 h-12 relative"
+				<button class="bg-white p-2 rounded-full w-12 h-12 shadow-xl relative"
 					><Icon icon="clock" style="mx-auto" />
 					{#if $newPayment}
 						<span class="absolute top-0 right-0">
@@ -57,14 +57,14 @@
 				</button>
 			</a>
 			<a href={`/${$user.username}`}>
-				<button class="bg-white p-2 rounded-full w-12 h-12"
+				<button class="bg-white p-2 rounded-full w-12 h-12 shadow-xl"
 					><Icon icon="profile" style="mx-auto" />
 				</button>
 			</a>
 			<div class="relative">
 				<OutClick on:outclick={() => (showMenu = false)}>
 					<button
-						class="bg-white p-2 rounded-full  w-12 h-12"
+						class="bg-white p-2 rounded-full w-12 h-12 shadow-xl"
 						on:click={() => (showMenu = !showMenu)}
 						><Icon icon="menu" style="mx-auto" />
 					</button>
@@ -98,7 +98,7 @@
 	</nav>
 	{#if $user.profile}
 		<div
-			class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full overflow-hidden text-center w-24 h-24 my-auto"
+			class="absolute {avatarPosition} rounded-full overflow-hidden text-center w-24 h-24 my-auto"
 		>
 			<img
 				src={$tempProfileFiles && $tempProfileFiles.profile
