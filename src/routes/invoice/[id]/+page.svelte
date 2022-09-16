@@ -52,9 +52,7 @@
 
 	$: tipAmountSats = s(tip);
 
-	$: totalAmountSats = s(
-		amount + parseFloat(tipAmountSats.replace(/,/g, ''))
-	);
+	$: totalAmountSats = s(amount + parseFloat(tipAmountSats.replace(/,/g, '')));
 
 	let apply = async () => {
 		tipPercent = (customTipAmount / amountFiat) * 100;

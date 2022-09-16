@@ -10,10 +10,10 @@
 </select>
 
 <style>
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: none;
-}
-  </style>
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		border: none;
+	}
+</style>

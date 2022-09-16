@@ -86,7 +86,10 @@
 
 				{#if pageID === 'signIn'}
 					<div>
-            <label for="token" class="font-semibold">{$t('login.token')} <span class="text-secondary">({$t('login.optional')})</span></label>
+						<label for="token" class="font-semibold"
+							>{$t('login.token')}
+							<span class="text-secondary">({$t('login.optional')})</span></label
+						>
 						<!-- svelte-ignore a11y-autofocus -->
 						<input
 							name="token"
@@ -103,7 +106,7 @@
 						{$t('login.passwordRecommendation')}
 					</p>
 				{:else}
-          <!-- TODO -->
+					<!-- TODO -->
 					<!-- <div class="flex justify-end items-center"> -->
 					<!-- 	<a href="/forgot" class="underline underline-offset-4 text-black text-sm" -->
 					<!-- 		>{$t('login.forgotUserOrPassword')}</a -->
