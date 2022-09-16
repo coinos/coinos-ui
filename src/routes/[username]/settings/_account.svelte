@@ -166,7 +166,7 @@
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
 	<!-- found missing translation -->
-	<p class="text-secondary mb-4">Recommended size: 1920x540px</p>
+	<p class="text-secondary mb-4">Recommended size: 1920x175px</p>
 	{#if banner}
 		<img src={banner} class="w-full object-cover object-center visible overflow-hidden h-48 mb-4" />
 	{:else if $user.banner}
