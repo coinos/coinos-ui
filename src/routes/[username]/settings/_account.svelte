@@ -65,11 +65,11 @@
 	<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
 	<LocaleSelector style="select-styles block py-3 w-full" />
 </div>
-
+<!-- hide for now
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
 	<input type="email" name="email" bind:value={$user.email} />
-</div>
+</div> -->
 
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>

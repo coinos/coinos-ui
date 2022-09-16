@@ -26,10 +26,11 @@
 	</select>
 </div>
 
+<!-- hide for now
 <div>
 	<label for="unit" class="font-bold block mb-1">{$t('user.settings.btcUnit')}</label>
 	<select disabled name="unit" class="select-styles block py-3 w-full" bind:value={$user.unit}>
 		<option value="SAT">{$t('user.settings.satoshis')} (SAT)</option>
 		<option value="BTC">{$t('user.settings.bitcoin')} (BTC)</option>
 	</select>
-</div>
+</div> -->
