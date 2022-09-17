@@ -8,11 +8,11 @@ services:
       - '3121:3121'
     environment:
       NODE_ENV: production
-      ORIGIN: "https://v2.coinos.io"
+      ORIGIN: 'https://v2.coinos.io'
       PORT: 3121
     extra_hosts:
       - host.docker.internal:host-gateway
-networks: 
-  default: 
+networks:
+  default:
     name: net
     external: true
