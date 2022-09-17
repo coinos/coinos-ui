@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
+	import { page } from '$app/stores';
 
 	export let avatarPosition = 'left-[calc(50vw-48px)] bottom-[-48px]';
 
@@ -37,12 +38,20 @@
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if $user}
 			<a href={`/${$user.username}/receive`}>
-				<button class="bg-white p-2 rounded-full w-12 h-12 shadow-xl"
+				<button
+					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						.url.pathname === `/${$user.username}/receive`
+						? 'opacity-100'
+						: 'opacity-70'}"
 					><Icon icon="numpad" style="mx-auto" />
 				</button>
 			</a>
 			<a href={`/${$user.username}/transactions`}>
-				<button class="bg-white p-2 rounded-full w-12 h-12 shadow-xl relative"
+				<button
+					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						.url.pathname === `/${$user.username}/transactions`
+						? 'opacity-100'
+						: 'opacity-70'} relative"
 					><Icon icon="clock" style="mx-auto" />
 					{#if $newPayment}
 						<span class="absolute top-0 right-0">
@@ -57,14 +66,23 @@
 				</button>
 			</a>
 			<a href={`/${$user.username}`}>
-				<button class="bg-white p-2 rounded-full w-12 h-12 shadow-xl"
+				<button
+					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						.url.pathname === `/${$user.username}`
+						? 'opacity-100'
+						: 'opacity-70'}"
 					><Icon icon="profile" style="mx-auto" />
 				</button>
 			</a>
 			<div class="relative">
 				<OutClick on:outclick={() => (showMenu = false)}>
 					<button
-						class="bg-white p-2 rounded-full w-12 h-12 shadow-xl"
+						class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+							.url.pathname === `/${$user.username}/dashboard` ||
+						$page.url.pathname === `/${$user.username}/settings` ||
+						$page.url.pathname === `/${$user.username}/support`
+							? 'opacity-100'
+							: 'opacity-70'}"
 						on:click={() => (showMenu = !showMenu)}
 						><Icon icon="menu" style="mx-auto" />
 					</button>
