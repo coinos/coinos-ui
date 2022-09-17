@@ -21,7 +21,7 @@
 			<a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
 		</div>
 		<div class="text-center">
-			<LocaleSelector style="p-3 rounded-md" />
+			<LocaleSelector style="p-2 rounded-md text-center" />
 		</div>
 	</div>
 
