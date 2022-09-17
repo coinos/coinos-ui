@@ -58,7 +58,7 @@
 				{
 					lat: 51.04813,
 					long: -114.07999,
-					info: 'Goodwin Contracting <br> Project Management/Consulting - Appointment Only <br> 403-812-1085 <br> 8017 17th Ave, Burnaby, BC V3N 1M5'
+					info: 'Goodwin Contracting <br> Project Management/Consulting - Appointment Only <br> <a href="tel:403-812-1085">403-812-1085</a> <br> 8017 17th Ave, Burnaby, BC V3N 1M5'
 				}
 			];
 
