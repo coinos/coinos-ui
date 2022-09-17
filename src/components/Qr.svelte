@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
-	export let image, text, qr;
+	export let image, text, qr, disabled;
 
 	$: update(text);
 	let update = async (text) => {
@@ -32,13 +32,18 @@
 	};
 </script>
 
-<div bind:this={qr} on:click={() => copy(text)} />
+<div
+	bind:this={qr}
+	on:click={() => {
+		if (!disabled) copy(text);
+	}}
+/>
 
 <style>
 	div {
-		@apply px-5 
-      md:px-0 
-      w-[292px] 
+		@apply px-5
+      md:px-0
+      w-[292px]
       h-[302px]
       md:w-[300px]
       md:h-[300px]
