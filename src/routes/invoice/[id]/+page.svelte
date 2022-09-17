@@ -20,6 +20,8 @@
 		user: { username, currency }
 	} = invoice;
 
+	let showCustomAmount = false;
+
 	let image = '/images/invoice.svg';
 	let qr;
 	let tipPercent = 0;
@@ -55,9 +57,12 @@
 	$: totalAmountSats = s(amount + parseFloat(tipAmountSats.replace(/,/g, '')));
 
 	let apply = async () => {
-		tipPercent = (customTipAmount / amountFiat) * 100;
-		update();
-		showMobileTip = false;
+		if (customTipAmount > 0) {
+			tipPercent = (customTipAmount / amountFiat) * 100;
+			update();
+			showMobileTip = false;
+			showCustomAmount = false;
+		}
 	};
 
 	let update = async () => {
@@ -86,22 +91,27 @@
 	let timeout;
 	const handleSlide = (e) => {
 		customTipAmount = '';
-		customInput.value = '';
+		if (customInput) {
+			customInput.value = '';
+		}
 		tipPercent = e.target.value;
+
 		clearTimeout(timeout);
 		timeout = setTimeout(update, 100);
 	};
 
 	const handleTipButtonClick = (amount) => {
 		customTipAmount = '';
-		customInput.value = '';
+		if (customInput) {
+			customInput.value = '';
+		}
 
 		if (amount === 'None') {
 			tipPercent = 0;
 		} else {
 			tipPercent = parseInt(amount.slice(0, 2));
 		}
-
+		showMobileTip = false;
 		update();
 	};
 
@@ -113,15 +123,18 @@
 	let showMobileTip = false;
 
 	const handleBackButton = () => {
-		if (showMobileTip) {
-			tipPercent = 0;
+		goto(`/${username}/receive`);
+	};
+
+	const handleMobileClose = () => {
+		tipPercent = 0;
+		if (customInput) {
 			customInput.value = '';
-			customTipAmount = 0;
-			tipAmount = 0;
-			showMobileTip = false;
-		} else {
-			goto(`/${username}/receive`);
 		}
+		customTipAmount = 0;
+		tipAmount = 0;
+		showMobileTip = false;
+		showCustomAmount = false;
 	};
 
 	let customInput;
@@ -146,6 +159,7 @@
 		<button
 			class="ml-5 md:ml-20 mt-5 md:mt-10"
 			class:invisible={!$user}
+			disabled={showMobileTip}
 			on:click={handleBackButton}
 		>
 			<Icon icon="arrow-left" style="w-10" />
@@ -161,65 +175,81 @@
 						? 'bottom-0'
 						: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
 				>
-					<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
-
-					<div>
-						<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
-							class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
+					<div class="flex justify-end items-center">
+						<button class="block md:hidden bg-primary rounded-full p-2" on:click={handleMobileClose}
+							><Icon icon="close" /></button
 						>
-						<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
 					</div>
-
-					<input
-						id="slider"
-						type="range"
-						min="0"
-						max="100"
-						value={tipPercent}
-						class="px-2 py-0"
-						on:input={handleSlide}
-					/>
-
-					<div>
-						{#each tipAmounts as amount}
-							<button
-								class="bg-primary w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
-									? ''
-									: Math.round(tipPercent) === parseInt(amount.slice(0, 2)) ||
-									  (!tipPercent && amount === 'None')
-									? '!bg-black text-white'
-									: ''}"
-								on:click={() => handleTipButtonClick(amount)}>{amount}</button
+					<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
+					{#if !showCustomAmount}
+						<div>
+							<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
+								class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
 							>
-						{/each}
-
-						<div class="relative">
-							<span
-								class="absolute top-[18px] left-5 font-semibold {!customTipAmount
-									? 'opacity-50'
-									: 'opacity-100'}">$</span
-							>
-							<input
-								bind:this={customInput}
-								type="number"
-								min="0"
-								on:input={(e) => handleCustomTipAmount(e)}
-								class="pl-10"
-								placeholder="Other"
-							/>
-							<button
-								class="w-full md:w-auto mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
-									? !customTipAmount && !tipAmount
-										? 'opacity-50'
-										: 'opacity-100'
-									: !customTipAmount
-									? 'opacity-50'
-									: 'opacity-100'}"
-								disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
-								on:click={apply}>Apply</button
-							>
-							<!-- found missing translation --->
+							<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
 						</div>
+
+						<input
+							id="slider"
+							type="range"
+							min="0"
+							max="100"
+							value={tipPercent}
+							class="px-2 py-0"
+							on:input={handleSlide}
+							on:change={() => (showMobileTip = false)}
+						/>
+					{/if}
+					<div>
+						{#if !showCustomAmount}
+							{#each tipAmounts as amount}
+								<button
+									class="bg-black text-white md:text-black md:bg-primary md:hover:bg-black md:hover:text-white w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
+										? ''
+										: Math.round(tipPercent) === parseInt(amount.slice(0, 2)) ||
+										  (!tipPercent && amount === 'None')
+										? '!bg-black !text-white'
+										: ''}"
+									on:click={() => handleTipButtonClick(amount)}>{amount}</button
+								>
+							{/each}
+						{/if}
+						{#if showCustomAmount}
+							<div class="relative">
+								<span
+									class="absolute top-[18px] left-5 font-semibold {!customTipAmount
+										? 'opacity-50'
+										: 'opacity-100'}">$</span
+								>
+								<input
+									bind:this={customInput}
+									type="number"
+									min="0"
+									on:input={(e) => handleCustomTipAmount(e)}
+									class="pl-10"
+									placeholder="Other"
+								/>
+								<button
+									class="w-full md:w-auto mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
+										? !customTipAmount && !tipAmount
+											? 'opacity-50'
+											: 'opacity-100'
+										: !customTipAmount
+										? 'opacity-50'
+										: 'opacity-100'}"
+									disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
+									on:click={apply}>Apply</button
+								>
+								<!-- found missing translation --->
+							</div>
+						{:else}
+							<div>
+								<button
+									class="w-full md:w-auto mt-2 bg-black md:bg-primary text-white md:text-black md:hover:bg-black md:hover:text-white font-semibold py-3 px-7 rounded-2xl"
+									on:click={() => (showCustomAmount = true)}>Custom amount</button
+								>
+							</div>
+						{/if}
 					</div>
 				</div>
 
@@ -262,7 +292,7 @@
 					>
 
 					<div class="border border-gray-200 rounded-2xl">
-						<Qr {text} {image} bind:qr />
+						<Qr {text} {image} disabled={showMobileTip} bind:qr />
 					</div>
 
 					<div>
