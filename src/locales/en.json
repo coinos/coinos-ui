@@ -45,7 +45,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "These are businesses that are accepting bitcoin with coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">let us know!</a>"
+			"description": "These are businesses that are accepting bitcoin with coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">let us know!</a>"
 		}
 	},
 	"error": {

@@ -132,7 +132,7 @@
 										: 0;
 							}
 							useFiat = !useFiat;
-						}}><Icon icon="swap" style="inline" /></button
+						}}><Icon icon="swap" style="inline hover:opacity-80" /></button
 					>
 				</div>
 
@@ -141,7 +141,7 @@
 					{#each numPad as value}
 						{#if value === '<'}
 							<button
-								class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center"
+								class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
 								on:click={() => handleInput(value)}
 							>
 								<svg
@@ -163,7 +163,7 @@
 							</button>
 						{:else}
 							<button
-								class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white"
+								class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
 								on:click={() => handleInput(value)}>{value}</button
 							>
 						{/if}
@@ -175,7 +175,7 @@
 						class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm {$invoiceAmount ===
 							0 || loading
 							? 'opacity-50'
-							: 'opacity-100'}"
+							: 'opacity-100 hover:opacity-80'}"
 						on:click={submit}
 						disabled={$invoiceAmount === 0 || loading}
 					>

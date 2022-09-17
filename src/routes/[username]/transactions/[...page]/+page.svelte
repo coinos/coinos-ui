@@ -27,7 +27,7 @@
 			{#if pages.length > 1}
 				{#each pages as _, i}
 					<a href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
-						<div class="border py-2 px-4 border-r-0 last:border-r hover:bg-primary">
+						<div class="border py-2 px-4 border-r-0 last:border-r hover:opacity-80">
 							{i + 1}
 						</div>
 					</a>

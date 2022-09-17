@@ -45,8 +45,10 @@
 
 		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
 			{#each tabs as { name, key }}
-				<button class:text-black={tab === name} on:click|preventDefault={() => (tab = name)}
-					>{$t(`user.settings.${key}`)}</button
+				<button
+					class="hover:opacity-80"
+					class:text-black={tab === name}
+					on:click|preventDefault={() => (tab = name)}>{$t(`user.settings.${key}`)}</button
 				>
 			{/each}
 		</div>

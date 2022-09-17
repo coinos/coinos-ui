@@ -42,7 +42,7 @@
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${$user.username}/receive`
 						? 'opacity-100'
-						: 'opacity-70'}"
+						: 'opacity-70 hover:opacity-80'}"
 					><Icon icon="numpad" style="mx-auto" />
 				</button>
 			</a>
@@ -51,7 +51,7 @@
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${$user.username}/transactions`
 						? 'opacity-100'
-						: 'opacity-70'} relative"
+						: 'opacity-70 hover:opacity-80'} relative"
 					><Icon icon="clock" style="mx-auto" />
 					{#if $newPayment}
 						<span class="absolute top-0 right-0">
@@ -70,7 +70,7 @@
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${$user.username}`
 						? 'opacity-100'
-						: 'opacity-70'}"
+						: 'opacity-70 hover:opacity-80'}"
 					><Icon icon="profile" style="mx-auto" />
 				</button>
 			</a>
@@ -82,7 +82,7 @@
 						$page.url.pathname === `/${$user.username}/settings` ||
 						$page.url.pathname === `/${$user.username}/support`
 							? 'opacity-100'
-							: 'opacity-70'}"
+							: `opacity-70 hover:opacity-80 ${showMenu ? 'opacity-80' : ''}`}"
 						on:click={() => (showMenu = !showMenu)}
 						><Icon icon="menu" style="mx-auto" />
 					</button>
@@ -96,7 +96,7 @@
 							{#each menuButtons as button}
 								<li>
 									<button
-										class="flex justify-center items-center font-semibold text-sm"
+										class="flex justify-center items-center font-semibold text-sm hover:opacity-80"
 										on:click={() => handleMenuItemClick(button.goto)}
 										><Icon icon={button.icon} style="mr-1" /> {$t(button.stringID)}
 									</button>

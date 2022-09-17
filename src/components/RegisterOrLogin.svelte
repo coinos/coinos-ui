@@ -114,7 +114,9 @@
 					<!-- </div> -->
 				{/if}
 
-				<button type="submit" class="bg-black text-white w-full rounded-2xl p-4 font-semibold"
+				<button
+					type="submit"
+					class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
 					>{$t('login.' + pageID)}
 				</button>
 			</form>
@@ -123,7 +125,7 @@
 				{pageID === 'register' ? $t('login.haveAccount') : $t('login.noAccount')}
 				<a
 					href={pageID === 'register' ? '/login' : '/register'}
-					class="block md:inline text-black underline underline-offset-4"
+					class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
 				>
 					{pageID === 'register' ? $t('login.signIn') : $t('login.register')}
 				</a>

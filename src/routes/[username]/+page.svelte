@@ -69,7 +69,7 @@
 					class="bg-primary font-semibold rounded-xl text-sm py-2 px-3 flex flex-wrap justify-center items-center"
 				>
 					<span>{lightningAddress}</span>
-					<button on:click={() => copy(lightningAddress)}>
+					<button class="hover:opacity-80" on:click={() => copy(lightningAddress)}>
 						<Icon icon="copy" style="ml-2" />
 					</button>
 				</div>

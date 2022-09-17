@@ -84,7 +84,7 @@
 									href={social.url}
 									target="_blank"
 									rel="noreferrer"
-									class={`rounded-full p-2 ${social.color}`}
+									class={`rounded-full p-2 ${social.color} hover:opacity-80`}
 									><Icon icon={social.type} style="w-6" /></a
 								>
 							{/each}

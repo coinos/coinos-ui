@@ -25,16 +25,17 @@ input {
 }
 
 button.primary {
-	@apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:bg-primary;
+	@apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:opacity-80;
 }
 
 .select-styles {
 	@apply border rounded-2xl py-4 px-5;
+	cursor: pointer;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	background: transparent;
 	background-image: url('/icons/down.svg');
 	background-repeat: no-repeat;
-	background-position-x: 100%;
-	background-position-y: 0.7em;
+	background-position-x: 95%;
+	background-position-y: 1em;
 }

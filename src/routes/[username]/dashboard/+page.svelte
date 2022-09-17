@@ -70,11 +70,11 @@
 
 			<div class="md:flex md:space-x-5">
 				<button
-					class="rounded-full border py-2 px-5 font-bold mt-4 block md:inline hover:bg-primary"
+					class="rounded-full border py-2 px-5 font-bold mt-4 block md:inline hover:opacity-80"
 					on:click={() => goto(`/${user.username}/receive`)}>{$t('user.dashboard.receive')}</button
 				>
 				<button
-					class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4 hover:bg-primary"
+					class="rounded-full border py-2 px-5 font-bold mt-5 md:mt-4 hover:opacity-80"
 					on:click={toggle}>{$t('user.dashboard.withdraw')}</button
 				>
 			</div>
@@ -109,7 +109,7 @@
 					disabled={!payreq}
 					class="{!payreq
 						? 'opacity-50'
-						: 'opacity-100'} rounded-2xl border py-3 font-bold w-full mt-2 bg-black text-white"
+						: 'opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold w-full mt-2 bg-black text-white"
 					on:click={withdraw}>{$t('user.dashboard.send')}</button
 				>
 			</div>
