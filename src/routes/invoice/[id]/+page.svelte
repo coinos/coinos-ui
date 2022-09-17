@@ -157,7 +157,7 @@
 {#if $invoices[id]?.status !== 'paid'}
 	<div class:full-shadow={showMobileTip}>
 		<button
-			class="ml-5 md:ml-20 mt-5 md:mt-10"
+			class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
 			class:invisible={!$user}
 			disabled={showMobileTip}
 			on:click={handleBackButton}
@@ -233,14 +233,10 @@
 									placeholder="Other"
 								/>
 								<button
-									class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
-										? !customTipAmount && !tipAmount
-											? 'opacity-50'
-											: 'opacity-100'
-										: !customTipAmount
+									class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {!customTipAmount
 										? 'opacity-50'
-										: 'opacity-100'}"
-									disabled={showMobileTip ? !customTipAmount && !tipAmount : !customTipAmount}
+										: 'opacity-100 hover:opacity-80'}"
+									disabled={!customTipAmount}
 									on:click={apply}>Apply</button
 								>
 								<!-- found missing translation --->
@@ -300,11 +296,11 @@
 
 					<div>
 						<button
-							class="border border-lightgrey rounded-md p-2 mx-2 hover:bg-primary"
+							class="border border-lightgrey rounded-md p-2 mx-2 hover:opacity-80"
 							on:click={toggleFullscreen}><Icon icon="expand" /></button
 						>
 						<button
-							class="border border-lightgrey rounded-md p-2 mx-2 hover:bg-primary"
+							class="border border-lightgrey rounded-md p-2 mx-2 hover:opacity-80"
 							on:click={() => copy(text)}><Icon icon="copy" /></button
 						>
 					</div>
@@ -360,7 +356,10 @@
 			{totalAmountFormatted}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SAT)</h3>
-		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold" on:click={handleDoneClick}>
+		<button
+			class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
+			on:click={handleDoneClick}
+		>
 			{$t('invoice.done')}
 		</button>
 	</div>

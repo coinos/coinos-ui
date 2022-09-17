@@ -124,14 +124,20 @@
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
 	<div class="flex">
 		{#if profile}
-			<div class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto">
+			<div
+				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
+				on:click={() => select('profile')}
+			>
 				<img
 					src={profile}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 				/>
 			</div>
 		{:else if $user.profile}
-			<div class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto">
+			<div
+				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
+				on:click={() => select('profile')}
+			>
 				<img
 					src={`/api/public/${$user.username}-profile.png`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
@@ -139,7 +145,8 @@
 			</div>
 		{:else}
 			<div
-				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto"
+				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto hover:opacity-80 cursor-pointer"
+				on:click={() => select('profile')}
 			>
 				<Icon icon="logo-symbol-white" style="mx-auto" />
 			</div>
@@ -148,7 +155,7 @@
 			<!-- found missing translation -->
 			<button
 				type="button"
-				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
+				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
 				on:click={() => select('profile')}>Select</button
 			>
 			<input
@@ -169,17 +176,22 @@
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
 	<!-- found missing translation -->
-	<p class="text-secondary mb-4">Recommended size: 1920x175px</p>
+
 	{#if banner}
-		<img src={banner} class="w-full object-cover object-center visible overflow-hidden h-48 mb-4" />
+		<img
+			src={banner}
+			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
+			on:click={() => select('banner')}
+		/>
 	{:else if $user.banner}
 		<img
 			src={`/api/public/${$user.username}-banner.png`}
-			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4"
+			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
+			on:click={() => select('banner')}
 		/>
 	{:else}
 		<div
-			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer"
+			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
 			on:click={() => select('banner')}
 		/>
 	{/if}
@@ -187,7 +199,7 @@
 	<!-- found missing translation -->
 	<button
 		type="button"
-		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:bg-primary"
+		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
 		on:click={() => select('banner')}>Select</button
 	>
 	<input
@@ -207,7 +219,7 @@
 	{#each colorThemes as colors}
 		<button
 			type="button"
-			class="mr-2 w-10 h-10 bg-gradient-to-r {colors.color1} {colors.color2} rounded-xl border-2 {selectedTheme ===
+			class="hover:opacity-80 mr-2 w-10 h-10 bg-gradient-to-r {colors.color1} {colors.color2} rounded-xl border-2 {selectedTheme ===
 			colors.theme
 				? 'border-black'
 				: ''}"

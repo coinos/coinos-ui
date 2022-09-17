@@ -55,8 +55,10 @@
 				disabled={!email || !message}
 				class="{!email || !message
 					? 'opacity-50'
-					: 'opacity-100'} bg-black text-white font-bold rounded-xl py-3 w-full mx-auto"
-				>{$t('user.support.send')}</button
+					: 'opacity-100'} bg-black text-white font-bold rounded-xl py-3 w-full mx-auto {email &&
+				message
+					? 'hover:opacity-80'
+					: ''}">{$t('user.support.send')}</button
 			>
 		</form>
 	</div>

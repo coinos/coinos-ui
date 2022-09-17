@@ -21,7 +21,7 @@
 			<a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
 		</div>
 		<div class="text-center">
-			<LocaleSelector style="p-2 rounded-md text-center" />
+			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />
 		</div>
 	</div>
 
@@ -30,7 +30,9 @@
 		<ul class="mt-5 text-secondary space-y-3 font-medium">
 			{#each followLinks as link}
 				<li>
-					<a href={link.url} target="_blank" rel="noreferrer">{$t('footer.' + link.titleID)}</a>
+					<a href={link.url} target="_blank" rel="noreferrer" class="hover:opacity-80"
+						>{$t('footer.' + link.titleID)}</a
+					>
 				</li>
 			{/each}
 		</ul>
@@ -40,7 +42,7 @@
 		<p class="font-semibold">{$t('footer.company')}</p>
 		<ul class="mt-5 text-secondary space-y-3">
 			{#each companyLinks as link}
-				<li><a href={link.url}>{$t('footer.' + link.titleID)}</a></li>
+				<li><a href={link.url} class="hover:opacity-80">{$t('footer.' + link.titleID)}</a></li>
 			{/each}
 		</ul>
 	</div>

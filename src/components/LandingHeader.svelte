@@ -27,15 +27,19 @@
 
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
-			<button on:click={() => scroll(howItWorks)}>{$t('howItWorks.header')}</button>
-			<button on:click={() => scroll(faq)}>{$t('faq.header')}</button>
-			<button on:click={() => scroll(about)}>{$t('about.header')}</button>
+			<button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
+				>{$t('howItWorks.header')}</button
+			>
+			<button class="hover:opacity-80" on:click={() => scroll(faq)}>{$t('faq.header')}</button>
+			<button class="hover:opacity-80" on:click={() => scroll(about)}>{$t('about.header')}</button>
 			{#if !$user}
-				<button class="border rounded-full px-6 py-2 font-bold" on:click={() => goto('/register')}
+				<button
+					class="border rounded-full px-6 py-2 font-bold hover:opacity-80"
+					on:click={() => goto('/register')}
 					>{$t('nav.startInSeconds')}
 				</button>
 				<button
-					class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+					class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
 					on:click={() => goto('/login')}
 				>
 					{$t('nav.signIn')}
