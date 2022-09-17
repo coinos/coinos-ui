@@ -9,6 +9,7 @@
 	let useFiat = true;
 	let amountFiat = 0;
 	let amountSats = 0;
+	let loading = false;
 
 	$: amount = parseInt(useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats);
 
@@ -73,6 +74,7 @@
 	};
 
 	let submit = async () => {
+		loading = true;
 		let id = await post('/invoice', {
 			amount,
 			rate: $selectedRate,
@@ -171,13 +173,37 @@
 				<div class="space-y-3 w-full md:w-[300px] mx-auto">
 					<button
 						class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm {$invoiceAmount ===
-						0
+							0 || loading
 							? 'opacity-50'
 							: 'opacity-100'}"
 						on:click={submit}
-						disabled={$invoiceAmount === 0}
-						><Icon icon="qr" style="mr-2" /> {$t('user.receive.showQR')}</button
+						disabled={$invoiceAmount === 0 || loading}
 					>
+						{#if loading}
+							<svg
+								class="mx-auto h-6 w-6 animate-spin text-white"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+							>
+								<circle
+									class="opacity-25"
+									cx="12"
+									cy="12"
+									r="10"
+									stroke="currentColor"
+									stroke-width="4"
+								/>
+								<path
+									class="opacity-75"
+									fill="currentColor"
+									d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+								/>
+							</svg>
+						{:else}
+							<Icon icon="qr" style="mr-2" /> {$t('user.receive.showQR')}
+						{/if}
+					</button>
 				</div>
 			</div>
 		{:else}
