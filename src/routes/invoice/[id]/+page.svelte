@@ -179,6 +179,10 @@
 						<button class="block md:hidden bg-primary rounded-full p-2" on:click={handleMobileClose}
 							><Icon icon="close" /></button
 						>
+						<button
+							class="hidden {showCustomAmount ? 'md:block' : ''}"
+							on:click={() => (showCustomAmount = false)}><Icon icon="close" /></button
+						>
 					</div>
 					<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
 					{#if !showCustomAmount}
@@ -224,13 +228,12 @@
 								<input
 									bind:this={customInput}
 									type="number"
-									min="0"
 									on:input={(e) => handleCustomTipAmount(e)}
 									class="pl-10"
 									placeholder="Other"
 								/>
 								<button
-									class="w-full md:w-auto mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
+									class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {showMobileTip
 										? !customTipAmount && !tipAmount
 											? 'opacity-50'
 											: 'opacity-100'
