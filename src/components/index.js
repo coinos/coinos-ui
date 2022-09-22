@@ -1,3 +1,5 @@
+export { default as Check } from './Check.svelte';
+export { default as Quote } from './Quote.svelte';
 export { default as LandingHeader } from './LandingHeader.svelte';
 export { default as LandingHero } from './LandingHero.svelte';
 export { default as LandingInfoCard } from './LandingInfoCard.svelte';
