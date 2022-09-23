@@ -5,16 +5,16 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "<strong>coinos</strong> is an <strong>open source</strong> bitcoin web wallet, point of sale, ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p1": "<strong>Coinos</strong> is an <strong>open source</strong> bitcoin web wallet, point of sale, ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
 		"p2": "The feature set has grown over the years to accomodate a wide variety of use cases with the goal of making it as easy as possible for anyone to get started using bitcoin quickly, cheaply, and securely.",
 		"p3": "Anyone can download the source code and host their own instance of the platform backed by their own bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.",
-		"p4": "Intra-account transfers between custodial wallets of different users on our server are completely free, instant, and unlimited.",
+		"p4": "Account transfers amongst users on our server are completely free, instant, and unlimited.",
 		"team": {
 			"header": "The Team",
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Chief Technical Officer",
-				"bio": "Adam is a Web Developer and bitcoin enthusiast who believes sound money is a key tool to liberate humanity and increase global prosperity. He started working on a simple page for merchants to do price conversion and take bitcoin payments in 2012 and the rest is history! He lives in Vancouver with his wife Chelsea and two children."
+				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in Vancouver with his wife Chelsea and two children."
 			},
 			"secondl1ght": {
 				"name": "secondl1ght",
@@ -35,7 +35,7 @@
 			"cole": {
 				"name": "Cole Goodwin",
 				"position": "Bitcoin Professional",
-				"bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. In summer 2021 he quit his 9-5 job due to the passive income from bitcoin & ASIC Mining. After discovering the lightning network, Cole met Adam. Now being a part of the coinos team, we want to introduce the lightning network to as many users as possible."
+				"bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
 			},
 			"john": {
 				"name": "John Barratt",
@@ -57,15 +57,15 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "coinos is free to use. You only pay a 1% fee if/when you withdraw your funds. Compare this to 3% typically charged by a credit card processor."
+			"answer": "Coinos is free to use when you receive and send payments over lightning. We only charge a 0.1% fee if you want to convert/withdraw your funds to an on-chain bitcoin address."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. coinos is web-based, so as long as you have an internet connection, you can use it on any device or hardware. Most merchants might use it on a phone or a tablet."
+			"answer": "No. coinos is web-based, so as long as you have an internet connection, you can use it on any device. Most merchants might use it on a phone or a tablet."
 		},
 		"safety": {
 			"question": "Are my funds safe?",
-			"answer": "Your funds are stored on our secure server, however we recommend that you withdraw them to your own cold storage for long-term savings."
+			"answer": "Your funds are stored on our secure server. We recommend that you periodically move them to your own cold storage for long-term savings."
 		}
 	},
 	"footer": {
@@ -90,7 +90,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "You can convert to local currency at any point."
+			"description": "Use your bitcoin to pay your staff and suppliers, save it for a rainy day, or cash out instantly"
 		}
 	},
 	"invoice": {
@@ -111,16 +111,16 @@
 		"header_before_icon": "The",
 		"header_with_icon": "easiest",
 		"header_after_icon": "way to accept bitcoin in your store.",
-		"subheader": "Grow your customer base and revenue by accepting bitcoin with an easy-to-use and managed Point of Sale. No software or hardware required.",
+		"subheader": "Grow your customer base and revenue by accepting bitcoin with an easy-to-use web app. No software or hardware required.",
 		"info1": {
 			"title": "Instant payments via Lightning",
 			"description": "The moment your customer sends a payment, it’s there. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
 		},
 		"info2": {
-			"title": "Simple to use, custodial by default",
-			"description1": "Just enter an amount, share the QR code and you’re done.",
-			"description2": "coinos is custodial by default, which eliminates the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
-			"description3": "You always have the option of <span class=\"underline underline-offset-4\">taking custody</span> of your own keys."
+			"title": "Simple to use",
+			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
+			"description2": "Coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
+			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
 		},
 		"info3": {
 			"title": "Brand it your way!",
