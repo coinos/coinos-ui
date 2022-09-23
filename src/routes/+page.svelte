@@ -73,7 +73,7 @@
 	<div>
 		<h3 class="text-5xl font-medium mb-10 text-center">{$t('howItWorks.header')}</h3>
 		<div
-			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 lg:space-x-10 text-center"
+			class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center"
 		>
 			{#each howItWorksSteps as step}
 				<HowItWorksCard image={step.image} stepID={step.stepID} />

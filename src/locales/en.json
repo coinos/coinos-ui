@@ -5,10 +5,9 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "<strong>Coinos</strong> is an <strong>open source</strong> bitcoin web wallet, point of sale, ecommerce marketplace and exchange platform. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
-		"p2": "The feature set has grown over the years to accomodate a wide variety of use cases with the goal of making it as easy as possible for anyone to get started using bitcoin quickly, cheaply, and securely.",
-		"p3": "Anyone can download the source code and host their own instance of the platform backed by their own bitcoin, liquid or lightning nodes, or reach out and we'll gladly set this up for you.",
-		"p4": "Account transfers amongst users on our server are completely free, instant, and unlimited.",
+		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p3": "You can download the source code to run your instance and connect it to your own bitcoin and lightning nodes. We'll be glad to help you get started being a benevolent custodian and payment provider for your community or tribe",
+		"p4": "Account transfers amongst users on our server are off-chain so they're completely free, instant, and unlimited.",
 		"team": {
 			"header": "The Team",
 			"adam": {
@@ -57,15 +56,15 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "Coinos is free to use when you receive and send payments over lightning. We only charge a 0.1% fee if you want to convert/withdraw your funds to an on-chain bitcoin address."
+			"answer": "Coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off the lightning network to an on-chain bitcoin address at an external wallet or exchange."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. coinos is web-based, so as long as you have an internet connection, you can use it on any device. Most merchants might use it on a phone or a tablet."
+			"answer": "No. coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
 		},
 		"safety": {
-			"question": "Are my funds safe?",
-			"answer": "Your funds are stored on our secure server. We recommend that you periodically move them to your own cold storage for long-term savings."
+			"question": "What can I do with the bitcoin I receive?",
+			"answer": "Use it to pay staff and suppliers, support other bitcoin-accepting businesses or hold onto it for a few years and watch your purchasing power grow and grow."
 		}
 	},
 	"footer": {
@@ -82,7 +81,7 @@
 		"header": "How It Works",
 		"step1": {
 			"header": "1. Create your account",
-			"description": "A username & password is all you need to get started."
+			"description": "A username and password is all you need to get started."
 		},
 		"step2": {
 			"header": "2. Ask for payments",
@@ -90,7 +89,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Use your bitcoin to pay your staff and suppliers, save it for a rainy day, or cash out instantly"
+			"description": "You're now free to use your bitcoin however you like."
 		}
 	},
 	"invoice": {

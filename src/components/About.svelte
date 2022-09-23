@@ -42,19 +42,17 @@
 
 <h3 class="text-5xl font-medium mb-10 text-center">{$t('about.header')}</h3>
 <div
-	class="md:px-10 lg:px-0 block lg:flex justify-center text-secondary text-xl lg:space-x-20 mx-auto max-w-7xl relative"
+	class="container grid lg:grid-cols-3 gap-20 text-secondary text-xl relative px-20 mx-auto"
 >
-	<p class="w-full lg:w-5/12">
+	<p>
 		{@html $t('about.p1')}
-		<br /><br />
-		{@html $t('about.p2')}
-		<br /><br />
 	</p>
-	<p class="w-full lg:w-5/12">
+	<p>
 		{@html $t('about.p3')}
-		<br /><br />
-		{@html $t('about.p4')}
 	</p>
+  <p>
+		{@html $t('about.p4')}
+    </p>
 	<Image image="swoosh" style="w-32 absolute -bottom-20 lg:bottom-0 right-0 md:right-10" />
 </div>
 
