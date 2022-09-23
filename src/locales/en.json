@@ -56,7 +56,7 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "Coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off the lightning network to an on-chain bitcoin address at an external wallet or exchange."
+			"answer": "Coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off of lightning to an on-chain bitcoin address at an external wallet or exchange."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
@@ -118,7 +118,7 @@
 		"info2": {
 			"title": "Simple to use",
 			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
-			"description2": "Coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin/lightning works. We do all the heavy lifting so you can focus on your business.",
+			"description2": "Coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin or lightning works. We do all the heavy lifting so you can focus on your business.",
 			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
 		},
 		"info3": {
