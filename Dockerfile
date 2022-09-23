@@ -1,11 +1,15 @@
-FROM gcr.io/coinos-326717/github.com/coinos/coinos-ui:base
+FROM node:18-alpine
 
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
+RUN npm i -g pnpm
 WORKDIR /app
+
+COPY package.json .
+RUN NODE_ENV=development pnpm i
+
 COPY . .
-RUN mv /deps/node_modules /app
 RUN pnpm build
 
 CMD ["node", "build"]
