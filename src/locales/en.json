@@ -6,14 +6,14 @@
 	"about": {
 		"header": "About",
 		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
-		"p3": "You can download the source code to run your instance and connect it to your own bitcoin and lightning nodes. We'll be glad to help you get started being a benevolent custodian and payment provider for your community or tribe",
-		"p4": "Account transfers amongst users on our server are off-chain so they're completely free, instant, and unlimited.",
+		"p3": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
+		"p4": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
 		"team": {
 			"header": "The Team",
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Chief Technical Officer",
-				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in Vancouver with his wife Chelsea and two children."
+				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
 			},
 			"secondl1ght": {
 				"name": "secondl1ght",
