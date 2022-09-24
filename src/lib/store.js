@@ -31,6 +31,7 @@ export const rate = writable();
 export const rates = writable();
 export const selectedRate = writable();
 export const user = writable();
+export const subject = writable();
 export const invoiceAmount = writable();
 export const invoiceAmountFiat = writable();
 export const token = persistSession('token');

@@ -3,7 +3,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
-	import { user, token, rate, rates, selectedRate } from '$lib/store';
+	import { user, subject, token, rate, rates, selectedRate } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -15,6 +15,7 @@
 
 	export let data;
 
+  $: $subject = data.subject;
 	$: $token = data.token;
 	$: $user = data.user;
 
