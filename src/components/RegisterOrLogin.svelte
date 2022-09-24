@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from '$comp';
 	import { post, failure } from '$lib/utils';
-	import { user, token } from '$lib/store';
+	import { redirect, user, token } from '$lib/store';
 	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -35,6 +35,10 @@
 			<h1 class="text-2xl font-bold text-center">{$t('login.' + pageID)}</h1>
 
 			<form class="space-y-5" {action} method="POST">
+        {#if $redirect}
+        <input type="hidden" name="redirect" value={$redirect} />
+        {/if}
+
 				<!-- {#if pageID === 'register'} -->
 				<!-- 	<div> -->
 				<!-- 		<label for="email" class="font-semibold">{$t('login.email')}</label> -->
