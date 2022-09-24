@@ -28,6 +28,7 @@ const persistLocal = (key, defaultValue) => {
 };
 
 export const rate = writable();
+export const redirect = writable();
 export const rates = writable();
 export const selectedRate = writable();
 export const user = writable();
