@@ -9,6 +9,11 @@ export async function load({ request, setHeaders, url, params }) {
 	let { token } = cookie.parse(request.headers.get('cookie') || '');
 	let user;
 	let rates;
+  let subject;
+
+  if (params.username) {
+    subject = await get(`/users/${params.username}`);
+  } 
 
 	if (token) {
 		try {
@@ -32,5 +37,5 @@ export async function load({ request, setHeaders, url, params }) {
 
 	rates = await get('/rates');
 
-	return { user, token, rates };
+	return { subject, user, token, rates };
 }
