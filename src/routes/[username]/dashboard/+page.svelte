@@ -42,9 +42,9 @@
 	$: accountBalanceSats = s(user.account.balance);
 </script>
 
-<AppHeader avatarPosition="left-[calc(50vw-48px)] lg:left-[calc(15vw-48px)]" />
+<AppHeader avatarPosition="left-[calc(50vw-64px)] lg:left-[calc(15vw-64px)]" />
 
-<div class="text-center mx-auto lg:text-left lg:mx-0 lg:ml-[calc(15vw-48px)] mt-20 w-full md:w-72">
+<div class="text-center mx-auto lg:text-left lg:mx-0 lg:ml-[calc(15vw-64px)] mt-20 w-full md:w-72">
 	<h2 class="text-3xl font-semibold">{user.username}</h2>
 	<span class="text-secondary">{user.address}</span>
 </div>

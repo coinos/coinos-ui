@@ -6,7 +6,7 @@
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 
-	export let avatarPosition = 'left-[calc(50vw-48px)] bottom-[-48px]';
+	export let avatarPosition = 'left-[calc(50vw-64px)] bottom-[-64px]';
 
 	const menuButtons = [
 		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },
