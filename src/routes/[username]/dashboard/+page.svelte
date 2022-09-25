@@ -46,7 +46,10 @@
 
 <div class="text-center mx-auto lg:text-left lg:mx-0 lg:ml-[calc(15vw-48px)] mt-20 w-full md:w-72">
 	<h2 class="text-3xl font-semibold">{user.username}</h2>
-	<span class="text-secondary">{user.address}</span>
+
+	{#if user.address}
+		<span class="text-secondary">{user.address}</span>
+	{/if}
 </div>
 
 <div class="px-3 md:px-0 flex justify-center items-center mt-10 lg:mt-0 mb-20">
