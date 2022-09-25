@@ -1,4 +1,4 @@
-# coinos-ui-v2  
+# coinos-ui-v2
 
 coinos is an easy to use bitcoin point of sale application for businesses and wallet for customers, connecting the bitcoin circular economy together.
 
