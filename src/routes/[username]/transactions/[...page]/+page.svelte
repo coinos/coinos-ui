@@ -22,8 +22,8 @@
 		{$t('user.transactions.header')}
 	</h1>
 
-	<div class="container w-full mx-auto flex px-10 lg:px-40 mb-8 text-right">
-		<div class="ml-auto flex flex-wrap">
+	<div class="container w-full mx-auto md:text-lg px-10 lg:px-72">
+		<div class="flex flex-wrap justify-end mb-8">
 			{#if pages.length > 1}
 				{#each pages as _, i}
 					<a href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
@@ -34,9 +34,7 @@
 				{/each}
 			{/if}
 		</div>
-	</div>
 
-	<div class="container w-full mx-auto md:text-lg px-10 lg:px-72">
 		<div class="text-secondary grid grid-cols-3 mb-5">
 			<h2>{$t('user.transactions.AMOUNT')}</h2>
 			<h2 class="text-center">{$t('user.transactions.TYPE')}</h2>
