@@ -87,7 +87,7 @@
 {#if $user}
 	<AppHeader />
 
-	<div class="flex justify-center items-center mt-20 mb-3 px-3">
+	<div class="flex justify-center items-center mt-24 mb-3 px-3">
 		{#if $selectedRate}
 			<div class="space-y-5">
 				<!-- amounts -->
@@ -172,7 +172,7 @@
 
 				<div class="space-y-3 w-full md:w-[300px] mx-auto">
 					<button
-						class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold text-sm {$invoiceAmount ===
+						class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold {$invoiceAmount ===
 							0 || loading
 							? 'opacity-50'
 							: 'opacity-100 hover:opacity-80'}"

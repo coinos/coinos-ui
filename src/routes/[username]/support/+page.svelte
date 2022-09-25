@@ -10,7 +10,7 @@
 {#if $user}
 	<AppHeader />
 
-	<div class="my-20">
+	<div class="mt-24 mb-20">
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
 			{$t('user.support.header')}
 		</h1>

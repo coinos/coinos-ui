@@ -23,7 +23,7 @@ Each locale in `coinos-ui-v2` is defined by a JSON file in `src/locales`. Its na
 
 ```json
 {
-	"howItWorks": "How It Works",
+	"howItWorks": "How it works",
 	"faq": "FAQ",
 	"about": "About",
 	"startInSeconds": "Start in Seconds",

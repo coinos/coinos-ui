@@ -213,6 +213,7 @@
 	{/if}
 </div>
 
+<!-- TODO
 <div>
 	<span class="font-bold mb-1 block">{$t('user.settings.theme')}</span>
 	<p class="text-secondary mb-1">{$t('user.settings.themeDescription')}</p>
@@ -226,4 +227,4 @@
 			on:click={() => handleThemeClick(colors)}
 		/>
 	{/each}
-</div>
+</div> -->

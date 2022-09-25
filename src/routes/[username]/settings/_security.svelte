@@ -36,7 +36,7 @@
 				toggleEnabling();
 			}
 		} catch (e) {
-			failure('Failed to enable 2fa, try again');
+			failure('Failed to enable 2FA, try again');
 		}
 	};
 
@@ -50,13 +50,14 @@
 				toggleDisabling();
 			}
 		} catch (e) {
-			failure('Failed to disable 2fa, try again');
+			failure('Failed to disable 2FA, try again');
 		}
 	};
 
 	$: otpUri = `otpauth://totp/coinos:${$user.username}?secret=${$user.otpsecret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
 </script>
 
+<!-- TODO
 <div>
 	<span class="font-bold mb-1">{$t('user.settings.securityPIN')}</span>
 	<p class="text-secondary mb-1">
@@ -80,9 +81,9 @@
 			><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
 		>
 	{/if}
-</div>
+</div> -->
 
-<!-- TODO -->
+<!-- TODO
 <div>
 	<label for="auto-lock" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
 	<p class="text-secondary mb-1">
@@ -95,7 +96,7 @@
 		<option value="60">1 h</option>
 		<option value="480">8 h</option>
 	</select>
-</div>
+</div> -->
 
 <div>
 	<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>

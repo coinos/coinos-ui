@@ -17,7 +17,7 @@
 
 <AppHeader />
 
-<div class="my-20">
+<div class="mt-24 mb-20">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
 		{$t('user.transactions.header')}
 	</h1>
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 
-	<div class="container w-full mx-auto md:text-lg px-10 lg:px-40">
+	<div class="container w-full mx-auto md:text-lg px-10 lg:px-72">
 		<div class="text-secondary grid grid-cols-3 mb-5">
 			<h2>{$t('user.transactions.AMOUNT')}</h2>
 			<h2 class="text-center">{$t('user.transactions.TYPE')}</h2>

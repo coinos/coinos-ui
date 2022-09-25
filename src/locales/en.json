@@ -5,9 +5,9 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
-		"p3": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
-		"p4": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
+		"p1": "coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p2": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
+		"p3": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
 		"team": {
 			"header": "The Team",
 			"adam": {
@@ -56,7 +56,7 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "Coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off of lightning to an on-chain bitcoin address at an external wallet or exchange."
+			"answer": "coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off of lightning to an on-chain bitcoin address at an external wallet or exchange."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
@@ -78,7 +78,7 @@
 		"news": "News"
 	},
 	"howItWorks": {
-		"header": "How It Works",
+		"header": "How it works",
 		"step1": {
 			"header": "1. Create your account",
 			"description": "A username and password is all you need to get started."
@@ -118,7 +118,7 @@
 		"info2": {
 			"title": "Simple to use",
 			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
-			"description2": "Coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin or lightning works. We do all the heavy lifting so you can focus on your business.",
+			"description2": "coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin or lightning works. We do all the heavy lifting so you can focus on your business.",
 			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
 		},
 		"info3": {
@@ -160,7 +160,7 @@
 		"scanToPayBTC": "Scan to pay with bitcoin",
 		"dashboard": {
 			"ACCOUNT_BALANCE": "ACCOUNT BALANCE",
-			"bitcoinPrice": "Bitcoin Price:",
+			"bitcoinPrice": "bitcoin Price:",
 			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",
 			"dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
 			"fetchingRate": "fetching rate...",
@@ -195,7 +195,7 @@
 			"themeDescription": "Select from the default color themes.",
 			"localCurrency": "Local Currency",
 			"btcUnit": "Display bitcoin in:",
-			"bitcoin": "Bitcoin",
+			"bitcoin": "bitcoin",
 			"satoshis": "Satoshis",
 			"securityPIN": "Security PIN",
 			"securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",

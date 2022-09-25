@@ -15,7 +15,7 @@
 
 	export let data;
 
-  $: $subject = data.subject;
+	$: $subject = data.subject;
 	$: $token = data.token;
 	$: $user = data.user;
 
