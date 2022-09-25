@@ -1,4 +1,4 @@
-# coinos-ui-v2 
+# coinos-ui-v2
 
 coinos is an easy to use bitcoin point of sale application for businesses and wallet for customers, connecting the bitcoin circular economy together.
 
@@ -28,4 +28,3 @@ This UI uses the following libraries:
 ### Internationalization
 
 coinos has a system for translation using [`sveltekit-i18n`](https://www.npmjs.com/package/sveltekit-i18n). For more information and instructions on how to translate coinos, click [here](./doc/i18n.md). For technical details, click [here](./doc/i18n-technical.md).
-

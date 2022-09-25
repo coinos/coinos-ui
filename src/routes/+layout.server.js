@@ -9,11 +9,11 @@ export async function load({ request, setHeaders, url, params }) {
 	let { token } = cookie.parse(request.headers.get('cookie') || '');
 	let user;
 	let rates;
-  let subject;
+	let subject;
 
-  if (params.username) {
-    subject = await get(`/users/${params.username}`);
-  } 
+	if (params.username) {
+		subject = await get(`/users/${params.username}`);
+	}
 
 	if (token) {
 		try {

@@ -17,7 +17,7 @@
 				"bitcoin": "Utilisant bitcoin depuis 2011",
 				"webDev": "20+ ans d'experience de programmation web en gouvernement et industrie",
 				"bitcoinVancouver": "Organisateur précoce de la rencontre bitcoin Vancouver",
-				"bitcoinCoop": "Fondateur de The Bitcoin Co-op et défenseur précoce de Decentral Vancouver",
+				"bitcoinCoop": "Fondateur de The bitcoin Co-op et défenseur précoce de Decentral Vancouver",
 				"beliefs": "Yogi, permaculturiste, anarchiste, décentraliste",
 				"familialRelationships": "Mari, père, frère, fils"
 			}
@@ -36,7 +36,7 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "Qu'est-ce que c'est le coût?",
-			"answer": "coinos est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre Bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
+			"answer": "coinos est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
 		},
 		"compatibility": {
 			"question": "Est-ce que j'ai besoin du logiciel ou appareil special?",
@@ -129,11 +129,11 @@
 	"user": {
 		"follow": "Suivre",
 		"remove": "Enlève",
-		"scanToPayBTC": "Scanner pour payer avec Bitcoin",
+		"scanToPayBTC": "Scanner pour payer avec bitcoin",
 		"dashboard": {
 			"ACCOUNT_BALANCE": "SOLDE",
-			"bitcoinPrice": "Prix de Bitcoin:",
-			"conversionFeeWarning": "Il y a un prix de 1% pour convertir entre Bitcoin, Liquid et Lightning.",
+			"bitcoinPrice": "Prix de bitcoin:",
+			"conversionFeeWarning": "Il y a un prix de 1% pour convertir entre bitcoin, Liquid et Lightning.",
 			"dataFromBinance": "Données de <span class=\"text-black\">Binance</span>.",
 			"fetchingRate": "cherchant taut de change...",
 			"optionalNote": "Note (optionel)",
@@ -162,7 +162,7 @@
 			"themeDescription": "Sélectionnez des thèmes dèfauts.",
 			"localCurrency": "Monnaie Local",
 			"btcUnit": "Voire bitcoin en:",
-			"bitcoin": "Bitcoin",
+			"bitcoin": "bitcoin",
 			"satoshis": "Satoshis",
 			"securityPIN": "NIP de Sécurité",
 			"securityPINDescription": "Choisir un NIP de sécurité qui sera necessaire pour ouvrir tes préférences et pour envoyer des paiements sortants.",

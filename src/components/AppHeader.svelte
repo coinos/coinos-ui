@@ -116,20 +116,20 @@
 	</nav>
 	{#if $subject?.profile}
 		<div
-			class="absolute {avatarPosition} rounded-full overflow-hidden text-center w-24 h-24 my-auto"
+			class="absolute top-[111px] {avatarPosition} rounded-full border-4 border-white overflow-hidden w-32 h-32"
 		>
 			<img
 				src={$tempProfileFiles && $tempProfileFiles.profile
 					? $tempProfileFiles.profile
 					: `/api/public/${$subject.username}-profile.png`}
-				class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+				class="w-full h-full object-cover object-center overflow-hidden"
 			/>
 		</div>
 	{:else}
 		<div
-			class="absolute top-[calc(175px-48px)] {avatarPosition} rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 h-24"
+			class="absolute top-[111px] {avatarPosition} rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-32 h-32 flex justify-center items-center"
 		>
-			<Icon icon="logo-symbol-white" style="mx-auto" />
+			<Icon icon="logo-symbol-white" />
 		</div>
 	{/if}
 </header>

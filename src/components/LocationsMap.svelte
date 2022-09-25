@@ -9,7 +9,7 @@
 		if (browser) {
 			const leaflet = await import('leaflet');
 
-			map = leaflet.map(mapElement).setView([49.267265, -123.1491965], 13);
+			map = leaflet.map(mapElement, { attributionControl: false }).setView([0, 0], 0);
 
 			const myCustomColour = 'orange';
 
@@ -76,6 +76,15 @@
 					.bindPopup(location.info)
 					._icon.classList.add('huechange');
 			});
+
+			map.fitBounds([
+				[locations[0].lat, locations[0].long],
+				[locations[1].lat, locations[1].long],
+				[locations[2].lat, locations[2].long],
+				[locations[3].lat, locations[3].long],
+				[locations[4].lat, locations[4].long],
+				[locations[5].lat, locations[5].long]
+			]);
 		}
 	});
 

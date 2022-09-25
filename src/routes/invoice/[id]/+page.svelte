@@ -181,7 +181,8 @@
 						>
 						<button
 							class="hidden {showCustomAmount ? 'md:block' : ''}"
-							on:click={() => (showCustomAmount = false)}><Icon icon="close" /></button
+							on:click={() => (showCustomAmount = false)}
+							><Icon icon="close" style="hover:opacity-80" /></button
 						>
 					</div>
 					<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
@@ -258,7 +259,7 @@
 				/>
 
 				<!-- invoice section -->
-				<div class="text-center space-y-5">
+				<div class="text-center space-y-5 max-w-[300px]">
 					<button
 						class="block md:hidden bg-black {showMobileTip
 							? 'text-white/50'
@@ -286,11 +287,13 @@
 					</button>
 
 					<!-- found missing translation --->
-					<span class="text-secondary block"
-						>Scan to pay <a href="/{username}" class="text-black font-semibold">{username}</a></span
+					<span class="text-secondary block text-2xl break-all"
+						>Scan to pay <a href="/{username}" class="text-black font-semibold hover:opacity-80"
+							>{username}</a
+						></span
 					>
 
-					<div class="border border-gray-200 rounded-2xl">
+					<div class="border border-gray-200 rounded-3xl">
 						<Qr {text} {image} disabled={showMobileTip} bind:qr />
 					</div>
 

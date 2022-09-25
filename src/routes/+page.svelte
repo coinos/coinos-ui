@@ -28,11 +28,12 @@
 <!-- banner -->
 <div class="mt-[101.7px] md:mt-0 w-full text-center py-4 border border-b-black text-secondary">
 	<p>
-		Welcome to the <a href="/news" class="underline underline-offset-4 text-black"
+		Welcome to the <a href="/news" class="underline underline-offset-4 text-black hover:opacity-80"
 			>new and improved coinos</a
 		>, focused on merchant adoption! Looking for the old coinos? Visit
-		<a href="https://classic.coinos.io" class="underline underline-offset-4 text-black"
-			>classic.coinos.io</a
+		<a
+			href="https://classic.coinos.io"
+			class="underline underline-offset-4 text-black hover:opacity-80">classic.coinos.io</a
 		>.
 	</p>
 </div>
@@ -72,9 +73,7 @@
 	<!-- how it works -->
 	<div>
 		<h3 class="text-5xl font-medium mb-10 text-center">{$t('howItWorks.header')}</h3>
-		<div
-			class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center"
-		>
+		<div class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center">
 			{#each howItWorksSteps as step}
 				<HowItWorksCard image={step.image} stepID={step.stepID} />
 			{/each}
