@@ -5,10 +5,12 @@ export async function POST({ request, parent }) {
 	let invoice = { amount, currency, network, rate, tip };
 
 	if (network === 'lightning') {
-		invoice.text = await post('/lightning/invoice', { amount }, auth(request));
+		invoice.text = (await post('/lightning/invoice', { amount }, auth(request))).text;
 	} else {
 		invoice.address = (await parent()).user.address;
 	}
+
+  console.log("INVOICE", invoice)
 
 	return new Response(
 		JSON.stringify(await post('/invoice', { invoice, user: { username } }, auth(request))),

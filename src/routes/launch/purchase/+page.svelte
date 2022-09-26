@@ -5,8 +5,7 @@
 
 	let amount = 35000;
 	let {
-		account: { address, balance },
-    address,
+		account: { balance },
 		username
 	} = data.user;
 
@@ -14,7 +13,6 @@
 	let get = async (network) => {
 		invoice = await post('/invoice', {
 			amount,
-      address,
 			rate: $selectedRate,
 			network,
 			username
