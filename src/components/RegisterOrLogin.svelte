@@ -1,4 +1,6 @@
 <script>
+	import { page } from '$app/stores';
+	import { tick } from 'svelte';
 	import { Icon } from '$comp';
 	import { post, failure } from '$lib/utils';
 	import { redirect, user, token } from '$lib/store';
@@ -21,6 +23,8 @@
 	}[pageID];
 
 	$: if ($user) goto(`/${username}/receive`);
+
+  let focus = (el) => setTimeout(() => el.focus());
 </script>
 
 <div class="pt-10">
@@ -35,34 +39,19 @@
 			<h1 class="text-2xl font-bold text-center">{$t('login.' + pageID)}</h1>
 
 			<form class="space-y-5" {action} method="POST">
-        {#if $redirect}
-        <input type="hidden" name="redirect" value={$redirect} />
-        {/if}
+				{#if $redirect}
+					<input type="hidden" name="redirect" value={$redirect} />
+				{/if}
 
-				<!-- {#if pageID === 'register'} -->
-				<!-- 	<div> -->
-				<!-- 		<label for="email" class="font-semibold">{$t('login.email')}</label> -->
-				<!-- 		&#60;&#33;&#45;&#45; svelte-ignore a11y-autofocus &#45;&#45;&#62; -->
-				<!-- 		<input -->
-				<!-- 			name="email" -->
-				<!-- 			type="email" -->
-				<!-- 			required -->
-				<!-- 			class="bg-primary" -->
-				<!-- 			bind:value={email} -->
-				<!-- 			autofocus -->
-				<!-- 		/> -->
-				<!-- 	</div> -->
-				<!-- {/if} -->
 				<div>
 					<label for="username" class="font-semibold">{$t('login.username')}</label>
-					<!-- svelte-ignore a11y-autofocus -->
 					<input
 						name="username"
 						type="text"
 						required
 						class="bg-primary"
 						bind:value={username}
-						autofocus={pageID === 'signIn'}
+						use:focus
 					/>
 				</div>
 
@@ -94,14 +83,7 @@
 							>{$t('login.token')}
 							<span class="text-secondary">({$t('login.optional')})</span></label
 						>
-						<!-- svelte-ignore a11y-autofocus -->
-						<input
-							name="token"
-							type="text"
-							class="bg-primary"
-							bind:value={twofa}
-							autofocus={pageID === 'signIn'}
-						/>
+						<input name="token" type="text" class="bg-primary" bind:value={twofa} />
 					</div>
 				{/if}
 
