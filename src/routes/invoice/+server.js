@@ -7,7 +7,7 @@ export async function POST({ request, parent }) {
 	if (network === 'lightning') {
 		invoice.text = (await post('/lightning/invoice', { amount }, auth(request))).text;
 	} else {
-		invoice.address = (await parent()).user.address;
+		invoice.address = (await get('/address?network=bitcoin&type=bech32')).address;
 	}
 
   console.log("INVOICE", invoice)
