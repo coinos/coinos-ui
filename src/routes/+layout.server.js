@@ -19,7 +19,7 @@ export async function load({ request, setHeaders, url, params }) {
 		try {
 			user = await get('/me', { accept: 'application/json', authorization: `Bearer ${token}` });
 		} catch (e) {
-			throw redirect(301, '/logout');
+			throw redirect(307, '/logout');
 		}
 
 		if (protectedRoutes.find((p) => url.pathname.match(p))) {

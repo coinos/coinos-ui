@@ -1,4 +1,5 @@
 <script>
+  import { browser } from "$app/environment";
 	import { page } from '$app/stores';
 	import { tick } from 'svelte';
 	import { Icon } from '$comp';
@@ -22,9 +23,12 @@
 		signIn: '/login'
 	}[pageID];
 
-	$: if ($user) goto(`/${username}/receive`);
+  // TODO: move to server side
+	$: if (browser && $user) goto(`/${$user.username}/receive`);
 
-	let focus = (el) => setTimeout(() => el.focus());
+ 	let focus = (el) => setTimeout(() => el.focus());
+
+  console.log("REDIRECT STORE", $redirect)
 </script>
 
 <div class="pt-10">
