@@ -96,7 +96,10 @@
 		"addTip": "Add a tip",
 		"addTipq": "Add a tip?",
 		"done": "Done",
-		"paymentSuccessful": "Payment Successful!"
+		"paymentSuccessful": "Payment Successful!",
+    "invoice": "Invoice",
+    "total": "Total",
+    "tip": "Tip"
 	},
 	"jobs": {
 		"header": "Jobs",

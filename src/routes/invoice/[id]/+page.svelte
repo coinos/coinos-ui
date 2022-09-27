@@ -2,7 +2,7 @@
 	import { copy, f, get, reverseFormat, s, toggleFullscreen } from '$lib/utils';
 	import { browser } from '$app/environment';
 	import { invoices, user } from '$lib/store';
-	import { Icon, Image, Qr, Tip } from '$comp';
+	import { Icon, Heart, Image, Qr, Tip } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
@@ -22,7 +22,6 @@
 	let showCustomAmount = false;
 	let showMobileTip = false;
 
-	let image = '/images/invoice.svg';
 	let qr;
 	let tipPercent = 0;
 
@@ -52,14 +51,7 @@
 
 	$: tipAmount = ((tip * rate) / 100000000).toFixed(2);
 
-	const amountFormatted = s(amount);
-
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
-
-	let timeout;
-	const handleBackButton = () => {
-		goto(`/${username}/receive`);
-	};
 </script>
 
 <div class:full-shadow={showMobileTip}>
@@ -67,7 +59,7 @@
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
 		class:invisible={!$user}
 		disabled={showMobileTip}
-		on:click={handleBackButton}
+		on:click={() => goto(`/${username}/receive`)}
 	>
 		<Icon icon="arrow-left" style="w-10" />
 	</button>
@@ -94,7 +86,7 @@
 			{/if}
 
 			<!-- invoice section -->
-			<div class="text-center space-y-5 max-w-[300px]">
+			<div class="text-center space-y-5">
 				<button
 					class="block md:hidden bg-black {showMobileTip
 						? 'text-white/50'
@@ -102,22 +94,7 @@
 					on:click={() => (showMobileTip = true)}
 					disabled={showMobileTip}
 				>
-					<svg
-						width="24"
-						height="24"
-						class="mr-1"
-						viewBox="0 0 24 24"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							d="M4.31802 6.31802C2.56066 8.07538 2.56066 10.9246 4.31802 12.682L12.0001 20.364L19.682 12.682C21.4393 10.9246 21.4393 8.07538 19.682 6.31802C17.9246 4.56066 15.0754 4.56066 13.318 6.31802L12.0001 7.63609L10.682 6.31802C8.92462 4.56066 6.07538 4.56066 4.31802 6.31802Z"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						/>
-					</svg>
+					<Heart />
 					{$t('invoice.addTip')}
 				</button>
 
@@ -128,9 +105,7 @@
 					></span
 				>
 
-				<div class="border border-gray-200 rounded-3xl">
-					<Qr {text} {image} disabled={showMobileTip} bind:qr />
-				</div>
+				<Qr {text} image={'/images/invoice.svg'} disabled={showMobileTip} bind:qr />
 
 				<div>
 					<button
@@ -145,8 +120,7 @@
 
 				<div class="px-5 space-y-3">
 					<div class="flex justify-between">
-						<!-- found missing translation --->
-						<span class="font-semibold text-sm">Invoice</span>
+            <span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
 						<span class="font-semibold text-sm"
 							>{invoiceAmountFiatFormatted}
 							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
@@ -154,8 +128,7 @@
 					</div>
 
 					<div class="flex justify-between">
-						<!-- found missing translation --->
-						<span class="font-semibold text-sm">Tip</span>
+						<span class="font-semibold text-sm">{$t('invoice.tip')}</span>
 						<span class="font-semibold text-sm"
 							>{f(tipAmount, currency)}
 							<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
@@ -163,8 +136,7 @@
 					</div>
 
 					<div class="flex flex-wrap justify-between">
-						<!-- found missing translation --->
-						<span class="font-bold mr-1">Total</span>
+            <span class="font-bold mr-1">{$t('invoice.total')}</span>
 						<span class="font-bold"
 							>{f(amountFiat + parseFloat(tipAmount), currency)}
 							<span class="text-secondary font-normal">{`(${s(tip + amount)} SAT)`}</span></span
