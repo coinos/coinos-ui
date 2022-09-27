@@ -9,7 +9,11 @@
 
 	export let data;
 	let { invoice } = data;
+  let { amount, rate } = invoice;
+
   toast.pop(0);
+
+	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
 	const handleDoneClick = () => {
 		delete $invoices[invoice.uuid];
@@ -32,7 +36,7 @@
 	{/if}
 	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
 	<h2 class="text-2xl md:text-3xl font-semibold">
-		{f(invoice.amount, invoice.currency)}
+		{f(amountFiat, invoice.currency)}
 	</h2>
 	<h3 class="text-secondary md:text-lg mb-6 mt-1">({s(invoice.amount)} SAT)</h3>
 	<button
