@@ -42,6 +42,7 @@
 </script>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
+
 <slot />
 
 <style global>

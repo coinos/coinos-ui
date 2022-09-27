@@ -18,8 +18,6 @@ export async function POST({ request, parent }) {
 		invoice.address = (await get('/address?network=bitcoin&type=bech32')).address;
 	}
 
-	console.log('INVOICE', invoice);
-
 	return new Response(
 		JSON.stringify(await post('/invoice', { invoice, user: { username } }, auth(request))),
 		{ headers: { 'content-type': 'application/json' } }
