@@ -46,26 +46,11 @@
 	$: tip = Math.round((amount / 100) * tipPercent);
 
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
-
-	let checkStatus = () => {
-    console.log("EH", id, $invoices[id]);
-		if ($invoices[id]?.received) goto(`/invoice/${id}/paid`);
-	};
-
-
-	invoices.subscribe((a) => {
-		setTimeout(checkStatus);
-	});
+	$: $invoices[id]?.received && goto(`/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
 	$: tipAmount = ((tip * rate) / 100000000).toFixed(2);
-
-	$: tipAmountFormatted = f(tipAmount, currency);
-
-	$: tipAmountSats = s(tip);
-
-	$: totalAmountSats = s(amount + parseFloat(tipAmountSats.replace(/,/g, '')));
 
 	let apply = async () => {
 		if (customTipAmount > 0) {
@@ -89,8 +74,6 @@
 
 		goto(`/invoice/${uuid}`);
 	};
-
-	$: totalAmountFormatted = f(amountFiat + parseFloat(tipAmount), currency);
 
 	const amountFormatted = s(amount);
 
@@ -195,8 +178,8 @@
 					<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
 					{#if !showCustomAmount}
 						<div>
-							<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
-								class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
+							<span class="font-semibold mr-1">{f(tipAmount, currency)}</span><span
+								class="text-secondary font-semibold text-sm">{`(${s(tip)} SAT)`}</span
 							>
 							<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
 						</div>
@@ -322,7 +305,7 @@
 						<span class="font-semibold text-sm">Invoice</span>
 						<span class="font-semibold text-sm"
 							>{invoiceAmountFiatFormatted}
-							<span class="text-secondary font-normal">{`(${amountFormatted} SAT)`}</span></span
+							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
 						>
 					</div>
 
@@ -330,8 +313,8 @@
 						<!-- found missing translation --->
 						<span class="font-semibold text-sm">Tip</span>
 						<span class="font-semibold text-sm"
-							>{tipAmountFormatted}
-							<span class="text-secondary font-normal">{`(${tipAmountSats} SAT)`}</span></span
+							>{f(tipAmount, currency)}
+							<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
 						>
 					</div>
 
@@ -339,8 +322,8 @@
 						<!-- found missing translation --->
 						<span class="font-bold mr-1">Total</span>
 						<span class="font-bold"
-							>{totalAmountFormatted}
-							<span class="text-secondary font-normal">{`(${totalAmountSats} SAT)`}</span></span
+							>{f(amountFiat + parseFloat(tipAmount), currency)}
+							<span class="text-secondary font-normal">{`(${s(tip + amount)} SAT)`}</span></span
 						>
 					</div>
 				</div>
