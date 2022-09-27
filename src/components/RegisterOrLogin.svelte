@@ -24,7 +24,7 @@
 
 	$: if ($user) goto(`/${username}/receive`);
 
-  let focus = (el) => setTimeout(() => el.focus());
+	let focus = (el) => setTimeout(() => el.focus());
 </script>
 
 <div class="pt-10">

@@ -1,8 +1,16 @@
 import { auth, get, post } from '$lib/utils';
 
 export async function POST({ request, parent }) {
-	let { amount, currency, network = 'lightning', rate, tip, username } = await request.json();
-	let invoice = { amount, currency, network, rate, tip };
+	let {
+		amount,
+		currency,
+		network = 'lightning',
+		prompt,
+		rate,
+		tip,
+		username
+	} = await request.json();
+	let invoice = { amount, currency, network, prompt, rate, tip };
 
 	if (network === 'lightning') {
 		invoice.text = (await post('/lightning/invoice', { amount }, auth(request))).text;
@@ -10,7 +18,7 @@ export async function POST({ request, parent }) {
 		invoice.address = (await get('/address?network=bitcoin&type=bech32')).address;
 	}
 
-  console.log("INVOICE", invoice)
+	console.log('INVOICE', invoice);
 
 	return new Response(
 		JSON.stringify(await post('/invoice', { invoice, user: { username } }, auth(request))),

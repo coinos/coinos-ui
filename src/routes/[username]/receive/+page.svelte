@@ -75,9 +75,10 @@
 
 	let submit = async () => {
 		loading = true;
-    let { uuid } = await post('/invoice', {
+		let { uuid } = await post('/invoice', {
 			amount,
 			rate: $selectedRate,
+			prompt: true,
 			username: $page.params.username
 		});
 		goto(`/invoice/${uuid}`);
