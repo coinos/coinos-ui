@@ -46,10 +46,8 @@
 	div {
 		@apply px-5
       md:px-0
-      w-[292px]
-      h-[302px]
-      md:w-[300px]
-      md:h-[300px]
+      w-[300px]
+      h-[300px]
       rounded-3xl
       block
       md:flex

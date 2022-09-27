@@ -63,6 +63,7 @@
 		showCustomAmount = false;
 	};
 
+let timeout;
 	const handleSlide = (e) => {
 		customTipAmount = '';
 		if (customInput) {
