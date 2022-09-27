@@ -1,0 +1,227 @@
+{
+	"404": {
+		"404": "404",
+		"pageNotFound": "La página no existe."
+	},
+	"about": {
+		"header": "About",
+		"p1": "coinos es una aplicación de código abierto para pagos con bitcoin. Su desarrollo comezó en Vancouver allá por Septiembre de 2012 como una solución para que comerciantes locales puedan aceptar pagos con bitcoin.",
+		"p3": "Si lo desea, puede descargar el código fuente de Coinos para ejecutar su propia instancia y tenerla conectada a sus propios nodos bitcoin y lightning. Estaremos encantados de ayudarle a en un proveedor de pagos y en un custodio benevolente para su comunidad.",
+		"p4": "Las transferencias entre cuentas de usuario en nuestro servidor son realizadas off-chain, esto hace que sean instantáneas, ilimitadas, y gratuitas.",
+		"team": {
+			"header": "El Equipo",
+			"adam": {
+				"name": "Adam Soltys",
+				"position": "Director (CTO)",
+				"bio": "Adam es desarrollador web y entusiasta de bitcoin, cree que el dinero sólido es clave para aumentar la prosperidad global. Vive en Vancouver junto a su esposa Chelsea y sus dos hijos."
+			},
+			"secondl1ght": {
+				"name": "secondl1ght",
+				"position": "Desarrollador web",
+				"bio": "Es un desarrollador web autodidacta, que se zambulló de cabeza en la madriguera del conejo de bitcoin al dejar su trabajo pagado en fiat para concentrarse en el desarrollo de bitcoin a tiempo completo. Contribuyente en proyectos de código abierto, defensor de la privacidad y amante de la libertad."
+			},
+
+			"gene": {
+				"name": "Gene",
+				"position": "Diseñador de Producto",
+				"bio": "¨Mi misión es ayudar a los fundadores de startups a tener éxito. Creo productos para lograr este objetivo. Diseño de producto con píxeles perfectos. Recibe lo que buscas.¨"
+			},
+			"shauna": {
+				"name": "Shauna",
+				"position": "Marketing & Operaciones",
+				"bio": "Gestión Estratégica y de Proyectos. Ella es una todóloga. Siempre encuentra tiempo para reunirse a tomar un café." 
+			},
+			"cole": {
+				"name": "Cole Goodwin",
+				"position": "Profesional en Bitcoin",
+				"bio": "Como profesional certificado de Bitcoin, Cole es una persona motivada y apasionada por la libertad. Encontró bitcoin en el año 2016 bitcoin y se dedicó a estudiarlo en profundidad. Ahora quiere presentar Lightning Network a tantos usuarios como sea posible."
+			},
+			"john": {
+				"name": "John Barratt",
+				"position": "Desarrollador web Full Stack",
+				"bio": "Cuando no está programando, John puede ser encontrado en el bosque recorriendo todos los grandes senderos que Colombia Británica tiene para ofrecer."
+			}
+		},
+		"locations": {
+			"header": "Locales",
+			"description": "Estos son comercios que aceptan bitcoin con coinos. Si estás utilizando nuestra aplicación, por favor \"<a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">cuéntenos!</a>"
+		}
+	},
+	"error": {
+		"header": "Error",
+		"message": "Por favor inténtelo nuevamente o contacte a nuestro soporte.",
+		"signIn": "Por favor inicie sesión para continuar."
+	},
+	"faq": {
+		"header": "FAQ",
+		"cost": {
+			"question": "Cuanto cuesta?",
+			"answer": "Coinos es gratis. No hay costos de registro ni mantenimiento. Puede enviar y recibir pagos de forma ilimitada por medio de Lightning Network sin costo alguno. Sin embargo, si quieres tus fondos hacia  una dirección de bitcoin on-chain existe una tarifa del 0,1%."
+		},
+		"compatibility": {
+			"question": "Necesito un dispositivo o software especial?",
+			"answer": "No. Al estar basado en web, Coinos está disponible en cualquier dispositivo con conexión a internet. Puede usarlo directamente desde un celular o una tableta."
+		},
+		"safety": {
+			"question": "Qué puedo hacer con el bitcoin que recibo?",
+			"answer": "Usarlo para pagar personal y proveedores, apoyar otras empresas y comerciantes que acepten bitcoin. O puede mantenerlo durante algunos años y ver crecer su poder adquisitivo."
+		}
+	},
+	"footer": {
+		"company": "Empresa",
+		"followUs": "Síganos",
+		"github": "GitHub",
+		"jobs": "Empleos",
+		"support": "Soporte",
+		"telegram": "Telegram",
+		"twitter": "Twitter",
+		"news": "Noticias"
+	},
+	"howItWorks": {
+		"header": "¿Cómo funciona?",
+		"step1": {
+			"header": "1. Abra una cuenta",
+			"description": "Para empezar, solo debe elegir un nombre de usuario y crear una contraseña."
+		},
+		"step2": {
+			"header": "2. Solicitar pagos",
+			"description": "Lo mismo que hace normalmente, ¡pero con bitcoin!"
+		},
+		"step3": {
+			"header": "3. ¡y listo!",
+			"description": "Ahora puede disponer libremente de su bitcoin como guste."
+		}
+	},
+	"invoice": {
+		"addTip": "Agregar propina",
+		"addTipq": "Agregar propina?",
+		"done": "Listo",
+		"paymentSuccessful": "Pago exitoso!"
+	},
+	"jobs": {
+		"header": "Empleos",
+		"subheader": "Puestos disponibles",
+		"pitch1": "coinos se encuentra buscando a desarrolladores que quieran unirse a nuestro equipo de trabajo en crecimiento (tiempo medio o tiempo completo, APROBAMOS el trabajo remoto).",
+		"pitch2": "Emocionado por trabajar en un proyecto de código abierto con bitcoin? Entonces mira nuestros repositorios en",
+		"github": "GitHub",
+		"pitch3": "Nos encantaría saber de usted si cree que tiene algo impactante para mostrar. Envíenos su CV a"
+	},
+	"landing": {
+		"header_before_icon": "La manera",
+		"header_with_icon": "más simple",
+		"header_after_icon": "de aceptar bitcoin en su negocio.",
+		"subheader": "Aumente sus posibilidades de ingreso agregando bitcoin como forma de pago mediante una aplicación web muy fácil de usar. No se requiere ningún software o hardware adicional.",
+		"info1": {
+			"title": "Pagos instantáneos con Lightning",
+			"description": "Cuando su cliente envíe un pago, el mismo estará disponible en forma inmediata. Liquidación instantánea en segundos. Diga adiós al 3% de interés que le cobran por tarifas de procesamiento de tarjetas de crédito."
+		},
+		"info2": {
+			"title": "Fácil de usar",
+			"description1": "Ingrese un monto en su moneda local, comparta el QR y listo.",
+			"description2": "Coinos le ofrece acceso gratuito para usar los nodos bitcoin y lightning alojados, sin que deba comprender cómo funcionan bitcoin o lightning. Hacemos todo el trabajo pesado para que pueda concentrarse en su negocio.",
+			"description3": "Usted siempre tendrá la opción de retirar sus fondos para retomar su custodia de forma inmediata."
+		},
+		"info3": {
+			"title": "Personalícelo!",
+			"description": "Puede personalizar la apariencia y el estilo de su punto de venta o mantenerlo por defecto. Depende de usted."
+		}
+	},
+	"login": {
+		"optional": "Opcional",
+		"token": "Token 2FA",
+		"username": "Nombre de usuario",
+		"password": "Contraseña",
+		"email": "Email",
+		"passwordRecommendation": "Recomendamos utilizar un administrador de contraseñas para generar una clave larga y aleatoria.",
+		"forgotUserOrPassword": "Olvidó su nombre de usuario o su contraseña?",
+		"haveAccount": "Ya tiene una cuenta?",
+		"noAccount": "No tiene una cuenta?",
+		"register": "Registrarse",
+		"signIn": "Iniciar sesión",
+		"failed": "Inicio de sesión fallido"
+	},
+	"nav": {
+		"startInSeconds": "Comience de inmediato",
+		"account": "Cuenta",
+		"signIn": "Iniciar sesión",
+		"signOut": "Cerrar sesión",
+		"dashboard": "Panel",
+		"settings": "Ajustes",
+		"support": "Soporte"
+	},
+	"news": {
+		"header": "Noticias",
+		"subheader": "Últimas novedades",
+		"update1": ""
+	},
+	"user": {
+		"follow": "Seguir",
+		"remove": "Eliminar",
+		"scanToPayBTC": "Escanea para pagar en bitcoin",
+		"dashboard": {
+			"ACCOUNT_BALANCE": "ACCOUNT BALANCE",
+			"bitcoinPrice": "Precio de bitcoin:",
+			"conversionFeeWarning": "Cobraremos una tarifa de retiro del 1% sobre el monto",
+			"dataFromBinance": "Datos de <span class=\"text-black\">Binance</span>.",
+			"fetchingRate": "Tasa...",
+			"optionalNote": "Nota (Opcional)",
+			"send": "Enviar",
+			"receive": "Recibir un pago",
+			"withdraw": "Retirar"
+		},
+		"receive": {
+			"lessThan1BTCWarning": "Ingrese una cantidad menor a 1 bitcoin.",
+			"showQR": "Ver QR"
+		},
+		"settings": {
+			"bannerImage": "Imagen de portada",
+			"profileImage": "Imagen de perfil",
+			"oneTimeCode": "Ingrese el código de un solo uso",
+			"accountId": "",
+			"header": "Ajustes",
+			"ACCOUNT": "CUENTA",
+			"POINT_OF_SALE": "PUNTO DE VENTA",
+			"SECURITY": "SEGURIDAD",
+			"locale": "Languaje",
+			"username": "Nombre de usuario",
+			"email": "Email",
+			"newPassword": "Nueva contraseña",
+			"businessAddress": "Dirección comercial",
+			"emailNotifications": "Notificar por email",
+			"emailNotificationsDescription": "Recibe notificaciones cuando alguien le envíe un pago o cuando ocurra algún cambio en su cuenta.",
+			"smsNotifications": "Notificar pr SMS",
+			"smsNotificationsDescription": "coinos le enviará notificaciones por mensaje de texto cuando esté habilitado.",
+			"theme": "Tema de color",
+			"themeDescription": "Elija el tema de color predeterminado.",
+			"localCurrency": "Moneda local",
+			"btcUnit": "Mostrar bitcoin en:",
+			"bitcoin": "Bitcoin",
+			"satoshis": "Satoshis",
+			"securityPIN": "PIN de seguridad",
+			"securityPINDescription": "Ingrese un pin de seguridad y úselo para desbloquear coinos o enviar pagos.",
+			"setPIN": "Crear PIN",
+			"autoLock": "Tiempo de auto bloqueo",
+			"autoLockDescription": "Se le pedirá el pin para reanudar la sesión luego de el tiempo especificado:",
+			"twofa": "Autenticación de 2 factores",
+			"twofaDescription": "Agregue un nivel extra de seguridad a su cuenta con la autenticación de 2 factores (2FA).",
+			"twofaSetup": "Configurar 2FA",
+			"twofaDisable": "Desactivar 2FA"
+		},
+		"support": {
+			"header": "Soporte",
+			"email": "Correo electrónico",
+			"accountName": "Nombre de cuenta",
+			"message": "Mensaje",
+			"send": "Enviar"
+		},
+		"transactions": {
+			"header": "Historial de transacciones",
+			"AMOUNT": "MONTO",
+			"TYPE": "TIPO",
+			"TIME": "HORA",
+			"sent": "Enviada",
+			"received": "Recibida",
+			"empty": "Aún no hay transacciones."
+		}
+	}
+}
