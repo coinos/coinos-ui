@@ -137,3 +137,8 @@ export const f = (s, currency) =>
 		.replace('CA', '');
 
 export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
+
+export const toggleFullscreen = (el) =>
+	document.fullscreenElement
+		? document.exitFullscreen()
+		: el.requestFullscreen().catch(console.log);
