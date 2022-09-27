@@ -8,10 +8,7 @@
 </script>
 
 <div class="flex mt-20 px-8">
-	<img
-		src="/images/ticket.webp"
-		class="mb-8 md:max-w-xl mx-auto border border-gray-400"
-	/>
+	<img src="/images/ticket.webp" class="mb-8 md:max-w-xl mx-auto border border-gray-400" />
 </div>
 <div class="mx-auto flex  items-center justify-center px-8">
 	<div class="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">

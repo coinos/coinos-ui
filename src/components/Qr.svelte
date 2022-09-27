@@ -17,8 +17,11 @@
 			backgroundOptions: {
 				color: 'rgba(0, 0, 0, 0)'
 			},
+			cornersSquareOptions: {
+				type: 'extra-rounded'
+			},
 			dotsOptions: {
-				type: 'rounded'
+				type: 'extra-rounded'
 			},
 
 			image,

@@ -1,6 +1,8 @@
 <script>
 	import { selectedRate } from '$lib/store';
 	import { post } from '$lib/utils';
+	import { goto } from '$app/navigation';
+
 	export let data;
 
 	let amount = 35000;
@@ -11,12 +13,14 @@
 
 	let invoice;
 	let get = async (network) => {
-		invoice = await post('/invoice', {
+		let { uuid } = await post('/invoice', {
 			amount,
 			rate: $selectedRate,
 			network,
 			username
 		});
+
+		goto(`/invoice/${uuid}`);
 	};
 
 	let lightning = () => get('lightning');

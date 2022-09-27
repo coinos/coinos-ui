@@ -14,7 +14,8 @@
 	let {
 		amount,
 		rate,
-		status,
+		received,
+		prompt,
 		text,
 		tip,
 		user: { username, currency }
@@ -31,7 +32,8 @@
 		({
 			amount,
 			rate,
-			status,
+			received,
+			prompt,
 			text,
 			tip,
 			user: { username, currency }
@@ -44,7 +46,7 @@
 
 	$: tip = Math.round((amount / 100) * tipPercent);
 
-	$invoices[id] = { amount, id, rate, status, text, tip, username };
+	$invoices[id] = { amount, id, rate, received, text, tip, username };
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
@@ -67,15 +69,16 @@
 
 	let update = async () => {
 		await tick();
-		let r = await post(`/invoice`, {
+		let { uuid } = await post(`/invoice`, {
 			amount: parseInt(amount + tip),
+			prompt,
 			rate,
 			tip,
 			text,
 			username
 		});
 
-		goto(`/invoice/${r}`);
+		goto(`/invoice/${uuid}`);
 	};
 
 	$: totalAmountFormatted = f(amountFiat + parseFloat(tipAmount), currency);
@@ -154,7 +157,33 @@
 	}
 </script>
 
-{#if $invoices[id]?.status !== 'paid'}
+{#if $invoices[id]?.received >= amount}
+	<div class="text-center mt-20 md:mt-0">
+		{#if typeof window !== 'undefined'}
+			<div class="w-full mx-auto max-w-xl">
+				<LottiePlayer
+					src="/lottie/success.json"
+					autoplay={true}
+					loop={true}
+					controls={false}
+					renderer="svg"
+					background="transparent"
+				/>
+			</div>
+		{/if}
+		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
+		<h2 class="text-2xl md:text-3xl font-semibold">
+			{totalAmountFormatted}
+		</h2>
+		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SAT)</h3>
+		<button
+			class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
+			on:click={handleDoneClick}
+		>
+			{$t('invoice.done')}
+		</button>
+	</div>
+{:else}
 	<div class:full-shadow={showMobileTip}>
 		<button
 			class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
@@ -169,94 +198,96 @@
 			<div
 				class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-24"
 			>
-				<!-- tipping section  -->
-				<div
-					class="w-[100%] md:w-auto absolute {showMobileTip
-						? 'bottom-0'
-						: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
-				>
-					<div class="flex justify-end items-center">
-						<button class="block md:hidden bg-primary rounded-full p-2" on:click={handleMobileClose}
-							><Icon icon="close" /></button
-						>
-						<button
-							class="hidden {showCustomAmount ? 'md:block' : ''}"
-							on:click={() => (showCustomAmount = false)}
-							><Icon icon="close" style="hover:opacity-80" /></button
-						>
-					</div>
-					<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
-					{#if !showCustomAmount}
-						<div>
-							<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
-								class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
+				{#if invoice.prompt}
+					<div
+						class="w-[100%] md:w-auto absolute {showMobileTip
+							? 'bottom-0'
+							: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
+					>
+						<div class="flex justify-end items-center">
+							<button
+								class="block md:hidden bg-primary rounded-full p-2"
+								on:click={handleMobileClose}><Icon icon="close" /></button
 							>
-							<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
+							<button
+								class="hidden {showCustomAmount ? 'md:block' : ''}"
+								on:click={() => (showCustomAmount = false)}
+								><Icon icon="close" style="hover:opacity-80" /></button
+							>
 						</div>
-
-						<input
-							id="slider"
-							type="range"
-							min="0"
-							max="100"
-							value={tipPercent}
-							class="px-2 py-0"
-							on:input={handleSlide}
-							on:change={() => (showMobileTip = false)}
-						/>
-					{/if}
-					<div>
+						<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
 						{#if !showCustomAmount}
-							{#each tipAmounts as amount}
-								<button
-									class="bg-black text-white md:text-black md:bg-primary md:hover:bg-black md:hover:text-white w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
-										? ''
-										: Math.round(tipPercent) === parseInt(amount.slice(0, 2)) ||
-										  (!tipPercent && amount === 'None')
-										? '!bg-black !text-white'
-										: ''}"
-									on:click={() => handleTipButtonClick(amount)}>{amount}</button
-								>
-							{/each}
-						{/if}
-						{#if showCustomAmount}
-							<div class="relative">
-								<span
-									class="absolute top-[18px] left-5 font-semibold {!customTipAmount
-										? 'opacity-50'
-										: 'opacity-100'}">$</span
-								>
-								<input
-									bind:this={customInput}
-									type="number"
-									on:input={(e) => handleCustomTipAmount(e)}
-									class="pl-10"
-									placeholder="Other"
-								/>
-								<button
-									class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {!customTipAmount
-										? 'opacity-50'
-										: 'opacity-100 hover:opacity-80'}"
-									disabled={!customTipAmount}
-									on:click={apply}>Apply</button
-								>
-								<!-- found missing translation --->
-							</div>
-						{:else}
 							<div>
-								<button
-									class="w-full md:w-auto mt-2 bg-black md:bg-primary text-white md:text-black md:hover:bg-black md:hover:text-white font-semibold py-3 px-7 rounded-2xl"
-									on:click={() => (showCustomAmount = true)}>Custom amount</button
+								<span class="font-semibold mr-1">{tipAmountFormatted}</span><span
+									class="text-secondary font-semibold text-sm">{`(${tipAmountSats} SAT)`}</span
 								>
+								<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
 							</div>
-						{/if}
-					</div>
-				</div>
 
-				<div
-					class="hidden md:block h-[1px] lg:h-[600px] w-full lg:w-[1px] bg-lightgrey rounded-xl"
-					id="section-divider"
-				/>
+							<input
+								id="slider"
+								type="range"
+								min="0"
+								max="100"
+								value={tipPercent}
+								class="px-2 py-0"
+								on:input={handleSlide}
+								on:change={() => (showMobileTip = false)}
+							/>
+						{/if}
+						<div>
+							{#if !showCustomAmount}
+								{#each tipAmounts as amount}
+									<button
+										class="bg-black text-white md:text-black md:bg-primary md:hover:bg-black md:hover:text-white w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
+											? ''
+											: Math.round(tipPercent) === parseInt(amount.slice(0, 2)) ||
+											  (!tipPercent && amount === 'None')
+											? '!bg-black !text-white'
+											: ''}"
+										on:click={() => handleTipButtonClick(amount)}>{amount}</button
+									>
+								{/each}
+							{/if}
+							{#if showCustomAmount}
+								<div class="relative">
+									<span
+										class="absolute top-[18px] left-5 font-semibold {!customTipAmount
+											? 'opacity-50'
+											: 'opacity-100'}">$</span
+									>
+									<input
+										bind:this={customInput}
+										type="number"
+										on:input={(e) => handleCustomTipAmount(e)}
+										class="pl-10"
+										placeholder="Other"
+									/>
+									<button
+										class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {!customTipAmount
+											? 'opacity-50'
+											: 'opacity-100 hover:opacity-80'}"
+										disabled={!customTipAmount}
+										on:click={apply}>Apply</button
+									>
+									<!-- found missing translation --->
+								</div>
+							{:else}
+								<div>
+									<button
+										class="w-full md:w-auto mt-2 bg-black md:bg-primary text-white md:text-black md:hover:bg-black md:hover:text-white font-semibold py-3 px-7 rounded-2xl"
+										on:click={() => (showCustomAmount = true)}>Custom amount</button
+									>
+								</div>
+							{/if}
+						</div>
+					</div>
+
+					<div
+						class="hidden md:block h-[1px] lg:h-[600px] w-full lg:w-[1px] bg-lightgrey rounded-xl"
+						id="section-divider"
+					/>
+				{/if}
 
 				<!-- invoice section -->
 				<div class="text-center space-y-5 max-w-[300px]">
@@ -339,32 +370,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-{:else}
-	<div class="text-center mt-20 md:mt-0">
-		{#if typeof window !== 'undefined'}
-			<div class="w-full mx-auto max-w-xl">
-				<LottiePlayer
-					src="/lottie/success.json"
-					autoplay={true}
-					loop={true}
-					controls={false}
-					renderer="svg"
-					background="transparent"
-				/>
-			</div>
-		{/if}
-		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
-		<h2 class="text-2xl md:text-3xl font-semibold">
-			{totalAmountFormatted}
-		</h2>
-		<h3 class="text-secondary md:text-lg mb-6 mt-1">({totalAmountSats} SAT)</h3>
-		<button
-			class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
-			on:click={handleDoneClick}
-		>
-			{$t('invoice.done')}
-		</button>
 	</div>
 {/if}
 
