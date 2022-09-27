@@ -9,9 +9,9 @@
 
 	export let data;
 	let { invoice } = data;
-  let { amount, rate } = invoice;
+	let { amount, rate } = invoice;
 
-  toast.pop(0);
+	toast.pop(0);
 
 	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
 
