@@ -1,5 +1,5 @@
 <script>
-	import { copy, f, get, reverseFormat, s, toggleFullscreen } from '$lib/utils';
+	import { copy, f, get, reverseFormat, s, toggleFullscreen, sats } from '$lib/utils';
 	import { browser } from '$app/environment';
 	import { invoices, user } from '$lib/store';
 	import { Icon, Heart, Image, Qr, Tip } from '$comp';
@@ -47,9 +47,9 @@
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
 	$: $invoices[id]?.received && goto(`/invoice/${id}/paid`);
 
-	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
+	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 
-	$: tipAmount = ((tip * rate) / 100000000).toFixed(2);
+	$: tipAmount = ((tip * rate) / sats).toFixed(2);
 
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 </script>
@@ -120,7 +120,7 @@
 
 				<div class="px-5 space-y-3">
 					<div class="flex justify-between">
-            <span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
+						<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
 						<span class="font-semibold text-sm"
 							>{invoiceAmountFiatFormatted}
 							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
@@ -136,7 +136,7 @@
 					</div>
 
 					<div class="flex flex-wrap justify-between">
-            <span class="font-bold mr-1">{$t('invoice.total')}</span>
+						<span class="font-bold mr-1">{$t('invoice.total')}</span>
 						<span class="font-bold"
 							>{f(amountFiat + parseFloat(tipAmount), currency)}
 							<span class="text-secondary font-normal">{`(${s(tip + amount)} SAT)`}</span></span

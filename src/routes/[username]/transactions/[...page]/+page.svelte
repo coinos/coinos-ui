@@ -2,7 +2,7 @@
 	import { AppHeader } from '$comp';
 	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
-	import { f, s } from '$lib/utils';
+	import { f, s, sats } from '$lib/utils';
 	export let data;
 
 	let { user } = data;
@@ -47,7 +47,7 @@
 					<div class="grid grid-cols-3 border-b pb-5">
 						<div class="font-bold">
 							<span class="block mb-1"
-								>{tx.amount > 0 ? '+' : ''}{f(tx.amount * (tx.rate / 100000000), tx.currency)}
+								>{tx.amount > 0 ? '+' : ''}{f(tx.amount * (tx.rate / sats), tx.currency)}
 							</span>
 
 							<span class="text-secondary"
