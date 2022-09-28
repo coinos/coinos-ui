@@ -35,7 +35,7 @@
 	let followed = false;
 </script>
 
-<AppHeader avatarPosition="left-[calc(15vw-64px)]" />
+<AppHeader />
 
 <div class="flex xl:block justify-center items-center my-20 px-3">
 	<div class="space-y-10 xl:space-y-0">
