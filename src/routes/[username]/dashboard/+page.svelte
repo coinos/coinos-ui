@@ -92,7 +92,7 @@
 			<span class="text-3xl font-bold block mb-1">{accountBalanceSats} SAT</span>
 
 			<span class="text-secondary text-xl block"
-				>{$selectedRate ? accountBalanceFiat : $t('user.dashboard.fetchingRate')}</span
+				>{$selectedRate ? f(accountBalanceFiat, user.currency) : $t('user.dashboard.fetchingRate')}</span
 			>
 
 			<div class="md:flex md:space-x-5">
