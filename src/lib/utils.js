@@ -142,3 +142,5 @@ export const toggleFullscreen = (el) =>
 	document.fullscreenElement
 		? document.exitFullscreen()
 		: el.requestFullscreen().catch(console.log);
+
+export const sats = 100000000;

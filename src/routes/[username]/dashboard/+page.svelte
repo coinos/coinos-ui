@@ -1,13 +1,35 @@
 <script>
-	import { f, s, post, failure } from '$lib/utils';
+	import { f, s, post, failure, sats } from '$lib/utils';
 	import { tick } from 'svelte';
 	import { AppHeader, Icon } from '$comp';
-	import { selectedRate } from '$lib/store';
+	import { rate, selectedRate } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
 	export let data;
+
+	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
+	let interval;
+
+	$: animateRate($rate);
+	let animateRate = (newRate) => {
+    if (!accountBalanceFiat) return;
+		let t = 0;
+    let newBalance = (user.account.balance * newRate / sats);
+    let oldBalance = parseFloat(accountBalanceFiat);
+    let diff = oldBalance - newBalance;
+
+		clearInterval(interval);
+		interval = setInterval(() => {
+			let delta = diff * ease(t / 100);
+			accountBalanceFiat = (oldBalance - delta).toFixed(2)
+			if (t > 80) clearInterval(interval);
+			t++;
+		}, 10);
+	};
+
 	$: user = data.user;
+  $: accountBalanceFiat = accountBalanceFiat || user && $rate && (user.account.balance * $rate / sats).toFixed(2);
 
 	let payreq = '',
 		payreqField,
@@ -35,9 +57,7 @@
 
 	$: btcPrice = f($selectedRate, user.currency);
 
-	$: accountBalanceFiat = f(user.account.balance * ($selectedRate / 100000000), user.currency);
-
-	$: accountBalanceBtc = user.account.balance / 100000000;
+	$: accountBalanceBtc = user.account.balance / sats;
 
 	$: accountBalanceSats = s(user.account.balance);
 </script>

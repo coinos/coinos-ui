@@ -5,7 +5,7 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
 		"p2": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
 		"p3": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
 		"team": {
@@ -44,7 +44,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "These are businesses that are accepting bitcoin with coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">let us know!</a>"
+			"description": "These are businesses that are accepting bitcoin with Coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">let us know!</a>"
 		}
 	},
 	"error": {
@@ -56,11 +56,11 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off of lightning to an on-chain bitcoin address at an external wallet or exchange."
+			"answer": "Coinos is free to use. You pay nothing to register and maintain your account. You can send and receive unlimited payments over the lightning network at no cost. We charge a 0.1% conversion fee if you need to move your funds off of lightning to an on-chain bitcoin address at an external wallet or exchange."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
+			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
 		},
 		"safety": {
 			"question": "What can I do with the bitcoin I receive?",
@@ -104,7 +104,7 @@
 	"jobs": {
 		"header": "Jobs",
 		"subheader": "Current Openings",
-		"pitch1": "coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
+		"pitch1": "Coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
 		"pitch2": "Excited about working on open source bitcoin? Then take a look at our repositories on",
 		"github": "GitHub",
 		"pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
@@ -121,7 +121,7 @@
 		"info2": {
 			"title": "Simple to use",
 			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
-			"description2": "coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin or lightning works. We do all the heavy lifting so you can focus on your business.",
+			"description2": "Coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin or lightning works. We do all the heavy lifting so you can focus on your business.",
 			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
 		},
 		"info3": {
@@ -193,7 +193,7 @@
 			"emailNotifications": "Email Notifications",
 			"emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
 			"smsNotifications": "SMS Notifications",
-			"smsNotificationsDescription": "coinos will send you text notifications when this is enabled.",
+			"smsNotificationsDescription": "Coinos will send you text notifications when this is enabled.",
 			"theme": "Color Theme",
 			"themeDescription": "Select from the default color themes.",
 			"localCurrency": "Local Currency",

@@ -2,7 +2,7 @@
 	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { f, s } from '$lib/utils';
+	import { f, s, sats } from '$lib/utils';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { goto } from '$app/navigation';
 	import { invoices } from '$lib/store';
@@ -13,7 +13,7 @@
 
 	toast.pop(0);
 
-	$: amountFiat = parseFloat(((amount * rate) / 100000000).toFixed(2));
+	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 
 	const handleDoneClick = () => {
 		delete $invoices[invoice.uuid];

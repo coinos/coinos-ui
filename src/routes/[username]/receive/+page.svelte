@@ -2,7 +2,7 @@
 	import { AppHeader, Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { invoiceAmount, invoiceAmountFiat, selectedRate, user } from '$lib/store';
-	import { f, s, post, warning } from '$lib/utils';
+	import { f, s, post, warning, sats } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { t } from '$lib/translations';
 
@@ -11,19 +11,19 @@
 	let amountSats = 0;
 	let loading = false;
 
-	$: amount = parseInt(useFiat ? Math.round(amountFiat / ($selectedRate / 100000000)) : amountSats);
+	$: amount = parseInt(useFiat ? Math.round(amountFiat / ($selectedRate / sats)) : amountSats);
 
-	$: $invoiceAmount = parseInt(!amountSats ? amountFiat / ($selectedRate / 100000000) : amountSats);
+	$: $invoiceAmount = parseInt(!amountSats ? amountFiat / ($selectedRate / sats) : amountSats);
 
 	$: $invoiceAmountFiat = parseInt(
-		amountFiat === 0 ? amountSats * ($selectedRate / 100000000) : amountFiat
+		amountFiat === 0 ? amountSats * ($selectedRate / sats) : amountFiat
 	);
 
 	$: amountSatsFormatted = s(amountSats);
 
-	$: amountFiatConverted = f(amountSats * ($selectedRate / 100000000), $user.currency);
+	$: amountFiatConverted = f(amountSats * ($selectedRate / sats), $user.currency);
 
-	$: amountSatsConverted = s(amountFiat / ($selectedRate / 100000000));
+	$: amountSatsConverted = s(amountFiat / ($selectedRate / sats));
 
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
@@ -65,7 +65,7 @@
 						amountFiat = 0;
 					}
 				}
-			} else if (value !== '<' && parseInt(amountSats + value) > 100000000) {
+			} else if (value !== '<' && parseInt(amountSats + value) > sats) {
 				warning($t('user.receive.lessThan1BTCWarning'));
 			} else {
 				amountSats = parseInt(amountSats + value);
@@ -125,11 +125,11 @@
 					<button
 						on:click={() => {
 							if (useFiat) {
-								amountSats = parseInt((amountFiat / ($selectedRate / 100000000)).toFixed(0));
+								amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
 							} else {
 								amountFiat =
-									(amountSats * ($selectedRate / 100000000)).toFixed(2) > 0.0
-										? (amountSats * ($selectedRate / 100000000)).toFixed(2)
+									(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
+										? (amountSats * ($selectedRate / sats)).toFixed(2)
 										: 0;
 							}
 							useFiat = !useFiat;
