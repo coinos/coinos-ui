@@ -7,19 +7,18 @@ const opts = {
 	path: '/'
 };
 
-export async function load({ setHeaders }) {
-	setHeaders({
-		'set-cookie': [
-			cookie.serialize('token', '', {
-				...opts,
-				expires: new Date(0)
-			}),
-			cookie.serialize('refresh_token', '', {
-				...opts,
-				expires: new Date(0)
-			})
-		]
-	});
+export async function load({ cookies }) {
+	console.log('COOKIES', cookies);
+	cookies.set('set-cookie', [
+		cookies.serialize('token', '', {
+			...opts,
+			expires: new Date(0)
+		}),
+		cookies.serialize('refresh_token', '', {
+			...opts,
+			expires: new Date(0)
+		})
+	]);
 
 	throw redirect(302, '/logout/done');
 }

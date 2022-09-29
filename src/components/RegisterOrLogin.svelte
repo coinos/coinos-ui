@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { tick } from 'svelte';
 	import { Icon } from '$comp';
-	import { post, failure } from '$lib/utils';
+	import { focus, post, failure } from '$lib/utils';
 	import { redirect, user, token } from '$lib/store';
 	import { auth } from '$lib/socket';
 	import { goto } from '$app/navigation';
@@ -25,10 +25,6 @@
 
 	// TODO: move to server side
 	$: if (browser && $user) goto(`/${$user.username}/receive`);
-
-	let focus = (el) => setTimeout(() => el.focus());
-
-	console.log('REDIRECT STORE', $redirect);
 </script>
 
 <div class="pt-10">
