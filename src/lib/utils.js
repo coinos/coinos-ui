@@ -1,6 +1,7 @@
 import cookie from 'cookie';
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
+import { goto } from '$app/navigation';
 
 export function scroll(section) {
 	section.scrollIntoView({ behavior: 'smooth' });
@@ -144,3 +145,7 @@ export const toggleFullscreen = (el) =>
 		: el.requestFullscreen().catch(console.log);
 
 export const sats = 100000000;
+
+export const goBack = () => {
+	browser && history.go(-1);
+};

@@ -1,3 +1,4 @@
+export { default as Spinner } from './Spinner.svelte';
 export { default as Check } from './Check.svelte';
 export { default as Heart } from './Heart.svelte';
 export { default as Quote } from './Quote.svelte';

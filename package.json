@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@lottiefiles/svelte-lottie-player": "^0.2.0"
+		"@lottiefiles/svelte-lottie-player": "^0.2.0",
+		"qr-scanner": "^1.4.1"
 	}
 }
