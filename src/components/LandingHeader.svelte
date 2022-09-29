@@ -67,11 +67,11 @@
 		</button>
 
 		<div
-			class="block md:hidden absolute top-0 {showMobileMenu
+			class="container w-full px-10 md:hidden absolute top-0 {showMobileMenu
 				? 'right-0'
 				: 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-white"
 		>
-			<div class="space-y-8 mt-24 ml-10 font-bold text-xl">
+			<div class="space-y-8 mt-24 font-bold text-xl">
 				<button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
 					>{$t('howItWorks.header')}</button
 				>
@@ -82,12 +82,12 @@
 				>
 				{#if !$user}
 					<button
-						class="border rounded-full px-6 py-2 font-bold block"
+						class="border rounded-full px-6 py-2 font-bold block w-full"
 						on:click={() => goto('/register')}
 						>{$t('nav.startInSeconds')}
 					</button>
 					<button
-						class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
+						class="bg-black text-white border rounded-full px-6 py-2 font-bold block w-full"
 						on:click={() => goto('/login')}
 					>
 						{$t('nav.signIn')}

@@ -162,7 +162,9 @@
 		"remove": "Remove",
 		"scanToPayBTC": "Scan to pay with bitcoin",
 		"dashboard": {
-			"ACCOUNT_BALANCE": "ACCOUNT BALANCE",
+      "go": "Go",
+      "dashboard": "Dashboard",
+			"accountBalance": "Account Balance",
 			"bitcoinPrice": "bitcoin Price:",
 			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",
 			"dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
@@ -170,7 +172,7 @@
 			"optionalNote": "Note (Optional)",
 			"send": "Send",
 			"receive": "Receive a Payment",
-			"withdraw": "Withdraw"
+			"withdraw": "Withdraw Funds"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",

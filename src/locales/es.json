@@ -159,7 +159,8 @@
 		"remove": "Eliminar",
 		"scanToPayBTC": "Escanea para pagar en bitcoin",
 		"dashboard": {
-			"ACCOUNT_BALANCE": "ACCOUNT BALANCE",
+      "dashboard": "Tablero",
+			"accountBalance": "Saldo",
 			"bitcoinPrice": "Precio de bitcoin:",
 			"conversionFeeWarning": "Cobraremos una tarifa de retiro del 1% sobre el monto",
 			"dataFromBinance": "Datos de <span class=\"text-black\">Binance</span>.",

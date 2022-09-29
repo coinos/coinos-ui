@@ -1,5 +1,5 @@
 <script>
-  import { browser } from "$app/environment";
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { tick } from 'svelte';
 	import { Icon } from '$comp';
@@ -23,12 +23,12 @@
 		signIn: '/login'
 	}[pageID];
 
-  // TODO: move to server side
+	// TODO: move to server side
 	$: if (browser && $user) goto(`/${$user.username}/receive`);
 
- 	let focus = (el) => setTimeout(() => el.focus());
+	let focus = (el) => setTimeout(() => el.focus());
 
-  console.log("REDIRECT STORE", $redirect)
+	console.log('REDIRECT STORE', $redirect);
 </script>
 
 <div class="pt-10">
@@ -56,13 +56,21 @@
 						class="bg-primary"
 						bind:value={username}
 						use:focus
+						autocapitalize="none"
 					/>
 				</div>
 
 				<div class="relative">
 					<label for="password" class="block font-semibold">{$t('login.password')}</label>
 					{#if revealPassword}
-						<input name="password" type="text" required class="bg-primary" bind:value={password} />
+						<input
+							name="password"
+							type="text"
+							required
+							class="bg-primary"
+							bind:value={password}
+							autocapitalize="none"
+						/>
 					{:else}
 						<input
 							name="password"
@@ -70,6 +78,7 @@
 							required
 							class="bg-primary"
 							bind:value={password}
+							autocapitalize="none"
 						/>
 					{/if}
 					<button
