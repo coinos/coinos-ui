@@ -146,6 +146,8 @@ export const toggleFullscreen = (el) =>
 
 export const sats = 100000000;
 
-export const goBack = () => {
+export const back = () => {
 	browser && history.go(-1);
 };
+
+export const focus = (el) => setTimeout(() => el.focus());

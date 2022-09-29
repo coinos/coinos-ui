@@ -2,11 +2,12 @@
   import { Icon } from "$comp";
 	import QrScanner from 'qr-scanner';
 	import { onMount } from 'svelte';
-  import { goBack } from "$lib/utils";
+  import { back } from "$lib/utils";
+  import { goto } from "$app/navigation";
 
 	let scanner, vid;
 	onMount(() => {
-		scanner = new QrScanner(vid, console.log);
+    scanner = new QrScanner(vid, (text) => goto(`/send/${text}`));
     scanner.start();
 	});
 
@@ -14,7 +15,7 @@
 
 	<button
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-  on:click={goBack}
+  on:click={back}
 	>
 		<Icon icon="arrow-left" style="w-10" />
 	</button>
