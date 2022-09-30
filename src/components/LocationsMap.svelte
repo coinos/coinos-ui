@@ -77,7 +77,7 @@
 			locations.forEach(({ lat, lng, info }) => {
 				let marker = L.marker([lat, lng]);
 
-				marker.addTo(map).bindPopup(info)._icon.classList.add('huechange');
+        marker.bindPopup(info);
 				markers.addLayer(marker);
 			});
 
@@ -86,12 +86,7 @@
 		}
 	});
 
-	onDestroy(async () => {
-		if (map) {
-			console.log('Unloading Leaflet map.');
-			map.remove();
-		}
-	});
+	onDestroy(async () => map && map.remove());
 </script>
 
 <div
@@ -101,5 +96,5 @@
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
-	@import 'leaflet.markercluster/dist/MarkerCluster.css';
+	@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 </style>
