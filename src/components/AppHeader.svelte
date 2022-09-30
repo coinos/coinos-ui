@@ -118,12 +118,14 @@
 		<div
 			class="absolute top-[111px] {avatarPosition} rounded-full border-4 border-white overflow-hidden w-32 h-32"
 		>
+    <a href={`/${$subject.username}`}>
 			<img
 				src={$tempProfileFiles && $tempProfileFiles.profile
 					? $tempProfileFiles.profile
 					: `/api/public/${$subject.username}-profile.png`}
 				class="w-full h-full object-cover object-center overflow-hidden"
 			/>
+      </a>
 		</div>
 	{:else}
 		<div

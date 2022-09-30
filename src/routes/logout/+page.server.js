@@ -8,7 +8,6 @@ const opts = {
 };
 
 export async function load({ cookies }) {
-	console.log('COOKIES', cookies);
 	cookies.set('set-cookie', [
 		cookies.serialize('token', '', {
 			...opts,

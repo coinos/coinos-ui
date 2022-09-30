@@ -2,12 +2,13 @@ import cookie from 'cookie';
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
+import { env } from '$env/dynamic/public';
 
 export function scroll(section) {
 	section.scrollIntoView({ behavior: 'smooth' });
 }
 
-const base = browser ? '' : import.meta.env.VITE_COINOS_URL;
+const base = browser ? '' : env.PUBLIC_COINOS_URL;
 
 export const get = (url, headers = {}) =>
 	fetch(base + url, { headers })

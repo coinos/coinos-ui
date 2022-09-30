@@ -1,8 +1,9 @@
 import { get } from 'svelte/store';
 import { rate, user, token, invoices, newPayment } from '$lib/store';
 import { success } from '$lib/utils';
+import { env } from '$env/dynamic/public';
 
-const socketUrl = import.meta.env.VITE_SOCKET;
+const socketUrl = env.PUBLIC_SOCKET;
 
 let interval, socket;
 
@@ -26,6 +27,7 @@ export const messages = (data) => ({
 		if (data.amount > 0) {
 			success(`Received ${data.amount} sats!`);
 		} else {
+      console.log("DATA", JSON.stringify(data))
 			success(`Sent ${-data.amount} sats!`);
 		}
 	},
