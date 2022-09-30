@@ -88,7 +88,8 @@
 				[locations[2].lat, locations[2].long],
 				[locations[3].lat, locations[3].long],
 				[locations[4].lat, locations[4].long],
-				[locations[5].lat, locations[5].long]
+				[locations[5].lat, locations[5].long],
+				[locations[6].lat, locations[6].long],
 			]);
 		}
 	});
