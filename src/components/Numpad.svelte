@@ -1,5 +1,5 @@
 <script>
-  import { Icon } from "$comp";
+	import { Icon } from '$comp';
 	import { selectedRate, user } from '$lib/store';
 	import { f, s, post, warning, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
