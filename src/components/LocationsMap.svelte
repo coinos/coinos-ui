@@ -7,9 +7,10 @@
 
 	onMount(async () => {
 		if (browser) {
-			const leaflet = await import('leaflet');
+			const L = await import('leaflet');
+			const { MarkerClusterGroup } = await import('leaflet.markercluster');
 
-			map = leaflet.map(mapElement, { attributionControl: false }).setView([0, 0], 0);
+			map = L.map(mapElement, { attributionControl: false }).setView([0, 0], 0);
 
 			const myCustomColour = 'orange';
 
@@ -36,61 +37,52 @@
 			const locations = [
 				{
 					lat: 49.27034,
-					long: -123.141373,
+					lng: -123.141373,
 					info: 'Rolf Vancouver <br> 1628 W 1st Ave #231, Vancouver <br> <a href="https://www.rolfbodywork.com" target="_blank" rel="noreferrer">www.rolfbodywork.com</a>'
 				},
-				{ lat: 49.26419, long: -123.15702, info: 'Tacos Jorge <br> 2287 W Broadway, Vancouver' },
+				{ lat: 49.26419, lng: -123.15702, info: 'Tacos Jorge <br> 2287 W Broadway, Vancouver' },
 				{
 					lat: 49.28273,
-					long: -123.120735,
+					lng: -123.120735,
 					info: 'Engage Strategies <br> <a href="https://www.linkedin.com/in/shauna-collister-32905214" target="_blank" rel="noreferrer">LinkedIn</a>'
 				},
 				{
 					lat: 49.28134,
-					long: -123.02373,
+					lng: -123.02373,
 					info: 'Lumota Collection <br> Clothing Design/Upcycling - Appointment Only <br> <a href="tel:778-726-3776">778-726-3776</a> <br> 369 Boundary Rd, Vancouver, BC V5K 2B1 <br> <a href="https://www.instagram.com/lumotacollection/" target="_blank" rel="noreferrer">IG: Lumotacollection</a> <br> <a href="https://www.facebook.com/LumotaCollection/posts" target="_blank" rel="noreferrer">FB: Lumotacollection</a>'
 				},
 				{
 					lat: 49.22643,
-					long: -122.93085,
+					lng: -122.93085,
 					info: 'Goodwin Contracting <br> Project Management/Consulting - Appointment Only <br> <a href="tel:403-812-1085">403-812-1085</a> <br> 8017 17th Ave, Burnaby, BC V3N 1M5'
 				},
 				{
 					lat: 51.04813,
-					long: -114.07999,
+					lng: -114.07999,
 					info: 'Goodwin Contracting <br> Project Management/Consulting - Appointment Only <br> <a href="tel:403-812-1085">403-812-1085</a> <br> 8017 17th Ave, Burnaby, BC V3N 1M5'
 				},
 				{
 					lat: 49.2677,
-					long: -123.10124,
+					lng: -123.10124,
 					info: 'General Strike Coffee <br> Artisan coffee shop <br> 1965 Main St, Vancouver, BC V5T 2K6 <br> <a href="https://www.instagram.com/generalstrikecoffee/" target="_blank" rel="noreferrer">IG: generalstrikecoffee</a>'
 				}
 			];
 
-			leaflet
-				.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-					maxZoom: 19,
-					subdomains: ['a', 'b', 'c', 'd']
-				})
-				.addTo(map);
+			L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+				maxZoom: 19,
+				subdomains: ['a', 'b', 'c', 'd']
+			}).addTo(map);
 
-			locations.forEach((location) => {
-				leaflet
-					.marker([location.lat, location.long])
-					.addTo(map)
-					.bindPopup(location.info)
-					._icon.classList.add('huechange');
+			let markers = new MarkerClusterGroup();
+			locations.forEach(({ lat, lng, info }) => {
+				let marker = L.marker([lat, lng]);
+
+				marker.addTo(map).bindPopup(info)._icon.classList.add('huechange');
+				markers.addLayer(marker);
 			});
 
-			map.fitBounds([
-				[locations[0].lat, locations[0].long],
-				[locations[1].lat, locations[1].long],
-				[locations[2].lat, locations[2].long],
-				[locations[3].lat, locations[3].long],
-				[locations[4].lat, locations[4].long],
-				[locations[5].lat, locations[5].long],
-				[locations[6].lat, locations[6].long]
-			]);
+			map.fitBounds(locations.map(({ lat, lng }) => [lat, lng]));
+			map.addLayer(markers);
 		}
 	});
 
@@ -109,4 +101,5 @@
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
+	@import 'leaflet.markercluster/dist/MarkerCluster.css';
 </style>
