@@ -45,7 +45,7 @@
 	$: tip = Math.round((amount / 100) * tipPercent);
 
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
-	$: $invoices[id]?.received && goto(`/invoice/${id}/paid`);
+	$: $invoices[id]?.received >= $invoices[id]?.amount && goto(`/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 

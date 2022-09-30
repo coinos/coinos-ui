@@ -2,8 +2,9 @@ import { error, redirect } from '@sveltejs/kit';
 import cookie from 'cookie';
 import { protectedRoutes } from '$lib/utils';
 import { get, post, auth } from '$lib/utils';
+import { env } from '$env/dynamic/public';
 
-const btc = import.meta.env.VITE_BTC;
+export const { PUBLIC_BTC: btc }  = env;
 
 export async function load({ request, setHeaders, url, params }) {
 	let { token } = cookie.parse(request.headers.get('cookie') || '');

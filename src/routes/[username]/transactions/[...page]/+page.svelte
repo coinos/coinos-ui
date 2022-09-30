@@ -27,7 +27,7 @@
 			{#if pages.length > 1}
 				{#each pages as _, i}
 					<a href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
-						<div class="border py-2 px-4 border-r-0 last:border-r hover:opacity-80">
+						<div class="border py-2 px-4 rounded-full border-2 w-12 h-12 hover:opacity-80 mr-1 text-center my-auto">
 							{i + 1}
 						</div>
 					</a>
@@ -75,7 +75,7 @@
 </div>
 
 <style>
-	.active {
-		@apply font-bold;
+	.active div {
+    @apply bg-gray-100;
 	}
 </style>
