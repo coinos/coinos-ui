@@ -4,7 +4,7 @@ export async function POST({ request, setHeaders }) {
 	let form = Object.fromEntries(await request.formData());
 	let { username, password, redirect } = form;
 
-  console.log("REDIRECT", redirect);
+	console.log('REDIRECT', redirect);
 	let user = { username, password };
 	await post('/register', { user });
 	await login(user, setHeaders);

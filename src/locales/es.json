@@ -29,7 +29,7 @@
 			"shauna": {
 				"name": "Shauna",
 				"position": "Marketing & Operaciones",
-				"bio": "Gestión Estratégica y de Proyectos. Ella es una todóloga. Siempre encuentra tiempo para reunirse a tomar un café." 
+				"bio": "Gestión Estratégica y de Proyectos. Ella es una todóloga. Siempre encuentra tiempo para reunirse a tomar un café."
 			},
 			"cole": {
 				"name": "Cole Goodwin",
@@ -159,7 +159,7 @@
 		"remove": "Eliminar",
 		"scanToPayBTC": "Escanea para pagar en bitcoin",
 		"dashboard": {
-      "dashboard": "Tablero",
+			"dashboard": "Tablero",
 			"accountBalance": "Saldo",
 			"bitcoinPrice": "Precio de bitcoin:",
 			"conversionFeeWarning": "Cobraremos una tarifa de retiro del 1% sobre el monto",

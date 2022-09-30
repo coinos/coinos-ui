@@ -97,9 +97,9 @@
 		"addTipq": "Add a tip?",
 		"done": "Done",
 		"paymentSuccessful": "Payment Successful!",
-    "invoice": "Invoice",
-    "total": "Total",
-    "tip": "Tip"
+		"invoice": "Invoice",
+		"total": "Total",
+		"tip": "Tip"
 	},
 	"jobs": {
 		"header": "Jobs",
@@ -162,8 +162,8 @@
 		"remove": "Remove",
 		"scanToPayBTC": "Scan to pay with bitcoin",
 		"dashboard": {
-      "go": "Go",
-      "dashboard": "Dashboard",
+			"go": "Go",
+			"dashboard": "Dashboard",
 			"accountBalance": "Account Balance",
 			"bitcoinPrice": "bitcoin Price:",
 			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",

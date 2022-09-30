@@ -2,12 +2,12 @@
 import validate from 'bitcoin-address-validation';
 import bip21 from 'bip21';
 import { get } from '$lib/utils';
-import { goto } from "$app/navigation";
+import { goto } from '$app/navigation';
 
 let debounce;
 export default async (text) => {
 	if (!text) return;
-  console.log("parsing")
+	console.log('parsing');
 
 	// lightning
 	if (text.startsWith('ln')) {
@@ -19,12 +19,12 @@ export default async (text) => {
 	// bitcoin
 	if (validate(text)) {
 		console.log('bitcoin');
-    goto(`/send/bitcoin/${text}`);
+		goto(`/send/bitcoin/${text}`);
 	}
 
 	// ln address
 	if (text.includes('@') && text.includes('.')) {
-    console.log("ln address")
+		console.log('ln address');
 		let [name, domain] = text.split('@');
 		try {
 			clearTimeout(debounce);
@@ -35,5 +35,5 @@ export default async (text) => {
 	}
 
 	// user
-  console.log("username")
+	console.log('username');
 };

@@ -131,7 +131,7 @@
 		"remove": "Enlève",
 		"scanToPayBTC": "Scanner pour payer avec bitcoin",
 		"dashboard": {
-      "dashboard": "Tableau de bord",
+			"dashboard": "Tableau de bord",
 			"accountBalance": "Solde",
 			"bitcoinPrice": "Prix de bitcoin:",
 			"conversionFeeWarning": "Il y a un prix de 1% pour convertir entre bitcoin, Liquid et Lightning.",

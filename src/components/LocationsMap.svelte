@@ -61,10 +61,10 @@
 					info: 'Goodwin Contracting <br> Project Management/Consulting - Appointment Only <br> <a href="tel:403-812-1085">403-812-1085</a> <br> 8017 17th Ave, Burnaby, BC V3N 1M5'
 				},
 				{
-					lat: 49.267700,
-					long: -123.101240,
+					lat: 49.2677,
+					long: -123.10124,
 					info: 'General Strike Coffee <br> Artisan coffee shop <br> 1965 Main St, Vancouver, BC V5T 2K6 <br> <a href="https://www.instagram.com/generalstrikecoffee/" target="_blank" rel="noreferrer">IG: generalstrikecoffee</a>'
-				},
+				}
 			];
 
 			leaflet
@@ -89,7 +89,7 @@
 				[locations[3].lat, locations[3].long],
 				[locations[4].lat, locations[4].long],
 				[locations[5].lat, locations[5].long],
-				[locations[6].lat, locations[6].long],
+				[locations[6].lat, locations[6].long]
 			]);
 		}
 	});

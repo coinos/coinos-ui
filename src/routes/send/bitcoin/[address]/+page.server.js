@@ -1,4 +1,4 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect } from '@sveltejs/kit';
 export const actions = {
 	default: async ({ request }) => {
 		let form = Object.fromEntries(await request.formData());
