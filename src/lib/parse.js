@@ -5,27 +5,25 @@ import { get } from '$lib/utils';
 import { goto } from '$app/navigation';
 
 let debounce;
-export default async (text) => {
-	if (!text) return;
+export default async (t) => {
+	if (!t) return;
 	console.log('parsing');
 
 	// lightning
-	if (text.startsWith('ln')) {
-		try {
-			console.log('lightning');
-		} catch (e) {}
+	if (t.startsWith('ln')) {
+		goto(`/send/lightning/${t}`);
 	}
 
 	// bitcoin
-	if (validate(text)) {
+	if (validate(t)) {
 		console.log('bitcoin');
-		goto(`/send/bitcoin/${text}`);
+		goto(`/send/bitcoin/${t}`);
 	}
 
 	// ln address
-	if (text.includes('@') && text.includes('.')) {
+	if (t.includes('@') && t.includes('.')) {
 		console.log('ln address');
-		let [name, domain] = text.split('@');
+		let [name, domain] = t.split('@');
 		try {
 			clearTimeout(debounce);
 			await new Promise((r) => (debounce = setTimeout(r, 1500)));
