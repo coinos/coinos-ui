@@ -8,20 +8,6 @@
 		"p1": "<strong>coinos</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
 		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation avec le but de rendre commencer utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
 		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenu par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installalons pour vous avec plaisir.",
-		"p4": "Transferts entre comptes de garde d'utilisateurs différents en notre serveur sont complètement gratuits, instants et sans limites.",
-		"founder": {
-			"header": "Le Fondateur",
-			"name": "Adam Soltys",
-			"position": "Officier Technique Principal",
-			"qualifications": {
-				"bitcoin": "Utilisant bitcoin depuis 2011",
-				"webDev": "20+ ans d'experience de programmation web en gouvernement et industrie",
-				"bitcoinVancouver": "Organisateur précoce de la rencontre bitcoin Vancouver",
-				"bitcoinCoop": "Fondateur de The bitcoin Co-op et défenseur précoce de Decentral Vancouver",
-				"beliefs": "Yogi, permaculturiste, anarchiste, décentraliste",
-				"familialRelationships": "Mari, père, frère, fils"
-			}
-		},
 		"locations": {
 			"header": "Établissements",
 			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
