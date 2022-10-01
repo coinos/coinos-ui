@@ -25,6 +25,39 @@
 		"locations": {
 			"header": "Établissements",
 			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+		},
+		"team": {
+			"header": "L'Équipe",
+			"adam": {
+				"name": "Adam Soltys",
+				"position": "Officier Technique Principal",
+				"bio": "Adam est programmeur de web et passionné de bitcoin.  Il croit que l'argent sûr est clé à augmenter la prospérité planétaire.  Il habite en Vancouver de Nord avec sa femme Chelsea et deux enfants."
+			},
+			"secondl1ght": {
+				"name": "secondl1ght",
+				"position": "Programmeur de Web",
+				"bio": "Secondl1ght est un programmeur de web autodidacte.  Il a découvert bitcoin et quitté son job de monnaie fiduciaire pour développer bitcoin à temps plein.  Il contribue aux projets open source, est défenseur d'intimité, et il aime la liberté."
+			},
+			"gene": {
+				"name": "Gene",
+				"position": "Designer des Produits",
+				"bio": "Ma mission est d'aider les fondateurs des start-ups à réussir.  Je crée des produits pour achever cette mission.  Designe des produits pixel-parfait.  Aie-l'expédié."
+			},
+			"shauna": {
+				"name": "Shauna",
+				"position": "Gestion & Marketing",
+				"bio": "Gestion de projets et strategie.  Touche-à-tout.  Peux toujours trouver le temps pour racontrer pour café."
+			},
+			"cole": {
+				"name": "Cole Goodwin",
+				"position": "Professionel de Bitcoin",
+				"bio": "Cole est un professionel de bitcoin diplômé et un homme motivé avec passion pour la liberté.  Il a découvert bitcoin en 2016 et l'a etudié en détail.  Maintenant, il veux introduire le réseau Lightning à autant d'utilisateurs que possible."
+			},
+			"john": {
+				"name": "John Barratt",
+				"position": "Programmeur de Web Full-Stack",
+				"bio": "Quand il ne programme pas, vous pouvez trouver John au forêt randonnant au bonnes sentiers de Colombie-Britannique."
+			}
 		}
 	},
 	"error": {
@@ -54,7 +87,8 @@
 		"company": "Entreprise",
 		"telegram": "Telegram",
 		"support": "Assistance",
-		"jobs": "Jobs"
+		"jobs": "Jobs",
+		"news": "Nouvelles"
 	},
 	"howItWorks": {
 		"header": "Comment Elle Fonctionne",
@@ -101,7 +135,9 @@
 		"noAccount": "N'avez-vous pas un conte?",
 		"register": "Enregistrer",
 		"signIn": "Connexion",
-		"failed": "Connexion failli"
+		"failed": "Connexion failli",
+		"optional": "Optionnel",
+		"token": "Jeton A2F"
 	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
@@ -116,7 +152,10 @@
 		"addTip": "Ajoutez un pourboire",
 		"addTipq": "Ajouter un pourboire?",
 		"done": "Fini",
-		"paymentSuccessful": "Paiement réussi!"
+		"paymentSuccessful": "Paiement réussi!",
+		"invoice": "Facture",
+		"total": "Total",
+		"tip": "Pourboire"
 	},
 	"jobs": {
 		"header": "Emplois",
@@ -139,7 +178,9 @@
 			"fetchingRate": "cherchant taut de change...",
 			"optionalNote": "Note (optionel)",
 			"send": "Envoie",
-			"withdraw": "Retire"
+			"withdraw": "Retire",
+			"go": "Allez",
+			"receive": "Reçois un Paiement"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
@@ -172,7 +213,12 @@
 			"autoLockDescription": "Ta conte activera une mode sécuritaire après une durée spécifiée:",
 			"twofa": "Authentification à 2 Facteurs",
 			"twofaDescription": "Ajoutez un autre niveau de sécurité par activez l'authentication à deux facteurs.",
-			"twofaSetup": "Activer A2F"
+			"twofaSetup": "Activer A2F",
+			"bannerImage": "Image de Bandeau",
+			"profileImage": "Image de Profil",
+			"oneTimeCode": "Entrez mot de passe à usage unique",
+			"accountId": "Secret de conte",
+			"twofaDisable": "Désactivez A2F"
 		},
 		"support": {
 			"header": "Assistance",
@@ -190,5 +236,10 @@
 			"received": "Recevé",
 			"empty": "Vous n'avez pas des transactions."
 		}
+	},
+	"news": {
+		"header": "Nouvelles",
+		"subheader": "Dernières Informations",
+		"update1": ""
 	}
 }
