@@ -148,6 +148,7 @@
 		"settings": "Préférences",
 		"support": "Assistance"
 	},
+	"newSiteHeader": "Bienvenue à la <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">coinos nouvelle et amélioré</a>, concentré au marchants! Cherchez pour le dernier coinos? Visitez <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
 		"addTipq": "Ajouter un pourboire?",

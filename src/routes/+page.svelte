@@ -28,13 +28,7 @@
 <!-- banner -->
 <div class="mt-[101.7px] md:mt-0 w-full text-center py-4 border border-b-black text-secondary">
 	<p>
-		Welcome to the <a href="/news" class="underline underline-offset-4 text-black hover:opacity-80"
-			>new and improved coinos</a
-		>, focused on merchant adoption! Looking for the old coinos? Visit
-		<a
-			href="https://classic.coinos.io"
-			class="underline underline-offset-4 text-black hover:opacity-80">classic.coinos.io</a
-		>.
+    {$t('newSiteHeader')}
 	</p>
 </div>
 
