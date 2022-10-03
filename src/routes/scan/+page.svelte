@@ -16,12 +16,21 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="flex w-full mb-4">
-	<video bind:this={vid} class="w-full max-w-[600px] mx-auto" />
+<div class="flex w-full mb-4 px-4">
+  <div class="bg-black mx-auto rounded-3xl">
+	<video bind:this={vid} class="border-4 rounded-3xl border-black md:max-w-[600px]" />
+  </div>
 </div>
 
 <div class="flex w-full">
-<button class="mx-auto border rounded-full px-6 py-2 font-bold hover:opacity-80" on:click={back}>
-  Cancel
-</button>
+	<button class="mx-auto border rounded-full px-6 py-2 font-bold hover:opacity-80" on:click={back}>
+		Cancel
+	</button>
 </div>
+
+<style>
+	video {
+		transition: transform 0.3s ease-out;
+		transform: scale(1);
+	}
+</style>

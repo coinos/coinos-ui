@@ -71,14 +71,17 @@
 		>
 
 		<div class="grid sm:grid-cols-2 gap-2 mt-8">
-			<button
-				class="rounded-full border py-2 px-5 font-bold hover:opacity-80 text-xl w-full mb-2"
-				on:click={() => goto(`/${user.username}/receive`)}>{$t('user.dashboard.receive')}</button
-			>
-			<button
-				class="rounded-full border py-2 px-5 font-bold hover:opacity-80 text-xl w-full mb-2"
-				on:click={() => goto('/send')}>{$t('user.dashboard.withdraw')}</button
-			>
+			<a href={`/${user.username}/receive`}>
+				<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+					>{$t('user.dashboard.receive')}</button
+				>
+			</a>
+			<a href="/send">
+				<button
+					class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+					on:click={() => goto('/send')}>{$t('user.dashboard.withdraw')}</button
+				>
+			</a>
 		</div>
 	</div>
 </div>
