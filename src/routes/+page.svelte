@@ -28,7 +28,7 @@
 <!-- banner -->
 <div class="mt-[101.7px] md:mt-0 w-full text-center py-4 border border-b-black text-secondary">
 	<p>
-    {$t('newSiteHeader')}
+    {@html $t('newSiteHeader')}
 	</p>
 </div>
 

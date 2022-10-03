@@ -2,10 +2,10 @@ import { redirect } from '@sveltejs/kit';
 import { btc as asset, auth, post } from '$lib/utils';
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ cookies, request }) => {
 		let { address, amount } = Object.fromEntries(await request.formData());
-		let { tx } = await post('/bitcoin/fee', { address, amount, asset }, auth(request));
-		await post('/bitcoin/send', { address, tx }, auth(request));
+		let { tx } = await post('/bitcoin/fee', { address, amount, asset }, auth(cookies));
+		await post('/bitcoin/send', { address, tx }, auth(cookies));
 		throw redirect(307, '/sent');
 	}
 };
