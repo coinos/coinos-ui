@@ -27,7 +27,6 @@ export const messages = (data) => ({
 		if (data.amount > 0) {
 			success(`Received ${data.amount} sats!`);
 		} else {
-      console.log("DATA", JSON.stringify(data))
 			success(`Sent ${-data.amount} sats!`);
 		}
 	},
