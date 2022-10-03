@@ -1,5 +1,5 @@
 <script>
-	import { Icon } from '$comp';
+	import { Left, Icon } from '$comp';
 	import { selectedRate, user } from '$lib/store';
 	import { f, s, post, warning, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
@@ -86,68 +86,47 @@
 </script>
 
 <div class="flex justify-center items-center mb-3 px-3">
-	{#if $selectedRate}
-		<div class="space-y-5">
-			<!-- amounts -->
-			<div class="text-center">
-				<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
-					{useFiat ? `${symbol}${amountFiat}` : amountSatsFormatted}<span
-						class="tracking-normal text-base font-normal">{useFiat ? $user.currency : 'SAT'}</span
-					>
-				</div>
-				<span class="text-secondary mr-1"
-					>{useFiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
-				>
-				<button
-					on:click={() => {
-						if (useFiat) {
-							amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
-						} else {
-							amountFiat =
-								(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
-									? (amountSats * ($selectedRate / sats)).toFixed(2)
-									: 0;
-						}
-						useFiat = !useFiat;
-					}}><Icon icon="swap" style="inline hover:opacity-80" /></button
+	<div class="space-y-5">
+		<div class="text-center">
+			<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
+				{useFiat ? `${symbol}${amountFiat}` : amountSatsFormatted}<span
+					class="tracking-normal text-base font-normal">{useFiat ? $user.currency : 'SAT'}</span
 				>
 			</div>
-
-			<!-- numpad -->
-			<div class="grid grid-cols-3 gap-2 w-full md:w-[300px] mx-auto">
-				{#each numPad as value}
-					{#if value === '<'}
-						<button
-							class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-							on:click={() => handleInput(value)}
-						>
-							<svg
-								class="w-5"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M15 19L8 12L15 5"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-						</button>
-					{:else}
-						<button
-							class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
-							on:click={() => handleInput(value)}>{value}</button
-						>
-					{/if}
-				{/each}
-			</div>
+			<span class="text-secondary mr-1"
+				>{useFiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
+			>
+			<button
+				on:click={() => {
+					if (useFiat) {
+						amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
+					} else {
+						amountFiat =
+							(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
+								? (amountSats * ($selectedRate / sats)).toFixed(2)
+								: 0;
+					}
+					useFiat = !useFiat;
+				}}><Icon icon="swap" style="inline hover:opacity-80" /></button
+			>
 		</div>
-	{:else}
-		<div class="w-full md:w-[300px] h-[475px] md:h-[485px] animate-pulse bg-gray-400 rounded-xl" />
-	{/if}
+
+		<div class="grid grid-cols-3 gap-2 w-full md:w-[300px] mx-auto">
+			{#each numPad as value}
+				{#if value === '<'}
+					<button
+						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
+						on:click={() => handleInput(value)}
+					>
+          <Left />
+					</button>
+				{:else}
+					<button
+						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
+						on:click={() => handleInput(value)}>{value}</button
+					>
+				{/if}
+			{/each}
+		</div>
+	</div>
 </div>

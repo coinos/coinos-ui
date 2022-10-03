@@ -1,3 +1,4 @@
+export { default as Left } from './Left.svelte';
 export { default as Numpad } from './Numpad.svelte';
 export { default as Spinner } from './Spinner.svelte';
 export { default as Check } from './Check.svelte';
