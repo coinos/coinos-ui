@@ -1,29 +1,32 @@
 <script>
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { AppHeader, Icon, Spinner } from '$comp';
-	import { back } from '$lib/utils';
+	import { back, failure } from '$lib/utils';
 
 	export let form;
 
+	let el;
 	let placeholder = 'Address, Invoice, Username';
 	let text = placeholder,
 		loading;
 
-	let focus = () => {
-		if (text === placeholder) text = '';
-	};
+	let focus = () => text === placeholder && (text = '');
+	let keypress = (e) => e.key === 'Enter' && e.preventDefault() && el.submit();
 
 	let paste = async () => {
 		text = await navigator.clipboard.readText();
 	};
+
+	onMount(() => form?.error && failure(form.error));
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto">
+<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" bind:this={el}>
 	<div class="mb-2">
 		<label for="invoice" class="font-bold mb-1 block">Destination</label>
 		<input type="hidden" name="text" bind:value={text} />
@@ -35,6 +38,7 @@
 			contenteditable
 			bind:textContent={text}
 			on:focus={focus}
+			on:keypress={keypress}
 		>
 			{text}
 		</div>
@@ -85,7 +89,7 @@
 		overflow: hidden;
 		min-height: 48px;
 		line-height: 20px;
-		@apply block border rounded-2xl p-3 py-4 w-full bg-primary;
+		@apply block border rounded-2xl p-3 py-4 w-full;
 	}
 
 	.expandable-expandable::-webkit-resizer {

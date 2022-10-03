@@ -1,14 +1,17 @@
 <script>
 	import { AppHeader, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back } from '$lib/utils';
+	import { back, s } from '$lib/utils';
 	export let data;
+	export let form;
 
 	let { payreq } = $page.params;
 	let { alias } = data;
 
 	let { currency } = data.user;
-	let amount, loading;
+  let amount = form?.amount || data.amount;
+
+	let loading;
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -16,15 +19,22 @@
 </button>
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-	<div class="text-center mb-8">
-		<h1 class="text-3xl md:text-4xl font-semibold mb-2">Send to</h1>
-		<p class="text-lg text-secondary break-words">{alias}</p>
-	</div>
-	<Numpad bind:amount {currency} />
+	{#if amount}
+		<div class="text-center mb-8">
+			<h1 class="text-3xl md:text-4xl font-semibold mb-2">Send</h1>
+			<p class="text-lg text-secondary break-words mb-4">{s(amount)} sats</p>
+			<h1 class="text-xl md:text-2xl font-semibold mb-2">To</h1>
+			<p class="text-lg text-secondary break-words">{alias}</p>
+		</div>
+	{:else}
+		<Numpad bind:amount {currency} />
+	{/if}
 
 	<form method="POST">
 		<input name="payreq" value={payreq} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
+    <input name="confirmed" value={form?.confirm} type="hidden" />
+
 		<div class="flex w-full">
 			<button
 				type="submit"
