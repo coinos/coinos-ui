@@ -18,9 +18,10 @@
 	$: $subject = data.subject;
 	$: $token = data.token;
 	$: $user = data.user;
+  $: $rate = data.rate;
 
 	$rates = data.rates;
-	$: $selectedRate = $user && $rate * (data.rates[data.user.currency] / data.rates.USD);
+	$: $selectedRate = $rate * (data.rates[data.user.currency] / data.rates.USD);
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
