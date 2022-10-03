@@ -4,12 +4,11 @@
 	import { back } from '$lib/utils';
 	export let data;
 
-  let { payreq } = $page.params;
+	let { payreq } = $page.params;
+	let { alias } = data;
 
 	let { currency } = data.user;
 	let amount, loading;
-
-  console.log(data)
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -19,7 +18,7 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto">
 	<div class="text-center mb-8">
 		<h1 class="text-3xl md:text-4xl font-semibold mb-2">Send to</h1>
-		<p class="text-lg text-secondary">{payreq}</p>
+		<p class="text-lg text-secondary break-words">{alias}</p>
 	</div>
 	<Numpad bind:amount {currency} />
 
