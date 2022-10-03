@@ -4,10 +4,10 @@ import { protectedRoutes } from '$lib/utils';
 import { get, post, auth } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
-export const { PUBLIC_BTC: btc }  = env;
+export const { PUBLIC_BTC: btc } = env;
 
-export async function load({ request, setHeaders, url, params }) {
-	let { token } = cookie.parse(request.headers.get('cookie') || '');
+export async function load({ cookies, request, url, params }) {
+	let token = cookies.get('token');
 	let user;
 	let rates;
 	let subject;
@@ -31,7 +31,7 @@ export async function load({ request, setHeaders, url, params }) {
 		if (account) {
 			let { id } = account;
 			if (user.account_id !== id) {
-				user = await post('/shiftAccount', { id }, auth(request));
+				user = await post('/shiftAccount', { id }, auth(cookies));
 			}
 		}
 	}

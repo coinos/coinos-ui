@@ -1,4 +1,3 @@
-import cookie from 'cookie';
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
@@ -107,28 +106,17 @@ export const info = (m) => {
 	});
 };
 
-export const login = async (user, setHeaders) => {
+export const login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
 	let { token } = await post('/login', user);
 
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
-	setHeaders({
-		'set-cookie': cookie.serialize('token', token, {
-			httpOnly: true,
-			maxAge,
-			sameSite: 'lax',
-			path: '/',
-			expires
-		})
-	});
+	cookies.set('token', token, { path: '/' });
 };
 
-export const auth = (req) => {
-	let { token } = cookie.parse(req.headers.get('cookie') || '');
-	return { authorization: `Bearer ${token}` };
-};
+export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
 
 export const f = (s, currency) =>
 	new Intl.NumberFormat('en-US', {

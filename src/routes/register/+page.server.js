@@ -1,13 +1,15 @@
+import { redirect } from '@sveltejs/kit';
 import { post, login } from '$lib/utils';
 
-export async function POST({ request, setHeaders }) {
-	let form = Object.fromEntries(await request.formData());
-	let { username, password, redirect } = form;
+export const actions = {
+	default: async ({ cookie, request }) => {
+		let form = Object.fromEntries(await request.formData());
+		let { username, password, redirect: r } = form;
 
-	console.log('REDIRECT', redirect);
-	let user = { username, password };
-	await post('/register', { user });
-	await login(user, setHeaders);
+		let user = { username, password };
+		await post('/register', { user });
+		await login(user, cookie);
 
-	return { location: redirect || `/${user.username}/dashboard` };
-}
+		throw redirect(303, r || `/${user.username}/dashboard`);
+	}
+};

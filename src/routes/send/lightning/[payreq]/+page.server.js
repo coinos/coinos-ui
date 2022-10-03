@@ -6,9 +6,9 @@ export async function load({ params }) {
 }
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ cookies, request }) => {
 		let body = Object.fromEntries(await request.formData());
-		await post('/lightning/send', body, auth(request));
+		await post('/lightning/send', body, auth(cookies));
 		throw redirect(307, '/sent');
 	}
 };
