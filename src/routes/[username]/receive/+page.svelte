@@ -6,11 +6,12 @@
 	export let data;
 	let amount;
 
-	let { currency } = data.user;
+	let { currency, username } = data.user;
 </script>
 
 <form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>
 	<input type="hidden" name="amount" value={amount} />
+	<input type="hidden" name="username" value={username} />
 	<input type="hidden" name="prompt" value="true" />
 
 	<div class="space-y-3 w-full md:w-[300px] mx-auto">

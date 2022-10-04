@@ -3,8 +3,9 @@
 	import { t } from '$lib/translations';
 	import { Icon, Qr } from '$comp';
 	import { Pincode, PincodeInput } from 'svelte-pincode';
-	import { user } from '$lib/store';
-	import { put, success, failure } from '$lib/utils';
+	import { post, success, failure } from '$lib/utils';
+
+	export let user;
 
 	let settingPin, setting2fa, disabling2fa;
 
@@ -30,7 +31,7 @@
 	let enable2fa = async (twoFa) => {
 		try {
 			if (setting2fa && token.length === 6) {
-				await put('/enable2fa', { token });
+				await post('/enable2fa', { token });
 				success('2FA enabled');
 				user.twofa = 1;
 				toggleEnabling();
@@ -44,7 +45,7 @@
 	let disable2fa = async () => {
 		try {
 			if (disabling2fa && token.length === 6) {
-				await put('/disable2fa', { token });
+				await post('/disable2fa', { token });
 				success('2FA disabled');
 				user.twofa = 0;
 				toggleDisabling();

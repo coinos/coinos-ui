@@ -5,7 +5,6 @@
 	let { user } = data;
 	$: link = user ? '/launch/purchase' : '/register';
 	$redirect = '/launch/purchase';
-	console.log('set redirect', $redirect);
 </script>
 
 <div class="flex mt-20 px-8">

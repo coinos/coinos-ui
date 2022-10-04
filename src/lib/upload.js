@@ -1,7 +1,4 @@
-import { get } from 'svelte/store';
-import { token } from '$lib/store';
-
-export const upload = async (file, type, progress) => {
+export const upload = async (file, type, progress, token) => {
 	let url = `/api/upload/${type}`;
 	let formData = new FormData();
 	formData.append('file', file);

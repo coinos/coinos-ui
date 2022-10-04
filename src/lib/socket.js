@@ -37,6 +37,7 @@ const maxReconnectDelay = 16000;
 let currentReconnectDelay = initialReconnectDelay;
 
 export function connect(t) {
+	console.log('CONNECT');
 	token = t;
 
 	clearInterval(interval);
