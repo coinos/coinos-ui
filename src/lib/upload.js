@@ -13,7 +13,7 @@ export const upload = async (file, type, progress, token) => {
 		});
 		ajax.upload.addEventListener('progress', progress, false);
 		ajax.open('POST', url);
-		ajax.setRequestHeader('Authorization', `Bearer ${get(token)}`);
+		ajax.setRequestHeader('Authorization', `Bearer ${token}`);
 		ajax.send(formData);
 	});
 };
