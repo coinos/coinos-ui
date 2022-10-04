@@ -28,7 +28,6 @@
 
 	let save = async () => {
 		try {
-			console.log('Uploading files...');
 			if ($avatarUpload) {
 				await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress, token);
 			}
@@ -37,6 +36,7 @@
 			}
 			success('Settings saved');
 		} catch (e) {
+			console.log(e);
 			failure('Something went wrong');
 		}
 	};

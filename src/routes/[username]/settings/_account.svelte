@@ -127,6 +127,7 @@
 				<img
 					src={profile}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+					alt={user.username}
 				/>
 			</div>
 		{:else if user.profile}
@@ -137,6 +138,7 @@
 				<img
 					src={`/api/public/${user.username}-profile.png`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+					alt={user.username}
 				/>
 			</div>
 		{:else}
