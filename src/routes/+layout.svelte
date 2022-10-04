@@ -3,7 +3,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
-	import { user, subject, token, rate, rates, selectedRate } from '$lib/store';
+	import { selectedRate, rate } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -14,14 +14,10 @@
 	const localeLocalStorageKey = 'sveltekit-i18n-locale';
 
 	export let data;
+	let { user, rate: r, token, rates } = data;
+	$rate = r;
 
-	$: $subject = data.subject;
-	$: $token = data.token;
-	$: $user = data.user;
-  $: $rate = data.rate;
-
-	$rates = data.rates;
-	$: $selectedRate = data.user && $rate * (data.rates[data.user.currency] / data.rates.USD);
+	$: $selectedRate = user && $rate * (rates[user.currency] / rates.USD);
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
@@ -32,13 +28,13 @@
 		});
 
 		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
-			if (!$token) {
+			if (!token) {
 				goto('/login');
 				warning($t('error.signIn'));
 			}
 		}
 
-		connect();
+		connect(token);
 	});
 </script>
 

@@ -1,17 +1,20 @@
 <script>
+	import screenfull from 'screenfull';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
 	export let image, text, qr, disabled;
 
+	let toggle = () => screenfull.toggle(qr.firstChild);
+
 	$: update(text);
-	let update = async (text) => {
+	let update = async (text, fullscreen) => {
 		if (!(browser && text)) return;
 		let { default: QRCodeStyling } = await import('qr-code-styling');
 
 		const qrCode = new QRCodeStyling({
-			width: window.screen.width < 640 ? 250 : 300,
+			width: 300,
 			type: 'canvas',
 			data: text,
 			backgroundOptions: {
@@ -35,22 +38,14 @@
 	};
 </script>
 
-<div
-	bind:this={qr}
-	on:click={() => {
-		if (!disabled) copy(text);
-	}}
-/>
+<div bind:this={qr} on:click={toggle} />
 
 <style>
 	div {
-		@apply px-5
-      md:px-0
-      w-[300px]
+		@apply w-[300px]
       h-[300px]
       rounded-3xl
       block
-      md:flex
       justify-center
       items-center
       cursor-pointer

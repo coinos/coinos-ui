@@ -1,7 +1,7 @@
 import validate from 'bitcoin-address-validation';
 import bip21 from 'bip21';
 import { get } from '$lib/utils';
-import { invalid, redirect } from "@sveltejs/kit";
+import { invalid, redirect } from '@sveltejs/kit';
 
 export const actions = {
 	default: async ({ request }) => {

@@ -1,13 +1,6 @@
 <script>
 	import { tick } from 'svelte';
-	import {
-		user,
-		colorTheme,
-		rates,
-		tempProfileFiles,
-		avatarUpload,
-		bannerUpload
-	} from '$lib/store';
+	import { colorTheme, tempProfileFiles, avatarUpload, bannerUpload } from '$lib/store';
 	import { Icon, Toggle, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 	import { upload } from '$lib/upload';
@@ -58,7 +51,7 @@
 		}
 	};
 
-	$: $user.password = $user.confirm = password;
+	$: user.password = user.confirm = password;
 </script>
 
 <div>
@@ -69,13 +62,13 @@
 <!-- TODO
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-	<input type="email" name="email" bind:value={$user.email} />
+	<input type="email" name="email" bind:value={user.email} />
 </div> -->
 
 <!-- TODO fix breaking changes when user updates this field -->
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
-	<input disabled type="text" name="username" bind:value={$user.username} />
+	<input disabled type="text" name="username" bind:value={user.username} />
 </div>
 
 <div class="relative">
@@ -96,7 +89,7 @@
 
 <div>
 	<label for="address" class="font-bold mb-1 block">{$t('user.settings.businessAddress')}</label>
-	<input type="text" name="address" bind:value={$user.address} />
+	<input type="text" name="address" bind:value={user.address} />
 </div>
 
 <!-- TODO -->
@@ -133,13 +126,13 @@
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 				/>
 			</div>
-		{:else if $user.profile}
+		{:else if user.profile}
 			<div
 				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
 			>
 				<img
-					src={`/api/public/${$user.username}-profile.png`}
+					src={`/api/public/${user.username}-profile.png`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 				/>
 			</div>
@@ -183,9 +176,9 @@
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
 		/>
-	{:else if $user.banner}
+	{:else if user.banner}
 		<img
-			src={`/api/public/${$user.username}-banner.png`}
+			src={`/api/public/${user.username}-banner.png`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
 		/>

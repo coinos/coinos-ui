@@ -1,16 +1,13 @@
 import { get } from 'svelte/store';
-import { rate, user, token, invoices, newPayment } from '$lib/store';
+import { invoices, newPayment, rate } from '$lib/store';
 import { success } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
 const socketUrl = env.PUBLIC_SOCKET;
 
-let interval, socket;
+let interval, socket, token;
 
-export const auth = () => {
-	let t = get(token);
-	if (t) send('login', t);
-};
+export const auth = () => token && send('login', token);
 
 export const send = (type, data) => {
 	socket?.readyState === 1 && socket.send(JSON.stringify({ type, data }));
@@ -31,11 +28,7 @@ export const messages = (data) => ({
 		}
 	},
 
-	connected: auth,
-
-	login() {
-		user.set(data);
-	}
+	connected: auth
 });
 
 const initialReconnectDelay = 1000;
@@ -43,7 +36,9 @@ const maxReconnectDelay = 16000;
 
 let currentReconnectDelay = initialReconnectDelay;
 
-export function connect() {
+export function connect(t) {
+	token = t;
+
 	clearInterval(interval);
 
 	if (socket) return auth();

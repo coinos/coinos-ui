@@ -1,5 +1,6 @@
 <script>
-	import { AppHeader, Icon, Numpad, Spinner } from '$comp';
+	import { enhance } from '$app/forms';
+	import { Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
 	import { back, s } from '$lib/utils';
 	export let data;
@@ -9,9 +10,7 @@
 	let { alias } = data;
 
 	let { currency } = data.user;
-  let amount = form?.amount || data.amount;
-
-	let loading;
+	let amount = form?.amount || data.amount;
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -30,21 +29,17 @@
 		<Numpad bind:amount {currency} />
 	{/if}
 
-	<form method="POST">
+	<form method="POST" use:enhance>
 		<input name="payreq" value={payreq} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
-    <input name="confirmed" value={form?.confirm} type="hidden" />
+		<input name="confirmed" value={form?.confirm} type="hidden" />
 
 		<div class="flex w-full">
 			<button
 				type="submit"
 				class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
 			>
-				{#if loading}
-					<Spinner />
-				{:else}
-					Send
-				{/if}
+				Send
 			</button>
 		</div>
 	</form>

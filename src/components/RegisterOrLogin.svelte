@@ -1,14 +1,11 @@
 <script>
-	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
-	import { tick } from 'svelte';
+	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
-	import { focus, post, failure } from '$lib/utils';
-	import { redirect, user, token } from '$lib/store';
-	import { auth } from '$lib/socket';
-	import { goto } from '$app/navigation';
+	import { focus } from '$lib/utils';
+	import { redirect } from '$lib/store';
 	import { t } from '$lib/translations';
 
+	export let form;
 	export let pageID;
 
 	let username,
@@ -22,9 +19,6 @@
 		register: '/register',
 		signIn: '/login'
 	}[pageID];
-
-	// TODO: move to server side
-	$: if (browser && $user) goto(`/${$user.username}/receive`);
 </script>
 
 <div class="pt-10">
@@ -38,7 +32,11 @@
 		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
 			<h1 class="text-2xl font-bold text-center">{$t('login.' + pageID)}</h1>
 
-			<form class="space-y-5" {action} method="POST">
+			{#if form?.error}
+				Login failed
+			{/if}
+
+			<form class="space-y-5" {action} method="POST" use:enhance>
 				{#if $redirect}
 					<input type="hidden" name="redirect" value={$redirect} />
 				{/if}

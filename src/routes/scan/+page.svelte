@@ -17,9 +17,9 @@
 </button>
 
 <div class="flex w-full mb-4 px-4">
-  <div class="bg-black mx-auto rounded-3xl">
-	<video bind:this={vid} class="border-4 rounded-3xl border-black md:max-w-[600px]" />
-  </div>
+	<div class="bg-black mx-auto rounded-3xl">
+		<video bind:this={vid} class="border-4 rounded-3xl border-black md:max-w-[600px]" />
+	</div>
 </div>
 
 <div class="flex w-full">

@@ -16,7 +16,7 @@ export async function load({ cookies, request, url, params }) {
 		subject = await get(`/users/${params.username}`);
 	}
 
-	if (token) {
+	if (token && token !== 'undefined') {
 		try {
 			user = await get('/me', { accept: 'application/json', authorization: `Bearer ${token}` });
 		} catch (e) {
@@ -36,7 +36,7 @@ export async function load({ cookies, request, url, params }) {
 		}
 	}
 
-  let rate = await get('/rate');
+	let rate = await get('/rate');
 	rates = await get('/rates');
 
 	return { subject, user, token, rate, rates };

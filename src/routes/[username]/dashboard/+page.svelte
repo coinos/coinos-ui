@@ -1,7 +1,7 @@
 <script>
 	import { f, s, post, failure, sats } from '$lib/utils';
 	import { tick } from 'svelte';
-	import { AppHeader, Icon } from '$comp';
+	import { Icon } from '$comp';
 	import { rate, selectedRate } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -42,8 +42,6 @@
 
 	$: accountBalanceSats = s(user.account.balance);
 </script>
-
-<AppHeader avatarPosition="left-[calc(50vw-64px)] lg:left-[calc(15vw-64px)]" />
 
 <div class="text-center mx-auto lg:text-left lg:mx-0 lg:ml-[calc(15vw-64px)] mt-20 w-full md:w-72">
 	<h2 class="text-3xl font-semibold">{user.username}</h2>

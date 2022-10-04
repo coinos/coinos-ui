@@ -27,14 +27,9 @@ const persistLocal = (key, defaultValue) => {
 	return s;
 };
 
-export const rate = writable();
 export const redirect = writable();
-export const rates = writable();
+export const rate = writable();
 export const selectedRate = writable();
-export const user = writable();
-export const subject = writable();
-export const invoiceAmount = writable();
-export const invoiceAmountFiat = writable();
 export const token = persistSession('token');
 export const invoices = writable({});
 export const newPayment = persistLocal('newPayment');

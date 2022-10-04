@@ -8,7 +8,7 @@ export async function load({ params }) {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let body = Object.fromEntries(await request.formData());
-    let { amount, confirmed } = body;
+		let { amount, confirmed } = body;
 
 		if (!confirmed) {
 			return invalid(403, { amount, confirm: true });

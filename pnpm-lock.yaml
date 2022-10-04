@@ -17,8 +17,8 @@ specifiers:
   prettier-plugin-svelte: ^2.7.1
   qr-code-styling: 1.6.0-rc.1
   qr-scanner: ^1.4.1
+  screenfull: ^6.0.2
   svelte: ^3.50.1
-  svelte-fullscreen: ^2.0.0
   svelte-outclick: ^3.1.0
   svelte-pincode: ^2.1.2
   svelte-preprocess: ^4.10.7
@@ -43,8 +43,8 @@ devDependencies:
   prettier-plugin-svelte: 2.7.1_nk6d2fkgcllkkdynqbuearcure
   qr-code-styling: 1.6.0-rc.1
   qr-scanner: 1.4.1
+  screenfull: 6.0.2
   svelte: 3.50.1
-  svelte-fullscreen: 2.0.0
   svelte-outclick: 3.1.0
   svelte-pincode: 2.1.2
   svelte-preprocess: 4.10.7_r763xggw3my2ousygwguxmp6ru
@@ -1438,9 +1438,9 @@ packages:
       rimraf: 2.7.1
     dev: true
 
-  /screenfull/5.2.0:
-    resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==}
-    engines: {node: '>=0.10.0'}
+  /screenfull/6.0.2:
+    resolution: {integrity: sha512-AQdy8s4WhNvUZ6P8F6PB21tSPIYKniic+Ogx0AacBMjKP1GUHN2E9URxQHtCusiwxudnCKkdy4GrHXPPJSkCCw==}
+    engines: {node: ^14.13.1 || >=16.0.0}
     dev: true
 
   /secp256k1/4.0.3:
@@ -1526,12 +1526,6 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
-    dev: true
-
-  /svelte-fullscreen/2.0.0:
-    resolution: {integrity: sha512-Sg03gZAyYtW7gqTA9WoFXY2m4CkFmRFu/+n7bmGJnYt/qxtO0N2tdQ61lZwbgN2AAMh2zF/185CTBI9vv3zvKQ==}
-    dependencies:
-      screenfull: 5.2.0
     dev: true
 
   /svelte-hmr/0.15.0_svelte@3.50.1:

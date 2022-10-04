@@ -1,5 +1,6 @@
 <script>
-	import { AppHeader, Icon, Numpad, Spinner } from '$comp';
+	import { enhance } from '$app/forms';
+	import { Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
 	import { back } from '$lib/utils';
 	export let data;
@@ -20,7 +21,7 @@
 	</div>
 	<Numpad bind:amount {currency} />
 
-	<form method="POST">
+	<form method="POST" use:enhance>
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<div class="flex w-full">
