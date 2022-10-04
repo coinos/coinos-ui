@@ -127,6 +127,7 @@
 						? $tempProfileFiles.profile
 						: `/api/public/${subject.username}-profile.png`}
 					class="w-full h-full object-cover object-center overflow-hidden"
+					alt={subject.username}
 				/>
 			</a>
 		</div>

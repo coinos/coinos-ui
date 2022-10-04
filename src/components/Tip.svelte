@@ -26,7 +26,6 @@
 	let apply = async () => {
 		if (customTipAmount > 0) {
 			tipPercent = (customTipAmount / amountFiat) * 100;
-			console.log('TIP PERCENT', tipPercent);
 			update();
 			showMobileTip = false;
 			showCustomAmount = false;

@@ -2,10 +2,11 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { Icon, PageNotFound } from '$comp';
-	import { subject, user } from '$lib/store';
 	import { copy } from '$lib/utils';
 	import { t } from '$lib/translations';
 	export let data;
+
+	let { subject } = data;
 
 	let lightningAddress = `${data?.username}@coinos.io`;
 
@@ -38,10 +39,10 @@
 <div class="flex xl:block justify-center items-center my-20 px-3">
 	<div class="space-y-10 xl:space-y-0">
 		<div class="xl:ml-[calc(15vw-64px)] space-y-2 w-full md:w-72">
-			<h1 class="text-3xl font-bold">{$subject.username}</h1>
+			<h1 class="text-3xl font-bold">{subject.username}</h1>
 
 			<p class="text-secondary">
-				{$subject.address && $subject.address !== 'null' ? $subject.address : ''}
+				{subject.address && subject.address !== 'null' ? subject.address : ''}
 			</p>
 
 			<!-- TODO

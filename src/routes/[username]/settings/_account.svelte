@@ -5,6 +5,8 @@
 	import { t } from '$lib/translations';
 	import { upload } from '$lib/upload';
 
+	export let user;
+
 	let selectedTheme = 1;
 	let revealPassword = false;
 	let password;
@@ -69,14 +71,15 @@
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
 	<input disabled type="text" name="username" bind:value={user.username} />
+	<input type="hidden" name="username" bind:value={user.username} />
 </div>
 
 <div class="relative">
 	<label for="password" class="block font-bold block mb-1">{$t('user.settings.newPassword')}</label>
 	{#if revealPassword}
-		<input type="text" bind:value={password} />
+		<input name="password" type="text" bind:value={password} />
 	{:else}
-		<input type="password" bind:value={password} />
+		<input name="password" type="password" bind:value={password} />
 	{/if}
 	<button
 		type="button"

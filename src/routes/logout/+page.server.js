@@ -1,5 +1,4 @@
 import { redirect } from '@sveltejs/kit';
-import cookie from 'cookie';
 
 const opts = {
 	expires: new Date(0),

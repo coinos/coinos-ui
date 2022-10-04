@@ -18,7 +18,7 @@ export async function load({ cookies, request, url, params }) {
 
 	if (token && token !== 'undefined') {
 		try {
-			user = await get('/me', { accept: 'application/json', authorization: `Bearer ${token}` });
+			user = await get('/me', auth(cookies));
 		} catch (e) {
 			throw redirect(307, '/logout');
 		}

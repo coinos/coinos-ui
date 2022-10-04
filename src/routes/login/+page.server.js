@@ -6,10 +6,10 @@ export const actions = {
 		let user = Object.fromEntries(await request.formData());
 		try {
 			await login(user, cookies);
-			throw redirect(303, `/${user.username}/dashboard`);
 		} catch (e) {
-			console.log('OW');
-			return invalid(403, { error: 'Login failed' });
+			return invalid(400, { message: 'Login failed' });
 		}
+
+		throw redirect(303, `/${user.username}/dashboard`);
 	}
 };

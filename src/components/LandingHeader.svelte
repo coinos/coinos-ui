@@ -7,6 +7,7 @@
 	export let howItWorks;
 	export let faq;
 	export let about;
+	export let user;
 
 	let showMobileMenu = false;
 	const mobileMenuButtonClick = (section) => {

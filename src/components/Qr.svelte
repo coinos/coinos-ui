@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { copy } from '$lib/utils';
 
-	export let image, text, qr, disabled;
+	export let image, text, qr;
 
 	let toggle = () => screenfull.toggle(qr.firstChild);
 

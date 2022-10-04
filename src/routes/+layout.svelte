@@ -15,6 +15,8 @@
 
 	export let data;
 	let { user, rate: r, token, rates } = data;
+	$: update(data);
+	let update = () => ({ user, rate: r, token, rates } = data);
 	$rate = r;
 
 	$: $selectedRate = user && $rate * (rates[user.currency] / rates.USD);
@@ -26,16 +28,9 @@
 		locale.subscribe((lng) => {
 			if (lng) localStorage.setItem(localeLocalStorageKey, lng);
 		});
-
-		if (protectedRoutes.find((p) => $page.url.pathname.match(p))) {
-			if (!token) {
-				goto('/login');
-				warning($t('error.signIn'));
-			}
-		}
-
-		connect(token);
 	});
+
+	$: browser && connect(token);
 </script>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />

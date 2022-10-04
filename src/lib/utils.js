@@ -38,17 +38,6 @@ export const post = (url, body, headers) => {
 		});
 };
 
-export const put = (url, body, headers) => {
-	headers = { ...headers, 'content-type': 'application/json' };
-	return fetch(base + url, {
-		method: 'PUT',
-		body: JSON.stringify(body),
-		headers
-	}).then(async (r) => {
-		if (!r.ok) throw new Error('put failed');
-	});
-};
-
 export const copy = (text) => {
 	navigator.clipboard.writeText(text);
 	success('Copied!');
@@ -109,14 +98,11 @@ export const info = (m) => {
 export const login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
 	let { token } = await post('/login', user);
-	console.log('logged in', token);
 
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
-	console.log('cs');
 	cookies.set('token', token, { path: '/' });
-	console.log('bs');
 };
 
 export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
