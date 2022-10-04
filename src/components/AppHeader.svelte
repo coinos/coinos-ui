@@ -1,12 +1,15 @@
 <script>
 	import OutClick from 'svelte-outclick';
-	import { subject, user, newPayment, colorTheme, tempProfileFiles } from '$lib/store';
+	import { newPayment, colorTheme, tempProfileFiles } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 
+	export let data;
 	export let avatarPosition = 'left-[calc(50vw-64px)] bottom-[-64px]';
+
+	let { subject, user } = data;
 
 	const menuButtons = [
 		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },
@@ -22,34 +25,34 @@
 			goto('/logout');
 		} else {
 			showMenu = false;
-			goto(`/${$user.username + '/' + item}`);
+			goto(`/${user.username + '/' + item}`);
 		}
 	};
 
 	$: background =
 		$tempProfileFiles && $tempProfileFiles.banner
 			? `url(${$tempProfileFiles.banner})`
-			: $subject?.banner
-			? `url(/api/public/${$subject.username}-banner.png)`
+			: subject?.banner
+			? `url(/api/public/${subject.username}-banner.png)`
 			: undefined;
 </script>
 
 <header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative" style:background>
 	<nav class="flex justify-end items-center space-x-4 p-5">
-		{#if $user}
-			<a href={`/${$user.username}/receive`}>
+		{#if user}
+			<a href={`/${user.username}/receive`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${$user.username}/receive`
+						.url.pathname === `/${user.username}/receive`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
 					><Icon icon="numpad" style="mx-auto" />
 				</button>
 			</a>
-			<a href={`/${$user.username}/transactions`}>
+			<a href={`/${user.username}/transactions`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${$user.username}/transactions`
+						.url.pathname === `/${user.username}/transactions`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'} relative"
 					><Icon icon="clock" style="mx-auto" />
@@ -65,10 +68,10 @@
 					{/if}
 				</button>
 			</a>
-			<a href={`/${$user.username}`}>
+			<a href={`/${user.username}`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${$user.username}`
+						.url.pathname === `/${user.username}`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
 					><Icon icon="profile" style="mx-auto" />
@@ -78,9 +81,9 @@
 				<OutClick on:outclick={() => (showMenu = false)}>
 					<button
 						class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-							.url.pathname === `/${$user.username}/dashboard` ||
-						$page.url.pathname === `/${$user.username}/settings` ||
-						$page.url.pathname === `/${$user.username}/support`
+							.url.pathname === `/${user.username}/dashboard` ||
+						$page.url.pathname === `/${user.username}/settings` ||
+						$page.url.pathname === `/${user.username}/support`
 							? 'opacity-100'
 							: `opacity-70 hover:opacity-80 ${showMenu ? 'opacity-80' : ''}`}"
 						on:click={() => (showMenu = !showMenu)}
@@ -114,18 +117,18 @@
 			</a>
 		{/if}
 	</nav>
-	{#if $subject?.profile}
+	{#if subject?.profile}
 		<div
 			class="absolute top-[111px] {avatarPosition} rounded-full border-4 border-white overflow-hidden w-32 h-32"
 		>
-    <a href={`/${$subject.username}`}>
-			<img
-				src={$tempProfileFiles && $tempProfileFiles.profile
-					? $tempProfileFiles.profile
-					: `/api/public/${$subject.username}-profile.png`}
-				class="w-full h-full object-cover object-center overflow-hidden"
-			/>
-      </a>
+			<a href={`/${subject.username}`}>
+				<img
+					src={$tempProfileFiles && $tempProfileFiles.profile
+						? $tempProfileFiles.profile
+						: `/api/public/${subject.username}-profile.png`}
+					class="w-full h-full object-cover object-center overflow-hidden"
+				/>
+			</a>
 		</div>
 	{:else}
 		<div

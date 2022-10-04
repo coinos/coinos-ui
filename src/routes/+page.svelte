@@ -12,6 +12,9 @@
 
 	import { t } from '$lib/translations';
 
+	export let data;
+	let { user } = data;
+
 	let howItWorks;
 	let faq;
 	let about;
@@ -28,24 +31,20 @@
 <!-- banner -->
 <div class="mt-[101.7px] md:mt-0 w-full text-center py-4 border border-b-black text-secondary">
 	<p>
-    {@html $t('newSiteHeader')}
+		{@html $t('newSiteHeader')}
 	</p>
 </div>
 
-<LandingHeader {howItWorks} {faq} {about} />
+<LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
-	<!-- hero -->
-	<LandingHero />
-
-	<!-- landing info 1 -->
+	<LandingHero {user} />
 	<LandingInfoCard
 		image="lightning-qr"
 		title={$t('landing.info1.title')}
 		description={$t('landing.info1.description')}
 	/>
 
-	<!-- landing info 2 -->
 	<LandingInfoCard image="phone-checkout" title={$t('landing.info2.title')} order="reverse">
 		{$t('landing.info2.description1')}
 		<br /><br />
@@ -54,7 +53,6 @@
 		{@html $t('landing.info2.description3')}
 	</LandingInfoCard>
 
-	<!-- landing info 3 -->
 	<div>
 		<LandingInfoCard
 			image="customize"
@@ -64,7 +62,6 @@
 		<div bind:this={howItWorks} />
 	</div>
 
-	<!-- how it works -->
 	<div>
 		<h3 class="text-5xl font-medium mb-10 text-center">{$t('howItWorks.header')}</h3>
 		<div class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center">
@@ -75,7 +72,6 @@
 		<div bind:this={faq} />
 	</div>
 
-	<!-- faq -->
 	<div>
 		<div class="space-y-10">
 			<h3 class="text-5xl font-medium text-center">{$t('faq.header')}</h3>
@@ -86,7 +82,6 @@
 		<div bind:this={about} />
 	</div>
 
-	<!-- about -->
 	<div>
 		<About />
 	</div>

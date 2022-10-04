@@ -1,5 +1,4 @@
 <script>
-	import { AppHeader } from '$comp';
 	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { f, s, sats } from '$lib/utils';
@@ -15,8 +14,6 @@
 	$: data && ({ page, pages, total, transactions } = data);
 </script>
 
-<AppHeader />
-
 <div class="mt-24 mb-20">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
 		{$t('user.transactions.header')}
@@ -27,7 +24,9 @@
 			{#if pages.length > 1}
 				{#each pages as _, i}
 					<a href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
-						<div class="border py-2 px-4 rounded-full border-2 w-12 h-12 hover:opacity-80 mr-1 text-center my-auto">
+						<div
+							class="border py-2 px-4 rounded-full border-2 w-12 h-12 hover:opacity-80 mr-1 text-center my-auto"
+						>
 							{i + 1}
 						</div>
 					</a>
@@ -76,6 +75,6 @@
 
 <style>
 	.active div {
-    @apply bg-gray-100;
+		@apply bg-gray-100;
 	}
 </style>

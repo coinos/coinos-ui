@@ -109,11 +109,14 @@ export const info = (m) => {
 export const login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
 	let { token } = await post('/login', user);
+	console.log('logged in', token);
 
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
+	console.log('cs');
 	cookies.set('token', token, { path: '/' });
+	console.log('bs');
 };
 
 export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
@@ -127,11 +130,6 @@ export const f = (s, currency) =>
 		.replace('CA', '');
 
 export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
-
-export const toggleFullscreen = (el) =>
-	document.fullscreenElement
-		? document.exitFullscreen()
-		: el.requestFullscreen().catch(console.log);
 
 export const sats = 100000000;
 

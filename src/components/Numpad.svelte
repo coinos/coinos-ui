@@ -1,6 +1,6 @@
 <script>
 	import { Left, Icon } from '$comp';
-	import { selectedRate, user } from '$lib/store';
+	import { selectedRate } from '$lib/store';
 	import { f, s, post, warning, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
 
@@ -32,7 +32,7 @@
 
 	$: amountSatsFormatted = s(amountSats);
 
-	$: amountFiatConverted = f(amountSats * ($selectedRate / sats), $user.currency);
+	$: amountFiatConverted = f(amountSats * ($selectedRate / sats), currency);
 
 	$: amountSatsConverted = s(amountFiat / ($selectedRate / sats));
 
@@ -90,13 +90,14 @@
 		<div class="text-center">
 			<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
 				{useFiat ? `${symbol}${amountFiat}` : amountSatsFormatted}<span
-					class="tracking-normal text-base font-normal">{useFiat ? $user.currency : 'SAT'}</span
+					class="tracking-normal text-base font-normal">{useFiat ? currency : 'SAT'}</span
 				>
 			</div>
 			<span class="text-secondary mr-1"
 				>{useFiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
 			>
 			<button
+				type="button"
 				on:click={() => {
 					if (useFiat) {
 						amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
@@ -115,13 +116,15 @@
 			{#each numPad as value}
 				{#if value === '<'}
 					<button
+						type="button"
 						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
 						on:click={() => handleInput(value)}
 					>
-          <Left />
+						<Left />
 					</button>
 				{:else}
 					<button
+						type="button"
 						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
 						on:click={() => handleInput(value)}>{value}</button
 					>

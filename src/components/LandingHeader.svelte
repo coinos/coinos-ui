@@ -2,7 +2,6 @@
 	import { goto } from '$app/navigation';
 	import { scroll } from '$lib/utils';
 	import { Icon } from '$comp';
-	import { user } from '$lib/store';
 	import { t } from '$lib/translations';
 
 	export let howItWorks;
@@ -32,7 +31,7 @@
 			>
 			<button class="hover:opacity-80" on:click={() => scroll(faq)}>{$t('faq.header')}</button>
 			<button class="hover:opacity-80" on:click={() => scroll(about)}>{$t('about.header')}</button>
-			{#if !$user}
+			{#if !user}
 				<button
 					class="border rounded-full px-6 py-2 font-bold hover:opacity-80"
 					on:click={() => goto('/register')}
@@ -47,7 +46,7 @@
 			{:else}
 				<button
 					class="border rounded-full px-6 py-2 font-bold"
-					on:click={() => goto(`/${$user.username}/dashboard`)}
+					on:click={() => goto(`/${user.username}/dashboard`)}
 					>{$t('nav.account')}
 				</button>
 				<button
@@ -80,7 +79,7 @@
 				<button on:click={() => mobileMenuButtonClick(about)} class="block"
 					>{$t('about.header')}</button
 				>
-				{#if !$user}
+				{#if !user}
 					<button
 						class="border rounded-full px-6 py-2 font-bold block w-full"
 						on:click={() => goto('/register')}
@@ -95,7 +94,7 @@
 				{:else}
 					<button
 						class="border rounded-full px-6 py-2 font-bold block"
-						on:click={() => goto(`/${$user.username}/dashboard`)}
+						on:click={() => goto(`/${user.username}/dashboard`)}
 						>{$t('nav.account')}
 					</button>
 					<button

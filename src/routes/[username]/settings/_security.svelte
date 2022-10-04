@@ -32,7 +32,7 @@
 			if (setting2fa && token.length === 6) {
 				await put('/enable2fa', { token });
 				success('2FA enabled');
-				$user.twofa = 1;
+				user.twofa = 1;
 				toggleEnabling();
 			}
 		} catch (e) {
@@ -46,7 +46,7 @@
 			if (disabling2fa && token.length === 6) {
 				await put('/disable2fa', { token });
 				success('2FA disabled');
-				$user.twofa = 0;
+				user.twofa = 0;
 				toggleDisabling();
 			}
 		} catch (e) {
@@ -54,7 +54,7 @@
 		}
 	};
 
-	$: otpUri = `otpauth://totp/coinos:${$user.username}?secret=${$user.otpsecret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
+	$: otpUri = `otpauth://totp/coinos:${user.username}?secret=${user.otpsecret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
 </script>
 
 <!-- TODO
@@ -66,7 +66,7 @@
 	{#if settingPin}
 		<div class="flex my-4">
 			<div class="mx-auto">
-				<Pincode bind:code bind:value={$user.pin} bind:this={pinInput}>
+				<Pincode bind:code bind:value={user.pin} bind:this={pinInput}>
 					<PincodeInput />
 					<PincodeInput />
 					<PincodeInput />
@@ -110,7 +110,7 @@
 
 		<div class="text-center my-4">
 			{$t('user.settings.accountId')}<br />
-			<b>{$user.otpsecret}</b>
+			<b>{user.otpsecret}</b>
 		</div>
 
 		<div class="text-center my-4">
@@ -136,7 +136,7 @@
 				<PincodeInput />
 			</Pincode>
 		</div>
-	{:else if $user.twofa}
+	{:else if user.twofa}
 		<button type="button" class="primary" on:click={toggleDisabling}>
 			<Icon icon="mobile" style="mr-1" />
 			{$t('user.settings.twofaDisable')}

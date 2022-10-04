@@ -1,8 +1,9 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { Icon, Image } from '$comp';
-	import { user } from '$lib/store';
 	import { t } from '$lib/translations';
+
+	export let user;
 </script>
 
 <div class="mt-[96.88px] md:mt-0">
@@ -22,18 +23,18 @@
 		>
 			{$t('landing.subheader')}
 		</h2>
-		{#if !$user}
+		{#if !user}
 			<div class="flex justify-center">
-				<button
-					class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
-					on:click={() => goto('/register')}
-				>
-					{$t('nav.startInSeconds')}
-				</button>
+				<a href="/register">
+					<button
+						class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
+					>
+						{$t('nav.startInSeconds')}
+					</button>
+				</a>
 			</div>
 		{/if}
 	</div>
 
-	<!-- hero image -->
 	<Image image="hero-image" style="w-full md:w-2/3 max-w-5xl mx-auto mt-20" />
 </div>

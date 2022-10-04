@@ -14,11 +14,9 @@
 		<Icon icon="check" style="mx-auto" />
 	</div>
 	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
-  <a href={`/${user.username}/transactions`}>
-	<button
-		class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
-	>
-		{$t('invoice.done')}
-	</button>
-    </a>
+	<a href={`/${user.username}/transactions`}>
+		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
+			{$t('invoice.done')}
+		</button>
+	</a>
 </div>

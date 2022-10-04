@@ -77,7 +77,7 @@
 			locations.forEach(({ lat, lng, info }) => {
 				let marker = L.marker([lat, lng]);
 
-        marker.bindPopup(info);
+				marker.bindPopup(info);
 				markers.addLayer(marker);
 			});
 

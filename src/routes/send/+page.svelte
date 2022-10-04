@@ -1,16 +1,16 @@
 <script>
+	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { AppHeader, Icon, Spinner } from '$comp';
+	import { Icon, Spinner } from '$comp';
 	import { back, failure } from '$lib/utils';
 
 	export let form;
 
 	let el;
 	let placeholder = 'Address, Invoice, Username';
-	let text = placeholder,
-		loading;
+	let text = placeholder;
 
 	let focus = () => text === placeholder && (text = '');
 	let keypress = (e) => e.key === 'Enter' && e.preventDefault() && el.submit();
@@ -26,7 +26,7 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" bind:this={el}>
+<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" bind:this={el} use:enhance>
 	<div class="mb-2">
 		<label for="invoice" class="font-bold mb-1 block">Destination</label>
 		<input type="hidden" name="text" bind:value={text} />
@@ -70,11 +70,7 @@
 				? 'opacity-50'
 				: 'opacity-100 hover:opacity-80'} bg-black text-white border rounded-full px-6 py-2 font-bold"
 		>
-			{#if loading}
-				<Spinner />
-			{:else}
-				Next
-			{/if}
+			Next
 		</button>
 	</div>
 </form>

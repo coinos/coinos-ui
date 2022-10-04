@@ -3,7 +3,7 @@
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
 
-	import { AppHeader, Icon } from '$comp';
+	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, success, put } from '$lib/utils';
 	import { user, avatarUpload, bannerUpload } from '$lib/store';
@@ -34,8 +34,6 @@
 		}
 	};
 </script>
-
-<AppHeader />
 
 <form on:submit|preventDefault={save} class="mb-[154px]">
 	<div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">

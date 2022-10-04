@@ -1,7 +1,7 @@
 <script>
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { AppHeader, Icon, PageNotFound } from '$comp';
+	import { Icon, PageNotFound } from '$comp';
 	import { subject, user } from '$lib/store';
 	import { copy } from '$lib/utils';
 	import { t } from '$lib/translations';
@@ -34,8 +34,6 @@
 
 	let followed = false;
 </script>
-
-<AppHeader />
 
 <div class="flex xl:block justify-center items-center my-20 px-3">
 	<div class="space-y-10 xl:space-y-0">

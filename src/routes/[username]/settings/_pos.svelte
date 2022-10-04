@@ -1,5 +1,4 @@
 <script>
-	import { rates, user } from '$lib/store';
 	import { Icon, Toggle } from '$comp';
 	import { t } from '$lib/translations';
 	import { success, failure, put } from '$lib/utils';

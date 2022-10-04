@@ -1,14 +1,14 @@
 <script>
-	import { copy, f, get, reverseFormat, s, toggleFullscreen, sats } from '$lib/utils';
+	import { copy, f, get, reverseFormat, s, sats } from '$lib/utils';
 	import { browser } from '$app/environment';
-	import { invoices, user } from '$lib/store';
+	import { invoices } from '$lib/store';
 	import { Icon, Heart, Image, Qr, Tip } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
 	export let data;
 	$: refresh(data);
-	let { invoice, id } = data;
+	let { invoice, id, user } = data;
 	let {
 		amount,
 		rate,
@@ -24,6 +24,8 @@
 
 	let qr;
 	let tipPercent = 0;
+
+	let fullscreen;
 
 	let refresh = (data) => {
 		({ invoice, id } = data);
@@ -57,7 +59,7 @@
 <div class:full-shadow={showMobileTip}>
 	<button
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-		class:invisible={!$user}
+		class:invisible={!user}
 		disabled={showMobileTip}
 		on:click={() => goto(`/${username}/receive`)}
 	>
@@ -109,12 +111,10 @@
 
 				<div>
 					<button
-						class="border border-lightgrey rounded-md p-2 mx-2 hover:opacity-80"
-						on:click={() => toggleFullscreen(qr)}><Icon icon="expand" /></button
-					>
-					<button
-						class="border border-lightgrey rounded-md p-2 mx-2 hover:opacity-80"
-						on:click={() => copy(text)}><Icon icon="copy" /></button
+						class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2 mx-auto"
+						on:click={() => copy(text)}
+						><Icon icon="copy" style="mr-1" />
+						<div>Copy</div></button
 					>
 				</div>
 
