@@ -73,13 +73,12 @@
 		<input type="hidden" name="username" value={username} />
 		<input type="hidden" name="prompt" value="true" />
 
-		<h1 class="hidden md:block text-4xl font-semibold">{$t('invoice.addTipq')}</h1>
+		<h1 class="hidden md:block text-4xl font-semibold mb-2">{$t('invoice.addTipq')}</h1>
 		{#if !showCustomAmount}
-			<div>
-				<span class="font-semibold mr-1">{f(tipAmount, currency)}</span><span
-					class="text-secondary font-semibold text-sm">{`(${s(tip)} SAT)`}</span
-				>
-				<span class="block text-secondary text-sm">{Math.round(tipPercent)}%</span>
+			<div class="mb-2">
+				<span class="font-semibold mr-1">{f(tipAmount, currency)}</span>
+				<span class="text-secondary font-semibold text-sm">{`(${s(tip)} SAT)`}</span>
+				<div class="text-secondary text-sm mb-2">{Math.round(tipPercent)}%</div>
 			</div>
 
 			<input
@@ -88,7 +87,8 @@
 				min="0"
 				max="100"
 				value={tipPercent}
-				class="px-2 py-0 mb-4"
+				class="px-0 py-0 mb-4"
+				style="--bgPercent: {tipPercent}%;"
 				on:input={handleSlide}
 				on:change={() => (showMobileTip = false)}
 			/>
@@ -157,7 +157,13 @@
 		width: 100%;
 		height: 6px;
 		border-radius: 5px;
-		background: #eaecef;
+		background: linear-gradient(
+			to right,
+			black 0%,
+			black var(--bgPercent),
+			#F5F7FA var(--bgPercent),
+			#F5F7FA 100%
+		);
 		outline: none;
 	}
 
@@ -168,18 +174,22 @@
 	#slider::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
-		width: 25px;
-		height: 25px;
+		width: 20px;
+		height: 20px;
 		border-radius: 50%;
 		background: black;
 		cursor: pointer;
 	}
 
 	#slider::-moz-range-thumb {
-		width: 25px;
-		height: 25px;
+		width: 20px;
+		height: 20px;
 		border-radius: 50%;
 		background: black;
 		cursor: pointer;
+	}
+
+	#slider.slider-track::-moz-range-progress {
+		background: black;
 	}
 </style>

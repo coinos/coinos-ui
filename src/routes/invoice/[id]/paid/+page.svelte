@@ -1,7 +1,5 @@
 <script>
 	import { scale } from 'svelte/transition';
-	import { onMount } from 'svelte';
-	import { quintOut } from 'svelte/easing';
 	import { Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/environment';
@@ -13,7 +11,6 @@
 	export let data;
 	let { invoice } = data;
 	let { amount, rate } = invoice;
-	let yeah;
 
 	toast.pop(0);
 

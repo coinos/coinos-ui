@@ -53,10 +53,6 @@
 
 <div class="px-3 md:px-0 flex justify-center items-center mt-10 lg:mt-0 mb-20">
 	<div>
-		<h3 class="text-secondary font-bold pb-1 mt-10 mb-6 w-full md:w-[500px] uppercase">
-			{$t('user.dashboard.accountBalance')}
-		</h3>
-
 		<span class="text-3xl font-bold block mb-1"
 			>{$selectedRate
 				? f(accountBalanceFiat, user.currency)
@@ -73,12 +69,19 @@
 					>{$t('user.dashboard.receive')}</button
 				>
 			</a>
-			<a href="/send">
-				<button
-					class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-					on:click={() => goto('/send')}>{$t('user.dashboard.withdraw')}</button
-				>
-			</a>
+			{#if user.account.balance > 0}
+				<a href="/send">
+					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+						>{$t('user.dashboard.withdraw')}</button
+					>
+				</a>
+			{:else}
+        <a href={`/${user.username}/settings`}>
+					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+						>Setup Account</button
+					>
+				</a>
+			{/if}
 		</div>
 	</div>
 </div>
