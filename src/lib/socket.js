@@ -21,7 +21,6 @@ export const messages = (data) => ({
 	payment() {
 		let { amount, invoice } = data;
 		if (invoice) {
-			console.log('updating invoice', invoice.uuid, invoice.received, invoice.amount);
 			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
 		}
 		newPayment.set(true);
