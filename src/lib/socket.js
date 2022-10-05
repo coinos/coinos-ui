@@ -19,12 +19,16 @@ export const messages = (data) => ({
 	},
 
 	payment() {
-		if (data.invoice) invoices.set({ ...get(invoices), [data.invoice.uuid]: data.invoice });
+		let { amount, invoice } = data;
+		if (invoice) {
+			console.log('updating invoice', invoice.uuid, invoice.received, invoice.amount);
+			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
+		}
 		newPayment.set(true);
-		if (data.amount > 0) {
-			success(`Received ${data.amount} sats!`);
+		if (amount > 0) {
+			success(`Received ${amount} sats!`);
 		} else {
-			success(`Sent ${-data.amount} sats!`);
+			success(`Sent ${-amount} sats!`);
 		}
 	},
 
@@ -37,7 +41,6 @@ const maxReconnectDelay = 16000;
 let currentReconnectDelay = initialReconnectDelay;
 
 export function connect(t) {
-	console.log('CONNECT');
 	token = t;
 
 	clearInterval(interval);

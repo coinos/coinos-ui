@@ -10,7 +10,6 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@lottiefiles/svelte-lottie-player": "^0.2.0",
 		"@sveltejs/adapter-node": "next",
 		"@sveltejs/kit": "1.0.0-next.505",
 		"@zerodevx/svelte-toast": "^0.7.2",

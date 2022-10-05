@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@lottiefiles/svelte-lottie-player': ^0.2.0
   '@sveltejs/adapter-node': next
   '@sveltejs/kit': 1.0.0-next.505
   '@zerodevx/svelte-toast': ^0.7.2
@@ -27,7 +26,6 @@ specifiers:
   vite: ^3.1.4
 
 devDependencies:
-  '@lottiefiles/svelte-lottie-player': 0.2.0
   '@sveltejs/adapter-node': 1.0.0-next.96
   '@sveltejs/kit': 1.0.0-next.505_svelte@3.50.1+vite@3.1.4
   '@zerodevx/svelte-toast': 0.7.2
@@ -71,12 +69,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@lottiefiles/svelte-lottie-player/0.2.0:
-    resolution: {integrity: sha512-sV8YkO8hCDGq67LCCqjT+JW6cAbVCIw9wtgrOWz+Ao6Q8cD7ZvdsCiipSIMIH55Ja6MWwEXP4N4nKD+jL3XQLg==}
-    dependencies:
-      lottie-web: 5.9.6
-    dev: true
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1057,10 +1049,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
-
-  /lottie-web/5.9.6:
-    resolution: {integrity: sha512-JFs7KsHwflugH5qIXBpB4905yC1Sub2MZWtl/elvO/QC6qj1ApqbUZJyjzJseJUtVpgiDaXQLjBlIJGS7UUUXA==}
     dev: true
 
   /magic-string/0.25.9:
