@@ -7,9 +7,14 @@
 	import { page } from '$app/stores';
 
 	export let data;
-	export let avatarPosition = 'left-[calc(50vw-64px)] bottom-[-64px]';
+	export let avatarPosition = 'left-[calc(50vw-64px)] md:left-[calc(15vw-48px)] bottom-[-64px]';
 
 	let { subject, user } = data;
+	$: update(data);
+	let update = (data) => ({ subject, user } = data);
+
+	$: updateUser(user);
+	let updateUser = () => console.log("USER", user);
 
 	const menuButtons = [
 		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },

@@ -18,6 +18,7 @@ export async function load({ cookies, request, url, params }) {
 
 	if (token && token !== 'undefined') {
 		try {
+      console.log("GETTING USER");
 			user = await get('/me', auth(cookies));
 		} catch (e) {
 			throw redirect(307, '/logout');
