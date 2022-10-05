@@ -8,7 +8,6 @@
 	export let image, text, qr, fullQr, full;
 
 	let toggle = async () => {
-		console.log('FULL', full);
 		full = !full;
 		await tick();
 		screenfull.toggle(fullQr.firstChild);
