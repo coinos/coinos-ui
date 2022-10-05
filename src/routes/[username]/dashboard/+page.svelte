@@ -53,20 +53,19 @@
 
 <div class="px-3 md:px-0 flex justify-center items-center mt-10 lg:mt-0 mb-20">
 	<div>
-		<h1 class="text-3xl md:text-4xl font-semibold mb-8">
-			{$t('user.dashboard.dashboard')}
-		</h1>
-		<h3 class="text-secondary font-bold border-b pb-1 mt-10 mb-6 w-full md:w-[500px] uppercase">
+		<h3 class="text-secondary font-bold pb-1 mt-10 mb-6 w-full md:w-[500px] uppercase">
 			{$t('user.dashboard.accountBalance')}
 		</h3>
 
-		<span class="text-3xl font-bold block mb-1">{accountBalanceSats} SAT</span>
-
-		<span class="text-secondary text-xl block"
+		<span class="text-3xl font-bold block mb-1"
 			>{$selectedRate
 				? f(accountBalanceFiat, user.currency)
 				: $t('user.dashboard.fetchingRate')}</span
 		>
+
+		<span class="text-secondary text-xl block">
+			{accountBalanceSats} SAT
+		</span>
 
 		<div class="grid sm:grid-cols-2 gap-2 mt-8">
 			<a href={`/${user.username}/receive`}>
