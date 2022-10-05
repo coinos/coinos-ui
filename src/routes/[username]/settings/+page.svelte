@@ -14,7 +14,7 @@
 
 	let { user, rates, token } = data;
 	$: update(data);
-    let update = () => ({ user, rates, token } = data);
+	let update = () => ({ user, rates, token } = data);
 
 	let tab = 'account';
 

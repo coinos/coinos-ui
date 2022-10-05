@@ -27,9 +27,9 @@
 
 <form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" use:enhance>
 	{#if form?.error}
-    <div class="text-red-600 text-center" in:fly>
-		{form.error}
-    </div>
+		<div class="text-red-600 text-center" in:fly>
+			{form.error}
+		</div>
 	{/if}
 	<div class="mb-2">
 		<label for="invoice" class="font-bold mb-1 block">To</label>

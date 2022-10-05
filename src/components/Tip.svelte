@@ -161,8 +161,8 @@
 			to right,
 			black 0%,
 			black var(--bgPercent),
-			#F5F7FA var(--bgPercent),
-			#F5F7FA 100%
+			#f5f7fa var(--bgPercent),
+			#f5f7fa 100%
 		);
 		outline: none;
 	}

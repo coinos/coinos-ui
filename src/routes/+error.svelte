@@ -11,7 +11,6 @@
 	<PageNotFound />
 {:else}
 	<div class="container px-4 max-w-md mx-auto mt-20 text-center">
-
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">
 			{$t('error.header')}
 		</h1>

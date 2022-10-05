@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { btc as asset, auth, post } from '$lib/utils';
+import { auth, post } from '$lib/utils';
 
 export const actions = {
 	default: async ({ cookies, request }) => {
