@@ -4,7 +4,10 @@
 	import { f, s, post, warning, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
 
-	export let amount, amountFiat = 0, currency, fiat = true;
+	export let amount,
+		amountFiat = 0,
+		currency,
+		fiat = true;
 
 	let amountSats = 0;
 	let loading = false;

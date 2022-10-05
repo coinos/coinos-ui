@@ -14,7 +14,7 @@
 	let update = (data) => ({ subject, user } = data);
 
 	$: updateUser(user);
-	let updateUser = () => console.log("USER", user);
+	let updateUser = () => console.log('USER', user);
 
 	const menuButtons = [
 		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },

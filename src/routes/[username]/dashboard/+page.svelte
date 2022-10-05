@@ -52,9 +52,7 @@
 </div>
 
 <div class="container px-4 max-w-md mx-auto">
-	<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
-		Dashboard
-	</h1>
+	<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">Dashboard</h1>
 
 	<div class="text-5xl font-bold mb-2">
 		{$selectedRate ? f(accountBalanceFiat, user.currency) : $t('user.dashboard.fetchingRate')}
