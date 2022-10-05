@@ -51,37 +51,37 @@
 	{/if}
 </div>
 
-<div class="px-3 md:px-0 flex justify-center items-center mt-10 lg:mt-0 mb-20">
-	<div>
-		<span class="text-3xl font-bold block mb-1"
-			>{$selectedRate
-				? f(accountBalanceFiat, user.currency)
-				: $t('user.dashboard.fetchingRate')}</span
-		>
+<div class="container px-4 max-w-md mx-auto">
+	<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+		Dashboard
+	</h1>
 
-		<span class="text-secondary text-xl block">
-			{accountBalanceSats} SAT
-		</span>
+	<div class="text-5xl font-bold mb-2">
+		{$selectedRate ? f(accountBalanceFiat, user.currency) : $t('user.dashboard.fetchingRate')}
+	</div>
 
-		<div class="grid sm:grid-cols-2 gap-2 mt-8">
-			<a href={`/${user.username}/receive`}>
+	<div class="text-secondary text-2xl">
+		{accountBalanceSats} SAT
+	</div>
+
+	<div class="grid sm:grid-cols-2 gap-2 mt-8">
+		<a href={`/${user.username}/receive`}>
+			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+				>{$t('user.dashboard.receive')}</button
+			>
+		</a>
+		{#if user.account.balance > 0}
+			<a href="/send">
 				<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-					>{$t('user.dashboard.receive')}</button
+					>{$t('user.dashboard.withdraw')}</button
 				>
 			</a>
-			{#if user.account.balance > 0}
-				<a href="/send">
-					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-						>{$t('user.dashboard.withdraw')}</button
-					>
-				</a>
-			{:else}
-        <a href={`/${user.username}/settings`}>
-					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-						>Setup Account</button
-					>
-				</a>
-			{/if}
-		</div>
+		{:else}
+			<a href={`/${user.username}/settings`}>
+				<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+					>Setup Account</button
+				>
+			</a>
+		{/if}
 	</div>
 </div>

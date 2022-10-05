@@ -2,22 +2,26 @@
 	import { page } from '$app/stores';
 	import { Icon, PageNotFound } from '$comp';
 	import { t } from '$lib/translations';
+
+	export let data;
+	let { user } = data;
 </script>
 
 {#if $page.error.message.includes('not found') || $page.status === 404}
 	<PageNotFound />
 {:else}
-	<div class="flex justify-center items-center mt-20">
-		<div class="space-y-5 text-center">
-			<a href="/">
-				<Icon icon="logo" style="mx-auto" />
-			</a>
+	<div class="container px-4 max-w-md mx-auto mt-20 text-center">
 
-			<Icon icon="error" style="mx-auto w-56" />
+		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">
+			{$t('error.header')}
+		</h1>
 
-			<h1 class="font-bold text-5xl">{$t('error.header')}</h1>
-			<p class="px-1 w-full md:w-96 break-all font-bold">{$page.error.message}</p>
-			<p>{$t('error.message')}</p>
-		</div>
+		<p class="px-1 break-all mb-8">{$page.error.message}</p>
+
+		<a href={`/${user.username}/dashboard`}>
+			<button class="rounded-full bg-black text-white py-2 px-5 font-bold hover:opacity-80 mb-2"
+				>Go Home</button
+			>
+		</a>
 	</div>
 {/if}

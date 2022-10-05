@@ -23,9 +23,9 @@
 		<div class="flex flex-wrap justify-end mb-8">
 			{#if pages.length > 1}
 				{#each pages as _, i}
-					<a href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
+					<a class="mr-1 last:mr-0" href={`/${user.username}/transactions/${i + 1}`} class:active={page === i + 1}>
 						<div
-							class="border py-2 px-4 rounded-full border-2 w-12 h-12 hover:opacity-80 mr-1 text-center my-auto"
+							class="border py-2 px-4 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center my-auto"
 						>
 							{i + 1}
 						</div>

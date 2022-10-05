@@ -16,7 +16,14 @@ export const actions = {
 
 		// bitcoin
 		if (validate(t)) {
-			throw redirect(303, `/send/bitcoin/${t}`);
+			let user;
+			try {
+				({ user } = await get(`/invoice/${t}`));
+			} catch (e) {
+				throw redirect(303, `/send/bitcoin/${t}`);
+			}
+
+			if (user) throw redirect(303, `/send/user/${user.username}`);
 		}
 
 		// ln address
@@ -28,7 +35,13 @@ export const actions = {
 		}
 
 		// user
+		let user;
+		try {
+			user = await get(`/users/${t}`);
+		} catch (e) {}
 
-		return invalid(403, { error: 'Failed to parse destination' });
+		if (user) throw redirect(303, `/send/user/${t}`);
+
+		return invalid(403, { error: 'Failed to recognize input' });
 	}
 };

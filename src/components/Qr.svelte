@@ -1,5 +1,5 @@
 <script>
-	import { fly, fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import screenfull from 'screenfull';
 	import { browser } from '$app/environment';
 	import { onMount, tick } from 'svelte';
