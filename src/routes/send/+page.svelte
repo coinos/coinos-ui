@@ -1,4 +1,5 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
@@ -9,26 +10,29 @@
 	export let form;
 
 	let el;
-	let placeholder = 'Address, Invoice, Username';
+	let placeholder = 'Address, Invoice or Username';
 	let text = placeholder;
 
 	let focus = () => text === placeholder && (text = '');
-	let keypress = (e) => e.key === 'Enter' && e.preventDefault() && el.submit();
+	let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
 
 	let paste = async () => {
 		text = await navigator.clipboard.readText();
 	};
-
-	onMount(() => form?.error && failure(form.error));
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" bind:this={el} use:enhance>
+<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" use:enhance>
+	{#if form?.error}
+    <div class="text-red-600 text-center" in:fly>
+		{form.error}
+    </div>
+	{/if}
 	<div class="mb-2">
-		<label for="invoice" class="font-bold mb-1 block">Destination</label>
+		<label for="invoice" class="font-bold mb-1 block">To</label>
 		<input type="hidden" name="text" bind:value={text} />
 
 		<div
@@ -65,6 +69,7 @@
 		</button>
 
 		<button
+			bind:this={el}
 			type="submit"
 			class="{!text
 				? 'opacity-50'

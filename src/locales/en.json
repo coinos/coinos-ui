@@ -44,7 +44,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "These are businesses that are accepting bitcoin with Coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">let us know!</a>"
+			"description": "Here are some businesses that are accepting bitcoin with Coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">let us know!</a>"
 		}
 	},
 	"error": {
@@ -121,7 +121,7 @@
 		"info2": {
 			"title": "Simple to use",
 			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
-			"description2": "Coinos gives you free access to use our hosted bitcoin and lightning nodes, eliminating the need to understand how bitcoin or lightning works. We do all the heavy lifting so you can focus on your business.",
+			"description2": "We do all the heavy lifting so you can focus on your business.",
 			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
 		},
 		"info3": {
@@ -172,8 +172,8 @@
 			"fetchingRate": "fetching rate...",
 			"optionalNote": "Note (Optional)",
 			"send": "Send",
-			"receive": "Receive a Payment",
-			"withdraw": "Withdraw Funds"
+			"receive": "Receive",
+			"withdraw": "Send"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",

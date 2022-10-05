@@ -119,8 +119,5 @@ export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 
 
 export const sats = 100000000;
 
-export const back = () => {
-	browser && history.go(-1);
-};
-
+export const back = () => browser && history.go(-1);
 export const focus = (el) => setTimeout(() => el.focus());

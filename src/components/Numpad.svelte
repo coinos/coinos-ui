@@ -4,10 +4,8 @@
 	import { f, s, post, warning, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
 
-	export let amount, currency;
+	export let amount, amountFiat = 0, currency, fiat = true;
 
-	let useFiat = true;
-	let amountFiat = 0;
 	let amountSats = 0;
 	let loading = false;
 
@@ -28,7 +26,7 @@
 			KRW: '₩'
 		}[currency] || '';
 
-	$: amount = parseInt(useFiat ? Math.round(amountFiat / ($selectedRate / sats)) : amountSats);
+	$: amount = parseInt(fiat ? Math.round(amountFiat / ($selectedRate / sats)) : amountSats);
 
 	$: amountSatsFormatted = s(amountSats);
 
@@ -39,7 +37,7 @@
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
 	const handleInput = (value) => {
-		if (useFiat) {
+		if (fiat) {
 			if (amountFiat === 0 && value !== '.' && value !== '<' && value !== '0') {
 				amountFiat = value;
 			} else if ((amountFiat === 0 || amountFiat === '0') && value === '0') {
@@ -89,17 +87,17 @@
 	<div class="space-y-5">
 		<div class="text-center">
 			<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
-				{useFiat ? `${symbol}${amountFiat}` : amountSatsFormatted}<span
-					class="tracking-normal text-base font-normal">{useFiat ? currency : 'SAT'}</span
+				{fiat ? `${symbol}${amountFiat}` : amountSatsFormatted}<span
+					class="tracking-normal text-base font-normal">{fiat ? currency : 'SAT'}</span
 				>
 			</div>
 			<span class="text-secondary mr-1"
-				>{useFiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
+				>{fiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
 			>
 			<button
 				type="button"
 				on:click={() => {
-					if (useFiat) {
+					if (fiat) {
 						amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
 					} else {
 						amountFiat =
@@ -107,7 +105,7 @@
 								? (amountSats * ($selectedRate / sats)).toFixed(2)
 								: 0;
 					}
-					useFiat = !useFiat;
+					fiat = !fiat;
 				}}><Icon icon="swap" style="inline hover:opacity-80" /></button
 			>
 		</div>
