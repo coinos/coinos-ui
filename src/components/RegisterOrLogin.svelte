@@ -1,4 +1,5 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
 	import { focus } from '$lib/utils';
@@ -33,7 +34,9 @@
 			<h1 class="text-2xl font-bold text-center">{$t('login.' + pageID)}</h1>
 
 			{#if form?.error}
-				Login failed
+				<div class="text-red-600 text-center" in:fly>
+					{form.error}
+				</div>
 			{/if}
 
 			<form class="space-y-5" {action} method="POST" use:enhance>
