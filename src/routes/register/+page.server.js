@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { invalid, redirect } from '@sveltejs/kit';
 import { post, login } from '$lib/utils';
 
 export const actions = {
@@ -7,8 +7,13 @@ export const actions = {
 		let { username, password, redirect: r } = form;
 
 		let user = { username, password };
-		await post('/register', { user });
-		await login(user, cookies);
+
+		try {
+			await post('/register', { user });
+			await login(user, cookies);
+		} catch (e) {
+			return invalid(400, { error: e.message });
+		}
 
 		throw redirect(303, r || `/${user.username}/dashboard`);
 	}

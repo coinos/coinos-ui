@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { Icon, PageNotFound } from '$comp';
 	import { t } from '$lib/translations';
+	import { back } from '$lib/utils';
 
 	export let data;
 	let { user } = data;
@@ -17,10 +18,9 @@
 
 		<p class="px-1 break-all mb-8">{$page.error.message}</p>
 
-		<a href={`/${user.username}/dashboard`}>
-			<button class="rounded-full bg-black text-white py-2 px-5 font-bold hover:opacity-80 mb-2"
-				>Go Home</button
-			>
-		</a>
+		<button
+			class="rounded-full bg-black text-white py-2 px-5 font-bold hover:opacity-80 mb-2"
+			on:click={back}>Back</button
+		>
 	</div>
 {/if}
