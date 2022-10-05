@@ -19,7 +19,6 @@
 		user: { username, currency }
 	} = invoice;
 
-	let showCustomAmount = false;
 	let showMobileTip = false;
 
 	let qr;
@@ -39,15 +38,13 @@
 			user: { username, currency }
 		} = invoice);
 
-		amount -= tip;
-
 		tipPercent = (tip / amount) * 100;
 	};
 
 	$: tip = Math.round((amount / 100) * tipPercent);
 
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
-	$: $invoices[id]?.received >= $invoices[id]?.amount && goto(`/invoice/${id}/paid`);
+	$: browser && $invoices[id]?.received >= $invoices[id]?.amount && goto(`/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 
@@ -73,15 +70,11 @@
 			{#if invoice.prompt}
 				<Tip
 					bind:amountFiat
-					bind:showCustomAmount
 					bind:showMobileTip
 					bind:tipPercent
 					bind:tipAmount
 					bind:amount
 					bind:tip
-					bind:rate
-					bind:prompt
-					bind:text
 					bind:currency
 					bind:username
 				/>

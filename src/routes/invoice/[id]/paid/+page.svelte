@@ -1,15 +1,19 @@
 <script>
+	import { scale } from 'svelte/transition';
+	import { onMount } from 'svelte';
+	import { quintOut } from 'svelte/easing';
+	import { Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { f, s, sats } from '$lib/utils';
-	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { goto } from '$app/navigation';
 	import { invoices } from '$lib/store';
 
 	export let data;
 	let { invoice } = data;
 	let { amount, rate } = invoice;
+	let yeah;
 
 	toast.pop(0);
 
@@ -21,19 +25,10 @@
 	};
 </script>
 
-<div class="text-center mt-20 md:mt-0">
-	{#if browser}
-		<div class="w-full mx-auto max-w-xl">
-			<LottiePlayer
-				src="/lottie/success.json"
-				autoplay={true}
-				loop={true}
-				controls={false}
-				renderer="svg"
-				background="transparent"
-			/>
-		</div>
-	{/if}
+<div class="container px-4 text-center">
+	<div class="flex w-full py-10" in:scale={{ start: 0.5 }}>
+		<Icon icon="check" style="mx-auto" />
+	</div>
 	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
 	<h2 class="text-2xl md:text-3xl font-semibold">
 		{f(amountFiat, invoice.currency)}
