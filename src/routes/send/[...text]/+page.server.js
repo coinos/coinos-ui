@@ -5,7 +5,7 @@ import { invalid, redirect } from '@sveltejs/kit';
 
 let parse = async (t) => {
 	if (!t) return;
-	let uuid;
+	let user, uuid;
 
 	// lightning
 	if (t.startsWith('ln')) {
