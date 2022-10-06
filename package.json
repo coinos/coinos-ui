@@ -18,6 +18,7 @@
 		"bitcoin-address-validation": "^2.2.1",
 		"bolt11": "^1.4.0",
 		"cookie": "^0.5.0",
+		"date-fns": "^2.29.3",
 		"leaflet": "^1.9.1",
 		"leaflet.markercluster": "^1.5.3",
 		"postcss": "^8.4.17",

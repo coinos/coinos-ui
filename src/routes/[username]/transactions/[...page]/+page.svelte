@@ -1,17 +1,23 @@
 <script>
+  import { onMount } from "svelte";
+	import { formatDistance, parseISO } from 'date-fns';
 	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { f, s, sats } from '$lib/utils';
+  import { page } from "$app/stores";
+
 	export let data;
 
 	let { user } = data;
 
-	$newPayment = false;
-	let page,
+	let p,
 		total,
 		transactions = [],
 		pages = [];
-	$: data && ({ page, pages, total, transactions } = data);
+	$: data && ({ page: p, pages, total, transactions } = data);
+
+  $: $page && ($newPayment = false);
+  $: $newPayment && invalidate(`/users/${user.username}`);
 </script>
 
 <div class="mt-24 mb-20">
@@ -26,7 +32,7 @@
 					<a
 						class="mr-1 last:mr-0"
 						href={`/${user.username}/transactions/${i + 1}`}
-						class:active={page === i + 1}
+						class:active={p === i + 1}
 					>
 						<div class="border py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center">
 							{i + 1}
@@ -64,7 +70,10 @@
 						</div>
 
 						<div class="text-secondary text-right">
-							{new Date(tx.createdAt).toLocaleDateString(undefined, { dateStyle: 'medium' })}
+							{formatDistance(parseISO(tx.createdAt), new Date(), {
+								includeSeconds: true,
+								addSuffix: true
+							})}
 						</div>
 					</div>
 				{/each}
