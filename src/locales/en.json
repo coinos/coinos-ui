@@ -56,15 +56,15 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "You pay nothing to register and maintain your account and receive unlimited payments over the lightning network. We charge a 0.1% fee to convert regular bitcoin to lightning and vice versa. Lightning withdrawals are subject to network routing fees that are typically very low."
+			"answer": "There's no cost to register and maintain your account and receive unlimited payments over the lightning network. We charge a 0.1% fee to convert from lightning to bitcoin."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
 			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
 		},
 		"safety": {
-			"question": "What can I do with the bitcoin I receive?",
-			"answer": "Use it to pay staff and suppliers, support other bitcoin-accepting businesses or hold onto it and watch your purchasing power grow."
+			"question": "Can I exchange my bitcoin to my local currency or other cryptos?",
+			"answer": "That's not something we support but you can withdraw your funds at any time to a third party wallet or exchange."
 		}
 	},
 	"footer": {
@@ -89,7 +89,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "You're now free to use your bitcoin however you like."
+			"description": "Now you can pay your staff and suppliers or go shopping at other bitcoin businesses."
 		}
 	},
 	"invoice": {
