@@ -98,7 +98,7 @@ export const info = (m) => {
 export const login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
 	let { token } = await post('/login', user);
-  if (!token) throw new Error("Login failed");
+	if (!token) throw new Error('Login failed');
 
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
