@@ -7,10 +7,8 @@ export const actions = {
 		try {
 			await login(user, cookies);
 		} catch (e) {
-      console.log("fail")
 			return invalid(400, { error: 'Login failed' });
 		}
-    console.log("succ")
 
 		throw redirect(303, `/${user.username}/dashboard`);
 	}

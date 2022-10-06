@@ -23,7 +23,7 @@
 </script>
 
 <div class="container px-4 text-center">
-	<div class="flex w-full py-10" in:scale={{ start: 0.5 }}>
+	<div class="flex w-full py-20 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
 		<Icon icon="check" style="mx-auto" />
 	</div>
 	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
