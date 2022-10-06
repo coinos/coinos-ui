@@ -5,10 +5,10 @@ import { invalid, redirect } from '@sveltejs/kit';
 
 let parse = async (t) => {
 	if (!t) return;
+	let user;
 
 	// lightning
 	if (t.startsWith('ln')) {
-		let user;
 		try {
 			({ user } = await get(`/invoice/${t}`));
 		} catch (e) {
@@ -20,7 +20,6 @@ let parse = async (t) => {
 
 	// bitcoin
 	if (validate(t)) {
-		let user;
 		try {
 			({ user } = await get(`/invoice/${t}`));
 		} catch (e) {
@@ -39,7 +38,6 @@ let parse = async (t) => {
 	}
 
 	// user
-	let user;
 	try {
 		user = await get(`/users/${t}`);
 	} catch (e) {}
