@@ -1,6 +1,6 @@
 import validate from 'bitcoin-address-validation';
 import bip21 from 'bip21';
-import { get } from '$lib/utils';
+import { get, post } from '$lib/utils';
 import { invalid, redirect } from '@sveltejs/kit';
 
 let parse = async (t) => {
