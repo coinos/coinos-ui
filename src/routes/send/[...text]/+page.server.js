@@ -17,7 +17,7 @@ let parse = async (t) => {
 
 		if (user) {
 			let { amount } = await post('/lightning/parse', { payreq: t });
-			throw redirect(303, `/send/user/${user.username}/amount`);
+			throw redirect(303, `/send/user/${user.username}/${amount}`);
 		}
 	}
 
