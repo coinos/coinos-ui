@@ -4,12 +4,14 @@ import { redirect } from '@sveltejs/kit';
 export default async ({ cookies, request }) => {
 	let form = await request.formData();
 
+	let rates = await get('/rates');
+
 	let invoice = {
 		amount: parseInt(form.get('amount')),
 		tip: parseInt(form.get('tip')),
 		network: 'lightning',
 		prompt: form.get('prompt') === 'true',
-		rate: await get('/rate')
+		rate: rates[form.get('currency')]
 	};
 
 	let user = { username: form.get('username') };

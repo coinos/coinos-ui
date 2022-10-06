@@ -5,31 +5,28 @@ import { invalid, redirect } from '@sveltejs/kit';
 
 let parse = async (t) => {
 	if (!t) return;
-	let user;
+	let uuid;
 
 	// lightning
 	if (t.startsWith('ln')) {
 		try {
-			({ user } = await get(`/invoice/${t}`));
+			({ uuid } = await get(`/invoice/${t}`));
 		} catch (e) {
 			throw redirect(303, `/send/lightning/${t}`);
 		}
 
-		if (user) {
-			let { amount } = await post('/lightning/parse', { payreq: t });
-			throw redirect(303, `/send/user/${user.username}/${amount}`);
-		}
+		if (uuid) throw redirect(303, `/send/${uuid}`);
 	}
 
 	// bitcoin
 	if (validate(t)) {
 		try {
-			({ user } = await get(`/invoice/${t}`));
+			({ uuid } = await get(`/invoice/${t}`));
 		} catch (e) {
 			throw redirect(303, `/send/bitcoin/${t}`);
 		}
 
-		if (user) throw redirect(303, `/send/user/${user.username}`);
+		if (uuid) throw redirect(303, `/send/${uuid}`);
 	}
 
 	// ln address

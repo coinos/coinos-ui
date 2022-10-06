@@ -11,6 +11,7 @@
 
 <form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>
 	<input type="hidden" name="amount" value={amount} />
+	<input type="hidden" name="currency" value={currency} />
 	<input type="hidden" name="username" value={username} />
 	<input type="hidden" name="prompt" value="true" />
 
