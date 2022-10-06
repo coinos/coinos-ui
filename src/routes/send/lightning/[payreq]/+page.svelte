@@ -23,7 +23,7 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto">
 	{#if amount}
 		<div class="text-center mb-8">
-			<h1 class="text-xl md:text-2xl text-secondary mb-2">Sending</h1>
+			<h1 class="text-xl md:text-2xl text-secondary mb-2">Send</h1>
 			<p class="text-6xl break-words mb-4">
 				{s(amount)} <span class="text-xl md:text-2xl text-secondary">sats</span>
 			</p>
