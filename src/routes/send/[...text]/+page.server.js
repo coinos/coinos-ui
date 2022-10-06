@@ -8,7 +8,14 @@ let parse = async (t) => {
 
 	// lightning
 	if (t.startsWith('ln')) {
-		throw redirect(303, `/send/lightning/${t}`);
+		let user;
+		try {
+			({ user } = await get(`/invoice/${t}`));
+		} catch (e) {
+			throw redirect(303, `/send/lightning/${t}`);
+		}
+
+		if (user) throw redirect(303, `/send/user/${user.username}`);
 	}
 
 	// bitcoin
@@ -41,8 +48,13 @@ let parse = async (t) => {
 };
 
 export async function load({ params }) {
+<<<<<<< HEAD
   let { text } = params;
   await parse(text);
+=======
+	let { text } = params;
+	await parse(text);
+>>>>>>> master
 }
 
 export const actions = {
