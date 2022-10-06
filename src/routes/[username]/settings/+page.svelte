@@ -10,7 +10,7 @@
 	import { avatarUpload, bannerUpload } from '$lib/store';
 	import { upload } from '$lib/upload';
 
-  export let data;
+	export let data;
 
 	let { user, rates, token } = data;
 	$: update(data);

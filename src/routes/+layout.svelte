@@ -36,7 +36,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main data-sveltekit-prefetch>
-<slot />
+	<slot />
 </main>
 
 <style global>

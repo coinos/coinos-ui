@@ -1,10 +1,10 @@
 <script>
-  import { onMount } from "svelte";
+	import { onMount } from 'svelte';
 	import { formatDistance, parseISO } from 'date-fns';
 	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { f, s, sats } from '$lib/utils';
-  import { page } from "$app/stores";
+	import { page } from '$app/stores';
 
 	export let data;
 
@@ -16,8 +16,8 @@
 		pages = [];
 	$: data && ({ page: p, pages, total, transactions } = data);
 
-  $: $page && ($newPayment = false);
-  $: $newPayment && invalidate(`/users/${user.username}`);
+	$: $page && ($newPayment = false);
+	$: $newPayment && invalidate(`/users/${user.username}`);
 </script>
 
 <div class="mt-24 mb-20">

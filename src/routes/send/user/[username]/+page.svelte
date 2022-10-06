@@ -53,7 +53,7 @@
 		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
 	{/if}
 
-  <form method="POST" use:enhance on:submit={submit}>
+	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
 		<input name="username" value={recipient.username} type="hidden" />
 		<input name="confirmed" value={form?.confirm} type="hidden" />

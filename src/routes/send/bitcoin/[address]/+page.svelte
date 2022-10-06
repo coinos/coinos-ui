@@ -8,7 +8,7 @@
 	let { address } = $page.params;
 	let { currency } = data.user;
 	let amount, loading;
-	
+
 	let submit = () => (loading = true);
 </script>
 
@@ -23,7 +23,7 @@
 	</div>
 	<Numpad bind:amount {currency} />
 
-  <form method="POST" use:enhance on:submit={submit}>
+	<form method="POST" use:enhance on:submit={submit}>
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<div class="flex w-full">

@@ -48,13 +48,8 @@ let parse = async (t) => {
 };
 
 export async function load({ params }) {
-<<<<<<< HEAD
-  let { text } = params;
-  await parse(text);
-=======
 	let { text } = params;
 	await parse(text);
->>>>>>> master
 }
 
 export const actions = {

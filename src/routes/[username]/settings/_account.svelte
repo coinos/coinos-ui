@@ -180,20 +180,20 @@
 			src={banner}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
-      alt="Banner"
+			alt="Banner"
 		/>
 	{:else if user.banner}
 		<img
 			src={`/api/public/${user.username}-banner.png`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
-      alt="Banner"
+			alt="Banner"
 		/>
 	{:else}
 		<div
 			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
 			on:click={() => select('banner')}
-      alt="Banner"
+			alt="Banner"
 		/>
 	{/if}
 
