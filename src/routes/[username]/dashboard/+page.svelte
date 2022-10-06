@@ -43,17 +43,7 @@
 	$: accountBalanceSats = s(user.account.balance);
 </script>
 
-<div class="text-center mx-auto lg:text-left lg:mx-0 lg:ml-[calc(15vw-64px)] mt-20 w-full md:w-72">
-	<h2 class="text-3xl font-semibold">{user.username}</h2>
-
-	{#if user.address}
-		<span class="text-secondary">{user.address}</span>
-	{/if}
-</div>
-
-<div class="container px-4 max-w-md mx-auto">
-	<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">Dashboard</h1>
-
+<div class="container px-4 max-w-md mx-auto mt-20">
 	<div class="text-5xl font-bold mb-2">
 		{$selectedRate ? f(accountBalanceFiat, user.currency) : $t('user.dashboard.fetchingRate')}
 	</div>
