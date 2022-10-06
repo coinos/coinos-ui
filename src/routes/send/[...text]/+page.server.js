@@ -11,12 +11,14 @@ let parse = async (t) => {
 	if (t.startsWith('ln')) {
 		try {
 			({ user } = await get(`/invoice/${t}`));
-      console.log("USER", user.username);
 		} catch (e) {
 			throw redirect(303, `/send/lightning/${t}`);
 		}
 
-		if (user) throw redirect(303, `/send/user/${user.username}`);
+		if (user) {
+			let { amount } = await post('/lightning/parse', params);
+			throw redirect(303, `/send/user/${user.username}/amount`);
+		}
 	}
 
 	// bitcoin
