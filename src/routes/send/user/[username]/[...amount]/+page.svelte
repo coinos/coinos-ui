@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "$app/navigation";
 	import { selectedRate } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Icon, Numpad, Spinner } from '$comp';
@@ -13,18 +14,19 @@
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
-		amountFiat,
-		fiat = true;
+		amountFiat = amount * ($selectedRate / sats),
+		fiat = !amount;
 
 	let setAmount = () => {
-		console.log('setting', a, af);
 		amount = a;
 		amountFiat = af;
 	};
 
 	let handleBack = () => {
-		if (amount) amount = undefined;
-		else back();
+		if (amount) {
+			amount = undefined;
+			goto(`/send/user/${recipient.username}`);
+		} else back();
 	};
 
 	let loading;
@@ -40,7 +42,7 @@
 		<div class="text-center mb-8">
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">Send</h1>
 			<p class="text-6xl break-words mb-4">
-				{fiat ? f(amountFiat, currency) : s(a)}
+				{fiat ? f(amountFiat, currency) : s(amount)}
 				{#if !fiat}
 					<span class="text-xl md:text-2xl text-secondary">sats</span>
 				{/if}
