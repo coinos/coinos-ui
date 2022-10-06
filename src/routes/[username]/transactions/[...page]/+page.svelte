@@ -28,9 +28,7 @@
 						href={`/${user.username}/transactions/${i + 1}`}
 						class:active={page === i + 1}
 					>
-						<div
-							class="border py-2 px-4 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center my-auto"
-						>
+						<div class="border py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center">
 							{i + 1}
 						</div>
 					</a>
