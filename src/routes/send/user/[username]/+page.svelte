@@ -36,9 +36,14 @@
 	{#if amount}
 		<div class="text-center mb-8">
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">Sending</h1>
-			<p class="text-6xl break-words mb-4">{fiat ? f(amountFiat, currency) : `${s(a)} sats`}</p>
+			<p class="text-6xl break-words mb-4">
+				{fiat ? f(amountFiat, currency) : s(a)}
+				{#if !fiat}
+					<span class="text-xl md:text-2xl text-secondary">sats</span>
+				{/if}
+			</p>
 
-			<h1 class="text-xl md:text-2xl text-secondary mb-2">To</h1>
+			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>
 			<p class="text-6xl break-words">{recipient.username}</p>
 		</div>
 	{:else}
@@ -47,6 +52,7 @@
 
 	<form method="POST" use:enhance>
 		<input name="amount" value={amount} type="hidden" />
+		<input name="username" value={recipient.username} type="hidden" />
 		<input name="confirmed" value={form?.confirm} type="hidden" />
 
 		<div class="flex w-full">
