@@ -8,6 +8,8 @@
 	let { address } = $page.params;
 	let { currency } = data.user;
 	let amount, loading;
+	
+	let submit = () => (loading = true);
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -21,7 +23,7 @@
 	</div>
 	<Numpad bind:amount {currency} />
 
-	<form method="POST" use:enhance>
+  <form method="POST" use:enhance on:submit={submit}>
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<div class="flex w-full">
