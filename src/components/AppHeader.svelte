@@ -2,7 +2,7 @@
 	import OutClick from 'svelte-outclick';
 	import { newPayment, colorTheme, tempProfileFiles } from '$lib/store';
 	import { goto } from '$app/navigation';
-	import { Icon } from '$comp';
+	import { Avatar, Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 
@@ -31,7 +31,7 @@
 		}
 	};
 
-	$: background =
+	$: bg =
 		$tempProfileFiles && $tempProfileFiles.banner
 			? `url(${$tempProfileFiles.banner})`
 			: subject?.banner
@@ -39,7 +39,7 @@
 			: undefined;
 </script>
 
-<header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative" style:background>
+<header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover" style:background-image={bg} >
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if user}
 			<a href={`/${user.username}/receive`}>
@@ -119,27 +119,9 @@
 			</a>
 		{/if}
 	</nav>
-	{#if subject?.profile}
-		<div
-			class="absolute top-[111px] {avatarPosition} rounded-full border-4 border-white overflow-hidden w-32 h-32"
-		>
-			<a href={`/${subject.username}`}>
-				<img
-					src={$tempProfileFiles && $tempProfileFiles.profile
-						? $tempProfileFiles.profile
-						: `/api/public/${subject.username}-profile.png`}
-					class="w-full h-full object-cover object-center overflow-hidden"
-					alt={subject.username}
-				/>
-			</a>
-		</div>
-	{:else}
-		<div
-			class="absolute top-[111px] {avatarPosition} rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-32 h-32 flex justify-center items-center"
-		>
-			<Icon icon="logo-symbol-white" />
-		</div>
-	{/if}
+	<div class="absolute left-[calc(50vw-64px)] md:left-[calc(15vw-48px)] -bottom-[64px]">
+		<Avatar user={subject} />
+	</div>
 </header>
 
 <style>

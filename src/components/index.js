@@ -1,3 +1,4 @@
+export { default as Avatar } from './Avatar.svelte';
 export { default as Left } from './Left.svelte';
 export { default as Numpad } from './Numpad.svelte';
 export { default as Spinner } from './Spinner.svelte';

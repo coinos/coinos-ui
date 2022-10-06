@@ -1,8 +1,8 @@
 <script>
-  import { goto } from "$app/navigation";
+	import { goto } from '$app/navigation';
 	import { selectedRate } from '$lib/store';
 	import { enhance } from '$app/forms';
-	import { Icon, Numpad, Spinner } from '$comp';
+	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
 	import { back, f, s, sats } from '$lib/utils';
 	export let data;
@@ -49,7 +49,11 @@
 			</p>
 
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>
-			<p class="text-6xl break-words">{recipient.username}</p>
+
+			<div class="flex p-1 gap-2 justify-center">
+				<Avatar user={recipient} />
+				<p class="text-6xl break-words my-auto">{recipient.username}</p>
+			</div>
 		</div>
 	{:else}
 		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
