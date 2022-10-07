@@ -39,7 +39,10 @@
 			: undefined;
 </script>
 
-<header class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover" style:background-image={bg} >
+<header
+	class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover"
+	style:background-image={bg}
+>
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if user}
 			<a href={`/${user.username}/receive`}>

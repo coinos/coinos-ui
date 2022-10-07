@@ -10,7 +10,7 @@
 
 	let payment = user.payments[0];
 	let { amount, rate } = payment;
-  amount = Math.abs(amount);
+	amount = Math.abs(amount);
 
 	let fiat = (amount * rate) / sats;
 

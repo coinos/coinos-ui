@@ -1,5 +1,5 @@
 <script>
-  import { goto } from "$app/navigation";
+	import { goto } from '$app/navigation';
 	import { selectedRate } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Icon, Numpad, Spinner } from '$comp';

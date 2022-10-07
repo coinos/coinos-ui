@@ -7,14 +7,22 @@ export const actions = {
 		let { username, password, redirect: r } = form;
 
 		let user = { username, password };
+		let error;
 
 		try {
 			await post('/register', { user });
-			await login(user, cookies);
 		} catch (e) {
-			return invalid(400, { error: e.message });
+			if (e.message.includes('taken')) error = e.message;
 		}
 
+		try {
+			await login(user, cookies);
+			error = null;
+		} catch (e) {
+			error ||= e.message;
+		}
+
+		if (error) return invalid(400, { error });
 		throw redirect(303, r || `/${user.username}/dashboard`);
 	}
 };
