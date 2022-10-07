@@ -9,7 +9,7 @@
 	export let form;
 
 	let { recipient, user } = data;
-	let { currency } = user;
+	let currency = user?.currency || 'USD';
 
 	let amount = form?.amount || data.amount;
 	let a,

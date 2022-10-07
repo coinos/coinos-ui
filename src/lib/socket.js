@@ -20,7 +20,7 @@ export const messages = (data) => ({
 
 	payment() {
 		let { amount, invoice } = data;
-    console.log("INVOICE", invoice)
+		console.log('INVOICE', invoice);
 		if (invoice) {
 			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
 		}

@@ -1,1 +1,1 @@
-export let match = (p) => p.split('-').length > 4
+export let match = (p) => p.split('-').length > 4;

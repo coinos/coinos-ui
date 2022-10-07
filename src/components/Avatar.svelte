@@ -6,10 +6,10 @@
 	export let user;
 </script>
 
-	<a href={`/${user.username}`}>
-<div
-	class="rounded-full border-4 border-white overflow-hidden w-32 h-32 bg-gradient-to-r {$colorTheme} flex justify-center items-center"
->
+<a href={`/${user.username}`}>
+	<div
+		class="rounded-full border-4 border-white overflow-hidden w-32 h-32 bg-gradient-to-r {$colorTheme} flex justify-center items-center"
+	>
 		{#if user?.profile}
 			<img
 				src={$tempProfileFiles && $tempProfileFiles.profile
@@ -21,5 +21,5 @@
 		{:else}
 			<Icon icon="logo-symbol-white" />
 		{/if}
-</div>
-	</a>
+	</div>
+</a>
