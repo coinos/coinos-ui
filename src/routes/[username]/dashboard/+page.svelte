@@ -11,7 +11,7 @@
 	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
 	let interval;
 
-	$: animateRate($rate);
+	$: animateRate($selectedRate);
 	let animateRate = (newRate) => {
 		if (!accountBalanceFiat) return;
 		let t = 0;
@@ -30,7 +30,7 @@
 
 	$: user = data.user;
 	$: accountBalanceFiat =
-		accountBalanceFiat || (user && $rate && ((user.account.balance * $rate) / sats).toFixed(2));
+		accountBalanceFiat || (user && $selectedRate && ((user.account.balance * $selectedRate) / sats).toFixed(2));
 
 	let payreq = '',
 		payreqField,
