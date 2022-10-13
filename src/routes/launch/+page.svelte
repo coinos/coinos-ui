@@ -1,10 +1,17 @@
 <script>
 	import { redirect } from '$lib/store';
+	import { beforeNavigate } from '$app/navigation';
+	import { info } from '$lib/utils';
 
 	export let data;
 	let { user } = data;
 	$: link = user ? '/launch/purchase' : '/register';
 	$redirect = '/launch/purchase';
+
+	beforeNavigate(({ to }) => {
+		console.log(link);
+		if (link === '/register') info('Please sign in so we can get you a ticket');
+	});
 </script>
 
 <div class="flex mt-20 px-8">
