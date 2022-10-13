@@ -90,7 +90,7 @@ export const info = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
-			'--toastBarBackground': '#1C69FF'
+			'--toastBarBackground': 'white'
 		}
 	});
 };

@@ -7,6 +7,7 @@ export const actions = {
 			...(await get('/me', auth(cookies))),
 			...Object.fromEntries(await request.formData())
 		};
+
 		try {
 			await post(`/user`, user, auth(cookies));
 		} catch (e) {

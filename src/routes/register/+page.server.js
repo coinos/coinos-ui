@@ -23,6 +23,6 @@ export const actions = {
 		}
 
 		if (error) return invalid(400, { error });
-		throw redirect(303, r || `/${user.username}/dashboard`);
+		throw redirect(307, r || `/${user.username}/dashboard`);
 	}
 };

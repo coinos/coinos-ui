@@ -30,7 +30,8 @@
 
 	$: user = data.user;
 	$: accountBalanceFiat =
-		accountBalanceFiat || (user && $selectedRate && ((user.account.balance * $selectedRate) / sats).toFixed(2));
+		accountBalanceFiat ||
+		(user && $selectedRate && ((user.account.balance * $selectedRate) / sats).toFixed(2));
 
 	let payreq = '',
 		payreqField,
