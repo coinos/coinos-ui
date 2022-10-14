@@ -33,17 +33,20 @@
 	// if (balance < amount) throw redirect(307, `/${username}/fund/${amount - balance}`);
 </script>
 
-<div class="mx-auto h-screen flex items-center justify-center px-8">
-	<div class="p-4 font-normal text-gray-800 mx-auto mb-8 space-y-5">
+<div class="mx-auto h-screen flex items-center justify-center px-4">
+	<div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
 		{#if balance > amount}
 			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
 				Confirm Purchase
 			</h1>
 
-			<img src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`} class="my-8" />
+			<img
+				src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`}
+				class="w-full max-w-[800px]"
+			/>
 
 			<form method="POST" use:enhance>
-        <input type="hidden" name="ticket" value={ticket} />
+				<input type="hidden" name="ticket" value={ticket} />
 				<div class="w-full flex">
 					<button
 						class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
