@@ -42,13 +42,16 @@
 				</div>
 
 				<p>
-					We'll be introducing our newly designed payments interface and afterwards we'll network
-					and enjoy tasty food and drinks from <a href="https://loftondenman.com/" class="underline"
-						>The Loft</a
+					We'll introduce our new interface for merchants to take bitcoin payments and afterwards
+					we'll network and enjoy tasty food and drinks from <a
+						href="https://loftondenman.com/"
+						class="underline">The Loft</a
 					>!
 				</p>
 
-            <p>We're charging a $6 entry fee to help us know how much space to reserve. There will be complimentary appies and prize giveaways!</p>
+				<p>
+					We're charging a nominal $6 entry fee so we can get an idea of how much space to reserve.
+				</p>
 
 				<div class="flex w-full my-8">
 					<a href={link} class="mx-auto">
