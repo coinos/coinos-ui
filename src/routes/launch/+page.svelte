@@ -28,6 +28,7 @@
 				<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">
 					Coinos Launch Party!
 				</h1>
+
 				<p class="leading-normal mb-2">
 					Come join us at our launch party celebrating 10 years in business!
 				</p>

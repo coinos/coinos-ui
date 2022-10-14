@@ -1,5 +1,4 @@
 import { auth, post } from '$lib/utils';
-import cookie from 'cookie';
 
 export async function PUT({ cookies, request }) {
 	let user = await request.json();
