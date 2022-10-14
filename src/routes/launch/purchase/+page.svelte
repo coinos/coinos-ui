@@ -6,11 +6,14 @@
 
 	export let data;
 
-	let amount = 35000;
+	let amount = 25000;
 	let {
+		address,
 		account: { balance },
 		username
 	} = data.user;
+
+	let { ticket } = data;
 
 	let invoice;
 	let get = async (network) => {
@@ -31,23 +34,24 @@
 </script>
 
 <div class="mx-auto h-screen flex items-center justify-center px-8">
-	<div class="p-4 font-normal text-gray-800 mx-auto mb-8">
+	<div class="p-4 font-normal text-gray-800 mx-auto mb-8 space-y-5">
 		{#if balance > amount}
 			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Buy Your Launch Party Ticket?
+				Confirm Purchase
 			</h1>
 
-			<div class="text-center text-4xl mb-12">{amount} sats</div>
+			<img src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`} class="my-8" />
 
-			<div class="w-full flex">
-				<form method="POST" use:enhance>
+			<form method="POST" use:enhance>
+        <input type="hidden" name="ticket" value={ticket} />
+				<div class="w-full flex">
 					<button
 						class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
 					>
 						Count me in
 					</button>
-				</form>
-			</div>
+				</div>
+			</form>
 		{:else}
 			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
 				Ticket Price
