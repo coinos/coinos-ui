@@ -1,5 +1,4 @@
 import { error, redirect } from '@sveltejs/kit';
-import cookie from 'cookie';
 import { protectedRoutes } from '$lib/utils';
 import { get, post, auth } from '$lib/utils';
 import { env } from '$env/dynamic/public';
