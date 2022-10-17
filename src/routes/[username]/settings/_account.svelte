@@ -36,9 +36,14 @@
 		percent = Math.round((event.loaded / event.total) * 100);
 	};
 
+	let tooLarge = {};
+
 	let files = { profile: {}, banner: {} };
 	let handleFile = async ({ target }, type) => {
+		tooLarge[type] = false;
 		let file = target.files[0];
+		console.log('TYPE', file.size);
+		if (file.size > 5000000) return (tooLarge[type] = true);
 		var reader = new FileReader();
 		reader.onload = async (e) => {
 			files[type].src = e.target.result;
@@ -118,6 +123,7 @@
 
 <div>
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
+
 	<div class="flex">
 		{#if profile}
 			<div
@@ -136,7 +142,7 @@
 				on:click={() => select('profile')}
 			>
 				<img
-					src={`/api/public/${user.username}-profile.png`}
+					src={`/api/public/${user.username}-profile.webp`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 					alt={user.username}
 				/>
@@ -167,6 +173,10 @@
 			{/if}
 		</div>
 	</div>
+
+	{#if tooLarge['profile']}
+		<div class="text-red-600">Max file size 5MB</div>
+	{/if}
 </div>
 
 <div>
@@ -184,7 +194,7 @@
 		/>
 	{:else if user.banner}
 		<img
-			src={`/api/public/${user.username}-banner.png`}
+			src={`/api/public/${user.username}-banner.webp`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
 			alt="Banner"
@@ -211,6 +221,10 @@
 	/>
 	{#if files.banner.filename}
 		<div class="mt-2 text-sm">{files.banner.filename}</div>
+	{/if}
+
+	{#if tooLarge['banner']}
+		<div class="text-red-600">Max file size 5MB</div>
 	{/if}
 </div>
 
