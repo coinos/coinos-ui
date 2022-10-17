@@ -1,10 +1,14 @@
 import { auth, get, post } from '$lib/utils';
 import tickets from '$lib/tickets';
 
-export const load = () => get('/ticket');
+export const load = async ({ parent }) => {
+	let p = await parent();
+	let t = await get('/ticket');
+	return { ...p, ...t };
+};
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	internal: async ({ cookies, request, parent }) => {
 		let { ticket } = Object.fromEntries(await request.formData());
 
 		let r = await post(
@@ -22,5 +26,26 @@ export const actions = {
 		);
 
 		console.log(r);
-	}
+	},
+
+	lightning: async ({ cookies, request }) => {
+		let form = await request.formData();
+
+		let rates = await get('/rates');
+
+		let invoice = {
+			amount: parseInt(form.get('amount')),
+			tip: parseInt(form.get('tip')),
+			network: 'lightning',
+			prompt: form.get('prompt') === 'true',
+			rate: rates[form.get('currency')]
+		};
+
+		let user = { username: form.get('username') };
+
+		let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
+
+		throw redirect(307, `/invoice/${uuid}`);
+	},
+	bitcoin: () => console.log('YYEAH')
 };
