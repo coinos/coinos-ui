@@ -4,6 +4,7 @@ import { success } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
 const socketUrl = env.PUBLIC_SOCKET;
+const btc = env.PUBLIC_BTC;
 
 let interval, socket, token;
 
@@ -20,7 +21,8 @@ export const messages = (data) => ({
 
 	payment() {
 		let { amount, invoice } = data;
-		console.log('INVOICE', invoice);
+		if (get(user).account_id !== data.account_id ) return;
+
 		if (invoice) {
 			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
 		}

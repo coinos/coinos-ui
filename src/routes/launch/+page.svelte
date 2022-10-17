@@ -29,7 +29,7 @@
 				</h1>
 
 				<p class="leading-normal mb-2">
-        Come join us at our launch party celebrating our new design and 10 years since our <a href="https://github.com/coinos/coinos-server/commit/b25d11b" class="underline">first commit</a>!
+        Come join us at our launch party celebrating our new design and 10 years since our <a href="https://github.com/coinos/coinos-server/commit/b25d11b" class="underline" target="_blank">first commit</a>!
 				</p>
 				<div class="ml-8">
 					<p><b>When</b></p>

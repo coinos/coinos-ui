@@ -1,5 +1,6 @@
 import { auth, get, post } from '$lib/utils';
 import tickets from '$lib/tickets';
+import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent }) => {
 	let p = await parent();
@@ -11,7 +12,7 @@ export const actions = {
 	internal: async ({ cookies, request, parent }) => {
 		let { ticket } = Object.fromEntries(await request.formData());
 
-		let r = await post(
+		let { asset } = await post(
 			'/assets',
 			{
 				name: `Launch Party Ticket ${ticket}`,
@@ -25,7 +26,7 @@ export const actions = {
 			auth(cookies)
 		);
 
-		console.log(r);
+    throw redirect(307, `/launch/thanks/${asset}`);
 	},
 
 	lightning: async ({ cookies, request }) => {
