@@ -14,7 +14,7 @@
 			<img
 				src={$tempProfileFiles && $tempProfileFiles.profile
 					? $tempProfileFiles.profile
-					: `/api/public/${user.username}-profile.png`}
+					: `/api/public/${user.username}-profile.webp`}
 				class="w-full h-full object-cover object-center overflow-hidden"
 				alt={user.username}
 			/>

@@ -5,6 +5,7 @@
 	import { goto } from '$app/navigation';
 
 	export let data;
+  export let form;
 
 	let amount = 25000;
 	let {
@@ -37,7 +38,7 @@
 <div class="mx-auto h-screen flex items-center justify-center px-4">
 	<div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
 		<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-			Confirm Purchase
+      Confirm Purchase
 		</h1>
 
 		<img

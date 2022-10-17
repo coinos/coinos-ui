@@ -35,7 +35,7 @@
 		$tempProfileFiles && $tempProfileFiles.banner
 			? `url(${$tempProfileFiles.banner})`
 			: subject?.banner
-			? `url(/api/public/${subject.username}-banner.png)`
+			? `url(/api/public/${subject.username}-banner.webp)`
 			: undefined;
 </script>
 
