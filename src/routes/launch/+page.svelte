@@ -9,8 +9,7 @@
 	$redirect = '/launch/purchase';
 
 	beforeNavigate(({ to }) => {
-		console.log(link);
-		if (link === '/register') info('Please sign in so we can get you a ticket');
+		if (to.routeId === 'register') info('Please sign in so we can get you a ticket');
 	});
 </script>
 
@@ -30,7 +29,7 @@
 				</h1>
 
 				<p class="leading-normal mb-2">
-					Come join us at our launch party celebrating 10 years in business!
+        Come join us at our launch party celebrating our new design and 10 years since our <a href="https://github.com/coinos/coinos-server/commit/b25d11b" class="underline">first commit</a>!
 				</p>
 				<div class="ml-8">
 					<p><b>When</b></p>

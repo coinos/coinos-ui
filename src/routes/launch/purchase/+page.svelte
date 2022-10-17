@@ -9,6 +9,7 @@
 	let amount = 25000;
 	let {
 		address,
+    currency,
 		account: { balance },
 		username
 	} = data.user;
@@ -35,17 +36,17 @@
 
 <div class="mx-auto h-screen flex items-center justify-center px-4">
 	<div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
+		<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
+			Confirm Purchase
+		</h1>
+
+		<img
+			src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`}
+			class="w-full max-w-[800px]"
+		/>
+
 		{#if balance > amount}
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Confirm Purchase
-			</h1>
-
-			<img
-				src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`}
-				class="w-full max-w-[800px]"
-			/>
-
-			<form method="POST" use:enhance>
+			<form action="?/internal" method="POST" use:enhance>
 				<input type="hidden" name="ticket" value={ticket} />
 				<div class="w-full flex">
 					<button
@@ -57,33 +58,35 @@
 			</form>
 		{:else}
 			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Ticket Price
-			</h1>
-			<div class="text-center text-4xl mb-12">{amount} sats</div>
-
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Your Balance
+				Payment Options
 			</h1>
 
-			<div class="text-center text-4xl mb-12">{balance} sats</div>
+			<form action="?/lightning" method="POST">
+        <input type="hidden" name="currency" value={currency} />
+        <input type="hidden" name="username" value={username} />
+				<button
+					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
+				>
+					Lightning
+				</button>
+			</form>
 
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Funding Options
-			</h1>
+			<form action="?/bitcoin" method="POST">
+				<button
+					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
+					on:click={bitcoin}
+				>
+					Bitcoin
+				</button>
+			</form>
 
-			<button
-				class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				on:click={lightning}
-			>
-				Lightning
-			</button>
-
-			<button
-				class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				on:click={bitcoin}
-			>
-				Bitcoin
-			</button>
+			<a href={`purchase/card`}>
+				<button
+					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
+				>
+					Credit Card
+				</button>
+			</a>
 		{/if}
 	</div>
 </div>
