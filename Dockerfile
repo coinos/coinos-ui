@@ -6,8 +6,8 @@ ENV NODE_ENV $NODE_ENV
 RUN npm i -g pnpm
 WORKDIR /app
 
-COPY package.json .
-RUN NODE_ENV=development pnpm i
+ADD package.json .
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store NODE_ENV=development pnpm i
 
 COPY . .
 RUN pnpm build
