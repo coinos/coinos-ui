@@ -1,16 +1,18 @@
 import { auth, get, post } from '$lib/utils';
 import tickets from '$lib/tickets';
-import { redirect } from "@sveltejs/kit";
+import { redirect } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
+import { invalidateAll } from '$app/navigation';
+import { browser } from '$app/environment';
 
 export const load = async ({ parent }) => {
-	let p = await parent();
-	let t = await get('/ticket');
-	return { ...p, ...t };
+	let tickets = await get('/tickets');
+	return { ...(await parent()), tickets };
 };
 
 export const actions = {
-	internal: async ({ cookies, request, parent }) => {
-		let { ticket } = Object.fromEntries(await request.formData());
+	internal: async ({ cookies, request }) => {
+		let { ticket } = await get('/ticket');
 
 		let { asset } = await post(
 			'/assets',
@@ -26,7 +28,9 @@ export const actions = {
 			auth(cookies)
 		);
 
-    throw redirect(307, `/launch/thanks/${asset}`);
+		await post('/ticket', { asset }, { authorization: `Bearer ${env.LAUNCH}` });
+
+		throw redirect(307, `/launch/thanks/${asset}`);
 	},
 
 	lightning: async ({ cookies, request }) => {
@@ -35,10 +39,9 @@ export const actions = {
 		let rates = await get('/rates');
 
 		let invoice = {
-			amount: parseInt(form.get('amount')),
-			tip: parseInt(form.get('tip')),
+			amount: 25000,
 			network: 'lightning',
-			prompt: form.get('prompt') === 'true',
+			prompt: false,
 			rate: rates[form.get('currency')]
 		};
 
@@ -50,3 +53,17 @@ export const actions = {
 	},
 	bitcoin: () => console.log('YYEAH')
 };
+
+export async function POST({ request }) {
+	let { address, amount, confirmed } = await request.json();
+	if (!confirmed) return;
+
+	if (request.headers.get('x-webhook') !== env.WEBHOOK) {
+		throw new Error('access denied');
+	}
+
+	let username = invoices[address];
+	amount = Math.round(amount / 2100);
+
+	await post('/send', { username, asset, amount }, { authorization: `Bearer ${token}` });
+}

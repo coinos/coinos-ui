@@ -1,3 +1,5 @@
+import { env } from '$env/dynamic/private';
+
 let stripe = 'https://api.stripe.com/v1';
 
 export const actions = {
@@ -5,10 +7,7 @@ export const actions = {
 		let form = await request.formData();
 
 		let headers = new Headers();
-		headers.set(
-			'Authorization',
-			'Basic ' + new Buffer('sk_test_mBv5bAeAhiYSDYFZJNsDwjht:').toString('base64')
-		);
+		headers.set('Authorization', 'Basic ' + new Buffer(env.STRIPE + ':').toString('base64'));
 
 		let body = new URLSearchParams({
 			'card[number]': form.get('number'),

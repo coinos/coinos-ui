@@ -3,7 +3,7 @@
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
 	import { focus } from '$lib/utils';
-	import { redirect } from '$lib/store';
+	import { loginRedirect } from '$lib/store';
 	import { t } from '$lib/translations';
 
 	export let form;
@@ -40,8 +40,8 @@
 			{/if}
 
 			<form class="space-y-5" {action} method="POST" use:enhance>
-				{#if $redirect}
-					<input type="hidden" name="redirect" value={$redirect} />
+				{#if $loginRedirect}
+					<input type="hidden" name="loginRedirect" value={$loginRedirect} />
 				{/if}
 
 				<div>

@@ -5,7 +5,8 @@ import { env } from '$env/dynamic/public';
 
 export const { PUBLIC_BTC: btc } = env;
 
-export async function load({ cookies, request, url, params }) {
+export async function load({ cookies, locals, request, url, params }) {
+	url.pathname;
 	let token = cookies.get('token');
 	let user;
 	let rates;
@@ -16,11 +17,7 @@ export async function load({ cookies, request, url, params }) {
 	}
 
 	if (token && token !== 'undefined') {
-		try {
-			user = await get('/me', auth(cookies));
-		} catch (e) {
-			throw redirect(307, '/logout');
-		}
+		user = locals.user;
 
 		if (protectedRoutes.find((p) => url.pathname.match(p))) {
 			if (user.username !== params.username) throw error(404, 'user not found');

@@ -1,21 +1,21 @@
 <script>
 	import { enhance } from '$app/forms';
-	import { selectedRate } from '$lib/store';
+	import { invoiceRedirect, selectedRate } from '$lib/store';
 	import { post } from '$lib/utils';
 	import { goto } from '$app/navigation';
 
 	export let data;
-  export let form;
 
 	let amount = 25000;
 	let {
 		address,
-    currency,
+		currency,
 		account: { balance },
 		username
 	} = data.user;
 
-	let { ticket } = data;
+	let { tickets } = data;
+	let ticket = tickets.length;
 
 	let invoice;
 	let get = async (network) => {
@@ -26,6 +26,7 @@
 			username
 		});
 
+		$invoiceRedirect = '/launch/purchase';
 		goto(`/invoice/${uuid}`);
 	};
 
@@ -38,12 +39,13 @@
 <div class="mx-auto h-screen flex items-center justify-center px-4">
 	<div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
 		<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-      Confirm Purchase
+			Confirm Purchase
 		</h1>
 
 		<img
 			src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`}
 			class="w-full max-w-[800px]"
+			alt="Ticket"
 		/>
 
 		{#if balance > amount}
@@ -63,8 +65,8 @@
 			</h1>
 
 			<form action="?/lightning" method="POST">
-        <input type="hidden" name="currency" value={currency} />
-        <input type="hidden" name="username" value={username} />
+				<input type="hidden" name="currency" value={currency} />
+				<input type="hidden" name="username" value={username} />
 				<button
 					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
 				>

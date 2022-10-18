@@ -2,7 +2,9 @@
 	import { page } from '$app/stores';
 
 	export let data;
+
 	let { user } = data;
+
 	let { asset } = $page.params;
 </script>
 
@@ -18,7 +20,7 @@
 			We've minted your ticket as an <a
 				href={`https://blockstream.info/liquid/asset/${asset}`}
 				class="underline">NFT on the Liquid Blockchain</a
-			> as a proof of purchase and commemorative token. It may confer some special benefits in the future.
+			> as a proof of purchase and commemorative token.
 		</p>
 	</div>
 

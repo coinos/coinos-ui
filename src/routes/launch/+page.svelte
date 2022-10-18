@@ -1,15 +1,18 @@
 <script>
-	import { redirect } from '$lib/store';
+	import { loginRedirect } from '$lib/store';
 	import { beforeNavigate } from '$app/navigation';
 	import { info } from '$lib/utils';
 
 	export let data;
-	let { user } = data;
-	$: link = user ? '/launch/purchase' : '/register';
-	$redirect = '/launch/purchase';
+	let { user, tickets } = data;
+	$loginRedirect = '/launch/purchase';
+
+	let hasTicket = !!user?.accounts.find((a) => tickets.includes(a.asset));
+	$: link = user ? $loginRedirect : '/register';
+	$: text = (hasTicket ? 'View' : 'Purchase') + ' Ticket';
 
 	beforeNavigate(({ to }) => {
-		if (to.routeId === 'register') info('Please sign in so we can get you a ticket');
+		if (to?.routeId === 'register') info('Please sign in so we can get you a ticket');
 	});
 </script>
 
@@ -29,7 +32,12 @@
 				</h1>
 
 				<p class="leading-normal mb-2">
-        Come join us at our launch party celebrating our new design and 10 years since our <a href="https://github.com/coinos/coinos-server/commit/b25d11b" class="underline" target="_blank">first commit</a>!
+					Come join us at our launch party celebrating our new design and 10 years since our <a
+						href="https://github.com/coinos/coinos-server/commit/b25d11b"
+						class="underline"
+						target="_blank"
+						rel="noreferrer">first commit</a
+					>!
 				</p>
 				<div class="ml-8">
 					<p><b>When</b></p>
@@ -58,7 +66,7 @@
 						<button
 							class="bg-white text-black border rounded-full px-8 py-4 font-bold hover:opacity-80 text-2xl"
 						>
-							Purchase Ticket
+							{text}
 						</button>
 					</a>
 				</div>
