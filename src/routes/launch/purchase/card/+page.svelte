@@ -9,7 +9,7 @@
 			type="text"
 			name="number"
 			placeholder="0000 0000 0000"
-   value="4242424242424242"
+			value="4242424242424242"
 		/>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@
 			type="text"
 			name="expiry"
 			placeholder="MM/YY"
-   value="0123"
+			value="0123"
 		/>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@
 			type="text"
 			name="cvc"
 			placeholder="&bull;&bull;&bull;"
-   value="123"
+			value="123"
 		/>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -100,10 +100,10 @@
 		</svg>
 	</label>
 
-  <div class="w-full flex">
-    <button
-      
-				class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-       type="submit">Submit</button>
-  </div>
+	<div class="w-full flex">
+		<button
+			class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
+			type="submit">Submit</button
+		>
+	</div>
 </form>

@@ -14,7 +14,8 @@
 	const localeLocalStorageKey = 'sveltekit-i18n-locale';
 
 	export let data;
-  let r, u, token, rates;
+
+	let r, u, token, rates;
 
 	$: update(data);
 	let update = () => {

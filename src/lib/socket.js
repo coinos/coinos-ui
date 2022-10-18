@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { invoices, newPayment, rate } from '$lib/store';
+import { invoices, newPayment, rate, user } from '$lib/store';
 import { success } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
@@ -21,7 +21,7 @@ export const messages = (data) => ({
 
 	payment() {
 		let { amount, invoice } = data;
-		if (get(user).account_id !== data.account_id ) return;
+		if (get(user).account_id !== data.account_id) return;
 
 		if (invoice) {
 			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });

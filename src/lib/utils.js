@@ -9,6 +9,17 @@ export function scroll(section) {
 
 const base = browser ? '' : env.PUBLIC_COINOS_URL;
 
+export const g = (url, fetch, headers) =>
+	fetch(base + url, { headers })
+		.then((r) => r.text())
+		.then((body) => {
+			try {
+				return JSON.parse(body);
+			} catch (e) {
+				throw new Error(body);
+			}
+		});
+
 export const get = (url, headers = {}) =>
 	fetch(base + url, { headers })
 		.then((r) => r.text())
