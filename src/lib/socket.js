@@ -19,13 +19,14 @@ export const messages = (data) => ({
 		rate.set(data);
 	},
 
-	payment() {
+	async payment() {
 		let { amount, invoice } = data;
 		if (get(user).account_id !== data.account_id) return;
 
 		if (invoice) {
 			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
 		}
+
 		newPayment.set(true);
 		if (amount > 0) {
 			success(`Received ${amount} sats!`);

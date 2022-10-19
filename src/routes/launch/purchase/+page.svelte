@@ -1,6 +1,7 @@
 <script>
+	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
-	import { invoiceRedirect, selectedRate } from '$lib/store';
+	import { selectedRate } from '$lib/store';
 	import { post } from '$lib/utils';
 	import { goto } from '$app/navigation';
 
@@ -8,7 +9,6 @@
 
 	let amount = 25000;
 	let {
-		address,
 		currency,
 		account: { balance },
 		username
@@ -16,24 +16,6 @@
 
 	let { tickets } = data;
 	let ticket = tickets.length;
-
-	let invoice;
-	let get = async (network) => {
-		let { uuid } = await post('/invoice', {
-			amount,
-			rate: $selectedRate,
-			network,
-			username
-		});
-
-		$invoiceRedirect = '/launch/purchase';
-		goto(`/invoice/${uuid}`);
-	};
-
-	let lightning = () => get('lightning');
-	let bitcoin = () => get('bitcoin');
-
-	// if (balance < amount) throw redirect(307, `/${username}/fund/${amount - balance}`);
 </script>
 
 <div class="mx-auto h-screen flex items-center justify-center px-4">
@@ -48,9 +30,10 @@
 			alt="Ticket"
 		/>
 
-		{#if balance > amount}
+		{#if balance >= amount}
 			<form action="?/internal" method="POST" use:enhance>
-				<input type="hidden" name="ticket" value={ticket} />
+				<input type="hidden" name="username" value={username} />
+
 				<div class="w-full flex">
 					<button
 						class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
@@ -77,7 +60,6 @@
 			<form action="?/bitcoin" method="POST">
 				<button
 					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-					on:click={bitcoin}
 				>
 					Bitcoin
 				</button>

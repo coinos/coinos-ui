@@ -8,7 +8,7 @@
 	$loginRedirect = '/launch/purchase';
 
 	let hasTicket = !!user?.accounts.find((a) => tickets.includes(a.asset));
-	$: link = user ? $loginRedirect : '/register';
+	$: link = hasTicket ? '/launch/ticket' : user ? $loginRedirect : '/register';
 	$: text = (hasTicket ? 'View' : 'Purchase') + ' Ticket';
 
 	beforeNavigate(({ to }) => {
@@ -39,26 +39,35 @@
 						rel="noreferrer">first commit</a
 					>!
 				</p>
-				<div class="ml-8">
-					<p><b>When</b></p>
-					<p>6pm on October 26</p>
-				</div>
-				<div class="ml-8">
-					<p><b>Where</b></p>
-					<p>1184 Denman Street, #203</p>
-					<p>Vancouver, BC</p>
+
+				<div class="flex">
+					<div class="space-y-5">
+						<div class="ml-8">
+							<p><b>When</b></p>
+							<p>6pm October 26</p>
+						</div>
+						<div class="ml-8">
+							<p><b>Where</b></p>
+							<p>The Loft Lounge</p>
+							<p>1184 Denman Street, #203</p>
+							<p>Vancouver, BC</p>
+						</div>
+					</div>
+
+					<img src="/icons/party.svg" alt="Partygoers" class="w-[120px] mx-auto" />
 				</div>
 
 				<p>
-					We'll introduce our new interface for merchants to take bitcoin payments and afterwards
-					we'll network and enjoy tasty food and drinks from <a
+					We'll introduce our new interface for merchants to take bitcoin payments, discuss how we
+					can get all of Metro Vancouver on a bitcoin economy, and enjoy tasty food and drinks from <a
 						href="https://loftondenman.com/"
 						class="underline">The Loft</a
 					>!
 				</p>
 
 				<p>
-					We're charging a nominal $6 entry fee so we can get an idea of how much space to reserve.
+					We're asking for a nominal $6 entry fee so we can get an idea of how much space to
+					reserve.
 				</p>
 
 				<div class="flex w-full my-8">

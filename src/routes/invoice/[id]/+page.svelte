@@ -1,7 +1,7 @@
 <script>
 	import { copy, f, get, reverseFormat, s, sats } from '$lib/utils';
 	import { browser } from '$app/environment';
-	import { invoices, invoiceRedirect } from '$lib/store';
+	import { invoices } from '$lib/store';
 	import { Icon, Heart, Image, Qr, Tip } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -46,7 +46,7 @@
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
 	$: browser &&
 		$invoices[id]?.received >= $invoices[id]?.amount &&
-		goto($invoiceRedirect || `/invoice/${id}/paid`);
+		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 
@@ -55,6 +55,7 @@
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 </script>
 
+{$invoices[id]?.memo}
 <div class:full-shadow={showMobileTip}>
 	<button
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
