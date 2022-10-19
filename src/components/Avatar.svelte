@@ -2,7 +2,6 @@
 	import { colorTheme, tempProfileFiles } from '$lib/store';
 	import { Icon } from '$comp';
 
-	export let avatarPosition;
 	export let user;
 </script>
 
