@@ -24,8 +24,7 @@
 				class="rounded-md peer pl-12 pr-2 py-2 border-2 border-gray-200 placeholder-gray-300"
 				type="text"
 				name="number"
-				placeholder="0000 0000 0000"
-				value="4242424242424242"
+				placeholder="0000 0000 0000 0000"
 			/>
 			<Card />
 		</label>
@@ -37,7 +36,6 @@
 				type="text"
 				name="expiry"
 				placeholder="MM/YY"
-				value="0123"
 			/>
 			<Calendar />
 		</label>
@@ -58,7 +56,6 @@
 				type="text"
 				name="cvc"
 				placeholder="&bull;&bull;&bull;"
-				value="123"
 			/>
 			<Lock />
 		</label>
