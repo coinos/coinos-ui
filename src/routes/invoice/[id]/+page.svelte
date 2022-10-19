@@ -55,7 +55,6 @@
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 </script>
 
-{$invoices[id]?.memo}
 <div class:full-shadow={showMobileTip}>
 	<button
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
