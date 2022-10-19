@@ -15,17 +15,10 @@
 		</h1>
 
 		<p>We look forward to seeing you!</p>
-
-		<p>
-			We've minted your ticket as an <a
-				href={`https://blockstream.info/liquid/asset/${asset}`}
-				class="underline">NFT on the Liquid Blockchain</a
-			> as a proof of purchase and commemorative token.
-		</p>
 	</div>
 
 	<div class="w-full flex">
-		<a href={`/${user.username}/dashboard`} class="mx-auto">
+		<a href="/launch/ticket" class="mx-auto">
 			<button
 				class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 text-2xl"
 			>

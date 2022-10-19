@@ -152,7 +152,7 @@
 		"settings": "Settings",
 		"support": "Support"
 	},
-	"newSiteHeader": "Welcome to the <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\" >new and improved coinos</a>, focused on merchant adoption! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
+	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 6! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
 		"header": "News",
 		"subheader": "Latest Updates",
