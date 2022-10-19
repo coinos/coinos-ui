@@ -7,16 +7,29 @@ import { browser } from '$app/environment';
 
 export const load = async ({ parent }) => {
 	let tickets = await get('/tickets');
-	return { ...(await parent()), tickets };
+	let { user } = await parent();
+	let hasTicket = !!user?.accounts.find((a) => tickets.includes(a.asset));
+  if (hasTicket) throw redirect(307, '/launch/ticket');
+	return { tickets };
 };
 
 export const actions = {
 	internal: async ({ cookies, request }) => {
+		let form = await request.formData();
+		let username = form.get('username');
+
+		let { address } = await post(
+			'/invoice',
+			{ invoice: { network: 'liquid' }, user: { username } },
+			auth(cookies)
+		);
+
 		let { ticket } = await get('/ticket');
 
 		let { asset } = await post(
 			'/assets',
 			{
+				address,
 				name: `Launch Party Ticket ${ticket}`,
 				ticker: 'LPT',
 				precision: 0,
@@ -25,9 +38,10 @@ export const actions = {
 				domain: 'coinos.io',
 				filename: tickets[ticket]
 			},
-			auth(cookies)
+			{ authorization: `Bearer ${env.LAUNCH}` }
 		);
 
+		await post('/send', { amount: 25000, username: 'launch' }, auth(cookies));
 		await post('/ticket', { asset }, { authorization: `Bearer ${env.LAUNCH}` });
 
 		throw redirect(307, `/launch/thanks/${asset}`);
@@ -40,6 +54,7 @@ export const actions = {
 
 		let invoice = {
 			amount: 25000,
+			memo: 'launch',
 			network: 'lightning',
 			prompt: false,
 			rate: rates[form.get('currency')]

@@ -22,7 +22,7 @@
 	};
 </script>
 
-<div class="container px-4 text-center">
+<div class="container px-4 text-center mx-auto">
 	<div class="flex w-full py-20 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
 		<Icon icon="check" style="mx-auto" />
 	</div>
