@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { error, redirect } from '@sveltejs/kit';
 import { post, auth } from '$lib/utils';
-import { createTicket } from "$lib/ticket";
+import { createTicket } from '$lib/ticket';
 
 let stripe = 'https://api.stripe.com/v1';
 
@@ -37,7 +37,7 @@ export const actions = {
 		);
 
 		if (status !== 'succeeded') throw error(500, { message: 'Card payment failed' });
-		let asset  = await createTicket(cookies, form.get('username'));
+		let asset = await createTicket(cookies, form.get('username'));
 
 		throw redirect(307, `/launch/thanks/${asset}`);
 	}

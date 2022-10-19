@@ -41,5 +41,5 @@ export const actions = {
 		let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
 
 		throw redirect(307, `/invoice/${uuid}`);
-	},
+	}
 };
