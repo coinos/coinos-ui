@@ -1,3 +1,6 @@
+export { default as Card } from './Card.svelte';
+export { default as Lock } from './Lock.svelte';
+export { default as Calendar } from './Calendar.svelte';
 export { default as Avatar } from './Avatar.svelte';
 export { default as Left } from './Left.svelte';
 export { default as Numpad } from './Numpad.svelte';

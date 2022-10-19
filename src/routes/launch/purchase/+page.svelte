@@ -7,7 +7,7 @@
 
 	export let data;
 
-	let amount = 25000;
+	let amount = 22000;
 	let {
 		currency,
 		account: { balance },
@@ -21,7 +21,7 @@
 <div class="mx-auto h-screen flex items-center justify-center px-4">
 	<div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
 		<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-			Confirm Purchase
+			Purchase Ticket
 		</h1>
 
 		<img
@@ -43,35 +43,25 @@
 				</div>
 			</form>
 		{:else}
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
+			<h1 class="mb-4 text-xl font-bold leading-none tracking-tight text-gray-800 text-center">
 				Payment Options
 			</h1>
 
-			<form action="?/lightning" method="POST">
-				<input type="hidden" name="currency" value={currency} />
-				<input type="hidden" name="username" value={username} />
-				<button
-					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				>
-					Lightning
-				</button>
-			</form>
+			<div class="flex justify-center gap-4">
+				<form action="?/lightning" method="POST">
+					<input type="hidden" name="currency" value={currency} />
+					<input type="hidden" name="username" value={username} />
+					<button class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
+						Lightning
+					</button>
+				</form>
 
-			<form action="?/bitcoin" method="POST">
-				<button
-					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				>
-					Bitcoin
-				</button>
-			</form>
-
-			<a href={`purchase/card`}>
-				<button
-					class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				>
-					Credit Card
-				</button>
-			</a>
+				<a href={`purchase/card`}>
+					<button class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
+						Credit Card
+					</button>
+				</a>
+			</div>
 		{/if}
 	</div>
 </div>
