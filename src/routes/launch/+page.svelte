@@ -58,10 +58,9 @@
 				</div>
 
 				<p>
-					We'll introduce our new interface for merchants to take bitcoin payments, discuss how we
-					can get all of Metro Vancouver on a bitcoin economy, and enjoy tasty food and drinks from <a
-						href="https://loftondenman.com/"
-						class="underline">The Loft</a
+					We'll introduce our new interface, discuss how we can get Vancouver on bitcoin, and enjoy
+					tasty food and drinks from <a href="https://loftondenman.com/" class="underline"
+						>The Loft</a
 					>!
 				</p>
 

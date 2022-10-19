@@ -3,7 +3,7 @@ import { env } from '$env/dynamic/private';
 import tickets from '$lib/tickets';
 
 export const createTicket = async (cookies, username) => {
-  let { ticket } = await get('/ticket');
+	let { ticket } = await get('/ticket');
 
 	let { address } = await post(
 		'/invoice',
@@ -27,5 +27,5 @@ export const createTicket = async (cookies, username) => {
 	);
 
 	await post('/ticket', { asset }, { authorization: `Bearer ${env.LAUNCH}` });
-  return asset;
+	return asset;
 };
