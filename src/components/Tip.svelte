@@ -188,8 +188,4 @@
 		background: black;
 		cursor: pointer;
 	}
-
-	#slider.slider-track::-moz-range-progress {
-		background: black;
-	}
 </style>
