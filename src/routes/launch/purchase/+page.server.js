@@ -17,7 +17,7 @@ export const load = async ({ parent }) => {
 export const actions = {
 	internal: async ({ cookies, request }) => {
 		let form = await request.formData();
-		await createTicket(cookies, form.get('username'));
+		let asset = await createTicket(cookies, form.get('username'));
 		await post('/send', { amount: 22000, username: 'launch' }, auth(cookies));
 
 		throw redirect(307, `/launch/thanks/${asset}`);
