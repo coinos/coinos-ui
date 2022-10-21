@@ -36,6 +36,7 @@ export const post = (url, body, headers) => {
 	return fetch(base + url, { method: 'POST', body: JSON.stringify(body), headers })
 		.then((r) => r.text())
 		.then((body) => {
+			console.log('BODY', body);
 			try {
 				body = JSON.parse(body);
 			} catch (e) {
@@ -108,7 +109,17 @@ export const info = (m) => {
 
 export const login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
-	let { token } = await post('/login', user);
+	let res = await fetch(base + '/login', {
+		method: 'POST',
+		body: JSON.stringify(user),
+		headers: { 'content-type': 'application/json', accept: 'application/json' }
+	});
+	if (res.status === 401) {
+		let text = await res.text();
+		if (text.startsWith('2fa')) throw new Error('2fa');
+	}
+
+	let { token } = await res.json();
 	if (!token) throw new Error('Login failed');
 
 	let expires = new Date();
