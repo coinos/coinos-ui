@@ -5,25 +5,75 @@
 	import { Pincode, PincodeInput } from 'svelte-pincode';
 	import { post, success, failure } from '$lib/utils';
 
-	export let user;
+	export let user, submit;
 
 	let settingPin, setting2fa, disabling2fa;
 
-	let code = [];
-	let pin = '';
 	let token = '';
-	let tokenInput, pinInput;
+	let pinCode = [];
+	let verifyCode = [];
+	let tokenInput, pinInput, verifyInput;
+	let verifying = false;
 
+	let startVerifying = () => {
+		verifying = true;
+	};
+
+	$: pin = pinCode.join('');
+
+	let locked;
+	$: verifyCode.join('').length > 5 && checkPin();
+	let checkPin = async () => {
+		if (locked) return;
+		locked = true;
+
+		let verify = verifyCode.join('');
+
+		pinCode = ['', '', '', '', '', ''];
+		verifyCode = ['', '', '', '', '', ''];
+		settingPin = false;
+
+		try {
+			if (pin.length > 5 && pin === verify) {
+				user.pin = pin;
+				submit.click();
+			} else {
+				failure('Pin mismatch, try again');
+				settingPin = true;
+				pinInput.focusFirstInput();
+			}
+		} catch (e) {
+			failure('Problem setting PIN');
+		}
+
+		verifying = false;
+
+		await new Promise((r) => setTimeout(r, 500));
+		locked = false;
+	};
+
+	$: if (verifying) verifyInput && tick().then(verifyInput.focusFirstInput);
 	$: if (settingPin) pinInput && tick().then(pinInput.focusFirstInput);
-	$: if (setting2fa || disabling2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
+	$: if (setting2fa || disabling2fa) tokenInput && tick().then(tokenInput?.focusFirstInput);
 
 	let reset = () => {
 		token = '';
-		code = [];
 		return true;
 	};
 
-	let togglePin = () => (settingPin = !settingPin);
+	let togglePin = async () => {
+		if (user.pin) {
+			try {
+				user.pin = null;
+				submit.click();
+			} catch (e) {
+				failure('Failed to disable pin');
+			}
+		} else {
+			settingPin = true;
+		}
+	};
+
 	let toggleEnabling = () => reset() && (setting2fa = !setting2fa);
 	let toggleDisabling = () => reset() && (disabling2fa = !disabling2fa);
 
@@ -58,31 +108,43 @@
 	$: otpUri = `otpauth://totp/coinos:${user.username}?secret=${user.otpsecret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
 </script>
 
-<!-- TODO
 <div>
-	<span class="font-bold mb-1">{$t('user.settings.securityPIN')}</span>
+	<input type="hidden" name="pin" value={pin} />
+	<span class="font-bold mb-1">{verifying ? 'Verify' : 'Security'} PIN</span>
 	<p class="text-secondary mb-1">
 		{$t('user.settings.securityPINDescription')}
 	</p>
 	{#if settingPin}
 		<div class="flex my-4">
 			<div class="mx-auto">
-				<Pincode bind:code bind:value={user.pin} bind:this={pinInput}>
-					<PincodeInput />
-					<PincodeInput />
-					<PincodeInput />
-					<PincodeInput />
-					<PincodeInput />
-					<PincodeInput />
-				</Pincode>
+				<div class:hidden={verifying}>
+					<Pincode on:complete={startVerifying} bind:code={pinCode} bind:this={pinInput}>
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+					</Pincode>
+				</div>
+				<div class:hidden={!verifying}>
+					<Pincode bind:code={verifyCode} bind:this={verifyInput}>
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+						<PincodeInput />
+					</Pincode>
+				</div>
 			</div>
 		</div>
 	{:else}
 		<button type="button" class="primary" on:click={togglePin}
-			><Icon icon="lock" style="mr-1" /> {$t('user.settings.setPIN')}</button
+			><Icon icon="lock" style="mr-1" /> {user.pin ? 'Disable Pin' : 'Enable Pin'}</button
 		>
 	{/if}
-</div> -->
+</div>
 
 <!-- TODO
 <div>
@@ -116,7 +178,7 @@
 
 		<div class="text-center my-4">
 			{$t('user.settings.oneTimeCode')}<br />
-			<Pincode bind:code bind:value={token} bind:this={tokenInput}>
+			<Pincode bind:value={token} bind:this={tokenInput}>
 				<PincodeInput />
 				<PincodeInput />
 				<PincodeInput />
@@ -128,7 +190,7 @@
 	{:else if disabling2fa}
 		<div class="text-center my-4">
 			{$t('user.settings.oneTimeCode')}<br />
-			<Pincode bind:code bind:value={token} bind:this={tokenInput}>
+			<Pincode bind:value={token} bind:this={tokenInput}>
 				<PincodeInput />
 				<PincodeInput />
 				<PincodeInput />

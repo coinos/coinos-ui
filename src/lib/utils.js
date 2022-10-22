@@ -36,7 +36,6 @@ export const post = (url, body, headers) => {
 	return fetch(base + url, { method: 'POST', body: JSON.stringify(body), headers })
 		.then((r) => r.text())
 		.then((body) => {
-			console.log('BODY', body);
 			try {
 				body = JSON.parse(body);
 			} catch (e) {

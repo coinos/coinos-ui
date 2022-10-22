@@ -4,7 +4,7 @@
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
 
-	import { Icon } from '$comp';
+	import { Icon, Spinner } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, success } from '$lib/utils';
 	import { avatarUpload, bannerUpload } from '$lib/store';
@@ -26,19 +26,29 @@
 
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 
-	let save = async () => {
+	let loading, submit;
+	let save = async (msg) => {
+		loading = true;
+		if (typeof msg !== 'string') msg = 'Settings saved';
+
+    console.log("SAVING ONCE")
+
 		try {
 			if ($avatarUpload) {
 				await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress, token);
 			}
+
 			if ($bannerUpload) {
 				await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress, token);
 			}
-			success('Settings saved');
+
+			success(msg);
 		} catch (e) {
 			console.log(e);
 			failure('Something went wrong');
 		}
+
+		loading = false;
 	};
 </script>
 
@@ -58,16 +68,22 @@
 			{/each}
 		</div>
 
-		<svelte:component this={comp} {user} {rates} />
+		<svelte:component this={comp} {user} {rates} {submit} />
 	</div>
 	<div
 		class="z-10 fixed bottom-0 bg-white shadow border-t w-full flex justify-center items-center py-3"
 	>
 		<button
+  bind:this={submit}
 			type="submit"
-			class="bg-black text-white rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
+			class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
+			class:bg-black={loading}
 		>
-			<div class="my-auto">Save Settings</div>
+			{#if loading}
+				<Spinner />
+			{:else}
+				<div class="my-auto">Save Settings</div>
+			{/if}
 		</button>
 	</div>
 </form>
