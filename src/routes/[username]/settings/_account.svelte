@@ -17,6 +17,7 @@
 	$: banner = files.banner.src;
 	$: $tempProfileFiles = { profile: files.profile.src, banner: files.banner.src };
 
+	let togglePassword = () => (revealPassword = !revealPassword);
 	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
 		{ theme: 2, color1: 'from-[#FDFCFB]', color2: 'to-[#E2D1C3]' },
@@ -88,7 +89,8 @@
 	{/if}
 	<button
 		type="button"
-		on:click={() => (revealPassword = !revealPassword)}
+		on:click={togglePassword}
+		on:keydown={togglePassword}
 		class="absolute right-5 top-11"
 	>
 		<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
@@ -129,6 +131,7 @@
 			<div
 				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}
 			>
 				<img
 					src={profile}
@@ -140,6 +143,7 @@
 			<div
 				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}
 			>
 				<img
 					src={`/api/public/${user.username}-profile.webp`}
@@ -151,6 +155,7 @@
 			<div
 				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}
 			>
 				<Icon icon="logo-symbol-white" style="mx-auto" />
 			</div>
@@ -160,7 +165,9 @@
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-				on:click={() => select('profile')}>Select</button
+    on:click={() => select('profile')}
+    on:keydown={() => select('profile')}
+    >Select</button
 			>
 			<input
 				type="file"
@@ -190,6 +197,7 @@
 			src={banner}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
+			on:keydown={() => select('banner')}
 			alt="Banner"
 		/>
 	{:else if user.banner}
@@ -197,12 +205,14 @@
 			src={`/api/public/${user.username}-banner.webp`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
+			on:keydown={() => select('banner')}
 			alt="Banner"
 		/>
 	{:else}
 		<div
 			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
 			on:click={() => select('banner')}
+			on:keydown={() => select('banner')}
 			alt="Banner"
 		/>
 	{/if}
@@ -211,7 +221,8 @@
 	<button
 		type="button"
 		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-		on:click={() => select('banner')}>Select</button
+		on:click={() => select('banner')}
+		on:keydown={() => select('banner')}>Select</button
 	>
 	<input
 		type="file"
@@ -240,6 +251,7 @@
 				? 'border-black'
 				: ''}"
 			on:click={() => handleThemeClick(colors)}
+			on:keydown={() => handleThemeClick(colors)}
 		/>
 	{/each}
 </div> -->

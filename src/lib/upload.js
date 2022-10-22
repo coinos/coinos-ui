@@ -1,5 +1,4 @@
 export const upload = async (file, type, progress, token) => {
-	console.log('FILE', file);
 	let url = `/api/upload/${type}`;
 	let formData = new FormData();
 	formData.append('file', file);
