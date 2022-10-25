@@ -3,18 +3,32 @@
 	import { Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
 	import { back } from '$lib/utils';
+	import { pin } from '$lib/store';
+
 	export let data;
+	export let form;
 
 	let { address } = $page.params;
 	let { currency } = data.user;
 	let amount, loading;
 
 	let submit = () => (loading = true);
+	$: update(form);
+	let update = () => {
+		if (form?.message.includes('pin')) $pin = undefined;
+    loading = false;
+	};
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
+
+{#if form?.message}
+	<div class="text-red-600 text-center">
+		{form.message}
+	</div>
+{/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
 	<div class="text-center mb-8">
@@ -26,6 +40,8 @@
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
+		<input name="pin" value={$pin} type="hidden" />
+
 		<div class="flex w-full">
 			<button
 				type="submit"
