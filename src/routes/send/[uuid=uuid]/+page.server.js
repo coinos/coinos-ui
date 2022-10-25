@@ -10,14 +10,19 @@ export async function load({ params, parent }) {
 
 export const actions = {
 	default: async ({ cookies, params, request }) => {
-		let body = Object.fromEntries(await request.formData());
-		let { confirmed } = body;
+		try {
+			let body = Object.fromEntries(await request.formData());
+			let { confirmed } = body;
 
-		if (!confirmed) {
-			return invalid(403, { amount, confirm: true });
+			if (!confirmed) {
+				return invalid(403, { amount, confirm: true });
+			}
+
+			await post('/send', body, auth(cookies));
+		} catch (e) {
+			return invalid(400, { message: e.message });
 		}
 
-		await post('/send', body, auth(cookies));
 		throw redirect(307, '/sent');
 	}
 };

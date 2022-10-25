@@ -42,6 +42,8 @@ export const post = (url, body, headers) => {
 				throw new Error(body);
 			}
 
+
+      if (body.error) throw body.error;
 			if (body instanceof Error) throw body;
 			if (body.name === 'Error') throw new Error(body.message);
 

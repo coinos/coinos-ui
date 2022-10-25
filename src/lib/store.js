@@ -2,12 +2,19 @@ import { get, writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
 // creates a Svelte store synced to sessionStorage with the given key and default value
-const persistSession = (key, defaultValue) => {
+const persistSession = (key, defaultValue, expiry = 60 * 5 * 1000) => {
+	if (browser && new Date() - expiry > sessionStorage.getItem(key + 'time')) {
+		console.log('expired', sessionStorage.getItem(key + 'time'));
+		sessionStorage.removeItem(key);
+	}
+
 	let s = writable(
 		browser && sessionStorage.getItem(key) && sessionStorage.getItem(key) !== 'undefined'
 			? JSON.parse(sessionStorage.getItem(key))
 			: defaultValue
 	);
+
+	browser && sessionStorage.setItem(key + 'time', Date.now());
 
 	s.subscribe((v) => browser && sessionStorage.setItem(key, JSON.stringify(v)));
 
@@ -38,4 +45,4 @@ export const colorTheme = writable('from-primary to-gradient');
 export const tempProfileFiles = writable();
 export const avatarUpload = writable();
 export const bannerUpload = writable();
-export const pin = writable();
+export const pin = persistSession('pin');
