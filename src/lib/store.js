@@ -1,10 +1,8 @@
 import { get, writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-// creates a Svelte store synced to sessionStorage with the given key and default value
-const persistSession = (key, defaultValue, expiry = 60 * 5 * 1000) => {
-	if (browser && new Date() - expiry > sessionStorage.getItem(key + 'time')) {
-		console.log('expired', sessionStorage.getItem(key + 'time'));
+const persistSession = (key, defaultValue, expiry) => {
+	if (expiry && browser && new Date() - expiry > sessionStorage.getItem(key + 'time')) {
 		sessionStorage.removeItem(key);
 	}
 
@@ -14,14 +12,13 @@ const persistSession = (key, defaultValue, expiry = 60 * 5 * 1000) => {
 			: defaultValue
 	);
 
-	browser && sessionStorage.setItem(key + 'time', Date.now());
+	expiry && browser && sessionStorage.setItem(key + 'time', Date.now());
 
 	s.subscribe((v) => browser && sessionStorage.setItem(key, JSON.stringify(v)));
 
 	return s;
 };
 
-// creates a Svelte store synced to localStorage with the given key and default value
 const persistLocal = (key, defaultValue) => {
 	let s = writable(
 		browser && localStorage.getItem(key) && localStorage.getItem(key) !== 'undefined'
@@ -45,4 +42,4 @@ export const colorTheme = writable('from-primary to-gradient');
 export const tempProfileFiles = writable();
 export const avatarUpload = writable();
 export const bannerUpload = writable();
-export const pin = persistSession('pin');
+export const pin = persistSession('pin', undefined, 5 * 60 * 1000);
