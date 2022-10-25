@@ -165,9 +165,8 @@
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-    on:click={() => select('profile')}
-    on:keydown={() => select('profile')}
-    >Select</button
+				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}>Select</button
 			>
 			<input
 				type="file"

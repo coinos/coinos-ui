@@ -3,7 +3,7 @@ import { auth, get, post } from '$lib/utils';
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let form = Object.fromEntries(await request.formData())
+		let form = Object.fromEntries(await request.formData());
 
 		let user = {
 			...(await get('/me', auth(cookies))),
