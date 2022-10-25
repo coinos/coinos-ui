@@ -1,13 +1,11 @@
 <script>
-  import { tick } from "svelte";
+	import { tick } from 'svelte';
 	import { pin } from '$lib/store';
 	import { Pincode, PincodeInput } from 'svelte-pincode';
 	let pinCode = [];
 	let pinInput;
 
-	let loading;
-
-	$: pinInput && tick().then(pinInput.focusFirstInput);
+	$: pinInput && tick().then(pinInput && pinInput.focusFirstInput);
 	$: pinCode.length > 5 && ($pin = pinCode.join(''));
 </script>
 
@@ -29,13 +27,8 @@
 			<button
 				type="submit"
 				class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-				class:bg-black={loading}
 			>
-				{#if loading}
-					<Spinner />
-				{:else}
-					<div class="my-auto">Cancel</div>
-				{/if}
+				<div class="my-auto">Cancel</div>
 			</button>
 		</div>
 	</div>
