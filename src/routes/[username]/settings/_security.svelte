@@ -4,6 +4,7 @@
 	import { Icon, Qr } from '$comp';
 	import { Pincode, PincodeInput } from 'svelte-pincode';
 	import { post, success, failure } from '$lib/utils';
+	import { pin as current } from '$lib/store';
 
 	export let user, submit;
 
@@ -14,6 +15,7 @@
 	let verifyCode = [];
 	let tokenInput, pinInput, verifyInput;
 	let verifying = false;
+	let old;
 
 	let startVerifying = () => {
 		verifying = true;
@@ -24,6 +26,7 @@
 	let locked;
 	$: verifyCode.join('').length > 5 && checkPin();
 	let checkPin = async () => {
+		old = $current;
 		if (locked) return;
 		locked = true;
 
@@ -35,7 +38,8 @@
 
 		try {
 			if (pin.length > 5 && pin === verify) {
-				user.pin = pin;
+				user.haspin = true;
+				$current = pin;
 				submit.click();
 			} else {
 				failure('Pin mismatch, try again');
@@ -62,9 +66,9 @@
 	};
 
 	let togglePin = async () => {
-		if (user.pin) {
+		if (user.haspin) {
 			try {
-				user.pin = null;
+				pin = null;
 				submit.click();
 			} catch (e) {
 				failure('Failed to disable pin');
@@ -109,7 +113,8 @@
 </script>
 
 <div>
-	<input type="hidden" name="pin" value={pin} />
+	<input type="hidden" name="newpin" value={pin} />
+
 	<span class="font-bold mb-1">{verifying ? 'Verify' : 'Security'} PIN</span>
 	<p class="text-secondary mb-1">
 		{$t('user.settings.securityPINDescription')}
@@ -141,7 +146,7 @@
 		</div>
 	{:else}
 		<button type="button" class="primary" on:click={togglePin}
-			><Icon icon="lock" style="mr-1" /> {user.pin ? 'Disable Pin' : 'Enable Pin'}</button
+			><Icon icon="lock" style="mr-1" /> {user.haspin ? 'Disable Pin' : 'Enable Pin'}</button
 		>
 	{/if}
 </div>

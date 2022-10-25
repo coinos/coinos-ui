@@ -1,20 +1,27 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import Account from './_account.svelte';
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
 
-	import { Icon, Spinner } from '$comp';
+	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, success } from '$lib/utils';
-	import { avatarUpload, bannerUpload } from '$lib/store';
+	import { avatarUpload, bannerUpload, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 
 	export let data;
+	export let form;
 
 	let { user, rates, token } = data;
 	$: update(data);
 	let update = () => ({ user, rates, token } = data);
+
+	$: if (form?.message?.startsWith('Pin')) {
+		failure('Wrong pin, try again');
+		$pin = '';
+	}
 
 	let tab = 'account';
 
@@ -30,8 +37,6 @@
 	let save = async (msg) => {
 		loading = true;
 		if (typeof msg !== 'string') msg = 'Settings saved';
-
-    console.log("SAVING ONCE")
 
 		try {
 			if ($avatarUpload) {
@@ -52,7 +57,13 @@
 	};
 </script>
 
+{#if user.haspin && $pin?.length !== 6}
+	<Pin />
+{/if}
+
 <form method="POST" class="mb-[154px]" use:enhance on:submit={save}>
+	<input type="hidden" name="pin" value={$pin} />
+
 	<div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
 			{$t('user.settings.header')}
@@ -74,7 +85,7 @@
 		class="z-10 fixed bottom-0 bg-white shadow border-t w-full flex justify-center items-center py-3"
 	>
 		<button
-  bind:this={submit}
+			bind:this={submit}
 			type="submit"
 			class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
 			class:bg-black={loading}

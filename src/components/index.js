@@ -1,3 +1,4 @@
+export { default as Pin } from './Pin.svelte';
 export { default as Card } from './Card.svelte';
 export { default as Lock } from './Lock.svelte';
 export { default as Calendar } from './Calendar.svelte';
