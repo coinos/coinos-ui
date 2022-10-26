@@ -50,11 +50,10 @@
 	</div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto">
+<div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
 	{#if amount}
-		<div class="text-center mb-8">
-			<h1 class="text-xl md:text-2xl text-secondary mb-2">Send</h1>
-			<p class="text-6xl break-words mb-4">
+		<div class="text-center mb-8 space-y-5">
+			<p class="text-5xl break-words">
 				{fiat ? f(amountFiat, currency) : s(amount)}
 				{#if !fiat}
 					<span class="text-xl md:text-2xl text-secondary">sats</span>
@@ -64,8 +63,8 @@
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>
 
 			<div class="flex p-1 gap-2 justify-center">
-				<Avatar user={recipient} />
-				<p class="text-6xl break-words my-auto">{recipient.username}</p>
+				<Avatar user={recipient} size={'20'} />
+				<p class="text-4xl break-words my-auto">{recipient.username}</p>
 			</div>
 		</div>
 	{:else}

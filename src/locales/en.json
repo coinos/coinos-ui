@@ -144,6 +144,7 @@
 		"failed": "Login failed"
 	},
 	"nav": {
+		"profile": "Profile",
 		"startInSeconds": "Start in Seconds",
 		"account": "Account",
 		"signIn": "Sign In",
@@ -221,7 +222,7 @@
 			"send": "Send"
 		},
 		"transactions": {
-			"header": "Transaction History",
+			"header": "Transactions",
 			"AMOUNT": "AMOUNT",
 			"TYPE": "TYPE",
 			"TIME": "TIME",

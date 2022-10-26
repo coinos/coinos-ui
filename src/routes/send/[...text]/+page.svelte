@@ -10,8 +10,8 @@
 	export let form;
 
 	let el;
-	let placeholder = 'Address, Invoice or Username';
-	let text = placeholder;
+	let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
+	let text;
 
 	let focus = () => text === placeholder && (text = '');
 	let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
@@ -25,7 +25,11 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<form method="POST" class="container px-4 mt-20 max-w-xl mx-auto" use:enhance>
+<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-8">
+	Send bitcoin or lightning
+</h1>
+
+<form method="POST" class="container px-4 max-w-xl mx-auto" use:enhance>
 	{#if form?.error}
 		<div class="text-red-600 text-center" in:fly>
 			{form.error}
@@ -35,17 +39,12 @@
 		<label for="invoice" class="font-bold mb-1 block">To</label>
 		<input type="hidden" name="text" bind:value={text} />
 
-		<div
-			class="expandable-textarea"
-			class:text-gray-400={text === placeholder}
-			role="textbox"
-			contenteditable
-			bind:textContent={text}
-			on:focus={focus}
+		<textarea
+			{placeholder}
 			on:keypress={keypress}
-		>
-			{text}
-		</div>
+			class="w-full p-4 border rounded-xl h-48"
+			bind:value={text}
+		/>
 	</div>
 
 	<div class="flex justify-end">
