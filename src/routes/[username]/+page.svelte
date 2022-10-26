@@ -84,6 +84,6 @@
 				<Icon icon="copy" style="ml-2" />
 			</button>
 		</div>
-  <p class="text-center">This is a re-usable <a href="https://lightningaddress.com/" class="underline" target="_blank">lightning address</a> that you can share or print</p>
+  <p class="text-center">This is a re-usable <a href="https://lightningaddress.com/" class="underline" target="_blank">lightning address</a></p>
 	</div>
 </div>
