@@ -1,4 +1,6 @@
 <script>
+export let locations
+
 	import { Image, Icon, LocationsMap } from '$comp';
 	import { t } from '$lib/translations';
 
@@ -102,5 +104,5 @@
 	<p class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10">
 		{@html $t('about.locations.description')}
 	</p>
-	<LocationsMap />
+	<LocationsMap locations={locations} />
 </div>

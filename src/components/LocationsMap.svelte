@@ -1,4 +1,6 @@
 <script>
+export let locations
+
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 
@@ -34,7 +36,9 @@
 				html: `<span style="${markerHtmlStyles}" />`
 			});
 
-			const locations = [
+locations = locations.filter(location => location['osm_json'].tags && location['osm_json'].tags['payment:coinos'] === 'yes')
+
+		/*	const locations = [
 				{
 					lat: 49.27034,
 					lng: -123.141373,
@@ -66,22 +70,105 @@
 					lng: -123.10124,
 					info: 'General Strike Coffee <br> Artisan coffee shop <br> 1965 Main St, Vancouver, BC V5T 2K6 <br> <a href="https://www.instagram.com/generalstrikecoffee/" target="_blank" rel="noreferrer">IG: generalstrikecoffee</a>'
 				}
-			];
+			];*/
 
 			L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-				maxZoom: 19,
+				maxZoom: 18,
 				subdomains: ['a', 'b', 'c', 'd']
 			}).addTo(map);
 
-			let markers = new MarkerClusterGroup();
-			locations.forEach(({ lat, lng, info }) => {
-				let marker = L.marker([lat, lng]);
+const checkAddress = (location) => {
+	if (location['addr:housenumber'] && location['addr:street'] && location['addr:city']) {
+		return `${
+			location['addr:housenumber'] + ' ' + location['addr:street'] + ', ' + location['addr:city']
+		}`;
+	} else if (location['addr:street'] && location['addr:city']) {
+		return `${location['addr:street'] + ', ' + location['addr:city']}`;
+	} else if (location['addr:city']) {
+		return `${location['addr:city']}`;
+	} else {
+		return '';
+	}
+};
 
-				marker.bindPopup(info);
+			let markers = new MarkerClusterGroup();
+			locations.forEach((location) => {
+			if (location['deleted_at']) {
+					return;
+				}
+
+				location = location['osm_json'];
+
+				let marker = L.marker([location.lat, location.lon]);
+
+				marker.bindPopup(`${
+							location.tags && location.tags.name
+								? `<span class='block'>${location.tags.name}</span>`
+								: ''
+						}
+
+                <span class='block'>${
+									location.tags && checkAddress(location.tags)
+								}</span>
+
+
+                  ${
+										location.tags && location.tags.phone
+											? `<a href='tel:${location.tags.phone}' class='block'>${location.tags.phone}</a>`
+											: ''
+									}
+
+                  ${
+										location.tags && location.tags.website
+											? `<a href=${location.tags.website} target="_blank" rel="noreferrer" class='block'>${location.tags.website}</a>`
+											: ''
+									}
+
+					        ${
+										location.tags && location.tags['contact:twitter']
+											? `<a href=${
+													location.tags['contact:twitter'].startsWith('http')
+														? location.tags['contact:twitter']
+														: `https://twitter.com/${location.tags['contact:twitter']}`
+											  } target="_blank" rel="noreferrer" class='block'>TWT: ${location.tags['contact:twitter']}</a>`
+											: ''
+									}
+
+	        ${
+						location.tags && location.tags['contact:instagram']
+							? `<a href=${
+									location.tags['contact:instagram'].startsWith('http')
+										? location.tags['contact:instagram']
+										: `https://instagram.com/${location.tags['contact:instagram']}`
+								} target="_blank" rel="noreferrer" class='block'>IG: ${location.tags['contact:instagram']}</a>`
+							: ''
+					}
+
+	        ${
+						location.tags && location.tags['contact:facebook']
+							? `<a href=${
+									location.tags['contact:facebook'].startsWith('http')
+										? location.tags['contact:facebook']
+										: `https://facebook.com/${location.tags['contact:facebook']}`
+								} target="_blank" rel="noreferrer" class='block'>FB: ${location.tags['contact:facebook']}</a>`
+							: ''
+					}
+
+	        ${
+						location.tags && location.tags['contact:linkedin']
+							? `<a href=${
+									location.tags['contact:linkedin'].startsWith('http')
+										? location.tags['contact:linkedin']
+										: `https://linkedin.com/${location.tags['contact:linkedin']}`
+								} target="_blank" rel="noreferrer" class='block'>LI: ${location.tags['contact:linkedin']}</a>`
+							: ''
+					}
+
+`);
 				markers.addLayer(marker);
 			});
 
-			map.fitBounds(locations.map(({ lat, lng }) => [lat, lng]));
+			map.fitBounds(locations.map(({ osm_json: {lat, lon} }) => [lat, lon]));
 			map.addLayer(markers);
 		}
 	});

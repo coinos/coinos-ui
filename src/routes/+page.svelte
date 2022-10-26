@@ -14,6 +14,7 @@
 
 	export let data;
 	let { user } = data;
+let { locations } = data
 
 	let howItWorks;
 	let faq;
@@ -83,7 +84,7 @@
 	</div>
 
 	<div>
-		<About />
+		<About locations={locations} />
 	</div>
 </main>
 
