@@ -3,7 +3,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { connect } from '$lib/socket';
-	import { selectedRate, rate } from '$lib/store';
+	import { selectedRate, rate, user } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -14,12 +14,17 @@
 	const localeLocalStorageKey = 'sveltekit-i18n-locale';
 
 	export let data;
-	let { user, rate: r, token, rates } = data;
-	$: update(data);
-	let update = () => ({ user, rate: r, token, rates } = data);
-	$rate = r;
 
-	$: $selectedRate = user && $rate * (rates[user.currency] / rates.USD);
+	let r, u, token, rates;
+
+	$: update(data);
+	let update = () => {
+		({ user: u, rate: r, token, rates } = data);
+		$rate = r;
+		$user = u;
+	};
+
+	$: $selectedRate = u && r * (rates[u.currency] / rates.USD);
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);

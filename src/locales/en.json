@@ -32,7 +32,7 @@
 				"bio": "Strategic & Project Management. Jack of all Trades. Can always find time to meet for coffee."
 			},
 			"cole": {
-				"name": "Cole Goodwin",
+				"name": "Cole",
 				"position": "Bitcoin Professional",
 				"bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
 			},
@@ -152,7 +152,7 @@
 		"settings": "Settings",
 		"support": "Support"
 	},
-	"newSiteHeader": "Welcome to the <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\" >new and improved coinos</a>, focused on merchant adoption! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
+	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
 		"header": "News",
 		"subheader": "Latest Updates",

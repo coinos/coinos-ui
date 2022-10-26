@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { selectedRate } from '$lib/store';
+	import { pin, selectedRate } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -31,11 +31,23 @@
 
 	let loading;
 	let submit = () => (loading = true);
+
+	$: update(form);
+	let update = () => {
+		if (form?.message.includes('pin')) $pin = undefined;
+		loading = false;
+	};
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={handleBack}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
+
+{#if form?.message}
+	<div class="text-red-600 text-center">
+		{form.message}
+	</div>
+{/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
 	{#if amount}
@@ -61,6 +73,7 @@
 		<input name="payreq" value={payreq} type="hidden" />
 		<input name="username" value={recipient.username} type="hidden" />
 		<input name="confirmed" value={form?.confirm} type="hidden" />
+		<input name="pin" value={$pin} type="hidden" />
 
 		<div class="flex w-full">
 			{#if amount}

@@ -4,7 +4,7 @@ import { post, login } from '$lib/utils';
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let form = Object.fromEntries(await request.formData());
-		let { username, password, redirect: r } = form;
+		let { username, password, loginRedirect } = form;
 
 		let user = { username, password };
 		let error;
@@ -23,6 +23,6 @@ export const actions = {
 		}
 
 		if (error) return invalid(400, { error });
-		throw redirect(307, r || `/${user.username}/dashboard`);
+		throw redirect(307, loginRedirect || `/${user.username}/dashboard`);
 	}
 };

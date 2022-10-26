@@ -9,6 +9,17 @@ export function scroll(section) {
 
 const base = browser ? '' : env.PUBLIC_COINOS_URL;
 
+export const g = (url, fetch, headers) =>
+	fetch(base + url, { headers })
+		.then((r) => r.text())
+		.then((body) => {
+			try {
+				return JSON.parse(body);
+			} catch (e) {
+				throw new Error(body);
+			}
+		});
+
 export const get = (url, headers = {}) =>
 	fetch(base + url, { headers })
 		.then((r) => r.text())
@@ -31,6 +42,8 @@ export const post = (url, body, headers) => {
 				throw new Error(body);
 			}
 
+
+      if (body.error) throw body.error;
 			if (body instanceof Error) throw body;
 			if (body.name === 'Error') throw new Error(body.message);
 
@@ -97,7 +110,17 @@ export const info = (m) => {
 
 export const login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
-	let { token } = await post('/login', user);
+	let res = await fetch(base + '/login', {
+		method: 'POST',
+		body: JSON.stringify(user),
+		headers: { 'content-type': 'application/json', accept: 'application/json' }
+	});
+	if (res.status === 401) {
+		let text = await res.text();
+		if (text.startsWith('2fa')) throw new Error('2fa');
+	}
+
+	let { token } = await res.json();
 	if (!token) throw new Error('Login failed');
 
 	let expires = new Date();

@@ -92,8 +92,4 @@
 		line-height: 20px;
 		@apply block border rounded-2xl p-3 py-4 w-full;
 	}
-
-	.expandable-expandable::-webkit-resizer {
-		background: transparent;
-	}
 </style>

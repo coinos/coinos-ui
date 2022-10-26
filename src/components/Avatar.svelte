@@ -2,7 +2,6 @@
 	import { colorTheme, tempProfileFiles } from '$lib/store';
 	import { Icon } from '$comp';
 
-	export let avatarPosition;
 	export let user;
 </script>
 
@@ -14,7 +13,7 @@
 			<img
 				src={$tempProfileFiles && $tempProfileFiles.profile
 					? $tempProfileFiles.profile
-					: `/api/public/${user.username}-profile.png`}
+					: `/api/public/${user.username}-profile.webp`}
 				class="w-full h-full object-cover object-center overflow-hidden"
 				alt={user.username}
 			/>

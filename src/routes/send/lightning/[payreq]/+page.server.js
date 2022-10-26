@@ -7,14 +7,20 @@ export async function load({ params }) {
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let body = Object.fromEntries(await request.formData());
-		let { amount, confirmed } = body;
+		try {
+			let body = Object.fromEntries(await request.formData());
+			let { amount, confirmed } = body;
 
-		if (!confirmed) {
-			return invalid(403, { amount, confirm: true });
+			if (!confirmed) {
+				return invalid(403, { amount, confirm: true });
+			}
+
+			await post('/lightning/send', body, auth(cookies));
+		} catch (e) {
+      if (e.message.includes("unusable")) e.message = "Failed to route payment, try sending a lower amount"
+			return invalid(400, { message: e.message });
 		}
 
-		await post('/lightning/send', body, auth(cookies));
 		throw redirect(307, '/sent');
 	}
 };
