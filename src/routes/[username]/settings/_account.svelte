@@ -43,8 +43,7 @@
 	let handleFile = async ({ target }, type) => {
 		tooLarge[type] = false;
 		let file = target.files[0];
-		console.log('TYPE', file.size);
-		if (file.size > 5000000) return (tooLarge[type] = true);
+		if (file.size > 10000000) return (tooLarge[type] = true);
 		var reader = new FileReader();
 		reader.onload = async (e) => {
 			files[type].src = e.target.result;
@@ -181,7 +180,7 @@
 	</div>
 
 	{#if tooLarge['profile']}
-		<div class="text-red-600">Max file size 5MB</div>
+		<div class="text-red-600">Max file size 10MB</div>
 	{/if}
 </div>
 
@@ -234,7 +233,7 @@
 	{/if}
 
 	{#if tooLarge['banner']}
-		<div class="text-red-600">Max file size 5MB</div>
+		<div class="text-red-600">Max file size 10MB</div>
 	{/if}
 </div>
 
