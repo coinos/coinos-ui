@@ -108,38 +108,38 @@
 
 				let marker = L.marker([location.lat, location.lon]);
 
-				marker.bindPopup(`${
-					location.tags && location.tags.name
-						? `<span class='block'>${location.tags.name}</span>`
-						: ''
-				}
+				marker.bindPopup(
+					`${
+						location.tags && location.tags.name
+							? `<span class='block'>${location.tags.name}</span>`
+							: ''
+					}
 
-                <span class='block'>${location.tags && checkAddress(location.tags)}</span>
+          <span class='block'>${location.tags && checkAddress(location.tags)}</span>
 
+          ${
+						location.tags && location.tags.phone
+							? `<a href='tel:${location.tags.phone}' class='block'>${location.tags.phone}</a>`
+							: ''
+					}
 
-                  ${
-										location.tags && location.tags.phone
-											? `<a href='tel:${location.tags.phone}' class='block'>${location.tags.phone}</a>`
-											: ''
-									}
+          ${
+						location.tags && location.tags.website
+							? `<a href=${location.tags.website} target="_blank" rel="noreferrer" class='block'>${location.tags.website}</a>`
+							: ''
+					}
 
-                  ${
-										location.tags && location.tags.website
-											? `<a href=${location.tags.website} target="_blank" rel="noreferrer" class='block'>${location.tags.website}</a>`
-											: ''
-									}
-
-					        ${
-										location.tags && location.tags['contact:twitter']
-											? `<a href=${
-													location.tags['contact:twitter'].startsWith('http')
-														? location.tags['contact:twitter']
-														: `https://twitter.com/${location.tags['contact:twitter']}`
-											  } target="_blank" rel="noreferrer" class='block'>TWT: ${
-													location.tags['contact:twitter']
-											  }</a>`
-											: ''
-									}
+					${
+						location.tags && location.tags['contact:twitter']
+							? `<a href=${
+									location.tags['contact:twitter'].startsWith('http')
+										? location.tags['contact:twitter']
+										: `https://twitter.com/${location.tags['contact:twitter']}`
+							  } target="_blank" rel="noreferrer" class='block'>TWT: ${
+									location.tags['contact:twitter']
+							  }</a>`
+							: ''
+					}
 
 	        ${
 						location.tags && location.tags['contact:instagram']
@@ -175,9 +175,8 @@
 									location.tags['contact:linkedin']
 							  }</a>`
 							: ''
-					}
-
-`);
+					}`
+				);
 				markers.addLayer(marker);
 			});
 
