@@ -1,5 +1,5 @@
 <script>
-export let locations
+	export let locations;
 
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
@@ -36,9 +36,12 @@ export let locations
 				html: `<span style="${markerHtmlStyles}" />`
 			});
 
-locations = locations.filter(location => location['osm_json'].tags && location['osm_json'].tags['payment:coinos'] === 'yes')
+			locations = locations.filter(
+				(location) =>
+					location['osm_json'].tags && location['osm_json'].tags['payment:coinos'] === 'yes'
+			);
 
-		/*	const locations = [
+			/*	const locations = [
 				{
 					lat: 49.27034,
 					lng: -123.141373,
@@ -77,23 +80,27 @@ locations = locations.filter(location => location['osm_json'].tags && location['
 				subdomains: ['a', 'b', 'c', 'd']
 			}).addTo(map);
 
-const checkAddress = (location) => {
-	if (location['addr:housenumber'] && location['addr:street'] && location['addr:city']) {
-		return `${
-			location['addr:housenumber'] + ' ' + location['addr:street'] + ', ' + location['addr:city']
-		}`;
-	} else if (location['addr:street'] && location['addr:city']) {
-		return `${location['addr:street'] + ', ' + location['addr:city']}`;
-	} else if (location['addr:city']) {
-		return `${location['addr:city']}`;
-	} else {
-		return '';
-	}
-};
+			const checkAddress = (location) => {
+				if (location['addr:housenumber'] && location['addr:street'] && location['addr:city']) {
+					return `${
+						location['addr:housenumber'] +
+						' ' +
+						location['addr:street'] +
+						', ' +
+						location['addr:city']
+					}`;
+				} else if (location['addr:street'] && location['addr:city']) {
+					return `${location['addr:street'] + ', ' + location['addr:city']}`;
+				} else if (location['addr:city']) {
+					return `${location['addr:city']}`;
+				} else {
+					return '';
+				}
+			};
 
 			let markers = new MarkerClusterGroup();
 			locations.forEach((location) => {
-			if (location['deleted_at']) {
+				if (location['deleted_at']) {
 					return;
 				}
 
@@ -102,14 +109,12 @@ const checkAddress = (location) => {
 				let marker = L.marker([location.lat, location.lon]);
 
 				marker.bindPopup(`${
-							location.tags && location.tags.name
-								? `<span class='block'>${location.tags.name}</span>`
-								: ''
-						}
+					location.tags && location.tags.name
+						? `<span class='block'>${location.tags.name}</span>`
+						: ''
+				}
 
-                <span class='block'>${
-									location.tags && checkAddress(location.tags)
-								}</span>
+                <span class='block'>${location.tags && checkAddress(location.tags)}</span>
 
 
                   ${
@@ -130,7 +135,9 @@ const checkAddress = (location) => {
 													location.tags['contact:twitter'].startsWith('http')
 														? location.tags['contact:twitter']
 														: `https://twitter.com/${location.tags['contact:twitter']}`
-											  } target="_blank" rel="noreferrer" class='block'>TWT: ${location.tags['contact:twitter']}</a>`
+											  } target="_blank" rel="noreferrer" class='block'>TWT: ${
+													location.tags['contact:twitter']
+											  }</a>`
 											: ''
 									}
 
@@ -140,7 +147,9 @@ const checkAddress = (location) => {
 									location.tags['contact:instagram'].startsWith('http')
 										? location.tags['contact:instagram']
 										: `https://instagram.com/${location.tags['contact:instagram']}`
-								} target="_blank" rel="noreferrer" class='block'>IG: ${location.tags['contact:instagram']}</a>`
+							  } target="_blank" rel="noreferrer" class='block'>IG: ${
+									location.tags['contact:instagram']
+							  }</a>`
 							: ''
 					}
 
@@ -150,7 +159,9 @@ const checkAddress = (location) => {
 									location.tags['contact:facebook'].startsWith('http')
 										? location.tags['contact:facebook']
 										: `https://facebook.com/${location.tags['contact:facebook']}`
-								} target="_blank" rel="noreferrer" class='block'>FB: ${location.tags['contact:facebook']}</a>`
+							  } target="_blank" rel="noreferrer" class='block'>FB: ${
+									location.tags['contact:facebook']
+							  }</a>`
 							: ''
 					}
 
@@ -160,7 +171,9 @@ const checkAddress = (location) => {
 									location.tags['contact:linkedin'].startsWith('http')
 										? location.tags['contact:linkedin']
 										: `https://linkedin.com/${location.tags['contact:linkedin']}`
-								} target="_blank" rel="noreferrer" class='block'>LI: ${location.tags['contact:linkedin']}</a>`
+							  } target="_blank" rel="noreferrer" class='block'>LI: ${
+									location.tags['contact:linkedin']
+							  }</a>`
 							: ''
 					}
 
@@ -168,7 +181,7 @@ const checkAddress = (location) => {
 				markers.addLayer(marker);
 			});
 
-			map.fitBounds(locations.map(({ osm_json: {lat, lon} }) => [lat, lon]));
+			map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
 			map.addLayer(markers);
 		}
 	});

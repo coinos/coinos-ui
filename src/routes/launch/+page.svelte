@@ -84,8 +84,8 @@
 
 				<p>
 					The Loft will be accepting Lightning payments at the event and going forward into the
-					future as well! We're charging $6 for for an NFT ticket that gets you entry, appies, and the
-					chance to win some swag and sats.
+					future as well! We're charging $6 for for an NFT ticket that gets you entry, appies, and
+					the chance to win some swag and sats.
 				</p>
 
 				<div class="flex w-full my-8">

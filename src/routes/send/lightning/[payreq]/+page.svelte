@@ -19,7 +19,7 @@
 	$: update(form);
 	let update = () => {
 		if (form?.message.includes('pin')) $pin = undefined;
-    loading = false;
+		loading = false;
 	};
 </script>
 
