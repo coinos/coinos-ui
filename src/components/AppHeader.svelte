@@ -13,22 +13,13 @@
 	let update = (data) => ({ subject, user } = data);
 
 	const menuButtons = [
-		{ stringID: 'nav.dashboard', icon: 'dash', goto: 'dashboard' },
-		{ stringID: 'nav.settings', icon: 'settings', goto: 'settings' },
-		{ stringID: 'nav.support', icon: 'support', goto: 'support' },
-		{ stringID: 'nav.signOut', icon: 'logout', goto: 'logout' }
+		{ key: 'nav.profile', icon: 'profile', href: `/${user.username}` },
+		{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
+		{ key: 'nav.support', icon: 'support', href: `/${user.username}/support` },
+		{ key: 'nav.signOut', icon: 'logout', href: `/${user.username}/logout` }
 	];
 
 	let showMenu = false;
-
-	const handleMenuItemClick = (item) => {
-		if (item === 'logout') {
-			goto('/logout');
-		} else {
-			showMenu = false;
-			goto(`/${user.username + '/' + item}`);
-		}
-	};
 
 	$: bg =
 		$tempProfileFiles && $tempProfileFiles.banner
@@ -44,6 +35,15 @@
 >
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if user}
+			<a href={`/${user.username}/dashboard`}>
+				<button
+					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						.url.pathname === `/${user.username}/dashboard`
+						? 'opacity-100'
+						: 'opacity-70 hover:opacity-80'}"
+					><Icon icon="home" style="mx-auto w-6" />
+				</button>
+			</a>
 			<a href={`/${user.username}/receive`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
@@ -72,20 +72,11 @@
 					{/if}
 				</button>
 			</a>
-			<a href={`/${user.username}`}>
-				<button
-					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${user.username}`
-						? 'opacity-100'
-						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="profile" style="mx-auto" />
-				</button>
-			</a>
 			<div class="relative">
 				<OutClick on:outclick={() => (showMenu = false)}>
 					<button
 						class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-							.url.pathname === `/${user.username}/dashboard` ||
+							.url.pathname === `/${user.username}` ||
 						$page.url.pathname === `/${user.username}/settings` ||
 						$page.url.pathname === `/${user.username}/support`
 							? 'opacity-100'
@@ -100,13 +91,14 @@
 							: 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z"
 					>
 						<ul class="space-y-5 w-32">
-							{#each menuButtons as button}
+							{#each menuButtons as { href, icon, key }}
 								<li>
-									<button
-										class="flex justify-center items-center font-semibold text-sm hover:opacity-80"
-										on:click={() => handleMenuItemClick(button.goto)}
-										><Icon icon={button.icon} style="mr-1" /> {$t(button.stringID)}
-									</button>
+									<a {href}>
+										<button
+											class="flex justify-center items-center font-semibold text-sm hover:opacity-80"
+											><Icon {icon} style="mr-1" /> {$t(key)}
+										</button>
+									</a>
 								</li>
 							{/each}
 						</ul>

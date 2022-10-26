@@ -3,11 +3,13 @@
 	import { Icon } from '$comp';
 
 	export let user;
+	export let size = 32;
+	$: s = size.toString();
 </script>
 
 <a href={`/${user.username}`}>
 	<div
-		class="rounded-full border-4 border-white overflow-hidden w-32 h-32 bg-gradient-to-r {$colorTheme} flex justify-center items-center"
+		class="w-{s} h-{s} rounded-full border-4 border-white overflow-hidden bg-gradient-to-r {$colorTheme} flex justify-center items-center"
 	>
 		{#if user?.profile}
 			<img
