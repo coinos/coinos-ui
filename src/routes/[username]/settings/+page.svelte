@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
 	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import Account from './_account.svelte';
@@ -55,9 +56,12 @@
 
 		loading = false;
 	};
+
+let loaded;
+	onMount(() => setTimeout(() => (loaded = true), 50));
 </script>
 
-{#if user.haspin && $pin?.length !== 6}
+{#if loaded && user.haspin && $pin?.length !== 6}
 	<Pin />
 {/if}
 
