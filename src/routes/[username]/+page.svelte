@@ -37,10 +37,10 @@
 </script>
 
 <div class="container px-4 flex flex-wrap">
-	<div class="p-10 pt-20 w-full lg:w-1/3">
+	<div class="p-10 pt-20">
 		<h1 class="text-3xl font-bold">{subject.username}</h1>
 
-		<p class="text-secondary">
+		<p class="text-secondary w-64">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</p>
 
@@ -55,35 +55,35 @@
     -->
 	</div>
 
-	<div class="space-y-5 lg:mt-20 mx-auto">
-		<div class="flex justify-center gap-2">
-			<a href={`/${subject.username}`}>
-				<button
-					class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2 bg-black text-white"
-					>Lightning</button
-				>
-			</a>
-			<a href={`/${subject.username}/bitcoin`}>
-				<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-					>Bitcoin</button
-				>
-			</a>
-		</div>
+	<div class="space-y-5 md:mt-20 mx-auto w-[350px]">
+		<!-- <div class="flex justify-center gap-2"> -->
+		<!-- 	<a href={`/${subject.username}`}> -->
+		<!-- 		<button -->
+		<!-- 			class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2 bg-black text-white" -->
+		<!-- 			>Lightning</button -->
+		<!-- 		> -->
+		<!-- 	</a> -->
+		<!-- 	<a href={`/${subject.username}/bitcoin`}> -->
+		<!-- 		<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2" -->
+		<!-- 			>Bitcoin</button -->
+		<!-- 		> -->
+		<!-- 	</a> -->
+		<!-- </div> -->
 		<div
 			on:click={() => copy(lightningAddress)}
 			id="qr"
-			class="cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative"
+			class="cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative mx-auto"
 		/>
 
-		<p class="text-secondary text-xl text-center font-semibold">{$t('user.scanToPayBTC')}</p>
 
 		<div
-			class="bg-primary font-semibold rounded-xl text-sm p-3 flex flex-wrap justify-between items-center"
+			class="bg-primary font-semibold rounded-xl text-sm p-3 flex justify-between items-center"
 		>
-			<span>{lightningAddress}</span>
+			<span class="mx-auto">{lightningAddress}</span>
 			<button class="hover:opacity-80" on:click={() => copy(lightningAddress)}>
 				<Icon icon="copy" style="ml-2" />
 			</button>
 		</div>
+  <p class="text-center">This is a re-usable <a href="https://lightningaddress.com/" class="underline" target="_blank">lightning address</a> that you can share or print</p>
 	</div>
 </div>
