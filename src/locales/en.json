@@ -44,7 +44,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "Here are some businesses that are accepting bitcoin with Coinos. If you are using our application, please <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">let us know!</a>"
+			"description": "Here are some businesses that are accepting bitcoin with Coinos. Have a suggestion? File it at <a class=\"underline\" href=\"https://btcmap.org\">BTC Map</a> and we'll take care of it!"
 		}
 	},
 	"error": {
@@ -63,8 +63,8 @@
 			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
 		},
 		"safety": {
-			"question": "Can I exchange my bitcoin to my local currency or other cryptos?",
-			"answer": "That's not something we support but you can withdraw your funds at any time to a third party wallet or exchange."
+			"question": "When do my funds settle?",
+			"answer": "Lightning payments are settled instantly. You can withdraw them to another wallet or exchange as soon as they are received."
 		}
 	},
 	"footer": {
@@ -89,7 +89,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Now you can pay your staff and suppliers or go shopping at other bitcoin businesses."
+			"description": "Spend your coin at other merchants or save it for a rainy day, the choice is yours."
 		}
 	},
 	"invoice": {
