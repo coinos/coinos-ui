@@ -7,21 +7,23 @@
 	import { f, s, sats } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { differenceInDays, getUnixTime, sub } from 'date-fns';
+	import { goto } from '$app/navigation';
 
 	export let data;
 
 	let { start, end, user } = data;
+	let change = ({ target: { value } }) => goto(value);
 
 	let presets = [
-		{ title: 'Today', start: sub(new Date(), { days: 1 }), end: null },
-		{ title: '7 days', start: sub(new Date(), { days: 7 }), end: null },
-		{ title: 'Last month', start: sub(new Date(), { months: 1 }), end: null },
-		{ title: 'All', start: null, end: null }
+		{ title: 'Today', start: null, end: null },
+		{ title: 'Week', start: sub(new Date(), { days: 7 }), end: null },
+		{ title: 'Month', start: sub(new Date(), { months: 1 }), end: null },
+		{ title: 'All', start: sub(new Date(), { years: 5 }), end: null }
 	];
 
 	$: selection = start
 		? presets.findIndex((p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1)
-		: presets.length - 1;
+		: 0;
 
 	let p,
 		total,
@@ -31,6 +33,9 @@
 
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
+
+  $: path = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
+  $: console.log(path)
 
 	let csv = () => {
 		const keys = ['hash', 'updatedAt', 'rate', 'currency', 'amount', 'fee', 'tip'];
@@ -63,9 +68,18 @@
 		{$t('user.transactions.header')}
 	</h1>
 
-	<div class="container w-full mx-auto md:text-lg px-10 lg:px-72">
+	<div class="container w-full mx-auto md:text-lg px-4 max-w-xl">
 		<div class="flex text-md text-secondary flex-wrap mb-4">
-			<div class="flex flex-wrap gap-2">
+			<select class="md:hidden bg-white border p-4 rounded-full" on:change={change}>
+				{#each presets as { start, end, title }, i}
+					<option
+						selected={selection === i}
+						value={`/${user.username}/transactions/${start ? getUnixTime(start) + '/' : ''}1`}
+						>{title}</option
+					>
+				{/each}
+			</select>
+			<div class="hidden md:block flex flex-wrap gap-2">
 				{#each presets as { start, end, title }, i}
 					<a
 						class:active={selection === i}
@@ -88,7 +102,7 @@
 				{#each pages as _, i}
 					<a
 						class="mr-1 last:mr-0"
-						href={`/${user.username}/transactions/${i + 1}`}
+      href={`${path}/${i + 1}`}
 						class:active={parseInt(p) === i + 1}
 					>
 						<div class="border py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center">
@@ -144,5 +158,11 @@
 <style>
 	.active * {
 		@apply bg-black text-white border-black;
+	}
+
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
 	}
 </style>
