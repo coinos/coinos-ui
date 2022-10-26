@@ -35,15 +35,5 @@ export async function load({ cookies, locals, request, url, params }) {
 	let rate = await get('/rate');
 	rates = await get('/rates');
 
-	let locations = await fetch('https://api.btcmap.org/v2/elements?updated_since=2022-09-19')
-		.then((r) => r.text())
-		.then((body) => {
-			try {
-				return JSON.parse(body);
-			} catch (e) {
-				throw new Error(body);
-			}
-		});
-
-	return { subject, user, token, rate, rates, locations };
+	return { subject, user, token, rate, rates };
 }
