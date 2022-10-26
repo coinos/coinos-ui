@@ -55,6 +55,6 @@ export const actions = {
 		const form = await request.formData();
 		await parse(form.get('text'));
 
-		return invalid(403, { error: 'Failed to recognize input' });
+		return invalid(403, { error: 'Does not compute, try again' });
 	}
 };

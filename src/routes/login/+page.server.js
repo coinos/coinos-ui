@@ -4,15 +4,15 @@ import { login } from '$lib/utils';
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let form = Object.fromEntries(await request.formData());
-		let { username, password, redirect: r } = form;
-		let user = { username, password };
+		let { username, password, token, loginRedirect } = form;
+		let user = { username, password, token };
 
 		try {
-			await login(user, cookies);
+			let r = await login(user, cookies);
 		} catch (e) {
-			return invalid(400, { error: 'Login failed' });
+			return invalid(400, { error: 'Login failed', message: e.message, ...form });
 		}
 
-		throw redirect(303, r || `/${user.username}/dashboard`);
+		throw redirect(303, loginRedirect || `/${user.username}/dashboard`);
 	}
 };

@@ -17,6 +17,7 @@
 	$: banner = files.banner.src;
 	$: $tempProfileFiles = { profile: files.profile.src, banner: files.banner.src };
 
+	let togglePassword = () => (revealPassword = !revealPassword);
 	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
 		{ theme: 2, color1: 'from-[#FDFCFB]', color2: 'to-[#E2D1C3]' },
@@ -36,9 +37,14 @@
 		percent = Math.round((event.loaded / event.total) * 100);
 	};
 
+	let tooLarge = {};
+
 	let files = { profile: {}, banner: {} };
 	let handleFile = async ({ target }, type) => {
+		tooLarge[type] = false;
 		let file = target.files[0];
+		console.log('TYPE', file.size);
+		if (file.size > 5000000) return (tooLarge[type] = true);
 		var reader = new FileReader();
 		reader.onload = async (e) => {
 			files[type].src = e.target.result;
@@ -83,7 +89,8 @@
 	{/if}
 	<button
 		type="button"
-		on:click={() => (revealPassword = !revealPassword)}
+		on:click={togglePassword}
+		on:keydown={togglePassword}
 		class="absolute right-5 top-11"
 	>
 		<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
@@ -118,11 +125,13 @@
 
 <div>
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
+
 	<div class="flex">
 		{#if profile}
 			<div
 				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}
 			>
 				<img
 					src={profile}
@@ -134,9 +143,10 @@
 			<div
 				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}
 			>
 				<img
-					src={`/api/public/${user.username}-profile.png`}
+					src={`/api/public/${user.username}-profile.webp`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 					alt={user.username}
 				/>
@@ -145,6 +155,7 @@
 			<div
 				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto hover:opacity-80 cursor-pointer"
 				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}
 			>
 				<Icon icon="logo-symbol-white" style="mx-auto" />
 			</div>
@@ -154,7 +165,8 @@
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-				on:click={() => select('profile')}>Select</button
+				on:click={() => select('profile')}
+				on:keydown={() => select('profile')}>Select</button
 			>
 			<input
 				type="file"
@@ -167,6 +179,10 @@
 			{/if}
 		</div>
 	</div>
+
+	{#if tooLarge['profile']}
+		<div class="text-red-600">Max file size 5MB</div>
+	{/if}
 </div>
 
 <div>
@@ -180,19 +196,22 @@
 			src={banner}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
+			on:keydown={() => select('banner')}
 			alt="Banner"
 		/>
 	{:else if user.banner}
 		<img
-			src={`/api/public/${user.username}-banner.png`}
+			src={`/api/public/${user.username}-banner.webp`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
+			on:keydown={() => select('banner')}
 			alt="Banner"
 		/>
 	{:else}
 		<div
 			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
 			on:click={() => select('banner')}
+			on:keydown={() => select('banner')}
 			alt="Banner"
 		/>
 	{/if}
@@ -201,7 +220,8 @@
 	<button
 		type="button"
 		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-		on:click={() => select('banner')}>Select</button
+		on:click={() => select('banner')}
+		on:keydown={() => select('banner')}>Select</button
 	>
 	<input
 		type="file"
@@ -211,6 +231,10 @@
 	/>
 	{#if files.banner.filename}
 		<div class="mt-2 text-sm">{files.banner.filename}</div>
+	{/if}
+
+	{#if tooLarge['banner']}
+		<div class="text-red-600">Max file size 5MB</div>
 	{/if}
 </div>
 
@@ -226,6 +250,7 @@
 				? 'border-black'
 				: ''}"
 			on:click={() => handleThemeClick(colors)}
+			on:keydown={() => handleThemeClick(colors)}
 		/>
 	{/each}
 </div> -->

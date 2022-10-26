@@ -7,7 +7,6 @@
 	import { page } from '$app/stores';
 
 	export let data;
-	export let avatarPosition = 'left-[calc(50vw-64px)] md:left-[calc(15vw-48px)] bottom-[-64px]';
 
 	let { subject, user } = data;
 	$: update(data);
@@ -35,7 +34,7 @@
 		$tempProfileFiles && $tempProfileFiles.banner
 			? `url(${$tempProfileFiles.banner})`
 			: subject?.banner
-			? `url(/api/public/${subject.username}-banner.png)`
+			? `url(/api/public/${subject.username}-banner.webp)`
 			: undefined;
 </script>
 

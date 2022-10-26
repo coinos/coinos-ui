@@ -1,5 +1,6 @@
 <script>
 	import { RegisterOrLogin } from '$comp';
+
 	export let form;
 </script>
 

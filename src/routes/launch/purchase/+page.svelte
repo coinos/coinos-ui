@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { selectedRate } from '$lib/store';
 	import { post } from '$lib/utils';
@@ -6,77 +7,61 @@
 
 	export let data;
 
-	let amount = 35000;
+	let amount = 22000;
 	let {
+		currency,
 		account: { balance },
 		username
 	} = data.user;
 
-	let invoice;
-	let get = async (network) => {
-		let { uuid } = await post('/invoice', {
-			amount,
-			rate: $selectedRate,
-			network,
-			username
-		});
-
-		goto(`/invoice/${uuid}`);
-	};
-
-	let lightning = () => get('lightning');
-	let bitcoin = () => get('bitcoin');
-
-	// if (balance < amount) throw redirect(307, `/${username}/fund/${amount - balance}`);
+	let { tickets } = data;
+	let ticket = tickets.length;
 </script>
 
-<div class="mx-auto h-screen flex items-center justify-center px-8">
-	<div class="p-4 font-normal text-gray-800 mx-auto mb-8">
-		{#if balance > amount}
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Buy Your Launch Party Ticket?
-			</h1>
+<div class="mx-auto h-screen flex items-center justify-center px-4">
+	<div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
+		<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
+			Purchase Ticket
+		</h1>
 
-			<div class="text-center text-4xl mb-12">{amount} sats</div>
+		<img
+			src={`/tickets/${(ticket + 1).toString().padStart(2, '0')}.png`}
+			class="w-full max-w-[800px]"
+			alt="Ticket"
+		/>
 
-			<div class="w-full flex">
-				<form method="POST" use:enhance>
+		{#if balance >= amount}
+			<form action="?/internal" method="POST" use:enhance>
+				<input type="hidden" name="username" value={username} />
+
+				<div class="w-full flex">
 					<button
 						class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
 					>
 						Count me in
 					</button>
-				</form>
-			</div>
+				</div>
+			</form>
 		{:else}
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Ticket Price
-			</h1>
-			<div class="text-center text-4xl mb-12">{amount} sats</div>
-
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Your Balance
+			<h1 class="mb-4 text-xl font-bold leading-none tracking-tight text-gray-800 text-center">
+				Payment Options
 			</h1>
 
-			<div class="text-center text-4xl mb-12">{balance} sats</div>
+			<div class="flex justify-center gap-4">
+				<form action="?/lightning" method="POST">
+					<input type="hidden" name="currency" value={currency} />
+					<input type="hidden" name="username" value={username} />
+					<button class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
+						Lightning
+					</button>
+				</form>
 
-			<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center">
-				Funding Options
-			</h1>
-
-			<button
-				class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				on:click={lightning}
-			>
-				Lightning
-			</button>
-
-			<button
-				class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-				on:click={bitcoin}
-			>
-				Bitcoin
-			</button>
+				<a href={`purchase/card`}>
+					<button class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
+						Credit Card
+					</button>
+				</a>
+			</div>
 		{/if}
 	</div>
 </div>

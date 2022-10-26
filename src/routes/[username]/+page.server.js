@@ -1,4 +1,3 @@
-import cookie from 'cookie';
 import { get, post } from '$lib/utils';
 
 export async function load({ params }) {
