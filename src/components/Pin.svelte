@@ -5,7 +5,7 @@
 	let pinCode = [];
 	let pinInput;
 
-	$: pinInput && tick().then(pinInput && pinInput.focusFirstInput);
+  $: pinCode && pinInput && tick().then(pinInput && pinInput.focusNextEmptyInput());
 	$: pinCode.length > 5 && ($pin = pinCode.join(''));
 </script>
 
