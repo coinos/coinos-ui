@@ -7,7 +7,7 @@
 
 	let scanner, vid;
 	onMount(() => {
-		scanner = new QrScanner(vid, (text) => goto(`/send/${text}`), {
+		scanner = new QrScanner(vid, (text) => goto(`/send/${text}`) && console.log(text), {
 			highlightScanRegion: true,
 			highlightCodeOutline: true
 		});
