@@ -1,15 +1,20 @@
 version: '3.6'
 services:
-  ui:
-    container_name: ui
-    image: gcr.io/coinos-326717/github.com/coinos/coinos-ui:prod
+  v2:
+    container_name: v2
+    build: .
     restart: always
     ports:
       - '3121:3121'
     environment:
       NODE_ENV: production
-      ORIGIN: 'https://v2.coinos.io'
+      ORIGIN: "${ORIGIN}"
       PORT: 3121
+      PUBLIC_COINOS_URL: "${PUBLIC_COINOS_URL}"
+      PUBLIC_BTC: "${PUBLIC_BTC}"
+      PUBLIC_SOCKET: "${PUBLIC_SOCKET}"
+      STRIPE: "${STRIPE}"
+      LAUNCH: "${LAUNCH}"
     extra_hosts:
       - host.docker.internal:host-gateway
 networks:

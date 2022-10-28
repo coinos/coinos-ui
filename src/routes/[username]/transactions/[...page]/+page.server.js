@@ -18,7 +18,6 @@ export async function load({ cookies, params, request }) {
 	if (end) url += `&end=${end}`;
 
 	let { total, transactions } = await get(url, auth(cookies));
-  console.log("TOT", total, transactions.length);
 	let pages = new Array(Math.ceil(total / limit));
 
 

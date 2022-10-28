@@ -12,13 +12,14 @@
 	$: update(data);
 	let update = (data) => ({ subject, user } = data);
 
-  let menuButtons;
-	if(user) menuButtons = [
-		{ key: 'nav.profile', icon: 'profile', href: `/${user.username}` },
-		{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
-		{ key: 'nav.support', icon: 'support', href: `/${user.username}/support` },
-		{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
-	];
+	let menuButtons;
+	if (user)
+		menuButtons = [
+			{ key: 'nav.profile', icon: 'profile', href: `/${user.username}` },
+			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
+			{ key: 'nav.support', icon: 'support', href: `/${user.username}/support` },
+			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
+		];
 
 	let showMenu = false;
 
