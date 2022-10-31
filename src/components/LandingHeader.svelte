@@ -27,7 +27,6 @@
 
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
-			<a href="/launch">Launch</a>
 			<button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
 				>{$t('howItWorks.header')}</button
 			>
