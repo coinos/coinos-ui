@@ -1,7 +1,8 @@
 <script>
 	import { back, copy, f, get, reverseFormat, s, sats } from '$lib/utils';
+	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
-	import { invoices } from '$lib/store';
+	import { invoices, last } from '$lib/store';
 	import { Icon, Heart, Image, Qr, Tip } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -52,7 +53,7 @@
 	<button
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
 		class:invisible={!user}
-  on:click={back}
+		on:click={back}
 	>
 		<Icon icon="arrow-left" style="w-10" />
 	</button>
