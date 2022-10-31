@@ -23,11 +23,11 @@
 
 <div class="flex w-full mb-4 px-4">
 	<div class="bg-black mx-auto rounded-3xl">
-		<video bind:this={vid} class="border-4 rounded-3xl border-black md:max-w-[600px]" />
+		<video bind:this={vid} class="border-4 rounded-3xl border-black md:max-w-[600px] !max-h-[300px]" />
 	</div>
 </div>
 
-<div class="flex w-full">
+<div class="flex w-full mb-4">
 	<button class="mx-auto border rounded-full px-6 py-2 font-bold hover:opacity-80" on:click={back}>
 		Cancel
 	</button>
