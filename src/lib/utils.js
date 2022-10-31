@@ -125,7 +125,7 @@ export const login = async (user, cookies) => {
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
-	cookies.set('token', token, { path: '/' });
+	cookies.set('token', token, { path: '/', expires });
 };
 
 export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
