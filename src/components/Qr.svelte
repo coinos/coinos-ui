@@ -18,14 +18,6 @@
 		backgroundOptions: {
 			color: 'rgba(0, 0, 0, 0)'
 		},
-		cornersSquareOptions: {
-			type: 'extra-rounded'
-		},
-		dotsOptions: {
-			type: 'extra-rounded'
-		},
-
-		image,
 		imageOptions: {
 			hideBackgroundDots: false
 		}
@@ -57,6 +49,7 @@
 {#if mask}
 	<div class="absolute bg-white w-[300px] h-[300px] t-0 l-0 z-10" out:fade />
 {/if}
+
 <div
 	bind:this={qr}
 	on:click={toggle}

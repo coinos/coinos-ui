@@ -2,13 +2,13 @@
 	import { browser } from '$app/environment';
 	import { invoices } from '$lib/store';
 	import { copy, f, get, reverseFormat, s, sats } from '$lib/utils';
-	import { Icon, Tip } from '$comp';
+	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { tick } from 'svelte';
 
-	const tipAmounts = ['No thank you', '10%', '15%', '20%'];
+	const tipAmounts = ['None', '10%', '15%', '20%'];
 	let showCustomAmount;
 
 	let customInput;
@@ -44,7 +44,7 @@
 	let submitting;
 	const handleTipButtonClick = async (amount) => {
 		submitting = true;
-		if (amount === 'No thank you') {
+		if (amount === 'None') {
 			tipPercent = 0;
 		} else {
 			tipPercent = parseInt(amount.slice(0, 2));
@@ -138,50 +138,37 @@
 				on:input={handleSlide}
 			/>
 
-			<div class="flex mb-8">
+			<div class="flex mb-8 text-sm">
 				<div>
-					<span class="text-sm font-semibold mr-1">
+					<span class="mr-1">
 						{f(amountFiat, currency)}
-						<span class="tect-secondary text-xl">+{f(tipAmount, currency)}</span></span
-					>
+						<span class="font-semibold">+{f(tipAmount, currency)}</span>
+					</span>
 				</div>
 
 				<div class="ml-auto">
-					<span class="text-secondary font-semibold text-sm">{s(amount)}</span>
-					<span class="text-secondary font-semibold text-lg">+{s(tip)} SAT</span>
+					{s(amount)}
+					<span class="font-semibold">+{s(tip)} SAT</span>
 				</div>
 			</div>
 
 			{#if tip}
 				<div>
-					<button
-						type="button"
-						class="w-full text-2xl mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-3 px-7 rounded-2xl"
-						on:click={() => submit.click()}>Next</button
-					>
-					<button
-						type="button"
-						class="w-full text-2xl mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-3 px-7 rounded-2xl"
-						on:click={() => (tipPercent = 0)}>Reset</button
-					>
+					<button type="button" on:click={() => submit.click()}>Next</button>
+					<button type="button" on:click={() => (tipPercent = 0)}>Reset</button>
 				</div>
 			{:else}
 				{#each tipAmounts as amount}
 					<button
 						type="button"
 						class:active={active(amount, tipPercent)}
-						class="w-full text-2xl text-black bg-primary hover:bg-black hover:text-white py-3 m-1 rounded-2xl font-semibold"
 						on:click={() => handleTipButtonClick(amount)}>{amount}</button
 					>
 				{/each}
 			{/if}
 
 			<div>
-				<button
-					type="button"
-					class="w-full text-2xl mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-3 px-7 rounded-2xl"
-					on:click={() => (showCustomAmount = true)}>Custom</button
-				>
+				<button type="button" on:click={() => (showCustomAmount = true)}>Custom</button>
 			</div>
 		{/if}
 
@@ -257,5 +244,9 @@
 
 	.active {
 		@apply !bg-black !text-white;
+	}
+
+	.container button[type='button'] {
+		@apply w-full mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-5 px-7 rounded-2xl;
 	}
 </style>
