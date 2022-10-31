@@ -24,8 +24,7 @@
 				: 'opacity-100 hover:opacity-80'}"
 			disabled={!amount}
 		>
-			<Icon icon="qr" style="mr-2" />
-			{$t('user.receive.showQR')}
+      Next
 		</button>
 	</div>
 </form>

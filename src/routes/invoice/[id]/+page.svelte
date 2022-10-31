@@ -1,5 +1,5 @@
 <script>
-	import { copy, f, get, reverseFormat, s, sats } from '$lib/utils';
+	import { back, copy, f, get, reverseFormat, s, sats } from '$lib/utils';
 	import { browser } from '$app/environment';
 	import { invoices } from '$lib/store';
 	import { Icon, Heart, Image, Qr, Tip } from '$comp';
@@ -18,8 +18,6 @@
 		tip,
 		user: { username, currency }
 	} = invoice;
-
-	let showMobileTip = false;
 
 	let qr;
 	let tipPercent = 0;
@@ -41,26 +39,20 @@
 		tipPercent = (tip / amount) * 100;
 	};
 
-	$: tip = Math.round((amount / 100) * tipPercent);
-
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
 	$: browser &&
 		$invoices[id]?.received >= $invoices[id]?.amount &&
 		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
-
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
-
-	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 </script>
 
-<div class:full-shadow={showMobileTip}>
+<div>
 	<button
 		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
 		class:invisible={!user}
-		disabled={showMobileTip}
-		on:click={() => goto(`/${username}/receive`)}
+  on:click={back}
 	>
 		<Icon icon="arrow-left" style="w-10" />
 	</button>
@@ -69,40 +61,14 @@
 		<div
 			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-24"
 		>
-			{#if invoice.prompt}
-				<Tip
-					bind:amountFiat
-					bind:showMobileTip
-					bind:tipPercent
-					bind:tipAmount
-					bind:amount
-					bind:tip
-					bind:currency
-					bind:username
-				/>
-			{/if}
-
-			<!-- invoice section -->
 			<div class="text-center space-y-5">
-				<button
-					class="block md:hidden bg-black {showMobileTip
-						? 'text-white/50'
-						: 'text-white'} rounded-xl px-6 py-3 block text-sm font-semibold mx-auto flex justify-center items-center"
-					on:click={() => (showMobileTip = true)}
-					disabled={showMobileTip}
-				>
-					<Heart />
-					{$t('invoice.addTip')}
-				</button>
-
-				<!-- found missing translation --->
 				<span class="text-secondary block text-2xl break-all"
 					>Scan to pay <a href="/{username}" class="text-black font-semibold hover:opacity-80"
 						>{username}</a
 					></span
 				>
 
-				<Qr {text} image={'/images/invoice.svg'} disabled={showMobileTip} bind:qr />
+				<Qr {text} image={'/images/invoice.svg'} bind:qr />
 
 				<div>
 					<button
@@ -117,7 +83,7 @@
 					<div class="flex justify-between">
 						<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
 						<span class="font-semibold text-sm"
-							>{invoiceAmountFiatFormatted}
+							>{f(amountFiat, currency)}
 							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
 						>
 					</div>

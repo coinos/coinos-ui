@@ -6,9 +6,9 @@
 	import { tick } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	export let amountFiat, showMobileTip, tipPercent, tipAmount, amount, currency, tip, username;
+	export let amountFiat, showMobileTip, tipPercent, tipAmount, amount, currency, tip, username, rate;
 
-	const tipAmounts = ['None', '10%', '15%', '20%'];
+	const tipAmounts = ['No thanks', '10%', '15%', '20%'];
 	let showCustomAmount;
 
 	let customInput;
@@ -19,9 +19,11 @@
 			tipPercent = (customTipAmount / amountFiat) * 100;
 			showMobileTip = false;
 			showCustomAmount = false;
-			update();
 		}
 	};
+
+	let active = (amount) =>
+		!customTipAmount && Math.round(tipPercent) === parseInt(amount.slice(0, 2));
 
 	const handleCustomTipAmount = (e) => {
 		tipPercent = 0;
@@ -40,116 +42,126 @@
 		timeout = setTimeout(update, 800);
 	};
 
-	const handleTipButtonClick = (amount) => {
-		customTipAmount = '';
-		if (customInput) {
-			customInput.value = '';
-		}
-
-		if (amount === 'None') {
+	let submitting;
+	const handleTipButtonClick = async (amount) => {
+		submitting = true;
+		if (amount === 'No thanks') {
 			tipPercent = 0;
 		} else {
 			tipPercent = parseInt(amount.slice(0, 2));
 		}
-		showMobileTip = false;
-		update();
+
+		await tick();
+		submit.click();
 	};
 
 	let submit;
 	let update = async () => {
 		await tick();
-		submit.click();
+		//submit.click();
 	};
 </script>
 
-<div
-	class="w-[100%] md:w-auto absolute {showMobileTip
-		? 'bottom-0'
-		: '-top-full'} bg-white p-6 md:p-0 rounded-t-3xl md:rounded-none left-0 md:static text-center space-y-5"
->
-	<form method="POST" use:enhance>
-		<input type="hidden" name="amount" value={amount} />
-		<input type="hidden" name="tip" value={tip} />
-		<input type="hidden" name="username" value={username} />
-		<input type="hidden" name="prompt" value="true" />
+<form method="POST" use:enhance class:invisible={submitting}>
+	<input type="hidden" name="amount" value={amount} />
+	<input type="hidden" name="tip" value={tip} />
+	<input type="hidden" name="username" value={username} />
+	<input type="hidden" name="rate" value={rate} />
+	<input type="hidden" name="prompt" value="false" />
 
-		<h1 class="hidden md:block text-4xl font-semibold mb-2">{$t('invoice.addTipq')}</h1>
-		{#if !showCustomAmount}
-			<div class="mb-2">
-				<span class="font-semibold mr-1">{f(tipAmount, currency)}</span>
-				<span class="text-secondary font-semibold text-sm">{`(${s(tip)} SAT)`}</span>
-				<div class="text-secondary text-sm mb-2">{Math.round(tipPercent)}%</div>
+	<h1 class="text-4xl font-semibold my-8">{$t('invoice.addTipq')}</h1>
+	{#if !showCustomAmount}
+		<div class="my-2 text-xl">{Math.round(tipPercent)}%</div>
+
+		<input
+			id="slider"
+			type="range"
+			min="0"
+			max="100"
+			value={tipPercent}
+			class="px-0 py-0 my-5"
+			style="--bgPercent: {tipPercent}%;"
+			on:input={handleSlide}
+			on:change={() => (showMobileTip = false)}
+		/>
+
+		<div class="flex mb-8">
+			<div>
+				<span class="text-sm font-semibold mr-1">
+					{f(amountFiat, currency)}
+					<span class="tect-secondary text-xl">+{f(tipAmount, currency)}</span></span
+				>
 			</div>
 
-			<input
-				id="slider"
-				type="range"
-				min="0"
-				max="100"
-				value={tipPercent}
-				class="px-0 py-0 mb-4"
-				style="--bgPercent: {tipPercent}%;"
-				on:input={handleSlide}
-				on:change={() => (showMobileTip = false)}
-			/>
-			{#each tipAmounts as amount}
-				<button
-					type="button"
-					class="bg-black text-white md:text-black md:bg-primary md:hover:bg-black md:hover:text-white w-16 md:w-20 py-3 m-1 rounded-2xl font-semibold {customTipAmount
-						? ''
-						: Math.round(tipPercent) === parseInt(amount.slice(0, 2)) ||
-						  (!tipPercent && amount === 'None')
-						? '!bg-black !text-white'
-						: ''}"
-					on:click={() => handleTipButtonClick(amount)}>{amount}</button
-				>
-			{/each}
+			<div class="ml-auto">
+				<span class="text-secondary font-semibold text-sm">{s(amount)}</span>
+				<span class="text-secondary font-semibold text-lg">+{s(tip)} SAT</span>
+			</div>
+		</div>
 
+		{#if tip}
 			<div>
 				<button
 					type="button"
-					class="w-full md:w-auto mt-2 bg-black md:bg-primary text-white md:text-black md:hover:bg-black md:hover:text-white font-semibold py-3 px-7 rounded-2xl"
-					on:click={() => (showCustomAmount = true)}>Custom amount</button
+					class="w-full text-2xl mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-3 px-7 rounded-2xl"
+					on:click={() => submit.click()}>Next</button
+				>
+				<button
+					type="button"
+					class="w-full text-2xl mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-3 px-7 rounded-2xl"
+					on:click={() => (tipPercent = 0)}>Reset</button
 				>
 			</div>
+		{:else}
+			{#each tipAmounts as amount}
+				<button
+					type="button"
+					class:active={active(amount, tipPercent)}
+					class="w-full text-2xl text-black bg-primary hover:bg-black hover:text-white py-3 m-1 rounded-2xl font-semibold"
+					on:click={() => handleTipButtonClick(amount)}>{amount}</button
+				>
+			{/each}
 		{/if}
 
-		<button type="submit" bind:this={submit} />
-	</form>
-
-	{#if showCustomAmount}
-		<form on:submit|preventDefault={apply}>
-			<div class="relative">
-				<span
-					class="absolute top-[18px] left-5 font-semibold {!customTipAmount
-						? 'opacity-50'
-						: 'opacity-100'}">$</span
-				>
-				<input
-					bind:this={customInput}
-					type="number"
-					step="0.01"
-					on:input={(e) => handleCustomTipAmount(e)}
-					class="pl-10"
-					placeholder="Other"
-				/>
-				<button
-					type="submit"
-					class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {!customTipAmount
-						? 'opacity-50'
-						: 'opacity-100 hover:opacity-80'}"
-					disabled={!customTipAmount}>Apply</button
-				>
-				<!-- found missing translation --->
-			</div>
-		</form>
+		<div>
+			<button
+				type="button"
+				class="w-full text-2xl mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-3 px-7 rounded-2xl"
+				on:click={() => (showCustomAmount = true)}>Custom</button
+			>
+		</div>
 	{/if}
-</div>
 
-<div
-	class="hidden md:block h-[1px] lg:h-[600px] w-full lg:w-[1px] bg-lightgrey rounded-xl"
-	id="section-divider"
-/>
+	<button type="submit" bind:this={submit} />
+</form>
+
+{#if showCustomAmount}
+	<form on:submit|preventDefault={apply}>
+		<div class="relative">
+			<span
+				class="absolute top-[18px] left-5 font-semibold {!customTipAmount
+					? 'opacity-50'
+					: 'opacity-100'}">$</span
+			>
+			<input
+				bind:this={customInput}
+				type="number"
+				step="0.01"
+				on:input={(e) => handleCustomTipAmount(e)}
+				class="pl-10"
+				placeholder="Custom amount"
+        autofocus
+			/>
+			<button
+				type="submit"
+				class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {!customTipAmount
+					? 'opacity-50'
+					: 'opacity-100 hover:opacity-80'}"
+				disabled={!customTipAmount}>Apply</button
+			>
+		</div>
+	</form>
+{/if}
 
 <style>
 	#slider {
@@ -174,18 +186,22 @@
 	#slider::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		border-radius: 50%;
 		background: black;
 		cursor: pointer;
 	}
 
 	#slider::-moz-range-thumb {
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		border-radius: 50%;
 		background: black;
 		cursor: pointer;
+	}
+
+	.active {
+		@apply !bg-black !text-white;
 	}
 </style>
