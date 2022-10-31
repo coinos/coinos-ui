@@ -3,7 +3,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { invoices, last } from '$lib/store';
-	import { Icon, Heart, Image, Qr, Tip } from '$comp';
+	import { Icon, Heart, Image, Qr } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
@@ -62,7 +62,7 @@
 		<div
 			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-24"
 		>
-			<div class="text-center space-y-5">
+			<div class="text-center">
 				<span class="text-secondary block text-2xl break-all"
 					>Scan to pay <a href="/{username}" class="text-black font-semibold hover:opacity-80"
 						>{username}</a
@@ -71,7 +71,7 @@
 
 				<Qr {text} image={'/images/invoice.svg'} bind:qr />
 
-				<div>
+				<div class="mb-10">
 					<button
 						class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2 mx-auto"
 						on:click={() => copy(text)}
@@ -81,21 +81,23 @@
 				</div>
 
 				<div class="px-5 space-y-3">
-					<div class="flex justify-between">
-						<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
-						<span class="font-semibold text-sm"
-							>{f(amountFiat, currency)}
-							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
-						>
-					</div>
+					{#if invoice.tip}
+						<div class="flex justify-between">
+							<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
+							<span class="font-semibold text-sm"
+								>{f(amountFiat, currency)}
+								<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
+							>
+						</div>
 
-					<div class="flex justify-between">
-						<span class="font-semibold text-sm">{$t('invoice.tip')}</span>
-						<span class="font-semibold text-sm"
-							>{f(tipAmount, currency)}
-							<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
-						>
-					</div>
+						<div class="flex justify-between">
+							<span class="font-semibold text-sm">{$t('invoice.tip')}</span>
+							<span class="font-semibold text-sm"
+								>{f(tipAmount, currency)}
+								<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
+							>
+						</div>
+					{/if}
 
 					<div class="flex flex-wrap justify-between">
 						<span class="font-bold mr-1">{$t('invoice.total')}</span>
