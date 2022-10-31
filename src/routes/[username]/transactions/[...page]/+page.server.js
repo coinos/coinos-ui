@@ -11,7 +11,7 @@ export async function load({ cookies, params, request }) {
 	if (parts.length === 3) [start, end, page] = parts;
 	if (!parseInt(page)) page = 1;
 
-	let offset = (page-1) * limit;
+	let offset = (page - 1) * limit;
 
 	let url = `/payments?v2=true&limit=${limit}&offset=${offset}`;
 	if (start) url += `&start=${start}`;
@@ -19,7 +19,6 @@ export async function load({ cookies, params, request }) {
 
 	let { total, transactions } = await get(url, auth(cookies));
 	let pages = new Array(Math.ceil(total / limit));
-
 
 	return { total, transactions, page, pages, start, end };
 }

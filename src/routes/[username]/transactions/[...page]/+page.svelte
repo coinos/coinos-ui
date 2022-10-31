@@ -34,8 +34,8 @@
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
 
-  $: path = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
-  $: console.log(path)
+	$: path = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
+	$: console.log(path);
 
 	let csv = () => {
 		const keys = ['hash', 'updatedAt', 'rate', 'currency', 'amount', 'fee', 'tip'];
@@ -100,11 +100,7 @@
 		<div class="flex flex-wrap justify-center mb-8">
 			{#if pages.length > 1}
 				{#each pages as _, i}
-					<a
-						class="mr-1 last:mr-0"
-      href={`${path}/${i + 1}`}
-						class:active={parseInt(p) === i + 1}
-					>
+					<a class="mr-1 last:mr-0" href={`${path}/${i + 1}`} class:active={parseInt(p) === i + 1}>
 						<div class="border py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center">
 							{i + 1}
 						</div>

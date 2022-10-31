@@ -1,17 +1,17 @@
 {
-  "short_name": "coinos",
-  "name": "coinos",
-  "icons": [
-    {
-      "src": "/icons/coinos.png",
-      "type": "image/webp",
-      "sizes": "1024x1024",
-      "purpose": "any maskable"
-    }
-  ],
-  "start_url": "/",
-  "background_color": "#000000",
-  "display": "standalone",
-  "scope": "/",
-  "theme_color": "#000000"
+	"short_name": "coinos",
+	"name": "coinos",
+	"icons": [
+		{
+			"src": "/icons/coinos.png",
+			"type": "image/webp",
+			"sizes": "1024x1024",
+			"purpose": "any maskable"
+		}
+	],
+	"start_url": "/",
+	"background_color": "#000000",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#000000"
 }

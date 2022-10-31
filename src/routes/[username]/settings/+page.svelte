@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import Account from './_account.svelte';
@@ -57,7 +57,7 @@
 		loading = false;
 	};
 
-let loaded;
+	let loaded;
 	onMount(() => setTimeout(() => (loaded = true), 50));
 </script>
 
