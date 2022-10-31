@@ -44,7 +44,7 @@
 		lost = Date.now() - $last > 10000;
 		if (lost) connect(token);
 		send('heartbeat');
-		timer = setTimeout(count, 5000);
+		timer = setTimeout(count, 500);
 	};
 
 	onDestroy(() => browser && clearTimeout(timer));
