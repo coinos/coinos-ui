@@ -75,15 +75,16 @@
 			class="cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative mx-auto"
 		/>
 
-
-		<div
-			class="bg-primary font-semibold rounded-xl text-sm p-3 flex justify-between items-center"
-		>
+		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex justify-between items-center">
 			<span class="mx-auto">{lightningAddress}</span>
 			<button class="hover:opacity-80" on:click={() => copy(lightningAddress)}>
 				<Icon icon="copy" style="ml-2" />
 			</button>
 		</div>
-  <p class="text-center">This is a re-usable <a href="https://lightningaddress.com/" class="underline" target="_blank">lightning address</a></p>
+		<p class="text-center">
+			This is a re-usable <a href="https://lightningaddress.com/" class="underline" target="_blank"
+				>lightning address</a
+			>
+		</p>
 	</div>
 </div>

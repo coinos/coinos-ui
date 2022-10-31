@@ -41,7 +41,7 @@
 
 	let lost, timer;
 	let count = () => {
-    lost = (Date.now() - $last) > 10000
+		lost = Date.now() - $last > 10000;
 		if (lost) connect(token);
 		send('heartbeat');
 		timer = setTimeout(count, 5000);
@@ -53,9 +53,9 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 {#if lost}
-<div class="fixed bottom-12 right-12 text-red-600 bg-white z-50 px-4 py-2 rounded-full border">
-  Lost connection to server, try refreshing
-</div>
+	<div class="fixed bottom-12 right-12 text-red-600 bg-white z-50 px-4 py-2 rounded-full border">
+		Lost connection to server, try refreshing
+	</div>
 {/if}
 
 <main data-sveltekit-prefetch>

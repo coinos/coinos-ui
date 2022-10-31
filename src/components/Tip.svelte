@@ -6,7 +6,15 @@
 	import { tick } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	export let amountFiat, showMobileTip, tipPercent, tipAmount, amount, currency, tip, username, rate;
+	export let amountFiat,
+		showMobileTip,
+		tipPercent,
+		tipAmount,
+		amount,
+		currency,
+		tip,
+		username,
+		rate;
 
 	const tipAmounts = ['No thanks', '10%', '15%', '20%'];
 	let showCustomAmount;
@@ -150,7 +158,7 @@
 				on:input={(e) => handleCustomTipAmount(e)}
 				class="pl-10"
 				placeholder="Custom amount"
-        autofocus
+				autofocus
 			/>
 			<button
 				type="submit"

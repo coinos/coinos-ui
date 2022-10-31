@@ -24,7 +24,7 @@
 				: 'opacity-100 hover:opacity-80'}"
 			disabled={!amount}
 		>
-      Next
+			Next
 		</button>
 	</div>
 </form>
