@@ -3,7 +3,6 @@
 	let pinCode = '';
 	let pinInput;
 
-	$: console.log(pinCode.length);
 	$: pinCode.length > 5 && ($pin = pinCode);
 </script>
 

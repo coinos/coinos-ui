@@ -1,9 +1,9 @@
 <script>
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import '../app.css';
-	import { onMount } from 'svelte';
-	import { connect } from '$lib/socket';
-	import { selectedRate, rate, user } from '$lib/store';
+	import { onDestroy, onMount } from 'svelte';
+	import { connect, send } from '$lib/socket';
+	import { last, selectedRate, rate, user } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -33,12 +33,30 @@
 		locale.subscribe((lng) => {
 			if (lng) localStorage.setItem(localeLocalStorageKey, lng);
 		});
+
+		browser && count();
 	});
 
 	$: browser && connect(token);
+
+	let lost, timer;
+	let count = () => {
+    lost = (Date.now() - $last) > 10000
+		if (lost) connect(token);
+		send('heartbeat');
+		timer = setTimeout(count, 5000);
+	};
+
+	onDestroy(() => browser && clearTimeout(timer));
 </script>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
+
+{#if lost}
+<div class="fixed bottom-12 right-12 text-red-600 bg-white z-50 px-4 py-2 rounded-full border">
+  Lost connection to server, try refreshing
+</div>
+{/if}
 
 <main data-sveltekit-prefetch>
 	<slot />

@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { invoices, newPayment, rate, user } from '$lib/store';
+import { invoices, newPayment, last, rate, user } from '$lib/store';
 import { success } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
@@ -16,6 +16,7 @@ export const send = (type, data) => {
 
 export const messages = (data) => ({
 	rate() {
+    last.set(Date.now());
 		rate.set(data);
 	},
 
@@ -46,16 +47,12 @@ let currentReconnectDelay = initialReconnectDelay;
 export function connect(t) {
 	token = t;
 
-	clearInterval(interval);
-
 	if (socket) return auth();
 
 	socket = new WebSocket(socketUrl);
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
 	socket.addEventListener('message', onWebsocketMessage);
-
-	interval = setInterval(() => send('heartbeat'), 5000);
 }
 
 export function close() {
