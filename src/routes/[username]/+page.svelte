@@ -40,6 +40,7 @@
 <svelte:head>
   <title>coinos - {subject.username}</title>
   <meta name="lightning" content={`lnurlp:${subject.username}@coinos.io`} />
+  <meta name="og:image" content={`/api/public/${subject.username}-profile.webp`} />
 </svelte:head>
 
 <div class="container px-4 flex flex-wrap">
