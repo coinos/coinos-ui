@@ -2,7 +2,7 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import '../app.css';
 	import { onDestroy, onMount } from 'svelte';
-	import { connect, send } from '$lib/socket';
+	import { close, connect, send } from '$lib/socket';
 	import { last, selectedRate, rate, user } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
@@ -24,6 +24,8 @@
 		$rate = r;
 		$user = u;
 	};
+
+	$: $page.url.searchParams.get('logout') && close();
 
 	$: $selectedRate = u && r * (rates[u.currency] / rates.USD);
 
@@ -59,11 +61,11 @@
 		<title>coinos</title>
 	{/if}
 
-		{#if subject?.profile}
-			<meta name="og:image" content={`/api/public/${subject.username}-profile.webp`} />
-		{:else}
-			<meta property="og:image" content="/icons/logo.svg" />
-		{/if}
+	{#if subject?.profile}
+		<meta name="og:image" content={`/api/public/${subject.username}-profile.webp`} />
+	{:else}
+		<meta property="og:image" content="/icons/logo.svg" />
+	{/if}
 </svelte:head>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
