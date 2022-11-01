@@ -6,10 +6,11 @@
 	import { Icon, Heart, Image, Qr } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
+	import screenfull from 'screenfull';
 
 	export let data;
 	$: refresh(data);
-	let { invoice, id, user } = data;
+	let { invoice, id, user, svg } = data;
 	let {
 		amount,
 		rate,
@@ -22,8 +23,6 @@
 
 	let qr;
 	let tipPercent = 0;
-
-	let fullscreen;
 
 	let refresh = (data) => {
 		({ invoice, id } = data);
@@ -47,65 +46,72 @@
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
+
+	let full = () => {
+		screenfull.toggle(qr);
+		let el = document.getElementById('qr');
+		el.style.width = '300px';
+		console.log('yes', el);
+	};
 </script>
 
-<div>
-	<button
-		class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-		class:invisible={!user}
-		on:click={back}
-	>
-		<Icon icon="arrow-left" style="w-10" />
-	</button>
+<button
+	class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
+	class:invisible={!user}
+	on:click={back}
+>
+	<Icon icon="arrow-left" style="w-10" />
+</button>
 
-	<div class="flex justify-center items-center mb-20 md:mt-[20px] px-3">
-		<div
-			class="block lg:flex justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-24"
-		>
-			<div class="text-center">
-				<span class="text-secondary block text-2xl break-all"
-					>Scan to pay <a href="/{username}" class="text-black font-semibold hover:opacity-80"
-						>{username}</a
-					></span
-				>
+<div class="container mx-auto max-w-lg px-4 space-y-10 lg:space-y-0">
+	<div class="space-y-10 lg:space-y-0">
+		<div class="text-center">
+			<span class="text-secondary block text-2xl break-all"
+				>Scan to pay <a href="/{username}" class="text-black font-semibold hover:opacity-80"
+					>{username}</a
+				></span
+			>
 
-				<Qr {text} image={'/images/invoice.svg'} bind:qr />
-
-				<div class="mb-10">
-					<button
-						class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2 mx-auto"
-						on:click={() => copy(text)}
-						><Icon icon="copy" style="mr-1" />
-						<div>Copy</div></button
-					>
+			<div id="qr" class="w-80 mx-auto" bind:this={qr} on:click={full}>
+				<div class="max-w-lg mx-auto">
+					{@html svg}
 				</div>
+			</div>
 
-				<div class="px-5 space-y-3">
-					{#if invoice.tip}
-						<div class="flex justify-between">
-							<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
-							<span class="font-semibold text-sm"
-								>{f(amountFiat, currency)}
-								<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
-							>
-						</div>
+			<div class="mb-10">
+				<button
+					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2 mx-auto"
+					on:click={() => copy(text)}
+					><Icon icon="copy" style="mr-1" />
+					<div>Copy</div></button
+				>
+			</div>
 
-						<div class="flex justify-between">
-							<span class="font-semibold text-sm">{$t('invoice.tip')}</span>
-							<span class="font-semibold text-sm"
-								>{f(tipAmount, currency)}
-								<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
-							>
-						</div>
-					{/if}
-
-					<div class="flex flex-wrap justify-between">
-						<span class="font-bold mr-1">{$t('invoice.total')}</span>
-						<span class="font-bold"
-							>{f(amountFiat + parseFloat(tipAmount), currency)}
-							<span class="text-secondary font-normal">{`(${s(tip + amount)} SAT)`}</span></span
+			<div class="px-5 space-y-3 w-80 mx-auto">
+				{#if invoice.tip}
+					<div class="flex justify-between">
+						<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
+						<span class="font-semibold text-sm"
+							>{f(amountFiat, currency)}
+							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
 						>
 					</div>
+
+					<div class="flex justify-between">
+						<span class="font-semibold text-sm">{$t('invoice.tip')}</span>
+						<span class="font-semibold text-sm"
+							>{f(tipAmount, currency)}
+							<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
+						>
+					</div>
+				{/if}
+
+				<div class="flex flex-wrap justify-between">
+					<span class="font-bold mr-1">{$t('invoice.total')}</span>
+					<span class="font-bold"
+						>{f(amountFiat + parseFloat(tipAmount), currency)}
+						<span class="text-secondary font-normal">{`(${s(tip + amount)} SAT)`}</span></span
+					>
 				</div>
 			</div>
 		</div>
