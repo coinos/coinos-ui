@@ -36,15 +36,6 @@
 	let followed = false;
 </script>
 
-<svelte:head>
-	<title>coinos - {subject.username}</title>
-	<meta name="lightning" content={`lnurlp:${subject.username}@coinos.io`} />
-
-	{#if subject.profile}
-		<meta name="og:image" content={`/api/public/${subject.username}-profile.webp`} />
-	{/if}
-</svelte:head>
-
 <div class="container px-4 flex flex-wrap">
 	<div class="p-10 pt-20">
 		<h1 class="text-3xl font-bold">{subject.username}</h1>
