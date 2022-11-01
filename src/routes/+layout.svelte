@@ -15,6 +15,7 @@
 
 	export let data;
 
+	let { subject } = $page.data;
 	let r, u, token, rates;
 
 	$: update(data);
@@ -49,6 +50,21 @@
 
 	onDestroy(() => browser && clearTimeout(timer));
 </script>
+
+<svelte:head>
+	{#if subject}
+		<title>coinos - {subject.username}</title>
+		<meta name="lightning" content={`lnurlp:${subject.username}@coinos.io`} />
+	{:else}
+		<title>coinos</title>
+	{/if}
+
+		{#if subject?.profile}
+			<meta name="og:image" content={`/api/public/${subject.username}-profile.webp`} />
+		{:else}
+			<meta property="og:image" content="/icons/logo.svg" />
+		{/if}
+</svelte:head>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
