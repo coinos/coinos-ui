@@ -12,10 +12,10 @@ export async function load({ cookies, params, request }) {
 	if (!parseInt(page)) page = 1;
 
 	let offset = (page - 1) * limit;
-  if (!start) start = Date.now() - 24 * 60 * 60 * 1000;
+	if (!start) start = (Date.now() / 1000) - 24 * 60 * 60;
 
-	let url = `/payments?v2=true&start=${start}&limit=${limit}&offset=${offset}`;
-	if (end) url += `&end=${end}`;
+	let url = `/payments?v2=true&start=${start * 1000}&limit=${limit}&offset=${offset}`;
+	if (end) url += `&end=${end * 1000}`;
 
 	let { total, transactions } = await get(url, auth(cookies));
 	let pages = new Array(Math.ceil(total / limit));
