@@ -11,6 +11,8 @@
 	} from '$comp';
 
 	import { t } from '$lib/translations';
+	import { close } from '$lib/socket';
+	import { onMount } from 'svelte';
 
 	export let data;
 	let { user } = data;
@@ -27,7 +29,21 @@
 	];
 
 	const faqIDs = ['cost', 'compatibility', 'safety'];
+
+	onMount(async () => {
+		close();
+
+		try {
+			({ locations } = await fetch('/locations').then((r) => r.json()));
+		} catch (e) {
+			console.log(e);
+		}
+	});
 </script>
+
+<svelte:head>
+	<script src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
+</svelte:head>
 
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
@@ -76,9 +92,9 @@
 		<div bind:this={about} />
 	</div>
 
-	<div>
+	{#if locations?.length}
 		<About {locations} />
-	</div>
+	{/if}
 </main>
 
 <Footer />

@@ -16,7 +16,7 @@ export default async ({ cookies, request }) => {
 
 	let user = { username: form.get('username') };
 
-	let { uuid }= await post('/invoice', { invoice, user }, auth(cookies));
+	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
 
 	if (invoice.prompt) {
 		throw redirect(307, `/invoice/${uuid}/tip`);

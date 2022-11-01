@@ -8,5 +8,5 @@ const opts = {
 export async function load({ cookies }) {
 	cookies.set('token', '', opts);
 	cookies.set('refresh_token', '', opts);
-	throw redirect(303, '/logout/done');
+	throw redirect(307, '/');
 }

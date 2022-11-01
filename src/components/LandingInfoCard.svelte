@@ -3,8 +3,8 @@
 
 	export let image;
 	export let title;
-	export let description;
-	export let order;
+	export let description = undefined;
+	export let order = undefined;
 </script>
 
 <div class="block lg:flex justify-center lg:space-x-20 items-center">

@@ -23,6 +23,9 @@ export async function load({ cookies, locals, request, url, params }) {
 			if (user.username !== params.username) throw error(404, 'user not found');
 		}
 
+		if (['/login', '/register'].includes(url.pathname))
+			throw redirect(307, `/${user.username}/dashboard`);
+
 		let account = user.accounts.find((a) => a.asset === btc && !a.pubkey);
 		if (account) {
 			let { id } = account;
