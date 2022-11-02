@@ -10,6 +10,6 @@ ADD package.json .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store NODE_ENV=development pnpm i
 
 COPY . .
-RUN pnpm build
+RUN PUBLIC_COINOS_URL="https://coinos.io/api" pnpm build
 
 CMD ["node", "build"]
