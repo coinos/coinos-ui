@@ -1,5 +1,5 @@
 <script>
-	import { f, s, post, failure, sats } from '$lib/utils';
+	import { f, s, post, failure, sat, sats } from '$lib/utils';
 	import { tick } from 'svelte';
 	import { Icon } from '$comp';
 	import { rate, selectedRate } from '$lib/store';
@@ -40,8 +40,6 @@
 	$: btcPrice = f($selectedRate, user.currency);
 
 	$: accountBalanceBtc = user.account.balance / sats;
-
-	$: accountBalanceSats = s(user.account.balance);
 </script>
 
 <div class="container px-4 max-w-md mx-auto mt-20">
@@ -50,7 +48,7 @@
 	</div>
 
 	<div class="text-secondary text-2xl">
-		{accountBalanceSats} SAT
+    {sat(user.account.balance)}
 	</div>
 
 	<div class="grid sm:grid-cols-2 gap-2 mt-8">
