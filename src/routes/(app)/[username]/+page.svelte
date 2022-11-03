@@ -44,23 +44,19 @@
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</p>
 
-		<div class="flex gap-2">
-			<button
-				class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
-				on:click={() => (followed = !followed)}
-				><Icon icon={followed ? 'minus' : 'plus'} style="mr-1" />
-				{$t('user.' + (followed ? 'following' : 'follow'))}
-			</button>
+    <div class="menu">
+		<button on:click={() => (followed = !followed)}>
+			{$t('user.' + (followed ? 'following' : 'follow'))}
+		</button>
 
-			<a href={`/${subject.username}/receive`}>
-				<button
-					class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
-				>
-					<Icon icon="send" style="mr-1" />
-					Pay
-				</button>
-			</a>
-		</div>
+		<a href={`/${subject.username}/receive`}>
+			<button> Pay </button>
+		</a>
+
+		<a href={`/${subject.username}/request`}>
+			<button> Request invoice </button>
+		</a>
+    </div>
 	</div>
 
 	<div class="space-y-5 md:mt-20 mx-auto w-[350px]">
@@ -70,9 +66,9 @@
 			class="cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative mx-auto"
 		/>
 
-		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex justify-between items-center">
-			<span class="mx-auto">{lightningAddress}</span>
-			<button class="hover:opacity-80" on:click={() => copy(lightningAddress)}>
+		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex">
+			<div class="my-auto">{lightningAddress}</div>
+			<button class="ml-auto hover:opacity-80" on:click={() => copy(lightningAddress)}>
 				<Icon icon="copy" style="ml-2" />
 			</button>
 		</div>
@@ -86,3 +82,9 @@
 		</p>
 	</div>
 </div>
+
+<style>
+	.menu button {
+		@apply w-full mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-5 px-7 rounded-2xl;
+	}
+</style>
