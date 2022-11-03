@@ -4,7 +4,7 @@
 	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { f, s, sats } from '$lib/utils';
+	import { f, s, sat, sats } from '$lib/utils';
 	import { goto } from '$app/navigation';
 	import { invoices } from '$lib/store';
 
@@ -30,7 +30,7 @@
 	<h2 class="text-2xl md:text-3xl font-semibold">
 		{f(amountFiat, invoice.currency)}
 	</h2>
-	<h3 class="text-secondary md:text-lg mb-6 mt-1">({s(invoice.amount)} SAT)</h3>
+	<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(invoice.amount)}</h3>
 	<button
 		class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
 		on:click={handleDoneClick}

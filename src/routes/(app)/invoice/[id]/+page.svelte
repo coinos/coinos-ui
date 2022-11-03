@@ -7,7 +7,6 @@
 	import { Icon, Heart, Image, Qr } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
-	import screenfull from 'screenfull';
 
 	export let data;
 	$: refresh(data);
@@ -22,7 +21,6 @@
 		user: { username, currency }
 	} = invoice;
 
-	let qr;
 	let tipPercent = 0;
 
 	let refresh = (data) => {
@@ -72,13 +70,7 @@
 				></span
 			>
 
-			<div
-				class="w-80 mx-auto my-5 cursor-pointer"
-				bind:this={qr}
-				on:click={() => screenfull.toggle(qr)}
-			>
-				<img {src} class="mx-auto" />
-			</div>
+      <Qr {src} />
 
 			<div class="mb-10">
 				<button
