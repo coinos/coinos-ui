@@ -160,7 +160,7 @@
 		"update1": ""
 	},
 	"user": {
-    "unfollow": "Unfollow",
+		"unfollow": "Unfollow",
 		"following": "Following",
 		"follow": "Follow",
 		"remove": "Remove",

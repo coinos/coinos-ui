@@ -16,7 +16,7 @@ specifiers:
   prettier-plugin-svelte: ^2.8.0
   qr-code-styling: 1.6.0-rc.1
   qr-scanner: ^1.4.1
-  qrcode-svg: ^1.1.0
+  qrcode-base64: ^1.0.1
   screenfull: ^6.0.2
   svelte: ^3.52.0
   svelte-outclick: ^3.2.0
@@ -42,7 +42,7 @@ devDependencies:
   prettier-plugin-svelte: 2.8.0_lrllcp5xtrkmmdzifit4hd52ze
   qr-code-styling: 1.6.0-rc.1
   qr-scanner: 1.4.1
-  qrcode-svg: 1.1.0
+  qrcode-base64: 1.0.1
   screenfull: 6.0.2
   svelte: 3.52.0
   svelte-outclick: 3.2.0
@@ -1312,13 +1312,12 @@ packages:
       '@types/offscreencanvas': 2019.7.0
     dev: true
 
-  /qrcode-generator/1.4.4:
-    resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
+  /qrcode-base64/1.0.1:
+    resolution: {integrity: sha512-B0BDmnRSvbj47Nq/+IeZjj22afNrf4rwIloNrSXN6OwnkoO+Q0hsUa53gCEfqNQjx+OcytF3azvQhi6wV2Tk6g==}
     dev: true
 
-  /qrcode-svg/1.1.0:
-    resolution: {integrity: sha512-XyQCIXux1zEIA3NPb0AeR8UMYvXZzWEhgdBgBjH9gO7M48H9uoHzviNz8pXw3UzrAcxRRRn9gxHewAVK7bn9qw==}
-    hasBin: true
+  /qrcode-generator/1.4.4:
+    resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
     dev: true
 
   /qs/6.11.0:

@@ -77,8 +77,11 @@
 			</button>
 		</div>
 		<p class="text-center">
-			This is a <a href="https://lightningaddress.com/" class="underline" target="_blank" rel="noreferrer"
-				>lightning address</a
+			This is a <a
+				href="https://lightningaddress.com/"
+				class="underline"
+				target="_blank"
+				rel="noreferrer">lightning address</a
 			>
 		</p>
 	</div>

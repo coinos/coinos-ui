@@ -64,13 +64,7 @@ export function reverseFormat(val, locale) {
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes = [
-	/customers/,
-	/dashboard/,
-	/settings/,
-	/transactions/,
-	/support/
-];
+export let protectedRoutes = [/customers/, /dashboard/, /settings/, /transactions/, /support/];
 
 export const success = (m) => {
 	toast.pop();
@@ -138,16 +132,28 @@ export const f = (s, currency) =>
 		.replace('CA', '');
 
 export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
+export const sat = (s) => {
+	let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);
+	let d = Math.floor((p + 1) / 3);
+
+	return (
+		'⚡️' +
+		(parseInt(s) > 0
+			? new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(s / Math.pow(1000, d)) +
+			  ['', 'K', 'M', 'G'][d]
+			: 0
+		).toString()
+	);
+};
 
 export const sats = 100000000;
 
 export const back = () => browser && history.go(-1);
 export const focus = (el) => setTimeout(() => el.focus());
 
-
 export const wait = async (f, s = 300) => {
-  let i = 0;
-  while (!(await f()) && i < s) (await sleep(1000)) && i++;
-  if (i >= s) throw new Error("timeout");
-  return f();
+	let i = 0;
+	while (!(await f()) && i < s) (await sleep(1000)) && i++;
+	if (i >= s) throw new Error('timeout');
+	return f();
 };

@@ -1,10 +1,10 @@
 <script>
-	import { Icon } from '$comp';
+	import { Avatar, Icon } from '$comp';
 	import { onMount } from 'svelte';
-	import { formatDistance, parseISO } from 'date-fns';
+	import { format, parseISO } from 'date-fns';
 	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
-	import { f, s, sats } from '$lib/utils';
+	import { f, s, sat, sats } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { differenceInDays, getUnixTime, sub } from 'date-fns';
 	import { goto } from '$app/navigation';
@@ -15,7 +15,7 @@
 	let change = ({ target: { value } }) => goto(value);
 
 	let presets = [
-		{ title: 'Today', start: null, end: null },
+		{ title: 'Day', start: sub(new Date(), { days: 1 }), end: null },
 		{ title: 'Week', start: sub(new Date(), { days: 7 }), end: null },
 		{ title: 'Month', start: sub(new Date(), { months: 1 }), end: null },
 		{ title: 'All', start: sub(new Date(), { years: 5 }), end: null }
@@ -35,7 +35,6 @@
 	$: $newPayment && invalidate(`/users/${user.username}`);
 
 	$: path = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
-	$: console.log(path);
 
 	let csv = () => {
 		const keys = ['hash', 'updatedAt', 'rate', 'currency', 'amount', 'fee', 'tip'];
@@ -74,16 +73,15 @@
 				{#each presets as { start, end, title }, i}
 					<option
 						selected={selection === i}
-						value={`/${user.username}/transactions/${start ? getUnixTime(start) + '/' : ''}1`}
-						>{title}</option
+						value={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}>{title}</option
 					>
 				{/each}
 			</select>
-			<div class="hidden md:block flex flex-wrap gap-2">
+			<div class="hidden md:block flex">
 				{#each presets as { start, end, title }, i}
 					<a
 						class:active={selection === i}
-						href={`/${user.username}/transactions/${start ? getUnixTime(start) + '/' : ''}1`}
+						href={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}
 					>
 						<button class="rounded-full border py-2 px-5 hover:opacity-80 mb-2">
 							<div class="my-auto">{title}</div>
@@ -109,38 +107,36 @@
 			{/if}
 		</div>
 
-		<div class="text-secondary grid grid-cols-3 mb-5">
-			<h2>{$t('user.transactions.AMOUNT')}</h2>
-			<h2 class="text-center" />
-			<h2 class="text-right">{$t('user.transactions.TIME')}</h2>
-		</div>
-
 		<div class="space-y-10">
 			{#if transactions.length}
 				{#each transactions as tx}
 					<div class="grid grid-cols-3 border-b pb-5">
-						<div class="font-bold">
-							<span class="block mb-1"
-								>{tx.amount > 0 ? '+' : ''}{f(tx.amount * (tx.rate / sats), tx.currency)}
-							</span>
+						<div>
+							<div class="mb-1 font-bold">{f(tx.amount * (tx.rate / sats), tx.currency)}</div>
 
-							<span class="text-secondary"
-								>{tx.amount > 0 ? '+' : ''}{s(tx.amount)}
-								SAT
-							</span>
+							<span class="text-secondary">{sat(tx.amount)} </span>
 						</div>
 
-						<div class="text-center">
-							<span class="text-secondary"
-								>{$t('user.transactions.' + (tx.amount < 0 ? 'sent' : 'received'))}</span
-							>
+						<div class="flex">
+							{#if tx.with}
+								<a href={`/${tx.with.username}`} class="mx-auto">
+									<div class="flex">
+										<div class="my-auto">
+											<Avatar user={tx.with} size={12} />
+										</div>
+										<div class="my-auto ml-1">{tx.with.username}</div>
+									</div>
+								</a>
+							{/if}
 						</div>
 
 						<div class="text-secondary text-right">
-							{formatDistance(parseISO(tx.createdAt), new Date(), {
-								includeSeconds: true,
-								addSuffix: true
-							})}
+							<div>
+								{format(parseISO(tx.createdAt), 'h:mm aaa')}
+							</div>
+							<div>
+								{format(parseISO(tx.createdAt), 'MMM d')}
+							</div>
 						</div>
 					</div>
 				{/each}

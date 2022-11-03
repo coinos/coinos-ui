@@ -1,6 +1,6 @@
 <script>
 	import { send } from '$lib/socket';
-	import { back, copy, f, get, reverseFormat, s, sats } from '$lib/utils';
+	import { back, copy, f, get, sat, reverseFormat, s, sats } from '$lib/utils';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { invoices, last } from '$lib/store';
@@ -11,7 +11,7 @@
 
 	export let data;
 	$: refresh(data);
-	let { invoice, id, user, svg } = data;
+	let { invoice, id, user, src } = data;
 	let {
 		amount,
 		rate,
@@ -48,12 +48,6 @@
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
 
-	let full = () => {
-		screenfull.toggle(qr);
-		let el = document.getElementById('qr');
-		el.style.width = '300px';
-	};
-
 	let subbed;
 	onMount(() => {
 		browser &&
@@ -65,10 +59,7 @@
 	});
 </script>
 
-<button
-	class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-	on:click={back}
->
+<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
@@ -81,10 +72,12 @@
 				></span
 			>
 
-			<div id="qr" class="w-80 mx-auto" bind:this={qr} on:click={full}>
-				<div class="max-w-lg mx-auto">
-					{@html svg}
-				</div>
+			<div
+				class="w-80 mx-auto my-5 cursor-pointer"
+				bind:this={qr}
+				on:click={() => screenfull.toggle(qr)}
+			>
+				<img {src} class="mx-auto" />
 			</div>
 
 			<div class="mb-10">
@@ -99,27 +92,27 @@
 			<div class="px-5 space-y-3 w-80 mx-auto">
 				{#if invoice.tip}
 					<div class="flex justify-between">
-						<span class="font-semibold text-sm">{$t('invoice.invoice')}</span>
-						<span class="font-semibold text-sm"
-							>{f(amountFiat, currency)}
-							<span class="text-secondary font-normal">{`(${s(amount)} SAT)`}</span></span
-						>
+						{$t('invoice.invoice')}
+						<span>
+							{f(amountFiat, currency)}
+							<span class="text-secondary">{`${sat(amount)}`}</span>
+						</span>
 					</div>
 
 					<div class="flex justify-between">
-						<span class="font-semibold text-sm">{$t('invoice.tip')}</span>
-						<span class="font-semibold text-sm"
+						{$t('invoice.tip')}
+						<span
 							>{f(tipAmount, currency)}
-							<span class="text-secondary font-normal">{`(${s(tip)} SAT)`}</span></span
-						>
+							<span class="text-secondary">{`${sat(tip)}`}</span>
+						</span>
 					</div>
 				{/if}
 
-				<div class="flex flex-wrap justify-between">
-					<span class="font-bold mr-1">{$t('invoice.total')}</span>
-					<span class="font-bold"
+				<div class="flex flex-wrap justify-between font-bold">
+					<span class="mr-1">{$t('invoice.total')}</span>
+					<span
 						>{f(amountFiat + parseFloat(tipAmount), currency)}
-						<span class="text-secondary font-normal">{`(${s(tip + amount)} SAT)`}</span></span
+						<span class="text-secondary font-normal">{`${sat(tip + amount)}`}</span></span
 					>
 				</div>
 			</div>
