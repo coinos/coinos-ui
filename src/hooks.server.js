@@ -2,7 +2,10 @@ import { auth, get, protectedRoutes } from '$lib/utils';
 
 export async function handle({ event, resolve }) {
 	let token = event.cookies.get('token');
-	let { params, url: { pathname, origin } } = event;
+	let {
+		params,
+		url: { pathname, origin }
+	} = event;
 
 	let user;
 	if (token && pathname !== '/logout') {
@@ -10,10 +13,10 @@ export async function handle({ event, resolve }) {
 			user = await get('/me', auth(event.cookies));
 			event.locals.user = user;
 
-      if (['/login', '/register'].includes(pathname))
-        return Response.redirect(origin + `/${user.username}/dashboard`, 307);
+			if (['/login', '/register'].includes(pathname))
+				return Response.redirect(origin + `/${user.username}/dashboard`, 307);
 		} catch (e) {
-      return Response.redirect(origin + '/logout', 307);
+			return Response.redirect(origin + '/logout', 307);
 		}
 	}
 

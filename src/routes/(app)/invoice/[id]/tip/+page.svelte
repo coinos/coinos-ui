@@ -1,7 +1,7 @@
 <script>
 	import { browser } from '$app/environment';
 	import { invoices } from '$lib/store';
-	import { back, copy, f, get, reverseFormat, s, sats } from '$lib/utils';
+	import { back, copy, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -107,10 +107,7 @@
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 </script>
 
-<button
-	class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-	on:click={back}
->
+<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
@@ -137,7 +134,7 @@
 				on:input={handleSlide}
 			/>
 
-			<div class="flex mb-8 text-sm">
+			<div class="flex mb-8 text-lg">
 				<div>
 					<span class="mr-1">
 						{f(amountFiat, currency)}
@@ -145,9 +142,9 @@
 					</span>
 				</div>
 
-				<div class="ml-auto">
-					{s(amount)}
-					<span class="font-semibold">+{s(tip)} SAT</span>
+				<div class="ml-auto text-lg">
+					{sat(amount)}
+					<span class="font-semibold">+{sat(tip)}</span>
 				</div>
 			</div>
 

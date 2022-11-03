@@ -1,14 +1,10 @@
-import Qr from 'qrcode-svg';
+import Qr from 'qrcode-base64';
 import { get } from '$lib/utils';
 
 export async function load({ params }) {
 	let { id } = params;
 	let invoice = await get(`/invoice?uuid=${id}`);
-	let svg = new Qr({
-		content: invoice.text,
-		join: true,
-		container: 'svg-viewbox'
-	}).svg();
+	let src = Qr.drawImg(invoice.text, { size: 600 });
 
-	return { id, invoice, svg };
+	return { id, invoice, src };
 }

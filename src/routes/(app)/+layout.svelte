@@ -24,8 +24,6 @@
 		$user = u;
 	};
 
-	$: $page.url.searchParams.get('logout') && close();
-
 	$: $selectedRate = r * (rates[u?.currency || 'USD'] / rates.USD);
 
 	onMount(() => {

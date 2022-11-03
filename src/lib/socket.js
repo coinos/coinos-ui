@@ -15,9 +15,9 @@ export const send = (type, data) => {
 };
 
 export const messages = (data) => ({
-  id() {
+	id() {
 		last.set(Date.now());
-  },
+	},
 
 	rate() {
 		rate.set(data);

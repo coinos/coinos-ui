@@ -1,4 +1,4 @@
-import { get } from "$lib/utils";
+import { get } from '$lib/utils';
 import { json } from '@sveltejs/kit';
 
 export async function GET({ fetch, setHeaders }) {
