@@ -40,35 +40,30 @@
 	<div class="p-10 pt-20">
 		<h1 class="text-3xl font-bold">{subject.username}</h1>
 
-		<p class="text-secondary w-64">
+		<p class="text-secondary w-64 mb-4">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</p>
 
-		<!-- TODO
-      we need to hook this up
-      <button
-      class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
-      on:click={() => (followed = !followed)}
-      ><Icon icon={followed ? 'minus' : 'plus'} style="mr-1" />
-      {$t('user.' + (followed ? 'remove' : 'follow'))}
-      </button>
-    -->
+		<div class="flex gap-2">
+			<button
+				class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
+				on:click={() => (followed = !followed)}
+				><Icon icon={followed ? 'minus' : 'plus'} style="mr-1" />
+				{$t('user.' + (followed ? 'following' : 'follow'))}
+			</button>
+
+			<a href={`/${subject.username}/receive`}>
+				<button
+					class="border rounded-full py-2 w-28 font-semibold flex justify-center items-center text-sm"
+				>
+					<Icon icon="send" style="mr-1" />
+					Pay
+				</button>
+			</a>
+		</div>
 	</div>
 
 	<div class="space-y-5 md:mt-20 mx-auto w-[350px]">
-		<!-- <div class="flex justify-center gap-2"> -->
-		<!-- 	<a href={`/${subject.username}`}> -->
-		<!-- 		<button -->
-		<!-- 			class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2 bg-black text-white" -->
-		<!-- 			>Lightning</button -->
-		<!-- 		> -->
-		<!-- 	</a> -->
-		<!-- 	<a href={`/${subject.username}/bitcoin`}> -->
-		<!-- 		<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2" -->
-		<!-- 			>Bitcoin</button -->
-		<!-- 		> -->
-		<!-- 	</a> -->
-		<!-- </div> -->
 		<div
 			on:click={() => copy(lightningAddress)}
 			id="qr"
@@ -82,7 +77,7 @@
 			</button>
 		</div>
 		<p class="text-center">
-			This is a re-usable <a href="https://lightningaddress.com/" class="underline" target="_blank"
+			This is a <a href="https://lightningaddress.com/" class="underline" target="_blank"
 				>lightning address</a
 			>
 		</p>

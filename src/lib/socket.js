@@ -6,7 +6,7 @@ import { env } from '$env/dynamic/public';
 const socketUrl = env.PUBLIC_SOCKET;
 const btc = env.PUBLIC_BTC;
 
-let interval, socket, token;
+let socket, token;
 
 export const auth = () => token && send('login', token);
 
@@ -15,18 +15,22 @@ export const send = (type, data) => {
 };
 
 export const messages = (data) => ({
-	rate() {
+  id() {
 		last.set(Date.now());
+  },
+
+	rate() {
 		rate.set(data);
 	},
 
 	async payment() {
 		let { amount, invoice } = data;
-		if (get(user).account_id !== data.account_id) return;
 
 		if (invoice) {
 			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
 		}
+
+		if (get(user).account_id !== data.account_id) return;
 
 		newPayment.set(true);
 		if (amount > 0) {
