@@ -54,7 +54,7 @@
 			</a>
 
 			<a href={`/${subject.username}/request`}>
-				<button> Request invoice </button>
+				<button>Request invoice</button>
 			</a>
 		</div>
 	</div>
