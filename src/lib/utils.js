@@ -133,6 +133,7 @@ export const f = (s, currency) =>
 
 export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
 export const sat = (s) => {
+  s = Math.abs(s);
 	let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);
 	let d = Math.floor((p + 1) / 3);
 

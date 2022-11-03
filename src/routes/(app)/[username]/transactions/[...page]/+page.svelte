@@ -121,12 +121,19 @@
 							{#if tx.with}
 								<a href={`/${tx.with.username}`} class="mx-auto">
 									<div class="flex">
+                <div class="my-auto text-secondary">
+                  {tx.amount > 0 ? 'From' : 'To'}
+                </div>
 										<div class="my-auto">
 											<Avatar user={tx.with} size={12} />
 										</div>
-										<div class="my-auto ml-1">{tx.with.username}</div>
+										<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
 									</div>
 								</a>
+              {:else}
+                <div class="mx-auto text-secondary">
+                  {tx.amount > 0 ? 'Received' : 'Sent'}
+                  </div>
 							{/if}
 						</div>
 
