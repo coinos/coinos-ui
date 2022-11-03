@@ -4,7 +4,7 @@ export async function handle({ event, resolve }) {
 	let token = event.cookies.get('token');
 	let {
 		params,
-    request,
+		request,
 		url: { pathname, origin }
 	} = event;
 

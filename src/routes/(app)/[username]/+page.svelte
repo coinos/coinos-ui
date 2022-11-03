@@ -44,19 +44,19 @@
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</p>
 
-    <div class="menu">
-		<button on:click={() => (followed = !followed)}>
-			{$t('user.' + (followed ? 'following' : 'follow'))}
-		</button>
+		<div class="menu">
+			<button on:click={() => (followed = !followed)}>
+				{$t('user.' + (followed ? 'following' : 'follow'))}
+			</button>
 
-		<a href={`/${subject.username}/receive`}>
-			<button> Pay </button>
-		</a>
+			<a href={`/${subject.username}/receive`}>
+				<button> Pay </button>
+			</a>
 
-		<a href={`/${subject.username}/request`}>
-			<button> Request invoice </button>
-		</a>
-    </div>
+			<a href={`/${subject.username}/request`}>
+				<button> Request invoice </button>
+			</a>
+		</div>
 	</div>
 
 	<div class="space-y-5 md:mt-20 mx-auto w-[350px]">

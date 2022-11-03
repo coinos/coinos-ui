@@ -110,30 +110,43 @@
 		<div class="space-y-10">
 			{#if transactions.length}
 				{#each transactions as tx}
-					<div class="grid grid-cols-5 border-b pb-5">
-						<div>
-							<div class="mb-1 font-bold">{f(tx.amount * (tx.rate / sats), tx.currency)}</div>
+					<div class="grid grid-cols-3 border-b pb-5">
+						<div class="whitespace-nowrap">
+							<div class="mb-1 font-bold">
+								{f(tx.amount * (tx.rate / sats), tx.currency)}
 
-							<span class="text-secondary">{sat(tx.amount)} </span>
+								{#if tx.tip}
+									<span class="text-sm">
+										+{f(tx.tip * (tx.rate / sats), tx.currency)}
+									</span>
+								{/if}
+							</div>
+
+							<span class="text-secondary"
+								>{sat(tx.amount)}
+
+								{#if tx.tip}
+									<span class="text-sm">
+										+{sat(tx.tip)}
+									</span>
+								{/if}
+							</span>
 						</div>
 
-						<div class="flex col-span-3">
+						<div class="flex">
 							{#if tx.with}
 								<a href={`/${tx.with.username}`} class="mx-auto">
 									<div class="flex">
-                <div class="my-auto text-secondary">
-                  {tx.amount > 0 ? 'From' : 'To'}
-                </div>
 										<div class="my-auto">
 											<Avatar user={tx.with} size={12} />
 										</div>
 										<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
 									</div>
 								</a>
-              {:else}
-                <div class="mx-auto text-secondary">
-                  {tx.amount > 0 ? 'Received' : 'Sent'}
-                  </div>
+							{:else}
+								<div class="mx-auto text-secondary">
+									{tx.amount > 0 ? 'Received' : 'Sent'}
+								</div>
 							{/if}
 						</div>
 

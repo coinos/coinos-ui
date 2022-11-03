@@ -10,11 +10,12 @@
 
 	export let data;
 	let { invoice } = data;
-	let { amount, rate } = invoice;
+	let { amount, currency, rate, tip } = invoice;
 
 	toast.pop(0);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
+	$: tipFiat = parseFloat(((tip * rate) / sats).toFixed(2));
 
 	const handleDoneClick = () => {
 		delete $invoices[invoice.uuid];
@@ -28,9 +29,17 @@
 	</div>
 	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
 	<h2 class="text-2xl md:text-3xl font-semibold">
-		{f(amountFiat, invoice.currency)}
+		{f(amountFiat, currency)}
+		{#if tip}
+			+ {f(tipFiat, currency)}
+		{/if}
 	</h2>
-	<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(invoice.amount)}</h3>
+	<h3 class="text-secondary md:text-lg mb-6 mt-1">
+		{sat(amount)}
+		{#if tip}
+			+{sat(tip)}
+		{/if}
+	</h3>
 	<button
 		class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
 		on:click={handleDoneClick}
