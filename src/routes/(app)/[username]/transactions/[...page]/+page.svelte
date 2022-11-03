@@ -110,14 +110,14 @@
 		<div class="space-y-10">
 			{#if transactions.length}
 				{#each transactions as tx}
-					<div class="grid grid-cols-3 border-b pb-5">
+					<div class="grid grid-cols-5 border-b pb-5">
 						<div>
 							<div class="mb-1 font-bold">{f(tx.amount * (tx.rate / sats), tx.currency)}</div>
 
 							<span class="text-secondary">{sat(tx.amount)} </span>
 						</div>
 
-						<div class="flex">
+						<div class="flex col-span-3">
 							{#if tx.with}
 								<a href={`/${tx.with.username}`} class="mx-auto">
 									<div class="flex">
