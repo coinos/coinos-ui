@@ -70,7 +70,7 @@
 				></span
 			>
 
-      <Qr {src} />
+			<Qr {src} />
 
 			<div class="mb-10">
 				<button

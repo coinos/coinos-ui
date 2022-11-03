@@ -54,10 +54,7 @@
 		<div class="text-center mb-8">
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">Send</h1>
 			<p class="text-6xl break-words mb-4">
-				{fiat ? f(amountFiat, currency) : s(amount)}
-				{#if !fiat}
-					<span class="text-xl md:text-2xl text-secondary">sats</span>
-				{/if}
+				{fiat ? f(amountFiat, currency) : '⚡️' + s(amount)}
 			</p>
 
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>

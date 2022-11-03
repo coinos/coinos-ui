@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="text-secondary text-2xl">
-    {sat(user.account.balance)}
+		{sat(user.account.balance)}
 	</div>
 
 	<div class="grid sm:grid-cols-2 gap-2 mt-8">
