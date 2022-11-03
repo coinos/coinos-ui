@@ -65,7 +65,6 @@ export function reverseFormat(val, locale) {
 }
 
 export let protectedRoutes = [
-	/receive/,
 	/customers/,
 	/dashboard/,
 	/settings/,
