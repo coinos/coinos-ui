@@ -1,7 +1,7 @@
 <script>
 	import { browser } from '$app/environment';
 	import { invoices } from '$lib/store';
-	import { copy, f, get, reverseFormat, s, sats } from '$lib/utils';
+	import { back, copy, f, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -109,8 +109,7 @@
 
 <button
 	class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-	class:invisible={!user}
-	on:click={() => goto(`/${username}/receive`)}
+	on:click={back}
 >
 	<Icon icon="arrow-left" style="w-10" />
 </button>

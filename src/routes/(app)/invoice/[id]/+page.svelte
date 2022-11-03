@@ -1,4 +1,5 @@
 <script>
+	import { send } from '$lib/socket';
 	import { back, copy, f, get, reverseFormat, s, sats } from '$lib/utils';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
@@ -51,13 +52,21 @@
 		screenfull.toggle(qr);
 		let el = document.getElementById('qr');
 		el.style.width = '300px';
-		console.log('yes', el);
 	};
+
+	let subbed;
+	onMount(() => {
+		browser &&
+			last.subscribe((v) => {
+				if (!v || subbed) return;
+				subbed = true;
+				send('subscribe', invoice);
+			});
+	});
 </script>
 
 <button
 	class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-	class:invisible={!user}
 	on:click={back}
 >
 	<Icon icon="arrow-left" style="w-10" />

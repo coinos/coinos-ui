@@ -6,7 +6,7 @@
 	export let data;
 	let amount;
 
-	let { currency, username } = data.user;
+	let { currency, username } = data.subject;
 </script>
 
 <form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>

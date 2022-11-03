@@ -144,3 +144,11 @@ export const sats = 100000000;
 
 export const back = () => browser && history.go(-1);
 export const focus = (el) => setTimeout(() => el.focus());
+
+
+export const wait = async (f, s = 300) => {
+  let i = 0;
+  while (!(await f()) && i < s) (await sleep(1000)) && i++;
+  if (i >= s) throw new Error("timeout");
+  return f();
+};
