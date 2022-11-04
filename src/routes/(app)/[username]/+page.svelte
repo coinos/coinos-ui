@@ -6,7 +6,7 @@
 	import { t } from '$lib/translations';
 	export let data;
 
-	let { subject } = data;
+	let { user, subject } = data;
 
 	let lightningAddress = `${data?.username}@coinos.io`;
 
@@ -37,26 +37,28 @@
 </script>
 
 <div class="container px-4 flex flex-wrap">
-	<div class="p-10 pt-20">
+	<div class="w-full pt-20 space-y-5">
 		<h1 class="text-3xl font-bold">{subject.username}</h1>
 
 		<p class="text-secondary w-64 mb-4">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</p>
 
-		<div class="menu">
-			<button on:click={() => (followed = !followed)}>
-				{$t('user.' + (followed ? 'following' : 'follow'))}
-			</button>
+		{#if user?.username !== subject.username}
+      <a href={`/${subject.username}/receive`}>
+        <button
+     class="w-full md:w-40 mt-2 text-black hover:bg-black hover:text-white font-semibold py-3 px-5 rounded-full border border-black"
+     >
+     Pay
+        </button>
+      </a>
 
-			<a href={`/${subject.username}/receive`}>
-				<button> Pay </button>
-			</a>
-
-			<a href={`/${subject.username}/request`}>
-				<button>Request invoice</button>
-			</a>
-		</div>
+      <a href={`/${subject.username}/request`}>
+        <button class="w-full md:w-40 mt-2 bg-black text-white font-semibold py-3 px-5 rounded-full"
+                >Request invoice</button
+              >
+      </a>
+		{/if}
 	</div>
 
 	<div class="space-y-5 md:mt-20 mx-auto w-[350px]">
@@ -82,9 +84,3 @@
 		</p>
 	</div>
 </div>
-
-<style>
-	.menu button {
-		@apply w-full mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-5 px-7 rounded-2xl;
-	}
-</style>

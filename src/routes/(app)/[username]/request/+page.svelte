@@ -14,19 +14,16 @@
 </button>
 
 <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-8">Request an invoice</h1>
-{#if form}
-  {JSON.stringify(form)}
-{/if}
 
-<div class="container max-w-lg px-4">
-	<form method="POST" use:enhance>
-    <input name="requester_id" value={user.id} />
-    <input name="recipient" value={subject.username} />
+<div class="container max-w-lg px-4 flex mx-auto">
+  <form method="POST" use:enhance>
+    <input type="hidden" name="requester_id" value={user.id} />
+    <input type="hidden" name="recipient" value={subject.username} />
 
-		<textarea name="note" placeholder="Note" class="w-full p-4 border rounded-xl h-48" />
+		<textarea name="memo" placeholder="(Optional) message. You might use this field to identify yourself or your order" class="w-full p-4 border rounded-xl h-48" />
 
 		<button type="submit" class="bg-black text-white border rounded-full px-6 py-2 font-bold">
-			Submit
+		Go	
 		</button>
 	</form>
 </div>
