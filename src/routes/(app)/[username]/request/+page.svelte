@@ -3,7 +3,10 @@
 	import { Icon } from '$comp';
 	import { back } from '$lib/utils';
 
+  export let data;
   export let form;
+
+  let { subject, user } = data;
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -17,6 +20,9 @@
 
 <div class="container max-w-lg px-4">
 	<form method="POST" use:enhance>
+    <input name="requester_id" value={user.id} />
+    <input name="recipient" value={subject.username} />
+
 		<textarea name="note" placeholder="Note" class="w-full p-4 border rounded-xl h-48" />
 
 		<button type="submit" class="bg-black text-white border rounded-full px-6 py-2 font-bold">
