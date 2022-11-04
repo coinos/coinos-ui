@@ -36,8 +36,8 @@
 	let followed = false;
 </script>
 
-<div class="container px-4 flex flex-wrap">
-	<div class="w-full pt-20 space-y-5">
+<div class="container px-4 flex flex-wrap sm:flex-nowrap mb-4">
+	<div class="hidden sm:block w-sm min-w-sm pt-20 space-y-5">
 		<h1 class="text-3xl font-bold">{subject.username}</h1>
 
 		<p class="text-secondary w-64 mb-4">
@@ -45,23 +45,31 @@
 		</p>
 
 		{#if user?.username !== subject.username}
-      <a href={`/${subject.username}/receive`}>
-        <button
-     class="w-full md:w-40 mt-2 text-black hover:bg-black hover:text-white font-semibold py-3 px-5 rounded-full border border-black"
-     >
-     Pay
-        </button>
-      </a>
+			<a href={`/${subject.username}/receive`}>
+				<button
+					class="w-full sm:w-40 mt-2 text-black hover:bg-black hover:text-white font-semibold py-3 px-5 rounded-full border border-black"
+				>
+					Pay
+				</button>
+			</a>
 
-      <a href={`/${subject.username}/request`}>
-        <button class="w-full md:w-40 mt-2 bg-black text-white font-semibold py-3 px-5 rounded-full"
-                >Request invoice</button
-              >
-      </a>
+			<a href={`/${subject.username}/request`}>
+				<button class="w-full sm:w-40 mt-2 bg-black text-white font-semibold py-3 px-5 rounded-full"
+					>Request invoice</button
+				>
+			</a>
 		{/if}
 	</div>
 
-	<div class="space-y-5 md:mt-20 mx-auto w-[350px]">
+	<div class="space-y-5 mt-20 mx-auto max-w-lg">
+		<h1 class="text-2xl font-bold sm:hidden text-center">{subject.username}</h1>
+		<span class="font-bold mb-1">Lightning address</span>
+		<p class="text-secondary mb-1">
+			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
+				>lightning address</a
+			> can be used repeatedly so you can publish it on websites, business cards, posters, etc.
+		</p>
+
 		<div
 			on:click={() => copy(lightningAddress)}
 			id="qr"
@@ -74,13 +82,5 @@
 				<Icon icon="copy" style="ml-2" />
 			</button>
 		</div>
-		<p class="text-center">
-			This is a <a
-				href="https://lightningaddress.com/"
-				class="underline"
-				target="_blank"
-				rel="noreferrer">lightning address</a
-			>
-		</p>
 	</div>
 </div>
