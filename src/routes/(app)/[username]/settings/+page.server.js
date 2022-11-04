@@ -26,6 +26,6 @@ export const actions = {
 			return invalid(400, { message: e.message });
 		}
 
-		return { success: true };
+		return { user, success: true };
 	}
 };

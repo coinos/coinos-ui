@@ -115,7 +115,7 @@
 			</a>
 		{/if}
 	</nav>
-	<div class="absolute left-[calc(50vw-64px)] md:left-[calc(15vw-48px)] -bottom-[64px]">
+	<div class="absolute md:w-[64px] md:mx-auto left-[calc(50vw-64px)] -bottom-[64px]">
 		<Avatar user={subject} />
 	</div>
 </header>

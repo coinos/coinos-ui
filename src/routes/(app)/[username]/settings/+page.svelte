@@ -19,6 +19,8 @@
 	$: update(data);
 	let update = () => ({ user, rates, token } = data);
 
+	$: form && ({ user } = form);
+
 	$: if (form?.message?.startsWith('Pin')) {
 		failure('Wrong pin, try again');
 		$pin = '';
@@ -85,6 +87,7 @@
 
 		<svelte:component this={comp} {user} {rates} {submit} />
 	</div>
+
 	<div
 		class="z-10 fixed bottom-0 bg-white shadow border-t w-full flex justify-center items-center py-3"
 	>

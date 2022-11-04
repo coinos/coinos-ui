@@ -8,7 +8,7 @@
 	import { enhance } from '$app/forms';
 	import { tick } from 'svelte';
 
-	const tipAmounts = ['None', '10%', '15%', '20%'];
+	const tipAmounts = ['No', '10%', '15%', '20%'];
 	let showCustomAmount;
 
 	let customInput;
@@ -44,7 +44,7 @@
 	let submitting;
 	const handleTipButtonClick = async (amount) => {
 		submitting = true;
-		if (amount === 'None') {
+		if (amount === 'No') {
 			tipPercent = 0;
 		} else {
 			tipPercent = parseInt(amount.slice(0, 2));
