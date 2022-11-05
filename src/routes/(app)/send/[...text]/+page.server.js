@@ -8,7 +8,6 @@ let parse = async (t, r) => {
 
 	let amount, user, uuid;
 
-  console.log(bip21.decode(t))
 	t.startsWith('bitcoin:') &&
 		({
       address: t,
