@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
-import { invoices, newPayment, last, rate, user } from '$lib/store';
-import { success } from '$lib/utils';
+import { invoices, request, newPayment, last, rate, user } from '$lib/store';
+import { success, sat } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
 const socketUrl = env.PUBLIC_SOCKET;
@@ -23,6 +23,10 @@ export const messages = (data) => ({
 		rate.set(data);
 	},
 
+	request() {
+		request.set(data);
+	},
+
 	async payment() {
 		let { amount, invoice } = data;
 
@@ -34,9 +38,9 @@ export const messages = (data) => ({
 
 		newPayment.set(true);
 		if (amount > 0) {
-			success(`Received ${amount} sats!`);
+			success(`Received ${sat(amount)}!`);
 		} else {
-			success(`Sent ${-amount} sats!`);
+			success(`Sent ${sat(amount)}!`);
 		}
 	},
 

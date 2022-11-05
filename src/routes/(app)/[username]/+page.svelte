@@ -37,33 +37,31 @@
 </script>
 
 <div class="container px-4 flex flex-wrap sm:flex-nowrap mb-4">
-	<div class="hidden sm:block w-sm min-w-sm pt-20 space-y-5">
-		<h1 class="text-3xl font-bold">{subject.username}</h1>
+	<div class="w-full sm:w-[340px] pt-20 space-y-5 mr-4">
+		<h1 class="text-3xl font-bold text-center sm:text-left">{subject.username}</h1>
 
-		<p class="text-secondary w-64 mb-4">
+		<div class="text-secondary w-64">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
-		</p>
+		</div>
 
 		{#if user?.username !== subject.username}
-			<a href={`/${subject.username}/receive`}>
-				<button
-					class="w-full sm:w-40 mt-2 text-black hover:bg-black hover:text-white font-semibold py-3 px-5 rounded-full border border-black"
-				>
-					Pay
-				</button>
-			</a>
+			<div>
+				<a href={`/${subject.username}/receive`}>
+					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2">
+						Pay
+					</button>
+				</a>
 
-			<a href={`/${subject.username}/request`}>
-				<button class="w-full sm:w-40 mt-2 bg-black text-white font-semibold py-3 px-5 rounded-full"
-					>Request invoice</button
-				>
-			</a>
+				<a href={`/${subject.username}/request`}>
+					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+						>Request an invoice</button
+					>
+				</a>
+			</div>
 		{/if}
 	</div>
 
-	<div class="space-y-5 mt-20 mx-auto max-w-lg">
-		<h1 class="text-2xl font-bold sm:hidden text-center">{subject.username}</h1>
-		<span class="font-bold mb-1">Lightning address</span>
+	<div class="space-y-5 mt-5 sm:mt-20 mx-auto max-w-lg">
 		<p class="text-secondary mb-1">
 			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
 				>lightning address</a
@@ -77,9 +75,9 @@
 		/>
 
 		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex">
-			<div class="my-auto">{lightningAddress}</div>
+			<div class="my-auto font-semibold text-lg w-full text-center">{lightningAddress}</div>
 			<button class="ml-auto hover:opacity-80" on:click={() => copy(lightningAddress)}>
-				<Icon icon="copy" style="ml-2" />
+				<Icon icon="copy" on:click={() => copy(lightningAddress)} />
 			</button>
 		</div>
 	</div>

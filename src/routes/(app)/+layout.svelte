@@ -1,12 +1,13 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, selectedRate, rate, user } from '$lib/store';
+	import { last, selectedRate, rate, user, request } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { LoadingSplash } from '$comp';
+	import { LoadingSplash, Request } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
 	import { t, locale } from '$lib/translations';
 
@@ -83,3 +84,7 @@
 <main data-sveltekit-prefetch>
 	<slot />
 </main>
+
+{#if $request}
+	<Request />
+{/if}
