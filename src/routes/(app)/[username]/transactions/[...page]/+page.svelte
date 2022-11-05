@@ -7,7 +7,7 @@
 	import { f, s, sat, sats } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { differenceInDays, getUnixTime, sub } from 'date-fns';
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 
 	export let data;
 

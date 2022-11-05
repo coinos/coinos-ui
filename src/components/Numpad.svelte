@@ -90,12 +90,10 @@
 	<div class="space-y-5">
 		<div class="text-center">
 			<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
-				{fiat ? `${symbol}${amountFiat}` : amountSatsFormatted}<span
-					class="tracking-normal text-base font-normal">{fiat ? currency : 'SAT'}</span
-				>
+				{fiat ? `${symbol}${amountFiat}` : '⚡️' + amountSatsFormatted}
 			</div>
 			<span class="text-secondary mr-1"
-				>{fiat ? `${amountSatsConverted} SAT` : amountFiatConverted}</span
+				>{fiat ? `⚡️${amountSatsConverted}` : amountFiatConverted}</span
 			>
 			<button
 				type="button"
