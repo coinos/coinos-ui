@@ -1,5 +1,4 @@
 <script>
-	import { fly } from 'svelte/transition';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';

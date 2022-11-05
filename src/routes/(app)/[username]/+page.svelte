@@ -52,11 +52,11 @@
 					</button>
 				</a>
 
-				<a href={`/${subject.username}/request`}>
-					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-						>Request an invoice</button
-					>
-				</a>
+				<!-- <a href={`/${subject.username}/request`}> -->
+				<!-- 	<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2" -->
+				<!-- 		>Request an invoice</button -->
+				<!-- 	> -->
+				<!-- </a> -->
 			</div>
 		{/if}
 	</div>
@@ -65,7 +65,7 @@
 		<p class="text-secondary mb-1">
 			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
 				>lightning address</a
-			> can be used repeatedly so you can publish it on websites, business cards, posters, etc.
+			> is like an email for bitcoin. Publish it on your website, business cards, posters, etc.
 		</p>
 
 		<div
