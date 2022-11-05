@@ -3,8 +3,10 @@ import bip21 from 'bip21';
 import { get, post } from '$lib/utils';
 import { invalid, redirect } from '@sveltejs/kit';
 
-let parse = async (t) => {
+let parse = async (t, r) => {
 	if (!t) return;
+	if (t.includes(':')) t = t.split(':')[1];
+
 	let user, uuid;
 
 	// lightning
@@ -32,10 +34,15 @@ let parse = async (t) => {
 	// ln address
 	if (t.includes('@') && t.includes('.')) {
 		let [name, domain] = t.split('@');
-		try {
-			let lnurl = await get(`/encode?domain=${domain}&name=${name}`);
-		} catch (e) {}
+		if (domain === r.host) t = name;
+		else {
+			try {
+				t = await get(`/encode?domain=${domain}&name=${name}`);
+			} catch (e) {}
+		}
 	}
+
+	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/lnurl/${t}`);
 
 	// user
 	try {
@@ -45,15 +52,15 @@ let parse = async (t) => {
 	if (user) throw redirect(303, `/send/user/${t}`);
 };
 
-export async function load({ params }) {
+export async function load({ params, request }) {
 	let { text } = params;
-	await parse(text);
+	await parse(text, request);
 }
 
 export const actions = {
 	default: async ({ request }) => {
 		const form = await request.formData();
-		await parse(form.get('text'));
+		await parse(form.get('text'), request);
 
 		return invalid(403, { error: 'Does not compute, try again' });
 	}

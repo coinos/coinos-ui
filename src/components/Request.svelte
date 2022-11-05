@@ -1,4 +1,5 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import { Avatar } from '$comp';
 	import { request } from '$lib/store';
 </script>

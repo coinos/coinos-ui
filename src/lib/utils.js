@@ -22,12 +22,15 @@ export const g = (url, fetch, headers) =>
 
 export const get = (url, headers = {}) =>
 	fetch(base + url, { headers })
-		.then((r) => r.text())
+		.then(async (r) => {
+			if (r.ok) return r.text();
+			throw new Error(await r.text());
+		})
 		.then((body) => {
 			try {
 				return JSON.parse(body);
 			} catch (e) {
-				throw new Error(body);
+				return body;
 			}
 		});
 
