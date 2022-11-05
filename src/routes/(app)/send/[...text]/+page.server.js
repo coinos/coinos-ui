@@ -5,32 +5,15 @@ import { invalid, redirect } from '@sveltejs/kit';
 
 let parse = async (t, r) => {
 	if (!t) return;
-	if (t.includes(':')) t = t.split(':')[1];
-  console.log(t)
 
-	let user, uuid;
+	let amount, user, uuid;
 
-	// lightning
-	if (t.startsWith('ln')) {
-		try {
-			({ uuid } = await get(`/invoice/${t}`));
-		} catch (e) {
-			throw redirect(303, `/send/lightning/${t}`);
-		}
-
-		if (uuid) throw redirect(303, `/send/${uuid}`);
-	}
-
-	// bitcoin
-	if (validate(t)) {
-		try {
-			({ uuid } = await get(`/invoice/${t}`));
-		} catch (e) {
-			throw redirect(303, `/send/bitcoin/${t}`);
-		}
-
-		if (uuid) throw redirect(303, `/send/${uuid}`);
-	}
+  console.log(bip21.decode(t))
+	t.startsWith('bitcoin:') &&
+		({
+      address: t,
+			options: { amount }
+		} = bip21.decode(t));
 
 	// ln address
 	if (t.includes('@') && t.includes('.')) {
@@ -44,13 +27,39 @@ let parse = async (t, r) => {
 	}
 
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/lnurl/${t}`);
+	if (t.includes(':')) t = t.split(':')[1];
+
+	// lightning
+	if (t.startsWith('ln')) {
+		try {
+			({ uuid } = await get(`/invoice/${t}`));
+		} catch (e) {
+			throw redirect(307, `/send/lightning/${t}`);
+		}
+
+		if (uuid) throw redirect(307, `/send/${uuid}`);
+	}
+
+	// bitcoin
+	if (validate(t)) {
+		try {
+			({ uuid } = await get(`/invoice/${t}`));
+		} catch (e) {
+			let r = `/send/bitcoin/${t}`;
+			if (amount) r += '/' + amount;
+      console.log("AM", amount)
+			throw redirect(307, r);
+		}
+
+		if (uuid) throw redirect(307, `/send/${uuid}`);
+	}
 
 	// user
 	try {
 		user = await get(`/users/${t}`);
 	} catch (e) {}
 
-	if (user) throw redirect(303, `/send/user/${t}`);
+	if (user) throw redirect(307, `/send/user/${t}`);
 };
 
 export async function load({ params, request }) {
