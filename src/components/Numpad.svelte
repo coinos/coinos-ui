@@ -5,11 +5,12 @@
 	import { t } from '$lib/translations';
 
 	export let amount,
-		amountFiat = 0,
 		currency,
-		fiat = true;
+		fiat = !amount;
 
-	let amountSats = 0;
+  export let amountFiat = amount * ($selectedRate / sats);
+
+	let amountSats = amount;
 	let loading = false;
 
 	let symbol =

@@ -8,9 +8,9 @@
 	export let data;
 	export let form;
 
-	let { address } = $page.params;
+	let { address, amount } = $page.params;
 	let { currency } = data.user;
-	let amount, loading;
+	let loading;
 
 	let submit = () => (loading = true);
 	$: update(form);
