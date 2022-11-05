@@ -6,6 +6,7 @@ import { invalid, redirect } from '@sveltejs/kit';
 let parse = async (t, r) => {
 	if (!t) return;
 	if (t.includes(':')) t = t.split(':')[1];
+  console.log(t)
 
 	let user, uuid;
 
