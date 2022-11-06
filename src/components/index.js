@@ -1,3 +1,4 @@
+export { default as Invoice } from './Invoice.svelte';
 export { default as Request } from './Request.svelte';
 export { default as Pin } from './Pin.svelte';
 export { default as Card } from './Card.svelte';

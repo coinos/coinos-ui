@@ -8,7 +8,7 @@
 		currency,
 		fiat = !amount;
 
-  export let amountFiat = amount ? amount * ($selectedRate / sats) : 0;
+	export let amountFiat = amount ? amount * ($selectedRate / sats) : 0;
 
 	let amountSats = amount;
 	let loading = false;

@@ -22,7 +22,7 @@
 
 		<textarea
 			name="memo"
-			placeholder="(Optionally) use this field to describe your order"
+			placeholder="You can use this field to describe your order"
 			class="w-full p-4 border rounded-xl h-48"
 		/>
 

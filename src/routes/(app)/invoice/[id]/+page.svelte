@@ -3,7 +3,7 @@
 	import { back, copy, f, get, sat, reverseFormat, s, sats } from '$lib/utils';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
-	import { invoices, last } from '$lib/store';
+	import { invoice as inv, invoices, last } from '$lib/store';
 	import { Icon, Heart, Image, Qr } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -24,6 +24,8 @@
 	let tipPercent = 0;
 
 	let refresh = (data) => {
+		$inv = null;
+
 		({ invoice, id } = data);
 		({
 			amount,

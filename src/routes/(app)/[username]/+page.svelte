@@ -48,15 +48,15 @@
 			<div>
 				<a href={`/${subject.username}/receive`}>
 					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2">
-						Pay
+						Pay now
 					</button>
 				</a>
 
-				<!-- <a href={`/${subject.username}/request`}> -->
-				<!-- 	<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2" -->
-				<!-- 		>Request an invoice</button -->
-				<!-- 	> -->
-				<!-- </a> -->
+				<a href={`/${subject.username}/request`}>
+					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+						>Ask to pay</button
+					>
+				</a>
 			</div>
 		{/if}
 	</div>
