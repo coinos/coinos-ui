@@ -2,11 +2,11 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, selectedRate, rate, user, request } from '$lib/store';
+	import { last, selectedRate, invoice, rate, user, request } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { LoadingSplash, Request } from '$comp';
+	import { LoadingSplash, Invoice, Request } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
 	import { t, locale } from '$lib/translations';
 
@@ -84,6 +84,10 @@
 	<slot />
 </main>
 
+{#if $invoice}
+	<Invoice user={u} />
+{/if}
+
 {#if $request}
-	<Request />
+	<Request user={u} />
 {/if}

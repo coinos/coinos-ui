@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { invoices, request, newPayment, last, rate, user } from '$lib/store';
+import { invoices, invoice, request, newPayment, last, rate, user } from '$lib/store';
 import { success, sat } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 
@@ -17,6 +17,10 @@ export const send = (type, data) => {
 export const messages = (data) => ({
 	id() {
 		last.set(Date.now());
+	},
+
+	invoice() {
+		invoice.set(data);
 	},
 
 	rate() {
