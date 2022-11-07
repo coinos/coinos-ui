@@ -22,13 +22,6 @@
 		amountFiat = af;
 	};
 
-	let handleBack = () => {
-		if (amount) {
-			amount = undefined;
-			goto(`/send/user/${recipient.username}`);
-		} else back();
-	};
-
 	let loading;
 	let submit = () => (loading = true);
 
@@ -39,7 +32,7 @@
 	};
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={handleBack}>
+<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
