@@ -3,7 +3,9 @@
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	import { request } from '$lib/store';
+	import { invoices, request } from '$lib/store';
+	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 
 	export let data;
 	export let form;
@@ -22,8 +24,12 @@
 
 	let { currency, username } = data.subject;
 	let { user } = data;
+
+	$: paid = browser && form && Object.values($invoices).find((inv) => inv.amount === form.amount);
+	$: paid && goto(`/invoice/${paid.uuid}/paid`);
 </script>
-{#if form}
+
+{#if form && req}
 	<div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
 		<div class="text-center mb-8 space-y-5">
 			<p class="text-5xl break-words">
@@ -35,13 +41,13 @@
 				<p class="text-4xl break-words my-auto">{req.requester.username}</p>
 			</div>
 		</div>
-    <div class="text-center">
-		<a href={`/${user.username}/dashboard`} class="mx-auto text-center">
-			<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
-				Done
-			</button>
-		</a>
-    </div>
+		<div class="text-center">
+			<a href={`/${user.username}/dashboard`} class="mx-auto text-center">
+				<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
+					Done
+				</button>
+			</a>
+		</div>
 	</div>
 {:else}
 	<form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>

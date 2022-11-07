@@ -5,10 +5,12 @@ export default async ({ cookies, request }) => {
 	let form = await request.formData();
 
 	let rates = await get('/rates');
+  let amount = 
+		parseInt(form.get('amount'));
 	let requester = form.get('requester');
 
 	let invoice = {
-		amount: parseInt(form.get('amount')),
+    amount,
 		tip: parseInt(form.get('tip')),
 		network: 'lightning',
 		prompt: form.get('prompt') === 'true',
@@ -19,9 +21,8 @@ export default async ({ cookies, request }) => {
 	let user = { username: form.get('username') };
 
 	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
-	console.log('R', requester);
 
-	if (requester) return { requester };
+	if (requester) return { amount };
 
 	if (invoice.prompt) {
 		throw redirect(307, `/invoice/${uuid}/tip`);

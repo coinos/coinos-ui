@@ -29,7 +29,6 @@ export const messages = (data) => ({
 	},
 
 	request() {
-    console.log("REQ", data)
 		request.set(data);
 	},
 
