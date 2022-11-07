@@ -1,7 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 import { auth, post } from '$lib/utils';
 
-export let load = ({ params }) => {
+export let load = ({ locals, params }) => {
+	if (!locals.user) redirect(307, '/login');
 	let { username } = params;
 };
 
