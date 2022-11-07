@@ -64,7 +64,7 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container mx-auto max-w-lg px-4 mt-20">
+<div class="container mx-auto max-w-lg px-4 space-y-5">
 	<h1 class="text-secondary block text-2xl flex">
 		<div class="flex mx-auto">
 			<div class="my-auto">Please pay</div>
@@ -80,13 +80,13 @@
 		</div>
 	</h1>
 
-	<div class="text-center space-y-10">
+	<div class="text-center space-y-5">
 		{#if !user || user.username === username || showQr}
 			<Qr {src} />
 
 			<div>
 				<button
-					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2 mx-auto"
+					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mx-auto"
 					on:click={() => copy(text)}
 					><Icon icon="copy" style="mr-1" />
 					<div>Copy</div></button
