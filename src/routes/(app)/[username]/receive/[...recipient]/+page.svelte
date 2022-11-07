@@ -23,7 +23,6 @@
 	let { currency, username } = data.subject;
 	let { user } = data;
 </script>
-
 {#if form}
 	<div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
 		<div class="text-center mb-8 space-y-5">
@@ -36,11 +35,13 @@
 				<p class="text-4xl break-words my-auto">{req.requester.username}</p>
 			</div>
 		</div>
-		<a href={`/${user.username}/dashboard`} class="mx-auto">
+    <div class="text-center">
+		<a href={`/${user.username}/dashboard`} class="mx-auto text-center">
 			<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
 				Done
 			</button>
 		</a>
+    </div>
 	</div>
 {:else}
 	<form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>
