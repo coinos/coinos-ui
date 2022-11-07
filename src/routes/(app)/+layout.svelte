@@ -46,7 +46,6 @@
 	let checkSocket = () => {
 		counter++;
 		lost = Date.now() - $last > 15000;
-    console.log("lost?", lost);
     if (lost) connect(token);
 		if (counter > 5) {
 			send('heartbeat');
