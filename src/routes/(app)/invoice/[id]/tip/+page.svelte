@@ -1,6 +1,6 @@
 <script>
 	import { browser } from '$app/environment';
-	import { invoices } from '$lib/store';
+	import { invoice as inv, invoices } from '$lib/store';
 	import { back, copy, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
@@ -79,6 +79,8 @@
 	let fullscreen;
 
 	let refresh = (data) => {
+		$inv = null;
+
 		({ invoice, id } = data);
 		({
 			amount,

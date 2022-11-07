@@ -8,10 +8,11 @@ const btc = env.PUBLIC_BTC;
 
 let socket, token;
 
-export const auth = () => token && send('login', token);
+export const auth = () => token && send('login', token) && send('heartbeat');
 
 export const send = (type, data) => {
 	socket?.readyState === 1 && socket.send(JSON.stringify({ type, data }));
+	return true;
 };
 
 export const messages = (data) => ({
@@ -28,6 +29,7 @@ export const messages = (data) => ({
 	},
 
 	request() {
+    console.log("REQ", data)
 		request.set(data);
 	},
 

@@ -7,31 +7,30 @@
 </script>
 
 {#if $request}
-	<div
-		class="flex flex-wrap md:flex-nowrap fixed bottom-0 border-t w-full p-4 bg-white z-50"
-		in:fly
-	>
-		<div class="my-auto md:w-1/2">
-			<div class="flex">
-				<Avatar user={$request.requester} size={12} />
-				<h1 class="my-auto"><b>{$request.requester.username}</b> is ready to pay</h1>
+	<div class="fixed bottom-0 border-t w-full p-4 bg-white z-50" in:fly>
+		<div class="flex flex-wrap md:flex-nowrap max-w-xl mx-auto gap-2">
+			<div class="my-auto mx-auto">
+				<div class="flex">
+					<Avatar user={$request.requester} size={12} />
+					<h1 class="my-auto"><b>{$request.requester.username}</b> is ready to pay</h1>
+				</div>
+				{#if $request.memo}
+					<div class="border-l-4 pl-4 my-2">{$request.memo}</div>
+				{/if}
 			</div>
-			{#if $request.memo}
-				<div class="border-l-4 pl-4 my-2">{$request.memo}</div>
-			{/if}
-		</div>
-		<div class="mx-auto my-auto">
-			<a href={`/${user.username}/receive`}>
-				<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-full">
-					Create invoice
+			<div class="mx-auto my-auto flex gap-2">
+				<a href={`/${user.username}/receive`}>
+					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-40">
+						Invoice
+					</button>
+				</a>
+				<button
+					class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-full"
+					on:click={() => ($request = undefined)}
+				>
+					Dismiss
 				</button>
-			</a>
+			</div>
 		</div>
-		<button
-			class="absolute right-4 top-4 ml-auto mb-auto rounded-full border font-bold hover:opacity-80 p-3"
-			on:click={() => ($request = undefined)}
-		>
-			<Icon icon="close" />
-		</button>
 	</div>
 {/if}
