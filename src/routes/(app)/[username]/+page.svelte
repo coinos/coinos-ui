@@ -52,16 +52,15 @@
 					</button>
 				</a>
 
-        {#if user}
-				<a href={`/${subject.username}/request`}>
-					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-						>Ask to pay</button
-					>
-				</a>
-        {/if}
+				{#if user}
+					<a href={`/${subject.username}/request`}>
+						<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+							>Ask to pay</button
+						>
+					</a>
+				{/if}
 			</div>
 		{/if}
-
 	</div>
 
 	<div class="space-y-5 mt-5 sm:mt-20 mx-auto max-w-lg">

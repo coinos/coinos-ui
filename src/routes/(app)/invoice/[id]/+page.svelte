@@ -73,7 +73,7 @@
 				<a href="/{username}" class="text-black font-semibold hover:opacity-80">
 					<div class="flex my-auto">
 						<Avatar user={username} size={12} />
-            <div class="my-auto">{username}</div>
+						<div class="my-auto">{username}</div>
 					</div>
 				</a>
 			</div>

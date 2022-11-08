@@ -5,9 +5,10 @@
 	import { Pincode, PincodeInput } from 'svelte-pincode';
 	import { post, success, failure } from '$lib/utils';
 	import { pin as current } from '$lib/store';
+	import { invalidate } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	export let user, submit;
-
 	let settingPin, setting2fa, disabling2fa;
 
 	let token = '';
@@ -22,6 +23,12 @@
 	};
 
 	$: pin = pinCode.join('');
+
+	let otp;
+	$: pinChange($current);
+	let pinChange = async (pin) => {
+		otp = await post('/otpsecret', { pin });
+	};
 
 	let locked;
 	$: verifyCode.join('').length > 5 && checkPin();
@@ -108,8 +115,6 @@
 			failure('Failed to disable 2FA, try again');
 		}
 	};
-
-	$: otpUri = `otpauth://totp/coinos:${user.username}?secret=${user.otpsecret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
 </script>
 
 <div>
@@ -172,13 +177,13 @@
 		{$t('user.settings.twofaDescription')}
 	</p>
 	{#if setting2fa}
-		<a href={otpUri}>
-			<Qr text={otpUri} />
+		<a href={otp.uri}>
+			<Qr src={otp.qr} />
 		</a>
 
 		<div class="text-center my-4">
 			{$t('user.settings.accountId')}<br />
-			<b>{user.otpsecret}</b>
+			<b>{otp.secret}</b>
 		</div>
 
 		<div class="text-center my-4">
