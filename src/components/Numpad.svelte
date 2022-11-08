@@ -112,7 +112,7 @@
 			>
 		</div>
 
-		<div class="grid grid-cols-3 gap-2 w-full md:w-[300px] mx-auto">
+		<div class="grid grid-cols-3 gap-2 w-[300px] mx-auto">
 			{#each numPad as value}
 				{#if value === '<'}
 					<button

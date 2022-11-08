@@ -14,7 +14,7 @@
 	let showQr;
 
 	$: refresh(data);
-	let { invoice, id, user, src } = data;
+	let { invoice, id, user, sm, lg } = data;
 	let {
 		address,
 		amount,
@@ -26,6 +26,8 @@
 		tip,
 		user: { username, currency }
 	} = invoice;
+
+let src = sm;
 
 	let qr;
 	let tipPercent = 0;
@@ -67,10 +69,13 @@
 
 	$: link = address ? text : `lightning:${text}`;
 
-	let click = () => {
-		if (screenfull.isFullscreen) screenfull.toggle(qr);
-		else window.location.href = link;
-	};
+  let full;
+  let toggle = () => {
+    screenfull.toggle(qr);
+    full = !full;
+    if (full) src = lg;
+    else src = sm;
+  } 
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -78,25 +83,25 @@
 </button>
 
 <div class="container mx-auto max-w-lg px-4 space-y-5">
-	<h1 class="text-secondary block text-2xl flex">
-		<div class="flex mx-auto">
-			<div class="my-auto">Please pay</div>
+	<div class="w-full flex">
+		<h1 class="text-secondary block text-2xl flex mx-auto">
+			<div class="my-auto">Pay</div>
 
-			<div class="my-auto">
-				<a href="/{username}" class="text-black font-semibold hover:opacity-80">
+			<div>
+				<a href="/{username}" class="text-black font-semibold hover:opacity-80 mx-auto">
 					<div class="flex my-auto">
-						<Avatar user={username} size={12} />
+						<Avatar user={invoice.user} size={20} />
 						<div class="my-auto">{username}</div>
 					</div>
 				</a>
 			</div>
-		</div>
-	</h1>
+		</h1>
+	</div>
 
 	<div class="text-center space-y-5">
 		{#if !user || user.username === username || showQr}
-			<div class="w-80 md:w-96 mx-auto">
-				<img {src} class="px-4" bind:this={qr} on:click={click} />
+			<div class="mx-auto">
+        <img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
 			</div>
 
 			<div class="mb-10 flex gap-2 justify-center">
@@ -105,12 +110,6 @@
 					on:click={() => copy(text)}
 					><Icon icon="copy" style="mr-1" />
 					<div>Copy</div></button
-				>
-				<button
-					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2"
-					on:click={() => screenfull.toggle(qr)}
-					><Icon icon="expand" style="mr-1" />
-					<div>Enlarge</div></button
 				>
 			</div>
 		{/if}
