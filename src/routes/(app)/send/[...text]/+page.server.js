@@ -46,7 +46,6 @@ let parse = async (t, r) => {
 		} catch (e) {
 			let r = `/send/bitcoin/${t}`;
 			if (amount) r += '/' + amount;
-			console.log('AM', amount);
 			throw redirect(307, r);
 		}
 

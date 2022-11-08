@@ -15,11 +15,11 @@
 	export let data;
 	export let form;
 
-	let { user, rates, token } = data;
+	let { user, token } = data;
 	$: update(data);
-	let update = () => ({ user, rates, token } = data);
+	let update = () => ({ user, token } = data);
 
-	$: form && ({ user } = form);
+	$: form?.user && ({ user } = form);
 
 	$: if (form?.message?.startsWith('Pin')) {
 		failure('Wrong pin, try again');
@@ -39,7 +39,6 @@
 	let loading, submit;
 	let save = async (msg) => {
 		loading = true;
-		if (typeof msg !== 'string') msg = 'Settings saved';
 
 		try {
 			if ($avatarUpload) {
@@ -49,8 +48,6 @@
 			if ($bannerUpload) {
 				await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress, token);
 			}
-
-			success(msg);
 		} catch (e) {
 			console.log(e);
 			failure('Something went wrong');
@@ -85,7 +82,7 @@
 			{/each}
 		</div>
 
-		<svelte:component this={comp} {user} {rates} {submit} />
+		<svelte:component this={comp} {user} {submit} />
 	</div>
 
 	<div

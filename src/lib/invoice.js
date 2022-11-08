@@ -5,12 +5,11 @@ export default async ({ cookies, request }) => {
 	let form = await request.formData();
 
 	let rates = await get('/rates');
-  let amount = 
-		parseInt(form.get('amount'));
+	let amount = parseInt(form.get('amount'));
 	let requester = form.get('requester');
 
 	let invoice = {
-    amount,
+		amount,
 		tip: parseInt(form.get('tip')),
 		network: 'lightning',
 		prompt: form.get('prompt') === 'true',
