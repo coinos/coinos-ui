@@ -64,7 +64,7 @@
 
 		<input type="hidden" name="prompt" value="true" />
 
-		<div class="space-y-3 w-full md:w-[300px] mx-auto">
+		<div class="space-y-3 w-[300px] mx-auto">
 			<Numpad bind:amount bind:currency />
 			<button
 				type="submit"
