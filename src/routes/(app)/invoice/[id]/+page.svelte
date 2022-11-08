@@ -7,6 +7,7 @@
 	import { Avatar, Icon, Heart, Image, Qr } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
+	import screenfull from 'screenfull';
 
 	export let data;
 
@@ -15,7 +16,9 @@
 	$: refresh(data);
 	let { invoice, id, user, src } = data;
 	let {
+		address,
 		amount,
+		network,
 		rate,
 		received,
 		prompt,
@@ -24,12 +27,15 @@
 		user: { username, currency }
 	} = invoice;
 
+	let qr;
 	let tipPercent = 0;
 
 	let refresh = (data) => {
 		({ invoice, id } = data);
 		({
+			address,
 			amount,
+			network,
 			rate,
 			received,
 			prompt,
@@ -58,6 +64,13 @@
 				send('subscribe', invoice);
 			});
 	});
+
+	$: link = address ? text : `lightning:${text}`;
+
+	let click = () => {
+		if (screenfull.isFullscreen) screenfull.toggle(qr);
+		else window.location.href = link;
+	};
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -82,14 +95,22 @@
 
 	<div class="text-center space-y-5">
 		{#if !user || user.username === username || showQr}
-			<Qr {src} />
+			<div class="w-80 md:w-96 mx-auto">
+				<img {src} class="px-4" bind:this={qr} on:click={click} />
+			</div>
 
-			<div>
+			<div class="mb-10 flex gap-2 justify-center">
 				<button
-					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mx-auto"
+					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2"
 					on:click={() => copy(text)}
 					><Icon icon="copy" style="mr-1" />
 					<div>Copy</div></button
+				>
+				<button
+					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2"
+					on:click={() => screenfull.toggle(qr)}
+					><Icon icon="expand" style="mr-1" />
+					<div>Enlarge</div></button
 				>
 			</div>
 		{/if}
@@ -141,6 +162,10 @@
 </div>
 
 <style>
+	.full {
+		@apply p-8;
+	}
+
 	.full-shadow {
 		box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.25);
 	}

@@ -65,6 +65,7 @@
 	let { invoice, id, user } = data;
 	let {
 		amount,
+		network,
 		rate,
 		received,
 		prompt,
@@ -84,6 +85,7 @@
 		({ invoice, id } = data);
 		({
 			amount,
+			network,
 			rate,
 			received,
 			prompt,
@@ -97,7 +99,8 @@
 
 	$: tip = Math.round((amount / 100) * tipPercent);
 
-	$invoices[id] = { amount, id, rate, received, text, tip, username };
+	$invoices[id] = { amount, id, network, rate, received, text, tip, username };
+
 	$: browser &&
 		$invoices[id]?.received >= $invoices[id]?.amount &&
 		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
@@ -120,6 +123,7 @@
 		<input type="hidden" name="username" value={username} />
 		<input type="hidden" name="rate" value={rate} />
 		<input type="hidden" name="prompt" value="false" />
+		<input type="hidden" name="network" value={network} />
 
 		<h1 class="text-4xl font-semibold my-8">{$t('invoice.addTipq')}</h1>
 		{#if !showCustomAmount}

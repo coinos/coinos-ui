@@ -11,7 +11,7 @@ export default async ({ cookies, request }) => {
 	let invoice = {
 		amount,
 		tip: parseInt(form.get('tip')),
-		network: 'lightning',
+		network: form.get('network'),
 		prompt: form.get('prompt') === 'true',
 		rate: parseFloat(form.get('rate')) || rates[form.get('currency')],
 		requester
