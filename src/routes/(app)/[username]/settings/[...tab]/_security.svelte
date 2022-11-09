@@ -8,7 +8,7 @@
 	import { invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-  export let user, submit;
+	export let user, submit;
 	let settingPin, setting2fa, disabling2fa;
 
 	let token = '';
@@ -27,7 +27,11 @@
 	let otp;
 	$: pinChange($current);
 	let pinChange = async (pin) => {
-		// otp = await post('/otpsecret', { pin });
+		try {
+			otp = await post('/otpsecret', { pin });
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	let locked;
@@ -78,7 +82,7 @@
 				pin = null;
 				submit.click();
 			} catch (e) {
-        console.log(e)
+				console.log(e);
 				failure('Failed to disable pin');
 			}
 		} else {
@@ -113,6 +117,7 @@
 				toggleDisabling();
 			}
 		} catch (e) {
+			console.log(e);
 			failure('Failed to disable 2FA, try again');
 		}
 	};

@@ -36,7 +36,7 @@ export const messages = (data) => ({
 	async payment() {
 		let { amount, invoice } = data;
 
-    if (invoice) invalidate("app:invoice");
+		if (invoice) invalidate('app:invoice');
 		if (get(user)?.account_id !== data.account_id) return;
 
 		let payments = get(txns);
