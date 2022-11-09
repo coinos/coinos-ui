@@ -27,7 +27,7 @@
 		user: { username, currency }
 	} = invoice;
 
-let src = sm;
+	let src = sm;
 
 	let qr;
 	let tipPercent = 0;
@@ -51,8 +51,11 @@ let src = sm;
 
 	$invoices[id] = { amount, id, rate, received, text, tip, username };
 	$: browser &&
+		$invoices[id].amount > 0 &&
 		$invoices[id]?.received >= $invoices[id]?.amount &&
 		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
+
+	$: browser && $invoices[id].pending > 0 && goto(`/invoice/${id}/pending`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
@@ -69,13 +72,13 @@ let src = sm;
 
 	$: link = address ? text : `lightning:${text}`;
 
-  let full;
-  let toggle = () => {
-    screenfull.toggle(qr);
-    full = !full;
-    if (full) src = lg;
-    else src = sm;
-  } 
+	let full;
+	let toggle = () => {
+		screenfull.toggle(qr);
+		full = !full;
+		if (full) src = lg;
+		else src = sm;
+	};
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -101,7 +104,7 @@ let src = sm;
 	<div class="text-center space-y-5">
 		{#if !user || user.username === username || showQr}
 			<div class="mx-auto">
-        <img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
+				<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
 			</div>
 
 			<div class="mb-10 flex gap-2 justify-center">
@@ -133,13 +136,15 @@ let src = sm;
 				</div>
 			{/if}
 
-			<div class="flex flex-wrap justify-between font-bold text-2xl !my-8">
-				<span class="mr-1">{$t('invoice.total')}</span>
-				<span
-					>{f(amountFiat + parseFloat(tipAmount), currency)}
-					<span class="text-secondary font-normal">{`${sat(tip + amount)}`}</span></span
-				>
-			</div>
+			{#if amount > 0}
+				<div class="flex flex-wrap justify-between font-bold text-2xl !my-8">
+					<span class="mr-1">{$t('invoice.total')}</span>
+					<span
+						>{f(amountFiat + parseFloat(tipAmount), currency)}
+						<span class="text-secondary font-normal">{`${sat(tip + amount)}`}</span></span
+					>
+				</div>
+			{/if}
 		</div>
 
 		{#if user && user.username !== username}

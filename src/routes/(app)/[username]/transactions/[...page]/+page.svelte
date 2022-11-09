@@ -2,7 +2,7 @@
 	import { Avatar, Icon } from '$comp';
 	import { onMount } from 'svelte';
 	import { format, parseISO } from 'date-fns';
-	import { newPayment } from '$lib/store';
+	import { newPayment, txns } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { f, s, sat, sats } from '$lib/utils';
 	import { page } from '$app/stores';
@@ -31,17 +31,21 @@
 		pages = [];
 	$: data && ({ page: p, pages, start, end, total, transactions } = data);
 
+	$: console.log($txns.length), ($txns = transactions);
+
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
 
-	$: path = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
+	$: path = $page.params.page
+		? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'))
+		: $page.url.pathname;
 
 	let csv = () => {
 		const keys = ['hash', 'updatedAt', 'rate', 'currency', 'amount', 'fee', 'tip'];
 		const csv =
 			keys.map((k) => `"${k}"`).join(',') +
 			'\n' +
-			transactions.map((r) => keys.map((k) => `"${r[k]}"`).join(',')).join('\n');
+			$txns.map((r) => keys.map((k) => `"${r[k]}"`).join(',')).join('\n');
 
 		const filename = 'transactions.csv';
 		let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -108,61 +112,59 @@
 		</div>
 
 		<div class="space-y-10">
-			{#if transactions.length}
-				{#each transactions as tx}
-					<div class="grid grid-cols-3 border-b pb-5">
-						<div class="whitespace-nowrap">
-							<div class="mb-1 font-bold">
-								{f(tx.amount * (tx.rate / sats), tx.currency)}
+			{#each $txns as tx}
+				<div class="grid grid-cols-3 border-b pb-5">
+					<div class="whitespace-nowrap">
+						<div class="mb-1 font-bold">
+							{f(tx.amount * (tx.rate / sats), tx.currency)}
 
-								{#if tx.tip}
-									<span class="text-sm">
-										+{f(tx.tip * (tx.rate / sats), tx.currency)}
-									</span>
-								{/if}
-							</div>
-
-							<span class="text-secondary"
-								>{sat(tx.amount)}
-
-								{#if tx.tip}
-									<span class="text-sm">
-										+{sat(tx.tip)}
-									</span>
-								{/if}
-							</span>
-						</div>
-
-						<div class="flex">
-							{#if tx.with}
-								<a href={`/${tx.with.username}`} class="mx-auto">
-									<div class="flex">
-										<div class="my-auto">
-											<Avatar user={tx.with} size={12} />
-										</div>
-										<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
-									</div>
-								</a>
-							{:else}
-								<div class="mx-auto text-secondary">
-									{tx.amount > 0 ? 'Received' : 'Sent'}
-								</div>
+							{#if tx.tip}
+								<span class="text-sm">
+									+{f(tx.tip * (tx.rate / sats), tx.currency)}
+								</span>
 							{/if}
 						</div>
 
-						<div class="text-secondary text-right">
-							<div>
-								{format(parseISO(tx.createdAt), 'h:mm aaa')}
+						<span class="text-secondary"
+							>{sat(tx.amount)}
+
+							{#if tx.tip}
+								<span class="text-sm">
+									+{sat(tx.tip)}
+								</span>
+							{/if}
+						</span>
+					</div>
+
+					<div class="flex">
+						{#if tx.with}
+							<a href={`/${tx.with.username}`} class="mx-auto">
+								<div class="flex">
+									<div class="my-auto">
+										<Avatar user={tx.with} size={12} />
+									</div>
+									<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
+								</div>
+							</a>
+						{:else}
+							<div class="mx-auto text-secondary">
+								{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
 							</div>
-							<div>
-								{format(parseISO(tx.createdAt), 'MMM d')}
-							</div>
+						{/if}
+					</div>
+
+					<div class="text-secondary text-right">
+						<div>
+							{format(parseISO(tx.createdAt), 'h:mm aaa')}
+						</div>
+						<div>
+							{format(parseISO(tx.createdAt), 'MMM d')}
 						</div>
 					</div>
-				{/each}
+				</div>
 			{:else}
 				<p class="text-secondary text-lg text-center">{$t('user.transactions.empty')}</p>
-			{/if}
+			{/each}
 		</div>
 	</div>
 </div>

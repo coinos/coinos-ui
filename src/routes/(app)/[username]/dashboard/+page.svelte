@@ -52,23 +52,25 @@
 	</div>
 
 	<div class="grid sm:grid-cols-2 gap-2 mt-8">
+		<a href="/send">
+			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+				>{$t('user.dashboard.withdraw')}</button
+			>
+		</a>
 		<a href={`/${user.username}/receive`}>
 			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
 				>{$t('user.dashboard.receive')}</button
 			>
 		</a>
-		{#if user.account.balance > 0}
-			<a href="/send">
-				<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-					>{$t('user.dashboard.withdraw')}</button
-				>
-			</a>
-		{:else}
-			<a href={`/${user.username}/settings`}>
-				<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-					>Setup Account</button
-				>
-			</a>
-		{/if}
+		<a href={`/${user.username}/settings`}>
+			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+				>Setup Account</button
+			>
+		</a>
+		<a href={`/${user.username}/address`}>
+			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
+				>Deposit</button
+			>
+		</a>
 	</div>
 </div>
