@@ -58,7 +58,6 @@
 			last.subscribe((v) => {
 				if (!v || subbed) return;
 				subbed = true;
-				console.log('SUBBING', invoice.uuid);
 				send('subscribe', invoice);
 			});
 	});
