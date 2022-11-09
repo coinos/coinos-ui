@@ -3,8 +3,6 @@
 	import { fly } from 'svelte/transition';
 	import { Avatar, Icon } from '$comp';
 	import { invoice } from '$lib/store';
-
-	export let user;
 </script>
 
 {#if $invoice}
