@@ -18,7 +18,7 @@
 <footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around items-center mb-20">
 	<div>
 		<div class="text-center w-full mb-8">
-			<a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
+      <a href="/"><img src="/icons/logo.webp" class="w-20" /></a>
 		</div>
 		<div class="text-center">
 			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />

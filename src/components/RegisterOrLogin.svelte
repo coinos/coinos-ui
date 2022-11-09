@@ -34,8 +34,8 @@
 
 <div class="pt-10">
 	<div class="w-[243px] mx-auto mb-10">
-		<a href="/">
-			<Icon icon="logo" />
+		<a href="/" class="text-center w-full">
+      <img src="/icons/logo.webp" class="mx-auto w-20" />
 		</a>
 	</div>
 

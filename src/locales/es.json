@@ -5,8 +5,8 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "coinos es una aplicación de código abierto para pagos con bitcoin. Su desarrollo comezó en Vancouver allá por Septiembre de 2012 como una solución para que comerciantes locales puedan aceptar pagos con bitcoin.",
-		"p3": "Si lo desea, puede descargar el código fuente de Coinos para ejecutar su propia instancia y tenerla conectada a sus propios nodos bitcoin y lightning. Estaremos encantados de ayudarle a en un proveedor de pagos y en un custodio benevolente para su comunidad.",
+		"p1": "maven es una aplicación de código abierto para pagos con bitcoin. Su desarrollo comezó en Vancouver allá por Septiembre de 2012 como una solución para que comerciantes locales puedan aceptar pagos con bitcoin.",
+		"p3": "Si lo desea, puede descargar el código fuente de Maven para ejecutar su propia instancia y tenerla conectada a sus propios nodos bitcoin y lightning. Estaremos encantados de ayudarle a en un proveedor de pagos y en un custodio benevolente para su comunidad.",
 		"p4": "Las transferencias entre cuentas de usuario en nuestro servidor son realizadas off-chain, esto hace que sean instantáneas, ilimitadas, y gratuitas.",
 		"team": {
 			"header": "El Equipo",
@@ -44,7 +44,7 @@
 		},
 		"locations": {
 			"header": "Locales",
-			"description": "Estos son comercios que aceptan bitcoin con coinos. Si estás utilizando nuestra aplicación, por favor \"<a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4 hover:opacity-80\">cuéntenos!</a>"
+			"description": "Estos son comercios que aceptan bitcoin con maven. Si estás utilizando nuestra aplicación, por favor \"<a href=\"mailto:contact@maven.io\" class=\"underline underline-offset-4 hover:opacity-80\">cuéntenos!</a>"
 		}
 	},
 	"error": {
@@ -56,11 +56,11 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "Cuanto cuesta?",
-			"answer": "Coinos es gratis. No hay costos de registro ni mantenimiento. Puede enviar y recibir pagos de forma ilimitada por medio de Lightning Network sin costo alguno. Sin embargo, si quieres tus fondos hacia  una dirección de bitcoin on-chain existe una tarifa del 0,1%."
+			"answer": "Maven es gratis. No hay costos de registro ni mantenimiento. Puede enviar y recibir pagos de forma ilimitada por medio de Lightning Network sin costo alguno. Sin embargo, si quieres tus fondos hacia  una dirección de bitcoin on-chain existe una tarifa del 0,1%."
 		},
 		"compatibility": {
 			"question": "Necesito un dispositivo o software especial?",
-			"answer": "No. Al estar basado en web, Coinos está disponible en cualquier dispositivo con conexión a internet. Puede usarlo directamente desde un celular o una tableta."
+			"answer": "No. Al estar basado en web, Maven está disponible en cualquier dispositivo con conexión a internet. Puede usarlo directamente desde un celular o una tableta."
 		},
 		"safety": {
 			"question": "Qué puedo hacer con el bitcoin que recibo?",
@@ -101,7 +101,7 @@
 	"jobs": {
 		"header": "Empleos",
 		"subheader": "Puestos disponibles",
-		"pitch1": "coinos se encuentra buscando a desarrolladores que quieran unirse a nuestro equipo de trabajo en crecimiento (tiempo medio o tiempo completo, APROBAMOS el trabajo remoto).",
+		"pitch1": "maven se encuentra buscando a desarrolladores que quieran unirse a nuestro equipo de trabajo en crecimiento (tiempo medio o tiempo completo, APROBAMOS el trabajo remoto).",
 		"pitch2": "Emocionado por trabajar en un proyecto de código abierto con bitcoin? Entonces mira nuestros repositorios en",
 		"github": "GitHub",
 		"pitch3": "Nos encantaría saber de usted si cree que tiene algo impactante para mostrar. Envíenos su CV a"
@@ -118,7 +118,7 @@
 		"info2": {
 			"title": "Fácil de usar",
 			"description1": "Ingrese un monto en su moneda local, comparta el QR y listo.",
-			"description2": "Coinos le ofrece acceso gratuito para usar los nodos bitcoin y lightning alojados, sin que deba comprender cómo funcionan bitcoin o lightning. Hacemos todo el trabajo pesado para que pueda concentrarse en su negocio.",
+			"description2": "Maven le ofrece acceso gratuito para usar los nodos bitcoin y lightning alojados, sin que deba comprender cómo funcionan bitcoin o lightning. Hacemos todo el trabajo pesado para que pueda concentrarse en su negocio.",
 			"description3": "Usted siempre tendrá la opción de retirar sus fondos para retomar su custodia de forma inmediata."
 		},
 		"info3": {
@@ -191,7 +191,7 @@
 			"emailNotifications": "Notificar por email",
 			"emailNotificationsDescription": "Recibe notificaciones cuando alguien le envíe un pago o cuando ocurra algún cambio en su cuenta.",
 			"smsNotifications": "Notificar pr SMS",
-			"smsNotificationsDescription": "coinos le enviará notificaciones por mensaje de texto cuando esté habilitado.",
+			"smsNotificationsDescription": "maven le enviará notificaciones por mensaje de texto cuando esté habilitado.",
 			"theme": "Tema de color",
 			"themeDescription": "Elija el tema de color predeterminado.",
 			"localCurrency": "Moneda local",
@@ -199,7 +199,7 @@
 			"bitcoin": "Bitcoin",
 			"satoshis": "Satoshis",
 			"securityPIN": "PIN de seguridad",
-			"securityPINDescription": "Ingrese un pin de seguridad y úselo para desbloquear coinos o enviar pagos.",
+			"securityPINDescription": "Ingrese un pin de seguridad y úselo para desbloquear maven o enviar pagos.",
 			"setPIN": "Crear PIN",
 			"autoLock": "Tiempo de auto bloqueo",
 			"autoLockDescription": "Se le pedirá el pin para reanudar la sesión luego de el tiempo especificado:",

@@ -91,10 +91,6 @@
 		</div>
 		<div bind:this={about} />
 	</div>
-
-	{#if locations?.length}
-		<About {locations} />
-	{/if}
 </main>
 
 <Footer />
