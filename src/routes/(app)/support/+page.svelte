@@ -11,12 +11,18 @@
 	let message;
 </script>
 
+{#if form?.error}
+	<div class="text-red-600 text-center">
+		{form.error}
+	</div>
+{/if}
+
 <div class="container px-4 max-w-lg mx-auto mt-20">
 	{#if form?.success}
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">Thank you!</h1>
 		<p class="text-center mb-8">Someone will be in touch shortly.</p>
 
-		<a href={`/${user.username}/dashboard`}>
+		<a href={user ? `/${user.username}/dashboard` : '/'}>
 			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
 				>Done</button
 			>
@@ -33,8 +39,7 @@
 					type="text"
 					name="account"
 					required
-					disabled
-					value={user.username}
+					value={user?.username || ''}
 				/>
 			</div>
 
