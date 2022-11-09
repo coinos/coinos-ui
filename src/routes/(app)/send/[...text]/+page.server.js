@@ -25,7 +25,7 @@ let parse = async (t, r) => {
 		}
 	}
 
-	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/lnurl/${t}`);
+	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
 	if (t.includes(':')) t = t.split(':')[1];
 
 	// lightning
