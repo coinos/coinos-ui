@@ -1,7 +1,8 @@
 import { get } from 'svelte/store';
-import { invoices, invoice, request, newPayment, last, rate, user } from '$lib/store';
+import { invoices, invoice, request, newPayment, last, rate, txns, user } from '$lib/store';
 import { success, sat } from '$lib/utils';
 import { env } from '$env/dynamic/public';
+import { invalidate } from '$app/navigation';
 
 const socketUrl = env.PUBLIC_SOCKET;
 const btc = env.PUBLIC_BTC;
@@ -41,9 +42,15 @@ export const messages = (data) => ({
 
 		if (get(user).account_id !== data.account_id) return;
 
-		newPayment.set(true);
+		let payments = get(txns);
+		let i = payments.findIndex((p) => p.id === data.id);
+		if (~i) (payments[i] = data), txns.set(payments);
+		else newPayment.set(true);
+
+		invalidate((url) => url.pathname === '/payments');
+
 		if (amount > 0) {
-			success(`Received ${sat(amount)}!`);
+			success(`${data.confirmed ? 'Received' : 'Detected'} ${sat(amount)}!`);
 		} else {
 			success(`Sent ${sat(amount)}!`);
 		}

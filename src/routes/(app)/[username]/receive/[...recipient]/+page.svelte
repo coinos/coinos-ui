@@ -56,7 +56,7 @@
 		<input type="hidden" name="amount" value={amount} />
 		<input type="hidden" name="currency" value={currency} />
 		<input type="hidden" name="username" value={username} />
-    <input type="hidden" name="network" value={network} />
+		<input type="hidden" name="network" value={network} />
 
 		{#if req}
 			<input type="hidden" name="requester" value={req.requester.username} />
