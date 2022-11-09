@@ -37,7 +37,10 @@ export const get = (url, headers = {}) =>
 export const post = (url, body, headers) => {
 	headers = { ...headers, 'content-type': 'application/json', accept: 'application/json' };
 	return fetch(base + url, { method: 'POST', body: JSON.stringify(body), headers })
-		.then((r) => r.text())
+		.then(async (r) => {
+			if (r.ok) return r.text();
+			throw new Error(await r.text());
+		})
 		.then((body) => {
 			try {
 				body = JSON.parse(body);
@@ -67,7 +70,7 @@ export function reverseFormat(val, locale) {
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes = [/customers/, /dashboard/, /settings/, /transactions/, /support/];
+export let protectedRoutes = [/customers/, /dashboard/, /settings/, /transactions/];
 
 export const success = (m) => {
 	toast.pop();

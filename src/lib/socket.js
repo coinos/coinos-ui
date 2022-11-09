@@ -36,11 +36,8 @@ export const messages = (data) => ({
 	async payment() {
 		let { amount, invoice } = data;
 
-		if (invoice) {
-			invoices.set({ ...get(invoices), [invoice.uuid]: invoice });
-		}
-
-		if (get(user).account_id !== data.account_id) return;
+		if (invoice) invalidate('app:invoice');
+		if (get(user)?.account_id !== data.account_id) return;
 
 		let payments = get(txns);
 		let i = payments.findIndex((p) => p.id === data.id);

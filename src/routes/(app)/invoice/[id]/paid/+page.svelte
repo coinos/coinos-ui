@@ -9,41 +9,55 @@
 	import { invoices } from '$lib/store';
 
 	export let data;
-	let { invoice } = data;
-	let { amount, currency, rate, tip } = invoice;
+	let amount, currency, rate, received, pending, tip, user, uuid;
+	$: data && ({ amount, currency, rate, received, pending, tip, user, uuid } = data.invoice);
 
 	toast.pop(0);
 
-	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
+	$: amountFiat = parseFloat(((received * rate) / sats).toFixed(2));
+	$: pendingFiat = parseFloat(((pending * rate) / sats).toFixed(2));
 	$: tipFiat = parseFloat(((tip * rate) / sats).toFixed(2));
-
-	const handleDoneClick = () => {
-		delete $invoices[invoice.uuid];
-		goto(`/${invoice.user.username}/receive`);
-	};
 </script>
 
 <div class="container px-4 text-center mx-auto">
 	<div class="flex w-full py-20 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
 		<Icon icon="check" style="mx-auto" />
 	</div>
-	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
-	<h2 class="text-2xl md:text-3xl font-semibold">
-		{f(amountFiat, currency)}
-		{#if tip}
-			+ {f(tipFiat, currency)}
-		{/if}
-	</h2>
-	<h3 class="text-secondary md:text-lg mb-6 mt-1">
-		{sat(amount)}
-		{#if tip}
-			+{sat(tip)}
-		{/if}
-	</h3>
-	<button
-		class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80"
-		on:click={handleDoneClick}
-	>
-		{$t('invoice.done')}
-	</button>
+	{#if received}
+		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
+		<h2 class="text-2xl md:text-3xl font-semibold">
+			{f(amountFiat, currency)}
+			{#if tip}
+				+ {f(tipFiat, currency)}
+			{/if}
+		</h2>
+		<h3 class="text-secondary md:text-lg mb-6 mt-1">
+			{sat(received)}
+			{#if tip}
+				+{sat(tip)}
+			{/if}
+		</h3>
+	{/if}
+
+	{#if pending}
+		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
+		<h2 class="text-2xl md:text-3xl font-semibold">
+			{f(pendingFiat, currency)}
+			{#if tip}
+				+ {f(tipFiat, currency)}
+			{/if}
+		</h2>
+		<h3 class="text-secondary md:text-lg mb-6 mt-1">
+			{sat(pending)}
+			{#if tip}
+				+{sat(tip)}
+			{/if}
+		</h3>
+	{/if}
+
+	<a href={`/${user.username}/receive`}>
+		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
+			{$t('invoice.done')}
+		</button>
+	</a>
 </div>

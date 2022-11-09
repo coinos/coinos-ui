@@ -2,31 +2,36 @@
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
-	import Account from './_account.svelte';
-	import Pos from './_pos.svelte';
-	import Security from './_security.svelte';
 
 	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, success } from '$lib/utils';
 	import { avatarUpload, bannerUpload, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
+	import { page } from '$app/stores';
+
+	import Account from './_account.svelte';
+	import Pos from './_pos.svelte';
+	import Security from './_security.svelte';
 
 	export let data;
 	export let form;
 
-	let { user, token } = data;
+	let submit;
+
+	let { user, token, tab } = data;
+
 	$: update(data);
-	let update = () => ({ user, token } = data);
+	let update = () => ({ user, token, tab } = data);
 
 	$: form?.user && ({ user } = form);
 
-	$: if (form?.message?.startsWith('Pin')) {
-		failure('Wrong pin, try again');
-		$pin = '';
-	}
+	$: form?.success && success('Settings saved!');
 
-	let tab = 'account';
+	// $: if (form?.message?.startsWith('Pin')) {
+	// 	failure('Wrong pin, try again');
+	// 	$pin = '';
+	// }
 
 	let tabs = [
 		{ name: 'account', key: 'ACCOUNT', comp: Account },
@@ -36,7 +41,7 @@
 
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 
-	let loading, submit;
+	let loading;
 	let save = async (msg) => {
 		loading = true;
 
@@ -74,11 +79,11 @@
 
 		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
 			{#each tabs as { name, key }}
-				<button
-					class="hover:opacity-80"
-					class:text-black={tab === name}
-					on:click|preventDefault={() => (tab = name)}>{$t(`user.settings.${key}`)}</button
-				>
+				<a href={`/${user.username}/settings/${name}`}>
+					<button class="hover:opacity-80" class:text-black={tab === name}
+						>{$t(`user.settings.${key}`)}</button
+					>
+				</a>
 			{/each}
 		</div>
 

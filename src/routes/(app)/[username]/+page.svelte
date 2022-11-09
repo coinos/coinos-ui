@@ -59,6 +59,12 @@
 						>
 					</a>
 				{/if}
+
+				<a href={`/${subject.username}/address`}>
+					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2">
+						Bitcoin address
+					</button>
+				</a>
 			</div>
 		{/if}
 	</div>

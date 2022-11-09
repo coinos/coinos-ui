@@ -1,7 +1,7 @@
 <script>
 	import { Left, Icon } from '$comp';
 	import { selectedRate } from '$lib/store';
-	import { f, s, post, warning, sats } from '$lib/utils';
+	import { f, s, post, warning, sat, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
 
 	export let amount,
@@ -36,7 +36,7 @@
 
 	$: amountFiatConverted = f(amountSats * ($selectedRate / sats), currency);
 
-	$: amountSatsConverted = s(amountFiat / ($selectedRate / sats));
+	$: amountSatsConverted = sat(amountFiat / ($selectedRate / sats));
 
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
@@ -94,7 +94,7 @@
 				{fiat ? `${symbol}${amountFiat}` : '⚡️' + amountSatsFormatted}
 			</div>
 			<span class="text-secondary mr-1"
-				>{fiat ? `⚡️${amountSatsConverted}` : amountFiatConverted}</span
+				>{fiat ? amountSatsConverted : amountFiatConverted}</span
 			>
 			<button
 				type="button"

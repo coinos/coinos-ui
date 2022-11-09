@@ -27,7 +27,11 @@
 	let otp;
 	$: pinChange($current);
 	let pinChange = async (pin) => {
-		otp = await post('/otpsecret', { pin });
+		try {
+			otp = await post('/otpsecret', { pin });
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	let locked;
@@ -78,6 +82,7 @@
 				pin = null;
 				submit.click();
 			} catch (e) {
+				console.log(e);
 				failure('Failed to disable pin');
 			}
 		} else {
@@ -112,6 +117,7 @@
 				toggleDisabling();
 			}
 		} catch (e) {
+			console.log(e);
 			failure('Failed to disable 2FA, try again');
 		}
 	};

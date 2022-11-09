@@ -1,7 +1,7 @@
 <script>
 	import { send } from '$lib/socket';
 	import { back, copy, f, get, sat, reverseFormat, s, sats } from '$lib/utils';
-	import { onMount, onDestroy } from 'svelte';
+	import { tick, onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { invoices, last } from '$lib/store';
 	import { Avatar, Icon, Heart, Image, Qr } from '$comp';
@@ -10,8 +10,6 @@
 	import screenfull from 'screenfull';
 
 	export let data;
-
-	let showQr;
 
 	$: refresh(data);
 	let { invoice, id, user, sm, lg } = data;
@@ -26,6 +24,8 @@
 		tip,
 		user: { username, currency }
 	} = invoice;
+
+	let showQr = !amount;
 
 	let src = sm;
 
@@ -48,14 +48,6 @@
 
 		tipPercent = (tip / amount) * 100;
 	};
-
-	$invoices[id] = { amount, id, rate, received, text, tip, username };
-	$: browser &&
-		$invoices[id].amount > 0 &&
-		$invoices[id]?.received >= $invoices[id]?.amount &&
-		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
-
-	$: browser && $invoices[id].pending > 0 && goto(`/invoice/${id}/pending`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
@@ -88,7 +80,7 @@
 <div class="container mx-auto max-w-lg px-4 space-y-5">
 	<div class="w-full flex">
 		<h1 class="text-secondary block text-2xl flex mx-auto">
-			<div class="my-auto">Pay</div>
+			<div class="my-auto">Send to</div>
 
 			<div>
 				<a href="/{username}" class="text-black font-semibold hover:opacity-80 mx-auto">
@@ -106,6 +98,10 @@
 			<div class="mx-auto">
 				<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
 			</div>
+
+			{#if address}
+				<div>{address}</div>
+			{/if}
 
 			<div class="mb-10 flex gap-2 justify-center">
 				<button
