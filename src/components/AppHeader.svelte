@@ -17,7 +17,7 @@
 		menuButtons = [
 			{ key: 'nav.profile', icon: 'profile', href: `/${user.username}` },
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
-			{ key: 'nav.support', icon: 'support', href: `/${user.username}/support` },
+			{ key: 'nav.support', icon: 'support', href: `/support` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
 		];
 
@@ -80,7 +80,7 @@
 						class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
 							.url.pathname === `/${user.username}` ||
 						$page.url.pathname === `/${user.username}/settings` ||
-						$page.url.pathname === `/${user.username}/support`
+						$page.url.pathname === `/support`
 							? 'opacity-100'
 							: `opacity-70 hover:opacity-80 ${showMenu ? 'opacity-80' : ''}`}"
 						on:click={() => (showMenu = !showMenu)}
