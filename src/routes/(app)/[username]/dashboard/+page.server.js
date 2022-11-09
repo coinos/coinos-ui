@@ -1,1 +1,3 @@
-export const load = ({ parent }) => parent();
+export const load = ({ parent }) => {
+  throw new Error("BOOM")
+} 
