@@ -5,7 +5,7 @@
 	import { t } from '$lib/translations';
 	import { upload } from '$lib/upload';
 
-  export let user;
+	export let user;
 
 	let selectedTheme = 1;
 	let revealPassword = false;
