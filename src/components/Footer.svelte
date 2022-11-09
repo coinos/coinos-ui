@@ -10,7 +10,7 @@
 
 	const companyLinks = [
 		{ url: '/news', titleID: 'news' },
-		{ url: 'mailto:support@coinos.io', titleID: 'support' },
+		{ url: '/support', titleID: 'support' },
 		{ url: '/jobs', titleID: 'jobs' }
 	];
 </script>
