@@ -110,7 +110,7 @@
 									<a {href}>
 										<button
 											class="flex justify-center items-center font-semibold text-sm hover:opacity-80"
-											><Icon {icon} style="mr-1" /> {$t(key)}
+											><Icon {icon} style="mr-1 w-6" /> {$t(key)}
 										</button>
 									</a>
 								</li>
