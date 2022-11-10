@@ -19,10 +19,10 @@
 
 	let submit;
 
-	let { user, token, tab } = data;
+	let { user, token, rates, tab } = data;
 
 	$: update(data);
-	let update = () => ({ user, token, tab } = data);
+	let update = () => ({ user, token, rates, tab } = data);
 
 	$: form?.user && ({ user } = form);
 
@@ -87,7 +87,7 @@
 			{/each}
 		</div>
 
-		<svelte:component this={comp} {user} {submit} />
+		<svelte:component this={comp} {user} {rates} {submit} />
 	</div>
 
 	<div

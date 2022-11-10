@@ -80,8 +80,6 @@
 <div class="container mx-auto max-w-lg px-4 space-y-5">
 	<div class="w-full flex">
 		<h1 class="text-secondary block text-2xl flex mx-auto">
-			<div class="my-auto">Send to</div>
-
 			<div>
 				<a href="/{username}" class="text-black font-semibold hover:opacity-80 mx-auto">
 					<div class="flex my-auto">
@@ -100,7 +98,7 @@
 			</div>
 
 			{#if address}
-				<div>{address}</div>
+				<div class="text-secondary">{address}</div>
 			{/if}
 
 			<div class="mb-10 flex gap-2 justify-center">
