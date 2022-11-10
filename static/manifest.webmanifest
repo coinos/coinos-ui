@@ -1,7 +1,7 @@
 {
 	"theme_color": "#fff",
 	"background_color": "#000",
-	"display": "standalone",
+	"display": "fullscreen",
 	"scope": "/",
 	"start_url": "/",
 	"name": "Coinos",
