@@ -7,8 +7,9 @@ export const { PUBLIC_BTC: btc } = env;
 export async function load({ cookies, locals, request, url, params }) {
 	url.pathname;
 	let token = cookies.get('token');
-	let rates;
-	let subject;
+	let rate,
+		rates = { USD: 1 },
+		subject;
 
 	let { user } = locals;
 	if (user) {
@@ -21,8 +22,11 @@ export async function load({ cookies, locals, request, url, params }) {
 		}
 	}
 
-	let rate = await get('/rate');
-	rates = await get('/rates');
+	try {
+		rate = await get('/rate');
+		rates = await get('/rates');
+	} catch (e) {
+	}
 
 	return { subject, user, token, rate, rates };
 }
