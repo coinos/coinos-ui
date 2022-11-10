@@ -2,9 +2,9 @@ import { invalid, redirect } from '@sveltejs/kit';
 import { post, login } from '$lib/utils';
 
 export const load = async ({ parent }) => {
-  let { user } = await parent();
-  if (user) throw redirect(307, '/dashboard');
-} 
+	let { user } = await parent();
+	if (user) throw redirect(307, '/dashboard');
+};
 
 export const actions = {
 	default: async ({ cookies, request }) => {
