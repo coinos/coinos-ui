@@ -1,6 +1,7 @@
-import { get, post } from '$lib/utils';
+import Qr from 'qrcode-base64';
 
-export async function load({ params }) {
-	let { username } = params;
-	return get(`/users/${username}`);
+export async function load({ params, url }) {
+	let text = `${params.username}@${url.hostname}`;
+    let src = Qr.drawImg(text, { size: 300 });
+	return { src, text };
 }
