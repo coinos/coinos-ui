@@ -7,7 +7,7 @@
 
 	export let data;
 	let { src } = data;
-	$: ({ amount, currency, rate, redeemcode, user } = data.payment);
+	$: ({ amount, currency, rate, redeemed, redeemcode, user } = data.payment);
 
 	toast.pop(0);
 
@@ -36,8 +36,8 @@
 			</div>
 			<div class="mx-auto my-auto flex gap-2 justify-center">
         <a href={`/redeem/${redeemcode}`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-						Redeem
+          <button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80" class:bg-gray-200={redeemed} disabled={redeemed}>
+            {redeemed ? 'Redeemed' : 'Redeem'}
 					</button>
 				</a>
 				<!-- <button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"> -->
