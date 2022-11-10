@@ -7,9 +7,13 @@
 	import { focus } from '$lib/utils';
 	import { loginRedirect } from '$lib/store';
 	import { t } from '$lib/translations';
+	import { page } from '$app/stores';
 
 	let token, tokenInput;
 	let code = [];
+	let redirect;
+
+	$: $page && (redirect = $loginRedirect) && ($loginRedirect = undefined);
 
 	$: need2fa = form?.message === '2fa';
 	$: if (need2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
@@ -80,8 +84,8 @@
 				{/if}
 
 				<form class="space-y-5" {action} method="POST" use:enhance>
-					{#if $loginRedirect}
-						<input type="hidden" name="loginRedirect" value={$loginRedirect} />
+					{#if redirect}
+						<input type="hidden" name="loginRedirect" value={redirect} />
 					{/if}
 
 					<div>
