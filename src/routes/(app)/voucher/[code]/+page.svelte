@@ -1,13 +1,16 @@
 <script>
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import { Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { t } from '$lib/translations';
 	import { copy, f, s, sat, sats } from '$lib/utils';
-	import { selectedRate } from '$lib/store';
+	import { loginRedirect, selectedRate } from '$lib/store';
 
 	export let data;
 	let { src } = data;
 	$: ({ amount, currency, rate, redeemed, redeemcode, user } = data.payment);
+	onMount(() => ($loginRedirect = $page.url.pathname));
 
 	toast.pop(0);
 
@@ -25,7 +28,12 @@
 		<div class="shadow-xl rounded-3xl px-10 pt-5 pb-10 space-y-5 w-full mx-5">
 			<h1 class="text-3xl md:text-4xl font-bold">Voucher</h1>
 
-			<img {src} class="w-[300px] mx-auto cursor-pointer" on:click={() => copy(redeemcode)} alt="Redeem Code" />
+			<img
+				{src}
+				class="w-[300px] mx-auto cursor-pointer"
+				on:click={() => copy(redeemcode)}
+				alt="Redeem Code"
+			/>
 			<div>
 				<h2 class="text-2xl md:text-3xl font-semibold">
 					{f(amountFiat, currency)}
@@ -34,15 +42,16 @@
 					{sat(amount)}
 				</h3>
 			</div>
-			<div class="mx-auto my-auto flex gap-2 justify-center">
-        <a href={`/redeem/${redeemcode}`}>
-          <button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80" class:bg-gray-200={redeemed} disabled={redeemed}>
-            {redeemed ? 'Redeemed' : 'Redeem'}
+			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
+				<a href={`/redeem/${redeemcode}`}>
+					<button
+						class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
+						class:bg-gray-200={redeemed}
+						disabled={redeemed}
+					>
+						{redeemed ? 'Redeemed' : 'Redeem'}
 					</button>
 				</a>
-				<!-- <button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"> -->
-				<!-- 	Top up -->
-				<!-- </button> -->
 			</div>
 		</div>
 	</div>
