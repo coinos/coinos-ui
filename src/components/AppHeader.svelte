@@ -17,7 +17,7 @@
 		menuButtons = [
 			{ key: 'nav.profile', icon: 'profile', href: `/${user.username}` },
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
-			{ key: 'nav.scan', icon: 'camera', href: `/${user.username}/scan` },
+			{ key: 'nav.scan', icon: 'camera', href: `/scan` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
 		];
