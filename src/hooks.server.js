@@ -22,7 +22,8 @@ export async function handle({ event, resolve }) {
 	}
 
 	if (protectedRoutes.find((p) => pathname.match(p))) {
-		if (user?.username !== params.username) return Response.redirect(origin + '/login', 307);
+		if (!user || user.username !== params.username)
+			return Response.redirect(origin + '/login', 307);
 	}
 
 	const response = await resolve(event);

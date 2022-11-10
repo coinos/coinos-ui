@@ -11,6 +11,6 @@ export const actions = {
 			return invalid(400, { message: e.message });
 		}
 
-		throw redirect(307, `/voucher/${p.redeemcode}`);
+		if (p) throw redirect(307, `/voucher/${p.redeemcode}`);
 	}
 };
