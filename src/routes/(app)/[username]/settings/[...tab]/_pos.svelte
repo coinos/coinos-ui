@@ -5,6 +5,8 @@
 	import { page } from '$app/stores';
 
 	let { rates, user } = $page.data;
+
+  $: ({ rates, user } = $page.data);
 	const fiats = Object.keys(rates);
 </script>
 
