@@ -48,6 +48,7 @@
 			{src}
 			class="w-[300px] mx-auto"
 			on:click={() => copy(text)}
+      alt="Lightning address"
 		/>
 
 		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex">
