@@ -13,7 +13,7 @@ export async function load({ depends, params, url }) {
 	if (paid && !url.pathname.endsWith('paid')) throw redirect(307, `/invoice/${id}/paid`);
 
 	let sm = Qr.drawImg(invoice.text, { size: 300 });
-	let lg = Qr.drawImg(invoice.text, { size: 1200 });
+	// let lg = Qr.drawImg(invoice.text, { size: 1200 });
 
-	return { id, invoice, sm, lg };
+	return { id, invoice, sm, lg: sm };
 }
