@@ -77,86 +77,86 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container mx-auto max-w-lg px-4 space-y-5">
-	<div class="w-full flex">
-		<h1 class="text-secondary block text-2xl flex mx-auto">
-			<div>
+<div class="container mx-auto max-w-lg px-4 space-y-2 md:space-y-5">
+	<div>
+		<h1 class="text-secondary text-center text-xl">Please pay</h1>
+
+		<div class="flex w-full">
+			<div class="mx-auto">
 				<a href="/{username}" class="text-black font-semibold hover:opacity-80 mx-auto">
 					<div class="flex my-auto">
 						<Avatar user={invoice.user} size={20} />
-						<div class="my-auto">{username}</div>
+						<div class="my-auto text-lg">{username}</div>
 					</div>
 				</a>
 			</div>
-		</h1>
+		</div>
 	</div>
 
-	<div class="text-center space-y-5">
-		{#if !user || user.username === username || showQr}
-			<div class="mx-auto">
-				<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
-			</div>
-
-			{#if address}
-				<div class="text-secondary">{address}</div>
-			{/if}
-
-			<div class="mb-10 flex gap-2 justify-center">
-				<button
-					class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80 mb-2"
-					on:click={() => copy(text)}
-					><Icon icon="copy" style="mr-1" />
-					<div>Copy</div></button
-				>
-			</div>
-		{/if}
-
-		<div class="px-5 space-y-4 w-80 mx-auto mb-4">
-			{#if invoice.tip}
-				<div class="flex justify-between">
-					{$t('invoice.invoice')}
-					<span>
-						{f(amountFiat, currency)}
-						<span class="text-secondary">{`${sat(amount)}`}</span>
-					</span>
-				</div>
-
-				<div class="flex justify-between">
-					{$t('invoice.tip')}
-					<span
-						>{f(tipAmount, currency)}
-						<span class="text-secondary">{`${sat(tip)}`}</span>
-					</span>
-				</div>
-			{/if}
-
-			{#if amount > 0}
-				<div class="flex flex-wrap justify-between font-bold text-2xl !my-8">
-					<span class="mr-1">{$t('invoice.total')}</span>
-					<span
-						>{f(amountFiat + parseFloat(tipAmount), currency)}
-						<span class="text-secondary font-normal">{`${sat(tip + amount)}`}</span></span
-					>
-				</div>
-			{/if}
+	{#if !user || user.username === username || showQr}
+		<div class="mx-auto !-mt-1">
+			<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
 		</div>
 
-		{#if user && user.username !== username}
-			<div class="mx-auto my-auto flex gap-2 justify-center">
-				<a href={`/send/${invoice.uuid}`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-						Pay now
-					</button>
-				</a>
-				<button
-					class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
-					on:click={() => (showQr = !showQr)}
+		{#if address}
+			<div class="text-secondary">{address}</div>
+		{/if}
+
+		<div class="flex gap-2 justify-center !-mt-1">
+			<button
+				class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80"
+				on:click={() => copy(text)}
+				><Icon icon="copy" style="mr-1" />
+				<div>Copy</div></button
+			>
+		</div>
+	{/if}
+
+	<div class="space-y-2 w-80 mx-auto">
+		{#if invoice.tip}
+			<div class="flex justify-between">
+				{$t('invoice.invoice')}
+				<span>
+					{f(amountFiat, currency)}
+					<span class="text-secondary">{`${sat(amount)}`}</span>
+				</span>
+			</div>
+
+			<div class="flex justify-between">
+				{$t('invoice.tip')}
+				<span
+					>{f(tipAmount, currency)}
+					<span class="text-secondary">{`${sat(tip)}`}</span>
+				</span>
+			</div>
+		{/if}
+
+		{#if amount > 0}
+			<div class="flex flex-wrap justify-between font-bold text-2xl !my-5">
+				<span class="mr-1">{$t('invoice.total')}</span>
+				<span
+					>{f(amountFiat + parseFloat(tipAmount), currency)}
+					<span class="text-secondary font-normal">{`${sat(tip + amount)}`}</span></span
 				>
-					{showQr ? 'Hide' : 'Show'} QR
-				</button>
 			</div>
 		{/if}
 	</div>
+
+	{#if user && user.username !== username}
+		<div class="mx-auto my-auto flex gap-2 justify-center">
+			<a href={`/send/${invoice.uuid}`}>
+				<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
+					Pay now
+				</button>
+			</a>
+			<button
+				class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
+				on:click={() => (showQr = !showQr)}
+			>
+				{showQr ? 'Hide' : 'Show'} QR
+			</button>
+		</div>
+	{/if}
 </div>
 
 <style>
