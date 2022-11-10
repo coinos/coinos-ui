@@ -21,21 +21,22 @@
 			</a>
 		</div>
 
-	<div class="flex justify-center items-center">
-		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
-		<h1 class="text-3xl md:text-4xl font-semibold">
-			{$t('error.header')}
-		</h1>
+		<div class="flex justify-center items-center">
+			<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
+				<h1 class="text-3xl md:text-4xl font-semibold">
+					{$t('error.header')}
+				</h1>
 
-		<p class="text-secondary">
-    {message}. If the problem persists, please <a href="/support" class="underline">let us know.</a>
-		</p>
+				<p class="text-secondary">
+					{message}. If the problem persists, please
+					<a href="/support" class="underline">let us know.</a>
+				</p>
 
-		<button
-			class="rounded-full bg-black text-white py-2 px-5 font-bold hover:opacity-80 mb-2"
-			on:click={back}>Back</button
-		>
-    </div>
-    </div>
+				<button
+					class="rounded-full bg-black text-white py-2 px-5 font-bold hover:opacity-80 mb-2"
+					on:click={back}>Back</button
+				>
+			</div>
+		</div>
 	</div>
 {/if}

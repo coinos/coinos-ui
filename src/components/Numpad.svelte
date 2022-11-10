@@ -93,9 +93,7 @@
 			<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
 				{fiat ? `${symbol}${amountFiat}` : '⚡️' + amountSatsFormatted}
 			</div>
-			<span class="text-secondary mr-1"
-				>{fiat ? amountSatsConverted : amountFiatConverted}</span
-			>
+			<span class="text-secondary mr-1">{fiat ? amountSatsConverted : amountFiatConverted}</span>
 			<button
 				type="button"
 				on:click={() => {

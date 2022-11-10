@@ -7,9 +7,9 @@
 	export let data, form;
 
 	let { user } = data;
-  $: if (user) {
-    data.subject = { ...user };
-  } 
+	$: if (user) {
+		data.subject = { ...user };
+	}
 
 	let email;
 	let message;
@@ -40,8 +40,13 @@
 			{$t('user.support.header')}
 		</h1>
 
-    <p class="text-secondary">Fill out this form or email us directly at <a class="underline" href="mailto:support@coinos.io">support@coinos.io</a> and we'll do our best to get back to you in a timely manner.</p>
-    
+		<p class="text-secondary">
+			Fill out this form or email us directly at <a
+				class="underline"
+				href="mailto:support@coinos.io">support@coinos.io</a
+			> and we'll do our best to get back to you in a timely manner.
+		</p>
+
 		<form method="POST" use:enhance>
 			<div class="mb-4">
 				<label for="account" class="font-semibold">{$t('user.support.accountName')}</label>
