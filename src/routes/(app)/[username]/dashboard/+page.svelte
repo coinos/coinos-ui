@@ -99,8 +99,8 @@
 		</div>
 		<div class="text-secondary flex ml-auto">
 			<div class="flex">
-				<div>{f(1, user.currency)} =</div>
-				<div class="mr-1">⚡️{s((1 * sats) / animatedRate)}</div>
+				<div class="mr-1">⚡️{s((1 * sats) / animatedRate)} =</div>
+				<div>{f(1, user.currency)}</div>
 			</div>
 		</div>
 	</div>
