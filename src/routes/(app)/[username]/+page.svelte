@@ -44,12 +44,7 @@
 	</div>
 
 	<div class="space-y-5 mt-5 sm:mt-20 mx-auto max-w-lg">
-		<img
-			{src}
-			class="w-[300px] mx-auto"
-			on:click={() => copy(text)}
-      alt="Lightning address"
-		/>
+		<img {src} class="w-[300px] mx-auto" on:click={() => copy(text)} alt="Lightning address" />
 
 		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex">
 			<div class="my-auto font-semibold text-lg w-full text-center">{text}</div>
@@ -58,14 +53,16 @@
 			</button>
 		</div>
 
-    {#if user?.username === subject.username}
-		<p class="text-secondary mb-1">
-			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
-				>lightning address</a
-			> is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.
-		</p>
-    {/if}
+		{#if user?.username === subject.username}
+			<p class="text-secondary mb-1">
+				This <a
+					href="https://lightningaddress.com"
+					class="underline"
+					target="_blank"
+					rel="noreferrer">lightning address</a
+				> is like an email for bitcoin. You can publish it on your website or business cards and use
+				it multiple times.
+			</p>
+		{/if}
 	</div>
-
-
 </div>
