@@ -98,7 +98,7 @@
 			<div>= {f(animatedRate, user.currency)}</div>
 		</div>
 		<div class="text-secondary flex ml-auto">
-      <div>{sat(sats)} =</div>
+			<div>{sat(sats)} =</div>
 			<div class="flex ml-1">
 				<div class="my-auto mr-1">1</div>
 				<img src="/images/bitcoin.svg" class="w-5 my-auto" />

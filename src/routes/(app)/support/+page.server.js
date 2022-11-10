@@ -1,4 +1,4 @@
-import { post } from "$lib/utils";
+import { post } from '$lib/utils';
 import { invalid } from '@sveltejs/kit';
 
 export const actions = {
