@@ -25,7 +25,7 @@
 	<div class="bg-black mx-auto rounded-3xl">
 		<video
 			bind:this={vid}
-			class="border-4 rounded-3xl border-black md:max-w-[600px] !max-h-[300px]"
+			class="border-4 rounded-3xl border-black md:max-w-[600px] !max-h-[80vh] !min-w-[300px]"
 		/>
 	</div>
 </div>

@@ -17,6 +17,7 @@
 		menuButtons = [
 			{ key: 'nav.profile', icon: 'profile', href: `/${user.username}` },
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
+			{ key: 'nav.scan', icon: 'camera', href: `/${user.username}/scan` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
 		];
@@ -55,6 +56,15 @@
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
 					><Icon icon="numpad" style="mx-auto" />
+				</button>
+			</a>
+			<a href={`/scan`}>
+				<button
+					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						.url.pathname === `/scan`
+						? 'opacity-100'
+						: 'opacity-70 hover:opacity-80'}"
+					><Icon icon="camera" style="mx-auto w-6" />
 				</button>
 			</a>
 			<a href={`/${user.username}/transactions`}>

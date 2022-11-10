@@ -144,6 +144,7 @@
 		"failed": "Login failed"
 	},
 	"nav": {
+		"scan": "Scan",
 		"profile": "Profile",
 		"startInSeconds": "Start in Seconds",
 		"account": "Account",
