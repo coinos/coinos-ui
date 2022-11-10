@@ -6,33 +6,7 @@
 	import { t } from '$lib/translations';
 	export let data;
 
-	let { user, subject } = data;
-
-	let lightningAddress = `${data?.username}@coinos.io`;
-
-	onMount(async () => {
-		if (browser) {
-			let { default: QRCodeStyling } = await import('qr-code-styling');
-			const qrCode = new QRCodeStyling({
-				width: window.screen.width < 640 ? 250 : 300,
-				type: 'canvas',
-				data: lightningAddress,
-				image: '/images/invoice.svg',
-				backgroundOptions: {
-					color: 'rgba(0, 0, 0, 0)'
-				},
-				dotsOptions: {
-					type: 'rounded'
-				},
-				imageOptions: {
-					hideBackgroundDots: false
-				}
-			});
-
-			qrCode.append(document.getElementById('qr'));
-		}
-	});
-
+	let { user, subject, src, text } = data;
 	let followed = false;
 </script>
 
@@ -70,23 +44,25 @@
 	</div>
 
 	<div class="space-y-5 mt-5 sm:mt-20 mx-auto max-w-lg">
-		<p class="text-secondary mb-1">
-			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
-				>lightning address</a
-			> is like an email for bitcoin. Publish it on your website, business cards, posters, etc.
-		</p>
-
-		<div
-			on:click={() => copy(lightningAddress)}
-			id="qr"
-			class="cursor-pointer w-[292px] md:w-[342px] h-[342px] border border-lightgrey rounded-3xl flex p-5 justify-center items-center relative mx-auto"
+		<img
+			{src}
+			class="w-[300px] mx-auto"
+			on:click={() => copy(text)}
 		/>
 
 		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex">
-			<div class="my-auto font-semibold text-lg w-full text-center">{lightningAddress}</div>
-			<button class="ml-auto hover:opacity-80" on:click={() => copy(lightningAddress)}>
-				<Icon icon="copy" on:click={() => copy(lightningAddress)} />
+			<div class="my-auto font-semibold text-lg w-full text-center">{text}</div>
+			<button class="ml-auto hover:opacity-80" on:click={() => copy(text)}>
+				<Icon icon="copy" />
 			</button>
 		</div>
+
+		<p class="text-secondary mb-1">
+			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
+				>lightning address</a
+			> is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.
+		</p>
 	</div>
+
+
 </div>
