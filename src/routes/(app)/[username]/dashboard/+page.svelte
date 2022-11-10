@@ -89,8 +89,8 @@
 		</a>
 	</div>
 
-	<div class="grid grid-cols-2">
-		<div class="text-secondary flex">
+	<div class="flex">
+		<div class="text-secondary flex mr-auto">
 			<div class="flex mr-1">
 				<div class="my-auto mr-1">1</div>
 				<img src="/images/bitcoin.svg" class="w-5 my-auto" />
@@ -98,10 +98,9 @@
 			<div>= {f(animatedRate, user.currency)}</div>
 		</div>
 		<div class="text-secondary flex ml-auto">
-			<div>{sat(sats)} =</div>
-			<div class="flex ml-1">
-				<div class="my-auto mr-1">1</div>
-				<img src="/images/bitcoin.svg" class="w-5 my-auto" />
+			<div class="flex">
+				<div>{f(1, user.currency)} =</div>
+				<div class="mr-1">⚡️{s((1 * sats) / animatedRate)}</div>
 			</div>
 		</div>
 	</div>
