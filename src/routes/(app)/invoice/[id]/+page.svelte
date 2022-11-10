@@ -94,7 +94,7 @@
 	</div>
 
 	{#if !user || user.username === username || showQr}
-		<div class="mx-auto !-mt-1">
+		<div class="mx-auto">
 			<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
 		</div>
 
@@ -102,7 +102,7 @@
 			<div class="text-secondary">{address}</div>
 		{/if}
 
-		<div class="flex gap-2 justify-center !-mt-1">
+		<div class="flex gap-2 justify-center">
 			<button
 				class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80"
 				on:click={() => copy(text)}
