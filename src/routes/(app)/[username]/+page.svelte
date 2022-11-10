@@ -58,11 +58,13 @@
 			</button>
 		</div>
 
+    {#if user?.username === subject.username}
 		<p class="text-secondary mb-1">
 			This <a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
 				>lightning address</a
 			> is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.
 		</p>
+    {/if}
 	</div>
 
 
