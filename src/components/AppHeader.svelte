@@ -30,7 +30,7 @@
 			? `url(/api/public/${subject.username}-banner.webp)`
 			: undefined;
 
-  $: $page && (showMenu = false);
+	$: $page && (showMenu = false);
 </script>
 
 <header

@@ -82,9 +82,9 @@
 				>Deposit</button
 			>
 		</a>
-		<a href={`/${user.username}/settings`}>
+		<a href={`/send/voucher`}>
 			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full"
-				>Settings</button
+				>Voucher</button
 			>
 		</a>
 	</div>
