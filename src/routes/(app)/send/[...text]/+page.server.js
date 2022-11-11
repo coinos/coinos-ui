@@ -1,6 +1,6 @@
 import validate from 'bitcoin-address-validation';
 import bip21 from 'bip21';
-import { get, post } from '$lib/utils';
+import { auth, get, post } from '$lib/utils';
 import { invalid, redirect } from '@sveltejs/kit';
 
 let parse = async (t, r) => {
@@ -60,9 +60,11 @@ let parse = async (t, r) => {
 	if (user) throw redirect(307, `/send/user/${t}`);
 };
 
-export async function load({ params, request }) {
+export async function load({ cookies, params, request }) {
 	let { text } = params;
 	await parse(text, request);
+	let contacts = await get('/contacts', auth(cookies));
+	return { contacts };
 }
 
 export const actions = {

@@ -1,19 +1,22 @@
 <script>
+	import { page } from '$app/stores';
 	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
+	import { tick } from 'svelte';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { Icon, Spinner } from '$comp';
+	import { Avatar, Icon, Spinner } from '$comp';
 	import { back, failure } from '$lib/utils';
 
+	export let data;
 	export let form;
 
-	let el;
-	let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
-	let text;
+	let { contacts } = data;
 
-	let focus = () => text === placeholder && (text = '');
+	let el, textarea, text;
+	let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
+
+	$: $page && setTimeout(() => textarea?.focus(), 0);
 	let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
 
 	let paste = async () => {
@@ -25,70 +28,72 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-8">
-	Send bitcoin or lightning
-</h1>
+<div class="container px-4 max-w-lg mx-auto space-y-5 mt-10">
+	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Send</h1>
 
-<form method="POST" class="container px-4 max-w-xl mx-auto" use:enhance>
-	{#if form?.error}
-		<div class="text-red-600 text-center" in:fly>
-			{form.error}
+	<form method="POST" use:enhance>
+		{#if form?.error}
+			<div class="text-red-600 text-center" in:fly>
+				{form.error}
+			</div>
+		{/if}
+		<div class="mb-2">
+			<input type="hidden" name="text" bind:value={text} />
+
+			<textarea
+				{placeholder}
+				on:keypress={keypress}
+				class="w-full p-4 border rounded-xl h-48"
+				bind:value={text}
+				bind:this={textarea}
+			/>
 		</div>
-	{/if}
-	<div class="mb-2">
-		<label for="invoice" class="font-bold mb-1 block">To</label>
-		<input type="hidden" name="text" bind:value={text} />
 
-		<textarea
-			{placeholder}
-			on:keypress={keypress}
-			class="w-full p-4 border rounded-xl h-48"
-			bind:value={text}
-		/>
-	</div>
+		<div class="flex justify-end">
+			<a href="/scan">
+				<button
+					type="button"
+					class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
+				>
+					<Icon icon="scan" style="mr-2 w-6 my-auto" />
+					<div class="my-auto">Scan</div>
+				</button>
+			</a>
 
-	<div class="flex justify-end">
-		<a href="/scan">
 			<button
 				type="button"
 				class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
+				on:click={paste}
 			>
-				<Icon icon="scan" style="mr-2 w-6 my-auto" />
-				<div class="my-auto">Scan</div>
+				<Icon icon="paste" style="mr-2 w-6 my-auto" />
+				<div class="my-auto">Paste</div>
 			</button>
-		</a>
 
-		<button
-			type="button"
-			class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
-			on:click={paste}
-		>
-			<Icon icon="paste" style="mr-2 w-6 my-auto" />
-			<div class="my-auto">Paste</div>
-		</button>
+			<button
+				bind:this={el}
+				type="submit"
+				class="{!text
+					? 'opacity-50'
+					: 'opacity-100 hover:opacity-80'} bg-black text-white border rounded-full px-6 py-2 font-bold"
+			>
+				Next
+			</button>
+		</div>
+	</form>
 
-		<button
-			bind:this={el}
-			type="submit"
-			class="{!text
-				? 'opacity-50'
-				: 'opacity-100 hover:opacity-80'} bg-black text-white border rounded-full px-6 py-2 font-bold"
-		>
-			Next
-		</button>
+  {#if contacts.length}
+	<div class="space-y-5">
+		<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">Contacts</h1>
+		<div class="flex gap-4">
+			{#each contacts as c}
+				<a href={`/${c.username}/receive`}>
+					<div class="text-center">
+            <Avatar user={c} size={20} disabled={true} />
+						<p class="text-lg break-words my-auto">{c.username}</p>
+					</div>
+				</a>
+			{/each}
+		</div>
 	</div>
-</form>
-
-<style>
-	.expandable-textarea {
-		font-family: inherit;
-		font-size: inherit;
-
-		resize: both;
-		display: block;
-		overflow: hidden;
-		min-height: 48px;
-		line-height: 20px;
-		@apply block border rounded-2xl p-3 py-4 w-full;
-	}
-</style>
+  {/if}
+</div>
