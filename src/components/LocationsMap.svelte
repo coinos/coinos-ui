@@ -188,10 +188,11 @@
 	onDestroy(async () => map && map.remove());
 </script>
 
-<div
-	class="mx-auto w-full md:w-11/12 lg:w-3/4 2xl:w-1/2 max-w-7xl h-[450px] z-0"
-	bind:this={mapElement}
-/>
+<div class="container mx-auto max-w-4xl">
+	<div class="flex w-full">
+		<div class="mx-auto h-[450px] w-full z-0" bind:this={mapElement} />
+	</div>
+</div>
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
