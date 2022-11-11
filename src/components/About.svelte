@@ -49,8 +49,8 @@
 		</h3>
 		<div class="space-y-10 2xl:space-y-0 2xl:grid gap-y-10 grid-cols-2">
 			{#each team as member}
-				<div class="md:flex justify-center items-center 2xl:items-start md:space-x-10">
-					<div>
+				<div class="md:flex justify-center 2xl:items-start md:space-x-10">
+					<div class="w-[220px]">
 						<Image image={member.name} style="rounded-full mx-auto w-40 h-40 mb-5 object-cover" />
 
 						<div class="space-y-2">
@@ -74,7 +74,7 @@
 							{/each}
 						</div>
 					</div>
-					<div class="mt-5 md:mt-0 text-secondary text-xl w-full md:w-[450px]">
+					<div class="text-secondary text-xl w-full md:w-[450px] mt-5">
 						{$t(`about.team.${member.name}.bio`)}
 					</div>
 				</div>

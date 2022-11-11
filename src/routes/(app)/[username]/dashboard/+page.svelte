@@ -66,30 +66,30 @@
 		</div>
 	</div>
 
-	<div class="grid sm:grid-cols-2 gap-2">
+	<div class="grid sm:grid-cols-2 gap-2 text-lg">
 		<a href="/send">
-			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full"
+			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
 				>{$t('user.dashboard.withdraw')}</button
 			>
 		</a>
 		<a href={`/${user.username}/receive`}>
-			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full"
+			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
 				>{$t('user.dashboard.receive')}</button
 			>
 		</a>
 		<a href={`/${user.username}/address`}>
-			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full"
+			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
 				>Deposit</button
 			>
 		</a>
 		<a href={`/send/voucher`}>
-			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full"
+			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
 				>Voucher</button
 			>
 		</a>
 	</div>
 
-	<div class="flex">
+	<div class="flex container max-w-md fixed bottom-4">
 		<div class="text-secondary flex mr-auto">
 			<div class="flex mr-1">
 				<div class="my-auto mr-1">1</div>

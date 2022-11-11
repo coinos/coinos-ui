@@ -44,7 +44,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "Here are some businesses that are accepting bitcoin with Coinos. Feel free to <a class=\"underline\" href=\"https://github.com/teambtcmap/btcmap-data/wiki/Tagging-Instructions\">suggest changes</a> if we missed something."
+			"description": "Here are some businesses that are accepting bitcoin with Coinos. We hope that yours will be next!"
 		}
 	},
 	"error": {
