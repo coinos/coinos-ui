@@ -13,7 +13,7 @@
 	let code = [];
 	let redirect;
 
-	$: $page && (redirect = $loginRedirect) && ($loginRedirect = undefined);
+  $: $loginRedirect && (redirect = $loginRedirect, $loginRedirect = undefined);
 
 	$: need2fa = form?.message === '2fa';
 	$: if (need2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
