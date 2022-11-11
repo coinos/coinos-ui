@@ -6,7 +6,7 @@ const opts = {
 };
 
 export async function load({ cookies }) {
+	cookies.set('username', '', opts);
 	cookies.set('token', '', opts);
-	cookies.set('refresh_token', '', opts);
 	throw redirect(307, '/');
 }
