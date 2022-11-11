@@ -13,8 +13,6 @@
 	let code = [];
 	let redirect;
 
-  $: $loginRedirect && (redirect = $loginRedirect, $loginRedirect = undefined);
-
 	$: need2fa = form?.message === '2fa';
 	$: if (need2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
 
@@ -84,8 +82,8 @@
 				{/if}
 
 				<form class="space-y-5" {action} method="POST" use:enhance>
-					{#if redirect}
-						<input type="hidden" name="loginRedirect" value={redirect} />
+					{#if $loginRedirect}
+						<input type="hidden" name="loginRedirect" value={$loginRedirect} />
 					{/if}
 
 					<div>
