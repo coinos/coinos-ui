@@ -7,6 +7,7 @@
 	import { t } from '$lib/translations';
 	import { Avatar, Icon, Spinner } from '$comp';
 	import { back, failure } from '$lib/utils';
+	import { format, parseISO } from 'date-fns';
 
 	export let data;
 	export let form;
@@ -81,19 +82,33 @@
 		</div>
 	</form>
 
-  {#if contacts.length}
-	<div class="space-y-5">
-		<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">Contacts</h1>
-		<div class="flex flex-wrap gap-4">
-			{#each contacts as c}
-				<a href={`/${c.username}/receive`}>
-					<div class="text-center">
-            <Avatar user={c} size={20} disabled={true} />
-						<p class="text-lg break-words my-auto">{c.username}</p>
+	{#if contacts.length}
+		<div class="space-y-5">
+			<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">Contacts</h1>
+			<div>
+				{#each contacts as c}
+					<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+						<a href={`/${c.username}/receive`}>
+							<div class="flex">
+								<div>
+									<div class="flex">
+										<Avatar user={c} size={20} disabled={true} />
+										<div class="my-auto text-left">
+											<p class="ml-1 text-lg break-words">{c.username}</p>
+											<p class="ml-1 text-secondary">
+												{format(parseISO(c.last), 'MMM d')}
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="my-auto ml-auto p-2 border rounded-xl">
+									<Icon icon="send" style="w-10" />
+								</div>
+							</div>
+						</a>
 					</div>
-				</a>
-			{/each}
+				{/each}
+			</div>
 		</div>
-	</div>
-  {/if}
+	{/if}
 </div>
