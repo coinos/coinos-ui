@@ -41,29 +41,29 @@
 		{#if user}
 			<a href={`/${user.username}/dashboard`}>
 				<button
-					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${user.username}/dashboard`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="home" style="mx-auto w-6" />
+					><Icon icon="home" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
 			<a href={`/${user.username}/receive`}>
 				<button
-					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${user.username}/receive`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="numpad" style="mx-auto" />
+					><Icon icon="numpad" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
 			<a href={`/${user.username}/transactions`}>
 				<button
-					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${user.username}/transactions`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'} relative"
-					><Icon icon="clock" style="mx-auto" />
+					><Icon icon="clock" style="mx-auto w-6 md:w-8" />
 					{#if $newPayment}
 						<span class="absolute top-0 right-0">
 							<span class="flex h-3 w-3">
@@ -78,24 +78,24 @@
 			</a>
 			<a href={`/send`}>
 				<button
-					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/send`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="send" style="mx-auto w-6" />
+					><Icon icon="send" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
 			<div class="relative">
 				<OutClick on:outclick={() => (showMenu = false)}>
 					<button
-						class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
 							.url.pathname === `/${user.username}` ||
 						$page.url.pathname === `/${user.username}/settings` ||
 						$page.url.pathname === `/support`
 							? 'opacity-100'
 							: `opacity-70 hover:opacity-80 ${showMenu ? 'opacity-80' : ''}`}"
 						on:click={() => (showMenu = !showMenu)}
-						><Icon icon="menu" style="mx-auto" />
+						><Icon icon="menu" style="mx-auto w-6 md:w-8" />
 					</button>
 
 					<div
@@ -108,8 +108,8 @@
 								<li>
 									<a {href}>
 										<button
-											class="flex justify-center items-center font-semibold text-sm hover:opacity-80"
-											><Icon {icon} style="mr-1 w-6" /> {$t(key)}
+											class="flex justify-center items-center font-semibold hover:opacity-80"
+											><Icon {icon} style="mr-2 w-6 md:w-8" /> {$t(key)}
 										</button>
 									</a>
 								</li>
