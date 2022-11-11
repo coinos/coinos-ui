@@ -10,7 +10,7 @@
 	export let data;
 	let { src } = data;
 	$: ({ amount, currency, rate, redeemed, redeemcode, user } = data.payment);
-	onMount(() => ($loginRedirect = $page.url.pathname));
+  onMount(() => ($loginRedirect = `/redeem/${redeemcode}`));
 
 	toast.pop(0);
 

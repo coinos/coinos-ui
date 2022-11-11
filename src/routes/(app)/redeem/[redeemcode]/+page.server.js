@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import { auth, post } from '$lib/utils';
 
-export async function GET({ cookies, locals, params }) {
+export async function load({ cookies, locals, params }) {
 	let { user } = locals;
 
 	if (user) {
