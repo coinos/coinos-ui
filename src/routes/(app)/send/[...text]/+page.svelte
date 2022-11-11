@@ -84,7 +84,7 @@
   {#if contacts.length}
 	<div class="space-y-5">
 		<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">Contacts</h1>
-		<div class="flex gap-4">
+		<div class="flex flex-wrap gap-4">
 			{#each contacts as c}
 				<a href={`/${c.username}/receive`}>
 					<div class="text-center">
