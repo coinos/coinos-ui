@@ -57,15 +57,6 @@
 					><Icon icon="numpad" style="mx-auto" />
 				</button>
 			</a>
-			<a href={`/scan`}>
-				<button
-					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/scan`
-						? 'opacity-100'
-						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="camera" style="mx-auto w-6" />
-				</button>
-			</a>
 			<a href={`/${user.username}/transactions`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
@@ -83,6 +74,15 @@
 							</span>
 						</span>
 					{/if}
+				</button>
+			</a>
+			<a href={`/send`}>
+				<button
+					class="bg-white p-2 rounded-full w-12 h-12 drop-shadow-xl border border-black/10 {$page
+						.url.pathname === `/send`
+						? 'opacity-100'
+						: 'opacity-70 hover:opacity-80'}"
+					><Icon icon="send" style="mx-auto w-6" />
 				</button>
 			</a>
 			<div class="relative">
