@@ -115,6 +115,8 @@
 								</li>
 							{/each}
 						</ul>
+            <hr class="my-4" />
+            <a href="/"><img src="/images/logo.svg"></a>
 					</div>
 				</OutClick>
 			</div>
