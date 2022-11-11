@@ -23,15 +23,16 @@
 		>
 			{$t('landing.subheader')}
 		</h2>
-			<div class="flex justify-center">
-				<a href="/register">
-					<button
-						class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
-					>
-						{$t('nav.startInSeconds')}
-					</button>
-				</a>
-			</div>
+
+		<div class="flex justify-center">
+			<a href="/register">
+				<button
+					class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
+				>
+					{$t('nav.startInSeconds')}
+				</button>
+			</a>
+		</div>
 	</div>
 
 	<Image image="hero-image" style="w-full md:w-2/3 max-w-5xl mx-auto mt-20" />
