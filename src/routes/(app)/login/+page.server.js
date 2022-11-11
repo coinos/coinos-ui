@@ -3,7 +3,7 @@ import { login } from '$lib/utils';
 
 export const load = async ({ parent }) => {
 	let { user } = await parent();
-	if (user) throw redirect(307, '/dashboard');
+	if (user) throw redirect(307, `/${user.username}/dashboard`);
 };
 
 export const actions = {
