@@ -101,7 +101,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="my-auto ml-auto p-2 border rounded-xl">
+								<div class="my-auto ml-auto p-2 border rounded-xl bg-white">
 									<Icon icon="send" style="w-10" />
 								</div>
 							</div>

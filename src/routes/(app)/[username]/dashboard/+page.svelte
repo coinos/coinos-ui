@@ -88,20 +88,20 @@
 			>
 		</a>
 	</div>
+</div>
 
-	<div class="flex container max-w-md fixed bottom-4">
-		<div class="text-secondary flex mr-auto">
-			<div class="flex mr-1">
-				<div class="my-auto mr-1">1</div>
-				<img src="/images/bitcoin.svg" class="w-5 my-auto" />
-			</div>
-			<div>= {f(animatedRate, user.currency)}</div>
+<div class="flex fixed bottom-4 w-full px-4">
+	<div class="text-secondary flex mr-auto">
+		<div class="flex mr-1">
+			<div class="my-auto mr-1">1</div>
+			<img src="/images/bitcoin.svg" class="w-5 my-auto" />
 		</div>
-		<div class="text-secondary flex ml-auto">
-			<div class="flex">
-				<div class="mr-1">⚡️{s((1 * sats) / animatedRate)} =</div>
-				<div>{f(1, user.currency)}</div>
-			</div>
+		<div>= {f(animatedRate, user.currency)}</div>
+	</div>
+	<div class="text-secondary flex ml-auto">
+		<div class="flex">
+			<div class="mr-1">⚡️{s((1 * sats) / animatedRate)} =</div>
+			<div>{f(1, user.currency)}</div>
 		</div>
 	</div>
 </div>
