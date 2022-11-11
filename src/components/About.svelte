@@ -42,25 +42,9 @@
 	];
 </script>
 
-<h3 class="text-5xl font-medium mb-10 text-center">{$t('about.header')}</h3>
-<div
-	class="container grid lg:grid-cols-3 gap-20 text-secondary text-xl relative md:px-20 mx-auto space-y-5 md:space-y-0"
->
-	<p>
-		{@html $t('about.p1')}
-	</p>
-	<p>
-		{@html $t('about.p2')}
-	</p>
-	<p>
-		{@html $t('about.p3')}
-	</p>
-	<Image image="swoosh" style="w-32 absolute -bottom-20 lg:bottom-0 right-0 md:right-10" />
-</div>
-
 <div class="flex justify-center">
-	<div class="container mt-40">
-		<h3 class="text-5xl font-medium mb-10 text-center">
+	<div class="container space-y-10">
+		<h3 class="text-5xl font-medium text-center">
 			{$t('about.team.header')}
 		</h3>
 		<div class="space-y-10 2xl:space-y-0 2xl:grid gap-y-10 grid-cols-2">
@@ -99,7 +83,7 @@
 	</div>
 </div>
 
-<div class="mt-40">
+<div>
 	<h3 class="text-5xl font-medium mb-5 text-center">{$t('about.locations.header')}</h3>
 	<p class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10">
 		{@html $t('about.locations.description')}
