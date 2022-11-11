@@ -20,7 +20,16 @@
 		<div class="text-center w-full mb-8">
       <a href="/"><img src="/icons/logo.webp" class="w-20" /></a>
 		</div>
-		<div class="text-center">
+		<div class="flex gap-2 justify-center">
+			<div>
+				<a href="/register">
+					<button
+						class="bg-black text-white border rounded-full px-6 py-4 font-bold hover:opacity-80 text-lg"
+					>
+						Get started
+					</button>
+				</a>
+			</div>
 			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />
 		</div>
 	</div>
