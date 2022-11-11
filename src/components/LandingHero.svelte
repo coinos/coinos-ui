@@ -23,7 +23,6 @@
 		>
 			{$t('landing.subheader')}
 		</h2>
-		{#if !user}
 			<div class="flex justify-center">
 				<a href="/register">
 					<button
@@ -33,7 +32,6 @@
 					</button>
 				</a>
 			</div>
-		{/if}
 	</div>
 
 	<Image image="hero-image" style="w-full md:w-2/3 max-w-5xl mx-auto mt-20" />
