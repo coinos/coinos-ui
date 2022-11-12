@@ -1,29 +1,32 @@
-<script>
-	import { page } from '$app/stores';
-	import { fly } from 'svelte/transition';
-	import { enhance } from '$app/forms';
-	import { tick } from 'svelte';
-	import { browser } from '$app/environment';
-	import { t } from '$lib/translations';
-	import { Avatar, Icon, Spinner } from '$comp';
-	import { back, failure } from '$lib/utils';
-	import { format, parseISO } from 'date-fns';
+  <script>
+    import { page } from '$app/stores';
+    import { fly } from 'svelte/transition';
+    import { enhance } from '$app/forms';
+    import { tick } from 'svelte';
+    import { browser } from '$app/environment';
+    import { t } from '$lib/translations';
+    import { Avatar, Icon, Spinner } from '$comp';
+    import { back, failure } from '$lib/utils';
+    import { format, parseISO } from 'date-fns';
 
-	export let data;
-	export let form;
+    export let data;
+    export let form;
 
-	let { contacts } = data;
+    let { contacts } = data;
+    let w;
 
-	let el, textarea, text;
-	let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
+    let el, textarea, text;
+    let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
 
-	$: $page && setTimeout(() => textarea?.focus(), 0);
-	let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
+    $: $page && setTimeout(() => w > 800 && textarea?.focus(), 0);
+    let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
 
-	let paste = async () => {
-		text = await navigator.clipboard.readText();
-	};
-</script>
+    let paste = async () => {
+      text = await navigator.clipboard.readText();
+    };
+  </script>
+
+<svelte:window bind:innerWidth={w} />
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
