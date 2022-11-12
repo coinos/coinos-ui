@@ -18,7 +18,6 @@
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
 
-		{#if user?.username !== subject.username}
 			<div class="flex flex-wrap gap-2 w-full">
 				<div class="w-full flex">
 					<a href={`/${subject.username}/receive`} class="mx-auto">
@@ -42,7 +41,7 @@
 					</a>
 				</div>
 
-				{#if user}
+				{#if user?.username !== subject.username}
 					<div class="w-full flex">
 						<a href={`/${subject.username}/request`} class="mx-auto">
 							<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
@@ -55,7 +54,6 @@
 					</div>
 				{/if}
 			</div>
-		{/if}
 	</div>
 
 	<div class="w-full flex">
