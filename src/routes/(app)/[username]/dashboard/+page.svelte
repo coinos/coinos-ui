@@ -57,8 +57,8 @@
 </script>
 
 <div class="container px-4 max-w-md mx-auto mt-20 space-y-12">
-	<div>
-		<div class="text-5xl font-bold mb-2">
+	<div class="mt-24 space-y-2">
+		<div class="text-5xl font-bold">
 			{$selectedRate ? f(accountBalanceFiat, user.currency) : $t('user.dashboard.fetchingRate')}
 		</div>
 
@@ -109,16 +109,16 @@
 					<div class="text-secondary">{sat(amount)}</div>
 				</div>
 				<div class="flex ml-auto my-auto gap-2">
-					<a href={`/invoice/${uuid}`}>
+					<a href={`/invoice/${uuid}/tip`}>
 						<div class="p-2 border rounded-xl bg-white flex">
 							<Icon icon="send" style="w-8 opacity-50 hover:opacity-100" />
 						</div>
 					</a>
-					<a href={`/invoice/${uuid}`}>
+					<form action="/request?/delete" method="POST">
 						<div class="p-2 border rounded-xl bg-white flex">
 							<Icon icon="close" style="w-8 opacity-50 hover:opacity-100" />
 						</div>
-					</a>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -150,7 +150,7 @@
 	</div>
 </div>
 
-<div class="flex fixed bottom-4 w-full px-4">
+<div class="flex fixed w-full px-4 bg-white py-2 bottom-0">
 	<div class="text-secondary flex mr-auto">
 		<div class="flex mr-1">
 			<div class="my-auto mr-1">1</div>

@@ -1,6 +1,7 @@
 <script>
+  import { onMount } from "svelte";
 	import { browser } from '$app/environment';
-	import { invoice as inv, invoices } from '$lib/store';
+	import { invoice as inv, invoices, request } from '$lib/store';
 	import { back, copy, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
@@ -112,6 +113,8 @@
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
 
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
+
+  onMount(() => ($request = undefined));
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -126,6 +129,7 @@
 		<input type="hidden" name="rate" value={rate} />
 		<input type="hidden" name="prompt" value="false" />
 		<input type="hidden" name="network" value={network} />
+		<input type="hidden" name="request_id" value={invoice.request?.id} />
 
 		<h1 class="text-4xl font-semibold my-8">{$t('invoice.addTipq')}</h1>
 		{#if !showCustomAmount}
