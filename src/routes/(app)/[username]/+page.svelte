@@ -18,42 +18,42 @@
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
 
-			<div class="flex flex-wrap gap-2 w-full">
-				<div class="w-full flex">
-					<a href={`/${subject.username}/receive`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
-							<div class="mx-auto flex">
-								<div style="mr-1">⚡️</div>
-								<div>Lightning</div>
-							</div>
-						</button>
-					</a>
-				</div>
-
-				<div class="w-full flex">
-					<a href={`/${subject.username}/receive/bitcoin`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
-							<div class="mx-auto flex">
-								<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
-								<div>Bitcoin</div>
-							</div>
-						</button>
-					</a>
-				</div>
-
-				{#if user?.username !== subject.username}
-					<div class="w-full flex">
-						<a href={`/${subject.username}/request`} class="mx-auto">
-							<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
-								<div class="mx-auto flex">
-									<Icon icon="support" style="mr-1" />
-									<div>Invoice</div>
-								</div>
-							</button>
-						</a>
-					</div>
-				{/if}
+		<div class="flex flex-wrap gap-2 w-full">
+			<div class="w-full flex">
+				<a href={`/${subject.username}/receive`} class="mx-auto">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+						<div class="mx-auto flex">
+							<div style="mr-1">⚡️</div>
+							<div>Lightning</div>
+						</div>
+					</button>
+				</a>
 			</div>
+
+			<div class="w-full flex">
+				<a href={`/${subject.username}/receive/bitcoin`} class="mx-auto">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+						<div class="mx-auto flex">
+							<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
+							<div>Bitcoin</div>
+						</div>
+					</button>
+				</a>
+			</div>
+
+			{#if user?.username !== subject.username}
+				<div class="w-full flex">
+					<a href={`/${subject.username}/request`} class="mx-auto">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+							<div class="mx-auto flex">
+								<Icon icon="support" style="mr-1" />
+								<div>Invoice</div>
+							</div>
+						</button>
+					</a>
+				</div>
+			{/if}
+		</div>
 	</div>
 
 	<div class="w-full flex">
