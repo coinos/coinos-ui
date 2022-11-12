@@ -10,19 +10,23 @@
 	export let user;
 
 	let showMobileMenu = false;
+	let header;
 	const mobileMenuButtonClick = (section) => {
 		showMobileMenu = false;
 		scroll(section);
 	};
 </script>
 
-<header class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90">
+<header
+	class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
+	bind:this={header}
+>
 	<nav class="block xl:flex flex-wrap justify-between items-center">
 		<div class="flex justify-start md:justify-center items-center md:space-x-10">
-			<a href="/" class="hidden md:block">
-				<Icon icon="logo" style="mb-5 xl:mb-0" />
+			<a href="/" on:click={(() => console.log('HMM'), scroll(header))}>
+				<Icon icon="logo" style="hidden md:block mb-5 xl:mb-0" />
+				<Icon icon="logo" style="block md:hidden ml-5 w-48" />
 			</a>
-			<Icon icon="logo" style="block md:hidden ml-5 w-48" />
 		</div>
 
 		<!-- desktop nav -->
