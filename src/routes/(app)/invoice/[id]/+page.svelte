@@ -93,11 +93,8 @@
 		</div>
 	</div>
 
-	<div class="w-full !mt-5 sm:!mt-8">
-		<div class="relative mx-auto w-[330px] h-[330px]">
-			<img {src} class:p-4={full} class="w-[300px] mx-auto pt-1" bind:this={qr} on:click={toggle} />
-			<div class="border-2 rounded-[20%] w-[330px] -top-[10px] absolute h-[330px]" />
-		</div>
+	<div class="w-full">
+		<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
 	</div>
 
 	{#if address}
