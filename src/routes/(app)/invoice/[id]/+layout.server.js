@@ -8,6 +8,7 @@ export async function load({ depends, params, url }) {
 	let { id } = params;
 	let invoice = await get(`/invoice?uuid=${id}`);
 	let { amount, received, pending } = invoice;
+	amount = parseInt(amount);
 
 	let paid = (!amount && (received || pending)) || (amount > 0 && received + pending >= amount);
 	if (paid && !url.pathname.endsWith('paid')) throw redirect(307, `/invoice/${id}/paid`);

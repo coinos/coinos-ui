@@ -10,59 +10,78 @@
 	let followed = false;
 </script>
 
-<div class="container px-4 flex flex-wrap sm:flex-nowrap mb-4">
-	<div class="w-full sm:w-[340px] pt-20 space-y-5 mr-4">
-		<h1 class="text-3xl font-bold text-center sm:text-left">{subject.username}</h1>
+<div class="container mx-auto w-full x-4 mb-4 flex flex-wrap">
+	<div class="w-[240px] pt-20 space-y-5 lg:absolute left-20 mx-auto">
+		<h1 class="text-3xl font-bold text-center mx-auto lg:text-left">{subject.username}</h1>
 
-		<div class="text-secondary w-64">
+		<div class="text-secondary mx-auto text-center lg:text-left lg:mx-0">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
 
 		{#if user?.username !== subject.username}
-			<div>
-				<a href={`/${subject.username}/receive`}>
-					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2">
-						Pay now
-					</button>
-				</a>
+			<div class="flex flex-wrap gap-2 w-full">
+				<div class="w-full flex">
+					<a href={`/${subject.username}/receive`} class="mx-auto">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+							<div class="mx-auto flex">
+								<div style="mr-1">⚡️</div>
+								<div>Lightning</div>
+							</div>
+						</button>
+					</a>
+				</div>
+
+				<div class="w-full flex">
+					<a href={`/${subject.username}/address`} class="mx-auto">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+							<div class="mx-auto flex">
+								<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
+								<div>Bitcoin</div>
+							</div>
+						</button>
+					</a>
+				</div>
 
 				{#if user}
-					<a href={`/${subject.username}/request`}>
-						<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
-							>Ask to pay</button
-						>
-					</a>
+					<div class="w-full flex">
+						<a href={`/${subject.username}/request`} class="mx-auto">
+							<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+								<div class="mx-auto flex">
+									<Icon icon="support" style="mr-1" />
+									<div>Invoice</div>
+								</div>
+							</button>
+						</a>
+					</div>
 				{/if}
-
-				<a href={`/${subject.username}/address`}>
-					<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2">
-						Bitcoin address
-					</button>
-				</a>
 			</div>
 		{/if}
 	</div>
 
-	<div class="space-y-5 mt-5 sm:mt-20 mx-auto max-w-lg">
-		<img {src} class="w-[300px] mx-auto" on:click={() => copy(text)} alt="Lightning address" />
+	<div class="w-full flex">
+		<div class="space-y-5 mt-5 lg:pt-20 mx-auto max-w-lg">
+			<div class="border-2 rounded-[20%] w-[380px] py-6 mx-auto">
+				<img {src} class="mx-auto" on:click={() => copy(text)} alt="Lightning address" />
+			</div>
 
-		<div class="bg-primary font-semibold rounded-xl text-sm p-3 flex">
-			<div class="my-auto font-semibold text-lg w-full text-center">{text}</div>
-			<button class="ml-auto hover:opacity-80" on:click={() => copy(text)}>
-				<Icon icon="copy" />
-			</button>
+			<div class="bg-primary font-semibold rounded-3xl text-sm p-3 flex">
+				<div class="my-auto font-semibold text-lg w-full text-center">{text}</div>
+				<button class="ml-auto hover:opacity-80" on:click={() => copy(text)}>
+					<Icon icon="copy" />
+				</button>
+			</div>
+
+			{#if user?.username === subject.username}
+				<p class="text-secondary mb-1">
+					This <a
+						href="https://lightningaddress.com"
+						class="underline"
+						target="_blank"
+						rel="noreferrer">lightning address</a
+					> is like an email for bitcoin. You can publish it on your website or business cards and use
+					it multiple times.
+				</p>
+			{/if}
 		</div>
-
-		{#if user?.username === subject.username}
-			<p class="text-secondary mb-1">
-				This <a
-					href="https://lightningaddress.com"
-					class="underline"
-					target="_blank"
-					rel="noreferrer">lightning address</a
-				> is like an email for bitcoin. You can publish it on your website or business cards and use
-				it multiple times.
-			</p>
-		{/if}
 	</div>
 </div>

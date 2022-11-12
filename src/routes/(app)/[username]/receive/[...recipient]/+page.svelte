@@ -68,12 +68,10 @@
 			<Numpad bind:amount bind:currency />
 			<button
 				type="submit"
-				class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold {!amount
-					? 'opacity-50'
-					: 'opacity-100 hover:opacity-80'}"
-				disabled={!amount}
+				class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold
+				opacity-100 hover:opacity-80"
 			>
-				Next
+				{amount ? 'Next' : "Sender's choice"}
 			</button>
 		</div>
 	</form>

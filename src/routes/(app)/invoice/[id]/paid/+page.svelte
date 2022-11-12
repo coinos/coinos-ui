@@ -54,10 +54,8 @@
 			{/if}
 		</h3>
 	{/if}
-
-	<a href={`/${user.username}/receive`}>
-		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
-			{$t('invoice.done')}
-		</button>
-	</a>
 </div>
+
+<a href={`/${user.username}/receive`}>
+	<div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+</a>

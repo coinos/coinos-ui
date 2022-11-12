@@ -71,9 +71,13 @@
 		{$t('user.transactions.header')}
 	</h1>
 
-	<div class="container w-full mx-auto md:text-lg px-4 max-w-xl">
-		<div class="flex text-md text-secondary flex-wrap mb-4">
-			<select class="md:hidden bg-white border p-4 rounded-full" on:change={change}>
+	<div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
+		<div class="flex text-md text-secondary flex-wrap relative">
+			<Icon icon="clock" style="absolute left-4 top-4 opacity-50 md:hidden" />
+			<select
+				class="md:hidden bg-white border rounded-full text-center w-36 h-14"
+				on:change={change}
+			>
 				{#each presets as { start, end, title }, i}
 					<option
 						selected={selection === i}
@@ -87,14 +91,17 @@
 						class:active={selection === i}
 						href={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}
 					>
-						<button class="rounded-full border py-2 px-5 hover:opacity-80 mb-2">
+						<button class="rounded-full border px-4 hover:opacity-80 h-14 w-20">
 							<div class="my-auto">{title}</div>
 						</button>
 					</a>
 				{/each}
 			</div>
-			<button class="ml-auto rounded-xl border py-2 px-5 hover:opacity-80 mb-2 flex" on:click={csv}>
-				<Icon icon="save" style="opacity-50 mr-2" />
+			<button
+				class="ml-auto rounded-full border px-4 w-36 hover:opacity-80 flex h-14"
+				on:click={csv}
+			>
+				<Icon icon="save" style="opacity-50 mr-2 my-auto" />
 				<div class="my-auto">Export</div>
 			</button>
 		</div>
@@ -111,10 +118,10 @@
 			{/if}
 		</div>
 
-		<div class="space-y-10">
+		<div class="text-base">
 			{#each $txns as tx}
-				<div class="grid grid-cols-3 border-b pb-5">
-					<div class="whitespace-nowrap">
+				<div class="grid grid-cols-3 border-b h-24">
+					<div class="whitespace-nowrap my-auto">
 						<div class="mb-1 font-bold">
 							{f(tx.amount * (tx.rate / sats), tx.currency)}
 
@@ -136,24 +143,32 @@
 						</span>
 					</div>
 
-					<div class="flex">
+					<div class="flex my-auto">
 						{#if tx.with}
 							<a href={`/${tx.with.username}`} class="mx-auto">
 								<div class="flex">
 									<div class="my-auto">
-										<Avatar user={tx.with} size={12} />
+										<Avatar user={tx.with} size={20} />
 									</div>
 									<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
 								</div>
 							</a>
 						{:else}
-							<div class="mx-auto text-secondary">
-								{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
+							<div class="mx-auto text-secondary flex">
+								{#if tx.network === 'lightning'}
+									<div class="text-6xl">⚡️</div>
+								{:else}
+									<img src="/images/bitcoin.svg" class="w-16 my-auto mr-2" />
+								{/if}
+
+								<div class="my-auto">
+									{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
+								</div>
 							</div>
 						{/if}
 					</div>
 
-					<div class="text-secondary text-right">
+					<div class="text-secondary text-right text-sm my-auto">
 						<div>
 							{format(parseISO(tx.createdAt), 'h:mm aaa')}
 						</div>
