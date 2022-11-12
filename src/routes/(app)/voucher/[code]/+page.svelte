@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
@@ -10,7 +9,6 @@
 	export let data;
 	let { src } = data;
 	$: ({ amount, currency, rate, redeemed, redeemcode, user } = data.payment);
-	onMount(() => ($loginRedirect = `/redeem/${redeemcode}`));
 
 	toast.pop(0);
 
@@ -43,7 +41,10 @@
 				</h3>
 			</div>
 			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
-				<a href={`/redeem/${redeemcode}`}>
+				<a
+					href={`/redeem/${redeemcode}`}
+					on:click={() => ($loginRedirect = `/redeem/${redeemcode}`)}
+				>
 					<button
 						class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
 						class:bg-gray-200={redeemed}
