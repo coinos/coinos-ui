@@ -122,7 +122,7 @@
 			{#each $txns as tx}
 				<div class="grid grid-cols-3 border-b h-24">
 					<div class="whitespace-nowrap my-auto">
-						<div class="mb-1 font-bold">
+						<div class="font-bold">
 							{f(tx.amount * (tx.rate / sats), tx.currency)}
 
 							{#if tx.tip}
@@ -132,15 +132,15 @@
 							{/if}
 						</div>
 
-						<span class="text-secondary"
-							>{sat(tx.amount)}
+						<div class="text-secondary">
+							{sat(tx.amount)}
 
 							{#if tx.tip}
 								<span class="text-sm">
 									+{sat(tx.tip)}
 								</span>
 							{/if}
-						</span>
+						</div>
 					</div>
 
 					<div class="flex my-auto">
@@ -156,9 +156,11 @@
 						{:else}
 							<div class="mx-auto text-secondary flex">
 								{#if tx.network === 'lightning'}
-									<div class="text-6xl">⚡️</div>
+									<div class="text-5xl">⚡️</div>
 								{:else}
-									<img src="/images/bitcoin.svg" class="w-16 my-auto mr-2" />
+									<div class="w-20 my-auto">
+										<img src="/images/bitcoin.svg" class="border-4 border-white" />
+									</div>
 								{/if}
 
 								<div class="my-auto">
