@@ -9,6 +9,9 @@
 
 	export let data;
 	export let form;
+	let network = 'lightning';
+
+	if ($page.params.network) ({ network } = $page.params);
 
 	let req;
 
@@ -27,8 +30,6 @@
 
 	$: paid = browser && form && Object.values($invoices).find((inv) => inv.amount === form.amount);
 	$: paid && goto(`/invoice/${paid.uuid}/paid`);
-
-	let network = 'lightning';
 </script>
 
 {#if form && req}

@@ -32,7 +32,7 @@
 				</div>
 
 				<div class="w-full flex">
-					<a href={`/${subject.username}/address`} class="mx-auto">
+					<a href={`/${subject.username}/receive/bitcoin`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
 							<div class="mx-auto flex">
 								<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
