@@ -10,7 +10,7 @@
 	let followed = false;
 </script>
 
-<div class="container mx-auto w-full x-4 mb-4 flex flex-wrap">
+<div class="container mx-auto w-full px-4 mb-4 flex flex-wrap">
 	<div class="w-[240px] pt-20 space-y-5 lg:absolute left-20 mx-auto">
 		<h1 class="text-3xl font-bold text-center mx-auto lg:text-left">{subject.username}</h1>
 
