@@ -1,7 +1,7 @@
 import { auth, get, post } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 
-export default async ({ cookies, request }) => {
+export default async ({ cookies, request, url }) => {
 	let form = await request.formData();
 
 	let rates = await get('/rates');
@@ -21,7 +21,11 @@ export default async ({ cookies, request }) => {
 
 	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
 
-	if (request_id) throw redirect(307, `/${user.username}/request/${request_id}`);
+	if (request_id) {
+		if (url.pathname.endsWith('tip'))
+      throw redirect(307, `/send/${uuid}`);
+    throw redirect(307, `/${user.username}/request/${request_id}`);
+	}
 
 	if (invoice.prompt) {
 		throw redirect(307, `/invoice/${uuid}/tip`);

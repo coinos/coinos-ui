@@ -6,9 +6,9 @@ export let load = ({ locals }) => {
 };
 
 export const actions = {
-	default: async ({ cookies, request, url }) => {
+	default: async ({ cookies, locals, request, url }) => {
 		let form = Object.fromEntries(await request.formData());
-		await post('/requests', form, auth(cookies));
-		throw redirect(307, url.href + '/sent');
+		let { id } = await post('/requests', form, auth(cookies));
+		throw redirect(307, `/${locals.user.username}/request/${id}`);
 	}
 };

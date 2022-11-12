@@ -31,8 +31,6 @@
 		pages = [];
 	$: data && ({ page: p, pages, start, end, total, transactions } = data);
 
-	$: console.log($txns.length), ($txns = transactions);
-
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
 
