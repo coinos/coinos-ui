@@ -7,14 +7,10 @@
 
 	let scanner, vid;
 	onMount(() => {
-		scanner = new QrScanner(
-			vid,
-			({ data }) => scanner.stop() || goto(`/send/${encodeURI(data)}`),
-			{
-				highlightScanRegion: true,
-				highlightCodeOutline: true
-			}
-		);
+		scanner = new QrScanner(vid, ({ data }) => scanner.stop() || goto(`/send/${encodeURI(data)}`), {
+			highlightScanRegion: true,
+			highlightCodeOutline: true
+		});
 		scanner.start();
 	});
 
