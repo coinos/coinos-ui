@@ -9,7 +9,7 @@
 	onMount(() => {
 		scanner = new QrScanner(
 			vid,
-			({ data }) => console.log(data) || scanner.stop() || goto(`/send/${encodeURI(data)}`),
+			({ data }) => scanner.stop() || goto(`/send/${encodeURI(data)}`),
 			{
 				highlightScanRegion: true,
 				highlightCodeOutline: true
