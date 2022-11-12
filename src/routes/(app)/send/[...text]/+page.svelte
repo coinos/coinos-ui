@@ -1,30 +1,30 @@
-  <script>
-    import { page } from '$app/stores';
-    import { fly } from 'svelte/transition';
-    import { enhance } from '$app/forms';
-    import { tick } from 'svelte';
-    import { browser } from '$app/environment';
-    import { t } from '$lib/translations';
-    import { Avatar, Icon, Spinner } from '$comp';
-    import { back, failure } from '$lib/utils';
-    import { format, parseISO } from 'date-fns';
+<script>
+	import { page } from '$app/stores';
+	import { fly } from 'svelte/transition';
+	import { enhance } from '$app/forms';
+	import { tick } from 'svelte';
+	import { browser } from '$app/environment';
+	import { t } from '$lib/translations';
+	import { Avatar, Icon, Spinner } from '$comp';
+	import { back, failure } from '$lib/utils';
+	import { format, parseISO } from 'date-fns';
 
-    export let data;
-    export let form;
+	export let data;
+	export let form;
 
-    let { contacts } = data;
-    let w;
+	let { contacts } = data;
+	let w;
 
-    let el, textarea, text;
-    let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
+	let el, textarea, text;
+	let placeholder = 'Paste a bitcoin address, lightning invoice or coinos username';
 
-    $: $page && setTimeout(() => w > 800 && textarea?.focus(), 0);
-    let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
+	$: $page && setTimeout(() => w > 800 && textarea?.focus(), 0);
+	let keypress = (e) => e.key === 'Enter' && (e.preventDefault() || el.click());
 
-    let paste = async () => {
-      text = await navigator.clipboard.readText();
-    };
-  </script>
+	let paste = async () => {
+		text = await navigator.clipboard.readText();
+	};
+</script>
 
 <svelte:window bind:innerWidth={w} />
 
@@ -91,24 +91,31 @@
 			<div>
 				{#each contacts as c}
 					<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
-						<a href={`/${c.username}/receive`}>
-							<div class="flex">
-								<div>
-									<div class="flex">
-										<Avatar user={c} size={20} disabled={true} />
-										<div class="my-auto text-left">
-											<p class="ml-1 text-lg break-words">{c.username}</p>
-											<p class="ml-1 text-secondary">
-												{format(parseISO(c.last), 'MMM d')}
-											</p>
-										</div>
+						<div class="flex">
+							<div>
+								<div class="flex">
+									<Avatar user={c} size={20} disabled={true} />
+									<div class="my-auto text-left">
+										<p class="ml-1 text-lg break-words">{c.username}</p>
+										<p class="ml-1 text-secondary">
+											{format(parseISO(c.last), 'MMM d')}
+										</p>
 									</div>
 								</div>
-								<div class="my-auto ml-auto p-2 border rounded-xl bg-white">
-									<Icon icon="send" style="w-10" />
-								</div>
 							</div>
-						</a>
+							<div class="flex ml-auto my-auto gap-2">
+								<a href={`/${c.username}/request`}>
+									<div class="my-auto p-2 border rounded-xl bg-white opacity-50 hover:opacity-100">
+										<Icon icon="support" style="w-8" />
+									</div>
+								</a>
+								<a href={`/${c.username}/receive`}>
+									<div class="my-auto p-2 border rounded-xl bg-white opacity-50 hover:opacity-100">
+										<Icon icon="send" style="w-8" />
+									</div>
+								</a>
+							</div>
+						</div>
 					</div>
 				{/each}
 			</div>

@@ -6,7 +6,7 @@ export default async ({ cookies, request }) => {
 
 	let rates = await get('/rates');
 	let amount = parseInt(form.get('amount'));
-	let requester = form.get('requester');
+	let request_id = form.get('request_id');
 
 	let invoice = {
 		amount,
@@ -14,14 +14,14 @@ export default async ({ cookies, request }) => {
 		network: form.get('network'),
 		prompt: form.get('prompt') === 'true',
 		rate: parseFloat(form.get('rate')) || rates[form.get('currency')],
-		requester
+		request_id
 	};
 
 	let user = { username: form.get('username') };
 
 	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
 
-	if (requester) return { amount };
+	if (request_id) throw redirect(307, `/${user.username}/request/${request_id}`);
 
 	if (invoice.prompt) {
 		throw redirect(307, `/invoice/${uuid}/tip`);

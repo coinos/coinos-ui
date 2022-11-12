@@ -1,12 +1,13 @@
 <script>
 	import { f, s, post, failure, sat, sats } from '$lib/utils';
 	import { tick } from 'svelte';
-	import { Icon } from '$comp';
+	import { Avatar, Icon } from '$comp';
 	import { rate, selectedRate } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
 	export let data;
+	$: ({ invoices, requests } = data);
 
 	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
 	let interval, rateInterval;
@@ -87,6 +88,65 @@
 				>Voucher</button
 			>
 		</a>
+	</div>
+
+	{#each invoices as { amount, currency, rate, user, uuid }}
+		<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+			<div class="flex">
+				<div>
+					<div class="flex">
+						<Avatar {user} size={20} />
+						<div class="my-auto text-left">
+							<p class="ml-1 text-lg break-words">{user.username}</p>
+						</div>
+					</div>
+				</div>
+				<div class="whitespace-nowrap my-auto mx-auto flex gap-2">
+					<div class="font-bold">
+						{f(amount * (rate / sats), currency)}
+					</div>
+
+					<div class="text-secondary">{sat(amount)}</div>
+				</div>
+				<div class="flex ml-auto my-auto gap-2">
+					<a href={`/invoice/${uuid}`}>
+						<div class="p-2 border rounded-xl bg-white flex">
+							<Icon icon="send" style="w-8 opacity-50 hover:opacity-100" />
+						</div>
+					</a>
+					<a href={`/invoice/${uuid}`}>
+						<div class="p-2 border rounded-xl bg-white flex">
+							<Icon icon="close" style="w-8 opacity-50 hover:opacity-100" />
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	{/each}
+
+	<div>
+		{#each requests as { id, invoice, memo, requester: r }}
+			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+				<div class="flex">
+					<div>
+						<div class="flex">
+							<Avatar user={r} size={20} />
+							<div class="my-auto text-left">
+								<p class="ml-1 text-lg break-words">{r.username}</p>
+								<p class="ml-1 text-secondary">{memo}</p>
+							</div>
+						</div>
+					</div>
+					<div class="flex ml-auto my-auto">
+						<a href={`/${user.username}/receive/${id}`}>
+							<div class="p-2 border rounded-xl bg-white flex">
+								<Icon icon="numpad" style="w-8 opacity-50 hover:opacity-100" />
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		{/each}
 	</div>
 </div>
 
