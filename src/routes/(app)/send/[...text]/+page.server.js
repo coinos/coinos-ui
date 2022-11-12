@@ -17,8 +17,7 @@ let parse = async (t, r) => {
 	// ln address
 	if (t.includes('@') && t.includes('.')) {
 		let [name, domain] = t.split('@');
-    console.log("DOMAIN", r.host, domain, r);
-		if (domain === r.host) t = name;
+		if (domain === r.url.host) t = name;
 		else {
 			try {
 				t = await get(`/encode?domain=${domain}&name=${name}`);
