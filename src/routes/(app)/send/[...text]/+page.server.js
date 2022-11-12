@@ -17,6 +17,7 @@ let parse = async (t, r) => {
 	// ln address
 	if (t.includes('@') && t.includes('.')) {
 		let [name, domain] = t.split('@');
+    console.log("DOM", domain, r.url.host)
 		if (domain === r.url.host) t = name;
 		else {
 			try {
@@ -24,6 +25,8 @@ let parse = async (t, r) => {
 			} catch (e) {}
 		}
 	}
+
+  console.log("T", t)
 
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
 	if (t.includes(':')) t = t.split(':')[1];
