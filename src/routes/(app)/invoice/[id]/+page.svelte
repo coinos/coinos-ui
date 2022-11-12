@@ -104,7 +104,7 @@
 	<div class="flex gap-2 justify-center">
 		<button
 			class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80"
-			on:click={() => copy(text)}
+			on:click={() => copy(address ? address : text)}
 			><Icon icon="copy" style="mr-1" />
 			<div>Copy</div></button
 		>
