@@ -4,7 +4,7 @@
 
 	export let user;
 	export let size = 32;
-  export let disabled = false;
+	export let disabled = false;
 	$: s = size.toString();
 </script>
 

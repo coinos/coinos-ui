@@ -26,9 +26,8 @@
 		{f(fiat, user.currency)}
 	</h2>
 	<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
-	<a href={`/${user.username}/transactions`}>
-		<button class="bg-black text-white rounded-2xl w-20 py-3 font-bold hover:opacity-80">
-			{$t('invoice.done')}
-		</button>
-	</a>
 </div>
+
+<a href={`/${user.username}/transactions`}>
+	<div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+</a>

@@ -107,16 +107,15 @@
 							{#each menuButtons as { href, icon, key }}
 								<li>
 									<a {href}>
-										<button
-											class="flex justify-center items-center font-semibold hover:opacity-80"
+										<button class="flex justify-center items-center font-semibold hover:opacity-80"
 											><Icon {icon} style="mr-2 w-6 md:w-8" /> {$t(key)}
 										</button>
 									</a>
 								</li>
 							{/each}
 						</ul>
-            <hr class="my-4" />
-            <a href="/"><img src="/images/logo.svg" alt="Coinos"></a>
+						<hr class="my-4" />
+						<a href="/"><img src="/images/logo.svg" alt="Coinos" /></a>
 					</div>
 				</OutClick>
 			</div>
@@ -128,7 +127,9 @@
 			</a>
 		{/if}
 	</nav>
-	<div class="absolute md:w-[64px] md:mx-auto left-[calc(50vw-64px)] -bottom-[64px]">
+	<div
+		class="absolute md:w-[64px] md:mx-auto lg:left-[138px] left-[calc(50vw-64px)] -bottom-[64px]"
+	>
 		<Avatar user={subject} />
 	</div>
 </header>
