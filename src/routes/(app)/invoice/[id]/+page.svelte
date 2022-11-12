@@ -73,11 +73,11 @@
 	};
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
+<button class="ml-5 mt-5 sm:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container mx-auto max-w-lg px-4 space-y-2 md:space-y-5">
+<div class="container mx-auto max-w-lg px-4 space-y-2 sm:space-y-5">
 	<div>
 		<h1 class="text-secondary text-center text-xl">Please pay</h1>
 
@@ -93,24 +93,34 @@
 		</div>
 	</div>
 
-	{#if !user || user.username === username || showQr}
-		<div class="mx-auto">
-			<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
+	<div class="w-full !mt-5 sm:!mt-8">
+		<div class="relative mx-auto w-[330px] h-[330px]">
+			<img {src} class:p-4={full} class="w-[300px] mx-auto pt-1" bind:this={qr} on:click={toggle} />
+			<div class="border-2 rounded-[20%] w-[330px] -top-[10px] absolute h-[330px]" />
 		</div>
+	</div>
 
-		{#if address}
-			<div class="text-secondary">{address}</div>
-		{/if}
-
-		<div class="flex gap-2 justify-center">
-			<button
-				class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80"
-				on:click={() => copy(text)}
-				><Icon icon="copy" style="mr-1" />
-				<div>Copy</div></button
-			>
-		</div>
+	{#if address}
+		<div class="text-secondary text-center">{address}</div>
 	{/if}
+
+	<div class="flex gap-2 justify-center">
+		<button
+			class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80"
+			on:click={() => copy(text)}
+			><Icon icon="copy" style="mr-1" />
+			<div>Copy</div></button
+		>
+
+		{#if user && user.username !== username}
+			<a href={`/send/${invoice.uuid}`}>
+				<button class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80">
+					<Icon icon="send" style="mr-1" />
+					<div class="my-auto">Pay</div>
+				</button>
+			</a>
+		{/if}
+	</div>
 
 	<div class="space-y-2 w-80 mx-auto">
 		{#if invoice.tip}
@@ -141,22 +151,6 @@
 			</div>
 		{/if}
 	</div>
-
-	{#if user && user.username !== username}
-		<div class="mx-auto my-auto flex gap-2 justify-center">
-			<a href={`/send/${invoice.uuid}`}>
-				<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-					Pay now
-				</button>
-			</a>
-			<button
-				class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
-				on:click={() => (showQr = !showQr)}
-			>
-				{showQr ? 'Hide' : 'Show'} QR
-			</button>
-		</div>
-	{/if}
 </div>
 
 <style>

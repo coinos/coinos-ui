@@ -102,7 +102,9 @@
 	$invoices[id] = { amount, id, network, rate, received, text, tip, username };
 
 	$: browser &&
-		$invoices[id]?.received >= $invoices[id]?.amount &&
+		($invoices[id]?.amount > 0
+			? $invoices[id]?.received >= $invoices[id]?.amount
+			: $invoices[id]?.received) &&
 		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));

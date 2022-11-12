@@ -9,11 +9,11 @@
 	let { subject, user } = data;
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
+<button class="ml-5 md:ml-20 mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container max-w-lg px-4 mx-auto">
+<div class="container max-w-lg px-4 mx-auto mt-10 space-y-5">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Request an invoice</h1>
 
 	<form method="POST" use:enhance class="space-y-5">
@@ -22,7 +22,7 @@
 
 		<textarea
 			name="memo"
-			placeholder="You can use this field to describe your order"
+			placeholder="Use this field to describe your order"
 			class="w-full p-4 border rounded-xl h-48"
 		/>
 
@@ -31,7 +31,7 @@
 				type="submit"
 				class="bg-black text-white border rounded-full px-6 py-2 font-bold mx-auto"
 			>
-				Submit Request
+				Submit
 			</button>
 		</div>
 	</form>
