@@ -1,9 +1,12 @@
 <script>
 	import { fly } from 'svelte/transition';
 	import { Avatar, Icon } from '$comp';
-	import { request } from '$lib/store';
+	import { request, requestRedirect } from '$lib/store';
+	import { page } from '$app/stores';
 
 	export let user;
+
+	$requestRedirect = $page.url.pathname;
 </script>
 
 {#if $request}
@@ -19,7 +22,7 @@
 				{/if}
 			</div>
 			<div class="mx-auto my-auto flex gap-2">
-				<a href={`/${user.username}/receive`}>
+				<a href={`/${user.username}/receive/${$request.id}`}>
 					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-40">
 						Invoice
 					</button>
