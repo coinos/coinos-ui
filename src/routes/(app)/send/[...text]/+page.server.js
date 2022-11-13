@@ -25,6 +25,8 @@ let parse = async (t, host) => {
 		}
 	}
 
+  if (t.includes("/voucher")) throw redirect(307, t.substring(t.indexOf('/voucher')));
+
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
 	if (t.includes(':')) t = t.split(':')[1];
 
