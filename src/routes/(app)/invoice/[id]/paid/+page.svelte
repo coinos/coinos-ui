@@ -14,8 +14,8 @@
 
 	toast.pop(0);
 
-	$: amountFiat = parseFloat(((received * rate) / sats).toFixed(2));
-	$: pendingFiat = parseFloat(((pending * rate) / sats).toFixed(2));
+	$: amountFiat = parseFloat((((received - tip) * rate) / sats).toFixed(2));
+	$: pendingFiat = parseFloat((((pending - tip) * rate) / sats).toFixed(2));
 	$: tipFiat = parseFloat(((tip * rate) / sats).toFixed(2));
 </script>
 
@@ -32,7 +32,7 @@
 			{/if}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">
-			{sat(received)}
+			{sat(received - tip)}
 			{#if tip}
 				+{sat(tip)}
 			{/if}
@@ -48,7 +48,7 @@
 			{/if}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">
-			{sat(pending)}
+			{sat(pending - tip)}
 			{#if tip}
 				+{sat(tip)}
 			{/if}
