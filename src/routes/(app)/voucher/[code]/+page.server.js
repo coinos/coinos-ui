@@ -1,7 +1,6 @@
 import { get } from '$lib/utils';
 import Qr from 'qrcode-base64';
 export let load = async ({ params: { code }, url }) => {
-  console.log(url)
 	let payment = await get(`/payment/${code}`);
 
 	let src = Qr.drawImg(url.href, { size: 300 });
