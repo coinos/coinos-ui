@@ -6,7 +6,7 @@ export default async ({ cookies, request, url }) => {
 
 	let rates = await get('/rates');
 	let amount = parseInt(form.get('amount'));
-	let request_id = form.get('request_id');
+	let request_id = parseInt(form.get('request_id'));
 
 	let invoice = {
 		amount,
@@ -22,9 +22,9 @@ export default async ({ cookies, request, url }) => {
 	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
 
 	if (request_id) {
-		if (url.pathname.endsWith('tip'))
-      throw redirect(307, `/send/${uuid}`);
-    throw redirect(307, `/${user.username}/request/${request_id}`);
+    console.log("HERE", request_id)
+		if (url.pathname.endsWith('tip')) throw redirect(307, `/send/${uuid}`);
+		throw redirect(307, `/${user.username}/request/${request_id}`);
 	}
 
 	if (invoice.prompt) {
