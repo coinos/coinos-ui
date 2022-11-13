@@ -88,33 +88,23 @@
 			<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">Contacts</h1>
 			<div>
 				{#each contacts as c}
-					<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
-						<div class="flex">
-							<div>
-								<div class="flex">
-									<Avatar user={c} size={20} disabled={true} />
-									<div class="my-auto text-left">
-										<p class="ml-1 text-lg break-words">{c.username}</p>
-										<p class="ml-1 text-secondary">
-											{format(parseISO(c.last), 'MMM d')}
-										</p>
+					<a href={`/send/user/${c.username}`}>
+						<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+							<div class="flex">
+								<div>
+									<div class="flex">
+										<Avatar user={c} size={20} />
+										<div class="my-auto text-left">
+											<p class="ml-1 text-lg break-words">{c.username}</p>
+											<p class="ml-1 text-secondary">
+												{format(parseISO(c.last), 'MMM d')}
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="flex ml-auto my-auto gap-2">
-								<a href={`/${c.username}/request`}>
-									<div class="my-auto p-2 border rounded-xl bg-white opacity-50 hover:opacity-100">
-										<Icon icon="support" style="w-8" />
-									</div>
-								</a>
-								<a href={`/${c.username}/receive`}>
-									<div class="my-auto p-2 border rounded-xl bg-white opacity-50 hover:opacity-100">
-										<Icon icon="send" style="w-8" />
-									</div>
-								</a>
-							</div>
 						</div>
-					</div>
+					</a>
 				{/each}
 			</div>
 		</div>

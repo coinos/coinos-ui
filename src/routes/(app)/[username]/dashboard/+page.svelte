@@ -93,38 +93,39 @@
 
 	<div>
 		{#each invoices as { request_id, amount, currency, rate, user: recipient, requester, uuid }}
-      <a href={`/invoice/${uuid}/tip`} class:pointer-events-none={user.username === recipient.username}>
-			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
-				<div class="flex gap-2">
-					<div>
-						{#if user.username === requester.username}
-							<div class="flex">
-								<Avatar user={recipient} size={20} />
-								<div class="my-auto text-left">
-									<p class="text-secondary">Invoice from</p>
-									<p class="ml-1 text-lg break-words">{recipient.username}</p>
+			{@const requested = user.username === requester.username}
+			<a href={`/invoice/${uuid}` + (requested ? '/tip' : '')}>
+				<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+					<div class="flex gap-2">
+						<div>
+							{#if requested}
+								<div class="flex">
+									<Avatar user={recipient} size={20} />
+									<div class="my-auto text-left">
+										<p class="text-secondary">Invoice from</p>
+										<p class="ml-1 text-lg break-words">{recipient.username}</p>
+									</div>
 								</div>
-							</div>
-						{:else}
-							<div class="flex">
-								<Avatar user={requester} size={20} />
-								<div class="my-auto text-left">
-									<p class="text-secondary">You invoiced</p>
-									<p class="ml-1 text-lg break-words">{requester.username}</p>
+							{:else}
+								<div class="flex">
+									<Avatar user={requester} size={20} />
+									<div class="my-auto text-left">
+										<p class="text-secondary">You invoiced</p>
+										<p class="ml-1 text-lg break-words">{requester.username}</p>
+									</div>
 								</div>
-							</div>
-						{/if}
-					</div>
-					<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
-						<div class="font-bold">
-							{f(amount * (rate / sats), currency)}
+							{/if}
 						</div>
+						<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
+							<div class="font-bold">
+								{f(amount * (rate / sats), currency)}
+							</div>
 
-						<div class="text-secondary">{sat(amount)}</div>
+							<div class="text-secondary">{sat(amount)}</div>
+						</div>
 					</div>
 				</div>
-			</div>
-      </a>
+			</a>
 		{/each}
 	</div>
 
