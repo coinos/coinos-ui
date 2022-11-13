@@ -93,6 +93,7 @@
 
 	<div>
 		{#each invoices as { request_id, amount, currency, rate, user: recipient, requester, uuid }}
+      <a href={`/invoice/${uuid}/tip`} class:pointer-events-none={user.username === recipient.username}>
 			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
 				<div class="flex gap-2">
 					<div>
@@ -122,32 +123,8 @@
 						<div class="text-secondary">{sat(amount)}</div>
 					</div>
 				</div>
-				<div class="w-full flex">
-					<div class="flex mx-auto my-auto gap-2">
-						{#if user.username === requester.username}
-							<a href={`/invoice/${uuid}/tip`}>
-								<div class="p-2 border rounded-full">
-									<div class="flex">
-										<Icon icon="send" style="w-6" />
-										<div>Pay</div>
-									</div>
-								</div>
-							</a>
-						{/if}
-						<form action={`/${user.username}/request?/delete`} method="POST" use:enhance>
-							<input type="hidden" name="request_id" value={request_id} />
-							<div class="p-2 border rounded-full bg-white flex">
-								<button type="submit">
-									<div class="flex">
-										<Icon icon="close" style="w-6" />
-										<div>Dismiss</div>
-									</div>
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
 			</div>
+      </a>
 		{/each}
 	</div>
 

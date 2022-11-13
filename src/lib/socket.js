@@ -31,6 +31,7 @@ export const messages = (data) => ({
 
 	request() {
 		request.set(data);
+		invalidate('app:invoice');
 	},
 
 	async payment() {
