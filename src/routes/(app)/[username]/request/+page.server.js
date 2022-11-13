@@ -6,9 +6,14 @@ export let load = ({ locals }) => {
 };
 
 export const actions = {
-	default: async ({ cookies, locals, request, url }) => {
+	create: async ({ cookies, locals, request, url }) => {
 		let form = Object.fromEntries(await request.formData());
 		let { id } = await post('/requests', form, auth(cookies));
 		throw redirect(307, `/${locals.user.username}/request/${id}`);
+	},
+
+	delete: async ({ cookies, request }) => {
+		let form = Object.fromEntries(await request.formData());
+		let r = await post('/requests/delete', form, auth(cookies));
 	}
 };
