@@ -29,7 +29,7 @@
 		total,
 		transactions = [],
 		pages = [];
-	$: data && ({ page: p, pages, start, end, total, transactions } = data);
+	$: data && ({ page: p, pages, start, end, total, transactions: $txns } = data);
 
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
