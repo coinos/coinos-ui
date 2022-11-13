@@ -5,14 +5,16 @@
 	import { tick } from 'svelte';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { Avatar, Icon, Spinner } from '$comp';
+	import { AppHeader, Avatar, Icon, Spinner } from '$comp';
 	import { back, failure } from '$lib/utils';
 	import { format, parseISO } from 'date-fns';
 
 	export let data;
 	export let form;
+  data.subject = data.user;
 
 	let { contacts } = data;
+  console.log("C", contacts)
 	let w;
 
 	let el, textarea, text;
@@ -28,10 +30,7 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-	<Icon icon="arrow-left" style="w-10" />
-</button>
-
+<AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-10">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Send</h1>
 
