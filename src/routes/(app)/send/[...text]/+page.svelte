@@ -11,7 +11,7 @@
 
 	export let data;
 	export let form;
-  data.subject = data.user;
+	data.subject = data.user;
 
 	let { contacts } = data;
 	let w;

@@ -61,13 +61,7 @@
 
 			<div class="mb-4">
 				<label for="email" class="font-semibold">{$t('user.support.email')}</label>
-				<input
-					class="bg-primary"
-					type="email"
-					name="email"
-					bind:value={email}
-					required
-				/>
+				<input class="bg-primary" type="email" name="email" bind:value={email} required />
 			</div>
 
 			<div class="mb-4">
