@@ -51,7 +51,7 @@
 			<div class="mb-4">
 				<label for="account" class="font-semibold">{$t('user.support.accountName')}</label>
 				<input
-					class="block border rounded-xl p-2 w-full"
+					class="bg-primary"
 					type="text"
 					name="account"
 					required
@@ -62,7 +62,7 @@
 			<div class="mb-4">
 				<label for="email" class="font-semibold">{$t('user.support.email')}</label>
 				<input
-					class="block border rounded-xl p-2 w-full"
+					class="bg-primary"
 					type="email"
 					name="email"
 					bind:value={email}
@@ -74,7 +74,7 @@
 				<label for="message" class="font-semibold">{$t('user.support.message')}</label>
 				<textarea
 					rows={5}
-					class="block border rounded-xl p-2 w-full"
+					class="bg-primary"
 					type="text"
 					name="message"
 					bind:value={message}

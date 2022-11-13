@@ -20,7 +20,7 @@ html {
 	background-color: white;
 }
 
-input {
+input, textarea {
 	@apply block border rounded-2xl px-5 py-4 w-full;
 }
 
