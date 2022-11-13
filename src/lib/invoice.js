@@ -22,7 +22,6 @@ export default async ({ cookies, request, url }) => {
 	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
 
 	if (request_id) {
-		console.log('HERE', request_id);
 		if (url.pathname.endsWith('tip')) throw redirect(307, `/send/${uuid}`);
 		throw redirect(307, `/${user.username}/request/${request_id}`);
 	}
