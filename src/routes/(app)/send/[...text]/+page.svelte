@@ -14,7 +14,6 @@
   data.subject = data.user;
 
 	let { contacts } = data;
-  console.log("C", contacts)
 	let w;
 
 	let el, textarea, text;

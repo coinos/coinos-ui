@@ -16,7 +16,7 @@
 <div class="container max-w-lg px-4 mx-auto mt-10 space-y-5">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Request an invoice</h1>
 
-	<form method="POST" use:enhance class="space-y-5">
+	<form action="?/create" method="POST" use:enhance class="space-y-5">
 		<input type="hidden" name="requester_id" value={user.id} />
 		<input type="hidden" name="recipient" value={subject.username} />
 
