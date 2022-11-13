@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { invoice as inv, invoices, request } from '$lib/store';
 	import { back, copy, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
@@ -114,7 +114,7 @@
 
 	$: invoiceAmountFiatFormatted = f(amountFiat, currency);
 
-  onMount(() => ($request = undefined));
+	onMount(() => ($request = undefined));
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
