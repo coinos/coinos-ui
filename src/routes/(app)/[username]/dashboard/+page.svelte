@@ -148,7 +148,7 @@
 	</div>
 </div>
 
-<div class="flex fixed w-full px-4 bg-white py-2 bottom-0 opacity-50">
+<div class="flex fixed w-full px-4 bg-white py-2 bottom-0 bg-opacity-90">
 	<div class="text-secondary flex mr-auto">
 		<div class="flex mr-1">
 			<div class="my-auto mr-1">1</div>
