@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import { fly } from 'svelte/transition';
+    import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { tick } from 'svelte';
 	import { browser } from '$app/environment';
@@ -31,7 +31,9 @@
 
 <AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
-	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Send</h1>
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
+				{$t('transactions.send')}
+  </h1>
 
 	<form method="POST" use:enhance>
 		{#if form?.error}

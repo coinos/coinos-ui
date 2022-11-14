@@ -1,4 +1,5 @@
 <script>
+	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -37,11 +38,11 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto">
 	{#if amount}
 		<div class="text-center mb-8">
-			<h1 class="text-xl md:text-2xl text-secondary mb-2">Send</h1>
+			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('transactions.send')}</h1>
 			<p class="text-6xl break-words mb-4">
 				{s(amount)} <span class="text-xl md:text-2xl text-secondary">sats</span>
 			</p>
-			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>
+        <h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('transactions.to')}</h1>
 			<p class="text-6xl break-words">{alias}</p>
 		</div>
 
@@ -60,7 +61,7 @@
 					{#if loading}
 						<Spinner />
 					{:else}
-						Send
+						{$t('transactions.send')}
 					{/if}
 				</button>
 			</div>
