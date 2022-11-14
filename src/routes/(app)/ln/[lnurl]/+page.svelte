@@ -1,4 +1,5 @@
 <script>
+	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { Numpad, Spinner } from '$comp';
 	import { pin } from '$lib/store';
@@ -38,7 +39,7 @@
 				{#if loading}
 					<Spinner />
 				{:else}
-					Send
+          {$t('transactions.send')}
 				{/if}
 			</button>
 		</div>

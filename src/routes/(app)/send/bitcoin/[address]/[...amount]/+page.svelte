@@ -1,4 +1,5 @@
 <script>
+	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -32,7 +33,7 @@
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
 	<div class="text-center mb-8">
-		<h1 class="text-3xl md:text-4xl font-semibold mb-2">Send to</h1>
+    <h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t("transactions.sendTo")}</h1>
 		<p class="text-lg text-secondary">{address}</p>
 	</div>
 	<Numpad bind:amount {currency} />
@@ -50,7 +51,7 @@
 				{#if loading}
 					<Spinner />
 				{:else}
-					Send
+          {$t('transactions.send')}
 				{/if}
 			</button>
 		</div>
