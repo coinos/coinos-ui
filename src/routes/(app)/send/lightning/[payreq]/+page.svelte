@@ -13,12 +13,13 @@
 
 	let { currency } = data.user;
 	let amount = form?.amount || data.amount;
+	let a;
 
 	let loading;
 	let submit = () => (loading = true);
 	$: update(form);
 	let update = () => {
-		if (form?.message.includes('pin')) $pin = undefined;
+		if (form?.message?.includes('pin')) $pin = undefined;
 		loading = false;
 	};
 </script>
@@ -43,28 +44,38 @@
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>
 			<p class="text-6xl break-words">{alias}</p>
 		</div>
+
+		<form method="POST" use:enhance on:submit={submit} action="?/send">
+			<input name="payreq" value={payreq} type="hidden" />
+			<input name="amount" value={amount} type="hidden" />
+			<input name="confirmed" value={form?.confirm} type="hidden" />
+			<input name="pin" value={$pin} type="hidden" />
+
+			<div class="flex w-full">
+				<button
+					type="submit"
+					class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+					disabled={loading}
+				>
+					{#if loading}
+						<Spinner />
+					{:else}
+						Send
+					{/if}
+				</button>
+			</div>
+		</form>
 	{:else}
-		<Numpad bind:amount {currency} />
-	{/if}
-
-	<form method="POST" use:enhance on:submit={submit}>
-		<input name="payreq" value={payreq} type="hidden" />
-		<input name="amount" value={amount} type="hidden" />
-		<input name="confirmed" value={form?.confirm} type="hidden" />
-		<input name="pin" value={$pin} type="hidden" />
-
-		<div class="flex w-full">
+		<form method="POST" action="?/setAmount" class="w-[300px]">
+			<input type="hidden" value={a} name="amount" />
+			<Numpad bind:amount={a} {currency} />
 			<button
 				type="submit"
-				class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-				disabled={loading}
+				class="bg-black text-white rounded-xl h-[48px] flex w-full justify-center items-center font-semibold
+				opacity-100 hover:opacity-80"
 			>
-				{#if loading}
-					<Spinner />
-				{:else}
-					Send
-				{/if}
+				Next
 			</button>
-		</div>
-	</form>
+		</form>
+	{/if}
 </div>
