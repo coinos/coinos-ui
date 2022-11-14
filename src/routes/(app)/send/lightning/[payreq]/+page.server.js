@@ -6,7 +6,10 @@ export async function load({ params }) {
 }
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	setAmount: async ({ cookies, request }) => {
+		return Object.fromEntries(await request.formData());
+	},
+	send: async ({ cookies, request }) => {
 		try {
 			let body = Object.fromEntries(await request.formData());
 			let { amount, confirmed } = body;
