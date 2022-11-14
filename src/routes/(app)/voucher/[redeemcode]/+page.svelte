@@ -1,4 +1,5 @@
 <script>
+	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import { Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
@@ -41,18 +42,20 @@
 				</h3>
 			</div>
 			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
-				<a
-					href={`/redeem/${redeemcode}`}
-					on:click={() => ($loginRedirect = `/redeem/${redeemcode}`)}
+				<form
+					method="POST"
+					use:enhance
+					on:submit={() => ($loginRedirect = `/redeem/${redeemcode}`)}
 				>
 					<button
+						type="submit"
 						class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
 						class:bg-gray-200={redeemed}
-						disabled={redeemed}
+						disabled={redeemed || $loginRedirect}
 					>
 						{redeemed ? 'Redeemed' : 'Redeem'}
 					</button>
-				</a>
+				</form>
 			</div>
 		</div>
 	</div>
