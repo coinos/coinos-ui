@@ -57,7 +57,7 @@
 	$: accountBalanceBtc = user.account.balance / sats;
 </script>
 
-<div class="container px-4 max-w-md mx-auto mt-20 space-y-12">
+<div class="container px-4 max-w-md mx-auto mt-20 space-y-12 mb-8">
 	<div class="mt-24 space-y-2">
 		<div class="text-5xl font-bold">
 			{$selectedRate ? f(accountBalanceFiat, user.currency) : $t('user.dashboard.fetchingRate')}
@@ -138,17 +138,9 @@
 							<Avatar user={r} size={20} />
 							<div class="my-auto text-left">
 								<p class="ml-1 text-lg break-words">{r.username}</p>
-								<p class="ml-1 text-secondary">Is ready to pay</p>
 								<p class="ml-1 text-secondary">{memo}</p>
 							</div>
 						</div>
-					</div>
-					<div class="flex ml-auto my-auto">
-						<a href={`/${user.username}/receive/${id}`}>
-							<div class="p-2 border rounded-xl bg-white flex">
-								<Icon icon="numpad" style="w-8 opacity-50 hover:opacity-100" />
-							</div>
-						</a>
 					</div>
 				</div>
 			</div>
@@ -156,7 +148,7 @@
 	</div>
 </div>
 
-<div class="flex fixed w-full px-4 bg-white py-2 bottom-0">
+<div class="flex fixed w-full px-4 bg-white py-2 bottom-0 opacity-50">
 	<div class="text-secondary flex mr-auto">
 		<div class="flex mr-1">
 			<div class="my-auto mr-1">1</div>
