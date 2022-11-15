@@ -177,7 +177,9 @@
 			"optionalNote": "Note (Optional)",
 			"send": "Send",
 			"receive": "Receive",
-			"withdraw": "Send"
+			"withdraw": "Send",
+      "deposit": "Deposit",
+      "voucher": "Voucher"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",
@@ -215,7 +217,11 @@
 			"twofa": "2-Factor Authentication",
 			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
 			"twofaSetup": "Set up 2FA",
-			"twofaDisable": "Disable 2FA"
+			"twofaDisable": "Disable 2FA",
+      "select": "Select",
+      "verifyPIN": "Verify PIN",
+      "enablePIN": "Enable PIN",
+      "disablePIN": "Disable PIN"
 		},
 		"support": {
 			"header": "Support",
@@ -238,5 +244,19 @@
       "sendTo": "Send to",
       "to": "to"
 		}
-	}
+	},
+  "transactions": {
+    "header": "Transactions",
+    "AMOUNT": "AMOUNT",
+    "TYPE": "TYPE",
+    "TIME": "TIME",
+    "sent": "Sent",
+    "received": "Received",
+    "empty": "No transactions yet.",
+    "send": "Send",
+    "next": "Next",
+    "sendersChoice": "Sender's choice",
+    "sendTo": "Send to",
+    "to": "to"
+  }
 }

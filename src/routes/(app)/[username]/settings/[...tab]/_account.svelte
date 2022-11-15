@@ -165,7 +165,7 @@
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
 				on:click={() => select('profile')}
-				on:keydown={() => select('profile')}>Select</button
+        on:keydown={() => select('profile')}>{$t("user.settings.select")}</button
 			>
 			<input
 				type="file"
@@ -220,7 +220,7 @@
 		type="button"
 		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
 		on:click={() => select('banner')}
-		on:keydown={() => select('banner')}>Select</button
+      on:keydown={() => select('banner')}>{$t("user.settings.select")}</button
 	>
 	<input
 		type="file"
