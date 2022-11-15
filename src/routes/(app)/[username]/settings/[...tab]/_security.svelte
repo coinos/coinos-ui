@@ -126,7 +126,7 @@
 <div>
 	<input type="hidden" name="newpin" value={pin} />
 
-	<span class="font-bold mb-1">{verifying ? 'Verify' : 'Security'} PIN</span>
+	<span class="font-bold mb-1">{verifying ? $t("user.settings.verifyPIN"): $t("user.settings.securityPIN")}</span>
 	<p class="text-secondary mb-1">
 		{$t('user.settings.securityPINDescription')}
 	</p>
@@ -157,7 +157,7 @@
 		</div>
 	{:else}
 		<button type="button" class="primary" on:click={togglePin}
-			><Icon icon="lock" style="mr-1" /> {user.haspin ? 'Disable Pin' : 'Enable Pin'}</button
+			><Icon icon="lock" style="mr-1" /> {user.haspin ? $t("user.settings.disablePIN") : $t("user.settings.enablePIN")}</button
 		>
 	{/if}
 </div>
