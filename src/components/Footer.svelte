@@ -4,12 +4,12 @@
 
 	const followLinks = [
 		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
-		{ url: 'https://github.com/coinos', titleID: 'github' },
-		{ url: 'https://t.me/coinos', titleID: 'telegram' }
+		// { url: 'https://github.com/coinos', titleID: 'github' },
+		{ url: 'https://t.me/+ilP5pTpC95U0ZmYx', titleID: 'telegram' }
 	];
 
 	const companyLinks = [
-		{ url: '/news', titleID: 'news' },
+		// { url: '/news', titleID: 'news' },
 		{ url: '/support', titleID: 'support' },
 		{ url: '/jobs', titleID: 'jobs' }
 	];
