@@ -18,6 +18,6 @@ export const actions = {
 			throw redirect(307, `/${user.username}/transactions`);
 		}
 
-		throw redirect(307, '/login');
+		throw redirect(307, '/register');
 	}
 };
