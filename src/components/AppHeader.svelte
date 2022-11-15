@@ -103,7 +103,7 @@
 							? 'block'
 							: 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z"
 					>
-						<ul class="space-y-5 w-32">
+						<ul class="space-y-5 w-48">
 							{#each menuButtons as { href, icon, key }}
 								<li>
 									<a {href}>
@@ -115,7 +115,7 @@
 							{/each}
 						</ul>
 						<hr class="my-4" />
-						<a href="/"><img src="/images/logo.svg" alt="Coinos" /></a>
+						<a href="/"><img src="/images/logo.svg" alt="Coinos" class="w-32" /></a>
 					</div>
 				</OutClick>
 			</div>

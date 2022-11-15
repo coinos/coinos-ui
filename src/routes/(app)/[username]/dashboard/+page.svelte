@@ -81,12 +81,12 @@
 		</a>
 		<a href={`/${user.username}/address`}>
 			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
-				>Deposit</button
+				>{$t('user.dashboard.deposit')}</button
 			>
 		</a>
 		<a href={`/send/voucher`}>
 			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
-				>Voucher</button
+				>{$t('user.dashboard.voucher')}</button
 			>
 		</a>
 	</div>
