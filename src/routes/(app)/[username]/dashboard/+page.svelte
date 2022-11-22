@@ -71,7 +71,7 @@
 	<div class="grid sm:grid-cols-2 gap-2 text-lg">
 		<a href="/send">
 			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
-				>{$t('user.dashboard.withdraw')}</button
+				>{$t('user.dashboard.send')}</button
 			>
 		</a>
 		<a href={`/${user.username}/receive`}>
@@ -110,7 +110,7 @@
 								<div class="flex">
 									<Avatar user={requester} size={20} />
 									<div class="my-auto text-left">
-										<p class="text-secondary">Awaiting</p>
+                    <p class="text-secondary">{$t("transactions.awaiting")}</p>
 										<p class="ml-1 text-lg break-words">{requester.username}</p>
 									</div>
 								</div>
@@ -131,26 +131,26 @@
 
 	<div>
 		{#each requests as { id, invoice, memo, requester: r }}
-      <a href={`/${user.username}/receive/${id}`}>
-			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
-				<div class="flex">
-					<div>
-						<div class="flex">
-							<Avatar user={r} size={20} />
-							<div class="my-auto text-left">
-								<p class="ml-1 text-lg break-words">{r.username}</p>
-								<p class="ml-1 text-secondary">{memo}</p>
+			<a href={`/${user.username}/receive/${id}`}>
+				<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+					<div class="flex">
+						<div>
+							<div class="flex">
+								<Avatar user={r} size={20} />
+								<div class="my-auto text-left">
+									<p class="ml-1 text-lg break-words">{r.username}</p>
+									<p class="ml-1 text-secondary">{memo}</p>
+								</div>
 							</div>
 						</div>
-					</div>
 						<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
-			<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
-				>Invoice</button
-			>
+							<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
+								>Invoice</button
+							>
 						</div>
+					</div>
 				</div>
-			</div>
-      </a>
+			</a>
 		{/each}
 	</div>
 </div>
