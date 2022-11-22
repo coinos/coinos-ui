@@ -8,9 +8,7 @@ let parse = async (t, host) => {
 
 	let amount, user, uuid;
 
-	t = t.toLowerCase();
-
-	t.startsWith('bitcoin:') &&
+	t.toLowerCase().startsWith('bitcoin:') &&
 		({
 			address: t,
 			options: { amount }
@@ -29,11 +27,11 @@ let parse = async (t, host) => {
 
 	if (t.includes('/voucher')) throw redirect(307, t.substring(t.indexOf('/voucher')));
 
-	if (t.startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
+	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
 	if (t.includes(':')) t = t.split(':')[1];
 
 	// lightning
-	if (t.startsWith('ln')) {
+	if (t.toLowerCase().startsWith('ln')) {
 		try {
 			({ uuid } = await get(`/invoice/${t}`));
 		} catch (e) {
