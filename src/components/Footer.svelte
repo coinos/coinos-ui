@@ -26,8 +26,8 @@
 					<button
 						class="bg-black text-white border rounded-full px-6 py-4 font-bold hover:opacity-80 text-lg"
 					>
-          {$t('nav.startInSeconds')}
-          </button>
+						{$t('nav.startInSeconds')}
+					</button>
 				</a>
 			</div>
 			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />

@@ -144,7 +144,6 @@
 		"failed": "Login failed"
 	},
 	"nav": {
-		"scan": "Scan",
 		"profile": "Profile",
 		"startInSeconds": "Start in Seconds",
 		"account": "Account",
@@ -161,11 +160,16 @@
 		"update1": ""
 	},
 	"user": {
+		"bitcoin": "Bitcoin",
+		"lightning": "Lightning",
 		"unfollow": "Unfollow",
 		"following": "Following",
 		"follow": "Follow",
 		"remove": "Remove",
 		"scanToPayBTC": "Scan to pay with bitcoin",
+    "this": "This",
+    "lightningAddress": "lightning address",
+    "likeAnEmail": "is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.",
 		"dashboard": {
 			"go": "Go",
 			"dashboard": "Dashboard",
@@ -178,12 +182,19 @@
 			"send": "Send",
 			"receive": "Receive",
 			"withdraw": "Send",
-      "deposit": "Deposit",
-      "voucher": "Voucher"
+			"deposit": "Deposit",
+			"voucher": "Voucher"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",
 			"showQR": "Show QR"
+		},
+		"send": {
+			"contacts": "Contacts",
+			"scan": "Scan",
+			"paste": "Paste",
+			"next": "Next",
+			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
 			"bannerImage": "Banner Image",
@@ -218,10 +229,10 @@
 			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
 			"twofaSetup": "Set up 2FA",
 			"twofaDisable": "Disable 2FA",
-      "select": "Select",
-      "verifyPIN": "Verify PIN",
-      "enablePIN": "Enable PIN",
-      "disablePIN": "Disable PIN"
+			"select": "Select",
+			"verifyPIN": "Verify PIN",
+			"enablePIN": "Enable PIN",
+			"disablePIN": "Disable PIN"
 		},
 		"support": {
 			"header": "Support",
@@ -229,34 +240,37 @@
 			"accountName": "Account Name",
 			"message": "Message",
 			"send": "Send"
-		},
-		"transactions": {
-			"header": "Transactions",
-			"AMOUNT": "AMOUNT",
-			"TYPE": "TYPE",
-			"TIME": "TIME",
-			"sent": "Sent",
-			"received": "Received",
-			"empty": "No transactions yet.",
-			"send": "Send",
-      "next": "Next",
-      "sendersChoice": "Sender's choice",
-      "sendTo": "Send to",
-      "to": "to"
 		}
 	},
-  "transactions": {
-    "header": "Transactions",
-    "AMOUNT": "AMOUNT",
-    "TYPE": "TYPE",
-    "TIME": "TIME",
-    "sent": "Sent",
-    "received": "Received",
-    "empty": "No transactions yet.",
-    "send": "Send",
-    "next": "Next",
-    "sendersChoice": "Sender's choice",
-    "sendTo": "Send to",
-    "to": "to"
-  }
+	"transactions": {
+		"header": "Transactions",
+		"AMOUNT": "AMOUNT",
+		"TYPE": "TYPE",
+		"TIME": "TIME",
+		"sent": "Sent",
+		"received": "Received",
+		"empty": "No transactions yet.",
+		"send": "Send",
+		"next": "Next",
+		"sendersChoice": "Sender's choice",
+		"sendTo": "Send to",
+		"to": "to",
+		"pay": "Pay",
+		"requesting": "is requesting",
+		"sentInvoiceTo": "Sent invoice to",
+		"sentRequestTo": "Sent request to",
+		"pleasePay": "Please pay",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "all": "All",
+    "export": "Export",
+    "invoice": "Invoice",
+    "readyToPay": "is ready to pay",
+    "describeOrder": "Use this field to describe your order",
+    "requestAnInvoice": "Request an invoice",
+    "submit": "Submit",
+    "isRequesting": "is requesting",
+    "awaiting": "Awaiting"
+	}
 }

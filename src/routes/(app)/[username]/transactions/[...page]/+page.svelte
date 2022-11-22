@@ -15,10 +15,10 @@
 	let change = ({ target: { value } }) => goto(value);
 
 	let presets = [
-		{ title: 'Day', start: sub(new Date(), { days: 1 }), end: null },
-		{ title: 'Week', start: sub(new Date(), { days: 7 }), end: null },
-		{ title: 'Month', start: sub(new Date(), { months: 1 }), end: null },
-		{ title: 'All', start: sub(new Date(), { years: 5 }), end: null }
+		{ title: $t('transactions.day'), start: sub(new Date(), { days: 1 }), end: null },
+		{ title: $t('transactions.week'), start: sub(new Date(), { days: 7 }), end: null },
+		{ title: $t('transactions.month'), start: sub(new Date(), { months: 1 }), end: null },
+		{ title: $t('transactions.all'), start: sub(new Date(), { years: 5 }), end: null }
 	];
 
 	$: selection = start
@@ -66,42 +66,23 @@
 
 <div class="mt-24 mb-20">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
-		{$t('user.transactions.header')}
+		{$t('transactions.header')}
 	</h1>
 
 	<div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
-		<div class="flex text-md text-secondary flex-wrap relative">
-			<Icon icon="clock" style="absolute left-4 top-4 opacity-50 md:hidden" />
-			<select
-				class="md:hidden bg-white border rounded-full text-center w-36 h-14"
-				on:change={change}
-			>
-				{#each presets as { start, end, title }, i}
-					<option
-						selected={selection === i}
-						value={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}>{title}</option
-					>
-				{/each}
-			</select>
-			<div class="hidden md:block flex">
+		<div class="flex text-md text-secondary relative">
+			<div class="mx-auto flex justify-center w-full gap-1">
 				{#each presets as { start, end, title }, i}
 					<a
 						class:active={selection === i}
 						href={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}
 					>
-						<button class="rounded-full border px-4 hover:opacity-80 h-14 w-20">
+						<button class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]">
 							<div class="my-auto">{title}</div>
 						</button>
 					</a>
 				{/each}
 			</div>
-			<button
-				class="ml-auto rounded-full border px-4 w-36 hover:opacity-80 flex h-14"
-				on:click={csv}
-			>
-				<Icon icon="save" style="opacity-50 mr-2 my-auto" />
-				<div class="my-auto">Export</div>
-			</button>
 		</div>
 
 		<div class="flex flex-wrap justify-center mb-8">
@@ -178,9 +159,13 @@
 					</div>
 				</div>
 			{:else}
-				<p class="text-secondary text-lg text-center">{$t('user.transactions.empty')}</p>
+				<p class="text-secondary text-lg text-center">{$t('transactions.empty')}</p>
 			{/each}
 		</div>
+		<button class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto" on:click={csv}>
+			<Icon icon="save" style="opacity-50 mr-2 my-auto" />
+			<div class="my-auto">{$t('transactions.export')}</div>
+		</button>
 	</div>
 </div>
 

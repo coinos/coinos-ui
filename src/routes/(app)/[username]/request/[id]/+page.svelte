@@ -1,4 +1,5 @@
 <script>
+	import { t } from '$lib/translations';
 	import { Avatar } from '$comp';
 	import { f, sat, sats } from '$lib/utils';
 	import { request as req, requestRedirect } from '$lib/store';
@@ -20,7 +21,7 @@
 	<div class="text-center mb-8 space-y-5">
 		{#if request.recipient_id === user.id}
 			<p class="text-5xl break-words">
-				<span class="text-xl md:text-2xl">Sent invoice to</span>
+				<span class="text-xl md:text-2xl">{$t('transactions.sentInvoiceTo')}</span>
 			</p>
 			<div class="flex p-1 gap-2 justify-center">
 				<Avatar user={request.requester} size={20} />
@@ -34,7 +35,7 @@
 			</div>
 		{:else}
 			<p class="text-5xl break-words">
-				<span class="text-xl md:text-2xl">Sent request to</span>
+				<span class="text-xl md:text-2xl">{$t('transactions.sentRequestTo')}</span>
 			</p>
 			<div class="flex p-1 gap-2 justify-center">
 				<Avatar user={request.recipient} size={20} />

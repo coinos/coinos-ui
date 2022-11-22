@@ -24,7 +24,7 @@
 					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
 						<div class="mx-auto flex">
 							<div style="mr-1">⚡️</div>
-							<div>Lightning</div>
+							<div>{$t('user.lightning')}</div>
 						</div>
 					</button>
 				</a>
@@ -35,7 +35,7 @@
 					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
 						<div class="mx-auto flex">
 							<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
-							<div>Bitcoin</div>
+							<div>{$t('user.bitcoin')}</div>
 						</div>
 					</button>
 				</a>
@@ -47,7 +47,7 @@
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
 							<div class="mx-auto flex">
 								<Icon icon="support" style="mr-1" />
-								<div>Invoice</div>
+								<div>{$t('user.invoice')}</div>
 							</div>
 						</button>
 					</a>
@@ -71,13 +71,13 @@
 
 			{#if user?.username === subject.username}
 				<p class="text-secondary mb-1">
-					This <a
+        {$t("user.this")} <a
 						href="https://lightningaddress.com"
 						class="underline"
 						target="_blank"
-						rel="noreferrer">lightning address</a
-					> is like an email for bitcoin. You can publish it on your website or business cards and use
-					it multiple times.
+      rel="noreferrer">{$t("user.lightningAddress")}</a
+    > {$t("user.likeAnEmail")}
+					
 				</p>
 			{/if}
 		</div>

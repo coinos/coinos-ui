@@ -10,10 +10,13 @@ export let load = async ({ cookies, depends, locals: { user }, params }) => {
 
 	if (invoice) {
 		let { amount, received, uuid } = invoice;
-		if ((received && !amount) || received >= amount) throw redirect(307, `/send/${uuid}`);
+		if (
+			request.recipient.username === user.username &&
+			((received && !amount) || received >= amount)
+		)
+			throw redirect(307, `/invoice/${uuid}/paid`);
 
-		if (request.requester.username === user.username)
-			throw redirect(307, `/send/${request.invoice.uuid}`);
+		if (request.requester.username === user.username) throw redirect(307, `/send/${uuid}`);
 	}
 
 	return { request };
