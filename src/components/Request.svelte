@@ -1,4 +1,5 @@
 <script>
+	import { t } from '$lib/translations';
 	import { fly } from 'svelte/transition';
 	import { Avatar, Icon } from '$comp';
 	import { request, requestRedirect } from '$lib/store';
@@ -15,13 +16,16 @@
 			<div class="my-auto mx-auto">
 				<div class="flex">
 					<Avatar user={$request.requester} size={12} />
-					<h1 class="my-auto"><b>{$request.requester.username}</b> is ready to pay</h1>
+					<h1 class="my-auto">
+						<b>{$request.requester.username}</b>
+						{$t('transactions.readyToPay')}
+					</h1>
 				</div>
 			</div>
 			<div class="mx-auto my-auto flex gap-2">
 				<a href={`/${user.username}/receive/${$request.id}`}>
 					<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-32">
-						Invoice
+						{$t('transactions.invoice')}
 					</button>
 				</a>
 			</div>

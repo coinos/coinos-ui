@@ -4,7 +4,7 @@
 		"pageNotFound": "La página no existe."
 	},
 	"about": {
-		"header": "About",
+		"header": "Sobre",
 		"p1": "coinos es una aplicación de código abierto para pagos con bitcoin. Su desarrollo comezó en Vancouver allá por Septiembre de 2012 como una solución para que comerciantes locales puedan aceptar pagos con bitcoin.",
 		"p3": "Si lo desea, puede descargar el código fuente de Coinos para ejecutar su propia instancia y tenerla conectada a sus propios nodos bitcoin y lightning. Estaremos encantados de ayudarle a en un proveedor de pagos y en un custodio benevolente para su comunidad.",
 		"p4": "Las transferencias entre cuentas de usuario en nuestro servidor son realizadas off-chain, esto hace que sean instantáneas, ilimitadas, y gratuitas.",
@@ -53,7 +53,7 @@
 		"signIn": "Por favor inicie sesión para continuar."
 	},
 	"faq": {
-		"header": "FAQ",
+		"header": "PMF",
 		"cost": {
 			"question": "Cuanto cuesta?",
 			"answer": "Coinos es gratis. No hay costos de registro ni mantenimiento. Puede enviar y recibir pagos de forma ilimitada por medio de Lightning Network sin costo alguno. Sin embargo, si quieres tus fondos hacia  una dirección de bitcoin on-chain existe una tarifa del 0,1%."
@@ -96,7 +96,10 @@
 		"addTip": "Agregar propina",
 		"addTipq": "Agregar propina?",
 		"done": "Listo",
-		"paymentSuccessful": "Pago exitoso!"
+		"paymentSuccessful": "Pago exitoso!",
+		"invoice": "Factura",
+		"total": "Total",
+		"tip": "Propina"
 	},
 	"jobs": {
 		"header": "Empleos",
@@ -141,6 +144,7 @@
 		"failed": "Inicio de sesión fallido"
 	},
 	"nav": {
+    "profile": "Perfil",
 		"startInSeconds": "Comience de inmediato",
 		"account": "Cuenta",
 		"signIn": "Iniciar sesión",
@@ -155,9 +159,17 @@
 		"update1": ""
 	},
 	"user": {
+		"bitcoin": "Bitcoin",
+		"lightning": "Relámpago",
+		"invoice": "Factura",
+		"unfollow": "Dejar de seguir",
+		"following": "Siguiendo",
 		"follow": "Seguir",
 		"remove": "Eliminar",
 		"scanToPayBTC": "Escanea para pagar en bitcoin",
+    "this": "Esta",
+    "lightningAddress": "dirección relámpago",
+    "likeAnEmail": "es como un correo electrónico para bitcoin. Puede publicarlo en su sitio web o tarjetas de presentación y usarlo varias veces.",
 		"dashboard": {
 			"dashboard": "Tablero",
 			"accountBalance": "Saldo",
@@ -168,11 +180,20 @@
 			"optionalNote": "Nota (Opcional)",
 			"send": "Enviar",
 			"receive": "Recibir un pago",
-			"withdraw": "Retirar"
+			"withdraw": "Retirar",
+			"deposit": "Depósito",
+			"voucher": "Vale"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Ingrese una cantidad menor a 1 bitcoin.",
 			"showQR": "Ver QR"
+		},
+		"send": {
+			"contacts": "Contactos",
+			"scan": "Escanear",
+			"paste": "Pegar",
+			"next": "Próxima",
+			"placeholder": "Pegue una dirección de bitcoin, una factura relámpago o un nombre de usuario de coinos"
 		},
 		"settings": {
 			"bannerImage": "Imagen de portada",
@@ -206,7 +227,11 @@
 			"twofa": "Autenticación de 2 factores",
 			"twofaDescription": "Agregue un nivel extra de seguridad a su cuenta con la autenticación de 2 factores (2FA).",
 			"twofaSetup": "Configurar 2FA",
-			"twofaDisable": "Desactivar 2FA"
+			"twofaDisable": "Desactivar 2FA",
+			"select": "Seleccione",
+			"verifyPIN": "Verificar PIN",
+			"enablePIN": "Habilitar PIN",
+			"disablePIN": "Deshabilitar PIN"
 		},
 		"support": {
 			"header": "Soporte",
@@ -214,15 +239,37 @@
 			"accountName": "Nombre de cuenta",
 			"message": "Mensaje",
 			"send": "Enviar"
-		},
-		"transactions": {
-			"header": "Historial de transacciones",
-			"AMOUNT": "MONTO",
-			"TYPE": "TIPO",
-			"TIME": "HORA",
-			"sent": "Enviada",
-			"received": "Recibida",
-			"empty": "Aún no hay transacciones."
 		}
+	},
+	"transactions": {
+		"header": "Historial de transacciones",
+		"AMOUNT": "MONTO",
+		"TYPE": "TIPO",
+		"TIME": "HORA",
+		"sent": "Enviada",
+		"received": "Recibida",
+		"empty": "No hay transacciones.",
+		"send": "Enviar",
+		"next": "Próxima",
+		"sendersChoice": "Elección del remitente",
+		"sendTo": "Enviar a",
+		"to": "a",
+		"pay": "Pagar",
+		"requesting": "está solicitando",
+		"sentInvoiceTo": "Factura enviada a",
+		"sentRequestTo": "Solicitud enviada a",
+		"pleasePay": "Por favor pague",
+    "day": "Dia",
+    "week": "Semana",
+    "month": "Mes",
+    "all": "Todo",
+    "export": "Exportar",
+    "invoice": "Factura",
+    "readyToPay": "está listo para pagar",
+    "describeOrder": "Utilice este campo para describir su pedido",
+    "requestAnInvoice": "Solicitar una factura",
+    "submit": "Enviar",
+    "isRequesting": "está solicitando",
+    "awaiting": "Esperando"
 	}
 }

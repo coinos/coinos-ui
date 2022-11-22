@@ -42,7 +42,7 @@
 			<p class="text-6xl break-words mb-4">
 				{s(amount)} <span class="text-xl md:text-2xl text-secondary">sats</span>
 			</p>
-        <h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('transactions.to')}</h1>
+			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('transactions.to')}</h1>
 			<p class="text-6xl break-words">{alias}</p>
 		</div>
 
