@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { auth, post } from '$lib/utils';
 
 export let load = ({ locals }) => {
+  console.log("YO")
 	if (!locals.user) throw redirect(307, '/login');
 };
 

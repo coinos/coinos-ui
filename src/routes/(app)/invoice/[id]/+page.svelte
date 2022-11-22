@@ -73,7 +73,7 @@
 	};
 </script>
 
-<button class="ml-5 mt-5 sm:mt-10 hover:opacity-80" on:click={back}>
+<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
