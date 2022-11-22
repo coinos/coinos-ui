@@ -24,12 +24,6 @@
 						Pay
 					</button>
 				</a>
-				<button
-					class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-40"
-					on:click={() => ($invoice = undefined)}
-				>
-					Dismiss
-				</button>
 			</div>
 		</div>
 	</div>

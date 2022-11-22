@@ -7,6 +7,7 @@ export let load = async ({ cookies, depends, locals: { user }, params }) => {
 
 	let { request } = await get(`/request/${params.id}`, auth(cookies));
 	let { invoice } = request;
+
 	if (invoice) {
 		let { amount, received, uuid } = invoice;
 		if ((received && !amount) || received >= amount) throw redirect(307, `/send/${uuid}`);
