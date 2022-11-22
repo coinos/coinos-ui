@@ -162,6 +162,7 @@
 	"user": {
 		"bitcoin": "Bitcoin",
 		"lightning": "Lightning",
+    "invoice": "Invoice",
 		"unfollow": "Unfollow",
 		"following": "Following",
 		"follow": "Follow",
