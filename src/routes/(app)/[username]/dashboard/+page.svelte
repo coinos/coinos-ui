@@ -110,7 +110,7 @@
 								<div class="flex">
 									<Avatar user={requester} size={20} />
 									<div class="my-auto text-left">
-										<p class="text-secondary">You invoiced</p>
+										<p class="text-secondary">Awaiting</p>
 										<p class="ml-1 text-lg break-words">{requester.username}</p>
 									</div>
 								</div>
@@ -131,6 +131,7 @@
 
 	<div>
 		{#each requests as { id, invoice, memo, requester: r }}
+      <a href={`/${user.username}/receive/${id}`}>
 			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
 				<div class="flex">
 					<div>
@@ -142,8 +143,14 @@
 							</div>
 						</div>
 					</div>
+						<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
+			<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
+				>Invoice</button
+			>
+						</div>
 				</div>
 			</div>
+      </a>
 		{/each}
 	</div>
 </div>

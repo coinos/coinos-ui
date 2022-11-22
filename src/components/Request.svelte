@@ -17,22 +17,13 @@
 					<Avatar user={$request.requester} size={12} />
 					<h1 class="my-auto"><b>{$request.requester.username}</b> is ready to pay</h1>
 				</div>
-				{#if $request.memo}
-					<div class="border-l-4 pl-4 my-2">{$request.memo}</div>
-				{/if}
 			</div>
 			<div class="mx-auto my-auto flex gap-2">
 				<a href={`/${user.username}/receive/${$request.id}`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-40">
+					<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-32">
 						Invoice
 					</button>
 				</a>
-				<button
-					class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80 w-full"
-					on:click={() => ($request = undefined)}
-				>
-					Dismiss
-				</button>
 			</div>
 		</div>
 	</div>
