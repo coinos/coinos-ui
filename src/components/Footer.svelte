@@ -3,15 +3,15 @@
 	import { t } from '$lib/translations';
 
 	const followLinks = [
-		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
+		{ url: 'https://twitter.com/Maven_NFT', titleID: 'twitter' },
 		// { url: 'https://github.com/coinos', titleID: 'github' },
 		{ url: 'https://t.me/+ilP5pTpC95U0ZmYx', titleID: 'telegram' }
 	];
 
 	const companyLinks = [
 		// { url: '/news', titleID: 'news' },
-		{ url: '/support', titleID: 'support' },
-		{ url: '/jobs', titleID: 'jobs' }
+		{ url: '/support', titleID: 'support' }
+		// { url: '/jobs', titleID: 'jobs' }
 	];
 </script>
 
