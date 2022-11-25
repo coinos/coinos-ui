@@ -40,6 +40,9 @@
 				"name": "John Barratt",
 				"position": "Full Stack Web Developer",
 				"bio": "When not coding you can find John out in the woods hiking all the great trails that BC has to offer."
+			},
+			"patrick": {
+				"name": "Patrick Hiebert"
 			}
 		},
 		"locations": {

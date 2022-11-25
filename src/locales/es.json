@@ -40,6 +40,9 @@
 				"name": "John Barratt",
 				"position": "Desarrollador web Full Stack",
 				"bio": "Cuando no está programando, John puede ser encontrado en el bosque recorriendo todos los grandes senderos que Colombia Británica tiene para ofrecer."
+			},
+			"patrick": {
+				"name": "Patrick Hiebert"
 			}
 		},
 		"locations": {

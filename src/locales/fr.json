@@ -43,6 +43,9 @@
 				"name": "John Barratt",
 				"position": "Programmeur de Web Full-Stack",
 				"bio": "Quand il ne programme pas, vous pouvez trouver John au forêt randonnant au bonnes sentiers de Colombie-Britannique."
+			},
+			"patrick": {
+				"name": "Patrick Hiebert"
 			}
 		}
 	},
