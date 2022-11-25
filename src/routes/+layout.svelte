@@ -6,9 +6,9 @@
 </script>
 
 <svelte:head>
-	<title>coinos</title>
-	<meta property="og:title" content="coinos" />
-	<meta name="twitter:title" content="coinos" />
+	<title>maven</title>
+	<meta property="og:title" content="maven" />
+	<meta name="twitter:title" content="maven" />
 
 	<meta property="og:image" content={`${host}/icons/logo.svg`} />
 
@@ -16,14 +16,14 @@
 	<meta property="og:description" content="An easy to use bitcoin web wallet" />
 	<meta name="description" content="An easy to use bitcoin web wallet" />
 
-	<meta name="keywords" content="coinos easy bitcoin web wallet" />
+	<meta name="keywords" content="maven easy bitcoin web wallet" />
 
 	<meta name="twitter:image" content={`${host}/icons/logo.svg`} />
 	<meta name="twitter:card" content="summary_large_image" />
 
 	<meta property="og:url" content={host + pathname} />
-	<meta name="twitter:site" content="@coinoswallet" />
-	<meta name="twitter:creator" content="@coinoswallet" />
+	<meta name="twitter:site" content="@mavenwallet" />
+	<meta name="twitter:creator" content="@mavenwallet" />
 </svelte:head>
 
 <slot />

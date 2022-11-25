@@ -7,7 +7,8 @@
 		FaqCard,
 		Image,
 		About,
-		Footer
+		Footer,
+		Founder
 	} from '$comp';
 
 	import { t } from '$lib/translations';
@@ -90,6 +91,13 @@
 			{/each}
 		</div>
 		<div bind:this={about} />
+	</div>
+
+	<div>
+		<div class="space-y-10">
+			<h3 class="text-5xl font-medium text-center">The Founders</h3>
+			<Founder />
+		</div>
 	</div>
 
 	{#if locations?.length}

@@ -1,5 +1,5 @@
 <script>
-	import { Icon, LocaleSelector } from '$comp';
+	import { Icon, Image, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 
 	const followLinks = [
@@ -19,6 +19,9 @@
 	<div>
 		<div class="text-center w-full mb-8">
       <a href="/"><img src="/icons/logo.webp" class="w-20" /></a>
+		</div>
+		<div class="w-[220px] mx-auto ml-0">
+			<Image image={"poweredByCoinos"} style="mb-5 object-cover"/>
 		</div>
 		<div class="flex gap-2 justify-center">
 			<div>

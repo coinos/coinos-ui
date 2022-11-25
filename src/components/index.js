@@ -28,3 +28,4 @@ export { default as Footer } from './Footer.svelte';
 export { default as Toggle } from './Toggle.svelte';
 export { default as LocationsMap } from './LocationsMap.svelte';
 export { default as Qr } from './Qr.svelte';
+export { default as Founder } from './Founder.svelte';
