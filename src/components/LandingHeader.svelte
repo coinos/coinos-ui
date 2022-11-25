@@ -117,4 +117,8 @@
 	.z {
 		z-index: 100;
 	}
+	
+	.w-20 {
+		width: 11rem;
+	}
 </style>

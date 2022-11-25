@@ -17,7 +17,7 @@
 
 <footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around items-center mb-20">
 	<div>
-		<div class="text-center w-full mb-8">
+		<div class="text-center w-full mb-17">
       <a href="/"><img src="/icons/logo.webp" class="w-20" /></a>
 		</div>
 		<div class="w-[220px] mx-auto ml-0">
