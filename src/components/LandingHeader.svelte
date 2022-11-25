@@ -24,7 +24,7 @@
 	<nav class="block xl:flex flex-wrap justify-between items-center">
 		<div class="flex justify-start md:justify-center items-center md:space-x-10">
 			<a href="/" on:click={(() => scroll(header))}>
-        <img src="/icons/logo.webp" class="w-20" />
+        <img src="/icons/logowallet.webp" class="w-20" />
 			</a>
 		</div>
 
