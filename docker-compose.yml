@@ -5,6 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      args:
+        URL: '${PUBLIC_COINOS_URL}'
+        BTC: '${PUBLIC_BTC}'
+        SOCKET: '${PUBLIC_SOCKET}'
     restart: always
     ports:
       - '3121:3121'
