@@ -2,7 +2,6 @@ import { auth, get, post } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 
 export default async ({ cookies, request, url }) => {
-	console.log('WHAT');
 	let form = await request.formData();
 
 	let rates = await get('/rates');
@@ -24,11 +23,9 @@ export default async ({ cookies, request, url }) => {
 
 	if (request_id) {
 		if (url.pathname.endsWith('tip')) {
-			console.log('HUH', url.pathname);
 			throw redirect(307, `/send/${uuid}`);
 		}
 
-		console.log('NUH');
 		throw redirect(307, `/${user.username}/request/${request_id}`);
 	}
 
