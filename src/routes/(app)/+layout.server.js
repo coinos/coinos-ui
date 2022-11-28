@@ -13,6 +13,7 @@ export async function load({ cookies, locals, request, url, params }) {
 
 	let { user } = locals;
 	if (user) {
+    console.log("BTC", btc)
 		let account = user.accounts.find((a) => a.asset === btc && !a.pubkey);
 		if (account) {
 			let { id } = account;
