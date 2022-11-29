@@ -5,7 +5,7 @@
 	const followLinks = [
 		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
 		{ url: 'https://github.com/coinos', titleID: 'github' },
-		{ url: 'https://t.me/coinos', titleID: 'telegram' }
+		{ url: 'https://t.me/coinoswallet', titleID: 'telegram' }
 	];
 
 	const companyLinks = [
