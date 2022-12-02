@@ -16,23 +16,28 @@
 </script>
 
 <footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around items-center mb-20">
-	<div>
-		<div class="text-center w-full mb-8">
+	<div class="space-y-5">
+		<div class="text-center w-full">
 			<a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
 		</div>
-		<div class="flex gap-2 justify-center">
+		<div class="flex gap-2 justify-center sm:hidden">
 			<div>
 				<a href="/register">
 					<button
-						class="bg-black text-white border rounded-full px-6 py-4 font-bold hover:opacity-80 text-lg"
+						class="bg-black text-white border rounded-full px-4 py-2 font-bold hover:opacity-80 text-lg"
 					>
 						{$t('nav.startInSeconds')}
 					</button>
 				</a>
 			</div>
-			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />
+		</div>
+	<div class="w-full flex">
+		<div class="mx-auto">
+			<LocaleSelector style="p-2 text-center hover:opacity-80 cursor-pointer border rounded-full" />
 		</div>
 	</div>
+	</div>
+
 
 	<div class="text-center md:text-left">
 		<p class="font-semibold">{$t('footer.followUs')}</p>
