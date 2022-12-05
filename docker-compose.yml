@@ -16,9 +16,6 @@ services:
       NODE_ENV: production
       ORIGIN: '${ORIGIN}'
       PORT: 3121
-      PUBLIC_COINOS_URL: '${PUBLIC_COINOS_URL}'
-      PUBLIC_BTC: '${PUBLIC_BTC}'
-      PUBLIC_SOCKET: '${PUBLIC_SOCKET}'
       STRIPE: '${STRIPE}'
       LAUNCH: '${LAUNCH}'
     extra_hosts:

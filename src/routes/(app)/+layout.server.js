@@ -1,8 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 import { get, post, auth } from '$lib/utils';
-import { env } from '$env/dynamic/public';
-
-export const { PUBLIC_BTC: btc } = env;
+import { PUBLIC_BTC as btc } from '$env/static/public';
 
 export async function load({ cookies, locals, request, url, params }) {
 	url.pathname;
