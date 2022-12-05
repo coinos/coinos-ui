@@ -4,9 +4,6 @@ import { success, sat } from '$lib/utils';
 import { env } from '$env/dynamic/public';
 import { invalidate } from '$app/navigation';
 
-const socketUrl = env.PUBLIC_SOCKET;
-const btc = env.PUBLIC_BTC;
-
 let socket, token;
 
 export const auth = () => token && send('login', token) && send('heartbeat');
@@ -67,7 +64,7 @@ export function connect(t) {
 
 	if (socket) return auth();
 
-	socket = new WebSocket(socketUrl);
+	socket = new WebSocket(env.PUBLIC_SOCKET);
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
 	socket.addEventListener('message', onWebsocketMessage);
