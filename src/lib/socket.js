@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { invoices, invoice, request, newPayment, last, rate, txns, user } from '$lib/store';
 import { success, sat } from '$lib/utils';
-import { env } from '$env/static/public';
+import { PUBLIC_SOCKET } from '$env/static/public';
 import { invalidate } from '$app/navigation';
 
 let socket, token;
@@ -64,8 +64,7 @@ export function connect(t) {
 
 	if (socket) return auth();
 
-  console.log("ENVV", env);
-	socket = new WebSocket(env.PUBLIC_SOCKET);
+	socket = new WebSocket(PUBLIC_SOCKET);
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
 	socket.addEventListener('message', onWebsocketMessage);
