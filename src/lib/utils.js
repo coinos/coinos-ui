@@ -1,13 +1,13 @@
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
-import { env } from '$env/dynamic/public';
+import { PUBLIC_COINOS_URL } from '$env/static/public';
 
 export function scroll(section) {
 	section.scrollIntoView({ behavior: 'smooth' });
 }
 
-const base = browser ? '' : env.PUBLIC_COINOS_URL;
+const base = browser ? '' : PUBLIC_COINOS_URL;
 
 export const g = (url, fetch, headers) =>
 	fetch(base + url, { headers })
