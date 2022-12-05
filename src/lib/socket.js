@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { invoices, invoice, request, newPayment, last, rate, txns, user } from '$lib/store';
 import { success, sat } from '$lib/utils';
-import { env } from '$env/dynamic/public';
+import { env } from '$env/static/public';
 import { invalidate } from '$app/navigation';
 
 let socket, token;
