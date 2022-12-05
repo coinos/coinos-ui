@@ -64,7 +64,7 @@ export function connect(t) {
 
 	if (socket) return auth();
 
-  console.log("ENV", env.PUBLIC_SOCKET);
+  console.log("ENV", env);
 	socket = new WebSocket(env.PUBLIC_SOCKET);
 	socket.addEventListener('open', onWebsocketOpen);
 	socket.addEventListener('close', onWebsocketClose);
