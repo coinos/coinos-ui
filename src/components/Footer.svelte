@@ -23,8 +23,8 @@
 		<div class="w-[220px] mx-auto md:ml-0">
 			<Image image={"poweredByCoinos"} style="mb-5 object-cover"/>
 		</div>
-		<div class="flex gap-2 justify-center">
-			<div>
+		<div class="flex flex-col md:flex-row">
+			<div class="mx-auto">
 				<a href="/register">
 					<button
 						class="bg-black text-white border rounded-full px-6 py-4 font-bold hover:opacity-80 text-lg"
