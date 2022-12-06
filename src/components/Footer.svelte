@@ -16,11 +16,11 @@
 </script>
 
 <footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around items-center mb-20">
-	<div>
-		<div class="text-center w-full mb-17">
-      <a href="/"><img src="/icons/logowallet.webp" class="w-20" /></a>
+	<div class="flex-col justify-items-center">
+		<div class="text-center w-full mb-17 mx-auto w-20 md:justify-self-start md:mx-0">
+      <a href="/"><img src="/icons/logowallet.webp" class="md:w-20" /></a>
 		</div>
-		<div class="w-[220px] mx-auto ml-0">
+		<div class="w-[220px] mx-auto md:ml-0">
 			<Image image={"poweredByCoinos"} style="mb-5 object-cover"/>
 		</div>
 		<div class="flex gap-2 justify-center">
