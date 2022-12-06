@@ -23,8 +23,8 @@
 		<div class="w-[220px] mx-auto md:ml-0">
 			<Image image={"poweredByCoinos"} style="mb-5 object-cover"/>
 		</div>
-		<div class="flex flex-col md:flex-row">
-			<div class="mx-auto">
+		<div class="flex flex-col md:flex-row pb-2">
+			<div class="mx-auto pb-2 md:pb-0">
 				<a href="/register">
 					<button
 						class="bg-black text-white border rounded-full px-6 py-4 font-bold hover:opacity-80 text-lg"
@@ -33,7 +33,11 @@
 					</button>
 				</a>
 			</div>
-			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />
+			<div class="flex">
+				<div class="mx-auto self-center pl-2 md:mx-0">
+					<LocaleSelector style="p-2 text-center hover:opacity-80 cursor-pointer border rounded-full" />
+				</div>
+			</div>
 		</div>
 	</div>
 
