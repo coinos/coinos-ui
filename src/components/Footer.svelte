@@ -33,7 +33,7 @@
 					</button>
 				</a>
 			</div>
-			<LocaleSelector class="text-center" style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />
+			<LocaleSelector style="p-2 rounded-md text-center hover:opacity-80 cursor-pointer" />
 		</div>
 	</div>
 
