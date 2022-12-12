@@ -70,6 +70,7 @@
 			description={$t('landing.info3.description')}
 		/>
 		<div bind:this={howItWorks} />
+    <div id="about"></div>
 	</div>
 
 	<div>
