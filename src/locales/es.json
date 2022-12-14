@@ -144,7 +144,7 @@
 		"failed": "Inicio de sesión fallido"
 	},
 	"nav": {
-    "profile": "Perfil",
+		"profile": "Perfil",
 		"startInSeconds": "Comience de inmediato",
 		"account": "Cuenta",
 		"signIn": "Iniciar sesión",
@@ -167,9 +167,9 @@
 		"follow": "Seguir",
 		"remove": "Eliminar",
 		"scanToPayBTC": "Escanea para pagar en bitcoin",
-    "this": "Esta",
-    "lightningAddress": "dirección relámpago",
-    "likeAnEmail": "es como un correo electrónico para bitcoin. Puede publicarlo en su sitio web o tarjetas de presentación y usarlo varias veces.",
+		"this": "Esta",
+		"lightningAddress": "dirección relámpago",
+		"likeAnEmail": "es como un correo electrónico para bitcoin. Puede publicarlo en su sitio web o tarjetas de presentación y usarlo varias veces.",
 		"dashboard": {
 			"dashboard": "Tablero",
 			"accountBalance": "Saldo",
@@ -259,17 +259,17 @@
 		"sentInvoiceTo": "Factura enviada a",
 		"sentRequestTo": "Solicitud enviada a",
 		"pleasePay": "Por favor pague",
-    "day": "Dia",
-    "week": "Semana",
-    "month": "Mes",
-    "all": "Todo",
-    "export": "Exportar",
-    "invoice": "Factura",
-    "readyToPay": "está listo para pagar",
-    "describeOrder": "Utilice este campo para describir su pedido",
-    "requestAnInvoice": "Solicitar una factura",
-    "submit": "Enviar",
-    "isRequesting": "está solicitando",
-    "awaiting": "Esperando"
+		"day": "Dia",
+		"week": "Semana",
+		"month": "Mes",
+		"all": "Todo",
+		"export": "Exportar",
+		"invoice": "Factura",
+		"readyToPay": "está listo para pagar",
+		"describeOrder": "Utilice este campo para describir su pedido",
+		"requestAnInvoice": "Solicitar una factura",
+		"submit": "Enviar",
+		"isRequesting": "está solicitando",
+		"awaiting": "Esperando"
 	}
 }

@@ -71,13 +71,11 @@
 
 			{#if user?.username === subject.username}
 				<p class="text-secondary mb-1">
-        {$t("user.this")} <a
-						href="https://lightningaddress.com"
-						class="underline"
-						target="_blank"
-      rel="noreferrer">{$t("user.lightningAddress")}</a
-    > {$t("user.likeAnEmail")}
-					
+					{$t('user.this')}
+					<a href="https://lightningaddress.com" class="underline" target="_blank" rel="noreferrer"
+						>{$t('user.lightningAddress')}</a
+					>
+					{$t('user.likeAnEmail')}
 				</p>
 			{/if}
 		</div>

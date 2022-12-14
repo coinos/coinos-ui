@@ -79,7 +79,7 @@
 
 <div class="container mx-auto max-w-lg px-4 space-y-2 sm:space-y-5">
 	<div>
-    <h1 class="text-secondary text-center text-xl">{$t("transactions.pleasePay")}</h1>
+		<h1 class="text-secondary text-center text-xl">{$t('transactions.pleasePay')}</h1>
 
 		<div class="flex w-full">
 			<div class="mx-auto">

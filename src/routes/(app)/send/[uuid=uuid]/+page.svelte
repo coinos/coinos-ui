@@ -53,7 +53,7 @@
 				{fiat ? f(amountFiat, currency) : '⚡️' + s(amount)}
 			</p>
 
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">{$t("transactions.to")}</h1>
+			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('transactions.to')}</h1>
 
 			<div class="flex p-1 gap-2 justify-center">
 				<Avatar user={recipient} size={'20'} />
@@ -90,7 +90,7 @@
 					class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
 					on:click={setAmount}
 				>
-        {$t("transactions.next")}
+					{$t('transactions.next')}
 				</button>
 			{/if}
 		</div>

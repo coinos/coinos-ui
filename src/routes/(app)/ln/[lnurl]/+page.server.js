@@ -19,5 +19,6 @@ export const actions = {
 		let { callback, ...form } = Object.fromEntries(await request.formData());
 		form.params = { callback };
 		await post('/pay', form, auth(cookies));
+		throw redirect(307, '/sent');
 	}
 };
