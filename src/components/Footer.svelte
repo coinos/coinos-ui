@@ -31,13 +31,14 @@
 				</a>
 			</div>
 		</div>
-	<div class="w-full flex">
-		<div class="mx-auto">
-			<LocaleSelector style="p-2 text-center hover:opacity-80 cursor-pointer border rounded-full" />
+		<div class="w-full flex">
+			<div class="mx-auto">
+				<LocaleSelector
+					style="p-2 text-center hover:opacity-80 cursor-pointer border rounded-full"
+				/>
+			</div>
 		</div>
 	</div>
-	</div>
-
 
 	<div class="text-center md:text-left">
 		<p class="font-semibold">{$t('footer.followUs')}</p>

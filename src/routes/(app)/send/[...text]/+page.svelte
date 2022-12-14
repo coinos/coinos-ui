@@ -95,7 +95,7 @@
 							<div class="flex">
 								<div>
 									<div class="flex">
-                    <Avatar user={c} size={20} disabled={true} />
+										<Avatar user={c} size={20} disabled={true} />
 										<div class="my-auto text-left">
 											<p class="ml-1 text-lg break-words">{c.username}</p>
 											<p class="ml-1 text-secondary">

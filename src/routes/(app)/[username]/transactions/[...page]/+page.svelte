@@ -77,7 +77,9 @@
 						class:active={selection === i}
 						href={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}
 					>
-						<button class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]">
+						<button
+							class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]"
+						>
 							<div class="my-auto">{title}</div>
 						</button>
 					</a>
@@ -162,7 +164,10 @@
 				<p class="text-secondary text-lg text-center">{$t('transactions.empty')}</p>
 			{/each}
 		</div>
-		<button class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto" on:click={csv}>
+		<button
+			class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto"
+			on:click={csv}
+		>
 			<Icon icon="save" style="opacity-50 mr-2 my-auto" />
 			<div class="my-auto">{$t('transactions.export')}</div>
 		</button>
