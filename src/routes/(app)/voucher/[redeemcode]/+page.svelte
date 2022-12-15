@@ -25,14 +25,14 @@
 
 	<div class="flex justify-center items-center text-center">
 		<div class="shadow-xl rounded-3xl px-10 pt-5 pb-10 space-y-5 w-full mx-5">
-      {#if !redeemed}
-			<img
-				{src}
-				class="w-[300px] mx-auto cursor-pointer"
-				on:click={() => copy(redeemcode)}
-				alt="Redeem Code"
-			/>
-      {/if}
+			{#if !redeemed}
+				<img
+					{src}
+					class="w-[300px] mx-auto cursor-pointer"
+					on:click={() => copy(redeemcode)}
+					alt="Redeem Code"
+				/>
+			{/if}
 			<div class="flex justify-center gap-4">
 				<div class="my-auto">
 					<h2 class="text-2xl md:text-3xl font-semibold">
@@ -42,37 +42,35 @@
 						{sat(amount)}
 					</h3>
 				</div>
-        <div class="my-auto">from</div>
+				<div class="my-auto">from</div>
 				<div class="flex">
 					<Avatar {user} size={20} />
 					<div class="my-auto">{user.username}</div>
 				</div>
 			</div>
 			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
-        {#if redeemed}
-          <div class="my-auto">
-          Redeemed by
-          </div>
-				<div class="flex">
-					<Avatar user={redeemer} size={20} />
-					<div class="my-auto">{redeemer.username}</div>
-				</div>
-        {:else}
-				<form
-					method="POST"
-					use:enhance
-					on:submit={() => ($loginRedirect = `/redeem/${redeemcode}`)}
-				>
-					<button
-						type="submit"
-						class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
-						class:bg-gray-200={redeemed}
-						disabled={$loginRedirect}
+				{#if redeemed}
+					<div class="my-auto">Redeemed by</div>
+					<div class="flex">
+						<Avatar user={redeemer} size={20} />
+						<div class="my-auto">{redeemer.username}</div>
+					</div>
+				{:else}
+					<form
+						method="POST"
+						use:enhance
+						on:submit={() => ($loginRedirect = `/redeem/${redeemcode}`)}
 					>
-						{'Redeem'}
-					</button>
-				</form>
-        {/if}
+						<button
+							type="submit"
+							class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
+							class:bg-gray-200={redeemed}
+							disabled={$loginRedirect}
+						>
+							{'Redeem'}
+						</button>
+					</form>
+				{/if}
 			</div>
 		</div>
 	</div>

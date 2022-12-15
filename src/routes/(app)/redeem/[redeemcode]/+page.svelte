@@ -1,4 +1,4 @@
 <script>
-  import { loginRedirect } from "$lib/store";
-  $loginRedirect = undefined;
+	import { loginRedirect } from '$lib/store';
+	$loginRedirect = undefined;
 </script>
