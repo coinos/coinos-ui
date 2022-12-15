@@ -125,7 +125,17 @@
 					</div>
 
 					<div class="flex my-auto">
-						{#if tx.with}
+						{#if tx.redeemcode}
+							<a href={`/voucher/${tx.redeemcode}`}>
+								<div class="mx-auto text-secondary flex">
+									<div class="w-20 my-auto">
+										<img src="/icons/logo-symbol.svg" />
+									</div>
+
+									<div class="my-auto">Voucher</div>
+								</div>
+							</a>
+						{:else if tx.with}
 							<a href={`/${tx.with.username}`} class="mx-auto">
 								<div class="flex">
 									<div class="my-auto">
@@ -134,18 +144,6 @@
 									<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
 								</div>
 							</a>
-						{:else if tx.redeemcode}
-              <a href={`/voucher/${tx.redeemcode}`}>
-							<div class="mx-auto text-secondary flex">
-								<div class="w-20 my-auto">
-									<img src="/icons/logo-symbol.svg" />
-								</div>
-
-								<div class="my-auto">
-									Voucher
-								</div>
-							</div>
-              </a>
 						{:else}
 							<div class="mx-auto text-secondary flex">
 								{#if tx.network === 'lightning'}

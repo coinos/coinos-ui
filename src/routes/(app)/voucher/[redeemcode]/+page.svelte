@@ -1,7 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	import { Icon } from '$comp';
+	import { Avatar, Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { t } from '$lib/translations';
 	import { copy, f, s, sat, sats } from '$lib/utils';
@@ -9,7 +9,7 @@
 
 	export let data;
 	let { src } = data;
-	$: ({ amount, currency, rate, redeemed, redeemcode, user } = data.payment);
+	$: ({ amount, currency, rate, redeemed, redeemcode, user, redeemer } = data.payment);
 
 	toast.pop(0);
 
@@ -25,23 +25,39 @@
 
 	<div class="flex justify-center items-center text-center">
 		<div class="shadow-xl rounded-3xl px-10 pt-5 pb-10 space-y-5 w-full mx-5">
-			<h1 class="text-3xl md:text-4xl font-bold">Voucher</h1>
-
+      {#if !redeemed}
 			<img
 				{src}
 				class="w-[300px] mx-auto cursor-pointer"
 				on:click={() => copy(redeemcode)}
 				alt="Redeem Code"
 			/>
-			<div>
-				<h2 class="text-2xl md:text-3xl font-semibold">
-					{f(amountFiat, currency)}
-				</h2>
-				<h3 class="text-secondary md:text-lg mb-6 mt-1">
-					{sat(amount)}
-				</h3>
+      {/if}
+			<div class="flex justify-center gap-4">
+				<div class="my-auto">
+					<h2 class="text-2xl md:text-3xl font-semibold">
+						{f(amountFiat, currency)}
+					</h2>
+					<h3 class="text-secondary md:text-lg mt-1">
+						{sat(amount)}
+					</h3>
+				</div>
+        <div class="my-auto">from</div>
+				<div class="flex">
+					<Avatar {user} size={20} />
+					<div class="my-auto">{user.username}</div>
+				</div>
 			</div>
 			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
+        {#if redeemed}
+          <div class="my-auto">
+          Redeemed by
+          </div>
+				<div class="flex">
+					<Avatar user={redeemer} size={20} />
+					<div class="my-auto">{redeemer.username}</div>
+				</div>
+        {:else}
 				<form
 					method="POST"
 					use:enhance
@@ -51,11 +67,12 @@
 						type="submit"
 						class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
 						class:bg-gray-200={redeemed}
-						disabled={redeemed || $loginRedirect}
+						disabled={$loginRedirect}
 					>
-						{redeemed ? 'Redeemed' : 'Redeem'}
+						{'Redeem'}
 					</button>
 				</form>
+        {/if}
 			</div>
 		</div>
 	</div>
