@@ -2,8 +2,6 @@
 	import { goto } from '$app/navigation';
 	import { Icon, Image } from '$comp';
 	import { t } from '$lib/translations';
-
-	export let user;
 </script>
 
 <div class="mt-[96.88px] md:mt-0">

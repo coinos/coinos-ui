@@ -5,7 +5,11 @@ export async function load({ cookies, locals, params }) {
 	let { user } = locals;
 
 	if (user) {
-		await post('/redeem', params, auth(cookies));
+		try {
+			await post('/redeem', params, auth(cookies));
+		} catch (e) {
+			throw redirect(307, '/');
+		}
 		throw redirect(307, `/${user.username}/transactions`);
 	}
 
