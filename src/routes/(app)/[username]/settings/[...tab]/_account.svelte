@@ -1,6 +1,6 @@
 <script>
 	import { tick } from 'svelte';
-	import { colorTheme, tempProfileFiles, avatarUpload, bannerUpload } from '$lib/store';
+	import { colorTheme, avatarUpload, bannerUpload } from '$lib/store';
 	import { Icon, Toggle, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 	import { upload } from '$lib/upload';
@@ -15,7 +15,6 @@
 
 	$: profile = files.profile.src;
 	$: banner = files.banner.src;
-	$: $tempProfileFiles = { profile: files.profile.src, banner: files.banner.src };
 
 	let togglePassword = () => (revealPassword = !revealPassword);
 	let colorThemes = [

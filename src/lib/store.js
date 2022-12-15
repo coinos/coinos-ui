@@ -40,7 +40,6 @@ export const token = persistSession('token');
 export const invoices = writable({});
 export const newPayment = persistLocal('newPayment');
 export const colorTheme = writable('from-primary to-gradient');
-export const tempProfileFiles = writable();
 export const avatarUpload = writable();
 export const bannerUpload = writable();
 export const pin = persistSession('pin', undefined, 5 * 60 * 1000);

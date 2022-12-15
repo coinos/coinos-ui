@@ -127,30 +127,30 @@
 					<div class="flex my-auto">
 						{#if tx.redeemcode}
 							<a href={`/voucher/${tx.redeemcode}`}>
-								<div class="mx-auto text-secondary flex">
-									<div class="w-20 my-auto">
-										<img src="/icons/logo-symbol.svg" />
+								<div class="text-secondary flex">
+									<div class="my-auto mr-1">
+										<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-white" />
 									</div>
 
 									<div class="my-auto">Voucher</div>
 								</div>
 							</a>
 						{:else if tx.with}
-							<a href={`/${tx.with.username}`} class="mx-auto">
+							<a href={`/${tx.with.username}`}>
 								<div class="flex">
 									<div class="my-auto">
-										<Avatar user={tx.with} size={20} />
+										<Avatar user={tx.with} size={12} />
 									</div>
 									<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
 								</div>
 							</a>
 						{:else}
-							<div class="mx-auto text-secondary flex">
+							<div class="text-secondary flex">
 								{#if tx.network === 'lightning'}
-									<div class="text-5xl">⚡️</div>
+									<div class="text-3xl">⚡️</div>
 								{:else}
-									<div class="w-20 my-auto">
-										<img src="/images/bitcoin.svg" class="border-4 border-white" />
+									<div class="my-auto mr-1">
+										<img src="/images/bitcoin.svg" class="w-12 border-4 border-white" />
 									</div>
 								{/if}
 

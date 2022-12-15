@@ -159,7 +159,7 @@
 	<div class="text-secondary flex mr-auto">
 		<div class="flex mr-1">
 			<div class="my-auto mr-1">1</div>
-			<img src="/images/bitcoin.svg" class="w-5 my-auto" />
+			<img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
 		</div>
 		<div>= {f(animatedRate, user.currency)}</div>
 	</div>

@@ -272,6 +272,11 @@
 		"requestAnInvoice": "Request an invoice",
 		"submit": "Submit",
 		"isRequesting": "is requesting",
-		"awaiting": "Awaiting"
+		"awaiting": "Awaiting",
+		"tapAnywhere": "Tap anywhere",
+		"from": "from",
+		"redeem": "Redeem",
+		"redeemed": "Redeemed",
+		"redeemedBy": "Redeemed by"
 	}
 }

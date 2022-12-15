@@ -1,5 +1,5 @@
 <script>
-	import { colorTheme, tempProfileFiles } from '$lib/store';
+	import { colorTheme } from '$lib/store';
 	import { Icon } from '$comp';
 
 	export let user;
@@ -14,14 +14,12 @@
 	>
 		{#if user?.profile}
 			<img
-				src={$tempProfileFiles && $tempProfileFiles.profile
-					? $tempProfileFiles.profile
-					: `/api/public/${user.username}-profile.webp`}
+				src={`/api/public/${user.username}-profile.webp`}
 				class="w-full h-full object-cover object-center overflow-hidden"
 				alt={user.username}
 			/>
 		{:else}
-			<Icon icon="logo-symbol-white" />
+			<Icon icon="logo-symbol-white" style="w-4/5" />
 		{/if}
 	</div>
 </a>

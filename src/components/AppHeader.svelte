@@ -1,6 +1,6 @@
 <script>
 	import OutClick from 'svelte-outclick';
-	import { newPayment, colorTheme, tempProfileFiles } from '$lib/store';
+	import { newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Avatar, Icon } from '$comp';
 	import { t } from '$lib/translations';
@@ -23,13 +23,7 @@
 
 	let showMenu = false;
 
-	$: bg =
-		$tempProfileFiles && $tempProfileFiles.banner
-			? `url(${$tempProfileFiles.banner})`
-			: subject?.banner
-			? `url(/api/public/${subject.username}-banner.webp)`
-			: undefined;
-
+	$: bg = subject?.banner ? `url(/api/public/${subject.username}-banner.webp)` : undefined;
 	$: $page && (showMenu = false);
 </script>
 

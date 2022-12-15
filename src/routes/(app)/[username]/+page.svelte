@@ -21,10 +21,10 @@
 		<div class="flex flex-wrap gap-2 w-full">
 			<div class="w-full flex">
 				<a href={`/${subject.username}/receive`} class="mx-auto">
-					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 						<div class="mx-auto flex">
 							<div style="mr-1">⚡️</div>
-							<div>{$t('user.lightning')}</div>
+							<div>{$t('user.lightning')} {$t('user.invoice')}</div>
 						</div>
 					</button>
 				</a>
@@ -32,10 +32,10 @@
 
 			<div class="w-full flex">
 				<a href={`/${subject.username}/receive/bitcoin`} class="mx-auto">
-					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 						<div class="mx-auto flex">
 							<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
-							<div>{$t('user.bitcoin')}</div>
+							<div>{$t('user.bitcoin')} {$t('user.invoice')}</div>
 						</div>
 					</button>
 				</a>
@@ -44,10 +44,10 @@
 			{#if user?.username !== subject.username}
 				<div class="w-full flex">
 					<a href={`/${subject.username}/request`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-40">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
 								<Icon icon="support" style="mr-1" />
-								<div>{$t('user.invoice')}</div>
+								<div>{$t('transactions.requestAnInvoice')}</div>
 							</div>
 						</button>
 					</a>

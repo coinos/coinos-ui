@@ -42,15 +42,15 @@
 						{sat(amount)}
 					</h3>
 				</div>
-				<div class="my-auto">from</div>
+				<div class="my-auto">{$t('transactions.from')}</div>
 				<div class="flex">
 					<Avatar {user} size={20} />
 					<div class="my-auto">{user.username}</div>
 				</div>
 			</div>
 			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
-				{#if redeemed}
-					<div class="my-auto">Redeemed by</div>
+				{#if redeemer}
+					<div class="my-auto">{$t('transactions.redeemedBy')}</div>
 					<div class="flex">
 						<Avatar user={redeemer} size={20} />
 						<div class="my-auto">{redeemer.username}</div>
@@ -65,9 +65,9 @@
 							type="submit"
 							class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80"
 							class:bg-gray-200={redeemed}
-							disabled={$loginRedirect}
+							disabled={$loginRedirect || redeemed}
 						>
-							{'Redeem'}
+							{redeemed ? $t('transactions.redeemed') : $t('transactions.redeem')}
 						</button>
 					</form>
 				{/if}
