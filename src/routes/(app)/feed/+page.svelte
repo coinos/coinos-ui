@@ -1,7 +1,6 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import { Avatar, Icon } from '$comp';
-	import { format, parseISO } from 'date-fns';
 	import { t } from '$lib/translations';
 	import { events } from '$lib/store';
 	import VirtualScroll from 'svelte-virtual-scroll-list';
@@ -18,6 +17,15 @@
 		.sort((a, b) => b.seen - a.seen);
 
 	let w;
+
+	let distance = (d) => {
+		let diff = Math.round(Date.now() / 1000) - d;
+		return diff > 3600
+			? Math.round(diff / 3600) + 'd'
+			: diff > 60
+			? Math.round(diff / 60) + 'm'
+      : diff > 2 ? diff + 's' : 'now';
+	};
 </script>
 
 <svelte:window bind:innerWidth={w} />
@@ -39,7 +47,7 @@
 					<div class="grow" style={`max-width: ${w - 100}px`}>
 						<div class="w-full flex pb-1 text-black">
 							<div>{data.pubkey.substr(0, 6)}</div>
-							<div class="ml-auto">{format(new Date(data.seen * 1000), 'h:mm aaa')}</div>
+              <div class="text-secondary">&nbsp;{distance(data.seen)}</div>
 						</div>
 						<div class="break-words">
 							{data.content}
