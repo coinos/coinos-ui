@@ -14,8 +14,10 @@
 		},
 		{ name: 'cole', socials: [] },
 		{
-			name: 'gene',
-			socials: []
+			name: 'karnage',
+			socials: [
+				{ type: 'twitter', url: 'https://twitter.com/KarnageBitcoin', color: 'bg-[#1D9BF0]' }
+			]
 		},
 		{
 			name: 'john',
