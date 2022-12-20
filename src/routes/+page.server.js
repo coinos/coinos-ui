@@ -2,8 +2,11 @@ import { get } from '$lib/utils';
 
 export const prerender = true;
 export let load = async () => {
+	let data = { locations: [] };
+
 	try {
-		let locations = await get('/locations');
-		return locations;
+		data = await get('/locations');
 	} catch (e) {}
+
+	return data;
 };
