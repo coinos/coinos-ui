@@ -17,6 +17,7 @@
 	export let data;
 	let { user } = data;
 	let { locations } = data;
+	console.log('LOCATIONS', locations);
 
 	let howItWorks;
 	let faq;
@@ -93,9 +94,7 @@
 		<div bind:this={about} />
 	</div>
 
-	{#if locations?.length}
-		<About {locations} />
-	{/if}
+	<About {locations} />
 </main>
 
 <Footer />
