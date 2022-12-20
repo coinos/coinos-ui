@@ -19,7 +19,7 @@
 </script>
 
 <div class="mt-24 mb-20">
-	<div class="container w-full mx-auto text-lg px-4 max-w-2xl space-y-5">
+	<div class="container w-full mx-auto text-lg px-4 md:max-w-2xl space-y-5">
 		<div class="vs">
 			{#if browser}
 				<VirtualScroll data={sorted} key="id" let:data pageMode={true}>
