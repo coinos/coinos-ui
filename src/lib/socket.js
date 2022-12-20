@@ -1,10 +1,23 @@
 import { get } from 'svelte/store';
-import { invoices, invoice, request, newPayment, last, rate, txns, user } from '$lib/store';
+import {
+	events as $events,
+	invoices,
+	invoice,
+	request,
+	newPayment,
+	last,
+	rate,
+	txns,
+	user
+} from '$lib/store';
 import { success, sat } from '$lib/utils';
 import { PUBLIC_SOCKET } from '$env/static/public';
 import { invalidate } from '$app/navigation';
 
 let socket, token;
+let events = get($events);
+delete events.q;
+events.q = Object.keys(events);
 
 export const auth = () => token && send('login', token) && send('heartbeat');
 
@@ -20,6 +33,14 @@ export const messages = (data) => ({
 
 	invoice() {
 		invoice.set(data);
+	},
+
+	event() {
+		data.seen = Math.round(Date.now() / 1000);
+		events[data.id] = data;
+		events.q.push(data.id);
+		$events.set(events);
+		if (events.q.length > 1000) events.delete[events.q.shift()];
 	},
 
 	rate() {
