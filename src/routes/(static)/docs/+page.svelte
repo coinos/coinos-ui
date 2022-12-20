@@ -1,5 +1,6 @@
 <h1>API Examples</h1>
-<pre><code class="whitespace-pre-wrap">{`
+<pre><code class="whitespace-pre-wrap"
+		>{`
 api="https://coinos.io/api"
 json="Content-Type: application/json"
 
@@ -71,4 +72,5 @@ fee=$(echo $tx | jq -r .tx.fee)
 
 curl -s "$api/bitcoin/send" -H "$json" -H "$auth" -d '{"address": "bc1qqc9azhdjjpdxenrndt8cw4tw9del5pyrjn0wln", "tx": { "hex": "'$hex'", "fee": "'$fee'" }}' | jq -r '{ amount, fee, balance: (.account.balance)}'
 echo ""
-`}</code></pre>
+`}</code
+	></pre>

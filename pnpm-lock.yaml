@@ -22,12 +22,13 @@ specifiers:
   svelte-outclick: ^3.2.0
   svelte-pincode: ^2.2.0
   svelte-preprocess: ^4.10.7
+  svelte-virtual-scroll-list: ^1.1.0
   sveltekit-i18n: ^2.2.2
   tailwindcss: ^3.2.4
   vite: ~3.2.4
 
 devDependencies:
-  '@sveltejs/adapter-node': 1.0.0-next.101
+  '@sveltejs/adapter-node': 1.0.0-next.106_zm7dem4zfy4fmufbczhdmz6r6y
   '@sveltejs/kit': 1.0.0-next.556_svelte@3.53.1+vite@3.2.4
   '@zerodevx/svelte-toast': 0.7.2
   autoprefixer: 10.4.13_postcss@8.4.19
@@ -48,6 +49,7 @@ devDependencies:
   svelte-outclick: 3.2.0
   svelte-pincode: 2.2.0
   svelte-preprocess: 4.10.7_mocwzvuqzrhb37u7s4hjvvzl3i
+  svelte-virtual-scroll-list: 1.1.0_svelte@3.53.1
   sveltekit-i18n: 2.2.2_svelte@3.53.1
   tailwindcss: 3.2.4_postcss@8.4.19
   vite: 3.2.4
@@ -97,7 +99,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@rollup/plugin-commonjs/23.0.2_rollup@2.79.1:
+  /@rollup/plugin-commonjs/23.0.2_rollup@3.7.5:
     resolution: {integrity: sha512-e9ThuiRf93YlVxc4qNIurvv+Hp9dnD+4PjOqQs5vAYfcZ3+AXSrcdzXnVjWxcGQOa6KGJFcRZyUI3ktWLavFjg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -106,16 +108,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@2.79.1
+      '@rollup/pluginutils': 5.0.2_rollup@3.7.5
       commondir: 1.0.1
       estree-walker: 2.0.2
       glob: 8.0.3
       is-reference: 1.2.1
       magic-string: 0.26.7
-      rollup: 2.79.1
+      rollup: 3.7.5
     dev: true
 
-  /@rollup/plugin-json/5.0.1_rollup@2.79.1:
+  /@rollup/plugin-json/5.0.1_rollup@3.7.5:
     resolution: {integrity: sha512-QCwhZZLvM8nRcTHyR1vOgyTMiAnjiNj1ebD/BMRvbO1oc/z14lZH6PfxXeegee2B6mky/u9fia4fxRM4TqrUaw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -124,11 +126,11 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@2.79.1
-      rollup: 2.79.1
+      '@rollup/pluginutils': 5.0.2_rollup@3.7.5
+      rollup: 3.7.5
     dev: true
 
-  /@rollup/plugin-node-resolve/15.0.1_rollup@2.79.1:
+  /@rollup/plugin-node-resolve/15.0.1_rollup@3.7.5:
     resolution: {integrity: sha512-ReY88T7JhJjeRVbfCyNj+NXAG3IIsVMsX9b5/9jC98dRP8/yxlZdz7mHZbHk5zHr24wZZICS5AcXsFZAXYUQEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -137,16 +139,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@2.79.1
+      '@rollup/pluginutils': 5.0.2_rollup@3.7.5
       '@types/resolve': 1.20.2
       deepmerge: 4.2.2
       is-builtin-module: 3.2.0
       is-module: 1.0.0
       resolve: 1.22.1
-      rollup: 2.79.1
+      rollup: 3.7.5
     dev: true
 
-  /@rollup/pluginutils/5.0.2_rollup@2.79.1:
+  /@rollup/pluginutils/5.0.2_rollup@3.7.5:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -158,16 +160,19 @@ packages:
       '@types/estree': 1.0.0
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 2.79.1
+      rollup: 3.7.5
     dev: true
 
-  /@sveltejs/adapter-node/1.0.0-next.101:
-    resolution: {integrity: sha512-gtg/b0dbDvd5TvTRsmthFSd/q9Gd+hVuq6uP0XqYgRKKXJw0tr9kNlnDNJ8HQMueo5ccHHUmOQYGV1vGR2zG0A==}
+  /@sveltejs/adapter-node/1.0.0-next.106_zm7dem4zfy4fmufbczhdmz6r6y:
+    resolution: {integrity: sha512-HByOyp9Y9PUWpdk9Yj5OtUGASFiDT5Fly+YrEtFOsm/TQBbcHKS/L0oNPRB6H1Qw9il2QMfbLs7iuaOjTsxg1A==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.0.0-next.587
     dependencies:
-      '@rollup/plugin-commonjs': 23.0.2_rollup@2.79.1
-      '@rollup/plugin-json': 5.0.1_rollup@2.79.1
-      '@rollup/plugin-node-resolve': 15.0.1_rollup@2.79.1
-      rollup: 2.79.1
+      '@rollup/plugin-commonjs': 23.0.2_rollup@3.7.5
+      '@rollup/plugin-json': 5.0.1_rollup@3.7.5
+      '@rollup/plugin-node-resolve': 15.0.1_rollup@3.7.5
+      '@sveltejs/kit': 1.0.0-next.556_svelte@3.53.1+vite@3.2.4
+      rollup: 3.7.5
     dev: true
 
   /@sveltejs/kit/1.0.0-next.556_svelte@3.53.1+vite@3.2.4:
@@ -1386,6 +1391,14 @@ packages:
       fsevents: 2.3.2
     dev: true
 
+  /rollup/3.7.5:
+    resolution: {integrity: sha512-z0ZbqHBtS/et2EEUKMrAl2CoSdwN7ZPzL17UMiKN9RjjqHShTlv7F9J6ZJZJNREYjBh3TvBrdfjkFDIXFNeuiQ==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
@@ -1567,6 +1580,14 @@ packages:
       postcss: 8.4.19
       sorcery: 0.10.0
       strip-indent: 3.0.0
+      svelte: 3.53.1
+    dev: true
+
+  /svelte-virtual-scroll-list/1.1.0_svelte@3.53.1:
+    resolution: {integrity: sha512-GFaBhD9izv77xgJTyFMD1MP+ElGMUGMC9CDCM+uX9hkZIYipNS6u8oDMYDGwCXUw7QGEihU4yLmBvBSeBp78uw==}
+    peerDependencies:
+      svelte: ^3.0.0
+    dependencies:
       svelte: 3.53.1
     dev: true
 

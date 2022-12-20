@@ -17,7 +17,6 @@
 	export let data;
 	let { user } = data;
 	let { locations } = data;
-	console.log('LOCATIONS', locations);
 
 	let howItWorks;
 	let faq;
