@@ -53,7 +53,7 @@
 		);
 
 		user.pubkey = Buffer.from(ecc.xOnlyPointFromPoint(child.publicKey)).toString('hex');
-		user.cipher = encode('encprv', toWords(bytes), 180);
+		user.cipher = encode('en', toWords(bytes), 180);
 
 		await post(`/${user.username}/generate`, user);
 		goto(`/${user.username}/dashboard`);
