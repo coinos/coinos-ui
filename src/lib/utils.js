@@ -1,3 +1,5 @@
+import * as ecc from 'tiny-secp256k1';
+import { BIP32Factory } from 'bip32';
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
@@ -168,3 +170,25 @@ export const wait = async (f, s = 300) => {
 	if (i >= s) throw new Error('timeout');
 	return f();
 };
+
+export const stretch = async (password, salt) =>
+	crypto.subtle.deriveKey(
+		{
+			name: 'PBKDF2',
+			salt,
+			iterations: 100000,
+			hash: 'SHA-256'
+		},
+		await crypto.subtle.importKey(
+			'raw',
+			new TextEncoder().encode(password),
+			{ name: 'PBKDF2' },
+			false,
+			['deriveBits', 'deriveKey']
+		),
+		{ name: 'AES-GCM', length: 256 },
+		true,
+		['encrypt', 'decrypt']
+	);
+
+export const bip32 = await BIP32Factory(ecc);

@@ -1,12 +1,53 @@
 <script>
+	import { Buffer } from 'buffer';
+	import { entropyToMnemonic, mnemonicToSeedSync } from 'bip39';
+	import { enhance } from '$app/forms';
 	import { Feed, Icon, PageNotFound } from '$comp';
 	import { t } from '$lib/translations';
+	import { bech32m } from 'bech32';
+	import { calculateId, signId } from 'nostr';
+	import { bip32, stretch, post } from '$lib/utils';
+
+	const { decode, fromWords } = bech32m;
 	export let data;
+
+	let message;
 
 	let { events, user, subject, src, text } = data;
 	let followed = false;
 
 	let { username: n } = subject;
+
+	let submit = async () => {
+		let mnemonic, key, password, seed, entropy, child, privkey;
+		entropy = Buffer.from(
+			await crypto.subtle.decrypt(
+				{ name: 'AES-GCM', iv: new Uint8Array(16) },
+				await stretch(password, Buffer.from(user.salt, 'hex')),
+				Uint8Array.from(fromWords(decode(user.cipher, 180).words))
+			),
+			'hex'
+		).toString('hex');
+
+		mnemonic = entropyToMnemonic(entropy);
+		seed = mnemonicToSeedSync(mnemonic);
+		key = bip32.fromSeed(seed);
+		child = key.derivePath("m/44'/1237'/0'/0/0");
+		privkey = child.privateKey;
+
+		let event = {
+			pubkey: user.pubkey,
+			created_at: Math.floor(Date.now() / 1000),
+			kind: 1,
+			content: message,
+			tags: []
+		};
+
+		event.id = await calculateId(event);
+		event.sig = await signId(privkey, event.id);
+		await post(`/${user.username}`, { event });
+	};
+
 	$: username = n.length > 60 ? n.substr(0, 6) : n;
 </script>
 
@@ -69,9 +110,24 @@
 		</div>
 	</div>
 
-	<div class="w-full flex md:pt-12 lg:pt-0">
+	<div class="w-full md:pt-12 lg:pt-0">
+		{#if user.username === n}
+			<form on:submit|preventDefault={submit}>
+				<input
+					name="message"
+					bind:value={message}
+					placeholder="What's on your mind?"
+					class="w-full my-5 max-w-lg mx-auto"
+				/>
+			</form>
+		{/if}
+
 		<div class="mx-auto space-y-5 mt-5 lg:max-w-lg xl:max-w-2xl">
-			<Feed {events} />
+			{#if events.length}
+				<Feed {events} />
+			{:else}
+				<div class="text-center">You haven't posted anything yet</div>
+			{/if}
 		</div>
 	</div>
 </div>
