@@ -14,8 +14,6 @@ export async function handle({ event, resolve }) {
 			user = await get('/me', auth(event.cookies));
 			event.locals.user = user;
 
-			if (!user.pubkey) throw new Error('missing pubkey');
-
 			if (['/', '/login', '/register'].includes(pathname) && request.method === 'GET')
 				return Response.redirect(origin + `/${user.username}/dashboard`, 307);
 		} catch (e) {
