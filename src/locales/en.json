@@ -277,6 +277,7 @@
 		"from": "from",
 		"redeem": "Redeem",
 		"redeemed": "Redeemed",
-		"redeemedBy": "Redeemed by"
+		"redeemedBy": "Redeemed by",
+		"sendMessage": "Message"
 	}
 }

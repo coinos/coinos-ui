@@ -1,3 +1,4 @@
+export { default as Feed } from './Feed.svelte';
 export { default as Invoice } from './Invoice.svelte';
 export { default as Request } from './Request.svelte';
 export { default as Pin } from './Pin.svelte';

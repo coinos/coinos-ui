@@ -5,12 +5,13 @@
 	export let user;
 	export let size = 32;
 	export let disabled = false;
-	export let src;
+	export let src = undefined;
 
 	$: s = size.toString();
+	$: link = user ? `/${user.username}` : '/';
 </script>
 
-<a href={`/${user ? user.username : ''}`} class:pointer-events-none={disabled}>
+<a href={link} class:pointer-events-none={disabled}>
 	<div
 		class="w-{s} h-{s} rounded-full border-4 border-white overflow-hidden bg-gradient-to-r {$colorTheme} flex justify-center items-center"
 	>
