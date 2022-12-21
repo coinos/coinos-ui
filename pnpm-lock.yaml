@@ -15,6 +15,7 @@ specifiers:
   date-fns: ^2.29.3
   leaflet: ^1.9.3
   leaflet.markercluster: ^1.5.3
+  nostr: ^0.2.7
   postcss: ^8.4.19
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.8.1
@@ -49,6 +50,7 @@ devDependencies:
   date-fns: 2.29.3
   leaflet: 1.9.3
   leaflet.markercluster: 1.5.3_leaflet@1.9.3
+  nostr: 0.2.7
   postcss: 8.4.19
   prettier: 2.7.1
   prettier-plugin-svelte: 2.8.1_nryolsexf6k3znhuh4uzpugsem
@@ -1529,6 +1531,11 @@ packages:
     hasBin: true
     dev: true
 
+  /noble-secp256k1/1.2.14:
+    resolution: {integrity: sha512-GSCXyoZBUaaPwVWdYncMEmzlSUjF9J/YeEHpklYJCyg8wPuJP3NzDx0BkiwArzINkdX2HJHvUJhL6vVWPOQQcg==}
+    deprecated: Switch to namespaced @noble/secp256k1 for security and feature updates
+    dev: true
+
   /node-addon-api/2.0.2:
     resolution: {integrity: sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==}
     dev: true
@@ -1583,6 +1590,16 @@ packages:
   /normalize-range/0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /nostr/0.2.7:
+    resolution: {integrity: sha512-Yq5tkiCTJtohs7H7Fx+Ki83bR8b3xapdwYi17HunhW5EQfZ9rI0cIXFyihj2ZRkv/0YYvVBiCp/KIaLYt5LyfQ==}
+    dependencies:
+      noble-secp256k1: 1.2.14
+      ws: 8.11.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
     dev: true
 
   /object-hash/3.0.0:
@@ -2370,6 +2387,19 @@ packages:
 
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+    dev: true
+
+  /ws/8.11.0:
+    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     dev: true
 
   /xtend/4.0.2:
