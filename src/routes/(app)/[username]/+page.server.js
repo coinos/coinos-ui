@@ -6,7 +6,6 @@ export async function load({ params, url }) {
 	let text = `${encodeURI(username)}@${url.hostname}`;
 	let src = Qr.drawImg(text, { size: 300 });
 	let events = [];
-  console.log("EV", events)
 
 	try {
 		events = await get(`/${username}/events`);

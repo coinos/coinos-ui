@@ -9,7 +9,7 @@ export function scroll(section) {
 
 const base = browser ? '' : PUBLIC_COINOS_URL;
 export const runner = (k) => {
-	return Math.round((parseInt(k[0], 16) - 1) / 15 * 7) + 1 + '.webp';
+	return Math.round(((parseInt(k[0], 16) - 1) / 15) * 7) + 1 + '.webp';
 };
 
 export const g = (url, fetch, headers) =>
