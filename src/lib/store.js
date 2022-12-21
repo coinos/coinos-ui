@@ -26,7 +26,14 @@ const persistLocal = (key, defaultValue) => {
 			: defaultValue
 	);
 
-	s.subscribe((v) => browser && localStorage.setItem(key, JSON.stringify(v)));
+	s.subscribe((v) => {
+		try {
+			browser && localStorage.setItem(key, JSON.stringify(v));
+		} catch (e) {
+			console.log('problem setting key', v);
+			console.log(e);
+		}
+	});
 
 	return s;
 };
@@ -48,3 +55,4 @@ export const request = writable();
 export const invoice = writable();
 export const txns = persistLocal('transactions', []);
 export const events = persistLocal('events', {});
+export const password = writable();

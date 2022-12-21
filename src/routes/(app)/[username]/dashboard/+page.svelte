@@ -3,7 +3,7 @@
 	import { f, s, post, failure, sat, sats } from '$lib/utils';
 	import { tick } from 'svelte';
 	import { Avatar, Icon } from '$comp';
-	import { rate, selectedRate } from '$lib/store';
+	import { rate, password, selectedRate } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 
