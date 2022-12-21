@@ -5,7 +5,7 @@
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
 	import { focus } from '$lib/utils';
-	import { loginRedirect } from '$lib/store';
+	import { loginRedirect, password } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 
@@ -19,12 +19,12 @@
 	export let form;
 	export let pageID;
 
-	let username, password, email, submit;
+	let username, email, btn;
 
 	$: update(form);
-	let update = (form) => form && ({ username, password } = form);
+	let update = (form) => form && ({ username, password: $password } = form);
 
-	$: token && token?.length === 6 && tick().then(() => submit.click());
+	$: token && token?.length === 6 && tick().then(() => btn.click());
 
 	let revealPassword = false;
 
@@ -52,7 +52,7 @@
 
 				<form class="space-y-5" {action} method="POST" use:enhance>
 					<input type="hidden" name="username" value={username} />
-					<input type="hidden" name="password" value={password} />
+					<input type="hidden" name="password" value={$password} />
 					<input type="hidden" name="token" value={token} />
 
 					<div>
@@ -66,7 +66,7 @@
 						</Pincode>
 					</div>
 					<button
-						bind:this={submit}
+						bind:this={btn}
 						type="submit"
 						class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
 						>{$t('login.' + pageID)}
@@ -107,7 +107,7 @@
 								type="text"
 								required
 								class="bg-primary"
-								bind:value={password}
+								bind:value={$password}
 								autocapitalize="none"
 							/>
 						{:else}
@@ -116,7 +116,7 @@
 								type="password"
 								required
 								class="bg-primary"
-								bind:value={password}
+								bind:value={$password}
 								autocapitalize="none"
 							/>
 						{/if}

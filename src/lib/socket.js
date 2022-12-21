@@ -40,7 +40,7 @@ export const messages = (data) => ({
 		events[data.id] = data;
 		events.q.push(data.id);
 		$events.set(events);
-		if (events.q.length > 1000) delete events[events.q.shift()];
+		if (events.q.length > 500) delete events[events.q.shift()];
 	},
 
 	rate() {

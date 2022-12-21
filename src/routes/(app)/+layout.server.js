@@ -11,6 +11,8 @@ export async function load({ cookies, locals, request, url, params }) {
 
 	let { user } = locals;
 	if (user) {
+		if (!user.pubkey && !url.pathname.includes('gen'))
+			throw redirect(307, `/${user.username}/generate`);
 		let account = user.accounts.find((a) => a.asset === btc && !a.pubkey);
 		if (account) {
 			let { id } = account;
