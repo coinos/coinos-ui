@@ -93,7 +93,7 @@
 		}
 	},
 	"invoice": {
-		"addTip": "Añadir propina,
+		"addTip": "Añadir propina",
 		"addTipq": "Añadir propina?",
 		"done": "Hecho",
 		"paymentSuccessful": "¡Pago recibido!",
@@ -122,7 +122,7 @@
 			"title": "Fácil de usar",
 			"description1": "Solo ingrese una cantidad en su moneda local, comparta el código QR y listo.",
 			"description2": "Hacemos todo el trabajo pesado para que pueda concentrarse en su negocio.",
-			"description3": "Siempre tiene la opción de tomar la custodia de sus fondos al retirarlos instantáneamente en cualquier momento"."
+			"description3": "Siempre tiene la opción de tomar la custodia de sus fondos al retirarlos instantáneamente en cualquier momento."
 		},
 		"info3": {
 			"title": "Maneja tu marca a tu manera!",
