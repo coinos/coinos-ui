@@ -55,18 +55,17 @@
 						</a>
 					</div>
 				{/if}
-      {:else}
-					<div class="w-full flex">
-						<a href={`/${subject.username}/request`} class="mx-auto">
-							<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-								<div class="mx-auto flex">
-									<Icon icon="support" style="mr-1" />
-									<div>{$t('transactions.sendMessage')}</div>
-								</div>
-							</button>
-						</a>
-					</div>
 			{/if}
+			<div class="w-full flex">
+				<a href={`/${subject.username}/message`} class="mx-auto">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+						<div class="mx-auto flex">
+							<Icon icon="support" style="mr-1" />
+							<div>{$t('transactions.sendMessage')}</div>
+						</div>
+					</button>
+				</a>
+			</div>
 		</div>
 	</div>
 
