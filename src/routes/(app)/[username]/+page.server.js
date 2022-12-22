@@ -2,10 +2,9 @@ import { get } from '$lib/utils';
 import Qr from 'qrcode-base64';
 
 export async function load({ params, parent, url }) {
-	let { user } = await parent();
-	let pubkey;
-	if (user) ({ pubkey } = user);
-	else pubkey = params.username;
+	let { subject } = await parent();
+	let { pubkey } = subject;
+	if (!pubkey) pubkey = params.username;
 
 	let { username } = params;
 	let text = `${encodeURI(username)}@${url.hostname}`;
@@ -17,6 +16,11 @@ export async function load({ params, parent, url }) {
 	} catch (e) {
 		console.log(e);
 	}
+
+	events.map((e) => {
+		e.seen = e.created_at;
+		e.user = subject;
+	});
 
 	return { events, src, text };
 }

@@ -13,9 +13,11 @@ import {
 import { success, sat } from '$lib/utils';
 import { PUBLIC_SOCKET } from '$env/static/public';
 import { invalidate } from '$app/navigation';
+import { browser } from '$app/environment';
 
 let socket, token;
-let events = get($events);
+let le = browser && localStorage.getItem('events');
+let events = le && le !== 'undefined' ? JSON.parse(le) : {};
 delete events.q;
 events.q = Object.keys(events);
 
@@ -40,7 +42,11 @@ export const messages = (data) => ({
 		events[data.id] = data;
 		events.q.push(data.id);
 		$events.set(events);
-		if (events.q.length > 500) delete events[events.q.shift()];
+		while (events.q.length > 10000) delete events[events.q.shift()];
+		localStorage.setItem(
+			'events',
+			JSON.stringify(events.q.slice(-100).reduce((a, b) => (a = { ...a, [b]: events[b] }), {}))
+		);
 	},
 
 	rate() {
