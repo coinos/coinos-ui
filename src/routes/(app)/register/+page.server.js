@@ -9,7 +9,7 @@ export const load = async ({ parent }) => {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let form = Object.fromEntries(await request.formData());
-		let { username, password, loginRedirect } = form;
+		let { username, password } = form;
 
 		let user = { username, password };
 		let error;
@@ -28,6 +28,6 @@ export const actions = {
 		}
 
 		if (error) return invalid(400, { error });
-		throw redirect(307, loginRedirect || `/${user.username}/dashboard`);
+		throw redirect(307, `/${user.username}/generate`);
 	}
 };

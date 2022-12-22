@@ -57,10 +57,6 @@
 	$: btcPrice = f($selectedRate, user.currency);
 
 	$: accountBalanceBtc = user.account.balance / sats;
-
-	$: sorted = Object.values($events)
-		.filter((ev) => ev?.pubkey)
-		.sort((a, b) => b.seen - a.seen);
 </script>
 
 <div class="container px-4 max-w-md mx-auto mt-20 space-y-12 mb-8">
@@ -179,6 +175,6 @@
 
 <div class="mb-20">
 	<div class="container w-full mx-auto text-lg px-4 md:max-w-2xl space-y-5">
-		<Feed events={sorted} />
+		<Feed events={$events} {user} />
 	</div>
 </div>
