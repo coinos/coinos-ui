@@ -54,5 +54,5 @@ export const last = writable();
 export const request = writable();
 export const invoice = writable();
 export const txns = persistLocal('transactions', []);
-export const events = persistLocal('events', {});
+export const events = writable({});
 export const password = writable();
