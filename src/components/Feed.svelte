@@ -2,7 +2,7 @@
 	import { Avatar } from '$comp';
 	import { browser } from '$app/environment';
 	import VirtualScroll from 'svelte-virtual-scroll-list';
-	import { runner } from '$lib/utils';
+	import { punk } from '$lib/utils';
 	export let events;
 
 	let distance = (date) => {

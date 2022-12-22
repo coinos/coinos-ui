@@ -1,20 +1,20 @@
 <script>
 	import { colorTheme } from '$lib/store';
 	import { Icon } from '$comp';
-	import { runner } from '$lib/utils';
+	import { punk } from '$lib/utils';
 
 	export let user;
 	export let size = 32;
 	export let disabled = false;
 
 	$: s = size.toString();
-	$: link = user ? `/${user.username}` : '/';
+	$: link = user.anon ? `/${user.pubkey}` : `/${user.username}`;
 
-	let src =
+	$: src =
 		'/api/public/' +
 		(user?.profile
 			? user.username + '-profile.webp'
-			: 'runners/' + runner(user?.pubkey || parseInt(Math.random() * 255).toString(16)));
+			: 'punks/' + punk(user?.pubkey || parseInt(Math.random() * 255).toString(16)));
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>

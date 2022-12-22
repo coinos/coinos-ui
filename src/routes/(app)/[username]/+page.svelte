@@ -126,7 +126,12 @@
 			{#if events.length}
 				<Feed {events} />
 			{:else}
-        <div class="text-center text-2xl mt-20">Nothing here yet. Post your first <a href="https://github.com/nostr-protocol/nostr#nostr---notes-and-other-stuff-transmitted-by-relays" class="underline">nostr</a> note!</div>
+				<div class="text-center text-2xl mt-20">
+					Nothing here yet. Post your first <a
+						href="https://github.com/nostr-protocol/nostr#nostr---notes-and-other-stuff-transmitted-by-relays"
+						class="underline">nostr</a
+					> note!
+				</div>
 			{/if}
 		</div>
 	</div>

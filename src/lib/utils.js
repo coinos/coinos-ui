@@ -10,8 +10,8 @@ export function scroll(section) {
 }
 
 const base = browser ? '' : PUBLIC_COINOS_URL;
-export const runner = (k) => {
-	return Math.ceil((parseInt(k.substr(0, 2), 16) / 256) * 20) + '.webp';
+export const punk = (k) => {
+	return Math.floor((parseInt(k.substr(0, 2), 16) / 256) * 20) + 1 + '.webp';
 };
 
 export const g = (url, fetch, headers) =>
