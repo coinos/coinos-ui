@@ -5,7 +5,7 @@
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
 	import { focus } from '$lib/utils';
-	import { loginRedirect, password } from '$lib/store';
+	import { password } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 
@@ -82,10 +82,6 @@
 				{/if}
 
 				<form class="space-y-5" {action} method="POST" use:enhance>
-					{#if $loginRedirect}
-						<input type="hidden" name="loginRedirect" value={$loginRedirect} />
-					{/if}
-
 					<div>
 						<label for="username" class="font-semibold">{$t('login.username')}</label>
 						<input

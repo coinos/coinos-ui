@@ -5,7 +5,8 @@
 	import { generateMnemonic, mnemonicToEntropy, mnemonicToSeedSync } from 'bip39';
 	import * as ecc from 'tiny-secp256k1';
 	import { bip32, stretch, post } from '$lib/utils';
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
+	import { loginRedirect } from '$lib/store';
 
 	export let data;
 	let { user } = data;
@@ -35,6 +36,8 @@
 		user.salt = Buffer.from(salt).toString('hex');
 
 		await post(`/${user.username}/generate`, user);
-		goto(`/${user.username}/dashboard`);
+
+		invalidate('app:user');
+		setTimeout(() => goto($loginRedirect || `/${user.username}/dashboard`), 10);
 	});
 </script>
