@@ -19,7 +19,6 @@ export async function load({ params, parent, url }) {
 
 	events.map((e) => {
 		e.seen = e.created_at;
-		e.user = subject;
 	});
 
 	return { events, src, text };

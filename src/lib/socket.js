@@ -18,8 +18,7 @@ import { browser } from '$app/environment';
 let socket, token;
 let le = browser && localStorage.getItem('events');
 let events = le && le !== 'undefined' ? JSON.parse(le) : {};
-delete events.q;
-events.q = Object.keys(events);
+let q = Object.keys(events);
 
 export const auth = () => token && send('login', token) && send('heartbeat');
 
@@ -40,12 +39,12 @@ export const messages = (data) => ({
 	event() {
 		data.seen = Math.round(Date.now() / 1000);
 		events[data.id] = data;
-		events.q.push(data.id);
+		q.push(data.id);
 		$events.set(events);
-		while (events.q.length > 10000) delete events[events.q.shift()];
+		while (q.length > 10000) delete events[q.shift()];
 		localStorage.setItem(
 			'events',
-			JSON.stringify(events.q.slice(-100).reduce((a, b) => (a = { ...a, [b]: events[b] }), {}))
+			JSON.stringify(q.slice(-100).reduce((a, b) => (a = { ...a, [b]: events[b] }), {}))
 		);
 	},
 

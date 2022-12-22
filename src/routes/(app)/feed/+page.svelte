@@ -5,7 +5,6 @@
 	export let data;
 	let { user } = data;
 
-	$: length = $events?.q?.length;
 	$: sorted = Object.values($events)
 		.filter((ev) => ev?.pubkey)
 		.sort((a, b) => b.seen - a.seen);
