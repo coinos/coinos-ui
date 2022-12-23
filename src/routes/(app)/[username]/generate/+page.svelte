@@ -1,4 +1,5 @@
 <script>
+	import { failure } from '$lib/utils';
 	import { Buffer } from 'buffer';
 	import { onMount } from 'svelte';
 	import { bech32m } from 'bech32';
@@ -7,15 +8,23 @@
 	import { bip32, stretch, post } from '$lib/utils';
 	import { goto, invalidate } from '$app/navigation';
 	import { loginRedirect } from '$lib/store';
+	import { Pin } from '$comp';
+	import { pin } from '$lib/store';
 
 	export let data;
 	let { user } = data;
 
 	const { encode, toWords } = bech32m;
 
-	let mnemonic, key, password, seed, entropy, cipher, pubkey, salt, child;
+	let loaded, mnemonic, key, password, seed, entropy, cipher, pubkey, salt, child;
 
 	onMount(async () => {
+		setTimeout(() => (loaded = true), 50);
+		generate();
+	});
+
+	let generate = async () => {
+		if (!$pin?.length === 6) return setTimeout(generate, 1000);
 		mnemonic = generateMnemonic();
 		seed = mnemonicToSeedSync(mnemonic);
 		entropy = mnemonicToEntropy(mnemonic);
@@ -34,10 +43,24 @@
 		user.pubkey = Buffer.from(ecc.xOnlyPointFromPoint(child.publicKey)).toString('hex');
 		user.cipher = encode('en', toWords(bytes), 180);
 		user.salt = Buffer.from(salt).toString('hex');
+		user.pin = $pin;
 
-		await post(`/${user.username}/generate`, user);
+		try {
+			await post(`/${user.username}/generate`, user);
+		} catch (e) {
+			if (e.message?.startsWith('Pin')) {
+				$pin = '';
+				failure('Wrong pin, try again');
+			}
+		}
 
 		invalidate('app:user');
 		setTimeout(() => goto($loginRedirect || `/${user.username}/dashboard`), 10);
-	});
+	};
+
+	$: $pin?.length === 6 && generate();
 </script>
+
+{#if loaded && user.haspin && $pin?.length !== 6}
+	<Pin />
+{/if}
