@@ -3,6 +3,8 @@ import bip21 from 'bip21';
 import { auth, get, post } from '$lib/utils';
 import { invalid, redirect } from '@sveltejs/kit';
 
+console.log("VALIDATE", validate)
+
 let parse = async (t, host) => {
 	if (!t) return;
 
