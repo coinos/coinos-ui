@@ -8,6 +8,7 @@ let parse = async (t, host) => {
 
 	let amount, user, uuid;
 
+  t = t.trim();
 	t.toLowerCase().startsWith('bitcoin:') &&
 		({
 			address: t,
