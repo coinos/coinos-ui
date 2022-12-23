@@ -106,7 +106,9 @@
 
 			<div class="grow" style={`max-width: ${w - 100}px`}>
 				<div class="w-full flex pb-1 text-black">
-					<div>{data.user.username}</div>
+					<div>
+						{data.user.display_name || ''} <span class="text-secondary">@{data.user.username}</span>
+					</div>
 					<div class="text-secondary">&nbsp;{distance(data.seen)}</div>
 				</div>
 				<div class="break-words">
