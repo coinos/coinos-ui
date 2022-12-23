@@ -44,7 +44,14 @@ export const post = (url, body, headers) => {
 	return fetch(base + url, { method: 'POST', body: JSON.stringify(body), headers })
 		.then(async (r) => {
 			if (r.ok) return r.text();
-			throw new Error(await r.text());
+			let text = await r.text();
+
+			try {
+				let { message } = JSON.parse(text);
+				if (message) return JSON.stringify({ name: 'Error', message });
+			} catch (e) {}
+
+			return text;
 		})
 		.then((body) => {
 			try {
