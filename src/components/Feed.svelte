@@ -1,55 +1,51 @@
 <script>
+	import { onMount } from 'svelte';
 	import { Avatar } from '$comp';
 	import { browser } from '$app/environment';
 	import VirtualScroll from 'svelte-virtual-scroll-list';
-	import { punk } from '$lib/utils';
-	import { Buffer } from 'buffer';
-	import { entropyToMnemonic, mnemonicToSeedSync } from 'bip39';
 	import { enhance } from '$app/forms';
-	import { bech32m } from 'bech32';
-	import { calculateId, signId } from 'nostr';
-	import { bip32, stretch, post } from '$lib/utils';
+	import { post, punk, failure } from '$lib/utils';
+	import { Password } from '$comp';
+	import { password, passwordPrompt } from '$lib/store';
+	import { send } from '$lib/nostr';
 
 	export let events;
 	export let user;
 
-	const { decode, fromWords } = bech32m;
-
-	let message;
+	let message, submitting;
+	$: submitting && $password && submit();
 
 	let submit = async () => {
-		let mnemonic, key, password, seed, entropy, child, privkey;
-		entropy = Buffer.from(
-			await crypto.subtle.decrypt(
-				{ name: 'AES-GCM', iv: new Uint8Array(16) },
-				await stretch(password, Buffer.from(user.salt, 'hex')),
-				Uint8Array.from(fromWords(decode(user.cipher, 180).words))
-			),
-			'hex'
-		).toString('hex');
+		submitting = true;
+		try {
+			let mnemonic, key, seed, entropy, child, privkey;
+			if (!$password) return ($passwordPrompt = true);
 
-		mnemonic = entropyToMnemonic(entropy);
-		seed = mnemonicToSeedSync(mnemonic);
-		key = bip32.fromSeed(seed);
-		child = key.derivePath("m/44'/1237'/0'/0/0");
-		privkey = child.privateKey;
+			try {
+				await post('/password', { password: $password });
+			} catch (e) {
+				return ($passwordPrompt = true);
+			}
 
-		let event = {
-			pubkey: user.pubkey,
-			created_at: Math.floor(Date.now() / 1000),
-			kind: 1,
-			content: message,
-			tags: []
-		};
+			let event = {
+				pubkey: user.pubkey,
+				created_at: Math.floor(Date.now() / 1000),
+				kind: 1,
+				content: message,
+				tags: []
+			};
 
-		event.id = await calculateId(event);
-		event.sig = await signId(privkey, event.id);
-		await post(`/${user.username}`, { event });
+			await send(event, user, $password);
 
-		event.user = user;
-		event.seen = event.created_at;
-		events[event.id] = event;
-		events = events;
+			event.user = user;
+			event.seen = event.created_at;
+
+			events[event.id] = event;
+			events = events;
+		} catch (e) {
+			failure('Problem posting event');
+			console.log(e);
+		}
 	};
 
 	let distance = (date) => {
@@ -77,6 +73,10 @@
 </script>
 
 <svelte:window bind:innerWidth={w} />
+
+{#if $passwordPrompt}
+	<Password {user} />
+{/if}
 
 <form on:submit|preventDefault={submit} class="flex justify-center gap-4 max-w-2xl mx-auto">
 	<div class="grow">

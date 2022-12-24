@@ -7,7 +7,7 @@
 	import * as ecc from 'tiny-secp256k1';
 	import { bip32, stretch, post } from '$lib/utils';
 	import { goto, invalidate } from '$app/navigation';
-	import { loginRedirect } from '$lib/store';
+	import { loginRedirect, password } from '$lib/store';
 	import { Pin } from '$comp';
 	import { pin } from '$lib/store';
 
@@ -16,7 +16,7 @@
 
 	const { encode, toWords } = bech32m;
 
-	let loaded, mnemonic, key, password, seed, entropy, cipher, pubkey, salt, child;
+	let loaded, mnemonic, key, seed, entropy, cipher, pubkey, salt, child;
 
 	onMount(async () => {
 		setTimeout(() => (loaded = true), 50);
@@ -35,7 +35,7 @@
 		let bytes = new Uint8Array(
 			await crypto.subtle.encrypt(
 				{ name: 'AES-GCM', iv: new Uint8Array(16) },
-				await stretch(password, salt),
+				await stretch($password, salt),
 				Uint8Array.from(Buffer.from(entropy, 'hex'))
 			)
 		);
