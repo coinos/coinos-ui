@@ -28,10 +28,10 @@
 
 	$: form?.success && success('Settings saved!');
 
-	// $: if (form?.message?.startsWith('Pin')) {
-	// 	failure('Wrong pin, try again');
-	// 	$pin = '';
-	// }
+	$: if (form?.message?.startsWith('Pin')) {
+		failure('Wrong pin, try again');
+		$pin = '';
+	}
 
 	let tabs = [
 		{ name: 'account', key: 'ACCOUNT', comp: Account },
