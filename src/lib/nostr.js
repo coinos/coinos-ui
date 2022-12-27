@@ -6,7 +6,7 @@ import { calculateId, signId } from 'nostr';
 
 const { decode, fromWords } = bech32m;
 
-export let send = async (event, { cipher, username, salt }, password) => {
+export let sign = async (event, { cipher, username, salt }, password) => {
 	let mnemonic, key, seed, entropy, child, privkey;
 	entropy = Buffer.from(
 		await crypto.subtle.decrypt(
@@ -25,6 +25,8 @@ export let send = async (event, { cipher, username, salt }, password) => {
 
 	event.id = await calculateId(event);
 	event.sig = await signId(privkey, event.id);
+};
 
-	await post(`/${username}`, { event });
+export let send = (event) => {
+	return post('/events', { event });
 };

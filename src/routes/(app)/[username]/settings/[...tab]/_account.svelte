@@ -96,8 +96,13 @@
 </div>
 
 <div>
-	<label for="address" class="font-bold mb-1 block">{$t('user.settings.businessAddress')}</label>
-	<input type="text" name="address" bind:value={user.address} />
+	<label for="address" class="font-bold mb-1 block">{$t('user.settings.about')}</label>
+	<textarea
+		type="text"
+		name="address"
+		bind:value={user.address}
+		placeholder={$t('user.settings.aboutPlaceholder')}
+	/>
 </div>
 
 <!-- TODO -->
