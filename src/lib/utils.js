@@ -49,8 +49,7 @@ export const post = (url, body, headers) => {
 			try {
 				let { message } = JSON.parse(text);
 				if (message) return JSON.stringify({ name: 'Error', message });
-			} catch (e) {
-      }
+			} catch (e) {}
 
 			return { error: text };
 		})

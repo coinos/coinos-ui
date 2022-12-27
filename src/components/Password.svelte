@@ -1,5 +1,5 @@
 <script>
-  import { Icon } from "$comp";
+	import { Icon } from '$comp';
 	import { failure, post } from '$lib/utils';
 	import { password as pw, passwordPrompt } from '$lib/store';
 
@@ -9,7 +9,7 @@
 	let { username } = user;
 	let revealPassword = false;
 
-  let cancel = () => ($passwordPrompt = false);
+	let cancel = () => ($passwordPrompt = false);
 
 	let submit = async () => {
 		try {
@@ -60,8 +60,8 @@
 				<button
 					type="button"
 					class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-     on:click={cancel}
-     on:keydown={cancel}
+					on:click={cancel}
+					on:keydown={cancel}
 				>
 					<div class="my-auto">Cancel</div>
 				</button>

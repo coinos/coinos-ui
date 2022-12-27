@@ -1,23 +1,28 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { enhance } from '$app/forms';
+	import { applyAction, deserialize } from '$app/forms';
 
-	import { Icon, Spinner, Pin } from '$comp';
+	import { Icon, Spinner, Pin, Password } from '$comp';
 	import { t } from '$lib/translations';
-	import { failure, success } from '$lib/utils';
-	import { avatarUpload, bannerUpload, pin } from '$lib/store';
+	import { failure, post, success } from '$lib/utils';
+	import { avatarUpload, bannerUpload, passwordPrompt, password, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
+	import { sign, send } from '$lib/nostr';
+	import { invalidateAll } from '$app/navigation';
 
 	import Account from './_account.svelte';
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
 
+	import { PUBLIC_COINOS_URL } from '$env/static/public';
+
 	export let data;
 	export let form;
 
 	let submit;
+	let formElement;
 
 	let { user, token, rates, tab } = data;
 
@@ -41,9 +46,12 @@
 
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 
+	let { address, username } = user;
 	let loading;
-	let save = async (msg) => {
+
+	async function handleSubmit() {
 		loading = true;
+		let data = new FormData(formElement);
 
 		try {
 			if ($avatarUpload) {
@@ -58,18 +66,69 @@
 			failure('Something went wrong');
 		}
 
+		if (!$password) {
+			$passwordPrompt = true;
+			return;
+		}
+
+		try {
+			await post('/password', { password: $password });
+		} catch (e) {
+			console.log(e);
+			$passwordPrompt = true;
+			return;
+		}
+
+		let event = {
+			pubkey: user.pubkey,
+			created_at: Math.floor(Date.now() / 1000),
+			kind: 0,
+			content: JSON.stringify({
+				name: user.username,
+				about: user.address,
+				picture: `${PUBLIC_COINOS_URL}/public/${user.username}-profile.webp`
+			}),
+			tags: []
+		};
+
+		await sign(event, user, $password);
+		await send(event);
+
+		const response = await fetch(formElement.action, {
+			method: 'POST',
+			body: data
+		});
+
+		const result = deserialize(await response.text());
+
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+
+		applyAction(result);
 		loading = false;
-	};
+	}
 
 	let loaded;
 	onMount(() => setTimeout(() => (loaded = true), 50));
+
+	$: loading && $password && handleSubmit();
 </script>
 
 {#if loaded && user.haspin && $pin?.length !== 6}
 	<Pin />
 {/if}
 
-<form method="POST" class="mb-[154px]" use:enhance on:submit={save}>
+{#if $passwordPrompt}
+	<Password {user} />
+{/if}
+
+<form
+	method="POST"
+	class="mb-[154px]"
+	on:submit|preventDefault={handleSubmit}
+	bind:this={formElement}
+>
 	<input type="hidden" name="pin" value={$pin} />
 
 	<div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">

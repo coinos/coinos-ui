@@ -5,4 +5,3 @@ export async function POST({ cookies, request }) {
 	let result = await post('/checkPassword', await request.json(), auth(cookies));
 	return json(result);
 }
-

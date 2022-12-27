@@ -7,7 +7,7 @@
 	import { post, punk, failure } from '$lib/utils';
 	import { Password } from '$comp';
 	import { password, passwordPrompt } from '$lib/store';
-	import { send } from '$lib/nostr';
+	import { sign, send } from '$lib/nostr';
 
 	export let events;
 	export let user;
@@ -35,7 +35,8 @@
 				tags: []
 			};
 
-			await send(event, user, $password);
+			await sign(event, user, $password);
+			await send(event);
 
 			event.user = user;
 			event.seen = event.created_at;

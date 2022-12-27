@@ -4,7 +4,7 @@
 	let pinCode = '';
 	let pinInput;
 
-  let cancel = () => ($pin = '000000');
+	let cancel = () => ($pin = '000000');
 
 	$: pinCode.length > 5 && ($pin = pinCode);
 </script>
@@ -17,7 +17,7 @@
 			<button
 				type="submit"
 				class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-    on:click={cancel}
+				on:click={cancel}
 			>
 				<div class="my-auto">Cancel</div>
 			</button>
