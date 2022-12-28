@@ -3,10 +3,10 @@
 	import { fly } from 'svelte/transition';
 	import { applyAction, deserialize } from '$app/forms';
 
-	import { Icon, Spinner, Pin, Password } from '$comp';
+	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, post, success } from '$lib/utils';
-	import { avatarUpload, bannerUpload, passwordPrompt, password, pin } from '$lib/store';
+	import { avatarUpload, bannerUpload, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
 	import { sign, send } from '$lib/nostr';
@@ -66,19 +66,6 @@
 			failure('Something went wrong');
 		}
 
-		if (!$password) {
-			$passwordPrompt = true;
-			return;
-		}
-
-		try {
-			await post('/password', { password: $password });
-		} catch (e) {
-			console.log(e);
-			$passwordPrompt = true;
-			return;
-		}
-
 		let event = {
 			pubkey: user.pubkey,
 			created_at: Math.floor(Date.now() / 1000),
@@ -91,7 +78,7 @@
 			tags: []
 		};
 
-		await sign(event, user, $password);
+		await sign({ event, user });
 		await send(event);
 
 		const response = await fetch(formElement.action, {
@@ -111,16 +98,10 @@
 
 	let loaded;
 	onMount(() => setTimeout(() => (loaded = true), 50));
-
-	$: loading && $password && handleSubmit();
 </script>
 
 {#if loaded && user.haspin && $pin?.length !== 6}
 	<Pin />
-{/if}
-
-{#if $passwordPrompt}
-	<Password {user} />
 {/if}
 
 <form

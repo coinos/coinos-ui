@@ -1,15 +1,44 @@
 <script>
-	import { Feed, Icon, PageNotFound } from '$comp';
+	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
+	import { sign, send } from '$lib/nostr';
 
 	export let data;
-
-	let { events, user, subject, src, text } = data;
-	let followed = false;
-
-	let { username: n } = subject;
+	let events, user, subject, src, text;
+	$: ({ events, user, subject, src, text } = data);
+	$: ({ username: n } = subject);
 
 	$: username = n.length > 60 ? n.substr(0, 6) : n;
+
+	let follow = async () => {
+		user.follows.push(['p', subject.pubkey, 'wss://nostr.coinos.io', subject.username]);
+		update();
+	};
+
+	let unfollow = async () => {
+		user.follows.splice(
+			user.follows.findIndex((t) => t[1] === subject.pubkey),
+			1
+		);
+		update();
+	};
+
+	let update = async () => {
+		let event = {
+			pubkey: user.pubkey,
+			created_at: Math.floor(Date.now() / 1000),
+			kind: 3,
+			content: '',
+			tags: user.follows
+		};
+
+		user.follows = user.follows;
+
+		await sign({ event, user });
+		await send(event);
+	};
+
+	$: following = user?.follows.find((t) => t.includes(subject.pubkey));
 </script>
 
 <div class="container mx-auto w-full px-4 mb-4 flex flex-wrap md:flex-nowrap">
@@ -21,7 +50,39 @@
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
 
+		<div class="flex justify-around">
+			<a href={`/${subject.username}/follows`}><b>{subject.follows.length}</b> Following</a>
+			<a href={`/${subject.username}/followers`}><b>{subject.followers.length}</b> Followers</a>
+		</div>
+
 		<div class="flex flex-wrap gap-2 w-full">
+			{#if user && user.username !== subject.username}
+				{#if following}
+					<div class="w-full flex">
+						<button
+							class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+							on:click={unfollow}
+						>
+							<div class="mx-auto flex">
+								<Icon icon={'profile'} style="my-auto" />
+								<div>{$t('user.unfollow')}</div>
+							</div>
+						</button>
+					</div>
+				{:else}
+					<div class="w-full flex">
+						<button
+							class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+							on:click={follow}
+						>
+							<div class="mx-auto flex">
+								<Icon icon={'profile'} style="my-auto" />
+								<div>{$t('user.follow')}</div>
+							</div>
+						</button>
+					</div>
+				{/if}
+			{/if}
 			{#if !subject.anon}
 				<div class="w-full flex">
 					<a href={`/${subject.username}/receive`} class="mx-auto">
@@ -58,31 +119,12 @@
 					</div>
 				{/if}
 			{/if}
-			<!-- <div class="w-full flex"> -->
-			<!-- 	<a href={`/${subject.username}/message`} class="mx-auto"> -->
-			<!-- 		<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"> -->
-			<!-- 			<div class="mx-auto flex"> -->
-			<!-- 				<Icon icon="support" style="mr-1" /> -->
-			<!-- 				<div>{$t('transactions.sendMessage')}</div> -->
-			<!-- 			</div> -->
-			<!-- 		</button> -->
-			<!-- 	</a> -->
-			<!-- </div> -->
 		</div>
 	</div>
 
 	<div class="w-full md:pt-12 lg:pt-0">
 		<div class="mx-auto space-y-5 mt-5 lg:max-w-lg xl:max-w-2xl">
-			{#if events.length}
-				<Feed {events} {user} />
-			{:else}
-				<div class="text-center text-2xl mt-20">
-					Nothing here yet. Post your first <a
-						href="https://github.com/nostr-protocol/nostr#nostr---notes-and-other-stuff-transmitted-by-relays"
-						class="underline">nostr</a
-					> note!
-				</div>
-			{/if}
+			<slot />
 		</div>
 	</div>
 </div>

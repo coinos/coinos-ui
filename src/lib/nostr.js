@@ -1,12 +1,39 @@
+import { get } from 'svelte/store';
 import { entropyToMnemonic, mnemonicToSeedSync } from 'bip39';
 import { Buffer } from 'buffer';
 import { bech32m } from 'bech32';
 import { bip32, post, stretch } from '$lib/utils';
 import { calculateId, signId } from 'nostr';
+import { password as pw, passwordPrompt } from '$lib/store';
 
 const { decode, fromWords } = bech32m;
 
-export let sign = async (event, { cipher, username, salt }, password) => {
+let signing;
+
+pw.subscribe((nv, ov) => {
+	if (!signing) return;
+	sign(signing);
+});
+
+export let sign = async ({ event, user }) => {
+	signing = { event, user };
+	let { cipher, username, salt } = user;
+
+	let password = get(pw);
+
+	if (!password) {
+		passwordPrompt.set(true);
+		return;
+	}
+
+	try {
+		await post('/password', { password });
+	} catch (e) {
+		console.log(e);
+		passwordPrompt.set(true);
+		return;
+	}
+
 	let mnemonic, key, seed, entropy, child, privkey;
 	entropy = Buffer.from(
 		await crypto.subtle.decrypt(
@@ -25,6 +52,8 @@ export let sign = async (event, { cipher, username, salt }, password) => {
 
 	event.id = await calculateId(event);
 	event.sig = await signId(privkey, event.id);
+
+	signing = false;
 };
 
 export let send = (event) => {
