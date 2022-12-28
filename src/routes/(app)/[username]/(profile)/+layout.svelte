@@ -56,7 +56,7 @@
 		</div>
 
 		<div class="flex flex-wrap gap-2 w-full">
-			{#if user && user.username !== subject.username}
+			{#if user && user.username !== subject.username && subject.pubkey}
 				{#if following}
 					<div class="w-full flex">
 						<button

@@ -172,9 +172,10 @@ export const sats = 100000000;
 export const back = () => browser && history.go(-1);
 export const focus = (el) => setTimeout(() => el.focus());
 
-export const wait = async (f, s = 300) => {
+export const sleep = (n) => new Promise((r) => setTimeout(r, n));
+export const wait = async (f, n = 100, s = 300) => {
 	let i = 0;
-	while (!(await f()) && i < s) (await sleep(1000)) && i++;
+	while (!(await f()) && i < s) (await sleep(n)) && i++;
 	if (i >= s) throw new Error('timeout');
 	return f();
 };

@@ -13,9 +13,9 @@
 <div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
 	{#if browser}
 		{#if followers.length}
-			<VirtualScroll data={followers} key="username" let:data pageMode={true}>
+			<VirtualScroll data={followers} key="pubkey" let:data pageMode={true}>
 				<a href={`/${data.username}`}>
-					<div class="flex border-b py-4 text-sm lg:text-lg text-secondary" :key={data.username}>
+					<div class="flex border-b py-4 text-sm lg:text-lg text-secondary" :key={data.pubkey}>
 						<div class="mb-auto mr-2">
 							<div class="md:hidden">
 								<Avatar size={12} user={data} disabled={true} />
