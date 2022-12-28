@@ -13,7 +13,6 @@ export async function handle({ event, resolve }) {
 		try {
 			user = await get('/me', auth(event.cookies));
 			event.locals.user = user;
-      console.log("HOOKS USER", user)
 
 			if (['/', '/login', '/register'].includes(pathname) && request.method === 'GET')
 				return Response.redirect(origin + `/${user.username}/dashboard`, 307);
