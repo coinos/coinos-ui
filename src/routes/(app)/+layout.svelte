@@ -2,11 +2,11 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, selectedRate, invoice, rate, user, request } from '$lib/store';
+	import { last, selectedRate, invoice, rate, user, request, passwordPrompt } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { LoadingSplash, Invoice, Request } from '$comp';
+	import { LoadingSplash, Invoice, Password, Request } from '$comp';
 	import { warning, protectedRoutes } from '$lib/utils';
 	import { t, locale } from '$lib/translations';
 
@@ -57,6 +57,10 @@
 
 	onDestroy(() => browser && clearTimeout(timer));
 </script>
+
+{#if $passwordPrompt}
+	<Password {user} />
+{/if}
 
 <svelte:head>
 	{#if subject}

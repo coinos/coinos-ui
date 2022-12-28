@@ -5,27 +5,16 @@
 	import VirtualScroll from 'svelte-virtual-scroll-list';
 	import { enhance } from '$app/forms';
 	import { post, punk, failure } from '$lib/utils';
-	import { Password } from '$comp';
-	import { password, passwordPrompt } from '$lib/store';
 	import { sign, send } from '$lib/nostr';
 
 	export let events;
 	export let user;
 
-	let message, submitting;
-	$: submitting && $password && submit();
+	let message;
 
 	let submit = async () => {
-		submitting = true;
 		try {
 			let mnemonic, key, seed, entropy, child, privkey;
-			if (!$password) return ($passwordPrompt = true);
-
-			try {
-				await post('/password', { password: $password });
-			} catch (e) {
-				return ($passwordPrompt = true);
-			}
 
 			let event = {
 				pubkey: user.pubkey,
@@ -35,7 +24,7 @@
 				tags: []
 			};
 
-			await sign(event, user, $password);
+			await sign({ event, user });
 			await send(event);
 
 			event.user = user;
@@ -69,15 +58,11 @@
 	let w;
 
 	$: sorted = Object.values(events)
-		.filter((ev) => ev?.pubkey)
+		.filter((ev) => ev?.pubkey && ev?.kind === 1)
 		.sort((a, b) => b.seen - a.seen);
 </script>
 
 <svelte:window bind:innerWidth={w} />
-
-{#if $passwordPrompt}
-	<Password {user} />
-{/if}
 
 <form on:submit|preventDefault={submit} class="flex justify-center gap-4 max-w-2xl mx-auto">
 	<div class="grow">
