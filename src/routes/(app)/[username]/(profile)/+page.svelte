@@ -3,7 +3,7 @@
 	import { t } from '$lib/translations';
 
 	export let data;
-	let { events, user } = data;
+	let { events, subject, user } = data;
 </script>
 
-<Feed {events} {user} />
+<Feed {events} user={subject.username === user.username && user} />

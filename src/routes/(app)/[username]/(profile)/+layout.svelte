@@ -32,13 +32,13 @@
 			tags: user.follows
 		};
 
-		user.follows = user.follows;
-
 		await sign({ event, user });
 		await send(event);
+
+    user.follows = user.follows;
 	};
 
-	$: following = user?.follows.find((t) => t.includes(subject.pubkey));
+  $: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
 </script>
 
 <div class="container mx-auto w-full px-4 mb-4 flex flex-wrap md:flex-nowrap">

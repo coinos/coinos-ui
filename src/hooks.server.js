@@ -1,8 +1,11 @@
 import { auth, get, protectedRoutes } from '$lib/utils';
 
+let users = {};
+
 export async function handle({ event, resolve }) {
 	let token = event.cookies.get('token');
 	let {
+    cookies,
 		params,
 		request,
 		url: { pathname, origin }
