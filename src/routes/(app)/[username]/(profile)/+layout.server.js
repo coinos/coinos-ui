@@ -6,9 +6,9 @@ export async function load({ parent }) {
 	subject.follows = await get(`/${subject.pubkey}/follows`);
 	subject.followers = await get(`/${subject.pubkey}/followers`);
 
-  if (user) {
-    user.follows = await get(`/${user.pubkey}/follows?tagsonly=true`);
-  } 
+	if (user) {
+		user.follows = await get(`/${user.pubkey}/follows?tagsonly=true`);
+	}
 
-  return { subject, user }
+	return { subject, user };
 }
