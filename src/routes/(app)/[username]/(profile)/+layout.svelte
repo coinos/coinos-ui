@@ -51,8 +51,8 @@
 		</div>
 
 		<div class="flex justify-around">
-			<a href={`/${subject.username}/follows`}><b>{subject.follows.length}</b> Following</a>
-			<a href={`/${subject.username}/followers`}><b>{subject.followers.length}</b> Followers</a>
+			<a href={`/${subject.pubkey}/follows`}><b>{subject.follows.length}</b> Following</a>
+			<a href={`/${subject.pubkey}/followers`}><b>{subject.followers.length}</b> Followers</a>
 		</div>
 
 		<div class="flex flex-wrap gap-2 w-full">
