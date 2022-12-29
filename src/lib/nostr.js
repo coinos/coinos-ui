@@ -39,7 +39,7 @@ export let sign = async ({ event, user }) => {
 		'hex'
 	).toString('hex');
 
-  console.log("decoded entropy");)
+  console.log("decoded entropy");
 
 	mnemonic = entropyToMnemonic(entropy);
 	seed = mnemonicToSeedSync(mnemonic);
@@ -52,7 +52,7 @@ export let sign = async ({ event, user }) => {
 	event.id = await calculateId(event);
   console.log("got id")
 	event.sig = await signId(privkey, event.id);
-  console.log("signed")
+    console.log("signed")
 };
 
 export let send = (event) => {
