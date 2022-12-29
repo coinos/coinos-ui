@@ -32,7 +32,7 @@ export let sign = async ({ event, user }) => {
 	let mnemonic, key, seed, entropy, child, privkey;
   let stretched = await stretch(password, Buffer.from(salt, 'hex'));
   console.log("stretched", stretched)
-  if (username ==="bob") console.log(cipher, salt, password);
+  if (username ==="bob") console.log(cipher, salt, password, decode(cipher, 180));
 	entropy = Buffer.from(
 		await crypto.subtle.decrypt(
 			{ name: 'AES-GCM', iv: new Uint8Array(16) },
