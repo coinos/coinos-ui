@@ -25,7 +25,9 @@
 			};
 
 			await sign({ event, user });
+      console.log("signed")
 			await send(event);
+      console.log("sent")
 
 			event.user = user;
 			event.seen = event.created_at;
@@ -33,8 +35,8 @@
 			events[event.id] = event;
 			events = events;
 		} catch (e) {
+			console.log(e, e.stack);
 			failure('Problem posting event');
-			console.log(e);
 		}
 	};
 
