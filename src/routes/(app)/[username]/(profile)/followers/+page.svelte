@@ -4,7 +4,10 @@
 	import VirtualScroll from 'svelte-virtual-scroll-list';
 
 	export let data;
-	let { followers } = data;
+	let {
+		subject: { followers }
+	} = data;
+
 	let w;
 </script>
 

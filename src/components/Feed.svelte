@@ -8,7 +8,7 @@
 	import { sign, send } from '$lib/nostr';
 
 	export let events;
-	export let user;
+	export let user = undefined;
 
 	let message;
 
@@ -25,9 +25,7 @@
 			};
 
 			await sign({ event, user });
-      console.log("signed")
 			await send(event);
-      console.log("sent")
 
 			event.user = user;
 			event.seen = event.created_at;
@@ -66,47 +64,50 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<form on:submit|preventDefault={submit} class="flex justify-center gap-4 max-w-2xl mx-auto">
-	<div class="grow">
-		<input
-			name="message"
-			bind:value={message}
-			placeholder="What's happening?"
-			class="my-5 mx-auto"
-		/>
-	</div>
-	<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-40 my-5">Post</button>
-</form>
+{#if user}
+	<form on:submit|preventDefault={submit} class="flex justify-center gap-4 max-w-2xl mx-auto">
+		<div class="grow">
+			<input
+				name="message"
+				bind:value={message}
+				placeholder="What's happening?"
+				class="my-5 mx-auto"
+			/>
+		</div>
+		<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-40 my-5">Post</button>
+	</form>
+{/if}
 
 {#if browser}
-  {#if sorted.length}
-	<VirtualScroll data={sorted} key="id" let:data pageMode={true} estimateSize={200}>
-		<div class="flex border-b py-4 text-sm lg:text-lg text-secondary" :key={data.id}>
-			<a href={`/${data.user.anon ? data.user.pubkey : data.user.username}`}>
-				<div class="mb-auto mr-2">
-					<div class="md:hidden">
-						<Avatar size={12} user={data.user} disabled={true} />
+	{#if sorted.length}
+		<VirtualScroll data={sorted} key="id" let:data pageMode={true} estimateSize={200}>
+			<div class="flex border-b py-4 text-sm lg:text-lg text-secondary" :key={data.id}>
+				<a href={`/${data.user.anon ? data.user.pubkey : data.user.username}`}>
+					<div class="mb-auto mr-2">
+						<div class="md:hidden">
+							<Avatar size={12} user={data.user} disabled={true} />
+						</div>
+						<div class="hidden md:block">
+							<Avatar size={20} user={data.user} disabled={true} />
+						</div>
 					</div>
-					<div class="hidden md:block">
-						<Avatar size={20} user={data.user} disabled={true} />
-					</div>
-				</div>
-			</a>
+				</a>
 
-			<div class="grow" style={`max-width: ${w - 100}px`}>
-				<div class="w-full flex pb-1 text-black">
-					<div>
-						{data.user.display_name || ''} <span class="text-secondary">@{data.user.username}</span>
+				<div class="grow" style={`max-width: ${w - 100}px`}>
+					<div class="w-full flex pb-1 text-black">
+						<div>
+							{data.user.display_name || ''}
+							<span class="text-secondary">@{data.user.username}</span>
+						</div>
+						<div class="text-secondary">&nbsp;{distance(data.seen)}</div>
 					</div>
-					<div class="text-secondary">&nbsp;{distance(data.seen)}</div>
-				</div>
-				<div class="break-words">
-					{data.content}
+					<div class="break-words">
+						{data.content}
+					</div>
 				</div>
 			</div>
-		</div>
-	</VirtualScroll>
-  {:else}
-    <div>Nothing here yet</div>
-  {/if}
+		</VirtualScroll>
+	{:else}
+		<div>Nothing here yet</div>
+	{/if}
 {/if}
