@@ -27,6 +27,8 @@ export let sign = async ({ event, user }) => {
 	await wait(() => !!get(pw));
 	password = get(pw);
 
+  console.log("got pw")
+
 	let mnemonic, key, seed, entropy, child, privkey;
 	entropy = Buffer.from(
 		await crypto.subtle.decrypt(
@@ -37,14 +39,20 @@ export let sign = async ({ event, user }) => {
 		'hex'
 	).toString('hex');
 
+  console.log("decoded entropy");)
+
 	mnemonic = entropyToMnemonic(entropy);
 	seed = mnemonicToSeedSync(mnemonic);
 	key = bip32.fromSeed(seed);
 	child = key.derivePath("m/44'/1237'/0'/0/0");
 	privkey = child.privateKey;
 
+  console.log("derived privkey")
+
 	event.id = await calculateId(event);
+  console.log("got id")
 	event.sig = await signId(privkey, event.id);
+  console.log("signed")
 };
 
 export let send = (event) => {
