@@ -79,6 +79,7 @@
 </form>
 
 {#if browser}
+  {#if sorted.length}
 	<VirtualScroll data={sorted} key="id" let:data pageMode={true} estimateSize={200}>
 		<div class="flex border-b py-4 text-sm lg:text-lg text-secondary" :key={data.id}>
 			<a href={`/${data.user.anon ? data.user.pubkey : data.user.username}`}>
@@ -105,4 +106,7 @@
 			</div>
 		</div>
 	</VirtualScroll>
+  {:else}
+    <div>Nothing here yet</div>
+  {/if}
 {/if}
