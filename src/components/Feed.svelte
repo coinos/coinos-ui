@@ -81,8 +81,8 @@
 {#if browser}
 	{#if sorted.length}
 		<VirtualScroll data={sorted} key="id" let:data pageMode={true} estimateSize={200}>
-			<div class="flex border-b py-4 text-sm lg:text-lg text-secondary" :key={data.id}>
-				<a href={`/${data.user.anon ? data.user.pubkey : data.user.username}`}>
+			<div class="flex py-4 text-sm lg:text-lg text-secondary" :key={data.id}>
+				<a href={`/${data.user.pubkey}`}>
 					<div class="mb-auto mr-2">
 						<div class="md:hidden">
 							<Avatar size={12} user={data.user} disabled={true} />
