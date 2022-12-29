@@ -7,7 +7,6 @@
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 	import { events } from '$lib/store';
-	import { Feed } from '$comp';
 
 	export let data;
 	$: ({ invoices, requests } = data);
@@ -170,11 +169,5 @@
 			<div class="mr-1">⚡️{s((1 * sats) / animatedRate)} =</div>
 			<div>{f(1, user.currency)}</div>
 		</div>
-	</div>
-</div>
-
-<div class="mb-20">
-	<div class="container w-full mx-auto text-lg px-4 md:max-w-2xl space-y-5">
-		<Feed events={$events} {user} />
 	</div>
 </div>
