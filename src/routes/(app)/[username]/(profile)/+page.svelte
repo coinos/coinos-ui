@@ -6,4 +6,4 @@
 	let { events, subject, user } = data;
 </script>
 
-<Feed {events} user={subject.username === user.username && user} />
+<Feed {events} user={subject?.username === user?.username && user} />

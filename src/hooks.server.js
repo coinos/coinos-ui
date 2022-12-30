@@ -5,7 +5,6 @@ let users = {};
 export async function handle({ event, resolve }) {
 	let token = event.cookies.get('token');
 	let {
-		cookies,
 		params,
 		request,
 		url: { pathname, origin }
@@ -14,7 +13,13 @@ export async function handle({ event, resolve }) {
 	let user;
 	if (token && pathname !== '/logout') {
 		try {
-			user = await get('/me', auth(event.cookies));
+			user = users[token] || (await get('/me', auth(event.cookies)));
+			users[token] = user;
+
+			setTimeout(() => {
+				delete users[token];
+			}, 60000);
+
 			event.locals.user = user;
 
 			if (['/', '/login', '/register'].includes(pathname) && request.method === 'GET')
