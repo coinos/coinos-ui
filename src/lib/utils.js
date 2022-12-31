@@ -48,10 +48,10 @@ export const post = (url, body, headers) => {
 
 			try {
 				let { message } = JSON.parse(text);
-				if (message) return JSON.stringify({ name: 'Error', message });
+				if (message) throw new Error(message);
 			} catch (e) {}
 
-			return { error: text };
+			throw new Error(text);
 		})
 		.then((body) => {
 			try {
@@ -60,7 +60,7 @@ export const post = (url, body, headers) => {
 				throw new Error(body);
 			}
 
-			if (body.error) throw body.error;
+			if (body.error instanceof Error) throw body.error;
 			if (body instanceof Error) throw body;
 			if (body.name === 'Error') throw new Error(body.message);
 
