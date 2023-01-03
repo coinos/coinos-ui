@@ -3,10 +3,9 @@ import { error, json } from '@sveltejs/kit';
 
 export async function POST({ cookies, request }) {
 	try {
-		let body = await request.json();
-		let user = await post(`/user`, body, auth(cookies));
-		return json(user);
+		return json(await post(`/user`, await request.json(), auth(cookies)));
 	} catch (e) {
+		console.log(e);
 		throw error(500, e.message);
 	}
 }

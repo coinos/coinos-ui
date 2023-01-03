@@ -1,15 +1,18 @@
 <script>
+	import { applyAction, deserialize } from '$app/forms';
 	import { tick } from 'svelte';
 	import { Pincode, PincodeInput } from 'svelte-pincode';
 	import { fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
-	import { Icon } from '$comp';
+	import { Icon, Spinner } from '$comp';
 	import { focus } from '$lib/utils';
 	import { password } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
+	import { generate } from '$lib/nostr';
+	import { invalidateAll } from '$app/navigation';
 
-	let token, tokenInput;
+	let token, tokenInput, formElement;
 	let code = [];
 	let redirect;
 
@@ -32,6 +35,33 @@
 		register: '/register',
 		signIn: '/login'
 	}[pageID];
+
+	let loading;
+	async function handleSubmit(e) {
+		loading = true;
+
+		let data = new FormData(this);
+		let user = Object.fromEntries(data);
+		await generate(user);
+
+		for (let k in user) {
+			data.set(k, user[k]);
+		}
+
+		const response = await fetch(action, {
+			method: 'POST',
+			body: data
+		});
+
+		const result = deserialize(await response.text());
+
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+
+		applyAction(result);
+		loading = false;
+	}
 </script>
 
 <div class="pt-10">
@@ -81,7 +111,7 @@
 					</div>
 				{/if}
 
-				<form class="space-y-5" {action} method="POST" use:enhance>
+				<form class="space-y-5" on:submit|preventDefault={handleSubmit} method="POST">
 					<div>
 						<label for="username" class="font-semibold">{$t('login.username')}</label>
 						<input
@@ -141,7 +171,13 @@
 					<button
 						type="submit"
 						class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
-						>{$t('login.' + pageID)}
+						disabled={loading}
+					>
+						{#if loading}
+							<Spinner />
+						{:else}
+							{$t('login.' + pageID)}
+						{/if}
 					</button>
 				</form>
 

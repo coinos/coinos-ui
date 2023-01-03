@@ -11,25 +11,11 @@ import { goto, invalidate } from '$app/navigation';
 const { encode, decode, fromWords, toWords } = bech32m;
 
 export let generate = async (user) => {
+	let password = get(pw);
 	let mnemonic, key, seed, entropy, cipher, salt, child;
 
 	if (!get(pin)?.length === 6) return;
 
-	let password = get(pw);
-
-	if (!password) {
-		passwordPrompt.set(true);
-	}
-
-	try {
-		await post('/password', { password });
-	} catch (e) {
-		console.log(e);
-		passwordPrompt.set(true);
-	}
-
-	await wait(() => !!get(pw));
-	password = get(pw);
 
 	mnemonic = generateMnemonic();
 	seed = mnemonicToSeedSync(mnemonic);
@@ -49,19 +35,6 @@ export let generate = async (user) => {
 	user.pubkey = Buffer.from(ecc.xOnlyPointFromPoint(child.publicKey)).toString('hex');
 	user.cipher = encode('en', toWords(bytes), 180);
 	user.salt = Buffer.from(salt).toString('hex');
-	user.pin = get(pin);
-
-	try {
-		await post(`/${user.username}/generate`, user);
-	} catch (e) {
-		if (e.message?.startsWith('Pin')) {
-			pin.set('');
-			failure('Wrong pin, try again');
-		}
-	}
-
-	invalidate('app:user');
-	setTimeout(() => goto(get(loginRedirect) || `/${user.username}/dashboard`), 10);
 };
 
 export let sign = async ({ event, user }) => {
