@@ -132,7 +132,8 @@
 		"signOut": "Déconnexion",
 		"dashboard": "Tableau de bord",
 		"settings": "Préférences",
-		"support": "Assistance"
+		"support": "Assistance",
+		"profile": "Profil"
 	},
 	"newSiteHeader": "Bienvenue à la <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">coinos nouvelle et amélioré</a>, concentré au marchants! Cherchez pour le dernier coinos? Visitez <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
 	"invoice": {
@@ -167,7 +168,9 @@
 			"send": "Envoie",
 			"withdraw": "Retire",
 			"go": "Allez",
-			"receive": "Reçois un Paiement"
+			"receive": "Reçois un Paiement",
+			"deposit": "Déposer",
+			"voucher": "Bon"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
@@ -182,7 +185,6 @@
 			"username": "Nom d'Utilisateur",
 			"email": "Courriel",
 			"newPassword": "Mot de Passe Nouveau",
-			"businessAddress": "Addresse d'Entreprise",
 			"emailNotifications": "Notifications par Courriel",
 			"emailNotificationsDescription": "Nous pouvons vous notifier par courriel quand votre conte change ou quand vous recevez des paiements",
 			"smsNotifications": "Notifications par SMS",
@@ -205,7 +207,13 @@
 			"profileImage": "Image de Profil",
 			"oneTimeCode": "Entrez mot de passe à usage unique",
 			"accountId": "Secret de conte",
-			"twofaDisable": "Désactivez A2F"
+			"twofaDisable": "Désactivez A2F",
+			"about": "À Propos",
+			"aboutPlaceholder": "Un description court de vous ou votre entreprise (adresse, bio, etc.)",
+			"select": "Choisir",
+			"verifyPIN": "Verifiez votre NIP",
+			"enablePIN": "Activer NIP",
+			"disablePIN": "Désactiver NIP"
 		},
 		"support": {
 			"header": "Assistance",
@@ -214,15 +222,59 @@
 			"message": "Message",
 			"send": "Envoie"
 		},
-		"transactions": {
-			"header": "Histoire des Transactions",
-			"AMOUNT": "QUANTITÉ",
-			"TYPE": "TYPE",
-			"TIME": "HEURE",
-			"sent": "Envoyé",
-			"received": "Recevé",
-			"empty": "Vous n'avez pas des transactions."
+		"bitcoin": "Bitcoin",
+		"lightning": "Lightning",
+		"invoice": "Facture",
+		"unfollow": "Ne plus suivre",
+		"following": "Vous suivez",
+		"this": "Cette",
+		"lightningAddress": "adresse de Lightning",
+		"likeAnEmail": "est comme un courriel pour bitcoin.  Vous pouvez le publier sur votre site web ou votre carte de visite et l'utiliser plusieurs fois.",
+		"send": {
+			"contacts": "Contacts",
+			"scan": "Scannez",
+			"paste": "Collez",
+			"next": "Prochain",
+			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos"
 		}
+	},
+	"transactions": {
+		"header": "Histoire des Transactions",
+		"AMOUNT": "QUANTITÉ",
+		"TYPE": "TYPE",
+		"TIME": "HEURE",
+		"sent": "Envoyé",
+		"received": "Recevé",
+		"empty": "Vous n'avez pas des transactions.",
+		"send": "Envoie",
+		"next": "Prochain",
+		"sendersChoice": "Choix d'envoyeur",
+		"sendTo": "Envoie à",
+		"to": "à",
+		"pay": "Payez",
+		"requesting": "demande",
+		"sentInvoiceTo": "a envoyé une facture à",
+		"sentRequestTo": "a envoyé une demande à",
+		"pleasePay": "S'il vous plaît payez",
+		"day": "Jour",
+		"week": "Semaine",
+		"month": "Mois",
+		"all": "Tout",
+		"export": "Exportez",
+		"invoice": "Facture",
+		"readyToPay": "est prêt à payer",
+		"describeOrder": "Utilizer ce champ pour décrire votre commande",
+		"requestAnInvoice": "Demandez une facture",
+		"submit": "Soumettre",
+		"isRequesting": "demande",
+		"invoiceFrom": "Facture de",
+		"awaiting": "Attendez pour",
+		"tapAnywhere": "Tapez partout",
+		"from": "de",
+		"redeem": "Échangez",
+		"redeemed": "Déjà échangé",
+		"redeemedBy": "Échangé par",
+		"sendMessage": "Message"
 	},
 	"news": {
 		"header": "Nouvelles",
