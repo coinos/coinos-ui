@@ -16,7 +16,6 @@ export let generate = async (user) => {
 
 	if (!get(pin)?.length === 6) return;
 
-
 	mnemonic = generateMnemonic();
 	seed = mnemonicToSeedSync(mnemonic);
 	entropy = mnemonicToEntropy(mnemonic);
@@ -37,9 +36,60 @@ export let generate = async (user) => {
 	user.salt = Buffer.from(salt).toString('hex');
 };
 
-export let sign = async ({ event, user }) => {
-	let { cipher, username, salt } = user;
+export let encrypt = async ({ message, recipient, user }) => {
+	let sharedPoint = Buffer.from(
+		ecc.pointMultiply(
+			Uint8Array.from(Buffer.from('02' + recipient, 'hex')),
+			Buffer.from(await getPrivateKey(user), 'hex')
+		)
+	);
 
+	let iv = crypto.getRandomValues(new Uint8Array(16));
+	let cipher = await crypto.subtle.encrypt(
+		{ name: 'AES-CBC', iv },
+		await crypto.subtle.importKey('raw', sharedPoint.slice(1), 'AES-CBC', true, [
+			'encrypt',
+			'decrypt'
+		]),
+		new TextEncoder().encode(message)
+	);
+
+	return Buffer.from(cipher).toString('base64') + '?iv=' + Buffer.from(iv).toString('base64');
+};
+
+export let decrypt = async ({ event, user }) => {
+	try {
+		let { content, pubkey } = event;
+    if (pubkey === user.pubkey) pubkey = event.tags[0][1];
+		pubkey = Uint8Array.from(Buffer.from('02' + pubkey, 'hex'));
+
+		let sharedPoint = Buffer.from(
+			ecc.pointMultiply(pubkey, Buffer.from(await getPrivateKey(user), 'hex'))
+		);
+
+		let [cipher, iv] = content.split('?iv=');
+		cipher = Uint8Array.from(Buffer.from(cipher, 'base64'));
+		iv = Uint8Array.from(Buffer.from(iv, 'base64'));
+
+		let key = await crypto.subtle.importKey('raw', sharedPoint.slice(1), 'AES-CBC', true, [
+			'encrypt',
+			'decrypt'
+		]);
+
+		let message = await crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, cipher);
+
+		return Buffer.from(message).toString('utf8');
+	} catch (e) {
+		console.log(e);
+	}
+};
+
+function typedArrayToBuffer(array) {
+	return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);
+}
+
+let getPrivateKey = async (user) => {
+	let { cipher, username, salt } = user;
 	let password = get(pw);
 
 	if (!password) {
@@ -49,7 +99,6 @@ export let sign = async ({ event, user }) => {
 	try {
 		await post('/password', { password });
 	} catch (e) {
-		console.log(e);
 		passwordPrompt.set(true);
 	}
 
@@ -70,8 +119,11 @@ export let sign = async ({ event, user }) => {
 	seed = mnemonicToSeedSync(mnemonic);
 	key = bip32.fromSeed(seed);
 	child = key.derivePath("m/44'/1237'/0'/0/0");
-	privkey = child.privateKey;
+	return child.privateKey;
+};
 
+export let sign = async ({ event, user }) => {
+	let privkey = await getPrivateKey(user);
 	event.id = await calculateId(event);
 	event.sig = await signId(privkey, event.id);
 };
