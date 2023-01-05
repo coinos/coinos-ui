@@ -103,7 +103,7 @@
 								<div class="flex">
 									<Avatar user={recipient} size={20} />
 									<div class="my-auto text-left">
-										<p class="text-secondary">Invoice from</p>
+										<p class="text-secondary">{$t('transactions.invoiceFrom')}</p>
 										<p class="ml-1 text-lg break-words">{recipient.username}</p>
 									</div>
 								</div>
