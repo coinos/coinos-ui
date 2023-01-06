@@ -82,8 +82,7 @@
 						</button>
 					</div>
 				{/if}
-			{/if}
-			{#if user.pubkey !== subject.pubkey}
+
 				<div class="w-full flex">
 					<a href={`/${subject.pubkey}/messages`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
