@@ -46,11 +46,12 @@ export const post = (url, body, headers) => {
 			if (r.ok) return r.text();
 			let text = await r.text();
 
+      let message;
 			try {
-				let { message } = JSON.parse(text);
-				if (message) throw new Error(message);
+				({ message } = JSON.parse(text));
 			} catch (e) {}
 
+      if (message) throw new Error(message);
 			throw new Error(text);
 		})
 		.then((body) => {
