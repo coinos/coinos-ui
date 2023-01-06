@@ -188,20 +188,19 @@
 	{/if}
 </div>
 
-<!-- TODO
 <div>
-	<label for="auto-lock" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
+	<label for="locktime" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
 	<p class="text-secondary mb-1">
 		{$t('user.settings.autoLockDescription')}
 	</p>
-	<select name="auto-lock" class="select-styles block py-3 w-full">
-		<option value="5">5 min</option>
-		<option value="10">10 min</option>
-		<option value="30">30 min</option>
-		<option value="60">1 h</option>
-		<option value="480">8 h</option>
+	<select name="locktime" class="select-styles block py-3 w-full" value={parseInt(user.locktime)}>
+		<option value={5 * 60}>5 {$t('user.settings.minutes')}</option>
+		<option value={10 * 60}>10 {$t('user.settings.minutes')}</option>
+		<option value={30 * 60}>30 {$t('user.settings.minutes')}</option>
+		<option value={60 * 60}>1 {$t('user.settings.hour')}</option>
+		<option value={8 * 60 * 60}>8 {$t('user.settings.hours')}</option>
 	</select>
-</div> -->
+</div>
 
 <div>
 	<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>

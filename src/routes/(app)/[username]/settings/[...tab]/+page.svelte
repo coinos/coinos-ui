@@ -55,9 +55,7 @@
 			let data = new FormData(formElement);
 
 			if (data.get('password')) {
-				console.log('reencrypting', user.cipher);
 				data.set('cipher', await reEncryptEntropy(user, data.get('password')));
-				console.log(data.get('cipher'));
 			}
 
 			try {
