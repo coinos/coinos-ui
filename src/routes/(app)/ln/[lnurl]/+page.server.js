@@ -1,9 +1,8 @@
 import { auth, get, post } from '$lib/utils';
 import { error, redirect } from '@sveltejs/kit';
 
-export async function load({ locals, params }) {
+export async function load({ params }) {
 	try {
-		if (!locals.user) throw redirect(307, '/login');
 		let { lnurl } = params;
 		lnurl = await get(`/decode?text=${lnurl}`);
 		if (lnurl.tag !== 'payRequest') throw error(500, 'We can only handle lnurl pay requests');

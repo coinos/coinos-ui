@@ -7,13 +7,9 @@ export function load({ params, url }) {
 }
 
 export const actions = {
-	default: async ({ cookies, locals, request }) => {
+	default: async ({ cookies, request }) => {
 		let form = Object.fromEntries(await request.formData());
-
-		let user = {
-			...locals.user,
-			...form
-		};
+		let user = { ...(await get('/me', auth(cookies))), ...form };
 
 		try {
 			({ user } = await post(`/user`, user, auth(cookies)));
