@@ -55,5 +55,6 @@ export const request = writable();
 export const invoice = writable();
 export const txns = persistLocal('transactions', []);
 export const events = writable({});
-export const password = writable();
+export const password = persistLocal('password');
 export const passwordPrompt = writable();
+export const messages = persistLocal('messages', {});

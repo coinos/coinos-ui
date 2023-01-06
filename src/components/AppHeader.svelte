@@ -100,7 +100,7 @@
 						<ul class="space-y-5 w-48">
 							{#each menuButtons as { href, icon, key }}
 								<li>
-									<a {href}  data-sveltekit-prefetch="off">
+									<a {href} data-sveltekit-prefetch="off">
 										<button class="flex justify-center items-center font-semibold hover:opacity-80"
 											><Icon {icon} style="mr-2 w-6 md:w-8" /> {$t(key)}
 										</button>
