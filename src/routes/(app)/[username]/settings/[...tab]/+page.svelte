@@ -6,10 +6,10 @@
 	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, post, success } from '$lib/utils';
-	import { avatarUpload, bannerUpload, pin } from '$lib/store';
+	import { avatarUpload, bannerUpload, password, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
-	import { sign, send } from '$lib/nostr';
+	import { sign, send, reEncryptEntropy } from '$lib/nostr';
 	import { invalidateAll } from '$app/navigation';
 
 	import Account from './_account.svelte';
@@ -50,50 +50,62 @@
 	let loading;
 
 	async function handleSubmit() {
-		loading = true;
-		let data = new FormData(formElement);
-
 		try {
-			if ($avatarUpload) {
-				await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress, token);
+			loading = true;
+			let data = new FormData(formElement);
+
+			if (data.get('password')) {
+				console.log('reencrypting', user.cipher);
+				data.set('cipher', await reEncryptEntropy(user, data.get('password')));
+				console.log(data.get('cipher'));
 			}
 
-			if ($bannerUpload) {
-				await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress, token);
+			try {
+				if ($avatarUpload) {
+					await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress, token);
+				}
+
+				if ($bannerUpload) {
+					await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress, token);
+				}
+			} catch (e) {
+				console.log(e);
+				failure('Something went wrong');
 			}
+
+			let event = {
+				pubkey: user.pubkey,
+				created_at: Math.floor(Date.now() / 1000),
+				kind: 0,
+				content: JSON.stringify({
+					name: user.username,
+					about: user.address,
+					picture: `${PUBLIC_COINOS_URL}/public/${user.username}-profile.webp`
+				}),
+				tags: []
+			};
+
+			await sign({ event, user });
+			await send(event);
+
+			const response = await fetch(formElement.action, {
+				method: 'POST',
+				body: data
+			});
+
+			const result = deserialize(await response.text());
+
+			if (result.type === 'success') {
+				await invalidateAll();
+				if (data.get('password')) $password = data.get('password');
+			}
+
+			applyAction(result);
+			loading = false;
 		} catch (e) {
 			console.log(e);
-			failure('Something went wrong');
+			failure('Problem submitting form');
 		}
-
-		let event = {
-			pubkey: user.pubkey,
-			created_at: Math.floor(Date.now() / 1000),
-			kind: 0,
-			content: JSON.stringify({
-				name: user.username,
-				about: user.address,
-				picture: `${PUBLIC_COINOS_URL}/public/${user.username}-profile.webp`
-			}),
-			tags: []
-		};
-
-		await sign({ event, user });
-		await send(event);
-
-		const response = await fetch(formElement.action, {
-			method: 'POST',
-			body: data
-		});
-
-		const result = deserialize(await response.text());
-
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-
-		applyAction(result);
-		loading = false;
 	}
 
 	let loaded;
@@ -117,7 +129,7 @@
 			{$t('user.settings.header')}
 		</h1>
 
-		<div class="font-bold flex justify-between items-center border-b pb-3 text-secondary">
+		<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
 			{#each tabs as { name, key }}
 				<a href={`/${user.username}/settings/${name}`}>
 					<button class="hover:opacity-80" class:text-black={tab === name}
