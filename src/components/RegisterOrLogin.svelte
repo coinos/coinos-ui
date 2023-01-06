@@ -16,6 +16,8 @@
 	let code = [];
 	let redirect;
 
+	$password = undefined;
+
 	$: need2fa = form?.message === '2fa';
 	$: if (need2fa) tokenInput && tick().then(tokenInput.focusFirstInput);
 

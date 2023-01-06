@@ -1,12 +1,17 @@
 <script>
-	import { Icon, Toggle } from '$comp';
+	import { Icon, LocaleSelector } from '$comp';
 	import { t } from '$lib/translations';
 	import { success, failure } from '$lib/utils';
 	import { page } from '$app/stores';
 
 	export let user, rates;
-	const fiats = Object.keys(rates);
+	let fiats = Object.keys(rates);
 </script>
+
+<div>
+	<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
+	<LocaleSelector style="select-styles block py-3 w-full" />
+</div>
 
 <div>
 	<label for="currency" class="font-bold block mb-1">{$t('user.settings.localCurrency')}</label>

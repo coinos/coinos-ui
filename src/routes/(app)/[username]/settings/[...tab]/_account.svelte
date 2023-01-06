@@ -1,22 +1,19 @@
 <script>
 	import { tick } from 'svelte';
 	import { colorTheme, avatarUpload, bannerUpload } from '$lib/store';
-	import { Icon, Toggle, LocaleSelector } from '$comp';
+	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { upload } from '$lib/upload';
 
 	export let user;
 
 	let selectedTheme = 1;
-	let revealPassword = false;
-	let password;
 	let profileFile;
 	let select = (type) => files[type].el.click();
 
 	$: profile = files.profile.src;
 	$: banner = files.banner.src;
 
-	let togglePassword = () => (revealPassword = !revealPassword);
 	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
 		{ theme: 2, color1: 'from-[#FDFCFB]', color2: 'to-[#E2D1C3]' },
@@ -56,44 +53,12 @@
 			$bannerUpload = { file, type, progress };
 		}
 	};
-
-	$: user.password = user.confirm = password;
 </script>
 
-<div>
-	<label for="language" class="font-bold block mb-1">{$t('user.settings.locale')}</label>
-	<LocaleSelector style="select-styles block py-3 w-full" />
-</div>
-
-<!-- TODO
-<div>
-	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-	<input type="email" name="email" bind:value={user.email} />
-</div> -->
-
-<!-- TODO fix breaking changes when user updates this field -->
-<div>
-	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
-	<input disabled type="text" name="username" bind:value={user.username} />
-	<input type="hidden" name="username" bind:value={user.username} />
-</div>
-
-<div class="relative">
-	<label for="password" class="block font-bold block mb-1">{$t('user.settings.newPassword')}</label>
-	{#if revealPassword}
-		<input name="password" type="text" bind:value={password} />
-	{:else}
-		<input name="password" type="password" bind:value={password} />
-	{/if}
-	<button
-		type="button"
-		on:click={togglePassword}
-		on:keydown={togglePassword}
-		class="absolute right-5 top-11"
-	>
-		<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
-	</button>
-</div>
+<!-- <div> -->
+<!-- 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label> -->
+<!-- 	<input type="text" name="username" bind:value={user.username} /> -->
+<!-- </div> -->
 
 <div>
 	<label for="address" class="font-bold mb-1 block">{$t('user.settings.about')}</label>
@@ -104,27 +69,6 @@
 		placeholder={$t('user.settings.aboutPlaceholder')}
 	/>
 </div>
-
-<!-- TODO -->
-<!-- <div> -->
-<!-- 	<div class="flex justify-between items-center"> -->
-<!-- 		<span class="font-bold">{$t('user.settings.emailNotifications')}</span> -->
-<!-- 		<Toggle id="email-notify" /> -->
-<!-- 	</div> -->
-<!-- 	<p class="text-secondary mt-1 w-9/12"> -->
-<!-- 		{$t('user.settings.emailNotificationsDescription')} -->
-<!-- 	</p> -->
-<!-- </div> -->
-<!--  -->
-<!-- <div> -->
-<!-- 	<div class="flex justify-between items-center"> -->
-<!-- 		<span class="font-bold">{$t('user.settings.smsNotifications')}</span> -->
-<!-- 		<Toggle id="sms-notify" /> -->
-<!-- 	</div> -->
-<!-- 	<p class="text-secondary mt-1 w-9/12"> -->
-<!-- 		{$t('user.settings.smsNotificationsDescription')} -->
-<!-- 	</p> -->
-<!-- </div> -->
 
 <div>
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
@@ -192,7 +136,6 @@
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
-	<!-- found missing translation -->
 
 	{#if banner}
 		<img
@@ -219,7 +162,6 @@
 		/>
 	{/if}
 
-	<!-- found missing translation -->
 	<button
 		type="button"
 		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
@@ -240,20 +182,3 @@
 		<div class="text-red-600">Max file size 10MB</div>
 	{/if}
 </div>
-
-<!-- TODO
-<div>
-	<span class="font-bold mb-1 block">{$t('user.settings.theme')}</span>
-	<p class="text-secondary mb-1">{$t('user.settings.themeDescription')}</p>
-	{#each colorThemes as colors}
-		<button
-			type="button"
-			class="hover:opacity-80 mr-2 w-10 h-10 bg-gradient-to-r {colors.color1} {colors.color2} rounded-xl border-2 {selectedTheme ===
-			colors.theme
-				? 'border-black'
-				: ''}"
-			on:click={() => handleThemeClick(colors)}
-			on:keydown={() => handleThemeClick(colors)}
-		/>
-	{/each}
-</div> -->

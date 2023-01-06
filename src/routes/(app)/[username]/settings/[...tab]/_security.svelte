@@ -11,6 +11,7 @@
 	export let user, submit;
 	let settingPin, setting2fa, disabling2fa;
 
+	let password, revealPassword;
 	let token = '';
 	let pinCode = [];
 	let verifyCode = [];
@@ -18,8 +19,10 @@
 	let verifying = false;
 	let old;
 
+	let togglePassword = () => (revealPassword = !revealPassword);
+
 	let startVerifying = () => {
-    if (pinCode.join("").length < 6) return;
+		if (pinCode.join('').length < 6) return;
 		verifying = true;
 	};
 
@@ -81,7 +84,7 @@
 		if (user.haspin) {
 			try {
 				pin = null;
-        await tick();
+				await tick();
 				submit.click();
 			} catch (e) {
 				console.log(e);
@@ -125,9 +128,27 @@
 	};
 </script>
 
-<div>
-	<input type="hidden" name="newpin" value={pin} />
+<input type="hidden" name="newpin" value={pin} />
+<input type="hidden" name="confirm" bind:value={password} />
 
+<div class="relative mb-5">
+	<label for="password" class="block font-bold block mb-1">{$t('user.settings.newPassword')}</label>
+	{#if revealPassword}
+		<input name="password" type="text" bind:value={password} />
+	{:else}
+		<input name="password" type="password" bind:value={password} />
+	{/if}
+	<button
+		type="button"
+		on:click={togglePassword}
+		on:keydown={togglePassword}
+		class="absolute right-5 top-11"
+	>
+		<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
+	</button>
+</div>
+
+<div>
 	<span class="font-bold mb-1"
 		>{verifying ? $t('user.settings.verifyPIN') : $t('user.settings.securityPIN')}</span
 	>

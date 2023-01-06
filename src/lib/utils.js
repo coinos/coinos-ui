@@ -46,12 +46,12 @@ export const post = (url, body, headers) => {
 			if (r.ok) return r.text();
 			let text = await r.text();
 
-      let message;
+			let message;
 			try {
 				({ message } = JSON.parse(text));
 			} catch (e) {}
 
-      if (message) throw new Error(message);
+			if (message) throw new Error(message);
 			throw new Error(text);
 		})
 		.then((body) => {
@@ -83,7 +83,14 @@ export function reverseFormat(val, locale) {
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes = [/customers/, /dashboard/, /settings/, /transactions/, /\/ln\//, /request/];
+export let protectedRoutes = [
+	/customers/,
+	/dashboard/,
+	/settings/,
+	/transactions/,
+	/\/ln\//,
+	/request/
+];
 
 export const success = (m) => {
 	toast.pop();

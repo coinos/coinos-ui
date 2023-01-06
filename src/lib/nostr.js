@@ -131,3 +131,41 @@ export let sign = async ({ event, user }) => {
 export let send = (event) => {
 	return post('/events', { event });
 };
+
+export let reEncryptEntropy = async (user, newPassword) => {
+	let { cipher, username, salt } = user;
+	let password = get(pw);
+
+	if (!password) {
+		passwordPrompt.set(true);
+	}
+
+	try {
+		await post('/password', { password });
+	} catch (e) {
+		passwordPrompt.set(true);
+	}
+
+	await wait(() => !!get(pw));
+	password = get(pw);
+
+	let mnemonic, key, seed, entropy, child, privkey;
+	entropy = Buffer.from(
+		await crypto.subtle.decrypt(
+			{ name: 'AES-GCM', iv: new Uint8Array(16) },
+			await stretch(password, Buffer.from(salt, 'hex')),
+			Uint8Array.from(fromWords(decode(cipher, 180).words))
+		),
+		'hex'
+	).toString('hex');
+
+	let bytes = new Uint8Array(
+		await crypto.subtle.encrypt(
+			{ name: 'AES-GCM', iv: new Uint8Array(16) },
+			await stretch(newPassword, Buffer.from(salt, 'hex')),
+			Uint8Array.from(Buffer.from(entropy, 'hex'))
+		)
+	);
+
+	return encode('en', toWords(bytes), 180);
+};
