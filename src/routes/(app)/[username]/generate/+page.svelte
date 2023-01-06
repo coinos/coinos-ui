@@ -14,8 +14,7 @@
 	let { user } = data;
 
 	let loaded;
-
-	onMount(async () => {
+	let gen = async () => {
 		if (!browser) return;
 		setTimeout(() => (loaded = true), 50);
 
@@ -37,24 +36,24 @@
 
 		try {
 			user.pin = $pin;
-		} catch (e) {
-			if (e.message?.startsWith('Pin')) {
-				$pin = '';
-				failure('Wrong pin, try again');
-			}
-		}
-
-		try {
 			await post(`/${user.username}/generate`, user);
 			goto($loginRedirect || `/${user.username}/dashboard`, { invalidateAll: true });
 		} catch (e) {
-			console.log(e);
-			failure('Failed to generate keys');
-			goto('/');
+			$pin = '';
+			if (e.message?.startsWith('Pin')) {
+				failure('Wrong pin, try again');
+			} else {
+				failure('Failed to generate keys');
+				goto('/');
+			}
 		}
+	};
+
+	onMount(async () => {
+		await gen();
 	});
 
-	$: $pin?.length === 6 && generate(user);
+	$: $pin?.length === 6 && gen(user);
 </script>
 
 {#if loaded && user?.haspin && $pin?.length !== 6}
