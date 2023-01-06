@@ -19,6 +19,7 @@
 	let old;
 
 	let startVerifying = () => {
+    if (pinCode.join("").length < 6) return;
 		verifying = true;
 	};
 
@@ -80,6 +81,7 @@
 		if (user.haspin) {
 			try {
 				pin = null;
+        await tick();
 				submit.click();
 			} catch (e) {
 				console.log(e);

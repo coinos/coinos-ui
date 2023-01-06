@@ -82,7 +82,7 @@ export function reverseFormat(val, locale) {
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes = [/customers/, /dashboard/, /settings/, /transactions/];
+export let protectedRoutes = [/customers/, /dashboard/, /settings/, /transactions/, /\/ln\//, /request/];
 
 export const success = (m) => {
 	toast.pop();
