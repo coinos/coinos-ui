@@ -60,7 +60,7 @@ export let encrypt = async ({ message, recipient, user }) => {
 export let decrypt = async ({ event, user }) => {
 	try {
 		let { content, pubkey } = event;
-    if (pubkey === user.pubkey) pubkey = event.tags[0][1];
+		if (pubkey === user.pubkey) pubkey = event.tags[0][1];
 		pubkey = Uint8Array.from(Buffer.from('02' + pubkey, 'hex'));
 
 		let sharedPoint = Buffer.from(

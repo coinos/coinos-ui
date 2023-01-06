@@ -1,27 +1,45 @@
 <script>
+	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { format, parseISO } from 'date-fns';
 	import { scale } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
-	import { back, failure } from '$lib/utils';
+	import { back, failure, focus } from '$lib/utils';
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
+	import { messages, password } from '$lib/store';
+	import { tick, onMount } from 'svelte';
+	import { calculateId } from 'nostr';
 
 	export let data;
 	export let form;
 
-	const scrollToBottom = (node) => {
-		const scroll = () =>
-			node.scroll({
-				top: node.scrollHeight,
-				behavior: 'smooth'
-			});
-		scroll();
+	let { newMessages, subject, user } = data;
+	let input, pane;
 
-		return { update: scroll };
+	$: initialize($password);
+	let initialize = async (p) => {
+		if (!p) return;
+		$messages[user.pubkey] = $messages[user.pubkey] || {};
+		$messages[user.pubkey][subject.pubkey] = $messages[user.pubkey][subject.pubkey] || {};
+
+		for (let m of newMessages) {
+			if (!$messages[user.pubkey][subject.pubkey][m.id]) {
+				m.message = await decrypt({ event: m, user });
+				$messages[user.pubkey][subject.pubkey][m.id] = m;
+				tick().then(() => (pane.scrollTop = pane.scrollHeight));
+			}
+		}
+		tick().then(() => (pane.scrollTop = pane.scrollHeight));
 	};
 
-	let { messages, subject, user } = data;
+	$: events =
+		($messages[user.pubkey] &&
+			$messages[user.pubkey][subject.pubkey] &&
+			Object.values($messages[user.pubkey][subject.pubkey]).sort(
+				(a, b) => a.created_at - b.created
+			)) ||
+		[];
 
 	let sent, submitting, message;
 	let submit = async () => {
@@ -35,8 +53,10 @@
 		};
 
 		event.message = message;
-		messages.push(event);
-		messages = messages;
+		event.id = await calculateId(event);
+		$messages[user.pubkey][subject.pubkey][event.id] = event;
+		$messages = $messages;
+		tick().then(() => (pane.scrollTop = pane.scrollHeight));
 
 		try {
 			event.content = await encrypt({ message, recipient: subject.pubkey, user });
@@ -46,10 +66,11 @@
 			sent = true;
 		} catch (e) {
 			failure('Failed to send message');
-			messages.pop();
-			messages = messages;
+			delete $messages[user.pubkey][subject.pubkey][event.id];
+			$messages = $messages;
 		}
 
+		message = '';
 		submitting = false;
 	};
 </script>
@@ -59,25 +80,20 @@
 		{$t('transactions.sendMessage')}
 	</h1>
 
-	<div class="max-h-[calc(50vh)] overflow-y-scroll p-4" use:scrollToBottom={messages}>
-		{#each messages as event}
-			{@const ours = event.pubkey === user.pubkey}
+	<div class="max-h-[calc(50vh)] overflow-y-scroll p-4" bind:this={pane}>
+		{#each events as data}
+			{@const ours = data.pubkey === user.pubkey}
 			{@const theirs = !ours}
 			<div class="rounded-2xl p-4 max-w-[300px] mb-1 text-md" class:ours class:theirs>
-				{#if event.message}
-					{event.message}
+				{#if data.message}
+					{data.message}
 				{:else}
-					{#await decrypt({ event, user })}
-						-
-					{:then message}
-						{(event.message = message) && ''}
-						{event.message}
-					{/await}
+					-
 				{/if}
 			</div>
-			<div class="text-sm text-gray-400 ml-2 mb-6">
-				{format(new Date(event.created_at * 1000), 'MMM d')},
-				{format(new Date(event.created_at * 1000), 'h:mm aa')}
+			<div class="text-sm text-gray-400 mb-6" class:text-right={ours}>
+				{format(new Date(data.created_at * 1000), 'MMM d')},
+				{format(new Date(data.created_at * 1000), 'h:mm aa')}
 			</div>
 		{/each}
 	</div>
@@ -87,10 +103,12 @@
 		<input type="hidden" name="recipient" value={subject.username} />
 
 		<input
+			use:focus
 			name="message"
 			placeholder={$t('transactions.sendMessage')}
 			class="w-full p-4 border rounded-xl"
 			bind:value={message}
+			bind:this={input}
 		/>
 	</form>
 </div>

@@ -20,7 +20,10 @@
 		{#if followers.length}
 			<VirtualScroll data={followers} key="pubkey" let:data pageMode={true}>
 				<a href={`/${data.pubkey}`}>
-					<div class="flex border-b last:border-b-0 py-4 text-sm lg:text-lg text-secondary" :key={data.pubkey}>
+					<div
+						class="flex border-b last:border-b-0 py-4 text-sm lg:text-lg text-secondary"
+						:key={data.pubkey}
+					>
 						<div class="mb-auto mr-2">
 							<div class="md:hidden">
 								<Avatar size={12} user={data} disabled={true} />
