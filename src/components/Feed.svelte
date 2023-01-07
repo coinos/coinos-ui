@@ -1,11 +1,10 @@
 <script>
 	import { t } from '$lib/translations';
 	import { onMount } from 'svelte';
-	import { Avatar } from '$comp';
+	import { Event } from '$comp';
 	import { browser } from '$app/environment';
 	import VirtualScroll from 'svelte-virtual-scroll-list';
-	import { enhance } from '$app/forms';
-	import { post, punk, failure } from '$lib/utils';
+	import { failure } from '$lib/utils';
 	import { sign, send } from '$lib/nostr';
 
 	export let events;
@@ -39,31 +38,10 @@
 		}
 	};
 
-	let distance = (date) => {
-		let m = 60;
-		let h = 60 * m;
-		let d = 24 * h;
-
-		let diff = Math.round(Date.now() / 1000) - date;
-		return diff > d
-			? Math.round(diff / d) + 'd'
-			: diff > h
-			? Math.round(diff / h) + 'h'
-			: diff > m
-			? Math.round(diff / m) + 'm'
-			: diff > 2
-			? diff + 's'
-			: 'now';
-	};
-
-	let w;
-
 	$: sorted = Object.values(events)
 		.filter((ev) => ev?.pubkey && ev?.kind === 1)
 		.sort((a, b) => b.seen - a.seen);
 </script>
-
-<svelte:window bind:innerWidth={w} />
 
 {#if user}
 	<form on:submit|preventDefault={submit} class="flex justify-center gap-4 max-w-2xl mx-auto">
@@ -82,31 +60,9 @@
 {#if browser}
 	{#if sorted.length}
 		<VirtualScroll data={sorted} key="id" let:data pageMode={true} estimateSize={200}>
-			<div class="flex py-4 text-sm lg:text-lg text-secondary" :key={data.id}>
-				<a href={`/${data.user.pubkey}`}>
-					<div class="mb-auto mr-2">
-						<div class="md:hidden">
-							<Avatar size={12} user={data.user} disabled={true} />
-						</div>
-						<div class="hidden md:block">
-							<Avatar size={20} user={data.user} disabled={true} />
-						</div>
-					</div>
-				</a>
-
-				<div class="grow" style={`max-width: ${w - 100}px`}>
-					<div class="w-full flex pb-1 text-black">
-						<div>
-							{data.user.display_name || ''}
-							<span class="text-secondary">@{data.user.username}</span>
-						</div>
-						<div class="text-secondary">&nbsp;{distance(data.seen)}</div>
-					</div>
-					<div class="break-words">
-						{data.content}
-					</div>
-				</div>
-			</div>
+      <a href={`/${data.user.pubkey}/event/${data.id}`}>
+        <Event event={data} />
+			</a>
 		</VirtualScroll>
 	{:else}
 		<div class="flex w-full">
