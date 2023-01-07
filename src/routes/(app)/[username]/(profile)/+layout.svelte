@@ -6,9 +6,9 @@
 	export let data;
 	let events, user, subject, src, text;
 	$: ({ events, user, subject, src, text } = data);
-	$: ({ username: n } = subject);
+	$: ({ username: n, display } = subject);
 
-	$: username = n.length > 60 ? n.substr(0, 6) : n;
+	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
 
 	let follow = async () => {
 		user.follows.push(['p', subject.pubkey, 'wss://nostr.coinos.io', subject.username]);
@@ -44,15 +44,21 @@
 <div class="container mx-auto w-full px-4 mb-4 flex flex-wrap md:flex-nowrap">
 	<div class="hidden lg:block w-[240px] md:mr-10" />
 	<div class="w-[240px] lg:absolute pt-20 space-y-5 left-20 mx-auto md:mr-10">
-		<h1 class="text-3xl font-bold text-center mx-auto lg:text-left">{username}</h1>
+		<h1 class="text-3xl font-bold text-center mx-auto lg:text-left">{display || username}</h1>
 
 		<div class="text-secondary mx-auto text-center lg:text-left lg:mx-0">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
 
 		<div class="flex justify-around">
-			<a href={`/${subject.pubkey}/follows`}><b>{subject.follows.length}</b> Following</a>
-			<a href={`/${subject.pubkey}/followers`}><b>{subject.followers.length}</b> Followers</a>
+			<a href={`/${subject.pubkey}/follows`}
+				><b>{subject.follows.length}</b>
+				<span class="text-secondary">{$t('user.following')}</span></a
+			>
+			<a href={`/${subject.pubkey}/followers`}
+				><b>{subject.followers.length}</b>
+				<span class="text-secondary">{$t('user.followers')}</span></a
+			>
 		</div>
 
 		<div class="flex flex-wrap gap-2 w-full">
@@ -88,7 +94,7 @@
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
 								<Icon icon="support" style="mr-1" />
-								<div>Message</div>
+								<div>{$t('user.message')}</div>
 							</div>
 						</button>
 					</a>
@@ -99,36 +105,25 @@
 					<a href={`/${subject.username}/receive`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
-								<div style="mr-1">⚡️</div>
-								<div>{$t('user.lightning')} {$t('user.invoice')}</div>
+								<Icon icon="send" style="mr-1" />
+								<div>{$t('user.pay')}</div>
 							</div>
 						</button>
 					</a>
 				</div>
 
-				<div class="w-full flex">
-					<a href={`/${subject.username}/receive/bitcoin`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<img src="/images/bitcoin.svg" class="w-5 my-auto mr-1" />
-								<div>{$t('user.bitcoin')} {$t('user.invoice')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-
-				{#if user?.username !== subject.username}
-					<div class="w-full flex">
-						<a href={`/${subject.username}/request`} class="mx-auto">
-							<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-								<div class="mx-auto flex">
-									<Icon icon="support" style="mr-1" />
-									<div>{$t('transactions.requestAnInvoice')}</div>
-								</div>
-							</button>
-						</a>
-					</div>
-				{/if}
+				<!-- {#if user?.username !== subject.username} -->
+				<!-- 	<div class="w-full flex"> -->
+				<!-- 		<a href={`/${subject.username}/request`} class="mx-auto"> -->
+				<!-- 			<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"> -->
+				<!-- 				<div class="mx-auto flex"> -->
+				<!-- 					<Icon icon="support" style="mr-1" /> -->
+				<!-- 					<div>{$t('transactions.requestAnInvoice')}</div> -->
+				<!-- 				</div> -->
+				<!-- 			</button> -->
+				<!-- 		</a> -->
+				<!-- 	</div> -->
+				<!-- {/if} -->
 			{/if}
 		</div>
 	</div>

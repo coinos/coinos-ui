@@ -1,4 +1,5 @@
 <script>
+	import { t } from '$lib/translations';
 	import { onMount } from 'svelte';
 	import { Avatar } from '$comp';
 	import { browser } from '$app/environment';
@@ -108,6 +109,8 @@
 			</div>
 		</VirtualScroll>
 	{:else}
-		<div>Nothing here yet</div>
+		<div class="flex w-full">
+			<div class="mx-auto text-secondary">{$t('user.noNotes')}</div>
+		</div>
 	{/if}
 {/if}
