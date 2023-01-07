@@ -97,7 +97,7 @@
 				on:keydown={() => select('profile')}
 			>
 				<img
-					src={`/api/public/${user.username}-profile.webp`}
+					src={`/api/public/${user.uuid}-profile.webp`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 					alt={user.username}
 				/>
@@ -151,7 +151,7 @@
 		/>
 	{:else if user.banner}
 		<img
-			src={`/api/public/${user.username}-banner.webp`}
+			src={`/api/public/${user.uuid}-banner.webp`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={() => select('banner')}
 			on:keydown={() => select('banner')}
