@@ -1,5 +1,5 @@
 <script>
-	import { Icon, LocaleSelector } from '$comp';
+	import { Icon, LocaleSelector, Toggle } from '$comp';
 	import { t } from '$lib/translations';
 	import { success, failure } from '$lib/utils';
 	import { page } from '$app/stores';
@@ -20,4 +20,14 @@
 			<option value={fiat}>{fiat}</option>
 		{/each}
 	</select>
+</div>
+
+<div>
+	<div class="flex justify-between items-center">
+		<span class="font-bold">{$t('user.settings.tipPrompt')}</span>
+		<Toggle id="sms-notify" />
+	</div>
+	<p class="text-secondary mt-1 w-9/12">
+		{$t('user.settings.tipPromptDescription')}
+	</p>
 </div>

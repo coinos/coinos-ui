@@ -189,20 +189,6 @@
 </div>
 
 <div>
-	<label for="locktime" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
-	<p class="text-secondary mb-1">
-		{$t('user.settings.autoLockDescription')}
-	</p>
-	<select name="locktime" class="select-styles block py-3 w-full" value={parseInt(user.locktime)}>
-		<option value={5 * 60}>5 {$t('user.settings.minutes')}</option>
-		<option value={10 * 60}>10 {$t('user.settings.minutes')}</option>
-		<option value={30 * 60}>30 {$t('user.settings.minutes')}</option>
-		<option value={60 * 60}>1 {$t('user.settings.hour')}</option>
-		<option value={8 * 60 * 60}>8 {$t('user.settings.hours')}</option>
-	</select>
-</div>
-
-<div>
 	<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
 	<p class="text-secondary mb-4">
 		{$t('user.settings.twofaDescription')}
@@ -251,4 +237,18 @@
 			{$t('user.settings.twofaSetup')}
 		</button>
 	{/if}
+</div>
+
+<div>
+	<label for="locktime" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
+	<p class="text-secondary mb-1">
+		{$t('user.settings.autoLockDescription')}
+	</p>
+	<select name="locktime" class="select-styles block py-3 w-full" value={parseInt(user.locktime)}>
+		<option value={5 * 60}>5 {$t('user.settings.minutes')}</option>
+		<option value={10 * 60}>10 {$t('user.settings.minutes')}</option>
+		<option value={30 * 60}>30 {$t('user.settings.minutes')}</option>
+		<option value={60 * 60}>1 {$t('user.settings.hour')}</option>
+		<option value={8 * 60 * 60}>8 {$t('user.settings.hours')}</option>
+	</select>
 </div>

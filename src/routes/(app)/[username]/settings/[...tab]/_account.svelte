@@ -53,21 +53,25 @@
 			$bannerUpload = { file, type, progress };
 		}
 	};
+
+	if (!user.display) user.display = user.username;
 </script>
 
-<!-- <div> -->
-<!-- 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label> -->
-<!-- 	<input type="text" name="username" bind:value={user.username} /> -->
-<!-- </div> -->
+<div class="relative">
+	<div>
+		<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
+		<input type="text" name="username" bind:value={user.username} />
+	</div>
+	<div
+		class="absolute right-[2px] top-[30px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
+	>
+		@coinos.io
+	</div>
+</div>
 
 <div>
-	<label for="address" class="font-bold mb-1 block">{$t('user.settings.about')}</label>
-	<textarea
-		type="text"
-		name="address"
-		bind:value={user.address}
-		placeholder={$t('user.settings.aboutPlaceholder')}
-	/>
+	<label for="display" class="font-bold mb-1 block">{$t('user.settings.displayName')}</label>
+	<input type="text" name="display" bind:value={user.display} />
 </div>
 
 <div>
@@ -181,4 +185,14 @@
 	{#if tooLarge['banner']}
 		<div class="text-red-600">Max file size 10MB</div>
 	{/if}
+</div>
+
+<div>
+	<label for="address" class="font-bold mb-1 block">{$t('user.settings.about')}</label>
+	<textarea
+		type="text"
+		name="address"
+		bind:value={user.address}
+		placeholder={$t('user.settings.aboutPlaceholder')}
+	/>
 </div>
