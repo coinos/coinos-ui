@@ -1,3 +1,4 @@
+export { default as Event } from './Event.svelte';
 export { default as Password } from './Password.svelte';
 export { default as Feed } from './Feed.svelte';
 export { default as Invoice } from './Invoice.svelte';
