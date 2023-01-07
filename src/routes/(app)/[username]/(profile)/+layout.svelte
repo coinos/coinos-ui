@@ -66,12 +66,12 @@
 				{#if following}
 					<div class="w-full flex">
 						<button
-							class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+							class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
 							on:click={unfollow}
 						>
 							<div class="mx-auto flex">
-								<Icon icon={'profile'} style="my-auto" />
-								<div>{$t('user.unfollow')}</div>
+								<Icon icon={'profile'} style="my-auto h-6 mr-2 invert" />
+								<div class="my-auto mt-1">{$t('user.following')}</div>
 							</div>
 						</button>
 					</div>
@@ -82,8 +82,8 @@
 							on:click={follow}
 						>
 							<div class="mx-auto flex">
-								<Icon icon={'profile'} style="my-auto" />
-								<div>{$t('user.follow')}</div>
+								<Icon icon={'profile'} style="my-auto h-6 mr-2" />
+								<div class="my-auto mt-1">{$t('user.follow')}</div>
 							</div>
 						</button>
 					</div>
@@ -93,8 +93,8 @@
 					<a href={`/${subject.pubkey}/messages`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
-								<Icon icon="support" style="mr-1" />
-								<div>{$t('user.message')}</div>
+								<Icon icon="support" style="mr-2 my-auto" />
+								<div class="mt-1 my-auto">{$t('user.message')}</div>
 							</div>
 						</button>
 					</a>
@@ -105,8 +105,8 @@
 					<a href={`/${subject.username}/receive`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
-								<Icon icon="send" style="mr-1" />
-								<div>{$t('user.pay')}</div>
+								<Icon icon="send" style="mr-2" />
+								<div class="mt-1">{$t('user.pay')}</div>
 							</div>
 						</button>
 					</a>
