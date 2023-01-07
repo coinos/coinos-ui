@@ -13,7 +13,7 @@
 	$: src =
 		'/api/public/' +
 		(user?.profile
-			? user.username + '-profile.webp'
+			? user.uuid + '-profile.webp'
 			: 'punks/' + punk(user?.pubkey || parseInt(Math.random() * 255).toString(16)));
 </script>
 
