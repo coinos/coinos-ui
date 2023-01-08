@@ -22,7 +22,7 @@
 		prompt,
 		text,
 		tip,
-		user: { username, currency }
+		user: { username, currency, uuid }
 	} = invoice;
 
 	let showQr = !amount;
@@ -43,7 +43,7 @@
 			prompt,
 			text,
 			tip,
-			user: { username, currency }
+			user: { username, currency, uuid }
 		} = invoice);
 
 		tipPercent = (tip / amount) * 100;

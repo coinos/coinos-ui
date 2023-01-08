@@ -13,6 +13,11 @@
 
 	let { start, end, user } = data;
 	let change = ({ target: { value } }) => goto(value);
+	let link = (tx) => {
+		if (tx.redeemcode) return `/voucher/${tx.redeemcode}`;
+		if (tx.with) return '/' + tx.with.username;
+		return `/tx/${tx.hash}`;
+	};
 
 	let presets = [
 		{ title: $t('transactions.day'), start: sub(new Date(), { days: 1 }), end: null },
@@ -101,75 +106,77 @@
 
 		<div class="text-base">
 			{#each $txns as tx}
-				<div class="grid grid-cols-3 border-b h-24">
-					<div class="whitespace-nowrap my-auto">
-						<div class="font-bold">
-							{f(tx.amount * (tx.rate / sats), tx.currency)}
+				<a href={link(tx)}>
+					<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
+						<div class="whitespace-nowrap my-auto">
+							<div class="font-bold">
+								{f(tx.amount * (tx.rate / sats), tx.currency)}
 
-							{#if tx.tip}
-								<span class="text-sm">
-									+{f(tx.tip * (tx.rate / sats), tx.currency)}
-								</span>
-							{/if}
-						</div>
-
-						<div class="text-secondary">
-							{sat(tx.amount)}
-
-							{#if tx.tip}
-								<span class="text-sm">
-									+{sat(tx.tip)}
-								</span>
-							{/if}
-						</div>
-					</div>
-
-					<div class="flex my-auto">
-						{#if tx.redeemcode}
-							<a href={`/voucher/${tx.redeemcode}`}>
-								<div class="text-secondary flex">
-									<div class="my-auto mr-1">
-										<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-white" />
-									</div>
-
-									<div class="my-auto">Voucher</div>
-								</div>
-							</a>
-						{:else if tx.with}
-							<a href={`/${tx.with.username}`}>
-								<div class="flex">
-									<div class="my-auto">
-										<Avatar user={tx.with} size={12} />
-									</div>
-									<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
-								</div>
-							</a>
-						{:else}
-							<div class="text-secondary flex">
-								{#if tx.network === 'lightning'}
-									<div class="text-3xl">⚡️</div>
-								{:else}
-									<div class="my-auto mr-1">
-										<img src="/images/bitcoin.svg" class="w-12 border-4 border-white" />
-									</div>
+								{#if tx.tip}
+									<span class="text-sm">
+										+{f(tx.tip * (tx.rate / sats), tx.currency)}
+									</span>
 								{/if}
-
-								<div class="my-auto">
-									{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
-								</div>
 							</div>
-						{/if}
-					</div>
 
-					<div class="text-secondary text-right text-sm my-auto">
-						<div>
-							{format(parseISO(tx.createdAt), 'h:mm aaa')}
+							<div class="text-secondary">
+								{sat(tx.amount)}
+
+								{#if tx.tip}
+									<span class="text-sm">
+										+{sat(tx.tip)}
+									</span>
+								{/if}
+							</div>
 						</div>
-						<div>
-							{format(parseISO(tx.createdAt), 'MMM d')}
+
+						<div class="flex my-auto">
+							{#if tx.redeemcode}
+								<a href={`/voucher/${tx.redeemcode}`}>
+									<div class="text-secondary flex">
+										<div class="my-auto mr-1">
+											<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-transparent" />
+										</div>
+
+										<div class="my-auto">Voucher</div>
+									</div>
+								</a>
+							{:else if tx.with}
+								<a href={`/${tx.with.username}`}>
+									<div class="flex">
+										<div class="my-auto">
+											<Avatar user={tx.with} size={12} />
+										</div>
+										<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
+									</div>
+								</a>
+							{:else}
+								<div class="text-secondary flex">
+									{#if tx.network === 'lightning'}
+										<div class="text-3xl">⚡️</div>
+									{:else}
+										<div class="my-auto mr-1">
+											<img src="/images/bitcoin.svg" class="w-12 border-4 border-transparent" />
+										</div>
+									{/if}
+
+									<div class="my-auto">
+										{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
+									</div>
+								</div>
+							{/if}
+						</div>
+
+						<div class="text-secondary text-right text-sm my-auto">
+							<div>
+								{format(parseISO(tx.createdAt), 'h:mm aaa')}
+							</div>
+							<div>
+								{format(parseISO(tx.createdAt), 'MMM d')}
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 			{:else}
 				<p class="text-secondary text-lg text-center">{$t('transactions.empty')}</p>
 			{/each}
