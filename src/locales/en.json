@@ -258,10 +258,14 @@
 		}
 	},
 	"transactions": {
+    "amount": "Amount",
+    "date": "Date",
+    "id": "Transaction ID",
+		"details": "Transaction Details",
 		"header": "Transactions",
-		"AMOUNT": "AMOUNT",
-		"TYPE": "TYPE",
-		"TIME": "TIME",
+    "preimage": "Preimage",
+		"type": "Type",
+		"time": "Time",
 		"sent": "Sent",
 		"received": "Received",
 		"empty": "No transactions yet.",
