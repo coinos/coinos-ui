@@ -11,7 +11,8 @@ export function scroll(section) {
 
 const base = browser ? '' : PUBLIC_COINOS_URL;
 export const punk = (k) => {
-	return Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1 + '.webp';
+	let n = k ? parseInt(k.slice(-2), 16) : parseInt(Math.random() * 255);
+	return Math.floor((n / 256) * 64) + 1 + '.webp';
 };
 
 export const g = (url, fetch, headers) =>

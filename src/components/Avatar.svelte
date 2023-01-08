@@ -14,7 +14,7 @@
 		'/api/public/' +
 		(user?.profile
 			? user.uuid + '-profile.webp'
-			: 'punks/' + punk(user?.pubkey || parseInt(Math.random() * 255).toString(16)));
+			: 'punks/' + punk(user?.pubkey));
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>
