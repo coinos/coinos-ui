@@ -3,12 +3,11 @@ import { get } from '$lib/utils';
 export async function load({ params, parent, url }) {
 	let { subject } = await parent();
 	let { pubkey } = subject;
-	if (!pubkey) pubkey = params.username;
 
 	let events = [];
 
 	try {
-		events = await get(`/nostr/${pubkey}`);
+		events = await get(`/${pubkey}/notes`);
 	} catch (e) {
 		console.log(`failed to fetch nostr events for ${pubkey}`, e);
 	}

@@ -21,7 +21,7 @@
 	let { user } = data;
 
 	$: paid = browser && form && Object.values($invoices).find((inv) => inv.amount === form.amount);
-	$: paid && goto(`/invoice/${paid.uuid}/paid`);
+	$: paid && goto(`/invoice/${paid.id}/paid`);
 </script>
 
 <form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>
@@ -34,7 +34,7 @@
 		<input type="hidden" name="request_id" value={request.id} />
 	{/if}
 
-	<input type="hidden" name="prompt" value={user?.username === username} />
+	<input type="hidden" name="prompt" value={false} />
 
 	<div class="space-y-3 w-[300px] mx-auto">
 		<Numpad bind:amount bind:currency />

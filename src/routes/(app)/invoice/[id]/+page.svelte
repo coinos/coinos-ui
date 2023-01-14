@@ -22,7 +22,7 @@
 		prompt,
 		text,
 		tip,
-		user: { username, currency, uuid }
+		user: { username, currency }
 	} = invoice;
 
 	let showQr = !amount;
@@ -43,7 +43,7 @@
 			prompt,
 			text,
 			tip,
-			user: { username, currency, uuid }
+			user: { username, currency }
 		} = invoice);
 
 		tipPercent = (tip / amount) * 100;
@@ -108,7 +108,7 @@
 		>
 
 		{#if user && user.username !== username}
-			<a href={`/send/${invoice.uuid}`}>
+			<a href={`/send/${invoice.id}`}>
 				<button class="flex rounded-full border py-2 px-5 font-bold hover:opacity-80">
 					<Icon icon="send" style="mr-1" />
 					<div class="my-auto">Pay</div>

@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="mx-auto my-auto flex gap-2">
-				<a href={`/invoice/${$invoice.uuid}/tip`}>
+				<a href={`/invoice/${$invoice.id}/tip`}>
 					<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-32">
 						{$t('transactions.pay')}
 					</button>

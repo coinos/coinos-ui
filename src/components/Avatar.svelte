@@ -12,7 +12,7 @@
 
 	$: src =
 		'/api/public/' +
-		(user?.profile ? user.uuid + '-profile.webp' : 'punks/' + punk(user?.pubkey || user?.uuid || 'aa'));
+		(user?.profile ? user.id + '-profile.webp' : 'punks/' + punk(user?.pubkey || user?.id || 'aa'));
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>

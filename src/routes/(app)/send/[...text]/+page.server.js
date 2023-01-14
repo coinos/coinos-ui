@@ -6,7 +6,7 @@ import { invalid, redirect } from '@sveltejs/kit';
 let parse = async (t, host) => {
 	if (!t) return;
 
-	let amount, user, uuid;
+	let amount, user, id;
 
 	t = t.trim();
 	t.toLowerCase().startsWith('bitcoin:') &&
@@ -34,25 +34,25 @@ let parse = async (t, host) => {
 	// lightning
 	if (t.toLowerCase().startsWith('ln')) {
 		try {
-			({ uuid } = await get(`/invoice/${t}`));
+			({ id } = await get(`/invoice/${t}`));
 		} catch (e) {
 			throw redirect(307, `/send/lightning/${t}`);
 		}
 
-		if (uuid) throw redirect(307, `/send/${uuid}`);
+		if (id) throw redirect(307, `/send/${id}`);
 	}
 
 	// bitcoin
 	if (validate(t)) {
 		try {
-			({ uuid } = await get(`/invoice/${t}`));
+			({ id } = await get(`/invoice/${t}`));
 		} catch (e) {
 			let r = `/send/bitcoin/${t}`;
 			if (amount) r += '/' + amount;
 			throw redirect(307, r);
 		}
 
-		if (uuid) throw redirect(307, `/send/${uuid}`);
+		if (id) throw redirect(307, `/send/${id}`);
 	}
 
 	// user

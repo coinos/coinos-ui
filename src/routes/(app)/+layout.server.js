@@ -6,8 +6,7 @@ export async function load({ cookies, request, url, params }) {
 	let { pathname } = url;
 	let token = cookies.get('token');
 	let rate,
-		rates = { USD: 1 },
-		subject;
+		rates = { USD: 1 };
 
 	let user;
 	if (token) {
@@ -26,23 +25,12 @@ export async function load({ cookies, request, url, params }) {
 		throw redirect(307, '/login');
 	}
 
-	if (user) {
-		if (!user.pubkey && !url.pathname.includes('gen')) {
-			throw redirect(307, `/${user.username}/generate`);
-		}
-		let account = user.accounts.find((a) => a.asset === btc && !a.pubkey);
-		if (account) {
-			let { id } = account;
-			if (user.account_id !== id) {
-				user = await post('/shiftAccount', { id }, auth(cookies));
-			}
-		}
-	}
-
 	try {
 		rate = await get('/rate');
 		rates = await get('/rates');
-	} catch (e) {}
+	} catch (e) {
+    console.log(e)
+  }
 
-	return { subject, user, token, rate, rates };
+	return { user, token, rate, rates };
 }

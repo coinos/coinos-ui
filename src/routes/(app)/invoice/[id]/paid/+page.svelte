@@ -9,8 +9,8 @@
 	import { invoices } from '$lib/store';
 
 	export let data;
-	let amount, currency, rate, received, pending, tip, user, uuid;
-	$: data && ({ amount, currency, rate, received, pending, tip, user, uuid } = data.invoice);
+	let amount, currency, rate, received, pending, tip, user, id;
+	$: data && ({ amount, currency, rate, received, pending, tip, user, id } = data.invoice);
 
 	toast.pop(0);
 

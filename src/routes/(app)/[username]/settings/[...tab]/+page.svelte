@@ -78,7 +78,7 @@
 				content: JSON.stringify({
 					name: user.username,
 					about: user.address,
-					picture: `${PUBLIC_COINOS_URL}/public/${user.uuid}-profile.webp`
+					picture: `${PUBLIC_COINOS_URL}/public/${user.id}-profile.webp`
 				}),
 				tags: []
 			};
