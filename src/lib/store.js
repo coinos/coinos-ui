@@ -38,7 +38,6 @@ export const rate = writable();
 export const user = writable();
 export const selectedRate = writable();
 export const token = persistSession('token');
-export const invoices = writable({});
 export const newPayment = persistLocal('newPayment');
 export const colorTheme = writable('from-primary to-gradient');
 export const avatarUpload = writable();

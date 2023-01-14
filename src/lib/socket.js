@@ -1,7 +1,6 @@
 import { get } from 'svelte/store';
 import {
 	events as $events,
-	invoices,
 	invoice,
 	request,
 	newPayment,

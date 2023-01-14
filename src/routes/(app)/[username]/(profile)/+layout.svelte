@@ -118,7 +118,7 @@
 				<!-- 			<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"> -->
 				<!-- 				<div class="mx-auto flex"> -->
 				<!-- 					<Icon icon="support" style="mr-1" /> -->
-				<!-- 					<div>{$t('transactions.requestAnInvoice')}</div> -->
+				<!-- 					<div>{$t('payments.requestAnInvoice')}</div> -->
 				<!-- 				</div> -->
 				<!-- 			</button> -->
 				<!-- 		</a> -->

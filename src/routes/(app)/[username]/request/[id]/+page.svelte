@@ -21,7 +21,7 @@
 	<div class="text-center mb-8 space-y-5">
 		{#if request.recipient_id === user.id}
 			<p class="text-5xl break-words">
-				<span class="text-xl md:text-2xl">{$t('transactions.sentInvoiceTo')}</span>
+				<span class="text-xl md:text-2xl">{$t('payments.sentInvoiceTo')}</span>
 			</p>
 			<div class="flex p-1 gap-2 justify-center">
 				<Avatar user={request.requester} size={20} />
@@ -35,7 +35,7 @@
 			</div>
 		{:else}
 			<p class="text-5xl break-words">
-				<span class="text-xl md:text-2xl">{$t('transactions.sentRequestTo')}</span>
+				<span class="text-xl md:text-2xl">{$t('payments.sentRequestTo')}</span>
 			</p>
 			<div class="flex p-1 gap-2 justify-center">
 				<Avatar user={request.recipient} size={20} />
@@ -49,4 +49,4 @@
 	<div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 
-<div class="fixed bottom-10 w-full text-center">{$t('transactions.tapAnywhere')}</div>
+<div class="fixed bottom-10 w-full text-center">{$t('payments.tapAnywhere')}</div>

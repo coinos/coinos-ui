@@ -10,7 +10,7 @@ export async function load({ cookies, locals, params }) {
 		} catch (e) {
 			throw redirect(307, '/');
 		}
-		throw redirect(307, `/${user.username}/transactions`);
+		throw redirect(307, `/${user.username}/payments`);
 	}
 
 	throw redirect(307, '/login');

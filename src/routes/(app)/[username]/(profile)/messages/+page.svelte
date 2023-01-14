@@ -77,7 +77,7 @@
 
 <div class="container max-w-lg px-4 mx-auto mt-10 space-y-5">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-		{$t('transactions.sendMessage')}
+		{$t('payments.sendMessage')}
 	</h1>
 
 	<div class="max-h-[calc(50vh)] overflow-y-scroll p-4" bind:this={pane}>
@@ -105,7 +105,7 @@
 		<input
 			use:focus
 			name="message"
-			placeholder={$t('transactions.sendMessage')}
+			placeholder={$t('payments.sendMessage')}
 			class="w-full p-4 border rounded-xl"
 			bind:value={message}
 			bind:this={input}

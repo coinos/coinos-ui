@@ -16,7 +16,7 @@
 
 <div class="container max-w-lg px-4 mx-auto mt-10 space-y-5">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-		{$t('transactions.requestAnInvoice')}
+		{$t('payments.requestAnInvoice')}
 	</h1>
 
 	<form action="?/create" method="POST" use:enhance class="space-y-5">
@@ -25,7 +25,7 @@
 
 		<textarea
 			name="memo"
-			placeholder={$t('transactions.describeOrder')}
+			placeholder={$t('payments.describeOrder')}
 			class="w-full p-4 border rounded-xl h-48"
 		/>
 
@@ -34,7 +34,7 @@
 				type="submit"
 				class="bg-black text-white border rounded-full px-6 py-2 font-bold mx-auto"
 			>
-				{$t('transactions.submit')}
+				{$t('payments.submit')}
 			</button>
 		</div>
 	</form>

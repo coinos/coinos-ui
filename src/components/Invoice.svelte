@@ -14,7 +14,7 @@
 					<Avatar user={$invoice.user.username} size={12} />
 					<h1 class="my-auto">
 						<b>{$invoice.user.username}</b>
-						{$t('transactions.isRequesting')}
+						{$t('payments.isRequesting')}
 						<b>{f(($invoice.amount * $invoice.rate) / sats, $invoice.currency)}</b>
 						{sat($invoice.amount)}
 					</h1>
@@ -23,7 +23,7 @@
 			<div class="mx-auto my-auto flex gap-2">
 				<a href={`/invoice/${$invoice.id}/tip`}>
 					<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-32">
-						{$t('transactions.pay')}
+						{$t('payments.pay')}
 					</button>
 				</a>
 			</div>

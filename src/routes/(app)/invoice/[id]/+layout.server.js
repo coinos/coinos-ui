@@ -7,14 +7,13 @@ export async function load({ depends, params, url }) {
 
 	let { id } = params;
 	let invoice = await get(`/invoice?id=${id}`);
-	let { amount, received, pending } = invoice;
+	let { amount, received } = invoice;
 	amount = parseInt(amount);
 
-	let paid = (!amount && (received || pending)) || (amount > 0 && received + pending >= amount);
+	let paid = (!amount && received) || (amount > 0 && received >= amount);
 	if (paid && !url.pathname.endsWith('paid')) throw redirect(307, `/invoice/${id}/paid`);
 
 	let sm = Qr.drawImg(invoice.text, { size: 300 });
-	// let lg = Qr.drawImg(invoice.text, { size: 1200 });
 
 	return { id, invoice, sm, lg: sm };
 }

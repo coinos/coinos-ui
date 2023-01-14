@@ -51,10 +51,10 @@
 					><Icon icon="numpad" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
-			<a href={`/${user.username}/transactions`}>
+			<a href={`/${user.username}/payments`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${user.username}/transactions`
+						.url.pathname === `/${user.username}/payments`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'} relative"
 					><Icon icon="clock" style="mx-auto w-6 md:w-8" />

@@ -3,9 +3,8 @@
 	import { back, copy, f, get, sat, reverseFormat, s, sats } from '$lib/utils';
 	import { tick, onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
-	import { invoices, last } from '$lib/store';
+	import { last } from '$lib/store';
 	import { Avatar, Icon, Heart, Image, Qr } from '$comp';
-	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 	import screenfull from 'screenfull';
 
