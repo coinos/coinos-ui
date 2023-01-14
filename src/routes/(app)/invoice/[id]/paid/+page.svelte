@@ -6,7 +6,6 @@
 	import { t } from '$lib/translations';
 	import { f, s, sat, sats } from '$lib/utils';
 	import { goto } from '$app/navigation';
-	import { invoices } from '$lib/store';
 
 	export let data;
 	let amount, currency, rate, received, pending, tip, user, id;
@@ -60,4 +59,4 @@
 	<div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 
-<div class="fixed bottom-10 w-full text-center">{$t('transactions.tapAnywhere')}</div>
+<div class="fixed bottom-10 w-full text-center">{$t('payments.tapAnywhere')}</div>

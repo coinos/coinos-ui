@@ -6,9 +6,9 @@
 	import { t } from '$lib/translations';
 
 	export let data;
-	let { user } = data;
+	let { payments, user } = data;
 
-	let payment = user.payments[0];
+	let payment = payments[0]
 	let { amount, rate } = payment;
 	amount = Math.abs(amount);
 
@@ -28,8 +28,8 @@
 	<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
 </div>
 
-<a href={`/${user.username}/transactions`}>
+<a href={`/${user.username}/payments`}>
 	<div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 
-<div class="fixed bottom-10 w-full text-center">{$t('transactions.tapAnywhere')}</div>
+<div class="fixed bottom-10 w-full text-center">{$t('payments.tapAnywhere')}</div>

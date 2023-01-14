@@ -257,12 +257,12 @@
 			"send": "Send"
 		}
 	},
-	"transactions": {
+	"payments": {
     "amount": "Amount",
     "date": "Date",
     "id": "Transaction ID",
 		"details": "Transaction Details",
-		"header": "Transactions",
+		"header": "Payments",
     "preimage": "Preimage",
 		"type": "Type",
 		"time": "Time",
@@ -292,7 +292,7 @@
 		"isRequesting": "is requesting",
 		"invoiceFrom": "Invoice from",
 		"awaiting": "Awaiting",
-		"tapAnywhere": "Tap anywhere",
+		"tapAnywhere": "Tap anywhere to continue",
 		"from": "from",
 		"redeem": "Redeem",
 		"redeemed": "Redeemed",

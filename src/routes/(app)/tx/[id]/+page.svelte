@@ -18,11 +18,11 @@
 
 <div class="container mx-auto max-w-lg px-4 space-y-2 sm:space-y-5 break-all">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
-		{$t(amount < 0 ? 'transactions.sent' : 'transactions.received')}
+		{$t(amount < 0 ? 'payments.sent' : 'payments.received')}
 	</h1>
 
 	<div>
-		<div class="font-bold">{$t('transactions.amount')}</div>
+		<div class="font-bold">{$t('payments.amount')}</div>
 		<div class="text-xl">
 			{f(fiat, currency)}
 			<span class="text-secondary">⚡️{`${s(Math.abs(amount) + fee)}`}</span>
@@ -30,7 +30,7 @@
 	</div>
 
 	<div>
-		<div class="font-bold">{$t('transactions.date')}</div>
+		<div class="font-bold">{$t('payments.date')}</div>
 		<div>
 			{format(parseISO(createdAt), 'MMMM d')},
 			{format(parseISO(createdAt), 'h:mm aaa')}
@@ -39,14 +39,14 @@
 
 	{#if network === 'lightning'}
 		<div>
-			<div class="font-bold">{$t('transactions.preimage')}</div>
+			<div class="font-bold">{$t('payments.preimage')}</div>
 			<div>
 				{preimage}
 			</div>
 		</div>
 	{:else}
 		<div>
-			<div class="font-bold">{$t('transactions.id')}</div>
+			<div class="font-bold">{$t('payments.id')}</div>
       <div class="flex">
 			<div>
 				<a href={`${expl}/tx/${hash}`} target="_blank" class="text-blue-600">{hash}</a>

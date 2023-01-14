@@ -18,14 +18,14 @@
 					<Avatar user={$request.requester} size={12} />
 					<h1 class="my-auto">
 						<b>{$request.requester.username}</b>
-						{$t('transactions.readyToPay')}
+						{$t('payments.readyToPay')}
 					</h1>
 				</div>
 			</div>
 			<div class="mx-auto my-auto flex gap-2">
 				<a href={`/${user.username}/receive/${$request.id}`}>
 					<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-32">
-						{$t('transactions.invoice')}
+						{$t('payments.invoice')}
 					</button>
 				</a>
 			</div>

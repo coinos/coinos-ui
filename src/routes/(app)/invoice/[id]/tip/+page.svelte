@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { invoice as inv, invoices, request } from '$lib/store';
+	import { invoice as inv, request } from '$lib/store';
 	import { back, copy, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
@@ -99,14 +99,6 @@
 	};
 
 	$: tip = Math.round((amount / 100) * tipPercent);
-
-	$invoices[id] = { amount, id, network, rate, received, text, tip, username };
-
-	$: browser &&
-		($invoices[id]?.amount > 0
-			? $invoices[id]?.received >= $invoices[id]?.amount
-			: $invoices[id]?.received) &&
-		goto(($invoices[id].memo === 'launch' && '/launch/purchase') || `/invoice/${id}/paid`);
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 

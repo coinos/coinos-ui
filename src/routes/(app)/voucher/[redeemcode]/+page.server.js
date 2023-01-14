@@ -16,7 +16,7 @@ export const actions = {
 
 		if (user) {
 			await post('/redeem', params, auth(cookies));
-			throw redirect(307, `/${user.username}/transactions`);
+			throw redirect(307, `/${user.username}/payments`);
 		}
 
 		throw redirect(307, '/register');

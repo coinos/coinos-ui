@@ -32,7 +32,7 @@
 <AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-		{$t('transactions.send')}
+		{$t('payments.send')}
 	</h1>
 
 	<form method="POST" use:enhance>

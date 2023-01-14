@@ -241,7 +241,7 @@
 			"send": "Enviar"
 		}
 	},
-	"transactions": {
+	"payments": {
 		"header": "Historial de transacciones",
 		"AMOUNT": "MONTO",
 		"TYPE": "TIPO",

@@ -87,7 +87,7 @@
 					{#if loading}
 						<Spinner />
 					{:else}
-						{$t('transactions.send')}
+						{$t('payments.send')}
 					{/if}
 				</button>
 			{:else}

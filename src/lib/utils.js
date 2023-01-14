@@ -86,7 +86,7 @@ export let protectedRoutes = [
 	/customers/,
 	/dashboard/,
 	/settings/,
-	/transactions/,
+	/payments/,
 	/\/ln\//,
 	/request/
 ];

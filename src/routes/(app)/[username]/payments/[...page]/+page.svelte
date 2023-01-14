@@ -20,10 +20,10 @@
 	};
 
 	let presets = [
-		{ title: $t('transactions.day'), start: sub(new Date(), { days: 1 }), end: null },
-		{ title: $t('transactions.week'), start: sub(new Date(), { days: 7 }), end: null },
-		{ title: $t('transactions.month'), start: sub(new Date(), { months: 1 }), end: null },
-		{ title: $t('transactions.all'), start: sub(new Date(), { years: 5 }), end: null }
+		{ title: $t('payments.day'), start: sub(new Date(), { days: 1 }), end: null },
+		{ title: $t('payments.week'), start: sub(new Date(), { days: 7 }), end: null },
+		{ title: $t('payments.month'), start: sub(new Date(), { months: 1 }), end: null },
+		{ title: $t('payments.all'), start: sub(new Date(), { years: 5 }), end: null }
 	];
 
 	$: selection = start
@@ -32,9 +32,9 @@
 
 	let p,
 		total,
-		transactions = [],
+		payments = [],
 		pages = [];
-	$: data && ({ page: p, pages, start, end, total, transactions: $txns } = data);
+	$: data && ({ page: p, pages, start, end, total, payments: $txns } = data);
 
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
@@ -50,7 +50,7 @@
 			'\n' +
 			$txns.map((r) => keys.map((k) => `"${r[k]}"`).join(',')).join('\n');
 
-		const filename = 'transactions.csv';
+		const filename = 'payments.csv';
 		let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
 		if (navigator.msSaveBlob) {
 			navigator.msSaveBlob(blob, filename);
@@ -71,7 +71,7 @@
 
 <div class="mt-24 mb-20">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
-		{$t('transactions.header')}
+		{$t('payments.header')}
 	</h1>
 
 	<div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
@@ -80,7 +80,7 @@
 				{#each presets as { start, end, title }, i}
 					<a
 						class:active={selection === i}
-						href={`/${user.username}/transactions/${getUnixTime(start) + '/'}1`}
+						href={`/${user.username}/payments/${getUnixTime(start) + '/'}1`}
 					>
 						<button
 							class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]"
@@ -152,16 +152,10 @@
 								</a>
 							{:else}
 								<div class="text-secondary flex">
-									{#if tx.network === 'lightning'}
-										<div class="text-3xl">⚡️</div>
-									{:else}
-										<div class="my-auto mr-1">
-											<img src="/images/bitcoin.svg" class="w-12 border-4 border-transparent" />
-										</div>
-									{/if}
+									<div class="text-3xl">⚡️</div>
 
 									<div class="my-auto">
-										{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
+										{tx.amount > 0 ? 'Received' : 'Sent'}
 									</div>
 								</div>
 							{/if}
@@ -169,16 +163,16 @@
 
 						<div class="text-secondary text-right text-sm my-auto">
 							<div>
-								{format(parseISO(tx.createdAt), 'h:mm aaa')}
+								{format(new Date(tx.created_at), 'h:mm aaa')}
 							</div>
 							<div>
-								{format(parseISO(tx.createdAt), 'MMM d')}
+								{format(new Date(tx.created_at), 'MMM d')}
 							</div>
 						</div>
 					</div>
 				</a>
 			{:else}
-				<p class="text-secondary text-lg text-center">{$t('transactions.empty')}</p>
+				<p class="text-secondary text-lg text-center">{$t('payments.empty')}</p>
 			{/each}
 		</div>
 		<button
@@ -186,7 +180,7 @@
 			on:click={csv}
 		>
 			<Icon icon="save" style="opacity-50 mr-2 my-auto" />
-			<div class="my-auto">{$t('transactions.export')}</div>
+			<div class="my-auto">{$t('payments.export')}</div>
 		</button>
 	</div>
 </div>
