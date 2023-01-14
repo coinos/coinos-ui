@@ -61,7 +61,6 @@ export const messages = (data) => ({
 		let { amount, invoice } = data;
 
 		if (invoice) invalidate('app:invoice');
-		if (get(user)?.account_id !== data.account_id) return;
 
 		let payments = get(txns);
 		let i = payments.findIndex((p) => p.id === data.id);

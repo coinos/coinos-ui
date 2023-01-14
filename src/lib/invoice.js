@@ -17,21 +17,21 @@ export default async ({ cookies, request, url }) => {
 		request_id
 	};
 
-	let user = { username: form.get('username') };
+	let user = { username: form.get('username'), currency: form.get('currency') };
 
-	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
+	let { id } = await post('/invoice', { invoice, user }, auth(cookies));
 
 	if (request_id) {
 		if (url.pathname.endsWith('tip')) {
-			throw redirect(307, `/send/${uuid}`);
+			throw redirect(307, `/send/${id}`);
 		}
 
 		throw redirect(307, `/${user.username}/request/${request_id}`);
 	}
 
 	if (invoice.prompt) {
-		throw redirect(307, `/invoice/${uuid}/tip`);
+		throw redirect(307, `/invoice/${id}/tip`);
 	} else {
-		throw redirect(307, `/invoice/${uuid}`);
+		throw redirect(307, `/invoice/${id}`);
 	}
 };

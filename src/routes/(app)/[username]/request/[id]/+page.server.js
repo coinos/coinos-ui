@@ -9,14 +9,14 @@ export let load = async ({ cookies, depends, locals: { user }, params }) => {
 	let { invoice } = request;
 
 	if (invoice) {
-		let { amount, received, uuid } = invoice;
+		let { amount, received, id } = invoice;
 		if (
 			request.recipient.username === user.username &&
 			((received && !amount) || received >= amount)
 		)
-			throw redirect(307, `/invoice/${uuid}/paid`);
+			throw redirect(307, `/invoice/${id}/paid`);
 
-		if (request.requester.username === user.username) throw redirect(307, `/send/${uuid}`);
+		if (request.requester.username === user.username) throw redirect(307, `/send/${id}`);
 	}
 
 	return { request };

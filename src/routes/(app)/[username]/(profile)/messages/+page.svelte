@@ -27,10 +27,10 @@
 			if (!$messages[user.pubkey][subject.pubkey][m.id]) {
 				m.message = await decrypt({ event: m, user });
 				$messages[user.pubkey][subject.pubkey][m.id] = m;
-				tick().then(() => (pane.scrollTop = pane.scrollHeight));
+				tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 			}
 		}
-		tick().then(() => (pane.scrollTop = pane.scrollHeight));
+		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 	};
 
 	$: events =
@@ -56,7 +56,7 @@
 		event.id = await calculateId(event);
 		$messages[user.pubkey][subject.pubkey][event.id] = event;
 		$messages = $messages;
-		tick().then(() => (pane.scrollTop = pane.scrollHeight));
+		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 
 		try {
 			event.content = await encrypt({ message, recipient: subject.pubkey, user });

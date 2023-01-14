@@ -38,8 +38,8 @@ export const actions = {
 
 		let user = { username: form.get('username') };
 
-		let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
+		let { id } = await post('/invoice', { invoice, user }, auth(cookies));
 
-		throw redirect(307, `/invoice/${uuid}`);
+		throw redirect(307, `/invoice/${id}`);
 	}
 };

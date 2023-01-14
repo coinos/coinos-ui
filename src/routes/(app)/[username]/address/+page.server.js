@@ -8,6 +8,6 @@ export async function load({ cookies, params, parent }) {
 		network: 'bitcoin',
 		rate: rates[user.currency]
 	};
-	let { uuid } = await post('/invoice', { invoice, user }, auth(cookies));
-	throw redirect(307, `/invoice/${uuid}`);
+	let { id } = await post('/invoice', { invoice, user }, auth(cookies));
+	throw redirect(307, `/invoice/${id}`);
 }

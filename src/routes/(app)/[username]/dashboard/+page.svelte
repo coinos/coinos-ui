@@ -20,7 +20,7 @@
 	let animateRate = (newRate) => {
 		if (!accountBalanceFiat) return;
 		let t = 0;
-		let newBalance = (user.account.balance * newRate) / sats;
+		let newBalance = (user.balance * newRate) / sats;
 		let oldBalance = parseFloat(accountBalanceFiat);
 		let diff = oldBalance - newBalance;
 		let rateDiff = oldRate - newRate;
@@ -47,7 +47,7 @@
 	$: user = data.user;
 	$: accountBalanceFiat =
 		accountBalanceFiat ||
-		(user && $selectedRate && ((user.account.balance * $selectedRate) / sats).toFixed(2));
+		(user && $selectedRate && ((user.balance * $selectedRate) / sats).toFixed(2));
 
 	let payreq = '',
 		payreqField,
@@ -55,7 +55,7 @@
 
 	$: btcPrice = f($selectedRate, user.currency);
 
-	$: accountBalanceBtc = user.account.balance / sats;
+	$: accountBalanceBtc = user.balance / sats;
 </script>
 
 <div class="container px-4 max-w-md mx-auto mt-20 space-y-12 mb-8">
@@ -65,7 +65,7 @@
 		</div>
 
 		<div class="text-secondary text-2xl">
-			⚡️{s(user.account.balance)}
+			⚡️{s(user.balance)}
 		</div>
 	</div>
 
@@ -92,68 +92,68 @@
 		</a>
 	</div>
 
-	<div>
-		{#each invoices as { request_id, amount, currency, rate, user: recipient, requester, uuid }}
-			{@const requested = user.username === requester.username}
-			<a href={`/invoice/${uuid}` + (requested ? '/tip' : '')}>
-				<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
-					<div class="flex gap-2">
-						<div>
-							{#if requested}
-								<div class="flex">
-									<Avatar user={recipient} size={20} />
-									<div class="my-auto text-left">
-										<p class="text-secondary">{$t('transactions.invoiceFrom')}</p>
-										<p class="ml-1 text-lg break-words">{recipient.username}</p>
-									</div>
-								</div>
-							{:else}
-								<div class="flex">
-									<Avatar user={requester} size={20} />
-									<div class="my-auto text-left">
-										<p class="text-secondary">{$t('transactions.awaiting')}</p>
-										<p class="ml-1 text-lg break-words">{requester.username}</p>
-									</div>
-								</div>
-							{/if}
-						</div>
-						<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
-							<div class="font-bold">
-								{f(amount * (rate / sats), currency)}
-							</div>
+	<!-- <div> -->
+	<!-- 	{#each invoices as { request_id, amount, currency, rate, user: recipient, requester, id }} -->
+	<!-- 		{@const requested = user.username === requester?.username} -->
+	<!-- 		<a href={`/invoice/${id}` + (requested ? '/tip' : '')}> -->
+	<!-- 			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100"> -->
+	<!-- 				<div class="flex gap-2"> -->
+	<!-- 					<div> -->
+	<!-- 						{#if requested} -->
+	<!-- 							<div class="flex"> -->
+	<!-- 								<Avatar user={recipient} size={20} /> -->
+	<!-- 								<div class="my-auto text-left"> -->
+	<!-- 									<p class="text-secondary">{$t('transactions.invoiceFrom')}</p> -->
+	<!-- 									<p class="ml-1 text-lg break-words">{recipient.username}</p> -->
+	<!-- 								</div> -->
+	<!-- 							</div> -->
+	<!-- 						{:else} -->
+	<!-- 							<div class="flex"> -->
+	<!-- 								<Avatar user={requester} size={20} /> -->
+	<!-- 								<div class="my-auto text-left"> -->
+	<!-- 									<p class="text-secondary">{$t('transactions.awaiting')}</p> -->
+	<!-- 									<p class="ml-1 text-lg break-words">{requester.username}</p> -->
+	<!-- 								</div> -->
+	<!-- 							</div> -->
+	<!-- 						{/if} -->
+	<!-- 					</div> -->
+	<!-- 					<div class="whitespace-nowrap my-auto ml-auto flex gap-2"> -->
+	<!-- 						<div class="font-bold"> -->
+	<!-- 							{f(amount * (rate / sats), currency)} -->
+	<!-- 						</div> -->
+  <!--  -->
+	<!-- 						<div class="text-secondary">{sat(amount)}</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 		</a> -->
+	<!-- 	{/each} -->
+	<!-- </div> -->
 
-							<div class="text-secondary">{sat(amount)}</div>
-						</div>
-					</div>
-				</div>
-			</a>
-		{/each}
-	</div>
-
-	<div>
-		{#each requests as { id, invoice, memo, requester: r }}
-			<a href={`/${user.username}/receive/${id}`}>
-				<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
-					<div class="flex">
-						<div>
-							<div class="flex">
-								<Avatar user={r} size={20} />
-								<div class="my-auto text-left">
-									<p class="ml-1 text-lg break-words">{r.username}</p>
-									<p class="ml-1 text-secondary">{memo}</p>
-								</div>
-							</div>
-						</div>
-						<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
-							<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
-								>Invoice</button
-							>
-						</div>
-					</div>
-				</div>
-			</a>
-		{/each}
-	</div>
+	<!-- <div> -->
+	<!-- 	{#each requests as { id, invoice, memo, requester: r }} -->
+	<!-- 		<a href={`/${user.username}/receive/${id}`}> -->
+	<!-- 			<div class="border-b p-2 last:border-b-0 hover:bg-gray-100"> -->
+	<!-- 				<div class="flex"> -->
+	<!-- 					<div> -->
+	<!-- 						<div class="flex"> -->
+	<!-- 							<Avatar user={r} size={20} /> -->
+	<!-- 							<div class="my-auto text-left"> -->
+	<!-- 								<p class="ml-1 text-lg break-words">{r.username}</p> -->
+	<!-- 								<p class="ml-1 text-secondary">{memo}</p> -->
+	<!-- 							</div> -->
+	<!-- 						</div> -->
+	<!-- 					</div> -->
+	<!-- 					<div class="whitespace-nowrap my-auto ml-auto flex gap-2"> -->
+	<!-- 						<button class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full" -->
+	<!-- 							>Invoice</button -->
+	<!-- 						> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 		</a> -->
+	<!-- 	{/each} -->
+	<!-- </div> -->
 </div>
 
 <div class="flex fixed w-full px-4 bg-white py-2 bottom-0 bg-opacity-90">
