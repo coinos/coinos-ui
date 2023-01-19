@@ -13,7 +13,6 @@ specifiers:
   bolt11: ^1.4.0
   buffer: ^6.0.3
   date-fns: ^2.29.3
-  dexie: ^3.2.2
   leaflet: ^1.9.3
   leaflet.markercluster: ^1.5.3
   nostr: ^0.2.7
@@ -51,7 +50,6 @@ devDependencies:
   bolt11: 1.4.0
   buffer: 6.0.3
   date-fns: 2.29.3
-  dexie: 3.2.2
   leaflet: 1.9.3
   leaflet.markercluster: 1.5.3_leaflet@1.9.3
   nostr: 0.2.7
@@ -1138,11 +1136,6 @@ packages:
 
   /devalue/4.2.0:
     resolution: {integrity: sha512-mbjoAaCL2qogBKgeFxFPOXAUsZchircF+B/79LD4sHH0+NHfYm8gZpQrskKDn5gENGt35+5OI1GUF7hLVnkPDw==}
-    dev: true
-
-  /dexie/3.2.2:
-    resolution: {integrity: sha512-q5dC3HPmir2DERlX+toCBbHQXW5MsyrFqPFcovkH9N2S/UW/H3H5AWAB6iEOExeraAu+j+zRDG+zg/D7YhH0qg==}
-    engines: {node: '>=6.0'}
     dev: true
 
   /didyoumean/1.2.2:

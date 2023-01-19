@@ -9,7 +9,7 @@
 	export let data;
 	export let form;
 
-	let { address, amount } = $page.params;
+	let { amount, name } = $page.params;
 	let { currency } = data.user;
 	let loading;
 
@@ -35,6 +35,7 @@
 	<Numpad bind:amount {currency} />
 
 	<form method="POST" use:enhance on:submit={submit}>
+		<input name="name" value={name} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
 

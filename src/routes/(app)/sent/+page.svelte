@@ -8,7 +8,7 @@
 	export let data;
 	let { payments, user } = data;
 
-	let payment = payments[0]
+	let payment = payments[0];
 	let { amount, rate } = payment;
 	amount = Math.abs(amount);
 

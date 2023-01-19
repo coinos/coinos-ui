@@ -14,7 +14,7 @@ export const actions = {
 
 		try {
 			let r = await login(user, cookies);
-      console.log("R", r)
+			console.log('R', r);
 		} catch (e) {
 			return invalid(400, { error: 'Login failed', message: e.message, ...form });
 		}

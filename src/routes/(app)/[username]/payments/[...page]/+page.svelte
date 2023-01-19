@@ -163,10 +163,10 @@
 
 						<div class="text-secondary text-right text-sm my-auto">
 							<div>
-								{format(new Date(tx.created_at), 'h:mm aaa')}
+								{format(new Date(tx.created), 'h:mm aaa')}
 							</div>
 							<div>
-								{format(new Date(tx.created_at), 'MMM d')}
+								{format(new Date(tx.created), 'MMM d')}
 							</div>
 						</div>
 					</div>

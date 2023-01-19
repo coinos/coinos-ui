@@ -60,8 +60,8 @@
 {#if browser}
 	{#if sorted.length}
 		<VirtualScroll data={sorted} key="id" let:data pageMode={true} estimateSize={200}>
-      <a href={`/${data.user.pubkey}/event/${data.id}`}>
-        <Event event={data} />
+			<a href={`/${data.user.pubkey}/event/${data.id}`}>
+				<Event event={data} />
 			</a>
 		</VirtualScroll>
 	{:else}

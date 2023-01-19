@@ -121,7 +121,7 @@
 	<!-- 						<div class="font-bold"> -->
 	<!-- 							{f(amount * (rate / sats), currency)} -->
 	<!-- 						</div> -->
-  <!--  -->
+	<!--  -->
 	<!-- 						<div class="text-secondary">{sat(amount)}</div> -->
 	<!-- 					</div> -->
 	<!-- 				</div> -->
