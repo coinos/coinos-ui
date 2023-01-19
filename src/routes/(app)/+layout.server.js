@@ -29,8 +29,8 @@ export async function load({ cookies, request, url, params }) {
 		rate = await get('/rate');
 		rates = await get('/rates');
 	} catch (e) {
-    console.log(e)
-  }
+		console.log(e);
+	}
 
 	return { user, token, rate, rates };
 }

@@ -2,13 +2,15 @@
 	import { t } from '$lib/translations';
 	import { back, copy, f, s, sats } from '$lib/utils';
 	import { Avatar, Icon } from '$comp';
-	import { format, parseISO } from 'date-fns';
+	import { format } from 'date-fns';
 	import { PUBLIC_EXPLORER as expl } from '$env/static/public';
 
 	export let data;
 	let { user, tx } = data;
 	let { username } = user;
-	let { amount, hash, createdAt, rate, network, preimage, fee, currency } = tx;
+	let { amount, hash, created, rate, type, preimage, fee, currency } = tx;
+	fee = fee || 0;
+
 	let fiat = (Math.abs(amount) * rate) / sats;
 </script>
 
@@ -32,12 +34,12 @@
 	<div>
 		<div class="font-bold">{$t('payments.date')}</div>
 		<div>
-			{format(parseISO(createdAt), 'MMMM d')},
-			{format(parseISO(createdAt), 'h:mm aaa')}
+			{format(new Date(created), 'MMMM d')},
+			{format(new Date(created), 'h:mm aaa')}
 		</div>
 	</div>
 
-	{#if network === 'lightning'}
+	{#if type === 'lightning'}
 		<div>
 			<div class="font-bold">{$t('payments.preimage')}</div>
 			<div>
@@ -47,16 +49,14 @@
 	{:else}
 		<div>
 			<div class="font-bold">{$t('payments.id')}</div>
-      <div class="flex">
-			<div>
-				<a href={`${expl}/tx/${hash}`} target="_blank" class="text-blue-600">{hash}</a>
+			<div class="flex">
+				<div>
+					<a href={`${expl}/tx/${hash}`} target="_blank" class="text-blue-600">{hash}</a>
+				</div>
+				<button class="flex font-bold hover:opacity-80 mb-auto" on:click={() => copy(hash)}
+					><Icon icon="copy" style="mr-1" />
+				</button>
 			</div>
-			<button
-				class="flex font-bold hover:opacity-80 mb-auto"
-				on:click={() => copy(hash)}
-				><Icon icon="copy" style="mr-1" />
-			</button>
-      </div>
 		</div>
 	{/if}
 </div>

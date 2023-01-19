@@ -6,7 +6,7 @@
 	import { enhance } from '$app/forms';
 	import { Icon, Spinner } from '$comp';
 	import { focus } from '$lib/utils';
-	import { password } from '$lib/store';
+	import { password, loginRedirect } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 	import { generate } from '$lib/nostr';
@@ -114,6 +114,8 @@
 				{/if}
 
 				<form class="space-y-5" on:submit|preventDefault={handleSubmit} method="POST">
+					<input type="hidden" name="loginRedirect" value={$loginRedirect} />
+
 					<div>
 						<label for="username" class="font-semibold">{$t('login.username')}</label>
 						<input

@@ -58,8 +58,7 @@ export const messages = (data) => ({
 
 	async payment() {
 		let { amount, invoice } = data;
-
-		if (invoice) invalidate('app:invoice');
+		invalidate('app:invoice');
 
 		let payments = get(txns);
 		let i = payments.findIndex((p) => p.id === data.id);
@@ -118,5 +117,5 @@ function reconnectToWebsocket() {
 	if (currentReconnectDelay < maxReconnectDelay) {
 		currentReconnectDelay *= 2;
 	}
-	connect();
+	connect(token);
 }

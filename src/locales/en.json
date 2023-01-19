@@ -258,12 +258,12 @@
 		}
 	},
 	"payments": {
-    "amount": "Amount",
-    "date": "Date",
-    "id": "Transaction ID",
+		"amount": "Amount",
+		"date": "Date",
+		"id": "Transaction ID",
 		"details": "Transaction Details",
 		"header": "Payments",
-    "preimage": "Preimage",
+		"preimage": "Preimage",
 		"type": "Type",
 		"time": "Time",
 		"sent": "Sent",

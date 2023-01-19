@@ -1,8 +1,8 @@
 <script>
-  import { Avatar, Icon } from "$comp";
-  export let event;
+	import { Avatar, Icon } from '$comp';
+	export let event;
 
-  let { id, user, seen, content } = event;
+	let { id, user, seen, content } = event;
 
 	let distance = (date) => {
 		let m = 60;
@@ -30,10 +30,10 @@
 	<a href={`/${user.pubkey}`}>
 		<div class="mb-auto mr-2">
 			<div class="md:hidden">
-				<Avatar size={12} user={user} disabled={true} />
+				<Avatar size={12} {user} disabled={true} />
 			</div>
 			<div class="hidden md:block">
-				<Avatar size={20} user={user} disabled={true} />
+				<Avatar size={20} {user} disabled={true} />
 			</div>
 		</div>
 	</a>

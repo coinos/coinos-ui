@@ -5,23 +5,32 @@
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, f, s, sats } from '$lib/utils';
+	import { back, f, post, s, sats } from '$lib/utils';
 
 	export let data;
 	export let form;
 
-	let { recipient, user } = data;
+	let { recipient, rates, user } = data;
 	let currency = user?.currency || 'USD';
 
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
 		amountFiat = amount * ($selectedRate / sats),
-		fiat = !amount;
+		fiat = !amount,
+		hash;
 
-	let setAmount = () => {
+	let setAmount = async () => {
 		amount = a;
 		amountFiat = af;
+
+		({ hash } = await post('/invoice', {
+			invoice: {
+				amount,
+				rate: rates[recipient.currency]
+			},
+			user: recipient
+		}));
 	};
 
 	let handleBack = () => {
@@ -77,6 +86,7 @@
 		<input name="username" value={recipient.username} type="hidden" />
 		<input name="confirmed" value={form?.confirm} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
+		<input name="hash" value={hash} type="hidden" />
 
 		<div class="flex w-full">
 			{#if amount}

@@ -9,9 +9,11 @@ export const load = async ({ parent }) => {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let form = Object.fromEntries(await request.formData());
-		let { username, password, cipher, salt, pubkey } = form;
+		let { username, password, cipher, salt, pubkey, loginRedirect } = form;
 		let user = { username, password, cipher, salt, pubkey };
 		let error;
+
+		console.log('LR', loginRedirect);
 
 		try {
 			await post('/register', { user });
@@ -27,6 +29,6 @@ export const actions = {
 		}
 
 		if (error) return invalid(400, { error });
-		throw redirect(307, `/${user.username}/dashboard`);
+		throw redirect(307, loginRedirect || `/${user.username}/dashboard`);
 	}
 };

@@ -19,19 +19,19 @@ export default async ({ cookies, request, url }) => {
 
 	let user = { username: form.get('username'), currency: form.get('currency') };
 
-	let { id } = await post('/invoice', { invoice, user }, auth(cookies));
+	let { hash } = await post('/invoice', { invoice, user }, auth(cookies));
 
 	if (request_id) {
 		if (url.pathname.endsWith('tip')) {
-			throw redirect(307, `/send/${id}`);
+			throw redirect(307, `/send/${hash}`);
 		}
 
 		throw redirect(307, `/${user.username}/request/${request_id}`);
 	}
 
 	if (invoice.prompt) {
-		throw redirect(307, `/invoice/${id}/tip`);
+		throw redirect(307, `/invoice/${hash}/tip`);
 	} else {
-		throw redirect(307, `/invoice/${id}`);
+		throw redirect(307, `/invoice/${hash}`);
 	}
 };

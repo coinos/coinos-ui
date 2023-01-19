@@ -14,6 +14,7 @@ export const actions = {
 		try {
 			let body = Object.fromEntries(await request.formData());
 			let { amount, confirmed } = body;
+			amount = parseInt(amount);
 
 			if (!confirmed) {
 				return invalid(403, { amount, confirm: true });
@@ -21,6 +22,7 @@ export const actions = {
 
 			await post('/send', body, auth(cookies));
 		} catch (e) {
+			console.log(e);
 			return invalid(400, { message: e.message });
 		}
 

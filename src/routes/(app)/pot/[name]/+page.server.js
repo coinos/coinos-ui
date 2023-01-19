@@ -2,12 +2,11 @@ import { error, redirect } from '@sveltejs/kit';
 import { auth, get, post } from '$lib/utils';
 import Qr from 'qrcode-base64';
 
-export let load = async ({ params: { redeemcode }, url }) => {
-	let payment = await get(`/voucher/${redeemcode}`);
-	console.log(payment);
+export let load = async ({ params: { name }, url }) => {
+	let { amount, payments } = await get(`/pot/${name}`);
 
 	let src = Qr.drawImg(url.href, { size: 300 });
-	return { payment, src };
+	return { amount, payments, src };
 };
 
 export const actions = {

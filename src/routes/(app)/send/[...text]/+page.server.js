@@ -73,8 +73,8 @@ export async function load({ cookies, params, request, url }) {
 export const actions = {
 	default: async ({ request, url }) => {
 		const form = await request.formData();
-		await parse(form.get('text'), url.host);
-
-		return invalid(403, { error: 'Does not compute, try again' });
+		let t = form.get('text');
+		await parse(t, url.host);
+		throw redirect(307, `/send/pot/${t}`);
 	}
 };

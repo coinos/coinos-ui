@@ -22,7 +22,6 @@
 		"bolt11": "^1.4.0",
 		"buffer": "^6.0.3",
 		"date-fns": "^2.29.3",
-		"dexie": "^3.2.2",
 		"leaflet": "^1.9.3",
 		"leaflet.markercluster": "^1.5.3",
 		"nostr": "^0.2.7",
