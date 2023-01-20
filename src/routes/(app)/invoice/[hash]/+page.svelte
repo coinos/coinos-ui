@@ -15,7 +15,7 @@
 	let {
 		address,
 		amount,
-		network,
+		type,
 		rate,
 		received,
 		prompt,
@@ -36,7 +36,7 @@
 		({
 			address,
 			amount,
-			network,
+			type,
 			rate,
 			received,
 			prompt,

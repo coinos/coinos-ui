@@ -9,9 +9,9 @@
 
 	export let data;
 	export let form;
-	let network = 'lightning';
+	let type = 'lightning';
 
-	if ($page.params.param === 'bitcoin') network = 'bitcoin';
+	if ($page.params.param === 'bitcoin') type = 'bitcoin';
 
 	let { request } = data;
 
@@ -25,7 +25,7 @@
 	<input type="hidden" name="amount" value={amount} />
 	<input type="hidden" name="currency" value={currency} />
 	<input type="hidden" name="username" value={username} />
-	<input type="hidden" name="network" value={network} />
+	<input type="hidden" name="type" value={type} />
 
 	{#if request}
 		<input type="hidden" name="request_id" value={request.id} />

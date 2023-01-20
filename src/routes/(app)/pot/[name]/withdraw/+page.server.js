@@ -11,7 +11,7 @@ export const actions = {
 		let body = Object.fromEntries(await request.formData());
 
 		try {
-			await post('/withdraw', body, auth(cookies));
+			await post('/take', body, auth(cookies));
 		} catch (e) {
 			return invalid(400, { message: e.message });
 		}

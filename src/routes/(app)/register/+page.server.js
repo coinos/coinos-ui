@@ -13,7 +13,7 @@ export const actions = {
 		let user = { username, password, cipher, salt, pubkey };
 		let error;
 
-		console.log('LR', loginRedirect);
+    if (loginRedirect === 'undefined') loginRedirect = undefined;
 
 		try {
 			await post('/register', { user });

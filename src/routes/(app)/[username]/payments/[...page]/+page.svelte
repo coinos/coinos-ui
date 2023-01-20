@@ -152,10 +152,16 @@
 								</a>
 							{:else}
 								<div class="text-secondary flex">
-									<div class="text-3xl">⚡️</div>
+									{#if tx.type === 'lightning'}
+										<div class="text-3xl">⚡️</div>
+									{:else}
+										<div class="my-auto mr-1">
+											<img src="/images/bitcoin.svg" class="w-12 border-4 border-transparent" />
+										</div>
+									{/if}
 
 									<div class="my-auto">
-										{tx.amount > 0 ? 'Received' : 'Sent'}
+										{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
 									</div>
 								</div>
 							{/if}
