@@ -20,7 +20,7 @@ export const actions = {
 				return invalid(403, { amount, confirm: true });
 			}
 
-			await post('/send', body, auth(cookies));
+			await post('/payments', body, auth(cookies));
 		} catch (e) {
 			console.log(e);
 			return invalid(400, { message: e.message });

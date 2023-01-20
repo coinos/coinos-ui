@@ -12,7 +12,7 @@ export const actions = {
 		let { username, password, token, loginRedirect } = form;
 		let user = { username, password, token };
 
-    if (loginRedirect === 'undefined') loginRedirect = undefined;
+		if (loginRedirect === 'undefined') loginRedirect = undefined;
 
 		try {
 			let r = await login(user, cookies);

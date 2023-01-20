@@ -36,7 +36,7 @@
 				<h1 class="text-2xl md:text-3xl font-semibold">Public Pot</h1>
 			</div>
 			<p class="text-secondary">Anyone who knows the URL to this pot can add or take out funds</p>
-      <img src={src} class="mx-auto" />
+			<img {src} class="mx-auto" />
 			<div class="flex justify-center gap-4">
 				<div class="my-auto">
 					<h2 class="text-2xl md:text-3xl font-semibold">

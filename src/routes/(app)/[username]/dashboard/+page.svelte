@@ -7,7 +7,7 @@
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 	import { events } from '$lib/store';
-  import { v4 } from "uuid";
+	import { v4 } from 'uuid';
 
 	export let data;
 	$: ({ invoices, requests } = data);
@@ -86,7 +86,7 @@
 				>{$t('user.dashboard.deposit')}</button
 			>
 		</a>
-        <a href={`/send/pot/${v4()}`}>
+		<a href={`/send/pot/${v4()}`}>
 			<button class="rounded-full border py-4 px-5 font-bold hover:opacity-80 w-full"
 				>{$t('user.dashboard.voucher')}</button
 			>
