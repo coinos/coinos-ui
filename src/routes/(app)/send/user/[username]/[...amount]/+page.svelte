@@ -27,7 +27,8 @@
 		({ hash } = await post('/invoice', {
 			invoice: {
 				amount,
-				rate: rates[recipient.currency]
+				rate: rates[recipient.currency],
+				type: 'internal'
 			},
 			user: recipient
 		}));

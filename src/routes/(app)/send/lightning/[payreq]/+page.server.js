@@ -2,7 +2,7 @@ import { invalid, redirect } from '@sveltejs/kit';
 import { btc as asset, auth, post } from '$lib/utils';
 
 export async function load({ params }) {
-	return post('/lightning/parse', params);
+	return post('/parse', params);
 }
 
 export const actions = {

@@ -11,6 +11,13 @@
 
 	export let data;
 
+	const types = {
+		internal: 'internal',
+		bitcoin: 'bitcoin',
+		lightning: 'lightning',
+		pot: 'pot'
+	};
+
 	let { start, end, user } = data;
 	let change = ({ target: { value } }) => goto(value);
 	let link = (tx) => {
@@ -131,17 +138,17 @@
 						</div>
 
 						<div class="flex my-auto">
-							{#if tx.redeemcode}
-								<a href={`/voucher/${tx.redeemcode}`}>
+							{#if tx.type === types.pot}
+								<a href={`/pot/${tx.pot}`}>
 									<div class="text-secondary flex">
 										<div class="my-auto mr-1">
 											<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-transparent" />
 										</div>
 
-										<div class="my-auto">Voucher</div>
+										<div class="my-auto">Pot</div>
 									</div>
 								</a>
-							{:else if tx.with}
+							{:else if tx.type === types.internal}
 								<a href={`/${tx.with.username}`}>
 									<div class="flex">
 										<div class="my-auto">
