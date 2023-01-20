@@ -18,7 +18,7 @@ export const actions = {
 				return invalid(403, { amount, confirm: true });
 			}
 
-			await post('/lightning/send', body, auth(cookies));
+			await post('/payments', body, auth(cookies));
 		} catch (e) {
 			if (e.message.includes('unusable'))
 				e.message = 'Failed to route payment, try sending a lower amount';

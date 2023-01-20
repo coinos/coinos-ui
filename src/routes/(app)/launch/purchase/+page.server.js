@@ -31,7 +31,7 @@ export const actions = {
 		let invoice = {
 			amount: 22000,
 			memo: 'launch',
-			network: 'lightning',
+			type: 'lightning',
 			prompt: false,
 			rate: rates[form.get('currency')]
 		};

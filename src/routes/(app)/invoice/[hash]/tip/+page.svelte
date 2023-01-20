@@ -66,7 +66,7 @@
 	let { invoice, id, user } = data;
 	let {
 		amount,
-		network,
+		type,
 		rate,
 		received,
 		prompt,
@@ -86,7 +86,7 @@
 		({ invoice, id } = data);
 		({
 			amount,
-			network,
+			type,
 			rate,
 			received,
 			prompt,
@@ -120,7 +120,7 @@
 		<input type="hidden" name="username" value={username} />
 		<input type="hidden" name="rate" value={rate} />
 		<input type="hidden" name="prompt" value="false" />
-		<input type="hidden" name="network" value={network} />
+		<input type="hidden" name="type" value={type} />
 		<input type="hidden" name="request_id" value={invoice.request?.id} />
 
 		<h1 class="text-4xl font-semibold my-8">{$t('invoice.addTipq')}</h1>

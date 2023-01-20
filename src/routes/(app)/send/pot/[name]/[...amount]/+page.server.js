@@ -7,7 +7,7 @@ export const actions = {
 		let p;
 
 		try {
-			p = await post('/send', body, auth(cookies));
+			p = await post('/payments', body, auth(cookies));
 		} catch (e) {
 			return invalid(400, { message: e.message });
 		}
