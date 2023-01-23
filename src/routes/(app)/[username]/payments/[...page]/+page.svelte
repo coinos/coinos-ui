@@ -2,7 +2,7 @@
 	import { Avatar, Icon } from '$comp';
 	import { onMount } from 'svelte';
 	import { format, parseISO } from 'date-fns';
-	import { newPayment, txns } from '$lib/store';
+	import { newPayment, payments } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { f, s, sat, sats } from '$lib/utils';
 	import { page } from '$app/stores';
@@ -20,10 +20,10 @@
 
 	let { start, end, user } = data;
 	let change = ({ target: { value } }) => goto(value);
-	let link = (tx) => {
-		if (tx.redeemcode) return `/voucher/${tx.redeemcode}`;
-		if (tx.with) return '/' + tx.with.username;
-		return `/tx/${tx.hash}`;
+	let link = (p) => {
+		if (p.pot) return `/pot/${p.pot}`;
+		if (p.with) return '/' + p.with.username;
+		return `/p/${p.id}`;
 	};
 
 	let presets = [
@@ -39,9 +39,8 @@
 
 	let p,
 		total,
-		payments = [],
 		pages = [];
-	$: data && ({ page: p, pages, start, end, total, payments: $txns } = data);
+	$: data && ({ page: p, pages, start, end, total, payments: $payments } = data);
 
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
@@ -55,7 +54,7 @@
 		const csv =
 			keys.map((k) => `"${k}"`).join(',') +
 			'\n' +
-			$txns.map((r) => keys.map((k) => `"${r[k]}"`).join(',')).join('\n');
+			$payments.map((r) => keys.map((k) => `"${r[k]}"`).join(',')).join('\n');
 
 		const filename = 'payments.csv';
 		let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -112,34 +111,34 @@
 		</div>
 
 		<div class="text-base">
-			{#each $txns as tx}
-				<a href={link(tx)}>
+			{#each $payments as p}
+        <a href={`/payment/${p.id}`}>
 					<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
 						<div class="whitespace-nowrap my-auto">
 							<div class="font-bold">
-								{f(tx.amount * (tx.rate / sats), tx.currency)}
+								{f(p.amount * (p.rate / sats), p.currency)}
 
-								{#if tx.tip}
+								{#if p.tip}
 									<span class="text-sm">
-										+{f(tx.tip * (tx.rate / sats), tx.currency)}
+										+{f(p.tip * (p.rate / sats), p.currency)}
 									</span>
 								{/if}
 							</div>
 
 							<div class="text-secondary">
-								{sat(tx.amount)}
+								{sat(p.amount)}
 
-								{#if tx.tip}
+								{#if p.tip}
 									<span class="text-sm">
-										+{sat(tx.tip)}
+										+{sat(p.tip)}
 									</span>
 								{/if}
 							</div>
 						</div>
 
 						<div class="flex my-auto">
-							{#if tx.type === types.pot}
-								<a href={`/pot/${tx.pot}`}>
+							{#if p.type === types.pot}
+								<a href={`/pot/${p.pot}`}>
 									<div class="text-secondary flex">
 										<div class="my-auto mr-1">
 											<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-transparent" />
@@ -148,18 +147,18 @@
 										<div class="my-auto">Pot</div>
 									</div>
 								</a>
-							{:else if tx.type === types.internal}
-								<a href={`/${tx.with.username}`}>
+							{:else if p.type === types.internal}
+								<a href={`/${p.with.username}`}>
 									<div class="flex">
 										<div class="my-auto">
-											<Avatar user={tx.with} size={12} />
+											<Avatar user={p.with} size={12} />
 										</div>
-										<div class="my-auto ml-1 text-secondary">{tx.with.username}</div>
+										<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
 									</div>
 								</a>
 							{:else}
 								<div class="text-secondary flex">
-									{#if tx.type === 'lightning'}
+									{#if p.type === types.lightning}
 										<div class="text-3xl">⚡️</div>
 									{:else}
 										<div class="my-auto mr-1">
@@ -168,7 +167,7 @@
 									{/if}
 
 									<div class="my-auto">
-										{tx.amount > 0 ? (tx.confirmed ? 'Received' : 'Pending') : 'Sent'}
+										{p.amount > 0 ? (p.confirmed ? 'Received' : 'Pending') : 'Sent'}
 									</div>
 								</div>
 							{/if}
@@ -176,10 +175,10 @@
 
 						<div class="text-secondary text-right text-sm my-auto">
 							<div>
-								{format(new Date(tx.created), 'h:mm aaa')}
+								{format(new Date(p.created), 'h:mm aaa')}
 							</div>
 							<div>
-								{format(new Date(tx.created), 'MMM d')}
+								{format(new Date(p.created), 'MMM d')}
 							</div>
 						</div>
 					</div>

@@ -6,7 +6,7 @@ import {
 	newPayment,
 	last,
 	rate,
-	txns,
+	payments,
 	user
 } from '$lib/store';
 import { success, sat } from '$lib/utils';
@@ -60,9 +60,9 @@ export const messages = (data) => ({
 		let { amount, invoice } = data;
 		invalidate('app:invoice');
 
-		let payments = get(txns);
+		let payments = get(payments);
 		let i = payments.findIndex((p) => p.id === data.id);
-		if (~i) (payments[i] = data), txns.set(payments);
+		if (~i) (payments[i] = data), payments.set(payments);
 		else newPayment.set(true);
 
 		invalidate((url) => url.pathname === '/payments');
