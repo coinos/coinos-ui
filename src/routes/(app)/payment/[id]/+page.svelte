@@ -8,7 +8,7 @@
 	export let data;
 	let { user, tx } = data;
 	let { username } = user;
-	let { amount, hash, created, rate, type, preimage, fee, currency } = tx;
+	let { id, amount, hash, created, rate, type, preimage, fee, currency } = tx;
 	fee = fee || 0;
 
 	let fiat = (Math.abs(amount) * rate) / sats;
@@ -51,9 +51,9 @@
 			<div class="font-bold">{$t('payments.id')}</div>
 			<div class="flex">
 				<div>
-					<a href={`${expl}/tx/${hash}`} target="_blank" class="text-blue-600">{hash}</a>
+					<a href={`${expl}/tx/${id}`} target="_blank" class="text-blue-600">{id}</a>
 				</div>
-				<button class="flex font-bold hover:opacity-80 mb-auto" on:click={() => copy(hash)}
+				<button class="flex font-bold hover:opacity-80 mb-auto" on:click={() => copy(id)}
 					><Icon icon="copy" style="mr-1" />
 				</button>
 			</div>

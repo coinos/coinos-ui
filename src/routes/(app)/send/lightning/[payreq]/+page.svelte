@@ -15,6 +15,7 @@
 	let { currency } = data.user;
 	let amount = form?.amount || data.amount;
 	let a;
+	let maxfee = 100;
 
 	let loading;
 	let submit = () => (loading = true);
@@ -46,11 +47,22 @@
 			<p class="text-6xl break-words">{alias}</p>
 		</div>
 
-		<form method="POST" use:enhance on:submit={submit} action="?/send">
+		<form method="POST" use:enhance on:submit={submit} action="?/send" class="space-y-5">
 			<input name="payreq" value={payreq} type="hidden" />
 			<input name="amount" value={amount} type="hidden" />
 			<input name="confirmed" value={form?.confirm} type="hidden" />
 			<input name="pin" value={$pin} type="hidden" />
+
+			<div class="relative w-96 mx-auto">
+				<label>Max fee</label>
+				<input name="maxfee" value={maxfee} />
+
+				<div
+					class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
+				>
+					sats
+				</div>
+			</div>
 
 			<div class="flex w-full">
 				<button
