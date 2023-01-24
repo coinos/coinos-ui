@@ -15,8 +15,10 @@ export async function load({ cookies, request, url, params }) {
 		} catch (e) {}
 	}
 
-	if (user && ['/', '/login', '/register'].includes(pathname) && request.method === 'GET')
+	if (user && ['/', '/login', '/register'].includes(pathname) && request.method === 'GET') {
+		console.log('dashboarding', pathname);
 		throw redirect(307, `/${user.username}/dashboard`);
+	}
 
 	if (
 		protectedRoutes.find((p) => pathname.match(p)) &&

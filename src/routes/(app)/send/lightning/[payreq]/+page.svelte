@@ -24,6 +24,9 @@
 		if (form?.message?.includes('pin')) $pin = undefined;
 		loading = false;
 	};
+
+	let show;
+	let toggle = () => (show = !show);
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -41,10 +44,10 @@
 		<div class="text-center mb-8">
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('payments.send')}</h1>
 			<p class="text-6xl break-words mb-4">
-				{s(amount)} <span class="text-xl md:text-2xl text-secondary">sats</span>
+				⚡️{s(amount)}
 			</p>
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('payments.to')}</h1>
-			<p class="text-6xl break-words">{alias}</p>
+			<p class="text-4xl break-words">{alias}</p>
 		</div>
 
 		<form method="POST" use:enhance on:submit={submit} action="?/send" class="space-y-5">
@@ -52,17 +55,7 @@
 			<input name="amount" value={amount} type="hidden" />
 			<input name="confirmed" value={form?.confirm} type="hidden" />
 			<input name="pin" value={$pin} type="hidden" />
-
-			<div class="relative w-96 mx-auto">
-				<label>Max fee</label>
-				<input name="maxfee" value={maxfee} />
-
-				<div
-					class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
-				>
-					sats
-				</div>
-			</div>
+			<input name="maxfee" value={maxfee} type="hidden" />
 
 			<div class="flex w-full">
 				<button
@@ -78,6 +71,23 @@
 				</button>
 			</div>
 		</form>
+
+		{#if show}
+			<div class="relative w-96 mx-auto">
+				<label>Max fee</label>
+				<input name="maxfee" value={maxfee} />
+
+				<div
+					class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
+				>
+					⚡️
+				</div>
+			</div>
+		{:else}
+			<div class="flex w-full mt-5">
+				<button class="mx-auto" on:click={toggle}>Settings</button>
+			</div>
+		{/if}
 	{:else}
 		<form method="POST" action="?/setAmount" class="w-[300px] mx-auto">
 			<input type="hidden" value={a} name="amount" />
