@@ -8,7 +8,7 @@
 	export let data;
 	let { user, tx } = data;
 	let { username } = user;
-	let { id, amount, hash, created, rate, type, preimage, fee, currency } = tx;
+	let { id, amount, hash, created, rate, type, ref, fee, currency } = tx;
 	fee = fee || 0;
 
 	let fiat = (Math.abs(amount) * rate) / sats;
@@ -43,7 +43,7 @@
 		<div>
 			<div class="font-bold">{$t('payments.preimage')}</div>
 			<div>
-				{preimage}
+				{ref}
 			</div>
 		</div>
 	{:else}

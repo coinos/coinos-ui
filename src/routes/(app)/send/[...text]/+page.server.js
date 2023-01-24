@@ -15,20 +15,17 @@ let parse = async (t, host) => {
 			options: { amount }
 		} = bip21.decode(t));
 
-	// ln address
 	if (t.includes('@') && t.includes('.')) {
-		let [name, domain] = t.split('@');
-		if (domain === host) t = name;
-		else {
-			try {
-				t = await get(`/encode?domain=${domain}&name=${name}`);
-			} catch (e) {}
-		}
+		try {
+			t = await get(`/encode?address=${t}`);
+		} catch (e) {}
 	}
 
-	if (t.includes('/voucher')) throw redirect(307, t.substring(t.indexOf('/voucher')));
+	if (t.includes('/pot')) throw redirect(307, t.substring(t.indexOf('/pot')));
 
+	console.log('LNURL?');
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
+	console.log('NOPE');
 	if (t.includes(':')) t = t.split(':')[1];
 
 	// lightning

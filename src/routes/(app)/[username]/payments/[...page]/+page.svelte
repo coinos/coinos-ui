@@ -112,7 +112,7 @@
 
 		<div class="text-base">
 			{#each $payments as p}
-        <a href={`/payment/${p.id}`}>
+				<a href={`/payment/${p.id}`}>
 					<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
 						<div class="whitespace-nowrap my-auto">
 							<div class="font-bold">

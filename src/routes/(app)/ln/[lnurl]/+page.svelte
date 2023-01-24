@@ -4,10 +4,12 @@
 	import { Numpad, Spinner } from '$comp';
 	import { pin } from '$lib/store';
 
-	export let data;
+	export let data, form;
 	let { currency } = data.user;
 	let { minSendable, maxSendable, callback, metadata } = data;
-	let amount, loading;
+
+	let amount = minSendable,
+		loading;
 	let submit = () => (loading = true);
 </script>
 
@@ -24,10 +26,19 @@
 			</div>
 		{/each}
 	</div>
+
+	{#if form?.error}
+		<div class="text-red-600 text-center mb-5">
+			{form.error}
+		</div>
+	{/if}
+
 	<Numpad bind:amount {currency} />
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
+		<input name="minSendable" value={minSendable} type="hidden" />
+		<input name="maxSendable" value={maxSendable} type="hidden" />
 		<input name="callback" value={callback} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
 
