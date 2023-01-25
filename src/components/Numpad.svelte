@@ -119,7 +119,12 @@
 	let prev = '';
 
 	let input = (e) => {
-    if (html.length > 12) return (html = prev);
+		if (amount > sats) {
+			if (fiat) amountFiat = (Math.round(sats * ($selectedRate / sats))).toString();
+			else amountSats = sats;
+			return warning($t('user.receive.lessThan1BTCWarning'));
+		}
+
 		if (prev === '0' && html.length === 2) {
 			prev = '';
 			html = html.replace('0', '');
@@ -130,7 +135,6 @@
 
 		if (!fiat) amountSats = parseInt(html.replace(/,/g, ''));
 		if (!amountSats) amountSats = null;
-		if (amountSats > sats) amountSats = sats;
 
 		setTimeout(() => {
 			let p = prev.split(',')[0].length;
