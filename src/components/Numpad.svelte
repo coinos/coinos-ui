@@ -10,6 +10,8 @@
 
 	export let amountFiat = amount ? amount * ($selectedRate / sats) : 0;
 
+	let arrow = '<';
+
 	let amountSats = amount;
 	let loading = false;
 
@@ -85,13 +87,102 @@
 			}
 		}
 	};
+
+	function getCaretPosition(editableDiv) {
+		var caretPos = 0,
+			sel,
+			range;
+		if (window.getSelection) {
+			sel = window.getSelection();
+			if (sel.rangeCount) {
+				range = sel.getRangeAt(0);
+				if (range.commonAncestorContainer.parentNode == editableDiv) {
+					caretPos = range.endOffset;
+				}
+			}
+		} else if (document.selection && document.selection.createRange) {
+			range = document.selection.createRange();
+			if (range.parentElement() == editableDiv) {
+				var tempEl = document.createElement('span');
+				editableDiv.insertBefore(tempEl, editableDiv.firstChild);
+				var tempRange = range.duplicate();
+				tempRange.moveToElementText(tempEl);
+				tempRange.setEndPoint('EndToEnd', range);
+				caretPos = tempRange.text.length;
+			}
+		}
+		return caretPos;
+	}
+
+	$: html = fiat ? f(amountFiat, currency) : s(amountSats);
+
+	let prev = '';
+
+	let input = (e) => {
+    if (html.length > 12) return (html = prev);
+		if (prev === '0' && html.length === 2) {
+			prev = '';
+			html = html.replace('0', '');
+		}
+
+		let sel = getSelection();
+		let i = sel.focusOffset;
+
+		if (!fiat) amountSats = parseInt(html.replace(/,/g, ''));
+		if (!amountSats) amountSats = null;
+		if (amountSats > sats) amountSats = sats;
+
+		setTimeout(() => {
+			let p = prev.split(',')[0].length;
+			if (html.length > prev.length && p === 3) i++;
+			if (html.length < prev.length && p === 1 && i > 1) i--;
+
+			let node = e.target.childNodes[0];
+			let range = document.createRange();
+
+			range.setStart(node, i);
+			range.setEnd(node, i);
+
+			let sel = getSelection();
+			sel.removeAllRanges();
+			sel.addRange(range);
+
+			prev = html;
+		}, 0);
+	};
+
+	let focus = (e) => {
+		let range = document.createRange();
+		range.selectNodeContents(e.target);
+		let sel = getSelection();
+		sel.removeAllRanges();
+		sel.addRange(range);
+	};
 </script>
 
 <div class="flex justify-center items-center mb-3 px-3">
 	<div class="space-y-5">
 		<div class="text-center">
-			<div class="text-5xl md:text-6xl font-semibold tracking-widest mb-1">
-				{fiat ? `${symbol}${amountFiat}` : '⚡️' + amountSatsFormatted}
+			<div class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center">
+				{#if fiat}
+					<div class="my-auto">{symbol}</div>
+					<div
+						contenteditable
+						bind:innerHTML={amountFiat}
+						on:focus={focus}
+						on:input={input}
+						class="outline-none"
+					/>
+				{:else}
+					<div>⚡️</div>
+					<div
+						contenteditable
+						bind:innerHTML={html}
+						on:focus={focus}
+						on:input={input}
+						class="outline-none"
+					/>
+				{/if}
 			</div>
 			<span class="text-secondary mr-1">{fiat ? amountSatsConverted : amountFiatConverted}</span>
 			<button
@@ -112,7 +203,7 @@
 
 		<div class="grid grid-cols-3 gap-2 w-[300px] mx-auto">
 			{#each numPad as value}
-				{#if value === '<'}
+				{#if value === arrow}
 					<button
 						type="button"
 						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"

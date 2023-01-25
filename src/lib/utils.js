@@ -161,7 +161,7 @@ export const sat = (s) => {
 		'⚡️' +
 		(parseInt(s) > 0
 			? new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(s / Math.pow(1000, d)) +
-			  ['', 'K', 'M', 'G'][d]
+			  ['', 'K', 'M', 'G', 'T', 'P'][d]
 			: 0
 		).toString()
 	);
