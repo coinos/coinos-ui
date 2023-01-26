@@ -1,4 +1,4 @@
-import { invalid, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { auth, get, post } from '$lib/utils';
 
 export function load({ params, url }) {
@@ -14,7 +14,7 @@ export const actions = {
 		try {
 			({ user } = await post(`/user`, user, auth(cookies)));
 		} catch (e) {
-			return invalid(400, { message: e.message });
+			return fail(400, { message: e.message });
 		}
 
 		return { user, success: true };

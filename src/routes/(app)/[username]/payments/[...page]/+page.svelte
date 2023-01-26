@@ -141,7 +141,7 @@
 								<a href={`/pot/${p.pot}`}>
 									<div class="text-secondary flex">
 										<div class="my-auto mr-1">
-											<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-transparent" />
+											<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-transparent" alt="Pot" />
 										</div>
 
 										<div class="my-auto">Pot</div>
@@ -162,7 +162,7 @@
 										<div class="text-3xl">⚡️</div>
 									{:else}
 										<div class="my-auto mr-1">
-											<img src="/images/bitcoin.svg" class="w-12 border-4 border-transparent" />
+											<img src="/images/bitcoin.svg" class="w-12 border-4 border-transparent" alt="Bitcoin" />
 										</div>
 									{/if}
 
@@ -200,11 +200,5 @@
 <style>
 	.active * {
 		@apply bg-black text-white border-black;
-	}
-
-	select {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
 	}
 </style>

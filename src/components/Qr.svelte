@@ -10,5 +10,5 @@
 	on:click={() => screenfull.toggle(qr)}
 	on:keydown={() => screenfull.toggle(qr)}
 >
-	<img {src} class="mx-auto" />
+<img {src} class="mx-auto" alt="QR Code" />
 </div>

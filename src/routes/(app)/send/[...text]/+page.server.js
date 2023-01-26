@@ -1,7 +1,7 @@
 import { validate } from 'bitcoin-address-validation';
 import bip21 from 'bip21';
 import { auth, get, post } from '$lib/utils';
-import { invalid, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 let parse = async (t, host) => {
 	if (!t) return;
@@ -23,9 +23,7 @@ let parse = async (t, host) => {
 
 	if (t.includes('/pot')) throw redirect(307, t.substring(t.indexOf('/pot')));
 
-	console.log('LNURL?');
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
-	console.log('NOPE');
 	if (t.includes(':')) t = t.split(':')[1];
 
 	// lightning

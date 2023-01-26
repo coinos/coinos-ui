@@ -51,7 +51,7 @@
 			<div class="font-bold">{$t('payments.id')}</div>
 			<div class="flex">
 				<div>
-					<a href={`${expl}/tx/${id}`} target="_blank" class="text-blue-600">{id}</a>
+					<a href={`${expl}/tx/${id}`} target="_blank" rel="noreferrer" class="text-blue-600">{id}</a>
 				</div>
 				<button class="flex font-bold hover:opacity-80 mb-auto" on:click={() => copy(id)}
 					><Icon icon="copy" style="mr-1" />

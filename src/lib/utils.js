@@ -137,8 +137,9 @@ export const login = async (user, cookies) => {
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
-	cookies.set('username', user.username, { path: '/', expires });
-	cookies.set('token', token, { path: '/', expires });
+  let opts = { path: '/', expires }
+	cookies.set('username', user.username, opts);
+	cookies.set('token', token, opts);
 };
 
 export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
@@ -160,8 +161,8 @@ export const sat = (s) => {
 	return (
 		'⚡️' +
 		(parseInt(s) > 0
-			? new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(s / Math.pow(1000, d)) +
-			  ['', 'K', 'M', 'G', 'T', 'P'][d]
+			? new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(s / Math.pow(1000, d)) +
+			  ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'][d]
 			: 0
 		).toString()
 	);

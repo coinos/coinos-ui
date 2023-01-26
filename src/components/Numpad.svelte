@@ -6,7 +6,8 @@
 
 	export let amount,
 		currency,
-		fiat = !amount;
+		fiat = !amount,
+		submit = undefined;
 
 	export let amountFiat = amount ? amount * ($selectedRate / sats) : 0;
 
@@ -88,44 +89,12 @@
 		}
 	};
 
-	function getCaretPosition(editableDiv) {
-		var caretPos = 0,
-			sel,
-			range;
-		if (window.getSelection) {
-			sel = window.getSelection();
-			if (sel.rangeCount) {
-				range = sel.getRangeAt(0);
-				if (range.commonAncestorContainer.parentNode == editableDiv) {
-					caretPos = range.endOffset;
-				}
-			}
-		} else if (document.selection && document.selection.createRange) {
-			range = document.selection.createRange();
-			if (range.parentElement() == editableDiv) {
-				var tempEl = document.createElement('span');
-				editableDiv.insertBefore(tempEl, editableDiv.firstChild);
-				var tempRange = range.duplicate();
-				tempRange.moveToElementText(tempEl);
-				tempRange.setEndPoint('EndToEnd', range);
-				caretPos = tempRange.text.length;
-			}
-		}
-		return caretPos;
-	}
-
-	$: html = fiat ? f(amountFiat, currency) : s(amountSats);
+	$: html = fiat ? amountFiat : s(amountSats);
 
 	let prev = '';
 
 	let input = (e) => {
-		if (amount > sats) {
-			if (fiat) amountFiat = (Math.round(sats * ($selectedRate / sats))).toString();
-			else amountSats = sats;
-			return warning($t('user.receive.lessThan1BTCWarning'));
-		}
-
-		if (prev === '0' && html.length === 2) {
+		if (prev === '0') {
 			prev = '';
 			html = html.replace('0', '');
 		}
@@ -133,25 +102,53 @@
 		let sel = getSelection();
 		let i = sel.focusOffset;
 
-		if (!fiat) amountSats = parseInt(html.replace(/,/g, ''));
+		let clean = html.substr(0,15)
+			.replace(/[^0-9.,]+/g, '')
+			.replace('.', 'F')
+			.replace(/\./g, '')
+			.replace('F', '.');
+
+		if (fiat) clean = clean.replace(',', '');
+		if (clean !== html) {
+			html = clean;
+			i = html.length;
+		}
+
+		if (amount > sats && html.length > prev.length) {
+			html = prev;
+			warning($t('user.receive.lessThan1BTCWarning'));
+			i--;
+		}
+
+		if (fiat) {
+			amountFiat = html;
+		} else {
+			amountSats = parseInt(html.replace(/,/g, ''));
+		}
+
 		if (!amountSats) amountSats = null;
 
 		setTimeout(() => {
-			let p = prev.split(',')[0].length;
-			if (html.length > prev.length && p === 3) i++;
-			if (html.length < prev.length && p === 1 && i > 1) i--;
+			if (!fiat) {
+				let p = prev.split(',')[0].length;
+				if (html.length > prev.length && p === 3) i++;
+				if (html.length < prev.length && p === 1 && i > 1) i--;
+			}
 
 			let node = e.target.childNodes[0];
 			let range = document.createRange();
 
-			range.setStart(node, i);
-			range.setEnd(node, i);
+			console.log('NODE', node, i);
+			if (node) {
+				range.setStart(node, i);
+				range.setEnd(node, i);
 
-			let sel = getSelection();
-			sel.removeAllRanges();
-			sel.addRange(range);
+				let sel = getSelection();
+				sel.removeAllRanges();
+				sel.addRange(range);
+			}
 
-			prev = html;
+			prev = html.toString();
 		}, 0);
 	};
 
@@ -162,47 +159,41 @@
 		sel.removeAllRanges();
 		sel.addRange(range);
 	};
+
+	let keydown = (e) => e.key === 'Enter' && (e.preventDefault() || submit.click());
 </script>
 
 <div class="flex justify-center items-center mb-3 px-3">
 	<div class="space-y-5">
 		<div class="text-center">
 			<div class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center">
-				{#if fiat}
-					<div class="my-auto">{symbol}</div>
-					<div
-						contenteditable
-						bind:innerHTML={amountFiat}
-						on:focus={focus}
-						on:input={input}
-						class="outline-none"
-					/>
-				{:else}
-					<div>⚡️</div>
-					<div
-						contenteditable
-						bind:innerHTML={html}
-						on:focus={focus}
-						on:input={input}
-						class="outline-none"
-					/>
-				{/if}
+				<div class="my-auto" class:text-5xl={!fiat}>{fiat ? symbol : '⚡️'}</div>
+				<div
+					contenteditable
+					bind:innerHTML={html}
+					on:focus={focus}
+					on:input={input}
+					on:keydown={keydown}
+					class="outline-none my-auto"
+				/>
 			</div>
-			<span class="text-secondary mr-1">{fiat ? amountSatsConverted : amountFiatConverted}</span>
-			<button
-				type="button"
-				on:click={() => {
-					if (fiat) {
-						amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
-					} else {
-						amountFiat =
-							(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
-								? (amountSats * ($selectedRate / sats)).toFixed(2)
-								: 0;
-					}
-					fiat = !fiat;
-				}}><Icon icon="swap" style="inline hover:opacity-80" /></button
-			>
+			<div class="mt-2">
+				<span class="text-secondary mr-1">{fiat ? amountSatsConverted : amountFiatConverted}</span>
+				<button
+					type="button"
+					on:click={() => {
+						if (fiat) {
+							amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
+						} else {
+							amountFiat =
+								(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
+									? (amountSats * ($selectedRate / sats)).toFixed(2)
+									: 0;
+						}
+						fiat = !fiat;
+					}}><Icon icon="swap" style="inline hover:opacity-80" /></button
+				>
+			</div>
 		</div>
 
 		<div class="grid grid-cols-3 gap-2 w-[300px] mx-auto">

@@ -12,7 +12,6 @@
 	import { calculateId } from 'nostr';
 
 	export let data;
-	export let form;
 
 	let { newMessages, subject, user } = data;
 	let input, pane;

@@ -1,4 +1,4 @@
-import { invalid, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { login } from '$lib/utils';
 
 export const load = async ({ parent }) => {
@@ -17,7 +17,7 @@ export const actions = {
 		try {
 			let r = await login(user, cookies);
 		} catch (e) {
-			return invalid(400, { error: 'Login failed', message: e.message, ...form });
+			return fail(400, { error: 'Login failed', message: e.message, ...form });
 		}
 
 		throw redirect(303, loginRedirect || `/${user.username}/dashboard`);

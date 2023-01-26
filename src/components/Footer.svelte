@@ -9,7 +9,7 @@
 	];
 
 	const companyLinks = [
-		{ url: '/news', titleID: 'news' },
+		{ url: '/docs', titleID: 'documentation' },
 		{ url: '/support', titleID: 'support' },
 		{ url: '/jobs', titleID: 'jobs' }
 	];

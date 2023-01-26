@@ -1,6 +1,6 @@
 <script>
 	import { Icon } from '$comp';
-	import { failure, post } from '$lib/utils';
+	import { focus, failure, post } from '$lib/utils';
 	import { password as pw, passwordPrompt } from '$lib/store';
 
 	export let user;
@@ -35,7 +35,7 @@
 						class="bg-primary"
 						bind:value={password}
 						autocapitalize="none"
-						autofocus
+							use:focus
 					/>
 				{:else}
 					<input
@@ -45,7 +45,7 @@
 						class="bg-primary"
 						bind:value={password}
 						autocapitalize="none"
-						autofocus
+							use:focus
 					/>
 				{/if}
 				<button

@@ -1,5 +1,5 @@
 import { post } from '$lib/utils';
-import { invalid } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 
 export const actions = {
 	default: async ({ cookies, request }) => {
@@ -8,7 +8,7 @@ export const actions = {
 		try {
 			await post('/email', form);
 		} catch (e) {
-			return invalid(400, { error: e.message });
+			return fail(400, { error: e.message });
 		}
 
 		return { success: true };
