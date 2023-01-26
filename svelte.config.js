@@ -15,7 +15,7 @@ const config = {
 		}
 	},
 	onwarn: (warning, handler) => {
-		console.log("OHHH", warning.code)
+    if (warning.code.includes("caption") || warning.filename.includes("Toast")) return;
 		handler(warning);
 	}
 };
