@@ -4,7 +4,7 @@
 	import { tick, onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { last } from '$lib/store';
-	import { Avatar, Icon, Heart, Image, Qr } from '$comp';
+	import { Avatar, Icon, Heart, Image } from '$comp';
 	import { t } from '$lib/translations';
 	import screenfull from 'screenfull';
 
@@ -91,7 +91,15 @@
 	</div>
 
 	<div class="w-full">
-		<img {src} class:p-4={full} class="w-[300px] mx-auto" bind:this={qr} on:click={toggle} />
+		<img
+			{src}
+			class:p-4={full}
+			class="w-[300px] mx-auto"
+			bind:this={qr}
+			on:click={toggle}
+			on:keydown={toggle}
+			alt={address || text}
+		/>
 	</div>
 
 	{#if address}
@@ -146,9 +154,3 @@
 		{/if}
 	</div>
 </div>
-
-<style>
-	.full {
-		@apply p-8;
-	}
-</style>

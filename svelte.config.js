@@ -13,6 +13,10 @@ const config = {
 		csrf: {
 			checkOrigin: false
 		}
+	},
+	onwarn: (warning, handler) => {
+		console.log("OHHH", warning.code)
+		handler(warning);
 	}
 };
 

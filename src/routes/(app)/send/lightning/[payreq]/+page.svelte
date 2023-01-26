@@ -74,7 +74,7 @@
 
 		{#if show}
 			<div class="relative w-96 mx-auto">
-				<label>Max fee</label>
+				<label for="maxfee">Max fee</label>
 				<input name="maxfee" value={maxfee} />
 
 				<div
