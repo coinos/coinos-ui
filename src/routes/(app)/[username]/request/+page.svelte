@@ -5,7 +5,6 @@
 	import { back } from '$lib/utils';
 
 	export let data;
-	export let form;
 
 	let { subject, user } = data;
 </script>

@@ -1,6 +1,6 @@
 <script>
 	import { Avatar, Icon } from '$comp';
-	export let user;
+  import { request } from "$lib/store";
 </script>
 
 Invoice sent to

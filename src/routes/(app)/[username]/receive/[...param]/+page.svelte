@@ -8,7 +8,6 @@
 	import { goto } from '$app/navigation';
 
 	export let data;
-	export let form;
 	let type = 'lightning';
 
 	if ($page.params.param === 'bitcoin') type = 'bitcoin';
