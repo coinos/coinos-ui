@@ -1,4 +1,4 @@
-import { error, invalid, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { btc as asset, auth, get, post } from '$lib/utils';
 
 export async function load({ params, parent }) {
@@ -17,13 +17,13 @@ export const actions = {
 			amount = parseInt(amount);
 
 			if (!confirmed) {
-				return invalid(403, { amount, confirm: true });
+				return fail(400, { amount, confirm: true });
 			}
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {
 			console.log(e);
-			return invalid(400, { message: e.message });
+			return fail(400, { message: e.message });
 		}
 
 		throw redirect(307, '/sent');

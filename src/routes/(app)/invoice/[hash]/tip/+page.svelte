@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { invoice as inv, request } from '$lib/store';
-	import { back, copy, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
+	import { back, copy, focus, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -190,7 +190,7 @@
 					on:input={(e) => handleCustomTipAmount(e)}
 					class="pl-10"
 					placeholder="Custom amount"
-					autofocus
+          use:focus
 				/>
 				<button
 					type="submit"

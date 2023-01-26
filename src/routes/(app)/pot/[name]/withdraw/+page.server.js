@@ -1,4 +1,4 @@
-import { invalid, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { auth, post } from '$lib/utils';
 
 export async function load({ parent }) {
@@ -13,7 +13,7 @@ export const actions = {
 		try {
 			await post('/take', body, auth(cookies));
 		} catch (e) {
-			return invalid(400, { message: e.message });
+			return fail(400, { message: e.message });
 		}
 
 		throw redirect(307, `/pot/${body.name}`);

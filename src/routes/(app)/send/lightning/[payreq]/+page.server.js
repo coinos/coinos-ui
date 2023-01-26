@@ -1,4 +1,4 @@
-import { invalid, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { btc as asset, auth, post } from '$lib/utils';
 
 export async function load({ params }) {
@@ -18,14 +18,14 @@ export const actions = {
 			console.log('AMOUNT', amount);
 
 			if (!confirmed) {
-				return invalid(403, { amount, confirm: true });
+				return fail(400, { amount, confirm: true });
 			}
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {
 			if (e.message.includes('unusable'))
 				e.message = 'Failed to route payment, try sending a lower amount';
-			return invalid(400, { message: e.message });
+			return fail(400, { message: e.message });
 		}
 
 		throw redirect(307, '/sent');

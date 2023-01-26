@@ -1,5 +1,5 @@
 import { auth, get, post } from '$lib/utils';
-import { error, invalid, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 
 export async function load({ params }) {
 	try {
@@ -22,7 +22,7 @@ export const actions = {
 
 		if (amount < minSendable) error = `Amount must be at least ${minSendable} sats`;
 		if (amount > maxSendable) error = `Amount must be at most ${maxSendable} sats`;
-		if (error) return invalid(400, { error });
+		if (error) return fail(400, { error });
 
 		let { pr } = await fetch(`${callback}?amount=${amount}`).then((r) => r.json());
 		throw redirect(307, `/send/lightning/${pr}`);

@@ -1,4 +1,4 @@
-import { invalid, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { post, login } from '$lib/utils';
 
 export const load = async ({ parent }) => {
@@ -28,7 +28,7 @@ export const actions = {
 			error ||= e.message;
 		}
 
-		if (error) return invalid(400, { error });
+		if (error) return fail(400, { error });
 		throw redirect(307, loginRedirect || `/${user.username}/dashboard`);
 	}
 };

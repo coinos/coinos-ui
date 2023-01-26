@@ -11,9 +11,10 @@
 
 	let { address, amount } = $page.params;
 	let { currency } = data.user;
-	let loading;
+	let loading, submit;
 
-	let submit = () => (loading = true);
+	let toggle = () => (loading = true);
+
 	$: update(form);
 	let update = () => {
 		if (form?.message.includes('pin')) $pin = undefined;
@@ -36,17 +37,20 @@
 		<h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t('payments.sendTo')}</h1>
 		<p class="text-lg text-secondary">{address}</p>
 	</div>
-	<Numpad bind:amount {currency} />
+	<Numpad bind:amount {currency} {submit} />
 
-	<form method="POST" use:enhance on:submit={submit}>
+	<form method="POST" use:enhance on:submit={toggle}>
+    <input name="ts" value={Date.now()} type="hidden" />
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
 
 		<div class="flex w-full">
 			<button
+				bind:this={submit}
 				type="submit"
 				class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+				disabled={loading}
 			>
 				{#if loading}
 					<Spinner />
