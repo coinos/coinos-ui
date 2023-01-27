@@ -1,5 +1,5 @@
 <script>
-	import { colorTheme } from '$lib/store';
+	import { avatar, banner, colorTheme } from '$lib/store';
 	import { Icon } from '$comp';
 	import { punk } from '$lib/utils';
 
@@ -10,9 +10,9 @@
 	$: s = size.toString();
 	$: link = user.anon ? `/${user.pubkey}` : `/${user.username}`;
 
-	$: src =
+	$: src = ($avatar?.id === user.id && $avatar.src) || 
 		'/api/public/' +
-		(user?.profile ? user.id + '-profile.webp' : 'punks/' + punk(user?.pubkey || user?.id || 'aa'));
+		(user.profile ? user.id + '-profile.webp' : 'punks/' + punk(user.pubkey || user.id || 'aa'));
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>

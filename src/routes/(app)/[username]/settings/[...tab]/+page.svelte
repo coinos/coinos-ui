@@ -6,7 +6,7 @@
 	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
 	import { failure, post, success } from '$lib/utils';
-	import { avatarUpload, bannerUpload, password, pin } from '$lib/store';
+	import { avatar, banner, password, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
 	import { sign, send, reEncryptEntropy } from '$lib/nostr';
@@ -46,7 +46,7 @@
 
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 
-	let { address, username } = user;
+	let { address, id, username } = user;
 	let loading;
 
 	async function handleSubmit() {
@@ -58,17 +58,14 @@
 				data.set('cipher', await reEncryptEntropy(user, data.get('password')));
 			}
 
-			try {
-				if ($avatarUpload) {
-					await upload($avatarUpload.file, $avatarUpload.type, $avatarUpload.progress, token);
-				}
+			if ($avatar) {
+				await upload($avatar.file, $avatar.type, $avatar.progress, token);
+        await fetch(`/api/public/${id}-profile.webp`, {cache: 'reload', mode: 'no-cors'})
+			}
 
-				if ($bannerUpload) {
-					await upload($bannerUpload.file, $bannerUpload.type, $bannerUpload.progress, token);
-				}
-			} catch (e) {
-				console.log(e);
-				failure('Something went wrong');
+			if ($banner) {
+				await upload($banner.file, $banner.type, $banner.progress, token);
+        await fetch(`/api/public/${id}-banner.webp`, {cache: 'reload', mode: 'no-cors'})
 			}
 
 			let event = {
@@ -99,11 +96,12 @@
 			}
 
 			applyAction(result);
-			loading = false;
 		} catch (e) {
 			console.log(e);
-			failure('Problem submitting form');
+			failure('Something went wrong');
 		}
+
+		loading = false;
 	}
 
 	let loaded;

@@ -32,8 +32,8 @@ const persistLocal = (key, defaultValue) => {
 	return s;
 };
 
-export const avatarUpload = writable();
-export const bannerUpload = writable();
+export const avatar = writable();
+export const banner = writable();
 export const colorTheme = writable('from-primary to-gradient');
 export const events = writable({});
 export const invoice = writable();

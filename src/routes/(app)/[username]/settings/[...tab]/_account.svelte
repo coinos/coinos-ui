@@ -1,18 +1,14 @@
 <script>
 	import { tick } from 'svelte';
-	import { colorTheme, avatarUpload, bannerUpload } from '$lib/store';
+	import { colorTheme, avatar, banner } from '$lib/store';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
-	import { upload } from '$lib/upload';
 
-	export let user;
+	export let rates, user, submit;
+	let { id } = user;
 
 	let selectedTheme = 1;
-	let profileFile;
-	let select = (type) => files[type].el.click();
-
-	$: profile = files.profile.src;
-	$: banner = files.banner.src;
+	let avatarFile, avatarInput, bannerFile, bannerInput;
 
 	let colorThemes = [
 		{ theme: 1, color1: 'from-[#F5F7FA]', color2: 'to-[#C3CFE2]' },
@@ -28,6 +24,9 @@
 		$colorTheme = colors.color1 + ' ' + colors.color2;
 	};
 
+	let selectAvatar = () => avatarInput.click();
+	let selectBanner = () => bannerInput.click();
+
 	let percent;
 	let progress = async (event) => {
 		percent = Math.round((event.loaded / event.total) * 100);
@@ -35,23 +34,29 @@
 
 	let tooLarge = {};
 
-	let files = { profile: {}, banner: {} };
 	let handleFile = async ({ target }, type) => {
 		tooLarge[type] = false;
 		let file = target.files[0];
+		if (!file) return;
+
 		if (file.size > 10000000) return (tooLarge[type] = true);
+
+		if(type === 'profile') {
+			$avatar = { id, file, type, progress };
+		} else if (type === 'banner') {
+			$banner = { id, file, type, progress };
+		}
+
 		var reader = new FileReader();
 		reader.onload = async (e) => {
-			files[type].src = e.target.result;
+			if (type === 'profile') {
+				$avatar.src = e.target.result;
+			} else if (type === 'banner') {
+				$banner.src = e.target.result;
+			}
 		};
-		reader.readAsDataURL(file);
 
-		files[type].filename = file.name;
-		if (type === 'profile') {
-			$avatarUpload = { file, type, progress };
-		} else if (type === 'banner') {
-			$bannerUpload = { file, type, progress };
-		}
+		reader.readAsDataURL(file);
 	};
 
 	if (!user.display) user.display = user.username;
@@ -78,26 +83,14 @@
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
 
 	<div class="flex">
-		{#if profile}
+		{#if $avatar || user.profile}
 			<div
 				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
-				on:click={() => select('profile')}
-				on:keydown={() => select('profile')}
+				on:click={selectAvatar}
+				on:keydown={selectAvatar}
 			>
 				<img
-					src={profile}
-					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
-					alt={user.username}
-				/>
-			</div>
-		{:else if user.profile}
-			<div
-				class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
-				on:click={() => select('profile')}
-				on:keydown={() => select('profile')}
-			>
-				<img
-					src={`/api/public/${user.id}-profile.webp`}
+					src={$avatar?.src || `/api/public/${user.id}-profile.webp`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 					alt={user.username}
 				/>
@@ -105,8 +98,8 @@
 		{:else}
 			<div
 				class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto hover:opacity-80 cursor-pointer"
-				on:click={() => select('profile')}
-				on:keydown={() => select('profile')}
+				on:click={selectAvatar}
+				on:keydown={selectAvatar}
 			>
 				<Icon icon="logo-symbol-white" style="mx-auto" />
 			</div>
@@ -116,22 +109,19 @@
 			<button
 				type="button"
 				class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-				on:click={() => select('profile')}
-				on:keydown={() => select('profile')}>{$t('user.settings.select')}</button
+				on:click={selectAvatar}
+				on:keydown={selectAvatar}>{$t('user.settings.select')}</button
 			>
 			<input
 				type="file"
 				class="hidden"
-				bind:this={files.profile.el}
+				bind:this={avatarInput}
 				on:change={(e) => handleFile(e, 'profile')}
 			/>
-			{#if files.profile.filename}
-				<div class="mt-2 text-sm">{files.profile.filename}</div>
-			{/if}
 		</div>
 	</div>
 
-	{#if tooLarge['profile']}
+	{#if tooLarge['avatar']}
 		<div class="text-red-600">Max file size 10MB</div>
 	{/if}
 </div>
@@ -141,27 +131,19 @@
 		<span class="font-bold">{$t('user.settings.bannerImage')}</span>
 	</div>
 
-	{#if banner}
+	{#if $banner || user.banner}
 		<img
-			src={banner}
+			src={$banner ? $banner.src : `/api/public/${user.id}-banner.webp`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
-			on:click={() => select('banner')}
-			on:keydown={() => select('banner')}
-			alt="Banner"
-		/>
-	{:else if user.banner}
-		<img
-			src={`/api/public/${user.id}-banner.webp`}
-			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
-			on:click={() => select('banner')}
-			on:keydown={() => select('banner')}
+			on:click={selectBanner}
+			on:keydown={selectBanner}
 			alt="Banner"
 		/>
 	{:else}
 		<div
 			class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
-			on:click={() => select('banner')}
-			on:keydown={() => select('banner')}
+			on:click={selectBanner}
+			on:keydown={selectBanner}
 			alt="Banner"
 		/>
 	{/if}
@@ -169,18 +151,15 @@
 	<button
 		type="button"
 		class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
-		on:click={() => select('banner')}
-		on:keydown={() => select('banner')}>{$t('user.settings.select')}</button
+		on:click={selectBanner}
+		on:keydown={selectBanner}>{$t('user.settings.select')}</button
 	>
 	<input
 		type="file"
 		class="hidden"
-		bind:this={files.banner.el}
+		bind:this={bannerInput}
 		on:change={(e) => handleFile(e, 'banner')}
 	/>
-	{#if files.banner.filename}
-		<div class="mt-2 text-sm">{files.banner.filename}</div>
-	{/if}
 
 	{#if tooLarge['banner']}
 		<div class="text-red-600">Max file size 10MB</div>

@@ -1,7 +1,6 @@
 import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
-/** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
 		preprocess({
@@ -15,7 +14,7 @@ const config = {
 		}
 	},
 	onwarn: (warning, handler) => {
-    if (warning.code.includes("caption") || warning.filename.includes("Toast")) return;
+		if (warning.code.includes('caption') || warning.filename.includes('Toast')) return;
 		handler(warning);
 	}
 };
