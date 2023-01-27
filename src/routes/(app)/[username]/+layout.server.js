@@ -5,7 +5,8 @@ export let load = async ({ depends, params: { username } }) => {
 	depends('app:user');
 
 	try {
-		return { subject: await get(`/users/${username}`) };
+    let subject = await get(`/users/${username}`)
+		return { subject  };
 	} catch (e) {
 		console.log(e);
 		throw error(500, 'Unable to retrieve user account data');

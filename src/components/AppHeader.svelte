@@ -1,6 +1,6 @@
 <script>
 	import OutClick from 'svelte-outclick';
-	import { newPayment, colorTheme } from '$lib/store';
+	import { banner, newPayment, colorTheme } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Avatar, Icon } from '$comp';
 	import { t } from '$lib/translations';
@@ -23,7 +23,7 @@
 
 	let showMenu = false;
 
-	$: bg = subject?.banner ? `url(/api/public/${subject.id}-banner.webp)` : undefined;
+  $: bg = $banner?.id === subject.id ? `url(${$banner.src})` : subject?.banner ? `url(/api/public/${subject.id}-banner.webp)` : undefined;
 	$: $page && (showMenu = false);
 </script>
 
