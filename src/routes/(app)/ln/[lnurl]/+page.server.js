@@ -39,7 +39,7 @@ export const actions = {
 	withdraw: async ({ cookies, fetch, request }) => {
 		let error;
 
-		let { callback, amount, minWithdrawable, maxWithdrawable, k1 } = Object.fromEntries(
+		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } = Object.fromEntries(
 			await request.formData()
 		);
 
@@ -51,7 +51,7 @@ export const actions = {
 		if (error) return fail(400, { error });
 
 		let invoice = { amount, type: 'lightning' };
-		let user = { username: form.get('username'), currency: form.get('currency') };
+		let user = { username, currency };
 
 		let { text: pr } = await post('/invoice', { invoice, user }, auth(cookies));
 
