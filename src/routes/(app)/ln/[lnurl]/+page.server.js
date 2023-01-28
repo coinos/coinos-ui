@@ -1,7 +1,10 @@
 import { auth, get, post } from '$lib/utils';
 import { error, fail, redirect } from '@sveltejs/kit';
 
-export async function load({ params }) {
+export async function load({ params, parent }) {
+	let { user } = await parent();
+	if (!user) throw redirect(307, '/register');
+
 	let data;
 
 	try {
