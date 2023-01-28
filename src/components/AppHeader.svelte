@@ -23,7 +23,13 @@
 
 	let showMenu = false;
 
-  $: bg = $banner?.id === subject.id ? `url(${$banner.src})` : subject?.banner ? `url(/api/public/${subject.id}-banner.webp)` : undefined;
+	$: bg =
+		$banner && $banner.id === subject.id
+			? `url(${$banner.src})`
+			: subject?.banner
+			? `url(/api/public/${subject.id}-banner.webp)`
+			: undefined;
+
 	$: $page && (showMenu = false);
 </script>
 
