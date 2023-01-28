@@ -9,7 +9,7 @@
 	let { currency, username } = data.user;
 	let { defaultDescription, minWithdrawable, maxWithdrawable, k1, callback } = data;
 
-	let amount = maxWithdrawable,
+	let amount = Math.round(maxWithdrawable / 1000),
 		loading;
 
 	let submit = () => (loading = true);

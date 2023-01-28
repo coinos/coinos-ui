@@ -2,15 +2,19 @@ import { auth, get, post } from '$lib/utils';
 import { error, fail, redirect } from '@sveltejs/kit';
 
 export async function load({ params }) {
+	let data;
+
 	try {
 		let { lnurl } = params;
-		let data = await get(`/decode?text=${lnurl}`);
-		if (data.tag === 'payRequest') throw redirect('/lnurlp');
-		throw error(500, 'We can only handle lnurl pay requests');
-		return data;
+		data = await get(`/decode?text=${lnurl}`);
 	} catch (e) {
 		throw error(500, e.message);
 	}
+
+	if (!['payRequest', 'withdrawRequest'].includes(data.tag))
+		throw error(500, 'We only support LNURLp and LNURLw at this time');
+
+	return data;
 }
 
 export const actions = {
@@ -21,11 +25,14 @@ export const actions = {
 			await request.formData()
 		);
 
+		minSendable = Math.round(minSendable / 1000);
+		maxSendable = Math.round(maxSendable / 1000);
+
 		if (amount < minSendable) error = `Amount must be at least ${minSendable} sats`;
 		if (amount > maxSendable) error = `Amount must be at most ${maxSendable} sats`;
 		if (error) return fail(400, { error });
 
-		let { pr } = await fetch(`${callback}?amount=${amount}`).then((r) => r.json());
+		let { pr } = await fetch(`${callback}?amount=${amount * 1000}`).then((r) => r.json());
 		throw redirect(307, `/send/lightning/${pr}`);
 	},
 
@@ -35,6 +42,9 @@ export const actions = {
 		let { callback, amount, minWithdrawable, maxWithdrawable, k1 } = Object.fromEntries(
 			await request.formData()
 		);
+
+		minWithdrawable = Math.round(minWithdrawable / 1000);
+		maxWithdrawable = Math.round(maxWithdrawable / 1000);
 
 		if (amount < minWithdrawable) error = `Amount must be at least ${minWithdrawable} sats`;
 		if (amount > maxWithdrawable) error = `Amount must be at most ${maxWithdrawable} sats`;
