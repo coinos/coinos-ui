@@ -1,7 +1,7 @@
 <script>
 	import { Lnurlp, Lnurlw } from '$comp';
   export let data;
-	let { tag } = data;
+      let { tag } = data;
 </script>
 
 {#if tag === 'payRequest'}
