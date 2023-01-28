@@ -42,9 +42,8 @@ export const actions = {
 	withdraw: async ({ cookies, fetch, request }) => {
 		let error;
 
-		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } = Object.fromEntries(
-			await request.formData()
-		);
+		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } =
+			Object.fromEntries(await request.formData());
 
 		minWithdrawable = Math.round(minWithdrawable / 1000);
 		maxWithdrawable = Math.round(maxWithdrawable / 1000);
@@ -60,9 +59,9 @@ export const actions = {
 
 		let c = callback.includes('?') ? '&' : '?';
 
-    console.log("sending", `${callback}${c}k1=${k1}&pr=${pr}`)
+		console.log('sending', `${callback}${c}k1=${k1}&pr=${pr}`);
 		let r = await fetch(`${callback}${c}k1=${k1}&pr=${pr}`).then((r) => r.json());
-    console.log("result", r);)
+		console.log('result', r);
 
 		throw redirect(307, `/ln/withdrawal/sent`);
 	}
