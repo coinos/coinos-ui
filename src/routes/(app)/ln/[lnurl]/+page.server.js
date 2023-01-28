@@ -59,7 +59,10 @@ export const actions = {
 		let { text: pr } = await post('/invoice', { invoice, user }, auth(cookies));
 
 		let c = callback.includes('?') ? '&' : '?';
-		await fetch(`${callback}${c}k1=${k1}&pr=${pr}`).then((r) => r.json());
+
+    console.log("sending", `${callback}${c}k1=${k1}&pr=${pr}`)
+		let r = await fetch(`${callback}${c}k1=${k1}&pr=${pr}`).then((r) => r.json());
+    console.log("result", r);)
 
 		throw redirect(307, `/ln/withdrawal/sent`);
 	}
