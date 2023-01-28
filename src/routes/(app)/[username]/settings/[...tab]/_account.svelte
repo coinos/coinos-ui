@@ -4,7 +4,7 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 
-	export let rates, user, submit;
+	export let user;
 	let { id } = user;
 
 	let selectedTheme = 1;
