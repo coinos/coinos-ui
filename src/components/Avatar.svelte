@@ -10,9 +10,10 @@
 	$: s = size.toString();
 	$: link = user.anon ? `/${user.pubkey}` : `/${user.username}`;
 
-	$: src = ($avatar?.id === user.id && $avatar.src) || 
+	$: src =
+		($avatar?.id && $avatar.id === user.id && $avatar.src) ||
 		'/api/public/' +
-		(user.profile ? user.id + '-profile.webp' : 'punks/' + punk(user.pubkey || user.id || 'aa'));
+			(user.profile ? user.id + '-profile.webp' : 'punks/' + punk(user.pubkey || user.id || 'aa'));
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>

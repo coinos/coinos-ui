@@ -24,7 +24,7 @@
 	let showMenu = false;
 
 	$: bg =
-		$banner && $banner.id === subject.id
+		$banner?.id && $banner.id === subject.id
 			? `url(${$banner.src})`
 			: subject?.banner
 			? `url(/api/public/${subject.id}-banner.webp)`
