@@ -59,9 +59,9 @@
 		payments = payments.map((p) => ({
 			...p,
 			created: new Date(p.created),
-			fiat: f(((p.amount || 0) * p.rate) / sats, p.currency),
-			fiatfee: f(((p.fee || 0) * p.rate) / sats, p.currency),
-			fiattip: f(((p.tip || 0) * p.rate) / sats, p.currency)
+			amount_fiat: f((p.amount * p.rate) / sats, p.currency),
+			fee_fiat: p.fee ? f((p.fee * p.rate) / sats, p.currency) : null,
+			tip_fiat: p.tip ? f((p.tip * p.rate) / sats, p.currency) : null
 		}));
 
 		let keys = [
@@ -73,9 +73,9 @@
 			'amount',
 			'fee',
 			'tip',
-			'fiat',
-			'fiatfee',
-			'fiattip'
+			'amount_fiat',
+			'fee_fiat',
+			'tip_fiat'
 		];
 
 		let csv =
@@ -191,7 +191,7 @@
 								<div class="text-secondary flex">
 									{#if p.type === types.lightning}
 										<div class="text-3xl">⚡️</div>
-									{:else}
+									{:else if p.type === types.bitcoin}
 										<div class="my-auto mr-1">
 											<img
 												src="/images/bitcoin.svg"
