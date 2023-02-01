@@ -21,6 +21,11 @@ let parse = async (t, host) => {
 		} catch (e) {}
 	}
 
+	if (t.endsWith('@classic')) {
+		({ uuid: id } = await get(`/invoice/classic/${t.replace('@classic', '')}`));
+		if (id) throw redirect(307, `/send/${id}`);
+	}
+
 	if (t.includes('/pot')) throw redirect(307, t.substring(t.indexOf('/pot')));
 
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);

@@ -94,7 +94,7 @@
 	let prev = '';
 
 	let input = (e) => {
-		if (prev === '0') {
+		if (prev === '0' && html !== '0.') {
 			prev = '';
 			html = html.replace('0', '');
 		}
@@ -102,7 +102,8 @@
 		let sel = getSelection();
 		let i = sel.focusOffset;
 
-		let clean = html.substr(0,15)
+		let clean = html
+			.substr(0, 15)
 			.replace(/[^0-9.,]+/g, '')
 			.replace('.', 'F')
 			.replace(/\./g, '')
@@ -138,7 +139,6 @@
 			let node = e.target.childNodes[0];
 			let range = document.createRange();
 
-			console.log('NODE', node, i);
 			if (node) {
 				range.setStart(node, i);
 				range.setEnd(node, i);

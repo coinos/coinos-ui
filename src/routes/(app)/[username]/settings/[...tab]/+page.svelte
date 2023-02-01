@@ -60,12 +60,12 @@
 
 			if ($avatar) {
 				await upload($avatar.file, $avatar.type, $avatar.progress, token);
-        await fetch(`/api/public/${id}-profile.webp`, {cache: 'reload', mode: 'no-cors'})
+				await fetch(`/api/public/${id}-profile.webp`, { cache: 'reload', mode: 'no-cors' });
 			}
 
 			if ($banner) {
 				await upload($banner.file, $banner.type, $banner.progress, token);
-        await fetch(`/api/public/${id}-banner.webp`, {cache: 'reload', mode: 'no-cors'})
+				await fetch(`/api/public/${id}-banner.webp`, { cache: 'reload', mode: 'no-cors' });
 			}
 
 			let event = {

@@ -14,7 +14,7 @@ export async function load({ cookies, params, request }) {
 	let offset = (page - 1) * limit;
 	if (!start) start = Date.now() / 1000 - 24 * 60 * 60;
 
-	let url = `/payments?v2=true&start=${start * 1000}&limit=${limit}&offset=${offset}`;
+	let url = `/payments?start=${start * 1000}&limit=${limit}&offset=${offset}`;
 	if (end) url += `&end=${end * 1000}`;
 
 	let { total, payments } = await get(url, auth(cookies));
