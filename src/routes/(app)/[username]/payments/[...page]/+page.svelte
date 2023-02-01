@@ -59,9 +59,9 @@
 		payments = payments.map((p) => ({
 			...p,
 			created: new Date(p.created),
-			fiat: f((p.amount || 0) * p.rate / sats, p.currency),
-			fiatfee: f((p.fee || 0) * p.rate / sats, p.currency),
-			fiattip: f((p.tip || 0) * p.rate / sats, p.currency)
+			fiat: f(((p.amount || 0) * p.rate) / sats, p.currency),
+			fiatfee: f(((p.fee || 0) * p.rate) / sats, p.currency),
+			fiattip: f(((p.tip || 0) * p.rate) / sats, p.currency)
 		}));
 
 		let keys = [

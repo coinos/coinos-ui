@@ -1,6 +1,6 @@
 <script>
 	import { Avatar, Icon } from '$comp';
-  import { request } from "$lib/store";
+	import { request } from '$lib/store';
 </script>
 
 Invoice sent to
