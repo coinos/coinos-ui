@@ -4,7 +4,7 @@
 	import { format, parseISO } from 'date-fns';
 	import { newPayment, payments } from '$lib/store';
 	import { t } from '$lib/translations';
-	import { f, s, sat, sats } from '$lib/utils';
+	import { get, f, s, sat, sats } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { differenceInDays, getUnixTime, sub } from 'date-fns';
 	import { goto, invalidate } from '$app/navigation';
@@ -49,14 +49,41 @@
 		? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'))
 		: $page.url.pathname;
 
-	let csv = () => {
-		const keys = ['hash', 'updatedAt', 'rate', 'currency', 'amount', 'fee', 'tip'];
-		const csv =
+	let csv = async () => {
+		let url = `/${user.username}/payments`;
+		if (start) url += `/${start}`;
+		if (end) url += `/${end}`;
+
+		let { payments } = await get(url);
+
+		payments = payments.map((p) => ({
+			...p,
+			created: new Date(p.created),
+			fiat: f((p.amount || 0) * p.rate / sats, p.currency),
+			fiatfee: f((p.fee || 0) * p.rate / sats, p.currency),
+			fiattip: f((p.tip || 0) * p.rate / sats, p.currency)
+		}));
+
+		let keys = [
+			'type',
+			'id',
+			'created',
+			'rate',
+			'currency',
+			'amount',
+			'fee',
+			'tip',
+			'fiat',
+			'fiatfee',
+			'fiattip'
+		];
+
+		let csv =
 			keys.map((k) => `"${k}"`).join(',') +
 			'\n' +
-			$payments.map((r) => keys.map((k) => `"${r[k]}"`).join(',')).join('\n');
+			payments.map((r) => keys.map((k) => `"${r[k] || ''}"`).join(',')).join('\n');
 
-		const filename = 'payments.csv';
+		let filename = 'payments.csv';
 		let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
 		if (navigator.msSaveBlob) {
 			navigator.msSaveBlob(blob, filename);
@@ -141,7 +168,11 @@
 								<a href={`/pot/${p.pot}`}>
 									<div class="text-secondary flex">
 										<div class="my-auto mr-1">
-											<img src="/icons/logo-symbol.svg" class="w-12 border-4 border-transparent" alt="Pot" />
+											<img
+												src="/icons/logo-symbol.svg"
+												class="w-12 border-4 border-transparent"
+												alt="Pot"
+											/>
 										</div>
 
 										<div class="my-auto">Pot</div>
@@ -162,7 +193,11 @@
 										<div class="text-3xl">⚡️</div>
 									{:else}
 										<div class="my-auto mr-1">
-											<img src="/images/bitcoin.svg" class="w-12 border-4 border-transparent" alt="Bitcoin" />
+											<img
+												src="/images/bitcoin.svg"
+												class="w-12 border-4 border-transparent"
+												alt="Bitcoin"
+											/>
 										</div>
 									{/if}
 
