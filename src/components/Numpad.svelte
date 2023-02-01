@@ -94,7 +94,7 @@
 	let prev = '';
 
 	let input = (e) => {
-		if (prev === '0') {
+		if (prev === '0' && html !== '0.') {
 			prev = '';
 			html = html.replace('0', '');
 		}
@@ -139,7 +139,6 @@
 			let node = e.target.childNodes[0];
 			let range = document.createRange();
 
-			console.log('NODE', node, i);
 			if (node) {
 				range.setStart(node, i);
 				range.setEnd(node, i);
