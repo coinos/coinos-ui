@@ -35,7 +35,7 @@
 						class="bg-primary"
 						bind:value={password}
 						autocapitalize="none"
-							use:focus
+						use:focus
 					/>
 				{:else}
 					<input
@@ -45,7 +45,7 @@
 						class="bg-primary"
 						bind:value={password}
 						autocapitalize="none"
-							use:focus
+						use:focus
 					/>
 				{/if}
 				<button

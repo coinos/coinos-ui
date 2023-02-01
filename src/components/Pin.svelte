@@ -1,5 +1,5 @@
 <script>
-  import { focus } from "$lib/utils";
+	import { focus } from '$lib/utils';
 	import { pin } from '$lib/store';
 
 	let pinCode = '';

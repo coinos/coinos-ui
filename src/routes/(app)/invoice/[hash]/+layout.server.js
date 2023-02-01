@@ -6,7 +6,7 @@ export async function load({ depends, params, url }) {
 	depends('app:invoice');
 
 	let { hash } = params;
-	let invoice = await get(`/invoice?hash=${hash}`);
+	let invoice = await get(`/invoice/${hash}`);
 	let { amount, received } = invoice;
 	amount = parseInt(amount);
 

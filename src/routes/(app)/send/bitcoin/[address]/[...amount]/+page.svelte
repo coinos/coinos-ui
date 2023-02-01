@@ -40,7 +40,7 @@
 	<Numpad bind:amount {currency} {submit} />
 
 	<form method="POST" use:enhance on:submit={toggle}>
-    <input name="ts" value={Date.now()} type="hidden" />
+		<input name="ts" value={Date.now()} type="hidden" />
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />

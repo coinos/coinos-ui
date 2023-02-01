@@ -41,7 +41,7 @@
 
 		if (file.size > 10000000) return (tooLarge[type] = true);
 
-		if(type === 'profile') {
+		if (type === 'profile') {
 			$avatar = { id, file, type, progress };
 		} else if (type === 'banner') {
 			$banner = { id, file, type, progress };

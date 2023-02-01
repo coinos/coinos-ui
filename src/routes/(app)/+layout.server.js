@@ -15,9 +15,9 @@ export async function load({ cookies, request, url, params }) {
 		} catch (e) {}
 	}
 
-  if (user?.needsMigration) {
-    throw redirect(307, `/migrate`);
-  } 
+	if (user?.needsMigration) {
+		throw redirect(307, `/migrate`);
+	}
 
 	if (user && ['/', '/login', '/register'].includes(pathname) && request.method === 'GET') {
 		throw redirect(307, `/${user.username}/dashboard`);
