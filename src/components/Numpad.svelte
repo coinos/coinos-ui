@@ -102,7 +102,8 @@
 		let sel = getSelection();
 		let i = sel.focusOffset;
 
-		let clean = html.substr(0,15)
+		let clean = html
+			.substr(0, 15)
 			.replace(/[^0-9.,]+/g, '')
 			.replace('.', 'F')
 			.replace(/\./g, '')

@@ -12,7 +12,7 @@ export async function GET({ cookies, params }) {
 
 	let url = `/payments?start=${start * 1000}`;
 	if (end) url += `&end=${end * 1000}`;
-	
+
 	let { payments } = await get(url, auth(cookies));
 	return json({ payments });
 }

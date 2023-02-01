@@ -137,7 +137,7 @@ export const login = async (user, cookies) => {
 	let expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
-  let opts = { path: '/', expires }
+	let opts = { path: '/', expires };
 	cookies.set('username', user.username, opts);
 	cookies.set('token', token, opts);
 };

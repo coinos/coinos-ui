@@ -190,7 +190,7 @@
 					on:input={(e) => handleCustomTipAmount(e)}
 					class="pl-10"
 					placeholder="Custom amount"
-          use:focus
+					use:focus
 				/>
 				<button
 					type="submit"
