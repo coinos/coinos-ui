@@ -178,7 +178,7 @@
 										<div class="my-auto">Pot</div>
 									</div>
 								</a>
-							{:else if p.type === types.internal}
+							{:else if p.with}
 								<a href={`/${p.with.username}`}>
 									<div class="flex">
 										<div class="my-auto">
