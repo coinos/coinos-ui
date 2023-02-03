@@ -98,9 +98,6 @@
 										<Avatar user={c} size={20} disabled={true} />
 										<div class="my-auto text-left">
 											<p class="ml-1 text-lg break-words">{c.username}</p>
-											<p class="ml-1 text-secondary">
-												{format(parseISO(c.last), 'MMM d')}
-											</p>
 										</div>
 									</div>
 								</div>

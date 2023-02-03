@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { invoice as inv, request } from '$lib/store';
-	import { back, copy, focus, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
+	import { copy, focus, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
@@ -108,10 +108,6 @@
 
 	onMount(() => ($request = undefined));
 </script>
-
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-	<Icon icon="arrow-left" style="w-10" />
-</button>
 
 <div class="container px-4 max-w-lg text-center mx-auto">
 	<form method="POST" use:enhance class:invisible={submitting}>
