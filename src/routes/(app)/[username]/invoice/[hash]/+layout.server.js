@@ -11,7 +11,8 @@ export async function load({ depends, params, url }) {
 	amount = parseInt(amount);
 
 	let paid = (!amount && received) || (amount > 0 && received >= amount);
-	if (paid && !url.pathname.endsWith('paid')) throw redirect(307, `/invoice/${hash}/paid`);
+	if (paid && !url.pathname.endsWith('paid'))
+		throw redirect(307, `/${params.username}/invoice/${hash}/paid`);
 
 	let sm = Qr.drawImg(invoice.text, { size: 300 });
 

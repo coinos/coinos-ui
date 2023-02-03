@@ -60,10 +60,13 @@ export const messages = (data) => ({
 		let { amount, invoice } = data;
 		invalidate('app:invoice');
 
-		let payments = get(payments);
-		let i = payments.findIndex((p) => p.id === data.id);
-		if (~i) (payments[i] = data), payments.set(payments);
-		else newPayment.set(true);
+		let p = get(payments);
+		let i = p.findIndex((p) => p.id === data.id);
+
+		if (~i) {
+			p[i] = data;
+			payments.set(p);
+		} else newPayment.set(true);
 
 		invalidate((url) => url.pathname === '/payments');
 
