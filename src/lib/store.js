@@ -32,6 +32,7 @@ const persistLocal = (key, defaultValue) => {
 	return s;
 };
 
+export const animatedRate = writable(0);
 export const avatar = writable();
 export const banner = writable();
 export const colorTheme = writable('from-primary to-gradient');

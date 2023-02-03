@@ -24,7 +24,7 @@
 		amount = a;
 		amountFiat = af;
 
-		({ hash } = await post('/invoice', {
+		({ hash } = await post(`/${recipient.username}/invoice`, {
 			invoice: {
 				amount,
 				rate: rates[recipient.currency],

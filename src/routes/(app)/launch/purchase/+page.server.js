@@ -40,6 +40,6 @@ export const actions = {
 
 		let { id } = await post('/invoice', { invoice, user }, auth(cookies));
 
-		throw redirect(307, `/invoice/${id}`);
+		throw redirect(307, `/${user.username}/invoice/${id}`);
 	}
 };
