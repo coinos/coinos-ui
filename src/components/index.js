@@ -1,3 +1,4 @@
+export { default as Balance } from './Balance.svelte';
 export { default as Lnurlp } from './Lnurlp.svelte';
 export { default as Lnurlw } from './Lnurlw.svelte';
 export { default as Event } from './Event.svelte';

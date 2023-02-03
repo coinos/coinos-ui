@@ -6,7 +6,7 @@ export const createTicket = async (cookies, username) => {
 	let { ticket } = await get('/ticket');
 
 	let { address } = await post(
-		'/invoice',
+		`/${username}/invoice`,
 		{ invoice: { network: 'liquid' }, user: { username } },
 		auth(cookies)
 	);

@@ -1,6 +1,4 @@
-import { auth, get } from '$lib/utils';
-
-export async function load({ cookies, depends }) {
-	depends('app:invoice');
-	return get('/requests', auth(cookies));
+import { redirect } from '@sveltejs/kit';
+export async function load({ params: { username } }) {
+	throw redirect(301, `/${username}`);
 }

@@ -16,7 +16,7 @@
 
 	let amount;
 
-	let { currency, username } = data.subject;
+	let { currency, username, prompt } = data.subject;
 	let { user } = data;
 	let submit;
 </script>
@@ -31,7 +31,7 @@
 		<input type="hidden" name="request_id" value={request.id} />
 	{/if}
 
-	<input type="hidden" name="prompt" value={false} />
+	<input type="hidden" name="prompt" value={prompt} />
 
 	<div class="space-y-3 w-[300px] mx-auto">
 		<Numpad bind:amount bind:currency {submit} />

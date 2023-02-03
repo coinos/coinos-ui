@@ -34,7 +34,7 @@
 </script>
 
 <header
-	class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover"
+	class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover mb-20"
 	style:background-image={bg}
 >
 	<nav class="flex justify-end items-center space-x-4 p-5">
