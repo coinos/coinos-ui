@@ -4,9 +4,9 @@ import { btc as asset, auth, get, post } from '$lib/utils';
 export async function load({ params, parent }) {
 	let { user } = await parent();
 	let { amount } = params;
-	let recipient = await get(`/users/${params.username}`);
-	if (recipient.username === user?.username) throw error(500, { message: 'Cannot send to self' });
-	return { amount, recipient };
+	let subject = await get(`/users/${params.username}`);
+	if (subject.username === user?.username) throw error(500, { message: 'Cannot send to self' });
+	return { amount, subject };
 }
 
 export const actions = {
