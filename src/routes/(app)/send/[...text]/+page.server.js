@@ -1,7 +1,7 @@
 import { validate } from 'bitcoin-address-validation';
 import bip21 from 'bip21';
 import { auth, get, post } from '$lib/utils';
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 let parse = async (t, host) => {
 	if (!t) return;
@@ -61,6 +61,13 @@ let parse = async (t, host) => {
 	} catch (e) {}
 
 	if (user) throw redirect(307, `/send/user/${t}`);
+
+	let pot;
+	try {
+		pot = await get(`/pot/${t}`);
+	} catch (e) {}
+
+	if (pot) throw redirect(307, `/send/pot/${t}`);
 };
 
 export async function load({ cookies, params, request, url }) {
@@ -75,6 +82,6 @@ export const actions = {
 		const form = await request.formData();
 		let t = form.get('text');
 		await parse(t, url.host);
-		throw redirect(307, `/send/pot/${t}`);
+		return fail(400, { error: true });
 	}
 };

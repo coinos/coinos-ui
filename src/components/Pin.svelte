@@ -10,7 +10,7 @@
 	let pin = '';
 
 	$: update(value);
-	let update = (v) => (pin = v) || console.log('updated', v, pin);
+	let update = (v) => (pin = v)
 
 	$: pin.toString().length > 5 && (value = pin.toString());
 </script>
