@@ -37,8 +37,11 @@
 
 	<form method="POST" use:enhance>
 		{#if form?.error}
-			<div class="text-red-600 text-center" in:fly>
-				{form.error}
+			<div class="mb-5">
+				<div class="text-secondary">Could not find anything with that name. Would you like to create a new pot?</div>
+				<div class="w-full flex justify-center">
+          <a href={`/send/pot/${text}`}><button class="bg-black text-white border rounded-full px-6 py-2 font-bold">Yes</button></a>
+				</div>
 			</div>
 		{/if}
 		<div class="mb-2">
@@ -90,7 +93,7 @@
 			<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">{$t('user.send.contacts')}</h1>
 			<div>
 				{#each contacts as c}
-          <a href={`/send/${c.username}`}>
+					<a href={`/send/${c.username}`}>
 						<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
 							<div class="flex">
 								<div>
