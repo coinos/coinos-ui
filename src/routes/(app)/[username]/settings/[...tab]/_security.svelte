@@ -1,79 +1,51 @@
 <script>
 	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
-	import { Icon, Qr } from '$comp';
-	import { Pincode, PincodeInput } from 'svelte-pincode';
-	import { post, success, failure } from '$lib/utils';
+	import { Pin, Icon, Qr } from '$comp';
+	import { post, success, fail } from '$lib/utils';
 	import { pin as current } from '$lib/store';
 	import { invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 
 	export let user, submit;
-	let settingPin, setting2fa, disabling2fa;
+	let pin, verify;
+	let settingPin, setting2fa, disabling2fa, confirming2fa;
 
 	let password, revealPassword;
 	let token = '';
-	let pinCode = [];
-	let verifyCode = [];
-	let tokenInput, pinInput, verifyInput;
-	let verifying = false;
 	let old;
 
 	let togglePassword = () => (revealPassword = !revealPassword);
 
-	let startVerifying = () => {
-		if (pinCode.join('').length < 6) return;
-		verifying = true;
-	};
-
-	$: pin = pinCode.join('');
-
 	let otp;
-	$: pinChange($current);
-	let pinChange = async (pin) => {
-		try {
-			otp = await post('/otpsecret', { pin });
-		} catch (e) {
-			console.log(e);
-		}
-	};
 
 	let locked;
-	$: verifyCode.join('').length > 5 && checkPin();
+	$: verifying = pin?.length > 5;
+	$: verify && checkPin(pin);
 	let checkPin = async () => {
 		old = $current;
-		if (locked) return;
-		locked = true;
-
-		let verify = verifyCode.join('');
-
-		pinCode = ['', '', '', '', '', ''];
-		verifyCode = ['', '', '', '', '', ''];
-		settingPin = false;
 
 		try {
 			if (pin.length > 5 && pin === verify) {
 				user.haspin = true;
 				$current = pin;
+				pin = '';
+				verify = '';
 				submit.click();
+				settingPin = false;
+				verifying = false;
 			} else {
-				failure('Pin mismatch, try again');
+				fail('Pin mismatch, try again');
+				pin = '';
+				verify = '';
+				verifying = false;
 				settingPin = true;
-				pinInput.focusFirstInput();
 			}
 		} catch (e) {
-			failure('Problem setting PIN');
+			console.log(e);
+			fail('Problem setting PIN');
 		}
-
-		verifying = false;
-
-		await new Promise((r) => setTimeout(r, 500));
-		locked = false;
 	};
-
-	$: if (verifying) verifyInput && tick().then(verifyInput.focusFirstInput);
-	$: if (settingPin) pinInput && tick().then(pinInput.focusFirstInput);
-	$: if (setting2fa || disabling2fa) tokenInput && tick().then(tokenInput?.focusFirstInput);
 
 	let reset = () => {
 		token = '';
@@ -88,15 +60,35 @@
 				submit.click();
 			} catch (e) {
 				console.log(e);
-				failure('Failed to disable pin');
+				fail('Failed to disable pin');
 			}
 		} else {
 			settingPin = true;
 		}
 	};
 
-	let toggleEnabling = () => reset() && (setting2fa = !setting2fa);
-	let toggleDisabling = () => reset() && (disabling2fa = !disabling2fa);
+	let startEnabling2fa = async () => {
+		reset();
+		try {
+			if (!otp) otp = await post('/otpsecret', { pin: $current });
+		} catch (e) {
+			console.log(e);
+		}
+
+		setting2fa = true;
+	};
+
+	let startDisabling2fa = () => (disabling2fa = true);
+	let startConfirming2fa = () => (confirming2fa = true);
+	let cancel = () => {
+		pin = null;
+		token = null;
+		verifying = false;
+		settingPin = false;
+		setting2fa = false;
+		confirming2fa = false;
+		disabling2fa = false;
+	};
 
 	$: enable2fa(token);
 	let enable2fa = async (twoFa) => {
@@ -105,10 +97,10 @@
 				await post('/enable2fa', { token });
 				success('2FA enabled');
 				user.twofa = 1;
-				toggleEnabling();
+				cancel();
 			}
 		} catch (e) {
-			failure('Failed to enable 2FA, try again');
+			fail('Failed to enable 2FA, try again');
 		}
 	};
 
@@ -118,12 +110,12 @@
 			if (disabling2fa && token.length === 6) {
 				await post('/disable2fa', { token });
 				success('2FA disabled');
-				user.twofa = 0;
-				toggleDisabling();
+				delete user.twofa;
+				disabling2fa = false;
 			}
 		} catch (e) {
 			console.log(e);
-			failure('Failed to disable 2FA, try again');
+			fail('Failed to disable 2FA, try again');
 		}
 	};
 </script>
@@ -155,31 +147,10 @@
 	<p class="text-secondary mb-1">
 		{$t('user.settings.securityPINDescription')}
 	</p>
-	{#if settingPin}
-		<div class="flex my-4">
-			<div class="mx-auto">
-				<div class:hidden={verifying}>
-					<Pincode on:complete={startVerifying} bind:code={pinCode} bind:this={pinInput}>
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-					</Pincode>
-				</div>
-				<div class:hidden={!verifying}>
-					<Pincode bind:code={verifyCode} bind:this={verifyInput}>
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-						<PincodeInput />
-					</Pincode>
-				</div>
-			</div>
-		</div>
+	{#if verifying}
+		<Pin bind:value={verify} {cancel} />
+	{:else if settingPin}
+		<Pin bind:value={pin} title={$t('user.settings.setPIN')} {cancel} />
 	{:else}
 		<button type="button" class="primary" on:click={togglePin}
 			><Icon icon="lock" style="mr-1" />
@@ -193,6 +164,7 @@
 	<p class="text-secondary mb-4">
 		{$t('user.settings.twofaDescription')}
 	</p>
+
 	{#if setting2fa}
 		<a href={otp.uri}>
 			<Qr src={otp.qr} />
@@ -203,39 +175,24 @@
 			<b>{otp.secret}</b>
 		</div>
 
-		<div class="text-center my-4">
-			{$t('user.settings.oneTimeCode')}<br />
-			<Pincode bind:value={token} bind:this={tokenInput}>
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-			</Pincode>
-		</div>
-	{:else if disabling2fa}
-		<div class="text-center my-4">
-			{$t('user.settings.oneTimeCode')}<br />
-			<Pincode bind:value={token} bind:this={tokenInput}>
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-				<PincodeInput />
-			</Pincode>
-		</div>
+		<button type="button" class="primary" on:click={startConfirming2fa}>
+			<Icon icon="mobile" style="mr-1" />
+			Confirm
+		</button>
 	{:else if user.twofa}
-		<button type="button" class="primary" on:click={toggleDisabling}>
+		<button type="button" class="primary" on:click={startDisabling2fa}>
 			<Icon icon="mobile" style="mr-1" />
 			{$t('user.settings.twofaDisable')}
 		</button>
 	{:else}
-		<button type="button" class="primary" on:click={toggleEnabling}>
+		<button type="button" class="primary" on:click={startEnabling2fa}>
 			<Icon icon="mobile" style="mr-1" />
 			{$t('user.settings.twofaSetup')}
 		</button>
+	{/if}
+
+	{#if confirming2fa || disabling2fa}
+		<Pin bind:value={token} title="Enter 2FA Code" {cancel} />
 	{/if}
 </div>
 

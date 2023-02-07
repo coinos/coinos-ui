@@ -1,24 +1,28 @@
 <script>
+	import { t } from '$lib/translations';
 	import { focus } from '$lib/utils';
-	import { pin } from '$lib/store';
+	import { Pinpad } from '$comp';
 
-	let pinCode = '';
-	let pinInput;
+	export let value = '';
+	export let title = $t('user.settings.verifyPIN');
+	export let cancel = () => (pin = '');
 
-	let cancel = () => ($pin = '000000');
+	let pin = '';
 
-	$: pinCode.length > 5 && ($pin = pinCode);
+	$: update(value);
+	let update = (v) => (pin = v) || console.log('updated', v, pin);
+
+	$: pin.toString().length > 5 && (value = pin.toString());
 </script>
 
-<div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20">
-	<div class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5">
-		<h1 class="text-center text-2xl font-semibold">Please enter your PIN</h1>
-		<input bind:value={pinCode} use:focus />
+<div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+	<div class="relative top-40 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5">
+		<h1 class="text-center text-2xl font-semibold">{title}</h1>
+		<Pinpad bind:v={pin} {cancel} />
 		<div class="w-full flex">
 			<button
-				type="submit"
 				class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-				on:click={cancel}
+				on:click|preventDefault={cancel}
 			>
 				<div class="my-auto">Cancel</div>
 			</button>

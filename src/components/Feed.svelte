@@ -4,7 +4,7 @@
 	import { Event } from '$comp';
 	import { browser } from '$app/environment';
 	import VirtualScroll from 'svelte-virtual-scroll-list';
-	import { failure } from '$lib/utils';
+	import { fail } from '$lib/utils';
 	import { sign, send } from '$lib/nostr';
 
 	export let events;
@@ -34,7 +34,7 @@
 			events = events;
 		} catch (e) {
 			console.log(e, e.stack);
-			failure('Problem posting event');
+			fail('Problem posting event');
 		}
 	};
 

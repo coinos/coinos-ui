@@ -6,7 +6,7 @@
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { AppHeader, Avatar, Icon, Spinner } from '$comp';
-	import { back, failure } from '$lib/utils';
+	import { back, fail } from '$lib/utils';
 	import { format, parseISO } from 'date-fns';
 
 	export let data;
@@ -90,7 +90,7 @@
 			<h1 class="px-3 md:px-0 text-xl font-semibold mt-10">{$t('user.send.contacts')}</h1>
 			<div>
 				{#each contacts as c}
-					<a href={`/${c.username}`}>
+					<a href={`/${c.username}/receive`}>
 						<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
 							<div class="flex">
 								<div>

@@ -1,7 +1,7 @@
 <script>
 	import { Icon, LocaleSelector, Toggle } from '$comp';
 	import { t } from '$lib/translations';
-	import { success, failure } from '$lib/utils';
+	import { success, fail } from '$lib/utils';
 	import { page } from '$app/stores';
 
 	export let user, rates;
