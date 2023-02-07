@@ -25,7 +25,6 @@
 <div>
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.tipPrompt')}</span>
-		{user.prompt}
 		<Toggle id="prompt" checked={user.prompt} bind:value={user.prompt} />
 	</div>
 	<p class="text-secondary mt-1 w-9/12">
