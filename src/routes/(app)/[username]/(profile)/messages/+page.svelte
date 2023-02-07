@@ -5,7 +5,7 @@
 	import { scale } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
-	import { back, failure, focus } from '$lib/utils';
+	import { back, fail, focus } from '$lib/utils';
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
 	import { messages, password } from '$lib/store';
 	import { tick, onMount } from 'svelte';
@@ -64,7 +64,7 @@
 
 			sent = true;
 		} catch (e) {
-			failure('Failed to send message');
+			fail('Failed to send message');
 			delete $messages[user.pubkey][subject.pubkey][event.id];
 			$messages = $messages;
 		}

@@ -3,7 +3,7 @@ import * as ecc from 'tiny-secp256k1';
 import { generateMnemonic, entropyToMnemonic, mnemonicToEntropy, mnemonicToSeedSync } from 'bip39';
 import { Buffer } from 'buffer';
 import { bech32m } from 'bech32';
-import { bip32, failure, wait, post, stretch } from '$lib/utils';
+import { bip32, fail, wait, post, stretch } from '$lib/utils';
 import { calculateId, signId } from 'nostr';
 import { password as pw, passwordPrompt, pin, loginRedirect } from '$lib/store';
 import { goto, invalidate } from '$app/navigation';
