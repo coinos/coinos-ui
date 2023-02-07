@@ -4,8 +4,11 @@
 
 	export let data;
 	let { events, subject, user } = data;
+	let v;
 </script>
 
 <div class="flex justify-center lg:justify-start">
-	<Balance {user} />
+	{#if user?.id === subject.id}
+		<Balance {user} />
+	{/if}
 </div>

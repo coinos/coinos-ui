@@ -26,7 +26,6 @@ specifiers:
   screenfull: ^6.0.2
   svelte: ^3.55.0
   svelte-outclick: ^3.3.3
-  svelte-pincode: ^2.2.0
   svelte-preprocess: ^4.10.7
   svelte-virtual-scroll-list: ^1.1.0
   sveltekit-i18n: ^2.2.2
@@ -66,7 +65,6 @@ devDependencies:
   screenfull: 6.0.2
   svelte: 3.55.0
   svelte-outclick: 3.3.3_svelte@3.55.0
-  svelte-pincode: 2.2.0
   svelte-preprocess: 4.10.7_qs7rgzvahok4cbkjoy5bgypde4
   svelte-virtual-scroll-list: 1.1.0_svelte@3.55.0
   sveltekit-i18n: 2.2.2_svelte@3.55.0
@@ -2404,10 +2402,6 @@ packages:
       svelte: 3.x
     dependencies:
       svelte: 3.55.0
-    dev: true
-
-  /svelte-pincode/2.2.0:
-    resolution: {integrity: sha512-zT2jOHffZqQ1dLmFAojfkdssKr8HGq1uSZQK1TCwD1/Mjrw2EGuKppQOh0q2pobm8AAGhvk7LKHnFtRUKsz80A==}
     dev: true
 
   /svelte-preprocess/4.10.7_qs7rgzvahok4cbkjoy5bgypde4:

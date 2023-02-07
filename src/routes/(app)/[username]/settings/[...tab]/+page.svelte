@@ -5,7 +5,7 @@
 
 	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
-	import { failure, post, success } from '$lib/utils';
+	import { fail, post, success } from '$lib/utils';
 	import { avatar, banner, password, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
@@ -34,7 +34,7 @@
 	$: form?.success && success('Settings saved!');
 
 	$: if (form?.message?.startsWith('Pin')) {
-		failure('Wrong pin, try again');
+		fail('Wrong pin, try again');
 		$pin = '';
 	}
 
@@ -98,7 +98,7 @@
 			applyAction(result);
 		} catch (e) {
 			console.log(e);
-			failure('Something went wrong');
+			fail('Something went wrong');
 		}
 
 		loading = false;
@@ -109,7 +109,7 @@
 </script>
 
 {#if loaded && user.haspin && $pin?.length !== 6}
-	<Pin />
+	<Pin bind:value={$pin} />
 {/if}
 
 <form

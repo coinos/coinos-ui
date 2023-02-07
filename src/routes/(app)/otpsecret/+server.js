@@ -9,7 +9,7 @@ export async function POST({ cookies, request }) {
 		let uri = `otpauth://totp/coinos:${username}?secret=${secret}&period=30&digits=6&algorithm=SHA1&issuer=coinos`;
 		return new Response(JSON.stringify({ secret, uri, qr: Qr.drawImg(uri, { size: 600 }) }));
 	} catch (e) {
-		console.log(e);
+		if (e.message.includes('pin')) throw e;
 		throw new error(500, 'Problem saving secret');
 	}
 }

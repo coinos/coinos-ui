@@ -1,6 +1,6 @@
 <script>
 	import { Icon } from '$comp';
-	import { focus, failure, post } from '$lib/utils';
+	import { focus, fail, post } from '$lib/utils';
 	import { password as pw, passwordPrompt } from '$lib/store';
 
 	export let user;
@@ -17,7 +17,7 @@
 			$passwordPrompt = false;
 			$pw = password;
 		} catch (e) {
-			failure('Invalid password, try again');
+			fail('Invalid password, try again');
 		}
 	};
 </script>
@@ -51,7 +51,7 @@
 				<button
 					type="button"
 					on:click={() => (revealPassword = !revealPassword)}
-					class="absolute right-5 top-5"
+					class="absolute right-5 top-6"
 				>
 					<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
 				</button>
