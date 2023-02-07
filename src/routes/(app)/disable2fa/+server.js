@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { auth, post } from '$lib/utils';
 
 export async function POST({ cookies, request }) {
@@ -6,7 +6,7 @@ export async function POST({ cookies, request }) {
 		let body = await request.json();
 		let res = await post('/disable2fa', body, auth(cookies));
 
-		return new Response(JSON.stringify(res));
+		return json(res);
 	} catch (e) {
 		throw error(500, 'Problem disabling 2fa');
 	}

@@ -1,6 +1,6 @@
 <script>
 	import { enhance } from '$app/forms';
-	import { f, s, post, failure, sat, sats } from '$lib/utils';
+	import { f, s, post, fail, sat, sats } from '$lib/utils';
 	import { tick } from 'svelte';
 	import { Avatar, Icon } from '$comp';
 	import { rate, password, selectedRate } from '$lib/store';

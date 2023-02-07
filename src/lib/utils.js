@@ -101,7 +101,7 @@ export const warning = (m) => {
 		}
 	});
 };
-export const failure = (m) => {
+export const fail = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {

@@ -1,5 +1,5 @@
 <script>
-	import { failure, post, wait } from '$lib/utils';
+	import { fail, post, wait } from '$lib/utils';
 	import { Buffer } from 'buffer';
 	import { onMount } from 'svelte';
 	import { bech32m } from 'bech32';
@@ -41,9 +41,9 @@
 		} catch (e) {
 			$pin = '';
 			if (e.message?.startsWith('Pin')) {
-				failure('Wrong pin, try again');
+				fail('Wrong pin, try again');
 			} else {
-				failure('Failed to generate keys');
+				fail('Failed to generate keys');
 				goto('/');
 			}
 		}

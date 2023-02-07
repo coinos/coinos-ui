@@ -241,7 +241,7 @@
 			"autoLock": "Auto-Lock Timer",
 			"autoLockDescription": "Your account will go into a secure mode, requiring you to re-enter your credentials after a specified time:",
 			"twofa": "2-Factor Authentication",
-			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
+			"twofaDescription": "Add an extra level of security to your device by enabling 2-factor authentication.",
 			"twofaSetup": "Set up 2FA",
 			"twofaDisable": "Disable 2FA",
 			"select": "Select",
