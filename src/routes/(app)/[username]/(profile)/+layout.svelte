@@ -123,7 +123,7 @@
 			{/if}
 			{#if !subject.anon && subject.username !== user?.username}
 				<div class="w-full flex">
-					<a href={`/${subject.username}/receive`} class="mx-auto">
+					<a href={user ? `/send/${subject.username}` : `/${subject.username}/receive`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
 								<Icon icon="send" style="mr-2" />
