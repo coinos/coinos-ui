@@ -3,14 +3,14 @@
 	import { goto } from '$app/navigation';
 	import { pin, selectedRate } from '$lib/store';
 	import { enhance } from '$app/forms';
-	import { Avatar, Icon, Numpad, Spinner } from '$comp';
+	import { AppHeader, Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, f, post, s, sats } from '$lib/utils';
+	import { f, post, s, sat, sats } from '$lib/utils';
 
 	export let data;
 	export let form;
 
-	let { recipient, rates, user } = data;
+	let { subject, rates, user } = data;
 	let currency = user?.currency || 'USD';
 
 	let amount = form?.amount || data.amount;
@@ -24,21 +24,14 @@
 		amount = a;
 		amountFiat = af;
 
-		({ hash } = await post(`/${recipient.username}/invoice`, {
+		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,
-				rate: rates[recipient.currency],
+				rate: rates[subject.currency],
 				type: 'internal'
 			},
-			user: recipient
+			user: subject
 		}));
-	};
-
-	let handleBack = () => {
-		if (amount) {
-			amount = undefined;
-			goto(`/send/user/${recipient.username}`);
-		} else back();
 	};
 
 	let loading;
@@ -51,9 +44,7 @@
 	};
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={handleBack}>
-	<Icon icon="arrow-left" style="w-10" />
-</button>
+<AppHeader {data} />
 
 {#if form?.message}
 	<div class="text-red-600 text-center">
@@ -63,20 +54,12 @@
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
 	{#if amount}
-		<div class="text-center mb-8 space-y-5">
-			<p class="text-5xl break-words">
-				{fiat ? f(amountFiat, currency) : s(amount)}
-				{#if !fiat}
-					<span class="text-xl md:text-2xl text-secondary">sats</span>
-				{/if}
-			</p>
-
-			<h1 class="text-xl md:text-2xl text-secondary mb-2">to</h1>
-
-			<div class="flex p-1 gap-2 justify-center">
-				<Avatar user={recipient} size={'20'} />
-				<p class="text-4xl break-words my-auto">{recipient.username}</p>
-			</div>
+		<h1 class="text-center text-3xl md:text-4xl font-bold mb-6">Sending</h1>
+		<div class="text-center mb-8">
+			<h2 class="text-2xl md:text-3xl font-semibold">
+				{f(amountFiat, currency)}
+			</h2>
+			<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
 		</div>
 	{:else}
 		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
@@ -84,7 +67,7 @@
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
-		<input name="username" value={recipient.username} type="hidden" />
+		<input name="username" value={subject.username} type="hidden" />
 		<input name="confirmed" value={form?.confirm} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
 		<input name="hash" value={hash} type="hidden" />
