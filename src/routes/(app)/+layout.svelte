@@ -85,7 +85,7 @@
 	</div>
 {/if}
 
-<main data-sveltekit-prefetch>
+<main data-sveltekit-prefetch class="pb-20">
 	<slot />
 </main>
 
