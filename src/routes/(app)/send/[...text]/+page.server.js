@@ -23,7 +23,7 @@ let parse = async (t, host) => {
 
 	if (t.endsWith('@classic')) {
 		({ uuid: id } = await get(`/invoice/classic/${t.replace('@classic', '')}`));
-		if (id) throw redirect(307, `/send/${id}`);
+		if (id) throw redirect(307, `/send/invoice/${id}`);
 	}
 
 	if (t.includes('/pot')) throw redirect(307, t.substring(t.indexOf('/pot')));
@@ -58,17 +58,29 @@ let parse = async (t, host) => {
 	// user
 	try {
 		user = await get(`/users/${t}`);
-    if (user.anon) user = null;
+		if (user.anon) user = null;
 	} catch (e) {}
 
 	if (user) throw redirect(307, `/send/user/${t}`);
 
+  // pot
 	let pot;
 	try {
 		pot = await get(`/pot/${t}`);
-	} catch (e) {}
+		console.log(pot);
+	} catch (e) {
+	}
 
 	if (pot) throw redirect(307, `/send/pot/${t}`);
+
+  // invoice
+  let invoice;
+	try {
+		invoice = await get(`/invoice/${t}`);
+	} catch (e) {
+	}
+
+  if (invoice) throw redirect(307, `/send/invoice/${invoice.hash}`);
 };
 
 export async function load({ cookies, params, request, url }) {

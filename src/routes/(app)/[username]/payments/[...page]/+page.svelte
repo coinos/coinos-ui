@@ -15,7 +15,8 @@
 		internal: 'internal',
 		bitcoin: 'bitcoin',
 		lightning: 'lightning',
-		pot: 'pot'
+		pot: 'pot',
+		classic: 'classic'
 	};
 
 	let { start, end, user } = data;
@@ -187,6 +188,12 @@
 										<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
 									</div>
 								</a>
+							{:else if p.type === types.classic}
+								<img
+									src="/images/classic.png"
+									class="w-24 border-4 border-transparent"
+									alt="Bitcoin"
+         /><div class="my-auto">{p.memo}</div>
 							{:else}
 								<div class="text-secondary flex">
 									{#if p.type === types.lightning}
