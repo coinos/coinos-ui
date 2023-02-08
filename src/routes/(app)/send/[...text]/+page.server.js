@@ -58,6 +58,7 @@ let parse = async (t, host) => {
 	// user
 	try {
 		user = await get(`/users/${t}`);
+    if (user.anon) user = null;
 	} catch (e) {}
 
 	if (user) throw redirect(307, `/send/user/${t}`);

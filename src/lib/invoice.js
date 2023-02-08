@@ -7,6 +7,7 @@ export default async ({ cookies, request, url }) => {
 	let rates = await get('/rates');
 	let amount = parseInt(form.get('amount'));
 	let request_id = form.get('request_id');
+	if (request_id === 'undefined') request_id = undefined;
 
 	let invoice = {
 		amount,
@@ -19,11 +20,12 @@ export default async ({ cookies, request, url }) => {
 
 	let user = { username: form.get('username'), currency: form.get('currency') };
 
-	let { hash } = await post('/invoice', { invoice, user }, auth(cookies));
+	invoice = await post('/invoice', { invoice, user }, auth(cookies));
+	let { hash } = invoice;
 
 	if (request_id) {
 		if (url.pathname.endsWith('tip')) {
-			throw redirect(307, `/send/${hash}`);
+			throw redirect(307, `/send/invoice/${hash}`);
 		}
 
 		throw redirect(307, `/${user.username}/request/${request_id}`);
