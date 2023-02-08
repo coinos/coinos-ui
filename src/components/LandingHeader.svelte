@@ -3,7 +3,7 @@
 	import { scroll } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
-  import { page } from '$app/stores';
+	import { page } from '$app/stores';
 
 	export let howItWorks;
 	export let faq;
@@ -32,13 +32,14 @@
 
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
-      {#if $page.url.pathname === "/"}
-			<button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
-				>{$t('howItWorks.header')}</button
-			>
-			<button class="hover:opacity-80" on:click={() => scroll(faq)}>{$t('faq.header')}</button>
-			<button class="hover:opacity-80" on:click={() => scroll(about)}>{$t('about.header')}</button>
-      {/if}
+			{#if $page.url.pathname === '/'}
+				<button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
+					>{$t('howItWorks.header')}</button
+				>
+				<button class="hover:opacity-80" on:click={() => scroll(faq)}>{$t('faq.header')}</button>
+				<button class="hover:opacity-80" on:click={() => scroll(about)}>{$t('about.header')}</button
+				>
+			{/if}
 			{#if !user}
 				<button
 					class="border rounded-full px-6 py-2 font-bold hover:opacity-80"
