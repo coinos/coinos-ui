@@ -8,9 +8,11 @@
 
 <div class="space-y-2">
 	<div class="text-5xl font-bold tabular-nums">
-		{$animatedRate
-			? f((user.balance * $animatedRate) / sats, user.currency)
-			: $t('user.dashboard.fetchingRate')}
+		{#if isNaN($animatedRate)}
+			<div class="text-gray-200">---</div>
+		{:else}
+			{f((user.balance * $animatedRate) / sats, user.currency)}
+		{/if}
 	</div>
 
 	<div class="text-secondary text-2xl">

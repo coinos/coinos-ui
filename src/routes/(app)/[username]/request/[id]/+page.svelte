@@ -1,6 +1,7 @@
 <script>
+	import { scale } from 'svelte/transition';
 	import { t } from '$lib/translations';
-	import { Avatar } from '$comp';
+	import { Avatar, Icon } from '$comp';
 	import { f, sat, sats } from '$lib/utils';
 	import { request as req, requestRedirect } from '$lib/store';
 	import { onMount } from 'svelte';
@@ -17,10 +18,10 @@
 	onMount(() => req.set());
 </script>
 
-<div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
+<div class="container px-4 max-w-xl mx-auto space-y-8">
 	<div class="text-center mb-8 space-y-5">
 		{#if request.recipient_id === user.id}
-			<p class="text-5xl break-words">
+			<p class="text-4xl break-words">
 				<span class="text-xl md:text-2xl">{$t('payments.sentInvoiceTo')}</span>
 			</p>
 			<div class="flex p-1 gap-2 justify-center">
@@ -34,13 +35,12 @@
 				<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
 			</div>
 		{:else}
-			<p class="text-5xl break-words">
-				<span class="text-xl md:text-2xl">{$t('payments.sentRequestTo')}</span>
-			</p>
-			<div class="flex p-1 gap-2 justify-center">
-				<Avatar user={request.recipient} size={20} />
-				<p class="text-4xl break-words my-auto">{request.recipient.username}</p>
+			<div class="flex w-full max-w-[200px] mx-auto py-20" in:scale={{ start: 0.5 }}>
+				<Icon icon="check" style="mx-auto" />
 			</div>
+			<p class="text-3xl">
+				{$t('payments.sentRequestTo')}
+			</p>
 		{/if}
 	</div>
 </div>
@@ -49,4 +49,4 @@
 	<div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 
-<div class="fixed bottom-10 w-full text-center">{$t('payments.tapAnywhere')}</div>
+<div class="fixed bottom-10 left-0 text-center w-full">{$t('payments.tapAnywhere')}</div>

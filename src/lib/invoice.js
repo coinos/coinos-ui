@@ -6,7 +6,7 @@ export default async ({ cookies, request, url }) => {
 
 	let rates = await get('/rates');
 	let amount = parseInt(form.get('amount'));
-	let request_id = parseInt(form.get('request_id'));
+	let request_id = form.get('request_id');
 
 	let invoice = {
 		amount,

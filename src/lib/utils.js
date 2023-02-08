@@ -82,7 +82,7 @@ export function reverseFormat(val, locale) {
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes = [/customers/, /dashboard/, /settings/, /payments/, /request/];
+export let protectedRoutes = [/customers/, /dashboard/, /settings/, /payments/];
 
 export const success = (m) => {
 	toast.pop();
@@ -171,7 +171,7 @@ export const sat = (s) => {
 export const sats = 100000000;
 
 export const back = () => browser && history.go(-1);
-export const focus = (el) => setTimeout(() => el.focus(), 1);
+export const focus = (el) => browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
 
 export const sleep = (n) => new Promise((r) => setTimeout(r, n));
 export const wait = async (f, n = 100, s = 300) => {

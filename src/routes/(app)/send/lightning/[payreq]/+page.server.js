@@ -15,8 +15,6 @@ export const actions = {
 			let body = Object.fromEntries(await request.formData());
 			let { amount, confirmed } = body;
 
-			console.log('AMOUNT', amount);
-
 			if (!confirmed) {
 				return fail(400, { amount, confirm: true });
 			}

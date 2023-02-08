@@ -73,7 +73,7 @@ export const messages = (data) => ({
 		if (amount > 0) {
 			success(`${data.confirmed ? 'Received' : 'Detected'} ${sat(amount)}!`);
 		} else {
-			success(`Sent ${sat(amount)}!`);
+			// success(`Sent ${sat(amount)}!`);
 		}
 	},
 

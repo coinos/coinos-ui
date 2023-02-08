@@ -120,6 +120,17 @@
 						</button>
 					</a>
 				</div>
+
+				<div class="w-full flex">
+					<a href={`/${subject.username}/request`} class="mx-auto">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+							<div class="mx-auto flex">
+								<Icon icon="numpad" style="mr-2 my-auto" />
+								<div class="mt-1 my-auto">{$t('payments.requestAnInvoice')}</div>
+							</div>
+						</button>
+					</a>
+				</div>
 			{/if}
 			{#if !subject.anon && subject.username !== user?.username}
 				<div class="w-full flex">
@@ -132,39 +143,6 @@
 						</button>
 					</a>
 				</div>
-			{/if}
-
-			{#if user?.id === subject.id}
-				<div class="w-full flex">
-					<a href={`/send`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="send" style="mr-2" />
-								<div class="mt-1">{$t('user.dashboard.send')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-				<div class="w-full flex">
-					<a href={`/${subject.username}/receive`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="numpad" style="mr-2" />
-								<div class="mt-1">{$t('user.dashboard.receive')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-				<!-- <div class="w-full flex"> -->
-				<!-- 	<a href={`/${subject.username}/receive`} class="mx-auto"> -->
-				<!-- 		<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"> -->
-				<!-- 			<div class="mx-auto flex"> -->
-				<!-- 				<Icon icon="support" style="mr-2" /> -->
-				<!-- 				<div class="mt-1">{$t('user.messages')}</div> -->
-				<!-- 			</div> -->
-				<!-- 		</button> -->
-				<!-- 	</a> -->
-				<!-- </div> -->
 			{/if}
 		</div>
 	</div>

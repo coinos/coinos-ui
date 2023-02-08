@@ -1,8 +1,10 @@
 import { auth, get } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 
-export let load = async ({ cookies, depends, locals: { user }, params }) => {
+export let load = async ({ cookies, depends, params, parent }) => {
 	depends('app:invoice');
+
+  let { user } = await parent();
 	if (!user) throw redirect(307, '/login');
 
 	let { request } = await get(`/request/${params.id}`, auth(cookies));
@@ -18,6 +20,7 @@ export let load = async ({ cookies, depends, locals: { user }, params }) => {
 
 		if (request.requester.username === user.username) throw redirect(307, `/send/${id}`);
 	}
+
 
 	return { request };
 };

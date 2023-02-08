@@ -2,16 +2,11 @@
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { Icon } from '$comp';
-	import { back } from '$lib/utils';
 
 	export let data;
 
 	let { subject, user } = data;
 </script>
-
-<button class="ml-5 md:ml-20 mt-10 hover:opacity-80" on:click={back}>
-	<Icon icon="arrow-left" style="w-10" />
-</button>
 
 <div class="container max-w-lg px-4 mx-auto mt-10 space-y-5">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
