@@ -16,7 +16,7 @@ export async function load({ cookies, params, parent, url }) {
 		e.seen = e.created_at;
 	});
 
-  let { requests } = await get('/requests', auth(cookies));
+	let { invoices, sent, received } = await get('/requests', auth(cookies));
 
-	return { events, requests };
+	return { invoices, events, sent, received };
 }

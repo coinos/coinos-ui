@@ -3,6 +3,7 @@
 	import { scroll } from '$lib/utils';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
+  import { page } from '$app/stores';
 
 	export let howItWorks;
 	export let faq;
@@ -23,7 +24,7 @@
 >
 	<nav class="block xl:flex flex-wrap justify-between items-center">
 		<div class="flex justify-start md:justify-center items-center md:space-x-10">
-			<a href="/" on:click={(() => console.log('HMM'), scroll(header))}>
+			<a href="/" on:click={() => scroll(header)}>
 				<Icon icon="logo" style="hidden md:block mb-5 xl:mb-0" />
 				<Icon icon="logo" style="block md:hidden ml-5 w-48" />
 			</a>
@@ -31,11 +32,13 @@
 
 		<!-- desktop nav -->
 		<div class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold">
+      {#if $page.url.pathname === "/"}
 			<button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
 				>{$t('howItWorks.header')}</button
 			>
 			<button class="hover:opacity-80" on:click={() => scroll(faq)}>{$t('faq.header')}</button>
 			<button class="hover:opacity-80" on:click={() => scroll(about)}>{$t('about.header')}</button>
+      {/if}
 			{#if !user}
 				<button
 					class="border rounded-full px-6 py-2 font-bold hover:opacity-80"

@@ -4,9 +4,13 @@ import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
 import { PUBLIC_COINOS_URL } from '$env/static/public';
+import { page } from '$app/stores';
+import { get as getStore } from 'svelte/store';
 
 export function scroll(section) {
-	section.scrollIntoView({ behavior: 'smooth' });
+	if (getStore(page).url.pathname !== '/') goto('/');
+  console.log("section", section);
+	setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 500);
 }
 
 const base = browser ? '' : PUBLIC_COINOS_URL;
