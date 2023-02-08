@@ -11,10 +11,12 @@ export async function load({ params: { id }, parent }) {
 }
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	default: async ({ cookies, params: { hash }, request }) => {
 		try {
 			let body = Object.fromEntries(await request.formData());
 			let { confirmed } = body;
+			body.amount = parseInt(body.amount);
+			body.hash = hash;
 
 			if (!confirmed) {
 				return fail(400, { amount, confirm: true });

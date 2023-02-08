@@ -63,24 +63,21 @@ let parse = async (t, host) => {
 
 	if (user) throw redirect(307, `/send/user/${t}`);
 
-  // pot
+	// pot
 	let pot;
 	try {
 		pot = await get(`/pot/${t}`);
-		console.log(pot);
-	} catch (e) {
-	}
+	} catch (e) {}
 
 	if (pot) throw redirect(307, `/send/pot/${t}`);
 
-  // invoice
-  let invoice;
+	// invoice
+	let invoice;
 	try {
 		invoice = await get(`/invoice/${t}`);
-	} catch (e) {
-	}
+	} catch (e) {}
 
-  if (invoice) throw redirect(307, `/send/invoice/${invoice.hash}`);
+	if (invoice) throw redirect(307, `/send/invoice/${invoice.hash}`);
 };
 
 export async function load({ cookies, params, request, url }) {

@@ -9,7 +9,6 @@ import { get as getStore } from 'svelte/store';
 
 export function scroll(section) {
 	if (getStore(page).url.pathname !== '/') goto('/');
-  console.log("section", section);
 	setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 500);
 }
 

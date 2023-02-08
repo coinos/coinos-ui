@@ -1,5 +1,5 @@
 <script>
-  import { Footer, LandingHeader } from "$comp";
+	import { Footer, LandingHeader } from '$comp';
 </script>
 
 <LandingHeader />
