@@ -20,7 +20,7 @@ export async function load({ cookies, request, url, params }) {
 	}
 
 	if (user && ['/', '/login', '/register'].includes(pathname) && request.method === 'GET') {
-		throw redirect(307, `/${user.username}/dashboard`);
+		throw redirect(307, `/${user.username}`);
 	}
 
 	if (
