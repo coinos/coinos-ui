@@ -30,7 +30,7 @@
 		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">Thank you!</h1>
 		<p class="text-center mb-8">Someone will be in touch shortly.</p>
 
-		<a href={user ? `/${user.username}/dashboard` : '/'}>
+		<a href={user ? `/${user.username}` : '/'}>
 			<button class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full mb-2"
 				>Done</button
 			>

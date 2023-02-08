@@ -39,10 +39,10 @@
 >
 	<nav class="flex justify-end items-center space-x-4 p-5">
 		{#if user}
-			<a href={`/${user.username}/dashboard`}>
+			<a href={`/${user.username}`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${user.username}/dashboard`
+						.url.pathname === `/${user.username}`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
 					><Icon icon="home" style="mx-auto w-6 md:w-8" />

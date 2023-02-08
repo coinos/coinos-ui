@@ -37,7 +37,7 @@
 		try {
 			user.pin = $pin;
 			await post(`/${user.username}/generate`, user);
-			goto($loginRedirect || `/${user.username}/dashboard`, { invalidateAll: true });
+			goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
 		} catch (e) {
 			$pin = '';
 			if (e.message?.startsWith('Pin')) {

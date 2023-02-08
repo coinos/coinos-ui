@@ -54,7 +54,7 @@
 			{:else}
 				<button
 					class="border rounded-full px-6 py-2 font-bold"
-					on:click={() => goto(`/${user.username}/dashboard`)}
+					on:click={() => goto(`/${user.username}`)}
 					>{$t('nav.account')}
 				</button>
 				<button
@@ -102,7 +102,7 @@
 				{:else}
 					<button
 						class="border rounded-full px-6 py-2 font-bold block"
-						on:click={() => goto(`/${user.username}/dashboard`)}
+						on:click={() => goto(`/${user.username}`)}
 						>{$t('nav.account')}
 					</button>
 					<button
