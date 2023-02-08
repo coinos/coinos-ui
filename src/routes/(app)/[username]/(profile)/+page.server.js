@@ -1,6 +1,6 @@
-import { get } from '$lib/utils';
+import { auth, get } from '$lib/utils';
 
-export async function load({ params, parent, url }) {
+export async function load({ cookies, params, parent, url }) {
 	let { subject } = await parent();
 	let { pubkey } = subject;
 
@@ -16,5 +16,7 @@ export async function load({ params, parent, url }) {
 		e.seen = e.created_at;
 	});
 
-	return { events };
+  let { requests } = await get('/requests', auth(cookies));
+
+	return { events, requests };
 }

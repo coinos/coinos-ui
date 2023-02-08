@@ -3,7 +3,7 @@ import { login } from '$lib/utils';
 
 export const load = async ({ parent }) => {
 	let { user } = await parent();
-	if (user?.pubkey) throw redirect(307, `/${user.username}/dashboard`);
+	if (user?.pubkey) throw redirect(307, `/${user.username}`);
 };
 
 export const actions = {
@@ -20,6 +20,6 @@ export const actions = {
 			return fail(400, { error: 'Login failed', message: e.message, ...form });
 		}
 
-		throw redirect(303, loginRedirect || `/${user.username}/dashboard`);
+		throw redirect(303, loginRedirect || `/${user.username}`);
 	}
 };
