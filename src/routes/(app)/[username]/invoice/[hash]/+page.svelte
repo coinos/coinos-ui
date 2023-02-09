@@ -13,8 +13,8 @@
 	$: refresh(data);
 	let { invoice, id, user, sm, lg } = data;
 	let {
-		address,
 		amount,
+		hash,
 		type,
 		rate,
 		received,
@@ -34,8 +34,8 @@
 	let refresh = (data) => {
 		({ invoice, id } = data);
 		({
-			address,
 			amount,
+			hash,
 			type,
 			rate,
 			received,
@@ -61,8 +61,8 @@
 			});
 	});
 
-	$: link = address ? text : `lightning:${text}`;
-	$: txt = address || text;
+	$: link = type === 'bitcoin' ? text : `lightning:${text}`;
+	$: txt = type === 'bitcoin' ? hash : text;
 
 	let full;
 	let toggle = () => {
@@ -115,8 +115,8 @@
 	{/if}
 
 	<div class="w-full flex justify-center">
-		<button class="flex rounded-full border py-2 px-5 hover:opacity-80" on:click={() => copy(txt)}
-			><Icon icon="copy" style="mr-1" />
+		<button class="flex rounded-full border py-2 px-5 hover:opacity-80" on:click={() => copy(txt)}>
+			<Icon icon="copy" style="mr-1" />
 			<div class="text-secondary">{txt.substr(0, 10)}..{txt.substr(-6)}</div></button
 		>
 	</div>

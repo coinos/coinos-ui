@@ -2,11 +2,16 @@ import Qr from 'qrcode-base64';
 import { get } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ depends, params, url }) {
+export async function load({ depends, params, url, parent }) {
 	depends('app:invoice');
 
+	let { user } = await parent();
 	let { hash } = params;
 	let invoice = await get(`/invoice/${hash}`);
+
+	if (user && invoice.uid !== user.id && !url.pathname.includes('tip'))
+		throw redirect(307, `/send/invoice/${hash}`);
+
 	let { amount, received } = invoice;
 	amount = parseInt(amount);
 
