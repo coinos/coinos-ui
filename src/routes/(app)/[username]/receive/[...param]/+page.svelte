@@ -1,5 +1,5 @@
 <script>
-	import { Icon, Numpad } from '$comp';
+	import { Icon, Numpad, Toggle } from '$comp';
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
@@ -16,9 +16,12 @@
 
 	let amount;
 
+	let lightning = true;
 	let { currency, username, prompt } = data.subject;
 	let { user } = data;
 	let submit;
+
+	$: type = lightning ? 'lightning' : 'bitcoin';
 </script>
 
 <form method="POST" class="flex justify-center items-center mt-24 mb-3 px-3" use:enhance>
@@ -43,5 +46,10 @@
 		>
 			{amount ? $t('payments.next') : $t('payments.sendersChoice')}
 		</button>
+
+		<div class="w-full flex justify-center">
+			<span class="font-bold mr-2">{type[0].toUpperCase() + type.substring(1, type.length)}</span>
+			<Toggle id="prompt" checked={lightning} bind:value={lightning} />
+		</div>
 	</div>
 </form>
