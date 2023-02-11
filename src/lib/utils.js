@@ -231,3 +231,11 @@ export function ss(str1, str2) {
 
 	return 0.0;
 }
+
+export const types = {
+	bitcoin: 'bitcoin',
+	lightning: 'lightning',
+	internal: 'internal',
+	pot: 'pot',
+	classic: 'classic'
+};

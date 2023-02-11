@@ -180,14 +180,12 @@
 									</div>
 								</a>
 							{:else if p.with}
-								<a href={`/${p.with.username}`}>
-									<div class="flex">
-										<div class="my-auto">
-											<Avatar user={p.with} size={12} />
-										</div>
-										<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
+								<div class="flex">
+									<div class="my-auto">
+										<Avatar user={p.with} size={12} disabled={true} />
 									</div>
-								</a>
+									<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
+								</div>
 							{:else if p.type === types.classic}
 								<img
 									src="/images/classic.png"
