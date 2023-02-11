@@ -263,7 +263,7 @@
 		"id": "Transaction ID",
 		"details": "Transaction Details",
 		"header": "Payments",
-		"preimage": "Preimage",
+		"preimage": "Proof of payment",
 		"type": "Type",
 		"time": "Time",
 		"sent": "Sent",
