@@ -80,6 +80,11 @@
 </div>
 
 <div>
+	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
+	<input type="text" name="email" bind:value={user.email} />
+</div>
+
+<div>
 	<span class="font-bold">{$t('user.settings.profileImage')}</span>
 
 	<div class="flex">
