@@ -51,4 +51,6 @@ export const request = writable();
 export const requestRedirect = writable();
 export const selectedRate = writable();
 export const token = persistSession('token');
+export const email = writable();
+export const phone = writable();
 export const user = writable();
