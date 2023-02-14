@@ -45,14 +45,15 @@ let parse = async (t, host) => {
 	// bitcoin
 	if (validate(t)) {
 		try {
-			({ id } = await get(`/invoice/${t}`));
+			({ id, user } = await get(`/invoice/${t}`));
 		} catch (e) {
 			let r = `/send/bitcoin/${t}`;
 			if (amount) r += '/' + amount;
 			throw redirect(307, r);
 		}
 
-		if (id) throw redirect(307, `/send/${id}`);
+    if (user) throw redirect(307, `/send/${user.username}`);
+    else if (id) throw redirect(307, `/send/${id}`);
 	}
 
 	// user
