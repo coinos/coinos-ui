@@ -216,6 +216,7 @@
 			"locale": "Language",
 			"username": "Username",
 			"email": "Email",
+			"phone": "Phone Number",
 			"newPassword": "Change Password",
 			"about": "About",
 			"aboutPlaceholder": "A little something about you or your business address and hours",

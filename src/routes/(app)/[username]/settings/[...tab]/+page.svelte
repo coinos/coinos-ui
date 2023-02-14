@@ -37,7 +37,6 @@
 		fail('Wrong pin, try again');
 		$pin = '';
 	}
-
 	let tabs = [
 		{ name: 'account', key: 'ACCOUNT', comp: Account },
 		{ name: 'pos', key: 'POINT_OF_SALE', comp: Pos },
@@ -46,7 +45,7 @@
 
 	$: ({ comp } = tabs.find((t) => t.name === tab));
 
-	let { address, id, username } = user;
+	let { address, id, username, phone, email } = user;
 	let loading;
 
 	async function handleSubmit() {
@@ -67,7 +66,7 @@
 				await upload($banner.file, $banner.type, $banner.progress, token);
 				await fetch(`/api/public/${id}-banner.webp`, { cache: 'reload', mode: 'no-cors' });
 			}
-
+			
 			let event = {
 				pubkey: user.pubkey,
 				created_at: Math.floor(Date.now() / 1000),

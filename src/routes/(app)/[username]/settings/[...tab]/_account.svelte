@@ -6,7 +6,6 @@
 
 	export let user;
 	let { id } = user;
-
 	let selectedTheme = 1;
 	let avatarFile, avatarInput, bannerFile, bannerInput;
 
@@ -82,6 +81,11 @@
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
 	<input type="text" name="email" bind:value={user.email} />
+</div>
+
+<div>
+	<label for="phone" class="font-bold mb-1 block">{$t('user.settings.phone')}</label>
+	<input type="tel" name="phone" bind:value={user.phone} />
 </div>
 
 <div>
