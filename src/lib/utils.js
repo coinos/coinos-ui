@@ -147,6 +147,8 @@ export const login = async (user, cookies) => {
 
 export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
 
+export const fiat = (amount, rate) => (amount * rate) / sats;
+
 export const f = (s, currency) =>
 	new Intl.NumberFormat('en-US', {
 		style: 'currency',

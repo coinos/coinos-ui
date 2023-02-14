@@ -5,7 +5,6 @@
 
 	export let data;
 	let { events, invoices, sent, received, subject, user } = data;
-	console.log(invoices);
 </script>
 
 <div class="flex justify-center lg:justify-start">

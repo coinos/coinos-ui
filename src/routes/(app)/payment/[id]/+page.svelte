@@ -1,6 +1,6 @@
 <script>
 	import { t } from '$lib/translations';
-	import { back, copy, f, s, sats } from '$lib/utils';
+	import { back, copy, f, s, fiat, sats } from '$lib/utils';
 	import { Avatar, Icon } from '$comp';
 	import { format } from 'date-fns';
 	import { PUBLIC_EXPLORER as expl } from '$env/static/public';
@@ -8,18 +8,16 @@
 	export let data;
 	let { user, payment: p } = data;
 	let { username } = user;
-	let { id, amount, created, rate, type, ref, fee, currency } = p;
+	let { id, amount, created, rate, type, ref, ourfee, fee, currency } = p;
 	fee = fee || 0;
-
-	let total = amount > 0 ? amount : -amount + fee;
-	let fiat = (total * rate) / sats;
+	amount = Math.abs(amount);
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container mx-auto max-w-lg px-4 space-y-2 sm:space-y-5 break-all text-center">
+<div class="container mx-auto max-w-lg px-4 space-y-2 sm:space-y-5 break-all text-2xl">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
 		{$t(amount < 0 ? 'payments.sent' : 'payments.received')}
 	</h1>
@@ -34,13 +32,33 @@
 	{/if}
 
 	<div>
-		<div class="text-xl">
-			{f(fiat, currency)}
-			<span class="text-secondary">⚡️{`${s(total)}`}</span>
+		<span class="text-lg text-secondary">Amount</span>
+		<div>
+			{f(fiat(amount, rate), currency)}
+			<span class="text-secondary">⚡️{`${s(amount)}`}</span>
 		</div>
 	</div>
 
 	<div>
+		<span class="text-lg text-secondary">Network fee</span>
+		<div>
+			{f(fiat(fee, rate), currency)}
+			<span class="text-secondary">⚡️{`${s(fee)}`}</span>
+		</div>
+	</div>
+
+	{#if ourfee > 0}
+		<div>
+			<span class="text-lg text-secondary">Platform fee</span>
+			<div>
+				{f(fiat(ourfee, rate), currency)}
+				<span class="text-secondary">⚡️{`${s(ourfee)}`}</span>
+			</div>
+		</div>
+	{/if}
+
+	<div>
+		<span class="text-lg text-secondary">Date</span>
 		<div>
 			{format(new Date(created), 'MMMM d')},
 			{format(new Date(created), 'h:mm aaa')}
@@ -49,6 +67,7 @@
 
 	{#if type === 'lightning'}
 		<div>
+			<span class="text-lg text-secondary">Proof</span>
 			<div class="font-bold">{$t('payments.preimage')}</div>
 			<div>
 				{ref}
@@ -56,12 +75,13 @@
 		</div>
 	{:else if type === 'bitcoin'}
 		<div>
+			<span class="text-lg text-secondary">Txid</span>
 			<div class="flex">
 				<div>
 					<a href={`${expl}/payment/${id}`} target="_blank" rel="noreferrer">{id}</a>
 				</div>
-				<button class="flex font-bold hover:opacity-80 mb-auto" on:click={() => copy(id)}
-					><Icon icon="copy" style="ml-2" />
+				<button class="flex font-bold hover:opacity-80 mb-auto my-auto" on:click={() => copy(id)}
+					><Icon icon="copy" style="ml-2 w-20 my-auto" />
 				</button>
 			</div>
 		</div>
