@@ -23,6 +23,14 @@
 		$colorTheme = colors.color1 + ' ' + colors.color2;
 	};
 
+	let handleConfirmEmailClick = (email) => {
+		console.log("CLICKED", email)
+	}
+
+	let handleConfirmPhoneClick = (phone) => {
+		console.log("CLICKED", phone)
+	}
+
 	let selectAvatar = () => avatarInput.click();
 	let selectBanner = () => bannerInput.click();
 
@@ -80,12 +88,18 @@
 
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-	<input type="text" name="email" bind:value={user.email} />
+	<div class="flex flex-row">
+		<input type="text" name="email" bind:value={user.email} />
+		<button type="button" class="border-2 border-black rounded-xl font-semibold ml-3.5 mx-auto p-1 hover:opacity-80" on:click={() => handleConfirmEmailClick(user.email)}>confirm your email</button>
+	</div>
 </div>
 
 <div>
 	<label for="phone" class="font-bold mb-1 block">{$t('user.settings.phone')}</label>
-	<input type="tel" name="phone" bind:value={user.phone} />
+	<div class="flex flex-row">
+		<input type="tel" name="phone" bind:value={user.phone} />
+		<button type="button" class="border-2 border-black rounded-xl font-semibold ml-3.5 mx-auto p-1 hover:opacity-80" on:click={() => handleConfirmPhoneClick(user.phone)}>confirm your number</button>
+	</div>
 </div>
 
 <div>
