@@ -9,8 +9,9 @@
 	let { user, payment: p } = data;
 	let { username } = user;
 	let { id, amount, created, rate, type, ref, ourfee, fee, currency } = p;
+	let a = Math.abs(amount);
+
 	fee = fee || 0;
-	amount = Math.abs(amount);
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -23,19 +24,22 @@
 	</h1>
 
 	{#if p.with}
-		<div class="flex justify-center">
-			<div class="my-auto">
-				<Avatar user={p.with} />
+		<div>
+			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
+			<div class="flex">
+				<div class="my-auto">
+					<Avatar user={p.with} />
+				</div>
+				<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
 			</div>
-			<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
 		</div>
 	{/if}
 
 	<div>
 		<span class="text-lg text-secondary">Amount</span>
 		<div>
-			{f(fiat(amount, rate), currency)}
-			<span class="text-secondary">⚡️{`${s(amount)}`}</span>
+			{f(fiat(a, rate), currency)}
+			<span class="text-secondary">⚡️{`${s(a)}`}</span>
 		</div>
 	</div>
 

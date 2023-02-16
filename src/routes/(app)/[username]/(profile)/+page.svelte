@@ -34,7 +34,6 @@
 	{#if user?.id === subject.id}
 		<div>
 			{#if user.balance > 0}
-				<h1 class="text-secondary text-xl">Balance</h1>
 				<div class="flex justify-center lg:justify-start">
 					<Balance {user} />
 				</div>
