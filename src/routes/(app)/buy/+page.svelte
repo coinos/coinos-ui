@@ -2,15 +2,12 @@
 	import { enhance } from '$app/forms';
 	import { Icon, Lock, Card, Calendar, Spinner } from '$comp';
 
-	export let data;
+	export let data, form;
 
 	let { username } = data.user;
 	let loading;
 
-  let amount = 100;
-	let n = '4242 4242 4242 4242';
-	let d = '10/25';
-	let cvc = 444;
+  let amount, n, d, cvc;
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
@@ -20,25 +17,18 @@
 		</a>
 	</div>
 
-	<div class="flex justify-center items-center text-center">
+	<div class="flex justify-center items-center">
 		<div class="shadow-xl rounded-3xl px-10 pt-5 pb-10 space-y-5 w-full mx-5">
 			<div class="relative">
-				<!-- <p class="absolute right-0 top-1 underline"><Icon icon="settings" /></p> -->
-				<h1 class="text-2xl md:text-3xl font-semibold">Buy Bitcoin</h1>
+				<h1 class="text-2xl md:text-3xl font-semibold text-center">Buy Bitcoin</h1>
 			</div>
-			<p class="text-secondary">Purchase up to $500 worth of Bitcoin from us.</p>
+			<p class="text-secondary text-center">Purchase up to $500 worth of Bitcoin</p>
 
-			<p class="text-secondary">
-				If you want more, try <a href="https://www.kraken.com/" target="_blank" class="text-black"
-					>Kraken</a
-				>
-				or
-				<a href="https://shakepay.com/" target="_blank" class="text-black">ShakePay</a> or ask
-				around at our next
-				<a href="https://www.meetup.com/vancouver-bitcoiners" target="_blank" class="text-black"
-					>meetup</a
-				>.
-			</p>
+			{#if form?.message}
+				<div class="text-red-600 text-center">
+					{form.message}
+				</div>
+			{/if}
 
 			<form
 				method="POST"
@@ -55,11 +45,12 @@
 					<input
 						class="rounded-md peer pl-12 pr-2 py-2 border-2 border-gray-200 placeholder-gray-300"
 						type="text"
-						name="number"
-						placeholder="500"
+						name="amount"
+						placeholder="&bull;&bull;&bull;"
 						bind:value={amount}
 					/>
-					<span class="absolute text-gray-300 bottom-[9px] left-0 translate-x-1/2 w-6">$</span>
+          <span class="absolute bottom-[9px] left-0 translate-x-1/2 w-6 text-black peer-placeholder-shown:text-gray-300 
+          ">$</span>
 				</label>
 
 				<label class="relative w-full flex flex-col">
