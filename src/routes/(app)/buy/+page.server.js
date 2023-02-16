@@ -13,7 +13,7 @@ export const actions = {
 		await post(
 			'/buy',
 			{
-        amount: form.get('amount'),
+				amount: form.get('amount'),
 				number: form.get('number').replace(/\s+/g, ''),
 				month: form.get('expiry').slice(0, 2),
 				year: form.get('expiry').slice(-2),

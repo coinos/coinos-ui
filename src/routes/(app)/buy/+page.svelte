@@ -7,7 +7,7 @@
 	let { username } = data.user;
 	let loading;
 
-  let amount, n, d, cvc;
+	let amount, n, d, cvc;
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
@@ -49,8 +49,10 @@
 						placeholder="&bull;&bull;&bull;"
 						bind:value={amount}
 					/>
-          <span class="absolute bottom-[9px] left-0 translate-x-1/2 w-6 text-black peer-placeholder-shown:text-gray-300 
-          ">$</span>
+					<span
+						class="absolute bottom-[9px] left-0 translate-x-1/2 w-6 text-black peer-placeholder-shown:text-gray-300 
+          ">$</span
+					>
 				</label>
 
 				<label class="relative w-full flex flex-col">
