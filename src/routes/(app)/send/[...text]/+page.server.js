@@ -52,8 +52,8 @@ let parse = async (t, host) => {
 			throw redirect(307, r);
 		}
 
-    if (user) throw redirect(307, `/send/${user.username}`);
-    else if (id) throw redirect(307, `/send/${id}`);
+		if (user) throw redirect(307, `/send/${user.username}`);
+		else if (id) throw redirect(307, `/send/${id}`);
 	}
 
 	// user

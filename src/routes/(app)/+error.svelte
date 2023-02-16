@@ -1,7 +1,7 @@
 <script>
 	import { back } from '$lib/utils';
 	import { Icon } from '$comp';
-  import { page } from '$app/stores';
+	import { page } from '$app/stores';
 
 	export let data;
 	let { user } = data;
@@ -22,7 +22,7 @@
 				<h1 class="text-2xl md:text-3xl font-semibold text-center">Error</h1>
 			</div>
 			<p class="text-secondary text-center">Something went wrong</p>
-      <p class="text-secondary text-center">{$page.error.message}</p>
+			<p class="text-secondary text-center">{$page.error.message}</p>
 
 			<div class="flex justify-center py-24">
 				<a href={link}>

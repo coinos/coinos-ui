@@ -8,7 +8,10 @@
 
 	<ul>
 		<li>Grocery / Produce Store</li>
-    <li>Cafe &mdash; Claimed by <a href="/reverendhodl">ReverendHodl</a> for <a href="https://btcmap.org/map?lat=49.2814113&long=-123.049572">Laughing Bean Coffee Co.</a>!</li>
+		<li>
+			Cafe &mdash; Claimed by <a href="/reverendhodl">ReverendHodl</a> for
+			<a href="https://btcmap.org/map?lat=49.2814113&long=-123.049572">Laughing Bean Coffee Co.</a>!
+		</li>
 		<li>Bakery</li>
 		<li>Butcher Shop</li>
 		<li>Laundromat / Dry Cleaner</li>
@@ -79,5 +82,7 @@
 </div>
 
 <style>
-  a { @apply font-bold; }
+	a {
+		@apply font-bold;
+	}
 </style>
