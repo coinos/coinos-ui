@@ -89,7 +89,7 @@
 			</div>
 		{/if}
 	{:else}
-		<form method="POST" action="?/setAmount" class="w-[300px] mx-auto">
+		<form method="POST" action="?/setAmount" class="w-[300px] mx-auto" use:enhance>
 			<input type="hidden" value={a} name="amount" />
 			<Numpad bind:amount={a} {currency} />
 			<button

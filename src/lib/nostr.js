@@ -80,7 +80,7 @@ export let decrypt = async ({ event, user }) => {
 
 		return Buffer.from(message).toString('utf8');
 	} catch (e) {
-		console.log(e);
+		// console.log(e);
 	}
 };
 
@@ -119,6 +119,7 @@ let getPrivateKey = async (user) => {
 	seed = mnemonicToSeedSync(mnemonic);
 	key = bip32.fromSeed(seed);
 	child = key.derivePath("m/44'/1237'/0'/0/0");
+
 	return child.privateKey;
 };
 
