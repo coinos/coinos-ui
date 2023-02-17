@@ -1,8 +1,9 @@
 <script>
+	import { cubicInOut } from 'svelte/easing';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { format, parseISO } from 'date-fns';
-	import { scale, fade } from 'svelte/transition';
+	import { scale, fade, fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon } from '$comp';
 	import { back, fail, focus } from '$lib/utils';
@@ -12,6 +13,22 @@
 	import { calculateId } from 'nostr';
 
 	export let data;
+
+	function fadeScale(node, { delay = 0, duration = 200, easing = (x) => x, baseScale = 0 }) {
+		const o = +getComputedStyle(node).opacity;
+		const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);
+		const s = m ? m[1] : 1;
+		const is = 1 - baseScale;
+
+		return {
+			delay,
+			duration,
+			css: (t) => {
+				const eased = easing(t);
+				return `opacity: ${eased * o}; transform: scale(${eased * s * is + baseScale})`;
+			}
+		};
+	}
 
 	let { messages, subject, user } = data;
 	let input, pane;
@@ -53,14 +70,16 @@
 		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 
 		try {
-			event.content = await encrypt({ message, recipient: subject.pubkey, user });
 			event.author = user;
 			event.recipient = subject;
-			await sign({ event, user });
-			await send(event);
+
 			messages.push(event);
 			messages = messages;
 			tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
+
+			event.content = await encrypt({ message, recipient: subject.pubkey, user });
+			await sign({ event, user });
+			await send(event);
 
 			sent = true;
 		} catch (e) {
@@ -87,7 +106,10 @@
 					class="flex gap-2"
 					class:flex-row-reverse={theirs}
 					class:justify-end={theirs}
-					in:fade={{ duration: 150 }}
+					in:fadeScale={{
+						easing: cubicInOut,
+						baseScale: 0.5
+					}}
 				>
 					<div
 						class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
@@ -109,9 +131,13 @@
 		{/each}
 	</div>
 
-	<form method="POST" class="space-y-5" on:submit|preventDefault={submit}>
+	<form method="POST" class="space-y-5 relative" on:submit|preventDefault={submit}>
 		<input type="hidden" name="requester_id" value={user.id} />
 		<input type="hidden" name="recipient" value={subject.username} />
+
+		<button type="submit" class="absolute right-2 bottom-2">
+			<Icon icon="send" style="w-10" />
+		</button>
 
 		<input
 			use:focus
