@@ -56,6 +56,7 @@
 
 	let sent, submitting, message;
 	let submit = async () => {
+    input.focus();
 		submitting = true;
 
 		let event = {
