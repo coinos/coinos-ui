@@ -5,7 +5,8 @@ export async function load({ cookies, params, parent, url }) {
 	let { pubkey } = subject;
 	let { since = 0 } = params;
 
-	let messages = [];
+  let messages, invoices, sent, received;
+	messages = invoices = sent = received = [];
 
 	if (user) {
 		try {
@@ -14,6 +15,8 @@ export async function load({ cookies, params, parent, url }) {
 		} catch (e) {
 			console.log(`failed to fetch nostr messages`, e);
 		}
+
+		({ invoices, sent, received } = await get('/requests', auth(cookies)));
 	}
 
 	let notes = [];
@@ -27,8 +30,6 @@ export async function load({ cookies, params, parent, url }) {
 	notes.map((e) => {
 		e.seen = e.created_at;
 	});
-
-	let { invoices, sent, received } = await get('/requests', auth(cookies));
 
 	return { invoices, messages, notes, sent, received };
 }
