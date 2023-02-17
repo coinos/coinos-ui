@@ -4,6 +4,7 @@
 	import { t } from '$lib/translations';
 	import { f, sat, sats } from '$lib/utils';
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
+	import { event as e, password } from '$lib/store';
 	import { browser } from '$app/environment';
 
 	export let data;
@@ -13,8 +14,25 @@
 	let latest = [];
 	let i = 0;
 
-	onMount(async () => {
-		if (!browser) return;
+	e.subscribe(async (event) => {
+		if (event?.recipient.id === user.id && !~latest.findIndex((m) => m.id === event.id)) {
+			event.content = await decrypt({ event, user });
+
+			let i = latest.findIndex((m) => m.pubkey === event.pubkey);
+
+			if (~i) latest.splice(i, 1);
+			else latest.pop();
+
+			console.log(latest);
+			latest.unshift(event);
+
+			latest = latest;
+		}
+	});
+
+	$: initialize($password);
+	let initialize = async (p) => {
+		if (!p) return;
 		while (latest.length < 3 && i < messages.length) {
 			let event = messages[i];
 			let k = event.author.id === user.id ? event.recipient.pubkey : event.author.pubkey;
@@ -27,7 +45,7 @@
 		}
 
 		latest = latest;
-	});
+	};
 </script>
 
 <div class="space-y-8">
