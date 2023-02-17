@@ -78,8 +78,8 @@
 		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 
 		try {
-      event.id = await calculateId(event);
-			event.content = await encrypt({ message, recipient: subject.pubkey, user });
+			event.id = await calculateId(event);
+			event.content = await encrypt({ message: event.message, recipient: subject.pubkey, user });
 			await sign({ event, user });
 			await send(event);
 
