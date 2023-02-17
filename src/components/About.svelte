@@ -18,19 +18,6 @@
 			socials: []
 		},
 		{
-			name: 'karnage',
-			socials: [
-				{ type: 'twitter', url: 'https://twitter.com/KarnageBitcoin', color: 'bg-[#1D9BF0]' }
-			]
-		},
-		{
-			name: 'secondl1ght',
-			socials: [
-				{ type: 'twitter', url: 'https://www.twitter.com/secondl1ght', color: 'bg-[#1D9BF0]' },
-				{ type: 'github', url: 'https://github.com/secondl1ght', color: 'bg-gray-800' }
-			]
-		},
-		{
 			name: 'shauna',
 			socials: [
 				{ type: 'twitter', url: 'https://twitter.com/ShaunaCollister', color: 'bg-[#1D9BF0]' },

@@ -182,7 +182,7 @@
 							{:else if p.with}
 								<div class="flex">
 									<div class="my-auto">
-										<Avatar user={p.with} size={12} disabled={true} />
+										<Avatar user={p.with} size={16} disabled={true} />
 									</div>
 									<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
 								</div>

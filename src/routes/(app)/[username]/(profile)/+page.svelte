@@ -17,8 +17,8 @@
 		if (!browser) return;
 		while (latest.length < 3 && i < messages.length) {
 			let event = messages[i];
-			let { pubkey: k } = event.user;
-			if (k !== user.pubkey && !keys.has(k)) {
+			let k = event.author.id === user.id ? event.recipient.pubkey : event.author.pubkey;
+			if (!keys.has(k)) {
 				keys.add(k);
 				event.content = await decrypt({ event, user });
 				if (event.content) latest.push(event);
@@ -33,36 +33,44 @@
 <div class="space-y-8">
 	{#if user?.id === subject.id}
 		<div>
-			{#if user.balance > 0}
-				<div class="flex justify-center lg:justify-start">
-					<Balance {user} />
-				</div>
-			{:else}
-				<div class="space-y-3">
-					<h1 class="text-2xl">Welcome</h1>
-
-					<p class="text-secondary">
-						Get started by making a deposit or getting someone to pay you in Bitcoin!
+			<div class="flex justify-center lg:justify-start">
+				<Balance {user} />
+			</div>
+			{#if !user.balance}
+				<div class="space-y-8 mt-8">
+					<p class="text-secondary text-lg">
+						Welcome! Your account balance is empty. You can start by making a deposit or by asking
+						someone to pay you.
 					</p>
 
 					<div class="flex gap-4 justify-center w-full">
 						<a href={`/${user.username}/receive`}>
-							<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+							<button
+								class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
+							>
 								<div class="mx-auto flex">
-									<Icon icon="numpad" style="my-auto h-6 mr-2" />
-									<div class="my-auto mt-1">Receive a Payment</div>
+									<Icon icon="numpad" style="my-auto h-6 mr-2 invert" />
+									<div class="my-auto mt-1">Request Payment</div>
 								</div>
 							</button>
 						</a>
 
-						<!-- <a href={`/buy`}> -->
-						<!-- 	<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"> -->
-						<!-- 		<div class="mx-auto flex"> -->
-						<!-- 			<Icon icon="plus" style="my-auto h-6 mr-2" /> -->
-						<!-- 			<div class="my-auto mt-1">Buy Bitcoin</div> -->
-						<!-- 		</div> -->
-						<!-- 	</button> -->
-						<!-- </a> -->
+						{#if user.eligible}
+							<a href={`/buy`}>
+								<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+									<div class="mx-auto flex">
+										<!-- <Icon icon="plus" style="my-auto h-6 mr-2" /> -->
+
+										<img
+											src="/images/bitcoin.svg"
+											class="w-8 border-4 border-transparent mr-2"
+											alt="Bitcoin"
+										/>
+										<div class="my-auto mt-1">Buy Bitcoin</div>
+									</div>
+								</button>
+							</a>
+						{/if}
 					</div>
 				</div>
 			{/if}
@@ -138,17 +146,23 @@
 		</div>
 	{/if}
 
-	{#if latest.length}
-		<div>
-			<h1 class="text-2xl">Messages</h1>
-			{#each latest as { content, user }}
-				<div class="flex">
-					<div class="my-auto">
-						<Avatar {user} size={12} disabled={true} />
+	{#if latest.length && user.id === subject.id}
+		<div class="relative">
+			{#each latest as { content, pubkey, author, recipient }}
+				{@const user = author.id === user.id ? recipient : author}
+				<a href={`/${user.username}/messages`}>
+					<div class="flex hover:bg-gray-100 p-4 rounded-2xl">
+						<div class="my-auto">
+							<Avatar {user} size={'20'} disabled={true} />
+						</div>
+						<div class="my-auto truncate">
+							<div class="my-auto ml-1 text-lg font-bold">{user.username}</div>
+							<div class="my-auto ml-1 text-secondary text-lg truncate">
+								{content}
+							</div>
+						</div>
 					</div>
-					<div class="my-auto ml-1 text-secondary">{user.username}</div>
-					{content}
-				</div>
+				</a>
 			{/each}
 		</div>
 	{/if}
