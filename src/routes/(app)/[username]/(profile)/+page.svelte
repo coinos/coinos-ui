@@ -15,7 +15,8 @@
 	let i = 0;
 
 	e.subscribe(async (event) => {
-		if (event?.recipient.id === user.id && !~latest.findIndex((m) => m.id === event.id)) {
+    if (!event) return;
+		if (event.recipient.id === user?.id && !~latest.findIndex((m) => m.id === event.id)) {
 			event.content = await decrypt({ event, user });
 
 			let i = latest.findIndex((m) => m.pubkey === event.pubkey);
@@ -23,8 +24,12 @@
 			if (~i) latest.splice(i, 1);
 			else latest.pop();
 
-			console.log(latest);
 			latest.unshift(event);
+
+			console.log(
+				'latest',
+				latest.map((m) => m.id)
+			);
 
 			latest = latest;
 		}
@@ -164,7 +169,7 @@
 		</div>
 	{/if}
 
-	{#if latest.length && user.id === subject.id}
+	{#if latest.length && user?.id === subject.id}
 		<div class="relative">
 			{#each latest as { content, pubkey, author, recipient }}
 				{@const user = author.id === user.id ? recipient : author}
