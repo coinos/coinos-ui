@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { format, parseISO } from 'date-fns';
-	import { scale } from 'svelte/transition';
+	import { scale, fade } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon } from '$comp';
 	import { back, fail, focus } from '$lib/utils';
@@ -14,18 +14,24 @@
 	export let data;
 
 	let { messages, subject, user } = data;
-	let input, pane, ready;
+	let input, pane;
 
 	$: initialize($password);
 	let initialize = async (p) => {
 		if (!p) return;
-		ready = true;
+		await Promise.all(
+			messages.map(async (event) => (event.message = await decrypt({ event, user })))
+		);
+
+		messages = messages;
 		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 	};
 
-	e.subscribe((ev) => {
-		if (ev?.recipient.id === user.id && !~messages.findIndex((m) => m.id === ev.id)) {
-			messages.push(ev);
+	e.subscribe(async (event) => {
+		let found = ~messages.findIndex((m) => m.id === event?.id);
+		if (event?.recipient.id === user.id && !found) {
+			event.message = await decrypt({ event, user });
+			messages.push(event);
 			messages = messages;
 			tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 		}
@@ -58,6 +64,7 @@
 
 			sent = true;
 		} catch (e) {
+			console.log(e);
 			fail('Failed to send message');
 		}
 
@@ -67,38 +74,40 @@
 </script>
 
 <div class="container max-w-xl mx-auto px-4">
-	{#if messages.length && ready}
-		<div
-			class="max-h-[calc(40vh)] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
-			bind:this={pane}
-		>
-			{#each messages as event}
-				{@const ours = event.pubkey === user.pubkey}
-				{@const theirs = !ours}
-				<div class="flex gap-2" class:flex-row-reverse={theirs} class:justify-end={theirs}>
+	<div
+		class="h-[40vh] max-h-[40vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
+		bind:this={pane}
+	>
+		{#each messages as { id, author, message, created_at, pubkey }}
+			{@const ours = pubkey === user.pubkey}
+			{@const theirs = !ours}
+
+			{#if message}
+				<div
+					class="flex gap-2"
+					class:flex-row-reverse={theirs}
+					class:justify-end={theirs}
+					in:fade={{ duration: 150 }}
+				>
 					<div
 						class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
 						class:ours
 						class:theirs
-						:key={event.id}
+						:key={id}
 					>
-						{#await decrypt({ event, user })}
-							-
-						{:then message}
-							{message}
-						{/await}
+						{message}
 					</div>
 					<div class="mt-auto">
-						<Avatar user={event.author} size={'12'} />
+						<Avatar user={author} size={'12'} />
 					</div>
 				</div>
 				<div class="text-sm text-gray-400 mb-6" class:text-right={ours}>
-					{format(new Date(event.created_at * 1000), 'MMM d')},
-					{format(new Date(event.created_at * 1000), 'h:mm aa')}
+					{format(new Date(created_at * 1000), 'MMM d')},
+					{format(new Date(created_at * 1000), 'h:mm aa')}
 				</div>
-			{/each}
-		</div>
-	{/if}
+			{/if}
+		{/each}
+	</div>
 
 	<form method="POST" class="space-y-5" on:submit|preventDefault={submit}>
 		<input type="hidden" name="requester_id" value={user.id} />
