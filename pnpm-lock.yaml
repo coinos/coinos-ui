@@ -29,6 +29,7 @@ specifiers:
   svelte-preprocess: ^4.10.7
   svelte-virtual-scroll-list: ^1.1.0
   sveltekit-i18n: ^2.2.2
+  tailwind-scrollbar: ^2.1.0
   tailwindcss: ^3.2.4
   tiny-secp256k1: ^2.2.1
   uuid: ^9.0.0
@@ -68,6 +69,7 @@ devDependencies:
   svelte-preprocess: 4.10.7_qs7rgzvahok4cbkjoy5bgypde4
   svelte-virtual-scroll-list: 1.1.0_svelte@3.55.0
   sveltekit-i18n: 2.2.2_svelte@3.55.0
+  tailwind-scrollbar: 2.1.0_tailwindcss@3.2.4
   tailwindcss: 3.2.4_postcss@8.4.20
   tiny-secp256k1: 2.2.1
   uuid: 9.0.0
@@ -2475,6 +2477,15 @@ packages:
       '@sveltekit-i18n/base': 1.2.1_svelte@3.55.0
       '@sveltekit-i18n/parser-default': 1.0.3
       svelte: 3.55.0
+    dev: true
+
+  /tailwind-scrollbar/2.1.0_tailwindcss@3.2.4:
+    resolution: {integrity: sha512-zpvY5mDs0130YzYjZKBiDaw32rygxk5RyJ4KmeHjGnwkvbjm/PszON1m4Bbt2DkMRIXlXsfNevykAESgURN4KA==}
+    engines: {node: '>=12.13.0'}
+    peerDependencies:
+      tailwindcss: 3.x
+    dependencies:
+      tailwindcss: 3.2.4_postcss@8.4.20
     dev: true
 
   /tailwindcss/3.2.4_postcss@8.4.20:

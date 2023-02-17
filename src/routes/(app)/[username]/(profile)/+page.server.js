@@ -10,6 +10,7 @@ export async function load({ cookies, params, parent, url }) {
 	if (user) {
 		try {
 			messages = await get(`/${user.pubkey}/${since}/messages`);
+			messages = messages.sort((a, b) => b.created_at - a.created_at);
 		} catch (e) {
 			console.log(`failed to fetch nostr messages`, e);
 		}

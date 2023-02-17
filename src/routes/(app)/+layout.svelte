@@ -58,7 +58,7 @@
 	onDestroy(() => browser && clearTimeout(timer));
 </script>
 
-{#if $passwordPrompt}
+{#if browser && $passwordPrompt}
 	<Password {user} />
 {/if}
 

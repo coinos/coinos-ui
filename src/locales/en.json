@@ -15,17 +15,6 @@
 				"position": "Chief Technical Officer",
 				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
 			},
-			"secondl1ght": {
-				"name": "secondl1ght",
-				"position": "Web Developer",
-				"bio": "A self-taught Web Developer, secondl1ght dove head first down the bitcoin rabbit hole and left his fiat job to focus on bitcoin development full-time. He contributes to open source projects, is a privacy advocate, and freedom lover."
-			},
-
-			"karnage": {
-				"name": "Karnage",
-				"position": "Product Designer",
-				"bio": "My mission is to help startup founders succeed. I create products to achieve this goal. Pixel-perfect product design. Get it shipped."
-			},
 			"shauna": {
 				"name": "Shauna",
 				"position": "Operations & Marketing",
@@ -297,6 +286,6 @@
 		"redeem": "Redeem",
 		"redeemed": "Redeemed",
 		"redeemedBy": "Redeemed by",
-		"sendMessage": "Message"
+		"sendMessage": "Write a message..."
 	}
 }

@@ -18,7 +18,7 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container mx-auto max-w-lg px-4 space-y-2 sm:space-y-5 break-all text-2xl">
+<div class="container mx-auto max-w-lg px-4 space-y-8 break-all text-2xl">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
 		{$t(amount < 0 ? 'payments.sent' : 'payments.received')}
 	</h1>
@@ -28,7 +28,7 @@
 			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
 			<div class="flex">
 				<div class="my-auto">
-					<Avatar user={p.with} />
+					<Avatar user={p.with} size={20} />
 				</div>
 				<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
 			</div>
@@ -69,20 +69,12 @@
 		</div>
 	</div>
 
-	{#if type === 'lightning'}
-		<div>
-			<span class="text-lg text-secondary">Proof</span>
-			<div class="font-bold">{$t('payments.preimage')}</div>
-			<div>
-				{ref}
-			</div>
-		</div>
-	{:else if type === 'bitcoin'}
+	{#if type === 'bitcoin'}
 		<div>
 			<span class="text-lg text-secondary">Txid</span>
 			<div class="flex">
 				<div>
-					<a href={`${expl}/payment/${id}`} target="_blank" rel="noreferrer">{id}</a>
+					<a href={`${expl}/tx/${id}`} target="_blank" rel="noreferrer">{id}</a>
 				</div>
 				<button class="flex font-bold hover:opacity-80 mb-auto my-auto" on:click={() => copy(id)}
 					><Icon icon="copy" style="ml-2 w-20 my-auto" />
