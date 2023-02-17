@@ -9,13 +9,15 @@
 
 	export let data;
 	let { messages, notes, invoices, sent, received, subject, user } = data;
+	$: refresh(data);
+	let refresh = (d) => ({ messages, notes, invoices, sent, received, subject, user } = d);
 
 	let keys = new Set();
 	let latest = [];
 	let i = 0;
 
 	e.subscribe(async (event) => {
-    if (!event) return;
+		if (!event) return;
 		if (event.recipient.id === user?.id && !~latest.findIndex((m) => m.id === event.id)) {
 			event.content = await decrypt({ event, user });
 
@@ -25,12 +27,6 @@
 			else latest.pop();
 
 			latest.unshift(event);
-
-			console.log(
-				'latest',
-				latest.map((m) => m.id)
-			);
-
 			latest = latest;
 		}
 	});
