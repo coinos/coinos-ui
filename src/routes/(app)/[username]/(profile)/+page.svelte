@@ -15,16 +15,17 @@
 	let keys = new Set();
 	let latest = [];
 	let i = 0;
+	let ready;
 
 	e.subscribe(async (event) => {
-		if (!event) return;
+		if (!(event && ready)) return;
 		if (event.recipient.id === user?.id && !~latest.findIndex((m) => m.id === event.id)) {
 			event.content = await decrypt({ event, user });
 
 			let i = latest.findIndex((m) => m.pubkey === event.pubkey);
-
-			if (~i) latest.splice(i, 1);
-			else latest.pop();
+			let popped;
+			if (~i) popped = latest.splice(i, 1);
+			else popped = latest.pop();
 
 			latest.unshift(event);
 			latest = latest;
@@ -33,6 +34,7 @@
 
 	$: initialize($password);
 	let initialize = async (p) => {
+		ready = false;
 		if (!p) return;
 		while (latest.length < 3 && i < messages.length) {
 			let event = messages[i];
@@ -46,6 +48,7 @@
 		}
 
 		latest = latest;
+		ready = true;
 	};
 </script>
 
