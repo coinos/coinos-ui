@@ -75,7 +75,7 @@
 
 <div class="container max-w-xl mx-auto px-4">
 	<div
-		class="h-[40vh] max-h-[40vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
+		class="h-[50vh] max-h-[50vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
 		bind:this={pane}
 	>
 		{#each messages as { id, author, message, created_at, pubkey }}
