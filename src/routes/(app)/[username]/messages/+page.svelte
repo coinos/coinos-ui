@@ -56,7 +56,6 @@
 
 	let sent, submitting, message;
 	let submit = async () => {
-    input.focus();
 		submitting = true;
 
 		let event = {
@@ -67,17 +66,19 @@
 		};
 
 		event.message = message;
-		event.id = await calculateId(event);
+
+		message = '';
+		input.focus();
+
+		event.author = user;
+		event.recipient = subject;
+
+		messages.push(event);
+		messages = messages;
 		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 
 		try {
-			event.author = user;
-			event.recipient = subject;
-
-			messages.push(event);
-			messages = messages;
-			tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
-
+      event.id = await calculateId(event);
 			event.content = await encrypt({ message, recipient: subject.pubkey, user });
 			await sign({ event, user });
 			await send(event);
