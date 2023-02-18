@@ -9,11 +9,12 @@
 		fiat = !amount,
 		submit = undefined;
 
-	export let amountFiat = amount ? amount * ($selectedRate / sats) : 0;
-
+let amountFiat;
 	let arrow = '<';
 
-	let amountSats = amount;
+	$: update(amount);
+	let update = (a) => (amountFiat = amount ? ((amount * $selectedRate) / sats).toFixed(2) : 0);
+
 	let loading = false;
 
 	let symbol =
@@ -33,13 +34,13 @@
 			KRW: '₩'
 		}[currency] || '';
 
-	$: amount = parseInt(fiat ? Math.round(amountFiat / ($selectedRate / sats)) : amountSats);
+	$: amountFormatted = s(amount);
 
-	$: amountSatsFormatted = s(amountSats);
+	$: amountFiatConverted =
+		console.log('FC', amount, f(amount * ($selectedRate / sats), currency)) ||
+		f(amount * ($selectedRate / sats), currency);
 
-	$: amountFiatConverted = f(amountSats * ($selectedRate / sats), currency);
-
-	$: amountSatsConverted = sat(amountFiat / ($selectedRate / sats));
+	$: amountConverted = sat(amountFiat / ($selectedRate / sats));
 
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
@@ -58,7 +59,7 @@
 					amountFiat = amountFiat.slice(0, amountFiat.length - 1);
 					if (amountFiat.length === 0) {
 						amountFiat = 0;
-						amountSats = 0;
+						amount = 0;
 					}
 				}
 			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $selectedRate) {
@@ -71,25 +72,25 @@
 		} else {
 			if (value === '.') {
 				return;
-			} else if (!amountSats && value !== '<' && value !== '0') {
-				amountSats = parseInt(value);
+			} else if (!amount && value !== '<' && value !== '0') {
+				amount = parseInt(value);
 			} else if (value === '<') {
-				if (amountSats !== 0) {
-					amountSats = Math.floor(amountSats / 10);
-					if (amountSats.length === 0) {
-						amountSats = 0;
+				if (amount !== 0) {
+					amount = Math.floor(amount / 10);
+					if (amount.length === 0) {
+						amount = 0;
 						amountFiat = 0;
 					}
 				}
-			} else if (value !== '<' && parseInt(amountSats + value) > sats) {
+			} else if (value !== '<' && parseInt(amount + value) > sats) {
 				warning($t('user.receive.lessThan1BTCWarning'));
 			} else {
-				amountSats = parseInt(amountSats + value);
+				amount = parseInt(amount + value);
 			}
 		}
 	};
 
-	$: html = fiat ? amountFiat : s(amountSats);
+	$: html = fiat ? amountFiat : s(amount);
 
 	let prev = '';
 
@@ -124,10 +125,10 @@
 		if (fiat) {
 			amountFiat = html;
 		} else {
-			amountSats = parseInt(html.replace(/,/g, ''));
+			amount = parseInt(html.replace(/,/g, ''));
 		}
 
-		if (!amountSats) amountSats = null;
+		if (!amount) amount = null;
 
 		setTimeout(() => {
 			if (!fiat) {
@@ -178,16 +179,16 @@
 				/>
 			</div>
 			<div class="mt-2">
-				<span class="text-secondary mr-1">{fiat ? amountSatsConverted : amountFiatConverted}</span>
+				<span class="text-secondary mr-1">{fiat ? amountConverted : amountFiatConverted}</span>
 				<button
 					type="button"
 					on:click={() => {
 						if (fiat) {
-							amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
+							amount = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
 						} else {
 							amountFiat =
-								(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
-									? (amountSats * ($selectedRate / sats)).toFixed(2)
+								(amount * ($selectedRate / sats)).toFixed(2) > 0.0
+									? (amount * ($selectedRate / sats)).toFixed(2)
 									: 0;
 						}
 						fiat = !fiat;
