@@ -9,11 +9,18 @@
 		fiat = !amount,
 		submit = undefined;
 
-	export let amountFiat = amount ? amount * ($selectedRate / sats) : 0;
-
+	let amountFiat = 0;
 	let arrow = '<';
 
-	let amountSats = amount;
+	$: update(amount, amountFiat);
+	let update = (a, f) => {
+		if (fiat) {
+			amount = Math.round(f / ($selectedRate / sats));
+		} else {
+			amountFiat = ((a * $selectedRate) / sats).toFixed(2);
+		}
+	};
+
 	let loading = false;
 
 	let symbol =
@@ -32,14 +39,6 @@
 			EUR: '€',
 			KRW: '₩'
 		}[currency] || '';
-
-	$: amount = parseInt(fiat ? Math.round(amountFiat / ($selectedRate / sats)) : amountSats);
-
-	$: amountSatsFormatted = s(amountSats);
-
-	$: amountFiatConverted = f(amountSats * ($selectedRate / sats), currency);
-
-	$: amountSatsConverted = sat(amountFiat / ($selectedRate / sats));
 
 	const numPad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '<'];
 
@@ -84,7 +83,7 @@
 			} else if (value !== '<' && parseInt(amountSats + value) > sats) {
 				warning($t('user.receive.lessThan1BTCWarning'));
 			} else {
-				amountSats = parseInt(amountSats + value);
+				amount = parseInt(amount.toString() + value);
 			}
 		}
 	};
@@ -178,7 +177,7 @@
 				/>
 			</div>
 			<div class="mt-2">
-				<span class="text-secondary mr-1">{fiat ? amountSatsConverted : amountFiatConverted}</span>
+				<span class="text-secondary mr-1">{fiat ? sat(amount) : f(amountFiat, currency)}</span>
 				<button
 					type="button"
 					on:click={() => {

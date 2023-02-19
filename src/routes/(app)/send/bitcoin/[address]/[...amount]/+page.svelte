@@ -20,6 +20,8 @@
 		if (form?.message.includes('pin')) $pin = undefined;
 		loading = false;
 	};
+
+	let max = () => (amount = balance);
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -37,6 +39,7 @@
 		<h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t('payments.sendTo')}</h1>
 		<p class="text-lg text-secondary">{address}</p>
 	</div>
+
 	<Numpad bind:amount {currency} {submit} />
 
 	<form method="POST" use:enhance on:submit={toggle}>
