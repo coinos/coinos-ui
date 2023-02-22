@@ -57,7 +57,7 @@
 					amountFiat = amountFiat.slice(0, amountFiat.length - 1);
 					if (amountFiat.length === 0) {
 						amountFiat = 0;
-						amountSats = 0;
+						amount = 0;
 					}
 				}
 			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $selectedRate) {
@@ -70,25 +70,27 @@
 		} else {
 			if (value === '.') {
 				return;
-			} else if (!amountSats && value !== '<' && value !== '0') {
-				amountSats = parseInt(value);
+			} else if (!amount && value !== '<' && value !== '0') {
+				amount = parseInt(value);
 			} else if (value === '<') {
-				if (amountSats !== 0) {
-					amountSats = Math.floor(amountSats / 10);
-					if (amountSats.length === 0) {
-						amountSats = 0;
+				if (amount !== 0) {
+					amount = Math.floor(amount / 10);
+					if (amount.length === 0) {
+						amount = 0;
 						amountFiat = 0;
 					}
 				}
-			} else if (value !== '<' && parseInt(amountSats + value) > sats) {
+			} else if (value !== '<' && parseInt(amount + value) > sats) {
 				warning($t('user.receive.lessThan1BTCWarning'));
 			} else {
+				console.log('CLICK', amount.toString(), value);
 				amount = parseInt(amount.toString() + value);
+				console.log('AMOUNT', amount);
 			}
 		}
 	};
 
-	$: html = fiat ? amountFiat : s(amountSats);
+	$: html = fiat ? amountFiat : s(amount);
 
 	let prev = '';
 
@@ -123,10 +125,10 @@
 		if (fiat) {
 			amountFiat = html;
 		} else {
-			amountSats = parseInt(html.replace(/,/g, ''));
+			amount = parseInt(html.replace(/,/g, ''));
 		}
 
-		if (!amountSats) amountSats = null;
+		if (!amount) amount = null;
 
 		setTimeout(() => {
 			if (!fiat) {
@@ -182,11 +184,11 @@
 					type="button"
 					on:click={() => {
 						if (fiat) {
-							amountSats = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
+							amount = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
 						} else {
 							amountFiat =
-								(amountSats * ($selectedRate / sats)).toFixed(2) > 0.0
-									? (amountSats * ($selectedRate / sats)).toFixed(2)
+								(amount * ($selectedRate / sats)).toFixed(2) > 0.0
+									? (amount * ($selectedRate / sats)).toFixed(2)
 									: 0;
 						}
 						fiat = !fiat;
