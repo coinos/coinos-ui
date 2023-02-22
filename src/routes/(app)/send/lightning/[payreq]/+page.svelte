@@ -13,9 +13,10 @@
 	let { alias } = data;
 
 	let { currency } = data.user;
-	let amount = form?.amount || data.amount;
 	let a;
 	let maxfee = 100;
+
+	$: amount = form?.amount || data.amount;
 
 	let loading;
 	let submit = () => (loading = true);
