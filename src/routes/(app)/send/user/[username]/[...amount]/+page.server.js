@@ -13,12 +13,8 @@ export const actions = {
 	default: async ({ cookies, request }) => {
 		try {
 			let body = await fd(request);
-			let { amount, confirmed } = body;
+			let { amount } = body;
 			amount = parseInt(amount);
-
-			if (!confirmed) {
-				return fail(400, { amount, confirm: true });
-			}
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {
