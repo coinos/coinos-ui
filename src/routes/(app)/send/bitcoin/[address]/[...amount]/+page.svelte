@@ -51,11 +51,10 @@
 	</div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto space-y-5">
-	<div class="text-center mb-8">
-		<h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t('payments.send')}</h1>
-		<p class="text-lg text-secondary">{address}</p>
-	</div>
+<div class="container px-4 mt-20 max-w-xl mx-auto space-y-5 text-center">
+	<h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t('payments.send')}</h1>
+
+	<div class="text-lg text-secondary">{address}</div>
 
 	{#if confirmed}
 		<div class="text-center">
@@ -63,6 +62,14 @@
 				{f(af(amount, $selectedRate), currency)}
 			</h2>
 			<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
+		</div>
+
+		<div class="text-center">
+			<h2 class="text-secondary mb-5 text-lg">with fee</h2>
+			<h2 class="text-xl font-semibold">
+				{f(af(fee, $selectedRate), currency)}
+			</h2>
+			<h3 class="text-secondary mb-6 mt-1">{sat(fee)}</h3>
 		</div>
 	{:else}
 		<Numpad bind:amount bind:fiat {currency} {submit} />
@@ -78,12 +85,11 @@
 		<input name="stale" value={stale} type="hidden" />
 
 		{#if confirmed}
-			<label>Fee rate</label>
-			{min}
-			{max}
-			{fee}
-			<div class="text-lg text-center -mb-2 text-secondary">{feeRate} sats/kb</div>
-			<Slider bind:value={feeRate} {handle} {min} {max} />
+			<div class="relative mb-5">
+				<div class="absolute top-5 left-0 text-secondary">Slower (~40 blocks)</div>
+				<div class="absolute top-5 right-0 text-secondary">Faster (~1 block)</div>
+				<Slider bind:value={feeRate} {handle} {min} {max} />
+			</div>
 		{/if}
 
 		<div class="flex justify-center gap-2">
@@ -102,9 +108,7 @@
 				class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
 				disabled={loading}
 			>
-				{#if loading}
-					<Spinner />
-				{:else if confirmed}
+				{#if confirmed}
 					{$t('payments.send')}
 				{:else}
 					{$t('payments.next')}
