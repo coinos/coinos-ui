@@ -1,14 +1,12 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { btc as asset, auth, post } from '$lib/utils';
+import { fd, btc as asset, auth, post } from '$lib/utils';
 
 export async function load({ params }) {
 	return post('/parse', params);
 }
 
 export const actions = {
-	setAmount: async ({ cookies, request }) => {
-		return await fd(request);
-	},
+	setAmount: async ({ cookies, request }) => fd(request),
 
 	send: async ({ cookies, request }) => {
 		try {
