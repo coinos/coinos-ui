@@ -11,11 +11,7 @@ export const actions = {
 	send: async ({ cookies, request }) => {
 		try {
 			let body = await fd(request);
-			let { amount, confirmed } = body;
-
-			if (!confirmed) {
-				return fail(400, { amount, confirm: true });
-			}
+			let { amount } = body;
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {
