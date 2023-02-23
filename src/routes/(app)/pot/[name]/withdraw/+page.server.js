@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { auth, post } from '$lib/utils';
+import { fd, auth, post } from '$lib/utils';
 
 export async function load({ parent }) {
 	let { user } = await parent();
@@ -8,8 +8,7 @@ export async function load({ parent }) {
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let body = Object.fromEntries(await request.formData());
-
+		let body = await fd(request);
 		try {
 			await post('/take', body, auth(cookies));
 		} catch (e) {

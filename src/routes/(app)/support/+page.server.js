@@ -1,10 +1,9 @@
-import { post } from '$lib/utils';
+import { fd, post } from '$lib/utils';
 import { fail } from '@sveltejs/kit';
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let form = Object.fromEntries(await request.formData());
-
+		let form = await fd(request);
 		try {
 			await post('/email', form);
 		} catch (e) {

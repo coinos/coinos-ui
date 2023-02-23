@@ -1,30 +1,43 @@
 <script>
+	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
-	import { Icon, Numpad, Spinner } from '$comp';
+	import { Slider, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, s, sat } from '$lib/utils';
-	import { pin } from '$lib/store';
+	import { fiat as af, f, back, s, sat } from '$lib/utils';
+	import { pin, selectedRate } from '$lib/store';
 
 	export let data;
 	export let form;
 
 	let { address, amount } = $page.params;
 	let { balance, currency } = data.user;
-	let loading, submit;
-	let fiat;
+	let loading, submit, fiat, confirmed, feeRate, min, max, fee, stale;
 
 	let toggle = () => (loading = true);
 
 	$: update(form);
 	let update = () => {
-		if (form?.message.includes('pin')) $pin = undefined;
 		loading = false;
+		if (form?.message?.includes('pin')) $pin = undefined;
+		if (form) ({ min, max, feeRate, fee } = form);
+		if (feeRate) confirmed = true;
+		stale = false;
 	};
 
-	let max = () => {
-    fiat = false;
+	let setMax = () => {
+		fiat = false;
 		amount = balance;
+	};
+
+	let timeout;
+	let handle = (e) => {
+		stale = true;
+		feeRate = e.target.value;
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			tick().then(() => submit.click());
+		}, 200);
 	};
 </script>
 
@@ -44,21 +57,44 @@
 		<p class="text-lg text-secondary">{address}</p>
 	</div>
 
-	<Numpad bind:amount bind:fiat {currency} {submit} />
+	{#if confirmed}
+		<div class="text-center">
+			<h2 class="text-2xl md:text-3xl font-semibold">
+				{f(af(amount, $selectedRate), currency)}
+			</h2>
+			<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
+		</div>
+	{:else}
+		<Numpad bind:amount bind:fiat {currency} {submit} />
+	{/if}
 
 	<form method="POST" use:enhance on:submit={toggle}>
 		<input name="ts" value={Date.now()} type="hidden" />
 		<input name="address" value={address} type="hidden" />
 		<input name="amount" value={amount} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
+		<input name="confirmed" value={confirmed} type="hidden" />
+		<input name="feeRate" value={feeRate} type="hidden" />
+		<input name="stale" value={stale} type="hidden" />
+
+		{#if confirmed}
+			<label>Fee rate</label>
+			{min}
+			{max}
+			{fee}
+			<div class="text-lg text-center -mb-2 text-secondary">{feeRate} sats/kb</div>
+			<Slider bind:value={feeRate} {handle} {min} {max} />
+		{/if}
 
 		<div class="flex justify-center gap-2">
-			<button
-				type="button"
-				class="hover:opacity-80 bg-black text-white rounded-2xl py-3 px-4 mt-2 border font-bold"
-				on:click|preventDefault={max}
-				on:keydown={max}>Max ⚡️{s(balance)}</button
-			>
+			{#if !confirmed}
+				<button
+					type="button"
+					class="hover:opacity-80 bg-black text-white rounded-2xl py-3 px-4 mt-2 border font-bold"
+					on:click|preventDefault={setMax}
+					on:keydown={setMax}>Max ⚡️{s(balance)}</button
+				>
+			{/if}
 
 			<button
 				bind:this={submit}
@@ -68,8 +104,10 @@
 			>
 				{#if loading}
 					<Spinner />
-				{:else}
+				{:else if confirmed}
 					{$t('payments.send')}
+				{:else}
+					{$t('payments.next')}
 				{/if}
 			</button>
 		</div>
