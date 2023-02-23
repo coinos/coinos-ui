@@ -4,7 +4,7 @@
 		"pageNotFound": "La página no existe."
 	},
 	"about": {
-		"header": "Sobre",
+		"header": "Nosotros",
 		"p1": "coinos es una aplicación de código abierto para pagos con bitcoin. Su desarrollo comezó en Vancouver allá por Septiembre de 2012 como una solución para que comerciantes locales puedan aceptar pagos con bitcoin.",
 		"p3": "Si lo desea, puede descargar el código fuente de Coinos para ejecutar su propia instancia y tenerla conectada a sus propios nodos bitcoin y lightning. Estaremos encantados de ayudarle a en un proveedor de pagos y en un custodio benevolente para su comunidad.",
 		"p4": "Las transferencias entre cuentas de usuario en nuestro servidor son realizadas off-chain, esto hace que sean instantáneas, ilimitadas, y gratuitas.",
@@ -39,7 +39,7 @@
 			"john": {
 				"name": "John Barratt",
 				"position": "Desarrollador web Full Stack",
-				"bio": "Cuando no está programando, John puede ser encontrado en el bosque recorriendo todos los grandes senderos que Colombia Británica tiene para ofrecer."
+				"bio": "Cuando no está programando, John puede ser encontrado en el bosque recorriendo todos los grandes senderos que Columbia Británica tiene para ofrecer."
 			}
 		},
 		"locations": {
@@ -53,10 +53,10 @@
 		"signIn": "Por favor inicie sesión para continuar."
 	},
 	"faq": {
-		"header": "PMF",
+		"header": "Preguntas frecuentes",
 		"cost": {
 			"question": "Cuanto cuesta?",
-			"answer": "Coinos es gratis. No hay costos de registro ni mantenimiento. Puede enviar y recibir pagos de forma ilimitada por medio de Lightning Network sin costo alguno. Sin embargo, si quieres tus fondos hacia  una dirección de bitcoin on-chain existe una tarifa del 0,1%."
+			"answer": "Coinos es gratis. No hay costos de registro ni mantenimiento. Puede enviar y recibir pagos de forma ilimitada por medio de Lightning Network sin costo alguno. Sin embargo, si quieres enviar tus fondos hacia una dirección de bitcoin on-chain existe una tarifa del 0,1%."
 		},
 		"compatibility": {
 			"question": "Necesito un dispositivo o software especial?",
