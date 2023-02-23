@@ -10,9 +10,9 @@
 	type="range"
 	{min}
 	{max}
- bind:value={value}
+	bind:value
 	class="px-0 py-0 my-5"
-	style="--bgPercent: {(value - min) * 100/(max - min)}%;"
+	style="--bgPercent: {((value - min) * 100) / (max - min)}%;"
 	on:input={handle}
 />
 

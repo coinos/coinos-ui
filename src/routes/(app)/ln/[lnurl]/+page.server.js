@@ -39,8 +39,9 @@ export const actions = {
 	withdraw: async ({ cookies, fetch, request }) => {
 		let error;
 
-		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } =
-			await fd(request);
+		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } = await fd(
+			request
+		);
 
 		minWithdrawable = Math.round(minWithdrawable / 1000);
 		maxWithdrawable = Math.round(maxWithdrawable / 1000);
