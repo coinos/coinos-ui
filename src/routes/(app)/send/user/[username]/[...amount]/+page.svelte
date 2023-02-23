@@ -16,9 +16,10 @@
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
-		amountFiat = amount * ($selectedRate / sats),
 		fiat = !amount,
 		hash;
+
+	$: amountFiat = amount * ($selectedRate / sats);
 
 	let setAmount = async () => {
 		amount = a;
