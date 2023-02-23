@@ -14,13 +14,8 @@ export const actions = {
 	default: async ({ cookies, params: { hash }, request }) => {
 		try {
 			let body = await fd(request);
-			let { confirmed } = body;
 			body.amount = parseInt(body.amount);
 			body.hash = hash;
-
-			if (!confirmed) {
-				return fail(400, { amount, confirm: true });
-			}
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {
