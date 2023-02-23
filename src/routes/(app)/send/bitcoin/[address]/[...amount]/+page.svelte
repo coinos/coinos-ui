@@ -2,7 +2,7 @@
 	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
-	import { Slider, Icon, Numpad, Spinner } from '$comp';
+	import { Toggle, Slider, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
 	import { fiat as af, f, back, s, sat } from '$lib/utils';
 	import { pin, selectedRate } from '$lib/store';
@@ -12,7 +12,7 @@
 
 	let { address, amount } = $page.params;
 	let { balance, currency } = data.user;
-	let loading, submit, fiat, confirmed, feeRate, min, max, fee, stale;
+	let loading, submit, fiat, confirmed, feeRate, min, max, fee, stale, subtract;
 
 	let toggle = () => (loading = true);
 
@@ -20,7 +20,7 @@
 	let update = () => {
 		loading = false;
 		if (form?.message?.includes('pin')) $pin = undefined;
-		if (form) ({ min, max, feeRate, fee } = form);
+		if (form) ({ min, max, feeRate, fee, subtract } = form);
 		if (feeRate) confirmed = true;
 		stale = false;
 	};
@@ -28,7 +28,10 @@
 	let setMax = () => {
 		fiat = false;
 		amount = balance;
+		subtract = true;
 	};
+
+	$: if (amount + fee > balance) subtract = true;
 
 	let timeout;
 	let handle = (e) => {
@@ -83,12 +86,19 @@
 		<input name="confirmed" value={confirmed} type="hidden" />
 		<input name="feeRate" value={feeRate} type="hidden" />
 		<input name="stale" value={stale} type="hidden" />
+		<input name="subtract" value={subtract} type="hidden" />
 
 		{#if confirmed}
-			<div class="relative mb-5">
+			<div class="relative mt-10 mb-20">
 				<div class="absolute top-5 left-0 text-secondary">Slower (~40 blocks)</div>
 				<div class="absolute top-5 right-0 text-secondary">Faster (~1 block)</div>
 				<Slider bind:value={feeRate} {handle} {min} {max} />
+			</div>
+			<div class="flex justify-center gap-2 mb-10">
+				<div class="my-auto">
+					<Toggle id="subtract" checked={subtract} bind:value={subtract} />
+				</div>
+				<label for="subtract" class="text-secondary text-lg my-auto mb-2">taken from amount</label>
 			</div>
 		{/if}
 
