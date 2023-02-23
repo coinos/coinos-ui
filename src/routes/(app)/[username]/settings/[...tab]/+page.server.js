@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { auth, get, post } from '$lib/utils';
+import { fd, auth, get, post } from '$lib/utils';
 
 export function load({ params, url }) {
 	if (url.pathname.endsWith('settings')) throw redirect(307, url.pathname + '/account');
@@ -8,7 +8,7 @@ export function load({ params, url }) {
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let form = Object.fromEntries(await request.formData());
+		let form = await fd(request);
 		form.prompt = form.prompt === 'on';
 		let user = { ...(await get('/me', auth(cookies))), ...form };
 

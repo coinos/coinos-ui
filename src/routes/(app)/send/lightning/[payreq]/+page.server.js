@@ -7,12 +7,12 @@ export async function load({ params }) {
 
 export const actions = {
 	setAmount: async ({ cookies, request }) => {
-		return Object.fromEntries(await request.formData());
+		return await fd(request);
 	},
 
 	send: async ({ cookies, request }) => {
 		try {
-			let body = Object.fromEntries(await request.formData());
+			let body = await fd(request);
 			let { amount, confirmed } = body;
 
 			if (!confirmed) {
