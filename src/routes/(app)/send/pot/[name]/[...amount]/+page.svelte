@@ -16,7 +16,7 @@
 	let submit = () => (loading = true);
 	$: update(form);
 	let update = () => {
-		if (form?.message.includes('pin')) $pin = undefined;
+		if (form?.message?.includes('pin')) $pin = undefined;
 		loading = false;
 	};
 </script>

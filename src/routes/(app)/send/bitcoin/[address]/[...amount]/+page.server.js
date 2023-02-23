@@ -23,7 +23,7 @@ export const actions = {
 			seen[ts] = 1;
 			setTimeout(() => delete seen[ts], 30000);
 
-			await post('/bitcoin/send', { pin, tx }, auth(cookies));
+			await post('/bitcoin/send', { pin, subtract, tx }, auth(cookies));
 		} catch (e) {
 			return fail(400, { message: e.message });
 		}

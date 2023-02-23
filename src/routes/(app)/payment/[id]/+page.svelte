@@ -8,7 +8,7 @@
 	export let data;
 	let { user, payment: p } = data;
 	let { username } = user;
-	let { id, amount, created, rate, type, ref, ourfee, fee, currency } = p;
+	let { id, amount, created, rate, type, ref, tip, ourfee, fee, currency } = p;
 	let a = Math.abs(amount);
 
 	fee = fee || 0;
@@ -26,12 +26,14 @@
 	{#if p.with}
 		<div>
 			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
+      <a href={`/${p.with.username}`}>
 			<div class="flex">
 				<div class="my-auto">
 					<Avatar user={p.with} size={20} />
 				</div>
-				<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
+				<div class="my-auto ml-1">{p.with.username}</div>
 			</div>
+      </a>
 		</div>
 	{/if}
 
@@ -39,7 +41,19 @@
 		<span class="text-lg text-secondary">Amount</span>
 		<div>
 			{f(fiat(a, rate), currency)}
-			<span class="text-secondary">⚡️{`${s(a)}`}</span>
+			{#if tip}
+        <span class="text-lg">
+				+ {f(fiat(tip, rate), currency)}
+        </span>
+			{/if}
+      <span class="text-secondary">⚡️{`${s(a)}`}
+      
+			{#if tip}
+        <span class="text-lg">
+				+ ⚡️{s(tip)}
+        </span>
+			{/if}
+      </span>
 		</div>
 	</div>
 
