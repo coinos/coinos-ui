@@ -175,3 +175,13 @@
 		placeholder={$t('user.settings.aboutPlaceholder')}
 	/>
 </div>
+
+<div>
+	<label for="pubkey" class="font-bold mb-1 block">{$t('user.settings.pubkey')}</label>
+	<textarea
+		type="text"
+		name="pubkey"
+		bind:value={user.pubkey}
+		placeholder={$t('user.settings.pubkeyPlaceholder')}
+	/>
+</div>
