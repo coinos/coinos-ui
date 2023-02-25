@@ -13,9 +13,10 @@
 	let { alias } = data;
 
 	let { currency } = data.user;
-	let amount = form?.amount || data.amount;
 	let a;
 	let maxfee = 100;
+
+	$: amount = form?.amount || data.amount;
 
 	let loading;
 	let submit = () => (loading = true);
@@ -53,7 +54,6 @@
 		<form method="POST" use:enhance on:submit={submit} action="?/send" class="space-y-5">
 			<input name="payreq" value={payreq} type="hidden" />
 			<input name="amount" value={amount} type="hidden" />
-			<input name="confirmed" value={form?.confirm} type="hidden" />
 			<input name="pin" value={$pin} type="hidden" />
 			<input name="maxfee" value={maxfee} type="hidden" />
 

@@ -6,8 +6,8 @@
 	"about": {
 		"header": "À Propos",
 		"p1": "<strong>coinos</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
-		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation avec le but de rendre commencer utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
-		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenu par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installalons pour vous avec plaisir.",
+		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation dans le but de pouvoir utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
+		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenue par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installerons pour vous avec plaisir.",
 		"locations": {
 			"header": "Établissements",
 			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
@@ -17,12 +17,12 @@
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Officier Technique Principal",
-				"bio": "Adam est programmeur de web et passionné de bitcoin.  Il croit que l'argent sûr est clé à augmenter la prospérité planétaire.  Il habite en Vancouver de Nord avec sa femme Chelsea et deux enfants."
+				"bio": "Adam est développeur web et passionné de bitcoin.  Il croit que l'argent sûr est la clé pour augmenter la prospérité planétaire.  Il habite en Vancouver de Nord avec sa femme Chelsea et deux enfants."
 			},
 			"secondl1ght": {
 				"name": "secondl1ght",
-				"position": "Programmeur de Web",
-				"bio": "Secondl1ght est un programmeur de web autodidacte.  Il a découvert bitcoin et quitté son job de monnaie fiduciaire pour développer bitcoin à temps plein.  Il contribue aux projets open source, est défenseur d'intimité, et il aime la liberté."
+				"position": "Développeur Web",
+				"bio": "Secondl1ght est un développeur web autodidacte.  Il a découvert bitcoin et quitté son job de monnaie fiduciaire pour développer bitcoin à temps plein.  Il contribue aux projets open source, est défenseur de la vie privée, et il aime la liberté."
 			},
 			"karnage": {
 				"name": "Karnage",
@@ -32,7 +32,7 @@
 			"shauna": {
 				"name": "Shauna",
 				"position": "Gestion & Marketing",
-				"bio": "Gestion de projets et strategie.  Touche-à-tout.  Peux toujours trouver le temps pour racontrer pour café."
+				"bio": "Gestion de projets et strategie.  Touche-à-tout.  Peut toujours trouver le temps pour racontrer pour café."
 			},
 			"cole": {
 				"name": "Cole Goodwin",
@@ -41,8 +41,8 @@
 			},
 			"john": {
 				"name": "John Barratt",
-				"position": "Programmeur de Web Full-Stack",
-				"bio": "Quand il ne programme pas, vous pouvez trouver John au forêt randonnant au bonnes sentiers de Colombie-Britannique."
+				"position": "Développeur Web Full-Stack",
+				"bio": "Quand il ne programme pas, vous pouvez trouver John en forêt randonnant sur les sentiers de Colombie-Britannique."
 			}
 		}
 	},
@@ -54,16 +54,16 @@
 	"faq": {
 		"header": "FAQ",
 		"cost": {
-			"question": "Qu'est-ce que c'est le coût?",
-			"answer": "coinos est gratuit à utiliser. Vous seulment payez un prix 1% quand vous convertez vos fonds entre bitcoin, Liquid et Lightning. Comparez-ça à les frais de dossir typiques 3% des cartes credit."
+			"question": "Quel est le coût?",
+			"answer": "coinos est gratuit à utiliser. Vous payez seulment 1% quand vous convertissez vos fonds entre bitcoin, Liquid et Lightning. Comparez-ça aux frais typiques 3% des cartes de crédit."
 		},
 		"compatibility": {
-			"question": "Est-ce que j'ai besoin du logiciel ou appareil special?",
-			"answer": "Non. coinos est un site Web, alors vous pouvez l'utiliser sur n'importe quelle appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
+			"question": "Est-ce que j'ai besoin de logiciel ou d'appareil special ?",
+			"answer": "Non. coinos est un site Web, vous pouvez donc l'utiliser sur n'importe quel appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
 		},
 		"safety": {
-			"question": "Sont mes fonds saufs?",
-			"answer": "Vos fonds sont entreposés en notre serveur sécurisé, mais nous recommendons que vous les retirez à votre propre entreposage pour les sauvegarder à long terme."
+			"question": "Sont mes fonds saufs ?",
+			"answer": "Vos fonds sont entreposés sur notre serveur sécurisé, mais nous recommandons que vous les retiriez vers votre propre entreposage pour les sauvegarder à long terme."
 		}
 	},
 	"footer": {
@@ -77,10 +77,10 @@
 		"news": "Nouvelles"
 	},
 	"howItWorks": {
-		"header": "Comment Elle Fonctionne",
+		"header": "Comment cela Fonctionne",
 		"step1": {
-			"header": "1. Crée votre compte",
-			"description": "Un nom d'utilateur et mot de passe est tout qui est besoin pour commencer."
+			"header": "1. Créez votre compte",
+			"description": "Un nom d'utilateur et mot de passe est tout ce dont vous avez besoin pour commencer."
 		},
 		"step2": {
 			"header": "2. Demande pour des paiements",
@@ -88,46 +88,46 @@
 		},
 		"step3": {
 			"header": "3. C'est tout!",
-			"description": "Vous pouvez convertir au monnaie local n'importe quand."
+			"description": "Vous pouvez convertir en monnaie local n'importe quand."
 		}
 	},
 	"landing": {
 		"header_before_icon": "Le",
 		"header_with_icon": "façon",
-		"header_after_icon": "le plus façile d'accepter bitcoin en votre magasin.",
-		"subheader": "Aggrandir votre clientèle et chiffre d'affaires par accepter bitcoin avec un point de vente façile à utiliser et dirigé. Logiciel et matériel informatique non obligatoire.",
+		"header_after_icon": "le plus façile d'accepter bitcoin dans votre magasin.",
+		"subheader": "Agrandir votre clientèle et chiffre d'affaires en acceptant bitcoin avec un point de vente façile à utiliser et géré. Logiciel et matériel informatique non obligatoire.",
 		"info1": {
-			"title": "Paiements instants avec Lightning",
-			"description": "Le moment que votre client envoie un paiment, c'est la. Vous ne devez pas attendre pour les décisions de banques ou vous inquieter pour des rejets de débit. Décisions instant, en secondes. Dis au revoir aux frais de dossir 3% des cartes de crédit."
+			"title": "Paiements instantanés avec Lightning",
+			"description": "Le moment où votre client envoie un paiment, c'est là. Vous ne devez pas attendre les décisions des banques ou vous inquiéter pour des rejets de débit. Décisions instantanées, en secondes. Dites au revoir aux frais de transactions de 3% des cartes de crédit."
 		},
 		"info2": {
 			"title": "Simple à utiliser, en garde par défaut",
 			"description1": "Juste entrer une quantité, partager le code QR et c'est tout!",
-			"description2": "Tes contes sont en garde par défaut, qui élimine le nécessité de comprendre comment bitcoin/lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous pouvez vous concentrer sur votre entreprise.",
-			"description3": "Vous toujours avez l'option de <span class=\"underline undeline-offset-4\">prendre garde</span> de vos clés."
+			"description2": "Tes comptes sont en garde par défaut, qui élimine le nécessité de comprendre comment bitcoin/lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous puissiez vous concentrer sur votre entreprise.",
+			"description3": "Vous avez toujours l'option de <span class=\"underline undeline-offset-4\">gérer</span> vos clés."
 		},
 		"info3": {
-			"title": "Personalise-le comment vous voulez",
-			"description": "Personalisez votre point de vente, ou rettenez-le au défaut - c'est votre chois."
+			"title": "Personalisez-le comme vous voulez",
+			"description": "Personalisez votre point de vente, ou utilisez les réglages par défaut - c'est votre chois."
 		}
 	},
 	"login": {
 		"username": "Nom d'utilisateur",
 		"password": "Mot de passe",
 		"email": "Courriel",
-		"passwordRecommendation": "Nous recommendons un mot de passe long et au hazard, généré par un gestionnaire de mots de passe.",
-		"forgotUserOrPassword": "Oublié ton nom d'utilisateur ou mot de passe?",
-		"haveAccount": "Avez-vous déjà une conte?",
-		"noAccount": "N'avez-vous pas un conte?",
+		"passwordRecommendation": "Nous recommendons un mot de passe long et aléatoire, généré par un gestionnaire de mots de passe.",
+		"forgotUserOrPassword": "Oublié votre nom d'utilisateur ou mot de passe ?",
+		"haveAccount": "Avez-vous déjà un compte ?",
+		"noAccount": "Pas encore de compte ?",
 		"register": "Enregistrer",
 		"signIn": "Connexion",
-		"failed": "Connexion failli",
+		"failed": "Echec de Connexion",
 		"optional": "Optionnel",
-		"token": "Jeton A2F"
+		"token": "Jeton 2FA"
 	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
-		"account": "Conte",
+		"account": "Compte",
 		"signIn": "Connexion",
 		"signOut": "Déconnexion",
 		"dashboard": "Tableau de bord",
@@ -135,7 +135,7 @@
 		"support": "Assistance",
 		"profile": "Profil"
 	},
-	"newSiteHeader": "Bienvenue à la <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">coinos nouvelle et amélioré</a>, concentré au marchants! Cherchez pour le dernier coinos? Visitez <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
+	"newSiteHeader": "Bienvenue sur <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">coinos nouveau et amélioré</a>, focalisé sur les marchants! Vous cherchez l'ancien coinos? Visitez <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
 		"addTipq": "Ajouter un pourboire?",
@@ -161,7 +161,7 @@
 			"dashboard": "Tableau de bord",
 			"accountBalance": "Solde",
 			"bitcoinPrice": "Prix de bitcoin:",
-			"conversionFeeWarning": "Il y a un prix de 1% pour convertir entre bitcoin, Liquid et Lightning.",
+			"conversionFeeWarning": "Il y a des frais de 1% pour convertir entre bitcoin, Liquid et Lightning.",
 			"dataFromBinance": "Données de <span class=\"text-black\">Binance</span>.",
 			"fetchingRate": "cherchant taut de change...",
 			"optionalNote": "Note (optionel)",
@@ -174,21 +174,21 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
-			"showQR": "Voire QR"
+			"showQR": "Voire le QR code"
 		},
 		"settings": {
 			"header": "Préférences",
-			"ACCOUNT": "CONTE",
+			"ACCOUNT": "COMPTE",
 			"POINT_OF_SALE": "POINT DE VENTE",
 			"SECURITY": "SÉCURITÉ",
 			"locale": "Langue",
 			"username": "Nom d'Utilisateur",
 			"email": "Courriel",
-			"newPassword": "Mot de Passe Nouveau",
+			"newPassword": "Nouveau Mot de Passe",
 			"emailNotifications": "Notifications par Courriel",
-			"emailNotificationsDescription": "Nous pouvons vous notifier par courriel quand votre conte change ou quand vous recevez des paiements",
+			"emailNotificationsDescription": "Nous pouvons vous notifier par courriel quand votre compte change ou quand vous recevez des paiements",
 			"smsNotifications": "Notifications par SMS",
-			"smsNotificationsDescription": "Nous vous envoyons des notifications par texte quand ceci est activé",
+			"smsNotificationsDescription": "Nous vous envoyons des notifications par texte quand c'est activé",
 			"theme": "Thème",
 			"themeDescription": "Sélectionnez des thèmes dèfauts.",
 			"localCurrency": "Monnaie Local",
@@ -263,13 +263,13 @@
 		"export": "Exportez",
 		"invoice": "Facture",
 		"readyToPay": "est prêt à payer",
-		"describeOrder": "Utilizer ce champ pour décrire votre commande",
+		"describeOrder": "Utiliser ce champ pour décrire votre commande",
 		"requestAnInvoice": "Demandez une facture",
 		"submit": "Soumettre",
 		"isRequesting": "demande",
 		"invoiceFrom": "Facture de",
 		"awaiting": "Attendez pour",
-		"tapAnywhere": "Tapez partout",
+		"tapAnywhere": "Tapez n'importe où",
 		"from": "de",
 		"redeem": "Échangez",
 		"redeemed": "Déjà échangé",

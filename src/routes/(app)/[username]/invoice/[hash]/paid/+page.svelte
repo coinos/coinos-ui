@@ -4,7 +4,7 @@
 	import { toast } from '@zerodevx/svelte-toast';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { f, s, sat, sats } from '$lib/utils';
+	import { fiat, f, s, sat, sats } from '$lib/utils';
 	import { goto } from '$app/navigation';
 
 	export let data;
@@ -12,10 +12,6 @@
 	$: data && ({ amount, currency, rate, received, pending, tip, user, id } = data.invoice);
 
 	toast.pop(0);
-
-	$: amountFiat = parseFloat((((received - tip) * rate) / sats).toFixed(2));
-	$: pendingFiat = parseFloat((((pending - tip) * rate) / sats).toFixed(2));
-	$: tipFiat = parseFloat(((tip * rate) / sats).toFixed(2));
 </script>
 
 <div class="container px-4 text-center mx-auto">
@@ -25,15 +21,20 @@
 	{#if received}
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
-			{f(amountFiat, currency)}
+			{f(fiat(received - tip, rate), currency)}
 			{#if tip}
-				+ {f(tipFiat, currency)}
+				<span class="text-lg">
+					+ {f(fiat(tip, rate), currency)}
+				</span>
 			{/if}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">
-			{sat(received - tip)}
+			⚡️{s(received - tip)}
+
 			{#if tip}
-				+{sat(tip)}
+				<span class="text-lg">
+					+ ⚡️{s(tip)}
+				</span>
 			{/if}
 		</h3>
 	{/if}
@@ -41,15 +42,17 @@
 	{#if pending}
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
-			{f(pendingFiat, currency)}
+			{f(fiat(pending, rate), currency)}
 			{#if tip}
-				+ {f(tipFiat, currency)}
+				+ {f(fiat(tip, rate), currency)}
 			{/if}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">
-			{sat(pending - tip)}
+			⚡️{s(pending - tip)}
 			{#if tip}
-				+{sat(tip)}
+				<span class="text-lg">
+					+ ⚡️{s(tip)}
+				</span>
 			{/if}
 		</h3>
 	{/if}

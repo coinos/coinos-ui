@@ -1,5 +1,5 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { btc as asset, auth, get, post } from '$lib/utils';
+import { fd, btc as asset, auth, get, post } from '$lib/utils';
 
 export async function load({ params, parent }) {
 	let { user } = await parent();
@@ -12,13 +12,9 @@ export async function load({ params, parent }) {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		try {
-			let body = Object.fromEntries(await request.formData());
-			let { amount, confirmed } = body;
+			let body = await fd(request);
+			let { amount } = body;
 			amount = parseInt(amount);
-
-			if (!confirmed) {
-				return fail(400, { amount, confirm: true });
-			}
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {

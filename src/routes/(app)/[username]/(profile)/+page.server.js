@@ -5,7 +5,7 @@ export async function load({ cookies, params, parent, url }) {
 	let { pubkey } = subject;
 	let { since = 0 } = params;
 
-  let messages, invoices, sent, received;
+	let messages, invoices, sent, received;
 	messages = invoices = sent = received = [];
 
 	if (user) {

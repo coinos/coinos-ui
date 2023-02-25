@@ -148,6 +148,12 @@ export const login = async (user, cookies) => {
 export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
 
 export const fiat = (amount, rate) => (amount * rate) / sats;
+export const fd = async (req) => {
+	let obj = Object.fromEntries(await req.formData());
+	for (let k in obj)
+		(obj[k] === 'undefined' && (obj[k] = undefined)) || (obj[k] === 'false' && (obj[k] = false));
+	return obj;
+};
 
 export const f = (s, currency) =>
 	new Intl.NumberFormat('en-US', {

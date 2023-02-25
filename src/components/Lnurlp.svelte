@@ -8,7 +8,7 @@
 	let { currency } = data.user;
 	let { minSendable, maxSendable, callback, metadata } = data;
 
-	let amount = minSendable,
+	let amount = Math.round(minSendable / 1000),
 		loading;
 	let submit = () => (loading = true);
 </script>
