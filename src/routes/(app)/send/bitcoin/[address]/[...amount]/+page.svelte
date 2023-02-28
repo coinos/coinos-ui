@@ -22,7 +22,7 @@
 		loading = false;
 		if (form?.message?.includes('pin')) $pin = undefined;
 		if (form) ({ min, max, feeRate, fee, ourfee, subtract } = form);
-    if (!ourfee) ourfee = 0;
+		if (!ourfee) ourfee = 0;
 		if (feeRate) confirmed = true;
 		stale = false;
 	};
@@ -77,7 +77,9 @@
 					{f(toFiat(fee + ourfee, $selectedRate), currency)}
 				</h2>
 				<h3 class="text-secondary mb-6 mt-1">⚡️{s(fee + ourfee)}</h3>
-        <button class="absolute right-1/4 top-0 text-secondary p-4" on:click={toggleAdjusting}><Icon icon="settings" style="opacity-30" /></button>
+				<button class="absolute right-1/4 top-0 text-secondary p-4" on:click={toggleAdjusting}
+					><Icon icon="settings" style="opacity-30" /></button
+				>
 			</div>
 		</div>
 	{:else}
@@ -104,7 +106,9 @@
 				<div class="my-auto">
 					<Toggle id="subtract" checked={subtract} bind:value={subtract} />
 				</div>
-				<label for="subtract" class="text-secondary text-lg my-auto mb-2">Take fee from amount</label>
+				<label for="subtract" class="text-secondary text-lg my-auto mb-2"
+					>Take fee from amount</label
+				>
 			</div>
 		{/if}
 

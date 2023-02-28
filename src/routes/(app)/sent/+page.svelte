@@ -7,7 +7,7 @@
 
 	export let data;
 	let { payments, user } = data;
-  let { currency, username } = user;
+	let { currency, username } = user;
 
 	let payment = payments[0];
 	let { amount, rate, tip } = payment;
