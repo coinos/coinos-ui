@@ -1,3 +1,4 @@
+export { default as Code } from './Code.svelte';
 export { default as Slider } from './Slider.svelte';
 export { default as Pinpad } from './Pinpad.svelte';
 export { default as Balance } from './Balance.svelte';
