@@ -1,17 +1,67 @@
-Coming soon
-<!-- <h1>API Examples</h1> -->
-<!-- <pre><code class="whitespace-pre-wrap" -->
-<!-- 		>{` -->
-<!-- api="https://coinos.io/api" -->
-<!-- json="Content-Type: application/json" -->
-<!--  -->
-<!-- username=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) -->
-<!-- password="pw" -->
-<!--  -->
-<!-- echo Create user $username with password $password -->
-<!-- curl -s "$api/register" -H "$json" -d '{"user": {"username": "'$username'", "password": "'$password'", "confirm": "'$password'"}}' > /dev/null -->
-<!-- echo "" -->
-<!--  -->
+<script>
+	import { Code, Icon } from '$comp';
+	export let data;
+	let { token } = data;
+</script>
+
+<div class="space-y-8 text-xl mt-20">
+	<h1 class="text-4xl">API Documentation</h1>
+
+	<p class="text-secondary">
+		Coinos has a simple REST API that can be used to register accounts, fetch data, and make
+		payments
+	</p>
+
+	<p class="text-secondary">* = required parameter</p>
+
+	<h2 class="text-2xl">Base URL</h2>
+	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
+		<div>https://coinos.io/api</div>
+		<div class="ml-auto my-auto invert opacity-90"><Icon icon="copy" style="w-8" /></div>
+	</div>
+
+	<h2 class="text-2xl">Auth Token</h2>
+	<p class="text-secondary">This JWT authorizes you to use the API</p>
+	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
+		<div class="w-full break-all">export token="{token}"</div>
+		<div class="ml-auto my-auto invert opacity-90"><Icon icon="copy" style="w-8" /></div>
+	</div>
+
+	<h2 class="text-2xl">POST /register</h2>
+	<p class="text-secondary">Register a new user account with a username and password</p>
+	<Code sample="register" />
+
+	<h2 class="text-2xl">POST /login</h2>
+	<p class="text-secondary">Login to an account to get its auth token</p>
+	<Code sample="login" />
+
+	<h2 class="text-2xl">POST /invoice</h2>
+	<p class="text-secondary">Create an invoice.</p>
+	<div>
+		<div class="text-secondary">
+			<span class="font-mono font-bold">type</span>: bitcoin or lightning
+		</div>
+		<div class="text-secondary">
+			<span class="font-mono font-bold">amount</span>: integer satoshis (optional)
+		</div>
+		<div class="text-secondary">
+			<span class="font-mono font-bold">webhook</span>: a URL that we'll POST to when the invoice is
+			paid (optional)
+		</div>
+		<div class="text-secondary">
+			<span class="font-mono font-bold">secret</span>: a secret to send with the POST (optional)
+		</div>
+	</div>
+
+	<Code sample="invoice" />
+
+	<h2 class="text-2xl">GET /invoice/:hash</h2>
+	<p class="text-secondary">
+		Fetch an invoice by passing a bitcoin address or lightning payment hash
+	</p>
+	<Code sample="fetchInvoice" />
+</div>
+
 <!-- echo Login and get an API token -->
 <!-- token=$(curl -s "$api/taboggan" -H "$json" -d '{"username": "'$username'", "password": "'$password'"}' | jq -r .token) -->
 <!-- echo $token -->
@@ -73,5 +123,4 @@ Coming soon
 <!--  -->
 <!-- curl -s "$api/bitcoin/send" -H "$json" -H "$auth" -d '{"address": "bc1qqc9azhdjjpdxenrndt8cw4tw9del5pyrjn0wln", "tx": { "hex": "'$hex'", "fee": "'$fee'" }}' | jq -r '{ amount, fee, balance: (.account.balance)}' -->
 <!-- echo "" -->
-<!-- `}</code -->
-<!-- 	></pre> -->
+<!-- `} -->
