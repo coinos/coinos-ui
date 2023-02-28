@@ -26,14 +26,14 @@
 	{#if p.with}
 		<div>
 			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
-      <a href={`/${p.with.username}`}>
-			<div class="flex">
-				<div class="my-auto">
-					<Avatar user={p.with} size={20} />
+			<a href={`/${p.with.username}`}>
+				<div class="flex">
+					<div class="my-auto">
+						<Avatar user={p.with} size={20} />
+					</div>
+					<div class="my-auto ml-1">{p.with.username}</div>
 				</div>
-				<div class="my-auto ml-1">{p.with.username}</div>
-			</div>
-      </a>
+			</a>
 		</div>
 	{/if}
 
@@ -42,18 +42,19 @@
 		<div>
 			{f(fiat(a, rate), currency)}
 			{#if tip}
-        <span class="text-lg">
-				+ {f(fiat(tip, rate), currency)}
-        </span>
+				<span class="text-lg">
+					+ {f(fiat(tip, rate), currency)}
+				</span>
 			{/if}
-      <span class="text-secondary">⚡️{`${s(a)}`}
-      
-			{#if tip}
-        <span class="text-lg">
-				+ ⚡️{s(tip)}
-        </span>
-			{/if}
-      </span>
+			<span class="text-secondary"
+				>⚡️{`${s(a)}`}
+
+				{#if tip}
+					<span class="text-lg">
+						+ ⚡️{s(tip)}
+					</span>
+				{/if}
+			</span>
 		</div>
 	</div>
 

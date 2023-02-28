@@ -7,7 +7,6 @@
 	import { last } from '$lib/store';
 	import { Avatar, Icon, Heart, Image } from '$comp';
 	import { t } from '$lib/translations';
-	import screenfull from 'screenfull';
 	import { goto, invalidate } from '$app/navigation';
 
 	export let data;
@@ -67,14 +66,6 @@
 	$: link = type === 'bitcoin' ? text : `lightning:${text}`;
 	$: txt = type === 'bitcoin' ? hash : text;
 
-	let full;
-	let toggle = () => {
-		screenfull.toggle(qr);
-		full = !full;
-		if (full) src = lg;
-		else src = sm;
-	};
-
 	let toggleType = async () => {
 		invoice.type = invoice.type === types.lightning ? types.bitcoin : types.lightning;
 		({ hash } = await post(`/${username}/invoice`, {
@@ -111,21 +102,18 @@
 			<div class="my-auto">Bitcoin</div>
 		</button>
 	</div>
-	<div class="relative flex">
-		<div class="flex mx-auto w-[360px] h-[360px]">
-			<img
-				{src}
-				class:p-4={full}
-				class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]"
-				bind:this={qr}
-				on:click={toggle}
-				on:keydown={toggle}
-				alt={txt}
-			/>
-		</div>
-		<div
-			class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"
-		/>
+
+	<div>
+		<a href={invoice.type === 'bitcoin' ? invoice.text : 'lightning:' + invoice.text}>
+			<div class="relative flex">
+				<div class="flex mx-auto w-[360px] h-[360px]">
+					<img {src} class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]" bind:this={qr} alt={txt} />
+				</div>
+				<div
+					class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"
+				/>
+			</div>
+		</a>
 	</div>
 
 	{#if amount > 0}
