@@ -31,11 +31,11 @@
 	],
 	"protocol_handlers": [
 		{
-			"protocol": "lightning",
+			"protocol": "web+lightning",
 			"url": "/send/%s"
 		},
 		{
-			"protocol": "bitcoin",
+			"protocol": "web+bitcoin",
 			"url": "/send/%s"
 		}
 	]
