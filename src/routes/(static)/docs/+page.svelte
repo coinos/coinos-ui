@@ -1,10 +1,16 @@
 <script>
+	import { copy } from '$lib/utils';
 	import { Code, Icon } from '$comp';
+	import { PUBLIC_COINOS_URL } from '$env/static/public';
 	export let data;
 	let { token } = data;
+	let api = PUBLIC_COINOS_URL + '/api';
+
+	if (!token) token = '<login to see your token here>';
+  let tokenSample = `export token="${token}"`;
 </script>
 
-<div class="space-y-8 text-xl mt-20">
+<div class="space-y-8 lg:text-xl mt-20 w-full max-w-full">
 	<h1 class="text-4xl">API Documentation</h1>
 
 	<p class="text-secondary">
@@ -16,15 +22,19 @@
 
 	<h2 class="text-2xl">Base URL</h2>
 	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
-		<div>https://coinos.io/api</div>
-		<div class="ml-auto my-auto invert opacity-90"><Icon icon="copy" style="w-8" /></div>
+		<div>{api}</div>
+		<button class="ml-auto my-auto invert opacity-90" on:click={() => copy(api)}
+			><Icon icon="copy" style="w-10 max-w-none" /></button
+		>
 	</div>
 
 	<h2 class="text-2xl">Auth Token</h2>
 	<p class="text-secondary">This JWT authorizes you to use the API</p>
 	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
-		<div class="w-full break-all">export token="{token}"</div>
-		<div class="ml-auto my-auto invert opacity-90"><Icon icon="copy" style="w-8" /></div>
+    <div class="w-full break-all">{tokenSample}</div>
+    <button class="ml-auto my-auto invert opacity-90" on:click={() => copy(tokenSample)}
+			><Icon icon="copy" style="w-10 max-w-none" /></button
+		>
 	</div>
 
 	<h2 class="text-2xl">POST /register</h2>
@@ -42,17 +52,17 @@
 			<span class="font-mono font-bold">type</span>: bitcoin or lightning
 		</div>
 		<div class="text-secondary">
-			<span class="font-mono font-bold">amount</span>: integer satoshis (optional)
+			<span class="font-mono font-bold">amount</span>: amount in satoshis
 		</div>
 		<div class="text-secondary">
-			<span class="font-mono font-bold">webhook</span>: a URL that we'll POST to when the invoice is
-			paid (optional)
+			<span class="font-mono font-bold">webhook</span>: an endpoint to hit when the invoice is paid
 		</div>
 		<div class="text-secondary">
-			<span class="font-mono font-bold">secret</span>: a secret to send with the POST (optional)
+			<span class="font-mono font-bold">secret</span>: a secret string for the webhook to check
 		</div>
 	</div>
 
+	hey
 	<Code sample="invoice" />
 
 	<h2 class="text-2xl">GET /invoice/:hash</h2>
@@ -123,4 +133,5 @@
 <!--  -->
 <!-- curl -s "$api/bitcoin/send" -H "$json" -H "$auth" -d '{"address": "bc1qqc9azhdjjpdxenrndt8cw4tw9del5pyrjn0wln", "tx": { "hex": "'$hex'", "fee": "'$fee'" }}' | jq -r '{ amount, fee, balance: (.account.balance)}' -->
 <!-- echo "" -->
+
 <!-- `} -->
