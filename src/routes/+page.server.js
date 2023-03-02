@@ -1,6 +1,6 @@
 import { get } from '$lib/utils';
 
-export const prerender = true;
+// export const prerender = true;
 export let load = async () => {
 	let data = { locations: [] };
 
