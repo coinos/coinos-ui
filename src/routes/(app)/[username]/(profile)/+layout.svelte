@@ -4,7 +4,6 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
-	import { v4 } from 'uuid';
 
 	export let data;
 	let events, user, subject, src, text;

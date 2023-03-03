@@ -7,7 +7,6 @@
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 	import { events } from '$lib/store';
-	import { v4 } from 'uuid';
 
 	export let data;
 	$: ({ invoices, requests } = data);

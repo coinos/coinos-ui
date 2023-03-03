@@ -1,5 +1,5 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { fd, btc as asset, auth, get, post } from '$lib/utils';
+import { fd, auth, get, post } from '$lib/utils';
 
 export async function load({ params: { id }, parent }) {
 	let { user } = await parent();

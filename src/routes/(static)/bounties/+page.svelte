@@ -54,7 +54,7 @@
 	<p>
 		<b>⚡️750,000</b> will be awarded once the merchant has accepted bitcoin for 6 months. We'll be
 		sending
-		<a href="https://btcmap.org/leaderboard" class="text-black hover:underline" target="_blank"
+		<a href="https://btcmap.org/leaderboard" class="text-black hover:underline" target="_blank" rel="noreferrer"
 			>shadowy supertaggers</a
 		> to check up on them periodically.
 	</p>

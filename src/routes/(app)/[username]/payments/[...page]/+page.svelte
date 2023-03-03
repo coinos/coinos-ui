@@ -1,7 +1,7 @@
 <script>
 	import { Avatar, Icon } from '$comp';
 	import { onMount } from 'svelte';
-	import { format, parseISO } from 'date-fns';
+	import { format } from 'date-fns';
 	import { newPayment, payments } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { get, f, s, sat, sats } from '$lib/utils';

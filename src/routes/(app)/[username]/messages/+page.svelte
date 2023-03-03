@@ -2,7 +2,7 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
-	import { format, parseISO } from 'date-fns';
+	import { format } from 'date-fns';
 	import { scale, fade, fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon } from '$comp';
@@ -68,7 +68,6 @@
 		event.message = message;
 
 		message = '';
-		input.focus();
 
 		event.author = user;
 		event.recipient = subject;
@@ -92,9 +91,16 @@
 		message = '';
 		submitting = false;
 	};
+
+	let keydown = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			submit();
+		}
+	};
 </script>
 
-<div class="container max-w-xl mx-auto px-4">
+<div class="container max-w-xl mx-auto px-4 space-y-5">
 	<div
 		class="h-[50vh] max-h-[50vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
 		bind:this={pane}
@@ -133,22 +139,24 @@
 		{/each}
 	</div>
 
-	<form method="POST" class="space-y-5 relative" on:submit|preventDefault={submit}>
+	<form
+		method="POST"
+		class="w-full border rounded-xl outline-none gap-4 flex p-0 pr-2"
+		on:submit|preventDefault={submit}
+	>
 		<input type="hidden" name="requester_id" value={user.id} />
 		<input type="hidden" name="recipient" value={subject.username} />
 
-		<button type="submit" class="absolute right-2 bottom-2">
-			<Icon icon="send" style="w-10" />
-		</button>
-
-		<input
+		<div
 			use:focus
-			name="message"
-			placeholder={$t('payments.sendMessage')}
-			class="w-full p-4 border rounded-xl outline-none"
-			bind:value={message}
-			bind:this={input}
+			contenteditable
+			class="grow break-all py-4 outline-none mt-0 pl-4"
+			bind:innerHTML={message}
+			on:keydown={keydown}
 		/>
+		<button type="submit" class="my-auto shrink-0">
+			<Icon icon="send" style="w-8" />
+		</button>
 	</form>
 </div>
 
