@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { fd, btc as asset, auth, post } from '$lib/utils';
+import { fd, auth, post } from '$lib/utils';
 
 export async function load({ params }) {
 	return post('/parse', params);

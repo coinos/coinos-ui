@@ -35,7 +35,6 @@ button.primary {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	background: transparent;
-	background-image: url('/icons/down.svg');
 	background-repeat: no-repeat;
 	background-position-x: 95%;
 	background-position-y: 1em;
