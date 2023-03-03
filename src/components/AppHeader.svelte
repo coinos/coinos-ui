@@ -56,23 +56,13 @@
 					><Icon icon="numpad" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
-			<a href={`/${user.username}/payments`}>
+			<a href={`/scan`}>
 				<button
 					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
-						.url.pathname === `/${user.username}/payments`
+						.url.pathname === `/${user.username}/scan`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'} relative"
-					><Icon icon="clock" style="mx-auto w-6 md:w-8" />
-					{#if $newPayment}
-						<span class="absolute top-0 right-0">
-							<span class="flex h-3 w-3">
-								<span
-									class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F7931A] opacity-75"
-								/>
-								<span class="relative inline-flex rounded-full h-3 w-3 bg-[#F7931A]" />
-							</span>
-						</span>
-					{/if}
+					><Icon icon="scan" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
 			<a href={`/send`}>

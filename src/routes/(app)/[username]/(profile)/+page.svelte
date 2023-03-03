@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { Icon, Avatar, Balance, Feed } from '$comp';
 	import { t } from '$lib/translations';
-	import { f, sat, sats } from '$lib/utils';
+	import { f, sat, copy, sats } from '$lib/utils';
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
 	import { event as e, password } from '$lib/store';
 	import { browser } from '$app/environment';
@@ -11,6 +11,7 @@
 	let { messages, notes, invoices, sent, received, subject, user } = data;
 	$: refresh(data);
 	let refresh = (d) => ({ messages, notes, invoices, sent, received, subject, user } = d);
+  let { pubkey, npub, username } = subject;
 
 	let keys = new Set();
 	let latest = [];
@@ -97,6 +98,23 @@
 				</div>
 			{/if}
 		</div>
+	{:else}
+		<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
+			<a href={`/${username}/payments`}>
+        <button class="flex hover:opacity-80" class:text-black={false}>
+          <div>⚡️</div>
+            <div>Payments</div>
+        </button>
+			</a>
+			<a href={`/${username}/notes`}>
+        <button class="flex hover:opacity-80" class:text-black={true}>
+						<Icon icon="nostr" style="mr-1 w-6" />
+            <div>Notes</div>
+        </button>
+			</a>
+		</div>
+
+
 	{/if}
 
 	{#if invoices.length}

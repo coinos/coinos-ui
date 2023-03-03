@@ -1,5 +1,5 @@
 <script>
-	import { f, s, sats } from '$lib/utils';
+	import { f, s, copy, sats } from '$lib/utils';
 	import { animatedRate, selectedRate } from '$lib/store';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
@@ -8,18 +8,18 @@
 	export let data;
 	let events, user, subject, src, text;
 	$: ({ events, user, subject, src, text } = data);
-	$: ({ currency, username: n, display } = subject);
+	$: ({ currency, username: n, display, pubkey, npub } = subject);
 
 	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
 
 	let follow = async () => {
-		user.follows.push(['p', subject.pubkey, 'wss://nostr.coinos.io', subject.username]);
+		user.follows.push(['p', pubkey, 'wss://nostr.coinos.io', subject.username]);
 		update();
 	};
 
 	let unfollow = async () => {
 		user.follows.splice(
-			user.follows.findIndex((t) => t[1] === subject.pubkey),
+			user.follows.findIndex((t) => t[1] === pubkey),
 			1
 		);
 		update();
@@ -40,7 +40,7 @@
 		user.follows = user.follows;
 	};
 
-	$: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
+	$: following = !!user?.follows.find((t) => t.includes(pubkey));
 
 	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
 	let i;
@@ -71,18 +71,36 @@
 		</div>
 
 		<div class="flex justify-around">
-			<a href={`/${subject.pubkey}/follows`}
+			<a href={`/${pubkey}/follows`}
 				><b>{subject.follows.length}</b>
 				<span class="text-secondary">{$t('user.following')}</span></a
 			>
-			<a href={`/${subject.pubkey}/followers`}
+			<a href={`/${pubkey}/followers`}
 				><b>{subject.followers.length}</b>
 				<span class="text-secondary">{$t('user.followers')}</span></a
 			>
 		</div>
 
+		<div class="flex flex-wrap justify-center">
+			<a href={`/qr/${encodeURI(username + '@coinos.io')}`}>
+				<button class="justify-center font-bold flex rounded-full py-3 px-5 hover:opacity-80">
+					⚡️
+					<div class="my-auto ml-1">{username}@coinos.io</div>
+				</button>
+			</a>
+
+			<a href={`/qr/${encodeURI(npub)}`}>
+			<button
+				class="justify-center flex rounded-full py-3 px-5 hover:opacity-80"
+			>
+				<Icon icon="nostr" style="mr-1 w-6" />
+				<div class="font-bold my-auto">{npub.substr(0, 6)}...{npub.substr(-6)}</div>
+			</button>
+      </a>
+		</div>
+
 		<div class="flex flex-wrap gap-2 w-full">
-			{#if user && user.username !== subject.username && subject.pubkey}
+			{#if user && user.username !== subject.username && pubkey}
 				{#if following}
 					<div class="w-full flex">
 						<button
@@ -90,7 +108,6 @@
 							on:click={unfollow}
 						>
 							<div class="mx-auto flex">
-								<Icon icon={'profile'} style="my-auto h-6 mr-2 invert" />
 								<div class="my-auto mt-1">{$t('user.following')}</div>
 							</div>
 						</button>
@@ -102,49 +119,11 @@
 							on:click={follow}
 						>
 							<div class="mx-auto flex">
-								<Icon icon={'profile'} style="my-auto h-6 mr-2" />
 								<div class="my-auto mt-1">{$t('user.follow')}</div>
 							</div>
 						</button>
 					</div>
 				{/if}
-
-				<div class="w-full flex">
-					<a href={`/${subject.username}/messages`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="support" style="mr-2 my-auto" />
-								<div class="mt-1 my-auto">{$t('user.message')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-
-				<div class="w-full flex">
-					<a href={`/${subject.username}/request`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="numpad" style="mr-2 my-auto" />
-								<div class="mt-1 my-auto">{$t('payments.requestAnInvoice')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-			{/if}
-			{#if !subject.anon && subject.username !== user?.username}
-				<div class="w-full flex">
-					<a
-						href={user ? `/send/${subject.username}` : `/${subject.username}/receive`}
-						class="mx-auto"
-					>
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="send" style="mr-2" />
-								<div class="mt-1">{$t('user.pay')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
 			{/if}
 		</div>
 	</div>
