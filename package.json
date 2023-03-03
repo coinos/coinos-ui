@@ -23,7 +23,7 @@
 		"leaflet": "^1.9.3",
 		"leaflet.markercluster": "^1.5.3",
 		"nostr": "^0.2.7",
-		"nostr-tools": "^1.7.1",
+		"nostr-tools": "^1.7.4",
 		"postcss": "^8.4.20",
 		"prettier": "^2.8.1",
 		"prettier-plugin-svelte": "^2.9.0",
