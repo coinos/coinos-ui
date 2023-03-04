@@ -30,6 +30,7 @@
 		};
 	}
 
+	let latest = [];
 	let { messages, subject, user } = data;
 	let input, pane;
 
@@ -101,6 +102,26 @@
 </script>
 
 <div class="container max-w-xl mx-auto px-4 space-y-5">
+	{#if latest.length && user?.id === subject.id}
+		<div class="relative">
+			{#each latest as { content, pubkey, author, recipient }}
+				{@const user = author.id === user.id ? recipient : author}
+				<a href={`/${user.username}/messages`}>
+					<div class="flex hover:bg-gray-100 p-4 rounded-2xl">
+						<div class="my-auto">
+							<Avatar {user} size={'20'} disabled={true} />
+						</div>
+						<div class="my-auto truncate">
+							<div class="my-auto ml-1 text-lg font-bold">{user.username}</div>
+							<div class="my-auto ml-1 text-secondary text-lg truncate">
+								{content}
+							</div>
+						</div>
+					</div>
+				</a>
+			{/each}
+		</div>
+	{/if}
 	<div
 		class="h-[50vh] max-h-[50vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
 		bind:this={pane}

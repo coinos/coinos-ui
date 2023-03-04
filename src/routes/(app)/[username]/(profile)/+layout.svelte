@@ -4,6 +4,7 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
+	import { page } from '$app/stores';
 
 	export let data;
 	let events, user, subject, src, text;
@@ -59,12 +60,23 @@
 			t++;
 		}, 10);
 	};
+
+	$: paymentsTab = $page.url.pathname.includes('payments');
+	$: messagesTab = $page.url.pathname.includes('messages');
 </script>
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
 	<div class="hidden lg:block w-[240px] lg:mr-10" />
 	<div class="w-[240px] lg:absolute space-y-3 left-20 mx-auto lg:mr-10 mb-10">
-		<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
+		<a href={`/${subject.username}/address`}>
+			<div>
+				<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
+				<div class="text-center">
+					<div class="my-auto ml-1">{username}@coinos.io</div>
+				</div>
+			</div>
+		</a>
+
 		<div class="text-secondary mx-auto text-center lg:text-left lg:mx-0">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
@@ -78,15 +90,6 @@
 				><b>{subject.followers.length}</b>
 				<span class="text-secondary">{$t('user.followers')}</span></a
 			>
-		</div>
-
-		<div class="flex flex-wrap justify-center">
-			<a href={`/${subject.username}/address`}>
-				<button class="justify-center font-bold flex rounded-full py-3 px-5 hover:opacity-80">
-					<div>⚡️</div>
-					<div class="my-auto ml-1">{username}@coinos.io</div>
-				</button>
-			</a>
 		</div>
 
 		<div class="flex flex-wrap gap-2 w-full">
@@ -120,6 +123,41 @@
 
 	<div class="w-full">
 		<div class="mx-auto space-y-5 lg:max-w-lg xl:max-w-2xl">
+			<div class="font-bold flex justify-center items-center border-b pb-3 text-secondary">
+				<a href={`/${username}/payments`} class="w-full">
+					<div class="relative">
+						<button class="mx-auto flex hover:opacity-80" class:text-black={paymentsTab}>
+							Feed
+						</button>
+						<div
+							class="absolute w-full border-b-4 border-black -bottom-3"
+							class:hidden={!paymentsTab}
+						/>
+					</div>
+				</a>
+				<a href={`/${username}/payments`} class="w-full">
+					<div class="relative">
+						<button class="mx-auto flex hover:opacity-80" class:text-black={paymentsTab}>
+							Payments
+						</button>
+						<div
+							class="absolute w-full border-b-4 border-black -bottom-3"
+							class:hidden={!paymentsTab}
+						/>
+					</div>
+				</a>
+				<a href={`/${username}/messages`} class="w-full">
+					<div class="relative">
+						<button class="mx-auto flex hover:opacity-80 relative" class:text-black={messagesTab}>
+							Messages
+						</button>
+						<div
+							class="absolute w-full border-b-4 border-black -bottom-3"
+							class:hidden={!messagesTab}
+						/>
+					</div>
+				</a>
+			</div>
 			<slot />
 		</div>
 	</div>

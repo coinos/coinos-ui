@@ -12,7 +12,6 @@
 
 <div class="space-y-8 container px-4 mx-auto my-20">
 	<p class="text-secondary text-lg text-center">
-		This
 		<a class="font-bold" href="https://lightningaddress.com/" target="_blank" rel="noreferrer">
 			⚡️ lightning address
 		</a>
@@ -27,12 +26,10 @@
 			nostr
       identifier
 		</a>
-     
-      can receive both money and messages
 	</p>
 	<div class="relative flex">
 		<div class="flex mx-auto w-[360px] h-[360px]">
-			<img {src} class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]" bind:this={qr} alt={text} />
+      <img {src} class="w-[300px] h-[300px] mx-auto cursor-pointer z-10 mt-[20px]" bind:this={qr} alt={text} on:click={() => copy(text)} />
 		</div>
 		<div
 			class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"

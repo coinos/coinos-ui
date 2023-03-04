@@ -11,7 +11,7 @@
 	let { messages, notes, invoices, sent, received, subject, user } = data;
 	$: refresh(data);
 	let refresh = (d) => ({ messages, notes, invoices, sent, received, subject, user } = d);
-  let { pubkey, npub, username } = subject;
+	let { pubkey, npub, username } = subject;
 
 	let keys = new Set();
 	let latest = [];
@@ -56,7 +56,7 @@
 <div class="space-y-5">
 	{#if user?.id === subject.id}
 		<div>
-			<div class="flex justify-center lg:justify-start">
+			<div class="flex justify-center lg:justify-start my-10">
 				<Balance {user} />
 			</div>
 			{#if !user.balance}
@@ -98,23 +98,6 @@
 				</div>
 			{/if}
 		</div>
-	{:else}
-		<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
-			<a href={`/${username}/payments`}>
-        <button class="flex hover:opacity-80" class:text-black={false}>
-          <div>⚡️</div>
-            <div>Payments</div>
-        </button>
-			</a>
-			<a href={`/${username}/notes`}>
-        <button class="flex hover:opacity-80" class:text-black={true}>
-						<Icon icon="nostr" style="mr-1 w-6" />
-            <div>Notes</div>
-        </button>
-			</a>
-		</div>
-
-
 	{/if}
 
 	{#if invoices.length}
@@ -186,26 +169,6 @@
 		</div>
 	{/if}
 
-	{#if latest.length && user?.id === subject.id}
-		<div class="relative">
-			{#each latest as { content, pubkey, author, recipient }}
-				{@const user = author.id === user.id ? recipient : author}
-				<a href={`/${user.username}/messages`}>
-					<div class="flex hover:bg-gray-100 p-4 rounded-2xl">
-						<div class="my-auto">
-							<Avatar {user} size={'20'} disabled={true} />
-						</div>
-						<div class="my-auto truncate">
-							<div class="my-auto ml-1 text-lg font-bold">{user.username}</div>
-							<div class="my-auto ml-1 text-secondary text-lg truncate">
-								{content}
-							</div>
-						</div>
-					</div>
-				</a>
-			{/each}
-		</div>
-	{/if}
 </div>
 
 <style>

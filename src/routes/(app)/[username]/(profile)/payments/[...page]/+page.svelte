@@ -104,10 +104,6 @@
 </script>
 
 <div class="mt-24 mb-20">
-	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
-		{$t('payments.header')}
-	</h1>
-
 	<div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
 		<div class="flex text-md text-secondary relative">
 			<div class="mx-auto flex justify-center w-full gap-1">
