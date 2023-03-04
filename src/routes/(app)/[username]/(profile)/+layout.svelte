@@ -61,11 +61,10 @@
 	};
 </script>
 
-<div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap">
+<div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
 	<div class="hidden lg:block w-[240px] lg:mr-10" />
-	<div class="w-[240px] lg:absolute space-y-5 left-20 mx-auto lg:mr-10 mb-10">
+	<div class="w-[240px] lg:absolute space-y-3 left-20 mx-auto lg:mr-10 mb-10">
 		<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
-
 		<div class="text-secondary mx-auto text-center lg:text-left lg:mx-0">
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
@@ -82,21 +81,12 @@
 		</div>
 
 		<div class="flex flex-wrap justify-center">
-			<a href={`/qr/${encodeURI(username + '@coinos.io')}`}>
+			<a href={`/${subject.username}/address`}>
 				<button class="justify-center font-bold flex rounded-full py-3 px-5 hover:opacity-80">
-					⚡️
+					<div>⚡️</div>
 					<div class="my-auto ml-1">{username}@coinos.io</div>
 				</button>
 			</a>
-
-			<a href={`/qr/${encodeURI(npub)}`}>
-			<button
-				class="justify-center flex rounded-full py-3 px-5 hover:opacity-80"
-			>
-				<Icon icon="nostr" style="mr-1 w-6" />
-				<div class="font-bold my-auto">{npub.substr(0, 6)}...{npub.substr(-6)}</div>
-			</button>
-      </a>
 		</div>
 
 		<div class="flex flex-wrap gap-2 w-full">

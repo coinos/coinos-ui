@@ -53,7 +53,7 @@
 	};
 </script>
 
-<div class="space-y-8">
+<div class="space-y-5">
 	{#if user?.id === subject.id}
 		<div>
 			<div class="flex justify-center lg:justify-start">
