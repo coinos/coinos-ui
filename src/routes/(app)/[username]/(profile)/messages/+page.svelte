@@ -6,43 +6,51 @@
 	import { scale, fade, fly } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon } from '$comp';
-	import { back, fail, focus } from '$lib/utils';
+	import { back, fail, focus, fadeScale } from '$lib/utils';
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
 	import { event as e, password } from '$lib/store';
 	import { tick, onMount } from 'svelte';
 	import { calculateId } from 'nostr';
+	import { page } from '$app/stores';
 
 	export let data;
-
-	function fadeScale(node, { delay = 0, duration = 200, easing = (x) => x, baseScale = 0 }) {
-		const o = +getComputedStyle(node).opacity;
-		const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);
-		const s = m ? m[1] : 1;
-		const is = 1 - baseScale;
-
-		return {
-			delay,
-			duration,
-			css: (t) => {
-				const eased = easing(t);
-				return `opacity: ${eased * o}; transform: scale(${eased * s * is + baseScale})`;
-			}
-		};
-	}
 
 	let latest = [];
 	let { messages, subject, user } = data;
 	let input, pane;
+	let i = 0;
+	let ready;
+	let keys = new Set();
 
-	$: initialize($password);
+	$: update(data, $page);
+	let update = (data) => ({ messages, subject, user } = data);
+
+	$: initialize($password, $page);
 	let initialize = async (p) => {
 		if (!p) return;
+		ready = false;
+
 		await Promise.all(
 			messages.map(async (event) => (event.message = await decrypt({ event, user })))
 		);
 
-		messages = messages;
+    messages = messages.filter((m) => m.recipient.id === subject.id || m.author.id === subject.id)
+      console.log("MESSAGES", messages.length)
 		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
+
+		while (i < messages.length) {
+			let event = messages[i];
+			let k = event.author.id === user.id ? event.recipient.pubkey : event.author.pubkey;
+			if (!keys.has(k)) {
+				keys.add(k);
+				event.content = await decrypt({ event, user });
+				if (event.content) latest.push(event);
+			}
+			i++;
+		}
+
+		latest = latest;
+		ready = true;
 	};
 
 	e.subscribe(async (event) => {
@@ -99,6 +107,21 @@
 			submit();
 		}
 	};
+
+	e.subscribe(async (event) => {
+		if (!(event && ready)) return;
+		if (event.recipient.id === user?.id && !~latest.findIndex((m) => m.id === event.id)) {
+			event.content = await decrypt({ event, user });
+
+			let i = latest.findIndex((m) => m.pubkey === event.pubkey);
+			let popped;
+			if (~i) popped = latest.splice(i, 1);
+			else popped = latest.pop();
+
+			latest.unshift(event);
+			latest = latest;
+		}
+	});
 </script>
 
 <div class="container max-w-xl mx-auto px-4 space-y-5">
@@ -121,44 +144,45 @@
 				</a>
 			{/each}
 		</div>
-	{/if}
-	<div
-		class="h-[50vh] max-h-[50vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
-		bind:this={pane}
-	>
-		{#each messages as { id, author, message, created_at, pubkey }}
-			{@const ours = pubkey === user.pubkey}
-			{@const theirs = !ours}
+	{:else}
+		<div
+			class="h-[50vh] max-h-[50vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
+			bind:this={pane}
+		>
+			{#each messages as { id, author, message, created_at, pubkey }}
+				{@const ours = pubkey === user.pubkey}
+				{@const theirs = !ours}
 
-			{#if message}
-				<div
-					class="flex gap-2"
-					class:flex-row-reverse={theirs}
-					class:justify-end={theirs}
-					in:fadeScale={{
-						easing: cubicInOut,
-						baseScale: 0.5
-					}}
-				>
+				{#if message}
 					<div
-						class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
-						class:ours
-						class:theirs
-						:key={id}
+						class="flex gap-2"
+						class:flex-row-reverse={theirs}
+						class:justify-end={theirs}
+						in:fadeScale={{
+							easing: cubicInOut,
+							baseScale: 0.5
+						}}
 					>
-						{message}
+						<div
+							class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
+							class:ours
+							class:theirs
+							:key={id}
+						>
+							{message}
+						</div>
+						<div class="mt-auto">
+							<Avatar user={author} size={'12'} />
+						</div>
 					</div>
-					<div class="mt-auto">
-						<Avatar user={author} size={'12'} />
+					<div class="text-sm text-gray-400 mb-6" class:text-right={ours}>
+						{format(new Date(created_at * 1000), 'MMM d')},
+						{format(new Date(created_at * 1000), 'h:mm aa')}
 					</div>
-				</div>
-				<div class="text-sm text-gray-400 mb-6" class:text-right={ours}>
-					{format(new Date(created_at * 1000), 'MMM d')},
-					{format(new Date(created_at * 1000), 'h:mm aa')}
-				</div>
-			{/if}
-		{/each}
-	</div>
+				{/if}
+			{/each}
+		</div>
+	{/if}
 
 	<form
 		method="POST"

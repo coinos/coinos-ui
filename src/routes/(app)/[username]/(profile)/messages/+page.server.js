@@ -9,7 +9,7 @@ export async function load({ params, parent, url }) {
 	try {
 		messages = await get(`/${user.pubkey}/${since}/messages`);
 		messages = messages
-			.filter((m) => m.recipient.id === subject.id || m.author.id === subject.id)
+	//		.filter((m) => m.recipient.id === subject.id || m.author.id === subject.id)
 			.sort((a, b) => a.created_at - b.created_at);
 	} catch (e) {
 		console.log(`failed to fetch nostr messages`, e);

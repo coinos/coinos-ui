@@ -127,17 +127,6 @@
 				<a href={`/${username}/payments`} class="w-full">
 					<div class="relative">
 						<button class="mx-auto flex hover:opacity-80" class:text-black={paymentsTab}>
-							Feed
-						</button>
-						<div
-							class="absolute w-full border-b-4 border-black -bottom-3"
-							class:hidden={!paymentsTab}
-						/>
-					</div>
-				</a>
-				<a href={`/${username}/payments`} class="w-full">
-					<div class="relative">
-						<button class="mx-auto flex hover:opacity-80" class:text-black={paymentsTab}>
 							Payments
 						</button>
 						<div
