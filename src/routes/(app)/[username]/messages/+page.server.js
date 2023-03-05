@@ -11,6 +11,8 @@ export async function load({ params, parent, url }) {
 		messages = messages
 			.filter((m) => m.recipient.id === subject.id || m.author.id === subject.id)
 			.sort((a, b) => a.created_at - b.created_at);
+
+		if (user.id === subject.id) messages = messages.filter((m) => m.recipient.id === m.author.id);
 	} catch (e) {
 		console.log(`failed to fetch nostr messages`, e);
 	}
