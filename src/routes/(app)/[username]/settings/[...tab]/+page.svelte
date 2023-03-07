@@ -5,7 +5,6 @@
 
 	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
-	import { fail, post, success } from '$lib/utils';
 	import { avatar, banner, password, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
@@ -66,7 +65,12 @@
 				await upload($banner.file, $banner.type, $banner.progress, token);
 				await fetch(`/api/public/${id}-banner.webp`, { cache: 'reload', mode: 'no-cors' });
 			}
-			
+
+			if (!validateEmail(email)) {
+				user.email = null;
+				throw new Error("Invalid email");
+			}
+
 			let event = {
 				pubkey: user.pubkey,
 				created_at: Math.floor(Date.now() / 1000),
@@ -114,6 +118,7 @@
 <form
 	method="POST"
 	class="mb-[154px]"
+	action="?/save"
 	on:submit|preventDefault={handleSubmit}
 	bind:this={formElement}
 >

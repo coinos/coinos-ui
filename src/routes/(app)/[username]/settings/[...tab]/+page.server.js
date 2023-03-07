@@ -7,7 +7,7 @@ export function load({ params, url }) {
 }
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	save: async ({ cookies, request }) => {
 		let form = Object.fromEntries(await request.formData());
 		let user = { ...(await get('/me', auth(cookies))), ...form };
 
@@ -18,5 +18,16 @@ export const actions = {
 		}
 
 		return { user, success: true };
+	},
+
+	email: async({cookies, request }) => {
+		let form = Object.fromEntries(await request.formData());
+		let user = { ...(await get('/me', auth(cookies))), ...form };
+		
+		try {
+			({ user } = await post('/email/verify', user, auth(cookies)))
+		} catch (e) {
+			return fail(400, { message: e.message})
+		}
 	}
 };
