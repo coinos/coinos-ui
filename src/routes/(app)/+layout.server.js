@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 import { get, post, auth, protectedRoutes } from '$lib/utils';
-import { PUBLIC_BTC as btc } from '$env/static/public';
+import { _BTC as btc } from '$env/static/public';
 
 export async function load({ cookies, request, url, params }) {
 	let { pathname } = url;

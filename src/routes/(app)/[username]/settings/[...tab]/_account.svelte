@@ -4,6 +4,8 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 
+	import { auth, post } from '$lib/utils';
+
 	export let user;
 	let { id } = user;
 	let selectedTheme = 1;
@@ -23,8 +25,9 @@
 		$colorTheme = colors.color1 + ' ' + colors.color2;
 	};
 
-	let handleConfirmEmailClick = (email) => {
+	let handleConfirmEmailClick = async (email) => {
 		console.log("CLICKED", email)
+		
 	}
 
 	let handleConfirmPhoneClick = (phone) => {
@@ -88,17 +91,17 @@
 
 <div>
 	<label for="email" class="font-bold mb-1 block">{$t('user.settings.email')}</label>
-	<div class="flex flex-row">
+	<form action="?/email" method="post" class="flex flex-row">
 		<input type="text" name="email" bind:value={user.email} />
-		<button type="button" class="border-2 border-black rounded-xl font-semibold ml-3.5 mx-auto p-1 hover:opacity-80" on:click={() => handleConfirmEmailClick(user.email)}>confirm your email</button>
-	</div>
+		<button type="submit" class="border-2 border-black rounded-xl font-semibold ml-3.5 mx-auto p-1 hover:opacity-80" on:click={() => handleConfirmEmailClick(user.email)}>verify email</button>
+	</form>
 </div>
 
 <div>
 	<label for="phone" class="font-bold mb-1 block">{$t('user.settings.phone')}</label>
 	<div class="flex flex-row">
 		<input type="tel" name="phone" bind:value={user.phone} />
-		<button type="button" class="border-2 border-black rounded-xl font-semibold ml-3.5 mx-auto p-1 hover:opacity-80" on:click={() => handleConfirmPhoneClick(user.phone)}>confirm your number</button>
+		<button type="button" class="border-2 border-black rounded-xl font-semibold ml-3.5 mx-auto p-1 hover:opacity-80" on:click={() => handleConfirmPhoneClick(user.phone)}>verify phone</button>
 	</div>
 </div>
 
