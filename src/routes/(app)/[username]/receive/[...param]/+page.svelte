@@ -21,6 +21,8 @@
 	let { user } = data;
 	let submit;
 
+  console.log("PROMPTY", prompt)
+
 	$: type = lightning ? 'lightning' : 'bitcoin';
 </script>
 

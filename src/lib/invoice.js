@@ -9,6 +9,8 @@ export default async ({ cookies, request, url }) => {
 	let request_id = form.get('request_id');
 	if (request_id === 'undefined') request_id = undefined;
 
+	console.log("FORM", form.get('prompt'));
+
 	let invoice = {
 		amount,
 		tip: parseInt(form.get('tip')) || 0,
@@ -31,6 +33,7 @@ export default async ({ cookies, request, url }) => {
 		throw redirect(307, `/${user.username}/request/${request_id}`);
 	}
 
+	console.log('PROMPT?', invoice.prompt);
 	if (invoice.prompt) throw redirect(307, `/${user.username}/invoice/${hash}/tip`);
 	else throw redirect(307, `/${user.username}/invoice/${hash}`);
 };

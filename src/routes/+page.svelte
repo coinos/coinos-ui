@@ -7,8 +7,11 @@
 		FaqCard,
 		Image,
 		About,
-		Footer
+		Footer,
+      Qr as Q,
 	} from '$comp';
+
+  import Qr from 'qrcode-base64';
 
 	import { t } from '$lib/translations';
 	import { close } from '$lib/socket';
@@ -39,6 +42,8 @@
 			console.log(e);
 		}
 	});
+
+	let src = Qr.drawImg("https%3A%2F%2Fcoinos.io%2FLaughingBean", { size: 600 });
 </script>
 
 <svelte:head>
@@ -48,6 +53,18 @@
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
+<div class="space-y-8">
+	<div class="flex w-full justify-center gap-4">
+		<img src="/images/bitcoin.png" class="w-14" />
+		<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
+	</div>
+    <Q  {src} />
+    <div class="text-center text-3xl">https://coinos.io/LaughingBean</div>
+    <div class="text-center text-3xl">Don't have a wallet?<br> Sign up for free at <b>coinos.io</b>!</div>
+    <div class="justify-center w-full flex">
+    <img src="/images/logo.svg" />
+    </div>
+    </div>
 	<LandingHero {user} />
 	<LandingInfoCard
 		image="lightning-qr"
