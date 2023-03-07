@@ -1,27 +1,30 @@
 <div class="space-y-5">
-	<h1 class="text-3xl mb-6 pt-20">Bounties</h1>
+	<h1 class="text-3xl mb-6 pt-28 md:pt-12">Bounties</h1>
 
-	<p class="text-secondary">
+	<p>
 		We're offering <b>⚡️1,000,000</b> to the first <b>10 people</b> that help us onboard businesses
 		in the following categories to take bitcoin payments:
 	</p>
 
-	<ul class="text-xl ml-20">
-		<li>Grocery or Produce Store</li>
-		<li>Cafe</li>
+	<ul>
+		<li>Grocery / Produce Store</li>
+		<li>
+			Cafe &mdash; Claimed by <a href="/reverendhodl">ReverendHodl</a> for
+			<a href="https://btcmap.org/map?lat=49.2814113&long=-123.049572">Laughing Bean Coffee Co.</a>
+		</li>
 		<li>Bakery</li>
 		<li>Butcher Shop</li>
-		<li>Laundromat or Dry Cleaner</li>
-		<li>Dollar Store, Book Store, or Gift Shop</li>
+		<li>Laundromat / Dry Cleaner</li>
+		<li>Dollar Store / Book Store / Gift Shop</li>
 		<li>Sushi Restaurant</li>
-		<li>Pizza by the Slice Joint</li>
-		<li>Liquor Store or Gas Station</li>
-		<li>Bubble Tea or Ice Cream Parlour</li>
+		<li>Pizza by the Slice</li>
+		<li>Liquor Store / Gas Station</li>
+		<li>Bubble Tea / Ice Cream Parlour</li>
 	</ul>
 
-	<h2 class="text-2xl">Terms and Conditions</h2>
+	<h2 class="text-xl">Terms and Conditions</h2>
 
-	<ul class="ml-20">
+	<ul>
 		<li>The business must have a physical location that takes walk-in customers</li>
 		<li>
 			They must be located within Vancouver, North Vancouver, West Vancouver, Burnaby, New
@@ -51,7 +54,7 @@
 	<p>
 		<b>⚡️750,000</b> will be awarded once the merchant has accepted bitcoin for 6 months. We'll be
 		sending
-		<a href="https://btcmap.org/leaderboard" class="text-black hover:underline" target="_blank"
+		<a href="https://btcmap.org/leaderboard" class="text-black hover:underline" target="_blank" rel="noreferrer"
 			>shadowy supertaggers</a
 		> to check up on them periodically.
 	</p>
@@ -61,7 +64,7 @@
 		applicants without cause
 	</p>
 
-	<h2 class="text-2xl">Ready to begin!?</h2>
+	<h2 class="text-xl">Ready to begin!?</h2>
 
 	<p>
 		To make a referral, reach out on one of our socials or email us at <a
@@ -79,10 +82,7 @@
 </div>
 
 <style>
-	p {
-		@apply text-secondary;
-	}
-	b {
-		@apply text-black text-xl;
+	a {
+		@apply font-bold;
 	}
 </style>

@@ -3,7 +3,7 @@
 	import { browser } from '$app/environment';
 	import { invoice as inv, request } from '$lib/store';
 	import { copy, focus, f, sat, get, reverseFormat, s, sats } from '$lib/utils';
-	import { Icon } from '$comp';
+	import { Icon, Slider } from '$comp';
 	import { goto } from '$app/navigation';
 	import { t } from '$lib/translations';
 	import { enhance } from '$app/forms';
@@ -37,9 +37,6 @@
 			customInput.value = '';
 		}
 		tipPercent = e.target.value;
-
-		clearTimeout(timeout);
-		timeout = setTimeout(update, 800);
 	};
 
 	let submitting;
@@ -56,10 +53,6 @@
 	};
 
 	let submit;
-	let update = async () => {
-		await tick();
-		//submit.click();
-	};
 
 	export let data;
 	$: refresh(data);
@@ -123,16 +116,7 @@
 		{#if !showCustomAmount}
 			<div class="my-2 text-xl">{Math.round(tipPercent)}%</div>
 
-			<input
-				id="slider"
-				type="range"
-				min="0"
-				max="100"
-				value={tipPercent}
-				class="px-0 py-0 my-5"
-				style="--bgPercent: {tipPercent}%;"
-				on:input={handleSlide}
-			/>
+			<Slider handle={handleSlide} bind:value={tipPercent} />
 
 			<div class="flex mb-8 text-lg">
 				<div>
@@ -201,43 +185,6 @@
 </div>
 
 <style>
-	#slider {
-		-webkit-appearance: none;
-		width: 100%;
-		height: 6px;
-		border-radius: 5px;
-		background: linear-gradient(
-			to right,
-			black 0%,
-			black var(--bgPercent),
-			#f5f7fa var(--bgPercent),
-			#f5f7fa 100%
-		);
-		outline: none;
-	}
-
-	#slider:active {
-		background-color: black;
-	}
-
-	#slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-		background: black;
-		cursor: pointer;
-	}
-
-	#slider::-moz-range-thumb {
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-		background: black;
-		cursor: pointer;
-	}
-
 	.active {
 		@apply !bg-black !text-white;
 	}

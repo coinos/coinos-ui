@@ -1,23 +1,11 @@
 import { get } from 'svelte/store';
-import {
-	events as $events,
-	invoice,
-	request,
-	newPayment,
-	last,
-	rate,
-	payments,
-	user
-} from '$lib/store';
+import { event, invoice, request, newPayment, last, rate, payments, user } from '$lib/store';
 import { success, sat } from '$lib/utils';
 import { PUBLIC_SOCKET } from '$env/static/public';
 import { invalidate } from '$app/navigation';
 import { browser } from '$app/environment';
 
 let socket, token;
-let le = browser && localStorage.getItem('events');
-let events = le && le !== 'undefined' ? JSON.parse(le) : {};
-let q = Object.keys(events);
 
 export const auth = () => token && send('login', token) && send('heartbeat');
 
@@ -30,23 +18,12 @@ export const messages = (data) => ({
 	id() {
 		last.set(Date.now());
 	},
-
 	invoice() {
 		invoice.set(data);
 	},
-
 	event() {
-		data.seen = Math.round(Date.now() / 1000);
-		events[data.id] = data;
-		q.push(data.id);
-		$events.set(events);
-		while (q.length > 10000) delete events[q.shift()];
-		localStorage.setItem(
-			'events',
-			JSON.stringify(q.slice(-100).reduce((a, b) => (a = { ...a, [b]: events[b] }), {}))
-		);
+		event.set(data);
 	},
-
 	rate() {
 		rate.set(data);
 	},

@@ -46,10 +46,5 @@
 		>
 			{amount ? $t('payments.next') : $t('payments.sendersChoice')}
 		</button>
-
-		<div class="w-full flex justify-center">
-			<span class="font-bold mr-2">{type[0].toUpperCase() + type.substring(1, type.length)}</span>
-			<Toggle id="prompt" checked={lightning} bind:value={lightning} />
-		</div>
 	</div>
 </form>

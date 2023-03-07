@@ -4,7 +4,6 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
-	import { v4 } from 'uuid';
 
 	export let data;
 	let events, user, subject, src, text;
@@ -111,7 +110,7 @@
 				{/if}
 
 				<div class="w-full flex">
-					<a href={`/${subject.pubkey}/messages`} class="mx-auto">
+					<a href={`/${subject.username}/messages`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
 								<Icon icon="support" style="mr-2 my-auto" />

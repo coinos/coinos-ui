@@ -11,7 +11,7 @@ export default async ({ cookies, request, url }) => {
 
 	let invoice = {
 		amount,
-		tip: parseInt(form.get('tip')),
+		tip: parseInt(form.get('tip')) || 0,
 		type: form.get('type'),
 		prompt: form.get('prompt') === 'true',
 		rate: parseFloat(form.get('rate')) || rates[form.get('currency')],

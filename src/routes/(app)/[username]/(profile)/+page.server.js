@@ -1,22 +1,35 @@
 import { auth, get } from '$lib/utils';
 
 export async function load({ cookies, params, parent, url }) {
-	let { subject } = await parent();
+	let { user, subject } = await parent();
 	let { pubkey } = subject;
+	let { since = 0 } = params;
 
-	let events = [];
+	let messages, invoices, sent, received;
+	messages = invoices = sent = received = [];
 
-	try {
-		events = await get(`/${pubkey}/notes`);
-	} catch (e) {
-		console.log(`failed to fetch nostr events for ${pubkey}`, e);
+	if (user) {
+		try {
+			messages = await get(`/${user.pubkey}/${since}/messages`);
+			messages = messages.sort((a, b) => b.created_at - a.created_at);
+		} catch (e) {
+			console.log(`failed to fetch nostr messages`, e);
+		}
+
+		({ invoices, sent, received } = await get('/requests', auth(cookies)));
 	}
 
-	events.map((e) => {
+	let notes = [];
+
+	try {
+		notes = await get(`/${pubkey}/notes`);
+	} catch (e) {
+		console.log(`failed to fetch nostr notes for ${pubkey}`, e);
+	}
+
+	notes.map((e) => {
 		e.seen = e.created_at;
 	});
 
-	let { invoices, sent, received } = await get('/requests', auth(cookies));
-
-	return { invoices, events, sent, received };
+	return { invoices, messages, notes, sent, received };
 }

@@ -7,7 +7,6 @@
 	import { t } from '$lib/translations';
 	import { AppHeader, Avatar, Icon, Spinner } from '$comp';
 	import { back, fail } from '$lib/utils';
-	import { format, parseISO } from 'date-fns';
 
 	export let data;
 	export let form;
@@ -99,7 +98,7 @@
 			<div>
 				{#each contacts as c}
 					<a href={`/send/${c.username}`}>
-						<div class="border-b p-2 last:border-b-0 hover:bg-gray-100">
+						<div class="border-b p-2 last:border-b-0 hover:bg-gray-100 rounded-2xl">
 							<div class="flex">
 								<div>
 									<div class="flex">
