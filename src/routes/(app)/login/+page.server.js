@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { login } from '$lib/utils';
+import { login, fd } from '$lib/utils';
 
 export const load = async ({ parent }) => {
 	let { user } = await parent();
@@ -8,7 +8,7 @@ export const load = async ({ parent }) => {
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let form = Object.fromEntries(await request.formData());
+		let form = await fd(request);
 		let { username, password, token, loginRedirect } = form;
 		let user = { username, password, token };
 

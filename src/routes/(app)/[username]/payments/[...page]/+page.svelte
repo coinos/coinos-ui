@@ -1,7 +1,7 @@
 <script>
 	import { Avatar, Icon } from '$comp';
 	import { onMount } from 'svelte';
-	import { format, parseISO } from 'date-fns';
+	import { format } from 'date-fns';
 	import { newPayment, payments } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { get, f, s, sat, sats } from '$lib/utils';
@@ -180,14 +180,12 @@
 									</div>
 								</a>
 							{:else if p.with}
-								<a href={`/${p.with.username}`}>
-									<div class="flex">
-										<div class="my-auto">
-											<Avatar user={p.with} size={12} />
-										</div>
-										<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
+								<div class="flex">
+									<div class="my-auto">
+										<Avatar user={p.with} size={16} disabled={true} />
 									</div>
-								</a>
+									<div class="my-auto ml-1 text-secondary">{p.with.username}</div>
+								</div>
 							{:else if p.type === types.classic}
 								<img
 									src="/images/classic.png"

@@ -69,7 +69,6 @@
 		<input name="amount" value={amount} type="hidden" />
 		<input name="payreq" value={payreq} type="hidden" />
 		<input name="username" value={recipient.username} type="hidden" />
-		<input name="confirmed" value={form?.confirm} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
 
 		<div class="flex w-full">

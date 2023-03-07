@@ -1,4 +1,4 @@
-import { auth, get, post } from '$lib/utils';
+import { fd, auth, get, post } from '$lib/utils';
 import { error, fail, redirect } from '@sveltejs/kit';
 
 export async function load({ params, parent }) {
@@ -24,10 +24,7 @@ export const actions = {
 	pay: async ({ cookies, fetch, request }) => {
 		let error;
 
-		let { callback, amount, minSendable, maxSendable } = Object.fromEntries(
-			await request.formData()
-		);
-
+		let { callback, amount, minSendable, maxSendable } = await fd(request);
 		minSendable = Math.round(minSendable / 1000);
 		maxSendable = Math.round(maxSendable / 1000);
 
@@ -42,8 +39,9 @@ export const actions = {
 	withdraw: async ({ cookies, fetch, request }) => {
 		let error;
 
-		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } =
-			Object.fromEntries(await request.formData());
+		let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } = await fd(
+			request
+		);
 
 		minWithdrawable = Math.round(minWithdrawable / 1000);
 		maxWithdrawable = Math.round(maxWithdrawable / 1000);

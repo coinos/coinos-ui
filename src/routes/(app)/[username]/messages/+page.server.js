@@ -7,10 +7,13 @@ export async function load({ params, parent, url }) {
 	let messages = [];
 
 	try {
-		messages = await get(`/nostr/${user.pubkey}/${subject.pubkey}/${since}/messages`);
+		messages = await get(`/${user.pubkey}/${since}/messages`);
+		messages = messages
+			.filter((m) => m.recipient.id === subject.id || m.author.id === subject.id)
+			.sort((a, b) => a.created_at - b.created_at);
 	} catch (e) {
 		console.log(`failed to fetch nostr messages`, e);
 	}
 
-	return { newMessages: messages };
+	return { messages, user };
 }

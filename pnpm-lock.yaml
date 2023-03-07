@@ -16,6 +16,7 @@ specifiers:
   leaflet: ^1.9.3
   leaflet.markercluster: ^1.5.3
   nostr: ^0.2.7
+  nostr-tools: ^1.7.4
   postcss: ^8.4.20
   prettier: ^2.8.1
   prettier-plugin-svelte: ^2.9.0
@@ -29,6 +30,7 @@ specifiers:
   svelte-preprocess: ^4.10.7
   svelte-virtual-scroll-list: ^1.1.0
   sveltekit-i18n: ^2.2.2
+  tailwind-scrollbar: ^2.1.0
   tailwindcss: ^3.2.4
   tiny-secp256k1: ^2.2.1
   uuid: ^9.0.0
@@ -55,6 +57,7 @@ devDependencies:
   leaflet: 1.9.3
   leaflet.markercluster: 1.5.3_leaflet@1.9.3
   nostr: 0.2.7
+  nostr-tools: 1.7.4
   postcss: 8.4.20
   prettier: 2.8.1
   prettier-plugin-svelte: 2.9.0_ajxj753sv7dbwexjherrch25ta
@@ -68,6 +71,7 @@ devDependencies:
   svelte-preprocess: 4.10.7_qs7rgzvahok4cbkjoy5bgypde4
   svelte-virtual-scroll-list: 1.1.0_svelte@3.55.0
   sveltekit-i18n: 2.2.2_svelte@3.55.0
+  tailwind-scrollbar: 2.1.0_tailwindcss@3.2.4
   tailwindcss: 3.2.4_postcss@8.4.20
   tiny-secp256k1: 2.2.1
   uuid: 9.0.0
@@ -276,6 +280,18 @@ packages:
     resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
     dev: false
 
+  /@noble/hashes/1.0.0:
+    resolution: {integrity: sha512-DZVbtY62kc3kkBtMHqwCOfXrT/hnoORy5BJ4+HU1IR59X0KWAOqsfzQPcUl/lQLlG7qXbe/fZ3r/emxtAl+sqg==}
+    dev: true
+
+  /@noble/hashes/1.2.0:
+    resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
+    dev: true
+
+  /@noble/secp256k1/1.7.1:
+    resolution: {integrity: sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==}
+    dev: true
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -387,6 +403,25 @@ packages:
       picomatch: 2.3.1
       rollup: 3.8.1
     dev: false
+
+  /@scure/base/1.1.1:
+    resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==}
+    dev: true
+
+  /@scure/bip32/1.1.5:
+    resolution: {integrity: sha512-XyNh1rB0SkEqd3tXcXMi+Xe1fvg+kUIcoRIEujP1Jgv7DqW2r9lg3Ah0NkFaCs9sTkQAQA8kw7xiRXzENi9Rtw==}
+    dependencies:
+      '@noble/hashes': 1.2.0
+      '@noble/secp256k1': 1.7.1
+      '@scure/base': 1.1.1
+    dev: true
+
+  /@scure/bip39/1.1.1:
+    resolution: {integrity: sha512-t+wDck2rVkh65Hmv280fYdVdY25J9YeEUIgn2LG1WM6gxFkGzcksoDiUkWVpVp3Oex9xGC68JU2dSbUfwZ2jPg==}
+    dependencies:
+      '@noble/hashes': 1.2.0
+      '@scure/base': 1.1.1
+    dev: true
 
   /@sveltejs/adapter-node/1.1.4_@sveltejs+kit@1.2.10:
     resolution: {integrity: sha512-3iEBqi1fXLXP9YIbVuz2LXajoebRJCmAFEQbN40DlxAnA7G+InxUgnqFun3q9gBMz2Qvd99K51g/HxWetXRe8Q==}
@@ -1899,6 +1934,17 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /nostr-tools/1.7.4:
+    resolution: {integrity: sha512-YowDJ+S3UW9KCYPDZfZXXMITrJSMjiCmFOK5HohyKkg+w6EipFUTkFRBPRA2BTLXO/qw8gukKXfL0B7Dv3jtcQ==}
+    dependencies:
+      '@noble/hashes': 1.0.0
+      '@noble/secp256k1': 1.7.1
+      '@scure/base': 1.1.1
+      '@scure/bip32': 1.1.5
+      '@scure/bip39': 1.1.1
+      prettier: 2.8.4
+    dev: true
+
   /nostr/0.2.7:
     resolution: {integrity: sha512-Yq5tkiCTJtohs7H7Fx+Ki83bR8b3xapdwYi17HunhW5EQfZ9rI0cIXFyihj2ZRkv/0YYvVBiCp/KIaLYt5LyfQ==}
     dependencies:
@@ -2096,6 +2142,12 @@ packages:
 
   /prettier/2.8.1:
     resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
+  /prettier/2.8.4:
+    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -2475,6 +2527,15 @@ packages:
       '@sveltekit-i18n/base': 1.2.1_svelte@3.55.0
       '@sveltekit-i18n/parser-default': 1.0.3
       svelte: 3.55.0
+    dev: true
+
+  /tailwind-scrollbar/2.1.0_tailwindcss@3.2.4:
+    resolution: {integrity: sha512-zpvY5mDs0130YzYjZKBiDaw32rygxk5RyJ4KmeHjGnwkvbjm/PszON1m4Bbt2DkMRIXlXsfNevykAESgURN4KA==}
+    engines: {node: '>=12.13.0'}
+    peerDependencies:
+      tailwindcss: 3.x
+    dependencies:
+      tailwindcss: 3.2.4_postcss@8.4.20
     dev: true
 
   /tailwindcss/3.2.4_postcss@8.4.20:

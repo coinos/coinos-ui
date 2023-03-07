@@ -5,7 +5,7 @@ import { Buffer } from 'buffer';
 import { bech32m } from 'bech32';
 import { bip32, fail, wait, post, stretch } from '$lib/utils';
 import { calculateId, signId } from 'nostr';
-import { password as pw, passwordPrompt, pin, loginRedirect } from '$lib/store';
+import { decrypted, password as pw, passwordPrompt, pin, loginRedirect } from '$lib/store';
 import { goto, invalidate } from '$app/navigation';
 
 const { encode, decode, fromWords, toWords } = bech32m;
@@ -58,8 +58,10 @@ export let encrypt = async ({ message, recipient, user }) => {
 };
 
 export let decrypt = async ({ event, user }) => {
+	let cache = get(decrypted);
 	try {
-		let { content, pubkey } = event;
+		let { content, pubkey, id } = event;
+		if (cache[id]) return cache[id];
 		if (pubkey === user.pubkey) pubkey = event.tags[0][1];
 		pubkey = Uint8Array.from(Buffer.from('02' + pubkey, 'hex'));
 
@@ -78,9 +80,12 @@ export let decrypt = async ({ event, user }) => {
 
 		let message = await crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, cipher);
 
-		return Buffer.from(message).toString('utf8');
+		cache[id] = Buffer.from(message).toString('utf8');
+		decrypted.set(cache);
+
+		return cache[id];
 	} catch (e) {
-		console.log(e);
+		// console.log(e);
 	}
 };
 
@@ -119,6 +124,7 @@ let getPrivateKey = async (user) => {
 	seed = mnemonicToSeedSync(mnemonic);
 	key = bip32.fromSeed(seed);
 	child = key.derivePath("m/44'/1237'/0'/0/0");
+
 	return child.privateKey;
 };
 

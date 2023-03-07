@@ -16,9 +16,10 @@
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
-		amountFiat = amount * ($selectedRate / sats),
 		fiat = !amount,
 		hash;
+
+	$: amountFiat = amount * ($selectedRate / sats);
 
 	let setAmount = async () => {
 		amount = a;
@@ -39,7 +40,7 @@
 
 	$: update(form);
 	let update = () => {
-		if (form?.message.includes('pin')) $pin = undefined;
+		if (form?.message?.includes('pin')) $pin = undefined;
 		loading = false;
 	};
 </script>
@@ -68,7 +69,6 @@
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
 		<input name="username" value={subject.username} type="hidden" />
-		<input name="confirmed" value={form?.confirm} type="hidden" />
 		<input name="pin" value={$pin} type="hidden" />
 		<input name="hash" value={hash} type="hidden" />
 
