@@ -9,7 +9,7 @@
 		fiat = !amount,
 		submit = undefined;
 
-	let amountFiat = 0;
+	export let amountFiat = 0;
 	let arrow = '<';
 
 	$: update(amount, amountFiat);

@@ -17,14 +17,16 @@
 	let a,
 		af,
 		fiat = !amount,
-		hash;
+		hash,
+		rate,
+		amountFiat = 0;
 
-	$: amountFiat = amount * ($selectedRate / sats);
+	selectedRate.subscribe((r) => rate || (amountFiat = amount * (r / sats)));
 
 	let setAmount = async () => {
 		amount = a;
-		amountFiat = af;
-
+		amountFiat = parseFloat(af).toFixed(2);
+		rate = fiat ? (sats * amountFiat) / amount : $selectedRate;
 		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,
