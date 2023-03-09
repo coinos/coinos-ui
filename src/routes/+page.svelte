@@ -59,9 +59,11 @@
 		<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
 	</div>
     <Q  {src} />
-    <div class="text-center text-3xl">https://coinos.io/LaughingBean</div>
+    <div class="text-center text-4xl">https://coinos.io/LaughingBean</div>
     <div class="text-center text-3xl">Don't have a wallet?<br> Sign up for free at <b>coinos.io</b>!</div>
-    <div class="justify-center w-full flex">
+    <p class="text-2xl text-center">Made locally in North Vancouver</p>
+    <div class="justify-center w-full flex gap-8">
+    <img src="/images/bean.png" class="invert w-32" />
     <img src="/images/logo.svg" />
     </div>
     </div>
