@@ -10,6 +10,7 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@tailwindcss/line-clamp": "^0.4.2",
 		"@zerodevx/svelte-toast": "^0.7.2",
 		"autoprefixer": "^10.4.13",
 		"bech32": "^2.0.0",

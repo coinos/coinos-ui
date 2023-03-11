@@ -4,8 +4,8 @@
 
 	const followLinks = [
 		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
-		{ url: 'https://github.com/coinos', titleID: 'github' },
-		{ url: 'https://t.me/coinoswallet', titleID: 'telegram' }
+		{ url: 'https://t.me/coinoswallet', titleID: 'telegram' },
+		{ url: 'https://linktr.ee/coinos.io', titleID: 'linktree' }
 	];
 
 	const companyLinks = [
