@@ -7,7 +7,7 @@
 	let api = PUBLIC_COINOS_URL + '/api';
 
 	if (!token) token = '<login to see your token here>';
-  let tokenSample = `export token="${token}"`;
+	let tokenSample = `export token="${token}"`;
 </script>
 
 <div class="space-y-8 lg:text-xl mt-20 w-full max-w-full">
@@ -31,8 +31,8 @@
 	<h2 class="text-2xl">Auth Token</h2>
 	<p class="text-secondary">This JWT authorizes you to use the API</p>
 	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
-    <div class="w-full break-all">{tokenSample}</div>
-    <button class="ml-auto my-auto invert opacity-90" on:click={() => copy(tokenSample)}
+		<div class="w-full break-all">{tokenSample}</div>
+		<button class="ml-auto my-auto invert opacity-90" on:click={() => copy(tokenSample)}
 			><Icon icon="copy" style="w-10 max-w-none" /></button
 		>
 	</div>

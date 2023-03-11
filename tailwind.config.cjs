@@ -12,6 +12,6 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [require('tailwind-scrollbar')],
+	plugins: [require('tailwind-scrollbar'), require('@tailwindcss/line-clamp')],
 	safelist: ['w-16', 'h-16', 'w-20', 'h-20', 'w-24', 'h-24']
 };
