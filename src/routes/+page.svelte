@@ -8,10 +8,10 @@
 		Image,
 		About,
 		Footer,
-      Qr as Q,
+		Qr as Q
 	} from '$comp';
 
-  import Qr from 'qrcode-base64';
+	import Qr from 'qrcode-base64';
 
 	import { t } from '$lib/translations';
 	import { close } from '$lib/socket';
@@ -43,7 +43,7 @@
 		}
 	});
 
-	let src = Qr.drawImg("https%3A%2F%2Fcoinos.io%2FLaughingBean", { size: 600 });
+	let src = Qr.drawImg('https://coinos.io/laughingbean', { size: 3200 });
 </script>
 
 <svelte:head>
@@ -53,20 +53,20 @@
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
-<div class="space-y-8">
-	<div class="flex w-full justify-center gap-4">
-		<img src="/images/bitcoin.png" class="w-14" />
-		<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
+	<div class="space-y-8 border-8 border-black p-8 w-[680px] mx-auto">
+		<div class="flex w-full justify-center gap-4">
+			<img src="/images/bitcoin.png" class="w-14" />
+			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
+		</div>
+		<Q {src} />
+		<div class="text-center text-4xl">https://coinos.io/laughingbean</div>
+		<div>
+			<div class="text-center text-3xl">
+				Don't have a wallet?<br /> Start in seconds at <b>coinos.io</b>!
+			</div>
+			<div class="text-center text-xl">Made locally in North Vancouver</div>
+		</div>
 	</div>
-    <Q  {src} />
-    <div class="text-center text-4xl">https://coinos.io/LaughingBean</div>
-    <div class="text-center text-3xl">Don't have a wallet?<br> Sign up for free at <b>coinos.io</b>!</div>
-    <p class="text-2xl text-center">Made locally in North Vancouver</p>
-    <div class="justify-center w-full flex gap-8">
-    <img src="/images/bean.png" class="invert w-32" />
-    <img src="/images/logo.svg" />
-    </div>
-    </div>
 	<LandingHero {user} />
 	<LandingInfoCard
 		image="lightning-qr"
