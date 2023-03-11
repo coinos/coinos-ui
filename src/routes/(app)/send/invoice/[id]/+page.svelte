@@ -5,11 +5,11 @@
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, f, s, sats } from '$lib/utils';
+	import { back, f, fiat as toFiat, s, sats } from '$lib/utils';
 	export let data;
 	export let form;
 
-	let { address, payreq, recipient, user } = data;
+	let { address, payreq, recipient, rate, tip, user } = data;
 	let { currency } = user;
 
 	let amount = form?.amount || data.amount;
@@ -49,9 +49,23 @@
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">
 				{$t('payments.send')}
 			</h1>
-			<p class="text-6xl break-words mb-4">
-				{fiat ? f(amountFiat, currency) : '⚡️' + s(amount)}
-			</p>
+			<h2 class="text-2xl md:text-3xl font-semibold">
+				{f(toFiat(amount, rate), currency)}
+				{#if tip}
+					<span class="text-lg">
+						+ {f(toFiat(tip, rate), currency)}
+					</span>
+				{/if}
+			</h2>
+			<h3 class="text-secondary md:text-lg mb-6 mt-1">
+				⚡️{s(amount)}
+
+				{#if tip}
+					<span class="text-lg">
+						+ ⚡️{s(tip)}
+					</span>
+				{/if}
+			</h3>
 
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('payments.to')}</h1>
 
