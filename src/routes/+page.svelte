@@ -62,9 +62,9 @@
 		<div class="text-center text-4xl">https://coinos.io/laughingbean</div>
 		<div>
 			<div class="text-center text-3xl">
-				Don't have a wallet?<br /> Start in seconds at <b>coinos.io</b>!
+				Don't have a wallet?<br /> Start in seconds at <b>coinos.io</b>
 			</div>
-			<div class="text-center text-xl">Made locally in North Vancouver</div>
+			<div class="text-center text-xl pt-2">Made in Vancouver</div>
 		</div>
 	</div>
 	<LandingHero {user} />
