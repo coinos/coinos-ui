@@ -6,8 +6,6 @@ export async function load({ params: { id }, parent, url }) {
 
 	let { amount, address, rate, prompt, tip, text, user: recipient } = await get(`/invoice/${id}`);
 
-  console.log("AMOUNT, TIP", amount, tip)
-
   if (prompt && tip === null) throw redirect(307, `/${recipient.username}/invoice/${id}/tip`);
 	if (recipient.username === user.username) throw error(500, { message: 'Cannot send to self' });
 	return { amount, address, tip, rate, payreq: text, recipient };
@@ -18,8 +16,6 @@ export const actions = {
 		try {
 			let body = await fd(request);
 			body.hash = hash;
-
-      console.log("SENDING BODY", body)
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {
