@@ -12,7 +12,7 @@
 				{ type: 'github', url: 'https://github.com/asoltys', color: 'bg-gray-800' }
 			]
 		},
-		{ name: 'cole', socials: [] },
+		{ name: 'cole', socials: [] }
 	];
 </script>
 

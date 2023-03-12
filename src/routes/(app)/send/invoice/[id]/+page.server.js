@@ -6,7 +6,7 @@ export async function load({ params: { id }, parent, url }) {
 
 	let { amount, address, rate, prompt, tip, text, user: recipient } = await get(`/invoice/${id}`);
 
-  if (prompt && tip === null) throw redirect(307, `/${recipient.username}/invoice/${id}/tip`);
+	if (prompt && tip === null) throw redirect(307, `/${recipient.username}/invoice/${id}/tip`);
 	if (recipient.username === user.username) throw error(500, { message: 'Cannot send to self' });
 	return { amount, address, tip, rate, payreq: text, recipient };
 }
