@@ -61,8 +61,8 @@
 		<div>
 			<span class="text-lg text-secondary">Total</span>
 			<div>
-				{f(fiat(a + tip || 0, rate), currency)}
-				<span class="text-secondary text-lg">⚡️{`${s(a + tip || 0)}`} </span>
+				{f(fiat(a + (tip || 0), rate), currency)}
+          <span class="text-secondary text-lg">⚡️{`${s(a + (tip || 0))}`} </span>
 			</div>
 		</div>
 	{/if}
