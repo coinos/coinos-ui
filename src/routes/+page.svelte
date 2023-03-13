@@ -55,16 +55,15 @@
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
 	<div class="space-y-8 border-8 border-black p-8 w-[680px] mx-auto">
 		<div class="flex w-full justify-center gap-4">
-			<img src="/images/bitcoin.png" class="w-14" />
-			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
+      <span class="text-6xl">⚡️</span>
+			<h3 class="text-5xl font-medium text-center">Lightning Address</h3>
 		</div>
 		<Q {src} />
-		<div class="text-center text-4xl">https://coinos.io/laughingbean</div>
+		<div class="text-center text-4xl">laughingbean@coinos.io</div>
 		<div>
-			<div class="text-center text-3xl">
-				Don't have a wallet?<br /> Start in seconds at <b>coinos.io</b>
+			<div class="text-center text-xl">
+        Scan with any <b>lightningaddress.com</b> wallet, such as coinos
 			</div>
-			<div class="text-center text-xl pt-2">Made in Vancouver</div>
 		</div>
 	</div>
 	<LandingHero {user} />
