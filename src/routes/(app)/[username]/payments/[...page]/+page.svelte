@@ -60,11 +60,11 @@
 		payments = payments.map((p) => ({
 			...p,
 			created: new Date(p.created),
-			total: p.amount + p.tip || 0,
+			total: p.amount + (p.tip || 0),
 			amount_fiat: f((p.amount * p.rate) / sats, p.currency),
 			fee_fiat: p.fee ? f((p.fee * p.rate) / sats, p.currency) : null,
 			tip_fiat: p.tip ? f((p.tip * p.rate) / sats, p.currency) : null,
-			total_fiat: f(((p.amount + p.tip || 0) * p.rate) / sats, p.currency)
+        total_fiat: f(((p.amount + (p.tip || 0)) * p.rate) / sats, p.currency)
 		}));
 
 		let keys = [
@@ -147,8 +147,8 @@
 				<a href={`/payment/${p.id}`}>
 					<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
 						<div class="whitespace-nowrap my-auto">
-              <div class="font-bold" class:text-red-800={p.amount < 0}>
-								{f((Math.abs(p.amount) + p.tip || 0) * (p.rate / sats), p.currency)}
+							<div class="font-bold" class:text-red-800={p.amount < 0}>
+								{f((Math.abs(p.amount) + (p.tip || 0)) * (p.rate / sats), p.currency)}
 								{#if p.tip}
 									<span class="text-xs text-secondary">
 										{f(Math.abs(p.amount) * (p.rate / sats), p.currency)} + {f(
