@@ -160,7 +160,7 @@
 							</div>
 
 							<div class="text-secondary">
-								{sat(p.amount + p.tip)}
+								{sat(p.amount + (p.tip || 0))}
 							</div>
 						</div>
 
