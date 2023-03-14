@@ -3,7 +3,7 @@
 		"404": "404",
 		"pageNotFound": "Página não encontrada."
 	},
-	"header": {
+	"about": {
 		"header": "Sobre",
 		"p1": "O Coinos é uma aplicação de pagamento de bitcoin de código aberto. O desenvolvimento começou em Vancouver em Setembro de 2012 como forma de fornecer aos comerciantes locais uma forma conveniente de aceitar pagamentos de bitcoin.",
 		"p2": "Você pode baixar o código fonte para executar uma instância e ligá-lo aos seus próprios nós de bitcoin e da Lightning Network. Vamos ajudá-lo a começar a ser um depositário benevolente e fornecedor de pagamentos para a sua comunidade..",
@@ -34,16 +34,16 @@
 	"faq": {
 		"header": "FAQ",
 		"cost": {
-			"pergunta": "Quanto custa?",
-			"resposta": "É grátis para registrar uma conta e receber pagamentos. Cobramos uma taxa de conversão de 0,1% se você retirar o bitcoin da rede principal para a lightning ou vice-versa.."
+			"question": "Quanto custa?",
+			"answer": "É grátis para registrar uma conta e receber pagamentos. Cobramos uma taxa de conversão de 0,1% se você retirar o bitcoin da rede principal para a lightning ou vice-versa.."
 		},
 		"compatibility": {
-			"pergunta": "Eu preciso de algum dispositivo ou software especial?",
-			"resposta": "Não. Coinos baseado na web, desde que você tenha uma conexão com a Internet e um navegador web, ele funciona em qualquer lugar. Os comerciantes de varejo podem usá-lo em um telefone, computador ou tablet."
+			"question": "Eu preciso de algum dispositivo ou software especial?",
+			"answer": "Não. Coinos baseado na web, desde que você tenha uma conexão com a Internet e um navegador web, ele funciona em qualquer lugar. Os comerciantes de varejo podem usá-lo em um telefone, computador ou tablet."
 		},
 		"safety": {
-			"pergunta": "Como é a liquidez?",
-			"resposta": "Os pagamentos pela lightning são liquidados instantaneamente. Você pode retirar seu saldo para outra carteira ou trocar imediatamente assim que os fundos forem recebidos."
+			"question": "Como é a liquidez?",
+			"answer": "Os pagamentos pela lightning são liquidados instantaneamente. Você pode retirar seu saldo para outra carteira ou trocar imediatamente assim que os fundos forem recebidos."
 		}
 	},
 	"footer": {
