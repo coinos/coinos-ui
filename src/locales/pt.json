@@ -15,31 +15,10 @@
 				"position": "Chief Technical Officer",
 				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
 			},
-			"secondl1ght": {
-				"name": "secondl1ght",
-				"position": "Web Developer",
-				"bio": "A self-taught Web Developer, secondl1ght dove head first down the bitcoin rabbit hole and left his fiat job to focus on bitcoin development full-time. He contributes to open source projects, is a privacy advocate, and freedom lover."
-			},
-
-			"karnage": {
-				"name": "Karnage",
-				"position": "Product Designer",
-				"bio": "My mission is to help startup founders succeed. I create products to achieve this goal. Pixel-perfect product design. Get it shipped."
-			},
-			"shauna": {
-				"name": "Shauna",
-				"position": "Operations & Marketing",
-				"bio": "Strategic & Project Management. Jack of all Trades. Can always find time to meet for coffee."
-			},
 			"cole": {
 				"name": "Cole",
-				"position": "Bitcoin Professional",
-				"bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
-			},
-			"john": {
-				"name": "John Barratt",
-				"position": "Full Stack Web Developer",
-				"bio": "When not coding you can find John out in the woods hiking all the great trails that BC has to offer."
+				"position": "Certified Bitcoin Professional",
+				"bio": "Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
 			}
 		},
 		"locations": {
@@ -56,26 +35,27 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "It's free to register an account and receive payments over the lightning network. We charge a 0.1% fee to convert from lightning to bitcoin."
+			"answer": "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
+			"answer": "No. Coinos is web based, so as long as you have an internet connection and a web browser, it works anywhere. Retail merchants might use it on a phone or a tablet."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet or exchange right after payments are received."
+			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet or exchange immediately once funds are received."
 		}
 	},
 	"footer": {
 		"company": "Company",
 		"followUs": "Follow Us",
 		"github": "GitHub",
+		"linktree": "Linktree",
 		"jobs": "Jobs",
 		"support": "Support",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
-		"news": "News"
+		"documentation": "Documentation"
 	},
 	"howItWorks": {
 		"header": "How it works",
@@ -89,7 +69,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Spend your coin at other merchants or save it for a rainy day, the choice is yours."
+			"description": "Spend your coin immediately or save it and watch it grow, the choice is yours."
 		}
 	},
 	"invoice": {
@@ -112,11 +92,11 @@
 	"landing": {
 		"header_before_icon": "The",
 		"header_with_icon": "easiest",
-		"header_after_icon": "way to accept bitcoin in your store.",
-		"subheader": "Grow your customer base and revenue by accepting bitcoin with an easy-to-use web app. No software or hardware required.",
+		"header_after_icon": "way to get started with bitcoin.",
+		"subheader": "A simple but powerful web wallet for everyone. No software or hardware required.",
 		"info1": {
 			"title": "Instant payments via Lightning",
-			"description": "The moment your customer sends a payment, it’s there. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
+			"description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
 		},
 		"info2": {
 			"title": "Simple to use",
@@ -126,7 +106,7 @@
 		},
 		"info3": {
 			"title": "Brand it your way!",
-			"description": "Customize your point of sale look and feel, or keep it on default - it's totally up to you."
+			"description": "Customize your profile page look and feel, or keep it on default - it's totally up to you."
 		}
 	},
 	"login": {
@@ -166,7 +146,14 @@
 		"unfollow": "Unfollow",
 		"following": "Following",
 		"follow": "Follow",
+		"followers": "Followers",
 		"remove": "Remove",
+		"noNotes": "No notes yet",
+		"message": "Message",
+		"messages": "Messages",
+		"feed": "Feed",
+		"notes": "Notes",
+		"pay": "Pay",
 		"scanToPayBTC": "Scan to pay with bitcoin",
 		"this": "This",
 		"lightningAddress": "lightning address",
@@ -198,36 +185,44 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
+      "saveSettings": "Save Settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",
 			"oneTimeCode": "Enter one-time code",
 			"accountId": "Account Secret",
 			"header": "Settings",
 			"ACCOUNT": "ACCOUNT",
-			"POINT_OF_SALE": "POINT OF SALE",
+			"POINT_OF_SALE": "PREFERENCES",
 			"SECURITY": "SECURITY",
 			"locale": "Language",
 			"username": "Username",
 			"email": "Email",
-			"newPassword": "New Password",
-			"businessAddress": "Business Address",
+			"newPassword": "Change Password",
+			"about": "About",
+			"aboutPlaceholder": "A little something about you or your business address and hours",
 			"emailNotifications": "Email Notifications",
 			"emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
 			"smsNotifications": "SMS Notifications",
 			"smsNotificationsDescription": "Coinos will send you text notifications when this is enabled.",
 			"theme": "Color Theme",
+			"tipPrompt": "Prompt for tips",
+			"tipPromptDescription": "Ask people if they want to add a tip before paying their invoices",
+			"displayName": "Display name",
 			"themeDescription": "Select from the default color themes.",
-			"localCurrency": "Local Currency",
+			"localCurrency": "Currency",
 			"btcUnit": "Display bitcoin in:",
 			"bitcoin": "bitcoin",
+			"minutes": "minutes",
+			"hour": "hour",
+			"hours": "hours",
 			"satoshis": "Satoshis",
 			"securityPIN": "Security PIN",
 			"securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",
 			"setPIN": "Set PIN",
 			"autoLock": "Auto-Lock Timer",
-			"autoLockDescription": "Your account will go into a secure mode automatically after a specified time:",
+			"autoLockDescription": "Your account will go into a secure mode, requiring you to re-enter your credentials after a specified time:",
 			"twofa": "2-Factor Authentication",
-			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
+			"twofaDescription": "Add an extra level of security to your device by enabling 2-factor authentication.",
 			"twofaSetup": "Set up 2FA",
 			"twofaDisable": "Disable 2FA",
 			"select": "Select",
@@ -244,10 +239,14 @@
 		}
 	},
 	"payments": {
-		"header": "Transactions",
-		"AMOUNT": "AMOUNT",
-		"TYPE": "TYPE",
-		"TIME": "TIME",
+		"amount": "Amount",
+		"date": "Date",
+		"id": "Transaction ID",
+		"details": "Transaction Details",
+		"header": "Payments",
+		"preimage": "Proof of payment",
+		"type": "Type",
+		"time": "Time",
 		"sent": "Sent",
 		"received": "Received",
 		"empty": "No transactions yet.",
@@ -259,7 +258,7 @@
 		"pay": "Pay",
 		"requesting": "is requesting",
 		"sentInvoiceTo": "Sent invoice to",
-		"sentRequestTo": "Sent request to",
+		"sentRequestTo": "Request sent!",
 		"pleasePay": "Please pay",
 		"day": "Day",
 		"week": "Week",
@@ -269,9 +268,16 @@
 		"invoice": "Invoice",
 		"readyToPay": "is ready to pay",
 		"describeOrder": "Use this field to describe your order",
-		"requestAnInvoice": "Request an invoice",
+		"requestAnInvoice": "Request Invoice",
 		"submit": "Submit",
 		"isRequesting": "is requesting",
-		"awaiting": "Awaiting"
+		"invoiceFrom": "Invoice from",
+		"awaiting": "Awaiting",
+		"tapAnywhere": "Tap anywhere to continue",
+		"from": "from",
+		"redeem": "Redeem",
+		"redeemed": "Redeemed",
+		"redeemedBy": "Redeemed by",
+		"sendMessage": "Write a message..."
 	}
 }
