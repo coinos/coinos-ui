@@ -1,5 +1,5 @@
 {
-	"404": {
+      "404": {
 		"404": "404",
 		"pageNotFound": "Página não encontrada."
 	},
@@ -168,7 +168,7 @@
 			"fetchingRate": "buscando taxa...",
 			"optionalNote": "Nota (Opcional)",
 			"send": "Enviar",
-			"receive": "Receber,
+			"receive": "Receber",
 			"withdraw": "Enviar",
 			"deposit": "Deposit",
 			"voucher": "Voucher"
