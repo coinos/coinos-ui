@@ -15,20 +15,10 @@
 				"position": "Chief Technical Officer",
 				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
 			},
-			"shauna": {
-				"name": "Shauna",
-				"position": "Operations & Marketing",
-				"bio": "Strategic & Project Management. Jack of all Trades. Can always find time to meet for coffee."
-			},
 			"cole": {
 				"name": "Cole",
 				"position": "Certified Bitcoin Professional",
 				"bio": "Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
-			},
-			"john": {
-				"name": "John Barratt",
-				"position": "Full Stack Web Developer",
-				"bio": "When not coding you can find John out in the woods hiking all the great trails that BC has to offer."
 			}
 		},
 		"locations": {
@@ -195,6 +185,7 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
+      "saveSettings": "Save Settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",
 			"oneTimeCode": "Enter one-time code",

@@ -150,7 +150,7 @@
 			{#if loading}
 				<Spinner />
 			{:else}
-				<div class="my-auto">Save Settings</div>
+        <div class="my-auto">{$t('user.settings.saveSettings')}</div>
 			{/if}
 		</button>
 	</div>
