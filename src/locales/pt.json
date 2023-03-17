@@ -1,5 +1,5 @@
 {
-      "404": {
+	"404": {
 		"404": "404",
 		"pageNotFound": "Página não encontrada."
 	},
@@ -185,7 +185,7 @@
 			"placeholder": "Colar um endereço de bitcoin, fatura lightning ou nome de usuário na coinos"
 		},
 		"settings": {
-      "saveSettings": "Salvar ajustes",
+			"saveSettings": "Salvar ajustes",
 			"bannerImage": "Imagem do banner",
 			"profileImage": "Imagem do perfil",
 			"oneTimeCode": "Entre com o código único",

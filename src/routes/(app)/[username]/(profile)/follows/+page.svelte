@@ -14,7 +14,9 @@
 <svelte:window bind:innerWidth={w} />
 
 <div class="px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">{$t('user.following')}</h1>
+	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
+		{$t('user.following')}
+	</h1>
 
 	{#if browser}
 		{#if follows.length}
