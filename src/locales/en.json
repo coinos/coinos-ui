@@ -185,7 +185,7 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
-      "saveSettings": "Save Settings",
+			"saveSettings": "Save Settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",
 			"oneTimeCode": "Enter one-time code",

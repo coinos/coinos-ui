@@ -64,7 +64,7 @@
 			amount_fiat: f((p.amount * p.rate) / sats, p.currency),
 			fee_fiat: p.fee ? f((p.fee * p.rate) / sats, p.currency) : null,
 			tip_fiat: p.tip ? f((p.tip * p.rate) / sats, p.currency) : null,
-        total_fiat: f(((p.amount + (p.tip || 0)) * p.rate) / sats, p.currency)
+			total_fiat: f(((p.amount + (p.tip || 0)) * p.rate) / sats, p.currency)
 		}));
 
 		let keys = [

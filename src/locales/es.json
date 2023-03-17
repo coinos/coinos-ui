@@ -178,7 +178,7 @@
 			"placeholder": "Asigne una dirección de bitcoin, una factura lightning o un usuario de coinos"
 		},
 		"settings": {
-      "saveSettings": "Guardar ajustes",
+			"saveSettings": "Guardar ajustes",
 			"tipPrompt": "Solicitar propinas",
 			"tipPromptDescription": "Pregunta a las personas si quieren agregar una propina antes de pagar sus facturas",
 			"bannerImage": "Imagen del Banner",
