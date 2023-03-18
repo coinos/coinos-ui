@@ -1,277 +1,283 @@
 {
 	"404": {
 		"404": "404",
-		"pageNotFound": "Page not found."
+		"pageNotFound": "Página não encontrada."
 	},
 	"about": {
-		"header": "About",
-		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
-		"p2": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
-		"p3": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
+		"header": "Sobre",
+		"p1": "O Coinos é uma aplicação de pagamento de bitcoin de código aberto. O desenvolvimento começou em Vancouver em Setembro de 2012 como forma de fornecer aos comerciantes locais uma forma conveniente de aceitar pagamentos de bitcoin.",
+		"p2": "Você pode baixar o código fonte para executar uma instância e ligá-lo aos seus próprios nós de bitcoin e da Lightning Network. Vamos ajudá-lo a começar a ser um depositário benevolente e fornecedor de pagamentos para a sua comunidade..",
+		"p3": "As transferências de conta entre utilizadores no nosso servidor são feitas off-chain, por isso são completamente gratuitas, instantâneas e ilimitadas.",
 		"team": {
-			"header": "The Team",
+			"header": "O time",
 			"adam": {
 				"name": "Adam Soltys",
-				"position": "Chief Technical Officer",
-				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
-			},
-			"secondl1ght": {
-				"name": "secondl1ght",
-				"position": "Web Developer",
-				"bio": "A self-taught Web Developer, secondl1ght dove head first down the bitcoin rabbit hole and left his fiat job to focus on bitcoin development full-time. He contributes to open source projects, is a privacy advocate, and freedom lover."
-			},
-
-			"karnage": {
-				"name": "Karnage",
-				"position": "Product Designer",
-				"bio": "My mission is to help startup founders succeed. I create products to achieve this goal. Pixel-perfect product design. Get it shipped."
-			},
-			"shauna": {
-				"name": "Shauna",
-				"position": "Operations & Marketing",
-				"bio": "Strategic & Project Management. Jack of all Trades. Can always find time to meet for coffee."
+				"position": "Responsável Técnico Principal",
+				"bio": "Adam é um desenvolvedor web e um entusiasta do bitcoin que acredita que o dinheiro sólido é a chave para aumentar a prosperidade global. Ele vive em North Vancouver com a sua esposa Chelsea e dois filhos."
 			},
 			"cole": {
 				"name": "Cole",
-				"position": "Bitcoin Professional",
-				"bio": "As a Certified Bitcoin Professional, Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
-			},
-			"john": {
-				"name": "John Barratt",
-				"position": "Full Stack Web Developer",
-				"bio": "When not coding you can find John out in the woods hiking all the great trails that BC has to offer."
+				"position": "Profissional Certificado de Bitcoin",
+				"bio": "Cole é um indivíduo motivado com uma paixão pela liberdade. Encontrou-se com o bitcoin em 2016 e estudou-o em profundidade. Agora quer introduzir a rede lightning ao maior número de utilizadores possível."
 			}
 		},
 		"locations": {
-			"header": "Locations",
-			"description": "Here are some businesses that are accepting bitcoin with Coinos. We hope that yours will be next!"
+			"header": "Locais",
+			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Coinos. Esperamos que o seu seja o próximo!"
 		}
 	},
 	"error": {
-		"header": "Error",
-		"message": "Please try again or contact support.",
-		"signIn": "Please sign in to continue."
+		"header": "Erro",
+		"message": "Por favor tente novamente ou contate o suporte.",
+		"signIn": "Por favor, faça o login para continuar."
 	},
 	"faq": {
 		"header": "FAQ",
 		"cost": {
-			"question": "What does it cost?",
-			"answer": "It's free to register an account and receive payments over the lightning network. We charge a 0.1% fee to convert from lightning to bitcoin."
+			"question": "Quanto custa?",
+			"answer": "É grátis para registrar uma conta e receber pagamentos. Cobramos uma taxa de conversão de 0,1% se você retirar o bitcoin da rede principal para a lightning ou vice-versa.."
 		},
 		"compatibility": {
-			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
+			"question": "Eu preciso de algum dispositivo ou software especial?",
+			"answer": "Não. Coinos baseado na web, desde que você tenha uma conexão com a Internet e um navegador web, ele funciona em qualquer lugar. Os comerciantes de varejo podem usá-lo em um telefone, computador ou tablet."
 		},
 		"safety": {
-			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet or exchange right after payments are received."
+			"question": "Como é a liquidez?",
+			"answer": "Os pagamentos pela lightning são liquidados instantaneamente. Você pode retirar seu saldo para outra carteira ou trocar imediatamente assim que os fundos forem recebidos."
 		}
 	},
 	"footer": {
-		"company": "Company",
-		"followUs": "Follow Us",
+		"company": "Empresa",
+		"followUs": "Siga-nos",
 		"github": "GitHub",
-		"jobs": "Jobs",
-		"support": "Support",
+		"linktree": "Linktree",
+		"jobs": "Empregos",
+		"support": "Suporte",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
-		"news": "News"
+		"documentation": "Documentação"
 	},
 	"howItWorks": {
-		"header": "How it works",
+		"header": "Como funciona",
 		"step1": {
-			"header": "1. Create your account",
-			"description": "A username and password is all you need to get started."
+			"header": "1. Crie sua conta",
+			"description": "Um nome de usuário e senha é tudo o que você precisa para começar."
 		},
 		"step2": {
-			"header": "2. Ask for payments",
-			"description": "The same as you normally would, but with bitcoin."
+			"header": "2. Solicite pagamentos",
+			"description": "O mesmo que você normalmente faria, mas com bitcoin."
 		},
 		"step3": {
-			"header": "3. That's all!",
-			"description": "Spend your coin at other merchants or save it for a rainy day, the choice is yours."
+			"header": "3. Pronto!",
+			"description": "Gaste sua moeda imediatamente ou guarde-a e veja-a crescer, a escolha é sua."
 		}
 	},
 	"invoice": {
-		"addTip": "Add a tip",
-		"addTipq": "Add a tip?",
-		"done": "Done",
-		"paymentSuccessful": "Payment received!",
-		"invoice": "Invoice",
+		"addTip": "Adicionar gorjeta",
+		"addTipq": "Adicionar gorjeta?",
+		"done": "Feito",
+		"paymentSuccessful": "Pagamento recebido!",
+		"invoice": "Fatura",
 		"total": "Total",
-		"tip": "Tip"
+		"tip": "Gorjeta"
 	},
 	"jobs": {
-		"header": "Jobs",
-		"subheader": "Current Openings",
-		"pitch1": "Coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
-		"pitch2": "Excited about working on open source bitcoin? Then take a look at our repositories on",
+		"header": "Vagas de emprego",
+		"subheader": "Atualmente abertas",
+		"pitch1": "Coinos está procurando ativamente desenvolvedores para se juntar à nossa crescente equipe (tempo integral ou meio-período, trabalho remoto OK).",
+		"pitch2": "Entusiasmado com o trabalho em bitcoin open source? Então dê uma olhada em nossos repositórios em",
 		"github": "GitHub",
-		"pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
+		"pitch3": "Se você acha que pode causar um impacto, gostaríamos muito de ouvir de você. Envie-nos seu currículo para"
 	},
 	"landing": {
-		"header_before_icon": "The",
-		"header_with_icon": "easiest",
-		"header_after_icon": "way to accept bitcoin in your store.",
-		"subheader": "Grow your customer base and revenue by accepting bitcoin with an easy-to-use web app. No software or hardware required.",
+		"header_before_icon": "O",
+		"header_with_icon": "jeito mais fácil",
+		"header_after_icon": "de iniciar no Bitcoin.",
+		"subheader": "Uma carteira web simples, mas poderosa para todos. Não requer software nem hardware.",
 		"info1": {
-			"title": "Instant payments via Lightning",
-			"description": "The moment your customer sends a payment, it’s there. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
+			"title": "Pagamentos instantâneos via Lightning",
+			"description": "Facilitamos para os comerciantes o recebimento de pagamentos de varejo. Nada de esperar por liquidações bancárias ou se preocupar com chargebacks. Liquidação instantânea, em segundos. Diga adeus a 3% de taxas de processamento de cartão de crédito.."
 		},
 		"info2": {
-			"title": "Simple to use",
-			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
-			"description2": "We do all the heavy lifting so you can focus on your business.",
-			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
+			"title": "Simples de usar",
+			"description1": "Basta inserir a quantia em sua moeda local, compartilhar o QR code e pronto..",
+			"description2": "Nós fazemos todo o trabalho pesado para que você possa se concentrar no seu negócio.",
+			"description3": "Você sempre tem a opção de tomar para sí a custódia de seus fundos, retirando-se imediatamente a qualquer momento."
 		},
 		"info3": {
-			"title": "Brand it your way!",
-			"description": "Customize your point of sale look and feel, or keep it on default - it's totally up to you."
+			"title": "Personalise do seu jeito!",
+			"description": "Personalize a aparência de sua página de perfil, ou mantenha o padrão - você escolhe."
 		}
 	},
 	"login": {
-		"optional": "Optional",
+		"optional": "Opcional",
 		"token": "2FA Token",
-		"username": "Username",
-		"password": "Password",
+		"username": "Usuário",
+		"password": "Senha",
 		"email": "Email",
-		"passwordRecommendation": "We recommend a long, random password generated with a password manager.",
-		"forgotUserOrPassword": "Forgot Username or Password?",
-		"haveAccount": "Already have an account?",
-		"noAccount": "Don't have an account?",
-		"register": "Register",
-		"signIn": "Sign In",
-		"failed": "Login failed"
+		"passwordRecommendation": "Recomendamos uma senha longa e aleatória gerada com um gerenciador de senhas.",
+		"forgotUserOrPassword": "Esqueceu o usuário ou senha?",
+		"haveAccount": "Já tem uma conta?",
+		"noAccount": "Não tem uma conta?",
+		"register": "Registre",
+		"signIn": "Entrar",
+		"failed": "Falha no login"
 	},
 	"nav": {
-		"profile": "Profile",
-		"startInSeconds": "Start in Seconds",
-		"account": "Account",
-		"signIn": "Sign In",
-		"signOut": "Sign Out",
-		"dashboard": "Dashboard",
-		"settings": "Settings",
-		"support": "Support"
+		"profile": "Perfil",
+		"startInSeconds": "Inicie em segundos",
+		"account": "Conta",
+		"signIn": "Entrar",
+		"signOut": "Sair",
+		"dashboard": "Painel de controle",
+		"settings": "Ajustes",
+		"support": "Suporte"
 	},
 	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
-		"header": "News",
-		"subheader": "Latest Updates",
+		"header": "Notícias",
+		"subheader": "Últimos Updates",
 		"update1": ""
 	},
 	"user": {
 		"bitcoin": "Bitcoin",
 		"lightning": "Lightning",
-		"invoice": "Invoice",
-		"unfollow": "Unfollow",
-		"following": "Following",
-		"follow": "Follow",
-		"remove": "Remove",
-		"scanToPayBTC": "Scan to pay with bitcoin",
-		"this": "This",
-		"lightningAddress": "lightning address",
-		"likeAnEmail": "is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.",
+		"invoice": "Fatura",
+		"unfollow": "Deixar de seguir",
+		"following": "Seguindo",
+		"follow": "Seguir",
+		"followers": "Seguidores",
+		"remove": "Remover",
+		"noNotes": "Nenhuma nota ainda",
+		"message": "Mensagem",
+		"messages": "Mensagens",
+		"feed": "Feed",
+		"notes": "Notas",
+		"pay": "Pagar",
+		"scanToPayBTC": "Escaneie para pagar com bitcoin",
+		"this": "Este",
+		"lightningAddress": "endereço lightning",
+		"likeAnEmail": "é como um email para o bitcoin. Você pode publicá-lo em seu site ou cartão de visita e usá-lo várias vezes.",
 		"dashboard": {
-			"go": "Go",
-			"dashboard": "Dashboard",
-			"accountBalance": "Account Balance",
-			"bitcoinPrice": "bitcoin Price:",
-			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",
+			"go": "Ir",
+			"dashboard": "Painel de controle",
+			"accountBalance": "Saldo na conta",
+			"bitcoinPrice": "Preço do bitcoin:",
+			"conversionFeeWarning": "Será cobrada uma taxa de retirada de 1% sobre o valor.",
 			"dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
-			"fetchingRate": "fetching rate...",
-			"optionalNote": "Note (Optional)",
-			"send": "Send",
-			"receive": "Receive",
-			"withdraw": "Send",
+			"fetchingRate": "buscando taxa...",
+			"optionalNote": "Nota (Opcional)",
+			"send": "Enviar",
+			"receive": "Receber",
+			"withdraw": "Enviar",
 			"deposit": "Deposit",
 			"voucher": "Voucher"
 		},
 		"receive": {
-			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",
-			"showQR": "Show QR"
+			"lessThan1BTCWarning": "Favor inserir uma quantidade inferior a 1 bitcoin.",
+			"showQR": "Mostrar QR code"
 		},
 		"send": {
-			"contacts": "Contacts",
-			"scan": "Scan",
-			"paste": "Paste",
-			"next": "Next",
-			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
+			"contacts": "Contatos",
+			"scan": "Escanear",
+			"paste": "Colar",
+			"next": "Continuar",
+			"placeholder": "Colar um endereço de bitcoin, fatura lightning ou nome de usuário na coinos"
 		},
 		"settings": {
-			"bannerImage": "Banner Image",
-			"profileImage": "Profile Image",
-			"oneTimeCode": "Enter one-time code",
-			"accountId": "Account Secret",
-			"header": "Settings",
-			"ACCOUNT": "ACCOUNT",
-			"POINT_OF_SALE": "POINT OF SALE",
-			"SECURITY": "SECURITY",
-			"locale": "Language",
-			"username": "Username",
+			"saveSettings": "Salvar ajustes",
+			"bannerImage": "Imagem do banner",
+			"profileImage": "Imagem do perfil",
+			"oneTimeCode": "Entre com o código único",
+			"accountId": "ID da conta",
+			"header": "Ajustes",
+			"ACCOUNT": "CONTA",
+			"POINT_OF_SALE": "PREFERÊNCIAS",
+			"SECURITY": "SEGURANÇA",
+			"locale": "Idioma",
+			"username": "Usuário",
 			"email": "Email",
-			"newPassword": "New Password",
-			"businessAddress": "Business Address",
-			"emailNotifications": "Email Notifications",
-			"emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
-			"smsNotifications": "SMS Notifications",
-			"smsNotificationsDescription": "Coinos will send you text notifications when this is enabled.",
-			"theme": "Color Theme",
-			"themeDescription": "Select from the default color themes.",
-			"localCurrency": "Local Currency",
-			"btcUnit": "Display bitcoin in:",
+			"newPassword": "Alterar senhar",
+			"about": "Sobre",
+			"aboutPlaceholder": "Um pouco sobre você ou seu endereço comercial e horários",
+			"emailNotifications": "Notificações por email",
+			"emailNotificationsDescription": "Ser notificado por e-mail quando ocorrer uma mudança em sua conta ou quando as pessoas lhe enviarem pagamentos.",
+			"smsNotifications": "Notificações por SMS",
+			"smsNotificationsDescription": "A Coinos lhe enviará notificações por SMS quando isto estiver habilitado.",
+			"theme": "Cor do tema",
+			"tipPrompt": "Mostrar opção gorjetas",
+			"tipPromptDescription": "Pergunte às pessoas se elas querem acrescentar uma gorjeta antes de pagar sua fatura",
+			"displayName": "Mostrar nome",
+			"themeDescription": "Selecionar entre os temas de cor padrão.",
+			"localCurrency": "Moeda",
+			"btcUnit": "Mostrar bitcoin em:",
 			"bitcoin": "bitcoin",
+			"minutes": "minutos",
+			"hour": "hora",
+			"hours": "horas",
 			"satoshis": "Satoshis",
-			"securityPIN": "Security PIN",
-			"securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",
-			"setPIN": "Set PIN",
-			"autoLock": "Auto-Lock Timer",
-			"autoLockDescription": "Your account will go into a secure mode automatically after a specified time:",
-			"twofa": "2-Factor Authentication",
-			"twofaDescription": "Add an extra level of security to your device by enableing 2-factor authentication.",
-			"twofaSetup": "Set up 2FA",
-			"twofaDisable": "Disable 2FA",
-			"select": "Select",
-			"verifyPIN": "Verify PIN",
-			"enablePIN": "Enable PIN",
-			"disablePIN": "Disable PIN"
+			"securityPIN": "PIN de segurança",
+			"securityPINDescription": "Estabeleça um PIN de segurança que será usado para desbloquear suas configurações e para enviar pagamentos.",
+			"setPIN": "Insira o PIN",
+			"autoLock": "Bloqueio automático",
+			"autoLockDescription": "Sua conta entrará em um modo seguro, exigindo que você reentre suas credenciais após um tempo especificado:",
+			"twofa": "Eutenticação de 2 fatores",
+			"twofaDescription": "Adicione um nível extra de segurança ao seu dispositivo, permitindo autenticação de 2 fatores.",
+			"twofaSetup": "Habilitar o 2FA",
+			"twofaDisable": "Desabilitar o 2FA",
+			"select": "Selecionar",
+			"verifyPIN": "Verificar PIN",
+			"enablePIN": "Habilitar PIN",
+			"disablePIN": "Desabilitar PIN"
 		},
 		"support": {
-			"header": "Support",
+			"header": "Suporte",
 			"email": "Email",
-			"accountName": "Account Name",
-			"message": "Message",
-			"send": "Send"
+			"accountName": "Usuário",
+			"message": "Mensagem",
+			"send": "Enviar"
 		}
 	},
 	"payments": {
-		"header": "Transactions",
-		"AMOUNT": "AMOUNT",
-		"TYPE": "TYPE",
-		"TIME": "TIME",
-		"sent": "Sent",
-		"received": "Received",
-		"empty": "No transactions yet.",
-		"send": "Send",
-		"next": "Next",
-		"sendersChoice": "Sender's choice",
-		"sendTo": "Send to",
-		"to": "to",
-		"pay": "Pay",
-		"requesting": "is requesting",
-		"sentInvoiceTo": "Sent invoice to",
-		"sentRequestTo": "Sent request to",
-		"pleasePay": "Please pay",
-		"day": "Day",
-		"week": "Week",
-		"month": "Month",
-		"all": "All",
-		"export": "Export",
-		"invoice": "Invoice",
-		"readyToPay": "is ready to pay",
-		"describeOrder": "Use this field to describe your order",
-		"requestAnInvoice": "Request an invoice",
-		"submit": "Submit",
-		"isRequesting": "is requesting",
-		"awaiting": "Awaiting"
+		"amount": "Quantidade",
+		"date": "Data",
+		"id": "ID de transação",
+		"details": "Details da transação",
+		"header": "Pagamentos",
+		"preimage": "Prova de pagamento",
+		"type": "Tipo",
+		"time": "Hora",
+		"sent": "Enviado",
+		"received": "Recebido",
+		"empty": "Nenhuma transação ainda.",
+		"send": "Enviar",
+		"next": "Continuar",
+		"sendersChoice": "A escolha do remetente",
+		"sendTo": "Enviar para",
+		"to": "para",
+		"pay": "Pagar",
+		"requesting": "solicitando",
+		"sentInvoiceTo": "Fatura enviada para",
+		"sentRequestTo": "Solicitação enviada!",
+		"pleasePay": "Por favor pague",
+		"day": "Dia",
+		"week": "Semana",
+		"month": "Mês",
+		"all": "Todos",
+		"export": "Exportar",
+		"invoice": "Fatura",
+		"readyToPay": "está pronta para pagar",
+		"describeOrder": "Use este campo para descrever seu pedido",
+		"requestAnInvoice": "Solicitar Fatura",
+		"submit": "O envio",
+		"isRequesting": "foi solicitado",
+		"invoiceFrom": "Fatura de",
+		"awaiting": "Aguardando",
+		"tapAnywhere": "Toque em qualquer lugar para continuar",
+		"from": "de",
+		"redeem": "Resgatar",
+		"redeemed": "Resgatado",
+		"redeemedBy": "Resgatado por",
+		"sendMessage": "Escreva uma mensagem..."
 	}
 }

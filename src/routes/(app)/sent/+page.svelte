@@ -7,7 +7,7 @@
 
 	export let data;
 	let { payments, user } = data;
-  let { currency, username } = user;
+	let { currency, username } = user;
 
 	let payment = payments[0];
 	let { amount, rate, tip } = payment;
@@ -20,7 +20,7 @@
 	<div class="flex w-full max-w-[200px] mx-auto py-20" in:scale={{ start: 0.5 }}>
 		<Icon icon="check" style="mx-auto" />
 	</div>
-	<h1 class="text-3xl md:text-4xl font-bold mb-6">Sent!</h1>
+	<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('payments.sent')}!</h1>
 	<h2 class="text-2xl md:text-3xl font-semibold">
 		{f(fiat(amount, rate), currency)}
 		{#if tip}

@@ -4,7 +4,6 @@
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
-	import { v4 } from 'uuid';
 
 	export let data;
 	let events, user, subject, src, text;
@@ -60,6 +59,9 @@
 			t++;
 		}, 10);
 	};
+
+	let hideBio = true;
+	let toggleBio = () => (hideBio = false);
 </script>
 
 <div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap">
@@ -67,7 +69,11 @@
 	<div class="w-[240px] lg:absolute space-y-5 left-20 mx-auto lg:mr-10 mb-10">
 		<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
 
-		<div class="text-secondary mx-auto text-center lg:text-left lg:mx-0">
+		<div
+			class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
+			class:line-clamp-3={hideBio}
+			on:click={toggleBio}
+		>
 			{subject.address && subject.address !== 'null' ? subject.address : ''}
 		</div>
 

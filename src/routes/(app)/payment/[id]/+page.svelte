@@ -7,6 +7,7 @@
 
 	export let data;
 	let { user, payment: p } = data;
+
 	let { username } = user;
 	let { id, amount, created, rate, type, ref, tip, ourfee, fee, currency } = p;
 	let a = Math.abs(amount);
@@ -26,42 +27,51 @@
 	{#if p.with}
 		<div>
 			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
-      <a href={`/${p.with.username}`}>
-			<div class="flex">
-				<div class="my-auto">
-					<Avatar user={p.with} size={20} />
+			<a href={`/${p.with.username}`}>
+				<div class="flex">
+					<div class="my-auto">
+						<Avatar user={p.with} size={20} />
+					</div>
+					<div class="my-auto ml-1">{p.with.username}</div>
 				</div>
-				<div class="my-auto ml-1">{p.with.username}</div>
-			</div>
-      </a>
+			</a>
 		</div>
 	{/if}
-
 	<div>
 		<span class="text-lg text-secondary">Amount</span>
 		<div>
 			{f(fiat(a, rate), currency)}
-			{#if tip}
-        <span class="text-lg">
-				+ {f(fiat(tip, rate), currency)}
-        </span>
-			{/if}
-      <span class="text-secondary">⚡️{`${s(a)}`}
-      
-			{#if tip}
-        <span class="text-lg">
-				+ ⚡️{s(tip)}
-        </span>
-			{/if}
-      </span>
+			<span class="text-secondary text-lg">
+				⚡️{s(a)}
+			</span>
 		</div>
 	</div>
+
+	{#if tip}
+		<div>
+			<span class="text-lg text-secondary">Tip</span>
+			<div>
+				{f(fiat(tip, rate), currency)}
+				<span class="text-secondary text-lg">
+					⚡️{s(tip)}
+				</span>
+			</div>
+		</div>
+
+		<div>
+			<span class="text-lg text-secondary">Total</span>
+			<div>
+				{f(fiat(a + (tip || 0), rate), currency)}
+				<span class="text-secondary text-lg">⚡️{`${s(a + (tip || 0))}`} </span>
+			</div>
+		</div>
+	{/if}
 
 	<div>
 		<span class="text-lg text-secondary">Network fee</span>
 		<div>
 			{f(fiat(fee, rate), currency)}
-			<span class="text-secondary">⚡️{`${s(fee)}`}</span>
+			<span class="text-secondary text-lg">⚡️{`${s(fee)}`}</span>
 		</div>
 	</div>
 

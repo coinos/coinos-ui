@@ -19,7 +19,7 @@ export async function load({ depends, params, url, parent }) {
 	if (paid && !url.pathname.endsWith('paid'))
 		throw redirect(307, `/${params.username}/invoice/${hash}/paid`);
 
-	let sm = Qr.drawImg(invoice.text, { size: 300 });
+	let sm = Qr.drawImg(invoice.text || '', { size: 300 });
 
 	return { hash, invoice, sm, lg: sm };
 }

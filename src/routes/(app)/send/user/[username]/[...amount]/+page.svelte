@@ -17,22 +17,28 @@
 	let a,
 		af,
 		fiat = !amount,
-		hash;
+		hash,
+		rate,
+		amountFiat = 0;
 
-	$: amountFiat = amount * ($selectedRate / sats);
+	selectedRate.subscribe((r) => rate || (amountFiat = amount * (r / sats)));
 
 	let setAmount = async () => {
 		amount = a;
-		amountFiat = af;
-
+		amountFiat = parseFloat(af).toFixed(2);
+		rate = fiat ? (sats * amountFiat) / amount : $selectedRate;
 		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,
+				hash: 'internal',
 				rate: rates[subject.currency],
+				prompt: subject.prompt,
 				type: 'internal'
 			},
 			user: subject
 		}));
+
+		goto(`/${subject.username}/invoice/${hash}`);
 	};
 
 	let loading;
@@ -54,17 +60,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
-	{#if amount}
-		<h1 class="text-center text-3xl md:text-4xl font-bold mb-6">Sending</h1>
-		<div class="text-center mb-8">
-			<h2 class="text-2xl md:text-3xl font-semibold">
-				{f(amountFiat, currency)}
-			</h2>
-			<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
-		</div>
-	{:else}
-		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
-	{/if}
+	<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />

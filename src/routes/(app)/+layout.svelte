@@ -25,7 +25,6 @@
 	};
 
 	$: $selectedRate = r * (rates[u?.currency || 'USD'] / rates.USD);
-	$: $selectedRate = $rate * (rates[u?.currency || 'USD'] / rates.USD);
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);

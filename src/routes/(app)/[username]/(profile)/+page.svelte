@@ -36,7 +36,7 @@
 	let initialize = async (p) => {
 		ready = false;
 		if (!p) return;
-		while (latest.length < 3 && i < messages.length) {
+		while (i < messages.length) {
 			let event = messages[i];
 			let k = event.author.id === user.id ? event.recipient.pubkey : event.author.pubkey;
 			if (!keys.has(k)) {
