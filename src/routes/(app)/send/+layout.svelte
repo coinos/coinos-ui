@@ -31,7 +31,7 @@
 	};
 </script>
 
-{#if loaded && user.haspin && $pin?.length !== 6}
+{#if loaded && user.haspin && (!$pin || $pin?.length !== 6)}
 	<Pin bind:value={$pin} {cancel} />
 {/if}
 
