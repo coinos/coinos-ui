@@ -43,7 +43,7 @@
 		}
 	});
 
-	let src = Qr.drawImg('https://coinos.io/laughingbean', { size: 3200 });
+	let src = Qr.drawImg('lightning:laughingbean@coinos.io', { size: 3200 });
 </script>
 
 <svelte:head>
@@ -62,7 +62,7 @@
 		<div class="text-center text-4xl">laughingbean@coinos.io</div>
 		<div>
 			<div class="text-center text-xl">
-        Scan with any <b>lightningaddress.com</b> wallet, such as coinos
+        See supported wallets at <b>lightningaddress.com</b>
 			</div>
 		</div>
 	</div>
