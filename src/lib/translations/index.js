@@ -28,6 +28,11 @@ const config = {
 			loader: async () => (await import('../../locales/en.json')).default
 		},
 		{
+			locale: 'fa',
+			key: '',
+			loader: async () => (await import('../../locales/fa.json')).default
+		},
+		{
 			locale: 'fr',
 			key: '',
 			loader: async () => (await import('../../locales/fr.json')).default
