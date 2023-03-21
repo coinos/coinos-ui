@@ -9,6 +9,8 @@ export async function load({ depends, params, url, parent }) {
 	let { hash } = params;
 	let invoice = await get(`/invoice/${hash}`);
 
+  console.log("HI", invoice)
+
 	if (user && invoice.uid !== user.id && !url.pathname.includes('tip'))
 		throw redirect(307, `/send/invoice/${hash}`);
 

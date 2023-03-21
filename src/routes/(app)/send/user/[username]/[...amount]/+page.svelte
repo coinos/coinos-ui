@@ -1,7 +1,7 @@
 <script>
 	import { t } from '$lib/translations';
 	import { goto } from '$app/navigation';
-	import { pin, selectedRate } from '$lib/store';
+	import { pin, selectedRate, rate as huh } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { AppHeader, Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -11,25 +11,17 @@
 	export let form;
 
 	let { subject, rates, user } = data;
-	let currency = user?.currency || 'USD';
-
-	let amount = form?.amount || data.amount;
-	let a,
-		af,
-		fiat = !amount,
-		hash,
-		rate,
-		amountFiat = 0;
-
-	selectedRate.subscribe((r) => rate || (amountFiat = amount * (r / sats)));
+	let currency = data.currency || user?.currency || 'USD';
 
 	let setAmount = async () => {
+    try {
 		amount = a;
 		amountFiat = parseFloat(af).toFixed(2);
 		rate = fiat ? (sats * amountFiat) / amount : $selectedRate;
 		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,
+				currency,
 				hash: 'internal',
 				rate: rates[subject.currency],
 				prompt: subject.prompt,
@@ -39,7 +31,29 @@
 		}));
 
 		goto(`/${subject.username}/invoice/${hash}`);
+    } catch(e) {
+    console.log(e)
+    }
 	};
+
+	let amount = form?.amount || (!data.currency && data.amount) || 0;
+	let a = amount,
+		af = data.currency ? data.amount : undefined,
+		fiat = data.currency || !amount,
+		hash,
+		rate,
+		amountFiat = 0;
+
+	selectedRate.subscribe((r) => {
+		if (rate) return;
+		if (data.currency) {
+			a = Math.round((af / r) * sats);
+		} else {
+			af = amount * (r / sats);
+		}
+
+		setAmount();
+	});
 
 	let loading;
 	let submit = () => (loading = true);
@@ -60,6 +74,8 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
+	{af}<br />
+	{a}
 	<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
 
 	<form method="POST" use:enhance on:submit={submit}>
