@@ -113,9 +113,9 @@
 	{/if}
 
 	{#if user.username.toLowerCase() === 'laughingbean'}
-	<button
-		class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
-		on:click={print}>Print Receipt</button
-	>
+		<button
+			class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
+			on:click={print}>Print Receipt</button
+		>
 	{/if}
 </div>
