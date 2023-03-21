@@ -181,7 +181,7 @@ export const sat = (s) => {
 
 export const sats = 100000000;
 
-export const back = () => browser && history.go(-1);
+export const back = () => browser && (history.length ? history.go(-1) : goto('/'));
 export const focus = (el) => browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
 
 export const sleep = (n) => new Promise((r) => setTimeout(r, n));
