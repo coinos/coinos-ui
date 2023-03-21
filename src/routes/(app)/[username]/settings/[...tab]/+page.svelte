@@ -112,13 +112,10 @@
 
 		loading = false;
 	}
-
-	let loaded;
-	onMount(() => setTimeout(() => (loaded = true), 50));
 </script>
 
-{#if loaded && user.haspin && $pin?.length !== 6}
-	<Pin bind:value={$pin} />
+{#if user.haspin && $pin?.length !== 6}
+	<Pin />
 {/if}
 
 <form
