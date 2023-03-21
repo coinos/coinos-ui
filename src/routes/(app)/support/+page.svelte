@@ -21,7 +21,7 @@
 			grecaptcha
 				.execute('6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM', { action: 'submit' })
 				.then((token) =>
-					post('/support', { email, message, token })
+					post('/support', { username: user?.username, email, message, token })
 						.then(() => (sent = true))
 						.catch(() => fail('problem submitting'))
 				);
