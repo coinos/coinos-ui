@@ -28,7 +28,7 @@
 		try {
 			result = await post('/pin', { pin: p });
 		} catch (e) {
-			console.log('PIN ERR', e);
+			console.log('Pin check failed', e);
 		}
 
 		if (result) {
