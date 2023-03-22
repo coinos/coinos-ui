@@ -7,7 +7,7 @@ export async function load({ cookies, params, parent }) {
 	let [amount, currency] = params.amount.split('/');
 
 	if (amount) {
-		let rate = rates[currency.toUpperCase() || user.currency];
+		let rate = rates[currency ? currency.toUpperCase() : user.currency];
     if (!rate) throw error(500, "Invalid currency symbol");
 		if (currency) amount = (amount * sats) / rate;
 
