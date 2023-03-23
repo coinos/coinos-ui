@@ -2,13 +2,16 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import { types, sats, fd, auth, get, post } from '$lib/utils';
 
 export async function load({ cookies, params, parent }) {
+	let subject = await get(`/users/${params.username}`);
+	if (subject.username === user?.username) throw error(500, { message: 'Cannot send to self' });
+
 	let { rates, user } = await parent();
 	let { username } = params;
 	let [amount, currency] = params.amount.split('/');
 
 	if (amount) {
-		let rate = rates[currency ? currency.toUpperCase() : user.currency];
-    if (!rate) throw error(500, "Invalid currency symbol");
+		let rate = rates[currency ? currency.toUpperCase() : subject.currency];
+		if (!rate) throw error(500, 'Invalid currency symbol');
 		if (currency) amount = (amount * sats) / rate;
 
 		let { hash } = await post(
@@ -23,8 +26,6 @@ export async function load({ cookies, params, parent }) {
 		throw redirect(307, `/${username}/invoice/${hash}`);
 	}
 
-	let subject = await get(`/users/${params.username}`);
-	if (subject.username === user?.username) throw error(500, { message: 'Cannot send to self' });
 	return { amount, subject };
 }
 
