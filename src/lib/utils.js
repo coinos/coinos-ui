@@ -1,5 +1,3 @@
-import * as ecc from 'tiny-secp256k1';
-import { BIP32Factory } from 'bip32';
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
@@ -211,8 +209,6 @@ export const stretch = async (password, salt) =>
 		true,
 		['encrypt', 'decrypt']
 	);
-
-export const bip32 = await BIP32Factory(ecc);
 
 function get_bigrams(string) {
 	var s = string.toLowerCase();
