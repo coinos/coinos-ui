@@ -3,11 +3,12 @@ import { types, sats, fd, auth, get, post } from '$lib/utils';
 
 export async function load({ cookies, params, parent }) {
 	let subject = await get(`/users/${params.username}`);
-	if (subject.username === user?.username) throw error(500, { message: 'Cannot send to self' });
 
 	let { rates, user } = await parent();
 	let { username } = params;
 	let [amount, currency] = params.amount.split('/');
+
+	if (subject.username === user?.username) throw error(500, { message: 'Cannot send to self' });
 
 	if (amount) {
 		let rate = rates[currency ? currency.toUpperCase() : subject.currency];
