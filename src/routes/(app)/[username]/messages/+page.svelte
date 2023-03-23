@@ -10,7 +10,7 @@
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
 	import { event as e, password } from '$lib/store';
 	import { tick, onMount } from 'svelte';
-	import { calculateId } from 'nostr';
+	import { getEventHash } from 'nostr-tools';
 
 	export let data;
 
@@ -77,8 +77,8 @@
 		tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
 
 		try {
-			event.id = await calculateId(event);
 			event.content = await encrypt({ message: event.message, recipient: subject.pubkey, user });
+			event.id = getEventHash(event);
 			await sign({ event, user });
 			await send(event);
 
