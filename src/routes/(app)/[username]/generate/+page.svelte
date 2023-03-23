@@ -1,9 +1,6 @@
 <script>
 	import { fail, post, wait } from '$lib/utils';
-	import { Buffer } from 'buffer';
 	import { onMount } from 'svelte';
-	import { bech32m } from 'bech32';
-	import { generateMnemonic, mnemonicToEntropy, mnemonicToSeedSync } from 'bip39';
 	import { goto, invalidate } from '$app/navigation';
 	import { Pin } from '$comp';
 	import { loginRedirect, pin, password, passwordPrompt } from '$lib/store';
