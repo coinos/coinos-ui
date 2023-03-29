@@ -10,18 +10,18 @@
 	export let data;
 	export let form;
 
-	let { subject, rates, user } = data;
-	let currency = subject.currency || 'USD';
+	let { subject, rate, rates, user } = data;
+	let currency = user.currency || subject.currency || 'USD';
 
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
 		fiat = !amount,
 		hash,
-		rate,
 		amountFiat = 0;
 
 	selectedRate.subscribe((r) => rate || (amountFiat = amount * (r / sats)));
+	$: r = rate || rates[user.currency || subject.currency];
 
 	let setAmount = async () => {
 		amount = a;
@@ -60,7 +60,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
-	<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
+	<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat bind:rate={r} />
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
