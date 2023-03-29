@@ -63,9 +63,9 @@
 
 	<Code sample="invoice" />
 
-  <p>Sample response</p>
+	<p>Sample response</p>
 	<Code sample="invoiceResponse" />
-  <p>You can check the <b>received</b> field to see how many satoshis have been paid so far</p>
+	<p>You can check the <b>received</b> field to see how many satoshis have been paid so far</p>
 
 	<h2 class="text-2xl">GET /invoice/:hash</h2>
 	<p class="text-secondary">
@@ -94,6 +94,6 @@
 	<h2 class="text-2xl">Websocket API</h2>
 	<p class="text-secondary">Subscribe to real time rates and payments</p>
 
-  <div>Authenticate</div>
+	<div>Authenticate</div>
 	<Code sample="socketAuth" />
 </div>

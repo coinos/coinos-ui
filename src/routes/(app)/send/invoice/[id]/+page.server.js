@@ -7,7 +7,7 @@ export async function load({ params: { id }, parent, url }) {
 	let {
 		amount,
 		address,
-    currency,
+		currency,
 		hash,
 		rate,
 		prompt,

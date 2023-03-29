@@ -10,7 +10,7 @@
 	export let form;
 
 	let { address, rate, payreq, recipient, tip, rates, user } = data;
-  let { currency } = user;
+	let { currency } = user;
 
 	let amount = form?.amount || data.amount;
 	let a,
@@ -26,7 +26,7 @@
 	let loading;
 	let submit = () => (loading = true);
 
-  $: rate = data.rate * (rates[user.currency] / rates[data.currency]);
+	$: rate = data.rate * (rates[user.currency] / rates[data.currency]);
 
 	$: update(form);
 	let update = () => {
