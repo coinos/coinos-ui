@@ -56,7 +56,7 @@
 
 	export let data;
 	$: refresh(data);
-	let { invoice, id, user } = data;
+	let { invoice, id, user, rates } = data;
 	let {
 		amount,
 		hash,
@@ -82,16 +82,18 @@
 			amount,
 			hash,
 			type,
-			rate,
 			received,
 			prompt,
 			text,
 			tip,
-			user: { username, currency }
+			user: { username }
 		} = invoice);
 
 		tipPercent = (tip / amount) * 100;
 	};
+
+	$: currency = user?.currency || invoice.currency;
+  $: rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
 
 	$: tip = Math.round((amount / 100) * tipPercent);
 

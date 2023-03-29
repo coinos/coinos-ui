@@ -11,7 +11,7 @@
 	export let form;
 
 	let { subject, rates, user } = data;
-	let currency = user?.currency || 'USD';
+	let currency = subject.currency || 'USD';
 
 	let amount = form?.amount || data.amount;
 	let a,
