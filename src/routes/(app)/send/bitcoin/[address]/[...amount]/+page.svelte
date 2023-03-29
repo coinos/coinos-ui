@@ -5,14 +5,17 @@
 	import { Toggle, Slider, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
 	import { fiat as toFiat, f, back, s, sat } from '$lib/utils';
-	import { pin, selectedRate } from '$lib/store';
+	import { pin } from '$lib/store';
 
 	export let data;
 	export let form;
 
+	let { rates } = data;
 	let { address, amount } = $page.params;
 	let { balance, currency } = data.user;
 	let loading, submit, fiat, confirmed, feeRate, min, max, fee, ourfee, stale, subtract, adjusting;
+
+	$: rate = rates[currency];
 
 	let toggle = () => (loading = true);
 	let toggleAdjusting = () => (adjusting = !adjusting);
@@ -64,7 +67,7 @@
 	{#if confirmed}
 		<div class="text-center">
 			<h2 class="text-2xl md:text-3xl font-semibold">
-				{f(toFiat(amount, $selectedRate), currency)}
+				{f(toFiat(amount, rate), currency)}
 			</h2>
 			<h3 class="text-secondary md:text-lg mb-6 mt-1">⚡️{s(amount)}</h3>
 		</div>
@@ -74,7 +77,7 @@
 
 			<div class="relative">
 				<h2 class="text-xl font-semibold">
-					{f(toFiat(fee + ourfee, $selectedRate), currency)}
+					{f(toFiat(fee + ourfee, rate), currency)}
 				</h2>
 				<h3 class="text-secondary mb-6 mt-1">⚡️{s(fee + ourfee)}</h3>
 				<button class="absolute right-1/4 top-0 text-secondary p-4" on:click={toggleAdjusting}
@@ -83,7 +86,7 @@
 			</div>
 		</div>
 	{:else}
-		<Numpad bind:amount bind:fiat {currency} {submit} />
+		<Numpad bind:amount bind:fiat {currency} {submit} bind:rate />
 	{/if}
 
 	<form method="POST" use:enhance on:submit={toggle}>

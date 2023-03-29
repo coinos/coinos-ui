@@ -10,8 +10,9 @@ export async function load({ cookies, params, parent }) {
 
 	if (subject.username === user?.username) throw error(500, { message: 'Cannot send to self' });
 
+	let rate;
 	if (amount) {
-		let rate = rates[currency ? currency.toUpperCase() : subject.currency];
+		rate = rates[currency ? currency.toUpperCase() : subject.currency];
 		if (!rate) throw error(500, 'Invalid currency symbol');
 		if (currency) amount = (amount * sats) / rate;
 
@@ -27,7 +28,7 @@ export async function load({ cookies, params, parent }) {
 		throw redirect(307, `/${username}/invoice/${hash}`);
 	}
 
-	return { amount, subject };
+	return { amount, rate, subject };
 }
 
 export const actions = {

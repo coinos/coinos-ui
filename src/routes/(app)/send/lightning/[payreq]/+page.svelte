@@ -10,13 +10,14 @@
 	export let form;
 
 	let { payreq } = $page.params;
-	let { alias } = data;
+	let { alias, rates } = data;
 
 	let { currency } = data.user;
 	let a;
 	let maxfee = 100;
 
 	$: amount = form?.amount || data.amount;
+	$: rate = rates[currency];
 
 	let loading;
 	let submit = () => (loading = true);
@@ -91,7 +92,7 @@
 	{:else}
 		<form method="POST" action="?/setAmount" class="w-[300px] mx-auto" use:enhance>
 			<input type="hidden" value={a} name="amount" />
-			<Numpad bind:amount={a} {currency} />
+			<Numpad bind:amount={a} {currency} {rate} />
 			<button
 				type="submit"
 				class="bg-black text-white rounded-xl h-[48px] flex w-full justify-center items-center font-semibold
