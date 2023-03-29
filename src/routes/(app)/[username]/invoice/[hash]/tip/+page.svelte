@@ -93,7 +93,7 @@
 	};
 
 	$: currency = user?.currency || invoice.currency;
-  $: rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
+	$: rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
 
 	$: tip = Math.round((amount / 100) * tipPercent);
 

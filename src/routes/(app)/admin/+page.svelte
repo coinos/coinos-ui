@@ -1,5 +1,5 @@
 <script>
-  import { post } from "$lib/utils";
+	import { post } from '$lib/utils';
 	export let data;
 	let reset = (username) => post(`/${username}/reset`, { password });
 	let { users } = data;

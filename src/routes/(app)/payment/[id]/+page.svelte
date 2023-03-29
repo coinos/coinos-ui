@@ -57,9 +57,9 @@
 			<span class="text-lg text-secondary">Tip</span>
 			<div>
 				{f(fiat(tip, rate), currency)}
-({Math.round((tip * 100) / Math.abs(a))}%)
+				({Math.round((tip * 100) / Math.abs(a))}%)
 				<span class="text-secondary text-lg">
-					⚡️{s(tip)} 
+					⚡️{s(tip)}
 				</span>
 			</div>
 		</div>
