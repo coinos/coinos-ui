@@ -111,7 +111,7 @@
 		<input type="hidden" name="amount" value={amount} />
 		<input type="hidden" name="tip" value={tip} />
 		<input type="hidden" name="username" value={username} />
-		<input type="hidden" name="rate" value={rate} />
+		<input type="hidden" name="rate" value={invoice.rate} />
 		<input type="hidden" name="prompt" value="false" />
 		<input type="hidden" name="type" value={type} />
 		<input type="hidden" name="hash" value={hash} />
