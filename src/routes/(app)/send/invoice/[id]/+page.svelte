@@ -1,7 +1,7 @@
 <script>
 	import { t } from '$lib/translations';
 	import { goto } from '$app/navigation';
-	import { pin, selectedRate } from '$lib/store';
+	import { pin } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -15,7 +15,7 @@
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
-		amountFiat = amount * ($selectedRate / sats),
+		amountFiat = amount * (rate / sats),
 		fiat = !amount;
 
 	let setAmount = () => {
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 	{:else}
-		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
+		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat bind:rate />
 	{/if}
 
 	<form method="POST" use:enhance on:submit={submit}>
