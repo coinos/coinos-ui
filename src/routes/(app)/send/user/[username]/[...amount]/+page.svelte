@@ -1,7 +1,7 @@
 <script>
 	import { t } from '$lib/translations';
 	import { goto } from '$app/navigation';
-	import { pin, selectedRate } from '$lib/store';
+	import { pin } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { AppHeader, Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -20,13 +20,12 @@
 		hash,
 		amountFiat = 0;
 
-	selectedRate.subscribe((r) => rate || (amountFiat = amount * (r / sats)));
 	$: r = rate || rates[user.currency || subject.currency];
 
 	let setAmount = async () => {
 		amount = a;
 		amountFiat = parseFloat(af).toFixed(2);
-		rate = fiat ? (sats * amountFiat) / amount : $selectedRate;
+    rate = fiat ? (sats * amountFiat) / amount : r;
 		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,

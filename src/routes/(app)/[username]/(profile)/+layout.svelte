@@ -1,13 +1,13 @@
 <script>
 	import { f, s, sats } from '$lib/utils';
-	import { animatedRate, selectedRate } from '$lib/store';
+	import { animatedRate } from '$lib/store';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
 
 	export let data;
-	let events, user, subject, src, text;
-	$: ({ events, user, subject, src, text } = data);
+	let events, user, subject, rates, src, text;
+	$: ({ events, user, rates, subject, src, text } = data);
 	$: ({ currency, username: n, display } = subject);
 
 	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
@@ -41,24 +41,6 @@
 	};
 
 	$: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
-
-	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
-	let i;
-
-	let o = $selectedRate;
-	$: animate($selectedRate);
-	let animate = (n) => {
-		clearInterval(i);
-
-		let t = 0;
-		let d = o - n;
-
-		i = setInterval(() => {
-			$animatedRate = (o - d * ease(t / 100)).toFixed(2);
-			if (t > 80) (o = n) && clearInterval(i);
-			t++;
-		}, 10);
-	};
 
 	let hideBio = true;
 	let toggleBio = () => (hideBio = false);
