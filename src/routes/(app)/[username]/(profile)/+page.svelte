@@ -62,12 +62,15 @@
 		clearInterval(i);
 
 		let r = ((rates[user.currency] / rates['USD']) * n).toFixed(2);
+
+    if (!r || isNaN(r)) return;
 		if (!o) o = r;
 
 		let t = 0;
 		let d = o - r;
 
 		i = setInterval(() => {
+      if (!r) return;
 			$animatedRate = (o - d * ease(t / 100)).toFixed(2);
 			if (t > 80) (o = r) && clearInterval(i);
 			t++;
