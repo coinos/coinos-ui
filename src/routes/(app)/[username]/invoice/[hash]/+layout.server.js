@@ -15,8 +15,6 @@ export async function load({ depends, params, url, parent }) {
 	let { amount, pending, received } = invoice;
 	amount = parseInt(amount);
 
-	console.log('PENDING', pending);
-
 	let paid = (!amount && received) || (amount > 0 && (pending >= amount || received >= amount));
 	if (paid && !url.pathname.endsWith('paid'))
 		throw redirect(307, `/${params.username}/invoice/${hash}/paid`);

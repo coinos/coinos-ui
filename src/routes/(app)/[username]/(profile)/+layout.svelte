@@ -137,7 +137,7 @@
 	</div>
 </div>
 
-{#if currency && $animatedRate}
+{#if currency && !isNaN($animatedRate)}
 	<div class="flex fixed w-full px-4 bg-white py-2 bottom-0 bg-opacity-90 tabular-nums">
 		<div class="text-secondary flex mr-auto">
 			<div class="flex mr-1">
