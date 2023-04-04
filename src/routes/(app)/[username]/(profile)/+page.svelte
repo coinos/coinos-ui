@@ -62,7 +62,7 @@
 		clearInterval(i);
 
 		let r = ((rates[user.currency] / rates['USD']) * n).toFixed(2);
-    if (!o) o = r;
+		if (!o) o = r;
 
 		let t = 0;
 		let d = o - r;
