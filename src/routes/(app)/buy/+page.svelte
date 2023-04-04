@@ -1,7 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { Icon, Lock, Card, Calendar, Spinner } from '$comp';
-	import { animatedRate, selectedRate } from '$lib/store';
+	import { animatedRate } from '$lib/store';
 	import { f } from '$lib/utils';
 
 	export let data, form;
@@ -10,24 +10,6 @@
 	let loading;
 
 	let amount, n, d, cvc;
-
-	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
-	let i;
-
-	let o = $selectedRate;
-	$: animate($selectedRate);
-	let animate = (n) => {
-		clearInterval(i);
-
-		let t = 0;
-		let d = o - n;
-
-		i = setInterval(() => {
-			$animatedRate = (o - d * ease(t / 100)).toFixed(2);
-			if (t > 80) (o = n) && clearInterval(i);
-			t++;
-		}, 10);
-	};
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
@@ -141,7 +123,6 @@
 						<div class="my-auto mr-1">1</div>
 						<img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
 					</div>
-					<div>= {f($animatedRate, currency)}</div>
 				</div>
 				<p class="text-secondary">3% credit card fee applies</p>
 			</div>

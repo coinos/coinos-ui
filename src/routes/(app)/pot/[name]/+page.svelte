@@ -6,7 +6,7 @@
 	import { toast } from '@zerodevx/svelte-toast';
 	import { t } from '$lib/translations';
 	import { copy, f, s, sat, sats } from '$lib/utils';
-	import { loginRedirect, selectedRate } from '$lib/store';
+	import { loginRedirect } from '$lib/store';
 
 	export let data;
 
