@@ -25,7 +25,7 @@
 	let setAmount = async () => {
 		amount = a;
 		amountFiat = parseFloat(af).toFixed(2);
-    rate = fiat ? (sats * amountFiat) / amount : r;
+		rate = fiat ? (sats * amountFiat) / amount : r;
 		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,
