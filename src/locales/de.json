@@ -153,7 +153,7 @@
 		"settings": "Einstellungen",
 		"support": "Support"
 	},
-	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Swapee-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Swapee-Version? Besuchen Sie <a href=\"https://classic.swapee.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.io</a>",
 	"news": {
 		"header": "News",
 		"subheader": "Letzte Updates",

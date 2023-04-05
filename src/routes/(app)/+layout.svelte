@@ -91,10 +91,10 @@
 
 <svelte:head>
 	{#if subject}
-		<title>coinos - {subject.username}</title>
-		<meta name="lightning" content={`lnurlp:${subject.username}@coinos.io`} />
+		<title>swapee - {subject.username}</title>
+		<meta name="lightning" content={`lnurlp:${subject.username}@swapee.io`} />
 	{:else}
-		<title>coinos</title>
+		<title>swapee</title>
 	{/if}
 
 	{#if subject?.profile}

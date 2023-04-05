@@ -74,7 +74,7 @@
 		<p class="text-secondary text-lg">
 			Fill out this form or email us directly at <a
 				class="underline"
-				href="mailto:support@coinos.io">support@coinos.io</a
+				href="mailto:support@swapee.io">support@swapee.io</a
 			> and we'll do our best to get back to you in a timely manner.
 		</p>
 

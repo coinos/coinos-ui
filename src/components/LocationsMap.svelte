@@ -39,7 +39,7 @@
 			locations = locations.filter(
 				(location) =>
 					location['osm_json'].tags &&
-					location['osm_json'].tags['payment:coinos'] === 'yes' &&
+					location['osm_json'].tags['payment:swapee'] === 'yes' &&
 					location['osm_json'].lat &&
 					location['osm_json'].lon
 			);
