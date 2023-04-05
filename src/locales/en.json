@@ -180,7 +180,7 @@
 			"scan": "Scan QR",
 			"paste": "Paste",
 			"next": "Next",
-			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
+			"placeholder": "Paste a bitcoin address, lightning invoice or swapee username"
 		},
 		"settings": {
 			"saveSettings": "Save Settings",

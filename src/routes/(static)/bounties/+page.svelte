@@ -71,8 +71,8 @@
 
 	<p>
 		To make a referral, reach out on one of our socials or email us at <a
-			href="mailto:bounties@coinos.io"
-			class="text-black hover:underline">bounties@coinos.io</a
+			href="mailto:bounties@swapee.io"
+			class="text-black hover:underline">bounties@swapee.io</a
 		> and we'll set up an appointment with you and the business owner to get started.
 	</p>
 

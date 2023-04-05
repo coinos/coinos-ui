@@ -132,7 +132,7 @@
 		"settings": "Ajustes",
 		"support": "Soporte"
 	},
-	"newSiteHeader": "Acompañanos en nuestra <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> en Vancouver el 26 de Octubre! Buscando la version anterior de coinos? Visita <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+	"newSiteHeader": "Acompañanos en nuestra <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> en Vancouver el 26 de Octubre! Buscando la version anterior de swapee? Visita <a href=\"https://classic.swapee.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.io</a>",
 	"news": {
 		"header": "Noticias",
 		"subheader": "Últimas Actualizaciones",
@@ -178,7 +178,7 @@
 			"scan": "Escanear",
 			"paste": "Pegar",
 			"next": "Siguiente",
-			"placeholder": "Asigne una dirección de bitcoin, una factura lightning o un usuario de coinos"
+			"placeholder": "Asigne una dirección de bitcoin, una factura lightning o un usuario de swapee"
 		},
 		"settings": {
 			"saveSettings": "Guardar ajustes",
