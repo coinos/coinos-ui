@@ -4,7 +4,7 @@
 	import { PUBLIC_COINOS_URL } from '$env/static/public';
 	export let data;
 	let { user, token } = data;
-	let api = PUBLIC_COINOS_URL + '/api';
+	let api = 'https://coinos.io/api';
 
 	let tokenSample = `export token="${token}"`;
 </script>
