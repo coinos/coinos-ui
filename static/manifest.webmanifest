@@ -4,9 +4,9 @@
 	"display": "fullscreen",
 	"scope": "/",
 	"start_url": "/",
-	"name": "Coinos",
+	"name": "Swapee",
 	"description": "Bitcoin web wallet",
-	"short_name": "Coinos",
+	"short_name": "Swapee",
 	"icons": [
 		{
 			"src": "/icon-192x192.png",
