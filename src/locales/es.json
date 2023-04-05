@@ -5,7 +5,7 @@
 	},
 	"about": {
 		"header": "Sobre Nosotros",
-		"p1": "Coinos es una aplicación de pagos en bitcoin de código abierto. Este desarrollo comenzó en septiembre de 2012 en Vancouver como una forma de proporcionar a los comerciantes locales una forma conveniente de aceptar pagos con bitcoin.",
+		"p1": "Swapee es una aplicación de pagos en bitcoin de código abierto. Este desarrollo comenzó en septiembre de 2012 en Vancouver como una forma de proporcionar a los comerciantes locales una forma conveniente de aceptar pagos con bitcoin.",
 		"p2": "Descarga el código fuente para ejecutar una instancia y conectarla a tu propio nodo bitcoin y lightning. Te ayudaremos a convertirte en un excelente custodio y proveedor de pagos para tu comunidad.",
 		"p3": "Las transferencias de bitcoin entre usuarios en nuestro servidor se realizan off-chain, por lo que son completamente gratuitas, instantáneas e ilimitadas.",
 		"team": {
@@ -23,7 +23,7 @@
 		},
 		"locations": {
 			"header": "Locaciones",
-			"description": "Aquí algunas empresas que aceptan bitcoin con Coinos. ¡Esperamos que el tuyo sea el próximo!"
+			"description": "Aquí algunas empresas que aceptan bitcoin con Swapee. ¡Esperamos que el tuyo sea el próximo!"
 		}
 	},
 	"error": {
@@ -39,7 +39,7 @@
 		},
 		"compatibility": {
 			"question": "¿Necesito algún dispositivo o software especial?",
-			"answer": "No. Coinos es una aplicación web, por lo que siempre que tenga conexión a Internet, podrá usarlo desde cualquier dispositivo. Las tiendas minoristas pueden usarlo desde un teléfono o una tableta."
+			"answer": "No. Swapee es una aplicación web, por lo que siempre que tenga conexión a Internet, podrá usarlo desde cualquier dispositivo. Las tiendas minoristas pueden usarlo desde un teléfono o una tableta."
 		},
 		"safety": {
 			"question": "¿Cuándo se liquidan mis fondos?",
@@ -83,7 +83,7 @@
 	"jobs": {
 		"header": "Trabaje con nosotros",
 		"subheader": "Ofertas de Trabajo",
-		"pitch1": "Coinos está activamente buscando desarrolladores para unirse a nuestro equipo en crecimiento (tiempo completo o medio tiempo, trabajo remoto OK).",
+		"pitch1": "Swapee está activamente buscando desarrolladores para unirse a nuestro equipo en crecimiento (tiempo completo o medio tiempo, trabajo remoto OK).",
 		"pitch2": "¿Emocionado por trabajar en bitcoin de código abierto? Entonces eche un vistazo a nuestros repositorios en",
 		"github": "GitHub",
 		"pitch3": "Si crees que puedes generar impacto, nos encantaría saber de ti. Envíanos tu currículum a"
@@ -200,7 +200,7 @@
 			"emailNotifications": "Notificaciones de Correo Electrónico",
 			"emailNotificationsDescription": "Reciba notificaciones por correo electrónico cuando se produzca un cambio en su cuenta o cuando las personas le envíen pagos.",
 			"smsNotifications": "Notificaciones SMS",
-			"smsNotificationsDescription": "Coinos enviará notificaciones de texto cuando esto esté habilitado.",
+			"smsNotificationsDescription": "Swapee enviará notificaciones de texto cuando esto esté habilitado.",
 			"theme": "Color Tema",
 			"themeDescription": "Seleccione entre los temas de color predeterminados.",
 			"localCurrency": "Moneda Local",

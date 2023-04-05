@@ -36,7 +36,7 @@
 			It must be possible to pay for any of their usual goods/services with bitcoin at any time
 			during their posted hours without needing to make any special arrangements
 		</li>
-		<li>They must use Coinos and accept lightning payments</li>
+		<li>They must use Swapee and accept lightning payments</li>
 		<li>Each business category can be claimed only once</li>
 		<li>One bounty per person</li>
 	</ul>

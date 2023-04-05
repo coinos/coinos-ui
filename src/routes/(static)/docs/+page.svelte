@@ -13,8 +13,8 @@
 	<h1 class="text-4xl">Documentation</h1>
 
 	<p class="text-secondary">
-		Coinos has a simple REST API that can be used to register accounts and make payments and
-    queries. The following examples show how you can call the API with <a href="https://curl.se/" class="font-bold">curl</a> from your command line.
+		Swapee has a simple REST API that can be used to register accounts and make payments and
+		queries.
 	</p>
 
 	<h2 class="text-2xl">API Base URL</h2>
