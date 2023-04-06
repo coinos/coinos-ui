@@ -192,7 +192,7 @@
 	{/if}
 
 	{#if confirming2fa || disabling2fa}
-		<Pin bind:value={token} title="Enter 2FA Code" {cancel} persist={false} />
+		<Pin bind:value={token} title="Enter 2FA Code" {cancel} persist={false} notify={false} />
 	{/if}
 </div>
 
