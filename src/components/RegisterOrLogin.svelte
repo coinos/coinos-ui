@@ -22,11 +22,7 @@
 
 	$: need2fa = form?.message === '2fa';
 	let cancel = () => (need2fa = false);
-	$: if (form?.message === '2fa' && form.token === token) {
-		token = '';
-		console.log('TOKEN', token);
-		fail('Invalid token, try again');
-	}
+	$: if (form?.message === '2fa' && form.token === token) token = '';
 
 	let username, email, btn;
 
