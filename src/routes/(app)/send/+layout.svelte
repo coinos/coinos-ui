@@ -8,30 +8,11 @@
 
 	export let data;
 
-	let loaded;
 	let { user } = data;
-
-	onMount(() => setTimeout(() => (loaded = true), 500));
 	let cancel = () => goto(`/${user.username}`);
-
-	$: browser && loaded && checkPin($pin);
-	let checkPin = async (p) => {
-		if (p?.length !== 6 || p === JSON.parse(sessionStorage.getItem('pin'))) return;
-		let result;
-		try {
-			result = await post('/pin', { pin: p });
-		} catch (e) {}
-
-		if (result) {
-			success('Pin confirmed');
-		} else {
-			fail('Invalid pin');
-			$pin = '';
-		}
-	};
 </script>
 
-{#if loaded && user.haspin && (!$pin || $pin?.length !== 6)}
+{#if user.haspin && (!$pin || $pin?.length !== 6)}
 	<Pin bind:value={$pin} {cancel} />
 {/if}
 

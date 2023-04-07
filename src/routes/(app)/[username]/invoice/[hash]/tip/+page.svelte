@@ -56,7 +56,7 @@
 
 	export let data;
 	$: refresh(data);
-	let { invoice, id, user } = data;
+	let { invoice, id, user, rates } = data;
 	let {
 		amount,
 		hash,
@@ -82,16 +82,18 @@
 			amount,
 			hash,
 			type,
-			rate,
 			received,
 			prompt,
 			text,
 			tip,
-			user: { username, currency }
+			user: { username }
 		} = invoice);
 
 		tipPercent = (tip / amount) * 100;
 	};
+
+	$: currency = user?.currency || invoice.currency;
+	$: rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
 
 	$: tip = Math.round((amount / 100) * tipPercent);
 
@@ -109,7 +111,7 @@
 		<input type="hidden" name="amount" value={amount} />
 		<input type="hidden" name="tip" value={tip} />
 		<input type="hidden" name="username" value={username} />
-		<input type="hidden" name="rate" value={rate} />
+		<input type="hidden" name="rate" value={invoice.rate} />
 		<input type="hidden" name="prompt" value="false" />
 		<input type="hidden" name="type" value={type} />
 		<input type="hidden" name="hash" value={hash} />

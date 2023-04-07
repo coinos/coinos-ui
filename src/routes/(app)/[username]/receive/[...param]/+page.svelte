@@ -18,9 +18,10 @@
 
 	let lightning = true;
 	let { currency, username, prompt } = data.subject;
-	let { user } = data;
+	let { rates, user } = data;
 	let submit;
 
+	$: rate = rates[currency];
 	$: type = lightning ? 'lightning' : 'bitcoin';
 </script>
 
@@ -37,7 +38,7 @@
 	<input type="hidden" name="prompt" value={prompt} />
 
 	<div class="space-y-3 w-[300px] mx-auto">
-		<Numpad bind:amount bind:currency {submit} />
+		<Numpad bind:amount bind:currency bind:rate {submit} />
 		<button
 			bind:this={submit}
 			type="submit"

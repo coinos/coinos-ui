@@ -2,7 +2,7 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, selectedRate, invoice, rate, user, request, passwordPrompt } from '$lib/store';
+	import { last, invoice, request, passwordPrompt } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -15,16 +15,7 @@
 	export let data;
 
 	let { subject } = $page.data;
-	let r, u, token, rates;
-
-	$: update(data);
-	let update = () => {
-		({ user: u, rate: r, token, rates } = data);
-		$rate = r;
-		$user = u;
-	};
-
-	$: $selectedRate = r * (rates[u?.currency || 'USD'] / rates.USD);
+	let { rate, user, token, rates } = data;
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
@@ -89,9 +80,9 @@
 </main>
 
 {#if $invoice}
-	<Invoice user={u} />
+	<Invoice {user} />
 {/if}
 
 {#if $request}
-	<Request user={u} />
+	<Request {user} />
 {/if}

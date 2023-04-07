@@ -148,9 +148,9 @@
 		{$t('user.settings.securityPINDescription')}
 	</p>
 	{#if verifying}
-		<Pin bind:value={verify} {cancel} />
+		<Pin bind:value={verify} {cancel} notify={false} />
 	{:else if settingPin}
-		<Pin bind:value={pin} title={$t('user.settings.setPIN')} {cancel} />
+		<Pin bind:value={pin} title={$t('user.settings.setPIN')} {cancel} notify={false} />
 	{:else}
 		<button type="button" class="primary" on:click={togglePin}
 			><Icon icon="lock" style="mr-1" />
@@ -192,7 +192,7 @@
 	{/if}
 
 	{#if confirming2fa || disabling2fa}
-		<Pin bind:value={token} title="Enter 2FA Code" {cancel} />
+		<Pin bind:value={token} title="Enter 2FA Code" {cancel} persist={false} notify={false} />
 	{/if}
 </div>
 

@@ -32,7 +32,7 @@ const persistLocal = (key, defaultValue) => {
 	return s;
 };
 
-export const animatedRate = writable(0);
+export const animatedRate = persistLocal('rate', 0);
 export const avatar = writable();
 export const banner = writable();
 export const colorTheme = writable('from-primary to-gradient');
@@ -50,6 +50,5 @@ export const pin = persistSession('pin', undefined);
 export const rate = writable();
 export const request = writable();
 export const requestRedirect = writable();
-export const selectedRate = writable();
 export const token = persistSession('token');
 export const user = writable();

@@ -1,13 +1,13 @@
 <script>
 	import { f, s, sats } from '$lib/utils';
-	import { animatedRate, selectedRate } from '$lib/store';
+	import { animatedRate } from '$lib/store';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
 
 	export let data;
-	let events, user, subject, src, text;
-	$: ({ events, user, subject, src, text } = data);
+	let events, user, subject, rates, src, text;
+	$: ({ events, user, rates, subject, src, text } = data);
 	$: ({ currency, username: n, display } = subject);
 
 	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
@@ -41,24 +41,6 @@
 	};
 
 	$: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
-
-	let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
-	let i;
-
-	let o = $selectedRate;
-	$: animate($selectedRate);
-	let animate = (n) => {
-		clearInterval(i);
-
-		let t = 0;
-		let d = o - n;
-
-		i = setInterval(() => {
-			$animatedRate = (o - d * ease(t / 100)).toFixed(2);
-			if (t > 80) (o = n) && clearInterval(i);
-			t++;
-		}, 10);
-	};
 
 	let hideBio = true;
 	let toggleBio = () => (hideBio = false);
@@ -115,29 +97,8 @@
 						</button>
 					</div>
 				{/if}
-
-				<div class="w-full flex">
-					<a href={`/${subject.username}/messages`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="support" style="mr-2 my-auto" />
-								<div class="mt-1 my-auto">{$t('user.message')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-
-				<div class="w-full flex">
-					<a href={`/${subject.username}/request`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="numpad" style="mr-2 my-auto" />
-								<div class="mt-1 my-auto">{$t('payments.requestAnInvoice')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
 			{/if}
+
 			{#if !subject.anon && subject.username !== user?.username}
 				<div class="w-full flex">
 					<a
@@ -153,6 +114,19 @@
 					</a>
 				</div>
 			{/if}
+
+			{#if user && user.username !== subject.username && subject.pubkey}
+				<div class="w-full flex">
+					<a href={`/${subject.username}/messages`} class="mx-auto">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+							<div class="mx-auto flex">
+								<Icon icon="support" style="mr-2 my-auto" />
+								<div class="mt-1 my-auto">{$t('user.message')}</div>
+							</div>
+						</button>
+					</a>
+				</div>
+			{/if}
 		</div>
 	</div>
 
@@ -163,7 +137,7 @@
 	</div>
 </div>
 
-{#if currency && $animatedRate}
+{#if currency && !isNaN($animatedRate)}
 	<div class="flex fixed w-full px-4 bg-white py-2 bottom-0 bg-opacity-90 tabular-nums">
 		<div class="text-secondary flex mr-auto">
 			<div class="flex mr-1">

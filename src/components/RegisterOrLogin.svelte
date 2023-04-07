@@ -22,11 +22,7 @@
 
 	$: need2fa = form?.message === '2fa';
 	let cancel = () => (need2fa = false);
-	$: if (form?.message === '2fa' && form.token === token) {
-		token = '';
-		console.log('TOKEN', token);
-		fail('Invalid token, try again');
-	}
+	$: if (form?.message === '2fa' && form.token === token) token = '';
 
 	let username, email, btn;
 
@@ -71,7 +67,7 @@
 </script>
 
 {#if need2fa}
-	<Pin bind:value={token} title="Enter 2FA Code" {cancel} />
+	<Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
 {/if}
 
 <div class="pt-10">

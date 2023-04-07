@@ -12,10 +12,10 @@ export async function load({ depends, params, url, parent }) {
 	if (user && invoice.uid !== user.id && !url.pathname.includes('tip'))
 		throw redirect(307, `/send/invoice/${hash}`);
 
-	let { amount, received } = invoice;
+	let { amount, pending, received } = invoice;
 	amount = parseInt(amount);
 
-	let paid = (!amount && received) || (amount > 0 && received >= amount);
+	let paid = (!amount && received) || (amount > 0 && (pending >= amount || received >= amount));
 	if (paid && !url.pathname.endsWith('paid'))
 		throw redirect(307, `/${params.username}/invoice/${hash}/paid`);
 

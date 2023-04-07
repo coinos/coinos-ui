@@ -7,6 +7,7 @@ export async function load({ params: { id }, parent, url }) {
 	let {
 		amount,
 		address,
+		currency,
 		hash,
 		rate,
 		prompt,
@@ -17,7 +18,7 @@ export async function load({ params: { id }, parent, url }) {
 
 	if (prompt && tip === null) throw redirect(307, `/${recipient.username}/invoice/${id}/tip`);
 	if (recipient.username === user.username) throw error(500, { message: 'Cannot send to self' });
-	return { amount, address, hash, tip, rate, payreq: text, recipient };
+	return { amount, address, currency, hash, tip, rate, payreq: text, recipient };
 }
 
 export const actions = {

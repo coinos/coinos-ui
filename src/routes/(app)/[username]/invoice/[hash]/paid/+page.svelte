@@ -21,7 +21,7 @@
 	{#if received}
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">{$t('invoice.paymentSuccessful')}</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
-			{f(fiat(received, rate), currency)}
+			{f(fiat(received - tip, rate), currency)}
 			{#if tip}
 				<span class="text-lg">
 					+ {f(fiat(tip, rate), currency)}
@@ -29,7 +29,7 @@
 			{/if}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">
-			⚡️{s(received)}
+			⚡️{s(received - tip)}
 
 			{#if tip}
 				<span class="text-lg">
@@ -42,13 +42,13 @@
 	{#if pending}
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
-			{f(fiat(pending, rate), currency)}
+			{f(fiat(pending - tip, rate), currency)}
 			{#if tip}
 				+ {f(fiat(tip, rate), currency)}
 			{/if}
 		</h2>
 		<h3 class="text-secondary md:text-lg mb-6 mt-1">
-			⚡️{s(pending)}
+			⚡️{s(pending - tip)}
 			{#if tip}
 				<span class="text-lg">
 					+ ⚡️{s(tip)}

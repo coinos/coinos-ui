@@ -148,19 +148,16 @@
 					<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
 						<div class="whitespace-nowrap my-auto">
 							<div class="font-bold" class:text-red-800={p.amount < 0}>
-								{f((Math.abs(p.amount) + (p.tip || 0)) * (p.rate / sats), p.currency)}
+								{f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
 								{#if p.tip}
-									<span class="text-xs text-secondary">
-										{f(Math.abs(p.amount) * (p.rate / sats), p.currency)} + {f(
-											p.tip * (p.rate / sats),
-											p.currency
-										)}
+									<span class="text-sm text-secondary">
+										+{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
 									</span>
 								{/if}
 							</div>
 
 							<div class="text-secondary">
-								{sat(p.amount + (p.tip || 0))}
+								{sat(Math.abs(p.amount) + (p.tip || 0))}
 							</div>
 						</div>
 

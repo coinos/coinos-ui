@@ -1,6 +1,6 @@
 <script>
 	import { t } from '$lib/translations';
-	import { back, copy, f, s, fiat, sats } from '$lib/utils';
+	import { back, copy, f, s, fiat, post, sats, success } from '$lib/utils';
 	import { Avatar, Icon } from '$comp';
 	import { format } from 'date-fns';
 	import { PUBLIC_EXPLORER as expl } from '$env/static/public';
@@ -11,6 +11,11 @@
 	let { username } = user;
 	let { id, amount, created, rate, type, ref, tip, ourfee, fee, currency } = p;
 	let a = Math.abs(amount);
+
+	let print = async () => {
+		await post(`/payment/${id}/print`, { id });
+		success('Printing!');
+	};
 
 	fee = fee || 0;
 </script>
@@ -52,6 +57,7 @@
 			<span class="text-lg text-secondary">Tip</span>
 			<div>
 				{f(fiat(tip, rate), currency)}
+				({Math.round((tip * 100) / Math.abs(a))}%)
 				<span class="text-secondary text-lg">
 					⚡️{s(tip)}
 				</span>
@@ -105,5 +111,12 @@
 				</button>
 			</div>
 		</div>
+	{/if}
+
+	{#if user.username.toLowerCase() === 'laughingbean'}
+		<button
+			class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
+			on:click={print}>Print Receipt</button
+		>
 	{/if}
 </div>

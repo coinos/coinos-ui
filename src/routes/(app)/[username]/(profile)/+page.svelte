@@ -2,24 +2,23 @@
 	import { onMount } from 'svelte';
 	import { Icon, Avatar, Balance, Feed } from '$comp';
 	import { t } from '$lib/translations';
-	import { f, sat, sats } from '$lib/utils';
+	import { ease, f, sat, sats } from '$lib/utils';
 	import { sign, send, encrypt, decrypt } from '$lib/nostr';
-	import { event as e, password } from '$lib/store';
+	import { event as e, password, rate, animatedRate } from '$lib/store';
 	import { browser } from '$app/environment';
 
 	export let data;
-	let { messages, notes, invoices, sent, received, subject, user } = data;
+	let { messages, notes, invoices, sent, received, subject, user, rates } = data;
 	$: refresh(data);
-	let refresh = (d) => ({ messages, notes, invoices, sent, received, subject, user } = d);
+	let refresh = (d) => ({ messages, notes, invoices, sent, received, subject, user, rates } = d);
 
 	let keys = new Set();
 	let latest = [];
-	let i = 0;
 	let ready;
 
 	e.subscribe(async (event) => {
 		if (!(event && ready)) return;
-		if (event.recipient.id === user?.id && !~latest.findIndex((m) => m.id === event.id)) {
+		if (event.recipient?.id === user.id && !~latest.findIndex((m) => m.id === event.id)) {
 			event.content = await decrypt({ event, user });
 
 			let i = latest.findIndex((m) => m.pubkey === event.pubkey);
@@ -34,22 +33,49 @@
 
 	$: initialize($password);
 	let initialize = async (p) => {
+		let i = 0;
 		ready = false;
-		if (!p) return;
+		if (!p || !user) return;
 		while (i < messages.length) {
 			let event = messages[i];
-			let k = event.author.id === user.id ? event.recipient.pubkey : event.author.pubkey;
+			i++;
+
+			if (!(event.author && event.recipient)) continue;
+
+			let k = event.author.id === user.id ? event.recipient?.pubkey : event.author.pubkey;
 			if (!keys.has(k)) {
 				keys.add(k);
 				event.content = await decrypt({ event, user });
 				if (event.content) latest.push(event);
 			}
-			i++;
 		}
 
 		latest = latest;
 		ready = true;
 	};
+
+	let i;
+	let o;
+
+	rate.subscribe((n) => {
+		if (!user?.currency) return;
+		clearInterval(i);
+
+		let r = ((rates[user.currency] / rates['USD']) * n).toFixed(2);
+
+		if (!r || isNaN(r)) return;
+		if (!o) o = r;
+
+		let t = 0;
+		let d = o - r;
+
+		i = setInterval(() => {
+			if (!r) return;
+			$animatedRate = (o - d * ease(t / 100)).toFixed(2);
+			if (t > 80) (o = r) && clearInterval(i);
+			t++;
+		}, 10);
+	});
 </script>
 
 <div class="space-y-8">

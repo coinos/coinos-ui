@@ -1,23 +1,24 @@
 <script>
 	import { Left, Icon } from '$comp';
-	import { selectedRate } from '$lib/store';
 	import { f, s, post, warning, sat, sats } from '$lib/utils';
 	import { t } from '$lib/translations';
 
 	export let amount,
 		currency,
 		fiat = !amount,
+		rate,
 		submit = undefined;
 
 	export let amountFiat = 0;
+
 	let arrow = '<';
 
 	$: update(amount, amountFiat);
 	let update = (a, f) => {
 		if (fiat) {
-			amount = Math.round(f / ($selectedRate / sats));
+			amount = Math.round(f / (rate / sats));
 		} else {
-			amountFiat = ((a * $selectedRate) / sats).toFixed(2);
+			amountFiat = ((a * rate) / sats).toFixed(2);
 		}
 	};
 
@@ -60,7 +61,7 @@
 						amount = 0;
 					}
 				}
-			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > $selectedRate) {
+			} else if (value !== '.' && value !== '<' && parseInt(amountFiat + value) > rate) {
 				warning($t('user.receive.lessThan1BTCWarning'));
 			} else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
 				return;
@@ -184,12 +185,10 @@
 					type="button"
 					on:click={() => {
 						if (fiat) {
-							amount = parseInt((amountFiat / ($selectedRate / sats)).toFixed(0));
+							amount = parseInt((amountFiat / (rate / sats)).toFixed(0));
 						} else {
 							amountFiat =
-								(amount * ($selectedRate / sats)).toFixed(2) > 0.0
-									? (amount * ($selectedRate / sats)).toFixed(2)
-									: 0;
+								(amount * (rate / sats)).toFixed(2) > 0.0 ? (amount * (rate / sats)).toFixed(2) : 0;
 						}
 						fiat = !fiat;
 					}}><Icon icon="swap" style="inline hover:opacity-80" /></button
