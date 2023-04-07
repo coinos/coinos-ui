@@ -67,7 +67,7 @@
 </script>
 
 {#if need2fa}
-	<Pin bind:value={token} title="Enter 2FA Code" {cancel} />
+	<Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
 {/if}
 
 <div class="pt-10">
