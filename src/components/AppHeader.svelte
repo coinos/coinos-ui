@@ -114,7 +114,7 @@
 							{/each}
 						</ul>
 						<hr class="my-4" />
-						<a href="/"><img src="/images/logo.svg" alt="Coinos" class="w-32" /></a>
+						<a href="/"><img src="/images/logo.svg" alt="Hashme" class="w-32" /></a>
 					</div>
 				</OutClick>
 			</div>

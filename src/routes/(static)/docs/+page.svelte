@@ -4,7 +4,7 @@
 	import { PUBLIC_COINOS_URL } from '$env/static/public';
 	export let data;
 	let { user, token } = data;
-	let api = 'https://coinos.io/api';
+	let api = 'https://hashme.io/api';
 
 	let tokenSample = `export token="${token}"`;
 </script>
@@ -13,7 +13,7 @@
 	<h1 class="text-4xl">Documentation</h1>
 
 	<p class="text-secondary">
-		Coinos has a simple REST API that can be used to register accounts and make payments and
+		Hashme has a simple REST API that can be used to register accounts and make payments and
 		queries.
 	</p>
 

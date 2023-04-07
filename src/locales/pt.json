@@ -5,7 +5,7 @@
 	},
 	"about": {
 		"header": "Sobre",
-		"p1": "O Coinos é uma aplicação de pagamento de bitcoin de código aberto. O desenvolvimento começou em Vancouver em Setembro de 2012 como forma de fornecer aos comerciantes locais uma forma conveniente de aceitar pagamentos de bitcoin.",
+		"p1": "O Hashme é uma aplicação de pagamento de bitcoin de código aberto. O desenvolvimento começou em Vancouver em Setembro de 2012 como forma de fornecer aos comerciantes locais uma forma conveniente de aceitar pagamentos de bitcoin.",
 		"p2": "Você pode baixar o código fonte para executar uma instância e ligá-lo aos seus próprios nós de bitcoin e da Lightning Network. Vamos ajudá-lo a começar a ser um depositário benevolente e fornecedor de pagamentos para a sua comunidade..",
 		"p3": "As transferências de conta entre utilizadores no nosso servidor são feitas off-chain, por isso são completamente gratuitas, instantâneas e ilimitadas.",
 		"team": {
@@ -23,7 +23,7 @@
 		},
 		"locations": {
 			"header": "Locais",
-			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Coinos. Esperamos que o seu seja o próximo!"
+			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Hashme. Esperamos que o seu seja o próximo!"
 		}
 	},
 	"error": {
@@ -39,7 +39,7 @@
 		},
 		"compatibility": {
 			"question": "Eu preciso de algum dispositivo ou software especial?",
-			"answer": "Não. Coinos baseado na web, desde que você tenha uma conexão com a Internet e um navegador web, ele funciona em qualquer lugar. Os comerciantes de varejo podem usá-lo em um telefone, computador ou tablet."
+			"answer": "Não. Hashme baseado na web, desde que você tenha uma conexão com a Internet e um navegador web, ele funciona em qualquer lugar. Os comerciantes de varejo podem usá-lo em um telefone, computador ou tablet."
 		},
 		"safety": {
 			"question": "Como é a liquidez?",
@@ -84,7 +84,7 @@
 	"jobs": {
 		"header": "Vagas de emprego",
 		"subheader": "Atualmente abertas",
-		"pitch1": "Coinos está procurando ativamente desenvolvedores para se juntar à nossa crescente equipe (tempo integral ou meio-período, trabalho remoto OK).",
+		"pitch1": "Hashme está procurando ativamente desenvolvedores para se juntar à nossa crescente equipe (tempo integral ou meio-período, trabalho remoto OK).",
 		"pitch2": "Entusiasmado com o trabalho em bitcoin open source? Então dê uma olhada em nossos repositórios em",
 		"github": "GitHub",
 		"pitch3": "Se você acha que pode causar um impacto, gostaríamos muito de ouvir de você. Envie-nos seu currículo para"
@@ -133,7 +133,7 @@
 		"settings": "Ajustes",
 		"support": "Suporte"
 	},
-	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old hashme? Visit <a href=\"https://classic.hashme.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.hashme.io</a>",
 	"news": {
 		"header": "Notícias",
 		"subheader": "Últimos Updates",
@@ -182,7 +182,7 @@
 			"scan": "Escanear",
 			"paste": "Colar",
 			"next": "Continuar",
-			"placeholder": "Colar um endereço de bitcoin, fatura lightning ou nome de usuário na coinos"
+			"placeholder": "Colar um endereço de bitcoin, fatura lightning ou nome de usuário na hashme"
 		},
 		"settings": {
 			"saveSettings": "Salvar ajustes",
@@ -203,7 +203,7 @@
 			"emailNotifications": "Notificações por email",
 			"emailNotificationsDescription": "Ser notificado por e-mail quando ocorrer uma mudança em sua conta ou quando as pessoas lhe enviarem pagamentos.",
 			"smsNotifications": "Notificações por SMS",
-			"smsNotificationsDescription": "A Coinos lhe enviará notificações por SMS quando isto estiver habilitado.",
+			"smsNotificationsDescription": "A Hashme lhe enviará notificações por SMS quando isto estiver habilitado.",
 			"theme": "Cor do tema",
 			"tipPrompt": "Mostrar opção gorjetas",
 			"tipPromptDescription": "Pergunte às pessoas se elas querem acrescentar uma gorjeta antes de pagar sua fatura",

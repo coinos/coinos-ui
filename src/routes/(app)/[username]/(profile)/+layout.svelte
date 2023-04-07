@@ -13,7 +13,7 @@
 	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
 
 	let follow = async () => {
-		user.follows.push(['p', subject.pubkey, 'wss://nostr.coinos.io', subject.username]);
+		user.follows.push(['p', subject.pubkey, 'wss://nostr.hashme.io', subject.username]);
 		update();
 	};
 

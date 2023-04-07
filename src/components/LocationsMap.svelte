@@ -38,7 +38,7 @@
 
 			locations = locations.filter(
 				(location) =>
-					location['osm_json'].tags && location['osm_json'].tags['payment:coinos'] === 'yes'
+					location['osm_json'].tags && location['osm_json'].tags['payment:hashme'] === 'yes'
 			);
 
 			/*	const locations = [

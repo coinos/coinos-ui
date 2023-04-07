@@ -70,7 +70,7 @@
 	<div
 		class="absolute right-[2px] top-[30px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
 	>
-		@coinos.io
+		@hashme.io
 	</div>
 </div>
 

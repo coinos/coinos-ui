@@ -20,7 +20,7 @@ export const createTicket = async (cookies, username) => {
 			precision: 0,
 			asset_amount: '1',
 			token_amount: 0,
-			domain: 'coinos.io',
+			domain: 'hashme.io',
 			filename: tickets[ticket]
 		},
 		{ authorization: `Bearer ${env.LAUNCH}` }

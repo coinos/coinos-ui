@@ -55,7 +55,7 @@ def localize_string(string_id, from_data, to_data):
 
 if __name__ == "__main__":
     # setup and parse commandline arguments
-    args_parser = argparse.ArgumentParser(description="guided translation of coinos")
+    args_parser = argparse.ArgumentParser(description="guided translation of hashme")
     args_parser.add_argument('from_locale', nargs='?', type=str,
                              help="which locale to translate from")
     args_parser.add_argument('to_locale', nargs='?', type=str,

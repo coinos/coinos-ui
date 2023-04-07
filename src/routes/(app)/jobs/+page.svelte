@@ -16,14 +16,14 @@
 		<br /><br />
 		{$t('jobs.pitch2')}
 		<a
-			href="https://github.com/coinos"
+			href="https://github.com/hashme"
 			target="_blank"
 			rel="noreferrer"
 			class="underline underline-offset-4">{$t('jobs.github')}</a
 		>.
 		<br /><br />
 		{$t('jobs.pitch3')}
-		<a href="mailto:contact@coinos.io" class="underline underline-offset-4">contact@coinos.io</a>.
+		<a href="mailto:contact@hashme.io" class="underline underline-offset-4">contact@hashme.io</a>.
 	</p>
 </div>
 

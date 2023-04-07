@@ -4,9 +4,9 @@
 	"display": "fullscreen",
 	"scope": "/",
 	"start_url": "/",
-	"name": "Coinos",
+	"name": "Hashme",
 	"description": "Bitcoin web wallet",
-	"short_name": "Coinos",
+	"short_name": "Hashme",
 	"icons": [
 		{
 			"src": "/icon-192x192.png",

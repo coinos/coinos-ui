@@ -5,12 +5,12 @@
 	},
 	"about": {
 		"header": "À Propos",
-		"p1": "<strong>coinos</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
+		"p1": "<strong>hashme</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
 		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation dans le but de pouvoir utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
 		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenue par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installerons pour vous avec plaisir.",
 		"locations": {
 			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente hashme. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@hashme.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
 		},
 		"team": {
 			"header": "L'Équipe",
@@ -55,11 +55,11 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "Quel est le coût?",
-			"answer": "coinos est gratuit à utiliser. Vous payez seulment 1% quand vous convertissez vos fonds entre bitcoin, Liquid et Lightning. Comparez-ça aux frais typiques 3% des cartes de crédit."
+			"answer": "hashme est gratuit à utiliser. Vous payez seulment 1% quand vous convertissez vos fonds entre bitcoin, Liquid et Lightning. Comparez-ça aux frais typiques 3% des cartes de crédit."
 		},
 		"compatibility": {
 			"question": "Est-ce que j'ai besoin de logiciel ou d'appareil special ?",
-			"answer": "Non. coinos est un site Web, vous pouvez donc l'utiliser sur n'importe quel appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
+			"answer": "Non. hashme est un site Web, vous pouvez donc l'utiliser sur n'importe quel appareil tant que vous aves un connexion d'Internet. La plupart des marchands l'utilise sur un téléphone ou une tablette."
 		},
 		"safety": {
 			"question": "Sont mes fonds saufs ?",
@@ -135,7 +135,7 @@
 		"support": "Assistance",
 		"profile": "Profil"
 	},
-	"newSiteHeader": "Bienvenue sur <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">coinos nouveau et amélioré</a>, focalisé sur les marchants! Vous cherchez l'ancien coinos? Visitez <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
+	"newSiteHeader": "Bienvenue sur <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">hashme nouveau et amélioré</a>, focalisé sur les marchants! Vous cherchez l'ancien hashme? Visitez <a href=\"https://classic.hashme.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.hashme.io</a>.",
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
 		"addTipq": "Ajouter un pourboire?",
@@ -148,7 +148,7 @@
 	"jobs": {
 		"header": "Emplois",
 		"subheader": "Postes disponibles actuels",
-		"pitch1": "coinos recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
+		"pitch1": "hashme recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
 		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
 		"github": "GitHub",
 		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
@@ -235,7 +235,7 @@
 			"scan": "Scannez",
 			"paste": "Collez",
 			"next": "Prochain",
-			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos"
+			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur hashme"
 		}
 	},
 	"transactions": {

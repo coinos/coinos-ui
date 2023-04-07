@@ -3,9 +3,9 @@
 	import { t } from '$lib/translations';
 
 	const followLinks = [
-		{ url: 'https://twitter.com/coinoswallet', titleID: 'twitter' },
-		{ url: 'https://t.me/coinoswallet', titleID: 'telegram' },
-		{ url: 'https://linktr.ee/coinos.io', titleID: 'linktree' }
+		{ url: 'https://twitter.com/hashmewallet', titleID: 'twitter' },
+		{ url: 'https://t.me/hashmewallet', titleID: 'telegram' },
+		{ url: 'https://linktr.ee/hashme.io', titleID: 'linktree' }
 	];
 
 	const companyLinks = [

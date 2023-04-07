@@ -5,7 +5,7 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p1": "Hashme is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
 		"p2": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
 		"p3": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
 		"team": {
@@ -33,7 +33,7 @@
 		},
 		"locations": {
 			"header": "Locations",
-			"description": "Here are some businesses that are accepting bitcoin with Coinos. We hope that yours will be next!"
+			"description": "Here are some businesses that are accepting bitcoin with Hashme. We hope that yours will be next!"
 		}
 	},
 	"error": {
@@ -49,7 +49,7 @@
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
+			"answer": "No. Hashme is web-based, so as long as you have an internet connection, you can use it on any device. Retail merchants might use it on a phone or a tablet."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
@@ -93,7 +93,7 @@
 	"jobs": {
 		"header": "Jobs",
 		"subheader": "Current Openings",
-		"pitch1": "Coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
+		"pitch1": "Hashme is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
 		"pitch2": "Excited about working on open source bitcoin? Then take a look at our repositories on",
 		"github": "GitHub",
 		"pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
@@ -142,7 +142,7 @@
 		"settings": "Settings",
 		"support": "Support"
 	},
-	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old hashme? Visit <a href=\"https://classic.hashme.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.hashme.io</a>",
 	"news": {
 		"header": "News",
 		"subheader": "Latest Updates",
@@ -191,7 +191,7 @@
 			"scan": "Scan",
 			"paste": "Paste",
 			"next": "Next",
-			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
+			"placeholder": "Paste a bitcoin address, lightning invoice or hashme username"
 		},
 		"settings": {
 			"bannerImage": "Banner Image",
@@ -211,7 +211,7 @@
 			"emailNotifications": "Email Notifications",
 			"emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
 			"smsNotifications": "SMS Notifications",
-			"smsNotificationsDescription": "Coinos will send you text notifications when this is enabled.",
+			"smsNotificationsDescription": "Hashme will send you text notifications when this is enabled.",
 			"theme": "Color Theme",
 			"tipPrompt": "Prompt for tips",
 			"tipPromptDescription": "Ask people if they want to add a tip before paying their invoices",

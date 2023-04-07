@@ -5,8 +5,8 @@
 	},
 	"about": {
 		"header": "Über uns",
-		"p1": "Coinos ist eine Open-Source-Bitcoin-Bezahl-App. Im September 2012 starteten wir die Entwicklung in Vancouver, um lokalen Händlern eine bequeme Möglichkeit zu bieten, Bitcoin-Zahlungen zu akzeptieren.",
-		"p2": "Sie können den Quellcode herunterladen, um die Coinos-App mit Ihrem eigenen Bitcoin- und Lightning-Node zu verbinden. Gerne helfen wir Ihnen dabei, ein wertvoller Dienstleister sowie Zahlungsanbieter für Ihre Kunden zu werden.",
+		"p1": "Hashme ist eine Open-Source-Bitcoin-Bezahl-App. Im September 2012 starteten wir die Entwicklung in Vancouver, um lokalen Händlern eine bequeme Möglichkeit zu bieten, Bitcoin-Zahlungen zu akzeptieren.",
+		"p2": "Sie können den Quellcode herunterladen, um die Hashme-App mit Ihrem eigenen Bitcoin- und Lightning-Node zu verbinden. Gerne helfen wir Ihnen dabei, ein wertvoller Dienstleister sowie Zahlungsanbieter für Ihre Kunden zu werden.",
 		"p3": "Transaktionen zwischen Nutzerkonten auf unserem Server werden Off-Chain durchgeführt. Diese werden sofort abgewickelt und sind völlig kostenlos sowie unlimitiert.",
 		"team": {
 			"header": "Das Team",
@@ -44,7 +44,7 @@
 		},
 		"locations": {
 			"header": "Standorte",
-			"description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Coinos akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!"
+			"description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Hashme akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!"
 		}
 	},
 	"error": {
@@ -60,7 +60,7 @@
 		},
 		"compatibility": {
 			"question": "Benötige ich ein bestimmtes Gerät oder eine spezielle Software dafür?",
-			"answer": "Nein. Coinos ist web-basiert, das bedeutet, solange Sie über eine aktive Internetverbindung verfügen, können Sie Coinos auf jedem Endgerät nutzen. Einzelhändlern empfehlen wir, ein Telefon oder Tablet zu verwenden."
+			"answer": "Nein. Hashme ist web-basiert, das bedeutet, solange Sie über eine aktive Internetverbindung verfügen, können Sie Hashme auf jedem Endgerät nutzen. Einzelhändlern empfehlen wir, ein Telefon oder Tablet zu verwenden."
 		},
 		"safety": {
 			"question": "Wann wird mein Guthaben ausgezahlt?",
@@ -153,7 +153,7 @@
 		"settings": "Einstellungen",
 		"support": "Support"
 	},
-	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Coinos-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Hashme-Version? Besuchen Sie <a href=\"https://classic.hashme.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.hashme.io</a>",
 	"news": {
 		"header": "News",
 		"subheader": "Letzte Updates",
@@ -195,7 +195,7 @@
 			"scan": "Scannen",
 			"paste": "Einfügen",
 			"next": "Weiter",
-			"placeholder": "Geben Sie eine Bitcoin-Adresse, eine Lightning-Rechnung oder einen Coinos-Benutzernamen ein"
+			"placeholder": "Geben Sie eine Bitcoin-Adresse, eine Lightning-Rechnung oder einen Hashme-Benutzernamen ein"
 		},
 		"settings": {
 			"bannerImage": "Logo",
@@ -214,7 +214,7 @@
 			"emailNotifications": "E-Mail-Benachrichtigungen",
 			"emailNotificationsDescription": "Sie werden per E-Mail benachrichtigt, wenn eine Änderung auf Ihrem Konto vorgenommen wurde oder Ihnen jemand Zahlungen sendet.",
 			"smsNotifications": "SMS-Benachrichtigungen",
-			"smsNotificationsDescription": "Coinos wird Benachrichtigungen per SMS zusenden, wenn diese Funktion aktiviert ist.",
+			"smsNotificationsDescription": "Hashme wird Benachrichtigungen per SMS zusenden, wenn diese Funktion aktiviert ist.",
 			"theme": "Farbdesign",
 			"themeDescription": "Wählen Sie aus unseren Standard-Farbdesigns.",
 			"localCurrency": "Landeswährung",

@@ -36,7 +36,7 @@
 			It must be possible to pay for any of their usual goods/services with bitcoin at any time
 			during their posted hours without needing to make any special arrangements
 		</li>
-		<li>They must use Coinos and accept lightning payments</li>
+		<li>They must use Hashme and accept lightning payments</li>
 		<li>Each business category can be claimed only once</li>
 		<li>One bounty per person</li>
 	</ul>
@@ -71,8 +71,8 @@
 
 	<p>
 		To make a referral, reach out on one of our socials or email us at <a
-			href="mailto:bounties@coinos.io"
-			class="text-black hover:underline">bounties@coinos.io</a
+			href="mailto:bounties@hashme.io"
+			class="text-black hover:underline">bounties@hashme.io</a
 		> and we'll set up an appointment with you and the business owner to get started.
 	</p>
 
