@@ -19,13 +19,13 @@
 </script>
 
 <header
-	class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
+	class="w-full lg:px-40 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
 	bind:this={header}
 >
 	<nav class="block xl:flex flex-wrap justify-between items-center">
 		<div class="flex justify-start md:justify-center items-center md:space-x-10">
 			<a href="/" on:click={() => scroll(header)}>
-				<Icon icon="logo" style="hidden md:block mb-5 xl:mb-0" />
+				<Icon icon="logo" style="hidden md:block mb-5 xl:mb-0 w-32" />
 				<Icon icon="logo" style="block md:hidden ml-5 w-48" />
 			</a>
 		</div>

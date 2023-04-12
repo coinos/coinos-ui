@@ -9,18 +9,13 @@
 		<h1
 			class="text-5xl md:text-6xl lg:text-7xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto leading-tight"
 		>
-			{$t('landing.header_before_icon')}
+    Bitchat
 			<span class="relative">
-				{$t('landing.header_with_icon')}
+        and 
 				<Icon icon="rays" style="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24" />
 			</span>
-			{$t('landing.header_after_icon')}
+Lightning Wallet
 		</h1>
-		<h2
-			class="text-center text-secondary w-full md:w-3/5 lg:w-2/5 max-w-3xl mx-auto text-xl leading-normal font-medium"
-		>
-			{$t('landing.subheader')}
-		</h2>
 
 		<div class="flex justify-center">
 			<a href="/register">
