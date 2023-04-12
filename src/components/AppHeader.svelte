@@ -40,7 +40,7 @@
 		{#if user}
 			<a href={`/${user.username}`}>
 				<button
-					class="bg-red p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+					class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
 						.url.pathname === `/${user.username}`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
