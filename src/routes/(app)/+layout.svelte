@@ -39,7 +39,7 @@
 		lost = Date.now() - $last > 15000;
 		if (lost) connect(token);
 		if (counter > 5) {
-			send('heartbeat');
+			send('heartbeat', token);
 			counter = 0;
 		}
 		timer = setTimeout(checkSocket, 1000);

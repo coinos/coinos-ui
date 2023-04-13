@@ -7,7 +7,7 @@ import { browser } from '$app/environment';
 
 let socket, token;
 
-export const auth = () => token && send('login', token) && send('heartbeat');
+export const auth = () => token && send('login', token);
 
 export const send = (type, data) => {
 	socket?.readyState === 1 && socket.send(JSON.stringify({ type, data }));
