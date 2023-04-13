@@ -39,6 +39,7 @@
 		lost = Date.now() - $last > 15000;
 		if (lost) connect(token);
 		if (counter > 5) {
+      console.log("heartbeat");
 			send('heartbeat', token);
 			counter = 0;
 		}
