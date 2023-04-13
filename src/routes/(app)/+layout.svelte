@@ -14,8 +14,12 @@
 
 	export let data;
 
-	let { subject } = $page.data;
-	let { rate, user, token, rates } = data;
+	let { rate, user, subject, token, rates } = data;
+
+  $: update(data);
+  let update = (data) => {
+    ({ rate, user, subject, token, rates } = data);
+  } 
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
