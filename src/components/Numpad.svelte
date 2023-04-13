@@ -31,7 +31,7 @@
 			AUD: '$',
 			NZD: '$',
 			MXN: '$',
-			BRL: '$',
+			BRL: 'R$',
 			HKD: '$',
 			TWD: '$',
 			JPY: '¥',
