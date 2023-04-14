@@ -100,9 +100,7 @@
 
 			let markers = new MarkerClusterGroup();
 			locations.forEach((location) => {
-				if (location['deleted_at']) {
-					return;
-				}
+        if (location['deleted_at'] || !(location.lan && location.lon)) return;
 
 				location = location['osm_json'];
 
