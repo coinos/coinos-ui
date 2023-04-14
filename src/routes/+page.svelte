@@ -19,8 +19,6 @@
 	let update = (data) => ({ locations, user } = data);
 	$: update(data);
 
-	console.log(data, locations.length);
-
 	let howItWorks;
 	let faq;
 	let about;
