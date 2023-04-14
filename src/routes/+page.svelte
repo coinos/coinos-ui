@@ -15,8 +15,11 @@
 	import { onMount } from 'svelte';
 
 	export let data;
-	let { user } = data;
-	let { locations } = data;
+	let { locations, user } = data;
+	let update = (data) => ({ locations, user } = data);
+	$: update(data);
+
+	console.log(data, locations.length);
 
 	let howItWorks;
 	let faq;
