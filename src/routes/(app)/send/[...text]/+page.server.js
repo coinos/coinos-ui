@@ -6,6 +6,8 @@ import { fail, redirect } from '@sveltejs/kit';
 let parse = async (t, host) => {
 	if (!t) return;
 
+  if (t.startsWith('http')) throw redirect(307, t);
+
 	let amount, user, id;
 
 	t = t.trim();
