@@ -43,7 +43,7 @@
 		}
 	});
 
-	let src = Qr.drawImg('lightning:laughingbean@coinos.io', { size: 3200 });
+	let src = Qr.drawImg('https://coinos.io/bitcoincafe', { size: 3200 });
 </script>
 
 <svelte:head>
@@ -59,11 +59,9 @@
 			<h3 class="text-5xl font-medium text-center">Lightning Address</h3>
 		</div>
 		<Q {src} />
-		<div class="text-center text-4xl">laughingbean@coinos.io</div>
+		<div class="text-center text-4xl">https://coinos.io/bitcoincafe</div>
 		<div>
-			<div class="text-center text-xl">
-        See supported wallets at <b>lightningaddress.com</b>
-			</div>
+      <div class="text-center text-xl pt-2">Scan with your camera app (not a wallet app) to open this URL in a browser, then click &lt;Pay&gt; to enter your total</div>
 		</div>
 	</div>
 	<LandingHero {user} />
