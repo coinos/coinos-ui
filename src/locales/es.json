@@ -132,7 +132,7 @@
 		"settings": "Ajustes",
 		"support": "Soporte"
 	},
-	"newSiteHeader": "Acompañanos en nuestra <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> en Vancouver el 26 de Octubre! Buscando la version anterior de swapee? Visita <a href=\"https://classic.swapee.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.io</a>",
+	"newSiteHeader": "Acompañanos en nuestra <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> en Vancouver el 26 de Octubre! Buscando la version anterior de swapee? Visita <a href=\"https://classic.swapee.me\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.me</a>",
 	"news": {
 		"header": "Noticias",
 		"subheader": "Últimas Actualizaciones",

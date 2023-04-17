@@ -77,5 +77,5 @@ export default {
   "received":0
   "created":1677537428134
 }`,
-	socketAuth: `echo '{"type":"login","data":{"username":"user","password":"password"}}' | websocat -n https://swapee.io/ws`
+	socketAuth: `echo '{"type":"login","data":{"username":"user","password":"password"}}' | websocat -n https://swapee.me/ws`
 };

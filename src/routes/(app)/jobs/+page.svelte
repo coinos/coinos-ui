@@ -23,7 +23,7 @@
 		>.
 		<br /><br />
 		{$t('jobs.pitch3')}
-		<a href="mailto:contact@swapee.io" class="underline underline-offset-4">contact@swapee.io</a>.
+		<a href="mailto:contact@swapee.me" class="underline underline-offset-4">contact@swapee.me</a>.
 	</p>
 </div>
 

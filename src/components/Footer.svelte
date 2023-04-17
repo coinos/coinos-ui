@@ -5,7 +5,7 @@
 	const followLinks = [
 		{ url: 'https://twitter.com/swapeewallet', titleID: 'twitter' },
 		{ url: 'https://t.me/swapeewallet', titleID: 'telegram' },
-		{ url: 'https://linktr.ee/swapee.io', titleID: 'linktree' }
+		{ url: 'https://linktr.ee/swapee.me', titleID: 'linktree' }
 	];
 
 	const companyLinks = [

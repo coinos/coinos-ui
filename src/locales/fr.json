@@ -10,7 +10,7 @@
 		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenue par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installerons pour vous avec plaisir.",
 		"locations": {
 			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente swapee. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@swapee.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente swapee. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@swapee.me\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
 		},
 		"team": {
 			"header": "L'Équipe",
@@ -135,7 +135,7 @@
 		"support": "Assistance",
 		"profile": "Profil"
 	},
-	"newSiteHeader": "Bienvenue sur <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">swapee nouveau et amélioré</a>, focalisé sur les marchants! Vous cherchez l'ancien swapee? Visitez <a href=\"https://classic.swapee.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.io</a>.",
+	"newSiteHeader": "Bienvenue sur <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">swapee nouveau et amélioré</a>, focalisé sur les marchants! Vous cherchez l'ancien swapee? Visitez <a href=\"https://classic.swapee.me\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.me</a>.",
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
 		"addTipq": "Ajouter un pourboire?",
