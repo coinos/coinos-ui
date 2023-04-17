@@ -43,7 +43,7 @@
 		}
 	});
 
-	let src = Qr.drawImg('https://coinos.io/laughingbean', { size: 3200 });
+	let src = Qr.drawImg('https://coinos.io/merch', { size: 3200 });
 </script>
 
 <svelte:head>
@@ -57,14 +57,12 @@
 		<div class="flex w-full justify-center gap-4">
 			<img src="/images/bitcoin.png" class="w-14" />
 			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
+      <div class="text-5xl">⚡️</div>
 		</div>
 		<Q {src} />
-		<div class="text-center text-4xl">https://coinos.io/laughingbean</div>
+		<div class="text-center text-4xl">https://coinos.io/merch</div>
 		<div>
-			<div class="text-center text-3xl">
-				Don't have a wallet?<br /> Start in seconds at <b>coinos.io</b>
-			</div>
-			<div class="text-center text-xl pt-2">Made in Vancouver</div>
+      <div class="text-center text-xl pt-2">Scan with your <b>Camera</b> app (not your wallet) to <b>open this URL in a browser</b>, then click <b>Pay</b> to enter your total</div>
 		</div>
 	</div>
 	<LandingHero {user} />
