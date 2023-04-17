@@ -4,7 +4,7 @@
 	import { PUBLIC_COINOS_URL } from '$env/static/public';
 	export let data;
 	let { user, token } = data;
-	let api = 'https://coinos.io/api';
+	let api = 'https://swapee.me/api';
 
 	let tokenSample = token ? `export token="${token}"` : `export token=<your auth token>`;
 </script>

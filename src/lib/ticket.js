@@ -20,7 +20,7 @@ export const createTicket = async (cookies, username) => {
 			precision: 0,
 			asset_amount: '1',
 			token_amount: 0,
-			domain: 'swapee.io',
+			domain: 'swapee.me',
 			filename: tickets[ticket]
 		},
 		{ authorization: `Bearer ${env.LAUNCH}` }
