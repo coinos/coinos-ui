@@ -33,6 +33,8 @@
 
 	$: form?.success && success('Settings saved!');
 
+  $: form?.message && fail(form.message);
+
 	$: if (form?.message?.startsWith('Pin')) {
 		fail('Wrong pin, try again');
 		$pin = '';
