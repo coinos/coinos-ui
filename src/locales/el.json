@@ -1,0 +1,283 @@
+{
+	"404": {
+		"404": "404",
+		"pageNotFound": "Page not found."
+	},
+	"about": {
+		"header": "About",
+		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
+		"p2": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
+		"p3": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
+		"team": {
+			"header": "The Team",
+			"adam": {
+				"name": "Adam Soltys",
+				"position": "Chief Technical Officer",
+				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
+			},
+			"cole": {
+				"name": "Cole",
+				"position": "Certified Bitcoin Professional",
+				"bio": "Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
+			}
+		},
+		"locations": {
+			"header": "Locations",
+			"description": "Here are some businesses that are accepting bitcoin with Coinos. We hope that yours will be next!"
+		}
+	},
+	"error": {
+		"header": "Error",
+		"message": "Please try again or contact support.",
+		"signIn": "Please sign in to continue."
+	},
+	"faq": {
+		"header": "FAQ",
+		"cost": {
+			"question": "What does it cost?",
+			"answer": "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."
+		},
+		"compatibility": {
+			"question": "Do I need any special device or software?",
+			"answer": "No. Coinos is web based, so as long as you have an internet connection and a web browser, it works anywhere. Retail merchants might use it on a phone or a tablet."
+		},
+		"safety": {
+			"question": "When do my funds settle?",
+			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet or exchange immediately once funds are received."
+		}
+	},
+	"footer": {
+		"company": "Company",
+		"followUs": "Follow Us",
+		"github": "GitHub",
+		"linktree": "Linktree",
+		"jobs": "Jobs",
+		"support": "Support",
+		"telegram": "Telegram",
+		"twitter": "Twitter",
+		"documentation": "Documentation"
+	},
+	"howItWorks": {
+		"header": "How it works",
+		"step1": {
+			"header": "1. Create your account",
+			"description": "A username and password is all you need to get started."
+		},
+		"step2": {
+			"header": "2. Ask for payments",
+			"description": "The same as you normally would, but with bitcoin."
+		},
+		"step3": {
+			"header": "3. That's all!",
+			"description": "Spend your coin immediately or save it and watch it grow, the choice is yours."
+		}
+	},
+	"invoice": {
+		"addTip": "Add a tip",
+		"addTipq": "Add a tip?",
+		"done": "Done",
+		"paymentSuccessful": "Payment received!",
+		"invoice": "Invoice",
+		"total": "Total",
+		"tip": "Tip"
+	},
+	"jobs": {
+		"header": "Jobs",
+		"subheader": "Current Openings",
+		"pitch1": "Coinos is actively looking for developers to join our growing team (full-time or part-time, remote working OK).",
+		"pitch2": "Excited about working on open source bitcoin? Then take a look at our repositories on",
+		"github": "GitHub",
+		"pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
+	},
+	"landing": {
+		"header_before_icon": "The",
+		"header_with_icon": "easiest",
+		"header_after_icon": "way to get started with bitcoin.",
+		"subheader": "A simple but powerful web wallet for everyone. No software or hardware required.",
+		"info1": {
+			"title": "Instant payments via Lightning",
+			"description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
+		},
+		"info2": {
+			"title": "Simple to use",
+			"description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
+			"description2": "We do all the heavy lifting so you can focus on your business.",
+			"description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
+		},
+		"info3": {
+			"title": "Brand it your way!",
+			"description": "Customize your profile page look and feel, or keep it on default - it's totally up to you."
+		}
+	},
+	"login": {
+		"optional": "Optional",
+		"token": "2FA Token",
+		"username": "Username",
+		"password": "Password",
+		"email": "Email",
+		"passwordRecommendation": "We recommend a long, random password generated with a password manager.",
+		"forgotUserOrPassword": "Forgot Username or Password?",
+		"haveAccount": "Already have an account?",
+		"noAccount": "Don't have an account?",
+		"register": "Register",
+		"signIn": "Sign In",
+		"failed": "Login failed"
+	},
+	"nav": {
+		"profile": "Profile",
+		"startInSeconds": "Start in Seconds",
+		"account": "Account",
+		"signIn": "Sign In",
+		"signOut": "Sign Out",
+		"dashboard": "Dashboard",
+		"settings": "Settings",
+		"support": "Support"
+	},
+	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+	"news": {
+		"header": "News",
+		"subheader": "Latest Updates",
+		"update1": ""
+	},
+	"user": {
+		"bitcoin": "Bitcoin",
+		"lightning": "Lightning",
+		"invoice": "Invoice",
+		"unfollow": "Unfollow",
+		"following": "Following",
+		"follow": "Follow",
+		"followers": "Followers",
+		"remove": "Remove",
+		"noNotes": "No notes yet",
+		"message": "Message",
+		"messages": "Messages",
+		"feed": "Feed",
+		"notes": "Notes",
+		"pay": "Pay",
+		"scanToPayBTC": "Scan to pay with bitcoin",
+		"this": "This",
+		"lightningAddress": "lightning address",
+		"likeAnEmail": "is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.",
+		"dashboard": {
+			"go": "Go",
+			"dashboard": "Dashboard",
+			"accountBalance": "Account Balance",
+			"bitcoinPrice": "bitcoin Price:",
+			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",
+			"dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
+			"fetchingRate": "fetching rate...",
+			"optionalNote": "Note (Optional)",
+			"send": "Send",
+			"receive": "Receive",
+			"withdraw": "Send",
+			"deposit": "Deposit",
+			"voucher": "Voucher"
+		},
+		"receive": {
+			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",
+			"showQR": "Show QR"
+		},
+		"send": {
+			"contacts": "Contacts",
+			"scan": "Scan",
+			"paste": "Paste",
+			"next": "Next",
+			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
+		},
+		"settings": {
+			"saveSettings": "Save Settings",
+			"bannerImage": "Banner Image",
+			"profileImage": "Profile Image",
+			"oneTimeCode": "Enter one-time code",
+			"accountId": "Account Secret",
+			"header": "Settings",
+			"ACCOUNT": "ACCOUNT",
+			"POINT_OF_SALE": "PREFERENCES",
+			"SECURITY": "SECURITY",
+			"locale": "Language",
+			"username": "Username",
+			"email": "Email",
+			"newPassword": "Change Password",
+			"about": "About",
+			"aboutPlaceholder": "A little something about you or your business address and hours",
+			"emailNotifications": "Email Notifications",
+			"emailNotificationsDescription": "Get notified via email when a change occurs on your account or when people send you payments.",
+			"smsNotifications": "SMS Notifications",
+			"smsNotificationsDescription": "Coinos will send you text notifications when this is enabled.",
+			"theme": "Color Theme",
+			"tipPrompt": "Prompt for tips",
+			"tipPromptDescription": "Ask people if they want to add a tip before paying their invoices",
+			"displayName": "Display name",
+			"themeDescription": "Select from the default color themes.",
+			"localCurrency": "Currency",
+			"btcUnit": "Display bitcoin in:",
+			"bitcoin": "bitcoin",
+			"minutes": "minutes",
+			"hour": "hour",
+			"hours": "hours",
+			"satoshis": "Satoshis",
+			"securityPIN": "Security PIN",
+			"securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",
+			"setPIN": "Set PIN",
+			"autoLock": "Auto-Lock Timer",
+			"autoLockDescription": "Your account will go into a secure mode, requiring you to re-enter your credentials after a specified time:",
+			"twofa": "2-Factor Authentication",
+			"twofaDescription": "Add an extra level of security to your device by enabling 2-factor authentication.",
+			"twofaSetup": "Set up 2FA",
+			"twofaDisable": "Disable 2FA",
+			"select": "Select",
+			"verifyPIN": "Verify PIN",
+			"enablePIN": "Enable PIN",
+			"disablePIN": "Disable PIN"
+		},
+		"support": {
+			"header": "Support",
+			"email": "Email",
+			"accountName": "Account Name",
+			"message": "Message",
+			"send": "Send"
+		}
+	},
+	"payments": {
+		"amount": "Amount",
+		"date": "Date",
+		"id": "Transaction ID",
+		"details": "Transaction Details",
+		"header": "Payments",
+		"preimage": "Proof of payment",
+		"type": "Type",
+		"time": "Time",
+		"sent": "Sent",
+		"received": "Received",
+		"empty": "No transactions yet.",
+		"send": "Send",
+		"next": "Next",
+		"sendersChoice": "Sender's choice",
+		"sendTo": "Send to",
+		"to": "to",
+		"pay": "Pay",
+		"requesting": "is requesting",
+		"sentInvoiceTo": "Sent invoice to",
+		"sentRequestTo": "Request sent!",
+		"pleasePay": "Please pay",
+		"day": "Day",
+		"week": "Week",
+		"month": "Month",
+		"all": "All",
+		"export": "Export",
+		"invoice": "Invoice",
+		"readyToPay": "is ready to pay",
+		"describeOrder": "Use this field to describe your order",
+		"requestAnInvoice": "Request Invoice",
+		"submit": "Submit",
+		"isRequesting": "is requesting",
+		"invoiceFrom": "Invoice from",
+		"awaiting": "Awaiting",
+		"tapAnywhere": "Tap anywhere to continue",
+		"from": "from",
+		"redeem": "Redeem",
+		"redeemed": "Redeemed",
+		"redeemedBy": "Redeemed by",
+		"sendMessage": "Write a message..."
+	}
+}
