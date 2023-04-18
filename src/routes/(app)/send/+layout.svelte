@@ -1,10 +1,7 @@
 <script>
-	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { Pin } from '$comp';
 	import { pin } from '$lib/store';
-	import { onMount } from 'svelte';
-	import { success, fail, post } from '$lib/utils';
 
 	export let data;
 

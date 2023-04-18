@@ -2,7 +2,7 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, invoice, request, passwordPrompt } from '$lib/store';
+	import { last, invoice, request, passwordPrompt, pin } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -16,10 +16,10 @@
 
 	let { rate, user, subject, token, rates } = data;
 
-  $: update(data);
-  let update = (data) => {
-    ({ rate, user, subject, token, rates } = data);
-  } 
+	$: update(data);
+	let update = (data) => {
+		({ rate, user, subject, token, rates } = data);
+	};
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
@@ -29,13 +29,17 @@
 			if (lng) localStorage.setItem(localeLocalStorageKey, lng);
 		});
 
-		browser && checkSocket();
+		if (browser) {
+			checkSocket();
+			expirePin();
+		}
 	});
 
 	$: browser && connect(token);
 
 	let lost,
-		timer,
+		checkTimer,
+		expireTimer,
 		counter = 0;
 
 	let checkSocket = () => {
@@ -46,10 +50,21 @@
 			send('heartbeat', token);
 			counter = 0;
 		}
-		timer = setTimeout(checkSocket, 1000);
+
+		checkTimer = setTimeout(checkSocket, 1000);
 	};
 
-	onDestroy(() => browser && clearTimeout(timer));
+	let expirePin = () => {
+		$pin = null;
+		expireTimer = setTimeout(expirePin, 300000);
+	};
+
+	onDestroy(() => {
+		if (browser) {
+			clearTimeout(checkTimer);
+			clearTimeout(expireTimer);
+		}
+	});
 </script>
 
 {#if browser && $passwordPrompt}
