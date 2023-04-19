@@ -50,5 +50,8 @@
 			}
 		}
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"video.js": "^8.0.4"
+	}
 }

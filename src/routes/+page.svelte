@@ -1,4 +1,5 @@
 <script>
+  import videojs from "video.js"
 	import {
 		LandingHeader,
 		LandingHero,
@@ -39,17 +40,28 @@
 		} catch (e) {
 			console.log(e);
 		}
+
+
+let player = videojs('hls-example');
+player.play();
 	});
 </script>
 
 <svelte:head>
 	<script src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
+
+  <link href="https://vjs.zencdn.net/8.0.4/video-js.css" rel="stylesheet" />
 </svelte:head>
 
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
 	<LandingHero {user} />
+
+<video id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
+<source type="application/x-mpegURL" src="/stream_0/stream_0.m3u8">
+</video>
+
 	<LandingInfoCard
 		image="lightning-qr"
 		title={$t('landing.info1.title')}
