@@ -1,21 +1,21 @@
 <script>
 	import { t } from '$lib/translations';
 	import { goto } from '$app/navigation';
-	import { pin, selectedRate } from '$lib/store';
+	import { pin } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, f, s, sats } from '$lib/utils';
+	import { back, f, fiat as toFiat, s, sats } from '$lib/utils';
 	export let data;
 	export let form;
 
-	let { address, payreq, recipient, user } = data;
+	let { address, rate, payreq, recipient, tip, rates, user } = data;
 	let { currency } = user;
 
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
-		amountFiat = amount * ($selectedRate / sats),
+		amountFiat = amount * (rate / sats),
 		fiat = !amount;
 
 	let setAmount = () => {
@@ -25,6 +25,8 @@
 
 	let loading;
 	let submit = () => (loading = true);
+
+	$: rate = data.rate * (rates[user.currency] / rates[data.currency]);
 
 	$: update(form);
 	let update = () => {
@@ -49,9 +51,23 @@
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">
 				{$t('payments.send')}
 			</h1>
-			<p class="text-6xl break-words mb-4">
-				{fiat ? f(amountFiat, currency) : '⚡️' + s(amount)}
-			</p>
+			<h2 class="text-2xl md:text-3xl font-semibold">
+				{f(toFiat(amount, rate), currency)}
+				{#if tip}
+					<span class="text-lg">
+						+ {f(toFiat(tip, rate), currency)}
+					</span>
+				{/if}
+			</h2>
+			<h3 class="text-secondary md:text-lg mb-6 mt-1">
+				⚡️{s(amount)}
+
+				{#if tip}
+					<span class="text-lg">
+						+ ⚡️{s(tip)}
+					</span>
+				{/if}
+			</h3>
 
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('payments.to')}</h1>
 
@@ -61,7 +77,7 @@
 			</div>
 		</div>
 	{:else}
-		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
+		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat bind:rate />
 	{/if}
 
 	<form method="POST" use:enhance on:submit={submit}>

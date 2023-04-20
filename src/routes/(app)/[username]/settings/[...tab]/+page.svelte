@@ -5,7 +5,7 @@
 
 	import { Icon, Spinner, Pin } from '$comp';
 	import { t } from '$lib/translations';
-	import { fail, post, success } from '$lib/utils';
+	import { fail, post, warning, success } from '$lib/utils';
 	import { avatar, banner, password, pin } from '$lib/store';
 	import { upload } from '$lib/upload';
 	import { page } from '$app/stores';
@@ -33,6 +33,8 @@
 
 	$: form?.success && success('Settings saved!');
 
+  $: form?.message && fail(form.message);
+
 	$: if (form?.message?.startsWith('Pin')) {
 		fail('Wrong pin, try again');
 		$pin = '';
@@ -55,7 +57,12 @@
 			let data = new FormData(formElement);
 
 			if (data.get('password')) {
-				data.set('cipher', await reEncryptEntropy(user, data.get('password')));
+				try {
+					data.set('cipher', await reEncryptEntropy(user, data.get('password')));
+				} catch (e) {
+					console.log('Failed to encrypt keys with new password');
+					throw e;
+				}
 			}
 
 			if ($avatar) {
@@ -80,8 +87,12 @@
 				tags: []
 			};
 
-			await sign({ event, user });
-			await send(event);
+			try {
+				await sign({ event, user });
+				await send(event);
+			} catch (e) {
+				warning('nostr profile could not be updated');
+			}
 
 			const response = await fetch(formElement.action, {
 				method: 'POST',
@@ -103,13 +114,10 @@
 
 		loading = false;
 	}
-
-	let loaded;
-	onMount(() => setTimeout(() => (loaded = true), 50));
 </script>
 
-{#if loaded && user.haspin && $pin?.length !== 6}
-	<Pin bind:value={$pin} />
+{#if user.haspin && $pin?.length !== 6}
+	<Pin />
 {/if}
 
 <form
@@ -150,7 +158,7 @@
 			{#if loading}
 				<Spinner />
 			{:else}
-				<div class="my-auto">Save Settings</div>
+				<div class="my-auto">{$t('user.settings.saveSettings')}</div>
 			{/if}
 		</button>
 	</div>

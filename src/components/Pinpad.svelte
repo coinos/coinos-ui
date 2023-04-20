@@ -1,7 +1,6 @@
 <script>
 	import { Left, Icon } from '$comp';
-	import { pin, selectedRate } from '$lib/store';
-	import { f, s, focus, post, warning, sat, sats } from '$lib/utils';
+	import { focus, post, warning } from '$lib/utils';
 	import { t } from '$lib/translations';
 
 	export let v;

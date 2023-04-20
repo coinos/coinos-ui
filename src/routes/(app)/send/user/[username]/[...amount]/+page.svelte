@@ -1,7 +1,7 @@
 <script>
 	import { t } from '$lib/translations';
 	import { goto } from '$app/navigation';
-	import { pin, selectedRate } from '$lib/store';
+	import { pin } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { AppHeader, Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
@@ -10,31 +10,34 @@
 	export let data;
 	export let form;
 
-	let { subject, rates, user } = data;
-	let currency = user?.currency || 'USD';
+	let { subject, rate, rates, user } = data;
+	let currency = user.currency || subject.currency || 'USD';
 
 	let amount = form?.amount || data.amount;
 	let a,
 		af,
 		fiat = !amount,
 		hash,
-		rate,
 		amountFiat = 0;
 
-	selectedRate.subscribe((r) => rate || (amountFiat = amount * (r / sats)));
+	$: r = rate || rates[user.currency || subject.currency];
 
 	let setAmount = async () => {
 		amount = a;
 		amountFiat = parseFloat(af).toFixed(2);
-		rate = fiat ? (sats * amountFiat) / amount : $selectedRate;
+		rate = fiat ? (sats * amountFiat) / amount : r;
 		({ hash } = await post(`/${subject.username}/invoice`, {
 			invoice: {
 				amount,
+				hash: 'internal',
 				rate: rates[subject.currency],
+				prompt: subject.prompt,
 				type: 'internal'
 			},
 			user: subject
 		}));
+
+		goto(`/${subject.username}/invoice/${hash}`);
 	};
 
 	let loading;
@@ -56,17 +59,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
-	{#if amount}
-		<h1 class="text-center text-3xl md:text-4xl font-bold mb-6">Sending</h1>
-		<div class="text-center mb-8">
-			<h2 class="text-2xl md:text-3xl font-semibold">
-				{f(amountFiat, currency)}
-			</h2>
-			<h3 class="text-secondary md:text-lg mb-6 mt-1">{sat(amount)}</h3>
-		</div>
-	{:else}
-		<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat />
-	{/if}
+	<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat bind:rate={r} />
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />

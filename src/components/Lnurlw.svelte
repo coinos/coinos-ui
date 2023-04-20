@@ -7,7 +7,8 @@
 	export let data, form;
 
 	let { currency, username } = data.user;
-	let { defaultDescription, minWithdrawable, maxWithdrawable, k1, callback } = data;
+	let { defaultDescription, minWithdrawable, maxWithdrawable, k1, callback, rates } = data;
+	$: rate = rates[currency];
 
 	let amount = Math.round(maxWithdrawable / 1000),
 		loading;
@@ -28,7 +29,7 @@
 		</div>
 	{/if}
 
-	<Numpad bind:amount {currency} />
+	<Numpad bind:amount {currency} bind:rate />
 
 	<form action="?/withdraw" method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />

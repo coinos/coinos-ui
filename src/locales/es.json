@@ -15,31 +15,10 @@
 				"position": "Director de Tecnología",
 				"bio": "Adam es un desarrollador web y un entusiasta de bitcoin que cree que el dinero sólido es clave para aumentar la prosperidad global. Vive en la ciudad de North Vancouver con su esposa Chelsea y sus dos hijos."
 			},
-			"secondl1ght": {
-				"name": "secondl1ght",
-				"position": "Desarrollador Web",
-				"bio": "Desarrollador web autodidacta, se sumergió de cabeza en con el bitcoin y dejó su trabajo fiduciario para concentrarse en el desarrollo de bitcoin a tiempo completo. Contribuye en proyectos de código abierto, es un defensor de la privacidad y un amante de la libertad."
-			},
-
-			"karnage": {
-				"name": "Karnage",
-				"position": "Diseñador de Producto",
-				"bio": "Mi misión es ayudar a los fundadores de startups a tener éxito. Creo productos para lograr estos objetivos. Diseño de producto con píxeles perfectos. Haz que te lo envíen."
-			},
-			"shauna": {
-				"name": "Shauna",
-				"position": "Operaciones y Mercadeo",
-				"bio": "Gestión Estratégica y de Proyectos. Sé un poco de todo. Siempre habrá tiempo para compartir un buen café."
-			},
 			"cole": {
 				"name": "Cole",
 				"position": "Profesional de Bitcoin",
 				"bio": "Como profesional certificado de Bitcoin, Cole es una persona motivada y apasionada por la libertad. Conoció el bitcoin en 2016 y lo estudió en profundidad. Ahora quiere presentarle la Red Lightning a tantos usuarios como sea posible."
-			},
-			"john": {
-				"name": "John Barratt",
-				"position": "Desarrollador Web Full Stack",
-				"bio": "Cuando no está programando, podemos encontrar a John en el bosque recorriendo todos los grandes senderos que British Columbia tiene para ofrecer."
 			}
 		},
 		"locations": {
@@ -165,6 +144,7 @@
 		"invoice": "Factura",
 		"unfollow": "Dejar de seguir",
 		"following": "Siguiendo",
+		"followers": "Seguidores",
 		"follow": "Seguir",
 		"remove": "Eliminar",
 		"scanToPayBTC": "Escanear para pagar con bitcoin",
@@ -198,6 +178,9 @@
 			"placeholder": "Asigne una dirección de bitcoin, una factura lightning o un usuario de coinos"
 		},
 		"settings": {
+			"saveSettings": "Guardar ajustes",
+			"tipPrompt": "Solicitar propinas",
+			"tipPromptDescription": "Pregunta a las personas si quieren agregar una propina antes de pagar sus facturas",
 			"bannerImage": "Imagen del Banner",
 			"profileImage": "Imagen de perfil",
 			"oneTimeCode": "Ingrese el código de un solo uso",
@@ -243,7 +226,7 @@
 			"send": "Enviar"
 		}
 	},
-	"transactions": {
+	"payments": {
 		"header": "Transacciones",
 		"AMOUNT": "CANTIDAD",
 		"TYPE": "TIPO",
@@ -253,7 +236,7 @@
 		"empty": "Aún no hay transacciones.",
 		"send": "Enviado",
 		"next": "Siguiente",
-		"sendersChoice": "Sender's choice",
+		"sendersChoice": "Elección del remitente",
 		"sendTo": "Enviar a",
 		"to": "para",
 		"pay": "Pagar",

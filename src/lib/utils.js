@@ -1,5 +1,3 @@
-import * as ecc from 'tiny-secp256k1';
-import { BIP32Factory } from 'bip32';
 import { browser } from '$app/environment';
 import { toast } from '@zerodevx/svelte-toast';
 import { goto } from '$app/navigation';
@@ -12,11 +10,11 @@ export function scroll(section) {
 	setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 500);
 }
 
-const base = browser ? '' : PUBLIC_COINOS_URL;
+let base = browser ? '' : PUBLIC_COINOS_URL;
 
-export const punk = (k) => Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1 + '.webp';
+export let punk = (k) => Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1 + '.webp';
 
-export const g = (url, fetch, headers) =>
+export let g = (url, fetch, headers) =>
 	fetch(base + url, { headers })
 		.then((r) => r.text())
 		.then((body) => {
@@ -27,7 +25,7 @@ export const g = (url, fetch, headers) =>
 			}
 		});
 
-export const get = (url, headers = {}) =>
+export let get = (url, headers = {}) =>
 	fetch(base + url, { headers })
 		.then(async (r) => {
 			if (r.ok) return r.text();
@@ -41,7 +39,7 @@ export const get = (url, headers = {}) =>
 			}
 		});
 
-export const post = (url, body, headers) => {
+export let post = (url, body, headers) => {
 	headers = { ...headers, 'content-type': 'application/json', accept: 'application/json' };
 	return fetch(base + url, { method: 'POST', body: JSON.stringify(body), headers })
 		.then(async (r) => {
@@ -71,7 +69,7 @@ export const post = (url, body, headers) => {
 		});
 };
 
-export const copy = (text) => {
+export let copy = (text) => {
 	navigator.clipboard.writeText(text);
 	success('Copied!');
 };
@@ -87,7 +85,7 @@ export function reverseFormat(val, locale) {
 
 export let protectedRoutes = [/customers/, /settings/, /payments/];
 
-export const success = (m) => {
+export let success = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
@@ -96,7 +94,7 @@ export const success = (m) => {
 	});
 };
 
-export const warning = (m) => {
+export let warning = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
@@ -104,7 +102,7 @@ export const warning = (m) => {
 		}
 	});
 };
-export const fail = (m) => {
+export let fail = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
@@ -112,7 +110,7 @@ export const fail = (m) => {
 		}
 	});
 };
-export const info = (m) => {
+export let info = (m) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
@@ -121,7 +119,7 @@ export const info = (m) => {
 	});
 };
 
-export const login = async (user, cookies) => {
+export let login = async (user, cookies) => {
 	let maxAge = 30 * 24 * 60 * 60;
 
 	let res = await fetch(base + '/login', {
@@ -145,17 +143,17 @@ export const login = async (user, cookies) => {
 	cookies.set('token', token, opts);
 };
 
-export const auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
+export let auth = (cookies) => ({ authorization: `Bearer ${cookies.get('token')}` });
 
-export const fiat = (amount, rate) => (amount * rate) / sats;
-export const fd = async (req) => {
+export let fiat = (amount, rate) => (amount * rate) / sats;
+export let fd = async (req) => {
 	let obj = Object.fromEntries(await req.formData());
 	for (let k in obj)
 		(obj[k] === 'undefined' && (obj[k] = undefined)) || (obj[k] === 'false' && (obj[k] = false));
 	return obj;
 };
 
-export const f = (s, currency) =>
+export let f = (s, currency) =>
 	new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency
@@ -163,8 +161,8 @@ export const f = (s, currency) =>
 		.format(s)
 		.replace('CA', '');
 
-export const s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
-export const sat = (s) => {
+export let s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
+export let sat = (s) => {
 	s = Math.abs(s);
 	let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);
 	let d = Math.floor((p + 1) / 3);
@@ -179,20 +177,20 @@ export const sat = (s) => {
 	);
 };
 
-export const sats = 100000000;
+export let sats = 100000000;
 
-export const back = () => browser && history.go(-1);
-export const focus = (el) => browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
+export let back = () => browser && (history.length ? history.go(-1) : goto('/'));
+export let focus = (el) => browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
 
-export const sleep = (n) => new Promise((r) => setTimeout(r, n));
-export const wait = async (f, n = 100, s = 300) => {
+export let sleep = (n) => new Promise((r) => setTimeout(r, n));
+export let wait = async (f, n = 100, s = 300) => {
 	let i = 0;
 	while (!(await f()) && i < s) (await sleep(n)) && i++;
 	if (i >= s) throw new Error('timeout');
 	return f();
 };
 
-export const stretch = async (password, salt) =>
+export let stretch = async (password, salt) =>
 	crypto.subtle.deriveKey(
 		{
 			name: 'PBKDF2',
@@ -211,8 +209,6 @@ export const stretch = async (password, salt) =>
 		true,
 		['encrypt', 'decrypt']
 	);
-
-export const bip32 = await BIP32Factory(ecc);
 
 function get_bigrams(string) {
 	var s = string.toLowerCase();
@@ -240,10 +236,12 @@ export function ss(str1, str2) {
 	return 0.0;
 }
 
-export const types = {
+export let types = {
 	bitcoin: 'bitcoin',
 	lightning: 'lightning',
 	internal: 'internal',
 	pot: 'pot',
 	classic: 'classic'
 };
+
+export let ease = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);

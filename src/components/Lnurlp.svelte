@@ -6,7 +6,9 @@
 
 	export let data, form;
 	let { currency } = data.user;
-	let { minSendable, maxSendable, callback, metadata } = data;
+	let { minSendable, maxSendable, callback, metadata, rates } = data;
+
+	$: rate = rates[currency];
 
 	let amount = Math.round(minSendable / 1000),
 		loading;
@@ -33,7 +35,7 @@
 		</div>
 	{/if}
 
-	<Numpad bind:amount {currency} />
+	<Numpad bind:amount bind:rate {currency} />
 
 	<form action="?/pay" method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
