@@ -2,7 +2,7 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, selectedRate, invoice, rate, user, request, passwordPrompt } from '$lib/store';
+	import { last, invoice, request, passwordPrompt, pin } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -14,17 +14,12 @@
 
 	export let data;
 
-	let { subject } = $page.data;
-	let r, u, token, rates;
+	let { rate, user, subject, token, rates } = data;
 
 	$: update(data);
-	let update = () => {
-		({ user: u, rate: r, token, rates } = data);
-		$rate = r;
-		$user = u;
+	let update = (data) => {
+		({ rate, user, subject, token, rates } = data);
 	};
-
-	$: $selectedRate = r * (rates[u?.currency || 'USD'] / rates.USD);
 
 	onMount(() => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
@@ -34,27 +29,42 @@
 			if (lng) localStorage.setItem(localeLocalStorageKey, lng);
 		});
 
-		browser && checkSocket();
+		if (browser) {
+			checkSocket();
+			expirePin();
+		}
 	});
 
 	$: browser && connect(token);
 
 	let lost,
-		timer,
+		checkTimer,
+		expireTimer,
 		counter = 0;
 
 	let checkSocket = () => {
 		counter++;
-		lost = Date.now() - $last > 15000;
+		lost = Date.now() - $last > 30000;
 		if (lost) connect(token);
 		if (counter > 5) {
-			send('heartbeat');
+			send('heartbeat', token);
 			counter = 0;
 		}
-		timer = setTimeout(checkSocket, 1000);
+
+		checkTimer = setTimeout(checkSocket, 1000);
 	};
 
-	onDestroy(() => browser && clearTimeout(timer));
+	let expirePin = () => {
+		$pin = null;
+		expireTimer = setTimeout(expirePin, 300000);
+	};
+
+	onDestroy(() => {
+		if (browser) {
+			clearTimeout(checkTimer);
+			clearTimeout(expireTimer);
+		}
+	});
 </script>
 
 {#if browser && $passwordPrompt}
@@ -78,20 +88,14 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-{#if lost}
-	<div class="fixed bottom-12 right-12 text-red-600 bg-white z-50 px-4 py-2 rounded-full border">
-		Lost connection to server, try refreshing
-	</div>
-{/if}
-
 <main data-sveltekit-prefetch class="pb-20">
 	<slot />
 </main>
 
 {#if $invoice}
-	<Invoice user={u} />
+	<Invoice {user} />
 {/if}
 
 {#if $request}
-	<Request user={u} />
+	<Request {user} />
 {/if}

@@ -11,7 +11,6 @@ export const actions = {
 	send: async ({ cookies, request }) => {
 		try {
 			let body = await fd(request);
-			let { amount } = body;
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {

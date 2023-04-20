@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
-	import { selectedRate } from '$lib/store';
 	import { post } from '$lib/utils';
 	import { goto } from '$app/navigation';
 

@@ -42,7 +42,7 @@
 	{#if pending}
 		<h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
 		<h2 class="text-2xl md:text-3xl font-semibold">
-			{f(fiat(pending, rate), currency)}
+			{f(fiat(pending - tip, rate), currency)}
 			{#if tip}
 				+ {f(fiat(tip, rate), currency)}
 			{/if}

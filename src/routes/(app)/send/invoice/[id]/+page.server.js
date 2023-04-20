@@ -1,21 +1,31 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import { fd, auth, get, post } from '$lib/utils';
 
-export async function load({ params: { id }, parent }) {
+export async function load({ params: { id }, parent, url }) {
 	let { user } = await parent();
 
-	let { amount, address, tip, text, user: recipient } = await get(`/invoice/${id}`);
+	let {
+		amount,
+		address,
+		currency,
+		hash,
+		rate,
+		prompt,
+		tip,
+		text,
+		user: recipient
+	} = await get(`/invoice/${id}`);
+
+	if (prompt && tip === null) throw redirect(307, `/${recipient.username}/invoice/${id}/tip`);
 	if (recipient.username === user.username) throw error(500, { message: 'Cannot send to self' });
-	if (tip) amount += tip;
-	return { amount, address, payreq: text, recipient };
+	return { amount, address, currency, hash, tip, rate, payreq: text, recipient };
 }
 
 export const actions = {
-	default: async ({ cookies, params: { hash }, request }) => {
+	default: async ({ cookies, params: { id }, request }) => {
 		try {
 			let body = await fd(request);
-			body.amount = parseInt(body.amount);
-			body.hash = hash;
+			body.hash = id;
 
 			await post('/payments', body, auth(cookies));
 		} catch (e) {

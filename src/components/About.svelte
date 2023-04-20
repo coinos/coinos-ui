@@ -12,22 +12,7 @@
 				{ type: 'github', url: 'https://github.com/asoltys', color: 'bg-gray-800' }
 			]
 		},
-		{ name: 'cole', socials: [] },
-		{
-			name: 'john',
-			socials: []
-		},
-		{
-			name: 'shauna',
-			socials: [
-				{ type: 'twitter', url: 'https://twitter.com/ShaunaCollister', color: 'bg-[#1D9BF0]' },
-				{
-					type: 'linkedin',
-					url: 'https://www.linkedin.com/in/shauna-collister-32905214',
-					color: 'bg-[#0a66c2]'
-				}
-			]
-		}
+		{ name: 'cole', socials: [] }
 	];
 </script>
 

@@ -1,4 +1,5 @@
 <script>
+	import { onDestroy } from 'svelte';
 	import { fail, success, post } from '$lib/utils';
 	import { scale } from 'svelte/transition';
 	import { AppHeader, Icon } from '$comp';
@@ -14,19 +15,32 @@
 	let email;
 	let message;
 	let sent;
+	let recaptchaSiteKey = '6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM';
 
 	let submit = (e) => {
 		e.preventDefault();
 		grecaptcha.ready(() => {
-			grecaptcha
-				.execute('6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM', { action: 'submit' })
-				.then((token) =>
-					post('/support', { email, message, token })
-						.then(() => (sent = true))
-						.catch(() => fail('problem submitting'))
-				);
+			grecaptcha.execute(recaptchaSiteKey, { action: 'submit' }).then((token) =>
+				post('/support', { username: user?.username, email, message, token })
+					.then(() => (sent = true))
+					.catch(() => fail('problem submitting'))
+			);
 		});
 	};
+
+	onDestroy(() => {
+		const nodeBadge = document.querySelector('.grecaptcha-badge');
+		if (nodeBadge) {
+			document.body.removeChild(nodeBadge.parentNode);
+		}
+
+		const scriptSelector =
+			"script[src='https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey + "']";
+		const script = document.querySelector(scriptSelector);
+		if (script) {
+			script.remove();
+		}
+	});
 </script>
 
 <svelte:head>
