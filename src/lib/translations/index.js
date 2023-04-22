@@ -28,19 +28,14 @@ const config = {
 			loader: async () => (await import('../../locales/en.json')).default
 		},
 		{
-			locale: 'fa',
+			locale: 'es',
 			key: '',
-			loader: async () => (await import('../../locales/fa.json')).default
+			loader: async () => (await import('../../locales/es.json')).default
 		},
 		{
 			locale: 'fr',
 			key: '',
 			loader: async () => (await import('../../locales/fr.json')).default
-		},
-		{
-			locale: 'es',
-			key: '',
-			loader: async () => (await import('../../locales/es.json')).default
 		},
 		{
 			locale: 'pt',
@@ -56,6 +51,16 @@ const config = {
 			locale: 'zh',
 			key: '',
 			loader: async () => (await import('../../locales/zh.json')).default
+		},
+		{
+			locale: 'fa',
+			key: '',
+			loader: async () => (await import('../../locales/fa.json')).default
+		},
+		{
+			locale: 'el',
+			key: '',
+			loader: async () => (await import('../../locales/el.json')).default
 		}
 	]
 };

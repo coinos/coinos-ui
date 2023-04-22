@@ -2,9 +2,12 @@ import { validate } from 'bitcoin-address-validation';
 import bip21 from 'bip21';
 import { auth, get, post } from '$lib/utils';
 import { fail, redirect } from '@sveltejs/kit';
+import { PUBLIC_DOMAIN } from '$env/static/public';
 
 let parse = async (t, host) => {
 	if (!t) return;
+
+	if (t.startsWith('http')) throw redirect(307, t);
 
 	let amount, user, id;
 
@@ -15,6 +18,7 @@ let parse = async (t, host) => {
 			options: { amount }
 		} = bip21.decode(t));
 
+	if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split('@')[0];
 	if (t.includes('@') && t.includes('.')) {
 		try {
 			t = await get(`/encode?address=${t}`);
