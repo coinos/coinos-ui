@@ -5,14 +5,11 @@
 	import { t } from '$lib/translations';
 
 	let team = [
+		{ name: 'west', socials: [] },
 		{
 			name: 'adam',
-			socials: [
-				{ type: 'twitter', url: 'https://twitter.com/adamsoltys', color: 'bg-[#1D9BF0]' },
-				{ type: 'github', url: 'https://github.com/asoltys', color: 'bg-gray-800' }
-			]
+			socials: []
 		},
-		{ name: 'cole', socials: [] }
 	];
 </script>
 
@@ -24,7 +21,7 @@
 		<div class="space-y-10 2xl:space-y-0 2xl:grid gap-y-10 grid-cols-2">
 			{#each team as member}
 				<div class="flex w-full">
-					<div class="md:flex 2xl:items-start md:max-w-2xl mx-auto">
+					<div class="md:flex 2xl:items-start md:max-w-2xl mx-auto gap-4">
 						<div class="w-[220px] mx-auto">
 							<Image image={member.name} style="rounded-full mx-auto w-40 h-40 mb-5 object-cover" />
 
@@ -50,7 +47,7 @@
 							</div>
 						</div>
 						<div class="text-secondary text-xl w-full max-w-[450px] mt-5">
-							{$t(`about.team.${member.name}.bio`)}
+							{@html $t(`about.team.${member.name}.bio`)}
 						</div>
 					</div>
 				</div>

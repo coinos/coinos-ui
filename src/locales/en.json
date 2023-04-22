@@ -13,12 +13,12 @@
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Chief Technical Officer",
-				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
+				"bio": "Adam is a veteran web developer with over 25 years of experience building and maintaining applications and software systems. He holds a Bacherlor of Computer Science degree from the University of British Columbia and has experience in the fields of environmental consulting, aerospace engineering, mesh networking, organic farming, Bitcoin and NFT's."
 			},
-			"cole": {
-				"name": "Cole",
-				"position": "Certified Bitcoin Professional",
-				"bio": "Cole is a driven individual with a passion for freedom. He came across bitcoin in 2016 and studied it in depth. Now he wants to introduce the lightning network to as many users as possible."
+			"west": {
+				"name": "West Ma",
+				"position": "Chief Executive Officer",
+				"bio": "Having obtained a Bachelor's Degree in Physics and a Master's Degree in Cryogenic Engineering, West Ma has amassed more than 35 years of expertise in the fields of Science, Technology, and International Trade Services. Since 2017, he has served as CEO and COO of a publicly listed company in the crypto mining industry, and has acted as a crypto advisor for energy providers and blockchain infrastructure investment companies. <p class=\"py-4\">Currently, West is exploring new areas of interest, including the Bitcoin Lightning Wallet, the Nostr P2P Messaging App, Bitcoin payments for pizza, the carbon footprint of Bitcoin, and the hidden value of Bitcoin mined using carbon-free energy.</p>"
 			}
 		},
 		"locations": {
