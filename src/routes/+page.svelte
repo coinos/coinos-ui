@@ -43,7 +43,7 @@
 		}
 	});
 
-	let src = Qr.drawImg('https://coinos.io/theloftlounge', { size: 3200 });
+	let src = Qr.drawImg('https://coinos.io/cocoatanning', { size: 3200 });
 </script>
 
 <svelte:head>
@@ -61,8 +61,10 @@
       </div>
 		</div>
 		<Q {src} />
-		<div class="text-center text-xl">https://coinos.io/theloftlounge</div>
-    <img src="/images/logo.png" class="w-24 mx-auto" />
+		<div class="text-center text-4xl">https://coinos.io/cocoatanning</div>
+		<div>
+      <div class="text-center text-xl pt-2">Scan with your <b>Camera</b> app to <b>open this URL in a browser</b>, then click <b>Pay</b> to enter your total</div>
+		</div>
 	</div>
 	<LandingHero {user} />
 	<LandingInfoCard
