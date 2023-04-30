@@ -140,6 +140,9 @@
 		"update1": ""
 	},
 	"user": {
+    "requestPayment": "Gerar fatura",
+    "welcome": "Bem-vindo! O saldo da sua conta está vazio. Você pode começar fazendo um depósito ou recebendo um pagamento.",
+    "showBalance": "Mostrar Saldo",
 		"bitcoin": "Bitcoin",
 		"lightning": "Lightning",
 		"invoice": "Fatura",

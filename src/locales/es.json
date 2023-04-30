@@ -139,6 +139,9 @@
 		"update1": ""
 	},
 	"user": {
+    "requestPayment": "Solicitar pago",
+    "welcome": "¡Bienvenido! El saldo de su cuenta está vacío. Puede comenzar haciendo un depósito o pidiéndole a alguien que le pague.",
+    "showBalance": "Mostrar saldo",
 		"bitcoin": "Bitcoin",
 		"lightning": "Lightning",
 		"invoice": "Factura",
