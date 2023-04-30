@@ -23,6 +23,8 @@
 	let faq;
 	let about;
 
+	let log = console.log;
+
 	const howItWorksSteps = [
 		{ image: 'hand', stepID: 'step1' },
 		{ image: 'bolt', stepID: 'step2' },
@@ -30,6 +32,27 @@
 	];
 
 	const faqIDs = ['cost', 'compatibility', 'safety'];
+
+	let scan = async () => {
+		log('User clicked scan button');
+
+		try {
+			const ndef = new NDEFReader();
+			await ndef.scan();
+			log('> Scan started');
+
+			ndef.addEventListener('readingerror', () => {
+				log('Argh! Cannot read data from the NFC tag. Try another one?');
+			});
+
+			ndef.addEventListener('reading', ({ message, serialNumber }) => {
+				log(`> Serial Number: ${serialNumber}`);
+				log(`> Records: (${message.records.length})`);
+			});
+		} catch (error) {
+			log('Argh! ' + error);
+		}
+	};
 
 	onMount(async () => {
 		close();
@@ -49,6 +72,7 @@
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
+<button on:click={scan} class="bg-black text-white mt-40 mx-auto p-8">Scan</button>
 	<LandingHero {user} />
 	<LandingInfoCard
 		image="lightning-qr"
