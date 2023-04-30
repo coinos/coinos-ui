@@ -87,8 +87,7 @@
 			{#if !user.balance}
 				<div class="space-y-8 mt-8">
 					<p class="text-secondary text-lg">
-						Welcome! Your account balance is empty. You can start by making a deposit or by asking
-						someone to pay you.
+          {$t("user.welcome")}
 					</p>
 
 					<div class="flex gap-4 justify-center w-full">
@@ -98,7 +97,7 @@
 							>
 								<div class="mx-auto flex">
 									<Icon icon="numpad" style="my-auto h-6 mr-2 invert" />
-									<div class="my-auto mt-1">Request Payment</div>
+                  <div class="my-auto mt-1">{$t("user.requestPayment")}</div>
 								</div>
 							</button>
 						</a>
