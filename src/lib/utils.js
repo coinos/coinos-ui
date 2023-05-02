@@ -25,8 +25,9 @@ export let g = (url, fetch, headers) =>
 			}
 		});
 
-export let get = (url, headers = {}) =>
-	fetch(base + url, { headers })
+export let get = (url, headers = {}) => {
+  console.log("GETTING", browser, base, url);
+	return fetch(base + url, { headers })
 		.then(async (r) => {
 			if (r.ok) return r.text();
 			throw new Error(await r.text());
@@ -38,6 +39,7 @@ export let get = (url, headers = {}) =>
 				return body;
 			}
 		});
+}
 
 export let post = (url, body, headers) => {
 	headers = { ...headers, 'content-type': 'application/json', accept: 'application/json' };
