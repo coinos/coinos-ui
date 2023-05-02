@@ -1,4 +1,4 @@
-import { auth, get } from "$lib/utils";
+import { auth, get } from '$lib/utils';
 import { loadTranslations, locale } from '$lib/translations';
 export const load = async ({ cookies, url }) => {
 	let user;
@@ -9,9 +9,9 @@ export const load = async ({ cookies, url }) => {
 		} catch (e) {}
 	}
 
-	const { pathname } = url;
+	const { host, pathname } = url;
 	const defaultLocale = user?.language || 'en'; // get from cookie, user session, ...
 	const initLocale = locale.get() || defaultLocale; // set default if no locale already set
 	await loadTranslations(initLocale, pathname); // keep this just before the `return`
-	return {};
+	return { host, pathname };
 };
