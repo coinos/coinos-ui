@@ -5,9 +5,6 @@
 	},
 	"about": {
 		"header": "About",
-		"p1": "Coinos is an open source bitcoin payment app. Development started in Vancouver in September 2012 as a way to provide local merchants with a convenient way to accept bitcoin payments.",
-		"p2": "You can download the source code to run an instance and connect it to your own bitcoin and lightning nodes. We'll help you get started being a benevolent custodian and payments provider for your community.",
-		"p3": "Account transfers amongst users on our server are done off-chain so they're completely free, instant, and unlimited.",
 		"team": {
 			"header": "The Team",
 			"adam": {
@@ -133,11 +130,9 @@
 		"settings": "Settings",
 		"support": "Support"
 	},
-	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
 		"header": "News",
-		"subheader": "Latest Updates",
-		"update1": ""
+		"subheader": "Latest Updates"
 	},
 	"user": {
     "requestPayment": "Request Payment",
@@ -165,11 +160,8 @@
 			"go": "Go",
 			"dashboard": "Dashboard",
 			"accountBalance": "Account Balance",
-			"bitcoinPrice": "bitcoin Price:",
 			"conversionFeeWarning": "You will be charged a 1% withdrawal fee on the amount.",
-			"dataFromBinance": "Data from <span class=\"text-black\">Binance</span>.",
 			"fetchingRate": "fetching rate...",
-			"optionalNote": "Note (Optional)",
 			"send": "Send",
 			"receive": "Receive",
 			"withdraw": "Send",
