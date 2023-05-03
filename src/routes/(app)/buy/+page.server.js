@@ -3,6 +3,12 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import { post, auth } from '$lib/utils';
 import { createTicket } from '$lib/ticket';
 
+export let load = async ({ cookies }) => {
+	let invoice = await post('/invoice', { invoice: { type: 'bitcoin' }}, auth(cookies));
+	let { hash } = invoice;
+  return { address: hash };
+}
+
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let form = await request.formData();
