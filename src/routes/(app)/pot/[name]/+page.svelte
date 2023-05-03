@@ -20,6 +20,9 @@
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$loginRedirect = $page.url.pathname;
+
+  let show;
+  let toggle = () => (show = !show);
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
@@ -31,12 +34,15 @@
 
 	<div class="flex justify-center items-center text-center">
 		<div class="shadow-xl rounded-3xl px-10 pt-5 pb-10 space-y-5 w-full mx-5">
-			<div class="relative">
+			<div class="relative flex justify-center gap-2">
 				<!-- <p class="absolute right-0 top-1 underline"><Icon icon="settings" /></p> -->
-				<h1 class="text-2xl md:text-3xl font-semibold">Public Pot</h1>
+				<img src="/images/moneypot.jpg" class="w-24" />
+				<h1 class="text-2xl md:text-3xl font-semibold my-auto">Money Pot</h1>
 			</div>
 			<p class="text-secondary">Anyone who knows the URL to this pot can add or take out funds</p>
-			<img {src} class="mx-auto" alt={name} />
+      {#if show}
+        <img {src} class="mx-auto" alt={name} />
+      {/if}
 			<div class="flex justify-center gap-4">
 				<div class="my-auto">
 					<h2 class="text-2xl md:text-3xl font-semibold">
@@ -47,17 +53,37 @@
 					</h3>
 				</div>
 			</div>
-			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
-				<a href={`/send/pot/${name}`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-						Chip in
-					</button>
-				</a>
-				<a href={`/pot/${name}/withdraw`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-						Dip in
-					</button>
-				</a>
+			<div class="flex gap-2" data-sveltekit-prefetch="off">
+				<div class="grow">
+					<a href={`/send/pot/${name}`}>
+						<button
+							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+						>
+							<Icon icon="down" />
+							Chip in
+						</button>
+					</a>
+				</div>
+				<div class="grow">
+					<a href={`/pot/${name}/withdraw`}>
+						<button
+							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+						>
+							<Icon icon="down" style="rotate-180" />
+							Dip in
+						</button>
+					</a>
+				</div>
+      </div>
+			<div class="flex gap-2" data-sveltekit-prefetch="off">
+        <button class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center" on:click={toggle}>
+					<Icon icon="qr" style="invert" />
+					QR
+				</button>
+				<button class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center">
+					<Icon icon="settings" />
+					Settings
+				</button>
 			</div>
 			<div class="text-base">
 				{#each payments as p}

@@ -26,7 +26,6 @@ export let g = (url, fetch, headers) =>
 		});
 
 export let get = (url, headers = {}) => {
-  console.log("GETTING", browser, base, url);
 	return fetch(base + url, { headers })
 		.then(async (r) => {
 			if (r.ok) return r.text();
