@@ -84,54 +84,41 @@
 			<div class="flex justify-center lg:justify-start mb-8">
 				<Balance {user} />
 			</div>
-
+				<div class="space-y-8 mt-8">
 			{#if !user.balance}
-				<div class="mb-8">
 					<p class="text-secondary text-lg">
           {$t("user.welcome")}
 					</p>
+      {/if}
+
+					<div class="flex gap-4 justify-center w-full">
+						<a href={`/${user.username}/receive`}>
+							<button
+								class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
+							>
+								<div class="mx-auto flex">
+									<Icon icon="numpad" style="my-auto h-6 mr-2 invert" />
+									<div class="my-auto mt-1">Request Payment</div>
+								</div>
+							</button>
+						</a>
+
+							<a href={`/buy`}>
+								<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+									<div class="mx-auto flex">
+										<!-- <Icon icon="plus" style="my-auto h-6 mr-2" /> -->
+
+										<img
+											src="/images/bitcoin.svg"
+											class="w-8 border-4 border-transparent mr-2"
+											alt="Bitcoin"
+										/>
+										<div class="my-auto mt-1">Buy Bitcoin</div>
+									</div>
+								</button>
+							</a>
+					</div>
 				</div>
-			{/if}
-
-			<div class="flex gap-4 justify-center w-full">
-				<a href={`/${user.username}/receive`}>
-					<button
-						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-					>
-						<div class="mx-auto flex">
-							<Icon icon="numpad" style="my-auto h-6 mr-2" />
-              <div class="my-auto mt-1">{$t("user.requestPayment")}</div>
-						</div>
-					</button>
-				</a>
-				<a href={`/scan`}>
-					<button
-						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-					>
-						<div class="mx-auto flex">
-							<Icon icon="scan" style="my-auto h-6 mr-2" />
-              <div class="my-auto mt-1">{$t("user.send.scan")}</div>
-						</div>
-					</button>
-				</a>
-
-				{#if user.eligible}
-					<a href={`/buy`}>
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<!-- <Icon icon="plus" style="my-auto h-6 mr-2" /> -->
-
-								<img
-									src="/images/bitcoin.svg"
-									class="w-8 border-4 border-transparent mr-2"
-									alt="Bitcoin"
-								/>
-								<div class="my-auto mt-1">Buy Bitcoin</div>
-							</div>
-						</button>
-					</a>
-				{/if}
-			</div>
 		</div>
 	{/if}
 
