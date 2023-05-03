@@ -62,7 +62,7 @@ let parse = async (t, host) => {
 
 	// user
 	try {
-		user = await get(`/users/${t}`);
+		user = await get(`/users/${t.split('/')[0]}`);
 		if (user.anon) user = null;
 	} catch (e) {}
 
