@@ -104,7 +104,7 @@
 						</a>
 
 							<a href={`/buy`}>
-								<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+								<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white">
 									<div class="mx-auto flex">
 										<!-- <Icon icon="plus" style="my-auto h-6 mr-2" /> -->
 
