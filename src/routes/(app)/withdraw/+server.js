@@ -6,3 +6,4 @@ export async function POST({ cookies, request }) {
 
 	return new Response(JSON.stringify('ok'), { headers: { 'content-type': 'application/json' } });
 }
+

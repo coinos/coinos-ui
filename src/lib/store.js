@@ -52,3 +52,4 @@ export const request = writable();
 export const requestRedirect = writable();
 export const token = persistSession('token');
 export const user = writable();
+export const ndef = writable();
