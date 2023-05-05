@@ -11,6 +11,15 @@
 
 	export let data;
 
+	let ndef;
+
+	let reading = async ({ message, serialNumber }) => {
+		let name = serialNumber.replace(/:/g, '-');
+		let result = await post(`/pot/${name}/withdraw`, { amount, hash, name });
+	};
+
+	let readingerror = (e) => console.log('nfc error', e);
+
 	$: refresh(data);
 	let { invoice, id, user, sm, lg } = data;
 	let {
@@ -33,7 +42,7 @@
 	let qr;
 	let tipPercent = 0;
 
-	let refresh = (data) => {
+	let refresh = async (data) => {
 		({ invoice, id, user, sm, lg } = data);
 		({
 			amount,
@@ -48,19 +57,43 @@
 		} = invoice);
 
 		tipPercent = (tip / amount) * 100;
+
+		if (browser) {
+			try {
+				ndef = new NDEFReader();
+				await ndef.scan();
+
+				ndef.removeEventListener('readingerror', readingerror);
+				ndef.removeEventListener('reading', reading);
+
+				ndef.addEventListener('readingerror', readingerror);
+				ndef.addEventListener('reading', reading);
+			} catch (e) {
+				console.log(e);
+			}
+      }
 	};
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$: tipAmount = ((tip * rate) / sats).toFixed(2);
 
 	let subbed;
-	onMount(() => {
-		browser &&
+
+	onMount(async () => {
+		if (browser) {
 			last.subscribe((v) => {
 				if (!v || subbed) return;
 				subbed = true;
 				send('subscribe', invoice);
 			});
+		}
+	});
+
+	onDestroy(() => {
+		if (ndef) {
+			ndef.removeEventListener('readingerror', readingerror);
+			ndef.removeEventListener('reading', reading);
+		}
 	});
 
 	$: link = type === 'bitcoin' ? text : `lightning:${text}`;

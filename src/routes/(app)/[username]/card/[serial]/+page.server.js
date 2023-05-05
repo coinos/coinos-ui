@@ -10,8 +10,6 @@ export let load = async ({ cookies, params }) => {
 		console.log(e);
 	}
 
-	console.log('POT', pot);
-
 	if (pot) throw redirect(307, `/pot/${serial}`);
 
 	return params;
