@@ -1,9 +1,21 @@
-import { auth, post } from '$lib/utils';
+import { json } from '@sveltejs/kit';
 
-export async function POST({ cookies, request }) {
-	let body = await request.json();
-	await post('/payments', body, auth(cookies));
+export async function POST({ request }) {
+	let { url, pr } = await request.json();
 
-	return new Response(JSON.stringify('ok'), { headers: { 'content-type': 'application/json' } });
+  console.log("URL", url);
+  console.log("URL", pr);
+
+	let { callback, k1 } = await fetch(url, {
+		headers: { 'content-type': 'application/json' }
+	}).then((r) => r.json());
+
+  console.log("CB", callback, k1)
+
+	let result = await fetch(callback + `?pr=${pr}&k1=${k1}`, {
+		headers: { 'content-type': 'application/json' }
+	}).then((r) => r.json());
+
+	console.log("RESULT", result);
+	return json(result);
 }
-

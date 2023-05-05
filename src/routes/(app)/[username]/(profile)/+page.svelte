@@ -86,7 +86,7 @@
 			</div>
 
 			{#if !user.balance}
-				<div>
+				<div class="mb-8">
 					<p class="text-secondary text-lg">
           {$t("user.welcome")}
 					</p>

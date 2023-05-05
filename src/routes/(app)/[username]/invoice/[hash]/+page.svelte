@@ -15,7 +15,21 @@
 
 	let reading = async ({ message, serialNumber }) => {
 		let name = serialNumber.replace(/:/g, '-');
-		let result = await post(`/pot/${name}/withdraw`, { amount, hash, name });
+		try {
+			let record = message.records.find((r) => r.recordType === 'url');
+			if (record) {
+				let url = new TextDecoder().decode(
+					message.records.find((r) => r.recordType === 'url').data
+				);
+				if (url.startsWith('lnurlw')) {
+					let result = await post('/withdraw', { url: url.replace('lnurlw', 'https'), pr: text });
+          console.log(result);
+				}
+			}
+		} catch (e) {
+			console.log(e);
+		}
+		// let result = await post(`/pot/${name}/withdraw`, { amount, hash, name });
 	};
 
 	let readingerror = (e) => console.log('nfc error', e);
@@ -71,7 +85,7 @@
 			} catch (e) {
 				console.log(e);
 			}
-      }
+		}
 	};
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
