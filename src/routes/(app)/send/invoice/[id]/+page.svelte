@@ -1,4 +1,5 @@
 <script>
+	import { onDestroy, onMount } from 'svelte';
 	import { t } from '$lib/translations';
 	import { goto } from '$app/navigation';
 	import { pin } from '$lib/store';
@@ -33,6 +34,24 @@
 		if (form?.message.includes('pin')) $pin = undefined;
 		loading = false;
 	};
+
+	onMount(async () => {
+    console.log("SKOOK")
+		try {
+			let ndef = new NDEFReader();
+			await ndef.scan();
+
+			ndef.addEventListener('readingerror', (e) => {
+				console.log('nfc error', e);
+			});
+
+			ndef.addEventListener('reading', ({ message, serialNumber }) => {
+				console.log('HI');
+			});
+		} catch (error) {
+			log('Argh! ' + error);
+		}
+	});
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
