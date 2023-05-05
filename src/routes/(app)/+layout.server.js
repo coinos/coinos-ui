@@ -34,7 +34,6 @@ export async function load({ cookies, request, url, params }) {
 		throw redirect(307, `/${user.username}/generate`);
 
 	try {
-    console.log("FETCH RATE");
 		rate = await get('/rate');
 		rates = await get('/rates');
 	} catch (e) {
