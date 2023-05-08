@@ -76,7 +76,7 @@
 		{#if show}
 			<div class="relative w-96 mx-auto">
 				<label for="maxfee">Max fee</label>
-				<input name="maxfee" value={maxfee} />
+				<input name="maxfee" bind:value={maxfee} />
 
 				<div
 					class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
