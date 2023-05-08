@@ -14,7 +14,7 @@
 
 	let { currency } = data.user;
 	let a;
-	let maxfee = 100;
+	let maxfee = 500;
 
 	$: amount = form?.amount || data.amount;
 	$: rate = rates[currency];
