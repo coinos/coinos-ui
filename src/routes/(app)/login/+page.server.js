@@ -15,7 +15,7 @@ export const actions = {
 		if (loginRedirect === 'undefined') loginRedirect = undefined;
 
 		try {
-			let r = await login(user, cookies);
+			let r = await login(user, cookies, request.headers.get('cf-connecting-ip'));
 		} catch (e) {
 			return fail(400, { error: 'Login failed', message: e.message, ...form });
 		}

@@ -119,13 +119,17 @@ export let info = (m) => {
 	});
 };
 
-export let login = async (user, cookies) => {
+export let login = async (user, cookies, ip) => {
 	let maxAge = 30 * 24 * 60 * 60;
 
 	let res = await fetch(base + '/login', {
 		method: 'POST',
 		body: JSON.stringify(user),
-		headers: { 'content-type': 'application/json', accept: 'application/json' }
+		headers: {
+			'content-type': 'application/json',
+			accept: 'application/json',
+			'cf-connecting-ip': ip
+		}
 	});
 	if (res.status === 401) {
 		let text = await res.text();
