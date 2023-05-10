@@ -1,12 +1,12 @@
 <script>
-	import { copy } from '$lib/utils';
+	import { copyNoNewlines as copy } from '$lib/utils';
 	import { Code, Icon } from '$comp';
 	import { PUBLIC_COINOS_URL } from '$env/static/public';
 	export let data;
 	let { user, token } = data;
 	let api = 'https://coinos.io/api';
 
-	let tokenSample = `export token="${token}"`;
+	let tokenSample = token ? `export token="${token}"` : `export token=<your auth token>`;
 </script>
 
 <div class="space-y-8 lg:text-xl mt-20 pt-20 md:pt-0 w-full max-w-full">
@@ -14,10 +14,10 @@
 
 	<p class="text-secondary">
 		Coinos has a simple REST API that can be used to register accounts and make payments and
-		queries.
+    queries. The following examples show how you can call the API with <a href="https://curl.se/" class="font-bold">curl</a> from your command line.
 	</p>
 
-	<h2 class="text-2xl">Base URL</h2>
+	<h2 class="text-2xl">API Base URL</h2>
 	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
 		<div>{api}</div>
 		<button class="ml-auto my-auto invert opacity-90" on:click={() => copy(api)}
@@ -25,16 +25,23 @@
 		>
 	</div>
 
-	{#if token}
-		<h2 class="text-2xl">Auth Token</h2>
-		<p class="text-secondary">This token authorizes you to use the API as <b>{user.username}</b></p>
-		<div class="bg-black text-white rounded-lg p-4 flex gap-4">
-			<div class="w-full break-all">{tokenSample}</div>
-			<button class="ml-auto my-auto invert opacity-90" on:click={() => copy(tokenSample)}
-				><Icon icon="copy" style="w-10 max-w-none" /></button
-			>
-		</div>
-	{/if}
+	<h2 class="text-2xl">Auth Token</h2>
+	<p class="text-secondary">
+		{#if user && token}
+			This token authorizes you to use the API as <b>{user.username}</b>.
+		{:else}
+			<a href="/login" class="font-bold">Sign in</a> to view your auth token here, or get one from the /login endpoint.
+		{/if}
+
+    Save it in a variable called <b>$token</b> to run the examples.
+	</p>
+
+	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
+		<div class="w-full break-all">{tokenSample}</div>
+		<button class="ml-auto my-auto invert opacity-90" on:click={() => copy(tokenSample)}
+			><Icon icon="copy" style="w-10 max-w-none" /></button
+		>
+	</div>
 
 	<h2 class="text-2xl">POST /register</h2>
 	<p class="text-secondary">Register a new user account with a username and password</p>
@@ -61,17 +68,35 @@
 		</div>
 	</div>
 
-	<Code sample="invoice" />
+  <p>Get a lightning invoice to receive funds</p>
+	<Code sample="lightningInvoice" />
+
+  <p>Get a bitcoin address to receive funds</p>
+	<Code sample="bitcoinAddress" />
 
 	<p>Sample response</p>
 	<Code sample="invoiceResponse" />
-	<p>You can check the <b>received</b> field to see how many satoshis have been paid so far</p>
+	<p>You can check the <b>received</b> field to see how much has been paid</p>
+
+
+  <p>Specify a webhook to be called when an invoice is paid</p>
+	<Code sample="webhook" />
 
 	<h2 class="text-2xl">GET /invoice/:hash</h2>
 	<p class="text-secondary">
 		Fetch an invoice by passing a bitcoin address or lightning payment hash
 	</p>
 	<Code sample="fetchInvoice" />
+
+	<h2 class="text-2xl">POST /payments</h2>
+	<p class="text-secondary">Send a lightning payment</p>
+	<Code sample="lightning" />
+
+	<p class="text-secondary">Send a bitcoin payment</p>
+	<Code sample="bitcoin" />
+
+	<p class="text-secondary">Send an internal payment to another user</p>
+	<Code sample="internal" />
 
 	<h2 class="text-2xl">GET /payments</h2>
 	<p class="text-secondary">Get all payments sent or received by the current user</p>
@@ -90,10 +115,4 @@
 		</div>
 	</div>
 	<Code sample="payments" />
-
-	<h2 class="text-2xl">Websocket API</h2>
-	<p class="text-secondary">Subscribe to real time rates and payments</p>
-
-	<div>Authenticate</div>
-	<Code sample="socketAuth" />
 </div>
