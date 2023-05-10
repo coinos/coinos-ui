@@ -74,6 +74,12 @@ export let copy = (text) => {
 	success('Copied!');
 };
 
+export let copyNoNewlines = (text) => {
+	let stripped = text.replace(/\n/g, ' ').replace(/\s+/g, ' ');
+	navigator.clipboard.writeText(stripped);
+	success('Copied!');
+};
+
 export function reverseFormat(val, locale) {
 	let parts = new Intl.NumberFormat(locale).formatToParts(1111.1);
 	let group = parts.find((part) => part.type === 'group').value;

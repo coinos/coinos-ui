@@ -1,5 +1,5 @@
 <script>
-	import { copy } from '$lib/utils';
+	import { copyNoNewlines as copy } from '$lib/utils';
 	import { Icon } from '$comp';
 	import samples from '$lib/samples';
 	export let sample;
@@ -11,7 +11,7 @@
 	</div>
 	<button
 		class="ml-auto my-auto invert opacity-90"
-		on:click={() => copy(samples[sample].replace(/^\s+/gm, '').replace(/\n/g, ''))}
+		on:click={() => copy(samples[sample])}
 		><Icon icon="copy" style="w-10 max-w-none" /></button
 	>
 </div>
