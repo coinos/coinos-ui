@@ -43,7 +43,7 @@
 		}
 	});
 
-	let src = Qr.drawImg('https://coinos.io/cocoatanning', { size: 3200 });
+	let src = Qr.drawImg('https://coinos.io/marisol', { size: 3200 });
 </script>
 
 <svelte:head>
@@ -53,15 +53,14 @@
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
-	<div class="space-y-4 border-4 border-black p-4 w-[420px] mx-auto">
-		<div class="w-full text-center flex justify-around">
-      <div class="flex gap-2">
-			<h3 class="text-xl font-medium w-30 my-auto">Pay with Bitcoin</h3>
-			<img src="/images/bitcoin.png" class="mx-auto w-8" />
-      </div>
+	<div class="space-y-8 border-8 border-black p-8 w-[680px] mx-auto">
+		<div class="flex w-full justify-center gap-4">
+			<img src="/images/bitcoin.png" class="w-14" />
+			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
+      <div class="text-5xl">⚡️</div>
 		</div>
 		<Q {src} />
-		<div class="text-center text-4xl">https://coinos.io/cocoatanning</div>
+		<div class="text-center text-4xl">https://coinos.io/marisol</div>
 		<div>
       <div class="text-center text-xl pt-2">Scan with your <b>Camera</b> app to <b>open this URL in a browser</b>, then click <b>Pay</b> to enter your total</div>
 		</div>
