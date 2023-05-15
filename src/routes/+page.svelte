@@ -23,6 +23,8 @@
 	let faq;
 	let about;
 
+	let log = console.log;
+
 	const howItWorksSteps = [
 		{ image: 'hand', stepID: 'step1' },
 		{ image: 'bolt', stepID: 'step2' },

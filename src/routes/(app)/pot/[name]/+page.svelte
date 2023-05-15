@@ -5,7 +5,7 @@
 	import { Avatar, Icon } from '$comp';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { t } from '$lib/translations';
-	import { copy, f, s, sat, sats } from '$lib/utils';
+	import { types, copy, f, s, sat, sats } from '$lib/utils';
 	import { loginRedirect } from '$lib/store';
 
 	export let data;
@@ -20,6 +20,9 @@
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 	$loginRedirect = $page.url.pathname;
+
+	let show;
+	let toggle = () => (show = !show);
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
@@ -29,14 +32,28 @@
 		</a>
 	</div>
 
-	<div class="flex justify-center items-center text-center">
-		<div class="shadow-xl rounded-3xl px-10 pt-5 pb-10 space-y-5 w-full mx-5">
-			<div class="relative">
+	<div class="flex justify-center items-center">
+		<div class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5">
+			<div class="relative flex justify-center gap-2">
 				<!-- <p class="absolute right-0 top-1 underline"><Icon icon="settings" /></p> -->
-				<h1 class="text-2xl md:text-3xl font-semibold">Public Pot</h1>
+        {#if name.split('-').length === 4}
+          <h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
+				{:else}
+					<img src="/images/moneypot.jpg" class="w-24" />
+					<h1 class="text-2xl md:text-3xl font-semibold my-auto">Money Pot</h1>
+				{/if}
 			</div>
-			<p class="text-secondary">Anyone who knows the URL to this pot can add or take out funds</p>
-			<img {src} class="mx-auto" alt={name} />
+			<p class="text-secondary text-center">
+				Anyone who knows the URL to this page can add or take out funds from the pot
+			</p>
+			{#if show}
+				<img {src} class="mx-auto" alt={name} />
+
+				<button class="flex mx-auto mt-5" on:click={() => copy($page.url.pathname)}
+					><Icon icon="copy" style="w-10 max-w-none" />
+					<div class="my-auto">Copy</div></button
+				>
+			{/if}
 			<div class="flex justify-center gap-4">
 				<div class="my-auto">
 					<h2 class="text-2xl md:text-3xl font-semibold">
@@ -47,34 +64,68 @@
 					</h3>
 				</div>
 			</div>
-			<div class="mx-auto my-auto flex gap-2 justify-center" data-sveltekit-prefetch="off">
-				<a href={`/send/pot/${name}`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-						Chip in
-					</button>
-				</a>
-				<a href={`/pot/${name}/withdraw`}>
-					<button class="text-lg rounded-full border py-3 px-7 font-bold hover:opacity-80">
-						Dip in
-					</button>
-				</a>
+			<div class="flex gap-2" data-sveltekit-prefetch="off">
+				<div class="grow">
+					<a href={`/send/pot/${name}`}>
+						<button
+							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+						>
+							<Icon icon="plus" />
+							Add funds
+						</button>
+					</a>
+				</div>
+				<div class="grow">
+					<a href={`/pot/${name}/withdraw`}>
+						<button
+							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+						>
+							<Icon icon="minus" style="rotate-180" />
+							Take funds
+						</button>
+					</a>
+				</div>
+			</div>
+			<div class="flex gap-2" data-sveltekit-prefetch="off">
+				<button
+					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+					on:click={toggle}
+				>
+					<Icon icon="qr" style="invert" />
+					{show ? 'Hide' : 'Show'} QR
+				</button>
+				<button
+					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+				>
+					<Icon icon="nfc" style="w-6" />
+					Write Tag
+				</button>
 			</div>
 			<div class="text-base">
 				{#each payments as p}
-					<a href={`/${p.user.username}`}>
-						<div class="flex h-24 hover:bg-gray-100 px-4">
-							<div class="flex grow">
-								<div class="flex my-auto">
-									<div class="my-auto">
-										<Avatar user={p.user} size={12} />
-									</div>
-									<div class="ml-1 text-secondary my-auto">
-										{p.user.username}
-										{p.amount > 0 ? 'took out' : 'threw in'}
-									</div>
+					<a href={`/payment/${p.id}`}>
+						<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
+							<div class="whitespace-nowrap my-auto">
+								<div class="font-bold" class:text-red-800={p.amount > 0}>
+									{f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
+									{#if p.tip}
+										<span class="text-sm text-secondary">
+											+{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
+										</span>
+									{/if}
 								</div>
-								<div class="text-secondary my-auto">
-									{sat(p.amount)}
+
+								<div class="text-secondary">
+									{sat(Math.abs(p.amount) + (p.tip || 0))}
+								</div>
+							</div>
+
+							<div class="flex my-auto">
+								<div class="flex">
+									<div class="my-auto">
+										<Avatar user={p.user} size={16} disabled={true} />
+									</div>
+									<div class="my-auto ml-1 text-secondary">{p.user.username}</div>
 								</div>
 							</div>
 

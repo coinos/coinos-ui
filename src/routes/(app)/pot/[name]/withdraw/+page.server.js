@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, json, redirect } from '@sveltejs/kit';
 import { fd, auth, post } from '$lib/utils';
 
 export async function load({ parent }) {

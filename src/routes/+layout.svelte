@@ -1,8 +1,8 @@
 <script>
 	import '../app.css';
-	import { page } from '$app/stores';
 
-	let { host, pathname } = $page.url;
+  export let data;
+  let { host, pathname } = data;
 </script>
 
 <svelte:head>

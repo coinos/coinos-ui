@@ -46,18 +46,20 @@
 	let toggleBio = () => (hideBio = false);
 </script>
 
-<div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap">
+<div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap space-y-5">
 	<div class="hidden lg:block w-[240px] lg:mr-10" />
-	<div class="w-[240px] lg:absolute space-y-5 left-20 mx-auto lg:mr-10 mb-10">
+	<div class="w-[240px] lg:absolute space-y-5 left-20 mx-auto lg:mr-10">
 		<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
 
+    {#if subject.address}
 		<div
 			class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
 			class:line-clamp-3={hideBio}
 			on:click={toggleBio}
 		>
-			{subject.address && subject.address !== 'null' ? subject.address : ''}
+    {subject.address}
 		</div>
+    {/if}
 
 		<div class="flex justify-around">
 			<a href={`/${subject.pubkey}/follows`}
@@ -80,7 +82,7 @@
 						>
 							<div class="mx-auto flex">
 								<Icon icon={'profile'} style="my-auto h-6 mr-2 invert" />
-								<div class="my-auto mt-1">{$t('user.following')}</div>
+								<div class="my-auto">{$t('user.following')}</div>
 							</div>
 						</button>
 					</div>
@@ -92,7 +94,7 @@
 						>
 							<div class="mx-auto flex">
 								<Icon icon={'profile'} style="my-auto h-6 mr-2" />
-								<div class="my-auto mt-1">{$t('user.follow')}</div>
+								<div class="my-auto">{$t('user.follow')}</div>
 							</div>
 						</button>
 					</div>
