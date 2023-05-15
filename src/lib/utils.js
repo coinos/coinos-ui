@@ -121,7 +121,7 @@ export let info = (m) => {
 };
 
 export let login = async (user, cookies) => {
-	let maxAge = 30 * 24 * 60 * 60;
+	let maxAge = 380 * 24 * 60 * 60;
 
 	let res = await fetch(base + '/login', {
 		method: 'POST',
