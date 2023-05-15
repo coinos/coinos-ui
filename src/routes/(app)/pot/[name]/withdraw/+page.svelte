@@ -9,6 +9,7 @@
 	export let data;
 	export let form;
 
+  let { rates } = data;
 	let { amount, name } = $page.params;
 	let { currency } = data.user;
 	let loading;
@@ -19,6 +20,8 @@
 		if (form?.message.includes('pin')) $pin = undefined;
 		loading = false;
 	};
+
+	$: rate = rates[currency];
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -32,7 +35,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-	<Numpad bind:amount {currency} />
+  <Numpad bind:amount bind:currency bind:rate {submit} />
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="name" value={name} type="hidden" />

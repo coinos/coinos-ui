@@ -2,7 +2,7 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { onDestroy, onMount } from 'svelte';
 	import { close, connect, send } from '$lib/socket';
-	import { last, invoice, request, passwordPrompt, pin } from '$lib/store';
+	import { last, invoice, request, ndef, passwordPrompt, pin } from '$lib/store';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
@@ -21,7 +21,7 @@
 		({ rate, user, subject, token, rates } = data);
 	};
 
-	onMount(() => {
+	onMount(async () => {
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
 		if (localStorageLocale) locale.set(localStorageLocale);
 
@@ -30,8 +30,24 @@
 		});
 
 		if (browser) {
+			let log = console.log;
 			checkSocket();
 			expirePin();
+
+			try {
+				$ndef = new NDEFReader();
+				await $ndef.scan();
+
+				$ndef.addEventListener('readingerror', (e) => {
+					console.log('nfc error', e);
+				});
+
+				$ndef.addEventListener('reading', ({ message, serialNumber }) => {
+          goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
+				});
+			} catch (error) {
+				log('Argh! ' + error);
+			}
 		}
 	});
 

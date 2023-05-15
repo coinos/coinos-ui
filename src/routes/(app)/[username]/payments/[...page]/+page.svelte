@@ -163,12 +163,12 @@
 
 						<div class="flex my-auto">
 							{#if p.type === types.pot}
-								<a href={`/pot/${p.pot}`}>
+								<a href={`/pot/${p.memo}`}>
 									<div class="text-secondary flex">
 										<div class="my-auto mr-1">
 											<img
-												src="/icons/logo-symbol.svg"
-												class="w-12 border-4 border-transparent"
+												src="/images/moneypot.png"
+												class="w-12"
 												alt="Pot"
 											/>
 										</div>

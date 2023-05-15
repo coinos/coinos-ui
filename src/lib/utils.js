@@ -25,8 +25,8 @@ export let g = (url, fetch, headers) =>
 			}
 		});
 
-export let get = (url, headers = {}) =>
-	fetch(base + url, { headers })
+export let get = (url, headers = {}) => {
+	return fetch(base + url, { headers })
 		.then(async (r) => {
 			if (r.ok) return r.text();
 			throw new Error(await r.text());
@@ -38,6 +38,7 @@ export let get = (url, headers = {}) =>
 				return body;
 			}
 		});
+}
 
 export let post = (url, body, headers) => {
 	headers = { ...headers, 'content-type': 'application/json', accept: 'application/json' };
@@ -125,8 +126,8 @@ export let info = (m) => {
 	});
 };
 
-export let login = async (user, cookies, ip) => {
-	let maxAge = 30 * 24 * 60 * 60;
+export let login = async (user, cookies) => {
+	let maxAge = 380 * 24 * 60 * 60;
 
 	let res = await fetch(base + '/login', {
 		method: 'POST',
