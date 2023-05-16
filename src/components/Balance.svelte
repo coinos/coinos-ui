@@ -9,7 +9,7 @@
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
-	<Pin />
+  <Pin cancel={() => (show = false)} />
 {/if}
 
 <div class="space-y-2">
