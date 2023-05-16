@@ -45,7 +45,7 @@
 			class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold
 				opacity-100 hover:opacity-80"
 		>
-			{amount ? $t('payments.next') : $t('payments.sendersChoice')}
+			{$t('payments.next')}
 		</button>
 	</div>
 </form>
