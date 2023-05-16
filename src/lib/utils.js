@@ -126,7 +126,7 @@ export let info = (m) => {
 	});
 };
 
-export let login = async (user, cookies) => {
+export let login = async (user, cookies, ip) => {
 	let maxAge = 380 * 24 * 60 * 60;
 
 	let res = await fetch(base + '/login', {

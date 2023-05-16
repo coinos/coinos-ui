@@ -34,19 +34,21 @@
 			checkSocket();
 			expirePin();
 
-			try {
-				$ndef = new NDEFReader();
-				await $ndef.scan();
+			if (window.NDEFReader) {
+				try {
+					$ndef = new NDEFReader();
+					await $ndef.scan();
 
-				$ndef.addEventListener('readingerror', (e) => {
-					console.log('nfc error', e);
-				});
+					$ndef.addEventListener('readingerror', (e) => {
+						console.log('nfc error', e);
+					});
 
-				$ndef.addEventListener('reading', ({ message, serialNumber }) => {
-          goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
-				});
-			} catch (error) {
-				log('Argh! ' + error);
+					$ndef.addEventListener('reading', ({ message, serialNumber }) => {
+						goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
+					});
+				} catch (error) {
+					log('Argh! ' + error);
+				}
 			}
 		}
 	});

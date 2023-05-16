@@ -8,6 +8,8 @@ export const load = async ({ parent }) => {
 
 export const actions = {
 	default: async ({ cookies, request }) => {
+		let ip = request.headers.get('cf-connecting-ip');
+
 		let form = await fd(request);
 		let { username, password, cipher, salt, pubkey, loginRedirect } = form;
 		let user = { username, password, cipher, salt, pubkey };
@@ -16,13 +18,13 @@ export const actions = {
 		if (loginRedirect === 'undefined') loginRedirect = undefined;
 
 		try {
-        await post('/register', { user }, { "cf-connecting-ip": request.headers.get('cf-connecting-ip') });
+			await post('/register', { user }, { 'cf-connecting-ip': ip });
 		} catch (e) {
 			if (e.message.includes('taken')) error = e.message;
 		}
 
 		try {
-			await login(user, cookies);
+			await login(user, cookies, ip);
 			error = null;
 		} catch (e) {
 			error ||= e.message;
