@@ -36,20 +36,21 @@
 	};
 
 	onMount(async () => {
-    console.log("SKOOK")
-		try {
-			let ndef = new NDEFReader();
-			await ndef.scan();
+		if (browser && window.NDEFReader) {
+			try {
+				let ndef = new NDEFReader();
+				await ndef.scan();
 
-			ndef.addEventListener('readingerror', (e) => {
-				console.log('nfc error', e);
-			});
+				ndef.addEventListener('readingerror', (e) => {
+					console.log('nfc error', e);
+				});
 
-			ndef.addEventListener('reading', ({ message, serialNumber }) => {
-				console.log('HI');
-			});
-		} catch (error) {
-			log('Argh! ' + error);
+				ndef.addEventListener('reading', ({ message, serialNumber }) => {
+					console.log(message, serialNumber);
+				});
+			} catch (e) {
+				console.log('NFC error', e);
+			}
 		}
 	});
 </script>

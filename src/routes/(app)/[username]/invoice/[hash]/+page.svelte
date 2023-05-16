@@ -58,7 +58,7 @@
 
 		tipPercent = (tip / amount) * 100;
 
-		if (browser) {
+		if (browser && window.NDEFReader) {
 			try {
 				ndef = new NDEFReader();
 				await ndef.scan();
