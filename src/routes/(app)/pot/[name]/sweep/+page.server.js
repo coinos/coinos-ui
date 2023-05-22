@@ -8,6 +8,6 @@ export async function load({ cookies, params, parent }) {
 
 
 	if (!user) throw redirect(307, `/register?redirect=/pot/${name}/sweep`);
-	// await post('/take', { amount, name }, auth(cookies));
+	await post('/take', { amount, name }, auth(cookies));
 	return { amount, name };
 }
