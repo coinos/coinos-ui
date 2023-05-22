@@ -88,7 +88,7 @@
 			{/if}
 
 			<form class="space-y-5" on:submit|preventDefault={handleSubmit} method="POST">
-				<input type="hidden" name="loginRedirect" value={$loginRedirect} />
+				<input type="hidden" name="loginRedirect" value={$loginRedirect || $page.url.searchParams.get('redirect')} />
 				<input type="hidden" name="token" value={token} />
 
 				<div>
