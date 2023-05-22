@@ -94,12 +94,12 @@
 					<Icon icon="qr" style="invert" />
 					{show ? 'Hide' : 'Show'} QR
 				</button>
-				<button
-					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-				>
-					<Icon icon="nfc" style="w-6" />
-					Write Tag
-				</button>
+				<!-- <button -->
+				<!-- 	class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center" -->
+				<!-- > -->
+				<!-- 	<Icon icon="nfc" style="w-6" /> -->
+				<!-- 	Write Tag -->
+				<!-- </button> -->
 			</div>
 			<div class="text-base">
 				{#each payments as p}
