@@ -7,6 +7,7 @@ export async function load({ cookies, params, parent }) {
 	let { amount } = await get(`/pot/${name}`);
 
 
+  if (!amount) throw redirect(307, `/pot/${name}`);
 	if (!user) throw redirect(307, `/register?redirect=/pot/${name}/sweep`);
 	await post('/take', { amount, name }, auth(cookies));
 	return { amount, name };
