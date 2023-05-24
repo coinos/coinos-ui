@@ -19,7 +19,8 @@
 		classic: 'classic'
 	};
 
-	let { start, end, user } = data;
+	let { start, end, user, rates } = data;
+
 	let change = ({ target: { value } }) => goto(value);
 	let link = (p) => {
 		if (p.pot) return `/pot/${p.pot}`;
@@ -39,9 +40,9 @@
 		: 0;
 
 	let p,
-		total,
+		totals,
 		pages = [];
-	$: data && ({ page: p, pages, start, end, total, payments: $payments } = data);
+	$: data && ({ page: p, pages, start, end, totals, payments: $payments } = data);
 
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
@@ -166,11 +167,7 @@
 								<a href={`/pot/${p.memo}`}>
 									<div class="text-secondary flex">
 										<div class="my-auto mr-1">
-											<img
-												src="/images/moneypot.png"
-												class="w-12"
-												alt="Pot"
-											/>
+											<img src="/images/moneypot.png" class="w-12" alt="Pot" />
 										</div>
 
 										<div class="my-auto">Pot</div>
@@ -225,6 +222,22 @@
 				<p class="text-secondary text-lg text-center">{$t('payments.empty')}</p>
 			{/each}
 		</div>
+
+		<div class="grid grid-cols-3 w-full text-center">
+      <span class="text-lg text-secondary">{$t('payments.total')}</span>
+			<span class="text-lg text-secondary">{$t('payments.presentValue')}</span>
+			<span class="text-lg text-secondary">{$t('payments.gainLoss')}</span>
+
+			{#each Object.keys(totals) as c}
+				{@const total = totals[c]['fiat']}
+				{@const pv = (totals[c]['sats'] * rates[c]) / sats}
+				{@const gain = (pv * 100) / total - 100}
+				<span class="text-lg"><b>{f(total, c)}</b></span>
+				<span class="text-lg"><b>{f(pv, c)}</b></span>
+				<span class="text-lg" class:text-red-800={gain < 0}><b>{Math.abs(gain).toFixed(2)}%</b></span>
+			{/each}
+		</div>
+
 		<button
 			class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto"
 			on:click={csv}
