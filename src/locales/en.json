@@ -174,7 +174,7 @@
 		},
 		"send": {
 			"contacts": "Contacts",
-			"scan": "Scan",
+			"scan": "Scan QR",
 			"paste": "Paste",
 			"next": "Next",
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
@@ -234,6 +234,9 @@
 		}
 	},
 	"payments": {
+    "total": "Total",
+    "gainLoss": "Gain/Loss",
+    "presentValue": "Present Value",
 		"amount": "Amount",
 		"date": "Date",
 		"id": "Transaction ID",
