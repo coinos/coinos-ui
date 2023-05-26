@@ -43,7 +43,10 @@
 		}
 	});
 
-	let src = Qr.drawImg('https://coinos.io/eotl', { size: 3200 });
+  let username = '4brothers';
+  let password = 'pizza123';
+
+  let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
 </script>
 
 <svelte:head>
@@ -61,27 +64,24 @@
 		</div>
 		<div>
 			<p class="text-center text-lg">Public Payment Page</p>
-			<div class="flex justify-center text-2xl"><b>https://coinos.io/eotl</b></div>
+      <div class="flex justify-center text-2xl"><b>https://coinos.io/{username}</b></div>
 		</div>
 		<div>
 			<p class="text-center text-lg">Staff Login</p>
-			<div class="flex justify-center text-2xl"><b>eotl / general123</b></div>
+      <div class="flex justify-center text-2xl"><b>{username} / {password}</b></div>
 		</div>
 		<p class="text-center text-lg">What to do if a customer asks to pay with Bitcoin</p>
 		<ol class="list-decimal ml-4">
 			<li class="pt-2">Enter the sale into your existing PoS as if it were paid by cash.</li>
-			<li class="pt-2">Generate a customer receipt with the total sale including tax.</li>
-			<li class="pt-2">Before handing over the receipt, tell the customer their total or let them read it off the till.</li>
-			<li class="pt-2">Direct them to scan the provided QR to visit your payment page.</li>
-			<li class="pt-2">Wait for them to enter their total and tip and send the payment.</li>
-			<li class="pt-2">You may ask them to step aside while you service other customers.</li>
-			<li class="pt-2">Check the merchant receipt that comes out of the Coinos printer to ensure the total is correct.</li>
-			<li class="pt-2">Save the Coinos receipt and total it up with cash at closing time.</li>
-			<li class="pt-2">Hand the customer their items and the customer receipt you generated from your PoS.</li>
+			<li class="pt-2">Tell the customer their total or ask them to read it off the till.</li>
+			<li class="pt-2">Direct the customer to your payment page by asking them to scan the QR code.</li>
+			<li class="pt-2">You may wish to serve other customers while they enter their tip and send the payment.</li>
+			<li class="pt-2">Check the merchant receipt that comes out of the printer to ensure the total is correct.</li>
+			<li class="pt-2">Hand the customer their items and a receipt from your normal PoS if desired.</li>
 		</ol>
 
 		<p>
-			You can view all received payments at <b>https://coinos.io/eotl/payments</b>
+    You can view all received payments at <b>https://coinos.io/{username}/payments</b>
 		</p>
 
 		<img src="/images/logo.png" class="ml-auto" style="width: 120px" />
@@ -93,7 +93,7 @@
 			<div class="text-5xl">⚡️</div>
 		</div>
 		<Q {src} />
-		<div class="text-center text-4xl">https://coinos.io/eotl</div>
+    <div class="text-center text-4xl">https://coinos.io/{username}</div>
 		<div>
 			<div class="text-center text-xl pt-2">
 				1. Use your <b>Camera</b> app to <b>open this URL in a browser</b>
