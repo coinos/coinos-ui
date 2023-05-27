@@ -234,6 +234,12 @@
 		}
 	},
 	"payments": {
+    "moneyPot": "Money Pot",
+    "addFunds": "Add Funds",
+    "takeFunds": "Take Funds",
+    "show": "Show",
+    "hide": "Hide",
+    "copyLink": "Copy Link",
     "total": "Total",
     "gainLoss": "Gain/Loss",
     "presentValue": "Present Value",
