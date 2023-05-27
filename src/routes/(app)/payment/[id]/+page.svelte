@@ -1,6 +1,6 @@
 <script>
 	import { t } from '$lib/translations';
-	import { back, copy, f, s, fiat, post, sats, success } from '$lib/utils';
+	import { back, copy, f, s, fiat, post, sats, success, types } from '$lib/utils';
 	import { Avatar, Icon } from '$comp';
 	import { format } from 'date-fns';
 	import { PUBLIC_EXPLORER as expl } from '$env/static/public';
@@ -38,6 +38,19 @@
 						<Avatar user={p.with} size={20} />
 					</div>
 					<div class="my-auto ml-1">{p.with.username}</div>
+				</div>
+			</a>
+		</div>
+	{/if}
+	{#if p.type === types.pot}
+		<div>
+			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
+      <a href={`/pot/${p.memo}`}>
+				<div class="flex">
+					<div class="my-auto">
+            <img src="/images/moneypot.png" class="w-12" alt="Pot" />
+					</div>
+					<div class="my-auto ml-1">{p.memo}</div>
 				</div>
 			</a>
 		</div>

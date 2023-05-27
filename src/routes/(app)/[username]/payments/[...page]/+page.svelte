@@ -4,20 +4,12 @@
 	import { format } from 'date-fns';
 	import { newPayment, payments } from '$lib/store';
 	import { t } from '$lib/translations';
-	import { get, f, s, sat, sats } from '$lib/utils';
+	import { get, f, s, sat, sats, types } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { differenceInDays, getUnixTime, sub } from 'date-fns';
 	import { goto, invalidate } from '$app/navigation';
 
 	export let data;
-
-	const types = {
-		internal: 'internal',
-		bitcoin: 'bitcoin',
-		lightning: 'lightning',
-		pot: 'pot',
-		classic: 'classic'
-	};
 
 	let { start, end, user, rates } = data;
 
