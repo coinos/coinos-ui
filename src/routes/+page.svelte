@@ -43,8 +43,8 @@
 		}
 	});
 
-  let username = '4brothers';
-  let password = 'pizza123';
+  let username = 'eotl';
+  let password = 'general123';
 
   let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
 </script>
@@ -60,7 +60,6 @@
 		<div class="flex w-full justify-center gap-4">
 			<img src="/images/bitcoin.png" class="w-14" />
 			<h3 class="text-5xl font-medium text-center">Bitcoin Instructions</h3>
-			<div class="text-5xl">⚡️</div>
 		</div>
 		<div>
 			<p class="text-center text-lg">Public Payment Page</p>
@@ -70,18 +69,23 @@
 			<p class="text-center text-lg">Staff Login</p>
       <div class="flex justify-center text-2xl"><b>{username} / {password}</b></div>
 		</div>
-		<p class="text-center text-lg">What to do if a customer asks to pay with Bitcoin</p>
+    <div class="py-8">
+		<p class="text-lg font-semibold">What to do if a customer asks to pay with Bitcoin</p>
 		<ol class="list-decimal ml-4">
+			<li class="pt-2">Direct the customer to scan the QR code at the counter to visit the payment page above.</li>
 			<li class="pt-2">Enter the sale into your existing PoS as if it were paid by cash.</li>
-			<li class="pt-2">Tell the customer their total or ask them to read it off the till.</li>
-			<li class="pt-2">Direct the customer to your payment page by asking them to scan the QR code.</li>
-			<li class="pt-2">You may wish to serve other customers while they enter their tip and send the payment.</li>
+			<li class="pt-2">Tell the customer their total with tax or let them read it off the till.</li>
 			<li class="pt-2">Check the merchant receipt that comes out of the printer to ensure the total is correct.</li>
-			<li class="pt-2">Hand the customer their items and a receipt from your normal PoS if desired.</li>
+			<li class="pt-2">Hand the customer their items and a cash receipt from your PoS if requested.</li>
 		</ol>
+    </div>
 
 		<p>
-    You can view all received payments at <b>https://coinos.io/{username}/payments</b>
+    At cash out you can view all received payments at <b>https://coinos.io/{username}/payments</b> or simply total up the amounts from all the merchant receipts.
+		</p>
+
+		<p>
+    If you have any questions please email <b>support@coinos.io</b> or call Adam at <b>604-358-6745</b>
 		</p>
 
 		<img src="/images/logo.png" class="ml-auto" style="width: 120px" />
