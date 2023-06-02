@@ -1,18 +1,40 @@
 <script>
 	import { Icon } from '$comp';
-	import QrScanner from 'qr-scanner';
+	// import QrScanner from 'qr-scanner';
+
+	import { Html5QrcodeScanner } from 'html5-qrcode';
 	import { onMount, onDestroy } from 'svelte';
 	import { back } from '$lib/utils';
 	import { goto } from '$app/navigation';
 
 	let scanner, vid;
 	onMount(() => {
-		scanner = new QrScanner(vid, ({ data }) => scanner.stop() || goto(`/send/${encodeURI(data)}`), {
-			highlightScanRegion: true,
-			highlightCodeOutline: true
-		});
-		scanner.start();
+		// scanner = new QrScanner(vid, ({ data }) => scanner.stop() || goto(`/send/${encodeURI(data)}`), {
+		// 	highlightScanRegion: true,
+		// 	highlightCodeOutline: true
+		// });
+		// scanner.start();
+
+		let html5QrcodeScanner = new Html5QrcodeScanner(
+			'reader',
+			{ fps: 10, qrbox: { width: 250, height: 250 } },
+			/* verbose= */ false
+		);
+		html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 	});
+
+let yeah;
+	function onScanSuccess(decodedText, decodedResult) {
+		// handle the scanned code as you like, for example:
+		console.log(`Code matched = ${decodedText}`, decodedResult);
+    yeah = true;
+	}
+
+	function onScanFailure(error) {
+		// handle scan failure, usually better to ignore and keep scanning.
+		// for example:
+		//console.warn(`Code scan error = ${error}`);
+	}
 
 	onDestroy(() => scanner?.stop());
 </script>
@@ -21,14 +43,8 @@
 	<Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="flex w-full mb-4 px-4">
-	<div class="bg-black mx-auto rounded-3xl">
-		<video
-			bind:this={vid}
-			class="border-4 rounded-3xl border-black md:max-w-[600px] !max-h-[80vh] !min-w-[300px]"
-		/>
-	</div>
-</div>
+{#if yeah}TRUE{/if}
+<div id="reader" width="600px"></div>
 
 <div class="flex w-full mb-4">
 	<button class="mx-auto border rounded-full px-6 py-2 font-bold hover:opacity-80" on:click={back}>
