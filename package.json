@@ -22,6 +22,7 @@
 		"bitcoin-address-validation": "^2.2.1",
 		"buffer": "^6.0.3",
 		"date-fns": "^2.29.3",
+		"html5-qrcode": "^2.3.8",
 		"leaflet": "^1.9.3",
 		"leaflet.markercluster": "^1.5.3",
 		"nostr-tools": "^1.7.5",

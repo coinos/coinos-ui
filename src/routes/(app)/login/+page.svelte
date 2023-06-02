@@ -4,6 +4,7 @@
 	import { pin } from '$lib/store';
 
 	onMount(() => {
+    $animatedRate = 0;
 		$pin = undefined;
 		localStorage.clear();
 		sessionStorage.clear();
