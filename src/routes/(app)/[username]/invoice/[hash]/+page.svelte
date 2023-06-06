@@ -179,28 +179,31 @@
 		</div>
 	{/if}
 
-    <div class="text-center">
-	<a href={link}>
-      
-    {txt.substr(0, 20)}...{txt.substr(-20)}
-    
-	</a>
-    </div>
+	<div class="text-center">
+		<a href={link}>
+			{txt.substr(0, 20)}...{txt.substr(-20)}
+		</a>
+	</div>
 
-	<div class="w-full flex justify-center gap-2">
-		<button class="flex rounded-full border py-3 px-5 hover:opacity-80" on:click={() => copy(txt)}>
+	<div class="w-full flex justify-center gap-2 flex-wrap">
+		<button
+			class="flex rounded-full justify-center border py-3 px-5 hover:opacity-80 w-full md:w-auto"
+			on:click={() => copy(txt)}
+		>
 			<Icon icon="copy" style="mr-1" />
 			<div class="text-secondary">{$t('payments.copyText')}</div></button
 		>
-		<a href={link}>
-			<button class="flex rounded-full border py-3 px-5 hover:opacity-80">
+			<a href={link} class="w-full md:w-auto">
+		<button
+			class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+		>
 				<Icon icon="link" style="mr-1 w-6" />
-				<div class="text-secondary">{$t('payments.openLink')}</div></button
-			>
-		</a>
+				<div class="text-secondary">{$t('payments.openLink')}</div>
+		</button>
+			</a>
 
 		<button
-			class="flex rounded-full border py-3 px-5 hover:opacity-80"
+			class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
 			on:click={() => (showQr = !showQr)}
 		>
 			<Icon icon="qr" style="mr-1 invert" />
