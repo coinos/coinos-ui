@@ -58,20 +58,20 @@
 
 		tipPercent = (tip / amount) * 100;
 
-		if (browser && window.NDEFReader) {
-			try {
-				ndef = new NDEFReader();
-				await ndef.scan();
-
-				ndef.removeEventListener('readingerror', readingerror);
-				ndef.removeEventListener('reading', reading);
-
-				ndef.addEventListener('readingerror', readingerror);
-				ndef.addEventListener('reading', reading);
-			} catch (e) {
-				console.log(e);
-			}
-      }
+      // if (browser && window.NDEFReader) {
+		// 	try {
+		// 		ndef = new NDEFReader();
+		// 		await ndef.scan();
+    //
+		// 		ndef.removeEventListener('readingerror', readingerror);
+		// 		ndef.removeEventListener('reading', reading);
+    //
+		// 		ndef.addEventListener('readingerror', readingerror);
+		// 		ndef.addEventListener('reading', reading);
+		// 	} catch (e) {
+		// 		console.log(e);
+		// 	}
+		// }
 	};
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
