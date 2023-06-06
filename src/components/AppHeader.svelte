@@ -119,7 +119,7 @@
 				</OutClick>
 			</div>
 		{:else}
-			<a href="/login">
+      <a href={`/login?redirect=${$page.url.pathname}`}>
 				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
 					>{$t('nav.signIn')}</button
 				>
