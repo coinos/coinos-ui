@@ -35,24 +35,24 @@
 		loading = false;
 	};
 
-	onMount(async () => {
-		if (browser && window.NDEFReader) {
-			try {
-				let ndef = new NDEFReader();
-				await ndef.scan();
-
-				ndef.addEventListener('readingerror', (e) => {
-					console.log('nfc error', e);
-				});
-
-				ndef.addEventListener('reading', ({ message, serialNumber }) => {
-					console.log(message, serialNumber);
-				});
-			} catch (e) {
-				console.log('NFC error', e);
-			}
-		}
-	});
+	// onMount(async () => {
+	// 	if (browser && window.NDEFReader) {
+	// 		try {
+	// 			let ndef = new NDEFReader();
+	// 			await ndef.scan();
+  //
+	// 			ndef.addEventListener('readingerror', (e) => {
+	// 				console.log('nfc error', e);
+	// 			});
+  //
+	// 			ndef.addEventListener('reading', ({ message, serialNumber }) => {
+	// 				console.log(message, serialNumber);
+	// 			});
+	// 		} catch (e) {
+	// 			console.log('NFC error', e);
+	// 		}
+	// 	}
+	// });
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
