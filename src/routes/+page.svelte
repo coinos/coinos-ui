@@ -43,8 +43,8 @@
 		}
 	});
 
-  let username = 'eotl';
-  let password = 'general123';
+  let username = 'sample';
+  let password = 'password';
 
   let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
 </script>
@@ -72,16 +72,16 @@
     <div class="py-8">
 		<p class="text-lg font-semibold">What to do if a customer asks to pay with Bitcoin</p>
 		<ol class="list-decimal ml-4">
-			<li class="pt-2">Direct the customer to scan the QR code at the counter to visit the payment page above.</li>
-			<li class="pt-2">Enter the sale into your existing PoS as if it were paid by cash.</li>
-			<li class="pt-2">Tell the customer their total with tax or let them read it off the till.</li>
-			<li class="pt-2">Check the merchant receipt that comes out of the printer to ensure the total is correct.</li>
-			<li class="pt-2">Hand the customer their items and a cash receipt from your PoS if requested.</li>
+			<li class="pt-2">Direct them to scan the QR code to visit the payment page.</li>
+			<li class="pt-2">Enter the sale in your PoS as if it were paid by cash.</li>
+			<li class="pt-2">Tell the customer their total with tax and wait for them to send payment.</li>
+			<li class="pt-2">Check the receipt from the coinos printer to make sure they sent the right amount.</li>
+			<li class="pt-2">Done! Hand the customer their items and a cash receipt if requested.</li>
 		</ol>
     </div>
 
 		<p>
-    At cash out you can view all received payments at <b>https://coinos.io/{username}/payments</b> or simply total up the amounts from all the merchant receipts.
+    You can view all payments for the day at <b>https://coinos.io/{username}/payments</b> or just total up all the receipts.
 		</p>
 
 		<p>
@@ -94,18 +94,19 @@
 		<div class="flex w-full justify-center gap-4">
 			<img src="/images/bitcoin.png" class="w-14" />
 			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
-			<div class="text-5xl">⚡️</div>
 		</div>
 		<Q {src} />
     <div class="text-center text-4xl">https://coinos.io/{username}</div>
 		<div>
 			<div class="text-center text-xl pt-2">
-				1. Use your <b>Camera</b> app to <b>open this URL in a browser</b>
+        1. Use your <b>Camera</b> app to open this URL in a <b>browser</b>
 			</div>
-			<div class="text-center text-xl pt-2">2. Click <b>Pay</b> to enter your bill total</div>
-      <div class="text-center text-xl pt-2">3. Pay with your favourite <b>Bitcoin Lightning</b> wallet app</div>
+			<div class="text-center text-xl pt-2">2. Click <b>Pay</b> to enter your total and get an invoice</div>
+      <div class="text-center text-xl pt-2">3. Pay with your favourite <b>Bitcoin Lightning</b> wallet</div>
 		</div>
-		<img src="/images/logo.png" class="ml-auto" style="width: 120px" />
+    <div class="flex">
+		<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
+    </div>
 	</div>
 	<LandingHero {user} />
 	<LandingInfoCard
