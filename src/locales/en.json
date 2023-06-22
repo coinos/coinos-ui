@@ -40,7 +40,7 @@
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web based so as long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you might direct customers to visit your payment page from their phone. You may wish to use a small printer to get payment notifications in which case staff won't need to figure out how to use our app at all, they can just treat the paper receipts from the printer like cash. We're currently providing printers (that cost ~$50) for free to merchants in Vancouver as a kind of sign-on bonus so please ask if this is of interest."
+			"answer": "No. Coinos is web based so as long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you might direct customers to visit your payment page from their phone. You may wish to use a small printer to get payment notifications in which case staff won't need to figure out how to use our app at all, they can just treat the paper receipts from the printer like cash. We're currently providing printers for free to merchants in Vancouve."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
@@ -64,7 +64,7 @@
     },
     "accounting": {
       "question": "How will this impact my accounting?",
-      "answer": "Coinos displays all payments in terms of your local currency and lets you filter by date so you can easily report your income. If you sell some of the Bitcoin you receive later on, you may be required to pay capital gains tax if it went up in value. We provide a csv download of your account history that can be opened as a spreadsheet or sent to your accountant that makes this determination easy. This won't be an issue if we're settling your account in CAD. In that case we'll be purchasing the bitcoin from your customers at the time of sale for the exact dollar value of the sale and giving you a deferred cash settlement, so you'll never be exposed to exchange rate fluctuations."
+      "answer": "Coinos displays all payments in terms of your local currency and lets you filter by date so you can easily report your income. If you sell some of the Bitcoin you receive later on, you may be required to pay capital gains tax if it went up in value. We provide a csv download of your account history that can be opened as a spreadsheet or sent to your accountant that makes this determination easy. If we're settling your account in CAD, we'll be purchasing bitcoin from your customers at the time of sale for the exact dollar value of the sale and giving you a deferred cash settlement, so you'll never be exposed to exchange rate fluctuations and won't have any gains or losses to report."
     },
     "bitcoin": {
       "question": "What can I do with the Bitcoin I receive?",
