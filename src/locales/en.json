@@ -40,7 +40,7 @@
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web based so as long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you might direct customers to visit your payment page from their phone. You may wish to use a small printer to get payment notifications in which case staff won't need to figure out how to use our app at all, they can just treat the paper receipts from the printer like cash. We're currently providing printers for free to merchants in Vancouve."
+			"answer": "No. Coinos is web based so as long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you might direct customers to visit your payment page from their phone. You may wish to use a small printer to get payment notifications in which case staff won't need to figure out how to use our app at all, they can just treat the paper receipts from the printer like cash. We're currently providing printers for free to merchants in Vancouver."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
