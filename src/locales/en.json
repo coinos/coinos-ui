@@ -56,15 +56,15 @@
 		},
     "pos": {
       "question": "Can Coinos integrate with my existing PoS?",
-      "answer": "We recommend entering any Bitcoin sales into your existing PoS as normal cash transactions. You can give the customer a receipt just as if they'd paid physical cash. If you require some custom integration, we do have an API that could be used and are happy to work with you and your PoS vendor to integrate it."
-    },
-    "how": {
-      "question": "How does it work?",
-      "answer": "You'll get a free account that you can sign in to at this website to send and receive payments. Payments will be denominated in your local currency. Your customers will use their phone's camera to scan a QR code and pay using Coinos or any other Bitcoin or Lightning wallet. You'll get notified within the app or via a printed receipt."
+      "answer": "We recommend entering any Bitcoin sales into your existing PoS as normal cash transactions. You can give the customer a receipt just as if they'd paid physical cash. If you require some custom integration, we have an API and are happy to work with your PoS vendor to integrate it."
     },
     "training": {
       "question": "What does my staff need to know?",
-      "answer": "Tell your staff that some customers may ask to pay with Bitcoin and that they should just enter it into your PoS as a cash sale. If you opt to use a receipt printer to get payment notifications, staff can put the receipts in the till and total them up at cash out. Or, if using a tablet, we suggest using the 'Add to Homescreen' feature in your browser menu to get a Coinos launcher icon that staff can click to easily bring up the app and create payment requests. After entering a sale amount in the app, they can turn the tablet over to the customer to add a tip and scan the QR code that's displayed on screen. Watch for a green checkmark to indicate the payment was received."
+      "answer": "Tell your staff to expect that customers may ask to pay with Bitcoin and they should enter it as a regular cash sale. If you use a receipt printer to get payment notifications, staff can put the receipts in the till and total them up at cash out. If using a tablet, consider using the 'Add to Homescreen' feature in your browser menu to get a Coinos icon that staff can click to easily bring up the app to create payment requests. After entering a sale amount in the app, they can turn the tablet over to the customer to add a tip and scan the QR code that's displayed on screen. Staff should then Watch for a green checkmark to indicate the payment was received or check the payment history page."
+    },
+    "refunds": {
+      "question": "What about refunds?",
+      "answer": "If the customer sends the wrong amount or otherwise needs a refund, you can return funds to them by asking them to provide a lightning invoice or address and sending them a payment from the app, or you may decide to just refund them with cash."
     },
     "accounting": {
       "question": "How will this impact my accounting?",
