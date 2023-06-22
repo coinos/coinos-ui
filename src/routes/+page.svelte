@@ -20,10 +20,11 @@
 	$: update(data);
 
 	let howItWorks;
-	let faq;
+  let faq;
 	let about;
 
 	let log = console.log;
+  let faqs = {};
 
 	const howItWorksSteps = [
 		{ image: 'hand', stepID: 'step1' },
@@ -31,9 +32,9 @@
 		{ image: 'smile', stepID: 'step3' }
 	];
 
-	const faqIDs = ['cost', 'compatibility', 'safety'];
-
 	onMount(async () => {
+    faqs =  (await import('../locales/en.json')).default.faq;
+
 		close();
 
 		try {
@@ -89,7 +90,7 @@
 	<div>
 		<div class="space-y-10">
 			<h3 class="text-5xl font-medium text-center">{$t('faq.header')}</h3>
-			{#each faqIDs as faqID}
+      {#each Object.keys(faqs).filter(f => f !== "header") as faqID}
 				<FaqCard questionID={faqID} />
 			{/each}
 		</div>

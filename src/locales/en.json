@@ -10,7 +10,7 @@
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Chief Technical Officer",
-				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
+				"bio": "Adam is a veteran software engineer, web developer and open source enthusiast who believes that the adoption of Bitcoin as a sound money will be a key driver of global prosperity. He lives in North Vancouver with his wife, daughter, and son."
 			},
 			"cole": {
 				"name": "Cole",
@@ -30,18 +30,54 @@
 	},
 	"faq": {
 		"header": "FAQ",
+		"why": {
+			"question": "Why should I accept Bitcoin?",
+			"answer": "The more people use and accept Bitcoin, the better off the world will be. Merchants save on transaction fees, consumers gain freedom and privacy, and savers hold an asset that gains purchasing power over time."
+		},
+    "whyelse": {
+      "question": "Any other reasons?",
+      "answer": "We'll promote the heck out of you and your business to an enthusiastic community of Bitcoiners both locally and globally who are always looking for new places to spend their coin and prefer to frequent places that accept it directly. We host regular meetups and events, we're active on social media, and we'll take care of listing you on a number of sites and directories to bring you new customers and positive reviews."
+    },
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."
+			"answer": "There are no setup, maintenance or processing fees. We plan to offer a premium plan in the future for those wanting extra support or promotional services but it's not available yet. Withdrawals are also free other than the network routing fee or miner fee which varies depending on network conditions. We charge a 0.1% conversion fee if you send out over a different network than the one you received your funds on (on-chain vs. lightning -- just ask if you're not sure what that means)."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web based, so as long as you have an internet connection and a web browser, it works anywhere. Retail merchants might use it on a phone or a tablet."
+			"answer": "No. Coinos is web based so as long as you have an internet connection, it works anywhere. Retail merchants might use it on an existing phone or tablet. You can also direct customers to visit your payment page from their phone. In that case you may wish to use a receipt printer to get payment notifications. That way staff won't need to figure out how to work a new app, they can treat the paper receipts like cash. We're currently providing printers free of charge to merchants in Vancouver."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet or exchange immediately once funds are received."
-		}
+			"answer": "Lightning payments are settled instantly. You can withdraw your entire balance to another wallet within seconds of receiving a payment. Regular old on-chain Bitcoin payments usually settle within 5 to 10 minutes if the sender sets an appropriate transaction fee."
+		},
+		"offramp": {
+			"question": "Can I cash out to my local currency?",
+			"answer": "If you are a Canadian retail merchant you can ask us to automatically convert any Bitcoin you receive up to $10,000 per month. We'll send an Interac e-Transfer whenever your balance exceeds $500. For larger amounts or international users we'll refer you to a third party exchange or brokerage."
+		},
+    "pos": {
+      "question": "Can Coinos integrate with my existing PoS?",
+      "answer": "We recommend entering any Bitcoin sales into your existing PoS as normal cash transactions. You can give the customer a receipt just as if they'd paid physical cash. If you require some custom integration, we do have an API that could be used and are happy to work with you and your PoS vendor to integrate it."
+    },
+    "how": {
+      "question": "How does it work?",
+      "answer": "You'll get a free account that you can sign in to at this website to send and receive payments. Payments will be denominated in your local currency. Your customers will use their phone's camera to scan a QR code and pay using Coinos or any other Bitcoin or Lightning wallet. You'll get notified within the app or via a printed receipt."
+    },
+    "training": {
+      "question": "What does my staff need to know?",
+      "answer": "Tell your staff that some customers may ask to pay with Bitcoin and that they should just enter it into your PoS as a cash sale. If you opt to use a receipt printer to get payment notifications, staff can put the receipts in the till and total them up at cash out. Or, if using a tablet, we suggest using the 'Add to Homescreen' feature in your browser menu to get a Coinos launcher icon that staff can click to easily bring up the app and create payment requests. After entering a sale amount in the app, they can turn the tablet over to the customer to add a tip and scan the QR code that's displayed on screen. Watch for a green checkmark to indicate the payment was received."
+    },
+    "accounting": {
+      "question": "How will this impact my accounting?",
+      "answer": "Coinos displays all payments in your local currency so you can easily enter the sales into your existing PoS and report your income just as if you had received cash. If you sell Bitcoin at a later date, you may be required to report and pay capital gains tax if it appreciated in value since the time you received it. We provide a csv download of your account history that can be opened as a spreadsheet or imported to your accounting software that makes this easy. Another option for Canadian merchants is to just have us automatically convert the bitcoin you receive to cash at the tiem of sale so you're never actually dealing with Bitcoin, just receiving a slightly deferred cash settlement from us whenever your balance reaches $500."
+    }, 
+    "bitcoin": {
+      "question": "What can I do with the Bitcoin I receive?",
+      "answer": "Spend it at other merchants you find at btcmap.org or lightningnetworkstores.com or buy gift cards at coincards.ca. Pay your expenses by getting your staff, suppliers, and landlord to accept it. Consider registering Coinos accounts on their behalf, or ask us to approach them. Give it to your employees for their tips and bonuses. Bitcoin has averaged a 73% annual return over the past decade so saving it may not be a bad idea either."
+    },
+    "security": {
+      "question": "Is Coinos secure?",
+      "answer": "We take security very seriously and will do our best to ensure that the funds that we custody are safe. We only keep a modest amount of funds available on our server for immediate withdrawals at any given time, the rest is stored securely offline. Our source code is all open source and we've had it audited by professional security teams.  We continually monitor and maintain our servers. That said, it's always a best practice to take custody of your own Bitcoin by withdrawing it to a wallet that only you have access to, especially once your balance reaches a point where you'd be sorry to lose it. Please don't hesitate to reach out for wallet recommendations and advice on this."
+    } 
 	},
 	"footer": {
 		"company": "Company",
@@ -66,7 +102,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Spend your coin immediately or save it and watch it grow, the choice is yours."
+			"description": "Spend your coin immediately or watch it grow in value."
 		}
 	},
 	"invoice": {
@@ -90,10 +126,10 @@
 		"header_before_icon": "The",
 		"header_with_icon": "easiest",
 		"header_after_icon": "way to get started with bitcoin.",
-		"subheader": "A simple but powerful web wallet for everyone. No software or hardware required.",
+		"subheader": "A free web wallet and payment page for everyone.",
 		"info1": {
 			"title": "Instant payments via Lightning",
-			"description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
+			"description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% card fees."
 		},
 		"info2": {
 			"title": "Simple to use",
