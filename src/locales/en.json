@@ -40,7 +40,7 @@
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web based and can be added to your homescreen as a progressive web app. As long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you could just use have a QR code at your till that directs people to your payment page where they can pay with their phone. You can get printed payment notifications and staff can treat the paper receipts like cash."
+			"answer": "No. Coinos is web based and can be added to your homescreen as a progressive web app. As long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you could have a QR code at your till that directs people to your payment page. You can get printed payment notifications and staff can treat the paper receipts like cash."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
