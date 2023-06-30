@@ -25,8 +25,7 @@
 	<nav class="block xl:flex flex-wrap justify-between items-center">
 		<div class="flex justify-start md:justify-center items-center md:space-x-10">
 			<a href="/" on:click={() => scroll(header)}>
-				<Icon icon="logo" style="hidden md:block mb-5 xl:mb-0" />
-				<Icon icon="logo" style="block md:hidden ml-5 w-48" />
+				<img src="images/logo.png" class="max-w-[140px]" />
 			</a>
 		</div>
 
@@ -122,4 +121,35 @@
 	.z {
 		z-index: 100;
 	}
+
+	button {
+		font-size: 14px;
+		font-weight: 600;
+    color: black;
+		text-transform: uppercase;
+		font-family: 'Work Sans', sans-serif;
+		position: relative;
+		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+			border-color 0.15s ease-in-out;
+	}
+
+button::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #7005f38a;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transition: var(--transition_3s);
+    -webkit-transition: var(--transition_3s);
+    -moz-transition: var(--transition_3s);
+    -ms-transition: var(--transition_3s);
+    -o-transition: var(--transition_3s);
+}
 </style>
