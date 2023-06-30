@@ -11,6 +11,14 @@ html {
 	font-family: PublicSans, sans-serif;
 }
 
+:root {
+  --purple: #7105f3;
+  --slate_blue: #7f8a9d;
+  --bg_light: #F2F2F2;
+  --transition_3s: all .3s ease-in-out;
+  --transition_5s: all .5s ease-in-out;
+}
+
 ::selection {
 	color: black;
 	background: #eaf2ff;
@@ -22,7 +30,7 @@ html {
 
 input,
 textarea {
-	@apply block border rounded-2xl px-5 py-4 w-full;
+	@apply block border rounded-2xl px-5 py-4 w-full text-white font-bold;
 }
 
 button.primary {
