@@ -12,30 +12,25 @@
 
 	let loaded;
 	let gen = async () => {
-		console.log('ab');
 		if (!browser) return;
 
 		if (!$password) $passwordPrompt = true;
 
 		try {
-			console.log('ac');
 			await post('/password', { password: $password });
 		} catch (e) {
 			$passwordPrompt = true;
 		}
 
-		console.log('ad');
 		await wait(() => $password);
 
 		try {
-			console.log('ae');
 			await generate(user);
 		} catch (e) {
 			console.log('error generating', e);
 		}
 
 		try {
-			console.log('af');
 			user.pin = $pin;
 			await post(`/${user.username}/generate`, user);
 			goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
@@ -58,3 +53,6 @@
 {#if loaded && user?.haspin && $pin?.length !== 6}
 	<Pin />
 {/if}
+{loaded}
+{JSON.stringify(user)}
+{$pin}
