@@ -45,7 +45,7 @@
 		}
 	};
 
-    onMount(() => browser && setTimeout(() => (loaded = true), 50));
+	onMount(() => browser && setTimeout(() => (loaded = true), 50));
 
 	$: $pin?.length === 6 && gen(user);
 </script>
@@ -53,3 +53,6 @@
 {#if loaded && user?.haspin && $pin?.length !== 6}
 	<Pin />
 {/if}
+{loaded}
+{JSON.stringify(user)}
+{$pin}
