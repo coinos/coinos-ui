@@ -46,10 +46,6 @@
 		}
 	};
 
-	onMount(async () => {
-		await gen();
-	});
-
 	$: $pin?.length === 6 && gen(user);
 </script>
 
