@@ -1,7 +1,9 @@
 export default {
 	register: `curl "https://coinos.io/api/register" -H "content-type: application/json" -d '{
-  "username": "demo",
-  "password": "hunter2"
+  "user": {
+    "username": "demo",
+    "password": "hunter2"
+  }
 }'`,
 	login: `curl "https://coinos.io/api/login" -H "content-type: application/json" -d '{
   "username": "demo",
