@@ -26,12 +26,25 @@ export default {
     "amount": 5000,
     "hash": "bc1q3unh97w4rmelflrm2hvdwz37d8kray3vn4d5ca"
 }'`,
-	internal: `curl "https://coinos.io/api/payments" 
+	internal: `HASH=$(curl "https://coinos.io/api/invoice" 
+    -H "content-type: application/json" 
+    -H "Authorization: Bearer $token"
+    -d '{
+      "invoice": {
+        "amount": 1000,
+        "type": "lightning"
+      },
+      "user": {
+        "username": "alice"
+      }
+  }' | jq -r '.hash');
+
+  curl "https://coinos.io/api/payments" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
     "amount": 5000,
-    "username": "alice"
+    "hash": $HASH
 }'`,
 	rates: `curl "https://coinos.io/api/rates" 
   -H "content-type: application/json" 
