@@ -13,6 +13,11 @@
 	let loaded;
 	let gen = async () => {
 		if (!browser) return;
+    if (user.pubkey) {
+      goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
+      return;
+    } 
+
 		setTimeout(() => (loaded = true), 50);
 
 		if (!$password) $passwordPrompt = true;
