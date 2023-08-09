@@ -1,8 +1,6 @@
 <script>
 	import { scroll } from '$lib/utils';
-  let faq;
-
-  
+  let about, faq;
 </script>
 
 <svelte:head>
@@ -60,7 +58,7 @@
           <a class="nav-link" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">About</a>
+					<a class="nav-link" href="" on:click={() => scroll(about)}>About</a>
 				</li>
 			</ul>
 			<div
@@ -134,7 +132,7 @@
 </section>
 
 <!-- lightning network -->
-<section class="pt-md-5">
+<section class="pt-md-5" bind:this={about}>
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row align-items-center justify-content-center flex-md-row flex-column-reverse">
 			<div class="col-md-7 mb-md-0 mb-4">
@@ -340,13 +338,13 @@
 			<div class="row align-items-center justify-content-between">
 				<div class="col-md-5 mb-md-0 mb-5">
 					<a href="#" class="footer_logo"><img src="images/footer-logo.png" alt="" /></a>
-					<p class="text-white-50 mt-5 mb-4">
-						Copyright © 2023. Swapee.me is a Registered Cryptoasset firm and is registered with the
-						UK Financial Conduct Authority.
-						<br />
-						<br />
-						All rights reserved.
-					</p>
+					<!-- <p class="text-white-50 mt-5 mb-4"> -->
+					<!-- 	Copyright © 2023. Swapee.me is a Registered Cryptoasset firm and is registered with the -->
+					<!-- 	UK Financial Conduct Authority. -->
+					<!-- 	<br /> -->
+					<!-- 	<br /> -->
+					<!-- 	All rights reserved. -->
+					<!-- </p> -->
 					<a class="btn_language" href="#">English</a>
 				</div>
 				<div
@@ -363,8 +361,7 @@
 						</div>
 					</div>
 					<div class="social_links d-flex">
-						<a href="#" class="me-3"><img src="images/twitter.svg" alt="" /></a>
-						<a href="#"><img src="images/telegram.svg" alt="" /></a>
+						<a href="https://twitter.com/Swapee_io" class="me-3"><img src="icons/twitter.svg" alt="" /></a>
 					</div>
 				</div>
 			</div>
@@ -381,9 +378,6 @@
 				</li>
 				<li class="pb-3">
 					<a href="#">Terms of Use</a>
-				</li>
-				<li class="pb-3">
-					<a href="#">Contributor License Agreement</a>
 				</li>
 			</ul>
 		</div>
