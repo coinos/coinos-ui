@@ -356,8 +356,8 @@
 							<a href="mailto:business@swapee.me">business@swapee.me</a>
 						</div>
 						<div class="col-xl-6 col-md-10 col-sm-6 pe-xl-5 pe-md-0 pe-sm-5">
-							<h6 class="text-white opacity-75 mb-0">Job enquiries</h6>
-							<a href="mailto:jobs@swapee.me">jobs@swapee.me</a>
+							<h6 class="text-white opacity-75 mb-0">Support enquiries</h6>
+							<a href="mailto:support@swapee.me">support@swapee.me</a>
 						</div>
 					</div>
 					<div class="social_links d-flex">
