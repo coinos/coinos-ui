@@ -1,16 +1,16 @@
 <script>
 	import { onDestroy, onMount } from 'svelte';
 	import { t } from '$lib/translations';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { pin } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, f, fiat as toFiat, s, sats } from '$lib/utils';
+	import { post, back, f, fiat as toFiat, s, sats } from '$lib/utils';
 	export let data;
 	export let form;
 
-	let { address, rate, payreq, recipient, tip, rates, user } = data;
+	let { address, hash, rate, payreq, recipient, tip, rates, user } = data;
 	let { currency } = user;
 
 	let amount = form?.amount || data.amount;
@@ -27,6 +27,15 @@
 	let loading;
 	let submit = () => (loading = true);
 
+	let external = async () => {
+		let invoice = { type: 'lightning', amount };
+		let { hash } = await post(`/${recipient.username}/invoice`, {
+			invoice
+		});
+
+		goto(`/${recipient.username}/invoice/${hash}`, { invalidateAll: true });
+	};
+
 	$: rate = data.rate * (rates[user.currency] / rates[data.currency]);
 
 	$: update(form);
@@ -40,11 +49,11 @@
 	// 		try {
 	// 			let ndef = new NDEFReader();
 	// 			await ndef.scan();
-  //
+	//
 	// 			ndef.addEventListener('readingerror', (e) => {
 	// 				console.log('nfc error', e);
 	// 			});
-  //
+	//
 	// 			ndef.addEventListener('reading', ({ message, serialNumber }) => {
 	// 				console.log(message, serialNumber);
 	// 			});
@@ -130,4 +139,7 @@
 			{/if}
 		</div>
 	</form>
+  <div class="flex my-20">
+    <button class="mx-auto" on:click={external}>{$t('payments.moreOptions')}</button>
+  </div>
 </div>
