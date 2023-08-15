@@ -20,7 +20,7 @@
 		return `/p/${p.id}`;
 	};
 
-	let presets = [
+	$: presets = [
 		{ title: $t('payments.day'), start: sub(new Date(), { days: 1 }), end: null },
 		{ title: $t('payments.week'), start: sub(new Date(), { days: 7 }), end: null },
 		{ title: $t('payments.month'), start: sub(new Date(), { months: 1 }), end: null },
