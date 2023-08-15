@@ -179,13 +179,22 @@
 		</div>
 	{/if}
 
-	<div class="text-center">
+	<div class="text-center break-all">
 		<a href={link}>
-			{txt.substr(0, 20)}...{txt.substr(-20)}
+			{txt}
 		</a>
 	</div>
 
 	<div class="w-full flex justify-center gap-2 flex-wrap">
+		<a href={link} class="w-full md:w-auto">
+			<button
+				class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+			>
+				<Icon icon="mobile" style="mr-1 w-6" />
+				<div class="text-secondary">{$t('payments.openLink')}</div>
+			</button>
+		</a>
+
 		<button
 			class="flex rounded-full justify-center border py-3 px-5 hover:opacity-80 w-full md:w-auto"
 			on:click={() => copy(txt)}
@@ -193,14 +202,6 @@
 			<Icon icon="copy" style="mr-1" />
 			<div class="text-secondary">{$t('payments.copyText')}</div></button
 		>
-			<a href={link} class="w-full md:w-auto">
-		<button
-			class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
-		>
-				<Icon icon="link" style="mr-1 w-6" />
-				<div class="text-secondary">{$t('payments.openLink')}</div>
-		</button>
-			</a>
 
 		<button
 			class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
