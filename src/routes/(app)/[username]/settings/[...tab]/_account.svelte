@@ -3,6 +3,7 @@
 	import { colorTheme, avatar, banner } from '$lib/store';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
+	import { page } from '$app/stores';
 
 	export let user;
 	let { id } = user;
@@ -60,6 +61,9 @@
 	};
 
 	if (!user.display) user.display = user.username;
+
+	$: url = `${$page.url.host}/${user.username}`;
+	$: full = `${$page.url.protocol}//${url}`;
 </script>
 
 <div class="relative">
@@ -71,6 +75,12 @@
 		class="absolute right-[2px] top-[30px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l "
 	>
 		@coinos.io
+	</div>
+	<div class="my-2 flex gap-2">
+		<div class="ml-auto text-gray-400">{url}</div>
+		<a href={`/qr/${encodeURIComponent(full)}`}>
+			<Icon icon="qr" style="invert" />
+		</a>
 	</div>
 </div>
 
