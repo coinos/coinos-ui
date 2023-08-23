@@ -74,7 +74,7 @@
       type="text"
       name="username"
       bind:value={user.username}
-      class="border-r-0 rounded-r-none w-auto min-w-0 pr-1"
+      class="border-r-0 rounded-r-none w-auto min-w-0 pr-1 grow"
       />
       <div class="text-gray-600 p-4 my-auto bg-gray-100 border border-r-0 pl-1">@{$page.url.host}</div>
 		<div class="text-gray-600 border-l-0 bg-gray-100 rounded-r-2xl p-4 my-auto border w-16" >
