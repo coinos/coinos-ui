@@ -40,17 +40,16 @@
 
 			map = L.map(mapElement, {
         zoomSnap: 0,
-				zoomControl: false,
 				attributionControl: false,
-			}).setView([49.26, -123.05], 15.25);
+			}).setView([49.26, -123.05], 12);
 
 
 			const myCustomColour = '#F7931A';
 
 			const markerHtmlStyles = `
 			  background-color: ${myCustomColour};
-			  width: 22rem;
-			  height: 22rem;
+			  width: 1.2rem;
+			  height: 1.2rem;
 			  display: block;
 			  position: relative;
         border-radius: 100% 100% 0;
@@ -103,10 +102,10 @@
 				location = location['osm_json'];
 				let marker = L.marker([location.lat, location.lon], { icon });
 
-				// if (location.tags && location.tags.name) {
-				// 	marker.bindTooltip(location.tags.name, { permanent: true }).openTooltip();
-				// }
-        //
+				if (location.tags && location.tags.name) {
+					marker.bindTooltip(location.tags.name, { permanent: true }).openTooltip();
+				}
+
 				marker.bindPopup(
 					`${
 						location.tags && location.tags.name
@@ -186,7 +185,11 @@
 	onDestroy(async () => map && map.remove());
 </script>
 
-<div class="absolute w-[14043px] h-[9933px] z-0" bind:this={mapElement} />
+<div class="container mx-auto max-w-4xl">
+    <div class="flex w-full">
+        <div class="mx-auto h-[550px] w-full z-0" bind:this={mapElement} />
+    </div>
+</div>
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
@@ -194,11 +197,9 @@
 	:global(.leaflet-tooltip) {
 		border: none;
 		border-radius: 4px;
-		font-size: 5rem;
+    font-size: 12px;
 		font-weight: bolder;
 		color: black;
 		background-color: rgba(255, 255, 255, 0.5);
-    top: 14rem;
-    left: 12rem;
 	}
 </style>
