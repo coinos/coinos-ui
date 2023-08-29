@@ -54,17 +54,41 @@
 	},
 	"faq": {
 		"header": "FAQ",
+		"why": {
+			"question": "Warum Bitcoin akzeptieren?",
+			"answer": "Mit Bitcoin sparen Händler bei den Gebühren, Verbraucher gewinnen an Privatsphäre und Sparer an Kaufkraft. Wir bewerben Ihr Geschäft bei einer begeisterten Gemeinschaft, die bevorzugt in Geschäften einkauft, die Bitcoin akzeptieren."
+		},
 		"cost": {
-			"question": "Welche Gebühren fallen an?",
-			"answer": "Die Registrierung eines Kontos sowie Zahlungen über das Lightning-Netzwerk zu erhalten ist vollkommen kostenlos. Wir erheben eine Gebühr von 0.1%, um Lightning-Bitcoin in Bitcoin umzuwandeln."
+			"question": "Was kostet das?",
+			"answer": "Zahlungen auf Ihr Konto zu erhalten ist kostenlos. Auszahlungen an externe Wallets verursachen eine geringe Gebühr, die je nach Netzwerkbedingungen variiert. Wir berechnen 0,1% für die Umwandlung zwischen Lightning und On-Chain Bitcoin. Das Senden zu anderen Coinos-Konten ist kostenlos."
+		},
+		"individuals": {
+			"question": "Wer kann es nutzen?",
+			"answer": "Jeder, überall auf der Welt. Coinos ist sowohl für Einzelpersonen als auch für Unternehmen geeignet."
 		},
 		"compatibility": {
-			"question": "Benötige ich ein bestimmtes Gerät oder eine spezielle Software dafür?",
-			"answer": "Nein. Coinos ist web-basiert, das bedeutet, solange Sie über eine aktive Internetverbindung verfügen, können Sie Coinos auf jedem Endgerät nutzen. Einzelhändlern empfehlen wir, ein Telefon oder Tablet zu verwenden."
+			"question": "Benötige ich ein spezielles Gerät oder eine spezielle Software?",
+			"answer": "Nein, Coinos ist eine Web-App, die überall funktioniert, wo es Internet gibt. Händler könnten es auf einem Tablet verwenden oder einen QR-Code anbieten, den Kunden mit ihrem Handy scannen können."
 		},
 		"safety": {
-			"question": "Wann wird mein Guthaben ausgezahlt?",
-			"answer": "Lightning-Zahlungen werden sofort abgewickelt. Sie können Ihr Guthaben somit unmittelbar nach Zahlungseingang auf eine andere Wallet übertragen."
+			"question": "Wann wird mein Guthaben beglichen?",
+			"answer": "Lightning-Zahlungen werden sofort beglichen. Sie können Ihr Guthaben innerhalb von Sekunden auf eine andere Wallet übertragen. On-Chain Einzahlungen dauern im Durchschnitt 5-10 Minuten zur Bestätigung."
+		},
+		"pos": {
+			"question": "Kann Coinos mit meinem vorhandenen PoS integriert werden?",
+			"answer": "Wir empfehlen, Verkäufe in Ihrem vorhandenen PoS als Bartransaktionen einzugeben."
+		},
+		"accounting": {
+			"question": "Was ist mit der Buchhaltung?",
+			"answer": "Wir zeigen alle Zahlungen in Ihrer lokalen Währung an und ermöglichen es Ihnen, nach Datum zu filtern, sodass Sie Ihr Einkommen wie gewohnt melden können. Sie können den Verlauf Ihres Kontos in eine CSV-Datei exportieren. Wenn Sie Bitcoin mit Gewinn verkaufen, möchten Sie vielleicht Kapitalerträge melden."
+		},
+		"offramp": {
+			"question": "Kann ich den erhaltenen Bitcoin in meine lokale Währung umwandeln?",
+			"answer": "Sie können Ihre Gelder jederzeit an eine Börse oder einen Makler abziehen, um Ihren Bitcoin zu verkaufen und eine Banküberweisung zu erhalten. Wir könnten bereit sein, direkte Abrechnungen per E-Transfer für ausgewählte kanadische Händler anzubieten."
+		},
+		"bitcoin": {
+			"question": "Was kann ich mit Bitcoin machen?",
+			"answer": "Geben Sie es bei anderen Händlern aus oder decken Sie damit Ihre Ausgaben, indem Sie Ihr Personal, Ihre Lieferanten und Ihren Vermieter dazu bringen, es zu akzeptieren."
 		}
 	},
 	"footer": {

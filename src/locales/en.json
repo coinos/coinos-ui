@@ -10,7 +10,7 @@
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Founder and CTO",
-				"bio": "Adam is a veteran software engineer, web developer and open source enthusiast who believes that the adoption of Bitcoin as sound money will be a key driver of global prosperity. He lives in North Vancouver with his wife, daughter, and son."
+				"bio": "Adam is a software engineer who believes that the adoption of sound money will drive global prosperity. He lives in North Vancouver with his wife, daughter, and son."
 			},
 			"cole": {
 				"name": "Cole",
@@ -31,49 +31,41 @@
 	"faq": {
 		"header": "FAQ",
 		"why": {
-			"question": "Why should I accept Bitcoin?",
-			"answer": "With Bitcoin, merchants save on transaction fees, consumers gain financial freedom and privacy, and savers get to hold an asset that gains purchasing power over time. We'll promote your business to an enthusiastic community of Bitcoiners who are always looking for new places to shop. We're active on social media, we host in-person events and meetups, and we'll list you on a number of sites to bring you new customers and positive reviews."
+			"question": "Why accept Bitcoin?",
+			"answer": "With Bitcoin, merchants save on fees, consumers gain privacy and savers gain purchasing power. We'll promote your business to an enthusiastic community that prefers to shop at places that take Bitcoin."
     },
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "Nothing. Eventually we'll offer a premium plan for those wanting extra support or promotional services but there are no setup or maintenance fees. Withdrawals may incur a small network routing fee or miner fee which doesn't go to us and can vary depending on network conditions. We do charge a 0.1% conversion fee if you send out over a different network than the one you received on (on-chain vs. lightning)."
+			"answer": "Receiving payments into your account is free. Withdrawals to external wallets incur a small fee that varies depending on network conditions. We charge 0.1% to convert between lightning and on-chain Bitcoin. Sending to other Coinos accounts is free."
+		},
+		"individuals": {
+			"question": "Who can use it?",
+			"answer": "Anyone, anywhere in the world. Coinos is suitable for individuals and businesses."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No. Coinos is web based and can be added to your homescreen as a progressive web app. As long as you have an internet connection, it works anywhere. Retail merchants might use it on a tablet or you could have a QR code at your till that directs people to your payment page. You can get printed payment notifications and staff can treat the paper receipts like cash."
+			"answer": "No, Coinos is a web app that works anywhere that has Internet. Merchants might use it on a tablet or put up a QR code for customers to scan with their phone."
 		},
 		"safety": {
 			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet within seconds of receiving a payment. On-chain payments usually settle within 5 to 10 minutes as long as the sender pays an appropriate transaction fee."
-		},
-		"offramp": {
-			"question": "Can I cash out to my local currency?",
-			"answer": "Yes, if you're a Canadian retail merchant, you can ask us to automatically convert any Bitcoin you receive up to $10,000 per month. We'll send an Interac e-Transfer whenever your balance exceeds $500. For larger amounts or international users, we'll refer you to a third party exchange or brokerage."
+			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet within seconds. On-chain deposits take 5-10 minutes to confirm on average."
 		},
     "pos": {
       "question": "Can Coinos integrate with my existing PoS?",
-      "answer": "We recommend entering any Bitcoin sales into your existing PoS as cash transactions. If you require some custom integration, we do have an API and are happy to work with your PoS vendor to integrate it."
-    },
-    "training": {
-      "question": "What does my staff need to know?",
-      "answer": "When customers ask to pay with Bitcoin, staff should enter it as a cash sale. If you use a printer to get payment notifications, put the receipts in the till and total them up at closing time. If using a tablet, staff should be comfortable entering a sale amount to generate a payment request. You might turn the tablet over to the customer to optionally add a tip and then scan the QR code that displays on-screen. Look for a green checkmark to indicate when the payment is received."
-    },
-    "refunds": {
-      "question": "What about refunds?",
-      "answer": "If a customer sends a wrong amount or otherwise needs a refund, you can ask them to provide a lightning invoice or address and send them a payment from the app."
+      "answer": "We recommend entering sales into your existing PoS as cash transactions."
     },
     "accounting": {
-      "question": "How will this impact my accounting?",
-      "answer": "Coinos displays all payments in terms of your local currency and lets you filter by date so you can easily report your income. If you sell Bitcoin later on, you may be required to pay capital gains tax if it went up in value. We provide a csv download of your account history that can be opened as a spreadsheet or sent to your accountant. If we're settling your account in CAD, you'll never be exposed to exchange rate fluctuations and won't have any gains or losses to report."
+      "question": "What about accounting?",
+      "answer": "We display all payments in terms of your local currency and let you filter by date so you can report your income as normal. You can export your account history to a csv file. If you sell Bitcoin for a profit you may wish to report capital gains."
+    },
+    "offramp": {
+      "question": "Can I convert the Bitcoin I receive to my local currency?",
+      "answer": "You can withdraw your funds at any time to an exchange or brokerage to sell your Bitcoin and receive a bank transfer. We may be willing to provide direct settlement via e-transfer to select Canadian merchants."
     },
     "bitcoin": {
-      "question": "What can I do with the Bitcoin I receive?",
-      "answer": "Spend it at other merchants you find at btcmap.org, buy gift cards at coincards.ca, or pay your expenses by getting your staff, suppliers, and landlord to accept it. Register accounts on their behalf and give out tips and bonuses. Bitcoin has averaged a 73% annual return over the past decade so saving it might be a good option as well."
-    },
-    "security": {
-      "question": "Is Coinos secure?",
-      "answer": "We take security very seriously and do our best to ensure that funds in our custody are safe. We only keep a modest amount of funds available on our server for immediate withdrawals at any given time, the rest is stored securely offline. Our source code is open source and we've had it audited by professional security teams.  We continually monitor and maintain our servers. We do encourage you to take custody of your funds by withdrawing to a wallet that only you have access to, especially once your balance reaches a point where you'd be sorry to lose it. Please don't hesitate to reach out for wallet recommendations and advice on this."
-    } 
+      "question": "What can I do with Bitcoin?",
+      "answer": "Spend it at other merchants or pay your expenses with it by getting your staff, suppliers and landlord to take it."
+    }
 	},
 	"footer": {
 		"company": "Company",
