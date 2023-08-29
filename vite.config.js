@@ -7,7 +7,7 @@ const config = {
 	plugins: [sveltekit()],
 	resolve: {
 		alias: {
-			$comp: path.resolve('src/components/index.js')
+			$comp: path.resolve('src/components/index.js'),
 		}
 	},
 	server: {
