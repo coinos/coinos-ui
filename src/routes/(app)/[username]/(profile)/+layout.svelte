@@ -56,6 +56,7 @@
 			class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
 			class:line-clamp-3={hideBio}
 			on:click={toggleBio}
+      on:keydown={toggleBio}
 		>
     {subject.address}
 		</div>
