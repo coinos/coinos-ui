@@ -4,6 +4,33 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 
+	import html2canvas from 'html2canvas';
+
+	function captureHighResMap(mapElement, scale = 2) {
+		// Backup original size
+		let originalWidth = mapElement.offsetWidth;
+		let originalHeight = mapElement.offsetHeight;
+
+		// Scale the map element
+		mapElement.style.transform = `scale(${scale})`;
+		mapElement.style.transformOrigin = 'top left';
+		mapElement.style.width = originalWidth * scale + 'px';
+		mapElement.style.height = originalHeight * scale + 'px';
+
+		return html2canvas(mapElement, {
+			width: originalWidth * scale,
+			height: originalHeight * scale,
+			scale: scale
+		}).then((canvas) => {
+			// Restore the original size
+			mapElement.style.transform = '';
+			mapElement.style.width = originalWidth + 'px';
+			mapElement.style.height = originalHeight + 'px';
+
+			return canvas;
+		});
+	}
+
 	let mapElement;
 	let map;
 
@@ -11,17 +38,22 @@
 		if (browser) {
 			const L = await import('leaflet');
 
-      map = L.map(mapElement, { attributionControl: false }).setView([49.29, -123.1], 11.5);
+			map = L.map(mapElement, {
+        zoomSnap: 0,
+				zoomControl: false,
+				attributionControl: false,
+			}).setView([49.26, -123.05], 15.25);
+
 
 			const myCustomColour = '#F7931A';
 
 			const markerHtmlStyles = `
 			  background-color: ${myCustomColour};
-			  width: 1.25rem;
-			  height: 1.25rem;
+			  width: 22rem;
+			  height: 22rem;
 			  display: block;
 			  position: relative;
-			  border-radius: 1rem 1rem 0;
+        border-radius: 100% 100% 0;
 			  transform: rotate(45deg);
         opacity: 0.9;
 			  border: 1px solid #666`;
@@ -69,8 +101,12 @@
 				if (location['deleted_at']) return;
 
 				location = location['osm_json'];
-        let marker = L.marker([location.lat, location.lon], { icon });
+				let marker = L.marker([location.lat, location.lon], { icon });
 
+				// if (location.tags && location.tags.name) {
+				// 	marker.bindTooltip(location.tags.name, { permanent: true }).openTooltip();
+				// }
+        //
 				marker.bindPopup(
 					`${
 						location.tags && location.tags.name
@@ -140,7 +176,7 @@
 							: ''
 					}`
 				);
-        marker.addTo(map);
+				marker.addTo(map);
 			});
 
 			// map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
@@ -150,13 +186,19 @@
 	onDestroy(async () => map && map.remove());
 </script>
 
-<div class="container mx-auto max-w-4xl">
-	<div class="flex w-full">
-		<div class="mx-auto h-[550px] w-full z-0" bind:this={mapElement} />
-	</div>
-</div>
+<div class="absolute w-[14043px] h-[9933px] z-0" bind:this={mapElement} />
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
-	@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+
+	:global(.leaflet-tooltip) {
+		border: none;
+		border-radius: 4px;
+		font-size: 5rem;
+		font-weight: bolder;
+		color: black;
+		background-color: rgba(255, 255, 255, 0.5);
+    top: 14rem;
+    left: 12rem;
+	}
 </style>
