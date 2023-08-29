@@ -14,7 +14,7 @@
 	];
 </script>
 
-<footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around items-center mb-20">
+<footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around mb-20">
 	<div class="space-y-5">
 		<div class="text-center w-full">
 			<a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
