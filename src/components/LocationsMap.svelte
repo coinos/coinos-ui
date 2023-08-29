@@ -10,23 +10,21 @@
 	onMount(async () => {
 		if (browser) {
 			const L = await import('leaflet');
-			const { MarkerClusterGroup } = await import('leaflet.markercluster');
 
-			map = L.map(mapElement, { attributionControl: false }).setView([0, 0], 0);
+      map = L.map(mapElement, { attributionControl: false }).setView([49.29, -123.1], 11.5);
 
-			const myCustomColour = 'orange';
+			const myCustomColour = '#F7931A';
 
 			const markerHtmlStyles = `
 			  background-color: ${myCustomColour};
-			  width: 3rem;
-			  height: 3rem;
+			  width: 1.25rem;
+			  height: 1.25rem;
 			  display: block;
-			  left: -1.5rem;
-			  top: -1.5rem;
 			  position: relative;
-			  border-radius: 3rem 3rem 0;
+			  border-radius: 1rem 1rem 0;
 			  transform: rotate(45deg);
-			  border: 1px solid #FFFFFF`;
+        opacity: 0.9;
+			  border: 1px solid #666`;
 
 			const icon = L.divIcon({
 				className: 'my-custom-pin',
@@ -67,12 +65,11 @@
 				}
 			};
 
-			let markers = new MarkerClusterGroup();
 			locations.forEach((location) => {
 				if (location['deleted_at']) return;
 
 				location = location['osm_json'];
-				let marker = L.marker([location.lat, location.lon]);
+        let marker = L.marker([location.lat, location.lon], { icon });
 
 				marker.bindPopup(
 					`${
@@ -143,11 +140,10 @@
 							: ''
 					}`
 				);
-				markers.addLayer(marker);
+        marker.addTo(map);
 			});
 
-			map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
-			map.addLayer(markers);
+			// map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
 		}
 	});
 
@@ -156,7 +152,7 @@
 
 <div class="container mx-auto max-w-4xl">
 	<div class="flex w-full">
-		<div class="mx-auto h-[450px] w-full z-0" bind:this={mapElement} />
+		<div class="mx-auto h-[550px] w-full z-0" bind:this={mapElement} />
 	</div>
 </div>
 
