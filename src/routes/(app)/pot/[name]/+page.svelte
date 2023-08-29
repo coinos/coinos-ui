@@ -33,7 +33,7 @@
         {#if name.split('-').length === 4}
           <h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
 				{:else}
-					<img src="/images/moneypot.jpg" class="w-24" />
+					<img src="/images/moneypot.jpg" class="w-24" alt="Pot" />
           <div class="my-auto">
             <h1 class="text-2xl font-semibold my-auto">{$t('payments.moneyPot')}</h1>
           <h1 class="text-secondary my-auto">{name}</h1>
