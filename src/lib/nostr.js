@@ -5,7 +5,7 @@ import { decrypted, password as pw, passwordPrompt, pin, loginRedirect } from '$
 import { goto, invalidate } from '$app/navigation';
 import { getPublicKey, signEvent, getEventHash, nip04, nip06 } from 'nostr-tools';
 import { mnemonicToEntropy, entropyToMnemonic } from '@scure/bip39';
-import { wordlist } from '@scure/bip39/wordlists/english.js';
+import wordlist from '$lib/english';
 import { bech32m } from '@scure/base';
 
 const { generateSeedWords, privateKeyFromSeedWords } = nip06;
