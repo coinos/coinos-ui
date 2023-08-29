@@ -11,7 +11,6 @@
 	const companyLinks = [
 		{ url: '/docs', titleID: 'documentation' },
 		{ url: '/support', titleID: 'support' },
-		{ url: '/jobs', titleID: 'jobs' }
 	];
 </script>
 
