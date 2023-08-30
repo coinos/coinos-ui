@@ -65,25 +65,25 @@
 				html: `<span style="${markerHtmlStyles}" />`
 			});
 
-      const mapBounds = map.getBounds();
+			const mapBounds = map.getBounds();
 
-      const southWest = mapBounds.getSouthWest();
-      const northEast = mapBounds.getNorthEast();
+			const southWest = mapBounds.getSouthWest();
+			const northEast = mapBounds.getNorthEast();
 
 			locations = locations.filter(
 				(location) =>
 					location['osm_json'].tags &&
 					location['osm_json'].tags['payment:coinos'] === 'yes' &&
 					location['osm_json'].lat &&
-          location['osm_json'].lon &&
-          location['osm_json'].lat > southWest.lat &&
-          location['osm_json'].lat <= northEast.lat &&
-          location['osm_json'].lon > southWest.lng &&
-          location['osm_json'].lon <= northEast.lng
+					location['osm_json'].lon &&
+					location['osm_json'].lat > southWest.lat &&
+					location['osm_json'].lat <= northEast.lat &&
+					location['osm_json'].lon > southWest.lng &&
+					location['osm_json'].lon <= northEast.lng
 			);
 
-      console.log("Southwest corner:", southWest);
-      console.log("Northeast corner:", northEast);
+			console.log('Southwest corner:', southWest);
+			console.log('Northeast corner:', northEast);
 
 			L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
 				maxZoom: 18,
@@ -192,83 +192,78 @@
 		}
 	});
 
-	function doTooltipsOverlap(tooltip1, tooltip2) {
-		const rect1 = tooltip1.getBoundingClientRect();
-		const rect2 = tooltip2.getBoundingClientRect();
+	let positionTooltips = () => {
+		const MAX_ITERATIONS = 1000;
+		const REPULSION_STRENGTH = 0.05;
+		const SPRING_STRENGTH = 0.02;
+		const MAX_DISTANCE = 120; // maximum distance a tooltip is allowed to drift from its marker
 
-		return !(
-			rect1.right < rect2.left ||
-			rect1.left > rect2.right ||
-			rect1.bottom < rect2.top ||
-			rect1.top > rect2.bottom
-		);
-	}
+		// Get all tooltips
+		const tooltips = document.querySelectorAll('.leaflet-tooltip');
 
-	function resolveCollision(tooltip1, tooltip2) {
-		const MAX_DISTANCE = 300; // Max distance a tooltip can move.
+		// Convert NodeList to Array for easier operations
+		const tooltipArray = Array.from(tooltips);
 
-		const rect1 = tooltip1.getBoundingClientRect();
-		const rect2 = tooltip2.getBoundingClientRect();
+		// Initial setup for each tooltip
+tooltipArray.forEach(tooltip => {
+    const computedStyle = getComputedStyle(tooltip);
+    const markerX = parseFloat(computedStyle.left);
+    const markerY = parseFloat(computedStyle.top);
 
-		const left = rect1.right - rect2.left;
-		const right = rect1.left - rect2.right;
-		const down = rect1.bottom - rect2.top;
+    tooltip.desiredX = markerX;
+    tooltip.desiredY = markerY;
+    tooltip.velocityX = 0;
+    tooltip.velocityY = 0;
+});
 
-		// Determine how much we would need to move in each direction to resolve the collision.
-		const moveAmounts = {
-			left: left > MAX_DISTANCE ? MAX_DISTANCE : left,
-			right: Math.abs(right) > MAX_DISTANCE ? MAX_DISTANCE : right,
-			down: down > MAX_DISTANCE ? MAX_DISTANCE : down
-		};
+		for (let i = 0; i < MAX_ITERATIONS; i++) {
+			tooltipArray.forEach((tooltipA) => {
+				let forceX = 0,
+					forceY = 0;
 
-		// Choose the direction that requires the least movement.
-		const direction = Object.keys(moveAmounts).reduce((a, b) =>
-			moveAmounts[a] < moveAmounts[b] ? a : b
-		);
+				// Calculate repulsion from all other tooltips
+				tooltipArray.forEach((tooltipB) => {
+					if (tooltipA !== tooltipB) {
+						const rectA = tooltipA.getBoundingClientRect();
+						const rectB = tooltipB.getBoundingClientRect();
 
-    console.log("MOVING", tooltip2.innerHTML, direction, moveAmounts[direction]);
+						let dx = rectA.x - rectB.x;
+						let dy = rectA.y - rectB.y;
+						let distance = Math.sqrt(dx * dx + dy * dy);
 
-		switch (direction) {
-			case 'left':
-				tooltip2.style.left = `${-moveAmounts.left}px`;
-				break;
-			case 'right':
-        console.log(tooltip2.style.left);
-				tooltip2.style.left = `${moveAmounts.right}px`;
-        console.log(tooltip2.style.left);
-				break;
-			case 'down':
-				tooltip2.style.top = `${moveAmounts.down}px`;
-				break;
-		}
-	}
+						if (distance < Math.max(rectA.width, rectA.height)) {
+							// Adjust this threshold if necessary
+							forceX += (dx / distance) * REPULSION_STRENGTH;
+							forceY += (dy / distance) * REPULSION_STRENGTH;
+						}
+					}
+				});
 
-	function positionTooltips() {
-		const tooltips = Array.from(document.querySelectorAll('.leaflet-tooltip'));
+				// Apply spring force towards desired position
+				let dx = tooltipA.desiredX - tooltipA.offsetLeft;
+				let dy = tooltipA.desiredY - tooltipA.offsetTop;
 
-		// 1. Sort the rectangles by the x-axis, topmost first.
-		tooltips.sort((a, b) => {
-			const rectA = a.getBoundingClientRect();
-			const rectB = b.getBoundingClientRect();
-			return rectA.top - rectB.top;
-		});
+				forceX += dx * SPRING_STRENGTH;
+				forceY += dy * SPRING_STRENGTH;
 
-		// 2. For each rectangle r1, top to bottom.
-		for (let i = 0; i < tooltips.length; i++) {
-			const r1 = tooltips[i];
+				// Update position
+				tooltipA.style.left = `${tooltipA.offsetLeft + forceX}px`;
+				tooltipA.style.top = `${tooltipA.offsetTop + forceY}px`;
 
-			// 3. For every other rectangle r2 that might intersect with it.
-			for (let j = i + 1; j < tooltips.length; j++) {
-				const r2 = tooltips[j];
+				// Ensure tooltip doesn't move too far from its marker
+				let dxFromDesired = tooltipA.offsetLeft - tooltipA.desiredX;
+				let dyFromDesired = tooltipA.offsetTop - tooltipA.desiredY;
+				let distanceFromDesired = Math.sqrt(
+					dxFromDesired * dxFromDesired + dyFromDesired * dyFromDesired
+				);
 
-				// 4. If r1 and r2 intersect.
-				if (doTooltipsOverlap(r1, r2)) {
-					// 5-8. Resolve the collision.
-					resolveCollision(r1, r2);
+				if (distanceFromDesired > MAX_DISTANCE) {
+					tooltipA.style.left = `${tooltipA.desiredX}px`;
+					tooltipA.style.top = `${tooltipA.desiredY}px`;
 				}
-			}
+			});
 		}
-	}
+	};
 
 	onDestroy(async () => map && map.remove());
 </script>
