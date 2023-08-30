@@ -65,13 +65,25 @@
 				html: `<span style="${markerHtmlStyles}" />`
 			});
 
+      const mapBounds = map.getBounds();
+
+      const southWest = mapBounds.getSouthWest();
+      const northEast = mapBounds.getNorthEast();
+
 			locations = locations.filter(
 				(location) =>
 					location['osm_json'].tags &&
 					location['osm_json'].tags['payment:coinos'] === 'yes' &&
 					location['osm_json'].lat &&
-					location['osm_json'].lon
+          location['osm_json'].lon &&
+          location['osm_json'].lat > southWest.lat &&
+          location['osm_json'].lat <= northEast.lat &&
+          location['osm_json'].lon > southWest.lng &&
+          location['osm_json'].lon <= northEast.lng
 			);
+
+      console.log("Southwest corner:", southWest);
+      console.log("Northeast corner:", northEast);
 
 			L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
 				maxZoom: 18,
@@ -177,220 +189,86 @@
 				);
 				marker.addTo(map);
 			});
-
-			tooltips = Array.from(document.querySelectorAll('.leaflet-tooltip'));
 		}
 	});
 
-	const tenIterations = () => {
-		let anyAdjustment = true;
-		for (let i = 0; i < 10; i++) {
-			if (anyAdjustment) iterate();
-			else break;
-		}
-	};
+	function doTooltipsOverlap(tooltip1, tooltip2) {
+		const rect1 = tooltip1.getBoundingClientRect();
+		const rect2 = tooltip2.getBoundingClientRect();
 
-	const iterate = () => {
-		let anyAdjustment = false;
-
-		for (const tooltipA of tooltips) {
-			for (const tooltipB of tooltips) {
-				if (tooltipA === tooltipB) continue;
-
-				if (areOverlapping(getBoundingRect(tooltipA), getBoundingRect(tooltipB))) {
-					const originalPosA = {
-						top: parseInt(tooltipA.dataset.originalTop, 10),
-						left: parseInt(tooltipA.dataset.originalLeft, 10)
-					};
-					const direction = ['up', 'down', 'left', 'right'][Math.floor(Math.random() * 4)];
-
-					adjustPosition(tooltipA, direction);
-
-					const adjustedPosA = {
-						top: parseInt(tooltipA.style.top, 10),
-						left: parseInt(tooltipA.style.left, 10)
-					};
-					console.log(adjustedPosA);
-					const distanceFromOriginalA = Math.sqrt(
-						Math.pow(adjustedPosA.top - originalPosA.top, 2) +
-							Math.pow(adjustedPosA.left - originalPosA.left, 2)
-					);
-
-					console.log('DIST', distanceFromOriginalA);
-
-					if (distanceFromOriginalA > MAX_DISTANCE) {
-						// If tooltip has strayed too far from the marker, revert the last movement.
-						adjustPosition(
-							tooltipA,
-							{
-								up: 'down',
-								down: 'up',
-								left: 'right',
-								right: 'left'
-							}[direction]
-						);
-					} else {
-						anyAdjustment = true;
-					}
-				}
-			}
-		}
-
-		return anyAdjustment;
-	};
-
-	const MAX_ITERATIONS = 80;
-	const MAX_DISTANCE = 300; // maximum distance from the marker
-	const ADJUSTMENT_FACTOR = 10;
-
-	let tooltips;
-
-	const getBoundingRect = (elem) => {
-		return elem.getBoundingClientRect();
-	};
-
-	const areOverlapping = (rect1, rect2) => {
 		return !(
 			rect1.right < rect2.left ||
 			rect1.left > rect2.right ||
 			rect1.bottom < rect2.top ||
 			rect1.top > rect2.bottom
 		);
-	};
+	}
 
-	const adjustPosition = (tooltip, direction) => {
-		let computedStyle = getComputedStyle(tooltip);
-		const currentTop = parseInt(computedStyle.top);
-		const currentLeft = parseInt(computedStyle.left);
-		// console.log(currentTop, currentLeft);
+	function resolveCollision(tooltip1, tooltip2) {
+		const MAX_DISTANCE = 300; // Max distance a tooltip can move.
+
+		const rect1 = tooltip1.getBoundingClientRect();
+		const rect2 = tooltip2.getBoundingClientRect();
+
+		const left = rect1.right - rect2.left;
+		const right = rect1.left - rect2.right;
+		const down = rect1.bottom - rect2.top;
+
+		// Determine how much we would need to move in each direction to resolve the collision.
+		const moveAmounts = {
+			left: left > MAX_DISTANCE ? MAX_DISTANCE : left,
+			right: Math.abs(right) > MAX_DISTANCE ? MAX_DISTANCE : right,
+			down: down > MAX_DISTANCE ? MAX_DISTANCE : down
+		};
+
+		// Choose the direction that requires the least movement.
+		const direction = Object.keys(moveAmounts).reduce((a, b) =>
+			moveAmounts[a] < moveAmounts[b] ? a : b
+		);
+
+    console.log("MOVING", tooltip2.innerHTML, direction, moveAmounts[direction]);
+
 		switch (direction) {
-			case 'up':
-				tooltip.style.top = currentTop - ADJUSTMENT_FACTOR + 'px';
-				break;
-			case 'down':
-				tooltip.style.top = currentTop + ADJUSTMENT_FACTOR + 'px';
-				break;
 			case 'left':
-				tooltip.style.left = currentLeft - ADJUSTMENT_FACTOR + 'px';
+				tooltip2.style.left = `${-moveAmounts.left}px`;
 				break;
 			case 'right':
-				tooltip.style.left = currentLeft + ADJUSTMENT_FACTOR + 'px';
+        console.log(tooltip2.style.left);
+				tooltip2.style.left = `${moveAmounts.right}px`;
+        console.log(tooltip2.style.left);
+				break;
+			case 'down':
+				tooltip2.style.top = `${moveAmounts.down}px`;
 				break;
 		}
-	};
-
-	function initializeGrid(tooltips) {
-		const grid = [];
-		const gridSize = 10; // Adjust based on how granular you want the grid to be.
-
-    console.log(tooltips.length)
-
-		tooltips.forEach((tooltip) => {
-			const style = getComputedStyle(tooltip);
-
-			const position = {
-				left: parseInt(style.left, 10),
-				top: parseInt(style.top, 10)
-			};
-
-			const size = {
-				width: parseInt(style.width, 10),
-				height: parseInt(style.height, 10)
-			};
-
-			for (let y = position.top; y < position.top + size.height; y += gridSize) {
-				for (let x = position.left; x < position.left + size.width; x += gridSize) {
-					const key = `${Math.floor(x / gridSize)}-${Math.floor(y / gridSize)}`;
-					grid[key] = true;
-				}
-			}
-		});
-
-		return grid;
-	}
-
-	function checkOverlap(position, size, grid, gridSize = 10) {
-		for (let y = position.top; y < position.top + size.height; y += gridSize) {
-			for (let x = position.left; x < position.left + size.width; x += gridSize) {
-				const key = `${Math.floor(x / gridSize)}-${Math.floor(y / gridSize)}`;
-				if (grid[key]) return true;
-			}
-		}
-		return false;
-	}
-
-	function findClosestAvailableSpace(position, size, grid, gridSize = 10) {
-		let bestPosition = null;
-		let bestDistance = Infinity;
-
-		for (let y = 0; y < window.innerHeight; y += gridSize) {
-			for (let x = 0; x < window.innerWidth; x += gridSize) {
-				const testPosition = { left: x, top: y };
-				if (!checkOverlap(testPosition, size, grid, gridSize)) {
-					const distance = Math.sqrt(
-						Math.pow(position.left - testPosition.left, 2) +
-							Math.pow(position.top - testPosition.top, 2)
-					);
-
-					if (distance < bestDistance) {
-						bestDistance = distance;
-						bestPosition = testPosition;
-					}
-				}
-			}
-		}
-
-		return bestDistance < MAX_DISTANCE ? bestPosition : position;
 	}
 
 	function positionTooltips() {
-    console.log("HI");
-		const grid = initializeGrid(tooltips);
-		const gridSize = 10;
+		const tooltips = Array.from(document.querySelectorAll('.leaflet-tooltip'));
 
-    console.log("GRID", grid)
+		// 1. Sort the rectangles by the x-axis, topmost first.
+		tooltips.sort((a, b) => {
+			const rectA = a.getBoundingClientRect();
+			const rectB = b.getBoundingClientRect();
+			return rectA.top - rectB.top;
+		});
 
-		tooltips.forEach((tooltip) => {
-			const style = getComputedStyle(tooltip);
+		// 2. For each rectangle r1, top to bottom.
+		for (let i = 0; i < tooltips.length; i++) {
+			const r1 = tooltips[i];
 
-			const position = {
-				left: parseInt(style.left, 10),
-				top: parseInt(style.top, 10)
-			};
+			// 3. For every other rectangle r2 that might intersect with it.
+			for (let j = i + 1; j < tooltips.length; j++) {
+				const r2 = tooltips[j];
 
-			const size = {
-				width: parseInt(style.width, 10),
-				height: parseInt(style.height, 10)
-			};
-
-			const overlap = checkOverlap(position, size, grid, gridSize);
-      console.log("OVERLAP", overlap, tooltip.innerHTML)
-			if (overlap) {
-				const newSpace = findClosestAvailableSpace(position, size, grid, gridSize);
-				if (newSpace) {
-          console.log("NEWSPACE", newSpace)
-					tooltip.style.left = newSpace.left + 'px';
-					tooltip.style.top = newSpace.top + 'px';
-
-					for (let y = position.top; y < position.top + size.height; y += gridSize) {
-						for (let x = position.left; x < position.left + size.width; x += gridSize) {
-							const key = `${Math.floor(x / gridSize)}-${Math.floor(y / gridSize)}`;
-							grid[key] = false;
-						}
-					}
-
-					// Updating grid with new tooltip position
-					for (let y = newSpace.top; y < newSpace.top + size.height; y += gridSize) {
-						for (let x = newSpace.left; x < newSpace.left + size.width; x += gridSize) {
-							const key = `${Math.floor(x / gridSize)}-${Math.floor(y / gridSize)}`;
-							grid[key] = true;
-						}
-					}
+				// 4. If r1 and r2 intersect.
+				if (doTooltipsOverlap(r1, r2)) {
+					// 5-8. Resolve the collision.
+					resolveCollision(r1, r2);
 				}
 			}
-		});
+		}
 	}
-
 
 	onDestroy(async () => map && map.remove());
 </script>
