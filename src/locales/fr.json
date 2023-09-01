@@ -5,9 +5,6 @@
 	},
 	"about": {
 		"header": "À Propos",
-		"p1": "<strong>coinos</strong> est un portefeuille, point de vente, marché d'e-commerce et plateforme d'échange de bitcoin <strong>open source</strong>. Development a commencé en Vancouver le septembre de 2012 pour donner aux marchands du coin un façon pratique d'accepter des paiements en bitcoin.",
-		"p2": "Il a eu plus de fonctions au fil des ans pour satisfaire une grande variété de cas d'utilisation dans le but de pouvoir utiliser bitcoin rapidement, à bas prix, et en sécurité aussi façile que possible pour n'importe qui.",
-		"p3": "Tout le monde peux télécharger le code source et héberger leur propre instance de la plateforme soutenue par leur propres nœuds de bitcoin, liquid ou lightning, ou contactez-nous et nous l'installerons pour vous avec plaisir.",
 		"locations": {
 			"header": "Établissements",
 			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
@@ -19,30 +16,10 @@
 				"position": "Officier Technique Principal",
 				"bio": "Adam est développeur web et passionné de bitcoin.  Il croit que l'argent sûr est la clé pour augmenter la prospérité planétaire.  Il habite en Vancouver de Nord avec sa femme Chelsea et deux enfants."
 			},
-			"secondl1ght": {
-				"name": "secondl1ght",
-				"position": "Développeur Web",
-				"bio": "Secondl1ght est un développeur web autodidacte.  Il a découvert bitcoin et quitté son job de monnaie fiduciaire pour développer bitcoin à temps plein.  Il contribue aux projets open source, est défenseur de la vie privée, et il aime la liberté."
-			},
-			"karnage": {
-				"name": "Karnage",
-				"position": "Designer des Produits",
-				"bio": "Ma mission est d'aider les fondateurs des start-ups à réussir.  Je crée des produits pour achever cette mission.  Designe des produits pixel-parfait.  Aie-l'expédié."
-			},
-			"shauna": {
-				"name": "Shauna",
-				"position": "Gestion & Marketing",
-				"bio": "Gestion de projets et strategie.  Touche-à-tout.  Peut toujours trouver le temps pour racontrer pour café."
-			},
 			"cole": {
 				"name": "Cole Goodwin",
 				"position": "Professionel de Bitcoin",
 				"bio": "Cole est un professionel de bitcoin diplômé et un homme motivé avec passion pour la liberté.  Il a découvert bitcoin en 2016 et l'a etudié en détail.  Maintenant, il veux introduire le réseau Lightning à autant d'utilisateurs que possible."
-			},
-			"john": {
-				"name": "John Barratt",
-				"position": "Développeur Web Full-Stack",
-				"bio": "Quand il ne programme pas, vous pouvez trouver John en forêt randonnant sur les sentiers de Colombie-Britannique."
 			}
 		}
 	},
@@ -88,14 +65,6 @@
 		"bitcoin": {
 			"question": "Que puis-je faire avec le Bitcoin?",
 			"answer": "Dépensez-le chez d'autres commerçants ou payez vos dépenses avec en incitant votre personnel, vos fournisseurs et votre propriétaire à l'accepter."
-		},
-		"training": {
-			"question": "Qu'est-ce que mon personnel dois savoir?",
-			"answer": "Quand vos clients veux payer avec Bitcoin, votre personnel doit l'entrer comme vente d'argent liquide. Si vous utilisez une imprimante pour recevoir des notifications de paiement, mettez les reçus en la caisse et totalez-les au fin du jour. Si vous utilisez une tablette, le personelle doit être comfortable entrer une quantité de vente pour générer une demande de paiement. Vous pouvez tourner la tablette à votre client pour ajouter un pourboire facultativement et en suite scanner la code QR qui apparaît sur l'écran. Chercher pour une coche verte pour indiquer quand le paiement est reçu."
-		},
-		"refunds": {
-			"question": "Les remboursements alors?",
-			"answer": "Si un client envoie une mauvaise quantité ou a besoin d'un remboursement pour une autre raison, vous pouvez le demander de donner une facture ou addresse lightning et l'envoyer un paiement de l'appli."
 		}
 	},
 	"footer": {
@@ -106,7 +75,6 @@
 		"telegram": "Telegram",
 		"support": "Assistance",
 		"jobs": "Jobs",
-		"news": "Nouvelles",
 		"linktree": "Linktree",
 		"documentation": "Documentation"
 	},
@@ -169,7 +137,6 @@
 		"support": "Assistance",
 		"profile": "Profil"
 	},
-	"newSiteHeader": "Bienvenue sur <a href=\"/news\" class=\"underline underline-offset-4 text-black hover:opacity-80\">coinos nouveau et amélioré</a>, focalisé sur les marchants! Vous cherchez l'ancien coinos? Visitez <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>.",
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
 		"addTipq": "Ajouter un pourboire?",
@@ -194,11 +161,8 @@
 		"dashboard": {
 			"dashboard": "Tableau de bord",
 			"accountBalance": "Solde",
-			"bitcoinPrice": "Prix de bitcoin:",
 			"conversionFeeWarning": "Il y a des frais de 1% pour convertir entre bitcoin, Liquid et Lightning.",
-			"dataFromBinance": "Données de <span class=\"text-black\">Binance</span>.",
 			"fetchingRate": "cherchant taut de change...",
-			"optionalNote": "Note (optionel)",
 			"send": "Envoie",
 			"withdraw": "Retire",
 			"go": "Allez",
@@ -289,48 +253,9 @@
 		"notes": "Notes",
 		"pay": "Payer"
 	},
-	"transactions": {
-		"header": "Histoire des Transactions",
-		"AMOUNT": "QUANTITÉ",
-		"TYPE": "TYPE",
-		"TIME": "HEURE",
-		"sent": "Envoyé",
-		"received": "Recevé",
-		"empty": "Vous n'avez pas des transactions.",
-		"send": "Envoie",
-		"next": "Prochain",
-		"sendersChoice": "Choix d'envoyeur",
-		"sendTo": "Envoie à",
-		"to": "à",
-		"pay": "Payez",
-		"requesting": "demande",
-		"sentInvoiceTo": "a envoyé une facture à",
-		"sentRequestTo": "a envoyé une demande à",
-		"pleasePay": "S'il vous plaît payez",
-		"day": "Jour",
-		"week": "Semaine",
-		"month": "Mois",
-		"all": "Tout",
-		"export": "Exportez",
-		"invoice": "Facture",
-		"readyToPay": "est prêt à payer",
-		"describeOrder": "Utiliser ce champ pour décrire votre commande",
-		"requestAnInvoice": "Demandez une facture",
-		"submit": "Soumettre",
-		"isRequesting": "demande",
-		"invoiceFrom": "Facture de",
-		"awaiting": "Attendez pour",
-		"tapAnywhere": "Tapez n'importe où",
-		"from": "de",
-		"redeem": "Échangez",
-		"redeemed": "Déjà échangé",
-		"redeemedBy": "Échangé par",
-		"sendMessage": "Message"
-	},
 	"news": {
 		"header": "Nouvelles",
-		"subheader": "Dernières Informations",
-		"update1": ""
+		"subheader": "Dernières Informations"
 	},
 	"payments": {
 		"moneyPot": "Pot d'argent",
