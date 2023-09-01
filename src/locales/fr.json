@@ -88,6 +88,14 @@
 		"bitcoin": {
 			"question": "Que puis-je faire avec le Bitcoin?",
 			"answer": "Dépensez-le chez d'autres commerçants ou payez vos dépenses avec en incitant votre personnel, vos fournisseurs et votre propriétaire à l'accepter."
+		},
+		"training": {
+			"question": "Qu'est-ce que mon personnel dois savoir?",
+			"answer": "Quand vos clients veux payer avec Bitcoin, votre personnel doit l'entrer comme vente d'argent liquide. Si vous utilisez une imprimante pour recevoir des notifications de paiement, mettez les reçus en la caisse et totalez-les au fin du jour. Si vous utilisez une tablette, le personelle doit être comfortable entrer une quantité de vente pour générer une demande de paiement. Vous pouvez tourner la tablette à votre client pour ajouter un pourboire facultativement et en suite scanner la code QR qui apparaît sur l'écran. Chercher pour une coche verte pour indiquer quand le paiement est reçu."
+		},
+		"refunds": {
+			"question": "Les remboursements alors?",
+			"answer": "Si un client envoie une mauvaise quantité ou a besoin d'un remboursement pour une autre raison, vous pouvez le demander de donner une facture ou addresse lightning et l'envoyer un paiement de l'appli."
 		}
 	},
 	"footer": {
@@ -98,7 +106,9 @@
 		"telegram": "Telegram",
 		"support": "Assistance",
 		"jobs": "Jobs",
-		"news": "Nouvelles"
+		"news": "Nouvelles",
+		"linktree": "Linktree",
+		"documentation": "Documentation"
 	},
 	"howItWorks": {
 		"header": "Comment cela Fonctionne",
@@ -237,7 +247,14 @@
 			"select": "Choisir",
 			"verifyPIN": "Verifiez votre NIP",
 			"enablePIN": "Activer NIP",
-			"disablePIN": "Désactiver NIP"
+			"disablePIN": "Désactiver NIP",
+			"saveSettings": "Sauvegarder Paramètres",
+			"tipPrompt": "Demande pour Pourboires",
+			"tipPromptDescription": "Demander les gens s'ils voulent ajouter un pourboire avant payer leurs factures",
+			"displayName": "Nom d'Utilisateur",
+			"minutes": "minutes",
+			"hour": "heure",
+			"hours": "heures"
 		},
 		"support": {
 			"header": "Assistance",
@@ -260,7 +277,17 @@
 			"paste": "Collez",
 			"next": "Prochain",
 			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos"
-		}
+		},
+		"requestPayment": "Demander un Paiement",
+		"welcome": "Bienvenue! Le solde de votre conte est vide. Vous pouvez commencer par déposer ou recevoir un paiement.",
+		"showBalance": "Montrer Solde",
+		"followers": "Abonnés",
+		"noNotes": "Pas de notes",
+		"message": "Envoyer",
+		"messages": "Messages",
+		"feed": "Flux",
+		"notes": "Notes",
+		"pay": "Payer"
 	},
 	"transactions": {
 		"header": "Histoire des Transactions",
@@ -304,5 +331,60 @@
 		"header": "Nouvelles",
 		"subheader": "Dernières Informations",
 		"update1": ""
+	},
+	"payments": {
+		"moneyPot": "Pot d'argent",
+		"addFunds": "Ajouter d'argent",
+		"takeFunds": "Prendre d'argent",
+		"show": "Démontrer",
+		"hide": "Cacher",
+		"qr": "QR",
+		"copyLink": "Copier le Lien",
+		"copyText": "Copier le Texte",
+		"openLink": "Ouvrer le Portefeuille",
+		"moreOptions": "Plus d'options",
+		"total": "Total",
+		"gainLoss": "Hausse/Perte",
+		"presentValue": "Valuer au présent",
+		"amount": "Quantité",
+		"date": "Date",
+		"id": "ID de Transaction",
+		"details": "Détails de Transaction",
+		"header": "Paiements",
+		"preimage": "Preuve de paiement",
+		"type": "Type",
+		"time": "Heure",
+		"sent": "Envoyé",
+		"received": "Reçu",
+		"empty": "Vous n'avez pas de transactions.",
+		"send": "Envoyer",
+		"next": "Prochain",
+		"sendTo": "Envoyer à",
+		"to": "à",
+		"pay": "Payer",
+		"requesting": "demande",
+		"sentInvoiceTo": "Envoyé une facture à",
+		"sentRequestTo": "Demande envoyé!",
+		"pleasePay": "S'il vous plait payez",
+		"day": "Jour",
+		"week": "Semaine",
+		"month": "Mois",
+		"all": "Toutes",
+		"export": "Exporter",
+		"invoice": "Facture",
+		"readyToPay": "est prêt a payer",
+		"describeOrder": "Utiliser ce champ pour décrire votre commande",
+		"requestAnInvoice": "Demander une facture",
+		"submit": "Soumettre",
+		"isRequesting": "demande",
+		"invoiceFrom": "Facture de",
+		"awaiting": "Attendant",
+		"tapAnywhere": "Taper n'importe où pour continuer",
+		"from": "de",
+		"redeem": "Racheter",
+		"redeemed": "Racheté",
+		"redeemedBy": "Racheté par",
+		"sendMessage": "Écrire une message...",
+		"fundsClaimed": "Les fonds sont réclamés!"
 	}
 }
