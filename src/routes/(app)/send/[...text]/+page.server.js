@@ -41,9 +41,7 @@ let parse = async (t, host) => {
 			({ id } = await get(`/invoice/${t}`));
 		} catch (e) {
 			throw redirect(307, `/send/lightning/${t}`);
-		}
-
-		if (id) throw redirect(307, `/send/${id}`);
+      }
 	}
 
 	// bitcoin
