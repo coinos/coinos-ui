@@ -85,7 +85,7 @@
 				</button>
 				<button
 					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          on:click={() => copy($page.url.pathname)}
+          on:click={() => copy($page.url.host + $page.url.pathname)}
 				>
 					<Icon icon="copy" style="w-6" />
           {$t('payments.copyLink')}
