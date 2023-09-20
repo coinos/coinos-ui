@@ -1,4 +1,4 @@
-export async function GET({ params, url }) {
+export async function GET({ cookies, params, url }) {
 	let { username } = params;
 
 	let js = `
@@ -76,7 +76,8 @@ window.addEventListener('load', async () => {
 		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json',
-			accept: 'application/json'
+			accept: 'application/json',
+      authorization: 'Bearer ${cookies.get('token')}'
 		},
 		body: JSON.stringify({
 			invoice: {
