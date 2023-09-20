@@ -6,6 +6,7 @@ var qrcode=function(r,_){var t=r,e=QRErrorCorrectLevel[_],n=null,$=0,o=null,a=[]
 
 
 window.addEventListener('load', async () => {
+  let sleep = (n) => new Promise((r) => setTimeout(r, n));
   let wait = async (f, n = 100, s = 300) => {
     let i = 0;
     while (!(await f()) && i < s) (await sleep(n)) && i++;
@@ -77,7 +78,6 @@ window.addEventListener('load', async () => {
 		headers: {
 			'Content-Type': 'application/json',
 			accept: 'application/json',
-      authorization: 'Bearer ${cookies.get('token')}'
 		},
 		body: JSON.stringify({
 			invoice: {
