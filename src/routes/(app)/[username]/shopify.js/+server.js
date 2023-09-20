@@ -14,7 +14,7 @@ window.addEventListener('load', async () => {
     return f();
   };
 
-  await wait(() => ["coinos", "bitcoin", "btc", "btcpayserver", "btcpay server"].filter(value => document.querySelector(".payment-method-list__item__info").innerText.toLowerCase().indexOf(value) !== -1).length === 0);
+  await wait(() => ["coinos", "bitcoin", "btc", "btcpayserver", "btcpay server"].some(v => ~(document.querySelector(".payment-method-list__item__info").innerText.toLowerCase().indexOf(v))));
 
 	let sat = (s) => {
 		s = Math.abs(s);
@@ -72,7 +72,7 @@ window.addEventListener('load', async () => {
 	main.style.fontFamily = 'Public Sans, sans-serif';
 	main.innerHTML = 'Please Pay';
 
-	let data = await fetch('${url.protocol}//${url.host}/api/invoice', {
+	let data = await fetch('https://${url.host}/api/invoice', {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -83,7 +83,7 @@ window.addEventListener('load', async () => {
 			invoice: {
 				fiat,
 				type: 'lightning',
-				webhook: \`${url.protocol}//${url.host}/api/shopify/\${Shopify.checkout.order_id}\`
+				webhook: \`https://${url.host}/api/shopify/\${Shopify.checkout.order_id}\`
 			},
 			user: { username: '${username}' }
 		})
@@ -154,7 +154,7 @@ window.addEventListener('load', async () => {
 			let { type, data: d } = JSON.parse(data);
 			if (type === 'payment') {
 				main.innerHTML =
-					'<img id="check" src="${url.protocol}//${url.host}/icons/check.svg" alt="Check" />' +
+					'<img id="check" src="https://${url.host}/icons/check.svg" alt="Check" />' +
 					\`<h1>Payment received!</h1>
             <h2>
             \${((d.amount * d.rate) / 100000000).toFixed(2)} CAD
