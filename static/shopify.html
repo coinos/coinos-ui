@@ -1,0 +1,167 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+	window.addEventListener('load', async () => {
+		let sat = (s) => {
+			s = Math.abs(s);
+			let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);
+			let d = Math.floor((p + 1) / 3);
+
+			return (
+				'⚡️' +
+				(parseInt(s) > 0
+					? new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(
+							s / Math.pow(1000, d)
+					  ) + ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'][d]
+					: 0
+				).toString()
+			);
+		};
+
+		let copy = (text) => {
+			navigator.clipboard.writeText(text);
+		};
+
+		let f = (s, currency) =>
+			new Intl.NumberFormat('en-US', {
+				style: 'currency',
+				currency
+			})
+				.format(s)
+				.replace('CA', '');
+
+		let s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
+
+		let {
+			default: { drawImg }
+		} = await import('https://coinos.io/qr.js');
+		let base64 = drawImg('test', { size: 300 });
+
+		let link = document.createElement('link');
+		link.setAttribute('rel', 'stylesheet');
+		link.setAttribute('type', 'text/css');
+		link.setAttribute(
+			'href',
+			'https://fonts.googleapis.com/css?family=Public+Sans:400italic,400,300,700'
+		);
+
+		var style = document.createElement('style');
+		style.innerHTML = `#check {
+        transform: scale(0.5);
+        transition: transform 1s;
+      }
+    `;
+		document.head.appendChild(style);
+
+		document.head.appendChild(link);
+		document.title = 'Pay With Bitcoin';
+
+		let fiat = Shopify.checkout.payment_due;
+		let main = document.querySelector('main');
+		main.style.fontFamily = 'Public Sans, sans-serif';
+		main.innerHTML = 'Please Pay';
+
+		let data = await fetch('https://dev.coinos.io/api/invoice', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				accept: 'application/json'
+			},
+			body: JSON.stringify({
+				invoice: {
+					fiat,
+					type: 'lightning',
+					webhook: `https://dev.coinos.io/api/shopify/${Shopify.checkout.order_id}`
+				},
+				user: { username: 'horseradish' }
+			})
+		})
+			.then(function (response) {
+				return response.json();
+			})
+			.catch(console.log);
+
+		main.innerHTML = `<a href="lightning:${data.hash}">
+      <div style="display: flex; margin-top: 50px; margin-bottom: 80px; position: relative;">
+        <img id="qrcode" src="${base64}" />
+        <div id="bg"></div>
+      </div>
+    </a>
+    <div style="width: 100%; text-align: center; ">
+      <div style="font-size: 24px; font-weight: bold; margin-bottom: 12px;">${f(
+				(data.amount * data.rate) / 100000000,
+				data.currency
+			)}</div>
+      <div style="color: #666; font-size: 18px;">${sat(data.amount)}</div>
+    </div>
+    <div style="text-align: center; margin: 40px auto; max-width: 460px; word-break: break-all; line-height: 1.5rem">${
+			data.hash
+		}</div>
+    <div style="margin: 20px 0; display: flex; gap: 1rem; justify-content: center; align-items: center;">
+      <a href="lightning:${data.hash}" style="text-decoration: none">
+      <div style="color: #999; font-size: 18px; border-radius: 9999px; padding: 0.5rem 1rem; border: 1px solid #ccc; background: white;">Open</div>
+      </a>
+
+      <a id="copy" href="#" style="text-decoration: none">
+      <div style="color: #999; font-size: 18px; border-radius: 9999px; padding: 0.5rem 1rem; border: 1px solid #ccc; background: white;">Copy</div></a>
+    </div>
+    `;
+
+		let copyButton = document.getElementById('copy');
+		copyButton.addEventListener('click', (e) => {
+			e.preventDefault();
+			copy(data.hash);
+			let copied = document.createElement('div');
+			copied.textContent = 'Copied!';
+			main.appendChild(copied);
+			setTimeout(() => copied.remove(), 3000);
+		});
+
+		let qr = document.getElementById('qrcode');
+		qr.style.margin = 'auto';
+		qr.style.marginTop = '40px';
+		qr.style.border = '12px white solid';
+		qr.style.zIndex = 10;
+
+		new QRCode(qr, data.hash);
+
+		let bg = document.getElementById('bg');
+		bg.style.position = 'absolute';
+		bg.style.margin = 'auto';
+		bg.style.left = '0';
+		bg.style.right = '0';
+		bg.style.width = '400px';
+		bg.style.height = '400px';
+		bg.style.borderRadius = '50%';
+		bg.style.background = 'linear-gradient(to right, #F2F6FC, #E1E3FF)';
+		bg.style.zIndex = '0';
+
+		let ws = new WebSocket('wss://dev.coinos.io/ws');
+		ws.onmessage = ({ data }) => {
+			try {
+				let { type, data: d } = JSON.parse(data);
+				if (type === 'payment') {
+					main.innerHTML =
+						'<img id="check" src="https://dev.coinos.io/icons/check.svg" alt="Check" />' +
+						`<h1>Payment received!</h1>
+            <h2>
+            ${((d.amount * d.rate) / 100000000).toFixed(2)} CAD
+            </h2>
+            <h3>
+            ⚡️${d.amount}
+            </h3>`;
+
+					var image = document.getElementById('check');
+					image.addEventListener('load', function () {
+						image.style.transform = 'scale(1)';
+					});
+				}
+			} catch (e) {
+				console.log(e);
+			}
+		};
+		ws.onopen = () => {
+			ws.send(JSON.stringify({ type: 'subscribe', data }));
+		};
+	});
+</script>
