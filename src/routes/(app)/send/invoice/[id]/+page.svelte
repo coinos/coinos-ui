@@ -1,16 +1,16 @@
 <script>
 	import { onDestroy, onMount } from 'svelte';
 	import { t } from '$lib/translations';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { pin } from '$lib/store';
 	import { enhance } from '$app/forms';
 	import { Avatar, Icon, Numpad, Spinner } from '$comp';
 	import { page } from '$app/stores';
-	import { back, f, fiat as toFiat, s, sats } from '$lib/utils';
+	import { post, back, f, fiat as toFiat, s, sats } from '$lib/utils';
 	export let data;
 	export let form;
 
-	let { address, rate, payreq, recipient, tip, rates, user } = data;
+	let { address, hash, rate, payreq, recipient, tip, rates, user } = data;
 	let { currency } = user;
 
 	let amount = form?.amount || data.amount;
@@ -27,6 +27,15 @@
 	let loading;
 	let submit = () => (loading = true);
 
+	let external = async () => {
+		let invoice = { type: 'lightning', amount };
+		let { hash } = await post(`/${recipient.username}/invoice`, {
+			invoice
+		});
+
+		goto(`/${recipient.username}/invoice/${hash}`, { invalidateAll: true });
+	};
+
 	$: rate = data.rate * (rates[user.currency] / rates[data.currency]);
 
 	$: update(form);
@@ -35,24 +44,24 @@
 		loading = false;
 	};
 
-	onMount(async () => {
-		if (browser && window.NDEFReader) {
-			try {
-				let ndef = new NDEFReader();
-				await ndef.scan();
-
-				ndef.addEventListener('readingerror', (e) => {
-					console.log('nfc error', e);
-				});
-
-				ndef.addEventListener('reading', ({ message, serialNumber }) => {
-					console.log(message, serialNumber);
-				});
-			} catch (e) {
-				console.log('NFC error', e);
-			}
-		}
-	});
+	// onMount(async () => {
+	// 	if (browser && window.NDEFReader) {
+	// 		try {
+	// 			let ndef = new NDEFReader();
+	// 			await ndef.scan();
+	//
+	// 			ndef.addEventListener('readingerror', (e) => {
+	// 				console.log('nfc error', e);
+	// 			});
+	//
+	// 			ndef.addEventListener('reading', ({ message, serialNumber }) => {
+	// 				console.log(message, serialNumber);
+	// 			});
+	// 		} catch (e) {
+	// 			console.log('NFC error', e);
+	// 		}
+	// 	}
+	// });
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -130,4 +139,7 @@
 			{/if}
 		</div>
 	</form>
+  <div class="flex my-20">
+    <button class="mx-auto" on:click={external}>{$t('payments.moreOptions')}</button>
+  </div>
 </div>

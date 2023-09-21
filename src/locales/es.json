@@ -31,21 +31,45 @@
 		"message": "Vuelva a intentarlo o póngase en contacto con el soporte.",
 		"signIn": "Por favor inicie sesión para continuar."
 	},
-	"faq": {
-		"header": "Preguntas frecuentes",
-		"cost": {
-			"question": "¿Cuánto cuesta?",
-			"answer": "Registrar una cuenta y recibir pagos a través de Red Lightning es gratis. Cobramos una tarifa del 0,1% por convertir de lightning a bitcoin."
-		},
-		"compatibility": {
-			"question": "¿Necesito algún dispositivo o software especial?",
-			"answer": "No. Swapee es una aplicación web, por lo que siempre que tenga conexión a Internet, podrá usarlo desde cualquier dispositivo. Las tiendas minoristas pueden usarlo desde un teléfono o una tableta."
-		},
-		"safety": {
-			"question": "¿Cuándo se liquidan mis fondos?",
-			"answer": "Los pagos en Red Lightning se liquidan al instante. Puede retirar su saldo a otra billetera o exchange inmediatamente después de recibir el pago."
-		}
-	},
+  "faq": {
+    "header": "FAQ",
+    "why": {
+      "question": "¿Por qué aceptar Bitcoin?",
+      "answer": "Con Bitcoin, los comerciantes ahorran en comisiones, los consumidores obtienen privacidad y los ahorradores ganan poder adquisitivo. Promocionaremos tu negocio a una comunidad entusiasta que prefiere comprar en lugares que aceptan Bitcoin."
+    },
+    "cost": {
+      "question": "¿Cuánto cuesta?",
+      "answer": "Recibir pagos en tu cuenta es gratis. Las retiradas a carteras externas incurren en una pequeña tarifa que varía según las condiciones de la red. Cobramos el 0.1% para convertir entre Bitcoin lightning y on-chain. Enviar a otras cuentas de Swapee es gratis."
+    },
+    "individuals": {
+      "question": "¿Quién puede usarlo?",
+      "answer": "Cualquiera, en cualquier parte del mundo. Swapee es adecuado para individuos y negocios."
+    },
+    "compatibility": {
+      "question": "¿Necesito algún dispositivo o software especial?",
+      "answer": "No, Swapee es una aplicación web que funciona en cualquier lugar que tenga Internet. Los comerciantes pueden usarla en una tableta o mostrar un código QR para que los clientes lo escaneen con sus teléfonos."
+    },
+    "safety": {
+      "question": "¿Cuándo se liquidan mis fondos?",
+      "answer": "Los pagos lightning se liquidan al instante. Puedes retirar tu saldo a otra cartera en segundos. Los depósitos en cadena tardan en promedio de 5 a 10 minutos en confirmarse."
+    },
+    "pos": {
+      "question": "¿Puede Swapee integrarse con mi PoS existente?",
+      "answer": "Recomendamos ingresar las ventas en tu PoS existente como transacciones en efectivo."
+    },
+    "accounting": {
+      "question": "¿Qué pasa con la contabilidad?",
+      "answer": "Mostramos todos los pagos en términos de tu moneda local y te permitimos filtrar por fecha para que puedas informar tus ingresos como de costumbre. Puedes exportar tu historial de cuenta a un archivo csv. Si vendes Bitcoin con beneficio, es posible que desees informar las ganancias de capital."
+    },
+    "offramp": {
+      "question": "¿Puedo convertir el Bitcoin que recibo a mi moneda local?",
+      "answer": "Puedes retirar tus fondos en cualquier momento a un exchange o correduría para vender tu Bitcoin y recibir una transferencia bancaria. Es posible que estemos dispuestos a proporcionar liquidación directa a través de e-transferencia a comerciantes canadienses seleccionados."
+    },
+    "bitcoin": {
+      "question": "¿Qué puedo hacer con Bitcoin?",
+      "answer": "Gástalo en otros comerciantes o paga tus gastos con él al conseguir que tu personal, proveedores y arrendador lo acepten."
+    }
+  },
 	"footer": {
 		"company": "Empresa",
 		"followUs": "Síguenos",

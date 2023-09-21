@@ -13,12 +13,11 @@
 	let loaded;
 	let gen = async () => {
 		if (!browser) return;
+
     if (user.pubkey) {
       goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
       return;
     } 
-
-		setTimeout(() => (loaded = true), 50);
 
 		if (!$password) $passwordPrompt = true;
 
@@ -51,9 +50,7 @@
 		}
 	};
 
-	onMount(async () => {
-		await gen();
-	});
+	onMount(() => browser && setTimeout(() => (loaded = true) && gen(), 50));
 
 	$: $pin?.length === 6 && gen(user);
 </script>
@@ -61,3 +58,6 @@
 {#if loaded && user?.haspin && $pin?.length !== 6}
 	<Pin />
 {/if}
+{loaded}
+{JSON.stringify(user)}
+{$pin}
