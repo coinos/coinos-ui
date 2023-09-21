@@ -97,7 +97,6 @@
 						name="username"
 						type="text"
 						required
-						class="bg-primary"
 						bind:value={username}
 						use:focus
 						autocapitalize="none"
@@ -111,7 +110,6 @@
 							name="password"
 							type="text"
 							required
-							class="bg-primary"
 							bind:value={$password}
 							autocapitalize="none"
 						/>
@@ -120,7 +118,6 @@
 							name="password"
 							type="password"
 							required
-							class="bg-primary"
 							bind:value={$password}
 							autocapitalize="none"
 						/>
