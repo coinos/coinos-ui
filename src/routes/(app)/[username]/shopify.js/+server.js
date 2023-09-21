@@ -148,20 +148,24 @@ window.addEventListener('load', async () => {
 	bg.style.background = 'linear-gradient(to right, #F2F6FC, #E1E3FF)';
 	bg.style.zIndex = '0';
 
-	let ws = new WebSocket('wss://dev.coinos.io/ws');
+	let ws = new WebSocket('wss://${url.host}/ws');
 	ws.onmessage = ({ data }) => {
 		try {
 			let { type, data: d } = JSON.parse(data);
 			if (type === 'payment') {
 				main.innerHTML =
 					'<img id="check" src="https://${url.host}/icons/check.svg" alt="Check" />' +
-					\`<h1>Payment received!</h1>
-            <h2>
-            \${((d.amount * d.rate) / 100000000).toFixed(2)} CAD
-            </h2>
-            <h3>
-            ⚡️\${d.amount}
-            </h3>\`;
+					\`
+
+          <h1>Payment received!</h1>
+
+          <div style="width: 100%; text-align: center; ">
+            <div style="font-size: 24px; font-weight: bold; margin-bottom: 12px;">\${f(
+              (d.amount * d.rate) / 100000000,
+              d.currency
+            )}</div>
+            <div style="color: #666; font-size: 18px;">\${sat(d.amount)}</div>
+          </div>\`;
 
 				var image = document.getElementById('check');
 				image.addEventListener('load', function () {
