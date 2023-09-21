@@ -1,9 +1,10 @@
 <script>
 	import { RegisterOrLogin } from '$comp';
 	import { onMount } from 'svelte';
-	import { pin } from '$lib/store';
+	import { animatedRate, pin } from '$lib/store';
 
 	onMount(() => {
+    $animatedRate = 0;
 		$pin = undefined;
 		localStorage.clear();
 		sessionStorage.clear();

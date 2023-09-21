@@ -25,13 +25,7 @@
 	let toggle = () => (show = !show);
 </script>
 
-<div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
-	<div class="w-full flex">
-		<a href="/" class="mx-auto">
-			<Icon icon="logo" />
-		</a>
-	</div>
-
+<div class="container px-4 max-w-4xl mx-auto mt-10 space-y-5">
 	<div class="flex justify-center items-center">
 		<div class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5">
 			<div class="relative flex justify-center gap-2">
@@ -39,20 +33,15 @@
         {#if name.split('-').length === 4}
           <h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
 				{:else}
-					<img src="/images/moneypot.jpg" class="w-24" />
-					<h1 class="text-2xl md:text-3xl font-semibold my-auto">Money Pot</h1>
+					<img src="/images/moneypot.jpg" class="w-24" alt="Pot" />
+          <div class="my-auto">
+            <h1 class="text-2xl font-semibold my-auto">{$t('payments.moneyPot')}</h1>
+          <h1 class="text-secondary my-auto">{name}</h1>
+          </div>
 				{/if}
 			</div>
-			<p class="text-secondary text-center">
-				Anyone who knows the URL to this page can add or take out funds from the pot
-			</p>
 			{#if show}
 				<img {src} class="mx-auto" alt={name} />
-
-				<button class="flex mx-auto mt-5" on:click={() => copy($page.url.pathname)}
-					><Icon icon="copy" style="w-10 max-w-none" />
-					<div class="my-auto">Copy</div></button
-				>
 			{/if}
 			<div class="flex justify-center gap-4">
 				<div class="my-auto">
@@ -71,7 +60,7 @@
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
 							<Icon icon="plus" />
-							Add funds
+              {$t('payments.addFunds')}
 						</button>
 					</a>
 				</div>
@@ -81,7 +70,7 @@
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
 							<Icon icon="minus" style="rotate-180" />
-							Take funds
+              {$t('payments.takeFunds')}
 						</button>
 					</a>
 				</div>
@@ -92,14 +81,15 @@
 					on:click={toggle}
 				>
 					<Icon icon="qr" style="invert" />
-					{show ? 'Hide' : 'Show'} QR
+					{show ? $t('payments.show') : $t('payments.hide')} QR
 				</button>
-				<!-- <button -->
-				<!-- 	class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center" -->
-				<!-- > -->
-				<!-- 	<Icon icon="nfc" style="w-6" /> -->
-				<!-- 	Write Tag -->
-				<!-- </button> -->
+				<button
+					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
+          on:click={() => copy($page.url.host + $page.url.pathname)}
+				>
+					<Icon icon="copy" style="w-6" />
+          {$t('payments.copyLink')}
+				</button>
 			</div>
 			<div class="text-base">
 				{#each payments as p}

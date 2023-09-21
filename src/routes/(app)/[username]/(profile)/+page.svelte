@@ -87,7 +87,7 @@
 				<div class="space-y-8 mt-8">
 			{#if !user.balance}
 					<p class="text-secondary text-lg">
-          {$t("user.welcome")}
+						{$t('user.welcome')}
 					</p>
       {/if}
 
@@ -119,6 +119,43 @@
 							</a>
 					</div>
 				</div>
+			{/if}
+
+			<div class="flex flex-wrap gap-4 justify-center w-full">
+				<a href={`/${user.username}/receive`} class="w-full md:w-60">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full md:w-60">
+						<div class="mx-auto flex">
+							<Icon icon="numpad" style="my-auto h-6 mr-2" />
+							<div class="my-auto mt-1">{$t('user.requestPayment')}</div>
+						</div>
+					</button>
+				</a>
+				<a href={`/scan`} class="w-full md:w-60">
+					<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full md:w-60">
+						<div class="mx-auto flex">
+							<Icon icon="scan" style="my-auto h-6 mr-2" />
+							<div class="my-auto mt-1">{$t('user.send.scan')}</div>
+						</div>
+					</button>
+				</a>
+
+				{#if user.eligible}
+					<a href={`/buy`}>
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+							<div class="mx-auto flex">
+								<!-- <Icon icon="plus" style="my-auto h-6 mr-2" /> -->
+
+								<img
+									src="/images/bitcoin.svg"
+									class="w-8 border-4 border-transparent mr-2"
+									alt="Bitcoin"
+								/>
+								<div class="my-auto mt-1">Buy Bitcoin</div>
+							</div>
+						</button>
+					</a>
+				{/if}
+			</div>
 		</div>
 	{/if}
 

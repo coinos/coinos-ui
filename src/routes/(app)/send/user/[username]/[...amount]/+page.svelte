@@ -12,6 +12,7 @@
 
 	let { subject, rate, rates, user } = data;
 	let currency = user.currency || subject.currency || 'USD';
+	let next;
 
 	let amount = form?.amount || data.amount;
 	let a,
@@ -59,7 +60,14 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
-	<Numpad bind:amount={a} bind:amountFiat={af} {currency} bind:fiat bind:rate={r} />
+	<Numpad
+		bind:amount={a}
+		bind:amountFiat={af}
+		{currency}
+		bind:fiat
+		bind:rate={r}
+		bind:submit={next}
+	/>
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="amount" value={amount} type="hidden" />
@@ -82,8 +90,10 @@
 			{:else}
 				<button
 					type="button"
+					bind:this={next}
 					class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
 					on:click={setAmount}
+					on:keydown={setAmount}
 				>
 					Next
 				</button>

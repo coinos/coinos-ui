@@ -12,8 +12,8 @@
 			"header": "The Team",
 			"adam": {
 				"name": "Adam Soltys",
-				"position": "Chief Technical Officer",
-				"bio": "Adam is a web developer and bitcoin enthusiast who believes sound money is key to increasing global prosperity. He lives in North Vancouver with his wife Chelsea and two children."
+				"position": "Founder and CTO",
+				"bio": "Adam is a software engineer who believes that the adoption of sound money will drive global prosperity. He lives in North Vancouver with his wife, daughter, and son."
 			},
 			"cole": {
 				"name": "Cole",
@@ -33,9 +33,17 @@
 	},
 	"faq": {
 		"header": "FAQ",
+		"why": {
+			"question": "Why accept Bitcoin?",
+			"answer": "With Bitcoin, merchants save on fees, consumers gain privacy and savers gain purchasing power. We'll promote your business to an enthusiastic community that prefers to shop at places that take Bitcoin."
+    },
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."
+			"answer": "Receiving payments into your account is free. Withdrawals to external wallets incur a small fee that varies depending on network conditions. We charge 0.1% to convert between lightning and on-chain Bitcoin. Sending to other Coinos accounts is free."
+		},
+		"individuals": {
+			"question": "Who can use it?",
+			"answer": "Anyone, anywhere in the world. Coinos is suitable for individuals and businesses."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
@@ -43,8 +51,24 @@
 		},
 		"safety": {
 			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet or exchange immediately once funds are received."
-		}
+			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet within seconds. On-chain deposits take 5-10 minutes to confirm on average."
+		},
+    "pos": {
+      "question": "Can Coinos integrate with my existing PoS?",
+      "answer": "We recommend entering sales into your existing PoS as cash transactions."
+    },
+    "accounting": {
+      "question": "What about accounting?",
+      "answer": "We display all payments in terms of your local currency and let you filter by date so you can report your income as normal. You can export your account history to a csv file. If you sell Bitcoin for a profit you may wish to report capital gains."
+    },
+    "offramp": {
+      "question": "Can I convert the Bitcoin I receive to my local currency?",
+      "answer": "You can withdraw your funds at any time to an exchange or brokerage to sell your Bitcoin and receive a bank transfer. We may be willing to provide direct settlement via e-transfer to select Canadian merchants."
+    },
+    "bitcoin": {
+      "question": "What can I do with Bitcoin?",
+      "answer": "Spend it at other merchants or pay your expenses with it by getting your staff, suppliers and landlord to take it."
+    }
 	},
 	"footer": {
 		"company": "Company",
@@ -69,7 +93,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Spend your coin immediately or save it and watch it grow, the choice is yours."
+			"description": "Spend your coin immediately or watch it grow in value."
 		}
 	},
 	"invoice": {
@@ -93,10 +117,10 @@
 		"header_before_icon": "The",
 		"header_with_icon": "easiest",
 		"header_after_icon": "way to get started with bitcoin.",
-		"subheader": "A simple but powerful web wallet for everyone. No software or hardware required.",
+		"subheader": "A free web wallet and payment page for everyone.",
 		"info1": {
 			"title": "Instant payments via Lightning",
-			"description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% credit card processing fees."
+			"description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% card fees."
 		},
 		"info2": {
 			"title": "Simple to use",
@@ -237,6 +261,16 @@
 		}
 	},
 	"payments": {
+    "moneyPot": "Money Pot",
+    "addFunds": "Add Funds",
+    "takeFunds": "Take Funds",
+    "show": "Show",
+    "hide": "Hide",
+    "qr": "QR",
+    "copyLink": "Copy Link",
+    "copyText": "Copy Text",
+    "openLink": "Open Wallet",
+    "moreOptions": "More options",
     "total": "Total",
     "gainLoss": "Gain/Loss",
     "presentValue": "Present Value",

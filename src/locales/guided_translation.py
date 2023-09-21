@@ -128,6 +128,8 @@ This could mean that this text was translated first, or it could mean this text 
             untranslated_strings.append(string_id)
 
     if untranslated_strings:
+        print("There are %d pieces of text to translate: %s"
+            % (len(untranslated_strings), untranslated_strings))
         # localize strings!
         try:
             for string_id in untranslated_strings:

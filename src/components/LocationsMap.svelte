@@ -4,29 +4,58 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 
+	import html2canvas from 'html2canvas';
+
+	function captureHighResMap(mapElement, scale = 2) {
+		// Backup original size
+		let originalWidth = mapElement.offsetWidth;
+		let originalHeight = mapElement.offsetHeight;
+
+		// Scale the map element
+		mapElement.style.transform = `scale(${scale})`;
+		mapElement.style.transformOrigin = 'top left';
+		mapElement.style.width = originalWidth * scale + 'px';
+		mapElement.style.height = originalHeight * scale + 'px';
+
+		return html2canvas(mapElement, {
+			width: originalWidth * scale,
+			height: originalHeight * scale,
+			scale: scale
+		}).then((canvas) => {
+			// Restore the original size
+			mapElement.style.transform = '';
+			mapElement.style.width = originalWidth + 'px';
+			mapElement.style.height = originalHeight + 'px';
+
+			return canvas;
+		});
+	}
+
 	let mapElement;
 	let map;
 
 	onMount(async () => {
 		if (browser) {
 			const L = await import('leaflet');
-			const { MarkerClusterGroup } = await import('leaflet.markercluster');
 
-			map = L.map(mapElement, { attributionControl: false }).setView([0, 0], 0);
+			map = L.map(mapElement, {
+        zoomSnap: 0,
+				attributionControl: false,
+			}).setView([49.26, -123.05], 12);
 
-			const myCustomColour = 'orange';
+
+			const myCustomColour = '#F7931A';
 
 			const markerHtmlStyles = `
 			  background-color: ${myCustomColour};
-			  width: 3rem;
-			  height: 3rem;
+			  width: 1.2rem;
+			  height: 1.2rem;
 			  display: block;
-			  left: -1.5rem;
-			  top: -1.5rem;
 			  position: relative;
-			  border-radius: 3rem 3rem 0;
+        border-radius: 100% 100% 0;
 			  transform: rotate(45deg);
-			  border: 1px solid #FFFFFF`;
+        opacity: 0.9;
+			  border: 1px solid #666`;
 
 			const icon = L.divIcon({
 				className: 'my-custom-pin',
@@ -67,12 +96,15 @@
 				}
 			};
 
-			let markers = new MarkerClusterGroup();
 			locations.forEach((location) => {
 				if (location['deleted_at']) return;
 
 				location = location['osm_json'];
-				let marker = L.marker([location.lat, location.lon]);
+				let marker = L.marker([location.lat, location.lon], { icon });
+
+				if (location.tags && location.tags.name) {
+					marker.bindTooltip(location.tags.name, { permanent: true }).openTooltip();
+				}
 
 				marker.bindPopup(
 					`${
@@ -143,11 +175,10 @@
 							: ''
 					}`
 				);
-				markers.addLayer(marker);
+				marker.addTo(map);
 			});
 
-			map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
-			map.addLayer(markers);
+			// map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
 		}
 	});
 
@@ -155,12 +186,20 @@
 </script>
 
 <div class="container mx-auto max-w-4xl">
-	<div class="flex w-full">
-		<div class="mx-auto h-[450px] w-full z-0" bind:this={mapElement} />
-	</div>
+    <div class="flex w-full">
+        <div class="mx-auto h-[550px] w-full z-0" bind:this={mapElement} />
+    </div>
 </div>
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
-	@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+
+	:global(.leaflet-tooltip) {
+		border: none;
+		border-radius: 4px;
+    font-size: 12px;
+		font-weight: bolder;
+		color: black;
+		background-color: rgba(255, 255, 255, 0.5);
+	}
 </style>

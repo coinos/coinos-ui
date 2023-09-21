@@ -35,7 +35,7 @@
 		user: { username, currency }
 	} = invoice;
 
-	let showQr = !amount;
+	$: showQr = invoice.uid === user?.id;
 
 	$: src = sm;
 
@@ -58,20 +58,20 @@
 
 		tipPercent = (tip / amount) * 100;
 
-		if (browser && window.NDEFReader) {
-			try {
-				ndef = new NDEFReader();
-				await ndef.scan();
-
-				ndef.removeEventListener('readingerror', readingerror);
-				ndef.removeEventListener('reading', reading);
-
-				ndef.addEventListener('readingerror', readingerror);
-				ndef.addEventListener('reading', reading);
-			} catch (e) {
-				console.log(e);
-			}
-      }
+		// if (browser && window.NDEFReader) {
+		// 	try {
+		// 		ndef = new NDEFReader();
+		// 		await ndef.scan();
+		//
+		// 		ndef.removeEventListener('readingerror', readingerror);
+		// 		ndef.removeEventListener('reading', reading);
+		//
+		// 		ndef.addEventListener('readingerror', readingerror);
+		// 		ndef.addEventListener('reading', reading);
+		// 	} catch (e) {
+		// 		console.log(e);
+		// 	}
+		// }
 	};
 
 	$: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
@@ -110,7 +110,7 @@
 	};
 </script>
 
-<div class="container mx-auto max-w-lg px-4 space-y-5">
+<div class="container mx-auto max-w-lg px-4 space-y-8">
 	<div class="whitespace-nowrap my-auto ml-auto flex gap-2">
 		<button
 			class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
@@ -136,18 +136,25 @@
 		</button>
 	</div>
 
-	<div>
-		<a href={invoice.type === 'bitcoin' ? invoice.text : 'lightning:' + invoice.text}>
-			<div class="relative flex">
-				<div class="flex mx-auto w-[360px] h-[360px]">
-					<img {src} class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]" bind:this={qr} alt={txt} />
+	{#if showQr}
+		<div>
+			<a href={invoice.type === 'bitcoin' ? invoice.text : 'lightning:' + invoice.text}>
+				<div class="relative flex">
+					<div class="flex mx-auto w-[360px] h-[360px]">
+						<img
+							{src}
+							class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]"
+							bind:this={qr}
+							alt={txt}
+						/>
+					</div>
+					<div
+						class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"
+					/>
 				</div>
-				<div
-					class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"
-				/>
-			</div>
-		</a>
-	</div>
+			</a>
+		</div>
+	{/if}
 
 	{#if amount > 0}
 		<div class="text-center font-bold text-2xl">
@@ -172,10 +179,39 @@
 		</div>
 	{/if}
 
-	<div class="w-full flex justify-center">
-		<button class="flex rounded-full border py-3 px-5 hover:opacity-80" on:click={() => copy(txt)}>
+	<div class="text-center break-all">
+		<a href={link}>
+			{txt}
+		</a>
+	</div>
+
+	<div class="w-full flex justify-center gap-2 flex-wrap">
+		<a href={link} class="w-full md:w-auto">
+			<button
+				class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+			>
+				<Icon icon="mobile" style="mr-1 w-6" />
+				<div class="text-secondary">{$t('payments.openLink')}</div>
+			</button>
+		</a>
+
+		<button
+			class="flex rounded-full justify-center border py-3 px-5 hover:opacity-80 w-full md:w-auto"
+			on:click={() => copy(txt)}
+		>
 			<Icon icon="copy" style="mr-1" />
-			<div class="text-secondary">{txt.substr(0, 10)}...{txt.substr(-10)}</div></button
+			<div class="text-secondary">{$t('payments.copyText')}</div></button
+		>
+
+		<button
+			class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+			on:click={() => (showQr = !showQr)}
+		>
+			<Icon icon="qr" style="mr-1 invert" />
+			<div class="text-secondary">
+				{showQr ? $t('payments.hide') : $t('payments.show')}
+				{$t('payments.qr')}
+			</div></button
 		>
 	</div>
 </div>

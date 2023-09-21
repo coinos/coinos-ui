@@ -9,7 +9,7 @@ export function load({ params, url }) {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let form = await fd(request);
-		form.prompt = form.prompt === 'on';
+		if (form.prompt) form.prompt = form.prompt === 'on';
 		let user = { ...(await get('/me', auth(cookies))), ...form };
 
 		try {

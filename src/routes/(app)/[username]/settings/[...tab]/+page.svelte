@@ -15,6 +15,7 @@
 	import Account from './_account.svelte';
 	import Pos from './_pos.svelte';
 	import Security from './_security.svelte';
+	import Shopify from './_shopify.svelte';
 
 	import { PUBLIC_COINOS_URL } from '$env/static/public';
 
@@ -33,7 +34,7 @@
 
 	$: form?.success && success('Settings saved!');
 
-  $: form?.message && fail(form.message);
+	$: form?.message && fail(form.message);
 
 	$: if (form?.message?.startsWith('Pin')) {
 		fail('Wrong pin, try again');
@@ -43,7 +44,8 @@
 	let tabs = [
 		{ name: 'account', key: 'ACCOUNT', comp: Account },
 		{ name: 'pos', key: 'POINT_OF_SALE', comp: Pos },
-		{ name: 'security', key: 'SECURITY', comp: Security }
+		{ name: 'security', key: 'SECURITY', comp: Security },
+		{ name: 'shopify', key: 'SHOPIFY', comp: Shopify }
 	];
 
 	$: ({ comp } = tabs.find((t) => t.name === tab));
@@ -134,9 +136,9 @@
 		</h1>
 
 		<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
-			{#each tabs as { name, key }}
+			{#each tabs.filter((t) => t.name !== 'shopify') as { name, key }}
 				<a href={`/${user.username}/settings/${name}`}>
-					<button class="hover:opacity-80" class:text-black={tab === name}
+					<button class="hover:opacity-80" class:text-black={tab === name || (tab === "shopify" && name === "pos")}
 						>{$t(`user.settings.${key}`)}</button
 					>
 				</a>

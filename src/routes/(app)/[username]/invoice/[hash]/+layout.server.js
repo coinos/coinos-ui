@@ -9,7 +9,7 @@ export async function load({ depends, params, url, parent }) {
 	let { hash } = params;
 	let invoice = await get(`/invoice/${hash}`);
 
-	if (user && invoice.uid !== user.id && !url.pathname.includes('tip'))
+	if (user && invoice.uid !== user.id && !url.pathname.includes('tip') && !url.searchParams.get('options'))
 		throw redirect(307, `/send/invoice/${hash}`);
 
 	let { amount, pending, received } = invoice;

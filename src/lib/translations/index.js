@@ -20,7 +20,7 @@ const loaders = availableLocales.map(createLocaleLoader);
 const config = {
 	initLocale: 'en',
 	fallbackLocale: 'en',
-	translations: translations,
+	translations,
 	loaders: [
 		{
 			locale: 'en',
