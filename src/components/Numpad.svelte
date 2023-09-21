@@ -201,7 +201,7 @@
 				{#if value === arrow}
 					<button
 						type="button"
-						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80 text-white"
+						class="bg-gray-100 rounded-xl py-4 px-8 font-semibold active:bg-black active:flex justify-center items-center hover:opacity-80"
 						on:click={() => handleInput(value)}
 					>
 						<Left />
@@ -209,7 +209,7 @@
 				{:else}
 					<button
 						type="button"
-						class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80 text-white"
+						class="bg-gray-100 rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
 						on:click={() => handleInput(value)}>{value}</button
 					>
 				{/if}
