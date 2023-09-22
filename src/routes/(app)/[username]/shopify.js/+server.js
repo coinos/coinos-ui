@@ -70,7 +70,6 @@ window.addEventListener('load', async () => {
 	let fiat = Shopify.checkout.payment_due;
 	let main = document.querySelector('main');
 	main.style.fontFamily = 'Public Sans, sans-serif';
-	main.innerHTML = 'Please Pay';
 
 	let data = await fetch('https://${url.host}/api/invoice', {
 		method: 'POST',
@@ -154,10 +153,9 @@ window.addEventListener('load', async () => {
 			let { type, data: d } = JSON.parse(data);
 			if (type === 'payment') {
 				main.innerHTML =
-					'<img id="check" src="https://${url.host}/icons/check.svg" alt="Check" />' +
-					\`
+					\`<div style="display: flex"><img id="check" src="https://${url.host}/icons/check.svg" alt="Check" style="margin: auto; max-width: 300px" /></div>
 
-          <h1>Payment received!</h1>
+          <h1 style="margin: 30px auto; text-align: center; width: 100%">Payment received!</h1>
 
           <div style="width: 100%; text-align: center; ">
             <div style="font-size: 24px; font-weight: bold; margin-bottom: 12px;">\${f(
@@ -165,7 +163,10 @@ window.addEventListener('load', async () => {
               d.currency
             )}</div>
             <div style="color: #666; font-size: 18px;">\${sat(d.amount)}</div>
-          </div>\`;
+          </div>
+          <a style="color: black;" href="https://\${window.location.host}">
+            <div style="margin: 50px auto; border-radius: 9999px; text-align: center; font-weight: bold; padding: 1rem 2rem; background: black; color: white; font-size: 18px; width: 220px">Continue shopping</div>
+          </a>\`;
 
 				var image = document.getElementById('check');
 				image.addEventListener('load', function () {
