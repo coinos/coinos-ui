@@ -145,6 +145,8 @@
 		"failed": "Login failed"
 	},
 	"nav": {
+    "map": "Map",
+    "merch": "Merch",
 		"profile": "Profile",
 		"startInSeconds": "Start in Seconds",
 		"account": "Account",

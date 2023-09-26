@@ -34,15 +34,31 @@
 	let mapElement;
 	let map;
 
+	function updateLabelVisibility() {
+		const zoom = map.getZoom();
+		map.eachLayer((layer) => {
+			if (layer.getTooltip) {
+				const tooltip = layer.getTooltip();
+				if (tooltip) {
+					if (zoom > 14) {
+						// Show labels at zoom levels greater than 14
+						tooltip.setOpacity(1.0);
+					} else {
+						tooltip.setOpacity(0.0);
+					}
+				}
+			}
+		});
+	}
+
 	onMount(async () => {
 		if (browser) {
 			const L = await import('leaflet');
 
 			map = L.map(mapElement, {
-        zoomSnap: 0,
-				attributionControl: false,
+				zoomSnap: 0,
+				attributionControl: false
 			}).setView([49.26, -123.05], 12);
-
 
 			const myCustomColour = '#F7931A';
 
@@ -178,17 +194,22 @@
 				marker.addTo(map);
 			});
 
+			updateLabelVisibility();
+			map.on('zoomend', updateLabelVisibility);
 			// map.fitBounds(locations.map(({ osm_json: { lat, lon } }) => [lat, lon]));
 		}
 	});
 
-	onDestroy(async () => map && map.remove());
+	onDestroy(async () => {
+		map.off('zoomend', updateLabelVisibility);
+		map && map.remove();
+	});
 </script>
 
 <div class="container mx-auto max-w-4xl">
-    <div class="flex w-full">
-        <div class="mx-auto h-[550px] w-full z-0" bind:this={mapElement} />
-    </div>
+	<div class="flex w-full">
+		<div class="mx-auto h-[550px] w-full z-0" bind:this={mapElement} />
+	</div>
 </div>
 
 <style>
@@ -197,9 +218,11 @@
 	:global(.leaflet-tooltip) {
 		border: none;
 		border-radius: 4px;
-    font-size: 12px;
+		font-size: 12px;
 		font-weight: bolder;
 		color: black;
-		background-color: rgba(255, 255, 255, 0.5);
+		background-color: rgba(255, 255, 255, 0.9);
+    left: 1.3rem;
+    top: -1rem;
 	}
 </style>
