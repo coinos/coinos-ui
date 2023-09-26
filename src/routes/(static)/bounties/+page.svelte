@@ -9,15 +9,15 @@
 	<ul>
 		<li>Grocery / Produce Store</li>
 		<li>
-      <span class="text-orange-400 line-through">Cafe</span> &mdash; Claimed by <a href="/reverendhodl">ReverendHodl</a> for
-			<a href="/laughingbean">Laughing Bean Coffee Co.</a>
+      <span class="text-orange-400 line-through">Cafe</span> &mdash; <span class="text-xs"><a href="/reverendhodl">ReverendHodl</a> for
+			<a href="/laughingbean">Laughing Bean Coffee Co.</a></span>
 		</li>
 		<li>Bakery</li>
-		<li><span class="text-orange-400 line-through">Butcher Shop</span> &mdash; Claimed by <a href="/danielle">danielle</a> for
-      <a href="/butchersguild">All Natural &amp; Exotic Meats</a></li>
+		<li><span class="text-orange-400 line-through">Butcher Shop</span> &mdash; <span class="text-xs"><a href="/danielle">danielle</a> for
+      <a href="/butchersguild">All Natural &amp; Exotic Meats</a></span></li>
 		<li>Laundromat / Dry Cleaner</li>
 		<li>Dollar Store / Book Store / Gift Shop</li>
-		<li><span class="text-orange-400 line-through">Sushi Restaurant</span> &mdash; Claimed by <a href="/ica547">ica547</a> for <a href="/metallmash">VanLove Sushi</a></li>
+		<li><span class="text-orange-400 line-through">Sushi Restaurant</span> &mdash; <span class="text-xs"><a href="/ica547">ica547</a> for <a href="/metallmash">VanLove Sushi</a></span></li>
 		<li>Pizza by the Slice</li>
 		<li>Liquor Store / Gas Station</li>
 		<li>Bubble Tea / Ice Cream Parlour</li>
@@ -87,6 +87,6 @@
 
 <style>
 	a {
-		@apply font-bold;
+    @apply text-blue-400;
 	}
 </style>
