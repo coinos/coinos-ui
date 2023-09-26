@@ -201,8 +201,10 @@
 	});
 
 	onDestroy(async () => {
-		map.off('zoomend', updateLabelVisibility);
-		map && map.remove();
+    if (map) {
+      map.off('zoomend', updateLabelVisibility);
+      map.remove();
+    } 
 	});
 </script>
 
