@@ -135,7 +135,9 @@
 		"dashboard": "Tableau de bord",
 		"settings": "Préférences",
 		"support": "Assistance",
-		"profile": "Profil"
+		"profile": "Profil",
+		"map": "Carte",
+		"merch": "Marchandise"
 	},
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
