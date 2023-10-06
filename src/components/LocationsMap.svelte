@@ -93,9 +93,9 @@
 						markers.push(marker);
 					});
 
-					updateLabelVisibility();
-					map.on('moveend', updateLabelVisibility);
-					map.on('zoomend', updateLabelVisibility);
+					// updateLabelVisibility();
+					// map.on('moveend', updateLabelVisibility);
+					// map.on('zoomend', updateLabelVisibility);
 				});
 			});
 		}
@@ -103,8 +103,8 @@
 
 	onDestroy(() => {
 		if (map) {
-			map.off('moveend', updateLabelVisibility);
-			map.off('zoomend', updateLabelVisibility);
+			// map.off('moveend', updateLabelVisibility);
+			// map.off('zoomend', updateLabelVisibility);
 			map.remove();
 		}
 	});
@@ -122,9 +122,12 @@
 		padding: 8px;
 	}
 
+	:global(.maplibregl-popup :focus) {
+		outline: none;
+	}
+
 	:global(.maplibregl-popup-content) {
 		padding: 0.5em 1em;
-		border: 1px solid black;
 		border-radius: 4px;
 		font-size: 14px;
 		color: black;
