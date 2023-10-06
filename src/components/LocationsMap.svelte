@@ -126,6 +126,10 @@
 		outline: none;
 	}
 
+	:global(.maplibregl-ctrl-attrib) {
+    display: none;
+  }
+
 	:global(.maplibregl-popup-content) {
 		padding: 0.5em 1em;
 		border-radius: 4px;
