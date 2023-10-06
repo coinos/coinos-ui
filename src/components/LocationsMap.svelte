@@ -37,7 +37,7 @@
 			if (zoom > 13 && isInView) {
 				popup.setHTML(`<span class='block font-bold'>${tags.name}</span>`).addTo(map);
 			} else {
-        popup.remove();
+				popup.remove();
 				popup.setHTML(html(tags));
 			}
 		}
@@ -72,6 +72,7 @@
 						if (location['deleted_at']) return;
 
 						let { lat, lon, tags } = location['osm_json'];
+						if (!(lat && lon)) return;
 
 						let element = document.createElement('div');
 						element.className = 'marker';
@@ -82,9 +83,9 @@
 							.addTo(map);
 
 						marker.getElement().addEventListener('click', () => {
-              let h = html(marker.tags);
+							let h = html(marker.tags);
 							let popup = marker.getPopup();
-              popup.setHTML(h);
+							popup.setHTML(h);
 						});
 
 						marker.tags = tags;
