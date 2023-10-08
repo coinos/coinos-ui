@@ -30,14 +30,14 @@
 		<div class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5">
 			<div class="relative flex justify-center gap-2">
 				<!-- <p class="absolute right-0 top-1 underline"><Icon icon="settings" /></p> -->
-        {#if name.split('-').length === 4}
-          <h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
+				{#if name.split('-').length === 4}
+					<h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
 				{:else}
 					<img src="/images/moneypot.jpg" class="w-24" alt="Pot" />
-          <div class="my-auto">
-            <h1 class="text-2xl font-semibold my-auto">{$t('payments.moneyPot')}</h1>
-          <h1 class="text-secondary my-auto">{name}</h1>
-          </div>
+					<div class="my-auto">
+						<h1 class="text-2xl font-semibold my-auto">{$t('payments.moneyPot')}</h1>
+						<h1 class="text-secondary my-auto">{name}</h1>
+					</div>
 				{/if}
 			</div>
 			{#if show}
@@ -60,7 +60,7 @@
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
 							<Icon icon="plus" />
-              {$t('payments.addFunds')}
+							{$t('payments.addFunds')}
 						</button>
 					</a>
 				</div>
@@ -70,7 +70,7 @@
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
 							<Icon icon="minus" style="rotate-180" />
-              {$t('payments.takeFunds')}
+							{$t('payments.takeFunds')}
 						</button>
 					</a>
 				</div>
@@ -85,10 +85,10 @@
 				</button>
 				<button
 					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          on:click={() => copy($page.url.host + $page.url.pathname)}
+					on:click={() => copy($page.url.host + $page.url.pathname)}
 				>
 					<Icon icon="copy" style="w-6" />
-          {$t('payments.copyLink')}
+					{$t('payments.copyLink')}
 				</button>
 			</div>
 			<div class="text-base">

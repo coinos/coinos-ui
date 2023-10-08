@@ -29,7 +29,7 @@
 
 	let external = async () => {
 		let invoice = { type: 'lightning', amount, currency };
-    let {id }= await post(`/${recipient.username}/invoice`, {
+		let { id } = await post(`/${recipient.username}/invoice`, {
 			invoice,
 			user: { username: recipient.username }
 		});

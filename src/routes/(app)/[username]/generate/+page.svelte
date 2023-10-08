@@ -14,10 +14,10 @@
 	let gen = async () => {
 		if (!browser) return;
 
-    if (user.pubkey) {
-      goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
-      return;
-    } 
+		if (user.pubkey) {
+			goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
+			return;
+		}
 
 		if (!$password) $passwordPrompt = true;
 

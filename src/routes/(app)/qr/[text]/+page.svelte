@@ -7,5 +7,5 @@
 <Qr {src} />
 
 <div class="text-center w-full font-bold">
-  {text}
+	{text}
 </div>

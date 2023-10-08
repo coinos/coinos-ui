@@ -127,8 +127,8 @@
 	}
 
 	:global(.maplibregl-ctrl-attrib) {
-    display: none;
-  }
+		display: none;
+	}
 
 	:global(.maplibregl-popup-content) {
 		padding: 0.5em 1em;

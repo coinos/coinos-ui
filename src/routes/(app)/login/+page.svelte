@@ -4,7 +4,7 @@
 	import { animatedRate, pin } from '$lib/store';
 
 	onMount(() => {
-    $animatedRate = 0;
+		$animatedRate = 0;
 		$pin = undefined;
 		localStorage.clear();
 		sessionStorage.clear();

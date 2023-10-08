@@ -45,10 +45,10 @@
 	{#if p.type === types.pot}
 		<div>
 			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
-      <a href={`/pot/${p.memo}`}>
+			<a href={`/pot/${p.memo}`}>
 				<div class="flex">
 					<div class="my-auto">
-            <img src="/images/moneypot.png" class="w-12" alt="Pot" />
+						<img src="/images/moneypot.png" class="w-12" alt="Pot" />
 					</div>
 					<div class="my-auto ml-1">{p.memo}</div>
 				</div>
@@ -126,7 +126,7 @@
 		</div>
 	{/if}
 
-    {#if ['laughingbean', 'burnabyartigiano', 'milanowestend', 'eotl', 'bigbite', 'edgemontartigiano'].includes(user.username.toLowerCase()) }
+	{#if ['laughingbean', 'burnabyartigiano', 'milanowestend', 'eotl', 'bigbite', 'edgemontartigiano'].includes(user.username.toLowerCase())}
 		<button
 			class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
 			on:click={print}>Print Receipt</button
