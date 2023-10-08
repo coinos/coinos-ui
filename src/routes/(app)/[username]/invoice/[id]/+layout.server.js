@@ -6,20 +6,26 @@ export async function load({ depends, params, url, parent }) {
 	depends('app:invoice');
 
 	let { user } = await parent();
-	let { hash } = params;
-	let invoice = await get(`/invoice/${hash}`);
+	let { id } = params;
+	let invoice = await get(`/invoice/${id}`);
+	let options = !!url.searchParams.get('options');
 
-	if (user && invoice.uid !== user.id && !url.pathname.includes('tip') && !url.searchParams.get('options'))
-		throw redirect(307, `/send/invoice/${hash}`);
+	if (user && invoice.uid !== user.id && !url.pathname.includes('tip') && !options) {
+		throw redirect(307, `/send/invoice/${id}`);
+	}
 
 	let { amount, pending, received } = invoice;
 	amount = parseInt(amount);
 
 	let paid = (!amount && received) || (amount > 0 && (pending >= amount || received >= amount));
-	if (paid && !url.pathname.endsWith('paid'))
-		throw redirect(307, `/${params.username}/invoice/${hash}/paid`);
+	if (paid && !url.pathname.endsWith('paid')) {
+		throw redirect(
+			307,
+			`/${params.username}/invoice/${id}/paid` + (options ? '?options=true' : '')
+		);
+	}
 
 	let sm = Qr.drawImg(invoice.text || '', { size: 300 });
 
-	return { hash, invoice, sm, lg: sm };
+	return { id, invoice, sm, lg: sm };
 }
