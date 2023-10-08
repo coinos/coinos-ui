@@ -138,7 +138,9 @@
 		<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
 			{#each tabs.filter((t) => t.name !== 'shopify') as { name, key }}
 				<a href={`/${user.username}/settings/${name}`}>
-					<button class="hover:opacity-80" class:text-black={tab === name || (tab === "shopify" && name === "pos")}
+					<button
+						class="hover:opacity-80"
+						class:text-black={tab === name || (tab === 'shopify' && name === 'pos')}
 						>{$t(`user.settings.${key}`)}</button
 					>
 				</a>

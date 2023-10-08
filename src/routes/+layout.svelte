@@ -1,8 +1,8 @@
 <script>
 	import '../app.css';
 
-  export let data;
-  let { host, pathname } = data;
+	export let data;
+	let { host, pathname } = data;
 </script>
 
 <svelte:head>

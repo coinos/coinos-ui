@@ -9,7 +9,7 @@
 	export let data;
 	export let form;
 
-  let { rates } = data;
+	let { rates } = data;
 	let { amount, name } = $page.params;
 	let { currency } = data.user;
 	let loading;
@@ -35,7 +35,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-  <Numpad bind:amount bind:currency bind:rate {submit} />
+	<Numpad bind:amount bind:currency bind:rate {submit} />
 
 	<form method="POST" use:enhance on:submit={submit}>
 		<input name="name" value={name} type="hidden" />

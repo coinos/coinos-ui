@@ -9,9 +9,7 @@
 	<div class="overflow-x-scroll max-w-full scrollbar-hide">
 		<div class="break-all min-w-[800px]">{samples[sample]}</div>
 	</div>
-	<button
-		class="ml-auto my-auto invert opacity-90"
-		on:click={() => copy(samples[sample])}
+	<button class="ml-auto my-auto invert opacity-90" on:click={() => copy(samples[sample])}
 		><Icon icon="copy" style="w-10 max-w-none" /></button
 	>
 </div>

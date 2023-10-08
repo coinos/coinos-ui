@@ -2,7 +2,7 @@
 	import { Avatar, Icon } from '$comp';
 	import { onMount } from 'svelte';
 	import { format } from 'date-fns';
-	import { newPayment, payments } from '$lib/store';
+	import { newPayment } from '$lib/store';
 	import { t } from '$lib/translations';
 	import { get, f, s, sat, sats, types } from '$lib/utils';
 	import { page } from '$app/stores';
@@ -11,7 +11,7 @@
 
 	export let data;
 
-	let { start, end, user, rates } = data;
+	let { start, end, user, rates, payments } = data;
 
 	let change = ({ target: { value } }) => goto(value);
 	let link = (p) => {
@@ -34,7 +34,7 @@
 	let p,
 		totals,
 		pages = [];
-	$: data && ({ page: p, pages, start, end, totals, payments: $payments } = data);
+	$: data && ({ page: p, pages, start, end, totals, payments } = data);
 
 	$: $page && ($newPayment = false);
 	$: $newPayment && invalidate(`/users/${user.username}`);
@@ -136,7 +136,7 @@
 		</div>
 
 		<div class="text-base">
-			{#each $payments as p}
+			{#each payments as p}
 				<a href={`/payment/${p.id}`}>
 					<div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
 						<div class="whitespace-nowrap my-auto">
@@ -216,7 +216,7 @@
 		</div>
 
 		<div class="grid grid-cols-3 w-full text-center">
-      <span class="text-lg text-secondary">{$t('payments.total')}</span>
+			<span class="text-lg text-secondary">{$t('payments.total')}</span>
 			<span class="text-lg text-secondary">{$t('payments.presentValue')}</span>
 			<span class="text-lg text-secondary">{$t('payments.gainLoss')}</span>
 
@@ -226,7 +226,9 @@
 				{@const gain = (pv * 100) / total - 100}
 				<span class="text-lg"><b>{f(total, c)}</b></span>
 				<span class="text-lg"><b>{f(pv, c)}</b></span>
-				<span class="text-lg" class:text-red-800={gain < 0}><b>{Math.abs(gain).toFixed(2)}%</b></span>
+				<span class="text-lg" class:text-red-800={gain < 0}
+					><b>{Math.abs(gain).toFixed(2)}%</b></span
+				>
 			{/each}
 		</div>
 

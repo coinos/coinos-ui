@@ -101,12 +101,12 @@
 
 	let toggleType = async () => {
 		invoice.type = invoice.type === types.lightning ? types.bitcoin : types.lightning;
-		({ hash } = await post(`/${username}/invoice`, {
+		({ id } = await post(`/${username}/invoice`, {
 			invoice,
 			user: { username, currency }
 		}));
 
-		goto(`./${hash}`, { invalidateAll: true });
+		goto(`./${id}`, { invalidateAll: true });
 	};
 </script>
 

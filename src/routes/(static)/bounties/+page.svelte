@@ -2,14 +2,14 @@
 	<h1 class="text-3xl mb-6 pt-28 md:pt-12">Bounties</h1>
 
 	<p>
-		We're offering ⚡️1,000,000 to the first 10 people that help us onboard these businesses in Vancouver
-		to take bitcoin payments.
+		We're offering ⚡️1,000,000 to the first 10 people that help us onboard these businesses in
+		Vancouver to take bitcoin payments.
 	</p>
 
 	<ul class="text-center text-lg space-y-3">
 		<li>Grocery / Produce Store</li>
 		<li class="leading-3">
-      <span class="line-through">Cafe</span><br/>
+			<span class="line-through">Cafe</span><br />
 			<span class="text-xs"
 				><a href="/reverendhodl">ReverendHodl</a> for
 				<a href="/laughingbean">Laughing Bean Coffee Co.</a></span
@@ -17,7 +17,7 @@
 		</li>
 		<li>Bakery</li>
 		<li class="leading-3">
-      <span class="line-through">Butcher Shop</span><br />
+			<span class="line-through">Butcher Shop</span><br />
 			<span class="text-xs"
 				><a href="/danielle">danielle</a> for
 				<a href="/butchersguild">All Natural &amp; Exotic Meats</a></span
@@ -26,7 +26,7 @@
 		<li>Laundromat / Dry Cleaner</li>
 		<li>Dollar Store / Book Store / Gift Shop</li>
 		<li class="leading-3">
-      <span class="line-through">Sushi Restaurant</span><br />
+			<span class="line-through">Sushi Restaurant</span><br />
 			<span class="text-xs"
 				><a href="/ica547">ica547</a> for <a href="/metallmash">VanLove Sushi</a></span
 			>
@@ -36,15 +36,14 @@
 		<li>Bubble Tea / Ice Cream Parlour</li>
 	</ul>
 
-  <p>
-  Eligible businesses:
-  </p>
+	<p>Eligible businesses:</p>
 
 	<ul class="text-sm ml-4 space-y-2">
-		<li>Have a physical location in Vancouver, North Vancouver, West Vancouver, Burnaby, New
+		<li>
+			Have a physical location in Vancouver, North Vancouver, West Vancouver, Burnaby, New
 			Westminster, or Richmond
 		</li>
-    <li>Take walk-in customers</li>
+		<li>Take walk-in customers</li>
 		<li>Have regular hours and a website with contact info</li>
 		<li>Have a 3 star or better rating on Google</li>
 		<li>
@@ -53,14 +52,12 @@
 		<li>Use Coinos</li>
 	</ul>
 
-  <p>Each business category can be claimed only once</p>
-		<p>One bounty per person</p>
+	<p>Each business category can be claimed only once</p>
+	<p>One bounty per person</p>
 
 	<p>The businesses can expect free ongoing support and promotion from us and our community.</p>
 
-	<p>
-		The prize money will be offered to the person who makes the referral.
-	</p>
+	<p>The prize money will be offered to the person who makes the referral.</p>
 
 	<p>
 		<b>⚡️250,000</b> will be awarded once the business has met with us and is ready to take payments

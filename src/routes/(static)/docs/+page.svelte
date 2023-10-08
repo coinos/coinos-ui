@@ -14,7 +14,10 @@
 
 	<p class="text-secondary">
 		Coinos has a simple REST API that can be used to register accounts and make payments and
-    queries. The following examples show how you can call the API with <a href="https://curl.se/" class="font-bold">curl</a> from your command line.
+		queries. The following examples show how you can call the API with <a
+			href="https://curl.se/"
+			class="font-bold">curl</a
+		> from your command line.
 	</p>
 
 	<h2 class="text-2xl">API Base URL</h2>
@@ -30,10 +33,11 @@
 		{#if user && token}
 			This token authorizes you to use the API as <b>{user.username}</b>.
 		{:else}
-			<a href="/login" class="font-bold">Sign in</a> to view your auth token here, or get one from the /login endpoint.
+			<a href="/login" class="font-bold">Sign in</a> to view your auth token here, or get one from the
+			/login endpoint.
 		{/if}
 
-    Save it in a variable called <b>$token</b> to run the examples.
+		Save it in a variable called <b>$token</b> to run the examples.
 	</p>
 
 	<div class="bg-black text-white rounded-lg p-4 flex gap-4">
@@ -68,18 +72,17 @@
 		</div>
 	</div>
 
-  <p>Get a lightning invoice to receive funds</p>
+	<p>Get a lightning invoice to receive funds</p>
 	<Code sample="lightningInvoice" />
 
-  <p>Get a bitcoin address to receive funds</p>
+	<p>Get a bitcoin address to receive funds</p>
 	<Code sample="bitcoinAddress" />
 
 	<p>Sample response</p>
 	<Code sample="invoiceResponse" />
 	<p>You can check the <b>received</b> field to see how much has been paid</p>
 
-
-  <p>Specify a webhook to be called when an invoice is paid</p>
+	<p>Specify a webhook to be called when an invoice is paid</p>
 	<Code sample="webhook" />
 
 	<h2 class="text-2xl">GET /invoice/:hash</h2>

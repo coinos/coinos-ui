@@ -1,6 +1,6 @@
 <script>
-  import { LocationsMap } from "$comp";
-  export let data;
+	import { LocationsMap } from '$comp';
+	export let data;
 
 	let { locations } = data;
 </script>
