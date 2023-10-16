@@ -9,14 +9,14 @@
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
-  <Pin cancel={() => (show = false)} />
+	<Pin cancel={() => (show = false)} />
 {/if}
 
 <div class="space-y-2">
 	{#if user.haspin && !$pin}
 		<button
 			class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
-   on:click={() => (show = true)}>{$t('user.showBalance')}</button
+			on:click={() => (show = true)}>{$t('user.showBalance')}</button
 		>
 	{:else}
 		<div class="text-5xl font-bold tabular-nums">

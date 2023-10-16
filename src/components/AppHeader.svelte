@@ -17,6 +17,8 @@
 		menuButtons = [
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
+			{ key: 'nav.map', icon: 'map', href: `/${user.username}/map` },
+			{ key: 'nav.merch', icon: 'shirt', href: `https://coinosmerch.com` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
 		];
 
@@ -119,7 +121,7 @@
 				</OutClick>
 			</div>
 		{:else}
-      <a href={`/login?redirect=${$page.url.pathname}`}>
+			<a href={`/login?redirect=${$page.url.pathname}`}>
 				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
 					>{$t('nav.signIn')}</button
 				>

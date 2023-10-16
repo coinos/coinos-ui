@@ -5,7 +5,6 @@
 	import { browser } from '$app/environment';
 	import { t } from '$lib/translations';
 	import { fiat, f, s, sat, sats } from '$lib/utils';
-	import { goto } from '$app/navigation';
 
 	export let data;
 	let amount, currency, rate, received, pending, tip, user, id;

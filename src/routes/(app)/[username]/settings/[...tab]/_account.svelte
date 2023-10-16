@@ -64,28 +64,32 @@
 
 	$: url = `${$page.url.host}/${user.username}`;
 	$: full = `${$page.url.protocol}//${url}`;
-  $: addr = `${user.username}@${$page.url.host}`;
+	$: addr = `${user.username}@${$page.url.host}`;
 </script>
 
 <div>
 	<label for="username" class="font-bold mb-1 block">{$t('user.settings.username')}</label>
 	<div class="flex mb-2">
-    <input
-      type="text"
-      name="username"
-      bind:value={user.username}
-      class="border-r-0 rounded-r-none w-auto min-w-0 pr-1 grow"
-      />
-      <div class="text-gray-600 p-4 my-auto bg-gray-100 border border-r-0 pl-1">@{$page.url.host}</div>
-		<div class="text-gray-600 border-l-0 bg-gray-100 rounded-r-2xl p-4 my-auto border w-16" >
-      <a href={`/qr/${encodeURIComponent(addr)}`}>
-        <Icon icon="qr" style="invert" />
-      </a>
+		<input
+			type="text"
+			name="username"
+			bind:value={user.username}
+			class="border-r-0 rounded-r-none w-auto min-w-0 pr-1 grow"
+		/>
+		<div class="text-gray-600 p-4 my-auto bg-gray-100 border border-r-0 pl-1">
+			@{$page.url.host}
+		</div>
+		<div class="text-gray-600 border-l-0 bg-gray-100 rounded-r-2xl p-4 my-auto border w-16">
+			<a href={`/qr/${encodeURIComponent(addr)}`}>
+				<Icon icon="qr" style="invert" />
+			</a>
 		</div>
 	</div>
 
 	<div class="flex mb-2">
-    <div class="text-gray-600 rounded-l-2xl p-4 my-auto border bg-gray-100 pr-1">{$page.url.host}/</div>
+		<div class="text-gray-600 rounded-l-2xl p-4 my-auto border bg-gray-100 pr-1">
+			{$page.url.host}/
+		</div>
 		<input
 			type="text"
 			name="username"
@@ -93,9 +97,9 @@
 			class="grow border-l-0 rounded-l-none border-r-0 rounded-r-none w-auto pl-1 min-w-0"
 		/>
 		<div class="text-gray-600 rounded-r-2xl p-4 my-auto border bg-gray-100 w-16">
-      <a href={`/qr/${encodeURIComponent(full)}`}>
-        <Icon icon="qr" style="invert" />
-      </a>
+			<a href={`/qr/${encodeURIComponent(full)}`}>
+				<Icon icon="qr" style="invert" />
+			</a>
 		</div>
 	</div>
 </div>

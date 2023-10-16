@@ -28,12 +28,13 @@
 	let submit = () => (loading = true);
 
 	let external = async () => {
-		let invoice = { type: 'lightning', amount };
-		let { hash } = await post(`/${recipient.username}/invoice`, {
-			invoice
+		let invoice = { type: 'lightning', amount, currency };
+		let { id } = await post(`/${recipient.username}/invoice`, {
+			invoice,
+			user: { username: recipient.username }
 		});
 
-		goto(`/${recipient.username}/invoice/${hash}`, { invalidateAll: true });
+		goto(`/${recipient.username}/invoice/${id}?options=true`, { invalidateAll: true });
 	};
 
 	$: rate = data.rate * (rates[user.currency] / rates[data.currency]);
@@ -139,7 +140,7 @@
 			{/if}
 		</div>
 	</form>
-  <div class="flex my-20">
-    <button class="mx-auto" on:click={external}>{$t('payments.moreOptions')}</button>
-  </div>
+	<div class="flex my-20">
+		<button class="mx-auto" on:click={external}>{$t('payments.moreOptions')}</button>
+	</div>
 </div>

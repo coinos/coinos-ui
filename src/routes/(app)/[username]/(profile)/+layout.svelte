@@ -51,16 +51,16 @@
 	<div class="w-[240px] lg:absolute space-y-5 left-20 mx-auto lg:mr-10">
 		<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
 
-    {#if subject.address}
-		<div
-			class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
-			class:line-clamp-3={hideBio}
-			on:click={toggleBio}
-      on:keydown={toggleBio}
-		>
-    {subject.address}
-		</div>
-    {/if}
+		{#if subject.address}
+			<div
+				class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
+				class:line-clamp-3={hideBio}
+				on:click={toggleBio}
+				on:keydown={toggleBio}
+			>
+				{subject.address}
+			</div>
+		{/if}
 
 		<div class="flex justify-around">
 			<a href={`/${subject.pubkey}/follows`}

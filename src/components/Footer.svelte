@@ -10,7 +10,7 @@
 
 	const companyLinks = [
 		{ url: '/docs', titleID: 'documentation' },
-		{ url: '/support', titleID: 'support' },
+		{ url: '/support', titleID: 'support' }
 	];
 </script>
 

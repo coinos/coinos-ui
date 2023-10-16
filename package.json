@@ -54,6 +54,7 @@
 	"dependencies": {
 		"@scure/bip39": "^1.2.1",
 		"html2canvas": "^1.4.1",
-		"leaflet-tooltip-layout": "^0.1.2"
+		"leaflet-tooltip-layout": "^0.1.2",
+		"maplibre-gl": "^3.3.1"
 	}
 }

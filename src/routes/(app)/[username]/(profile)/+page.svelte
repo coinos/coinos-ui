@@ -98,7 +98,7 @@
 						>
 							<div class="mx-auto flex">
 								<Icon icon="numpad" style="my-auto h-6 mr-2 invert" />
-								<div class="my-auto mt-1">Request Payment</div>
+                <div class="my-auto mt-1">{$t('user.requestPayment')}</div>
 							</div>
 						</button>
 					</a>
