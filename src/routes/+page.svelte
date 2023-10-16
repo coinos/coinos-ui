@@ -1,6 +1,6 @@
 <script>
 	import { scroll } from '$lib/utils';
-  let about, faq;
+	let about, faq;
 </script>
 
 <svelte:head>
@@ -13,8 +13,12 @@
 	<link href="responsive.css" rel="stylesheet" />
 	<link href="style.css" rel="stylesheet" />
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"
+	></script>
 </svelte:head>
 
 <!-- aleart -->
@@ -55,7 +59,7 @@
 					<a class="nav-link active" href="#">How it works</a>
 				</li>
 				<li class="nav-item me-lg-5 mb-lg-0 mb-4">
-          <a class="nav-link" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
+					<a class="nav-link" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="" on:click={() => scroll(about)}>About</a>
@@ -233,7 +237,7 @@
 </section>
 
 <section class="py-5 bg_light">
-  <div class="container-lg px-sm-4 px-3" bind:this={faq}>
+	<div class="container-lg px-sm-4 px-3" bind:this={faq}>
 		<div class="row align-items-center justify-content-center">
 			<div class="col-12 text-center">
 				<h6 class="f_bebas_neue txt_purple">This might help</h6>
@@ -245,20 +249,17 @@
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item swapee_accordion">
 					<h2 class="" id="headingOne">
-						<button
-							class="accordion-button shadow-none"
-							type="button"
-						>
+						<button class="accordion-button shadow-none" type="button">
 							<span class="line"> What does it cost? </span>
 						</button>
 					</h2>
-					<div
-						id="collapseOne"
-					>
+					<div id="collapseOne">
 						<div class="accordion-body">
 							<p class="txt_slate_blue">
-								It's free to register an account and receive payments. We charge a 0.1% conversion
-								fee if you withdraw regular bitcoin to lightning or vice versa.
+								Registering an account and receiving payments on Swapee.me is completely free. Our
+								aim is to offer a smooth user experience without any financial barriers. However,
+								when converting regular Bitcoin to Lightning or vice versa, we apply a modest 0.1%
+								conversion fee to ensure secure and efficient transactions.
 							</p>
 						</div>
 					</div>
@@ -266,20 +267,17 @@
 
 				<div class="accordion-item swapee_accordion">
 					<h2 class="accordion-header" id="headingTwo">
-						<button
-							class="accordion-button shadow-none"
-							type="button"
-						>
+						<button class="accordion-button shadow-none" type="button">
 							<span class="line"> Do I need any special device or software? </span>
 						</button>
 					</h2>
-					<div
-						id="collapseTwo"
-					>
+					<div id="collapseTwo">
 						<div class="accordion-body">
 							<p class="txt_slate_blue">
-								It's free to register an account and receive payments. We charge a 0.1% conversion
-								fee if you withdraw regular bitcoin to lightning or vice versa.
+								No, Swapee.me is designed to be incredibly user-friendly. You can access our
+								platform using any device that can connect to a web browser - whether it's your
+								mobile phone, PC, tablet, or any other compatible device. Swapee.me prioritizes
+								accessibility and ease of use for all users, regardless of their chosen device.
 							</p>
 						</div>
 					</div>
@@ -287,22 +285,17 @@
 
 				<div class="accordion-item swapee_accordion">
 					<h2 class="accordion-header" id="headingThree">
-						<button
-							class="accordion-button shadow-none "
-							type="button"
-						>
+						<button class="accordion-button shadow-none " type="button">
 							<span class="line"> When do my funds settle? </span>
 						</button>
 					</h2>
-					<div
-						id="collapseThree"
-						aria-labelledby="headingThree"
-						data-bs-parent="#accordionExample"
-					>
+					<div id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
 							<p class="txt_slate_blue">
-								It's free to register an account and receive payments. We charge a 0.1% conversion
-								fee if you withdraw regular bitcoin to lightning or vice versa.
+								At Swapee.me, we value your time. Lightning payments on our platform settle
+								instantly, reflecting our commitment to efficiency and user satisfaction. Forget
+								waiting for extended transaction confirmations; with Swapee.me, you can experience
+								the speed and efficiency of the Lightning Network firsthand.
 							</p>
 						</div>
 					</div>
@@ -351,35 +344,32 @@
 					class="ps-md-4 footer_top_right col-md-6 d-flex align-items-center justify-content-end justify-content-sm-center justify-content-between"
 				>
 					<div class="row justify-content-md-end">
-						<div class="col-xl-6 col-md-10 col-sm-6 mb-xl-0 mb-4 pe-xl-5 pe-md-0 pe-sm-5">
+						<div class="col-sm-6 mb-xl-0 mb-4 pe-md-0 pe-sm-5">
 							<h6 class="text-white opacity-75 mb-0">Business enquiries</h6>
 							<a href="mailto:business@swapee.me">business@swapee.me</a>
 						</div>
-						<div class="col-xl-6 col-md-10 col-sm-6 pe-xl-5 pe-md-0 pe-sm-5">
+						<div class="col-sm-6 pe-xl-5 mb-4 pe-md-0 pe-sm-5">
 							<h6 class="text-white opacity-75 mb-0">Support enquiries</h6>
 							<a href="mailto:support@swapee.me">support@swapee.me</a>
 						</div>
 					</div>
-					<div class="social_links d-flex">
-						<a href="https://x.com/swapeewallet" class="me-3"><img src="icons/twitter.svg" alt="" /></a>
-					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- footer_bottom -->
-		<div class="footer_bottom pt-4 pb-2">
-			<ul class="list-unstyled mb-0 ps-0">
-				<li class="pb-3">
-					<a href="#">Documentation</a>
-				</li>
-				<li class="pb-3">
-					<a href="#">Privacy Policy</a>
-				</li>
-				<li class="pb-3">
-					<a href="#">Terms of Use</a>
-				</li>
-			</ul>
+			<!-- footer_bottom -->
+			<div class="footer_bottom pt-4 pb-2">
+				<ul class="list-unstyled mb-0 ps-0">
+					<li class="pb-3">
+						<a href="#">Documentation</a>
+					</li>
+					<li class="pb-3">
+						<a href="#">Privacy Policy</a>
+					</li>
+					<li class="pb-3">
+						<a href="#">Terms of Use</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </footer>
