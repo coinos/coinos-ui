@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { event, invoice, request, newPayment, last, rate, payments, user } from '$lib/store';
+import { event, invoice, request, newPayment, last, rate, user } from '$lib/store';
 import { success, sat } from '$lib/utils';
 import { PUBLIC_SOCKET } from '$env/static/public';
 import { invalidate } from '$app/navigation';
@@ -34,23 +34,13 @@ export const messages = (data) => ({
 	},
 
 	async payment() {
-		let { amount, invoice } = data;
+		let { amount, confirmed } = data;
+		invalidate('app:user');
 		invalidate('app:invoice');
-
-		let p = get(payments);
-		let i = p.findIndex((p) => p.id === data.id);
-
-		if (~i) {
-			p[i] = data;
-			payments.set(p);
-		} else newPayment.set(true);
-
-		invalidate((url) => url.pathname === '/payments');
+		invalidate('app:payments');
 
 		if (amount > 0) {
-			success(`${data.confirmed ? 'Received' : 'Detected'} ${sat(amount)}!`);
-		} else {
-			// success(`Sent ${sat(amount)}!`);
+			success(`${confirmed ? 'Received' : 'Detected'} ${sat(amount)}!`);
 		}
 	},
 

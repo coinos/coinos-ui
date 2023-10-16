@@ -52,10 +52,12 @@
 		return true;
 	};
 
+	let disablingPin = false;
+
 	let togglePin = async () => {
 		if (user.haspin) {
 			try {
-				pin = null;
+				disablingPin = true;
 				await tick();
 				submit.click();
 			} catch (e) {
@@ -120,7 +122,7 @@
 	};
 </script>
 
-<input type="hidden" name="newpin" value={pin} />
+<input type="hidden" name="newpin" value={disablingPin ? 'delete' : pin} />
 <input type="hidden" name="confirm" bind:value={password} />
 
 <div class="relative mb-5">

@@ -46,8 +46,6 @@ window.addEventListener('load', async () => {
 
 	let s = (s) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(s);
 
-	let base64 = drawImg('test', { size: 300 });
-
 	let link = document.createElement('link');
 	link.setAttribute('rel', 'stylesheet');
 	link.setAttribute('type', 'text/css');
@@ -91,6 +89,8 @@ window.addEventListener('load', async () => {
 			return response.json();
 		})
 		.catch(console.log);
+
+	let base64 = drawImg(data.hash, { size: 300 });
 
 	main.innerHTML = \`<a href="lightning:\${data.hash}">
       <div style="display: flex; margin-top: 50px; margin-bottom: 80px; position: relative;">
