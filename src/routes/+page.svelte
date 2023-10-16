@@ -361,7 +361,7 @@
 						</div>
 					</div>
 					<div class="social_links d-flex">
-						<a href="https://twitter.com/Swapee_io" class="me-3"><img src="icons/twitter.svg" alt="" /></a>
+						<a href="https://x.com/swapeewallet" class="me-3"><img src="icons/twitter.svg" alt="" /></a>
 					</div>
 				</div>
 			</div>
