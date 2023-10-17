@@ -360,13 +360,13 @@
 			<div class="footer_bottom pt-4 pb-2">
 				<ul class="list-unstyled mb-0 ps-0">
 					<li class="pb-3">
-						<a href="#">Documentation</a>
+						<a href="/docs">Documentation</a>
 					</li>
 					<li class="pb-3">
-						<a href="#">Privacy Policy</a>
+						<a href="/privacy">Privacy Policy</a>
 					</li>
 					<li class="pb-3">
-						<a href="#">Terms of Use</a>
+						<a href="/terms">Terms of Use</a>
 					</li>
 				</ul>
 			</div>
