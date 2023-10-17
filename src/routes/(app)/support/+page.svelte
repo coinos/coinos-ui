@@ -29,6 +29,7 @@
 	};
 
 	onDestroy(() => {
+    if (!document) return;
 		const nodeBadge = document.querySelector('.grecaptcha-badge');
 		if (nodeBadge) {
 			document.body.removeChild(nodeBadge.parentNode);
