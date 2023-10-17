@@ -15,7 +15,7 @@
 	let email;
 	let message;
 	let sent;
-	let recaptchaSiteKey = '6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM';
+	let recaptchaSiteKey = '6LdrWqwoAAAAAIv4ls-UV9zT5EzSqyqw28q1Eqe0';
 
 	let submit = (e) => {
 		e.preventDefault();
