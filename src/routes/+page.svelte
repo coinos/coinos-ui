@@ -365,9 +365,6 @@
 					<li class="pb-3">
 						<a href="/privacy">Privacy Policy</a>
 					</li>
-					<li class="pb-3">
-						<a href="/terms">Terms of Use</a>
-					</li>
 				</ul>
 			</div>
 		</div>
