@@ -18,7 +18,7 @@
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
 			{ key: 'nav.map', icon: 'map', href: `/${user.username}/map` },
-			{ key: 'nav.merch', icon: 'shirt', href: `https://coinosmerch.com` },
+			{ key: 'nav.merch', icon: 'shirt', href: `https://swapee.shop` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
 		];
 
