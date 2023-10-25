@@ -102,8 +102,16 @@
 			<h1 class="text-xl md:text-2xl text-secondary mb-2">{$t('payments.to')}</h1>
 
 			<div class="flex p-1 gap-2 justify-center">
-				<Avatar user={recipient} size={'20'} />
-				<p class="text-4xl break-words my-auto">{recipient.username}</p>
+				{#if recipient.username.includes('@classic')}
+					<img
+						src="/images/classic.png"
+						class="w-24 border-4 border-transparent mr-1"
+						alt="Bitcoin"
+					/>
+				{:else}
+					<Avatar user={recipient} size={'20'} />
+				{/if}
+				<p class="text-4xl break-words my-auto">{recipient.username.replace('@classic', '')}</p>
 			</div>
 		</div>
 	{:else}
