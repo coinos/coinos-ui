@@ -1,5 +1,6 @@
 <script>
 	import {
+		Icon,
 		LandingHeader,
 		LandingHero,
 		LandingInfoCard,
@@ -43,10 +44,10 @@
 		}
 	});
 
-  let username = 'sample';
-  let password = 'password';
+	let username = 'sample';
+	let password = 'password';
 
-  let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
+	let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
 </script>
 
 <svelte:head>
@@ -56,57 +57,56 @@
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
-	<div class="space-y-5 border-8 border-black p-8 w-[800px] mx-auto">
+	<div class="border-8 border-black p-12 w-[1050px] h-[600px] mx-auto text-4xl">
 		<div class="flex w-full justify-center gap-4">
-			<img src="/images/bitcoin.png" class="w-14" />
-			<h3 class="text-5xl font-medium text-center">Bitcoin Instructions</h3>
+			<img src="/images/logo.svg" class="w-3/5" />
 		</div>
-		<div>
-			<p class="text-center text-lg">Public Payment Page</p>
-      <div class="flex justify-center text-2xl"><b>https://coinos.io/{username}</b></div>
-		</div>
-		<div>
-			<p class="text-center text-lg">Staff Login</p>
-      <div class="flex justify-center text-2xl"><b>{username} / {password}</b></div>
-		</div>
-    <div class="py-8">
-		<p class="text-lg font-semibold">What to do if a customer asks to pay with Bitcoin</p>
-		<ol class="list-decimal ml-4">
-			<li class="pt-2">Direct them to scan the QR code to visit the payment page.</li>
-			<li class="pt-2">Enter the sale in your PoS as if it were paid by cash.</li>
-			<li class="pt-2">Tell the customer their total with tax and wait for them to send payment.</li>
-			<li class="pt-2">Check the receipt from the coinos printer to make sure they sent the right amount.</li>
-			<li class="pt-2">Done! Hand the customer their items and a cash receipt if requested.</li>
-		</ol>
-    </div>
 
-		<p>
-    You can view all payments for the day at <b>https://coinos.io/{username}/payments</b> or just total up all the receipts.
-		</p>
-
-		<p>
-    If you have any questions please email <b>support@coinos.io</b> or call Adam at <b>604-358-6745</b>
-		</p>
-
-		<img src="/images/logo.png" class="ml-auto" style="width: 120px" />
-	</div>
-	<div class="space-y-8 border-8 border-black p-8 w-[680px] mx-auto">
-		<div class="flex w-full justify-center gap-4">
-			<img src="/images/bitcoin.png" class="w-14" />
-			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
-		</div>
-		<Q {src} />
-    <div class="text-center text-4xl">https://coinos.io/{username}</div>
-		<div>
-			<div class="text-center text-xl pt-2">
-        1. Use your <b>Camera</b> app to open this URL in a <b>browser</b>
+		<div class="mt-14 flex">
+			<div class="w-2/5 my-auto space-y-6">
+				<p class="font-semibold">Adam Soltys</p>
+        <p>Founder &amp; CTO</p>
+				<p>604-358-6745</p>
+				<p>adam@coinos.io</p>
 			</div>
-			<div class="text-center text-xl pt-2">2. Click <b>Pay</b> to enter your total and get an invoice</div>
-      <div class="text-center text-xl pt-2">3. Pay with your favourite <b>Bitcoin Lightning</b> wallet</div>
+			<div class="text-center space-y-5">
+				<p class="text-3xl">Accept Bitcoin payments for free</p>
+				<p class="text-6xl">Start in seconds at <b>coinos.io</b></p>
+				<p class="text-3xl">Based in North Vancouver</p>
+			</div>
 		</div>
-    <div class="flex">
-		<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
-    </div>
+	</div>
+	<div class="border-8 border-black p-12 w-[1050px] h-[600px] mx-auto text-4xl">
+		<h1 class="text-4xl font-medium text-center mx-auto leading-tight mt-16">
+			{$t('landing.header_before_icon')}
+			<span class="relative">
+				{$t('landing.header_with_icon')}
+				<Icon icon="rays" style="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24" />
+			</span>
+			way to get started with Bitcoin
+		</h1>
+
+		<div class="mt-8 flex text-xl gap-12">
+			<ul class="space-y-2">
+				<li>100% free! No account or transaction fees</li>
+				<li>Connect to an amazing community looking for new places to spend Bitcoin</li>
+				<li>We'll list you on our map and several directories</li>
+				<li>We host weekly events and workshops</li>
+				<li>We'll promote you locally and on social media and bring you good reviews</li>
+			</ul>
+			<ul class="space-y-2">
+				<li>Registration takes seconds</li>
+				<li>No personal information required</li>
+				<li>Customize your branding in the app and get a personalized payment page</li>
+				<li>Receive a complimentary receipt printer, QR code and window sticker</li>
+				<li>We offer free 24/7 support</li>
+			</ul>
+		</div>
+
+		<div class="flex mt-8 w-full">
+			<img src="/images/logo.svg" class="my-auto" />
+			<div class="mx-auto mt-5 text-right flex-grow">Start in seconds at <b>coinos.io</b></div>
+		</div>
 	</div>
 	<LandingHero {user} />
 	<LandingInfoCard
