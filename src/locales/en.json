@@ -312,6 +312,7 @@
 		"redeemed": "Redeemed",
 		"redeemedBy": "Redeemed by",
 		"sendMessage": "Write a message...",
-    "fundsClaimed": "Funds claimed!"
+    "fundsClaimed": "Funds claimed!",
+    "print": "Print"
 	}
 }

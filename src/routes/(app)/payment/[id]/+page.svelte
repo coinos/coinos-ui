@@ -18,11 +18,16 @@
 	};
 
 	fee = fee || 0;
+
+  let direction = amount > 0 ? $t('payments.from') : $t('payments.to')
+  direction = direction[0].toUpperCase() + direction.substr(1, direction.length);
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-	<Icon icon="arrow-left" style="w-10" />
-</button>
+<a href={`/${username}/payments`}>
+	<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80">
+		<Icon icon="arrow-left" style="w-10" />
+	</button>
+</a>
 
 <div class="container mx-auto max-w-lg px-4 space-y-8 break-all text-2xl">
 	<h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
@@ -31,7 +36,7 @@
 
 	{#if p.with}
 		<div>
-			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
+			<span class="text-lg text-secondary my-auto mr-2">{direction}</span>
 			<a href={`/${p.with.username}`}>
 				<div class="flex">
 					<div class="my-auto">
@@ -44,7 +49,7 @@
 	{/if}
 	{#if p.type === types.pot}
 		<div>
-			<span class="text-lg text-secondary my-auto mr-2">{amount > 0 ? 'From' : 'To'}</span>
+			<span class="text-lg text-secondary my-auto mr-2">{direction}</span>
 			<a href={`/pot/${p.memo}`}>
 				<div class="flex">
 					<div class="my-auto">
@@ -56,7 +61,7 @@
 		</div>
 	{/if}
 	<div>
-		<span class="text-lg text-secondary">Amount</span>
+		<span class="text-lg text-secondary">{$t('payments.amount')}</span>
 		<div>
 			{f(fiat(a, rate), currency)}
 			<span class="text-secondary text-lg">
@@ -67,7 +72,7 @@
 
 	{#if tip}
 		<div>
-			<span class="text-lg text-secondary">Tip</span>
+			<span class="text-lg text-secondary">{$t('invoice.tip')}</span>
 			<div>
 				{f(fiat(tip, rate), currency)}
 				({Math.round((tip * 100) / Math.abs(a))}%)
@@ -126,10 +131,28 @@
 		</div>
 	{/if}
 
-	{#if ['laughingbean', 'burnabyartigiano', 'milanowestend', 'eotl', 'bigbite', 'edgemontartigiano'].includes(user.username.toLowerCase())}
-		<button
-			class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
-			on:click={print}>Print Receipt</button
-		>
+	{#if user.hasprinter}
+		<div>
+			<button
+				class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
+				on:click={print}
+			>
+				<div class="mx-auto flex">
+					<Icon icon="printer" style="my-auto h-6 mr-2" />
+					<div class="my-auto mt-1 text-base">{$t('payments.print')}</div>
+				</div>
+			</button>
+		</div>
+	{:else}
+		<div>
+			<a href={`/payment/${id}/plain`}>
+				<button class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60">
+					<div class="mx-auto flex">
+						<Icon icon="printer" style="my-auto h-6 mr-2" />
+						<div class="my-auto mt-1 text-base">{$t('payments.print')}</div>
+					</div>
+				</button>
+			</a>
+		</div>
 	{/if}
 </div>
