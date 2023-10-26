@@ -1,4 +1,5 @@
 <script>
+	import { getMnemonic } from '$lib/nostr';
 	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
 	import { Pin, Icon, Qr } from '$comp';
@@ -8,18 +9,28 @@
 	import { page } from '$app/stores';
 
 	export let user, submit;
-	let pin, verify;
-	let settingPin, setting2fa, disabling2fa, confirming2fa;
 
-	let password, revealPassword;
-	let token = '';
-	let old;
+	let confirming2fa,
+		disabling2fa,
+		locked,
+		mnemonic,
+		old,
+		otp,
+		password,
+		pin,
+		revealPassword,
+		revealSeed,
+		token = '',
+		setting2fa,
+		settingPin,
+		verify;
 
 	let togglePassword = () => (revealPassword = !revealPassword);
+	let toggleSeed = async () => {
+		mnemonic = await getMnemonic(user);
+		revealSeed = !revealSeed;
+	};
 
-	let otp;
-
-	let locked;
 	$: verifying = pin?.length > 5;
 	$: verify && checkPin(pin);
 	let checkPin = async () => {
@@ -211,3 +222,12 @@
 		<option value={8 * 60 * 60}>8 {$t('user.settings.hours')}</option>
 	</select>
 </div>
+
+<button type="button" class="primary" on:click={toggleSeed}>
+	<Icon icon="mobile" style="mr-1" />
+	{$t('user.settings.revealSeed')}
+</button>
+
+{#if revealSeed}
+	{mnemonic}
+{/if}
