@@ -206,6 +206,7 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
+      "revealSeed": "Reveal seed phrase",
 			"saveSettings": "Save Settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",

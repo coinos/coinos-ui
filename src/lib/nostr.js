@@ -58,7 +58,7 @@ function typedArrayToBuffer(array) {
 	return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);
 }
 
-let getPrivateKey = async (user) => {
+export let getMnemonic = async (user) => {
 	let { cipher, username, salt } = user;
 	let password = get(pw);
 
@@ -85,8 +85,11 @@ let getPrivateKey = async (user) => {
 		)
 	);
 
-	mnemonic = entropyToMnemonic(entropy, wordlist);
-	return privateKeyFromSeedWords(mnemonic);
+	return entropyToMnemonic(entropy, wordlist);
+};
+
+let getPrivateKey = async (user) => {
+	return privateKeyFromSeedWords(await getMnemonic(user));
 };
 
 export let sign = async ({ event, user }) => {
