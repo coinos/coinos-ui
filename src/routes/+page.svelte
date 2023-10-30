@@ -43,10 +43,10 @@
 		}
 	});
 
-  let username = 'sample';
-  let password = 'password';
+	let username = 'sir';
+	let password = 'password';
 
-  let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
+	let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
 </script>
 
 <svelte:head>
@@ -63,29 +63,35 @@
 		</div>
 		<div>
 			<p class="text-center text-lg">Public Payment Page</p>
-      <div class="flex justify-center text-2xl"><b>https://coinos.io/{username}</b></div>
+			<div class="flex justify-center text-2xl"><b>https://coinos.io/{username}</b></div>
 		</div>
 		<div>
 			<p class="text-center text-lg">Staff Login</p>
-      <div class="flex justify-center text-2xl"><b>{username} / {password}</b></div>
+			<div class="flex justify-center text-2xl"><b>{username} / {password}</b></div>
 		</div>
-    <div class="py-8">
-		<p class="text-lg font-semibold">What to do if a customer asks to pay with Bitcoin</p>
-		<ol class="list-decimal ml-4">
-			<li class="pt-2">Direct them to scan the QR code to visit the payment page.</li>
-			<li class="pt-2">Enter the sale in your PoS as if it were paid by cash.</li>
-			<li class="pt-2">Tell the customer their total with tax and wait for them to send payment.</li>
-			<li class="pt-2">Check the receipt from the coinos printer to make sure they sent the right amount.</li>
-			<li class="pt-2">Done! Hand the customer their items and a cash receipt if requested.</li>
-		</ol>
-    </div>
+		<div class="py-8">
+			<p class="text-lg font-semibold">What to do if a customer asks to pay with Bitcoin</p>
+			<ol class="list-decimal ml-4">
+				<li class="pt-2">Direct them to scan the QR code to visit the payment page.</li>
+				<li class="pt-2">Enter the sale in your PoS as if it were paid by cash.</li>
+				<li class="pt-2">
+					Tell the customer their total with tax and wait for them to send payment.
+				</li>
+				<li class="pt-2">
+					Check the receipt from the coinos printer to make sure they sent the right amount.
+				</li>
+				<li class="pt-2">Done! Hand the customer their items and a cash receipt if requested.</li>
+			</ol>
+		</div>
 
 		<p>
-    You can view all payments for the day at <b>https://coinos.io/{username}/payments</b> or just total up all the receipts.
+			You can view all payments for the day at <b>https://coinos.io/{username}/payments</b> or just total
+			up all the receipts.
 		</p>
 
 		<p>
-    If you have any questions please email <b>support@coinos.io</b> or call Adam at <b>604-358-6745</b>
+			If you have any questions please email <b>support@coinos.io</b> or call Adam at
+			<b>604-358-6745</b>
 		</p>
 
 		<img src="/images/logo.png" class="ml-auto" style="width: 120px" />
@@ -96,17 +102,22 @@
 			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
 		</div>
 		<Q {src} />
-    <div class="text-center text-4xl">https://coinos.io/{username}</div>
+		<div class="text-center text-4xl">https://coinos.io/{username}</div>
 		<div>
-			<div class="text-center text-xl pt-2">
-        1. Use your <b>Camera</b> app to open this URL in a <b>browser</b>
+			<div class="text-xl pt-2 flex gap-6">
+				<img src="/icons/warning.png" class="w-10 h-10 my-auto" />
+				<div>
+          This QR is <b>NOT</b> a Bitcoin address! It's a URL to be opened in a browser.
+
+					Scan it with your <b>Camera or Barcode App</b>, not your wallet.
+
+					Then click <b>Pay</b> to make an invoice.
+				</div>
 			</div>
-			<div class="text-center text-xl pt-2">2. Click <b>Pay</b> to enter your total and get an invoice</div>
-      <div class="text-center text-xl pt-2">3. Pay with your favourite <b>Bitcoin Lightning</b> wallet</div>
 		</div>
-    <div class="flex">
-		<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
-    </div>
+		<div class="flex">
+			<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
+		</div>
 	</div>
 	<LandingHero {user} />
 	<LandingInfoCard
