@@ -1,16 +1,25 @@
 <script>
-	import { f, s, sats } from '$lib/utils';
+	import { hexToUint8Array } from 'uint8array-extras';
+	import { copy, f, s, sats } from '$lib/utils';
 	import { animatedRate } from '$lib/store';
 	import { Icon } from '$comp';
 	import { t } from '$lib/translations';
 	import { sign, send } from '$lib/nostr';
+	import { bech32m } from '@scure/base';
+	import { page } from '$app/stores';
 
 	export let data;
+
+	let { encode, toWords } = bech32m;
 	let events, user, subject, rates, src, text;
+
 	$: ({ events, user, rates, subject, src, text } = data);
 	$: ({ currency, username: n, display } = subject);
 
 	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
+	$: npub = bech32m.encode('npub', toWords(hexToUint8Array(user.pubkey)), 180);
+	$: lnaddr = `${n}@${$page.url.host}`;
+	$: profile = `${$page.url.host}/${n}`;
 
 	let follow = async () => {
 		user.follows.push(['p', subject.pubkey, 'wss://nostr.coinos.io', subject.username]);
@@ -42,19 +51,76 @@
 
 	$: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
 
-	let hideBio = true;
-	let toggleBio = () => (hideBio = false);
+	let showBio;
+	let toggleBio = () => (showBio = !showBio);
+
+	let showDetails;
+	let toggleDetails = () => (showDetails = !showDetails);
 </script>
 
 <div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap space-y-5">
-	<div class="hidden lg:block w-[240px] lg:mr-10" />
-	<div class="w-[240px] lg:absolute space-y-5 left-20 mx-auto lg:mr-10">
-		<h1 class="text-3xl font-bold text-center mx-auto">{display || username}</h1>
+	<div class="hidden lg:block lg:w-[300px]" />
+	<div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto">
+		<div
+			class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
+			on:click={toggleDetails}
+		>
+			<div class="my-auto">{display || username}</div>
+			<Icon icon="stats" style="w-12 rounded cursor-pointer" />
+		</div>
+
+		{#if showDetails}
+			<div>
+				<div class="flex gap-2">
+					<div class="break-all grow text-secondary text-lg">
+						{npub}
+					</div>
+					<div class="flex mb-auto gap-1">
+						<button class="my-auto" on:click={() => copy(npub)}
+							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+						>
+						<a href={`/qr/${npub}`} class="my-auto">
+							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="flex gap-2">
+					<div class="break-all grow text-secondary text-lg">
+						{lnaddr}
+					</div>
+					<div class="flex mb-auto gap-1">
+						<button class="my-auto" on:click={() => copy(lnaddr)}
+							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+						>
+						<a href={`/qr/${lnaddr}`} class="my-auto">
+							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="flex gap-2">
+					<div class="break-all grow text-secondary text-lg">
+						{profile}
+					</div>
+					<div class="flex mb-auto gap-1">
+						<button class="my-auto" on:click={() => copy(profile)}
+							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+						>
+						<a href={`/qr/${profile}`} class="my-auto">
+							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+						</a>
+					</div>
+				</div>
+			</div>
+		{/if}
 
 		{#if subject.address}
 			<div
 				class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
-				class:line-clamp-3={hideBio}
+				class:line-clamp-3={showBio}
 				on:click={toggleBio}
 				on:keydown={toggleBio}
 			>
@@ -62,7 +128,7 @@
 			</div>
 		{/if}
 
-		<div class="flex justify-around">
+		<div class="flex justify-center gap-4">
 			<a href={`/${subject.pubkey}/follows`}
 				><b>{subject.follows.length}</b>
 				<span class="text-secondary">{$t('user.following')}</span></a
@@ -134,7 +200,7 @@
 	</div>
 
 	<div class="w-full">
-		<div class="mx-auto space-y-5 lg:max-w-lg xl:max-w-2xl">
+		<div class="mx-auto space-y-5 lg:max-w-lg xl:max-w-2xl lg:pl-10">
 			<slot />
 		</div>
 	</div>

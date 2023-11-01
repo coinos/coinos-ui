@@ -3,7 +3,7 @@
 	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
 	import { Pin, Icon, Qr } from '$comp';
-	import { post, success, fail } from '$lib/utils';
+	import { copy, post, success, fail } from '$lib/utils';
 	import { pin as current } from '$lib/store';
 	import { invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -223,11 +223,20 @@
 	</select>
 </div>
 
-<button type="button" class="primary" on:click={toggleSeed}>
-	<Icon icon="mobile" style="mr-1" />
-	{$t('user.settings.revealSeed')}
-</button>
+<div class="space-y-5">
+	<button type="button" class="primary" on:click={toggleSeed}>
+		<Icon icon="warning" style="mr-1 w-6 my-auto" />
+		{revealSeed ? $t('user.settings.hideSeed') : $t('user.settings.revealSeed')}
+	</button>
 
-{#if revealSeed}
-	{mnemonic}
-{/if}
+	{#if revealSeed}
+		<div class="text-lg">
+			{mnemonic}
+		</div>
+
+		<button type="button" class="primary" on:click={() => copy(mnemonic)}>
+			<Icon icon="copy" style="mr-1 w-6 my-auto" />
+			Copy
+		</button>
+	{/if}
+</div>
