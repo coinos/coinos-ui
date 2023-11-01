@@ -17,6 +17,9 @@ dependencies:
   maplibre-gl:
     specifier: ^3.3.1
     version: 3.3.1
+  uint8array-extras:
+    specifier: ^0.5.0
+    version: 0.5.0
 
 devDependencies:
   '@scure/base':
@@ -1984,6 +1987,11 @@ packages:
     resolution: {integrity: sha512-aXofE06xGhaQSPzt8hlTY+/YWQhm9P0jYUp1f2XtmW/3Bk0qzXcyFWAtPoo2uTGQj1ZwbDuSyuxicq+aDo8lCQ==}
     dependencies:
       typewise-core: 1.2.0
+    dev: false
+
+  /uint8array-extras@0.5.0:
+    resolution: {integrity: sha512-CKAKa+/rjCblsuGrcmIJLluHcZMYKcMwgdhAZZEnSplFFGCuGKF6e2L+CeVXK0zX5rYyerrqG2dnHIANm3i9qA==}
+    engines: {node: '>=18'}
     dev: false
 
   /undici@5.21.0:
