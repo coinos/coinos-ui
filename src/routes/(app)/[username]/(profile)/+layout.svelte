@@ -76,10 +76,10 @@
 						{npub}
 					</div>
 					<div class="flex mb-auto gap-1">
-						<button class="my-auto" on:click={() => copy(npub)}
+						<button class="my-auto hover:opacity-40" on:click={() => copy(npub)}
 							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
 						>
-						<a href={`/qr/${npub}`} class="my-auto">
+						<a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto hover:opacity-40">
 							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
 						</a>
 					</div>
@@ -91,10 +91,10 @@
 						{lnaddr}
 					</div>
 					<div class="flex mb-auto gap-1">
-						<button class="my-auto" on:click={() => copy(lnaddr)}
+						<button class="my-auto hover:opacity-40" on:click={() => copy(lnaddr)}
 							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
 						>
-						<a href={`/qr/${lnaddr}`} class="my-auto">
+						<a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto hover:opacity-40">
 							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
 						</a>
 					</div>
@@ -106,10 +106,10 @@
 						{profile}
 					</div>
 					<div class="flex mb-auto gap-1">
-						<button class="my-auto" on:click={() => copy(profile)}
-							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+						<button class="my-auto hover:opacity-40" on:click={() => copy(profile)}
+							><Icon icon="copy" style="max-w-max min-w-[32px] hover:opacity-40" /></button
 						>
-						<a href={`/qr/${profile}`} class="my-auto">
+						<a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto hover:opacity-40">
 							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
 						</a>
 					</div>
