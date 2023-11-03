@@ -312,6 +312,7 @@
 		"redeemed": "Racheté",
 		"redeemedBy": "Racheté par",
 		"sendMessage": "Écrire une message...",
-		"fundsClaimed": "Les fonds sont réclamés!"
+		"fundsClaimed": "Les fonds sont réclamés!",
+		"print": "Imprime"
 	}
 }
