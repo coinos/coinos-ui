@@ -43,7 +43,7 @@
 		}
 	});
 
-	let username = 'sir';
+	let username = 'burnabyartigiano';
 	let password = 'password';
 
 	let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
@@ -102,20 +102,19 @@
 			<h3 class="text-5xl font-medium text-center">Pay with Bitcoin</h3>
 		</div>
 		<Q {src} />
-		<div class="text-center text-4xl">https://coinos.io/{username}</div>
+		<div class="text-center text-4xl font-bold">coinos.io/{username}</div>
 		<div>
 			<div class="text-xl pt-2 flex gap-6">
-				<img src="/icons/warning.png" class="w-10 h-10 my-auto" />
-				<div>
-          This QR is <b>NOT</b> a Bitcoin address! It's a URL to be opened in a browser.
-
-					Scan it with your <b>Camera or Barcode App</b>, not your wallet.
-
-					Then click <b>Pay</b> to make an invoice.
-				</div>
+				<ol class="number-list">
+          <li>Visit this page in a <b>browser</b></li>
+          <li>Click <b>Pay</b> to enter your total in dollars (ask your server)</li>
+          <li>Send payment with your wallet</li>
+          <li>Your server will get a confirmation receipt from the printer</li>
+				</ol>
 			</div>
 		</div>
 		<div class="flex">
+      <div class="my-auto">Need help? Email <b>support@coinos.io</b></div>
 			<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
 		</div>
 	</div>
