@@ -161,6 +161,8 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
+    "profilePage": "Profile page",
+    "nostrPubkey": "Nostr pubkey",
     "requestPayment": "Request Payment",
     "welcome": "Welcome! Your account balance is empty. You can start by making a deposit or by asking someone to pay you.",
     "showBalance": "Show Balance",
@@ -180,8 +182,7 @@
 		"pay": "Pay",
 		"scanToPayBTC": "Scan to pay with bitcoin",
 		"this": "This",
-		"lightningAddress": "lightning address",
-		"likeAnEmail": "is like an email for bitcoin. You can publish it on your website or business cards and use it multiple times.",
+    "lightningAddress": "Lightning address",
 		"dashboard": {
 			"go": "Go",
 			"dashboard": "Dashboard",

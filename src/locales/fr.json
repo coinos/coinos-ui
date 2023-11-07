@@ -235,8 +235,7 @@
 		"unfollow": "Ne plus suivre",
 		"following": "Vous suivez",
 		"this": "Cette",
-		"lightningAddress": "adresse de Lightning",
-		"likeAnEmail": "est comme un courriel pour bitcoin.  Vous pouvez le publier sur votre site web ou votre carte de visite et l'utiliser plusieurs fois.",
+		"lightningAddress": "Adresse de lightning",
 		"send": {
 			"contacts": "Contacts",
 			"scan": "Scannez",
