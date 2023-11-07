@@ -176,8 +176,7 @@
 		"remove": "Eliminar",
 		"scanToPayBTC": "Escanear para pagar con bitcoin",
 		"this": "Esta",
-		"lightningAddress": "dirección lightning",
-		"likeAnEmail": "es como un correo electrónico para bitcoin. Puede publicarlo en su sitio web o tarjetas de presentación y usarlo múltiples veces.",
+		"lightningAddress": "Dirección lightning",
 		"dashboard": {
 			"go": "Ir",
 			"dashboard": "Panel",

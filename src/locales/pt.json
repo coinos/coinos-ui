@@ -183,8 +183,7 @@
 		"pay": "Pagar",
 		"scanToPayBTC": "Escaneie para pagar com bitcoin",
 		"this": "Este",
-		"lightningAddress": "endereço lightning",
-		"likeAnEmail": "é como um email para o bitcoin. Você pode publicá-lo em seu site ou cartão de visita e usá-lo várias vezes.",
+		"lightningAddress": "Endereço lightning",
 		"dashboard": {
 			"go": "Ir",
 			"dashboard": "Painel de controle",
