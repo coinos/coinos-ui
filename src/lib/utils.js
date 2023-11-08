@@ -251,7 +251,7 @@ export let types = {
 	bitcoin: 'bitcoin',
 	lightning: 'lightning',
 	internal: 'internal',
-	pot: 'pot',
+	fund: 'fund',
 	classic: 'classic'
 };
 

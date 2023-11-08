@@ -263,7 +263,7 @@
 		}
 	},
 	"payments": {
-    "moneyPot": "Money Pot",
+    "fund": "Fund",
     "addFunds": "Add Funds",
     "takeFunds": "Take Funds",
     "show": "Show",

@@ -47,10 +47,10 @@
 			</a>
 		</div>
 	{/if}
-	{#if p.type === types.pot}
+	{#if p.type === types.fund}
 		<div>
 			<span class="text-lg text-secondary my-auto mr-2">{direction}</span>
-			<a href={`/pot/${p.memo}`}>
+			<a href={`/fund/${p.memo}`}>
 				<div class="flex">
 					<div class="my-auto">
 						<img src="/images/moneypot.png" class="w-12" alt="Pot" />

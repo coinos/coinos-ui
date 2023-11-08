@@ -4,11 +4,11 @@ import { redirect } from '@sveltejs/kit';
 export async function load({ cookies, params, parent }) {
 	let { user } = await parent();
 	let { name } = params;
-	let { amount } = await get(`/pot/${name}`);
+	let { amount } = await get(`/fund/${name}`);
 
 
-  if (!amount) throw redirect(307, `/pot/${name}`);
-	if (!user) throw redirect(307, `/register?redirect=/pot/${name}/sweep`);
+  if (!amount) throw redirect(307, `/fund/${name}`);
+	if (!user) throw redirect(307, `/register?redirect=/fund/${name}/sweep`);
 	await post('/take', { amount, name }, auth(cookies));
 	return { amount, name };
 }
