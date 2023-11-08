@@ -15,7 +15,7 @@
 
 	let reading = async ({ message, serialNumber }) => {
 		let name = serialNumber.replace(/:/g, '-');
-		let result = await post(`/pot/${name}/withdraw`, { amount, hash, name });
+		let result = await post(`/fund/${name}/withdraw`, { amount, hash, name });
 	};
 
 	let readingerror = (e) => console.log('nfc error', e);

@@ -30,7 +30,7 @@ let parse = async (t, host) => {
 		if (id) throw redirect(307, `/send/invoice/${id}`);
 	}
 
-	if (t.includes('/pot')) throw redirect(307, t.substring(t.indexOf('/pot')));
+	if (t.includes('/fund')) throw redirect(307, t.substring(t.indexOf('/fund')));
 
 	if (t.toLowerCase().startsWith('lnurl')) throw redirect(307, `/ln/${t}`);
 	if (t.includes(':')) t = t.split(':')[1];
@@ -66,13 +66,12 @@ let parse = async (t, host) => {
 
 	if (user) throw redirect(307, `/send/user/${t}`);
 
-	// pot
-	let pot;
+	let fund;
 	try {
-		pot = await get(`/pot/${t}`);
+		fund = await get(`/fund/${t}`);
 	} catch (e) {}
 
-	if (pot) throw redirect(307, `/send/pot/${t}`);
+	if (fund) throw redirect(307, `/send/fund/${t}`);
 
 	// invoice
 	let invoice;

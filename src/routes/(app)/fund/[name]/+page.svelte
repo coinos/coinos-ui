@@ -33,9 +33,9 @@
 				{#if name.split('-').length === 4}
 					<h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
 				{:else}
-					<img src="/images/moneypot.jpg" class="w-24" alt="Pot" />
+					<img src="/images/moneypot.jpg" class="w-24" alt="Fund" />
 					<div class="my-auto">
-						<h1 class="text-2xl font-semibold my-auto">{$t('payments.moneyPot')}</h1>
+						<h1 class="text-2xl font-semibold my-auto">{$t('payments.fund')}</h1>
 						<h1 class="text-secondary my-auto">{name}</h1>
 					</div>
 				{/if}
@@ -55,7 +55,7 @@
 			</div>
 			<div class="flex gap-2" data-sveltekit-prefetch="off">
 				<div class="grow">
-					<a href={`/send/pot/${name}`}>
+					<a href={`/send/fund/${name}`}>
 						<button
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
@@ -65,7 +65,7 @@
 					</a>
 				</div>
 				<div class="grow">
-					<a href={`/pot/${name}/withdraw`}>
+					<a href={`/fund/${name}/withdraw`}>
 						<button
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
@@ -81,7 +81,7 @@
 					on:click={toggle}
 				>
 					<Icon icon="qr" style="invert" />
-					{show ? $t('payments.show') : $t('payments.hide')} QR
+					{show ? $t('payments.hide') : $t('payments.show')} QR
 				</button>
 				<button
 					class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"

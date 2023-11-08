@@ -3,7 +3,7 @@ import { auth, get, post } from '$lib/utils';
 import Qr from 'qrcode-base64';
 
 export let load = async ({ params: { name }, url }) => {
-	let { amount, payments } = await get(`/pot/${name}`);
+	let { amount, payments } = await get(`/fund/${name}`);
 
 	let src = Qr.drawImg(url.href, { size: 300 });
 	return { amount, payments, src };

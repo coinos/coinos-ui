@@ -35,19 +35,6 @@
 	</h1>
 
 	<form method="POST" use:enhance>
-		{#if form?.error}
-			<div class="mb-5">
-				<div class="text-secondary">
-					Could not find anything with that name. Would you like to create a new pot?
-				</div>
-				<div class="w-full flex justify-center">
-					<a href={`/send/pot/${text}`}
-						><button class="bg-black text-white border rounded-full px-6 py-2 font-bold">Yes</button
-						></a
-					>
-				</div>
-			</div>
-		{/if}
 		<div class="mb-2">
 			<input type="hidden" name="text" bind:value={text} />
 

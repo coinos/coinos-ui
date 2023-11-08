@@ -3,14 +3,14 @@ import { redirect } from "@sveltejs/kit"
 
 export let load = async ({ cookies, params }) => {
 	let { serial } = params;
-	let pot;
+	let fund;
 	try {
-		pot = await get(`/pot/${serial}`, auth(cookies));
+		fund = await get(`/fund/${serial}`, auth(cookies));
 	} catch (e) {
 		console.log(e);
 	}
 
-	if (pot) throw redirect(307, `/pot/${serial}`);
+	if (fund) throw redirect(307, `/fund/${serial}`);
 
 	return params;
 };
