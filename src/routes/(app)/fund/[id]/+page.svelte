@@ -11,7 +11,7 @@
 	export let data;
 
 	let { amount, src, payments, rates, user } = data;
-	let { name } = $page.params;
+	let { id } = $page.params;
 
 	toast.pop(0);
 
@@ -30,18 +30,18 @@
 		<div class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5">
 			<div class="relative flex justify-center gap-2">
 				<!-- <p class="absolute right-0 top-1 underline"><Icon icon="settings" /></p> -->
-				{#if name.split('-').length === 4}
-					<h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {name}</h1>
+				{#if id.split('-').length === 4}
+					<h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {id}</h1>
 				{:else}
 					<img src="/images/moneypot.jpg" class="w-24" alt="Fund" />
 					<div class="my-auto">
 						<h1 class="text-2xl font-semibold my-auto">{$t('payments.fund')}</h1>
-						<h1 class="text-secondary my-auto">{name}</h1>
+						<h1 class="text-secondary my-auto">{id}</h1>
 					</div>
 				{/if}
 			</div>
 			{#if show}
-				<img {src} class="mx-auto" alt={name} />
+				<img {src} class="mx-auto" alt={id} />
 			{/if}
 			<div class="flex justify-center gap-4">
 				<div class="my-auto">
@@ -55,7 +55,7 @@
 			</div>
 			<div class="flex gap-2" data-sveltekit-prefetch="off">
 				<div class="grow">
-					<a href={`/send/fund/${name}`}>
+					<a href={`/send/fund/${id}`}>
 						<button
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>
@@ -65,7 +65,7 @@
 					</a>
 				</div>
 				<div class="grow">
-					<a href={`/fund/${name}/withdraw`}>
+					<a href={`/fund/${id}/withdraw`}>
 						<button
 							class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
 						>

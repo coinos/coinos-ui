@@ -6,7 +6,7 @@
 
 	export let data;
 
-	let { amount, name, user, rates } = data;
+	let { amount, id, user, rates } = data;
 	let { currency } = user;
 	$: rate = rates[currency];
 </script>
