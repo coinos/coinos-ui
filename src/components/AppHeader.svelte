@@ -17,6 +17,7 @@
 		menuButtons = [
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
+			{ key: 'nav.funds', icon: 'fund', href: `/${user.username}/funds` },
 			{ key: 'nav.map', icon: 'map', href: `/${user.username}/map` },
 			{ key: 'nav.merch', icon: 'shirt', href: `https://coinosmerch.com` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }

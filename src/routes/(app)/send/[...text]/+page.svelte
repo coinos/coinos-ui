@@ -35,6 +35,14 @@
 	</h1>
 
 	<form method="POST" use:enhance>
+		{#if form?.error}
+			<div class="mb-5">
+				<div class="text-red-600">
+					{$t('error.unrecognizedInput')}
+				</div>
+			</div>
+		{/if}
+
 		<div class="mb-2">
 			<input type="hidden" name="text" bind:value={text} />
 
