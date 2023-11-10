@@ -26,7 +26,8 @@
 	"error": {
 		"header": "Error",
 		"message": "Please try again or contact support.",
-		"signIn": "Please sign in to continue."
+		"signIn": "Please sign in to continue.",
+    "unrecognizedInput": "Unrecognized input"
 	},
 	"faq": {
 		"header": "FAQ",
@@ -145,6 +146,7 @@
 		"failed": "Login failed"
 	},
 	"nav": {
+    "funds": "Funds",
     "map": "Map",
     "merch": "Merch",
 		"profile": "Profile",
