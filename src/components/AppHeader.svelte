@@ -17,6 +17,8 @@
 		menuButtons = [
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
+			{ key: 'nav.map', icon: 'map', href: `/${user.username}/map` },
+			{ key: 'nav.merch', icon: 'shop', href: `https://coinosmerch.com` },
 			{ key: 'nav.signOut', icon: 'logout', href: `/logout` },
 		];
 
@@ -53,7 +55,7 @@
 						.url.pathname === `/${user.username}/receive`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="receive" style="mx-auto w-6 md:w-8" />
+					><Icon icon="numpad" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
 			<a href={`/${user.username}/payments`}>
