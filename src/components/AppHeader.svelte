@@ -19,7 +19,7 @@
 			{ key: 'nav.support', icon: 'support', href: `/support` },
 			{ key: 'nav.map', icon: 'map', href: `/${user.username}/map` },
 			{ key: 'nav.merch', icon: 'shop', href: `https://coinosmerch.com` },
-			{ key: 'nav.signOut', icon: 'logout', href: `/logout` },
+			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
 		];
 
 	let showMenu = false;
@@ -115,6 +115,8 @@
 								</li>
 							{/each}
 						</ul>
+						<hr class="my-4" />
+						<a href="/"><img src="/images/logo.svg" alt="Coinos" class="w-32" /></a>
 					</div>
 				</OutClick>
 			</div>
