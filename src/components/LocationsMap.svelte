@@ -8,11 +8,43 @@
 
 	export let locations;
 	let map;
-	let mapContainer;
+	let mapContainer, mapWrapper;
 	let markers = [];
 
 	let currentIndex = -1;
 	let timeout;
+
+	let full = () => {
+		if (!document.fullscreenElement) {
+			if (mapWrapper.requestFullscreen) {
+				mapWrapper.requestFullscreen();
+			} else if (mapWrapper.mozRequestFullScreen) {
+				/* Firefox */
+				mapWrapper.mozRequestFullScreen();
+			} else if (mapWrapper.webkitRequestFullscreen) {
+				/* Chrome, Safari & Opera */
+				mapWrapper.webkitRequestFullscreen();
+			} else if (mapWrapper.msRequestFullscreen) {
+				/* IE/Edge */
+				mapWrapper.msRequestFullscreen();
+			}
+
+      map.resize();
+		} else {
+			if (document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if (document.mozCancelFullScreen) {
+				/* Firefox */
+				document.mozCancelFullScreen();
+			} else if (document.webkitExitFullscreen) {
+				/* Chrome, Safari and Opera */
+				document.webkitExitFullscreen();
+			} else if (document.msExitFullscreen) {
+				/* IE/Edge */
+				document.msExitFullscreen();
+			}
+		}
+	};
 
 	function select(m) {
 		stopFlying();
@@ -188,6 +220,18 @@
 				map.on('touchstart', stopFlying);
 				map.on('wheel', stopFlying);
 				map.on('dragstart', stopFlying);
+
+				document.addEventListener('fullscreenchange', onFullScreenChange, false);
+				document.addEventListener('webkitfullscreenchange', onFullScreenChange, false);
+				document.addEventListener('mozfullscreenchange', onFullScreenChange, false);
+				document.addEventListener('MSFullscreenChange', onFullScreenChange, false);
+
+				function onFullScreenChange() {
+          console.log("resizing")
+					if (map) {
+						map.resize(); // This will adjust the map size to fit the new container size
+					}
+				}
 			});
 		}
 	});
@@ -200,21 +244,23 @@
 </script>
 
 <div class="container mx-auto max-w-4xl">
-	<div class="flex w-full">
-		<div class="mx-auto h-[550px] w-full z-0" bind:this={mapContainer} />
+	<div class="flex w-full h-[350px]" id="map" bind:this={mapWrapper}>
+		<div id="map-container" class="mx-auto h-full w-full z-0" bind:this={mapContainer} />
 		<div class="relative">
-			<button
-				class="absolute flex top-2 right-2 rounded-full border-2 border-black bg-white w-10 h-10"
-				on:click={toggle}
-			>
-				{#if timeout}
-					<Icon icon="pause" style="w-4 m-auto" />
-				{:else}
-					<Icon icon="play" style="w-4 m-auto" />
-				{/if}
-			</button>
+			<div class="flex absolute flex top-2 right-2 gap-2">
+				<button class="rounded-full border-2 border-black bg-white w-10 h-10" on:click={toggle}>
+					{#if timeout}
+						<Icon icon="pause" style="w-4 m-auto" />
+					{:else}
+						<Icon icon="play" style="w-4 m-auto" />
+					{/if}
+				</button>
+				<button class="rounded-full border-2 border-black bg-white w-10 h-10" on:click={full}>
+					<Icon icon="full" style="w-4 m-auto" />
+				</button>
+			</div>
 
-			<div class="absolute bottom-2 right-2 w-60 h-60 bg-white overflow-y-scroll p-4 bg-opacity-80">
+			<div class="absolute bottom-2 right-2 w-60 h-28 bg-white overflow-y-scroll p-4 bg-opacity-80">
 				{#each inview as m}
 					<button
 						on:click={() => select(m)}
@@ -226,11 +272,15 @@
 			</div>
 		</div>
 	</div>
-
-	{inview.length}
 </div>
 
 <style>
+	#map:fullscreen,
+	#map-container:fullscreen {
+		width: 100% !important;
+		height: 100% !important;
+	}
+
 	:global(.maplibregl-popup-close-button) {
 		font-size: 24px;
 		padding: 8px;
