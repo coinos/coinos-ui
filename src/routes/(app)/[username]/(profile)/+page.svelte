@@ -99,7 +99,7 @@
 						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full"
 					>
 						<div class="mx-auto flex">
-							<Icon icon="receive" style="my-auto h-6 mr-2" />
+							<Icon icon="numpad" style="my-auto h-6 mr-2" />
 							<div class="my-auto mt-1">{$t('user.dashboard.receive')}</div>
 						</div>
 					</button>
