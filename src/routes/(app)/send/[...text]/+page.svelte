@@ -61,7 +61,7 @@
 					type="button"
 					class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
 				>
-					<Icon icon="scan" style="mr-2 w-6 my-auto" />
+					<Icon icon="camera" style="mr-2 w-6 my-auto" />
 					<div class="my-auto">{$t('user.send.scan')}</div>
 				</button>
 			</a>

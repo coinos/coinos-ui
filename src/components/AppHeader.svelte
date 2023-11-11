@@ -17,10 +17,7 @@
 		menuButtons = [
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },
-			{ key: 'nav.funds', icon: 'fund', href: `/${user.username}/funds` },
-			{ key: 'nav.map', icon: 'map', href: `/${user.username}/map` },
-			{ key: 'nav.merch', icon: 'shirt', href: `https://coinosmerch.com` },
-			{ key: 'nav.signOut', icon: 'logout', href: `/logout` }
+			{ key: 'nav.signOut', icon: 'logout', href: `/logout` },
 		];
 
 	let showMenu = false;
@@ -56,7 +53,7 @@
 						.url.pathname === `/${user.username}/receive`
 						? 'opacity-100'
 						: 'opacity-70 hover:opacity-80'}"
-					><Icon icon="numpad" style="mx-auto w-6 md:w-8" />
+					><Icon icon="receive" style="mx-auto w-6 md:w-8" />
 				</button>
 			</a>
 			<a href={`/${user.username}/payments`}>
@@ -116,8 +113,6 @@
 								</li>
 							{/each}
 						</ul>
-						<hr class="my-4" />
-						<a href="/"><img src="/images/logo.svg" alt="Coinos" class="w-32" /></a>
 					</div>
 				</OutClick>
 			</div>
