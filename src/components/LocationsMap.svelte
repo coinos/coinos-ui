@@ -244,7 +244,7 @@
 </script>
 
 <div class="container mx-auto max-w-4xl">
-	<div class="flex w-full h-[350px]" id="map" bind:this={mapWrapper}>
+	<div class="flex w-full h-[400px]" id="map" bind:this={mapWrapper}>
 		<div id="map-container" class="mx-auto h-full w-full z-0" bind:this={mapContainer} />
 		<div class="relative">
 			<div class="flex absolute flex top-2 right-2 gap-2">
@@ -260,7 +260,7 @@
 				</button>
 			</div>
 
-			<div class="absolute bottom-2 right-2 w-60 h-28 bg-white overflow-y-scroll p-4 bg-opacity-80">
+			<div class="absolute bottom-2 right-2 w-60 h-24 bg-white overflow-y-scroll p-4 bg-opacity-80">
 				{#each inview as m}
 					<button
 						on:click={() => select(m)}
