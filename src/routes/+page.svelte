@@ -89,7 +89,7 @@
 
 	<div>
 		<div class="space-y-10">
-			<h3 class="text-5xl font-medium text-center">{$t('faq.header')}</h3>
+			<h3 class="text-5xl font-medium text-center pt-40 -mt-40" id="faq">{$t('faq.header')}</h3>
 			{#each Object.keys(faqs).filter((f) => f !== 'header') as faqID}
 				<FaqCard questionID={faqID} />
 			{/each}

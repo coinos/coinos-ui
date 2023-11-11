@@ -17,7 +17,7 @@
 	$: ({ currency, username: n, display } = subject);
 
 	$: username = n.length > 60 ? n.substr(0, 6) : display || n;
-	$: npub = bech32m.encode('npub', toWords(hexToUint8Array(user.pubkey)), 180);
+	$: npub = bech32m.encode('npub', toWords(hexToUint8Array(subject.pubkey)), 180);
 	$: lnaddr = `${n}@${$page.url.host}`;
 	$: profile = `${$page.url.host}/${n}`;
 
@@ -147,7 +147,7 @@
 				{#if following}
 					<div class="w-full flex">
 						<button
-							class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
+							class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
 							on:click={unfollow}
 						>
 							<div class="mx-auto flex">
@@ -159,7 +159,7 @@
 				{:else}
 					<div class="w-full flex">
 						<button
-							class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+							class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
 							on:click={follow}
 						>
 							<div class="mx-auto flex">
@@ -169,6 +169,19 @@
 						</button>
 					</div>
 				{/if}
+			{/if}
+
+			{#if user && user.username !== subject.username && subject.pubkey}
+				<div class="w-full flex mb-4">
+					<a href={`/${subject.username}/messages`} class="mx-auto">
+						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+							<div class="mx-auto flex">
+								<Icon icon="support" style="mr-2 my-auto" />
+								<div class="mt-1 my-auto">{$t('user.message')}</div>
+							</div>
+						</button>
+					</a>
+				</div>
 			{/if}
 
 			{#if !subject.anon && subject.username !== user?.username}
@@ -186,24 +199,11 @@
 					</a>
 				</div>
 			{/if}
-
-			{#if user && user.username !== subject.username && subject.pubkey}
-				<div class="w-full flex">
-					<a href={`/${subject.username}/messages`} class="mx-auto">
-						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
-							<div class="mx-auto flex">
-								<Icon icon="support" style="mr-2 my-auto" />
-								<div class="mt-1 my-auto">{$t('user.message')}</div>
-							</div>
-						</button>
-					</a>
-				</div>
-			{/if}
 		</div>
 	</div>
 
 	<div class="w-full">
-		<div class="mx-auto space-y-5 lg:max-w-lg xl:max-w-2xl lg:pl-10">
+		<div class="mx-auto space-y-5 lg:max-w-xl lg:pl-10 xl:max-w-2xl lg:pl-10">
 			<slot />
 		</div>
 	</div>
