@@ -176,7 +176,7 @@
 					<a href={`/${subject.username}/messages`} class="mx-auto">
 						<button class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
 							<div class="mx-auto flex">
-								<Icon icon="support" style="mr-2 my-auto" />
+								<Icon icon="message" style="mr-2 my-auto" />
 								<div class="mt-1 my-auto">{$t('user.message')}</div>
 							</div>
 						</button>
