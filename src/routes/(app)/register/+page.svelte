@@ -200,8 +200,8 @@
 						on:focus={clear}
 						autocapitalize="none"
 					/>
-					<button type="button" on:click={refresh} class="absolute right-5 top-10">
-						<Icon icon="refresh" style="w-6" />
+					<button type="button" on:click={refresh} class="absolute right-0 top-4">
+						<Icon icon="refresh" style="w-6 m-6" />
 					</button>
 				</div>
 
@@ -230,9 +230,9 @@
 					<button
 						type="button"
 						on:click={() => (revealPassword = !revealPassword)}
-						class="absolute right-5 top-10"
+						class="absolute right-0 top-4"
 					>
-						<Icon icon={revealPassword ? 'eye' : 'eye-off'} />
+						<Icon icon={revealPassword ? 'eye' : 'eye-off'} style="m-6" />
 					</button>
 				</div>
 
