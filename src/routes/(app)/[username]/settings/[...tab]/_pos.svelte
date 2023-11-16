@@ -4,7 +4,7 @@
 	import { success, fail } from '$lib/utils';
 	import { page } from '$app/stores';
 
-	export let user, rates;
+	export let user, rates, submit;
 	let fiats = Object.keys(rates);
 </script>
 
@@ -25,7 +25,7 @@
 <div>
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.tipPrompt')}</span>
-		<Toggle id="prompt" checked={user.prompt} bind:value={user.prompt} />
+		<Toggle id="prompt" bind:value={user.prompt} />
 	</div>
 	<p class="text-secondary mt-1 w-9/12">
 		{$t('user.settings.tipPromptDescription')}

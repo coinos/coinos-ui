@@ -98,7 +98,7 @@
 	{/if}
 
 	{#if subject?.profile}
-		<meta name="og:image" content={`/api/public/${subject.uuid}-profile.webp`} />
+		<meta name="og:image" content={`/api/public/${subject.profile}.webp`} />
 	{:else}
 		<meta property="og:image" content="/icons/logo.svg" />
 	{/if}

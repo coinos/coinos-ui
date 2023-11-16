@@ -1,5 +1,6 @@
 <script>
 	import '../app.css';
+	import { loading, t } from '$lib/translations';
 
 	export let data;
 	let { host, pathname } = data;
@@ -26,7 +27,9 @@
 	<meta name="twitter:creator" content="@coinoswallet" />
 </svelte:head>
 
+{#if !$loading}
 <slot />
+{/if}
 
 <style global>
 	:root {

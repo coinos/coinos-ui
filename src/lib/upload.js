@@ -1,5 +1,4 @@
 export const upload = async (file, type, progress, token) => {
-	console.log('TYPE', type);
 	let url = `/api/upload/${type}`;
 	let formData = new FormData();
 	formData.append('file', file);
@@ -14,7 +13,7 @@ export const upload = async (file, type, progress, token) => {
 		});
 		ajax.upload.addEventListener('progress', progress, false);
 		ajax.open('POST', url);
-		ajax.setRequestHeader('Authorization', `Bearer ${token}`);
+		//	ajax.setRequestHeader('Authorization', `Bearer ${token}`);
 		ajax.send(formData);
 	});
 };
