@@ -128,7 +128,7 @@
 			</div>
 		{/if}
 
-		{#if subject.address}
+		{#if subject.address && subject.id !== user?.id}
 			<div
 				class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
 				class:line-clamp-3={showBio}
