@@ -16,7 +16,7 @@
 	export let form;
 	export let data;
 
-  $: data && ($avatar = undefined);
+	$: data && ($avatar = undefined);
 
 	let cleared;
 	let clear = () => {
@@ -28,8 +28,17 @@
 		}
 	};
 
-	let { index, username } = data;
+	let refresh = async () => {
+		await invalidateAll();
+		await tick();
+		username = data.username;
+		$password = data.password;
+	};
+
+	let username = data.username;
 	$password = data.password;
+
+	let { index } = data;
 
 	afterNavigate(async () => {
 		try {
@@ -134,7 +143,7 @@
 
 	<div class="flex justify-center items-center">
 		<div class="shadow-xl rounded-3xl p-4 pt-0 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
-			<inpue
+			<input
 				type="file"
 				class="hidden"
 				bind:this={avatarInput}
@@ -180,7 +189,7 @@
 				/>
 				<input type="hidden" name="token" value={token} />
 
-				<div>
+				<div class="relative">
 					<label for="username" class="font-semibold">{$t('login.username')}</label>
 					<input
 						name="username"
@@ -191,6 +200,9 @@
 						on:focus={clear}
 						autocapitalize="none"
 					/>
+					<button type="button" on:click={refresh} class="absolute right-5 top-10">
+						<Icon icon="refresh" style="w-6" />
+					</button>
 				</div>
 
 				<div class="relative">

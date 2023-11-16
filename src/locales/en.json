@@ -121,7 +121,7 @@
 		"username": "Username",
 		"password": "Password",
 		"email": "Email",
-		"passwordRecommendation": "Change to a longer random password if you intend to keep significant funds in the account.",
+		"passwordRecommendation": "We recommend using a long, random password if you intend to keep funds in your account.",
 		"forgotUserOrPassword": "Forgot Username or Password?",
 		"haveAccount": "Already have an account?",
 		"noAccount": "Don't have an account?",
