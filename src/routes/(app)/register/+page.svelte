@@ -16,6 +16,8 @@
 	export let form;
 	export let data;
 
+  $: data && ($avatar = undefined);
+
 	let cleared;
 	let clear = () => {
 		if (!cleared) {
