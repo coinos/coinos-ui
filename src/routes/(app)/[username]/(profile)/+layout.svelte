@@ -61,58 +61,66 @@
 <div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap space-y-5">
 	<div class="hidden lg:block lg:w-[300px]" />
 	<div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-md">
-		<div
-			class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
-			on:click={toggleDetails}
-		>
+		<div class="flex text-3xl font-bold text-center mx-auto justify-center gap-2">
 			<div class="my-auto">{display || username}</div>
-			<Icon icon="stats" style="w-12 rounded cursor-pointer" />
+			<button on:click={toggleDetails}>
+				<Icon icon="stats" style="w-12" />
+			</button>
 		</div>
 
 		{#if showDetails}
 			<div>
-        <div class="font-bold">{$t('user.profilePage')}</div>
+				<div class="font-bold">{$t('user.profilePage')}</div>
 				<div class="flex gap-2">
 					<div class="break-all grow text-secondary text-lg">
 						{profile}
 					</div>
 					<div class="flex mb-auto gap-1">
-						<button class="my-auto opacity-60 hover:opacity-100" on:click={() => copy(profile)}
+						<button class="my-auto" on:click={() => copy(profile)}
 							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
 						>
-						<a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto opacity-60 hover:opacity-100">
+						<a
+							href={`/qr/${encodeURIComponent(profile)}`}
+							class="my-auto"
+						>
 							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
 						</a>
 					</div>
 				</div>
 			</div>
 			<div>
-        <div class="font-bold">{$t('user.lightningAddress')}</div>
+				<div class="font-bold">{$t('user.lightningAddress')}</div>
 				<div class="flex gap-2">
 					<div class="break-all grow text-secondary text-lg">
 						{lnaddr}
 					</div>
 					<div class="flex mb-auto gap-1">
-						<button class="my-auto opacity-60 hover:opacity-100" on:click={() => copy(lnaddr)}
+						<button class="my-auto" on:click={() => copy(lnaddr)}
 							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
 						>
-						<a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto opacity-60 hover:opacity-100">
+						<a
+							href={`/qr/${encodeURIComponent(lnaddr)}`}
+							class="my-auto"
+						>
 							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
 						</a>
 					</div>
 				</div>
 			</div>
 			<div>
-        <div class="font-bold">{$t('user.nostrPubkey')}</div>
+				<div class="font-bold">{$t('user.nostrPubkey')}</div>
 				<div class="flex gap-2">
 					<div class="break-all grow text-secondary text-lg">
 						{npub}
 					</div>
 					<div class="flex my-auto gap-1">
-						<button class="my-auto opacity-60 hover:opacity-100" on:click={() => copy(npub)}
+						<button class="my-auto" on:click={() => copy(npub)}
 							><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
 						>
-						<a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto opacity-60 hover:opacity-100">
+						<a
+							href={`/qr/${encodeURIComponent(npub)}`}
+							class="my-auto"
+						>
 							<Icon icon="qr" style="invert max-w-max min-w-[32px]" />
 						</a>
 					</div>

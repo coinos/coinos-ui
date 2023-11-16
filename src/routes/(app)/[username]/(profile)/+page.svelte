@@ -96,20 +96,20 @@
 			<div class="flex flex-wrap gap-4 justify-center w-full">
 				<a href={`/${user.username}/receive`} class="w-full md:w-60">
 					<button
-						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full"
+						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full bg-black text-white"
 					>
 						<div class="mx-auto flex">
-							<Icon icon="numpad" style="my-auto h-6 mr-2" />
+							<Icon icon="numpad" style="my-auto h-6 mr-2 invert" />
 							<div class="my-auto mt-1">{$t('user.dashboard.receive')}</div>
 						</div>
 					</button>
 				</a>
 				<a href={`/send`} class="w-full md:w-60">
 					<button
-						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full"
+						class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full bg-black text-white"
 					>
 						<div class="mx-auto flex">
-							<Icon icon="send" style="my-auto h-6 mr-2" />
+							<Icon icon="send" style="my-auto h-6 mr-2 invert" />
 							<div class="my-auto mt-1">{$t('user.dashboard.send')}</div>
 						</div>
 					</button>

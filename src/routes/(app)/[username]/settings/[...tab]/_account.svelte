@@ -5,7 +5,7 @@
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 
-	export let user;
+	export let user, rates, submit;
 	let { id } = user;
 
 	let selectedTheme = 1;
@@ -95,7 +95,7 @@
 				on:keydown={selectAvatar}
 			>
 				<img
-					src={$avatar?.src || `/api/public/${user.id}-profile.webp`}
+					src={$avatar?.src || `/api/public/${user.profile}.webp`}
 					class="absolute w-full h-full object-cover object-center visible overflow-hidden"
 					alt={user.username}
 				/>
@@ -138,7 +138,7 @@
 
 	{#if $banner || user.banner}
 		<img
-			src={$banner ? $banner.src : `/api/public/${user.id}-banner.webp`}
+			src={$banner ? $banner.src : `/api/public/${user.banner}.webp`}
 			class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
 			on:click={selectBanner}
 			on:keydown={selectBanner}

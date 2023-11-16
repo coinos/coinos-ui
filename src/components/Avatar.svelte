@@ -13,7 +13,7 @@
 	$: src =
 		($avatar?.id && $avatar.id === user.id && $avatar.src) ||
 		'/api/public/' +
-			(user.profile ? user.id + '-profile.webp' : 'punks/' + punk(user.pubkey || user.id || 'aa'));
+			(user.profile + '.webp' || 'punks/' + punk(user.pubkey || user.id || 'aa'));
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>

@@ -8,5 +8,6 @@ export let load = async () => {
 		data = await get('/locations');
 	} catch (e) {}
 
+    data.faqs = ['cost', 'compatibility', 'safety', 'pos', 'bitcoin'];
 	return data;
 };

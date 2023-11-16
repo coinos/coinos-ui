@@ -68,13 +68,31 @@
 			}
 
 			if ($avatar) {
-				await upload($avatar.file, $avatar.type, $avatar.progress, token);
-				await fetch(`/api/public/${id}-profile.webp`, { cache: 'reload', mode: 'no-cors' });
+				try {
+					let { hash } = JSON.parse(
+						await upload($avatar.file, $avatar.type, $avatar.progress, token)
+					);
+
+					data.set('profile', hash);
+
+					await fetch(`/api/public/${hash}.webp`, { cache: 'reload', mode: 'no-cors' });
+				} catch (e) {
+					console.log('problem uploading avatar', e);
+				}
 			}
 
 			if ($banner) {
-				await upload($banner.file, $banner.type, $banner.progress, token);
-				await fetch(`/api/public/${id}-banner.webp`, { cache: 'reload', mode: 'no-cors' });
+				try {
+					let { hash } = JSON.parse(
+						await upload($banner.file, $banner.type, $banner.progress, token)
+					);
+
+					data.set('banner', hash);
+
+					await fetch(`/api/public/${hash}.webp`, { cache: 'reload', mode: 'no-cors' });
+				} catch (e) {
+					console.log('problem uploading banner', e);
+				}
 			}
 
 			let event = {
@@ -84,7 +102,7 @@
 				content: JSON.stringify({
 					name: user.username,
 					about: user.address,
-					picture: `${PUBLIC_COINOS_URL}/public/${user.id}-profile.webp`
+					picture: `${PUBLIC_COINOS_URL}/public/${user.profile}.webp`
 				}),
 				tags: []
 			};

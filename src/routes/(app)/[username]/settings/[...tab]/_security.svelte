@@ -8,7 +8,7 @@
 	import { invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	export let user, submit;
+	export let user, rates, submit;
 
 	let confirming2fa,
 		disabling2fa,
