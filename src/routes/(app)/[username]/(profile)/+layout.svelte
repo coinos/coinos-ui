@@ -58,9 +58,9 @@
 	let toggleDetails = () => (showDetails = !showDetails);
 </script>
 
-<div class="container mx-auto w-full px-4 mb-4 flex flex-wrap lg:flex-nowrap space-y-5">
+<div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
 	<div class="hidden lg:block lg:w-[300px]" />
-	<div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-md">
+	<div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-sm">
 		<div class="flex text-3xl font-bold text-center mx-auto justify-center gap-2">
 			<div class="my-auto">{display || username}</div>
 			<button on:click={toggleDetails}>
@@ -71,7 +71,7 @@
 		{#if showDetails}
 			<div>
 				<div class="font-bold">{$t('user.profilePage')}</div>
-				<div class="flex gap-2">
+				<div class="flex gap-4">
 					<div class="break-all grow text-secondary text-lg">
 						{profile}
 					</div>
@@ -90,7 +90,7 @@
 			</div>
 			<div>
 				<div class="font-bold">{$t('user.lightningAddress')}</div>
-				<div class="flex gap-2">
+				<div class="flex gap-4">
 					<div class="break-all grow text-secondary text-lg">
 						{lnaddr}
 					</div>
@@ -109,7 +109,7 @@
 			</div>
 			<div>
 				<div class="font-bold">{$t('user.nostrPubkey')}</div>
-				<div class="flex gap-2">
+				<div class="flex gap-4">
 					<div class="break-all grow text-secondary text-lg">
 						{npub}
 					</div>
@@ -139,7 +139,7 @@
 			</div>
 		{/if}
 
-		<div class="flex justify-center gap-4">
+		<div class="flex justify-center gap-2">
 			<a href={`/${subject.pubkey}/follows`}
 				><b>{subject.follows.length}</b>
 				<span class="text-secondary">{$t('user.following')}</span></a
