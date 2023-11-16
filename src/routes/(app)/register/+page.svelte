@@ -125,18 +125,16 @@
 	<Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
 {/if}
 
-<div class="pt-10">
-	<div class="w-[243px] mx-auto mb-10">
+<div class="pt-4">
+	<div class="w-[243px] mx-auto">
 		<a href="/">
 			<Icon icon="logo" />
 		</a>
 	</div>
 
 	<div class="flex justify-center items-center">
-		<div class="shadow-xl rounded-3xl p-10 pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
-			<h1 class="text-2xl font-bold text-center">{$t('login.register')}</h1>
-
-			<input
+		<div class="shadow-xl rounded-3xl p-4 pt-0 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]">
+			<inpue
 				type="file"
 				class="hidden"
 				bind:this={avatarInput}
@@ -144,12 +142,12 @@
 			/>
 
 			<div class="relative">
-				<button class="absolute w-8 h-12 left-8 bg-white rounded top-12" on:click={decr}>
+				<button class="absolute w-8 h-12 left-12 bg-white rounded top-12" on:click={decr}>
 					<Icon icon="chevron-left" style="w-8 " />
 				</button>
-				<div class="relative w-36 mx-auto" on:click={selectAvatar}>
+				<div class="relative w-32 mx-auto" on:click={selectAvatar}>
 					<button
-						class="w-36 h-36 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
+						class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
 					>
 						<img
 							{src}
@@ -163,7 +161,7 @@
 						<Icon icon="upload" style="w-8" />
 					</button>
 				</div>
-				<button class="absolute w-8 h-12 right-8 bg-white rounded top-12" on:click={incr}>
+				<button class="absolute w-8 h-12 right-12 bg-white rounded top-12" on:click={incr}>
 					<Icon icon="chevron-left" style="w-8 rotate-180" />
 				</button>
 			</div>
