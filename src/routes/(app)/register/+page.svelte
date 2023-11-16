@@ -99,8 +99,8 @@
 
 	let avatarInput;
 	$: src = `/api/public/${punks[index]}.webp`;
-	let decr = () => (index = index <= 1 ? 64 : index - 1);
-	let incr = () => (index = index >= 64 ? 1 : index + 1);
+	let decr = () => (index = index <= 0 ? 63 : index - 1);
+	let incr = () => (index = index >= 63 ? 0 : index + 1);
 	let selectAvatar = () => avatarInput.click();
 
 	let progress;
