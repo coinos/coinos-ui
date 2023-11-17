@@ -158,8 +158,6 @@
 							props: { tags }
 						});
 
-            if (tags.name?.startsWith("Cord")) console.log(location)
-
 						let marker = new maplibre.Marker({ color: '#F7931A' })
 							.setLngLat([lon, lat])
 							.setPopup(new maplibre.Popup().setDOMContent(popupContainer))
@@ -214,8 +212,8 @@
 	onDestroy(() => map && map.remove());
 </script>
 
-<div class="container mx-auto max-w-4xl">
-	<div class="flex w-full h-[400px]" id="map" bind:this={mapWrapper}>
+<div class="container mx-auto p-2 space-y-5">
+	<div class="flex w-full h-[60vh]" id="map" bind:this={mapWrapper}>
 		<div id="map-container" class="mx-auto h-full w-full z-0" bind:this={mapContainer} />
 		<div class="relative">
 			<div class="flex absolute flex top-2 right-2 gap-2">
@@ -230,18 +228,18 @@
 					<Icon icon="full" style="w-4 m-auto" />
 				</button>
 			</div>
-
-			<div class="absolute bottom-2 right-2 w-60 h-24 bg-white overflow-y-scroll p-4 bg-opacity-80">
-				{#each inview as m}
-					<button
-						on:click={() => select(m)}
-						class="text-left"
-						class:font-bold={m.id === inview[currentIndex]?.id}
-						id={`marker-${m.id}`}>{m.tags.name}</button
-					>
-				{/each}
-			</div>
 		</div>
+	</div>
+
+	<div class="hidden lg:grid grid-cols-3 justify-items-center">
+		{#each inview as m}
+			<button
+				on:click={() => select(m)}
+				class="text-left"
+				class:font-bold={m.id === inview[currentIndex]?.id}
+				id={`marker-${m.id}`}>{m.tags.name}</button
+			>
+		{/each}
 	</div>
 </div>
 
