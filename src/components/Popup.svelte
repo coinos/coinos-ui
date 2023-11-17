@@ -19,16 +19,16 @@
 					<span class="block">{addr(tags)}</span>
 				</div>
 
-        <div>
-				<div class="flex w-full">
-					<div class="mx-auto">
-						<Avatar user={tags.user} size={16} />
+				<div>
+					<div class="flex w-full">
+						<div class="mx-auto">
+							<Avatar user={tags.user} size={16} />
+						</div>
+					</div>
+					<div class="break-all text-center">
+						{$page.url.host}/{tags.user.username.toLowerCase()}
 					</div>
 				</div>
-				<div class="break-all font-bold text-center">
-					{$page.url.host}/{tags.user.username.toLowerCase()}
-				</div>
-        </div>
 			</div>
 		</a>
 	{:else}
