@@ -1,8 +1,8 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
+	import { tick, onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import html2canvas from 'html2canvas';
-	import { Icon } from '$comp';
+	import { Icon, Popup } from '$comp';
 
 	import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -29,7 +29,7 @@
 				mapWrapper.msRequestFullscreen();
 			}
 
-      map.resize();
+			map.resize();
 		} else {
 			if (document.exitFullscreen) {
 				document.exitFullscreen();
@@ -53,19 +53,19 @@
 	}
 
 	async function flyToMarker(marker) {
-		marker.getElement().click();
-
 		map.flyTo({
-			zoom: 14,
+			zoom: 12,
 			center: marker.getLngLat(),
 			essential: true,
 			easing: function (t) {
 				return 1 - Math.pow(1 - t, 3);
 			},
-			duration: 5000
+			duration: 3000
 		});
 
-		await new Promise((r) => setTimeout(r, 5000));
+		await new Promise((r) => setTimeout(r, 3000));
+		marker.getElement().click();
+		await new Promise((r) => setTimeout(r, 1500));
 
 		if (!timeout) return;
 
@@ -76,7 +76,7 @@
 			easing: function (t) {
 				return 1 - Math.pow(1 - t, 3);
 			},
-			duration: 2000
+			duration: 1500
 		});
 	}
 
@@ -93,7 +93,7 @@
 		if (currentIndex >= inview.length) currentIndex = 0;
 		flyToMarker(inview[currentIndex]);
 
-		timeout = setTimeout(startFlying, 7000);
+		timeout = setTimeout(startFlying, 6000);
 	}
 
 	function stopFlying() {
@@ -107,20 +107,6 @@
 		map.jumpTo({ center: map.getCenter(), zoom: map.getZoom() });
 		map.off('moveend'); // Remove moveend listener if set
 	}
-
-	let checkAddress = (location) => {
-		if (location['addr:housenumber'] && location['addr:street'] && location['addr:city']) {
-			return `${
-				location['addr:housenumber'] + ' ' + location['addr:street'] + ', ' + location['addr:city']
-			}`;
-		} else if (location['addr:street'] && location['addr:city']) {
-			return `${location['addr:street'] + ', ' + location['addr:city']}`;
-		} else if (location['addr:city']) {
-			return `${location['addr:city']}`;
-		} else {
-			return '';
-		}
-	};
 
 	let inview = [];
 
@@ -141,20 +127,6 @@
 
 		inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
 	}
-
-	let html = (tags) => `${
-		tags && tags.name ? `<span class='block font-bold'>${tags.name}</span>` : ''
-	}
-
-  <span class='block'>${tags && checkAddress(tags)}</span>
-
-  ${tags && tags.phone ? `<a href='tel:${tags.phone}' class='block'>${tags.phone}</a>` : ''}
-
-  ${
-		tags && tags.website
-			? `<a href=${tags.website} target="_blank" rel="noreferrer" class='block text-blue-400 break-all'>${tags.website}</a>`
-			: ''
-	}`;
 
 	let popups = {};
 	let counter = 0;
@@ -179,18 +151,26 @@
 						let element = document.createElement('div');
 						element.className = 'marker';
 
+						let popupContainer = document.createElement('div');
+
+						let popup = new Popup({
+							target: popupContainer,
+							props: { tags }
+						});
+
+            if (tags.name?.startsWith("Cord")) console.log(location)
+
 						let marker = new maplibre.Marker({ color: '#F7931A' })
 							.setLngLat([lon, lat])
-							.setPopup(new maplibre.Popup().setHTML(html(tags)))
+							.setPopup(new maplibre.Popup().setDOMContent(popupContainer))
 							.addTo(map);
 
 						marker.id = counter++;
 
 						marker.getElement().addEventListener('click', () => {
-							let h = html(marker.tags);
 							let p = marker.getPopup();
 							popups[marker.id] = p;
-							p.setHTML(h);
+							p.setDOMContent(popupContainer);
 							p.on('close', () => {
 								delete popups[marker.id];
 							});
@@ -221,26 +201,17 @@
 				map.on('wheel', stopFlying);
 				map.on('dragstart', stopFlying);
 
-				document.addEventListener('fullscreenchange', onFullScreenChange, false);
-				document.addEventListener('webkitfullscreenchange', onFullScreenChange, false);
-				document.addEventListener('mozfullscreenchange', onFullScreenChange, false);
-				document.addEventListener('MSFullscreenChange', onFullScreenChange, false);
+				let resize = () => map && map.resize();
 
-				function onFullScreenChange() {
-          console.log("resizing")
-					if (map) {
-						map.resize(); // This will adjust the map size to fit the new container size
-					}
-				}
+				document.addEventListener('fullscreenchange', resize, false);
+				document.addEventListener('webkitfullscreenchange', resize, false);
+				document.addEventListener('mozfullscreenchange', resize, false);
+				document.addEventListener('MSFullscreenChange', resize, false);
 			});
 		}
 	});
 
-	onDestroy(() => {
-		if (map) {
-			map.remove();
-		}
-	});
+	onDestroy(() => map && map.remove());
 </script>
 
 <div class="container mx-auto max-w-4xl">
@@ -301,6 +272,6 @@
 		color: black;
 		background-color: white;
 		overflow: hidden;
-		width: 280px;
+		width: 260px;
 	}
 </style>
