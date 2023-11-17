@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import { Avatar } from '$comp';
 	export let tags;
 
@@ -18,16 +19,18 @@
 					<span class="block">{addr(tags)}</span>
 				</div>
 
+        <div>
 				<div class="flex w-full">
-					<div class="flex gap-1 mx-auto">
+					<div class="mx-auto">
 						<Avatar user={tags.user} size={16} />
-						<div class="my-auto">
-							{tags.user.username.toLowerCase()}
-						</div>
 					</div>
 				</div>
-      </div>
-    </a>
+				<div class="break-all font-bold text-center">
+					{$page.url.host}/{tags.user.username.toLowerCase()}
+				</div>
+        </div>
+			</div>
+		</a>
 	{:else}
 		<span class="block font-bold">{tags.name}</span>
 		<span class="block">{addr(tags)}</span>
