@@ -270,6 +270,6 @@
 		color: black;
 		background-color: white;
 		overflow: hidden;
-		width: 260px;
+		width: 280px;
 	}
 </style>
