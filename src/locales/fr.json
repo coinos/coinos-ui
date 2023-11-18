@@ -26,7 +26,8 @@
 	"error": {
 		"header": "Erreur",
 		"message": "S'il vous plait réessayez ou contactez l'assistance.",
-		"signIn": "Vous devez connecter pour continuer."
+		"signIn": "Vous devez connecter pour continuer.",
+		"unrecognizedInput": "Donnée non reconnu"
 	},
 	"faq": {
 		"header": "FAQ",
@@ -137,7 +138,11 @@
 		"support": "Assistance",
 		"profile": "Profil",
 		"map": "Carte",
-		"merch": "Marchandise"
+		"merch": "Marchandise",
+		"about": "À Propos",
+		"docs": "Documents",
+		"messages": "Messages",
+		"funds": "Fonds"
 	},
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
@@ -220,7 +225,9 @@
 			"displayName": "Nom d'Utilisateur",
 			"minutes": "minutes",
 			"hour": "heure",
-			"hours": "heures"
+			"hours": "heures",
+			"hideSeed": "Cache phrase mnémotechnique",
+			"revealSeed": "Montre phrase mnémotechnique"
 		},
 		"support": {
 			"header": "Assistance",
@@ -252,7 +259,9 @@
 		"messages": "Messages",
 		"feed": "Flux",
 		"notes": "Notes",
-		"pay": "Payer"
+		"pay": "Payer",
+		"profilePage": "Page de profil",
+		"nostrPubkey": "Clé publique nostr"
 	},
 	"news": {
 		"header": "Nouvelles",
@@ -312,6 +321,8 @@
 		"redeemedBy": "Racheté par",
 		"sendMessage": "Écrire une message...",
 		"fundsClaimed": "Les fonds sont réclamés!",
-		"print": "Imprime"
+		"print": "Imprime",
+		"create": "Crée",
+		"fund": "Finance"
 	}
 }
