@@ -197,6 +197,8 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
+      "seedDescription": "This seed phrase is used to derive your cold storage auto-withdraw addresses and nostr keys unless you provide your own keys",
+      "seedPhrase": "Seed phrase",
       "hideSeed": "Hide seed phrase",
       "revealSeed": "Reveal seed phrase",
 			"saveSettings": "Save Settings",
