@@ -189,6 +189,7 @@
 			"showQR": "Show QR"
 		},
 		"send": {
+      "makeQR": "QR",
 			"contacts": "Contacts",
 			"scan": "Scan",
 			"paste": "Paste",
