@@ -126,7 +126,15 @@
 		}
 
 		inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
+      shuffleArray(inview);
 	}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 	let popups = {};
 	let counter = 0;
@@ -231,16 +239,16 @@
 		</div>
 	</div>
 
-	<div class="hidden lg:grid grid-cols-3 justify-items-center">
-		{#each inview as m}
-			<button
-				on:click={() => select(m)}
-				class="text-left"
-				class:font-bold={m.id === inview[currentIndex]?.id}
-				id={`marker-${m.id}`}>{m.tags.name}</button
-			>
-		{/each}
-	</div>
+	<!-- <div class="hidden lg:grid grid-cols-3 justify-items-center"> -->
+	<!-- 	{#each inview as m} -->
+	<!-- 		<button -->
+	<!-- 			on:click={() => select(m)} -->
+	<!-- 			class="text-left" -->
+	<!-- 			class:font-bold={m.id === inview[currentIndex]?.id} -->
+	<!-- 			id={`marker-${m.id}`}>{m.tags.name}</button -->
+	<!-- 		> -->
+	<!-- 	{/each} -->
+	<!-- </div> -->
 </div>
 
 <style>
