@@ -3,6 +3,7 @@
 	import { browser } from '$app/environment';
 	import html2canvas from 'html2canvas';
 	import { Icon, Popup } from '$comp';
+    import { shuffleArray } from "$lib/utils";
 
 	import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -128,13 +129,6 @@
 		inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
       shuffleArray(inview);
 	}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
 
 	let popups = {};
 	let counter = 0;
