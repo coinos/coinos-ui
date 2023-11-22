@@ -2,7 +2,7 @@
 	import { getMnemonic } from '$lib/nostr';
 	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
-	import { Pin, Icon, Qr } from '$comp';
+	import { Pin, Icon, Qr, Toggle } from '$comp';
 	import { copy, post, success, fail } from '$lib/utils';
 	import { pin as current } from '$lib/store';
 	import { invalidate } from '$app/navigation';
@@ -244,4 +244,16 @@
 			Copy
 		</button>
 	{/if}
+</div>
+
+<div>
+	<div class="flex justify-between items-center">
+	<span class="font-bold">{$t('user.settings.autoWithdrawal')}</span>
+  <Toggle id="prompt" bind:value={user.prompt} />
+  </div>
+	<p class="text-secondary mb-4">
+		{$t('user.settings.autoDescription')}
+	</p>
+
+
 </div>

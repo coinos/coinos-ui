@@ -197,7 +197,9 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
-      "seedDescription": "This seed phrase is used to derive your cold storage auto-withdraw addresses and nostr keys unless you provide your own keys",
+      "autoWithdrawal": "Auto withdrawal",
+      "autoDescription": "With auto withdrawal enabled any funds over the threshold amount will automatically be moved into your self-custodial wallet.",
+      "seedDescription": "This seed phrase is used to derive your auto withdrawal addresses and nostr keys unless you provide your own keys",
       "seedPhrase": "Seed phrase",
       "hideSeed": "Hide seed phrase",
       "revealSeed": "Reveal seed phrase",
