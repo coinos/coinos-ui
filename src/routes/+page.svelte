@@ -56,45 +56,14 @@
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
-	<div class="space-y-5 border-8 border-black p-8 w-[800px] mx-auto">
+	<div class="space-y-5 border-8 border-black p-12 w-[800px] mx-auto rounded-2xl">
 		<div class="flex w-full justify-center gap-4">
-			<img src="/images/bitcoin.png" class="w-14" />
-			<h3 class="text-5xl font-medium text-center">Bitcoin Instructions</h3>
-		</div>
-		<div>
-			<p class="text-center text-lg">Public Payment Page</p>
-			<div class="flex justify-center text-2xl"><b>https://coinos.io/{username}</b></div>
-		</div>
-		<div>
-			<p class="text-center text-lg">Staff Login</p>
-			<div class="flex justify-center text-2xl"><b>{username} / {password}</b></div>
-		</div>
-		<div class="py-8">
-			<p class="text-lg font-semibold">What to do if a customer asks to pay with Bitcoin</p>
-			<ol class="list-decimal ml-4">
-				<li class="pt-2">Direct them to scan the QR code to visit the payment page.</li>
-				<li class="pt-2">Enter the sale in your PoS as if it were paid by cash.</li>
-				<li class="pt-2">
-					Tell the customer their total with tax and wait for them to send payment.
-				</li>
-				<li class="pt-2">
-					Check the receipt from the coinos printer to make sure they sent the right amount.
-				</li>
-				<li class="pt-2">Done! Hand the customer their items and a cash receipt if requested.</li>
-			</ol>
+			<img src="/images/accepted.svg" />
 		</div>
 
-		<p>
-			You can view all payments for the day at <b>https://coinos.io/{username}/payments</b> or just total
-			up all the receipts.
-		</p>
-
-		<p>
-			If you have any questions please email <b>support@coinos.io</b> or call Adam at
-			<b>604-358-6745</b>
-		</p>
-
-		<img src="/images/logo.png" class="ml-auto" style="width: 120px" />
+		<div class="flex">
+			<img src="/images/logo.png" style="width: 260px" class="ml-auto" />
+		</div>
 	</div>
 	<div class="space-y-8 border-8 border-black p-8 w-[680px] mx-auto">
 		<div class="flex w-full justify-center gap-4">
@@ -106,15 +75,15 @@
 		<div>
 			<div class="text-xl pt-2 flex gap-6">
 				<ol class="number-list">
-          <li>Visit this page in a <b>browser</b></li>
-          <li>Click <b>Pay</b> to enter your total in dollars (ask your server)</li>
-          <li>Send payment with your wallet</li>
-          <li>Your server will get a confirmation receipt from the printer</li>
+					<li>Visit this page in a <b>browser</b></li>
+					<li>Click <b>Pay</b> to enter your total in dollars (ask your server)</li>
+					<li>Send payment with your wallet</li>
+					<li>Your server will get a confirmation receipt from the printer</li>
 				</ol>
 			</div>
 		</div>
 		<div class="flex">
-      <div class="my-auto">Need help? Email <b>support@coinos.io</b></div>
+			<div class="my-auto">Need help? Email <b>support@coinos.io</b></div>
 			<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
 		</div>
 	</div>
