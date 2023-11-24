@@ -1,10 +1,3 @@
-import {
-	NumberDictionary,
-	uniqueNamesGenerator,
-	colors,
-	adjectives,
-	animals
-} from 'unique-names-generator';
 import { fail, redirect } from '@sveltejs/kit';
 import { fd, post, login } from '$lib/utils';
 
@@ -12,21 +5,9 @@ export const load = async ({ parent }) => {
 	let { user } = await parent();
 	if (user) throw redirect(307, `/${user.username}`);
 
-	let username = uniqueNamesGenerator({
-		dictionaries: [animals, NumberDictionary.generate({ min: 10, max: 99 })],
-		length: 2,
-		separator: ''
-	});
-
-	let password = uniqueNamesGenerator({
-		dictionaries: [colors, NumberDictionary.generate({ min: 100, max: 999 })],
-		length: 2,
-    separator: ''
-	});
-
 	let index = Math.floor(Math.random() * 64) + 1;
 
-	return { index, username, password };
+	return { index };
 };
 
 export const actions = {
