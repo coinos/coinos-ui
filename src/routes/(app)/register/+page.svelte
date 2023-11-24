@@ -12,11 +12,20 @@
 	import { t } from '$lib/translations';
 	import { page } from '$app/stores';
 	import { generate } from '$lib/nostr';
+	import {
+		NumberDictionary,
+		uniqueNamesGenerator,
+		colors,
+		adjectives,
+		animals
+	} from 'unique-names-generator';
 
 	export let form;
 	export let data;
 
 	$: data && ($avatar = undefined);
+	let username;
+	let { index } = data;
 
 	let cleared;
 	let clear = () => {
@@ -29,16 +38,20 @@
 	};
 
 	let refresh = async () => {
-		await invalidateAll();
-		await tick();
-		username = data.username;
-		$password = data.password;
+		username = uniqueNamesGenerator({
+			dictionaries: [animals, NumberDictionary.generate({ min: 10, max: 99 })],
+			length: 2,
+			separator: ''
+		});
+
+		$password = uniqueNamesGenerator({
+			dictionaries: [colors, NumberDictionary.generate({ min: 100, max: 999 })],
+			length: 2,
+			separator: ''
+		});
+
+		revealPassword = true;
 	};
-
-	let username = data.username;
-	$password = data.password;
-
-	let { index } = data;
 
 	afterNavigate(async () => {
 		try {
@@ -63,7 +76,7 @@
 
 	$: token && token?.length === 6 && tick().then(() => btn.click());
 
-	let revealPassword = true;
+	let revealPassword;
 
 	let loading;
 	async function handleSubmit(e) {
@@ -192,6 +205,8 @@
 				<div class="relative">
 					<label for="username" class="font-semibold">{$t('login.username')}</label>
 					<input
+                           use:focus
+						tabindex="1"
 						name="username"
 						type="text"
 						required
@@ -200,8 +215,8 @@
 						on:focus={clear}
 						autocapitalize="none"
 					/>
-					<button type="button" on:click={refresh} class="absolute right-0 top-4">
-						<Icon icon="refresh" style="w-6 m-6" />
+					<button type="button" on:click={refresh} class="absolute right-0 top-4" tabindex="5">
+						<Icon icon="random" style="w-10 m-4" />
 					</button>
 				</div>
 
@@ -209,6 +224,7 @@
 					<label for="password" class="block font-semibold">{$t('login.password')}</label>
 					{#if revealPassword}
 						<input
+							tabindex="2"
 							name="password"
 							type="text"
 							required
@@ -218,6 +234,7 @@
 						/>
 					{:else}
 						<input
+							tabindex="2"
 							name="password"
 							type="password"
 							required
@@ -229,6 +246,7 @@
 					{/if}
 					<button
 						type="button"
+						tabindex="4"
 						on:click={() => (revealPassword = !revealPassword)}
 						class="absolute right-0 top-4"
 					>
@@ -241,6 +259,7 @@
 				</p>
 
 				<button
+					tabindex="3"
 					type="submit"
 					class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
 					disabled={loading}
