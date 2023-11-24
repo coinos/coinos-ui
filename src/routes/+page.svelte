@@ -43,7 +43,7 @@
 		}
 	});
 
-	let username = 'burnabyartigiano';
+	let username = 'soup';
 	let password = 'password';
 
 	let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
@@ -107,9 +107,9 @@
 			<div class="text-xl pt-2 flex gap-6">
 				<ol class="number-list">
           <li>Visit this page in a <b>browser</b></li>
-          <li>Click <b>Pay</b> to enter your total in dollars (ask your server)</li>
-          <li>Send payment with your wallet</li>
-          <li>Your server will get a confirmation receipt from the printer</li>
+          <li>Click <b>Pay</b> to enter your total in dollars</li>
+          <li>Send payment from your Bitcoin wallet</li>
+          <li>Your server will get a printed receipt as confirmation</li>
 				</ol>
 			</div>
 		</div>
