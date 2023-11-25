@@ -31,17 +31,9 @@
 	},
 	"faq": {
 		"header": "FAQ",
-		"why": {
-			"question": "Pourquoi accepter le Bitcoin?",
-			"answer": "Avec le Bitcoin, les commerçants économisent sur les frais, les consommateurs bénéficient de la confidentialité et les épargnants gagnent en pouvoir d'achat. Nous promouvrons votre entreprise auprès d'une communauté enthousiaste qui préfère faire ses achats dans des lieux acceptant le Bitcoin."
-		},
 		"cost": {
 			"question": "Combien cela coûte-t-il?",
 			"answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% pour convertir entre le Bitcoin lightning et le Bitcoin on-chain. Envoyer à d'autres comptes Coinos est gratuit."
-		},
-		"individuals": {
-			"question": "Qui peut l'utiliser?",
-			"answer": "N'importe qui, n'importe où dans le monde. Coinos convient aux particuliers comme aux entreprises."
 		},
 		"compatibility": {
 			"question": "Ai-je besoin d'un dispositif ou d'un logiciel spécial?",
@@ -54,14 +46,6 @@
 		"pos": {
 			"question": "Coinos peut-il s'intégrer à mon PoS existant?",
 			"answer": "Nous recommandons d'entrer les ventes dans votre PoS existant comme des transactions en espèces."
-		},
-		"accounting": {
-			"question": "Qu'en est-il de la comptabilité?",
-			"answer": "Nous affichons tous les paiements en termes de votre monnaie locale et vous permettons de filtrer par date pour que vous puissiez déclarer vos revenus normalement. Vous pouvez exporter l'historique de votre compte dans un fichier csv. Si vous vendez du Bitcoin avec un bénéfice, vous voudrez peut-être déclarer les plus-values."
-		},
-		"offramp": {
-			"question": "Puis-je convertir le Bitcoin que je reçois en ma monnaie locale?",
-			"answer": "Vous pouvez retirer vos fonds à tout moment vers une bourse ou un courtier pour vendre votre Bitcoin et recevoir un virement bancaire. Nous pourrions être prêts à fournir une liquidation directe par virement électronique à certains commerçants canadiens."
 		},
 		"bitcoin": {
 			"question": "Que puis-je faire avec le Bitcoin?",
@@ -248,7 +232,8 @@
 			"scan": "Scannez",
 			"paste": "Collez",
 			"next": "Prochain",
-			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos"
+			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos",
+			"makeQR": "QR"
 		},
 		"requestPayment": "Demander un Paiement",
 		"welcome": "Bienvenue! Le solde de votre conte est vide. Vous pouvez commencer par déposer ou recevoir un paiement.",
@@ -268,7 +253,6 @@
 		"subheader": "Dernières Informations"
 	},
 	"payments": {
-		"moneyPot": "Pot d'argent",
 		"addFunds": "Ajouter d'argent",
 		"takeFunds": "Prendre d'argent",
 		"show": "Démontrer",
