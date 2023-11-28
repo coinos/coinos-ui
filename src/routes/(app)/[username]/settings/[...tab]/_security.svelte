@@ -1,5 +1,5 @@
 <script>
-	import { getMnemonic } from '$lib/nostr';
+	import { getMnemonic, getNsec } from '$lib/nostr';
 	import { tick } from 'svelte';
 	import { t } from '$lib/translations';
 	import { Pin, Icon, Qr } from '$comp';
@@ -14,21 +14,36 @@
 		disabling2fa,
 		locked,
 		mnemonic,
+		nsec,
 		old,
 		otp,
 		password,
 		pin,
 		revealPassword,
 		revealSeed,
+		revealNsec,
 		token = '',
 		setting2fa,
 		settingPin,
 		verify;
 
+	let toggleNsec = async () => {
+		try {
+			nsec = await getNsec(user);
+			revealNsec = !revealNsec;
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	let togglePassword = () => (revealPassword = !revealPassword);
 	let toggleSeed = async () => {
-		mnemonic = await getMnemonic(user);
-		revealSeed = !revealSeed;
+		try {
+			mnemonic = await getMnemonic(user);
+			revealSeed = !revealSeed;
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	$: verifying = pin?.length > 5;
@@ -223,7 +238,13 @@
 	</select>
 </div>
 
-<div class="space-y-5">
+<div>
+	<label for="seedphrase" class="font-bold">{$t('user.settings.seedPhrase')}</label>
+
+	<p class="text-secondary mb-1">
+		{$t('user.settings.seedDescription')}
+	</p>
+
 	<button type="button" class="primary" on:click={toggleSeed}>
 		<Icon icon="warning" style="mr-1 w-6 my-auto" />
 		{revealSeed ? $t('user.settings.hideSeed') : $t('user.settings.revealSeed')}
@@ -235,6 +256,30 @@
 		</div>
 
 		<button type="button" class="primary" on:click={() => copy(mnemonic)}>
+			<Icon icon="copy" style="mr-1 w-6 my-auto" />
+			Copy
+		</button>
+	{/if}
+</div>
+
+<div>
+	<label for="seedphrase" class="font-bold">{$t('user.settings.nostrKeys')}</label>
+
+	<p class="text-secondary mb-1">
+		{$t('user.settings.nostrDescription')}
+	</p>
+
+	<button type="button" class="primary" on:click={toggleNsec}>
+		<Icon icon="warning" style="mr-1 w-6 my-auto" />
+		{revealNsec ? $t('user.settings.hideNsec') : $t('user.settings.revealNsec')}
+	</button>
+
+	{#if revealNsec}
+		<div class="text-lg break-all">
+			{nsec}
+		</div>
+
+		<button type="button" class="primary" on:click={() => copy(nsec)}>
 			<Icon icon="copy" style="mr-1 w-6 my-auto" />
 			Copy
 		</button>
