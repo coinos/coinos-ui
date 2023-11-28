@@ -8,6 +8,7 @@ let parse = async (t, host) => {
 	if (!t) return;
 
 	if (t.startsWith('http')) throw redirect(307, t);
+	if (t.startsWith(host)) throw redirect(307, `http://${t}`);
 
 	let amount, user, id;
 
