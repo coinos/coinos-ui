@@ -3,7 +3,7 @@ import { Buffer } from 'buffer';
 import { fail, wait, post, stretch } from '$lib/utils';
 import { decrypted, password as pw, passwordPrompt, pin, loginRedirect } from '$lib/store';
 import { goto, invalidate } from '$app/navigation';
-import { getPublicKey, signEvent, getEventHash, nip04, nip06 } from 'nostr-tools';
+import { getPublicKey, signEvent, getEventHash, nip04, nip06, nip19 } from 'nostr-tools';
 import { mnemonicToEntropy, entropyToMnemonic } from '@scure/bip39';
 import wordlist from '$lib/english';
 import { bech32m } from '@scure/base';
@@ -90,6 +90,10 @@ export let getMnemonic = async (user) => {
 
 let getPrivateKey = async (user) => {
 	return privateKeyFromSeedWords(await getMnemonic(user));
+};
+
+export let getNsec = async (user) => {
+	return nip19.nsecEncode(await getPrivateKey(user));
 };
 
 export let sign = async ({ event, user }) => {

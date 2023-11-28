@@ -197,6 +197,13 @@
 			"placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
 		},
 		"settings": {
+      "seedPhrase": "Seed phrase",
+      "nostrKeys": "Nostr key",
+      "nostrDescription": "Your nostr key is used to sign and decrypt messages, keep it safe or someone may be able to impersonate you.", 
+      "seedDescription": "This 12 word seed phrase is used to derive your nostr private key and your self-custodial wallet keys which determine your auto-withdrawal addresses. Back it up and don't let anyone see it.",
+      "emailDescription": "For password resets and notifications",
+      "hideNsec": "Hide nostr secret key",
+      "revealNsec": "Reveal nostr secret key",
       "hideSeed": "Hide seed phrase",
       "revealSeed": "Reveal seed phrase",
 			"saveSettings": "Save Settings",
