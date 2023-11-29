@@ -22,6 +22,15 @@
 	</select>
 </div>
 
+<div class="space-y-1">
+	<label for="email" class="font-bold block">{$t('user.settings.email')}</label>
+  <p class="text-secondary">
+    {$t('user.settings.emailDescription')}
+  </p>
+	<input type="text" name="email" bind:value={user.email} />
+</div>
+
+
 <div>
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.tipPrompt')}</span>
