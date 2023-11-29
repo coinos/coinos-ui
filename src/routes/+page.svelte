@@ -43,7 +43,7 @@
 		}
 	});
 
-	let username = 'soup';
+	let username = 'laughingbean';
 	let password = 'password';
 
 	let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
@@ -105,16 +105,11 @@
 		<div class="text-center text-4xl font-bold">coinos.io/{username}</div>
 		<div>
 			<div class="text-xl pt-2 flex gap-6">
-				<ol class="number-list">
-          <li>Visit this page in a <b>browser</b></li>
-          <li>Click <b>Pay</b> to enter your total in dollars</li>
-          <li>Send payment from your Bitcoin wallet</li>
-          <li>Your server will get a printed receipt as confirmation</li>
-				</ol>
+        Trouble scanning? Some wallets can't handle URLs. Try using your Camera or Barcode app or just type into your browser.
 			</div>
 		</div>
 		<div class="flex">
-      <div class="my-auto">Need help? Email <b>support@coinos.io</b></div>
+      <div class="my-auto">Contact <b>support@coinos.io</b> for help</div>
 			<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
 		</div>
 	</div>
