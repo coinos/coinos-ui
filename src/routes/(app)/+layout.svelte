@@ -32,7 +32,7 @@
 		if (browser) {
 			let log = console.log;
 			checkSocket();
-			expirePin();
+      expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
 
 			// if (window.NDEFReader) {
 			// 	try {
@@ -74,7 +74,7 @@
 
 	let expirePin = () => {
 		$pin = null;
-		expireTimer = setTimeout(expirePin, 300000);
+		expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
 	};
 
 	onDestroy(() => {

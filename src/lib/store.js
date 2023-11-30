@@ -8,7 +8,9 @@ const persistSession = (key, defaultValue) => {
 			: defaultValue
 	);
 
-	s.subscribe((v) => browser && sessionStorage.setItem(key, JSON.stringify(v)));
+	s.subscribe((v) => {
+		browser && sessionStorage.setItem(key, JSON.stringify(v));
+	});
 
 	return s;
 };
@@ -45,7 +47,7 @@ export const decrypted = persistLocal('decrypted', {});
 export const newPayment = persistLocal('newPayment');
 export const password = writable();
 export const passwordPrompt = writable();
-export const pin = writable();
+export const pin = persistSession('pin');
 export const rate = writable();
 export const request = writable();
 export const requestRedirect = writable();

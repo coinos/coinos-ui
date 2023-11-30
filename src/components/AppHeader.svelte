@@ -13,7 +13,7 @@
 	let update = (data) => ({ subject, user } = data);
 
 	let menuButtons;
-	if (user)
+	$: if (user)
 		menuButtons = [
 			{ key: 'nav.settings', icon: 'settings', href: `/${user.username}/settings` },
 			{ key: 'nav.support', icon: 'support', href: `/support` },

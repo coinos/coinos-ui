@@ -1,5 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
+	import { onMount, tick } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { applyAction, deserialize } from '$app/forms';
 
@@ -26,9 +27,13 @@
 	let formElement;
 
 	let { user, token, rates, tab } = data;
+	let prev;
 
 	$: update(data);
-	let update = () => ({ user, token, rates, tab } = data);
+	let update = () => {
+		({ user, token, rates, tab } = data);
+		prev = { ...user };
+	};
 
 	$: form?.user && ({ user } = form);
 
@@ -95,23 +100,25 @@
 				}
 			}
 
-			let event = {
-				pubkey: user.pubkey,
-				created_at: Math.floor(Date.now() / 1000),
-				kind: 0,
-				content: JSON.stringify({
-					name: user.username,
-					about: user.address,
-					picture: `${PUBLIC_COINOS_URL}/public/${user.profile}.webp`
-				}),
-				tags: []
-			};
+			if (['username', 'address', 'profile'].some((a) => user[a] !== prev[a])) {
+				let event = {
+					pubkey: user.pubkey,
+					created_at: Math.floor(Date.now() / 1000),
+					kind: 0,
+					content: JSON.stringify({
+						name: user.username,
+						about: user.address,
+						picture: `${PUBLIC_COINOS_URL}/public/${user.profile}.webp`
+					}),
+					tags: []
+				};
 
-			try {
-				await sign({ event, user });
-				await send(event);
-			} catch (e) {
-				warning('nostr profile could not be updated');
+				try {
+					await sign({ event, user });
+					await send(event);
+				} catch (e) {
+					warning('nostr profile could not be updated');
+				}
 			}
 
 			const response = await fetch(formElement.action, {

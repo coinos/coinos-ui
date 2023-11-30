@@ -240,8 +240,8 @@
 			"securityPIN": "Security PIN",
 			"securityPINDescription": "Set a security pin that will be used to unlock your settings and to send outgoing payments.",
 			"setPIN": "Set PIN",
-			"autoLock": "Auto-Lock Timer",
-			"autoLockDescription": "Your account will go into a secure mode, requiring you to re-enter your credentials after a specified time:",
+			"autoLock": "Timeout",
+			"autoLockDescription": "Time after which your PIN needs to be re-entered:",
 			"twofa": "2-Factor Authentication",
 			"twofaDescription": "Add an extra level of security to your device by enabling 2-factor authentication.",
 			"twofaSetup": "Set up 2FA",
@@ -249,7 +249,10 @@
 			"select": "Select",
 			"verifyPIN": "Verify PIN",
 			"enablePIN": "Enable PIN",
-			"disablePIN": "Disable PIN"
+			"disablePIN": "Disable PIN",
+      "publishNip5": "Publish nostr identity",
+      "nip5a": "Use",
+      "nip5b": "as your publicly verified nostr address"
 		},
 		"support": {
 			"header": "Support",
