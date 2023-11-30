@@ -30,7 +30,6 @@
 	<input type="text" name="email" bind:value={user.email} />
 </div>
 
-
 <div>
 	<div class="flex justify-between items-center">
 		<span class="font-bold">{$t('user.settings.tipPrompt')}</span>
@@ -38,6 +37,16 @@
 	</div>
 	<p class="text-secondary mt-1 w-9/12">
 		{$t('user.settings.tipPromptDescription')}
+	</p>
+</div>
+
+<div>
+	<div class="flex justify-between items-center">
+		<span class="font-bold">{$t('user.settings.publishNip5')}</span>
+		<Toggle id="nip5" bind:value={user.nip5} />
+	</div>
+	<p class="text-secondary mt-1 w-9/12">
+  {$t('user.settings.nip5a')} <span class="font-bold">{user.username}@{$page.url.host}</span> {$t('user.settings.nip5b')}
 	</p>
 </div>
 

@@ -92,6 +92,7 @@
 			}
 		} else {
 			settingPin = true;
+      disablingPin = false;
 		}
 	};
 
@@ -187,6 +188,22 @@
 	{/if}
 </div>
 
+{#if user.haspin}
+	<div>
+		<label for="locktime" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
+		<p class="text-secondary mb-1">
+			{$t('user.settings.autoLockDescription')}
+		</p>
+		<select name="locktime" class="select-styles block py-3 w-full" value={parseInt(user.locktime)}>
+			<option value={5 * 60}>5 {$t('user.settings.minutes')}</option>
+			<option value={10 * 60}>10 {$t('user.settings.minutes')}</option>
+			<option value={30 * 60}>30 {$t('user.settings.minutes')}</option>
+			<option value={60 * 60}>1 {$t('user.settings.hour')}</option>
+			<option value={8 * 60 * 60}>8 {$t('user.settings.hours')}</option>
+		</select>
+	</div>
+{/if}
+
 <div>
 	<span class="font-bold mb-1">{$t('user.settings.twofa')}</span>
 	<p class="text-secondary mb-4">
@@ -222,20 +239,6 @@
 	{#if confirming2fa || disabling2fa}
 		<Pin bind:value={token} title="Enter 2FA Code" {cancel} persist={false} notify={false} />
 	{/if}
-</div>
-
-<div>
-	<label for="locktime" class="font-bold mb-1">{$t('user.settings.autoLock')}</label>
-	<p class="text-secondary mb-1">
-		{$t('user.settings.autoLockDescription')}
-	</p>
-	<select name="locktime" class="select-styles block py-3 w-full" value={parseInt(user.locktime)}>
-		<option value={5 * 60}>5 {$t('user.settings.minutes')}</option>
-		<option value={10 * 60}>10 {$t('user.settings.minutes')}</option>
-		<option value={30 * 60}>30 {$t('user.settings.minutes')}</option>
-		<option value={60 * 60}>1 {$t('user.settings.hour')}</option>
-		<option value={8 * 60 * 60}>8 {$t('user.settings.hours')}</option>
-	</select>
 </div>
 
 <div>
