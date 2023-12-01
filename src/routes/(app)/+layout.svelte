@@ -41,9 +41,9 @@
 		});
 
 		if (browser) {
-			let log = console.log;
 			checkSocket();
-			expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
+			let locktime = user && user.locktime ? user.locktime : 300;
+			expireTimer = setTimeout(expirePin, locktime * 1000);
 
 			// if (window.NDEFReader) {
 			// 	try {
@@ -58,7 +58,7 @@
 			// 			goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
 			// 		});
 			// 	} catch (error) {
-			// 		log('Argh! ' + error);
+			// 		console.log('Argh! ' + error);
 			// 	}
 			// }
 		}
@@ -90,7 +90,7 @@
 
 	onDestroy(() => {
 		if (browser) {
-      close();
+			close();
 			clearTimeout(checkTimer);
 			clearTimeout(expireTimer);
 		}
