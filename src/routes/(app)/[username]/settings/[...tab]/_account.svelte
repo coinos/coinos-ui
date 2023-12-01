@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 
 	export let user, rates, submit;
+
 	let { id } = user;
 
 	let selectedTheme = 1;

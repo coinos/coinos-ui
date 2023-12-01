@@ -1,5 +1,14 @@
 <script>
-	export let locations;
+  import { onMount } from "svelte";
+
+	let locations;
+  onMount(async () => {
+    try {
+      ({ locations } = await fetch("/locations").then((r) => r.json()));
+    } catch (e) {
+      console.log(e);
+    }
+  });
 
 	import { Image, Icon, LocationsMap } from '$comp';
 	import { t } from '$lib/translations';

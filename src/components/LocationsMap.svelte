@@ -1,9 +1,8 @@
 <script>
 	import { tick, onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
-	import html2canvas from 'html2canvas';
 	import { Icon, Popup } from '$comp';
-    import { shuffleArray } from "$lib/utils";
+	import { shuffleArray } from '$lib/utils';
 
 	import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -127,7 +126,7 @@
 		}
 
 		inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
-      shuffleArray(inview);
+		shuffleArray(inview);
 	}
 
 	let popups = {};

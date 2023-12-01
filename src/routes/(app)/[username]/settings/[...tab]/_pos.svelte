@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 
 	export let user, rates, submit;
+
 	let fiats = Object.keys(rates);
 </script>
 

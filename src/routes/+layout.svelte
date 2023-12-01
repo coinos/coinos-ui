@@ -1,9 +1,11 @@
 <script>
+	import { PUBLIC_DOMAIN } from '$env/static/public';
 	import '../app.css';
 	import { loading, t } from '$lib/translations';
 
 	export let data;
-	let { host, pathname } = data;
+	let { pathname } = data;
+  let host = PUBLIC_DOMAIN.includes("localhost") ? `http://${PUBLIC_DOMAIN}` : `https://${PUBLIC_DOMAIN}`
 </script>
 
 <svelte:head>
@@ -11,7 +13,7 @@
 	<meta property="og:title" content="coinos" />
 	<meta name="twitter:title" content="coinos" />
 
-	<meta property="og:image" content={`${host}/icons/logo.svg`} />
+	<meta property="og:image" content={`${host}/images/logo.png`} />
 
 	<meta property="og:type" content="website" />
 	<meta property="og:description" content="An easy to use bitcoin web wallet" />
@@ -19,7 +21,7 @@
 
 	<meta name="keywords" content="coinos easy bitcoin web wallet" />
 
-	<meta name="twitter:image" content={`${host}/icons/logo.svg`} />
+	<meta name="twitter:image" content={`${host}/images/logo.png`} />
 	<meta name="twitter:card" content="summary_large_image" />
 
 	<meta property="og:url" content={host + pathname} />
@@ -28,7 +30,7 @@
 </svelte:head>
 
 {#if !$loading}
-<slot />
+	<slot />
 {/if}
 
 <style global>
