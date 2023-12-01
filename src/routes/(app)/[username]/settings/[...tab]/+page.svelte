@@ -121,6 +121,10 @@
 				}
 			}
 
+			if (user.email !== prev.email) {
+				await post('/api/verify', { test: true });
+			}
+
 			const response = await fetch(formElement.action, {
 				method: 'POST',
 				body: data
@@ -156,20 +160,22 @@
 	<input type="hidden" name="pin" value={$pin} />
 
 	<div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
-		<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
-			{$t('user.settings.header')}
-		</h1>
+		<div class="header">
+			<h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+				{$t('user.settings.header')}
+			</h1>
 
-		<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
-			{#each tabs.filter((t) => t.name !== 'shopify') as { name, key }}
-				<a href={`/${user.username}/settings/${name}`}>
-					<button
-						class="hover:opacity-80"
-						class:text-black={tab === name || (tab === 'shopify' && name === 'pos')}
-						>{$t(`user.settings.${key}`)}</button
-					>
-				</a>
-			{/each}
+			<div class="font-bold flex justify-around items-center border-b pb-3 text-secondary">
+				{#each tabs.filter((t) => t.name !== 'shopify') as { name, key }}
+					<a href={`/${user.username}/settings/${name}`}>
+						<button
+							class="hover:opacity-80"
+							class:text-black={tab === name || (tab === 'shopify' && name === 'pos')}
+							>{$t(`user.settings.${key}`)}</button
+						>
+					</a>
+				{/each}
+			</div>
 		</div>
 
 		<svelte:component this={comp} {user} {rates} {submit} />
@@ -192,3 +198,9 @@
 		</button>
 	</div>
 </form>
+
+<style>
+	.header {
+		view-transition-name: tabs;
+	}
+</style>

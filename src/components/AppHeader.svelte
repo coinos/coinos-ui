@@ -142,4 +142,8 @@
 	.z {
 		z-index: 100;
 	}
+
+	header {
+		view-transition-name: header;
+	}
 </style>
