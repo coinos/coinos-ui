@@ -90,6 +90,7 @@
 
 	onDestroy(() => {
 		if (browser) {
+      close();
 			clearTimeout(checkTimer);
 			clearTimeout(expireTimer);
 		}
@@ -117,7 +118,7 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main data-sveltekit-prefetch class="pb-20">
+<main class="pb-20">
 	<slot />
 </main>
 

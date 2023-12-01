@@ -1,16 +1,11 @@
-FROM node:18-alpine
+FROM oven/bun
 
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-RUN npm i -g pnpm
-WORKDIR /app
-
-ADD package.json .
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store NODE_ENV=development pnpm i
-
 COPY . .
-RUN pnpm build
+RUN bun i
+RUN bun run build
 
 # CMD ["node", "build"]
-CMD ["pnpm", "preview", "--host", "--port", "3000"]
+CMD ["bun", "run", "--bun", "preview", "--host", "--port", "3000"]

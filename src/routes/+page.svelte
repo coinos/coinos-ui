@@ -11,8 +11,7 @@
 	} from '$comp';
 
 	import { t } from '$lib/translations';
-	import { close } from '$lib/socket';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount, tick } from 'svelte';
 
 	export let data;
 	let { faqs, locations, user } = data;
@@ -33,16 +32,17 @@
 
 	let loaded;
 
-	onMount(async () => {
-		close();
+	let observer;
+	let isIntersecting = false;
 
-		try {
-			({ locations } = await fetch('/locations').then((r) => r.json()));
-		} catch (e) {
-			console.log(e);
-		}
+	onMount(async () => {
+		observer = new IntersectionObserver((entries) => {
+			isIntersecting = isIntersecting || entries[0].isIntersecting;
+		});
 
 		loaded = true;
+		await tick();
+		observer.observe(document.getElementById('faq'));
 	});
 
 	onDestroy(() => (loaded = false));
@@ -56,7 +56,7 @@
 	<LandingHeader {howItWorks} {faq} {about} {user} />
 
 	<main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
-		<LandingHero {user} />
+		<LandingHero />
 		<LandingInfoCard
 			image="lightning-qr"
 			title={$t('landing.info1.title')}
@@ -82,7 +82,9 @@
 		</div>
 
 		<div>
-			<h3 class="text-5xl font-medium mb-10 text-center">{$t('howItWorks.header')}</h3>
+			<h3 class="text-5xl font-medium mb-10 text-center">
+				{$t('howItWorks.header')}
+			</h3>
 			<div class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center">
 				{#each howItWorksSteps as step}
 					<HowItWorksCard image={step.image} stepID={step.stepID} />
@@ -93,7 +95,9 @@
 
 		<div>
 			<div class="space-y-10">
-				<h3 class="text-5xl font-medium text-center pt-40 -mt-40" id="faq">{$t('faq.header')}</h3>
+				<h3 class="text-5xl font-medium text-center pt-40 -mt-40" id="faq">
+					{$t('faq.header')}
+				</h3>
 				{#each faqs as f}
 					<FaqCard questionID={f} />
 				{/each}
@@ -101,7 +105,9 @@
 			<div bind:this={about} />
 		</div>
 
-		<About {locations} />
+		{#if isIntersecting}
+			<About />
+		{/if}
 	</main>
 
 	<Footer />
