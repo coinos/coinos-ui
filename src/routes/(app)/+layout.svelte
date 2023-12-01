@@ -10,8 +10,6 @@
 	import { warning, protectedRoutes } from '$lib/utils';
 	import { t, locale } from '$lib/translations';
 
-	const localeLocalStorageKey = 'sveltekit-i18n-locale';
-
 	export let data;
 
 	let { rate, user, subject, token, rates } = data;
@@ -22,6 +20,7 @@
 	};
 
 	onMount(async () => {
+		let localeLocalStorageKey = 'sveltekit-i18n-locale';
 		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
 		if (localStorageLocale) locale.set(localStorageLocale);
 
@@ -32,7 +31,7 @@
 		if (browser) {
 			let log = console.log;
 			checkSocket();
-      expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
+			expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
 
 			// if (window.NDEFReader) {
 			// 	try {
