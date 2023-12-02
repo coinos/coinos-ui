@@ -5,7 +5,10 @@
   import { tick } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import { AppHeader, Avatar, Icon, Spinner } from "$comp";
+  import AppHeader from "$comp/AppHeader.svelte";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { back, fail } from "$lib/utils";
 
   export let data;

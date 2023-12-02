@@ -1,6 +1,10 @@
 <script>
   import { enhance } from "$app/forms";
-  import { Icon, Lock, Card, Calendar, Spinner } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Lock from "$comp/Lock.svelte";
+  import Card from "$comp/Card.svelte";
+  import Calendar from "$comp/Calendar.svelte";
+  import Spinner  from "$comp/Spinner.svelte";
   import { animatedRate } from "$lib/store";
   import { f } from "$lib/utils";
 

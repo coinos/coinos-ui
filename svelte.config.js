@@ -13,6 +13,10 @@ const config = {
     csrf: {
       checkOrigin: false,
     },
+    prerender: {
+      crawl: false,
+      entries: []
+      }
   },
   onwarn: (warning, handler) => {
     if (warning.code.includes("caption") || warning.filename.includes("Toast"))

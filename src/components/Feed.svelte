@@ -1,7 +1,7 @@
 <script>
   import { t } from "$lib/translations";
   import { onMount } from "svelte";
-  import { Event } from "$comp";
+  import Event from "$comp/Event.svelte";
   import { browser } from "$app/environment";
   import VirtualScroll from "svelte-virtual-scroll-list";
   import { fail } from "$lib/utils";

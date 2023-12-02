@@ -1,5 +1,5 @@
 <script>
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { focus, fail, post } from "$lib/utils";
   import { password as pw, passwordPrompt } from "$lib/store";
 

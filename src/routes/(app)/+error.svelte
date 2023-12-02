@@ -1,6 +1,6 @@
 <script>
   import { back } from "$lib/utils";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
   export let data;

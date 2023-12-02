@@ -2,7 +2,11 @@
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
-  import { Toggle, Slider, Icon, Numpad, Spinner } from "$comp";
+  import Toggle from "$comp/Toggle.svelte";
+  import Slider from "$comp/Slider.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Numpad from "$comp/Numpad.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { fiat as toFiat, f, back, s, sat } from "$lib/utils";
   import { pin } from "$lib/store";

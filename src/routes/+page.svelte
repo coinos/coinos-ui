@@ -1,14 +1,11 @@
 <script>
-  import {
-    LandingHeader,
-    LandingHero,
-    LandingInfoCard,
-    HowItWorksCard,
-    FaqCard,
-    Image,
-    About,
-    Footer,
-  } from "$comp";
+  import LandingHeader from "$comp/LandingHeader.svelte";
+  import LandingHero from "$comp/LandingHero.svelte";
+  import LandingInfoCard from "$comp/LandingInfoCard.svelte";
+  import HowItWorksCard from "$comp/HowItWorksCard.svelte";
+  import FaqCard from "$comp/FaqCard.svelte";
+  import Image from "$comp/Image.svelte";
+  import Footer from "$comp/Footer.svelte";
 
   import { t } from "$lib/translations";
   import { onDestroy, onMount, tick } from "svelte";
@@ -35,12 +32,15 @@
   let observer;
   let isIntersecting = false;
 
+  let About;
   onMount(async () => {
-    observer = new IntersectionObserver((entries) => {
+    observer = new IntersectionObserver(async (entries) => {
+      About = (await import("$comp/About.svelte")).default;
       isIntersecting = isIntersecting || entries[0].isIntersecting;
     });
 
     loaded = true;
+
     await tick();
     observer.observe(document.getElementById("faq"));
   });
@@ -48,12 +48,8 @@
   onDestroy(() => (loaded = false));
 </script>
 
-<svelte:head>
-  <script src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
-</svelte:head>
-
 {#if loaded}
-  <LandingHeader {howItWorks} {faq} {about} {user} />
+
 
   <main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
     <LandingHero />

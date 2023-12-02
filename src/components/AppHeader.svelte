@@ -2,7 +2,8 @@
   import OutClick from "svelte-outclick";
   import { banner, newPayment, colorTheme } from "$lib/store";
   import { goto } from "$app/navigation";
-  import { Avatar, Icon } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon  from "$comp/Icon.svelte";
   import { loading, t } from "$lib/translations";
   import { page } from "$app/stores";
 

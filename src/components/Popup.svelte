@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { Avatar } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
   export let tags;
 
   let addr = (tags) => {

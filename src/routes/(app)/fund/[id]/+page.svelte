@@ -2,7 +2,8 @@
   import { format } from "date-fns";
   import { enhance } from "$app/forms";
   import { page } from "$app/stores";
-  import { Avatar, Icon } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
   import { types, copy, f, s, sat, sats } from "$lib/utils";

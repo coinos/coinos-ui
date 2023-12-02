@@ -5,7 +5,8 @@
   import { format } from "date-fns";
   import { scale, fade, fly } from "svelte/transition";
   import { enhance } from "$app/forms";
-  import { Avatar, Icon } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { back, fail, focus } from "$lib/utils";
   import { sign, send, encrypt, decrypt } from "$lib/nostr";
   import { event as e, password } from "$lib/store";

@@ -1,5 +1,5 @@
 <script>
-  import { Pin } from "$comp";
+  import Pin from "$comp/Pin.svelte";
   import { f, s, sat, sats } from "$lib/utils";
   import { animatedRate, pin } from "$lib/store";
   import { t } from "$lib/translations";

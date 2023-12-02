@@ -1,5 +1,5 @@
 <script>
-  import { RegisterOrLogin } from "$comp";
+  import RegisterOrLogin from "$comp/RegisterOrLogin.svelte";
   import { onMount } from "svelte";
   import { animatedRate, pin } from "$lib/store";
 

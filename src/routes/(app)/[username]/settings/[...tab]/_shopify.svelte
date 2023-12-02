@@ -1,6 +1,6 @@
 <script>
   import { t } from "$lib/translations";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
   export let user;

@@ -3,7 +3,11 @@
   import { goto } from "$app/navigation";
   import { pin } from "$lib/store";
   import { enhance } from "$app/forms";
-  import { AppHeader, Avatar, Icon, Numpad, Spinner } from "$comp";
+  import AppHeader from "$comp/AppHeader.svelte";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Numpad from "$comp/Numpad.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { f, post, s, sat, sats } from "$lib/utils";
 

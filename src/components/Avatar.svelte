@@ -1,6 +1,6 @@
 <script>
   import { avatar, banner, colorTheme } from "$lib/store";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { punk } from "$lib/utils";
 
   export let user;

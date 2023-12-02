@@ -1,7 +1,9 @@
 <script>
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
-  import { Icon, Numpad, Spinner } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Numpad from "$comp/Numpad.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { back, s } from "$lib/utils";
   import { pin } from "$lib/store";

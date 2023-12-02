@@ -2,7 +2,8 @@
   import { onDestroy } from "svelte";
   import { fail, success, post } from "$lib/utils";
   import { scale } from "svelte/transition";
-  import { AppHeader, Icon } from "$comp";
+  import AppHeader from "$comp/AppHeader.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
   export let data;

@@ -1,5 +1,5 @@
 <script>
-  import { AppHeader } from "$comp";
+  import AppHeader from "$comp/AppHeader.svelte";
   import { onNavigate } from "$app/navigation";
   export let data;
 

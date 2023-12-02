@@ -1,5 +1,6 @@
 <script>
-  import { Left, Icon } from "$comp";
+  import Left from "$comp/Left.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { focus, post, warning } from "$lib/utils";
   import { t } from "$lib/translations";
 

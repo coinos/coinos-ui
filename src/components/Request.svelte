@@ -1,7 +1,10 @@
 <script>
   import { t } from "$lib/translations";
   import { fly } from "svelte/transition";
-  import { Avatar, Icon } from "$comp";
+
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
+
   import { request, requestRedirect } from "$lib/store";
   import { page } from "$app/stores";
 

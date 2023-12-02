@@ -1,6 +1,9 @@
 <script>
   import { copyNoNewlines as copy } from "$lib/utils";
-  import { Code, Icon } from "$comp";
+
+  import Code from "$comp/Code.svelte";
+  import Icon from "$comp/Icon.svelte";
+
   import { PUBLIC_COINOS_URL } from "$env/static/public";
   export let data;
   let { user, token } = data;

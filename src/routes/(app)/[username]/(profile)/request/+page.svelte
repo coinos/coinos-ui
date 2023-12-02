@@ -1,7 +1,7 @@
 <script>
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
 
   export let data;
 

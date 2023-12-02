@@ -1,5 +1,5 @@
 <script>
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 </script>
 

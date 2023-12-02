@@ -13,7 +13,10 @@
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
-  import { LoadingSplash, Invoice, Password, Request } from "$comp";
+  import LoadingSplash from "$comp/LoadingSplash.svelte";
+  import Invoice from "$comp/Invoice.svelte";
+  import Password from "$comp/Password.svelte";
+  import Request  from "$comp/Request.svelte";
   import { warning, protectedRoutes } from "$lib/utils";
   import { t, locale } from "$lib/translations";
   import { onNavigate } from "$app/navigation";

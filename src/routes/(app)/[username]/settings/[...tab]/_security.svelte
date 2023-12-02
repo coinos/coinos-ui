@@ -2,7 +2,9 @@
   import { getMnemonic, getNsec } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
-  import { Pin, Icon, Qr } from "$comp";
+  import Pin from "$comp/Pin.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Qr from "$comp/Qr.svelte";
   import { copy, post, success, fail } from "$lib/utils";
   import { pin as current } from "$lib/store";
   import { invalidate } from "$app/navigation";

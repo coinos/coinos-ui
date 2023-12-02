@@ -4,7 +4,10 @@
   import { goto, invalidateAll } from "$app/navigation";
   import { pin } from "$lib/store";
   import { enhance } from "$app/forms";
-  import { Avatar, Icon, Numpad, Spinner } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Numpad from "$comp/Numpad.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { post, back, f, fiat as toFiat, s, sats } from "$lib/utils";
   export let data;

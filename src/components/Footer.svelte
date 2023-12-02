@@ -1,5 +1,6 @@
 <script>
-  import { Icon, LocaleSelector } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import LocaleSelector from "$comp/LocaleSelector.svelte";
   import { t } from "$lib/translations";
 
   const followLinks = [

@@ -1,7 +1,7 @@
 <script>
   import { t } from "$lib/translations";
   import { post, success, fail, focus } from "$lib/utils";
-  import { Pinpad } from "$comp";
+  import Pinpad from "$comp/Pinpad.svelte";
   import { pin } from "$lib/store";
   import { onMount } from "svelte";
 

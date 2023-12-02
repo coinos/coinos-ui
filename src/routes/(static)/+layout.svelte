@@ -1,6 +1,8 @@
 <script>
   import { SvelteToast } from "@zerodevx/svelte-toast";
-  import { Footer, LandingHeader } from "$comp";
+  import Footer from "$comp/Footer.svelte";
+  import LandingHeader from "$comp/LandingHeader.svelte";
+
   export let data;
   $: ({ user } = data);
 </script>

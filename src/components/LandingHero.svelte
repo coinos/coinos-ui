@@ -1,6 +1,7 @@
 <script>
   import { goto } from "$app/navigation";
-  import { Icon, Image } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";
 </script>
 

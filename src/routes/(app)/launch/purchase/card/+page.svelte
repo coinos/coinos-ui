@@ -1,6 +1,9 @@
 <script>
   import { enhance } from "$app/forms";
-  import { Lock, Card, Calendar, Spinner } from "$comp";
+  import Lock from "$comp/Lock.svelte";
+  import Card from "$comp/Card.svelte";
+  import Calendar from "$comp/Calendar.svelte";
+  import Spinner from "$comp/Spinner.svelte";
 
   export let data;
 

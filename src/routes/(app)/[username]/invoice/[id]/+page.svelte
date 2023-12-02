@@ -16,7 +16,10 @@
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last } from "$lib/store";
-  import { Avatar, Icon, Heart, Image } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Heart from "$comp/Heart.svelte";
+  import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
