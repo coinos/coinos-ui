@@ -7,5 +7,6 @@ COPY . .
 RUN bun i
 RUN bun run build
 
-# CMD ["node", "build"]
-CMD ["bun", "run", "--bun", "preview", "--host", "--port", "3000"]
+WORKDIR /home/bun/app/build
+
+CMD ["bun", "run", "start"]
