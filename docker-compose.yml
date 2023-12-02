@@ -1,4 +1,4 @@
-version: '3.6'
+version: "3.6"
 services:
   v2:
     container_name: v2
@@ -6,18 +6,18 @@ services:
       context: .
       dockerfile: Dockerfile.dev
       args:
-        URL: '${PUBLIC_COINOS_URL}'
-        BTC: '${PUBLIC_BTC}'
-        SOCKET: '${PUBLIC_SOCKET}'
+        URL: "${PUBLIC_COINOS_URL}"
+        BTC: "${PUBLIC_BTC}"
+        SOCKET: "${PUBLIC_SOCKET}"
     restart: always
     ports:
-      - '3121:3121'
+      - "3121:3121"
     environment:
       NODE_ENV: production
-      ORIGIN: '${ORIGIN}'
+      ORIGIN: "${ORIGIN}"
       PORT: 3121
-      STRIPE: '${STRIPE}'
-      LAUNCH: '${LAUNCH}'
+      STRIPE: "${STRIPE}"
+      LAUNCH: "${LAUNCH}"
     extra_hosts:
       - host.docker.internal:host-gateway
 networks:

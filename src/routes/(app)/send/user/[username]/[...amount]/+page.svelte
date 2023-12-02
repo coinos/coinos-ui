@@ -1,103 +1,103 @@
 <script>
-	import { t } from '$lib/translations';
-	import { goto } from '$app/navigation';
-	import { pin } from '$lib/store';
-	import { enhance } from '$app/forms';
-	import { AppHeader, Avatar, Icon, Numpad, Spinner } from '$comp';
-	import { page } from '$app/stores';
-	import { f, post, s, sat, sats } from '$lib/utils';
+  import { t } from "$lib/translations";
+  import { goto } from "$app/navigation";
+  import { pin } from "$lib/store";
+  import { enhance } from "$app/forms";
+  import { AppHeader, Avatar, Icon, Numpad, Spinner } from "$comp";
+  import { page } from "$app/stores";
+  import { f, post, s, sat, sats } from "$lib/utils";
 
-	export let data;
-	export let form;
+  export let data;
+  export let form;
 
-	let { subject, rate, rates, user } = data;
-	let currency = user.currency || subject.currency || 'USD';
-	let next;
+  let { subject, rate, rates, user } = data;
+  let currency = user.currency || subject.currency || "USD";
+  let next;
 
-	let amount = form?.amount || data.amount;
-	let a,
-		af,
-		fiat = !amount,
-		hash,
-		amountFiat = 0;
+  let amount = form?.amount || data.amount;
+  let a,
+    af,
+    fiat = !amount,
+    hash,
+    amountFiat = 0;
 
-	$: r = rate || rates[user.currency || subject.currency];
+  $: r = rate || rates[user.currency || subject.currency];
 
-	let setAmount = async () => {
-		amount = a;
-		amountFiat = parseFloat(af).toFixed(2);
-		rate = fiat ? (sats * amountFiat) / amount : r;
-		({ hash } = await post(`/${subject.username}/invoice`, {
-			invoice: {
-				amount,
-				hash: 'internal',
-				rate: rates[subject.currency],
-				prompt: subject.prompt,
-				type: 'internal'
-			},
-			user: subject
-		}));
+  let setAmount = async () => {
+    amount = a;
+    amountFiat = parseFloat(af).toFixed(2);
+    rate = fiat ? (sats * amountFiat) / amount : r;
+    ({ hash } = await post(`/${subject.username}/invoice`, {
+      invoice: {
+        amount,
+        hash: "internal",
+        rate: rates[subject.currency],
+        prompt: subject.prompt,
+        type: "internal",
+      },
+      user: subject,
+    }));
 
-		goto(`/${subject.username}/invoice/${hash}`);
-	};
+    goto(`/${subject.username}/invoice/${hash}`);
+  };
 
-	let loading;
-	let submit = () => (loading = true);
+  let loading;
+  let submit = () => (loading = true);
 
-	$: update(form);
-	let update = () => {
-		if (form?.message?.includes('pin')) $pin = undefined;
-		loading = false;
-	};
+  $: update(form);
+  let update = () => {
+    if (form?.message?.includes("pin")) $pin = undefined;
+    loading = false;
+  };
 </script>
 
 <AppHeader {data} />
 
 {#if form?.message}
-	<div class="text-red-600 text-center">
-		{form.message}
-	</div>
+  <div class="text-red-600 text-center">
+    {form.message}
+  </div>
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
-	<Numpad
-		bind:amount={a}
-		bind:amountFiat={af}
-		{currency}
-		bind:fiat
-		bind:rate={r}
-		bind:submit={next}
-	/>
+  <Numpad
+    bind:amount={a}
+    bind:amountFiat={af}
+    {currency}
+    bind:fiat
+    bind:rate={r}
+    bind:submit={next}
+  />
 
-	<form method="POST" use:enhance on:submit={submit}>
-		<input name="amount" value={amount} type="hidden" />
-		<input name="username" value={subject.username} type="hidden" />
-		<input name="pin" value={$pin} type="hidden" />
-		<input name="hash" value={hash} type="hidden" />
+  <form method="POST" use:enhance on:submit={submit}>
+    <input name="amount" value={amount} type="hidden" />
+    <input name="username" value={subject.username} type="hidden" />
+    <input name="pin" value={$pin} type="hidden" />
+    <input name="hash" value={hash} type="hidden" />
 
-		<div class="flex w-full">
-			{#if amount}
-				<button
-					type="submit"
-					class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-				>
-					{#if loading}
-						<Spinner />
-					{:else}
-						{$t('payments.send')}
-					{/if}
-				</button>
-			{:else}
-				<button
-					type="button"
-					bind:this={next}
-					class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-					on:click={setAmount}
-					on:keydown={setAmount}
-				>
-					Next
-				</button>
-			{/if}
-		</div>
-	</form>
+    <div class="flex w-full">
+      {#if amount}
+        <button
+          type="submit"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+        >
+          {#if loading}
+            <Spinner />
+          {:else}
+            {$t("payments.send")}
+          {/if}
+        </button>
+      {:else}
+        <button
+          type="button"
+          bind:this={next}
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          on:click={setAmount}
+          on:keydown={setAmount}
+        >
+          Next
+        </button>
+      {/if}
+    </div>
+  </form>
 </div>
