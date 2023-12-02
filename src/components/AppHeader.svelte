@@ -3,7 +3,7 @@
   import { banner, newPayment, colorTheme } from "$lib/store";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon  from "$comp/Icon.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { loading, t } from "$lib/translations";
   import { page } from "$app/stores";
 
@@ -112,7 +112,7 @@
             <div
               class="{showMenu
                 ? 'block'
-                : 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z"
+                : 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z-50"
             >
               <ul class="space-y-5 w-48">
                 {#each menuButtons as { href, icon, key }}
