@@ -1,300 +1,300 @@
 {
-	"404": {
-		"404": "404",
-		"pageNotFound": "Diese Seite konnte nicht gefunden werden."
-	},
-	"about": {
-		"header": "Über uns",
-		"p1": "Coinos ist eine Open-Source-Bitcoin-Bezahl-App. Im September 2012 starteten wir die Entwicklung in Vancouver, um lokalen Händlern eine bequeme Möglichkeit zu bieten, Bitcoin-Zahlungen zu akzeptieren.",
-		"p2": "Sie können den Quellcode herunterladen, um die Coinos-App mit Ihrem eigenen Bitcoin- und Lightning-Node zu verbinden. Gerne helfen wir Ihnen dabei, ein wertvoller Dienstleister sowie Zahlungsanbieter für Ihre Kunden zu werden.",
-		"p3": "Transaktionen zwischen Nutzerkonten auf unserem Server werden Off-Chain durchgeführt. Diese werden sofort abgewickelt und sind völlig kostenlos sowie unlimitiert.",
-		"team": {
-			"header": "Das Team",
-			"adam": {
-				"name": "Adam Soltys",
-				"position": "Chief Technical Officer",
-				"bio": "Adam ist ein Webentwickler und Bitcoin-Enthusiast, der davon überzeugt ist, dass hartes Geld der Schlüssel zur Steigerung des globalen Wohlstands ist. Er lebt mit seiner Frau Chelsea und seinen zwei Kindern in North Vancouver."
-			},
-			"secondl1ght": {
-				"name": "secondl1ght",
-				"position": "Web Developer",
-				"bio": "Secondl1ght hat sich das Programmieren selbst beigebracht, ist kopfüber in den Bitcoin-Kaninchenbau gesprungen und hat seinen Fiat-Job aufgegeben, um sich voll und ganz auf die Bitcoin-Entwicklung zu konzentrieren. Er wirkt bei Open-Source-Projekten mit, ist ein Verfechter der Privatsphäre und ein Freiheitsliebhaber."
-			},
+  "404": {
+    "404": "404",
+    "pageNotFound": "Diese Seite konnte nicht gefunden werden."
+  },
+  "about": {
+    "header": "Über uns",
+    "p1": "Coinos ist eine Open-Source-Bitcoin-Bezahl-App. Im September 2012 starteten wir die Entwicklung in Vancouver, um lokalen Händlern eine bequeme Möglichkeit zu bieten, Bitcoin-Zahlungen zu akzeptieren.",
+    "p2": "Sie können den Quellcode herunterladen, um die Coinos-App mit Ihrem eigenen Bitcoin- und Lightning-Node zu verbinden. Gerne helfen wir Ihnen dabei, ein wertvoller Dienstleister sowie Zahlungsanbieter für Ihre Kunden zu werden.",
+    "p3": "Transaktionen zwischen Nutzerkonten auf unserem Server werden Off-Chain durchgeführt. Diese werden sofort abgewickelt und sind völlig kostenlos sowie unlimitiert.",
+    "team": {
+      "header": "Das Team",
+      "adam": {
+        "name": "Adam Soltys",
+        "position": "Chief Technical Officer",
+        "bio": "Adam ist ein Webentwickler und Bitcoin-Enthusiast, der davon überzeugt ist, dass hartes Geld der Schlüssel zur Steigerung des globalen Wohlstands ist. Er lebt mit seiner Frau Chelsea und seinen zwei Kindern in North Vancouver."
+      },
+      "secondl1ght": {
+        "name": "secondl1ght",
+        "position": "Web Developer",
+        "bio": "Secondl1ght hat sich das Programmieren selbst beigebracht, ist kopfüber in den Bitcoin-Kaninchenbau gesprungen und hat seinen Fiat-Job aufgegeben, um sich voll und ganz auf die Bitcoin-Entwicklung zu konzentrieren. Er wirkt bei Open-Source-Projekten mit, ist ein Verfechter der Privatsphäre und ein Freiheitsliebhaber."
+      },
 
-			"karnage": {
-				"name": "Karnage",
-				"position": "Product Designer",
-				"bio": "Meine Mission ist es, Startup-Gründern zum Erfolg zu verhelfen. Ich entwickle Produkte, die dabei helfen, dieses Ziel zu erreichen."
-			},
-			"shauna": {
-				"name": "Shauna",
-				"position": "Operations & Marketing",
-				"bio": "Strategie- & Projektmanagement. Unser Universalgenie in allen Bereichen. Findet immer Zeit, um sich auf einen Kaffee zu treffen."
-			},
-			"cole": {
-				"name": "Cole",
-				"position": "Bitcoin Experte",
-				"bio": "Als zertifizierter Bitcoin-Experte ist Cole ein engagierter Mensch mit großer Leidenschaft für Freiheit. Er entdeckte Bitcoin im Jahr 2016 und beschäftigte sich eingehend damit. Jetzt möchte er das Lightning-Netzwerk so vielen Nutzern wie möglich näherbringen."
-			},
-			"john": {
-				"name": "John Barratt",
-				"position": "Full Stack Web Developer",
-				"bio": "Wenn er nicht gerade programmiert, findet man John in der Natur beim Entdecken der vielen, großartigen Wanderwege, die BC zu bieten hat."
-			}
-		},
-		"locations": {
-			"header": "Standorte",
-			"description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Coinos akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!"
-		}
-	},
-	"error": {
-		"header": "Error",
-		"message": "Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support.",
-		"signIn": "Bitte melden Sie sich an, um fortzufahren."
-	},
-	"faq": {
-		"header": "FAQ",
-		"why": {
-			"question": "Warum Bitcoin akzeptieren?",
-			"answer": "Mit Bitcoin sparen Händler bei den Gebühren, Verbraucher gewinnen an Privatsphäre und Sparer an Kaufkraft. Wir bewerben Ihr Geschäft bei einer begeisterten Gemeinschaft, die bevorzugt in Geschäften einkauft, die Bitcoin akzeptieren."
-		},
-		"cost": {
-			"question": "Was kostet das?",
-			"answer": "Zahlungen auf Ihr Konto zu erhalten ist kostenlos. Auszahlungen an externe Wallets verursachen eine geringe Gebühr, die je nach Netzwerkbedingungen variiert. Wir berechnen 0,1% für die Umwandlung zwischen Lightning und On-Chain Bitcoin. Das Senden zu anderen Coinos-Konten ist kostenlos."
-		},
-		"individuals": {
-			"question": "Wer kann es nutzen?",
-			"answer": "Jeder, überall auf der Welt. Coinos ist sowohl für Einzelpersonen als auch für Unternehmen geeignet."
-		},
-		"compatibility": {
-			"question": "Benötige ich ein spezielles Gerät oder eine spezielle Software?",
-			"answer": "Nein, Coinos ist eine Web-App, die überall funktioniert, wo es Internet gibt. Händler könnten es auf einem Tablet verwenden oder einen QR-Code anbieten, den Kunden mit ihrem Handy scannen können."
-		},
-		"safety": {
-			"question": "Wann wird mein Guthaben beglichen?",
-			"answer": "Lightning-Zahlungen werden sofort beglichen. Sie können Ihr Guthaben innerhalb von Sekunden auf eine andere Wallet übertragen. On-Chain Einzahlungen dauern im Durchschnitt 5-10 Minuten zur Bestätigung."
-		},
-		"pos": {
-			"question": "Kann Coinos mit meinem vorhandenen PoS integriert werden?",
-			"answer": "Wir empfehlen, Verkäufe in Ihrem vorhandenen PoS als Bartransaktionen einzugeben."
-		},
-		"accounting": {
-			"question": "Was ist mit der Buchhaltung?",
-			"answer": "Wir zeigen alle Zahlungen in Ihrer lokalen Währung an und ermöglichen es Ihnen, nach Datum zu filtern, sodass Sie Ihr Einkommen wie gewohnt melden können. Sie können den Verlauf Ihres Kontos in eine CSV-Datei exportieren. Wenn Sie Bitcoin mit Gewinn verkaufen, möchten Sie vielleicht Kapitalerträge melden."
-		},
-		"offramp": {
-			"question": "Kann ich den erhaltenen Bitcoin in meine lokale Währung umwandeln?",
-			"answer": "Sie können Ihre Gelder jederzeit an eine Börse oder einen Makler abziehen, um Ihren Bitcoin zu verkaufen und eine Banküberweisung zu erhalten. Wir könnten bereit sein, direkte Abrechnungen per E-Transfer für ausgewählte kanadische Händler anzubieten."
-		},
-		"bitcoin": {
-			"question": "Was kann ich mit Bitcoin machen?",
-			"answer": "Geben Sie es bei anderen Händlern aus oder decken Sie damit Ihre Ausgaben, indem Sie Ihr Personal, Ihre Lieferanten und Ihren Vermieter dazu bringen, es zu akzeptieren."
-		}
-	},
-	"footer": {
-		"company": "Unternehmen",
-		"followUs": "Folge uns",
-		"github": "GitHub",
-		"jobs": "Jobs",
-		"support": "Support",
-		"telegram": "Telegram",
-		"twitter": "Twitter",
-		"news": "Neuigkeiten"
-	},
-	"howItWorks": {
-		"header": "So funktioniert's",
-		"step1": {
-			"header": "1. Erstellen Sie Ihr Konto",
-			"description": "Sie benötigen nur einen Benutzernamen und ein Passwort - und schon geht's los!"
-		},
-		"step2": {
-			"header": "2. Zahlungen anfordern",
-			"description": "Ganz gleich, wie Sie es normalerweise machen würden, allerdings mit Bitcoin."
-		},
-		"step3": {
-			"header": "3. Das war's!",
-			"description": "Bezahlen Sie mit Ihrem Bitcoin-Bestand bei anderen Händlern oder sparen Sie diese für schlechtere Zeiten - Sie allein haben die Wahl."
-		}
-	},
-	"invoice": {
-		"addTip": "Trinkgeld hinzufügen",
-		"addTipq": "Trinkgeld hinzufügen?",
-		"done": "Fertig",
-		"paymentSuccessful": "Zahlung erhalten!",
-		"invoice": "Rechnung",
-		"total": "Gesamtbetrag",
-		"tip": "Trinkgeld"
-	},
-	"jobs": {
-		"header": "Jobs",
-		"subheader": "Offene Stellen",
-		"pitch1": "Wir sind stets auf der Suche nach Entwicklern, die unser wachsendes Team verstärken möchten (Vollzeit oder Teilzeit, Homeoffice möglich).",
-		"pitch2": "Möchten Sie mit uns an Open-Source-Bitcoin-Projekten arbeiten? Dann werfen Sie doch einen Blick auf unsere offenen Stellen auf",
-		"github": "GitHub",
-		"pitch3": "Wenn wir Ihr Interesse geweckt haben, würden wir uns freuen, von Ihnen zu hören. Schicken Sie uns gerne Ihren Lebenslauf an"
-	},
-	"landing": {
-		"header_before_icon": "Der",
-		"header_with_icon": "einfachste",
-		"header_after_icon": "Weg um Bitcoin in Ihrem Unternehmen zu akzeptieren.",
-		"subheader": "Erweitern Sie Ihren Kundenstamm und Ihren Umsatz, indem Sie Bitcoin mit einer einfach zu bedienenden Web-App akzeptieren. Keine Software oder Hardware ist dafür erforderlich.",
-		"info1": {
-			"title": "Sofortzahlungen über Lightning",
-			"description": "Unmittelbar nachdem die Zahlung von Ihrem Kunden abgeschlossen wurde, ist diese auch bei Ihnen ersichtlich. Sie müssen sich weder um Rücklastschriften kümmern, noch auf Banküberweisungen warten. Sekundenschnelle Abrechnung - und das Beste daran: Es fallen keine 3% Kreditkartenbearbeitungsgebühren an."
-		},
-		"info2": {
-			"title": "Einfache Handhabung",
-			"description1": "Geben Sie einfach einen Betrag in Ihrer Landeswährung ein, teilen Sie den QR-Code mit Ihrem Kunden und schon sind Sie fertig.",
-			"description2": "Wir nehmen Ihnen die ganze Arbeit ab, damit Sie sich auf Ihr Geschäft konzentrieren können.",
-			"description3": "Sie haben jederzeit die Möglichkeit, selbst über Ihr Geld zu verfügen und es sofort abzuheben."
-		},
-		"info3": {
-			"title": "Gestalten Sie Ihre Übersicht nach Ihrem Geschmack",
-			"description": "Passen Sie die Übersicht dem Branding Ihres Unternehmens an oder nutzen Sie unser Standard-Design."
-		}
-	},
-	"login": {
-		"optional": "Optional",
-		"token": "2FA Token",
-		"username": "Benutzername",
-		"password": "Passwort",
-		"email": "E-Mail",
-		"passwordRecommendation": "Wir empfehlen ein langes, zufälliges Passwort, welches mit einem Passwortgenerator erstellt wurde.",
-		"forgotUserOrPassword": "Benutzername oder Passwort vergessen?",
-		"haveAccount": "Bereits registriert?",
-		"noAccount": "Noch nicht registriert?",
-		"register": "Registrieren",
-		"signIn": "Einloggen",
-		"failed": "Login fehlgeschlagen"
-	},
-	"nav": {
-		"profile": "Profil",
-		"startInSeconds": "Jetzt loslegen",
-		"account": "Konto",
-		"signIn": "Einloggen",
-		"signOut": "Ausloggen",
-		"dashboard": "Übersicht",
-		"settings": "Einstellungen",
-		"support": "Support"
-	},
-	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Coinos-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
-	"news": {
-		"header": "News",
-		"subheader": "Letzte Updates",
-		"update1": ""
-	},
-	"user": {
-		"bitcoin": "Bitcoin",
-		"lightning": "Lightning",
-		"invoice": "Rechnung",
-		"unfollow": "Nicht mehr folgen",
-		"following": "Folgen",
-		"follow": "Folgen",
-		"remove": "Entfernen",
-		"scanToPayBTC": "Den QR-Code scannen um mit Bitcoin zu zahlen",
-		"this": "Das",
-		"lightningAddress": "Lightning Adresse",
-		"dashboard": {
-			"go": "Los",
-			"dashboard": "Übersicht",
-			"accountBalance": "Kontostand",
-			"bitcoinPrice": "Bitcoin Preis:",
-			"conversionFeeWarning": "Es wird eine Abhebungsgebühr von 1% des Gesambetrags erhoben.",
-			"dataFromBinance": "Daten von <span class=\"text-black\">Binance</span>.",
-			"fetchingRate": "Abfragen...",
-			"optionalNote": "Notiz (optional)",
-			"send": "Senden",
-			"receive": "Erhalten",
-			"withdraw": "Senden",
-			"deposit": "Einzahlung",
-			"voucher": "Beleg"
-		},
-		"receive": {
-			"lessThan1BTCWarning": "Bitte geben Sie einen Betrag unter 1 Bitcoin ein.",
-			"showQR": "QR-Code zeigen"
-		},
-		"send": {
-			"contacts": "Kontakte",
-			"scan": "Scannen",
-			"paste": "Einfügen",
-			"next": "Weiter",
-			"placeholder": "Geben Sie eine Bitcoin-Adresse, eine Lightning-Rechnung oder einen Coinos-Benutzernamen ein"
-		},
-		"settings": {
-			"bannerImage": "Logo",
-			"profileImage": "Profilbild",
-			"oneTimeCode": "Code eingeben",
-			"accountId": "Kontoverbindung",
-			"header": "Einstellungen",
-			"ACCOUNT": "KONTO",
-			"POINT_OF_SALE": "VERKAUFSSTELLE",
-			"SECURITY": "SICHERHEIT",
-			"locale": "Sprache",
-			"username": "Benutzername",
-			"email": "E-Mail",
-			"newPassword": "Neues Passwort",
-			"businessAddress": "Unternehmensadresse",
-			"emailNotifications": "E-Mail-Benachrichtigungen",
-			"emailNotificationsDescription": "Sie werden per E-Mail benachrichtigt, wenn eine Änderung auf Ihrem Konto vorgenommen wurde oder Ihnen jemand Zahlungen sendet.",
-			"smsNotifications": "SMS-Benachrichtigungen",
-			"smsNotificationsDescription": "Coinos wird Benachrichtigungen per SMS zusenden, wenn diese Funktion aktiviert ist.",
-			"theme": "Farbdesign",
-			"themeDescription": "Wählen Sie aus unseren Standard-Farbdesigns.",
-			"localCurrency": "Landeswährung",
-			"btcUnit": "Bitcoin anzeigen in:",
-			"bitcoin": "Bitcoin",
-			"satoshis": "Satoshis",
-			"securityPIN": "Sicherheitscode",
-			"securityPINDescription": "Legen Sie einen Sicherheitscode fest, der zum Entsperren Ihrer Einstellungen und zum Senden ausgehender Zahlungen verwendet wird.",
-			"setPIN": "Set PIN",
-			"autoLock": "Timer für automatische Sperre",
-			"autoLockDescription": "Ihr Konto wird nach einer bestimmten Zeit automatisch in einen sicheren Modus versetzt:",
-			"twofa": "2-Faktor Authentifizierung",
-			"twofaDescription": "Erhöhen Sie das Sicherheitslevel Ihres Geräts, indem Sie die 2-Faktor-Authentifizierung aktivieren.",
-			"twofaSetup": "2FA einrichten",
-			"twofaDisable": "2FA deaktivieren",
-			"select": "Auswählen",
-			"verifyPIN": "Sicherheitscode verifizieren",
-			"enablePIN": "PIN aktivieren",
-			"disablePIN": "PIN deaktivieren"
-		},
-		"support": {
-			"header": "Support",
-			"email": "E-Mail",
-			"accountName": "Kontoname",
-			"message": "Nachricht",
-			"send": "Senden"
-		}
-	},
-	"payments": {
-		"header": "Transaktionen",
-		"AMOUNT": "GESAMTBETRAG",
-		"TYPE": "TYP",
-		"TIME": "ZEIT",
-		"sent": "Gesendet",
-		"received": "Erhalten",
-		"empty": "Noch keine Transaktionen erhalten.",
-		"send": "Senden",
-		"next": "Weiter",
-		"sendersChoice": "Absender",
-		"sendTo": "Senden an",
-		"to": "an",
-		"pay": "Bezahlen",
-		"requesting": "ersucht um",
-		"sentInvoiceTo": "Rechnung senden an",
-		"sentRequestTo": "Anfrage senden an",
-		"pleasePay": "Bitte bezahlen Sie",
-		"day": "Tag",
-		"week": "Woche",
-		"month": "Monat",
-		"all": "Alles",
-		"export": "Exportieren",
-		"invoice": "Rechnung",
-		"readyToPay": "Steht zur Zahlung bereit",
-		"describeOrder": "Benutzen Sie dieses Feld um Ihre Bestellung zu beschreiben",
-		"requestAnInvoice": "Rechnung anfordern",
-		"submit": "Übermitteln",
-		"isRequesting": "Anfragen",
-		"awaiting": "Warten auf"
-	}
+      "karnage": {
+        "name": "Karnage",
+        "position": "Product Designer",
+        "bio": "Meine Mission ist es, Startup-Gründern zum Erfolg zu verhelfen. Ich entwickle Produkte, die dabei helfen, dieses Ziel zu erreichen."
+      },
+      "shauna": {
+        "name": "Shauna",
+        "position": "Operations & Marketing",
+        "bio": "Strategie- & Projektmanagement. Unser Universalgenie in allen Bereichen. Findet immer Zeit, um sich auf einen Kaffee zu treffen."
+      },
+      "cole": {
+        "name": "Cole",
+        "position": "Bitcoin Experte",
+        "bio": "Als zertifizierter Bitcoin-Experte ist Cole ein engagierter Mensch mit großer Leidenschaft für Freiheit. Er entdeckte Bitcoin im Jahr 2016 und beschäftigte sich eingehend damit. Jetzt möchte er das Lightning-Netzwerk so vielen Nutzern wie möglich näherbringen."
+      },
+      "john": {
+        "name": "John Barratt",
+        "position": "Full Stack Web Developer",
+        "bio": "Wenn er nicht gerade programmiert, findet man John in der Natur beim Entdecken der vielen, großartigen Wanderwege, die BC zu bieten hat."
+      }
+    },
+    "locations": {
+      "header": "Standorte",
+      "description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Coinos akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!"
+    }
+  },
+  "error": {
+    "header": "Error",
+    "message": "Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support.",
+    "signIn": "Bitte melden Sie sich an, um fortzufahren."
+  },
+  "faq": {
+    "header": "FAQ",
+    "why": {
+      "question": "Warum Bitcoin akzeptieren?",
+      "answer": "Mit Bitcoin sparen Händler bei den Gebühren, Verbraucher gewinnen an Privatsphäre und Sparer an Kaufkraft. Wir bewerben Ihr Geschäft bei einer begeisterten Gemeinschaft, die bevorzugt in Geschäften einkauft, die Bitcoin akzeptieren."
+    },
+    "cost": {
+      "question": "Was kostet das?",
+      "answer": "Zahlungen auf Ihr Konto zu erhalten ist kostenlos. Auszahlungen an externe Wallets verursachen eine geringe Gebühr, die je nach Netzwerkbedingungen variiert. Wir berechnen 0,1% für die Umwandlung zwischen Lightning und On-Chain Bitcoin. Das Senden zu anderen Coinos-Konten ist kostenlos."
+    },
+    "individuals": {
+      "question": "Wer kann es nutzen?",
+      "answer": "Jeder, überall auf der Welt. Coinos ist sowohl für Einzelpersonen als auch für Unternehmen geeignet."
+    },
+    "compatibility": {
+      "question": "Benötige ich ein spezielles Gerät oder eine spezielle Software?",
+      "answer": "Nein, Coinos ist eine Web-App, die überall funktioniert, wo es Internet gibt. Händler könnten es auf einem Tablet verwenden oder einen QR-Code anbieten, den Kunden mit ihrem Handy scannen können."
+    },
+    "safety": {
+      "question": "Wann wird mein Guthaben beglichen?",
+      "answer": "Lightning-Zahlungen werden sofort beglichen. Sie können Ihr Guthaben innerhalb von Sekunden auf eine andere Wallet übertragen. On-Chain Einzahlungen dauern im Durchschnitt 5-10 Minuten zur Bestätigung."
+    },
+    "pos": {
+      "question": "Kann Coinos mit meinem vorhandenen PoS integriert werden?",
+      "answer": "Wir empfehlen, Verkäufe in Ihrem vorhandenen PoS als Bartransaktionen einzugeben."
+    },
+    "accounting": {
+      "question": "Was ist mit der Buchhaltung?",
+      "answer": "Wir zeigen alle Zahlungen in Ihrer lokalen Währung an und ermöglichen es Ihnen, nach Datum zu filtern, sodass Sie Ihr Einkommen wie gewohnt melden können. Sie können den Verlauf Ihres Kontos in eine CSV-Datei exportieren. Wenn Sie Bitcoin mit Gewinn verkaufen, möchten Sie vielleicht Kapitalerträge melden."
+    },
+    "offramp": {
+      "question": "Kann ich den erhaltenen Bitcoin in meine lokale Währung umwandeln?",
+      "answer": "Sie können Ihre Gelder jederzeit an eine Börse oder einen Makler abziehen, um Ihren Bitcoin zu verkaufen und eine Banküberweisung zu erhalten. Wir könnten bereit sein, direkte Abrechnungen per E-Transfer für ausgewählte kanadische Händler anzubieten."
+    },
+    "bitcoin": {
+      "question": "Was kann ich mit Bitcoin machen?",
+      "answer": "Geben Sie es bei anderen Händlern aus oder decken Sie damit Ihre Ausgaben, indem Sie Ihr Personal, Ihre Lieferanten und Ihren Vermieter dazu bringen, es zu akzeptieren."
+    }
+  },
+  "footer": {
+    "company": "Unternehmen",
+    "followUs": "Folge uns",
+    "github": "GitHub",
+    "jobs": "Jobs",
+    "support": "Support",
+    "telegram": "Telegram",
+    "twitter": "Twitter",
+    "news": "Neuigkeiten"
+  },
+  "howItWorks": {
+    "header": "So funktioniert's",
+    "step1": {
+      "header": "1. Erstellen Sie Ihr Konto",
+      "description": "Sie benötigen nur einen Benutzernamen und ein Passwort - und schon geht's los!"
+    },
+    "step2": {
+      "header": "2. Zahlungen anfordern",
+      "description": "Ganz gleich, wie Sie es normalerweise machen würden, allerdings mit Bitcoin."
+    },
+    "step3": {
+      "header": "3. Das war's!",
+      "description": "Bezahlen Sie mit Ihrem Bitcoin-Bestand bei anderen Händlern oder sparen Sie diese für schlechtere Zeiten - Sie allein haben die Wahl."
+    }
+  },
+  "invoice": {
+    "addTip": "Trinkgeld hinzufügen",
+    "addTipq": "Trinkgeld hinzufügen?",
+    "done": "Fertig",
+    "paymentSuccessful": "Zahlung erhalten!",
+    "invoice": "Rechnung",
+    "total": "Gesamtbetrag",
+    "tip": "Trinkgeld"
+  },
+  "jobs": {
+    "header": "Jobs",
+    "subheader": "Offene Stellen",
+    "pitch1": "Wir sind stets auf der Suche nach Entwicklern, die unser wachsendes Team verstärken möchten (Vollzeit oder Teilzeit, Homeoffice möglich).",
+    "pitch2": "Möchten Sie mit uns an Open-Source-Bitcoin-Projekten arbeiten? Dann werfen Sie doch einen Blick auf unsere offenen Stellen auf",
+    "github": "GitHub",
+    "pitch3": "Wenn wir Ihr Interesse geweckt haben, würden wir uns freuen, von Ihnen zu hören. Schicken Sie uns gerne Ihren Lebenslauf an"
+  },
+  "landing": {
+    "header_before_icon": "Der",
+    "header_with_icon": "einfachste",
+    "header_after_icon": "Weg um Bitcoin in Ihrem Unternehmen zu akzeptieren.",
+    "subheader": "Erweitern Sie Ihren Kundenstamm und Ihren Umsatz, indem Sie Bitcoin mit einer einfach zu bedienenden Web-App akzeptieren. Keine Software oder Hardware ist dafür erforderlich.",
+    "info1": {
+      "title": "Sofortzahlungen über Lightning",
+      "description": "Unmittelbar nachdem die Zahlung von Ihrem Kunden abgeschlossen wurde, ist diese auch bei Ihnen ersichtlich. Sie müssen sich weder um Rücklastschriften kümmern, noch auf Banküberweisungen warten. Sekundenschnelle Abrechnung - und das Beste daran: Es fallen keine 3% Kreditkartenbearbeitungsgebühren an."
+    },
+    "info2": {
+      "title": "Einfache Handhabung",
+      "description1": "Geben Sie einfach einen Betrag in Ihrer Landeswährung ein, teilen Sie den QR-Code mit Ihrem Kunden und schon sind Sie fertig.",
+      "description2": "Wir nehmen Ihnen die ganze Arbeit ab, damit Sie sich auf Ihr Geschäft konzentrieren können.",
+      "description3": "Sie haben jederzeit die Möglichkeit, selbst über Ihr Geld zu verfügen und es sofort abzuheben."
+    },
+    "info3": {
+      "title": "Gestalten Sie Ihre Übersicht nach Ihrem Geschmack",
+      "description": "Passen Sie die Übersicht dem Branding Ihres Unternehmens an oder nutzen Sie unser Standard-Design."
+    }
+  },
+  "login": {
+    "optional": "Optional",
+    "token": "2FA Token",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "email": "E-Mail",
+    "passwordRecommendation": "Wir empfehlen ein langes, zufälliges Passwort, welches mit einem Passwortgenerator erstellt wurde.",
+    "forgotUserOrPassword": "Benutzername oder Passwort vergessen?",
+    "haveAccount": "Bereits registriert?",
+    "noAccount": "Noch nicht registriert?",
+    "register": "Registrieren",
+    "signIn": "Einloggen",
+    "failed": "Login fehlgeschlagen"
+  },
+  "nav": {
+    "profile": "Profil",
+    "startInSeconds": "Jetzt loslegen",
+    "account": "Konto",
+    "signIn": "Einloggen",
+    "signOut": "Ausloggen",
+    "dashboard": "Übersicht",
+    "settings": "Einstellungen",
+    "support": "Support"
+  },
+  "newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Coinos-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
+  "news": {
+    "header": "News",
+    "subheader": "Letzte Updates",
+    "update1": ""
+  },
+  "user": {
+    "bitcoin": "Bitcoin",
+    "lightning": "Lightning",
+    "invoice": "Rechnung",
+    "unfollow": "Nicht mehr folgen",
+    "following": "Folgen",
+    "follow": "Folgen",
+    "remove": "Entfernen",
+    "scanToPayBTC": "Den QR-Code scannen um mit Bitcoin zu zahlen",
+    "this": "Das",
+    "lightningAddress": "Lightning Adresse",
+    "dashboard": {
+      "go": "Los",
+      "dashboard": "Übersicht",
+      "accountBalance": "Kontostand",
+      "bitcoinPrice": "Bitcoin Preis:",
+      "conversionFeeWarning": "Es wird eine Abhebungsgebühr von 1% des Gesambetrags erhoben.",
+      "dataFromBinance": "Daten von <span class=\"text-black\">Binance</span>.",
+      "fetchingRate": "Abfragen...",
+      "optionalNote": "Notiz (optional)",
+      "send": "Senden",
+      "receive": "Erhalten",
+      "withdraw": "Senden",
+      "deposit": "Einzahlung",
+      "voucher": "Beleg"
+    },
+    "receive": {
+      "lessThan1BTCWarning": "Bitte geben Sie einen Betrag unter 1 Bitcoin ein.",
+      "showQR": "QR-Code zeigen"
+    },
+    "send": {
+      "contacts": "Kontakte",
+      "scan": "Scannen",
+      "paste": "Einfügen",
+      "next": "Weiter",
+      "placeholder": "Geben Sie eine Bitcoin-Adresse, eine Lightning-Rechnung oder einen Coinos-Benutzernamen ein"
+    },
+    "settings": {
+      "bannerImage": "Logo",
+      "profileImage": "Profilbild",
+      "oneTimeCode": "Code eingeben",
+      "accountId": "Kontoverbindung",
+      "header": "Einstellungen",
+      "ACCOUNT": "KONTO",
+      "POINT_OF_SALE": "VERKAUFSSTELLE",
+      "SECURITY": "SICHERHEIT",
+      "locale": "Sprache",
+      "username": "Benutzername",
+      "email": "E-Mail",
+      "newPassword": "Neues Passwort",
+      "businessAddress": "Unternehmensadresse",
+      "emailNotifications": "E-Mail-Benachrichtigungen",
+      "emailNotificationsDescription": "Sie werden per E-Mail benachrichtigt, wenn eine Änderung auf Ihrem Konto vorgenommen wurde oder Ihnen jemand Zahlungen sendet.",
+      "smsNotifications": "SMS-Benachrichtigungen",
+      "smsNotificationsDescription": "Coinos wird Benachrichtigungen per SMS zusenden, wenn diese Funktion aktiviert ist.",
+      "theme": "Farbdesign",
+      "themeDescription": "Wählen Sie aus unseren Standard-Farbdesigns.",
+      "localCurrency": "Landeswährung",
+      "btcUnit": "Bitcoin anzeigen in:",
+      "bitcoin": "Bitcoin",
+      "satoshis": "Satoshis",
+      "securityPIN": "Sicherheitscode",
+      "securityPINDescription": "Legen Sie einen Sicherheitscode fest, der zum Entsperren Ihrer Einstellungen und zum Senden ausgehender Zahlungen verwendet wird.",
+      "setPIN": "Set PIN",
+      "autoLock": "Timer für automatische Sperre",
+      "autoLockDescription": "Ihr Konto wird nach einer bestimmten Zeit automatisch in einen sicheren Modus versetzt:",
+      "twofa": "2-Faktor Authentifizierung",
+      "twofaDescription": "Erhöhen Sie das Sicherheitslevel Ihres Geräts, indem Sie die 2-Faktor-Authentifizierung aktivieren.",
+      "twofaSetup": "2FA einrichten",
+      "twofaDisable": "2FA deaktivieren",
+      "select": "Auswählen",
+      "verifyPIN": "Sicherheitscode verifizieren",
+      "enablePIN": "PIN aktivieren",
+      "disablePIN": "PIN deaktivieren"
+    },
+    "support": {
+      "header": "Support",
+      "email": "E-Mail",
+      "accountName": "Kontoname",
+      "message": "Nachricht",
+      "send": "Senden"
+    }
+  },
+  "payments": {
+    "header": "Transaktionen",
+    "AMOUNT": "GESAMTBETRAG",
+    "TYPE": "TYP",
+    "TIME": "ZEIT",
+    "sent": "Gesendet",
+    "received": "Erhalten",
+    "empty": "Noch keine Transaktionen erhalten.",
+    "send": "Senden",
+    "next": "Weiter",
+    "sendersChoice": "Absender",
+    "sendTo": "Senden an",
+    "to": "an",
+    "pay": "Bezahlen",
+    "requesting": "ersucht um",
+    "sentInvoiceTo": "Rechnung senden an",
+    "sentRequestTo": "Anfrage senden an",
+    "pleasePay": "Bitte bezahlen Sie",
+    "day": "Tag",
+    "week": "Woche",
+    "month": "Monat",
+    "all": "Alles",
+    "export": "Exportieren",
+    "invoice": "Rechnung",
+    "readyToPay": "Steht zur Zahlung bereit",
+    "describeOrder": "Benutzen Sie dieses Feld um Ihre Bestellung zu beschreiben",
+    "requestAnInvoice": "Rechnung anfordern",
+    "submit": "Übermitteln",
+    "isRequesting": "Anfragen",
+    "awaiting": "Warten auf"
+  }
 }

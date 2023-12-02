@@ -3,39 +3,40 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: 'PublicSans';
-	src: url('/fonts/Public_Sans/static/PublicSans-Regular.ttf') format('truetype');
+  font-family: "PublicSans";
+  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf")
+    format("truetype");
 }
 
 html {
-	font-family: PublicSans, sans-serif;
+  font-family: PublicSans, sans-serif;
 }
 
 ::selection {
-	color: black;
-	background: #eaf2ff;
+  color: black;
+  background: #eaf2ff;
 }
 
 :fullscreen {
-	background-color: white;
+  background-color: white;
 }
 
 input,
 textarea {
-	@apply block border rounded-2xl px-5 py-4 w-full;
+  @apply block border rounded-2xl px-5 py-4 w-full;
 }
 
 button.primary {
-	@apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:opacity-80;
+  @apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:opacity-80;
 }
 
 .select-styles {
-	@apply border rounded-2xl py-4 px-5;
-	cursor: pointer;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	background: transparent;
-	background-repeat: no-repeat;
-	background-position-x: 95%;
-	background-position-y: 1em;
+  @apply border rounded-2xl py-4 px-5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 1em;
 }

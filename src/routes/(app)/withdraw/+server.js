@@ -1,9 +1,10 @@
-import { auth, post } from '$lib/utils';
+import { auth, post } from "$lib/utils";
 
 export async function POST({ cookies, request }) {
-	let body = await request.json();
-	await post('/payments', body, auth(cookies));
+  let body = await request.json();
+  await post("/payments", body, auth(cookies));
 
-	return new Response(JSON.stringify('ok'), { headers: { 'content-type': 'application/json' } });
+  return new Response(JSON.stringify("ok"), {
+    headers: { "content-type": "application/json" },
+  });
 }
-
