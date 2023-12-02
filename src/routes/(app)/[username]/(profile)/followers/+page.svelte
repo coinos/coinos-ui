@@ -1,6 +1,6 @@
 <script>
   import { t } from "$lib/translations";
-  import { Avatar } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
   import { browser } from "$app/environment";
   import VirtualScroll from "svelte-virtual-scroll-list";
 

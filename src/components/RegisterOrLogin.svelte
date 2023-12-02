@@ -3,7 +3,9 @@
   import { tick } from "svelte";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
-  import { Pin, Icon, Spinner } from "$comp";
+  import Pin from "$comp/Pin.svelte";
+  import Icon from "$comp/Icon.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { focus, fail } from "$lib/utils";
   import { password, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";

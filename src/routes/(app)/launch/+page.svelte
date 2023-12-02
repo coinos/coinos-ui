@@ -1,9 +1,9 @@
 <script>
-  import { LandingHeader } from "$comp";
+   import LandingHeader from "$comp/LandingHeader.svelte" 
   import { loginRedirect } from "$lib/store";
   import { beforeNavigate } from "$app/navigation";
   import { info } from "$lib/utils";
-  import { Icon } from "$comp";
+   import Icon from "$comp/Icon.svelte" 
   import { t } from "$lib/translations";
   import { goto } from "$app/navigation";
   import { scroll } from "$lib/utils";

@@ -1,5 +1,7 @@
 <script>
-  import { Icon, LocaleSelector, Toggle } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import LocaleSelector from "$comp/LocaleSelector.svelte";
+  import Toggle from "$comp/Toggle.svelte";
   import { t } from "$lib/translations";
   import { success, fail } from "$lib/utils";
   import { page } from "$app/stores";

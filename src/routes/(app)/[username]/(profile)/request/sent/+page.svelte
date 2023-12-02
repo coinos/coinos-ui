@@ -1,6 +1,6 @@
 <script>
   import { scale } from "svelte/transition";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
 
   export let data;
   let { subject } = data;

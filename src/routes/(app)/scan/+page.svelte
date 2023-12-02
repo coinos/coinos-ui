@@ -1,5 +1,5 @@
 <script>
-  import { Icon } from "$comp";
+   import Icon from "$comp/Icon.svelte" 
   import QrScanner from "qr-scanner";
   import { onMount, onDestroy } from "svelte";
   import { back } from "$lib/utils";

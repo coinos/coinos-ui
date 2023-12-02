@@ -2,7 +2,8 @@
   import { t } from "$lib/translations";
   import { f, sat, sats } from "$lib/utils";
   import { fly } from "svelte/transition";
-  import { Avatar, Icon } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { invoice } from "$lib/store";
 </script>
 

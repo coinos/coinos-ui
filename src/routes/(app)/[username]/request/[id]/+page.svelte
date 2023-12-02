@@ -1,7 +1,8 @@
 <script>
   import { scale } from "svelte/transition";
   import { t } from "$lib/translations";
-  import { Avatar, Icon } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { f, sat, sats } from "$lib/utils";
   import { request as req, requestRedirect } from "$lib/store";
   import { onMount } from "svelte";

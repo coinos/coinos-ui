@@ -1,7 +1,7 @@
 <script>
   import { goto } from "$app/navigation";
   import { scroll } from "$lib/utils";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 

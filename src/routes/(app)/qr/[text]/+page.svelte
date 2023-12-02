@@ -1,5 +1,6 @@
 <script>
-  import { Icon, Qr } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Qr from "$comp/Qr.svelte";
   import { back } from "$lib/utils";
   export let data;
   let { src, text } = data;

@@ -1,5 +1,6 @@
 <script>
-  import { Avatar, Icon } from "$comp";
+  import Avatar from "$comp/Avatar.svelte";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
   export let data;

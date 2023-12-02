@@ -1,5 +1,7 @@
 <script>
-  import { Icon, Numpad, Toggle } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Numpad from "$comp/Numpad.svelte";
+  import Toggle from "$comp/Toggle.svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import { page } from "$app/stores";

@@ -1,6 +1,9 @@
 <script>
   import { onMount } from "svelte";
-  import { Icon, Avatar, Balance, Feed } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Avatar from "$comp/Avatar.svelte";
+  import Balance from "$comp/Balance.svelte";
+  import Feed from "$comp/Feed.svelte";
   import { t } from "$lib/translations";
   import { ease, f, sat, sats } from "$lib/utils";
   import { sign, send, encrypt, decrypt } from "$lib/nostr";

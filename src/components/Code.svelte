@@ -1,6 +1,6 @@
 <script>
   import { copyNoNewlines as copy } from "$lib/utils";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import samples from "$lib/samples";
   export let sample;
 </script>

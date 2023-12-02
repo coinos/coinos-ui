@@ -1,7 +1,7 @@
 <script>
   import { scale } from "svelte/transition";
   import { fiat, f, s } from "$lib/utils";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
   export let data;

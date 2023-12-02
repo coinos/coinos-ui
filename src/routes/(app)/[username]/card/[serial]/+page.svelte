@@ -1,5 +1,6 @@
 <script>
-  import { Card, Icon } from "$comp";
+  import Card from "$comp/Card.svelte";
+  import Icon from "$comp/Icon.svelte";
   export let data;
   let { serial } = data;
   let balance = 0;

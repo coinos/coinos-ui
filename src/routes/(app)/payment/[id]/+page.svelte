@@ -11,7 +11,7 @@
     success,
     types,
   } from "$lib/utils";
-  import { Avatar, Icon } from "$comp";
+   import Avatar from "$comp/Avatar.svelte", import Icon from "$comp/Icon.svelte" 
   import { format } from "date-fns";
   import { PUBLIC_EXPLORER as expl } from "$env/static/public";
 

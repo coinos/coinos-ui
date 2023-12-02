@@ -4,7 +4,9 @@
   import { fly } from "svelte/transition";
   import { applyAction, deserialize } from "$app/forms";
 
-  import { Icon, Spinner, Pin } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Spinner from "$comp/Spinner.svelte";
+  import Pin from "$comp/Pin.svelte";
   import { t } from "$lib/translations";
   import { fail, post, warning, success } from "$lib/utils";
   import { avatar, banner, password, pin } from "$lib/store";

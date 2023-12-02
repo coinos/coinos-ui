@@ -1,6 +1,6 @@
 <script>
   import { scale } from "svelte/transition";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
 

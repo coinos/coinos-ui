@@ -2,7 +2,7 @@
   import { fail, post, wait } from "$lib/utils";
   import { onMount } from "svelte";
   import { goto, invalidate } from "$app/navigation";
-  import { Pin } from "$comp";
+   import Pin from "$comp/Pin.svelte" 
   import { loginRedirect, pin, password, passwordPrompt } from "$lib/store";
   import { generate } from "$lib/nostr";
   import { browser } from "$app/environment";

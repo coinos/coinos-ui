@@ -1,16 +1,8 @@
 <script>
   import { onMount } from "svelte";
-
-  let locations;
-  onMount(async () => {
-    try {
-      ({ locations } = await fetch("/locations").then((r) => r.json()));
-    } catch (e) {
-      console.log(e);
-    }
-  });
-
-  import { Image, Icon, LocationsMap } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Image from "$comp/Image.svelte";
+  import LocationsMap from "$comp/LocationsMap.svelte";
   import { t } from "$lib/translations";
 
   let team = [
@@ -31,6 +23,15 @@
     },
     { name: "cole", socials: [] },
   ];
+
+  let locations;
+  onMount(async () => {
+    try {
+      ({ locations } = await fetch("/locations").then((r) => r.json()));
+    } catch (e) {
+      console.log(e);
+    }
+  });
 </script>
 
 <div class="flex justify-center">

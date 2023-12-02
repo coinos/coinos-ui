@@ -1,6 +1,6 @@
 <script>
   import { goto } from "$app/navigation";
-  import { Pin } from "$comp";
+   import Pin from "$comp/Pin.svelte" 
   import { pin } from "$lib/store";
 
   export let data;

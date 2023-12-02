@@ -1,7 +1,8 @@
 <script>
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { Icon, Popup } from "$comp";
+  import Icon from "$comp/Icon.svelte";
+  import Popup from "$comp/Popup.svelte";
   import { shuffleArray } from "$lib/utils";
 
   import "maplibre-gl/dist/maplibre-gl.css";

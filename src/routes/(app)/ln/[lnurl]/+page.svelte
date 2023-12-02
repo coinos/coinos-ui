@@ -1,5 +1,5 @@
 <script>
-  import { Lnurlp, Lnurlw } from "$comp";
+   import Lnurlp from "$comp/Lnurlp.svelte"; import Lnurlw from "$comp/Lnurlw.svelte" 
   export let data;
   let { tag } = data;
 </script>

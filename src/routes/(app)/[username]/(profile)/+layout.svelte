@@ -2,7 +2,7 @@
   import { hexToUint8Array } from "uint8array-extras";
   import { copy, f, s, sats } from "$lib/utils";
   import { animatedRate } from "$lib/store";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
   import { bech32m } from "@scure/base";

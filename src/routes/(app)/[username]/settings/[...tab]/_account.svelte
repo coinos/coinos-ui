@@ -1,7 +1,7 @@
 <script>
   import { tick } from "svelte";
   import { colorTheme, avatar, banner } from "$lib/store";
-  import { Icon } from "$comp";
+  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
