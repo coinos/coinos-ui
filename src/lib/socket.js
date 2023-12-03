@@ -5,7 +5,6 @@ import {
   request,
   newPayment,
   last,
-  rate,
   user,
 } from "$lib/store";
 import { success, sat } from "$lib/utils";
@@ -31,9 +30,6 @@ export const messages = (data) => ({
   },
   event() {
     event.set(data);
-  },
-  rate() {
-    rate.set(data);
   },
 
   request() {
