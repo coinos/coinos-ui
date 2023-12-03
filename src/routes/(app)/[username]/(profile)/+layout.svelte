@@ -1,7 +1,6 @@
 <script>
   import { hexToUint8Array } from "uint8array-extras";
   import { copy, f, s, sats } from "$lib/utils";
-  import { animatedRate } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
@@ -11,9 +10,9 @@
   export let data;
 
   let { encode, toWords } = bech32m;
-  let events, user, subject, rates, src, text;
+  let events, user, subject, src, text;
 
-  $: ({ events, user, rates, subject, src, text } = data);
+  $: ({ events, user, subject, src, rates, text } = data);
   $: ({ currency, username: n, display } = subject);
 
   $: username = n.length > 60 ? n.substr(0, 6) : display || n;
@@ -225,7 +224,7 @@
   </div>
 </div>
 
-{#if currency && !isNaN($animatedRate)}
+{#if currency}
   <div
     class="flex fixed w-full px-4 bg-white py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
   >
@@ -234,11 +233,11 @@
         <div class="my-auto mr-1">1</div>
         <img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
       </div>
-      <div>= {f($animatedRate, currency)}</div>
+      <div>= {f(rates[currency], currency)}</div>
     </div>
     <div class="text-secondary flex ml-auto">
       <div class="flex">
-        <div class="mr-1">⚡️{s((1 * sats) / $animatedRate)} =</div>
+        <div class="mr-1">⚡️{s((1 * sats) / rates[currency])} =</div>
         <div>{f(1, currency)}</div>
       </div>
     </div>

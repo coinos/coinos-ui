@@ -1,10 +1,8 @@
 <script>
   import RegisterOrLogin from "$comp/RegisterOrLogin.svelte";
   import { onMount } from "svelte";
-  import { animatedRate, pin } from "$lib/store";
 
   onMount(() => {
-    $animatedRate = 0;
     $pin = undefined;
     localStorage.clear();
     sessionStorage.clear();

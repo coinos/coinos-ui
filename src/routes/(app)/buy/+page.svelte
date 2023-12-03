@@ -5,7 +5,6 @@
   import Card from "$comp/Card.svelte";
   import Calendar from "$comp/Calendar.svelte";
   import Spinner  from "$comp/Spinner.svelte";
-  import { animatedRate } from "$lib/store";
   import { f } from "$lib/utils";
 
   export let data, form;
