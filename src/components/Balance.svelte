@@ -1,11 +1,11 @@
 <script>
   import Pin from "$comp/Pin.svelte";
   import { f, s, sat, sats } from "$lib/utils";
-  import { animatedRate, pin } from "$lib/store";
+  import {  pin } from "$lib/store";
   import { t } from "$lib/translations";
 
   let show;
-  export let user;
+  export let user, rate;
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
@@ -20,10 +20,10 @@
     >
   {:else}
     <div class="text-5xl font-bold tabular-nums">
-      {#if isNaN($animatedRate)}
+      {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
-        {f((user.balance * $animatedRate) / sats, user.currency)}
+        {f((user.balance * rate) / sats, user.currency)}
       {/if}
     </div>
 

@@ -7,7 +7,7 @@
   import { t } from "$lib/translations";
   import { ease, f, sat, sats } from "$lib/utils";
   import { sign, send, encrypt, decrypt } from "$lib/nostr";
-  import { event as e, password, rate, animatedRate } from "$lib/store";
+  import { event as e, password } from "$lib/store";
   import { browser } from "$app/environment";
 
   export let data;
@@ -64,36 +64,13 @@
     latest = latest;
     ready = true;
   };
-
-  let i;
-  let o;
-
-  rate.subscribe((n) => {
-    if (!user?.currency) return;
-    clearInterval(i);
-
-    let r = ((rates[user.currency] / rates["USD"]) * n).toFixed(2);
-
-    if (!r || isNaN(r)) return;
-    if (!o) o = r;
-
-    let t = 0;
-    let d = o - r;
-
-    i = setInterval(() => {
-      if (!r) return;
-      $animatedRate = (o - d * ease(t / 100)).toFixed(2);
-      if (t > 80) (o = r) && clearInterval(i);
-      t++;
-    }, 10);
-  });
 </script>
 
 <div class="space-y-5">
   {#if user?.id === subject.id}
     <div class="space-y-5">
       <div class="flex justify-center lg:justify-start">
-        <Balance {user} />
+        <Balance {user} rate={rates[user.currency]} />
       </div>
 
       {#if !user.balance}
