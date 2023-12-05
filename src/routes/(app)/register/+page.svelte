@@ -9,7 +9,7 @@
 
   import Pin from "$comp/Pin.svelte";
   import Icon from "$comp/Icon.svelte";
-  import Spinner  from "$comp/Spinner.svelte";
+  import Spinner from "$comp/Spinner.svelte";
 
   import { focus, fail } from "$lib/utils";
   import { avatar, password, loginRedirect } from "$lib/store";

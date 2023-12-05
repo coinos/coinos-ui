@@ -1,5 +1,5 @@
 <script>
-   import LandingHeader from "$comp/LandingHeader.svelte" 
+  import LandingHeader from "$comp/LandingHeader.svelte";
   export let data;
   let { user } = data;
 </script>

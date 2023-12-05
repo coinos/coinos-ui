@@ -15,8 +15,8 @@ const config = {
     },
     prerender: {
       crawl: false,
-      entries: []
-      }
+      entries: [],
+    },
   },
   onwarn: (warning, handler) => {
     if (warning.code.includes("caption") || warning.filename.includes("Toast"))
