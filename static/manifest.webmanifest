@@ -3,7 +3,7 @@
   "background_color": "#000",
   "display": "fullscreen",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/start",
   "name": "Coinos",
   "description": "Bitcoin web wallet",
   "short_name": "Coinos",
