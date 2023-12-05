@@ -49,8 +49,7 @@
     user: { username, currency },
   } = invoice;
 
-  $: showQr = invoice.uid === user?.id;
-
+  let showQr = true;
   $: src = sm;
 
   let qr;
