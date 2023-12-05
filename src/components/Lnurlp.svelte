@@ -2,7 +2,7 @@
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Numpad from "$comp/Numpad.svelte";
-  import Spinner  from "$comp/Spinner.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
 
   export let data, form;

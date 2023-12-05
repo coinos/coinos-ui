@@ -1,7 +1,7 @@
 <script>
   import Pin from "$comp/Pin.svelte";
   import { f, s, sat, sats } from "$lib/utils";
-  import {  pin } from "$lib/store";
+  import { pin } from "$lib/store";
   import { t } from "$lib/translations";
 
   let show;
