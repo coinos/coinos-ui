@@ -8,7 +8,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
   import { t } from "$lib/translations";
-  import { fail, post, sleep, warning, success } from "$lib/utils";
+  import { fail, auth, post, sleep, warning, success } from "$lib/utils";
   import { avatar, banner, password, pin } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
@@ -28,7 +28,7 @@
   let submit;
   let formElement;
 
-  let { user, token, rates, tab } = data;
+  let { user, token, rates, tab, cookies } = data;
   let prev;
 
   $: update(data);
@@ -134,13 +134,24 @@
 
       if (user.email !== prev.email) {
         try {
-        await post("/api/request", user);
-        warning("Verification email sent");
-        await sleep(4000);
-        } catch(e) {
+          cookies.get = function (n) {
+            return this.find((c) => c.name === n).value;
+          };
+
+          user.verified = false;
+
+          await post(
+            "/api/request",
+            { id: user.id, email: user.email },
+            auth(cookies)
+          );
+
+          warning("Verification email sent");
+          await sleep(4000);
+        } catch (e) {
           console.log(e);
         }
-        }
+      }
 
       const response = await fetch(formElement.action, {
         method: "POST",
@@ -188,6 +199,7 @@
         {#each tabs.filter((t) => t.name !== "shopify") as { name, key }}
           <a href={`/${user.username}/settings/${name}`}>
             <button
+              type="button"
               class="hover:opacity-80"
               class:text-black={tab === name ||
                 (tab === "shopify" && name === "pos")}

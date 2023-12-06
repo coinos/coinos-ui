@@ -1,4 +1,5 @@
 <script>
+  import { scale } from "svelte/transition";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 

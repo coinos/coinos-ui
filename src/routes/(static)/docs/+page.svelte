@@ -18,9 +18,17 @@
   <h1 class="text-4xl">Documentation</h1>
 
   <p class="text-secondary">
+    Coinos is free and open source software. You can run it on your own server
+    and connect it to your own Bitcoin and Lightning nodes. The code is
+    available for download at <a href="https://github.com/coinos"
+      class="text-black">https://github.com/coinos</a
+    >
+  </p>
+
+  <p class="text-secondary">
     Coinos has a simple REST API that can be used to register accounts and make
     payments and queries. The following examples show how you can call the API
-    with <a href="https://curl.se/" class="font-bold">curl</a> from your command
+    with <a href="https://curl.se/" class="text-black">curl</a> from your command
     line.
   </p>
 
