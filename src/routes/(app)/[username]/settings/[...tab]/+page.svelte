@@ -8,7 +8,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
   import { t } from "$lib/translations";
-  import { fail, post, warning, success } from "$lib/utils";
+  import { fail, post, sleep, warning, success } from "$lib/utils";
   import { avatar, banner, password, pin } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
@@ -128,13 +128,19 @@
           await sign({ event, user });
           await send(event);
         } catch (e) {
-          warning("nostr profile could not be updated");
+          warning("Nostr profile could not be updated");
         }
       }
 
       if (user.email !== prev.email) {
-        await post("/api/verify", { test: true });
-      }
+        try {
+        await post("/api/request", user);
+        warning("Verification email sent");
+        await sleep(4000);
+        } catch(e) {
+          console.log(e);
+        }
+        }
 
       const response = await fetch(formElement.action, {
         method: "POST",
