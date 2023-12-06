@@ -3,7 +3,6 @@ import { error } from "@sveltejs/kit";
 
 export let load = async ({ params: { code } }) => {
   try {
-    console.log("CODE", code);
     let user = await get(`/verify/${code}`);
     return { user };
   } catch (e) {
