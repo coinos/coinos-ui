@@ -186,6 +186,7 @@ export let f = (s, currency) =>
 
 export let s = (s) =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
+
 export let sat = (s) => {
   s = Math.abs(s);
   let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);

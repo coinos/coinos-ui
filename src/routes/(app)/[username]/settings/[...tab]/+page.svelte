@@ -181,7 +181,7 @@
 
 <form
   method="POST"
-  class="mb-[154px]"
+  class="mb-[154px] settings"
   on:submit|preventDefault={handleSubmit}
   bind:this={formElement}
 >
@@ -232,7 +232,8 @@
 </form>
 
 <style>
-  .header {
-    view-transition-name: tabs;
+  .settings {
+    view-transition-name: settings;
   }
 </style>
+
