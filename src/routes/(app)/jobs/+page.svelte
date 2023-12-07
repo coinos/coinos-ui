@@ -1,5 +1,6 @@
 <script>
-	import { Icon, Footer } from '$comp';
+	import Icon from '$comp/Icon.svelte';
+	import Footer from '$comp/Footer.svelte';
 	import { t } from '$lib/translations';
 </script>
 
