@@ -12,10 +12,8 @@
   let { encode, toWords } = bech32m;
   let events, user, subject, src, text;
 
-	let follow = async () => {
-		user.follows.push(['p', subject.pubkey, 'wss://nostr.swapee.me', subject.username]);
-		update();
-	};
+  $: ({ events, user, subject, src, rates, text } = data);
+  $: ({ currency, username: n, display } = subject);
 
   $: username = n.length > 60 ? n.substr(0, 6) : display || n;
   $: npub = bech32m.encode(
