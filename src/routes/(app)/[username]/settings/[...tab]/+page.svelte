@@ -220,8 +220,7 @@
       bind:this={submit}
       type="submit"
       class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
-      class:bg-black={loading}
-    >
+      class:bg-black={loading}>
       {#if loading}
         <Spinner />
       {:else}
@@ -236,4 +235,3 @@
     view-transition-name: settings;
   }
 </style>
-

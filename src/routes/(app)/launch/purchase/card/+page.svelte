@@ -48,8 +48,9 @@
         CVC/CVV
         <span class="relative group">
           <span
-            class="hidden group-hover:flex justify-center items-center px-2 py-1 text-xs absolute -right-2 transform translate-x-full -translate-y-1/2 w-max top-1/2 bg-black text-white"
-          >
+            class="hidden group-hover:flex justify-center items-center px-2 py-1 text-xs absolute -right-2 transform translate-x-full -translate-y-1/2 w-max top-1/2 bg-black text-white">
+
+
             3-digit number on the back of your card</span
           >
         </span>
@@ -67,8 +68,7 @@
       <button
         class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-xl"
         type="submit"
-        disabled={loading}
-      >
+        disabled={loading}>
         {#if loading}
           <Spinner />
         {:else}

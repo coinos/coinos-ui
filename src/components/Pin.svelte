@@ -53,8 +53,7 @@
       <div class="w-full flex">
         <button
           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-          on:click|preventDefault={cancel}
-        >
+          on:click|preventDefault={cancel}>
           <div class="my-auto">Cancel</div>
         </button>
       </div>

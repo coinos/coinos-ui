@@ -157,8 +157,7 @@
           <div class="w-full flex">
             <button
               class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
-              on:click={unfollow}
-            >
+              on:click={unfollow}>
               <div class="mx-auto flex">
                 <Icon icon={"profile"} style="my-auto h-6 mr-2 invert" />
                 <div class="my-auto">{$t("user.following")}</div>
@@ -169,8 +168,7 @@
           <div class="w-full flex">
             <button
               class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-              on:click={follow}
-            >
+              on:click={follow}>
               <div class="mx-auto flex">
                 <Icon icon={"profile"} style="my-auto h-6 mr-2" />
                 <div class="my-auto">{$t("user.follow")}</div>
@@ -184,8 +182,7 @@
         <div class="w-full flex">
           <a href={`/${subject.username}/messages`} class="mx-auto">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-            >
+              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
               <div class="mx-auto flex">
                 <Icon icon="message" style="mr-2 my-auto" />
                 <div class="mt-1 my-auto">{$t("user.message")}</div>
@@ -201,11 +198,9 @@
             href={user
               ? `/send/${subject.username}`
               : `/${subject.username}/receive`}
-            class="mx-auto"
-          >
+            class="mx-auto">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-            >
+              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
               <div class="mx-auto flex">
                 <Icon icon="send" style="mr-2" />
                 <div class="mt-1">{$t("user.pay")}</div>

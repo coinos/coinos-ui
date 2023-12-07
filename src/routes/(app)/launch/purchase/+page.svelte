@@ -21,9 +21,7 @@
   <div class="font-normal text-gray-800 mx-auto mb-8 space-y-8">
     <h1
       class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800 text-center"
-    >
-      Purchase Ticket
-    </h1>
+    >Purchase Ticket</h1>
 
     <img
       src={`/tickets/${(ticket + 1).toString().padStart(2, "0")}.png`}
@@ -37,8 +35,7 @@
 
         <div class="w-full flex">
           <button
-            class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-          >
+            class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
             Count me in
           </button>
         </div>
@@ -46,25 +43,21 @@
     {:else}
       <h1
         class="mb-4 text-xl font-bold leading-none tracking-tight text-gray-800 text-center"
-      >
-        Payment Options
-      </h1>
+      >Payment Options</h1>
 
       <div class="flex justify-center gap-4">
         <form action="?/lightning" method="POST">
           <input type="hidden" name="currency" value={currency} />
           <input type="hidden" name="username" value={username} />
           <button
-            class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-          >
+            class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
             Lightning
           </button>
         </form>
 
         <a href={`purchase/card`}>
           <button
-            class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl"
-          >
+            class="border rounded-full px-8 py-4 font-bold hover:opacity-80 mx-auto text-2xl">
             Credit Card
           </button>
         </a>

@@ -20,7 +20,8 @@
   <p class="text-secondary">
     Coinos is free and open source software. You can run it on your own server
     and connect it to your own Bitcoin and Lightning nodes. The code is
-    available for download at <a href="https://github.com/coinos"
+    available for download at <a
+      href="https://github.com/coinos"
       class="text-black">https://github.com/coinos</a
     >
   </p>

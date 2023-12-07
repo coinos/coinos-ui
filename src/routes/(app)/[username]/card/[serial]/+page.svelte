@@ -13,15 +13,13 @@
   <div class="flex justify-center">
     <a href={`/send/pot/${serial}`}>
       <button
-        class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white justify-center gap-2"
-      >
+        class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white justify-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="invert text-black peer-placeholder-shown:text-gray-300 h-6 w-6 my-auto"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+          stroke="currentColor">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"

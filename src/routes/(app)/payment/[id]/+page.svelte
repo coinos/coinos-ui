@@ -140,6 +140,8 @@
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
           on:click={() => copy(id)}
           ><Icon icon="copy" style="ml-2 w-20 my-auto" />
+
+
         </button>
       </div>
     </div>
@@ -149,8 +151,7 @@
     <div>
       <button
         class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
-        on:click={print}
-      >
+        on:click={print}>
         <div class="mx-auto flex">
           <Icon icon="printer" style="my-auto h-6 mr-2" />
           <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>
@@ -161,8 +162,7 @@
     <div>
       <a href={`/payment/${id}/plain`}>
         <button
-          class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
-        >
+          class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60">
           <div class="mx-auto flex">
             <Icon icon="printer" style="my-auto h-6 mr-2" />
             <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>

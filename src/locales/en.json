@@ -116,7 +116,10 @@
     }
   },
   "login": {
+    "forgot": "Forgot password?",
+    "reset": "Password reset",
     "optional": "Optional",
+    "submit": "Submit",
     "token": "2FA Token",
     "username": "Username",
     "password": "Password",

@@ -62,8 +62,7 @@
         <div class="grow">
           <a href={`/send/fund/${id}`}>
             <button
-              class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-            >
+              class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center">
               <Icon icon="plus" />
               {$t("payments.addFunds")}
             </button>
@@ -72,8 +71,7 @@
         <div class="grow">
           <a href={`/fund/${id}/withdraw`}>
             <button
-              class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-            >
+              class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center">
               <Icon icon="minus" style="rotate-180" />
               {$t("payments.takeFunds")}
             </button>
@@ -83,15 +81,13 @@
       <div class="flex gap-2" data-sveltekit-prefetch="off">
         <button
           class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          on:click={toggle}
-        >
+          on:click={toggle}>
           <Icon icon="qr" style="invert" />
           {show ? $t("payments.hide") : $t("payments.show")} QR
         </button>
         <button
           class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          on:click={() => copy($page.url.host + $page.url.pathname)}
-        >
+          on:click={() => copy($page.url.host + $page.url.pathname)}>
           <Icon icon="copy" style="w-6" />
           {$t("payments.copyLink")}
         </button>

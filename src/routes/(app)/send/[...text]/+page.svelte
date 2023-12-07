@@ -63,8 +63,7 @@
         <a href={`/qr/${encodeURIComponent(text)}`}>
           <button
             type="button"
-            class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
-          >
+            class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1">
             <Icon icon="qr" style="mr-2 w-6 my-auto invert" />
             <div class="my-auto">{$t("user.send.makeQR")}</div>
           </button>
@@ -74,8 +73,7 @@
       <a href="/scan">
         <button
           type="button"
-          class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
-        >
+          class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1">
           <Icon icon="camera" style="mr-2 w-6 my-auto" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
@@ -84,8 +82,7 @@
       <button
         type="button"
         class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
-        on:click={paste}
-      >
+        on:click={paste}>
         <Icon icon="paste" style="mr-2 w-6 my-auto" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
@@ -95,8 +92,7 @@
         type="submit"
         class="{!text
           ? 'opacity-50'
-          : 'opacity-100 hover:opacity-80'} bg-black text-white border rounded-full px-6 py-2 font-bold"
-      >
+          : 'opacity-100 hover:opacity-80'} bg-black text-white border rounded-full px-6 py-2 font-bold">
         {$t("user.send.next")}
       </button>
     </div>

@@ -37,10 +37,7 @@
 <div class="flex w-full mb-4">
   <button
     class="mx-auto border rounded-full px-6 py-2 font-bold hover:opacity-80"
-    on:click={back}
-  >
-    Cancel
-  </button>
+    on:click={back}> Cancel </button>
 </div>
 
 <style>

@@ -57,8 +57,7 @@
         <button
           type="button"
           on:click={() => (revealPassword = !revealPassword)}
-          class="absolute right-5 top-6"
-        >
+          class="absolute right-5 top-6">
           <Icon icon={revealPassword ? "eye" : "eye-off"} />
         </button>
       </div>
@@ -67,14 +66,12 @@
           type="button"
           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
           on:click={cancel}
-          on:keydown={cancel}
-        >
+          on:keydown={cancel}>
           <div class="my-auto">Cancel</div>
         </button>
         <button
           type="submit"
-          class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-        >
+          class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto">
           <div class="my-auto">Submit</div>
         </button>
       </div>
