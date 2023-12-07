@@ -79,7 +79,7 @@ export default {
 }'`,
 	fetchInvoice: `curl "https://swapee.me/api/invoice/bc1qmhfk9stzffhd9umzmld92vff7zg3mdlh7rvvaj" 
   -H "content-type: application/json"'`,
-	invoiceResponse: `{
+  invoiceResponse: `{
   "amount":3141
   "tip":0
   "type":"bitcoin"

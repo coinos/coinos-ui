@@ -1,7 +1,7 @@
 <script>
-	import { Event } from '$comp';
-	export let data;
-	let { event } = data;
+  import Event from "$comp/Event.svelte";
+  export let data;
+  let { event } = data;
 </script>
 
 <Event {event} />

@@ -1,6 +1,6 @@
-import { auth, post } from '$lib/utils';
-import Qr from 'qrcode-base64';
-import { error } from '@sveltejs/kit';
+import { auth, post } from "$lib/utils";
+import Qr from "qrcode-base64";
+import { error } from "@sveltejs/kit";
 
 export async function POST({ cookies, request }) {
 	try {
