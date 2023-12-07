@@ -52,11 +52,12 @@
           class="border rounded-full px-6 py-2 font-bold"
           on:click={() => goto(`/${user.username}`)}
           >Home
+
+
         </button>
         <button
           class="bg-black text-white border rounded-full px-6 py-2 font-bold"
-          on:click={() => goto("/logout")}
-        >
+          on:click={() => goto("/logout")}>
           {$t("nav.signOut")}
         </button>
       {:else}
@@ -64,11 +65,12 @@
           class="border rounded-full px-6 py-2 font-bold hover:opacity-80"
           on:click={() => goto("/register")}
           >{$t("nav.startInSeconds")}
+
+
         </button>
         <button
           class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
-          on:click={() => goto("/login")}
-        >
+          on:click={() => goto("/login")}>
           {$t("nav.signIn")}
         </button>
       {/if}
@@ -79,6 +81,8 @@
       class="block md:hidden absolute top-[34.5px] right-10 z"
       on:click={() => (showMobileMenu = !showMobileMenu)}
       ><Icon icon={!showMobileMenu ? "menu" : "close"} />
+
+
     </button>
 
     <div
@@ -101,11 +105,12 @@
             class="border rounded-full px-6 py-2 font-bold block w-full"
             on:click={() => goto("/register")}
             >{$t("nav.startInSeconds")}
+
+
           </button>
           <button
             class="bg-black text-white border rounded-full px-6 py-2 font-bold block w-full"
-            on:click={() => goto("/login")}
-          >
+            on:click={() => goto("/login")}>
             {$t("nav.signIn")}
           </button>
         {:else}
@@ -113,11 +118,12 @@
             class="border rounded-full px-6 py-2 font-bold block"
             on:click={() => goto(`/${user.username}`)}
             >{$t("nav.account")}
+
+
           </button>
           <button
             class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
-            on:click={() => goto("/logout")}
-          >
+            on:click={() => goto("/logout")}>
             {$t("nav.signOut")}
           </button>
         {/if}

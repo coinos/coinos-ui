@@ -60,8 +60,7 @@
       <button
         type="button"
         on:click={() => (hide = !hide)}
-        class="absolute -right-5 top-5"
-      >
+        class="absolute -right-5 top-5">
         <Icon icon={hide ? "eye-off" : "eye"} style="w-8" />
       </button>
     </div>
@@ -72,8 +71,7 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-            on:click={() => handleInput(value)}
-          >
+            on:click={() => handleInput(value)}>
             <Left />
           </button>
         {:else}

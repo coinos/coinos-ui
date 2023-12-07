@@ -46,11 +46,10 @@
   });
 </script>
 
-<svelte:head>
-  <script
-    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
-  ></script>
-</svelte:head>
+<svelte:head
+  ><script
+    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"></script></svelte:head
+>
 
 {#if user}
   <AppHeader {data} />

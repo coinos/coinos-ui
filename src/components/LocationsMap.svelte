@@ -225,8 +225,7 @@
       <div class="flex absolute flex top-2 right-2 gap-2">
         <button
           class="rounded-full border-2 border-black bg-white w-10 h-10"
-          on:click={toggle}
-        >
+          on:click={toggle}>
           {#if timeout}
             <Icon icon="pause" style="w-4 m-auto" />
           {:else}
@@ -235,8 +234,7 @@
         </button>
         <button
           class="rounded-full border-2 border-black bg-white w-10 h-10"
-          on:click={full}
-        >
+          on:click={full}>
           <Icon icon="full" style="w-4 m-auto" />
         </button>
       </div>

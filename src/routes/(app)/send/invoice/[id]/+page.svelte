@@ -144,8 +144,7 @@
       {#if amount}
         <button
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-        >
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24">
           {#if loading}
             <Spinner />
           {:else}
@@ -156,8 +155,7 @@
         <button
           type="button"
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-          on:click={setAmount}
-        >
+          on:click={setAmount}>
           {$t("payments.next")}
         </button>
       {/if}

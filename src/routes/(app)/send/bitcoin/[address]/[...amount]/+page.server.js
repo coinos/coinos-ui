@@ -5,8 +5,16 @@ let seen = {};
 export const actions = {
   default: async ({ cookies, request }) => {
     try {
-      let { address, amount, confirmed, feeRate, subtract, pin, stale, ts } =
-        await await fd(request);
+      let {
+        address,
+        amount,
+        confirmed,
+        feeRate,
+        subtract,
+        pin,
+        stale,
+        ts,
+      } = await await fd(request);
       if (seen[ts]) return fail(400, { message: "Duplicate form submission" });
 
       let estimate = await post(

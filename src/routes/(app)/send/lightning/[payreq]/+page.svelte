@@ -74,8 +74,7 @@
         <button
           type="submit"
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-          disabled={loading}
-        >
+          disabled={loading}>
           {#if loading}
             <Spinner />
           {:else}
@@ -92,9 +91,7 @@
 
         <div
           class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l"
-        >
-          ⚡️
-        </div>
+        >⚡️</div>
       </div>
     {:else}
       <div class="flex w-full mt-5">
@@ -113,8 +110,7 @@
       <button
         type="submit"
         class="bg-black text-white rounded-xl h-[48px] flex w-full justify-center items-center font-semibold
-				opacity-100 hover:opacity-80"
-      >
+				opacity-100 hover:opacity-80">
         Next
       </button>
     </form>

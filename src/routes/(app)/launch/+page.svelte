@@ -58,9 +58,7 @@
       <div class="p-4 font-normal text-gray-800 md:w-3/4 space-y-5">
         <h1
           class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800"
-        >
-          Launch Party!
-        </h1>
+        >Launch Party!</h1>
 
         <p class="leading-normal mb-2">
           Come join us at our launch party celebrating our new design and 10
@@ -106,8 +104,7 @@
         <div class="flex w-full my-8">
           <a href={link} class="mx-auto">
             <button
-              class="bg-white text-black border rounded-full px-8 py-4 font-bold hover:opacity-80 text-2xl"
-            >
+              class="bg-white text-black border rounded-full px-8 py-4 font-bold hover:opacity-80 text-2xl">
               {text}
             </button>
           </a>

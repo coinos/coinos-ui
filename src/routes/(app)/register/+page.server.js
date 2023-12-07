@@ -15,8 +15,15 @@ export const actions = {
     let ip = request.headers.get("cf-connecting-ip");
 
     let form = await fd(request);
-    let { profile, username, password, cipher, salt, pubkey, loginRedirect } =
-      form;
+    let {
+      profile,
+      username,
+      password,
+      cipher,
+      salt,
+      pubkey,
+      loginRedirect,
+    } = form;
     let user = { profile, username, password, cipher, salt, pubkey };
     let error;
 

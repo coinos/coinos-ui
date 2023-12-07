@@ -167,8 +167,7 @@
     type="button"
     on:click={togglePassword}
     on:keydown={togglePassword}
-    class="absolute right-5 top-11"
-  >
+    class="absolute right-5 top-11">
     <Icon icon={revealPassword ? "eye" : "eye-off"} />
   </button>
 </div>
@@ -212,8 +211,7 @@
     <select
       name="locktime"
       class="select-styles block py-3 w-full"
-      value={parseInt(user.locktime)}
-    >
+      value={parseInt(user.locktime)}>
       <option value={5 * 60}>5 {$t("user.settings.minutes")}</option>
       <option value={10 * 60}>10 {$t("user.settings.minutes")}</option>
       <option value={30 * 60}>30 {$t("user.settings.minutes")}</option>
