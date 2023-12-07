@@ -1,16 +1,16 @@
-import { auth, get } from '$lib/utils';
-import { redirect } from "@sveltejs/kit"
+import { auth, get } from "$lib/utils";
+import { redirect } from "@sveltejs/kit";
 
 export let load = async ({ cookies, params }) => {
-	let { serial } = params;
-	let pot;
-	try {
-		pot = await get(`/pot/${serial}`, auth(cookies));
-	} catch (e) {
-		console.log(e);
-	}
+  let { serial } = params;
+  let fund;
+  try {
+    fund = await get(`/fund/${serial}`, auth(cookies));
+  } catch (e) {
+    console.log(e);
+  }
 
-	if (pot) throw redirect(307, `/pot/${serial}`);
+  if (fund) throw redirect(307, `/fund/${serial}`);
 
-	return params;
+  return params;
 };

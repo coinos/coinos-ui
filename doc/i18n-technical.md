@@ -23,11 +23,11 @@ Each locale in `swapee-ui-v2` is defined by a JSON file in `src/locales`. Its na
 
 ```json
 {
-	"howItWorks": "How it works",
-	"faq": "FAQ",
-	"about": "About",
-	"startInSeconds": "Start in Seconds",
-	"signIn": "Sign In"
+  "howItWorks": "How it works",
+  "faq": "FAQ",
+  "about": "About",
+  "startInSeconds": "Start in Seconds",
+  "signIn": "Sign In"
 }
 ```
 

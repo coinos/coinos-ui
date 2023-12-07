@@ -1,12 +1,12 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect } from "@sveltejs/kit";
 
 const opts = {
-	expires: new Date(0),
-	path: '/'
+  expires: new Date(0),
+  path: "/",
 };
 
 export async function load({ cookies }) {
-	cookies.set('username', '', opts);
-	cookies.set('token', '', opts);
-	throw redirect(307, '/login');
+  cookies.set("username", "", opts);
+  cookies.set("token", "", opts);
+  throw redirect(307, "/login");
 }

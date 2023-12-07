@@ -1,92 +1,114 @@
 <script>
-	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { onDestroy, onMount } from 'svelte';
-	import { close, connect, send } from '$lib/socket';
-	import { last, invoice, request, ndef, passwordPrompt, pin } from '$lib/store';
-	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
-	import { LoadingSplash, Invoice, Password, Request } from '$comp';
-	import { warning, protectedRoutes } from '$lib/utils';
-	import { t, locale } from '$lib/translations';
+  import { SvelteToast } from "@zerodevx/svelte-toast";
+  import { onDestroy, onMount } from "svelte";
+  import { close, connect, send } from "$lib/socket";
+  import {
+    last,
+    invoice,
+    request,
+    ndef,
+    passwordPrompt,
+    pin,
+  } from "$lib/store";
+  import { page } from "$app/stores";
+  import { browser } from "$app/environment";
+  import { goto } from "$app/navigation";
+  import LoadingSplash from "$comp/LoadingSplash.svelte";
+  import Invoice from "$comp/Invoice.svelte";
+  import Password from "$comp/Password.svelte";
+  import Request from "$comp/Request.svelte";
+  import { warning, protectedRoutes } from "$lib/utils";
+  import { t, locale } from "$lib/translations";
+  import { onNavigate } from "$app/navigation";
 
-	const localeLocalStorageKey = 'sveltekit-i18n-locale';
+  export let data;
 
-	export let data;
+  onNavigate((navigation) => {
+    if (!document.startViewTransition) return;
 
-	let { rate, user, subject, token, rates } = data;
+    return new Promise((resolve) => {
+      document.startViewTransition(async () => {
+        resolve();
+        await navigation.complete;
+      });
+    });
+  });
 
-	$: update(data);
-	let update = (data) => {
-		({ rate, user, subject, token, rates } = data);
-	};
+  let { rate, user, subject, token, rates } = data;
 
-	onMount(async () => {
-		let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
-		if (localStorageLocale) locale.set(localStorageLocale);
+  $: update(data);
+  let update = (data) => {
+    ({ rate, user, subject, token, rates } = data);
+  };
 
-		locale.subscribe((lng) => {
-			if (lng) localStorage.setItem(localeLocalStorageKey, lng);
-		});
+  onMount(async () => {
+    let localeLocalStorageKey = "sveltekit-i18n-locale";
+    let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
+    if (localStorageLocale) locale.set(localStorageLocale);
 
-		if (browser) {
-			let log = console.log;
-			checkSocket();
-			expirePin();
+    locale.subscribe((lng) => {
+      if (lng) localStorage.setItem(localeLocalStorageKey, lng);
+    });
 
-			// if (window.NDEFReader) {
-			// 	try {
-			// 		$ndef = new NDEFReader();
-			// 		await $ndef.scan();
-			//
-			// 		$ndef.addEventListener('readingerror', (e) => {
-			// 			console.log('nfc error', e);
-			// 		});
-			//
-			// 		$ndef.addEventListener('reading', ({ message, serialNumber }) => {
-			// 			goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
-			// 		});
-			// 	} catch (error) {
-			// 		log('Argh! ' + error);
-			// 	}
-			// }
-		}
-	});
+    if (browser) {
+      checkSocket();
+      let locktime = user && user.locktime ? user.locktime : 300;
+      expireTimer = setTimeout(expirePin, locktime * 1000);
 
-	$: browser && connect(token);
+      // if (window.NDEFReader) {
+      // 	try {
+      // 		$ndef = new NDEFReader();
+      // 		await $ndef.scan();
+      //
+      // 		$ndef.addEventListener('readingerror', (e) => {
+      // 			console.log('nfc error', e);
+      // 		});
+      //
+      // 		$ndef.addEventListener('reading', ({ message, serialNumber }) => {
+      // 			goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
+      // 		});
+      // 	} catch (error) {
+      // 		console.log('Argh! ' + error);
+      // 	}
+      // }
+    }
+  });
 
-	let lost,
-		checkTimer,
-		expireTimer,
-		counter = 0;
+  $: browser && connect(token);
 
-	let checkSocket = () => {
-		counter++;
-		lost = Date.now() - $last > 30000;
-		if (lost) connect(token);
-		if (counter > 5) {
-			send('heartbeat', token);
-			counter = 0;
-		}
+  let lost,
+    checkTimer,
+    expireTimer,
+    counter = 0;
 
-		checkTimer = setTimeout(checkSocket, 1000);
-	};
+  let checkSocket = () => {
+    counter++;
+    lost = Date.now() - $last > 30000;
+    if (lost) connect(token);
+    if (counter > 5) {
+      send("heartbeat", token);
+      counter = 0;
+    }
 
-	let expirePin = () => {
-		$pin = null;
-		expireTimer = setTimeout(expirePin, 300000);
-	};
+    checkTimer = setTimeout(checkSocket, 1000);
+  };
 
-	onDestroy(() => {
-		if (browser) {
-			clearTimeout(checkTimer);
-			clearTimeout(expireTimer);
-		}
-	});
+  let expirePin = () => {
+    $pin = null;
+    expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
+  };
+
+  onDestroy(() => {
+    if (browser) {
+      close();
+      clearTimeout(checkTimer);
+      clearTimeout(expireTimer);
+    }
+  });
 </script>
 
 {#if browser && $passwordPrompt}
-	<Password {user} />
+  <Password {user} />
 {/if}
 
 <svelte:head>
@@ -97,23 +119,59 @@
 		<title>swapee</title>
 	{/if}
 
-	{#if subject?.profile}
-		<meta name="og:image" content={`/api/public/${subject.uuid}-profile.webp`} />
-	{:else}
-		<meta property="og:image" content="/icons/logo.svg" />
-	{/if}
+  {#if subject?.profile}
+    <meta name="og:image" content={`/api/public/${subject.profile}.webp`} />
+  {:else}
+    <meta property="og:image" content="/icons/logo.svg" />
+  {/if}
 </svelte:head>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main data-sveltekit-prefetch class="pb-20">
-	<slot />
+<main class="pb-20">
+  <slot />
 </main>
 
 {#if $invoice}
-	<Invoice {user} />
+  <Invoice {user} />
 {/if}
 
 {#if $request}
-	<Request {user} />
+  <Request {user} />
 {/if}
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes slide-from-right {
+    from {
+      transform: translateX(60px);
+    }
+  }
+
+  @keyframes slide-to-left {
+    to {
+      transform: translateX(-60px);
+    }
+  }
+
+  :root::view-transition-old(root) {
+    animation: 280ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+      180ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+  }
+
+  :root::view-transition-new(root) {
+    animation: 280ms cubic-bezier(0, 0, 0.2, 1) 80ms both fade-in,
+      180ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+  }
+</style>

@@ -1,17 +1,27 @@
 <script>
-	import { Icon } from '$comp';
-	import { copy } from '$lib/utils';
+  import { enhance } from "$app/forms";
 	import { PUBLIC_ONRAMPER } from '$env/static/public';
-	export let data;
-	let { address } = data;
+  import Icon from "$comp/Icon.svelte";
+  import Lock from "$comp/Lock.svelte";
+  import Card from "$comp/Card.svelte";
+  import Calendar from "$comp/Calendar.svelte";
+  import Spinner from "$comp/Spinner.svelte";
+  import { f } from "$lib/utils";
+
+  export let data, form;
+
+  let { username, currency } = data.user;
+  let loading;
+
+  let amount, n, d, cvc;
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
-	<div class="w-full flex">
-		<a href="/" class="mx-auto">
-			<Icon icon="logo" />
-		</a>
-	</div>
+  <div class="w-full flex">
+    <a href="/" class="mx-auto">
+      <Icon icon="logo" />
+    </a>
+  </div>
 
 	<div class="pt-10">
 		<div class="flex w-full justify-center">Your bitcoin address</div>

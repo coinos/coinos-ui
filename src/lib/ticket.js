@@ -1,17 +1,17 @@
-import { auth, get, post } from '$lib/utils';
-import { env } from '$env/dynamic/private';
-import tickets from '$lib/tickets';
+import { auth, get, post } from "$lib/utils";
+import { env } from "$env/dynamic/private";
+import tickets from "$lib/tickets";
 
 export const createTicket = async (cookies, username) => {
-	let { ticket } = await get('/ticket');
+  let { ticket } = await get("/ticket");
 
-	let { address } = await post(
-		`/${username}/invoice`,
-		{ invoice: { network: 'liquid' }, user: { username } },
-		auth(cookies)
-	);
+  let { address } = await post(
+    `/${username}/invoice`,
+    { invoice: { network: "liquid" }, user: { username } },
+    auth(cookies)
+  );
 
-	let { asset } = await post(
+	et { asset } = await post(
 		'/assets',
 		{
 			address,
@@ -26,6 +26,6 @@ export const createTicket = async (cookies, username) => {
 		{ authorization: `Bearer ${env.LAUNCH}` }
 	);
 
-	await post('/ticket', { asset }, { authorization: `Bearer ${env.LAUNCH}` });
-	return asset;
+  await post("/ticket", { asset }, { authorization: `Bearer ${env.LAUNCH}` });
+  return asset;
 };

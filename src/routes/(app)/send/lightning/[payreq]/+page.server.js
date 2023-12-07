@@ -1,24 +1,24 @@
-import { fail, redirect } from '@sveltejs/kit';
-import { fd, auth, post } from '$lib/utils';
+import { fail, redirect } from "@sveltejs/kit";
+import { fd, auth, post } from "$lib/utils";
 
 export async function load({ params }) {
-	return post('/parse', params);
+  return post("/parse", params);
 }
 
 export const actions = {
-	setAmount: async ({ cookies, request }) => fd(request),
+  setAmount: async ({ cookies, request }) => fd(request),
 
-	send: async ({ cookies, request }) => {
-		try {
-			let body = await fd(request);
+  send: async ({ cookies, request }) => {
+    try {
+      let body = await fd(request);
 
-			await post('/payments', body, auth(cookies));
-		} catch (e) {
-			if (e.message.includes('unusable'))
-				e.message = 'Failed to route payment, try sending a lower amount';
-			return fail(400, { message: e.message });
-		}
+      await post("/payments", body, auth(cookies));
+    } catch (e) {
+      if (e.message.includes("unusable"))
+        e.message = "Failed to route payment, try sending a lower amount";
+      return fail(400, { message: e.message });
+    }
 
-		throw redirect(307, '/sent');
-	}
+    throw redirect(307, "/sent");
+  },
 };

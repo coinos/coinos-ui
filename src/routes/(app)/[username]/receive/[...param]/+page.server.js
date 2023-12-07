@@ -1,15 +1,15 @@
-import { auth, get } from '$lib/utils';
-import invoice from '$lib/invoice';
+import { auth, get } from "$lib/utils";
+import invoice from "$lib/invoice";
 
 export let load = async ({ cookies, params }) => {
-	let id = params.param;
+  let id = params.param;
 
-	let request;
-	if (id) ({ request } = await get(`/request/${id}`, auth(cookies)));
+  let request;
+  if (id) ({ request } = await get(`/request/${id}`, auth(cookies)));
 
-	return { ...params, request };
+  return { ...params, request };
 };
 
 export const actions = {
-	default: invoice
+  default: invoice,
 };

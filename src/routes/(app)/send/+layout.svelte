@@ -1,16 +1,16 @@
 <script>
-	import { goto } from '$app/navigation';
-	import { Pin } from '$comp';
-	import { pin } from '$lib/store';
+  import { goto } from "$app/navigation";
+  import Pin from "$comp/Pin.svelte";
+  import { pin } from "$lib/store";
 
-	export let data;
+  export let data;
 
-	let { user } = data;
-	let cancel = () => goto(`/${user.username}`);
+  let { user } = data;
+  let cancel = () => goto(`/${user.username}`);
 </script>
 
 {#if user.haspin && (!$pin || $pin?.length !== 6)}
-	<Pin bind:value={$pin} {cancel} />
+  <Pin bind:value={$pin} {cancel} />
 {/if}
 
 <slot />
