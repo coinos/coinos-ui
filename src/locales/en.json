@@ -201,6 +201,8 @@
       "placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
     },
     "settings": {
+      "notifications": "Payment notifications",
+      "notificationsDesc": "Receive an email whenever a payment lands in your account",
       "seedPhrase": "Seed phrase",
       "nostrKeys": "Nostr key",
       "nostrDescription": "Your nostr key is used to sign and decrypt messages, keep it safe or someone may be able to impersonate you.",
