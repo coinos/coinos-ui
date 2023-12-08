@@ -93,6 +93,23 @@
   <input type="text" name="display" bind:value={user.display} />
 </div>
 
+<div class="space-y-1 relative">
+  <label for="email" class="font-bold block">{$t("user.settings.email")}</label>
+  <p class="text-secondary">
+    {$t("user.settings.emailDescription")}
+  </p>
+
+  <div class="relative">
+    <input type="text" name="email" bind:value={user.email} />
+    {#if user.verified}
+      <Icon icon="check" style="absolute right-5 top-3 w-8" />
+    {:else}
+      <Icon icon="orangeclock" style="absolute right-5 top-3 w-8" />
+    {/if}
+  </div>
+</div>
+
+
 <div>
   <span class="font-bold">{$t("user.settings.profileImage")}</span>
 

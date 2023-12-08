@@ -186,6 +186,7 @@
   bind:this={formElement}
 >
   <input type="hidden" name="pin" value={$pin} />
+  <input type="hidden" name="tab" value={tab} />
 
   <div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
     <div class="header">

@@ -11,7 +11,13 @@ export function load({ cookies, params, url }) {
 export const actions = {
   default: async ({ cookies, request }) => {
     let form = await fd(request);
-    if (form.prompt) form.prompt = form.prompt === "on";
+
+    if (form.tab === "pos") {
+      form.notify = form.notify === "on";
+      form.nip5 = form.nip5 === "on";
+      form.prompt = form.prompt === "on";
+    }
+
     let user = { ...(await get("/me", auth(cookies))), ...form };
 
     try {

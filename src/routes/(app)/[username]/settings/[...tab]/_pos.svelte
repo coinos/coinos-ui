@@ -32,22 +32,17 @@
   </select>
 </div>
 
-<div class="space-y-1 relative">
-  <label for="email" class="font-bold block">{$t("user.settings.email")}</label>
-  <p class="text-secondary">
-    {$t("user.settings.emailDescription")}
-  </p>
-
-  <div class="relative">
-    <input type="text" name="email" bind:value={user.email} />
-    {#if user.verified}
-      <Icon icon="check" style="absolute right-5 top-3 w-8" />
-    {:else}
-      <Icon icon="orangeclock" style="absolute right-5 top-3 w-8" />
-    {/if}
+<div>
+  <div class="flex justify-between items-center">
+    <span class="font-bold">{$t("user.settings.notifications")}</span>
+    <Toggle id="notify" bind:value={user.notify} />
   </div>
+  <p class="text-secondary mt-1 w-9/12">
+    {$t("user.settings.notificationsDesc")}
+  </p>
 </div>
 
+{user.prompt}
 <div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.tipPrompt")}</span>
