@@ -153,7 +153,7 @@
         <div class="flex justify-end items-center">
           <a
             href="/forgot"
-            class="underline underline-offset-4 text-black text-sm"
+            class="underline underline-offset-4 text-black"
             >{$t("login.forgotUserOrPassword")}</a
           >
         </div>

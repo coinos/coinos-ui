@@ -34,8 +34,9 @@ export async function load({ cookies, request, url, params }) {
     throw redirect(307, "/login");
   }
 
-  if (user && !user.pubkey && !pathname.includes("generate"))
-    throw redirect(307, `/${user.username}/generate`);
+  if (user && !user.pubkey && !pathname.includes("generate")) {
+    throw redirect(303, `/${user.username}/generate`);
+  }
 
   try {
     rate = await get("/rate");
