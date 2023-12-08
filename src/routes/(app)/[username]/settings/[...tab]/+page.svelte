@@ -7,7 +7,7 @@
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
-  import { t } from "$lib/translations";
+  import { loading, t } from "$lib/translations";
   import { fail, auth, post, sleep, warning, success } from "$lib/utils";
   import { avatar, banner, password, pin } from "$lib/store";
   import { upload } from "$lib/upload";
@@ -58,16 +58,14 @@
   $: ({ comp } = tabs.find((t) => t.name === tab));
 
   let { address, id, username } = user;
-  let loading;
+  let submitting;
 
-  onMount(() => {
-    if ($page.url.searchParams.get("verified"))
-      success($t("user.settings.verified"));
-  });
+  $: if (!$loading && $page.url.searchParams.get("verified"))
+    success($t("user.settings.verified"));
 
   async function handleSubmit() {
     try {
-      loading = true;
+      submitting = true;
       let data = new FormData(formElement);
 
       if (data.get("password")) {
@@ -95,7 +93,7 @@
             mode: "no-cors",
           });
         } catch (e) {
-          console.log("problem uploading avatar", e);
+          console.log("problem upsubmitting avatar", e);
         }
       }
 
@@ -112,7 +110,7 @@
             mode: "no-cors",
           });
         } catch (e) {
-          console.log("problem uploading banner", e);
+          console.log("problem upsubmitting banner", e);
         }
       }
 
@@ -175,7 +173,7 @@
       fail("Something went wrong");
     }
 
-    loading = false;
+    submitting = false;
   }
 </script>
 
@@ -225,8 +223,8 @@
       bind:this={submit}
       type="submit"
       class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
-      class:bg-black={loading}>
-      {#if loading}
+      class:bg-black={submitting}>
+      {#if submitting}
         <Spinner />
       {:else}
         <div class="my-auto">{$t("user.settings.saveSettings")}</div>
