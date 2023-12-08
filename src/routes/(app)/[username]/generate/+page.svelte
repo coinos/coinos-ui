@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import { goto, invalidate } from "$app/navigation";
   import Pin from "$comp/Pin.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { loginRedirect, pin, password, passwordPrompt } from "$lib/store";
   import { generate } from "$lib/nostr";
   import { browser } from "$app/environment";
@@ -19,6 +20,7 @@
       return;
     }
 
+    console.log("PASSWORRRRD", $password);
     if (!$password) $passwordPrompt = true;
 
     try {
@@ -58,6 +60,10 @@
 {#if loaded && user?.haspin && $pin?.length !== 6}
   <Pin />
 {/if}
-{loaded}
-{JSON.stringify(user)}
-{$pin}
+
+<div class="container px-4 text-center mx-auto">
+  <h1 class="text-3xl md:text-4xl font-bold mb-6">Generating new account keys</h1>
+  <div class="flex w-full py-5 max-w-[200px] mx-auto bg-black rounded-2xl">
+    <Spinner />
+  </div>
+</div>
