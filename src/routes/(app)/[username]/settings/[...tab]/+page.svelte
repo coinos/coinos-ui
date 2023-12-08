@@ -39,7 +39,7 @@
 
   $: form?.user && ({ user } = form);
 
-  $: form?.success && success("Settings saved!");
+  $: form?.success && success($t("user.settings.saved"), false);
 
   $: form?.message && fail(form.message);
 
@@ -59,6 +59,11 @@
 
   let { address, id, username } = user;
   let loading;
+
+  onMount(() => {
+    if ($page.url.searchParams.get("verified"))
+      success($t("user.settings.verified"));
+  });
 
   async function handleSubmit() {
     try {
@@ -146,8 +151,7 @@
             auth(cookies)
           );
 
-          warning("Verification email sent");
-          await sleep(4000);
+          warning($t("user.settings.verifying"), false);
         } catch (e) {
           console.log(e);
         }

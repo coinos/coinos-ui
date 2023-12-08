@@ -101,8 +101,8 @@ export function reverseFormat(val, locale) {
 
 export let protectedRoutes = [/customers/, /settings/, /payments/];
 
-export let success = (m) => {
-  toast.pop();
+export let success = (m, clear = true) => {
+  if (clear) toast.pop();
   toast.push(m, {
     theme: {
       "--toastBarBackground": "#F5F7FA",
@@ -110,16 +110,16 @@ export let success = (m) => {
   });
 };
 
-export let warning = (m) => {
-  toast.pop();
+export let warning = (m, clear = true) => {
+  if (clear) toast.pop();
   toast.push(m, {
     theme: {
       "--toastBarBackground": "#FFCE22",
     },
   });
 };
-export let fail = (m) => {
-  toast.pop();
+export let fail = (m, clear = true) => {
+  if (clear) toast.pop();
   toast.push(m, {
     theme: {
       "--toastBarBackground": "#E93535",
