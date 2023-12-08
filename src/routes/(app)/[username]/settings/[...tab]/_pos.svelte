@@ -42,7 +42,6 @@
   </p>
 </div>
 
-{user.prompt}
 <div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.tipPrompt")}</span>
