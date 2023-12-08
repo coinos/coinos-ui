@@ -21,7 +21,7 @@ export const actions = {
       }
 
       if (error) return fail(400, { error });
-        throw redirect(307, `/${user.username}`);
+      throw redirect(307, `/${user.username}`);
     } catch (e) {
       console.log(e.message);
       return fail(400, { error: e.message });
