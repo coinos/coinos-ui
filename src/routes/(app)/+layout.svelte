@@ -122,7 +122,7 @@
   {#if subject?.profile}
     <meta name="og:image" content={`/api/public/${subject.profile}.webp`} />
   {:else}
-    <meta property="og:image" content="/icons/logo.svg" />
+    <meta property="og:image" content="/images/logo.jpg" />
   {/if}
 </svelte:head>
 
