@@ -4,9 +4,9 @@ import { error } from "@sveltejs/kit";
 export async function load({ params: { id } }) {
   try {
     let event = await get(`/event/${id}`);
-    if (!event) throw error(500, "Event not found");
+    if (!event) error(500, "Event not found");
     return { event };
   } catch (e) {
-    throw error(500, e.message);
+    error(500, e.message);
   }
 }

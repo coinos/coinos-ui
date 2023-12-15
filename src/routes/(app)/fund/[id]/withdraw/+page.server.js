@@ -3,7 +3,7 @@ import { fd, auth, post } from "$lib/utils";
 
 export async function load({ parent }) {
   let { user } = await parent();
-  if (!user) throw redirect(307, "/register");
+  if (!user) redirect(307, "/register");
 }
 
 export const actions = {
@@ -15,6 +15,6 @@ export const actions = {
       return fail(400, { message: e.message });
     }
 
-    throw redirect(307, `/fund/${body.id}`);
+    redirect(307, `/fund/${body.id}`);
   },
 };

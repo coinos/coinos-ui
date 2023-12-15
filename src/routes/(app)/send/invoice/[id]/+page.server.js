@@ -17,9 +17,9 @@ export async function load({ params: { id }, parent, url }) {
   } = await get(`/invoice/${id}`);
 
   if (prompt && tip === null)
-    throw redirect(307, `/${recipient.username}/invoice/${id}/tip`);
+    redirect(307, `/${recipient.username}/invoice/${id}/tip`);
   if (recipient.username === user.username)
-    throw error(500, { message: "Cannot send to self" });
+    error(500, { message: "Cannot send to self" });
   return {
     amount,
     address,
@@ -43,6 +43,6 @@ export const actions = {
       return fail(400, { message: e.message });
     }
 
-    throw redirect(307, "/sent");
+    redirect(307, "/sent");
   },
 };

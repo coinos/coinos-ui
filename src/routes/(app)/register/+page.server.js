@@ -3,7 +3,7 @@ import { fd, post, login } from "$lib/utils";
 
 export const load = async ({ parent }) => {
   let { user } = await parent();
-  if (user) throw redirect(307, `/${user.username}`);
+  if (user) redirect(307, `/${user.username}`);
 
   let index = Math.floor(Math.random() * 64) + 1;
 
@@ -32,7 +32,6 @@ export const actions = {
     try {
       await post("/register", { user }, { "cf-connecting-ip": ip });
     } catch (e) {
-      console.log(e);
       if (e.message.includes("taken")) error = e.message;
     }
 
@@ -44,6 +43,6 @@ export const actions = {
     }
 
     if (error) return fail(400, { error });
-    throw redirect(307, loginRedirect || `/${user.username}`);
+    redirect(307, loginRedirect || `/${user.username}`);
   },
 };

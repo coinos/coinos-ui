@@ -6,5 +6,5 @@ export async function load({ cookies, params, parent }) {
   let rates = await get("/rates");
   let invoice = { type: "bitcoin" };
   let { hash } = await post(`/invoice`, { invoice, user }, auth(cookies));
-  throw redirect(307, `/${user.username}/invoice/${hash}`);
+  redirect(307, `/${user.username}/invoice/${hash}`);
 }

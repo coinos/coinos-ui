@@ -35,6 +35,6 @@ export const actions = {
       return fail(400, { message: e.message });
     }
 
-    throw redirect(307, "/sent");
+    redirect(307, "/sent");
   },
 };

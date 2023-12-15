@@ -16,7 +16,7 @@ export async function load({ cookies, request, url, params }) {
   }
 
   if (user?.needsMigration) {
-    throw redirect(307, `/migrate`);
+    redirect(307, `/migrate`);
   }
 
   if (
@@ -24,18 +24,18 @@ export async function load({ cookies, request, url, params }) {
     ["/login", "/register"].includes(pathname) &&
     request.method === "GET"
   ) {
-    throw redirect(307, `/${user.username}`);
+    redirect(307, `/${user.username}`);
   }
 
   if (
     protectedRoutes.find((p) => pathname.match(p)) &&
     (!user || user.username !== params.username)
   ) {
-    throw redirect(307, "/login");
+    redirect(307, "/login");
   }
 
   if (user && !user.pubkey && !pathname.includes("generate")) {
-    throw redirect(303, `/${user.username}/generate`);
+    redirect(303, `/${user.username}/generate`);
   }
 
   try {

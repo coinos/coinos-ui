@@ -16,7 +16,7 @@ export async function load({ depends, params, url, parent }) {
     !url.pathname.includes("tip") &&
     !options
   ) {
-    throw redirect(307, `/send/invoice/${id}`);
+    redirect(307, `/send/invoice/${id}`);
   }
 
   let { amount, pending, received } = invoice;
@@ -26,11 +26,11 @@ export async function load({ depends, params, url, parent }) {
     (!amount && received) ||
     (amount > 0 && (pending >= amount || received >= amount));
   if (paid && !url.pathname.endsWith("paid")) {
-    throw redirect(
-      307,
-      `/${params.username}/invoice/${id}/paid` +
-        (options ? "?options=true" : "")
-    );
+    redirect(
+            307,
+            `/${params.username}/invoice/${id}/paid` +
+              (options ? "?options=true" : "")
+          );
   }
 
   let sm = Qr.drawImg(invoice.text || "", { size: 300 });

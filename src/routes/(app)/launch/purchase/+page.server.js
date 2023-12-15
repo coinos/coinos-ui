@@ -10,7 +10,7 @@ export const load = async ({ parent }) => {
   let tickets = await get("/tickets");
   let { user } = await parent();
   let hasTicket = !!user?.accounts.find((a) => tickets.includes(a.asset));
-  if (hasTicket) throw redirect(307, "/launch/ticket");
+  if (hasTicket) redirect(307, "/launch/ticket");
   return { tickets };
 };
 
@@ -24,7 +24,7 @@ export const actions = {
       auth(cookies)
     );
 
-    throw redirect(307, `/launch/thanks/${asset}`);
+    redirect(307, `/launch/thanks/${asset}`);
   },
 
   lightning: async ({ cookies, request }) => {
@@ -44,6 +44,6 @@ export const actions = {
 
     let { id } = await post("/invoice", { invoice, user }, auth(cookies));
 
-    throw redirect(307, `/${user.username}/invoice/${id}`);
+    redirect(307, `/${user.username}/invoice/${id}`);
   },
 };
