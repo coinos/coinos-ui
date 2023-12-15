@@ -1,13 +1,18 @@
 <script>
   import { copyNoNewlines as copy } from "$lib/utils";
+  import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
 
   import Code from "$comp/Code.svelte";
   import Icon from "$comp/Icon.svelte";
 
-  import { PUBLIC_COINOS_URL } from "$env/static/public";
   export let data;
+
   let { user, token } = data;
-  let api = "https://coinos.io/api";
+
+
+  let api = PUBLIC_DOMAIN.includes("localhost")
+    ? `${PUBLIC_COINOS_URL}`
+    : `https://${PUBLIC_DOMAIN}/api`;
 
   let tokenSample = token
     ? `export token="${token}"`
