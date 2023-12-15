@@ -12,6 +12,6 @@ export const actions = {
       return fail(400, { message: e.message });
     }
 
-    if (p) throw redirect(307, `/fund/${body.name}`);
+    if (p) redirect(307, `/fund/${body.name}`);
   },
 };

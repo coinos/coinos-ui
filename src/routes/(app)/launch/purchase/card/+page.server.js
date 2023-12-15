@@ -44,9 +44,9 @@ export const actions = {
     }).then((r) => r.json());
 
     if (status !== "succeeded")
-      throw error(500, { message: "Card payment failed" });
+      error(500, { message: "Card payment failed" });
     let asset = await createTicket(cookies, form.get("username"));
 
-    throw redirect(307, `/launch/thanks/${asset}`);
+    redirect(307, `/launch/thanks/${asset}`);
   },
 };

@@ -3,7 +3,7 @@ import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ params, parent }) {
   let { user } = await parent();
-  if (!user) throw redirect(307, "/register");
+  if (!user) redirect(307, "/register");
 
   let data;
 
@@ -11,11 +11,11 @@ export async function load({ params, parent }) {
     let { lnurl } = params;
     data = await get(`/decode?text=${lnurl}`);
   } catch (e) {
-    throw error(500, e.message);
+    error(500, e.message);
   }
 
   if (!["payRequest", "withdrawRequest"].includes(data.tag))
-    throw error(500, "We only support LNURLp and LNURLw at this time");
+    error(500, "We only support LNURLp and LNURLw at this time");
 
   return data;
 }
@@ -37,7 +37,7 @@ export const actions = {
     let { pr } = await fetch(`${callback}?amount=${amount * 1000}`).then((r) =>
       r.json()
     );
-    throw redirect(307, `/send/lightning/${pr}`);
+    redirect(307, `/send/lightning/${pr}`);
   },
 
   withdraw: async ({ cookies, fetch, request }) => {
@@ -70,6 +70,6 @@ export const actions = {
     let c = callback.includes("?") ? "&" : "?";
     await fetch(`${callback}${c}k1=${k1}&pr=${pr}`).then((r) => r.json());
 
-    throw redirect(307, `/ln/withdrawal/sent`);
+    redirect(307, `/ln/withdrawal/sent`);
   },
 };

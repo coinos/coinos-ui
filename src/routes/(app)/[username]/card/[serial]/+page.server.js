@@ -10,7 +10,7 @@ export let load = async ({ cookies, params }) => {
     console.log(e);
   }
 
-  if (fund) throw redirect(307, `/fund/${serial}`);
+  if (fund) redirect(307, `/fund/${serial}`);
 
   return params;
 };

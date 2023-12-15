@@ -3,7 +3,7 @@ import { fd, auth, get, post } from "$lib/utils";
 
 export function load({ cookies, params, url }) {
   if (url.pathname.endsWith("settings"))
-    throw redirect(307, url.pathname + "/account");
+    redirect(307, url.pathname + "/account");
   params.cookies = cookies.getAll();
   return params;
 }

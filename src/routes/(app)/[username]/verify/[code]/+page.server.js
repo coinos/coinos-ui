@@ -10,5 +10,5 @@ export let load = async ({ params: { code } }) => {
     return { error: "Verification failed" };
   }
 
-  throw redirect(307, `/${user.username}/settings/account?verified=true`);
+  redirect(307, `/${user.username}/settings/account?verified=true`);
 };

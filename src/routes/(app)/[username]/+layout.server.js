@@ -13,6 +13,6 @@ export let load = async ({ cookies, depends, params: { username } }) => {
 
     return { subject };
   } catch (e) {
-    throw error(500, "Unable to retrieve user account data");
+    error(500, "Unable to retrieve user account data");
   }
 };

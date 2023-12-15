@@ -25,13 +25,13 @@ export default async ({ cookies, request, url }) => {
 
   if (request_id) {
     if (url.pathname.endsWith("tip")) {
-      throw redirect(307, `/send/invoice/${id}`);
+      redirect(307, `/send/invoice/${id}`);
     }
 
-    throw redirect(307, `/${user.username}/request/${request_id}`);
+    redirect(307, `/${user.username}/request/${request_id}`);
   }
 
   if (invoice.prompt)
-    throw redirect(307, `/${user.username}/invoice/${id}/tip`);
-  else throw redirect(307, `/${user.username}/invoice/${id}`);
+    redirect(307, `/${user.username}/invoice/${id}/tip`);
+  else redirect(307, `/${user.username}/invoice/${id}`);
 };
