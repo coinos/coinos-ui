@@ -1,6 +1,6 @@
 <script>
   import { hexToUint8Array } from "uint8array-extras";
-  import { copy, f, s, sats } from "$lib/utils";
+  import { f, post, s, sats, success, fail } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
@@ -16,11 +16,9 @@
   $: ({ currency, username: n, display } = subject);
 
   $: username = n.length > 60 ? n.substr(0, 6) : display || n;
-  $: npub = bech32m.encode(
-    "npub",
-    toWords(hexToUint8Array(subject.pubkey)),
-    180
-  );
+  $: npub =
+    subject.pubkey &&
+    bech32m.encode("npub", toWords(hexToUint8Array(subject.pubkey)), 180);
   $: lnaddr = `${n}@${$page.url.host}`;
   $: profile = `${$page.url.host}/${n}`;
 
@@ -64,6 +62,17 @@
 
   let showDetails;
   let toggleDetails = () => (showDetails = !showDetails);
+
+  let password;
+
+  let reset = async () => {
+    try {
+      await post(`/${subject.username}/reset`, { password });
+      success("Password reset");
+    } catch (e) {
+      fail(e.message);
+    }
+  };
 </script>
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
@@ -157,7 +166,8 @@
           <div class="w-full flex">
             <button
               class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
-              on:click={unfollow}>
+              on:click={unfollow}
+            >
               <div class="mx-auto flex">
                 <Icon icon={"profile"} style="my-auto h-6 mr-2 invert" />
                 <div class="my-auto">{$t("user.following")}</div>
@@ -168,7 +178,8 @@
           <div class="w-full flex">
             <button
               class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-              on:click={follow}>
+              on:click={follow}
+            >
               <div class="mx-auto flex">
                 <Icon icon={"profile"} style="my-auto h-6 mr-2" />
                 <div class="my-auto">{$t("user.follow")}</div>
@@ -182,7 +193,8 @@
         <div class="w-full flex">
           <a href={`/${subject.username}/messages`} class="mx-auto">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+            >
               <div class="mx-auto flex">
                 <Icon icon="message" style="mr-2 my-auto" />
                 <div class="mt-1 my-auto">{$t("user.message")}</div>
@@ -198,9 +210,11 @@
             href={user
               ? `/send/${subject.username}`
               : `/${subject.username}/receive`}
-            class="mx-auto">
+            class="mx-auto"
+          >
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60">
+              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+            >
               <div class="mx-auto flex">
                 <Icon icon="send" style="mr-2" />
                 <div class="mt-1">{$t("user.pay")}</div>
@@ -208,6 +222,21 @@
             </button>
           </a>
         </div>
+      {/if}
+
+      {#if user?.admin && user.username !== subject.username}
+        <form class="w-full flex" on:submit|preventDefault={reset}>
+          <input placeholder="Password reset" bind:value={password} />
+          <button
+            type="submit"
+            class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+          >
+            <div class="mx-auto flex">
+              <Icon icon="clock" style="mr-2 my-auto w-8" />
+              <div class="mt-1 my-auto">Reset</div>
+            </div>
+          </button>
+        </form>
       {/if}
     </div>
   </div>
