@@ -5,7 +5,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
 
-  export let data, form;
+  export let data, form, send;
   let { currency } = data.user;
   let { minSendable, maxSendable, callback, metadata, rates } = data;
 
@@ -36,7 +36,7 @@
     </div>
   {/if}
 
-  <Numpad bind:amount bind:rate {currency} />
+  <Numpad bind:amount bind:rate {currency} bind:submit={send} />
 
   <form action="?/pay" method="POST" use:enhance on:submit={submit}>
     <input name="amount" value={amount} type="hidden" />
@@ -47,8 +47,10 @@
 
     <div class="flex w-full">
       <button
+        bind:this={send}
         type="submit"
-        class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24">
+        class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+      >
         {#if loading}
           <Spinner />
         {:else}
