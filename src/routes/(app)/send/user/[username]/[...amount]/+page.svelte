@@ -31,6 +31,7 @@
     amount = a;
     amountFiat = parseFloat(af).toFixed(2);
     rate = fiat ? (sats * amountFiat) / amount : r;
+
     ({ hash } = await post(`/${subject.username}/invoice`, {
       invoice: {
         amount,
@@ -83,7 +84,8 @@
       {#if amount}
         <button
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24">
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+        >
           {#if loading}
             <Spinner />
           {:else}
@@ -96,8 +98,11 @@
           bind:this={next}
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
           on:click={setAmount}
-          on:keydown={setAmount}> {$t("payments.next")}</button>
-        {/if}
+          on:keydown={setAmount}
+        >
+          {$t("payments.next")}</button
+        >
+      {/if}
     </div>
   </form>
 </div>

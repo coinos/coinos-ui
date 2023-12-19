@@ -35,6 +35,7 @@
   <input type="hidden" name="currency" value={currency} />
   <input type="hidden" name="username" value={username} />
   <input type="hidden" name="type" value={type} />
+  <input type="hidden" name="rate" value={rate} />
 
   {#if request}
     <input type="hidden" name="request_id" value={request.id} />

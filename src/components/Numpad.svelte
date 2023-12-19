@@ -1,7 +1,7 @@
 <script>
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
-  import { f, s, post, warning, sat, sats } from "$lib/utils";
+  import { f, s, focus, post, warning, sat, sats } from "$lib/utils";
   import { t } from "$lib/translations";
 
   export let amount,
@@ -10,7 +10,7 @@
     rate,
     submit = undefined;
 
-  export let amountFiat = 0;
+  export let amountFiat = "";
 
   let arrow = "<";
 
@@ -93,9 +93,7 @@
       } else if (value !== "<" && parseInt(amount + value) > sats) {
         warning($t("user.receive.lessThan1BTCWarning"));
       } else {
-        console.log("CLICK", amount.toString(), value);
         amount = parseInt(amount.toString() + value);
-        console.log("AMOUNT", amount);
       }
     }
   };
@@ -163,12 +161,14 @@
     }, 0);
   };
 
-  let focus = (e) => {
-    let range = document.createRange();
-    range.selectNodeContents(e.target);
-    let sel = getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
+  let clear = (e) => {
+    if (amount > 0) {
+      let range = document.createRange();
+      range.selectNodeContents(e.target);
+      let sel = getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
   };
 
   let keydown = (e) =>
@@ -185,9 +185,10 @@
           {fiat ? symbol : "⚡️"}
         </div>
         <div
+          use:focus
           contenteditable
           bind:innerHTML={html}
-          on:focus={focus}
+          on:focus={clear}
           on:input={input}
           on:keydown={keydown}
           class="outline-none my-auto"
@@ -220,7 +221,8 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-            on:click={() => handleInput(value)}>
+            on:click={() => handleInput(value)}
+          >
             <Left />
           </button>
         {:else}

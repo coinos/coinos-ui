@@ -9,7 +9,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { post, back, f, fiat as toFiat, s, sats } from "$lib/utils";
+  import { post, back, f, fiat as toFiat, s, sats, focus } from "$lib/utils";
   export let data;
   export let form;
 
@@ -143,6 +143,7 @@
     <div class="flex w-full">
       {#if amount}
         <button
+          use:focus
           type="submit"
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24">
           {#if loading}
