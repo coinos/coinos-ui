@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-node';
-// import adapter from "svelte-adapter-bun";
+// import adapter from '@sveltejs/adapter-node';
+import adapter from "svelte-adapter-bun";
 import preprocess from "svelte-preprocess";
 
 const config = {
