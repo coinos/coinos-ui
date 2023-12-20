@@ -13,13 +13,13 @@ export async function load({ params: { address, amount, feeRate }, cookies }) {
 
     let { fee, ourfee, hex } = await post(
       "/bitcoin/fee",
-      { address, amount, feeRate: feeRate },
+      { address, amount, feeRate },
       auth(cookies)
     );
 
     return { amount, address, fee, fees, feeRate, ourfee, hex };
   } catch (e) {
-    throw redirect(307, `/send/bitcoin/${address}`);
+    return { message: e.message };
   }
 }
 
