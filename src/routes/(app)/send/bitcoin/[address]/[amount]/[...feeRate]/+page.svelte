@@ -42,7 +42,7 @@
   };
 
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
-  let goBack = () => goto(`/send/bitcoin/${address}/${amount}`)
+  let goBack = () => goto(`/send/bitcoin/${address}`)
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={goBack}>
