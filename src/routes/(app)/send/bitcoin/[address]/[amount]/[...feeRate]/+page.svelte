@@ -5,7 +5,7 @@
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { fiat as toFiat, f, back, s, sat, closest } from "$lib/utils";
+  import { fiat as toFiat, f, s, sat, closest } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -42,9 +42,10 @@
   };
 
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
+  let goBack = () => goto(`/send/bitcoin/${address}/${amount}`)
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
+<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={goBack}>
   <Icon icon="arrow-left" style="w-10" />
 </button>
 
@@ -93,18 +94,18 @@
   </div>
 
   {#if ourfee}
-  <div class="text-center">
-    <h2 class="text-secondary text-lg">{$t("payments.ourFee")}</h2>
+    <div class="text-center">
+      <h2 class="text-secondary text-lg">{$t("payments.ourFee")}</h2>
 
-    <div class="flex flex-wrap gap-4 justify-center">
-      <div class="my-auto">
-        <h2 class="text-xl">
-          {f(toFiat(ourfee, $rate), currency)}
-        </h2>
-        <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <div class="my-auto">
+          <h2 class="text-xl">
+            {f(toFiat(ourfee, $rate), currency)}
+          </h2>
+          <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
+        </div>
       </div>
     </div>
-  </div>
   {/if}
 
   <form method="POST" use:enhance on:submit={() => (submitting = true)}>
