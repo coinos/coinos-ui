@@ -223,7 +223,8 @@
       bind:this={submit}
       type="submit"
       class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
-      class:bg-black={submitting}>
+      class:bg-black={submitting}
+    >
       {#if submitting}
         <Spinner />
       {:else}

@@ -3,7 +3,8 @@
   class="absolute bottom-0 left-0 -mb-0.5 transform translate-x-1/2 -translate-y-1/2 text-black peer-placeholder-shown:text-gray-300 h-6 w-6"
   fill="none"
   viewBox="0 0 24 24"
-  stroke="currentColor">
+  stroke="currentColor"
+>
   <path
     stroke-linecap="round"
     stroke-linejoin="round"

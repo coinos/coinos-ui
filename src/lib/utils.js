@@ -282,7 +282,7 @@ export function shuffleArray(array) {
   }
 }
 
-  export let closest = (a, n) =>
+export let closest = (a, n) =>
   a.reduce((prev, curr) =>
     Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev
   );

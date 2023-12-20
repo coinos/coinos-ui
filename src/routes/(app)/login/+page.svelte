@@ -145,15 +145,14 @@
           <button
             type="button"
             on:click={() => (revealPassword = !revealPassword)}
-            class="absolute right-5 top-10">
+            class="absolute right-5 top-10"
+          >
             <Icon icon={revealPassword ? "eye" : "eye-off"} />
           </button>
         </div>
 
         <div class="flex justify-end items-center">
-          <a
-            href="/forgot"
-            class="underline underline-offset-4 text-black"
+          <a href="/forgot" class="underline underline-offset-4 text-black"
             >{$t("login.forgotUserOrPassword")}</a
           >
         </div>
@@ -162,7 +161,8 @@
           type="submit"
           class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
           disabled={loading}
-          bind:this={btn}>
+          bind:this={btn}
+        >
           {#if loading}
             <Spinner />
           {:else}
@@ -175,7 +175,8 @@
         {$t("login.haveAccount")}
         <a
           href={"/register"}
-          class="block md:inline text-black underline underline-offset-4 hover:opacity-80">
+          class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
+        >
           {$t("login.register")}
         </a>
       </p>

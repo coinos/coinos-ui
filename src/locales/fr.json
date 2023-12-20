@@ -1,331 +1,331 @@
 {
-	"404": {
-		"404": "404",
-		"pageNotFound": "Page non trouvée."
-	},
-	"about": {
-		"header": "À Propos",
-		"locations": {
-			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
-		},
-		"team": {
-			"header": "L'Équipe",
-			"adam": {
-				"name": "Adam Soltys",
-				"position": "Officier Technique Principal",
-				"bio": "Adam est développeur web et passionné de bitcoin.  Il croit que l'argent sûr est la clé pour augmenter la prospérité planétaire.  Il habite en Vancouver de Nord avec sa femme Chelsea et deux enfants."
-			},
-			"cole": {
-				"name": "Cole Goodwin",
-				"position": "Professionel de Bitcoin",
-				"bio": "Cole est un professionel de bitcoin diplômé et un homme motivé avec passion pour la liberté.  Il a découvert bitcoin en 2016 et l'a etudié en détail.  Maintenant, il veux introduire le réseau Lightning à autant d'utilisateurs que possible."
-			}
-		}
-	},
-	"error": {
-		"header": "Erreur",
-		"message": "S'il vous plait réessayez ou contactez l'assistance.",
-		"signIn": "Vous devez connecter pour continuer.",
-		"unrecognizedInput": "Donnée non reconnu"
-	},
-	"faq": {
-		"header": "FAQ",
-		"cost": {
-			"question": "Combien cela coûte-t-il?",
-			"answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% pour convertir entre le Bitcoin lightning et le Bitcoin on-chain. Envoyer à d'autres comptes Coinos est gratuit."
-		},
-		"compatibility": {
-			"question": "Ai-je besoin d'un dispositif ou d'un logiciel spécial?",
-			"answer": "Non, Coinos est une application web qui fonctionne partout où il y a Internet. Les commerçants pourraient l'utiliser sur une tablette ou afficher un code QR pour que les clients puissent le scanner avec leur téléphone."
-		},
-		"safety": {
-			"question": "Quand mes fonds sont-ils réglés?",
-			"answer": "Les paiements lightning sont réglés instantanément. Vous pouvez retirer votre solde vers un autre portefeuille en quelques secondes. Les dépôts on-chain prennent en moyenne 5-10 minutes pour être confirmés."
-		},
-		"pos": {
-			"question": "Coinos peut-il s'intégrer à mon PoS existant?",
-			"answer": "Nous recommandons d'entrer les ventes dans votre PoS existant comme des transactions en espèces."
-		},
-		"bitcoin": {
-			"question": "Que puis-je faire avec le Bitcoin?",
-			"answer": "Dépensez-le chez d'autres commerçants ou payez vos dépenses avec en incitant votre personnel, vos fournisseurs et votre propriétaire à l'accepter."
-		}
-	},
-	"footer": {
-		"followUs": "Suivez-Nous",
-		"twitter": "Twitter",
-		"github": "GitHub",
-		"company": "Entreprise",
-		"telegram": "Telegram",
-		"support": "Assistance",
-		"jobs": "Jobs",
-		"linktree": "Linktree",
-		"documentation": "Documentation"
-	},
-	"howItWorks": {
-		"header": "Comment cela Fonctionne",
-		"step1": {
-			"header": "1. Créez votre compte",
-			"description": "Un nom d'utilateur et mot de passe est tout ce dont vous avez besoin pour commencer."
-		},
-		"step2": {
-			"header": "2. Demande pour des paiements",
-			"description": "Comme vous faisiez normalement, mais avec bitcoin."
-		},
-		"step3": {
-			"header": "3. C'est tout!",
-			"description": "Vous pouvez convertir en monnaie local n'importe quand."
-		}
-	},
-	"landing": {
-		"header_before_icon": "Le",
-		"header_with_icon": "façon",
-		"header_after_icon": "le plus façile d'accepter bitcoin dans votre magasin.",
-		"subheader": "Agrandir votre clientèle et chiffre d'affaires en acceptant bitcoin avec un point de vente façile à utiliser et géré. Logiciel et matériel informatique non obligatoire.",
-		"info1": {
-			"title": "Paiements instantanés avec Lightning",
-			"description": "Le moment où votre client envoie un paiment, c'est là. Vous ne devez pas attendre les décisions des banques ou vous inquiéter pour des rejets de débit. Décisions instantanées, en secondes. Dites au revoir aux frais de transactions de 3% des cartes de crédit."
-		},
-		"info2": {
-			"title": "Simple à utiliser, en garde par défaut",
-			"description1": "Juste entrer une quantité, partager le code QR et c'est tout!",
-			"description2": "Tes comptes sont en garde par défaut, qui élimine le nécessité de comprendre comment bitcoin/lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous puissiez vous concentrer sur votre entreprise.",
-			"description3": "Vous avez toujours l'option de <span class=\"underline undeline-offset-4\">gérer</span> vos clés."
-		},
-		"info3": {
-			"title": "Personalisez-le comme vous voulez",
-			"description": "Personalisez votre point de vente, ou utilisez les réglages par défaut - c'est votre chois."
-		}
-	},
-	"login": {
-		"username": "Nom d'utilisateur",
-		"password": "Mot de passe",
-		"email": "Courriel",
-		"passwordRecommendation": "Nous recommendons un mot de passe long et aléatoire, généré par un gestionnaire de mots de passe.",
-		"forgotUserOrPassword": "Oublié votre nom d'utilisateur ou mot de passe ?",
-		"haveAccount": "Avez-vous déjà un compte ?",
-		"noAccount": "Pas encore de compte ?",
-		"register": "Enregistrer",
-		"signIn": "Connexion",
-		"failed": "Echec de Connexion",
-		"optional": "Optionnel",
-		"token": "Jeton 2FA",
-		"forgot": "Mot de passe oublié?",
-		"reset": "Reinitialiser le mot de passe",
-		"submit": "Soumettre",
-		"newPassword": "Nouveau mot de passe"
-	},
-	"nav": {
-		"startInSeconds": "Commence en Secondes",
-		"account": "Compte",
-		"signIn": "Connexion",
-		"signOut": "Déconnexion",
-		"dashboard": "Tableau de bord",
-		"settings": "Préférences",
-		"support": "Assistance",
-		"profile": "Profil",
-		"map": "Carte",
-		"merch": "Marchandise",
-		"about": "À Propos",
-		"docs": "Documents",
-		"messages": "Messages",
-		"funds": "Fonds"
-	},
-	"invoice": {
-		"addTip": "Ajoutez un pourboire",
-		"addTipq": "Ajouter un pourboire?",
-		"done": "Fini",
-		"paymentSuccessful": "Paiement réussi!",
-		"invoice": "Facture",
-		"total": "Total",
-		"tip": "Pourboire"
-	},
-	"jobs": {
-		"header": "Emplois",
-		"subheader": "Postes disponibles actuels",
-		"pitch1": "coinos recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
-		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
-		"github": "GitHub",
-		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
-	},
-	"user": {
-		"follow": "Suivre",
-		"remove": "Enlève",
-		"scanToPayBTC": "Scanner pour payer avec bitcoin",
-		"dashboard": {
-			"dashboard": "Tableau de bord",
-			"accountBalance": "Solde",
-			"conversionFeeWarning": "Il y a des frais de 1% pour convertir entre bitcoin, Liquid et Lightning.",
-			"fetchingRate": "cherchant taut de change...",
-			"send": "Envoie",
-			"withdraw": "Retire",
-			"go": "Allez",
-			"receive": "Reçois un Paiement",
-			"deposit": "Déposer",
-			"voucher": "Bon"
-		},
-		"receive": {
-			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
-			"showQR": "Voire le QR code"
-		},
-		"settings": {
-			"header": "Préférences",
-			"ACCOUNT": "COMPTE",
-			"POINT_OF_SALE": "POINT DE VENTE",
-			"SECURITY": "SÉCURITÉ",
-			"locale": "Langue",
-			"username": "Nom d'Utilisateur",
-			"email": "Courriel",
-			"newPassword": "Nouveau Mot de Passe",
-			"emailNotifications": "Notifications par Courriel",
-			"emailNotificationsDescription": "Nous pouvons vous notifier par courriel quand votre compte change ou quand vous recevez des paiements",
-			"smsNotifications": "Notifications par SMS",
-			"smsNotificationsDescription": "Nous vous envoyons des notifications par texte quand c'est activé",
-			"theme": "Thème",
-			"themeDescription": "Sélectionnez des thèmes dèfauts.",
-			"localCurrency": "Monnaie Local",
-			"btcUnit": "Voire bitcoin en:",
-			"bitcoin": "bitcoin",
-			"satoshis": "Satoshis",
-			"securityPIN": "NIP de Sécurité",
-			"securityPINDescription": "Choisir un NIP de sécurité qui sera necessaire pour ouvrir tes préférences et pour envoyer des paiements sortants.",
-			"setPIN": "Choisir Votre NIP",
-			"autoLock": "Auto-Verouillage",
-			"autoLockDescription": "Ta conte activera une mode sécuritaire après une durée spécifiée:",
-			"twofa": "Authentification à 2 Facteurs",
-			"twofaDescription": "Ajoutez un autre niveau de sécurité par activez l'authentication à deux facteurs.",
-			"twofaSetup": "Activer A2F",
-			"bannerImage": "Image de Bandeau",
-			"profileImage": "Image de Profil",
-			"oneTimeCode": "Entrez mot de passe à usage unique",
-			"accountId": "Secret de conte",
-			"twofaDisable": "Désactivez A2F",
-			"about": "À Propos",
-			"aboutPlaceholder": "Un description court de vous ou votre entreprise (adresse, bio, etc.)",
-			"select": "Choisir",
-			"verifyPIN": "Verifiez votre NIP",
-			"enablePIN": "Activer NIP",
-			"disablePIN": "Désactiver NIP",
-			"saveSettings": "Sauvegarder Paramètres",
-			"tipPrompt": "Demande pour Pourboires",
-			"tipPromptDescription": "Demander les gens s'ils voulent ajouter un pourboire avant payer leurs factures",
-			"displayName": "Nom d'Utilisateur",
-			"minutes": "minutes",
-			"hour": "heure",
-			"hours": "heures",
-			"hideSeed": "Cache phrase mnémotechnique",
-			"revealSeed": "Montre phrase mnémotechnique",
-			"notifications": "Notifications de paiement",
-			"notificationsDesc": "Reçevez un courriel quand un paiement arrive à ta conte",
-			"seedPhrase": "Phrase mnémotechnique",
-			"nostrKeys": "Clé nostr",
-			"nostrDescription": "Votre clé nostr est utilisé pour signer et décrypter vos messages, gardez-le sauf ou quelqu'un peut se faire passer pour vous.",
-			"seedDescription": "Cette phrase mnémotechnique à 12 mots est utilisé pour générer votre clé privée et vos clés de portefeuille que vous controllez qui déterminez vos addresses de retrait automatique.  Sauvegardez-le et jamais permettez à personne de le voir.",
-			"emailDescription": "Pour seulement reinitialisations de mot de passe et notifications de paiements seulement.",
-			"hideNsec": "Cache clé privée nostr",
-			"saved": "Paramètres sauvegardés!",
-			"verifying": "Courriel de verification envoyé.",
-			"verified": "Courriel verifié!",
-			"revealNsec": "Montre clé privée nostr",
-			"publishNip5": "Publie identité nostr",
-			"nip5a": "Utilise",
-			"nip5b": "comme votre addresse nostr verifié publiquement"
-		},
-		"support": {
-			"header": "Assistance",
-			"email": "Courriel",
-			"accountName": "Nom d'utilisateur",
-			"message": "Message",
-			"send": "Envoie"
-		},
-		"bitcoin": "Bitcoin",
-		"lightning": "Lightning",
-		"invoice": "Facture",
-		"unfollow": "Ne plus suivre",
-		"following": "Vous suivez",
-		"this": "Cette",
-		"lightningAddress": "Adresse de lightning",
-		"send": {
-			"contacts": "Contacts",
-			"scan": "Scannez",
-			"paste": "Collez",
-			"next": "Prochain",
-			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos",
-			"makeQR": "QR"
-		},
-		"requestPayment": "Demander un Paiement",
-		"welcome": "Bienvenue! Le solde de votre conte est vide. Vous pouvez commencer par déposer ou recevoir un paiement.",
-		"showBalance": "Montrer Solde",
-		"followers": "Abonnés",
-		"noNotes": "Pas de notes",
-		"message": "Envoyer",
-		"messages": "Messages",
-		"feed": "Flux",
-		"notes": "Notes",
-		"pay": "Payer",
-		"profilePage": "Page de profil",
-		"nostrPubkey": "Clé publique nostr"
-	},
-	"news": {
-		"header": "Nouvelles",
-		"subheader": "Dernières Informations"
-	},
-	"payments": {
-		"addFunds": "Ajouter d'argent",
-		"takeFunds": "Prendre d'argent",
-		"show": "Démontrer",
-		"hide": "Cacher",
-		"qr": "QR",
-		"copyLink": "Copier le Lien",
-		"copyText": "Copier le Texte",
-		"openLink": "Ouvrer le Portefeuille",
-		"moreOptions": "Plus d'options",
-		"total": "Total",
-		"gainLoss": "Hausse/Perte",
-		"presentValue": "Valuer au présent",
-		"amount": "Quantité",
-		"date": "Date",
-		"id": "ID de Transaction",
-		"details": "Détails de Transaction",
-		"header": "Paiements",
-		"preimage": "Preuve de paiement",
-		"type": "Type",
-		"time": "Heure",
-		"sent": "Envoyé",
-		"received": "Reçu",
-		"empty": "Vous n'avez pas de transactions.",
-		"send": "Envoyer",
-		"next": "Prochain",
-		"sendTo": "Envoyer à",
-		"to": "à",
-		"pay": "Payer",
-		"requesting": "demande",
-		"sentInvoiceTo": "Envoyé une facture à",
-		"sentRequestTo": "Demande envoyé!",
-		"pleasePay": "S'il vous plait payez",
-		"day": "Jour",
-		"week": "Semaine",
-		"month": "Mois",
-		"all": "Toutes",
-		"export": "Exporter",
-		"invoice": "Facture",
-		"readyToPay": "est prêt a payer",
-		"describeOrder": "Utiliser ce champ pour décrire votre commande",
-		"requestAnInvoice": "Demander une facture",
-		"submit": "Soumettre",
-		"isRequesting": "demande",
-		"invoiceFrom": "Facture de",
-		"awaiting": "Attendant",
-		"tapAnywhere": "Taper n'importe où pour continuer",
-		"from": "de",
-		"redeem": "Racheter",
-		"redeemed": "Racheté",
-		"redeemedBy": "Racheté par",
-		"sendMessage": "Écrire une message...",
-		"fundsClaimed": "Les fonds sont réclamés!",
-		"print": "Imprime",
-		"create": "Crée",
-		"fund": "Finance"
-	}
+  "404": {
+    "404": "404",
+    "pageNotFound": "Page non trouvée."
+  },
+  "about": {
+    "header": "À Propos",
+    "locations": {
+      "header": "Établissements",
+      "description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+    },
+    "team": {
+      "header": "L'Équipe",
+      "adam": {
+        "name": "Adam Soltys",
+        "position": "Officier Technique Principal",
+        "bio": "Adam est développeur web et passionné de bitcoin.  Il croit que l'argent sûr est la clé pour augmenter la prospérité planétaire.  Il habite en Vancouver de Nord avec sa femme Chelsea et deux enfants."
+      },
+      "cole": {
+        "name": "Cole Goodwin",
+        "position": "Professionel de Bitcoin",
+        "bio": "Cole est un professionel de bitcoin diplômé et un homme motivé avec passion pour la liberté.  Il a découvert bitcoin en 2016 et l'a etudié en détail.  Maintenant, il veux introduire le réseau Lightning à autant d'utilisateurs que possible."
+      }
+    }
+  },
+  "error": {
+    "header": "Erreur",
+    "message": "S'il vous plait réessayez ou contactez l'assistance.",
+    "signIn": "Vous devez connecter pour continuer.",
+    "unrecognizedInput": "Donnée non reconnu"
+  },
+  "faq": {
+    "header": "FAQ",
+    "cost": {
+      "question": "Combien cela coûte-t-il?",
+      "answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% pour convertir entre le Bitcoin lightning et le Bitcoin on-chain. Envoyer à d'autres comptes Coinos est gratuit."
+    },
+    "compatibility": {
+      "question": "Ai-je besoin d'un dispositif ou d'un logiciel spécial?",
+      "answer": "Non, Coinos est une application web qui fonctionne partout où il y a Internet. Les commerçants pourraient l'utiliser sur une tablette ou afficher un code QR pour que les clients puissent le scanner avec leur téléphone."
+    },
+    "safety": {
+      "question": "Quand mes fonds sont-ils réglés?",
+      "answer": "Les paiements lightning sont réglés instantanément. Vous pouvez retirer votre solde vers un autre portefeuille en quelques secondes. Les dépôts on-chain prennent en moyenne 5-10 minutes pour être confirmés."
+    },
+    "pos": {
+      "question": "Coinos peut-il s'intégrer à mon PoS existant?",
+      "answer": "Nous recommandons d'entrer les ventes dans votre PoS existant comme des transactions en espèces."
+    },
+    "bitcoin": {
+      "question": "Que puis-je faire avec le Bitcoin?",
+      "answer": "Dépensez-le chez d'autres commerçants ou payez vos dépenses avec en incitant votre personnel, vos fournisseurs et votre propriétaire à l'accepter."
+    }
+  },
+  "footer": {
+    "followUs": "Suivez-Nous",
+    "twitter": "Twitter",
+    "github": "GitHub",
+    "company": "Entreprise",
+    "telegram": "Telegram",
+    "support": "Assistance",
+    "jobs": "Jobs",
+    "linktree": "Linktree",
+    "documentation": "Documentation"
+  },
+  "howItWorks": {
+    "header": "Comment cela Fonctionne",
+    "step1": {
+      "header": "1. Créez votre compte",
+      "description": "Un nom d'utilateur et mot de passe est tout ce dont vous avez besoin pour commencer."
+    },
+    "step2": {
+      "header": "2. Demande pour des paiements",
+      "description": "Comme vous faisiez normalement, mais avec bitcoin."
+    },
+    "step3": {
+      "header": "3. C'est tout!",
+      "description": "Vous pouvez convertir en monnaie local n'importe quand."
+    }
+  },
+  "landing": {
+    "header_before_icon": "Le",
+    "header_with_icon": "façon",
+    "header_after_icon": "le plus façile d'accepter bitcoin dans votre magasin.",
+    "subheader": "Agrandir votre clientèle et chiffre d'affaires en acceptant bitcoin avec un point de vente façile à utiliser et géré. Logiciel et matériel informatique non obligatoire.",
+    "info1": {
+      "title": "Paiements instantanés avec Lightning",
+      "description": "Le moment où votre client envoie un paiment, c'est là. Vous ne devez pas attendre les décisions des banques ou vous inquiéter pour des rejets de débit. Décisions instantanées, en secondes. Dites au revoir aux frais de transactions de 3% des cartes de crédit."
+    },
+    "info2": {
+      "title": "Simple à utiliser, en garde par défaut",
+      "description1": "Juste entrer une quantité, partager le code QR et c'est tout!",
+      "description2": "Tes comptes sont en garde par défaut, qui élimine le nécessité de comprendre comment bitcoin/lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous puissiez vous concentrer sur votre entreprise.",
+      "description3": "Vous avez toujours l'option de <span class=\"underline undeline-offset-4\">gérer</span> vos clés."
+    },
+    "info3": {
+      "title": "Personalisez-le comme vous voulez",
+      "description": "Personalisez votre point de vente, ou utilisez les réglages par défaut - c'est votre chois."
+    }
+  },
+  "login": {
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "email": "Courriel",
+    "passwordRecommendation": "Nous recommendons un mot de passe long et aléatoire, généré par un gestionnaire de mots de passe.",
+    "forgotUserOrPassword": "Oublié votre nom d'utilisateur ou mot de passe ?",
+    "haveAccount": "Avez-vous déjà un compte ?",
+    "noAccount": "Pas encore de compte ?",
+    "register": "Enregistrer",
+    "signIn": "Connexion",
+    "failed": "Echec de Connexion",
+    "optional": "Optionnel",
+    "token": "Jeton 2FA",
+    "forgot": "Mot de passe oublié?",
+    "reset": "Reinitialiser le mot de passe",
+    "submit": "Soumettre",
+    "newPassword": "Nouveau mot de passe"
+  },
+  "nav": {
+    "startInSeconds": "Commence en Secondes",
+    "account": "Compte",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "settings": "Préférences",
+    "support": "Assistance",
+    "profile": "Profil",
+    "map": "Carte",
+    "merch": "Marchandise",
+    "about": "À Propos",
+    "docs": "Documents",
+    "messages": "Messages",
+    "funds": "Fonds"
+  },
+  "invoice": {
+    "addTip": "Ajoutez un pourboire",
+    "addTipq": "Ajouter un pourboire?",
+    "done": "Fini",
+    "paymentSuccessful": "Paiement réussi!",
+    "invoice": "Facture",
+    "total": "Total",
+    "tip": "Pourboire"
+  },
+  "jobs": {
+    "header": "Emplois",
+    "subheader": "Postes disponibles actuels",
+    "pitch1": "coinos recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
+    "pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
+    "github": "GitHub",
+    "pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
+  },
+  "user": {
+    "follow": "Suivre",
+    "remove": "Enlève",
+    "scanToPayBTC": "Scanner pour payer avec bitcoin",
+    "dashboard": {
+      "dashboard": "Tableau de bord",
+      "accountBalance": "Solde",
+      "conversionFeeWarning": "Il y a des frais de 1% pour convertir entre bitcoin, Liquid et Lightning.",
+      "fetchingRate": "cherchant taut de change...",
+      "send": "Envoie",
+      "withdraw": "Retire",
+      "go": "Allez",
+      "receive": "Reçois un Paiement",
+      "deposit": "Déposer",
+      "voucher": "Bon"
+    },
+    "receive": {
+      "lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
+      "showQR": "Voire le QR code"
+    },
+    "settings": {
+      "header": "Préférences",
+      "ACCOUNT": "COMPTE",
+      "POINT_OF_SALE": "POINT DE VENTE",
+      "SECURITY": "SÉCURITÉ",
+      "locale": "Langue",
+      "username": "Nom d'Utilisateur",
+      "email": "Courriel",
+      "newPassword": "Nouveau Mot de Passe",
+      "emailNotifications": "Notifications par Courriel",
+      "emailNotificationsDescription": "Nous pouvons vous notifier par courriel quand votre compte change ou quand vous recevez des paiements",
+      "smsNotifications": "Notifications par SMS",
+      "smsNotificationsDescription": "Nous vous envoyons des notifications par texte quand c'est activé",
+      "theme": "Thème",
+      "themeDescription": "Sélectionnez des thèmes dèfauts.",
+      "localCurrency": "Monnaie Local",
+      "btcUnit": "Voire bitcoin en:",
+      "bitcoin": "bitcoin",
+      "satoshis": "Satoshis",
+      "securityPIN": "NIP de Sécurité",
+      "securityPINDescription": "Choisir un NIP de sécurité qui sera necessaire pour ouvrir tes préférences et pour envoyer des paiements sortants.",
+      "setPIN": "Choisir Votre NIP",
+      "autoLock": "Auto-Verouillage",
+      "autoLockDescription": "Ta conte activera une mode sécuritaire après une durée spécifiée:",
+      "twofa": "Authentification à 2 Facteurs",
+      "twofaDescription": "Ajoutez un autre niveau de sécurité par activez l'authentication à deux facteurs.",
+      "twofaSetup": "Activer A2F",
+      "bannerImage": "Image de Bandeau",
+      "profileImage": "Image de Profil",
+      "oneTimeCode": "Entrez mot de passe à usage unique",
+      "accountId": "Secret de conte",
+      "twofaDisable": "Désactivez A2F",
+      "about": "À Propos",
+      "aboutPlaceholder": "Un description court de vous ou votre entreprise (adresse, bio, etc.)",
+      "select": "Choisir",
+      "verifyPIN": "Verifiez votre NIP",
+      "enablePIN": "Activer NIP",
+      "disablePIN": "Désactiver NIP",
+      "saveSettings": "Sauvegarder Paramètres",
+      "tipPrompt": "Demande pour Pourboires",
+      "tipPromptDescription": "Demander les gens s'ils voulent ajouter un pourboire avant payer leurs factures",
+      "displayName": "Nom d'Utilisateur",
+      "minutes": "minutes",
+      "hour": "heure",
+      "hours": "heures",
+      "hideSeed": "Cache phrase mnémotechnique",
+      "revealSeed": "Montre phrase mnémotechnique",
+      "notifications": "Notifications de paiement",
+      "notificationsDesc": "Reçevez un courriel quand un paiement arrive à ta conte",
+      "seedPhrase": "Phrase mnémotechnique",
+      "nostrKeys": "Clé nostr",
+      "nostrDescription": "Votre clé nostr est utilisé pour signer et décrypter vos messages, gardez-le sauf ou quelqu'un peut se faire passer pour vous.",
+      "seedDescription": "Cette phrase mnémotechnique à 12 mots est utilisé pour générer votre clé privée et vos clés de portefeuille que vous controllez qui déterminez vos addresses de retrait automatique.  Sauvegardez-le et jamais permettez à personne de le voir.",
+      "emailDescription": "Pour seulement reinitialisations de mot de passe et notifications de paiements seulement.",
+      "hideNsec": "Cache clé privée nostr",
+      "saved": "Paramètres sauvegardés!",
+      "verifying": "Courriel de verification envoyé.",
+      "verified": "Courriel verifié!",
+      "revealNsec": "Montre clé privée nostr",
+      "publishNip5": "Publie identité nostr",
+      "nip5a": "Utilise",
+      "nip5b": "comme votre addresse nostr verifié publiquement"
+    },
+    "support": {
+      "header": "Assistance",
+      "email": "Courriel",
+      "accountName": "Nom d'utilisateur",
+      "message": "Message",
+      "send": "Envoie"
+    },
+    "bitcoin": "Bitcoin",
+    "lightning": "Lightning",
+    "invoice": "Facture",
+    "unfollow": "Ne plus suivre",
+    "following": "Vous suivez",
+    "this": "Cette",
+    "lightningAddress": "Adresse de lightning",
+    "send": {
+      "contacts": "Contacts",
+      "scan": "Scannez",
+      "paste": "Collez",
+      "next": "Prochain",
+      "placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos",
+      "makeQR": "QR"
+    },
+    "requestPayment": "Demander un Paiement",
+    "welcome": "Bienvenue! Le solde de votre conte est vide. Vous pouvez commencer par déposer ou recevoir un paiement.",
+    "showBalance": "Montrer Solde",
+    "followers": "Abonnés",
+    "noNotes": "Pas de notes",
+    "message": "Envoyer",
+    "messages": "Messages",
+    "feed": "Flux",
+    "notes": "Notes",
+    "pay": "Payer",
+    "profilePage": "Page de profil",
+    "nostrPubkey": "Clé publique nostr"
+  },
+  "news": {
+    "header": "Nouvelles",
+    "subheader": "Dernières Informations"
+  },
+  "payments": {
+    "addFunds": "Ajouter d'argent",
+    "takeFunds": "Prendre d'argent",
+    "show": "Démontrer",
+    "hide": "Cacher",
+    "qr": "QR",
+    "copyLink": "Copier le Lien",
+    "copyText": "Copier le Texte",
+    "openLink": "Ouvrer le Portefeuille",
+    "moreOptions": "Plus d'options",
+    "total": "Total",
+    "gainLoss": "Hausse/Perte",
+    "presentValue": "Valuer au présent",
+    "amount": "Quantité",
+    "date": "Date",
+    "id": "ID de Transaction",
+    "details": "Détails de Transaction",
+    "header": "Paiements",
+    "preimage": "Preuve de paiement",
+    "type": "Type",
+    "time": "Heure",
+    "sent": "Envoyé",
+    "received": "Reçu",
+    "empty": "Vous n'avez pas de transactions.",
+    "send": "Envoyer",
+    "next": "Prochain",
+    "sendTo": "Envoyer à",
+    "to": "à",
+    "pay": "Payer",
+    "requesting": "demande",
+    "sentInvoiceTo": "Envoyé une facture à",
+    "sentRequestTo": "Demande envoyé!",
+    "pleasePay": "S'il vous plait payez",
+    "day": "Jour",
+    "week": "Semaine",
+    "month": "Mois",
+    "all": "Toutes",
+    "export": "Exporter",
+    "invoice": "Facture",
+    "readyToPay": "est prêt a payer",
+    "describeOrder": "Utiliser ce champ pour décrire votre commande",
+    "requestAnInvoice": "Demander une facture",
+    "submit": "Soumettre",
+    "isRequesting": "demande",
+    "invoiceFrom": "Facture de",
+    "awaiting": "Attendant",
+    "tapAnywhere": "Taper n'importe où pour continuer",
+    "from": "de",
+    "redeem": "Racheter",
+    "redeemed": "Racheté",
+    "redeemedBy": "Racheté par",
+    "sendMessage": "Écrire une message...",
+    "fundsClaimed": "Les fonds sont réclamés!",
+    "print": "Imprime",
+    "create": "Crée",
+    "fund": "Finance"
+  }
 }

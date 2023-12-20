@@ -26,7 +26,8 @@
     <div class="w-full flex">
       <button
         type="submit"
-        class="bg-black text-white border rounded-full px-6 py-2 font-bold mx-auto">
+        class="bg-black text-white border rounded-full px-6 py-2 font-bold mx-auto"
+      >
         {$t("payments.submit")}
       </button>
     </div>

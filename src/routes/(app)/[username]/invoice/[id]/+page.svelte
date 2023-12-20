@@ -130,13 +130,17 @@
       class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
       class:bg-black={type === types.lightning}
       class:text-white={type === types.lightning}
-      on:click={toggleType}> ⚡️ Lightning </button>
+      on:click={toggleType}
+    >
+      ⚡️ Lightning
+    </button>
 
     <button
       class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full flex justify-center"
       class:bg-black={type === types.bitcoin}
       class:text-white={type === types.bitcoin}
-      on:click={toggleType}>
+      on:click={toggleType}
+    >
       <img
         src="/images/bitcoin.svg"
         class="my-auto w-8 border-4 border-transparent"
@@ -151,7 +155,8 @@
       <a
         href={invoice.type === "bitcoin"
           ? invoice.text
-          : "lightning:" + invoice.text}>
+          : "lightning:" + invoice.text}
+      >
         <div class="relative flex">
           <div class="flex mx-auto w-[360px] h-[360px]">
             <img
@@ -203,7 +208,8 @@
   <div class="w-full flex justify-center gap-2 flex-wrap">
     <a href={link} class="w-full md:w-auto">
       <button
-        class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80">
+        class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+      >
         <Icon icon="mobile" style="mr-1 w-6" />
         <div class="text-secondary">{$t("payments.openLink")}</div>
       </button>
@@ -211,18 +217,16 @@
 
     <button
       class="flex rounded-full justify-center border py-3 px-5 hover:opacity-80 w-full md:w-auto"
-      on:click={() => copy(txt)}>
-
-
+      on:click={() => copy(txt)}
+    >
       <Icon icon="copy" style="mr-1" />
       <div class="text-secondary">{$t("payments.copyText")}</div></button
     >
 
     <button
       class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
-      on:click={() => (showQr = !showQr)}>
-
-
+      on:click={() => (showQr = !showQr)}
+    >
       <Icon icon="qr" style="mr-1 invert" />
       <div class="text-secondary">
         {showQr ? $t("payments.hide") : $t("payments.show")}

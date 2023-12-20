@@ -31,7 +31,6 @@ export default async ({ cookies, request, url }) => {
     redirect(307, `/${user.username}/request/${request_id}`);
   }
 
-  if (invoice.prompt)
-    redirect(307, `/${user.username}/invoice/${id}/tip`);
+  if (invoice.prompt) redirect(307, `/${user.username}/invoice/${id}/tip`);
   else redirect(307, `/${user.username}/invoice/${id}`);
 };

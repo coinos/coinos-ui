@@ -9,7 +9,6 @@
 
   let { user, token } = data;
 
-
   let api = PUBLIC_DOMAIN.includes("localhost")
     ? `${PUBLIC_COINOS_URL}`
     : `https://${PUBLIC_DOMAIN}/api`;
