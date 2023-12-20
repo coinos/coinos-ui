@@ -18,7 +18,7 @@
   import Password from "$comp/Password.svelte";
   import Request from "$comp/Request.svelte";
   import { warning, protectedRoutes } from "$lib/utils";
-  import { t, locale } from "$lib/translations";
+  import { t, locale, loading } from "$lib/translations";
   import { goto, onNavigate } from "$app/navigation";
 
   export let data;
@@ -129,7 +129,9 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main class="pb-20">
-  <slot />
+  {#if !$loading}
+    <slot />
+  {/if}
 </main>
 
 {#if $invoice}
