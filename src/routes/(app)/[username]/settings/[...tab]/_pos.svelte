@@ -25,7 +25,8 @@
   <select
     name="currency"
     class="select-styles block py-3 w-full"
-    value={user.currency}>
+    value={user.currency}
+  >
     {#each fiats as fiat}
       <option value={fiat}>{fiat}</option>
     {/each}
@@ -67,7 +68,8 @@
 <a href="./shopify">
   <button
     type="button"
-    class="flex rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full gap-2 my-5 justify-center">
+    class="flex rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full gap-2 my-5 justify-center"
+  >
     <img src="/icons/shopify.svg" class="w-8" />
     <div class="my-auto">Shopify Integration</div>
   </button>

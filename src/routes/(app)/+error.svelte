@@ -27,7 +27,8 @@
       <div class="flex justify-center py-24">
         <a href={link}>
           <button
-            class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 text-xl">
+            class="bg-black text-white border rounded-full px-8 py-4 font-bold hover:opacity-80 text-xl"
+          >
             Back
           </button>
         </a>

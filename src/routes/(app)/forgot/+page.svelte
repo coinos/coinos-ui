@@ -32,13 +32,15 @@
 
       {#if form?.success}
         <div class="text-secondary">
-          A password reset link will be sent to your email if we have it on file.
+          A password reset link will be sent to your email if we have it on
+          file.
         </div>
 
         <div class="flex w-full">
           <a
             href="/login"
-            class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80 text-center">
+            class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80 text-center"
+          >
             Continue
           </a>
         </div>
@@ -60,7 +62,8 @@
           <button
             type="submit"
             class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
-            disabled={loading}>
+            disabled={loading}
+          >
             {#if loading}
               <Spinner />
             {:else}

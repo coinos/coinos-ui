@@ -175,12 +175,14 @@
       <div class="relative">
         <button
           class="absolute w-8 h-12 left-12 bg-white rounded top-12"
-          on:click={decr}>
+          on:click={decr}
+        >
           <Icon icon="chevron-left" style="w-8 " />
         </button>
         <div class="relative w-32 mx-auto" on:click={selectAvatar}>
           <button
-            class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative">
+            class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
+          >
             <img
               {src}
               class="w-full h-full object-cover object-center overflow-hidden"
@@ -188,13 +190,15 @@
             />
           </button>
           <button
-            class="absolute bg-white rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80">
+            class="absolute bg-white rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80"
+          >
             <Icon icon="upload" style="w-8" />
           </button>
         </div>
         <button
           class="absolute w-8 h-12 right-12 bg-white rounded top-12"
-          on:click={incr}>
+          on:click={incr}
+        >
           <Icon icon="chevron-left" style="w-8 rotate-180" />
         </button>
       </div>
@@ -236,7 +240,8 @@
             type="button"
             on:click={refresh}
             class="absolute right-0 top-4"
-            tabindex="5">
+            tabindex="5"
+          >
             <Icon icon="random" style="w-10 m-4" />
           </button>
         </div>
@@ -271,7 +276,8 @@
             type="button"
             tabindex="4"
             on:click={() => (revealPassword = !revealPassword)}
-            class="absolute right-0 top-4">
+            class="absolute right-0 top-4"
+          >
             <Icon icon={revealPassword ? "eye" : "eye-off"} style="m-6" />
           </button>
         </div>
@@ -285,7 +291,8 @@
           type="submit"
           class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
           disabled={loading}
-          bind:this={btn}>
+          bind:this={btn}
+        >
           {#if loading}
             <Spinner />
           {:else}
@@ -298,7 +305,8 @@
         {$t("login.haveAccount")}
         <a
           href={"/login"}
-          class="block md:inline text-black underline underline-offset-4 hover:opacity-80">
+          class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
+        >
           {$t("login.signIn")}
         </a>
       </p>

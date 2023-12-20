@@ -27,10 +27,10 @@ export async function load({ depends, params, url, parent }) {
     (amount > 0 && (pending >= amount || received >= amount));
   if (paid && !url.pathname.endsWith("paid")) {
     redirect(
-            307,
-            `/${params.username}/invoice/${id}/paid` +
-              (options ? "?options=true" : "")
-          );
+      307,
+      `/${params.username}/invoice/${id}/paid` +
+        (options ? "?options=true" : "")
+    );
   }
 
   let sm = Qr.drawImg(invoice.text || "", { size: 300 });

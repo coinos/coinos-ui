@@ -28,7 +28,9 @@
   <div class="flex mb-2">
     <div
       class="text-gray-600 p-4 my-auto bg-gray-100 border rounded-l-2xl border-r-0 pr-1"
-    >admin.shopify.com/store/</div>
+    >
+      admin.shopify.com/store/
+    </div>
     <input
       type="text"
       name="shopifyStore"

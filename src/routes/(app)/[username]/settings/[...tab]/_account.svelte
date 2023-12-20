@@ -109,7 +109,6 @@
   </div>
 </div>
 
-
 <div>
   <span class="font-bold">{$t("user.settings.profileImage")}</span>
 

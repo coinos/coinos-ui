@@ -20,7 +20,7 @@ export async function load({ params: { address, amount, feeRate }, cookies }) {
     return { amount, address, fee, fees, feeRate, ourfee, hex };
   } catch (e) {
     throw redirect(307, `/send/bitcoin/${address}`);
-    }
+  }
 }
 
 export const actions = {

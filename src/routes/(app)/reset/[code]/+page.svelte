@@ -57,17 +57,23 @@
           <button
             type="button"
             on:click={() => (revealPassword = !revealPassword)}
-            class="absolute right-5 top-10">
+            class="absolute right-5 top-10"
+          >
             <Icon icon={revealPassword ? "eye" : "eye-off"} />
           </button>
         </div>
 
-        <div class="text-secondary">A new seed phrase will be generated for your account. You'll need to import your old seed phrase if you want to use the same nostr profile and savings account as before.</div>
+        <div class="text-secondary">
+          A new seed phrase will be generated for your account. You'll need to
+          import your old seed phrase if you want to use the same nostr profile
+          and savings account as before.
+        </div>
 
         <button
           type="submit"
           class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
-          disabled={loading}>
+          disabled={loading}
+        >
           {#if loading}
             <Spinner />
           {:else}

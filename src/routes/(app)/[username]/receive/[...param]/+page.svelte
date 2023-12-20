@@ -49,7 +49,8 @@
       bind:this={submit}
       type="submit"
       class="bg-black text-white rounded-xl w-full h-[48px] flex justify-center items-center font-semibold
-				opacity-100 hover:opacity-80">
+				opacity-100 hover:opacity-80"
+    >
       {$t("payments.next")}
     </button>
   </div>

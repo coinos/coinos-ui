@@ -42,10 +42,15 @@
   };
 
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
-  let goBack = () => goto(`/send/bitcoin/${address}`)
+  let goBack = () => goto(`/send/bitcoin/${address}`);
 </script>
 
-<button type="button" class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={goBack}>
+<button
+  type="button"
+  class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
+  data-sveltekit-preload-data="false"
+  on:click={goBack}
+>
   <Icon icon="arrow-left" style="w-10" />
 </button>
 

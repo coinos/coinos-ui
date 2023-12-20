@@ -37,7 +37,8 @@
     </div>
 
     <button
-      class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto">
+      class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto"
+    >
       <Icon icon="plus" style="opacity-50 mr-2 my-auto" />
       <div class="my-auto">{$t("payments.create")}</div>
     </button>

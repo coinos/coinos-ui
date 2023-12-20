@@ -62,7 +62,9 @@
 {/if}
 
 <div class="container px-4 text-center mx-auto">
-  <h1 class="text-3xl md:text-4xl font-bold mb-6">Generating new account keys</h1>
+  <h1 class="text-3xl md:text-4xl font-bold mb-6">
+    Generating new account keys
+  </h1>
   <div class="flex w-full py-5 max-w-[200px] mx-auto bg-black rounded-2xl">
     <Spinner />
   </div>
