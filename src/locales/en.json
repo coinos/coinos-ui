@@ -272,6 +272,8 @@
     }
   },
   "payments": {
+    "networkFee": "Network fee",
+    "ourFee": "Our fee",
     "create": "Create",
     "fund": "Fund",
     "addFunds": "Add Funds",

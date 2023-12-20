@@ -1,4 +1,4 @@
-<script>
+  <script>
   import LandingHeader from "$comp/LandingHeader.svelte";
   import LandingHero from "$comp/LandingHero.svelte";
   import LandingInfoCard from "$comp/LandingInfoCard.svelte";

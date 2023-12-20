@@ -1,5 +1,7 @@
 <script>
-  import { t } from "$lib/translations";
+  import { browser } from "$app/environment";
+  import { onMount, tick } from "svelte";
+  import { t, loading } from "$lib/translations";
   import {
     back,
     copy,
@@ -30,9 +32,14 @@
 
   fee = fee || 0;
 
-  let direction = amount > 0 ? $t("payments.from") : $t("payments.to");
-  direction =
-    direction[0].toUpperCase() + direction.substr(1, direction.length);
+  let direction = "";
+  onMount(() => {
+    direction = amount > 0 ? $t("payments.from") : $t("payments.to");
+
+    if (direction)
+      direction =
+        direction[0].toUpperCase() + direction.substr(1, direction.length);
+  });
 </script>
 
 <a href={`/${username}/payments`}>
@@ -124,8 +131,8 @@
   <div>
     <span class="text-lg text-secondary">Date</span>
     <div>
-      {format(new Date(created), "MMMM d")},
-      {format(new Date(created), "h:mm aaa")}
+      {format(new Date(created), "h:mmaaa")}
+      {format(new Date(created), "MMM d, yyyy")}
     </div>
   </div>
 
@@ -140,8 +147,6 @@
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
           on:click={() => copy(id)}
           ><Icon icon="copy" style="ml-2 w-20 my-auto" />
-
-
         </button>
       </div>
     </div>
@@ -151,7 +156,8 @@
     <div>
       <button
         class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
-        on:click={print}>
+        on:click={print}
+      >
         <div class="mx-auto flex">
           <Icon icon="printer" style="my-auto h-6 mr-2" />
           <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>
@@ -162,7 +168,8 @@
     <div>
       <a href={`/payment/${id}/plain`}>
         <button
-          class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60">
+          class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
+        >
           <div class="mx-auto flex">
             <Icon icon="printer" style="my-auto h-6 mr-2" />
             <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>

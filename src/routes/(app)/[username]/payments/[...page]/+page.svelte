@@ -238,7 +238,7 @@
                 {format(new Date(p.created), "h:mm aaa")}
               </div>
               <div>
-                {format(new Date(p.created), "MMM d")}
+                {format(new Date(p.created), "MMM d, yyyy")}
               </div>
             </div>
           </div>

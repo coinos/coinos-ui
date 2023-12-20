@@ -118,6 +118,8 @@
       .replace(/\./g, "")
       .replace("F", ".");
 
+    if (!clean) clean = "&nbsp;";
+
     if (fiat) clean = clean.replace(",", "");
     if (clean !== html) {
       html = clean;
@@ -171,8 +173,9 @@
     }
   };
 
-  let keydown = (e) =>
+  let keydown = (e) => {
     e.key === "Enter" && (e.preventDefault() || submit.click());
+  };
 </script>
 
 <div class="flex justify-center items-center mb-3 px-3">
