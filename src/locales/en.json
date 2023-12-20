@@ -274,6 +274,10 @@
   "payments": {
     "networkFee": "Network fee",
     "ourFee": "Our fee",
+    "fastest": "Fastest",
+    "fast": "Fast",
+    "medium": "Medium",
+    "slow": "Slow",
     "create": "Create",
     "fund": "Fund",
     "addFunds": "Add Funds",
