@@ -35,7 +35,7 @@
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
   <h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t("payments.send")}</h1>
 
-  <div class="text-lg text-secondary break-all">{address}</div>
+  <div class="text-xl text-secondary break-all">{address}</div>
 
   <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
 

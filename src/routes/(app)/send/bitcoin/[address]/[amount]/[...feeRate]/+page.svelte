@@ -27,10 +27,10 @@
   let submitting, submit, showSettings;
 
   let feeNames = {
-    fastestFee: $t("payments.fastest"),
-    halfHourFee: $t("payments.fast"),
-    hourFee: $t("payments.medium"),
-    economyFee: $t("payments.slow"),
+    fastestFee: "Fastest",
+    halfHourFee: "Fast",
+    hourFee: "Medium",
+      economyFee: "Slow",
   };
 
   let toggleSettings = () => (showSettings = !showSettings);
