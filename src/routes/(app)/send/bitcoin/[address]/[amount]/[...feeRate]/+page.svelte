@@ -18,6 +18,7 @@
   $: reload(data);
   let reload = () => {
     ({ amount, address, fee, fees, feeRate, ourfee, rates, hex } = data);
+    delete fees.minimumFee;
     feeRate = closest(Object.values(fees), feeRate);
     if (!$rate) $rate = rates[currency];
   };
@@ -26,11 +27,10 @@
   let submitting, submit, showSettings;
 
   let feeNames = {
-    fastestFee: "Fastest",
-    halfHourFee: "Fast",
-    hourFee: "Medium",
-    economyFee: "Slow",
-    minimumFee: "Slowest",
+    fastestFee: $t("payments.fastest"),
+    halfHourFee: $t("payments.fast"),
+    hourFee: $t("payments.medium"),
+    economyFee: $t("payments.slow"),
   };
 
   let toggleSettings = () => (showSettings = !showSettings);
@@ -92,6 +92,7 @@
     </div>
   </div>
 
+  {#if ourfee}
   <div class="text-center">
     <h2 class="text-secondary text-lg">{$t("payments.ourFee")}</h2>
 
@@ -104,6 +105,7 @@
       </div>
     </div>
   </div>
+  {/if}
 
   <form method="POST" use:enhance on:submit={() => (submitting = true)}>
     <input name="pin" value={$pin} type="hidden" />
