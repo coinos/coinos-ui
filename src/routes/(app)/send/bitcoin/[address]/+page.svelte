@@ -24,7 +24,7 @@
   };
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
+<button type="button" class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
   <Icon icon="arrow-left" style="w-10" />
 </button>
 
@@ -43,7 +43,7 @@
       on:keydown={setMax}>Max ⚡️{s(balance)}</button
     >
 
-    <form action={`./${address}/${amount}`}>
+    <form action={`/send/bitcoin/${address}/${amount}`}>
       <button
         bind:this={submit}
         type="submit"
