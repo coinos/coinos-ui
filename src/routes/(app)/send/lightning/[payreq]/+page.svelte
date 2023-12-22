@@ -5,21 +5,31 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { back, s } from "$lib/utils";
-  import { pin } from "$lib/store";
+  import { back, fiat, f, s } from "$lib/utils";
+  import { rate, pin } from "$lib/store";
 
   export let data;
   export let form;
 
   let { payreq } = $page.params;
-  let { alias, rates } = data;
-
-  let { currency } = data.user;
+  let {
+    route,
+    rates,
+    user: { currency },
+  } = data;
   let a;
-  let maxfee = 10000;
+
+  $: reload(data);
+  let reload = (data) => {
+    ({
+      route,
+      rates,
+      user: { currency },
+    } = data);
+    if (!$rate) $rate = rates[currency];
+  };
 
   $: amount = form?.amount || data.amount;
-  $: rate = rates[currency];
 
   let loading;
   let submit = () => (loading = true);
@@ -31,6 +41,8 @@
 
   let show;
   let toggle = () => (show = !show);
+
+  let total = route.reduce((a, b) => a + b.fee, 0);
 </script>
 
 <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
@@ -43,19 +55,41 @@
   </div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto">
+<div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <div class="text-center mb-8">
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.send")}
-      </h1>
-      <p class="text-6xl break-words mb-4">
-        ⚡️{s(amount)}
-      </p>
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.to")}
-      </h1>
-      <p class="text-4xl break-words">{alias}</p>
+    <h1 class="text-xl md:text-2xl text-secondary mb-2">
+      {$t("payments.send")}
+    </h1>
+
+    <p class="text-6xl break-words mb-4">
+      ⚡️{s(amount)}
+    </p>
+
+    <h1 class="text-xl md:text-2xl text-secondary mb-2">
+      {$t("payments.to")}
+    </h1>
+
+    <p class="text-4xl break-words">{route[route.length - 1].alias}</p>
+
+    <h1 class="text-xl md:text-2xl text-secondary mb-2">
+      {$t("payments.via")}
+    </h1>
+
+    <div class="text-xl grid grid-cols-2 space-y-2 text-left mx-auto">
+      <div class="my-auto text-secondary">Node</div>
+      <div class="my-auto text-secondary text-center">Fee</div>
+      {#each route.slice(0, -1) as hop, i}
+        <div class="my-auto text-2xl">{hop.alias}</div>
+        <div class="mx-auto flex gap-2">
+          <div>{f(fiat(hop.fee, $rate), currency)}</div>
+          <div class="text-secondary text-lg">⚡️{hop.fee}</div>
+        </div>
+      {/each}
+      <div class="my-auto text-secondary pt-4">Total</div>
+      <div class="mx-auto flex gap-2 font-bold pt-4">
+        <div>{f(fiat(total, $rate), currency)}</div>
+        <div class="text-secondary text-lg">⚡️{total}</div>
+      </div>
     </div>
 
     <form
@@ -67,8 +101,8 @@
     >
       <input name="payreq" value={payreq} type="hidden" />
       <input name="amount" value={amount} type="hidden" />
+      <input name="route" value={JSON.stringify(route)} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />
-      <input name="maxfee" value={maxfee} type="hidden" />
 
       <div class="flex w-full">
         <button
@@ -84,23 +118,6 @@
         </button>
       </div>
     </form>
-
-    {#if show}
-      <div class="relative w-96 mx-auto">
-        <label for="maxfee">Max fee</label>
-        <input name="maxfee" bind:value={maxfee} />
-
-        <div
-          class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l"
-        >
-          ⚡️
-        </div>
-      </div>
-    {:else}
-      <div class="flex w-full mt-5">
-        <button class="mx-auto" on:click={toggle}>Settings</button>
-      </div>
-    {/if}
   {:else}
     <form
       method="POST"
@@ -109,7 +126,7 @@
       use:enhance
     >
       <input type="hidden" value={a} name="amount" />
-      <Numpad bind:amount={a} {currency} {rate} />
+      <Numpad bind:amount={a} {currency} bind:rate={$rate} />
       <button
         type="submit"
         class="bg-black text-white rounded-xl h-[48px] flex w-full justify-center items-center font-semibold

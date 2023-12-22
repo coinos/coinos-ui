@@ -297,6 +297,7 @@
     "id": "Transaction ID",
     "details": "Transaction Details",
     "header": "Payments",
+    "via": "via",
     "preimage": "Proof of payment",
     "type": "Type",
     "time": "Time",
