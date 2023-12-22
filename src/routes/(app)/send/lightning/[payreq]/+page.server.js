@@ -1,9 +1,9 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { fd, auth, post } from "$lib/utils";
 
-export async function load({ params }) {
-  return post("/parse", params);
-}
+export async function load({ cookies, params }) {
+  return post("/parse", params, auth(cookies));
+  }
 
 export const actions = {
   setAmount: async ({ cookies, request }) => fd(request),

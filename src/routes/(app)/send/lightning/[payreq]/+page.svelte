@@ -5,7 +5,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { back, fiat, f, s } from "$lib/utils";
+  import { back, fiat, f, s, focus } from "$lib/utils";
   import { rate, pin } from "$lib/store";
 
   export let data;
@@ -14,6 +14,7 @@
   let { payreq } = $page.params;
   let {
     alias,
+    ourfee,
     rates,
     user: { currency },
   } = data;
@@ -23,6 +24,7 @@
   let reload = (data) => {
     ({
       alias,
+      ourfee,
       rates,
       user: { currency },
     } = data);
@@ -59,20 +61,20 @@
   <Icon icon="arrow-left" style="w-10" />
 </button>
 
-{#if form?.message}
-  <div class="text-red-600 text-center">
-    {form.message}
-  </div>
-{/if}
-
 <div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <h1 class="text-4xl font-semibold mb-10">
-      {$t("payments.send")}
-    </h1>
+    {#if form?.message}
+      <div class="text-red-600 text-center">
+        {form.message}
+      </div>
+    {/if}
 
-    <div class="text-center">
-      <h2 class="text-2xl font-semibold">
+    <div>
+      <h1 class="text-2xl text-secondary">
+        {$t("payments.send")}
+      </h1>
+
+      <h2 class="text-3xl font-semibold">
         {f(fiat(amount, $rate), currency)}
       </h2>
       <h3 class="text-secondary text-xl">⚡️{s(amount)}</h3>
@@ -83,6 +85,21 @@
     </h1>
 
     <p class="text-2xl break-words font-semibold mb-8">{alias}</p>
+
+    {#if ourfee}
+      <div class="text-center">
+        <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
+
+        <div class="flex flex-wrap gap-4 justify-center">
+          <div class="my-auto">
+            <h2 class="text-xl">
+              {f(fiat(ourfee, $rate), currency)}
+            </h2>
+            <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
+          </div>
+        </div>
+      </div>
+    {/if}
 
     <form
       method="POST"
@@ -95,24 +112,31 @@
       <input name="amount" value={amount} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />
 
-      <div class="relative w-40 mx-auto text-left">
+      <div class="w-40 mx-auto">
         <label for="maxfee" class="text-lg text-secondary"
           >{$t("payments.maxfee")}</label
         >
-        <input name="maxfee" bind:value={maxfee} class="text-lg" />
 
-        <div
-          class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l"
-        >
-          ⚡️
+        <div class="flex">
+          <input
+            name="maxfee"
+            bind:value={maxfee}
+            class="border-r-0 rounded-r-none text-lg py-2"
+          />
+          <div
+            class="text-gray-600 rounded-r-2xl p-5 my-auto rounded-l-none rounded border bg-gray-100"
+          >
+            ⚡️
+          </div>
         </div>
       </div>
 
       <div class="flex w-full">
         <button
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-full border py-5 px-7 font-semibold mx-auto mt-2 bg-black text-white text-2xl"
           disabled={loading}
+          use:focus
         >
           {#if loading}
             <Spinner />
@@ -130,6 +154,8 @@
       use:enhance
     >
       <input type="hidden" value={a} name="amount" />
+      <input name="rate" value={$rate} type="hidden" />
+
       <Numpad bind:amount={a} {currency} bind:rate={$rate} />
       <button
         type="submit"

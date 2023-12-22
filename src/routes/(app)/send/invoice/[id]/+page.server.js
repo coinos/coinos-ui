@@ -20,6 +20,7 @@ export async function load({ params: { id }, parent, url }) {
     redirect(307, `/${recipient.username}/invoice/${id}/tip`);
   if (recipient.username === user.username)
     error(500, { message: "Cannot send to self" });
+
   return {
     amount,
     address,

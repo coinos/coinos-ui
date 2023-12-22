@@ -102,7 +102,7 @@
 
     {#if ourfee}
       <div class="text-center">
-        <h2 class="text-secondary text-lg">{$t("payments.ourFee")}</h2>
+        <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
 
         <div class="flex flex-wrap gap-4 justify-center">
           <div class="my-auto">
