@@ -5,21 +5,43 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { back, s } from "$lib/utils";
-  import { pin } from "$lib/store";
+  import { back, fiat, f, s } from "$lib/utils";
+  import { rate, pin } from "$lib/store";
 
   export let data;
   export let form;
 
   let { payreq } = $page.params;
-  let { alias, rates } = data;
-
-  let { currency } = data.user;
+  let {
+    alias,
+    rates,
+    user: { currency },
+  } = data;
   let a;
-  let maxfee = 10000;
+
+  $: reload(data);
+  let reload = (data) => {
+    ({
+      alias,
+      rates,
+      user: { currency },
+    } = data);
+    if (!$rate) $rate = rates[currency];
+  };
 
   $: amount = form?.amount || data.amount;
-  $: rate = rates[currency];
+  $: maxfee =
+    amount < 100
+      ? amount * 5
+      : amount < 1000
+      ? amount
+      : amount < 10000
+      ? amount * 0.5
+      : amount < 100000
+      ? amount * 0.1
+      : amount < 1000000
+      ? amount * 0.05
+      : amount * 0.01;
 
   let loading;
   let submit = () => (loading = true);
@@ -43,20 +65,24 @@
   </div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto">
+<div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <div class="text-center mb-8">
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.send")}
-      </h1>
-      <p class="text-6xl break-words mb-4">
-        ⚡️{s(amount)}
-      </p>
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.to")}
-      </h1>
-      <p class="text-4xl break-words">{alias}</p>
+    <h1 class="text-4xl mb-2 font-semibold">
+      {$t("payments.send")}
+    </h1>
+
+    <div class="text-center">
+      <h2 class="text-2xl md:text-3xl font-semibold">
+        {f(fiat(amount, $rate), currency)}
+      </h2>
+      <h3 class="text-secondary md:text-lg mb-6 mt-1">⚡️{s(amount)}</h3>
     </div>
+
+    <h1 class="text-xl md:text-xl text-secondary mb-2">
+      {$t("payments.to")}
+    </h1>
+
+    <p class="text-4xl break-words">{alias}</p>
 
     <form
       method="POST"
@@ -68,7 +94,19 @@
       <input name="payreq" value={payreq} type="hidden" />
       <input name="amount" value={amount} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />
-      <input name="maxfee" value={maxfee} type="hidden" />
+
+      <div class="relative w-40 mx-auto text-left">
+        <label for="maxfee" class="text-xl text-secondary"
+          >{$t("payments.maxfee")}</label
+        >
+        <input name="maxfee" bind:value={maxfee} class="text-lg" />
+
+        <div
+          class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l"
+        >
+          ⚡️
+        </div>
+      </div>
 
       <div class="flex w-full">
         <button
@@ -84,23 +122,6 @@
         </button>
       </div>
     </form>
-
-    {#if show}
-      <div class="relative w-96 mx-auto">
-        <label for="maxfee">Max fee</label>
-        <input name="maxfee" bind:value={maxfee} />
-
-        <div
-          class="absolute right-[2px] top-[25px] text-gray-600 rounded-r-2xl p-4 h-[54px] my-auto border-l"
-        >
-          ⚡️
-        </div>
-      </div>
-    {:else}
-      <div class="flex w-full mt-5">
-        <button class="mx-auto" on:click={toggle}>Settings</button>
-      </div>
-    {/if}
   {:else}
     <form
       method="POST"
@@ -109,7 +130,7 @@
       use:enhance
     >
       <input type="hidden" value={a} name="amount" />
-      <Numpad bind:amount={a} {currency} {rate} />
+      <Numpad bind:amount={a} {currency} bind:rate={$rate} />
       <button
         type="submit"
         class="bg-black text-white rounded-xl h-[48px] flex w-full justify-center items-center font-semibold
