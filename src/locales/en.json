@@ -273,7 +273,7 @@
   },
   "payments": {
     "networkFee": "Network fee",
-    "ourFee": "Our fee",
+    "platformFee": "Platform fee",
     "fastest": "Fastest",
     "fast": "Fast",
     "medium": "Medium",
@@ -298,7 +298,7 @@
     "details": "Transaction Details",
     "header": "Payments",
     "preimage": "Proof of payment",
-    "maxfee": "Max fee",
+    "maxfee": "Max routing fee",
     "type": "Type",
     "time": "Time",
     "sent": "Sent",

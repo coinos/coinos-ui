@@ -20,7 +20,13 @@ export async function load({ cookies, params, parent }) {
     let { hash } = await post(
       "/invoice",
       {
-        invoice: { amount, prompt: false, type: types.lightning },
+        invoice: {
+          amount,
+          currency: currency === subject.currency ? currency : undefined,
+          prompt: false,
+            rate: currency === subject.currency ? rate : undefined,
+          type: types.lightning,
+        },
         user: { username },
       },
       auth(cookies)
