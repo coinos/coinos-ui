@@ -67,22 +67,22 @@
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <h1 class="text-4xl mb-2 font-semibold">
+    <h1 class="text-4xl font-semibold mb-10">
       {$t("payments.send")}
     </h1>
 
     <div class="text-center">
-      <h2 class="text-2xl md:text-3xl font-semibold">
+      <h2 class="text-2xl font-semibold">
         {f(fiat(amount, $rate), currency)}
       </h2>
-      <h3 class="text-secondary md:text-lg mb-6 mt-1">⚡️{s(amount)}</h3>
+      <h3 class="text-secondary text-xl">⚡️{s(amount)}</h3>
     </div>
 
-    <h1 class="text-xl md:text-xl text-secondary mb-2">
+    <h1 class="text-xl text-secondary">
       {$t("payments.to")}
     </h1>
 
-    <p class="text-4xl break-words">{alias}</p>
+    <p class="text-2xl break-words font-semibold mb-8">{alias}</p>
 
     <form
       method="POST"
@@ -96,7 +96,7 @@
       <input name="pin" value={$pin} type="hidden" />
 
       <div class="relative w-40 mx-auto text-left">
-        <label for="maxfee" class="text-xl text-secondary"
+        <label for="maxfee" class="text-lg text-secondary"
           >{$t("payments.maxfee")}</label
         >
         <input name="maxfee" bind:value={maxfee} class="text-lg" />
