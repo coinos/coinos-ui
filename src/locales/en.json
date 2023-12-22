@@ -298,6 +298,7 @@
     "details": "Transaction Details",
     "header": "Payments",
     "preimage": "Proof of payment",
+    "maxfee": "Max fee",
     "type": "Type",
     "time": "Time",
     "sent": "Sent",
