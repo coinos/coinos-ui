@@ -32,7 +32,7 @@
   };
 
   $: amount = form?.amount || data.amount;
-  $: maxfee =
+  $: maxfee = Math.round(
     amount < 100
       ? amount * 5
       : amount < 1000
@@ -43,7 +43,7 @@
       ? amount * 0.1
       : amount < 1000000
       ? amount * 0.05
-      : amount * 0.01;
+      : amount * 0.01);
 
   let loading;
   let submit = () => (loading = true);
@@ -121,7 +121,7 @@
 
         <div class="flex">
           <input
-             id="maxfee"
+            id="maxfee"
             name="maxfee"
             bind:value={maxfee}
             class="border-r-0 rounded-r-none py-2"
