@@ -70,7 +70,7 @@
     {/if}
 
     <div>
-      <h1 class="text-2xl text-secondary">
+      <h1 class="text-lg text-secondary">
         {$t("payments.send")}
       </h1>
 
@@ -80,11 +80,13 @@
       <h3 class="text-secondary text-xl">⚡️{s(amount)}</h3>
     </div>
 
-    <h1 class="text-xl text-secondary">
-      {$t("payments.to")}
-    </h1>
+    <div>
+      <div class="text-lg text-secondary">
+        {$t("payments.to")}
+      </div>
 
-    <p class="text-2xl break-words font-semibold mb-8">{alias}</p>
+      <p class="text-2xl break-words font-semibold mb-8">{alias}</p>
+    </div>
 
     {#if ourfee}
       <div class="text-center">
@@ -119,12 +121,13 @@
 
         <div class="flex">
           <input
+             id="maxfee"
             name="maxfee"
             bind:value={maxfee}
-            class="border-r-0 rounded-r-none text-lg py-2"
+            class="border-r-0 rounded-r-none py-2"
           />
           <div
-            class="text-gray-600 rounded-r-2xl p-5 my-auto rounded-l-none rounded border bg-gray-100"
+            class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
           >
             ⚡️
           </div>
@@ -134,7 +137,7 @@
       <div class="flex w-full">
         <button
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-full border py-5 px-7 font-semibold mx-auto mt-2 bg-black text-white text-2xl"
+          class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24 mx-auto"
           disabled={loading}
           use:focus
         >
