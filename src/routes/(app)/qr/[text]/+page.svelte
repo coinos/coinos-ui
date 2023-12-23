@@ -10,14 +10,14 @@
   <Icon icon="arrow-left" style="w-10" />
 </button>
 
-<div class="container px-4 max-w-4xl mx-auto mt-10 space-y-5">
+<div class="container px-4 max-w-4xl mx-auto space-y-5">
   <div class="flex justify-center items-center">
     <div
       class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5"
     >
       <Qr {src} />
 
-      <div class="text-center w-full text-2xl py-10 break-all">
+      <div class="text-center w-full text-lg break-all">
         {text}
       </div>
     </div>
