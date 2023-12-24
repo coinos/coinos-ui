@@ -93,9 +93,7 @@
       } else if (value !== "<" && parseInt(amount + value) > sats) {
         warning($t("user.receive.lessThan1BTCWarning"));
       } else {
-        console.log("CLICK", amount.toString(), value);
         amount = parseInt(amount.toString() + value);
-        console.log("AMOUNT", amount);
       }
     }
   };
@@ -171,6 +169,10 @@
     sel.addRange(range);
   };
 
+  let blur = () => {
+    if (!html) html = "0";
+  };
+
   let keydown = (e) =>
     e.key === "Enter" && (e.preventDefault() || submit.click());
 </script>
@@ -189,6 +191,7 @@
           contenteditable
           bind:innerHTML={html}
           on:focus={select}
+          on:blur={blur}
           on:input={input}
           on:keydown={keydown}
           class="outline-none my-auto"
@@ -221,7 +224,8 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-            on:click={() => handleInput(value)}>
+            on:click={() => handleInput(value)}
+          >
             <Left />
           </button>
         {:else}

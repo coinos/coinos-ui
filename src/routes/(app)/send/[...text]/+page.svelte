@@ -59,7 +59,10 @@
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-      <a href={`/qr/${encodeURIComponent(text)}`} class:invisible={!text?.length}>
+      <a
+        href={`/qr/${encodeURIComponent(text)}`}
+        class:invisible={!text?.length}
+      >
         <button
           type="button"
           class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"

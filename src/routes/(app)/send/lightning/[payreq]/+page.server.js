@@ -3,7 +3,7 @@ import { fd, auth, post } from "$lib/utils";
 
 export async function load({ cookies, params }) {
   return post("/parse", params, auth(cookies));
-  }
+}
 
 export const actions = {
   setAmount: async ({ cookies, request }) => fd(request),
