@@ -24,7 +24,7 @@ export async function load({ cookies, params, parent }) {
           amount,
           currency: currency === subject.currency ? currency : undefined,
           prompt: false,
-            rate: currency === subject.currency ? rate : undefined,
+          rate: currency === subject.currency ? rate : undefined,
           type: types.lightning,
         },
         user: { username },

@@ -43,7 +43,8 @@
       ? amount * 0.1
       : amount < 1000000
       ? amount * 0.05
-      : amount * 0.01);
+      : amount * 0.01
+  );
 
   let loading;
   let submit = () => (loading = true);
