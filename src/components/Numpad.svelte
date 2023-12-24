@@ -10,7 +10,7 @@
     rate,
     submit = undefined;
 
-  export let amountFiat = "";
+  export let amountFiat = 0;
 
   let arrow = "<";
 
@@ -93,7 +93,9 @@
       } else if (value !== "<" && parseInt(amount + value) > sats) {
         warning($t("user.receive.lessThan1BTCWarning"));
       } else {
+        console.log("CLICK", amount.toString(), value);
         amount = parseInt(amount.toString() + value);
+        console.log("AMOUNT", amount);
       }
     }
   };
@@ -117,8 +119,6 @@
       .replace(".", "F")
       .replace(/\./g, "")
       .replace("F", ".");
-
-    if (!clean) clean = "&nbsp;";
 
     if (fiat) clean = clean.replace(",", "");
     if (clean !== html) {
@@ -163,19 +163,16 @@
     }, 0);
   };
 
-  let clear = (e) => {
-    if (amount > 0) {
-      let range = document.createRange();
-      range.selectNodeContents(e.target);
-      let sel = getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
+  let select = (e) => {
+    let range = document.createRange();
+    range.selectNodeContents(e.target);
+    let sel = getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   };
 
-  let keydown = (e) => {
+  let keydown = (e) =>
     e.key === "Enter" && (e.preventDefault() || submit.click());
-  };
 </script>
 
 <div class="flex justify-center items-center mb-3 px-3">
@@ -191,7 +188,7 @@
           use:focus
           contenteditable
           bind:innerHTML={html}
-          on:focus={clear}
+          on:focus={select}
           on:input={input}
           on:keydown={keydown}
           class="outline-none my-auto"
@@ -224,8 +221,7 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-            on:click={() => handleInput(value)}
-          >
+            on:click={() => handleInput(value)}>
             <Left />
           </button>
         {:else}
