@@ -109,12 +109,11 @@
     }
   });
 
-  $: link = type === "bitcoin" ? text : `lightning:${text}`;
-  $: txt = type === "bitcoin" ? hash : text;
+  $: link = [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`;
+  $: txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
 
-  let toggleType = async () => {
-    invoice.type =
-      invoice.type === types.lightning ? types.bitcoin : types.lightning;
+  let setType = async (type) => {
+    invoice.type = type;
     ({ id } = await post(`/${username}/invoice`, {
       invoice,
       user: { username, currency },
@@ -130,7 +129,7 @@
       class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
       class:bg-black={type === types.lightning}
       class:text-white={type === types.lightning}
-      on:click={toggleType}
+      on:click={() => setType(types.lightning)}
     >
       ⚡️ Lightning
     </button>
@@ -139,7 +138,7 @@
       class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full flex justify-center"
       class:bg-black={type === types.bitcoin}
       class:text-white={type === types.bitcoin}
-      on:click={toggleType}
+      on:click={() => setType(types.bitcoin)}
     >
       <img
         src="/images/bitcoin.svg"
@@ -148,12 +147,26 @@
       />
       <div class="my-auto">Bitcoin</div>
     </button>
+
+    <button
+      class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full flex justify-center"
+      class:bg-black={type === types.liquid}
+      class:text-white={type === types.liquid}
+      on:click={() => setType(types.liquid)}
+    >
+      <img
+        src="/images/liquid.svg"
+        class="my-auto w-8 border-4 border-transparent"
+        alt="Bitcoin"
+      />
+      <div class="my-auto">Liquid</div>
+    </button>
   </div>
 
   {#if showQr}
     <div>
       <a
-        href={invoice.type === "bitcoin"
+        href={[types.bitcoin, types.liquid].includes(invoice.type)
           ? invoice.text
           : "lightning:" + invoice.text}
       >

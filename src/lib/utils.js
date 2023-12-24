@@ -266,6 +266,7 @@ export function ss(str1, str2) {
 
 export let types = {
   bitcoin: "bitcoin",
+  liquid: "liquid",
   lightning: "lightning",
   internal: "internal",
   fund: "fund",
