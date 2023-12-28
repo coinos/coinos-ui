@@ -81,9 +81,9 @@
     <div
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
-      <div class="my-auto">{display || username}</div>
+      <div class="my-auto break-words w-full">{display || username}</div>
       <button on:click={toggleDetails}>
-        <Icon icon="stats" style="w-12" />
+        <Icon icon="stats" style="w-12 min-w-[50px]" />
       </button>
     </div>
 
