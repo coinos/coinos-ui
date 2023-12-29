@@ -28,7 +28,7 @@
 
 <form
   method="POST"
-  class="flex justify-center items-center mt-24 mb-3 px-3"
+  class="flex justify-center items-center mb-3 px-3"
   use:enhance
 >
   <input type="hidden" name="amount" value={amount} />

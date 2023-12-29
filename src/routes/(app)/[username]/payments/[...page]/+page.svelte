@@ -220,6 +220,14 @@
                         alt="Bitcoin"
                       />
                     </div>
+                  {:else if p.type === types.liquid}
+                    <div class="my-auto mr-1">
+                      <img
+                        src="/images/liquid.svg"
+                        class="w-12 border-4 border-transparent"
+                        alt="Liquid"
+                      />
+                    </div>
                   {/if}
 
                   <div class="my-auto">

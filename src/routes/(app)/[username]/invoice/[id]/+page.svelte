@@ -123,17 +123,49 @@
   };
 </script>
 
-<div class="container mx-auto max-w-lg px-4 space-y-8">
-  <div class="whitespace-nowrap my-auto ml-auto flex gap-2">
-    <button
-      class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
-      class:bg-black={type === types.lightning}
-      class:text-white={type === types.lightning}
-      on:click={() => setType(types.lightning)}
-    >
-      ⚡️ Lightning
-    </button>
+<div class="container mx-auto max-w-xl px-4 space-y-5">
+  {#if showQr}
+    <a
+      href={[types.bitcoin, types.liquid].includes(invoice.type)
+     ? invoice.text
+     : "lightning:" + invoice.text}
+     >
+     <img
+     {src}
+     class="mx-auto z-10 shadow-inner rounded-2xl"
+     bind:this={qr}
+     alt={txt}
+     />
+    </a>
+  {/if}
 
+
+  {#if amount > 0}
+    <div class="text-center font-bold text-2xl">
+      <div>
+        {f(amountFiat, currency)}
+
+        {#if tip}
+          <span class="text-sm">
+            +{f(tip * (rate / sats), currency)}
+          </span>
+        {/if}
+      </div>
+      <div>
+        <span class="text-secondary font-normal text-lg"
+          >{`${sat(amount)}`}</span
+        >
+
+        {#if tip}
+          <span class="text-sm text-secondary font-normal">
+            +{sat(tip)}
+          </span>
+        {/if}
+      </div>
+    </div>
+  {/if}
+
+  <div class="whitespace-nowrap my-auto ml-auto flex gap-2">
     <button
       class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full flex justify-center"
       class:bg-black={type === types.bitcoin}
@@ -161,56 +193,17 @@
       />
       <div class="my-auto">Liquid</div>
     </button>
+
+    <button
+      class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
+      class:bg-black={type === types.lightning}
+      class:text-white={type === types.lightning}
+      on:click={() => setType(types.lightning)}
+    >
+      ⚡️ Lightning
+    </button>
+
   </div>
-
-  {#if showQr}
-    <div>
-      <a
-        href={[types.bitcoin, types.liquid].includes(invoice.type)
-          ? invoice.text
-          : "lightning:" + invoice.text}
-      >
-        <div class="relative flex">
-          <div class="flex mx-auto w-[360px] h-[360px]">
-            <img
-              {src}
-              class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]"
-              bind:this={qr}
-              alt={txt}
-            />
-          </div>
-          <div
-            class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"
-          />
-        </div>
-      </a>
-    </div>
-  {/if}
-
-  {#if amount > 0}
-    <div class="text-center font-bold text-2xl">
-      <div>
-        {f(amountFiat, currency)}
-
-        {#if tip}
-          <span class="text-sm">
-            +{f(tip * (rate / sats), currency)}
-          </span>
-        {/if}
-      </div>
-      <div>
-        <span class="text-secondary font-normal text-lg"
-          >{`${sat(amount)}`}</span
-        >
-
-        {#if tip}
-          <span class="text-sm text-secondary font-normal">
-            +{sat(tip)}
-          </span>
-        {/if}
-      </div>
-    </div>
-  {/if}
 
   <div class="text-center break-all">
     <a href={link}>

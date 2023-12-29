@@ -8,21 +8,25 @@
 
   export let data;
   let amount, currency, rate, received, pending, tip, user, id;
-  $: data &&
+  $: update(data)
+  let update = (data) => {
     ({ amount, currency, rate, received, pending, tip, user, id } =
       data.invoice);
+  }
 
   toast.pop(0);
 </script>
 
 <div class="container px-4 text-center mx-auto">
-  <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
-    <Icon icon="check" style="mx-auto" />
-  </div>
   {#if received}
+    <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
+      <Icon icon="check" style="mx-auto" />
+    </div>
+
     <h1 class="text-3xl md:text-4xl font-bold mb-6">
       {$t("invoice.paymentSuccessful")}
     </h1>
+
     <h2 class="text-2xl md:text-3xl font-semibold">
       {f(fiat(received - tip, rate), currency)}
       {#if tip}
@@ -43,6 +47,10 @@
   {/if}
 
   {#if pending}
+    <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
+      <Icon icon="orangeclock" style="mx-auto" />
+    </div>
+
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
     <h2 class="text-2xl md:text-3xl font-semibold">
       {f(fiat(pending - tip, rate), currency)}
@@ -50,6 +58,7 @@
         + {f(fiat(tip, rate), currency)}
       {/if}
     </h2>
+
     <h3 class="text-secondary md:text-lg mb-6 mt-1">
       ⚡️{s(pending - tip)}
       {#if tip}
