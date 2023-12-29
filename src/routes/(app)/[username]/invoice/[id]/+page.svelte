@@ -109,7 +109,9 @@
     }
   });
 
-  $: link = [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`;
+  $: link = [types.bitcoin, types.liquid].includes(type)
+    ? text
+    : `lightning:${text}`;
   $: txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
 
   let setType = async (type) => {
@@ -127,18 +129,17 @@
   {#if showQr}
     <a
       href={[types.bitcoin, types.liquid].includes(invoice.type)
-     ? invoice.text
-     : "lightning:" + invoice.text}
-     >
-     <img
-     {src}
-     class="mx-auto z-10 shadow-inner rounded-2xl"
-     bind:this={qr}
-     alt={txt}
-     />
+        ? invoice.text
+        : "lightning:" + invoice.text}
+    >
+      <img
+        {src}
+        class="mx-auto z-10 shadow-inner rounded-2xl"
+        bind:this={qr}
+        alt={txt}
+      />
     </a>
   {/if}
-
 
   {#if amount > 0}
     <div class="text-center font-bold text-2xl">
@@ -202,7 +203,6 @@
     >
       ⚡️ Lightning
     </button>
-
   </div>
 
   <div class="text-center break-all">

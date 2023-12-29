@@ -8,18 +8,21 @@
 
   export let data;
   let amount, currency, rate, received, pending, tip, user, id;
-  $: update(data)
+  $: update(data);
   let update = (data) => {
     ({ amount, currency, rate, received, pending, tip, user, id } =
       data.invoice);
-  }
+  };
 
   toast.pop(0);
 </script>
 
 <div class="container px-4 text-center mx-auto">
   {#if received}
-    <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
+    <div
+      class="flex w-full py-5 max-w-[200px] mx-auto"
+      in:scale={{ start: 0.5 }}
+    >
       <Icon icon="check" style="mx-auto" />
     </div>
 
@@ -47,7 +50,10 @@
   {/if}
 
   {#if pending}
-    <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
+    <div
+      class="flex w-full py-5 max-w-[200px] mx-auto"
+      in:scale={{ start: 0.5 }}
+    >
       <Icon icon="orangeclock" style="mx-auto" />
     </div>
 
