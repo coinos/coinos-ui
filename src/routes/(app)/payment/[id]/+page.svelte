@@ -136,7 +136,7 @@
     </div>
   </div>
 
-  {#if type === "bitcoin"}
+  {#if type === "bitcoin" || type === "liquid"}
     <div>
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
@@ -146,7 +146,8 @@
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
           on:click={() => copy(id)}
-          ><Icon icon="copy" style="ml-2 w-20 my-auto" />
+          >
+          <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
       </div>
     </div>
