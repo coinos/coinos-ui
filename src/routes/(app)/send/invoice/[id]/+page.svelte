@@ -1,4 +1,4 @@
-<script>
+    <script>
   import { onDestroy, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { goto, invalidateAll } from "$app/navigation";

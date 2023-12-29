@@ -33,7 +33,6 @@ export async function load({ depends, params, url, parent }) {
     );
   }
 
-  let sm = Qr.drawImg(invoice.text || "", { size: 380 });
-
-  return { id, invoice, sm, lg: sm };
+  let src = Qr.drawImg(invoice.text || "", { size: 340 });
+  return { id, invoice, src };
 }
