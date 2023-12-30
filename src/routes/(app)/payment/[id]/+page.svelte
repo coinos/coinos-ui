@@ -44,6 +44,10 @@
 
   fee = fee || 0;
 
+  let txid, vout;
+  if (amount > 0) [txid, vout] = ref.split(":");
+  else txid = hash;
+
   let direction = "";
   onMount(() => {
     direction = amount > 0 ? $t("payments.from") : $t("payments.to");
@@ -153,8 +157,10 @@
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
         <div>
-          <a href={`${expl}/tx/${hash}`} target="_blank" rel="noreferrer"
-            >{hash}</a
+            <a
+            href={`${expl}/tx/${txid}${vout ? "#vout=" + vout : ""}`}
+            target="_blank"
+            rel="noreferrer">{txid}</a
           >
         </div>
         <button
