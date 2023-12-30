@@ -22,7 +22,19 @@
   let { user, payment: p } = data;
 
   let { username } = user;
-  let { id, hash, amount, created, rate, type, ref, tip, ourfee, fee, currency } = p;
+  let {
+    id,
+    hash,
+    amount,
+    created,
+    rate,
+    type,
+    ref,
+    tip,
+    ourfee,
+    fee,
+    currency,
+  } = p;
   let a = Math.abs(amount);
 
   let print = async () => {
@@ -31,7 +43,6 @@
   };
 
   fee = fee || 0;
-  let [txid, vout] = ref.split(':');
 
   let direction = "";
   onMount(() => {
@@ -142,7 +153,9 @@
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
         <div>
-          <a href={`${expl}/tx/${txid}#vout=${vout}`} target="_blank" rel="noreferrer">{txid}</a>
+          <a href={`${expl}/tx/${hash}`} target="_blank" rel="noreferrer"
+            >{hash}</a
+          >
         </div>
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"

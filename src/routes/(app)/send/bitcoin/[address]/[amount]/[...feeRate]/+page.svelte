@@ -5,7 +5,7 @@
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { fiat as toFiat, f, s, sat, closest } from "$lib/utils";
+  import { fiat as toFiat, f, focus, s, sat, closest } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -122,6 +122,7 @@
 
       <div class="flex justify-center gap-2">
         <button
+          use:focus
           bind:this={submit}
           type="submit"
           class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
