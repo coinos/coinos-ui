@@ -43,7 +43,7 @@
 		}
 	});
 
-	let username = 'anatolias';
+	let username = 'floathouse';
 	let password = 'password';
 
 	let src = Qr.drawImg(`https://coinos.io/${username}`, { size: 3200 });
@@ -99,17 +99,17 @@
 	<div class="space-y-8 border-8 border-black p-8 w-[710px] mx-auto">
 		<div class="flex w-full justify-center gap-4">
 			<img src="/images/bitcoin.png" class="w-20" />
-			<h3 class="text-5xl font-medium text-center my-auto">Pay with Bitcoin</h3>
+			<h3 class="text-5xl font-medium text-center my-auto">Pay with Bitcoin!</h3>
 		</div>
 		<Q {src} />
 		<div class="text-center text-5xl font-bold">coinos.io/{username}</div>
 		<div>
 			<div class="text-xl pt-2 flex gap-6">
-        Trouble scanning? Many wallets can't handle URLs. Try using your regular Camera app or just type into your browser.
+        Trouble scanning? Some wallets can't scan URLs. Try using your regular Camera app or just type it into your browser bar.
 			</div>
 		</div>
 		<div class="flex justify-center text-left">
-      <div class="my-auto">Made in Vancouver <br>Contact <b>support@coinos.io</b> for assistance<br> Get a free account in seconds at coinos.io</div>
+      <div class="my-auto">Made in Vancouver <br>Contact <b>support@coinos.io</b> for assistance<br> Get your own free account at <b>coinos.io/register</b></div>
 			<img src="/images/logo.png" class="ml-auto my-auto" style="width: 180px" />
 		</div>
 	</div>
