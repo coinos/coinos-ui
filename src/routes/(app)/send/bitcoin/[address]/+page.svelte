@@ -4,7 +4,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
-  import { back, s } from "$lib/utils";
+  import { back, fail, s } from "$lib/utils";
 
   export let data;
 
@@ -49,6 +49,7 @@
 
     <form action={`/send/bitcoin/${address}/${amount}`}>
       <button
+        use:focus
         bind:this={submit}
         type="submit"
         class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
