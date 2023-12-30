@@ -15,7 +15,7 @@
 </script>
 
 {#if tags}
-  {#if tags.user}
+  {#if tags.user && tags.user.username}
     <a href={`/${tags.user.username}`}>
       <div class="space-y-5">
         <div>
