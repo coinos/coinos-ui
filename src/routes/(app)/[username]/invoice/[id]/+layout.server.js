@@ -23,7 +23,7 @@ export async function load({ depends, params, url, parent }) {
   amount = parseInt(amount);
 
   let paid =
-    (!amount && received) ||
+    (!amount && (pending || received)) ||
     (amount > 0 && (pending >= amount || received >= amount));
   if (paid && !url.pathname.endsWith("paid")) {
     redirect(
