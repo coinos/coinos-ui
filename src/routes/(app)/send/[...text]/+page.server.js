@@ -1,6 +1,6 @@
 import { validate } from "bitcoin-address-validation";
 import bip21 from "bip21";
-import { auth, get, post } from "$lib/utils";
+import { auth, get, isLiquid, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 import { PUBLIC_DOMAIN } from "$env/static/public";
 
@@ -46,7 +46,7 @@ let parse = async (t, host) => {
   }
 
   // bitcoin
-  if (validate(t)) {
+  if (validate(t) || isLiquid(t)) {
     try {
       ({ id, user } = await get(`/invoice/${t}`));
     } catch (e) {

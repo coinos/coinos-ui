@@ -16,7 +16,7 @@
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import { format } from "date-fns";
-  import { PUBLIC_EXPLORER as expl } from "$env/static/public";
+  import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
 
   export let data;
   let { user, payment: p } = data;
@@ -36,6 +36,11 @@
     currency,
   } = p;
   let a = Math.abs(amount);
+
+  let expl = {
+    bitcoin: PUBLIC_EXPLORER,
+    liquid: PUBLIC_LIQUID_EXPLORER,
+  }[type];
 
   let print = async () => {
     await post(`/payment/${id}/print`, { id });
@@ -157,7 +162,7 @@
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
         <div>
-            <a
+          <a
             href={`${expl}/tx/${txid}${vout ? "#vout=" + vout : ""}`}
             target="_blank"
             rel="noreferrer">{txid}</a

@@ -287,3 +287,17 @@ export let closest = (a, n) =>
   a.reduce((prev, curr) =>
     Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev
   );
+
+export let isLiquid = (text) =>
+  text.startsWith("Az") ||
+  text.startsWith("lq1") ||
+  text.startsWith("VJL") ||
+  text.startsWith("VT") ||
+  text.startsWith("XR") ||
+  text.startsWith("XC") ||
+  ((text.startsWith("H") || text.startsWith("G") || text.startsWith("Q")) &&
+    text.length === 34) ||
+  (text.startsWith("ert1q") && text.length === 43) ||
+  (text.startsWith("ex1q") && text.length === 42) ||
+  text.startsWith("el1qq") ||
+  text.startsWith("lq1qq");
