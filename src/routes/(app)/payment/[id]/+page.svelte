@@ -170,7 +170,7 @@
         </div>
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
-          on:click={() => copy(id)}
+          on:click={() => copy(txid)}
         >
           <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
