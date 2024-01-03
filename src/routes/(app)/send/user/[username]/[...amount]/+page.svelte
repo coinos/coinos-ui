@@ -31,6 +31,7 @@
     amount = a;
     amountFiat = parseFloat(af).toFixed(2);
     rate = fiat ? (sats * amountFiat) / amount : r;
+
     ({ hash } = await post(`/${subject.username}/invoice`, {
       invoice: {
         amount,
@@ -99,8 +100,8 @@
           on:click={setAmount}
           on:keydown={setAmount}
         >
-          Next
-        </button>
+          {$t("payments.next")}</button
+        >
       {/if}
     </div>
   </form>

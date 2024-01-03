@@ -6,6 +6,6 @@ export async function POST({ cookies, request }) {
     let body = await request.json();
     return json(await post(`/user`, body, auth(cookies)));
   } catch (e) {
-    throw error(500, e.message);
+    error(500, e.message);
   }
 }

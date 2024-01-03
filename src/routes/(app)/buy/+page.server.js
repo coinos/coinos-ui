@@ -28,6 +28,6 @@ export const actions = {
       auth(cookies)
     );
 
-    throw redirect(307, `/${form.get("username")}/payments`);
+    redirect(307, `/${form.get("username")}/payments`);
   },
 };

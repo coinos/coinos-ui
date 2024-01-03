@@ -1,7 +1,7 @@
 <script>
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
-  import { f, s, post, warning, sat, sats } from "$lib/utils";
+  import { f, s, focus, post, warning, sat, sats } from "$lib/utils";
   import { t } from "$lib/translations";
 
   export let amount,
@@ -93,9 +93,7 @@
       } else if (value !== "<" && parseInt(amount + value) > sats) {
         warning($t("user.receive.lessThan1BTCWarning"));
       } else {
-        console.log("CLICK", amount.toString(), value);
         amount = parseInt(amount.toString() + value);
-        console.log("AMOUNT", amount);
       }
     }
   };
@@ -163,12 +161,16 @@
     }, 0);
   };
 
-  let focus = (e) => {
+  let select = (e) => {
     let range = document.createRange();
     range.selectNodeContents(e.target);
     let sel = getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
+  };
+
+  let blur = () => {
+    if (!html) html = "0";
   };
 
   let keydown = (e) =>
@@ -185,9 +187,11 @@
           {fiat ? symbol : "⚡️"}
         </div>
         <div
+          use:focus
           contenteditable
           bind:innerHTML={html}
-          on:focus={focus}
+          on:focus={select}
+          on:blur={blur}
           on:input={input}
           on:keydown={keydown}
           class="outline-none my-auto"

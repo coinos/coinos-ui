@@ -101,8 +101,8 @@ export function reverseFormat(val, locale) {
 
 export let protectedRoutes = [/customers/, /settings/, /payments/];
 
-export let success = (m) => {
-  toast.pop();
+export let success = (m, clear = true) => {
+  if (clear) toast.pop();
   toast.push(m, {
     theme: {
       "--toastBarBackground": "#F5F7FA",
@@ -110,16 +110,16 @@ export let success = (m) => {
   });
 };
 
-export let warning = (m) => {
-  toast.pop();
+export let warning = (m, clear = true) => {
+  if (clear) toast.pop();
   toast.push(m, {
     theme: {
       "--toastBarBackground": "#FFCE22",
     },
   });
 };
-export let fail = (m) => {
-  toast.pop();
+export let fail = (m, clear = true) => {
+  if (clear) toast.pop();
   toast.push(m, {
     theme: {
       "--toastBarBackground": "#E93535",
@@ -186,6 +186,7 @@ export let f = (s, currency) =>
 
 export let s = (s) =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
+
 export let sat = (s) => {
   s = Math.abs(s);
   let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);
@@ -265,6 +266,7 @@ export function ss(str1, str2) {
 
 export let types = {
   bitcoin: "bitcoin",
+  liquid: "liquid",
   lightning: "lightning",
   internal: "internal",
   fund: "fund",
@@ -280,3 +282,22 @@ export function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+export let closest = (a, n) =>
+  a.reduce((prev, curr) =>
+    Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev
+  );
+
+export let isLiquid = (text) =>
+  text.startsWith("Az") ||
+  text.startsWith("lq1") ||
+  text.startsWith("VJL") ||
+  text.startsWith("VT") ||
+  text.startsWith("XR") ||
+  text.startsWith("XC") ||
+  ((text.startsWith("H") || text.startsWith("G") || text.startsWith("Q")) &&
+    text.length === 34) ||
+  (text.startsWith("ert1q") && text.length === 43) ||
+  (text.startsWith("ex1q") && text.length === 42) ||
+  text.startsWith("el1qq") ||
+  text.startsWith("lq1qq");

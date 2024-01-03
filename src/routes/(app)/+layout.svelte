@@ -8,18 +8,18 @@
     request,
     ndef,
     passwordPrompt,
+    password,
     pin,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
-  import { goto } from "$app/navigation";
   import LoadingSplash from "$comp/LoadingSplash.svelte";
   import Invoice from "$comp/Invoice.svelte";
   import Password from "$comp/Password.svelte";
   import Request from "$comp/Request.svelte";
   import { warning, protectedRoutes } from "$lib/utils";
-  import { t, locale } from "$lib/translations";
-  import { onNavigate } from "$app/navigation";
+  import { t, locale, loading } from "$lib/translations";
+  import { goto, onNavigate } from "$app/navigation";
 
   export let data;
 
@@ -34,7 +34,7 @@
     });
   });
 
-  let { rate, user, subject, token, rates } = data;
+  let { generate, rate, user, subject, token, rates } = data;
 
   $: update(data);
   let update = (data) => {
@@ -122,14 +122,16 @@
   {#if subject?.profile}
     <meta name="og:image" content={`/api/public/${subject.profile}.webp`} />
   {:else}
-    <meta property="og:image" content="/icons/logo.svg" />
+    <meta property="og:image" content="/images/logo.webp" />
   {/if}
 </svelte:head>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main class="pb-20">
-  <slot />
+  {#if !$loading}
+    <slot />
+  {/if}
 </main>
 
 {#if $invoice}

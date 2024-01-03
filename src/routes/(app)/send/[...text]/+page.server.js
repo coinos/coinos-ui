@@ -1,14 +1,14 @@
 import { validate } from "bitcoin-address-validation";
 import bip21 from "bip21";
-import { auth, get, post } from "$lib/utils";
+import { auth, get, isLiquid, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 import { PUBLIC_DOMAIN } from "$env/static/public";
 
 let parse = async (t, host) => {
   if (!t) return;
 
-  if (t.startsWith("http")) throw redirect(307, t);
-  if (t.startsWith(host)) throw redirect(307, `http://${t}`);
+  if (t.startsWith("http")) redirect(307, t);
+  if (t.startsWith(host)) redirect(307, `http://${t}`);
 
   let amount, user, id;
 
@@ -28,12 +28,12 @@ let parse = async (t, host) => {
 
   if (t.endsWith("@classic")) {
     ({ uuid: id } = await get(`/invoice/classic/${t.replace("@classic", "")}`));
-    if (id) throw redirect(307, `/send/invoice/${id}`);
+    if (id) redirect(307, `/send/invoice/${id}`);
   }
 
-  if (t.includes("/fund")) throw redirect(307, t.substring(t.indexOf("/fund")));
+  if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
 
-  if (t.toLowerCase().startsWith("lnurl")) throw redirect(307, `/ln/${t}`);
+  if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
   if (t.includes(":")) t = t.split(":")[1];
 
   // lightning
@@ -41,22 +41,22 @@ let parse = async (t, host) => {
     try {
       ({ id } = await get(`/invoice/${t}`));
     } catch (e) {
-      throw redirect(307, `/send/lightning/${t}`);
+      redirect(307, `/send/lightning/${t}`);
     }
   }
 
   // bitcoin
-  if (validate(t)) {
+  if (validate(t) || isLiquid(t)) {
     try {
       ({ id, user } = await get(`/invoice/${t}`));
     } catch (e) {
       let r = `/send/bitcoin/${t}`;
       if (amount) r += "/" + amount;
-      throw redirect(307, r);
+      redirect(307, r);
     }
 
-    if (user) throw redirect(307, `/send/${user.username}`);
-    else if (id) throw redirect(307, `/send/${id}`);
+    if (user) redirect(307, `/send/${user.username}`);
+    else if (id) redirect(307, `/send/${id}`);
   }
 
   // user
@@ -65,14 +65,14 @@ let parse = async (t, host) => {
     if (user.anon) user = null;
   } catch (e) {}
 
-  if (user) throw redirect(307, `/send/user/${t}`);
+  if (user) redirect(307, `/send/user/${t}`);
 
   let fund;
   try {
     fund = await get(`/fund/${t}`);
   } catch (e) {}
 
-  if (fund) throw redirect(307, `/send/fund/${t}`);
+  if (fund) redirect(307, `/send/fund/${t}`);
 
   // invoice
   let invoice;
@@ -80,7 +80,7 @@ let parse = async (t, host) => {
     invoice = await get(`/invoice/${t}`);
   } catch (e) {}
 
-  if (invoice) throw redirect(307, `/send/invoice/${invoice.hash}`);
+  if (invoice) redirect(307, `/send/invoice/${invoice.hash}`);
 };
 
 export async function load({ cookies, params, request, url }) {

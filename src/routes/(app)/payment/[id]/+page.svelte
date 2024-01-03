@@ -1,5 +1,7 @@
 <script>
-  import { t } from "$lib/translations";
+  import { browser } from "$app/environment";
+  import { onMount, tick } from "svelte";
+  import { t, loading } from "$lib/translations";
   import {
     back,
     copy,
@@ -14,14 +16,31 @@
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import { format } from "date-fns";
-  import { PUBLIC_EXPLORER as expl } from "$env/static/public";
+  import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
 
   export let data;
   let { user, payment: p } = data;
 
   let { username } = user;
-  let { id, amount, created, rate, type, ref, tip, ourfee, fee, currency } = p;
+  let {
+    id,
+    hash,
+    amount,
+    created,
+    rate,
+    type,
+    ref,
+    tip,
+    ourfee,
+    fee,
+    currency,
+  } = p;
   let a = Math.abs(amount);
+
+  let expl = {
+    bitcoin: PUBLIC_EXPLORER,
+    liquid: PUBLIC_LIQUID_EXPLORER,
+  }[type];
 
   let print = async () => {
     await post(`/payment/${id}/print`, { id });
@@ -30,9 +49,18 @@
 
   fee = fee || 0;
 
-  let direction = amount > 0 ? $t("payments.from") : $t("payments.to");
-  direction =
-    direction[0].toUpperCase() + direction.substr(1, direction.length);
+  let txid, vout;
+  if (amount > 0) [txid, vout] = ref.split(":");
+  else txid = hash;
+
+  let direction = "";
+  onMount(() => {
+    direction = amount > 0 ? $t("payments.from") : $t("payments.to");
+
+    if (direction)
+      direction =
+        direction[0].toUpperCase() + direction.substr(1, direction.length);
+  });
 </script>
 
 <a href={`/${username}/payments`}>
@@ -124,22 +152,27 @@
   <div>
     <span class="text-lg text-secondary">Date</span>
     <div>
-      {format(new Date(created), "MMMM d")},
-      {format(new Date(created), "h:mm aaa")}
+      {format(new Date(created), "h:mmaaa")}
+      {format(new Date(created), "MMM d, yyyy")}
     </div>
   </div>
 
-  {#if type === "bitcoin"}
+  {#if type === "bitcoin" || type === "liquid"}
     <div>
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
         <div>
-          <a href={`${expl}/tx/${id}`} target="_blank" rel="noreferrer">{id}</a>
+          <a
+            href={`${expl}/tx/${txid}${vout ? "#vout=" + vout : ""}`}
+            target="_blank"
+            rel="noreferrer">{txid}</a
+          >
         </div>
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
-          on:click={() => copy(id)}
-          ><Icon icon="copy" style="ml-2 w-20 my-auto" />
+          on:click={() => copy(txid)}
+        >
+          <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
       </div>
     </div>

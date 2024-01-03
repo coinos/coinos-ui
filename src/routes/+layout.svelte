@@ -16,7 +16,7 @@
 	<meta property="og:title" content="swapee" />
 	<meta name="twitter:title" content="swapee" />
 
-  <meta property="og:image" content={`${host}/images/logo.png`} />
+  <meta property="og:image" content={`${host}/images/logo.webp`} />
 
   <meta property="og:type" content="website" />
   <meta property="og:description" content="An easy to use bitcoin web wallet" />
@@ -24,7 +24,7 @@
 
 	<meta name="keywords" content="swapee easy bitcoin web wallet" />
 
-  <meta name="twitter:image" content={`${host}/images/logo.png`} />
+  <meta name="twitter:image" content={`${host}/images/logo.webp`} />
   <meta name="twitter:card" content="summary_large_image" />
 
 	<meta property="og:url" content={host + pathname} />

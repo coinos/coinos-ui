@@ -8,10 +8,10 @@ export async function load({ cookies, locals, params }) {
     try {
       await post("/redeem", params, auth(cookies));
     } catch (e) {
-      throw redirect(307, "/");
+      redirect(307, "/");
     }
-    throw redirect(307, `/${user.username}/payments`);
+    redirect(307, `/${user.username}/payments`);
   }
 
-  throw redirect(307, "/login");
+  redirect(307, "/login");
 }

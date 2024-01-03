@@ -8,6 +8,6 @@ export async function POST({ cookies, request }) {
 
     return json(res);
   } catch (e) {
-    throw error(500, "Problem disabling 2fa");
+    error(500, "Problem disabling 2fa");
   }
 }

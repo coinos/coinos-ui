@@ -1,5 +1,5 @@
 <script>
-  import { fiat, f, s, sat, sats } from "$lib/utils";
+  import { fiat, f, focus, s, sat, sats } from "$lib/utils";
   import { scale } from "svelte/transition";
   import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
@@ -43,7 +43,7 @@
   </h3>
 </div>
 
-<a href={`/${username}/payments`}>
+<a href={`/${username}/payments`} use:focus>
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 

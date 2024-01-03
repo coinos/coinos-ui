@@ -7,7 +7,7 @@
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
-  import { t } from "$lib/translations";
+  import { loading, t } from "$lib/translations";
   import { fail, auth, post, sleep, warning, success } from "$lib/utils";
   import { avatar, banner, password, pin } from "$lib/store";
   import { upload } from "$lib/upload";
@@ -39,7 +39,7 @@
 
   $: form?.user && ({ user } = form);
 
-  $: form?.success && success("Settings saved!");
+  $: form?.success && success($t("user.settings.saved"), false);
 
   $: form?.message && fail(form.message);
 
@@ -58,11 +58,14 @@
   $: ({ comp } = tabs.find((t) => t.name === tab));
 
   let { address, id, username } = user;
-  let loading;
+  let submitting;
+
+  $: if (!$loading && $page.url.searchParams.get("verified"))
+    success($t("user.settings.verified"));
 
   async function handleSubmit() {
     try {
-      loading = true;
+      submitting = true;
       let data = new FormData(formElement);
 
       if (data.get("password")) {
@@ -90,7 +93,7 @@
             mode: "no-cors",
           });
         } catch (e) {
-          console.log("problem uploading avatar", e);
+          console.log("problem upsubmitting avatar", e);
         }
       }
 
@@ -107,7 +110,7 @@
             mode: "no-cors",
           });
         } catch (e) {
-          console.log("problem uploading banner", e);
+          console.log("problem upsubmitting banner", e);
         }
       }
 
@@ -146,8 +149,7 @@
             auth(cookies)
           );
 
-          warning("Verification email sent");
-          await sleep(4000);
+          warning($t("user.settings.verifying"), false);
         } catch (e) {
           console.log(e);
         }
@@ -171,7 +173,7 @@
       fail("Something went wrong");
     }
 
-    loading = false;
+    submitting = false;
   }
 </script>
 
@@ -181,11 +183,12 @@
 
 <form
   method="POST"
-  class="mb-[154px]"
+  class="mb-[154px] settings"
   on:submit|preventDefault={handleSubmit}
   bind:this={formElement}
 >
   <input type="hidden" name="pin" value={$pin} />
+  <input type="hidden" name="tab" value={tab} />
 
   <div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
     <div class="header">
@@ -220,9 +223,9 @@
       bind:this={submit}
       type="submit"
       class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
-      class:bg-black={loading}
+      class:bg-black={submitting}
     >
-      {#if loading}
+      {#if submitting}
         <Spinner />
       {:else}
         <div class="my-auto">{$t("user.settings.saveSettings")}</div>
@@ -232,7 +235,7 @@
 </form>
 
 <style>
-  .header {
-    view-transition-name: tabs;
+  .settings {
+    view-transition-name: settings;
   }
 </style>

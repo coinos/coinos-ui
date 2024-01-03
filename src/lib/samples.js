@@ -1,3 +1,9 @@
+import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
+
+let api = PUBLIC_DOMAIN.includes("localhost")
+  ? `${PUBLIC_COINOS_URL}`
+  : `https://${PUBLIC_DOMAIN}/api`;
+
 export default {
 	register: `curl "https://swapee.me/api/register" -H "content-type: application/json" -d '{
   "user": {
@@ -24,7 +30,7 @@ export default {
   -H "Authorization: Bearer $token"
   -d '{
     "amount": 5000,
-    "hash": "bc1q3unh97w4rmelflrm2hvdwz37d8kray3vn4d5ca"
+    "address": "bc1q3unh97w4rmelflrm2hvdwz37d8kray3vn4d5ca"
 }'`,
 	internal: `HASH=$(curl "https://swapee.me/api/invoice" 
     -H "content-type: application/json" 
