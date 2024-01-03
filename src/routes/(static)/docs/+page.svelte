@@ -118,11 +118,12 @@
   <p class="text-secondary">Send a lightning payment</p>
   <Code sample="lightning" />
 
-  <p class="text-secondary">Send a bitcoin payment</p>
-  <Code sample="bitcoin" />
-
   <p class="text-secondary">Send an internal payment to another user</p>
   <Code sample="internal" />
+
+  <h2 class="text-2xl">POST /bitcoin/send</h2>
+  <p class="text-secondary">Send a bitcoin payment</p>
+  <Code sample="bitcoin" />
 
   <h2 class="text-2xl">GET /payments</h2>
   <p class="text-secondary">
