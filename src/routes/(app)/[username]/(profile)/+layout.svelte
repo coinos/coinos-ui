@@ -1,6 +1,6 @@
 <script>
   import { hexToUint8Array } from "uint8array-extras";
-  import { f, post, s, sats, success, fail } from "$lib/utils";
+  import { copy, f, post, s, sats, success, fail } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
@@ -96,7 +96,7 @@
           </div>
           <div class="flex mb-auto gap-1">
             <button class="my-auto" on:click={() => copy(profile)}
-              ><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+              ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
             >
             <a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto">
               <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
@@ -112,7 +112,7 @@
           </div>
           <div class="flex mb-auto gap-1">
             <button class="my-auto" on:click={() => copy(lnaddr)}
-              ><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+              ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
             >
             <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
               <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
@@ -128,7 +128,7 @@
           </div>
           <div class="flex my-auto gap-1">
             <button class="my-auto" on:click={() => copy(npub)}
-              ><Icon icon="copy" style="max-w-max min-w-[32px]" /></button
+              ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
             >
             <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
               <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
