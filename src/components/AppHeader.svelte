@@ -109,41 +109,44 @@
               ><Icon icon="menu" style="mx-auto w-6 md:w-8" />
             </button>
 
-					<div
-						class="{showMenu
-							? 'block'
-							: 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z"
-					>
-						<ul class="space-y-5 w-48">
-							{#each menuButtons as { href, icon, key }}
-								<li>
-									<a {href} data-sveltekit-prefetch="off">
-										<button class="flex justify-center items-center font-semibold hover:opacity-80"
-											><Icon {icon} style="mr-2 w-6 md:w-8" /> {$t(key)}
-										</button>
-									</a>
-								</li>
-							{/each}
-						</ul>
-						<hr class="my-4" />
-						<a href="/"><img src="/images/logo.svg" alt="Swapee" class="w-32" /></a>
-					</div>
-				</OutClick>
-			</div>
-		{:else}
-			<a href={`/login?redirect=${$page.url.pathname}`}>
-				<button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
-					>{$t('nav.signIn')}</button
-				>
-			</a>
-		{/if}
-	</nav>
-	<div
-		class="absolute md:w-[64px] md:mx-auto lg:left-[138px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
-	>
-		<Avatar user={subject} />
-	</div>
-</header>
+            <div
+              class="{showMenu
+                ? 'block'
+                : 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z-50"
+            >
+              <ul class="space-y-5 w-48">
+                {#each menuButtons as { href, icon, key }}
+                  <li>
+                    <a {href} data-sveltekit-prefetch="off">
+                      <button
+                        class="flex justify-center items-center font-semibold hover:opacity-80"
+                        ><Icon {icon} style="mr-2 w-6 md:w-8" /> {$t(key)}
+                      </button>
+                    </a>
+                  </li>
+                {/each}
+              </ul>
+              <hr class="my-4" />
+              <a href="/"
+                ><img src="/images/logo.svg" alt="Swapee" class="w-32" /></a
+              >
+            </div>
+          </OutClick>
+        </div>
+      {:else}
+        <a href={`/login?redirect=${$page.url.pathname}`}>
+          <button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
+            >{$t("nav.signIn")}</button
+          >
+        </a>
+      {/if}
+    </nav>
+    <div
+      class="absolute md:w-[64px] md:mx-auto lg:left-[164px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
+    >
+      <Avatar user={subject} />
+    </div>
+  </header>
 {/if}
 
 <style>
