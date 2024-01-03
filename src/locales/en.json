@@ -177,6 +177,7 @@
     "this": "This",
     "lightningAddress": "Lightning address",
     "dashboard": {
+      "receive": "Receive",
       "go": "Go",
       "dashboard": "Dashboard",
       "accountBalance": "Account Balance",
