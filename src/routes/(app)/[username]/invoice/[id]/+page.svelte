@@ -167,52 +167,43 @@
     </div>
   {/if}
 
+  <div class="flex justify-center gap-2">
+    <button
+      class="hover:opacity-80 my-auto flex gap-1 p-2"
+      class:bg-gray-200={type === types.bitcoin}
+      on:click={() => setType(types.bitcoin)}
+    >
+      <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
+      <div class="my-auto text-lg">Bitcoin</div>
+    </button>
+
+    <button
+      class="hover:opacity-80 my-auto flex gap-1 p-2"
+      class:bg-gray-200={type === types.liquid}
+      on:click={() => setType(types.liquid)}
+    >
+      <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
+      <div class="my-auto text-lg">Liquid</div>
+    </button>
+
+    <button
+      class="hover:opacity-80 flex gap-1 p-2"
+      class:bg-gray-200={type === types.lightning}
+      on:click={() => setType(types.lightning)}
+    >
+      <div>⚡️</div>
+      <div class="my-auto text-lg">Lightning</div>
+    </button>
+  </div>
+
   {#if type === types.liquid}
     <div class="flex justify-center">
       <div class="my-auto text-xl text-center">
         We only support <span class="text-teal-500 font-bold">L-BTC</span>,
-        don't deposit Liquid assets
+        don't deposit any other assets
       </div>
     </div>
   {/if}
-
-  <div class="flex justify-center gap-2">
-    <button
-      class="rounded-full hover:opacity-80 my-auto"
-      on:click={() => setType(types.bitcoin)}
-    >
-      <img
-        src="/images/bitcoin.svg"
-        class="w-12"
-        class:w-16={type === types.bitcoin}
-        class:h-16={type === types.bitcoin}
-        alt="Bitcoin"
-      />
-    </button>
-
-    <button
-      class="rounded-full hover:opacity-80 text-2xl p-1 my-auto bg-gray-700 w-12 h-12"
-      class:w-16={type === types.lightning}
-      class:h-16={type === types.lightning}
-      class:text-3xl={type === types.lightning}
-      on:click={() => setType(types.lightning)}
-    >
-      ⚡️
-    </button>
-
-    <button
-      class="rounded-full hover:opacity-80 my-auto"
-      on:click={() => setType(types.liquid)}
-    >
-      <img
-        src="/images/liquid.svg"
-        class="w-12"
-        class:w-16={type === types.liquid}
-        class:h-16={type === types.liquid}
-        alt="Liquid"
-      />
-    </button>
-  </div>
 
   <button
     type="button"
