@@ -171,6 +171,7 @@
     <button
       class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
       class:bg-primary={type === types.bitcoin}
+      class:text-black={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
     >
       <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
@@ -180,6 +181,7 @@
     <button
       class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
       class:bg-primary={type === types.liquid}
+      class:text-black={type === types.liquid}
       on:click={() => setType(types.liquid)}
     >
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
@@ -189,6 +191,7 @@
     <button
       class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
       class:bg-primary={type === types.lightning}
+      class:text-black={type === types.lightning}
       on:click={() => setType(types.lightning)}
     >
       <div class="bg-white rounded-full w-8 h-8 text-center flex">
@@ -200,21 +203,21 @@
 
   {#if type === types.liquid}
     <div class="flex justify-center">
-      <div class="my-auto text-xl text-center">
+      <div class="my-auto text-xl text-center text-secondary">
         We only support <span class="text-teal-500 font-bold">L-BTC</span>,
-        don't deposit any other assets
+        don't deposit other assets yet
       </div>
     </div>
   {/if}
 
   <button
     type="button"
-    class="flex gap-2 text-center break-all text-lg rounded-full hover:opacity-80 p-4 w-full mx-auto justify-center border text-secondary"
+    class="flex gap-2 text-center break-all text-lg rounded-full hover:opacity-80 p-4 w-full mx-auto justify-center border text-black text-xl"
     on:click={() => copy(txt)}
   >
     <Icon icon="copy" style="w-8 my-auto font-semibold" />
     <div class="my-auto">
-      {txt.substr(0, 10)}..{txt.substr(-12)}
+      {txt.substr(0, 11)}..{txt.substr(-11)}
     </div>
   </button>
 
