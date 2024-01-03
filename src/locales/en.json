@@ -272,6 +272,12 @@
     }
   },
   "payments": {
+    "networkFee": "Network fee",
+    "platformFee": "Platform fee",
+    "fastest": "Fastest",
+    "fast": "Fast",
+    "medium": "Medium",
+    "slow": "Slow",
     "create": "Create",
     "fund": "Fund",
     "addFunds": "Add Funds",
@@ -292,6 +298,7 @@
     "details": "Transaction Details",
     "header": "Payments",
     "preimage": "Proof of payment",
+    "maxfee": "Max routing fee",
     "type": "Type",
     "time": "Time",
     "sent": "Sent",

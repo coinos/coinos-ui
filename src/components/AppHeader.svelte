@@ -147,11 +147,8 @@
 {/if}
 
 <style>
-  .z {
-    z-index: 100;
-  }
-
   header {
+    z-index: 50;
     view-transition-name: header;
   }
 </style>

@@ -1,8 +1,8 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { fd, auth, post } from "$lib/utils";
 
-export async function load({ params }) {
-  return post("/parse", params);
+export async function load({ cookies, params }) {
+  return post("/parse", params, auth(cookies));
 }
 
 export const actions = {
@@ -19,6 +19,6 @@ export const actions = {
       return fail(400, { message: e.message });
     }
 
-    throw redirect(307, "/sent");
+    redirect(307, "/sent");
   },
 };

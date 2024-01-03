@@ -16,24 +16,23 @@ export async function load({ depends, params, url, parent }) {
     !url.pathname.includes("tip") &&
     !options
   ) {
-    throw redirect(307, `/send/invoice/${id}`);
+    redirect(307, `/send/invoice/${id}`);
   }
 
   let { amount, pending, received } = invoice;
   amount = parseInt(amount);
 
   let paid =
-    (!amount && received) ||
+    (!amount && (pending || received)) ||
     (amount > 0 && (pending >= amount || received >= amount));
   if (paid && !url.pathname.endsWith("paid")) {
-    throw redirect(
+    redirect(
       307,
       `/${params.username}/invoice/${id}/paid` +
         (options ? "?options=true" : "")
     );
   }
 
-  let sm = Qr.drawImg(invoice.text || "", { size: 300 });
-
-  return { id, invoice, sm, lg: sm };
+  let src = Qr.drawImg(invoice.text || "", { size: 340 });
+  return { id, invoice, src };
 }

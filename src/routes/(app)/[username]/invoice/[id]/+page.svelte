@@ -35,7 +35,7 @@
   let readingerror = (e) => console.log("nfc error", e);
 
   $: refresh(data);
-  let { invoice, id, user, sm, lg } = data;
+  let { invoice, id, user, src } = data;
   let {
     amount,
     hash,
@@ -50,13 +50,12 @@
   } = invoice;
 
   let showQr = true;
-  $: src = sm;
 
   let qr;
   let tipPercent = 0;
 
   let refresh = async (data) => {
-    ({ invoice, id, user, sm, lg } = data);
+    ({ invoice, id, user, src } = data);
     ({
       amount,
       hash,
@@ -109,67 +108,36 @@
     }
   });
 
-  $: link = type === "bitcoin" ? text : `lightning:${text}`;
-  $: txt = type === "bitcoin" ? hash : text;
+  $: link = [types.bitcoin, types.liquid].includes(type)
+    ? text
+    : `lightning:${text}`;
+  $: txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
 
-  let toggleType = async () => {
-    invoice.type =
-      invoice.type === types.lightning ? types.bitcoin : types.lightning;
+  let setType = async (type) => {
+    invoice.type = type;
     ({ id } = await post(`/${username}/invoice`, {
       invoice,
       user: { username, currency },
     }));
 
-    goto(`./${id}`, { invalidateAll: true });
+    goto(`./${id}`, { invalidateAll: true, noScroll: true });
   };
 </script>
 
-<div class="container mx-auto max-w-lg px-4 space-y-8">
-  <div class="whitespace-nowrap my-auto ml-auto flex gap-2">
-    <button
-      class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full"
-      class:bg-black={type === types.lightning}
-      class:text-white={type === types.lightning}
-      on:click={toggleType}
-    >
-      ⚡️ Lightning
-    </button>
-
-    <button
-      class="rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full flex justify-center"
-      class:bg-black={type === types.bitcoin}
-      class:text-white={type === types.bitcoin}
-      on:click={toggleType}
-    >
-      <img
-        src="/images/bitcoin.svg"
-        class="my-auto w-8 border-4 border-transparent"
-        alt="Bitcoin"
-      />
-      <div class="my-auto">Bitcoin</div>
-    </button>
-  </div>
-
+<div class="invoice container mx-auto max-w-xl px-4 space-y-5">
   {#if showQr}
     <div>
       <a
-        href={invoice.type === "bitcoin"
+        href={[types.bitcoin, types.liquid].includes(invoice.type)
           ? invoice.text
           : "lightning:" + invoice.text}
       >
-        <div class="relative flex">
-          <div class="flex mx-auto w-[360px] h-[360px]">
-            <img
-              {src}
-              class="w-[300px] h-[300px] mx-auto z-10 mt-[20px]"
-              bind:this={qr}
-              alt={txt}
-            />
-          </div>
-          <div
-            class="absolute m-auto left-0 right-0 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] z-0"
-          />
-        </div>
+        <img
+          {src}
+          class="mx-auto z-10 shadow-inner rounded-2xl"
+          bind:this={qr}
+          alt={txt}
+        />
       </a>
     </div>
   {/if}
@@ -187,28 +155,73 @@
       </div>
       <div>
         <span class="text-secondary font-normal text-lg"
-          >{`${sat(amount)}`}</span
+          >⚡️{`${s(amount)}`}</span
         >
 
         {#if tip}
           <span class="text-sm text-secondary font-normal">
-            +{sat(tip)}
+            +⚡️{s(tip)}
           </span>
         {/if}
       </div>
     </div>
   {/if}
 
-  <div class="text-center break-all">
-    <a href={link}>
-      {txt}
-    </a>
+  <div class="flex justify-center gap-2">
+    <button
+      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
+      class:bg-gray-200={type === types.bitcoin}
+      on:click={() => setType(types.bitcoin)}
+    >
+      <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
+      <div class="my-auto text-lg">Bitcoin</div>
+    </button>
+
+    <button
+      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
+      class:bg-gray-200={type === types.liquid}
+      on:click={() => setType(types.liquid)}
+    >
+      <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
+      <div class="my-auto text-lg">Liquid</div>
+    </button>
+
+    <button
+      class="hover:bg-gray-200 flex gap-1 p-2"
+      class:bg-gray-200={type === types.lightning}
+      on:click={() => setType(types.lightning)}
+    >
+      <div class="bg-white rounded-full w-8 h-8 text-center flex">
+        <div class="m-auto">⚡️</div>
+      </div>
+      <div class="my-auto text-lg">Lightning</div>
+    </button>
   </div>
+
+  {#if type === types.liquid}
+    <div class="flex justify-center">
+      <div class="my-auto text-xl text-center">
+        We only support <span class="text-teal-500 font-bold">L-BTC</span>,
+        don't deposit any other assets
+      </div>
+    </div>
+  {/if}
+
+  <button
+    type="button"
+    class="flex gap-2 text-center break-all rounded-full text-white bg-black hover:opacity-80 p-4 w-full md:w-80 mx-auto text-xl justify-center"
+    on:click={() => copy(txt)}
+  >
+    <Icon icon="copy" style="w-8 invert my-auto" />
+    <div class="my-auto font-semibold">
+      {txt.substr(0, 6)} ... {txt.substr(-10)}
+    </div>
+  </button>
 
   <div class="w-full flex justify-center gap-2 flex-wrap">
     <a href={link} class="w-full md:w-auto">
       <button
-        class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+        class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
       >
         <Icon icon="mobile" style="mr-1 w-6" />
         <div class="text-secondary">{$t("payments.openLink")}</div>
@@ -216,15 +229,7 @@
     </a>
 
     <button
-      class="flex rounded-full justify-center border py-3 px-5 hover:opacity-80 w-full md:w-auto"
-      on:click={() => copy(txt)}
-    >
-      <Icon icon="copy" style="mr-1" />
-      <div class="text-secondary">{$t("payments.copyText")}</div></button
-    >
-
-    <button
-      class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80"
+      class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
       on:click={() => (showQr = !showQr)}
     >
       <Icon icon="qr" style="mr-1 invert" />
@@ -235,3 +240,9 @@
     >
   </div>
 </div>
+
+<style>
+  .invoice {
+    view-transition-name: invoice;
+  }
+</style>

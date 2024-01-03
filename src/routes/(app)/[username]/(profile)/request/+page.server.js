@@ -5,7 +5,7 @@ export const actions = {
   create: async ({ cookies, params, request, url }) => {
     let form = await fd(request);
     let { id, requester } = await post("/requests", form, auth(cookies));
-    throw redirect(307, `/${params.username}/request/${id}`);
+    redirect(307, `/${params.username}/request/${id}`);
   },
 
   delete: async ({ cookies, request }) => {

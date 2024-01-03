@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg87"
+   sodipodi:docname="lightning-bolt-svgrepo-com.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs91" />
+  <sodipodi:namedview
+     id="namedview89"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.01"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg87" />
+  <title
+     id="title81">Lightning-Bolt</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="Lightning-Bolt">
+      <rect
+         id="Rectangle"
+         fill-rule="nonzero"
+         x="0"
+         y="0"
+         width="24"
+         height="24" />
+      <path
+         d="M6.8618,11.2764 L10.8618,3.27639 C10.9465,3.107 11.1196,3 11.309,3 L17.0397,3 C17.4442,3 17.6813,3.45534 17.4493,3.78673 L15.0507,7.21327 C14.8187,7.54466 15.0558,8 15.4603,8 L16.9129,8 C17.3401,8 17.5705,8.50106 17.2925,8.8254 L7.96557,19.7068 C7.59763,20.1361 6.91173,19.7207 7.1217,19.1957 L9.72572,12.6857 C9.85709,12.3573 9.61522,12 9.26148,12 L7.30902,12 C6.93733,12 6.69558,11.6088 6.8618,11.2764 Z"
+         id="Path"
+         stroke="#0C0310"
+         stroke-width="2"
+         stroke-linecap="round" />
+    </g>
+  </g>
+  <path
+     style="fill:#ffff00;stroke-width:0.990099"
+     d="m 309.11158,552.47525 c 0.29265,-1.08911 10.44631,-26.70792 22.56368,-56.9307 25.5147,-63.638 26.40814,-66.09599 27.25978,-74.99599 1.89612,-19.81526 -10.12798,-40.64864 -28.40785,-49.22044 -9.2762,-4.34979 -17.66725,-5.48654 -40.49982,-5.48654 -9.76258,0 -17.75014,-0.22226 -17.75014,-0.49392 0,-0.27166 25.95208,-52.40037 57.67128,-115.84158 L 387.6198,134.15842 h 73.60116 73.60116 l -3.40814,4.70297 c -12.47355,17.21255 -57.90408,82.80193 -60.16781,86.86602 -8.39177,15.0658 -7.93812,36.09332 1.08971,50.51021 6.47527,10.34061 16.35865,18.14187 27.62748,21.80723 2.9749,0.96764 10.02642,2.02616 15.67006,2.35229 l 10.26115,0.59296 -108.65754,126.73267 C 357.47538,497.42574 308.81892,553.56436 309.11158,552.47525 Z"
+     id="path266"
+     transform="scale(0.03)" />
+</svg>

@@ -9,12 +9,20 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { post, back, f, fiat as toFiat, s, sats } from "$lib/utils";
+  import { post, back, f, fiat as toFiat, s, sats, focus } from "$lib/utils";
   export let data;
   export let form;
 
-  let { address, hash, rate, payreq, recipient, tip, rates, user } = data;
+  let { address, hash, payreq, recipient, tip, rates, user } = data;
   let { currency } = user;
+
+  $: reload(data);
+  let reload = (data) => {
+    ({ address, hash, payreq, recipient, tip, rates, user } = data);
+    ({ currency } = user);
+  };
+
+  $: rate = data.rate * (rates[user.currency] / rates[data.currency]);
 
   let amount = form?.amount || data.amount;
   let a,
@@ -41,8 +49,6 @@
       invalidateAll: true,
     });
   };
-
-  $: rate = data.rate * (rates[user.currency] / rates[data.currency]);
 
   $: update(form);
   let update = () => {
@@ -80,7 +86,7 @@
   </div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto">
+<div class="container px-4 max-w-xl mx-auto">
   {#if amount}
     <div class="text-center mb-8">
       <h1 class="text-xl md:text-2xl text-secondary mb-2">
@@ -143,6 +149,7 @@
     <div class="flex w-full">
       {#if amount}
         <button
+          use:focus
           type="submit"
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
         >
@@ -163,7 +170,7 @@
       {/if}
     </div>
   </form>
-  <div class="flex my-20">
+  <div class="flex my-10">
     <button class="mx-auto" on:click={external}
       >{$t("payments.moreOptions")}</button
     >

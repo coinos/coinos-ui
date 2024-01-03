@@ -121,7 +121,7 @@
   };
 </script>
 
-<div class="mt-24 mb-20">
+<div class="mt-24 mb-20 payments">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
     {$t("payments.header")}
   </h1>
@@ -220,6 +220,14 @@
                         alt="Bitcoin"
                       />
                     </div>
+                  {:else if p.type === types.liquid}
+                    <div class="my-auto mr-1">
+                      <img
+                        src="/images/liquid.svg"
+                        class="w-12 border-4 border-transparent"
+                        alt="Liquid"
+                      />
+                    </div>
                   {/if}
 
                   <div class="my-auto">
@@ -238,7 +246,7 @@
                 {format(new Date(p.created), "h:mm aaa")}
               </div>
               <div>
-                {format(new Date(p.created), "MMM d")}
+                {format(new Date(p.created), "MMM d, yyyy")}
               </div>
             </div>
           </div>
@@ -278,5 +286,9 @@
 <style>
   .active * {
     @apply bg-black text-white border-black;
+  }
+
+  .payments {
+    view-transition-name: payments;
   }
 </style>
