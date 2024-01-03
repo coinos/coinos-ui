@@ -124,7 +124,7 @@
   };
 </script>
 
-<div class="invoice container mx-auto max-w-xl px-4 space-y-5">
+<div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   {#if showQr}
     <div>
       <a
@@ -167,10 +167,10 @@
     </div>
   {/if}
 
-  <div class="flex justify-center gap-2">
+  <div class="flex justify-center text-secondary">
     <button
-      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
-      class:bg-gray-200={type === types.bitcoin}
+      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
+      class:bg-primary={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
     >
       <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
@@ -178,8 +178,8 @@
     </button>
 
     <button
-      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
-      class:bg-gray-200={type === types.liquid}
+      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
+      class:bg-primary={type === types.liquid}
       on:click={() => setType(types.liquid)}
     >
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
@@ -187,8 +187,8 @@
     </button>
 
     <button
-      class="hover:bg-gray-200 flex gap-1 p-2"
-      class:bg-gray-200={type === types.lightning}
+      class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
+      class:bg-primary={type === types.lightning}
       on:click={() => setType(types.lightning)}
     >
       <div class="bg-white rounded-full w-8 h-8 text-center flex">
@@ -209,31 +209,32 @@
 
   <button
     type="button"
-    class="flex gap-2 text-center break-all rounded-full text-white bg-black hover:opacity-80 p-4 w-full md:w-80 mx-auto text-xl justify-center"
+    class="flex gap-2 text-center break-all text-lg rounded-full hover:opacity-80 p-4 w-full mx-auto justify-center border text-secondary"
     on:click={() => copy(txt)}
   >
-    <Icon icon="copy" style="w-8 invert my-auto" />
-    <div class="my-auto font-semibold">
-      {txt.substr(0, 6)} ... {txt.substr(-10)}
+    <Icon icon="copy" style="w-8 my-auto font-semibold" />
+    <div class="my-auto">
+      {txt.substr(0, 10)}..{txt.substr(-12)}
     </div>
   </button>
 
-  <div class="w-full flex justify-center gap-2 flex-wrap">
-    <a href={link} class="w-full md:w-auto">
+
+  <div class="w-full flex justify-center gap-2 flex-wrap text-secondary">
+    <a href={link} class="w-full">
       <button
-        class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
+        class="w-full flex justify-center rounded-full border py-3 px-5 hover:opacity-80 text-lg"
       >
         <Icon icon="mobile" style="mr-1 w-6" />
-        <div class="text-secondary">{$t("payments.openLink")}</div>
+        <div>{$t("payments.openLink")}</div>
       </button>
     </a>
 
     <button
-      class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
+      class="w-full flex justify-center rounded-full border py-3 px-5 hover:opacity-80 text-lg"
       on:click={() => (showQr = !showQr)}
     >
       <Icon icon="qr" style="mr-1 invert" />
-      <div class="text-secondary">
+      <div>
         {showQr ? $t("payments.hide") : $t("payments.show")}
         {$t("payments.qr")}
       </div></button
