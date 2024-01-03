@@ -169,7 +169,7 @@
 
   <div class="flex justify-center gap-2">
     <button
-      class="hover:opacity-80 my-auto flex gap-1 p-2"
+      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
       class:bg-gray-200={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
     >
@@ -178,7 +178,7 @@
     </button>
 
     <button
-      class="hover:opacity-80 my-auto flex gap-1 p-2"
+      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
       class:bg-gray-200={type === types.liquid}
       on:click={() => setType(types.liquid)}
     >
@@ -187,11 +187,13 @@
     </button>
 
     <button
-      class="hover:opacity-80 flex gap-1 p-2"
+      class="hover:bg-gray-200 flex gap-1 p-2"
       class:bg-gray-200={type === types.lightning}
       on:click={() => setType(types.lightning)}
     >
-      <div>⚡️</div>
+      <div class="bg-white rounded-full w-8 h-8 text-center flex">
+        <div class="m-auto">⚡️</div>
+      </div>
       <div class="my-auto text-lg">Lightning</div>
     </button>
   </div>
