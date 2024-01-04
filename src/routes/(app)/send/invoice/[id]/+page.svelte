@@ -57,7 +57,7 @@
   };
 
   // onMount(async () => {
-  // 	if (browser && window.NDEFReader) {
+  // 	if (browser && window.NDEFReader && user.nfc) {
   // 		try {
   // 			let ndef = new NDEFReader();
   // 			await ndef.scan();
