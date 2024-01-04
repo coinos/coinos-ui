@@ -55,22 +55,22 @@
       let locktime = user && user.locktime ? user.locktime : 300;
       expireTimer = setTimeout(expirePin, locktime * 1000);
 
-      // if (window.NDEFReader) {
-      // 	try {
-      // 		$ndef = new NDEFReader();
-      // 		await $ndef.scan();
-      //
-      // 		$ndef.addEventListener('readingerror', (e) => {
-      // 			console.log('nfc error', e);
-      // 		});
-      //
-      // 		$ndef.addEventListener('reading', ({ message, serialNumber }) => {
-      // 			goto(`/${user.username}/card/${serialNumber.replace(/:/g, '-')}`);
-      // 		});
-      // 	} catch (error) {
-      // 		console.log('Argh! ' + error);
-      // 	}
-      // }
+      if (window.NDEFReader && user.nfc) {
+      	try {
+      		$ndef = new NDEFReader();
+      		await $ndef.scan();
+
+      		$ndef.addEventListener('readingerror', (e) => {
+      			console.log('nfc error', e);
+      		});
+
+              $ndef.addEventListener('reading', ({ message, serialNumber }) => {
+            goto(`/send/${message}`);
+      		});
+      	} catch (error) {
+      		console.log('Argh! ' + error);
+      	}
+      }
     }
   });
 
