@@ -37,6 +37,7 @@ let parse = async (t, host) => {
   if (t.includes(":")) t = t.split(":")[1];
 
   // lightning
+  if (t.toLowerCase().startsWith("lightning:")) t = t.toLowerCase().replace("lightning:", "");
   if (t.toLowerCase().startsWith("ln")) {
     try {
       ({ id } = await get(`/invoice/${t}`));
