@@ -13,16 +13,20 @@ export async function load({ params: { address, amount, feeRate }, cookies }) {
 
     return { amount, address, fee, fees, feeRate, ourfee, hex };
   } catch (e) {
-    return { message: e.message };
+    return { amount, address, feeRate, message: e.message };
   }
 }
 
 export const actions = {
-  default: async ({ cookies, request }) => {
+  default: async ({
+    cookies,
+    params: { address, amount, feeRate },
+    request,
+  }) => {
     try {
       let r = await post("/bitcoin/send", await fd(request), auth(cookies));
     } catch (e) {
-      return fail(400, { message: e.message });
+      return fail(400, { address, amount, feeRate, message: e.message });
     }
 
     redirect(307, "/sent");

@@ -47,9 +47,8 @@
     {/if}
 
     <div class="mb-2">
-      <input type="hidden" name="text" bind:value={text} />
-
       <textarea
+        name="text"
         {placeholder}
         on:keypress={keypress}
         class="w-full p-4 border rounded-xl h-48"
