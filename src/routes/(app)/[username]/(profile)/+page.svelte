@@ -81,8 +81,8 @@
         </div>
       {/if}
 
-      <div class="flex flex-wrap gap-2 justify-center w-full">
-        <a href={`/send`} class="w-full md:w-60">
+      <div class="flex flex-wrap sm:flex-nowrap gap-2 justify-center w-full">
+        <a href={`/send`} class="w-full">
           <button
             class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full"
           >
@@ -93,7 +93,7 @@
           </button>
         </a>
 
-        <a href={`/${user.username}/receive`} class="w-full md:w-60">
+        <a href={`/${user.username}/receive`} class="w-full">
           <button
             class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-full"
           >
