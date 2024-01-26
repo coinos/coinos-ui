@@ -39,7 +39,17 @@
 
   $: form?.user && ({ user } = form);
 
-  $: form?.success && success($t("user.settings.saved"), false);
+  $: form?.success && throttledSuccess();
+
+  let justUpdated;
+  let throttledSuccess = () => {
+    console.log("justUpdated", justUpdated);
+    if (!justUpdated) {
+      justUpdated = true;
+      success($t("user.settings.saved"), false);
+      setTimeout(() => (justUpdated = false), 5000);
+    }
+  };
 
   $: form?.message && fail(form.message);
 

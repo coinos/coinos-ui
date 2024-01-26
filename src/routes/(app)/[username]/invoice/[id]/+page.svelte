@@ -204,8 +204,8 @@
   {#if type === types.liquid}
     <div class="flex justify-center">
       <div class="my-auto text-xl text-center text-secondary">
-        We only support <span class="text-teal-500 font-bold">L-BTC</span>,
-        don't deposit other assets yet
+        {$t("payments.onlyLbtc")} <span class="text-teal-500 font-bold">L-BTC</span>,
+        {$t("payments.dontDeposit")}
       </div>
     </div>
   {/if}
