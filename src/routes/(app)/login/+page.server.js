@@ -1,7 +1,7 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { login, fd } from "$lib/utils";
 
-export const load = async ({ parent }) => {
+export const load = async ({ parent, url }) => {
   let { user } = await parent();
   if (user?.pubkey) redirect(307, `/${user.username}`);
 };

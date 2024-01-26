@@ -2,20 +2,21 @@
   import Icon from "$comp/Icon.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import Toggle from "$comp/Toggle.svelte";
-  import { t } from "$lib/translations";
+  import { locale, t } from "$lib/translations";
   import { success, fail } from "$lib/utils";
   import { page } from "$app/stores";
 
   export let user, rates, submit;
 
   let fiats = Object.keys(rates);
+    $: user.language = $locale
 </script>
 
 <div>
   <label for="language" class="font-bold block mb-1"
     >{$t("user.settings.locale")}</label
   >
-  <LocaleSelector style="select-styles block py-3 w-full" bind:user />
+  <LocaleSelector style="select-styles block py-3 w-full" />
 </div>
 
 <div>

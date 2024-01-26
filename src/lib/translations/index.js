@@ -12,16 +12,17 @@ function createLocaleLoader(localeCode) {
 }
 
 const availableLocales = Object.keys(lang);
-const translations = {};
+const trans = {};
 for (let i = 0; i < availableLocales.length; i++) {
-  translations[availableLocales[i]] = { lang };
+  trans[availableLocales[i]] = { lang };
 }
 const loaders = availableLocales.map(createLocaleLoader);
 
+export const defaultLocale = 'en';
+
 const config = {
-  initLocale: "en",
   fallbackLocale: "en",
-  translations,
+  translations: trans,
   loaders: [
     {
       locale: "en",
@@ -49,6 +50,11 @@ const config = {
       loader: async () => (await import("../../locales/de.json")).default,
     },
     {
+      locale: "ja",
+      key: "",
+      loader: async () => (await import("../../locales/ja.json")).default,
+    },
+    {
       locale: "zh",
       key: "",
       loader: async () => (await import("../../locales/zh.json")).default,
@@ -66,6 +72,14 @@ const config = {
   ],
 };
 
-export const { t, loading, locales, locale, loadTranslations } = new i18n(
-  config
-);
+export const {
+  t,
+  loading,
+  locales,
+  locale,
+  loadTranslations,
+  addTranslations,
+  translations,
+  setLocale,
+  setRoute,
+} = new i18n(config);
