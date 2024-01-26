@@ -101,7 +101,11 @@ export function reverseFormat(val, locale) {
 
 export let protectedRoutes = [/customers/, /settings/, /payments/];
 
+let recent = [];
 export let success = (m, clear = true) => {
+  if (recent.includes(m)) return;
+  recent.push(m);
+    setTimeout(() => (recent = []), 5000);
   if (clear) toast.pop();
   toast.push(m, {
     theme: {
@@ -110,7 +114,7 @@ export let success = (m, clear = true) => {
   });
 };
 
-export let warning = (m, clear = true) => {
+  export let warning = (m, clear = true) => {
   if (clear) toast.pop();
   toast.push(m, {
     theme: {

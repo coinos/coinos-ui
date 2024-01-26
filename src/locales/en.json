@@ -201,6 +201,7 @@
       "placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
     },
     "settings": {
+      "shopify": "Shopify integration",
       "notifications": "Payment notifications",
       "notificationsDesc": "Receive an email whenever a payment lands in your account",
       "seedPhrase": "Seed phrase",
@@ -333,6 +334,8 @@
     "redeemedBy": "Redeemed by",
     "sendMessage": "Write a message...",
     "fundsClaimed": "Funds claimed!",
-    "print": "Print"
+    "print": "Print",
+    "onlyLbtc": "We only support",
+    "dontDeposit": "don't deposit other assets yet"
   }
 }

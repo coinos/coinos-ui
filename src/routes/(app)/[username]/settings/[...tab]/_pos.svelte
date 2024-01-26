@@ -15,7 +15,7 @@
   <label for="language" class="font-bold block mb-1"
     >{$t("user.settings.locale")}</label
   >
-  <LocaleSelector style="select-styles block py-3 w-full" />
+  <LocaleSelector style="select-styles block py-3 w-full" bind:user />
 </div>
 
 <div>
@@ -71,6 +71,6 @@
     class="flex rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full gap-2 my-5 justify-center"
   >
     <img src="/icons/shopify.svg" class="w-8" />
-    <div class="my-auto">Shopify Integration</div>
+    <div class="my-auto">{$t("user.settings.shopify")}</div>
   </button>
 </a>

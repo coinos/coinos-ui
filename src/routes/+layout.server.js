@@ -1,6 +1,7 @@
 import { auth, get } from "$lib/utils";
 import { loadTranslations, locale } from "$lib/translations";
-export const load = async ({ cookies, url }) => {
+
+export let load = async ({ cookies, url }) => {
   let user;
   let token = cookies.get("token");
   if (token) {
@@ -9,9 +10,8 @@ export const load = async ({ cookies, url }) => {
     } catch (e) {}
   }
 
-  const { host, pathname } = url;
-  const defaultLocale = user?.language || "en"; // get from cookie, user session, ...
-  const initLocale = locale.get() || defaultLocale; // set default if no locale already set
-  await loadTranslations(initLocale, pathname); // keep this just before the `return`
+  let { host, pathname } = url;
+  let locale = user?.language || "en";
+  await loadTranslations(locale, pathname);
   return { host, pathname };
 };

@@ -5,7 +5,7 @@ export function load({ cookies, params, url }) {
   if (url.pathname.endsWith("settings"))
     redirect(307, url.pathname + "/account");
   params.cookies = cookies.getAll();
-  return params;
+  return { cookies: cookies.getAll(), tab: params.tab }
 }
 
 export const actions = {

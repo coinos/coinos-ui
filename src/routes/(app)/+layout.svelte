@@ -39,37 +39,30 @@
   $: update(data);
   let update = (data) => {
     ({ rate, user, subject, token, rates } = data);
+    $locale = user?.language || "en";
   };
 
   onMount(async () => {
-    let localeLocalStorageKey = "sveltekit-i18n-locale";
-    let localStorageLocale = localStorage.getItem(localeLocalStorageKey);
-    if (localStorageLocale) locale.set(localStorageLocale);
-
-    locale.subscribe((lng) => {
-      if (lng) localStorage.setItem(localeLocalStorageKey, lng);
-    });
-
     if (browser) {
       checkSocket();
       let locktime = user && user.locktime ? user.locktime : 300;
       expireTimer = setTimeout(expirePin, locktime * 1000);
 
       if (window.NDEFReader && user.nfc) {
-      	try {
-      		$ndef = new NDEFReader();
-      		await $ndef.scan();
+        try {
+          $ndef = new NDEFReader();
+          await $ndef.scan();
 
-      		$ndef.addEventListener('readingerror', (e) => {
-      			console.log('nfc error', e);
-      		});
+          $ndef.addEventListener("readingerror", (e) => {
+            console.log("nfc error", e);
+          });
 
-              $ndef.addEventListener('reading', ({ message, serialNumber }) => {
+          $ndef.addEventListener("reading", ({ message, serialNumber }) => {
             goto(`/send/${message}`);
-      		});
-      	} catch (error) {
-      		console.log('Argh! ' + error);
-      	}
+          });
+        } catch (error) {
+          console.log("Argh! " + error);
+        }
       }
     }
   });
