@@ -8,7 +8,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { copy, f } from "$lib/utils";
 
-  export let data, form;
+  export let data;
 
   let { address } = data;
   let { username, currency } = data.user;
