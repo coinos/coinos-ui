@@ -6,10 +6,11 @@
   import Card from "$comp/Card.svelte";
   import Calendar from "$comp/Calendar.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { f } from "$lib/utils";
+  import { copy, f } from "$lib/utils";
 
   export let data, form;
 
+  let { address } = data;
   let { username, currency } = data.user;
   let loading;
 
