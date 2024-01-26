@@ -7,7 +7,7 @@
   import Image from "$comp/Image.svelte";
   import Footer from "$comp/Footer.svelte";
 
-  import { t } from "$lib/translations";
+  import { locale, t } from "$lib/translations";
   import { onDestroy, onMount, tick } from "svelte";
 
   export let data;

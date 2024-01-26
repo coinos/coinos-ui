@@ -43,7 +43,6 @@
 
   let justUpdated;
   let throttledSuccess = () => {
-    console.log("justUpdated", justUpdated);
     if (!justUpdated) {
       justUpdated = true;
       success($t("user.settings.saved"), false);

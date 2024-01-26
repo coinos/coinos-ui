@@ -105,7 +105,7 @@ let recent = [];
 export let success = (m, clear = true) => {
   if (recent.includes(m)) return;
   recent.push(m);
-    setTimeout(() => (recent = []), 5000);
+  setTimeout(() => (recent = []), 5000);
   if (clear) toast.pop();
   toast.push(m, {
     theme: {
@@ -114,7 +114,7 @@ export let success = (m, clear = true) => {
   });
 };
 
-  export let warning = (m, clear = true) => {
+export let warning = (m, clear = true) => {
   if (clear) toast.pop();
   toast.push(m, {
     theme: {
@@ -156,13 +156,14 @@ export let login = async (user, cookies, ip) => {
     if (text.startsWith("2fa")) throw new Error("2fa");
   }
 
-  let { token } = await res.json();
+  let { user: u, token } = await res.json();
   if (!token) throw new Error("Login failed");
 
   let expires = new Date();
   expires.setSeconds(expires.getSeconds() + maxAge);
 
   let opts = { path: "/", expires };
+  if (u.language) cookies.set("lang", u.language, opts);
   cookies.set("username", user.username, opts);
   cookies.set("token", token, opts);
 };

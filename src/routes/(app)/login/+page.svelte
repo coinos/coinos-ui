@@ -18,6 +18,9 @@
     $pin = undefined;
     localStorage.clear();
     sessionStorage.clear();
+
+    let lang = $page.url.searchParams.get("lang");
+      if (lang) document.cookie = `lang=${lang} ;`;
   });
 
   export let form;

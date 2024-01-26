@@ -5,7 +5,7 @@ export function load({ cookies, params, url }) {
   if (url.pathname.endsWith("settings"))
     redirect(307, url.pathname + "/account");
   params.cookies = cookies.getAll();
-  return { cookies: cookies.getAll(), tab: params.tab }
+  return { cookies: cookies.getAll(), tab: params.tab };
 }
 
 export const actions = {
@@ -25,6 +25,8 @@ export const actions = {
     } catch (e) {
       return fail(400, { message: e.message });
     }
+
+      if (user.language) cookies.set("lang", user.language, { path: "/" });
 
     return { user, success: true };
   },

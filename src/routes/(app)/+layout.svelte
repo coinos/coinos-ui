@@ -39,7 +39,6 @@
   $: update(data);
   let update = (data) => {
     ({ rate, user, subject, token, rates } = data);
-    $locale = user?.language || "en";
   };
 
   onMount(async () => {

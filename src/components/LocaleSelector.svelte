@@ -1,10 +1,15 @@
 <script>
   import { t, locale, locales } from "$lib/translations";
-  export let user;
   export let style;
+
+  const handleChange = ({ currentTarget }) => {
+    const { value } = currentTarget;
+    document.cookie = `lang=${value}; path=/`;
+    $locale = value;
+  };
 </script>
 
-<select name="language" bind:value={user.language} class={style}>
+<select name="language" class={style} on:change={handleChange}>
   {#each $locales as locale}
     <option value={locale}>{$t(`lang.${locale}`)}</option>
   {/each}
