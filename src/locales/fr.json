@@ -231,7 +231,16 @@
 			"publishNip5": "Publie identité nostr",
 			"nip5a": "Utilise",
 			"nip5b": "comme votre addresse nostr verifié publiquement",
-			"shopify": "Intégration Shopify"
+			"shopify": "Intégration Shopify",
+			"destination": "Adresse de retrait automatique",
+			"destinationDesc": "L'adresse à laquelle les retraits seront envoyés",
+			"destinationPlaceholder": "Entrez une adresse Bitcoin, Liquid ou Lightning",
+			"reserve": "Montant de la réserve",
+			"reserveDesc": "Le montant qui restera sur votre compte une fois le retrait terminé",
+			"threshold": "Seuil de retrait automatique",
+			"thresholdDesc": "Lorsque votre solde dépasse ce montant, un retrait sera déclenché",
+			"autoWithdraw": "Retrait automatique",
+			"autoWithdrawDescription": "Activez les retraits vers une adresse externe lorsque votre solde atteint un seuil donné"
 		},
 		"support": {
 			"header": "Assistance",

@@ -9,7 +9,7 @@
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { back, fail } from "$lib/utils";
+  import { back, fail, focus } from "$lib/utils";
 
   export let data;
   export let form;
@@ -18,10 +18,9 @@
   let { contacts } = data;
   let w;
 
-  let el, textarea, text;
-  let placeholder = $t("user.send.placeholder");
+  let el, text;
 
-  $: $page && setTimeout(() => w > 800 && textarea?.focus(), 0);
+
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
   let paste = async () => {
@@ -48,12 +47,12 @@
 
     <div class="mb-2">
       <textarea
+        use:focus
         name="text"
-        {placeholder}
+          placeholder={$t("user.send.placeholder")}
         on:keypress={keypress}
         class="w-full p-4 border rounded-xl h-48"
         bind:value={text}
-        bind:this={textarea}
       />
     </div>
 

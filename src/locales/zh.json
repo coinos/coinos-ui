@@ -262,7 +262,16 @@
 			"disablePIN": "禁用 PIN 码",
 			"publishNip5": "发布 nostr 身份",
 			"nip5a": "使用",
-			"nip5b": "作为您公开验证的 nostr 地址"
+			"nip5b": "作为您公开验证的 nostr 地址",
+			"destination": "自动提现地址",
+			"destinationDesc": "提款将发送至的地址",
+			"destinationPlaceholder": "输入比特币、Liquid 或闪电地址",
+			"reserve": "储备金额",
+			"reserveDesc": "提款完成后您账户中剩余的金额",
+			"threshold": "自动提现门槛",
+			"thresholdDesc": "当您的余额超过此金额时，将触发提款",
+			"autoWithdraw": "自动提款",
+			"autoWithdrawDescription": "当您的余额达到给定阈值时，启用向外部地址提款"
 		},
 		"support": {
 			"header": "支持",

@@ -35,8 +35,8 @@
     amountFiat = af;
   };
 
-  let loading;
-  let submit = () => (loading = true);
+  let submitting;
+  let submit = () => (submitting = true);
 
   let external = async () => {
     let invoice = { type: "lightning", amount, currency };
@@ -52,8 +52,8 @@
 
   $: update(form);
   let update = () => {
-    if (form?.message.includes("pin")) $pin = undefined;
-    loading = false;
+    if (form?.message?.includes("pin")) $pin = undefined;
+    submitting = false;
   };
 
   // onMount(async () => {
@@ -152,8 +152,9 @@
           use:focus
           type="submit"
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          disabled={submitting}
         >
-          {#if loading}
+          {#if submitting}
             <Spinner />
           {:else}
             {$t("payments.send")}

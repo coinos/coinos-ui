@@ -273,7 +273,16 @@
 			"hours": "Std.",
 			"publishNip5": "Nostr-Identität veröffentlichen",
 			"nip5a": "Verwenden",
-			"nip5b": "als Ihre öffentlich verifizierte Nostr-Adresse"
+			"nip5b": "als Ihre öffentlich verifizierte Nostr-Adresse",
+			"destination": "Adresse für automatische Auszahlung",
+			"destinationDesc": "Die Adresse, an die Auszahlungen gesendet werden",
+			"destinationPlaceholder": "Geben Sie eine Bitcoin-, Liquid- oder Lightning-Adresse ein",
+			"reserve": "Reservebetrag",
+			"reserveDesc": "Der Betrag, der nach Abschluss der Auszahlung auf Ihrem Konto verbleibt",
+			"threshold": "Automatischer Auszahlungsschwellenwert",
+			"thresholdDesc": "Wenn Ihr Guthaben diesen Betrag überschreitet, wird eine Auszahlung ausgelöst",
+			"autoWithdraw": "Automatische Auszahlung",
+			"autoWithdrawDescription": "Ermöglichen Sie Auszahlungen an eine externe Adresse, wenn Ihr Guthaben einen bestimmten Schwellenwert erreicht"
 		},
 		"support": {
 			"header": "Support",

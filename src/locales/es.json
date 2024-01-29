@@ -262,7 +262,16 @@
 			"nip5b": "como su dirección nostr verificada públicamente",
 			"minutes": "minutos",
 			"hour": "hora",
-			"hours": "horas"
+			"hours": "horas",
+			"destination": "Dirección de retiro automático",
+			"destinationDesc": "La dirección a la que se enviarán los retiros",
+			"destinationPlaceholder": "Ingrese una dirección Bitcoin, Liquid o Lightning",
+			"reserve": "Monto de reserva",
+			"reserveDesc": "El monto que quedará en su cuenta una vez completado el retiro",
+			"threshold": "Umbral de retiro automático",
+			"thresholdDesc": "Cuando su saldo exceda esta cantidad, se activará un retiro",
+			"autoWithdraw": "Retiro automático",
+			"autoWithdrawDescription": "Habilite retiros a una dirección externa cuando su saldo alcance un umbral determinado"
 		},
 		"support": {
 			"header": "Soporte",

@@ -6,6 +6,7 @@
 
   export let amount,
     currency,
+    element,
     fiat = !amount,
     rate,
     submit = undefined;
@@ -45,6 +46,9 @@
   const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "<"];
 
   const handleInput = (value) => {
+    if (selecting) amount = 0;
+    selecting = false;
+
     if (fiat) {
       if (amountFiat === 0 && value !== "." && value !== "<" && value !== "0") {
         amountFiat = value;
@@ -161,12 +165,14 @@
     }, 0);
   };
 
+  let selecting;
   let select = (e) => {
     let range = document.createRange();
     range.selectNodeContents(e.target);
     let sel = getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
+    selecting = true;
   };
 
   let blur = () => {
@@ -195,6 +201,7 @@
           on:input={input}
           on:keydown={keydown}
           class="outline-none my-auto"
+          bind:this={element}
         />
       </div>
       <div class="mt-2">
