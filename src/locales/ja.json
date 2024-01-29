@@ -262,7 +262,16 @@
 			"disablePIN": "PIN を無効にする",
 			"publishNip5": "nostr のアイデンティティを公開する",
 			"nip5a": "使用",
-			"nip5b": "公的に確認された nostr アドレスとして"
+			"nip5b": "公的に確認された nostr アドレスとして",
+			"destination": "自動出金アドレス",
+			"destinationDesc": "出金先のアドレス",
+			"destinationPlaceholder": "ビットコイン、リキッド、またはライトニング アドレスを入力してください",
+			"reserve": "積立金額",
+			"reserveDesc": "出金完了後にアカウントに残る金額",
+			"threshold": "自動出金基準額",
+			"thresholdDesc": "残高がこの金額を超えると引き出しがトリガーされます",
+			"autoWithdraw": "自動引き出し",
+			"autoWithdrawDescription": "残高が指定されたしきい値に達したときに外部アドレスへの出金を有効にする"
 		},
 		"support": {
 			"header": "サポート",

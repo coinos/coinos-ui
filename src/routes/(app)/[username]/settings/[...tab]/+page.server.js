@@ -16,8 +16,10 @@ export const actions = {
       form.notify = form.notify === "on";
       form.nip5 = form.nip5 === "on";
       form.prompt = form.prompt === "on";
+      form.autowithdraw = form.autowithdraw === "on";
     }
 
+      console.log("FORM", form.reserve)
     let user = { ...(await get("/me", auth(cookies))), ...form };
 
     try {

@@ -41,6 +41,7 @@ export const actions = {
 
       await post("/payments", body, auth(cookies));
     } catch (e) {
+      console.log("payment failed", params, e);
       return fail(400, { message: e.message });
     }
 

@@ -281,7 +281,16 @@
 			"revealSeed": "Revelar frase-semente",
 			"publishNip5": "Publicar identidade nostr",
 			"nip5a": "Usar",
-			"nip5b": "como seu endereço nostr verificado publicamente"
+			"nip5b": "como seu endereço nostr verificado publicamente",
+			"destination": "Endereço de retirada automática",
+			"destinationDesc": "O endereço para onde os saques serão enviados",
+			"destinationPlaceholder": "Insira um endereço Bitcoin, Liquid ou Lightning",
+			"reserve": "Valor da reserva",
+			"reserveDesc": "O valor que restará em sua conta após a conclusão do saque",
+			"threshold": "Limite de retirada automática",
+			"thresholdDesc": "Quando o seu saldo exceder esse valor, um saque será acionado",
+			"autoWithdraw": "Retirada automática",
+			"autoWithdrawDescription": "Habilite saques para um endereço externo quando seu saldo atingir um determinado limite"
 		},
 		"support": {
 			"header": "Suporte",
