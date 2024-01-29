@@ -126,10 +126,12 @@
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-primary">
         ⚡️
       </div>
-     <div
+      <div
         class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
-        >{user.threshold}</div>
-        <input type="hidden" name="reserve" bind:value={user.reserve} />
+      >
+        {user.threshold}
+      </div>
+      <input type="hidden" name="threshold" bind:value={user.threshold} />
     </button>
     <p class="text-secondary mt-1">
       {$t("user.settings.thresholdDesc")}
@@ -149,7 +151,7 @@
       >
         {user.reserve}
       </div>
-        <input type="hidden" name="reserve" bind:value={user.reserve} />
+      <input type="hidden" name="reserve" bind:value={user.reserve} />
     </button>
     <p class="text-secondary mt-1">
       {$t("user.settings.reserveDesc")}
