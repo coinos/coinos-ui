@@ -201,13 +201,13 @@
 			"placeholder": "Enter an address, invoice or username"
 		},
 		"settings": {
-			"destination": "Auto-withdrawal address",
+			"destination": "Autowithdrawal address",
 			"destinationDesc": "The address that withdrawals will be sent to",
 			"destinationPlaceholder": "Enter a Bitcoin, Liquid or Lightning address",
 			"reserve": "Reserve amount",
 			"reserveDesc": "The amount to be left in your account after the withdrawal is complete",
 			"shopify": "Shopify integration",
-			"threshold": "Auto-withdrawal threshold",
+			"threshold": "Autowithdrawal threshold",
 			"thresholdDesc": "When your balance exceeds this amount, a withdrawal will be triggered",
 			"autoWithdraw": "Autowithdrawal",
 			"autoWithdrawDescription": "Enable withdrawals to an external address when your balance reaches a given threshold",
