@@ -120,7 +120,7 @@
       user: { username, currency },
     }));
 
-    goto(`./${id}`, { invalidateAll: true, noScroll: true });
+    goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
   };
 </script>
 
