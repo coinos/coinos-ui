@@ -141,7 +141,7 @@
     {#if subject.address && subject.id !== user?.id}
       <div
         class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
-        class:line-clamp-3={showBio}
+        class:line-clamp-2={!showBio}
         on:click={toggleBio}
         on:keydown={toggleBio}
       >
