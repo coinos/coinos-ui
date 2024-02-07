@@ -6,6 +6,7 @@
     "build": "vite build",
     "docker": "docker build . -t coinos-ui",
     "preview": "vite preview",
+    "sync": "bun svelte-kit sync",
     "lint": "prettier --check --plugin-search-dir=. .",
     "format": "prettier --write --plugin-search-dir=. ."
   },
@@ -49,5 +50,13 @@
     "uuid": "^9.0.0",
     "vite": "^5.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "bits-ui": "^0.17.0",
+    "bun": "^1.0.26",
+    "clsx": "^2.1.0",
+    "lucide-svelte": "^0.323.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwind-variants": "^0.1.20"
+  }
 }

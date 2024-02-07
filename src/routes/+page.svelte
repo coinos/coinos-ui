@@ -1,6 +1,17 @@
 <script>
+	import * as Accordion from "$lib/shadcn/components/ui/accordion";
+	import { Separator } from "$lib/shadcn/components/ui/separator";
 	import { scroll } from '$lib/utils';
+	
 	let about, faq;
+	let askedQuestionsAccordionValue = "item-0"
+
+	let askedQuestionsAccordion = [
+		{id: 0, title: "What does it cost?", description: "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."},
+		{id: 1, title: "Do I need any special device or software?", description: "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."},
+		{id: 2, title: "When do my funds settle?", description: "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."}
+	]
+
 </script>
 
 <svelte:head>
@@ -78,7 +89,7 @@
 
 <!-- hero -->
 <div class="site_hero pt-md-5 pt-4">
-	<div class="container-lg px-sm-4 px-3 pt-md-5 text-center">
+	<div class="container-lg px-sm-4 px-3 pt-md-5 mb-16  text-center">
 		<h1
 			class="text-center text-black f_bebas_neue text-uppercase fw-bold letter_space_2 display-3 lh-1"
 		>
@@ -92,7 +103,7 @@
 	</div>
 	<div class="container-xxl px-lg-5 px-sm-4 px-3">
 		<div class="w-100">
-			<img class="w-100" src="images/hero_bg.png" alt="" />
+			<img src="images/hero_bg.png" alt="" class="w-full slide-top" />
 		</div>
 	</div>
 </div>
@@ -103,7 +114,7 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
-					<img src="images/swapee-grid-1-3.png" alt="" />
+					<img src="images/swapee-grid-1-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
 					<h5 class="f_bebas_neue fw-bold letter_space_1">Create your account</h5>
 					<p class="txt_slate_blue lh-base">
 						A username and password is all you need to get started. <a
@@ -115,7 +126,7 @@
 			</div>
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
-					<img src="images/swapee-grid-2-3.png" alt="" />
+					<img src="images/swapee-grid-2-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
 					<h5 class="f_bebas_neue fw-bold letter_space_1">Ask for payments</h5>
 					<p class="txt_slate_blue lh-base">
 						It’s the same as you normally would traditionally, but with bitcoin.
@@ -124,7 +135,7 @@
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
-					<img src="images/swapee-grid-3-3.png" alt="" />
+					<img src="images/swapee-grid-3-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
 					<h5 class="f_bebas_neue fw-bold letter_space_1">That's all!</h5>
 					<p class="txt_slate_blue lh-base">
 						Spend your coins immediately or save it and watch it grow, the choice is yours.
@@ -152,16 +163,16 @@
 						processing fees, merchants can enjoy hassle-free retail payments.
 					</p>
 
-					<div class="mt-4 sec_btn">
+					<div class="mt-4 sec_btn flex gap-x-3 gap-y-3 flex-wrap">
 						<a href="#" class="btn_white f_bebas_neue"><span>Learn More</span></a>
-						<a href="#" class="btn_black f_bebas_neue"><span>Get Started</span></a>
+						<a href="/register" class="btn_black f_bebas_neue"><span>Get Started</span></a>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-5 mb-md-0 mb-5 scale_img_right">
+			<div class="col-md-5 mb-md-0 mb-5 scale_img_rig">
 				<div>
-					<img src="images/swapee-sec-calculator.png" class="w-100" alt="" />
+					<img src="images/swapee-sec-calculator.png" class="hover:scale-[1.015] transition-all duration-500 ease-in-out" alt="" />
 				</div>
 			</div>
 		</div>
@@ -171,9 +182,9 @@
 <section class="pt-5 bg_light">
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row align-items-center justify-content-center">
-			<div class="col-md-5 scale_img_left">
+			<div class="col-md-5">
 				<div>
-					<img src="images/swapee-sec-2-img.png" class="w-100" alt="" />
+					<img src="images/swapee-sec-2-img.png" class="slide-top" alt="" />
 				</div>
 			</div>
 
@@ -189,7 +200,7 @@
 						taking custody of your funds by withdrawing instantly at any time.
 					</p>
 
-					<div class="mt-4 sec_btn">
+					<div class="mt-4 sec_btn flex gap-x-3 gap-y-3 flex-wrap">
 						<a href="#" class="btn_white f_bebas_neue"><span>Learn More</span></a>
 						<a href="/register" class="btn_purple f_bebas_neue"><span>Get Started</span></a>
 					</div>
@@ -202,13 +213,13 @@
 <section class="sec_3 position-relative">
 	<div class="col-md-5 d-xxl-none d-md-block d-none position-absolute img_position">
 		<div>
-			<img src="images/swapee-sec-3-img.png" class="w-100" alt="" />
+			<img src="images/swapee-sec-3-img.png" alt="" class="hover:scale-[0.985] transition-all duration-500 ease-in-out" />
 		</div>
 	</div>
 
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row align-items-center justify-content-center flex-md-row flex-column-reverse">
-			<div class="col-md-6 mb-md-0 mb-4">
+			<div class="col-md-6 mb-md-0">
 				<div>
 					<h6 class="f_bebas_neue txt_purple">Customized & Personalized</h6>
 					<h2 class="h1 letter_space_2 f_bebas_neue fw-bold text-black br_md_none mb-3 lh-1">
@@ -220,16 +231,16 @@
 						interests.
 					</p>
 
-					<div class="mt-4 sec_btn">
+					<div class="sec_btn mt-4 flex gap-x-3 flex-wrap">
 						<a href="#" class="btn_white f_bebas_neue mb-3"><span>Learn More</span></a>
-						<a href="#" class="btn_black f_bebas_neue mb-3"><span>Get Started</span></a>
+						<a href="/register" class="btn_black f_bebas_neue mb-3"><span>Get Started</span></a>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-6 mb-md-0 mb-4 sec_3_img">
+			<div class="col-md-6 mb-md-0 mb-4 overflow-hidden">
 				<div class="d-xxl-block d-md-none d-block">
-					<img src="images/swapee-sec-3-img.png" class="w-100" alt="" />
+					<img src="images/swapee-sec-3-img.png" alt="" />
 				</div>
 			</div>
 		</div>
@@ -246,61 +257,19 @@
 				</h2>
 			</div>
 
-			<div class="accordion" id="accordionExample">
-				<div class="accordion-item swapee_accordion">
-					<h2 class="" id="headingOne">
-						<button class="accordion-button shadow-none" type="button">
-							<span class="line"> What does it cost? </span>
-						</button>
-					</h2>
-					<div id="collapseOne">
-						<div class="accordion-body">
-							<p class="txt_slate_blue">
-								Registering an account and receiving payments on Swapee.me is completely free. Our
-								aim is to offer a smooth user experience without any financial barriers. However,
-								when converting regular Bitcoin to Lightning or vice versa, we apply a modest 0.1%
-								conversion fee to ensure secure and efficient transactions.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="accordion-item swapee_accordion">
-					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button shadow-none" type="button">
-							<span class="line"> Do I need any special device or software? </span>
-						</button>
-					</h2>
-					<div id="collapseTwo">
-						<div class="accordion-body">
-							<p class="txt_slate_blue">
-								No, Swapee.me is designed to be incredibly user-friendly. You can access our
-								platform using any device that can connect to a web browser - whether it's your
-								mobile phone, PC, tablet, or any other compatible device. Swapee.me prioritizes
-								accessibility and ease of use for all users, regardless of their chosen device.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="accordion-item swapee_accordion">
-					<h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button shadow-none " type="button">
-							<span class="line"> When do my funds settle? </span>
-						</button>
-					</h2>
-					<div id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<p class="txt_slate_blue">
-								At Swapee.me, we value your time. Lightning payments on our platform settle
-								instantly, reflecting our commitment to efficiency and user satisfaction. Forget
-								waiting for extended transaction confirmations; with Swapee.me, you can experience
-								the speed and efficiency of the Lightning Network firsthand.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Accordion.Root class="w-full flex flex-col gap-3" bind:value={askedQuestionsAccordionValue} >
+				{#each askedQuestionsAccordion as askedQuestionAccordion }
+					<Accordion.Item value={`item-${askedQuestionAccordion.id}`} class="bg-white rounded-[10px] border-[1px] border-gray-300 px-4">
+						<Accordion.Trigger class="py-0">
+							<h2 class="text-base pt-3 pb-3 font-bold border-b-black {askedQuestionsAccordionValue == `item-${askedQuestionAccordion.id}` ? 'border-b-2' : ''}">{askedQuestionAccordion.title}</h2>
+						</Accordion.Trigger>
+						<Accordion.Content class="text-base text-slate-500 mt-0">
+							<Separator orientation="horizontal" class="mt-0 mb-3" />
+							<p class="mb-0">{askedQuestionAccordion.description}</p>
+						</Accordion.Content>
+					</Accordion.Item>
+				{/each}
+			</Accordion.Root>
 		</div>
 	</div>
 </section>
@@ -331,14 +300,9 @@
 			<div class="row align-items-center justify-content-between">
 				<div class="col-md-5 mb-md-0 mb-5">
 					<a href="#" class="footer_logo"><img src="images/footer-logo.png" alt="" /></a>
-					<!-- <p class="text-white-50 mt-5 mb-4"> -->
-					<!-- 	Copyright © 2023. Swapee.me is a Registered Cryptoasset firm and is registered with the -->
-					<!-- 	UK Financial Conduct Authority. -->
-					<!-- 	<br /> -->
-					<!-- 	<br /> -->
-					<!-- 	All rights reserved. -->
-					<!-- </p> -->
-					<a class="btn_language" href="#">English</a>
+					<p class="text-white-50 mt-10">Copyright © 2023. Swapee.me</p>
+					<p class="text-white-50 mt-3">All rights reserved.</p>
+					<a href="#" class="btn_language d-inline-block mt-3">English</a>
 				</div>
 				<div
 					class="ps-md-4 footer_top_right col-md-6 d-flex align-items-center justify-content-end justify-content-sm-center justify-content-between"
