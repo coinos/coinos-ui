@@ -1,5 +1,5 @@
 <script>
-  import { getMnemonic, getNsec } from "$lib/nostr";
+  import { getMnemonic, getNsec, setNsec } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
@@ -14,8 +14,10 @@
 
   let confirming2fa,
     disabling2fa,
+    importing,
     locked,
     mnemonic,
+    newNsec = "nsec13wekuqstlsyfrzm369yh6vjaphslq5pq9kze74acqqynjm8lvpms4qzsx9",
     nsec,
     old,
     otp,
@@ -28,6 +30,10 @@
     setting2fa,
     settingPin,
     verify;
+
+  let importNsec = () => {
+    importing = true;
+  };
 
   let toggleNsec = async () => {
     try {
@@ -301,10 +307,31 @@
     {$t("user.settings.nostrDescription")}
   </p>
 
-  <button type="button" class="primary" on:click={toggleNsec}>
-    <Icon icon="warning" style="mr-1 w-6 my-auto" />
-    {revealNsec ? $t("user.settings.hideNsec") : $t("user.settings.revealNsec")}
-  </button>
+  <div class="flex">
+    <button type="button" class="primary" on:click={toggleNsec}>
+      <Icon icon="warning" style="mr-1 w-6 my-auto" />
+      {revealNsec
+        ? $t("user.settings.hideNsec")
+        : $t("user.settings.revealNsec")}
+    </button>
+
+    <button type="button" class="primary" on:click={importNsec}>
+      <Icon icon="save" style="mr-1 w-6 my-auto" />
+      {$t("user.settings.import")}
+    </button>
+  </div>
+
+  {#if importing}
+    <input
+      name="nsec"
+      bind:value={newNsec}
+      placeholder="nsec..."
+      on:blur={() => setNsec(user, newNsec)}
+    />
+  {/if}
+
+  <input type="hidden" name="nsec" bind:value={user.nsec} />
+  <input type="hidden" name="pubkey" bind:value={user.pubkey} />
 
   {#if revealNsec}
     <div class="text-lg break-all">
