@@ -84,7 +84,7 @@
       </div>
       <div class="space-y-8 mt-8">
         {#if !user.balance}
-          <p class="text-secondary text-lg">
+          <p class="text-secondary text-lg max-w-2xl text-center lg:text-start mx-auto">
             {$t("user.welcome")}
           </p>
         {/if}

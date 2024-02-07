@@ -44,7 +44,7 @@
     class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover mb-20"
     style:background-image={bg}
   >
-    <nav class="flex justify-end items-center space-x-4 p-5">
+    <nav class="flex justify-end items-center gap-x-2 xs:gap-x-4 p-5">
       {#if user}
         <a href={`/${user.username}`}>
           <button
@@ -127,9 +127,9 @@
                 {/each}
               </ul>
               <hr class="my-4" />
-              <a href="/"
-                ><img src="/images/logo.svg" alt="Swapee" class="w-32" /></a
-              >
+              <a href="/">
+                <img src="/images/logo.svg" alt="Swapee" class="w-32" />
+              </a>
             </div>
           </OutClick>
         </div>

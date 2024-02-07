@@ -313,7 +313,7 @@ body{
     padding-bottom: 12vw;
 }
 
-/* accordion */
+/* accordion NOT MORE BEING USED (AFTER ALTERATIONS, NOW THE ACCORDION IS BUILT WITH TAILWIND + SHADCN) */
 .swapee_accordion {
     border-radius: 10px;
     -webkit-border-radius: 10px;

@@ -75,9 +75,8 @@
   };
 </script>
 
-<div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
-  <div class="hidden lg:block lg:w-[300px]" />
-  <div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-sm">
+<div class="mx-auto w-full px-4 flex flex-col lg:flex-row">
+  <div class="lg:w-[300px] space-y-5 mx-auto max-w-sm lg:ml-24">
     <div
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
@@ -242,7 +241,7 @@
   </div>
 
   <div class="w-full">
-    <div class="mx-auto space-y-5 lg:max-w-xl lg:pl-10 xl:max-w-2xl lg:pl-10">
+    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10">
       <slot />
     </div>
   </div>
