@@ -31,14 +31,16 @@
     settingPin,
     verify;
 
-  let importNsec = () => {
-    importing = true;
+  let toggleImporting = () => {
+    revealNsec = false;
+    importing = !importing;
   };
 
   let toggleNsec = async () => {
     try {
       nsec = await getNsec(user);
       revealNsec = !revealNsec;
+      importing = false;
     } catch (e) {
       console.log(e);
     }
@@ -309,28 +311,24 @@
 
   <div class="flex">
     <button type="button" class="primary" on:click={toggleNsec}>
-      <Icon icon="warning" style="mr-1 w-6 my-auto" />
-      {revealNsec
-        ? $t("user.settings.hideNsec")
-        : $t("user.settings.revealNsec")}
+      {#if revealNsec}
+        <Icon icon="eye-off" style="mr-1 w-6 my-auto" />
+        {$t("user.settings.hideNsec")}
+      {:else}
+        <Icon icon="warning" style="mr-1 w-6 my-auto" />
+        {$t("user.settings.revealNsec")}
+      {/if}
     </button>
 
-    <button type="button" class="primary" on:click={importNsec}>
+    <button type="button" class="primary" on:click={toggleImporting}>
       <Icon icon="save" style="mr-1 w-6 my-auto" />
       {$t("user.settings.import")}
     </button>
   </div>
 
   {#if importing}
-    <input
-      name="newNsec"
-      bind:value={newNsec}
-      placeholder="nsec..."
-    />
+    <input name="newNsec" bind:value={newNsec} placeholder="nsec..." />
   {/if}
-
-  <input type="hidden" name="nsec" bind:value={user.nsec} />
-  <input type="hidden" name="pubkey" bind:value={user.pubkey} />
 
   {#if revealNsec}
     <div class="text-lg break-all">
