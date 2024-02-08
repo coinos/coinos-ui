@@ -4,7 +4,7 @@
   import { goto, invalidate } from "$app/navigation";
   import Pin from "$comp/Pin.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { loginRedirect, pin, password, passwordPrompt } from "$lib/store";
+  import { loginRedirect, pin, password } from "$lib/store";
   import { generate } from "$lib/nostr";
   import { browser } from "$app/environment";
 
@@ -19,17 +19,6 @@
       goto($loginRedirect || `/${user.username}`, { invalidateAll: true });
       return;
     }
-
-    console.log("PASSWORRRRD", $password);
-    if (!$password) $passwordPrompt = true;
-
-    try {
-      await post("/password", { password: $password });
-    } catch (e) {
-      $passwordPrompt = true;
-    }
-
-    await wait(() => $password);
 
     try {
       await generate(user);

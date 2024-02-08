@@ -22,7 +22,7 @@
   let ready;
 
   e.subscribe(async (event) => {
-    if (!(event && ready)) return;
+    if (!(browser && event && ready)) return;
     if (
       event.recipient?.id === user.id &&
       !~latest.findIndex((m) => m.id === event.id)
@@ -43,7 +43,7 @@
   let initialize = async (p) => {
     let i = 0;
     ready = false;
-    if (!p || !user) return;
+    if (!(browser && user)) return;
     while (i < messages.length) {
       let event = messages[i];
       i++;
@@ -54,6 +54,7 @@
         event.author.id === user.id
           ? event.recipient?.pubkey
           : event.author.pubkey;
+    
       if (!keys.has(k)) {
         keys.add(k);
         event.content = await decrypt({ event, user });

@@ -99,7 +99,7 @@
   });
 </script>
 
-{#if browser && $passwordPrompt}
+{#if browser && user && $passwordPrompt}
   <Password {user} />
 {/if}
 

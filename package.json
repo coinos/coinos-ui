@@ -1,15 +1,8 @@
 {
   "name": "my-app",
   "version": "0.0.1",
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "docker": "docker build . -t coinos-ui",
-    "preview": "vite preview",
-    "lint": "prettier --check --plugin-search-dir=. .",
-    "format": "prettier --write --plugin-search-dir=. ."
-  },
   "devDependencies": {
+    "@asoltys/nostr-tools": "^2.1.7",
     "@scure/base": "^1.1.1",
     "@scure/bip39": "^1.2.1",
     "@sveltejs/adapter-node": "^2.0.0",
@@ -48,8 +41,13 @@
     "uuid": "^9.0.0",
     "vite": "^5.0.0"
   },
-  "type": "module",
-  "dependencies": {
-    "nostr-tools": "https://github.com/nbd-wtf/nostr-tools#b9435af70872b83d57d8857b43113130b5f0cba6"
-  }
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "docker": "docker build . -t coinos-ui",
+    "preview": "vite preview",
+    "lint": "prettier --check --plugin-search-dir=. .",
+    "format": "prettier --write --plugin-search-dir=. ."
+  },
+  "type": "module"
 }

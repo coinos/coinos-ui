@@ -12,7 +12,7 @@
   import { avatar, banner, password, pin } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
-  import { sign, send, reEncryptEntropy } from "$lib/nostr";
+    import { sign, send, reEncryptEntropy, setNsec } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
 
   import Account from "./_account.svelte";
@@ -76,6 +76,8 @@
     try {
       submitting = true;
       let data = new FormData(formElement);
+
+      if (data.get("newNsec")) setNsec(user, data.get("newNsec"))
 
       if (data.get("password")) {
         try {
