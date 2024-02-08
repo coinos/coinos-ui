@@ -1,5 +1,5 @@
 <script>
-  import { getMnemonic, getNsec, setNsec } from "$lib/nostr";
+  import { getMnemonic, getNsec } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
@@ -17,7 +17,7 @@
     importing,
     locked,
     mnemonic,
-    newNsec = "nsec13wekuqstlsyfrzm369yh6vjaphslq5pq9kze74acqqynjm8lvpms4qzsx9",
+    newNsec,
     nsec,
     old,
     otp,
@@ -323,10 +323,9 @@
 
   {#if importing}
     <input
-      name="nsec"
+      name="newNsec"
       bind:value={newNsec}
       placeholder="nsec..."
-      on:blur={() => setNsec(user, newNsec)}
     />
   {/if}
 

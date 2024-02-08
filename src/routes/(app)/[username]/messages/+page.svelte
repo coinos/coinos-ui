@@ -41,7 +41,6 @@
 
   $: initialize($password);
   let initialize = async (p) => {
-    if (!p) return;
     await Promise.all(
       messages.map(
         async (event) => (event.message = await decrypt({ event, user }))

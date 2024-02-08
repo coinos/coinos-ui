@@ -1,3 +1,4 @@
+import { hexToUint8Array } from "uint8array-extras";
 import { get } from "svelte/store";
 import { Buffer } from "buffer";
 import { fail, wait, post, stretch } from "$lib/utils";
@@ -84,7 +85,9 @@ function typedArrayToBuffer(array) {
 
 export let getPrivateKey = async (user) => {
   let { nsec, username, salt } = user;
-  let privkey = privateKeyFromSeedWords(await getMnemonic(user));
+  let privkey = hexToUint8Array(
+    privateKeyFromSeedWords(await getMnemonic(user))
+  );
 
   if (nsec) {
     let decrypted = nip49decrypt(nsec, await getPassword());
@@ -135,17 +138,7 @@ export let send = (event) => {
 };
 
 let getPassword = async () => {
-  let password = get(pw);
-
-  if (!password) passwordPrompt.set(true);
-  else {
-    try {
-      await post("/password", { password });
-    } catch (e) {
-      passwordPrompt.set(true);
-    }
-  }
-
+  if (!get(pw)) passwordPrompt.set(true);
   await wait(() => !!get(pw));
   return get(pw);
 };
