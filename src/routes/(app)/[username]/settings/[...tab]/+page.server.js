@@ -19,7 +19,6 @@ export const actions = {
       form.autowithdraw = form.autowithdraw === "on";
     }
 
-      console.log("FORM", form.reserve)
     let user = { ...(await get("/me", auth(cookies))), ...form };
 
     try {
