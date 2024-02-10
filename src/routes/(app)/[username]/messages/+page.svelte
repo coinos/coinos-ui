@@ -1,182 +1,92 @@
 <script>
-  import { cubicInOut } from "svelte/easing";
-  import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import { format } from "date-fns";
-  import { scale, fade, fly } from "svelte/transition";
-  import { enhance } from "$app/forms";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
-  import { back, fail, focus } from "$lib/utils";
-  import { sign, send, encrypt, decrypt } from "$lib/nostr";
   import { event as e, password } from "$lib/store";
-  import { tick, onMount } from "svelte";
-  import { getEventHash } from "nostr-tools";
+  import { browser } from "$app/environment";
+  import { decrypt } from "$lib/nostr";
 
   export let data;
 
-  function fadeScale(
-    node,
-    { delay = 0, duration = 200, easing = (x) => x, baseScale = 0 }
-  ) {
-    const o = +getComputedStyle(node).opacity;
-    const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);
-    const s = m ? m[1] : 1;
-    const is = 1 - baseScale;
+  let { messages, notes, invoices, sent, received, subject, user, rates } =
+    data;
+  $: refresh(data);
+  let refresh = (d) =>
+    ({ messages, notes, invoices, sent, received, subject, user, rates } = d);
 
-    return {
-      delay,
-      duration,
-      css: (t) => {
-        const eased = easing(t);
-        return `opacity: ${eased * o}; transform: scale(${
-          eased * s * is + baseScale
-        })`;
-      },
-    };
-  }
-
-  let { messages, subject, user } = data;
-  let input, pane;
-
-  $: initialize($password);
-  let initialize = async (p) => {
-    await Promise.all(
-      messages.map(
-        async (event) => (event.message = await decrypt({ event, user }))
-      )
-    );
-
-    messages = messages;
-    tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
-  };
+  let keys = new Set();
+  let latest = [];
+  let ready;
 
   e.subscribe(async (event) => {
-    let found = ~messages.findIndex((m) => m.id === event?.id);
-    if (event?.recipient.id === user.id && !found) {
-      event.message = await decrypt({ event, user });
-      messages.push(event);
-      messages = messages;
-      tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
+    if (!(browser && event && ready)) return;
+    if (
+      event.recipient?.id === user.id &&
+      !~latest.findIndex((m) => m.id === event.id)
+    ) {
+      event.content = await decrypt({ event, user });
+
+      let i = latest.findIndex((m) => m.pubkey === event.pubkey);
+      let popped;
+      if (~i) popped = latest.splice(i, 1);
+      else popped = latest.pop();
+
+      latest.unshift(event);
+      latest = latest;
     }
   });
 
-  let sent, submitting, message;
-  let submit = async () => {
-    submitting = true;
+  $: initialize($password);
+  let initialize = async (p) => {
+    let i = 0;
+    ready = false;
+    if (!(browser && user)) return;
+    while (i < messages.length) {
+      let event = messages[i];
+      i++;
 
-    let event = {
-      pubkey: user.pubkey,
-      created_at: Math.floor(Date.now() / 1000),
-      kind: 4,
-      tags: [["p", subject.pubkey]],
-    };
+      if (!(event.author && event.recipient)) continue;
 
-    event.message = message;
+      let k =
+        event.author.id === user.id
+          ? event.recipient?.pubkey
+          : event.author.pubkey;
 
-    message = "";
-
-    event.author = user;
-    event.recipient = subject;
-
-    messages.push(event);
-    messages = messages;
-    tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
-
-    try {
-      event.content = await encrypt({
-        message: event.message,
-        recipient: subject.pubkey,
-        user,
-      });
-      event.id = getEventHash(event);
-      await sign({ event, user });
-      await send(event);
-
-      sent = true;
-    } catch (e) {
-      console.log(e);
-      fail("Failed to send message");
+      if (!keys.has(k)) {
+        keys.add(k);
+        event.content = await decrypt({ event, user });
+        if (event.content) latest.push(event);
+      }
     }
 
-    message = "";
-    submitting = false;
-  };
-
-  let keydown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      submit();
-    }
+    latest = latest;
+    ready = true;
   };
 </script>
 
-<div class="container max-w-xl mx-auto px-4 space-y-5">
-  <div
-    class="h-[50vh] max-h-[50vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F2F6FC] scrollbar-track-white pr-8"
-    bind:this={pane}
-  >
-    {#each messages as { id, author, message, created_at, pubkey }}
-      {@const ours = pubkey === user.pubkey}
-      {@const theirs = !ours}
-
-      {#if message}
-        <div
-          class="flex gap-2"
-          class:flex-row-reverse={theirs}
-          class:justify-end={theirs}
-          in:fadeScale={{
-            easing: cubicInOut,
-            baseScale: 0.5,
-          }}
-        >
-          <div
-            class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
-            class:ours
-            class:theirs
-            :key={id}
-          >
-            {message}
+<div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
+    {$t("user.messages")}
+  </h1>
+  {#if latest.length && user?.id === subject.id}
+    <div class="relative">
+      {#each latest as { content, pubkey, author, recipient }}
+        {@const user = author.id === user.id ? recipient : author}
+        <a href={`/${subject.username}/messages/${user.username}`}>
+          <div class="flex hover:bg-gray-100 p-4 rounded-2xl">
+            <div class="my-auto">
+              <Avatar {user} size={"20"} disabled={true} />
+            </div>
+            <div class="my-auto truncate">
+              <div class="my-auto ml-1 text-lg font-bold">{user.username}</div>
+              <div class="my-auto ml-1 text-secondary text-lg truncate">
+                {content}
+              </div>
+            </div>
           </div>
-          <div class="mt-auto">
-            <Avatar user={author} size={"12"} />
-          </div>
-        </div>
-        <div class="text-sm text-gray-400 mb-6" class:text-right={ours}>
-          {format(new Date(created_at * 1000), "MMM d")},
-          {format(new Date(created_at * 1000), "h:mm aa")}
-        </div>
-      {/if}
-    {/each}
-  </div>
-
-  <form
-    method="POST"
-    class="w-full border rounded-xl outline-none gap-4 flex p-0 pr-2"
-    on:submit|preventDefault={submit}
-  >
-    <input type="hidden" name="requester_id" value={user.id} />
-    <input type="hidden" name="recipient" value={subject.username} />
-
-    <div
-      use:focus
-      contenteditable
-      class="grow break-all py-4 outline-none mt-0 pl-4"
-      bind:innerHTML={message}
-      on:keydown={keydown}
-    />
-    <button type="submit" class="my-auto shrink-0">
-      <Icon icon="send" style="w-8" />
-    </button>
-  </form>
+        </a>
+      {/each}
+    </div>
+  {:else}
+    <div class="text-center">{$t("user.noMessages")}</div>
+  {/if}
 </div>
-
-<style>
-  .ours {
-    @apply bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] text-black rounded-br-none ml-auto;
-  }
-
-  .theirs {
-    @apply bg-gray-100 text-black rounded-bl-none;
-  }
-</style>
