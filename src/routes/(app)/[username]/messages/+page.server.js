@@ -1,21 +1,21 @@
 import { auth, get } from "$lib/utils";
+import { redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent, url }) {
-  let { user, subject } = await parent();
-  let { pubkey } = subject;
+  let { user } = await parent();
+  if (user.username !== params.username) redirect(307, `/${params.username}`);
   let { since = 0 } = params;
 
   let messages = [],
     notes = [];
 
-  if (pubkey) {
-    if (user) {
-      try {
-        messages = await get(`/${user.pubkey}/${since}/messages`);
-        messages = messages.sort((a, b) => b.created_at - a.created_at);
-      } catch (e) {
-        console.log(`failed to fetch nostr messages`, e);
-      }
+  if (user?.pubkey) {
+    let { pubkey } = user;
+    try {
+      messages = await get(`/${pubkey}/${since}/messages`);
+      messages = messages.sort((a, b) => b.created_at - a.created_at);
+    } catch (e) {
+      console.log(`failed to fetch nostr messages`, e);
     }
 
     try {
@@ -29,5 +29,5 @@ export async function load({ cookies, params, parent, url }) {
     });
   }
 
-  return { messages, notes }
+  return { messages, notes };
 }

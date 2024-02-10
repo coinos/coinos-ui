@@ -191,7 +191,7 @@
 
       {#if user && user.username !== subject.username && subject.pubkey}
         <div class="w-full flex">
-          <a href={`/${subject.username}/messages`} class="mx-auto">
+            <a href={`/${user.username}/messages/${subject.username}`} class="mx-auto">
             <button
               class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
             >
