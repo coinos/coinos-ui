@@ -36,7 +36,7 @@
     };
   }
 
-  let { messages, subject, user } = data;
+  let { messages, recipient, user } = data;
   let input, pane;
 
   $: initialize($password);
@@ -69,7 +69,7 @@
       pubkey: user.pubkey,
       created_at: Math.floor(Date.now() / 1000),
       kind: 4,
-      tags: [["p", subject.pubkey]],
+      tags: [["p", recipient.pubkey]],
     };
 
     event.message = message;
@@ -77,7 +77,7 @@
     message = "";
 
     event.author = user;
-    event.recipient = subject;
+    event.recipient = recipient;
 
     messages.push(event);
     messages = messages;
@@ -86,7 +86,7 @@
     try {
       event.content = await encrypt({
         message: event.message,
-        recipient: subject.pubkey,
+        recipient: recipient.pubkey,
         user,
       });
       event.id = getEventHash(event);
@@ -165,7 +165,7 @@
     on:submit|preventDefault={submit}
   >
     <input type="hidden" name="requester_id" value={user.id} />
-    <input type="hidden" name="recipient" value={subject.username} />
+    <input type="hidden" name="recipient" value={recipient.username} />
 
     <div
       use:focus

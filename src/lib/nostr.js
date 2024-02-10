@@ -51,7 +51,8 @@ export let generate = async (user) => {
 };
 
 export let encrypt = async ({ message, recipient, user }) => {
-  return nip04.encrypt(await getPrivateKey(user), recipient, message);
+  let sk = await getPrivateKey(user);
+  return nip04.encrypt(sk, recipient, message);
 };
 
 export let decrypt = async ({ event, user }) => {
