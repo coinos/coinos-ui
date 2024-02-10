@@ -91,7 +91,6 @@ body{
 #offcanvas ul li a{
     font-size: 14px;
     font-weight: 600;
-    color: var(--bs-black);
     text-transform: uppercase;
     font-family: 'Work Sans', sans-serif;
     position: relative;
@@ -231,7 +230,7 @@ body{
     align-items: center;
     padding-top: 90px;
     padding-bottom: 90px;
-    background: url("../img/map.png") no-repeat;
+    background: url("../img/footer-logo.png") no-repeat;
     background-size: cover;
 }
 

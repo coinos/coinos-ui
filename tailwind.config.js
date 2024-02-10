@@ -3,8 +3,9 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 /** @type {import('tailwindcss').Config} */
 const config = {
 	darkMode: ["class"],
+	// darkMode: ['class', '[data-mode="dark"]'],
 	content: ["./src/**/*.{html,js,svelte,ts}"],
-  	safelist: ["dark"],
+  	// safelist: ["dark"],
 	theme: {
 		container: {
 			center: true,
@@ -53,7 +54,12 @@ const config = {
 				yellow: '#FFEA01',
 				gradient: '#C3CFE2',
 				lightgrey: '#EAECEF',
-				grey: '#70757E'
+				grey: '#70757E',
+				'swapee-purple': '#7105f3'
+			},
+			backgroundImage: {
+				'map-light': 'url(src/swapee/img/map.png)',
+				'map-dark': 'url(src/swapee/img/map-dark.png)',
 			},
 			borderRadius: {
 				lg: "var(--radius)",
