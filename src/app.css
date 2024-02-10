@@ -113,17 +113,17 @@ html {
 
 @media (min-width: 720px) {
   ::-webkit-scrollbar {
-      width: 10px;
+      width: 12px;
     }
 }
 
 
 ::-webkit-scrollbar-thumb {
-  background-color: #000;
+  background-color: #555;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #F9F9F9;
+  background-color: #000;
 }
 
 /* SCROLL BAR */
