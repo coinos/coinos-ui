@@ -154,6 +154,7 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
+    "noMessages": "You have not sent or received any messages yet",
 		"profilePage": "Profile page",
 		"nostrPubkey": "Nostr pubkey",
 		"requestPayment": "Request Payment",

@@ -1,25 +1,33 @@
-import { get } from "$lib/utils";
+import { auth, get } from "$lib/utils";
 
-export async function load({ params, parent, url }) {
+export async function load({ cookies, params, parent, url }) {
   let { user, subject } = await parent();
+  let { pubkey } = subject;
   let { since = 0 } = params;
 
-  let messages = [];
+  let messages = [],
+    notes = [];
 
-  try {
-    messages = await get(`/${user.pubkey}/${since}/messages`);
+  if (pubkey) {
+    if (user) {
+      try {
+        messages = await get(`/${user.pubkey}/${since}/messages`);
+        messages = messages.sort((a, b) => b.created_at - a.created_at);
+      } catch (e) {
+        console.log(`failed to fetch nostr messages`, e);
+      }
+    }
 
-    messages = messages
-      .filter(
-        (m) => m.recipient?.id === subject.id || m.author?.id === subject.id
-      )
-      .sort((a, b) => a.created_at - b.created_at);
+    try {
+      notes = await get(`/${pubkey}/notes`);
+    } catch (e) {
+      console.log(`failed to fetch nostr notes for ${pubkey}`, e);
+    }
 
-    if (user.id === subject.id)
-      messages = messages.filter((m) => m.recipient.id === m.author.id);
-  } catch (e) {
-    console.log(`failed to fetch nostr messages`, e);
+    notes.map((e) => {
+      e.seen = e.created_at;
+    });
   }
 
-  return { messages, user };
+  return { messages, notes }
 }

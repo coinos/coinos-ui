@@ -8,6 +8,7 @@ const config = {
   resolve: {
     alias: {
       $comp: path.resolve("src/components"),
+      "nostr-tools": "@asoltys/nostr-tools",
     },
   },
   server: {
