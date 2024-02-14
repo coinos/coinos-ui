@@ -284,6 +284,7 @@
 		}
 	},
 	"payments": {
+    "bump": "Bump fee",
 		"networkFee": "Network fee",
 		"platformFee": "Platform fee",
 		"fastest": "Fastest",
