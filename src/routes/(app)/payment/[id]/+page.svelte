@@ -10,6 +10,7 @@
     fiat,
     post,
     sats,
+    fail,
     success,
     types,
   } from "$lib/utils";
@@ -20,6 +21,31 @@
 
   export let data;
   let { user, payment: p } = data;
+  $: refresh(data);
+  let refresh = (d) => {
+    ({ user, payment: p } = d);
+    ({
+      id,
+      hash,
+      amount,
+      created,
+      confirmed,
+      rate,
+      type,
+      ref,
+      tip,
+      ourfee,
+      fee,
+      currency,
+    } = p);
+
+    console.log("FEE", fee);
+
+    if (amount > 0) [txid, vout] = ref.split(":");
+    else txid = hash;
+
+    if (!fee) fee = 0;
+  };
 
   let { username } = user;
   let {
@@ -27,6 +53,7 @@
     hash,
     amount,
     created,
+    confirmed,
     rate,
     type,
     ref,
@@ -47,7 +74,13 @@
     success("Printing!");
   };
 
-  fee = fee || 0;
+  let bump = async () => {
+    try {
+      await post(`/payment/${id}/bump`, { id });
+    } catch (e) {
+      fail(e.message);
+    }
+  };
 
   let txid, vout;
   if (amount > 0) [txid, vout] = ref.split(":");
@@ -178,8 +211,20 @@
     </div>
   {/if}
 
-  {#if user.hasprinter}
-    <div>
+  <div class="flex gap-2">
+    {#if amount < 0 && !confirmed}
+      <button
+        class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
+        on:click={bump}
+      >
+        <div class="mx-auto flex">
+          <Icon icon="clock" style="my-auto h-6 mr-2" />
+          <div class="my-auto mt-1 text-base">{$t("payments.bump")}</div>
+        </div>
+      </button>
+    {/if}
+
+    {#if user.hasprinter}
       <button
         class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
         on:click={print}
@@ -189,9 +234,7 @@
           <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>
         </div>
       </button>
-    </div>
-  {:else}
-    <div>
+    {:else}
       <a href={`/payment/${id}/plain`}>
         <button
           class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
@@ -202,6 +245,6 @@
           </div>
         </button>
       </a>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </div>
