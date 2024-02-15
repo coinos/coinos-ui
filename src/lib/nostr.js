@@ -1,3 +1,4 @@
+import { browser } from "$app/environment";
 import { hexToUint8Array } from "uint8array-extras";
 import { get } from "svelte/store";
 import { Buffer } from "buffer";
@@ -85,15 +86,22 @@ function typedArrayToBuffer(array) {
 }
 
 export let getPrivateKey = async (user) => {
+  let k;
+  if (browser) {
+    k = localStorage.getItem("nsec");
+    if (k) {
+        return nip19.decode(k).data;
+    }
+  }
+
   let { nsec, username, salt } = user;
-  let privkey = hexToUint8Array(
-    privateKeyFromSeedWords(await getMnemonic(user))
-  );
 
   if (nsec) {
-    let decrypted = nip49decrypt(nsec, await getPassword());
-    return decrypted;
-  } else return privkey;
+    k = nip49decrypt(nsec, await getPassword());
+  } else k = hexToUint8Array(privateKeyFromSeedWords(await getMnemonic(user)));
+
+  localStorage.setItem("nsec", nip19.nsecEncode(k));
+  return k;
 };
 
 export let getMnemonic = async (user) => {
