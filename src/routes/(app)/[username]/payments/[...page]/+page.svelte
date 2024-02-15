@@ -201,13 +201,6 @@
                     {p.with.username}
                   </div>
                 </div>
-              {:else if p.type === types.classic}
-                <img
-                  src="/images/classic.png"
-                  class="w-24 border-4 border-transparent mr-1"
-                  alt="Bitcoin"
-                />
-                <div class="my-auto text-secondary">{p.memo}</div>
               {:else}
                 <div class="text-secondary flex">
                   {#if p.type === types.lightning}
