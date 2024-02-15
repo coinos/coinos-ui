@@ -115,17 +115,9 @@
       </h1>
 
       <div class="flex p-1 gap-2 justify-center">
-        {#if recipient.username.includes("@classic")}
-          <img
-            src="/images/classic.png"
-            class="w-24 border-4 border-transparent mr-1"
-            alt="Bitcoin"
-          />
-        {:else}
-          <Avatar user={recipient} size={"20"} />
-        {/if}
+        <Avatar user={recipient} size={"20"} />
         <p class="text-4xl break-words my-auto">
-          {recipient.username.replace("@classic", "")}
+          {recipient.username}
         </p>
       </div>
     </div>

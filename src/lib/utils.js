@@ -275,7 +275,6 @@ export let types = {
   lightning: "lightning",
   internal: "internal",
   fund: "fund",
-  classic: "classic",
 };
 
 export let ease = (t) =>

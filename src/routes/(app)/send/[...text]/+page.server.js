@@ -26,11 +26,6 @@ let parse = async (t, host) => {
     } catch (e) {}
   }
 
-  if (t.endsWith("@classic")) {
-    ({ uuid: id } = await get(`/invoice/classic/${t.replace("@classic", "")}`));
-    if (id) redirect(307, `/send/invoice/${id}`);
-  }
-
   if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
 
   // lightning
