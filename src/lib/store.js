@@ -40,7 +40,6 @@ const persistLocal = (key, defaultValue) => {
 
 export const avatar = writable();
 export const banner = writable();
-export const colorTheme = writable("from-primary to-gradient");
 export const event = writable();
 export const events = writable({});
 export const invoice = writable();
