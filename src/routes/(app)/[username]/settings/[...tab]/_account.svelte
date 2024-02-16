@@ -1,6 +1,6 @@
 <script>
   import { tick } from "svelte";
-  import { colorTheme, avatar, banner } from "$lib/store";
+  import { avatar, banner } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
@@ -9,26 +9,7 @@
 
   let { id } = user;
 
-  let selectedTheme = 1;
   let avatarFile, avatarInput, bannerFile, bannerInput;
-
-  let colorThemes = [
-    { theme: 1, color1: "from-[#F5F7FA]", color2: "to-[#C3CFE2]" },
-    { theme: 2, color1: "from-[#FDFCFB]", color2: "to-[#E2D1C3]" },
-    { theme: 3, color1: "from-[#E6E9F0]", color2: "to-[#EEF1F5]" },
-    { theme: 4, color1: "from-[#D5D4D0]", color2: "to-[#EEEEEC]" },
-    { theme: 5, color1: "from-[#F3E7E9]", color2: "to-[#E3EEFF]" },
-    {
-      theme: 6,
-      color1: "from-[#F5F7FA]",
-      color2: "via-[#EAF2FF] to-[#DEDFFF]",
-    },
-  ];
-
-  let handleThemeClick = (colors) => {
-    selectedTheme = colors.theme;
-    $colorTheme = colors.color1 + " " + colors.color2;
-  };
 
   let selectAvatar = () => avatarInput.click();
   let selectBanner = () => bannerInput.click();
@@ -127,7 +108,7 @@
       </div>
     {:else}
       <div
-        class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto hover:opacity-80 cursor-pointer"
+        class="rounded-full border-4 border-white p-4 bg-gradient-to-r from-primary to-gradient w-24 my-auto hover:opacity-80 cursor-pointer"
         on:click={selectAvatar}
         on:keydown={selectAvatar}
       >
@@ -171,7 +152,7 @@
     />
   {:else}
     <div
-      class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
+      class="bg-gradient-to-r from-primary to-gradient w-full h-48 mb-4 cursor-pointer hover:opacity-80"
       on:click={selectBanner}
       on:keydown={selectBanner}
       alt="Banner"

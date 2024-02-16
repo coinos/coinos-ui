@@ -1,5 +1,5 @@
 <script>
-  import { avatar, banner, colorTheme } from "$lib/store";
+  import { avatar, banner } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
   import { punk } from "$lib/utils";
 
@@ -20,7 +20,7 @@
 
 <a href={link} class:pointer-events-none={disabled}>
   <div
-    class="w-{s} h-{s} rounded-full border-4 border-white overflow-hidden bg-gradient-to-r {$colorTheme} flex justify-center items-center"
+    class="w-{s} h-{s} rounded-full border-4 border-white overflow-hidden bg-gradient-to-r from-primary to-gradient flex justify-center items-center"
   >
     <img
       {src}

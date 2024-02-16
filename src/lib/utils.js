@@ -172,6 +172,7 @@ export let auth = (cookies) => ({
   authorization: `Bearer ${cookies.get("token")}`,
 });
 
+export let btc = (fiat, rate) => Math.round((fiat * sats) / rate);
 export let fiat = (amount, rate) => (amount * rate) / sats;
 export let fd = async (req) => {
   let obj = Object.fromEntries(await req.formData());

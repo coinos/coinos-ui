@@ -178,6 +178,7 @@
 		"this": "This",
 		"lightningAddress": "Lightning address",
 		"dashboard": {
+      "checkout": "Checkout",
 			"go": "Go",
 			"dashboard": "Dashboard",
 			"accountBalance": "Account Balance",
@@ -349,5 +350,11 @@
 		"print": "Print",
 		"onlyLbtc": "We only support",
 		"dontDeposit": "don't deposit other assets yet"
-	}
+	},
+  "items": {
+    "add": "Add item",
+    "name": "Name",
+    "submit": "Submit",
+    "image": "Image"
+  }
 }
