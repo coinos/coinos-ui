@@ -84,6 +84,7 @@
 
   let loading;
   async function handleSubmit(e) {
+    console.log("HERE")
     loading = true;
 
     let data = new FormData(this);
@@ -212,6 +213,7 @@
         </div>
       {/if}
 
+      OHH
       <form
         class="space-y-5"
         on:submit|preventDefault={handleSubmit}

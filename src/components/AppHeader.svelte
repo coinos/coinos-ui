@@ -1,6 +1,6 @@
 <script>
   import OutClick from "svelte-outclick";
-  import { banner, newPayment, colorTheme } from "$lib/store";
+  import { banner, newPayment } from "$lib/store";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
@@ -41,7 +41,7 @@
 
 {#if !$loading}
   <header
-    class="bg-gradient-to-r {$colorTheme} dark:!from-violet-600 dark:!to-swapee-purple h-[175px] w-full relative bg-cover mb-20"
+    class="bg-gradient-to-r dark:!from-violet-600 dark:!to-swapee-purple h-[175px] w-full relative bg-cover mb-20"
     style:background-image={bg}
   >
     <nav class="flex justify-end items-center gap-x-2 xs:gap-x-4 p-5">
