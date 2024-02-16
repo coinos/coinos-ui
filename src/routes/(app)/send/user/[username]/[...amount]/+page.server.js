@@ -8,16 +8,13 @@ export async function load({ cookies, params, parent }) {
   let { username } = params;
   let [amount, currency] = params.amount.split("/");
 
-  if (subject.username === user?.username)
-    error(500, { message: "Cannot send to self" });
-
   let rate;
   if (amount) {
     rate = rates[currency ? currency.toUpperCase() : subject.currency];
     if (!rate) error(500, "Invalid currency symbol");
     if (currency) amount = (amount * sats) / rate;
 
-    let { hash } = await post(
+    let { id } = await post(
       "/invoice",
       {
         invoice: {
@@ -32,7 +29,7 @@ export async function load({ cookies, params, parent }) {
       auth(cookies)
     );
 
-    redirect(307, `/${username}/invoice/${hash}`);
+    redirect(307, `/${username}/invoice/${id}`);
   }
 
   return { amount, rate, subject };

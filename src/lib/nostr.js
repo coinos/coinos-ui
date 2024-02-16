@@ -90,7 +90,7 @@ export let getPrivateKey = async (user) => {
   if (browser) {
     k = localStorage.getItem("nsec");
     if (k) {
-        return nip19.decode(k).data;
+      return nip19.decode(k).data;
     }
   }
 
