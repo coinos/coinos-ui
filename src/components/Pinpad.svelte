@@ -45,14 +45,14 @@
           use:focus
           bind:value={v}
           type="password"
-          class="outline-none border-0 text-center py-0"
+          class="outline-none border-0 text-center py-0 dark:bg-stone-800 dark:text-white"
           pattern="[0-9]+"
         />
       {:else}
         <input
           on:keydown={validate}
           bind:value={v}
-          class="outline-none border-0 text-center py-0"
+          class="outline-none border-0 text-center py-0 dark:bg-stone-800 dark:text-white" 
           type="text"
           pattern="[0-9]+"
         />
@@ -60,18 +60,18 @@
       <button
         type="button"
         on:click={() => (hide = !hide)}
-        class="absolute -right-5 top-5"
+        class="absolute -right-5 dark:invert {hide ? 'top-5' : 'top-[22px]'}"
       >
         <Icon icon={hide ? "eye-off" : "eye"} style="w-8" />
       </button>
     </div>
 
-    <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">
+    <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto">
       {#each numPad as value}
         {#if value === arrow}
           <button
             type="button"
-            class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
+            class="bg-primary dark:bg-stone-700 rounded-xl py-4 px-8 font-semibold dark:text-gray-50 active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
             on:click={() => handleInput(value)}
           >
             <Left />
@@ -79,7 +79,7 @@
         {:else}
           <button
             type="button"
-            class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
+            class="bg-primary dark:bg-stone-700 rounded-xl py-4 px-8 font-semibold dark:text-gray-50 active:bg-black dark:active:bg-stone-900 active:text-white hover:opacity-80"
             on:click={() => handleInput(value)}>{value}</button
           >
         {/if}

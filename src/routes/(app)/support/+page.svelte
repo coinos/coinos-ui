@@ -77,7 +77,7 @@
       {$t("user.support.header")}
     </h1>
 
-		<p class="text-secondary text-lg">
+		<p class="text-secondary dark:text-gray-300 text-lg">
 			Fill out this form or email us directly at <a
 				class="underline"
 				href="mailto:support@swapee.me">support@swapee.me</a
@@ -85,12 +85,12 @@
 		</p>
 
     <form on:submit={submit}>
-      <div class="mb-4">
+      <div class="mb-6">
         <label for="account" class="font-semibold"
           >{$t("user.support.accountName")}</label
         >
         <input
-          class="bg-primary"
+          class="bg-primary dark:bg-stone-800 border-0 mt-3"
           type="text"
           name="account"
           required
@@ -98,12 +98,12 @@
         />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <label for="email" class="font-semibold"
           >{$t("user.support.email")}</label
         >
         <input
-          class="bg-primary"
+          class="bg-primary dark:bg-stone-800 border-0 mt-3"
           type="email"
           name="email"
           bind:value={email}
@@ -111,13 +111,13 @@
         />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <label for="message" class="font-semibold"
           >{$t("user.support.message")}</label
         >
         <textarea
           rows={5}
-          class="bg-primary"
+          class="bg-primary dark:bg-stone-800 border-0 mt-3"
           type="text"
           name="message"
           bind:value={message}
@@ -130,7 +130,7 @@
         disabled={!email || !message}
         class="g-recaptcha {!email || !message
           ? 'opacity-50'
-          : 'opacity-100'} bg-black text-white font-bold rounded-xl py-3 w-full mx-auto {email &&
+          : 'opacity-100'} bg-black dark:bg-white text-white dark:text-black font-bold rounded-xl py-3 w-full mx-auto {email &&
         message
           ? 'hover:opacity-80'
           : ''}">{$t("user.support.send")}</button
