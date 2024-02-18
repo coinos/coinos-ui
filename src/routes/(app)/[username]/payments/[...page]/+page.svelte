@@ -127,15 +127,15 @@
   </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
-    <div class="flex text-md text-secondary relative">
-      <div class="mx-auto flex justify-center w-full gap-1">
+    <div class="flex text-md text-secondary dark:text-gray-300 relative">
+      <div class="mx-auto flex justify-center w-full gap-3">
         {#each presets as { start, end, title }, i}
           <a
             class:active={selection === i}
             href={`/${user.username}/payments/${getUnixTime(start) + "/"}1`}
           >
             <button
-              class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]"
+              class="text-sm md:text-lg rounded-full border dark:border-white py-2 px-4 hover:opacity-80 min-w-[72px]"
             >
               <div class="my-auto">{title}</div>
             </button>
@@ -153,7 +153,7 @@
             class:active={parseInt(p) === i + 1}
           >
             <div
-              class="border py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center"
+              class="py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center"
             >
               {i + 1}
             </div>
@@ -170,13 +170,13 @@
               <div class="font-bold" class:text-red-800={p.amount < 0}>
                 {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
                 {#if p.tip}
-                  <span class="text-sm text-secondary">
+                  <span class="text-sm text-secondary dark:text-gray-300">
                     +{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
                   </span>
                 {/if}
               </div>
 
-              <div class="text-secondary">
+              <div class="text-secondary dark:text-gray-300">
                 {sat(Math.abs(p.amount) + (p.tip || 0))}
               </div>
             </div>
@@ -184,7 +184,7 @@
             <div class="flex my-auto">
               {#if p.type === types.pot}
                 <a href={`/pot/${p.memo}`}>
-                  <div class="text-secondary flex">
+                  <div class="text-secondary dark:text-gray-300 flex">
                     <div class="my-auto mr-1">
                       <img src="/images/moneypot.png" class="w-12" alt="Pot" />
                     </div>
@@ -197,7 +197,7 @@
                   <div class="my-auto">
                     <Avatar user={p.with} size={16} disabled={true} />
                   </div>
-                  <div class="my-auto ml-1 text-secondary">
+                  <div class="my-auto ml-1 text-secondary dark:text-gray-300">
                     {p.with.username}
                   </div>
                 </div>
@@ -207,9 +207,9 @@
                   class="w-24 border-4 border-transparent mr-1"
                   alt="Bitcoin"
                 />
-                <div class="my-auto text-secondary">{p.memo}</div>
+                <div class="my-auto text-secondary dark:text-gray-300">{p.memo}</div>
               {:else}
-                <div class="text-secondary flex">
+                <div class="text-secondary dark:text-gray-300 flex">
                   {#if p.type === types.lightning}
                     <div class="text-3xl">⚡️</div>
                   {:else if p.type === types.bitcoin}
@@ -241,7 +241,7 @@
               {/if}
             </div>
 
-            <div class="text-secondary text-right text-sm my-auto">
+            <div class="text-secondary dark:text-gray-300 text-right text-sm my-auto">
               <div>
                 {format(new Date(p.created), "h:mm aaa")}
               </div>
@@ -252,14 +252,14 @@
           </div>
         </a>
       {:else}
-        <p class="text-secondary text-lg text-center">{$t("payments.empty")}</p>
+        <p class="text-secondary dark:text-gray-300 text-lg text-center">{$t("payments.empty")}</p>
       {/each}
     </div>
 
     <div class="grid grid-cols-3 w-full text-center">
-      <span class="text-lg text-secondary">{$t("payments.total")}</span>
-      <span class="text-lg text-secondary">{$t("payments.presentValue")}</span>
-      <span class="text-lg text-secondary">{$t("payments.gainLoss")}</span>
+      <span class="text-lg text-secondary dark:text-gray-300">{$t("payments.total")}</span>
+      <span class="text-lg text-secondary dark:text-gray-300">{$t("payments.presentValue")}</span>
+      <span class="text-lg text-secondary dark:text-gray-300">{$t("payments.gainLoss")}</span>
 
       {#each Object.keys(totals) as c}
         {@const total = totals[c]["fiat"]}
@@ -274,10 +274,10 @@
     </div>
 
     <button
-      class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto"
+      class="ml-auto rounded-full border dark:border-white py-2 px-4 w-36 hover:opacity-80 flex mx-auto"
       on:click={csv}
     >
-      <Icon icon="save" style="opacity-50 mr-2 my-auto" />
+      <Icon icon="save" style="opacity-50 mr-2 my-auto dark:invert" />
       <div class="my-auto">{$t("payments.export")}</div>
     </button>
   </div>
@@ -285,7 +285,7 @@
 
 <style>
   .active * {
-    @apply bg-black text-white border-black;
+    @apply !bg-black dark:!bg-white !text-white dark:!text-black border-black;
   }
 
   .payments {

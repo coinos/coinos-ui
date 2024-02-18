@@ -151,11 +151,11 @@
     <div class="flex justify-center gap-2">
       <a href={`/${subject.pubkey}/follows`}
         ><b>{subject.follows.length}</b>
-        <span class="text-secondary">{$t("user.following")}</span></a
+        <span class="text-secondary dark:text-gray-300">{$t("user.following")}</span></a
       >
       <a href={`/${subject.pubkey}/followers`}
         ><b>{subject.followers.length}</b>
-        <span class="text-secondary">{$t("user.followers")}</span></a
+        <span class="text-secondary dark:text-gray-300">{$t("user.followers")}</span></a
       >
     </div>
 
@@ -249,16 +249,16 @@
 
 {#if currency}
   <div
-    class="flex fixed w-full px-4 bg-white py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
+    class="flex fixed w-full px-4 bg-white dark:bg-black py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
   >
-    <div class="text-secondary flex mr-auto">
+    <div class="text-secondary dark:text-gray-300 flex mr-auto">
       <div class="flex mr-1">
         <div class="my-auto mr-1">1</div>
         <img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
       </div>
       <div>= {f(rates[currency], currency)}</div>
     </div>
-    <div class="text-secondary flex ml-auto">
+    <div class="text-secondary dark:text-gray-300 flex ml-auto">
       <div class="flex">
         <div class="mr-1">⚡️{s((1 * sats) / rates[currency])} =</div>
         <div>{f(1, currency)}</div>

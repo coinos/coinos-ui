@@ -21,13 +21,13 @@
   {:else}
     <div class="text-5xl font-bold tabular-nums">
       {#if isNaN(rate)}
-        <div class="text-gray-200">&mdash;</div>
+        <div class="text-gray-200 ">&mdash;</div>
       {:else}
         {f((user.balance * rate) / sats, user.currency)}
       {/if}
     </div>
 
-    <div class="text-secondary text-2xl">
+    <div class="text-secondary dark:text-gray-300 text-2xl">
       ⚡️{s(user.balance)}
     </div>
   {/if}

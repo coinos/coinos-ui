@@ -198,7 +198,7 @@
         />
       </div>
       <div class="mt-2">
-        <span class="text-secondary mr-1"
+        <span class="text-secondary dark:text-gray-300 mr-1"
           >{fiat ? sat(amount) : f(amountFiat, currency)}</span
         >
         <button
@@ -213,7 +213,7 @@
                   : 0;
             }
             fiat = !fiat;
-          }}><Icon icon="swap" style="inline hover:opacity-80" /></button
+          }}><Icon icon="swap" style="inline hover:opacity-80 dark:invert" /></button
         >
       </div>
     </div>
@@ -223,7 +223,7 @@
 				{#if value === arrow}
 					<button
 						type="button"
-						class="bg-gray-100 rounded-xl py-4 px-8 font-semibold active:bg-black active:flex justify-center items-center hover:opacity-80"
+						class="bg-gray-100 dark:bg-stone-800 rounded-xl py-4 px-8 font-semibold active:bg-black active:flex justify-center items-center hover:opacity-80"
 						on:click={() => handleInput(value)}
 					>
 						<Left />
@@ -231,7 +231,7 @@
 				{:else}
 					<button
 						type="button"
-						class="bg-gray-100 rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
+						class="bg-gray-100 dark:bg-stone-800 rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
 						on:click={() => handleInput(value)}>{value}</button
 					>
 				{/if}

@@ -46,13 +46,13 @@
       </div>
     {/if}
 
-    <div class="mb-2">
+    <div class="mb-4">
       <input type="hidden" name="text" bind:value={text} />
 
       <textarea
         {placeholder}
         on:keypress={keypress}
-        class="w-full p-4 border rounded-xl h-48"
+        class="w-full p-4 border rounded-xl h-48 dark:bg-stone-800 placeholder:text-stone-300"
         bind:value={text}
         bind:this={textarea}
       />
@@ -65,9 +65,9 @@
       >
         <button
           type="button"
-          class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"
+          class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"
         >
-          <Icon icon="qr" style="mr-2 w-6 my-auto invert" />
+          <Icon icon="qr" style="mr-2 w-6 my-auto invert dark:invert-0" />
           <div class="my-auto">{$t("user.send.makeQR")}</div>
         </button>
       </a>
@@ -75,19 +75,19 @@
       <a href="/scan" class="w-full">
         <button
           type="button"
-          class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"
+          class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"
         >
-          <Icon icon="camera" style="mr-2 w-6 my-auto" />
+          <Icon icon="camera" style="mr-2 w-6 my-auto dark:invert" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button
         type="button"
-        class="flex border rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
+        class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
         on:click={paste}
       >
-        <Icon icon="paste" style="mr-2 w-6 my-auto" />
+        <Icon icon="paste" style="mr-2 w-6 my-auto dark:invert" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
 
@@ -96,7 +96,7 @@
         type="submit"
         class="{!text
           ? 'opacity-50'
-          : 'opacity-100 hover:opacity-80'} bg-black text-white border rounded-full px-6 py-2 font-bold"
+          : 'opacity-100 hover:opacity-80'} bg-black dark:bg-swapee-purple text-white border rounded-full px-6 py-2 font-bold"
       >
         {$t("user.send.next")}
       </button>
