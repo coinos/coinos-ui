@@ -6,12 +6,14 @@ export const actions = {
     let form = await fd(request);
     try {
       await post("/items", form, auth(cookies));
+
+      console.log("YEAH");
     } catch (e) {
-      console.log(e);
+      console.log("E", e)
       return fail(400, { message: e.message });
     }
 
-      let success = `/${url.pathname.split('/')[1]}`
+    let success = `/${url.pathname.split("/")[1]}`;
     redirect(307, success);
   },
 };
