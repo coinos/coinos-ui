@@ -5,6 +5,7 @@
   import { applyAction, deserialize } from "$app/forms";
   import Spinner from "$comp/Spinner.svelte";
   export let item;
+  export let user;
 
   let fileInput, formElement, file, submitting, progress;
   let select = () => fileInput.click();
@@ -79,7 +80,18 @@
 
   <div>
     <label for="price" class="font-bold mb-1 block">{$t("items.price")}</label>
-    <input name="price" bind:value={item.price} />
+    <div class="flex">
+      <input
+        name="price"
+        bind:value={item.price}
+        class="border-r-none rounded-r-none"
+      />
+      <div
+        class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
+      >
+        {user.currency}
+      </div>
+    </div>
   </div>
 
   <div class="w-full">
@@ -123,7 +135,7 @@
   </div>
 
   <button
-    class="rounded-full py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white text-2xl"
+    class="rounded-full py-5 px-6 font-bold hover:opacity-80 bg-black text-white text-2xl w-full text-center"
   >
     {#if submitting}
       <Spinner />
