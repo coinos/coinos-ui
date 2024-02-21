@@ -353,7 +353,9 @@
 	},
   "items": {
     "add": "Add item",
+    "edit": "Edit item",
     "name": "Name",
+    "price": "Price",
     "submit": "Submit",
     "image": "Image"
   }
