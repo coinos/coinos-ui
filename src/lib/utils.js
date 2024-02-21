@@ -41,16 +41,24 @@ export let get = (url, headers = {}) => {
     });
 };
 
-export let post = (url, body, headers) => {
+export let post = async (url, body, headers, timeout = 8000) => {
   headers = {
-    ...headers,
     "content-type": "application/json",
     accept: "application/json",
+    ...headers,
   };
-  return fetch(base + url, {
+
+  let controller = new AbortController();
+  console.log(controller, timeout);
+  let id = setTimeout(() => {
+    controller.abort(new Error("Operation timed out"));
+  }, timeout);
+
+  let response = await fetch(base + url, {
     method: "POST",
     body: JSON.stringify(body),
     headers,
+    signal: controller.signal,
   })
     .then(async (r) => {
       if (r.ok) return r.text();
@@ -77,6 +85,9 @@ export let post = (url, body, headers) => {
 
       return body;
     });
+
+  clearTimeout(id);
+  return response;
 };
 
 export let copy = (text) => {

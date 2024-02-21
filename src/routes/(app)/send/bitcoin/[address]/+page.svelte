@@ -4,13 +4,13 @@
   import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
-  import { back, fail, s } from "$lib/utils";
+  import { fail, s } from "$lib/utils";
 
   export let data;
 
-  let { rates } = data;
+  let { rates, user } = data;
   let { address } = $page.params;
-  let { balance, currency } = data.user;
+  let { balance, currency, username } = user;
 
   let amount = 0;
   let submit, fiat;
@@ -24,13 +24,14 @@
   };
 </script>
 
+<a href="/send">
 <button
   type="button"
   class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-  on:click={back}
 >
   <Icon icon="arrow-left" style="w-10" />
 </button>
+  </a>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
   <h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t("payments.send")}</h1>
