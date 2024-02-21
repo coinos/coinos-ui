@@ -1,20 +1,41 @@
 <script>
-  import { btc, f, sat } from "$lib/utils";
+  import { invalidate } from "$app/navigation";
+  import { btc, f, sat, post } from "$lib/utils";
   import { onMount } from "svelte";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import DeleteItem from "$comp/DeleteItem.svelte";
   import { t } from "$lib/translations";
 
+  import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME } from "svelte-dnd-action";
+  import { fade } from "svelte/transition";
+  import { cubicIn } from "svelte/easing";
+  import { flip } from "svelte/animate";
+  const flipDurationMs = 200;
+  const dropTargetStyle = {};
+
   export let data;
   let { subject, user, items, rates } = data;
   $: refresh(data);
   let refresh = (d) => ({ items, subject, user, rates } = d);
+  $: dragDisabled = subject?.id !== user?.id
 
   let deleting;
   $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
   let del = (item) => {
     deleting = item;
+  };
+
+  let consider = (e) => {
+    items = e.detail.items;
+  };
+
+  let finalize = async (e) => {
+    items = e.detail.items;
+    if (subject?.id === user?.id) {
+      await post("/api/items/sort", { items });
+      invalidate("app:items");
+    }
   };
 </script>
 
@@ -67,10 +88,11 @@
     <div>
       <a href={`/${user.username}/items/create`} class="w-full">
         <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-black text-white"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-primary"
         >
-          <div class="mx-auto flex">
-            <div class="my-auto text-2xl">
+          <div class="mx-auto flex gap-2">
+            <Icon icon="plus" style="w-8 mx-auto" />
+            <div class="my-auto text-xl">
               {$t("items.add")}
             </div>
           </div>
@@ -79,14 +101,24 @@
     </div>
   {/if}
 
-  <div class="grid grid-cols-2 gap-4">
-    {#each items as i}
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-4"
+    use:dndzone={{ items, flipDurationMs, dropTargetStyle, dragDisabled }}
+    on:consider={consider}
+    on:finalize={finalize}
+  >
+    {#each items as i (i.id)}
       <div
         class="w-full text-center cursor-pointer hover:opacity-80"
         on:click={() => i.quantity++}
       >
         <div class="relative w-full h-64 overflow-hidden rounded-xl">
-          {#if i.image}
+          {#if i[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
+            <div
+              in:fade={{ duration: 200, easing: cubicIn }}
+              class="custom-shadow-item"
+            />
+          {:else if i.image}
             <img
               src={`/api/public/${i.image}.webp`}
               alt={i.name}
@@ -95,16 +127,12 @@
           {:else}
             <div
               class="bg-gradient-to-r from-primary to-gradient mb-4 cursor-pointer hover:opacity-80 w-full h-full"
-              on:click={select}
-              on:keydown={select}
               alt="Banner"
             />
           {/if}
           {#if user?.username === subject.username}
             <div class="flex gap-2 justify-center absolute top-2 right-2">
-              <div
-                on:click|stopPropagation={() => i.quantity > 0 && i.quantity--}
-              >
+              <div on:click|stopPropagation={() => {}}>
                 <a href={`/${user.username}/items/${i.id}`}>
                   <button
                     class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
@@ -122,27 +150,31 @@
             </div>
           {/if}
         </div>
-        <div class="bg-white rounded-xl p-2">
-          <div class="flex">
-            <div class="text-2xl mr-auto">{i.name}</div>
-            <div class="flex gap-2 my-auto">
-              <div class="font-semibold">
-                {f(i.price, subject.currency)}
-              </div>
-              <div class="text-secondary">
-                {sat(btc(i.price, rates[subject.currency]))}
+        <div class="bg-white rounded-xl py-2">
+          <div class="flex text-left gap-2">
+            <div class="overflow-hidden">
+              <div class="text-2xl break-words">{i.name}</div>
+              <div class="flex gap-2">
+                <div class="font-semibold">
+                  {f(i.price, subject.currency)}
+                </div>
+                <div class="text-secondary">
+                  {sat(btc(i.price, rates[subject.currency]))}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="flex gap-2">
-            <div
-               class="ml-auto"
-              on:click|stopPropagation={() => i.quantity > 0 && i.quantity--}
-            >
-              <Icon icon="minus" style="w-10" />
+            <div class="flex gap-1 ml-auto mb-auto justify-around tabular-nums">
+              {#if i.quantity}
+              <div
+                on:click|stopPropagation={() => i.quantity > 0 && i.quantity--}
+              >
+                <Icon icon="minus" style="w-10 min-w-10" />
+              </div>
+              {/if}
+              <div class="text-2xl my-auto text-center">
+                {#if i.quantity}{i.quantity}{:else}&mdash;{/if}
+              </div>
             </div>
-            <div class="text-2xl my-auto">{i.quantity}</div>
-            <Icon icon="plus" style="w-10" />
           </div>
         </div>
       </div>
@@ -159,8 +191,11 @@
         >
           <div class="mx-auto flex">
             <div class="my-auto text-2xl">
-              {f(total, subject.currency)}
               {$t("user.dashboard.checkout")}
+              {f(total, subject.currency)}
+              <span class="text-base">
+                {sat(btc(total, rates[subject.currency]), subject.currency)}
+              </span>
             </div>
           </div>
         </button>
@@ -168,3 +203,17 @@
     </div>
   {/if}
 </div>
+
+<style>
+  .custom-shadow-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    visibility: visible;
+    background: #333;
+    opacity: 0.5;
+    margin: 0;
+  }
+</style>
