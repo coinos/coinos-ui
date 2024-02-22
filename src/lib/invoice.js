@@ -11,7 +11,7 @@ export default async ({ cookies, request, url }) => {
 
   let invoice = {
     amount,
-    items: form.get("items"),
+    items: JSON.parse(form.get("items")),
     tip: parseInt(form.get("tip")) || 0,
     type: form.get("type"),
     prompt: form.get("prompt") === "true",

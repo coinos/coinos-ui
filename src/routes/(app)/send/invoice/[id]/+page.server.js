@@ -6,8 +6,6 @@ export async function load({ params: { id }, parent, url }) {
 
   let invoice = await get(`/invoice/${id}`);
 
-  console.log("OH", invoice, invoice.prompt, invoice.tip);
-
   if (invoice.prompt && invoice.tip === null)
     redirect(307, `/${invoice.user.username}/invoice/${id}/tip`);
   if (invoice.user.username === user.username)
@@ -24,7 +22,7 @@ export const actions = {
 
       await post("/payments", body, auth(cookies));
     } catch (e) {
-      console.log("payment failed", params, e);
+      console.log("payment failed", id, e);
       return fail(400, { message: e.message });
     }
 
