@@ -1,4 +1,5 @@
 <script>
+  import { browser } from "$app/environment";
   import { goto, invalidate } from "$app/navigation";
   import { btc, f, sat, post } from "$lib/utils";
   import { onMount } from "svelte";
@@ -6,11 +7,16 @@
   import Balance from "$comp/Balance.svelte";
   import DeleteItem from "$comp/DeleteItem.svelte";
   import { t } from "$lib/translations";
-
-  import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME } from "svelte-dnd-action";
   import { fade } from "svelte/transition";
   import { cubicIn } from "svelte/easing";
   import { flip } from "svelte/animate";
+
+  import {
+    dndzone,
+    SHADOW_ITEM_MARKER_PROPERTY_NAME,
+    SOURCES,
+    TRIGGERS,
+  } from "svelte-dnd-action";
 
   export let data;
 
@@ -22,7 +28,8 @@
   $: rate = rates[currency];
   $: refresh(data);
   let refresh = (d) => ({ items, subject, user, rates } = d);
-  $: dragDisabled = subject?.id !== user?.id;
+  let dragDisabled =
+    subject?.id !== user?.id || (browser && window.innerWidth < 768);
 
   let deleting;
   $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
@@ -30,15 +37,40 @@
     deleting = item;
   };
 
-  let consider = (e) => (items = e.detail.items);
+  function handleConsider(e) {
+    const {
+      items: newItems,
+      info: { source, trigger },
+    } = e.detail;
+    items = newItems;
+    if (source === SOURCES.KEYBOARD && trigger === TRIGGERS.DRAG_STOPPED) reset();
 
-  let finalize = async (e) => {
-    items = e.detail.items;
+  }
+
+  async function handleFinalize(e) {
+    const {
+      items: newItems,
+      info: { source },
+    } = e.detail;
+    items = newItems;
+    if (source === SOURCES.POINTER) reset()
+
+
     if (subject?.id === user?.id) {
       await post("/api/items/sort", { items });
       invalidate("app:items");
     }
-  };
+  }
+
+  function startDrag(e) {
+    e.preventDefault();
+    dragDisabled = false;
+  }
+
+  function handleKeyDown(e) {
+    if ((e.key === "Enter" || e.key === " ") && dragDisabled)
+      dragDisabled = false;
+  }
 
   let checkout = async () => {
     let invoice = {
@@ -58,7 +90,13 @@
       invalidateAll: true,
     });
   };
+
+  let reset = () =>
+    (dragDisabled =
+      user?.username !== subject?.username || window.innerWidth < 768);
 </script>
+
+<svelte:window on:resize={reset} />
 
 {#if deleting}
   <DeleteItem bind:item={deleting} />
@@ -123,8 +161,8 @@
     class="grid sm:grid-cols-2 gap-4"
     class:pb-20={total > 0}
     use:dndzone={{ items, flipDurationMs, dropTargetStyle, dragDisabled }}
-    on:consider={consider}
-    on:finalize={finalize}
+    on:consider={handleConsider}
+    on:finalize={handleFinalize}
   >
     {#each items as i (i.id)}
       <button
@@ -167,13 +205,29 @@
               >
                 <Icon icon="trash" style="w-8 mx-auto invert" />
               </button>
+              <button
+                type="button"
+                on:click|stopPropagation={() => {}}
+                class="sm:hidden"
+                on:mousedown={startDrag}
+                on:touchstart={startDrag}
+                on:keydown={handleKeyDown}
+              >
+                <a href={`/${user.username}/items/${i.id}`}>
+                  <button
+                    class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
+                  >
+                    <Icon icon="move" style="w-8 mx-auto invert" />
+                  </button>
+                </a>
+              </button>
             </div>
           {/if}
         </div>
         <div class="bg-white rounded-xl py-2">
           <div class="flex text-left gap-2">
             <div class="overflow-hidden space-y-1">
-              <div class="text-2xl break-words">{i.name}</div>
+              <div class="text-2xl break-words">{i.name} {dragDisabled}</div>
               <div class="flex gap-2">
                 <div class="font-semibold text-lg">
                   {f(i.price, currency)}
