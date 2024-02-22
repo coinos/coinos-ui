@@ -80,11 +80,11 @@
     <input name="pin" value={$pin} type="hidden" />
     <input name="hash" value={hash} type="hidden" />
 
-    <div class="flex w-full">
+    <div class="flex w-full text-xl">
       {#if amount}
         <button
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
         >
           {#if loading}
             <Spinner />
@@ -96,7 +96,7 @@
         <button
           type="button"
           bind:this={next}
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
           on:click={setAmount}
           on:keydown={setAmount}
         >

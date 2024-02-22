@@ -186,7 +186,7 @@
 
   <button
     type="button"
-    class="flex gap-2 text-center break-all text-lg rounded-2xl hover:opacity-80 p-4 w-full mx-auto justify-center border bg-black text-white text-xl"
+    class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border bg-black text-white text-2xl"
     on:click={() => copy(txt)}
   >
     <Icon icon="copy" style="w-8 my-auto invert" />
@@ -195,10 +195,10 @@
     </div>
   </button>
 
-  <div class="w-full flex justify-center gap-2 flex-wrap text-secondary">
+  <div class="w-full flex justify-center gap-2 flex-wrap text-secondary text-xl">
     <a href={link} class="w-full">
       <button
-        class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg"
+        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
       >
         <Icon icon="mobile" style="mr-1 w-8" />
         <div class="my-auto">{$t("payments.openLink")}</div>
@@ -206,7 +206,7 @@
     </a>
 
     <button
-      class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg"
+      class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
       on:click={() => ($showQr = $showQr ? false : 2)}
     >
       <Icon icon="qr" style="w-8 mr-1 invert my-auto" />

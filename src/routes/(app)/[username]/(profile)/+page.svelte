@@ -174,13 +174,13 @@
         </div>
         <div class="bg-white rounded-xl py-2">
           <div class="flex text-left gap-2">
-            <div class="overflow-hidden">
+            <div class="overflow-hidden space-y-1">
               <div class="text-2xl break-words">{i.name}</div>
               <div class="flex gap-2">
-                <div class="font-semibold">
+                <div class="font-semibold text-lg">
                   {f(i.price, currency)}
                 </div>
-                <div class="text-secondary">
+                <div class="text-secondary my-auto">
                   {sat(btc(i.price, rate))}
                 </div>
               </div>
@@ -198,6 +198,15 @@
               <div class="text-2xl my-auto text-center">
                 {#if i.quantity}{i.quantity}{:else}&mdash;{/if}
               </div>
+              {#if i.quantity}
+                <button
+                  type="button"
+                  on:click|stopPropagation={() =>
+                    i.quantity++}
+                >
+                  <Icon icon="plus" style="w-10 min-w-10" />
+                </button>
+              {/if}
             </div>
           </div>
         </div>
