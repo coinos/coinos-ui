@@ -77,7 +77,7 @@
       {$t("user.support.header")}
     </h1>
 
-		<p class="text-secondary dark:text-gray-300 text-lg">
+		<p class="text-secondary dark:text-gray-200 text-lg">
 			Fill out this form or email us directly at <a
 				class="underline"
 				href="mailto:support@swapee.me">support@swapee.me</a
@@ -90,7 +90,7 @@
           >{$t("user.support.accountName")}</label
         >
         <input
-          class="bg-primary dark:bg-stone-800 border-0 mt-3"
+          class="input-swapee mt-3"
           type="text"
           name="account"
           required
@@ -103,7 +103,7 @@
           >{$t("user.support.email")}</label
         >
         <input
-          class="bg-primary dark:bg-stone-800 border-0 mt-3"
+          class="input-swapee mt-3"
           type="email"
           name="email"
           bind:value={email}
@@ -117,7 +117,7 @@
         >
         <textarea
           rows={5}
-          class="bg-primary dark:bg-stone-800 border-0 mt-3"
+          class="input-swapee mt-3"
           type="text"
           name="message"
           bind:value={message}
@@ -130,7 +130,7 @@
         disabled={!email || !message}
         class="g-recaptcha {!email || !message
           ? 'opacity-50'
-          : 'opacity-100'} bg-black dark:bg-white text-white dark:text-black font-bold rounded-xl py-3 w-full mx-auto {email &&
+          : 'opacity-100'} bg-black dark:bg-swapee-purple text-white font-bold rounded-xl py-3 w-full mx-auto {email &&
         message
           ? 'hover:opacity-80'
           : ''}">{$t("user.support.send")}</button

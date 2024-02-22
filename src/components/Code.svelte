@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="bg-black text-white rounded-lg p-4 flex gap-4 whitespace-pre-wrap font-mono"
+  class="bg-stone-900 dark:bg-stone-800 text-white rounded-lg p-4 px-5 flex gap-4 whitespace-pre-wrap font-mono shadow-inner shadow-stone-950 dark:shadow-stone-900"
 >
   <div class="overflow-x-scroll max-w-full scrollbar-hide">
     <div class="break-all min-w-[800px]">{samples[sample]}</div>

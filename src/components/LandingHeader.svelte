@@ -19,13 +19,14 @@
 </script>
 
 <header
-  class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
+  class="w-full container px-10 lg:px-40 md:pb-5 pt-5 mx-auto fixed md:sticky z-10 top-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm"
   bind:this={header}
 >
-	<nav class="block xl:flex flex-wrap justify-between items-center">
+	<nav class="reltive flex flex-wrap justify-between items-center max-md:pb-4">
 		<div class="flex justify-start md:justify-center items-center md:space-x-10">
-			<a href="/" on:click={() => scroll(header)}>
-				<img src="images/logo.png" class="max-w-[140px]" />
+			<a href="/" on:click={() => scroll(header)} class="">
+				<img src="images/logo.png" class="max-w-[140px] dark:hidden" alt="swapee logo" />
+        <img src="images/logo-white.png" class="max-w-[140px] hidden dark:inline-block" alt="swapee logo" />
 			</a>
 		</div>
 
@@ -46,24 +47,24 @@
       {/if}
       {#if user}
         <button
-          class="border rounded-full px-6 py-2 font-bold"
+          class="dark:!bg-black dark:!text-white border-black dark:!border-white !border-2 !font-bold px-6 py-2 rounded-full" 
           on:click={() => goto(`/${user.username}`)}
-          >Home
+         >Home
         </button>
         <button
-          class="bg-black text-white border rounded-full px-6 py-2 font-bold"
+          class="bg-black dark:!bg-white dark:!text-black !text-white border-2 border-black rounded-full px-6 py-2 font-bold"
           on:click={() => goto("/logout")}
         >
           {$t("nav.signOut")}
         </button>
       {:else}
         <button
-          class="border rounded-full px-6 py-2 font-bold hover:opacity-80"
+          class="dark:!bg-black dark:!text-white border-black dark:!border-white !border-2 !font-bold px-6 py-2 rounded-full hover:opacity-80"
           on:click={() => goto("/register")}
           >{$t("nav.startInSeconds")}
         </button>
         <button
-          class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
+          class="bg-black dark:!bg-white dark:!text-black !text-white border-2 border-black rounded-full px-6 py-2 font-bold hover:opacity-80"
           on:click={() => goto("/login")}
         >
           {$t("nav.signIn")}
@@ -73,46 +74,46 @@
 
     <!-- mobile nav -->
     <button
-      class="block md:hidden absolute top-[34.5px] right-10 z"
+      class="scale-125 z-50 md:hidden"
       on:click={() => (showMobileMenu = !showMobileMenu)}
-      ><Icon icon={!showMobileMenu ? "menu" : "close"} />
+      ><Icon icon={!showMobileMenu ? "menu" : "close"} style="dark:invert" />
     </button>
 
     <div
       class="container w-full px-10 md:hidden absolute top-0 {showMobileMenu
         ? 'right-0'
-        : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-white"
+        : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-white dark:bg-black"
     >
       <div class="space-y-8 mt-24 font-bold text-xl">
-        <button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
+        <button on:click={() => mobileMenuButtonClick(howItWorks)} class="block dark:!text-gray-200"
           >{$t("howItWorks.header")}</button
         >
-        <button on:click={() => mobileMenuButtonClick(faq)} class="block"
+        <button on:click={() => mobileMenuButtonClick(faq)} class="block dark:!text-gray-200"
           >{$t("faq.header")}</button
         >
-        <button on:click={() => mobileMenuButtonClick(about)} class="block"
+        <button on:click={() => mobileMenuButtonClick(about)} class="block dark:!text-gray-200"
           >{$t("about.header")}</button
         >
         {#if !user}
           <button
-            class="border rounded-full px-6 py-2 font-bold block w-full"
+            class="dark:!bg-black dark:!text-white border-black dark:!border-white !border-2 !font-bold px-6 py-2 rounded-full w-full"
             on:click={() => goto("/register")}
             >{$t("nav.startInSeconds")}
           </button>
           <button
-            class="bg-black text-white border rounded-full px-6 py-2 font-bold block w-full"
+            class="bg-black dark:!bg-white dark:!text-black !text-white border-2 border-black rounded-full px-6 py-2 font-bold w-full"
             on:click={() => goto("/login")}
           >
             {$t("nav.signIn")}
           </button>
         {:else}
           <button
-            class="border rounded-full px-6 py-2 font-bold block"
+            class="dark:!bg-black dark:!text-white border-black dark:!border-white !border-2 !font-bold px-6 py-2 rounded-full"
             on:click={() => goto(`/${user.username}`)}
             >{$t("nav.account")}
           </button>
           <button
-            class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
+            class="bg-black dark:!bg-white dark:!text-black !text-white border-2 border-black rounded-full px-6 py-2 font-bold w-full"
             on:click={() => goto("/logout")}
           >
             {$t("nav.signOut")}
@@ -124,6 +125,7 @@
 </header>
 
 <style>
+  @import '../../static/style.css';
 	.z {
 		z-index: 100;
 	}

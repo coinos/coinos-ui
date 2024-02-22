@@ -1,5 +1,5 @@
-<div class="block space-y-5">
-	<h1 class="text-2xl">Privacy Policy</h1>
+<div class="block space-y-5 mt-28 md:mt-8">
+	<h1 class="text-5xl f_bebas_neue tracking-[0.2rem] font-bold">Privacy Policy</h1>
 	<p>
 		At Swapee.me, creators of the mystical Lightning Wallet, we hold your privacy and personal
 		information in the highest regard. This unique privacy policy outlines our commitment to
@@ -65,3 +65,30 @@
 		these mystifying worlds, for we bear no responsibility for their mystical ways.
 	</p>
 </div>
+
+<style>
+	h2 + p {
+	  margin-top: 0.4rem !important;
+	  margin-bottom: 1rem !important;
+	}
+  
+	h2 {
+	  display: inline-block;
+	  position: relative;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	}
+  
+	/* h2::after{
+	  content: '';
+	  position: absolute;
+	  bottom: 0;
+	  right: 0;
+	  width: 100%;
+	  left: 50%;
+	  height: 3px;
+	  border-radius: 2px;
+	  background: #7105f3;
+	  transform: translateX(-50%);
+  } */
+  </style>

@@ -14,62 +14,47 @@
     { url: "/support", titleID: "support" },
   ];
 </script>
+<footer class="pt-16 bg-black">
+	<div class="max-w-[1296px] mx-auto px-8">
+		<!-- footer_top -->
+		<div class="footer_top pb-4">
+			<div class="flex-col md:flex-row flex md:items-center justify-between">
+				<div class="flex-1 mb-12 sm:mb-5">
+					<a href="#" class="footer_logo"><img src="images/footer-logo.png" alt="" /></a>
+					<p class="text-gray-200 mt-10">Copyright © 2023. Swapee.me</p>
+					<p class="text-gray-200 mt-3">All rights reserved.</p>
+					<a href="#" class="btn_language inline-block mt-6 font-bold !text-white hover:!text-black">English</a>
+				</div>
+				<div
+					class="flex-1 footer_top_right flex items-center justify-start md:justify-center "
+				>
+					<div class="flex max-sm:flex-col md:justify-end gap-x-6">
+						<div class="flex-1 xl:mb-0 mb-4 md:pr-0 sm:pr-5">
+							<h6 class="!text-white/80 mb-0">Business enquiries</h6>
+							<a href="mailto:business@swapee.me">business@swapee.me</a>
+						</div>
+						<div class="flex-1 xs:pr-5 mb-4 md:pr-0 sm:pr-5">
+							<h6 class="!text-white/80 mb-0">Support enquiries</h6>
+							<a href="mailto:support@swapee.me">support@swapee.me</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-<footer
-  class="space-y-10 md:space-y-0 text-xl block md:flex justify-around mb-20"
->
-  <div class="space-y-5">
-    <div class="text-center w-full">
-      <a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
-    </div>
-    <div class="flex gap-2 justify-center sm:hidden">
-      <div>
-        <a href="/register">
-          <button
-            class="bg-black text-white border rounded-full px-4 py-2 font-bold hover:opacity-80 text-lg"
-          >
-            {$t("nav.startInSeconds")}
-          </button>
-        </a>
-      </div>
-    </div>
-    <div class="w-full flex">
-      <div class="mx-auto">
-        <LocaleSelector
-          style="p-2 text-center hover:opacity-80 cursor-pointer border rounded-full"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="text-center md:text-left">
-    <p class="font-semibold">{$t("footer.followUs")}</p>
-    <ul class="mt-5 text-secondary space-y-3 font-medium">
-      {#each followLinks as link}
-        <li>
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noreferrer"
-            class="hover:opacity-80">{$t("footer." + link.titleID)}</a
-          >
-        </li>
-      {/each}
-    </ul>
-  </div>
-
-  <div class="text-center md:text-left">
-    <p class="font-semibold">{$t("footer.company")}</p>
-    <ul class="mt-5 text-secondary space-y-3">
-      {#each companyLinks as link}
-        <li>
-          <a href={link.url} class="hover:opacity-80"
-            >{$t("footer." + link.titleID)}</a
-          >
-        </li>
-      {/each}
-    </ul>
-  </div>
-
-  <Icon icon="shield" style="mx-auto md:mx-0" />
+			<!-- footer_bottom -->
+			<div class="footer_bottom pt-4 pb-2">
+				<ul class="list-unstyled mb-0 ps-0">
+					<li class="pb-3 ">
+						<a href="/docs" class="!text-white/80 opacity-100 hover:!text-swapee-purple/100 font-semibold">Documentation</a>
+					</li>
+					<li class="pb-3">
+						<a href="/privacy" class="!text-white/80 opacity-100 hover:!text-swapee-purple/100 font-semibold">Privacy Policy</a>
+					</li>
+          <li class="pb-3">
+						<a href="/support" class="!text-white/80 opacity-100 hover:!text-swapee-purple/100 font-semibold">Support</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </footer>
