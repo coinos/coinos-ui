@@ -97,7 +97,7 @@
   <div class="w-full">
     <label for="img" class="font-bold mb-1 block">{$t("items.image")}</label>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid sm:grid-cols-2 gap-4">
       <div class="h-64 rounded-2xl overflow-hidden">
         {#if src}
           <img

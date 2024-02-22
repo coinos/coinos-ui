@@ -78,9 +78,7 @@
       </div>
     {/if}
 
-    <div
-      class="flex flex-wrap gap-3 justify-center w-full text-xl"
-    >
+    <div class="flex flex-wrap gap-3 justify-center w-full text-xl">
       <a href={`/send`} class="contents grow">
         <button
           type="button"
@@ -122,7 +120,7 @@
   {/if}
 
   <div
-    class="grid grid-cols-1 md:grid-cols-2 gap-4"
+    class="grid sm:grid-cols-2 gap-4"
     class:pb-20={total > 0}
     use:dndzone={{ items, flipDurationMs, dropTargetStyle, dragDisabled }}
     on:consider={consider}
@@ -201,8 +199,7 @@
               {#if i.quantity}
                 <button
                   type="button"
-                  on:click|stopPropagation={() =>
-                    i.quantity++}
+                  on:click|stopPropagation={() => i.quantity++}
                 >
                   <Icon icon="plus" style="w-10 min-w-10" />
                 </button>
