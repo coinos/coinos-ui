@@ -32,7 +32,7 @@
 <svelte:window bind:innerWidth={w} />
 
 <AppHeader {data} />
-<div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
+<div class="container px-4 max-w-xl mx-auto space-y-5 mt-20">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.send")}
   </h1>
@@ -58,7 +58,7 @@
       />
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <a
         href={`/qr/${encodeURIComponent(text)}`}
         class:invisible={!text?.length}
@@ -84,7 +84,7 @@
 
       <button
         type="button"
-        class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1"
+        class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 "
         on:click={paste}
       >
         <Icon icon="paste" style="mr-2 w-6 my-auto dark:invert" />

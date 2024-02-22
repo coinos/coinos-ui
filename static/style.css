@@ -476,7 +476,8 @@ body{
 
 .footer_top_right a{
     text-decoration: none;
-    color: var(--purple);
+    color: #7105f3;
+    font-weight: 600;
     transition: var(--transition_3s);
     -webkit-transition: var(--transition_3s);
     -moz-transition: var(--transition_3s);
@@ -508,7 +509,9 @@ body{
 }
 
 .footer_top_right .social_links a:hover{
-    background: var(--purple);
+    background: #7105f3;
+    opacity: 1;
+    
 }
 
 .footer_top_right .social_links a img{
@@ -533,7 +536,7 @@ body{
 .footer_bottom ul li a{
     padding: 6px 10px;
     color: var(--bs-white);
-    opacity: 0.20;
+    opacity: 1;
     text-decoration: none;
     transition: var(--transition_3s);
     -webkit-transition: var(--transition_3s);
@@ -543,5 +546,5 @@ body{
 }
 
 .footer_bottom ul li a:hover{
-    opacity: .50;
+    opacity: 1;
 }

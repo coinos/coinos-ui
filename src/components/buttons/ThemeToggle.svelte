@@ -1,6 +1,6 @@
 <!-- <button {...$$restProps}>toggle</button> -->
 <button
-    class="text-gray-300 dark:!text-gray-600 hover:bg-gray-100 dark:!hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 border-2 border-gray-600 bg-black dark:!bg-white dark:!border-gray-300 dark:!focus:ring-gray-700 rounded-full text-sm p-2.5 transition-all"
+    class="text-white dark:!text-black hover:bg-gray-100 dark:!hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 border-2 border-gray-600 bg-black dark:!bg-white dark:!border-gray-300 dark:!focus:ring-gray-700 rounded-full text-sm p-2.5 transition-all"
     {...$$restProps}
 >
     <svg

@@ -3,8 +3,10 @@
 	import * as Accordion from "$lib/shadcn/components/ui/accordion";
 	import { Separator } from "$lib/shadcn/components/ui/separator";
 	import { page } from '$app/stores';
+	import { t } from "$lib/translations";
 	import { scroll } from '$lib/utils';
     import ThemeToggle from "../components/buttons/ThemeToggle.svelte";
+    import Footer from "../components/Footer.svelte";
 	
 	export let data;
 	let about, faq;
@@ -134,7 +136,7 @@
 			The easiest way to get <br />
 			started with bitcoin.
 		</h1>
-		<p class="text-center txt_slate_blue mb-4">
+		<p class="text-center txt_slate_blue dark:!text-gray-200 mb-4">
 			A simple but powerful web wallet for everyone. *No software or hardware required.*
 		</p>
 		<a href="/register" class="btn_purple"><span class="px-5">Start in Seconds</span></a>
@@ -153,8 +155,8 @@
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
 					<img src="images/swapee-grid-1-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
-					<h5 class="f_bebas_neue fw-bold letter_space_1">Create your account</h5>
-					<p class="txt_slate_blue lh-base">
+					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Create your account</h5>
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base">
 						A username and password is all you need to get started. <a
 							href="#"
 							class="swapee_grid_link">Don’t forget it!</a
@@ -165,8 +167,8 @@
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
 					<img src="images/swapee-grid-2-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
-					<h5 class="f_bebas_neue fw-bold letter_space_1">Ask for payments</h5>
-					<p class="txt_slate_blue lh-base">
+					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Ask for payments</h5>
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base">
 						It’s the same as you normally would traditionally, but with bitcoin.
 					</p>
 				</div>
@@ -174,8 +176,8 @@
 			<div class="col-lg-4 col-md-6">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
 					<img src="images/swapee-grid-3-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
-					<h5 class="f_bebas_neue fw-bold letter_space_1">That's all!</h5>
-					<p class="txt_slate_blue lh-base">
+					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">That's all!</h5>
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base">
 						Spend your coins immediately or save it and watch it grow, the choice is yours.
 					</p>
 				</div>
@@ -195,7 +197,7 @@
 						Lightning Network <br />
 						Brings Instant Payments
 					</h2>
-					<p class="txt_slate_blue">
+					<p class="txt_slate_blue dark:!text-gray-200">
 						Say goodbye to the headaches of waiting for bank settlements and dealing with
 						chargebacks with our payment solution. With instant settlement and no 3% credit card
 						processing fees, merchants can enjoy hassle-free retail payments.
@@ -232,7 +234,7 @@
 					<h2 class="h1 f_bebas_neue fw-bold dark:text-white br_md_none mb-3 letter_space_2 lh-1">
 						Simple to uses
 					</h2>
-					<p class="txt_slate_blue mb-4">
+					<p class="txt_slate_blue dark:!text-gray-200 mb-4">
 						Just enter an amount in your local currency, share the QR code and you’re done. We do
 						all the heavy lifting so you can focus on your business. You always have the option of
 						taking custody of your funds by withdrawing instantly at any time.
@@ -263,7 +265,7 @@
 					<h2 class="h1 letter_space_2 f_bebas_neue fw-bold dark:text-white br_md_none mb-3 lh-1">
 						Brand it your way!
 					</h2>
-					<p class="txt_slate_blue">
+					<p class="txt_slate_blue dark:!text-gray-200">
 						You have complete control over your profile page's aesthetic. Customize it with your
 						preferred color scheme, avatar, and banner to reflect your brand, personality and
 						interests.
@@ -301,7 +303,7 @@
 						<Accordion.Trigger class="py-0">
 							<h2 class="text-base pt-3 pb-3 font-bold border-b-black dark:!border-b-swapee-purple {askedQuestionsAccordionValue == `item-${askedQuestionAccordion.id}` ? 'border-b-2' : ''}">{askedQuestionAccordion.title}</h2>
 						</Accordion.Trigger>
-						<Accordion.Content class="text-base text-slate-500 mt-0">
+						<Accordion.Content class="text-base text-slate-500 dark:text-gray-200 mt-0">
 							<Separator orientation="horizontal" class="mt-0 mb-3 bg-purple-950" />
 							<p class="mb-0">{askedQuestionAccordion.description}</p>
 						</Accordion.Content>	
@@ -330,45 +332,4 @@
 	</div>
 </div>
 
-<!-- footer -->
-<footer class="site_footer">
-	<div class="container-lg px-4">
-		<!-- footer_top -->
-		<div class="footer_top pb-4">
-			<div class="row align-items-center justify-content-between">
-				<div class="col-md-5 mb-md-0 mb-5">
-					<a href="#" class="footer_logo"><img src="images/footer-logo.png" alt="" /></a>
-					<p class="text-white-50 mt-10">Copyright © 2023. Swapee.me</p>
-					<p class="text-white-50 mt-3">All rights reserved.</p>
-					<a href="#" class="btn_language d-inline-block mt-3">English</a>
-				</div>
-				<div
-					class="ps-md-4 footer_top_right col-md-6 d-flex align-items-center justify-content-end justify-content-sm-center justify-content-between"
-				>
-					<div class="row justify-content-md-end">
-						<div class="col-sm-6 mb-xl-0 mb-4 pe-md-0 pe-sm-5">
-							<h6 class="text-white opacity-75 mb-0">Business enquiries</h6>
-							<a href="mailto:business@swapee.me">business@swapee.me</a>
-						</div>
-						<div class="col-sm-6 pe-xl-5 mb-4 pe-md-0 pe-sm-5">
-							<h6 class="text-white opacity-75 mb-0">Support enquiries</h6>
-							<a href="mailto:support@swapee.me">support@swapee.me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- footer_bottom -->
-			<div class="footer_bottom pt-4 pb-2">
-				<ul class="list-unstyled mb-0 ps-0">
-					<li class="pb-3">
-						<a href="/docs">Documentation</a>
-					</li>
-					<li class="pb-3">
-						<a href="/privacy">Privacy Policy</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</footer>
+<Footer />
