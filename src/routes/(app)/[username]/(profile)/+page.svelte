@@ -79,47 +79,45 @@
     {/if}
 
     <div
-      class="flex flex-wrap sm:flex-nowrap gap-3 justify-center w-full text-xl"
+      class="flex flex-wrap gap-3 justify-center w-full text-xl"
     >
-      <a href={`/send`} class="w-full">
+      <a href={`/send`} class="contents grow">
         <button
           type="button"
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-primary"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
         >
-          <div class="mx-auto flex">
-            <Icon icon="send" style="my-auto h-6 mr-2" />
+          <div class="mx-auto flex gap-2">
+            <Icon icon="send" style="w-8" />
             <div class="my-auto">{$t("user.dashboard.send")}</div>
           </div>
         </button>
       </a>
 
-      <a href={`/${user.username}/receive`} class="w-full">
+      <a href={`/${user.username}/receive`} class="contents">
         <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-primary"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
         >
-          <div class="mx-auto flex">
-            <Icon icon="numpad" style="my-auto h-6 mr-2" />
+          <div class="mx-auto flex gap-2">
+            <Icon icon="numpad" style="w-8" />
             <div class="my-auto">{$t("user.dashboard.receive")}</div>
           </div>
         </button>
       </a>
-    </div>
-  {/if}
 
-  {#if user?.username === subject.username}
-    <div>
-      <a href={`/${user.username}/items/create`} class="w-full">
-        <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-primary"
-        >
-          <div class="mx-auto flex gap-2">
-            <Icon icon="plus" style="w-8 mx-auto" />
-            <div class="my-auto text-xl">
-              {$t("items.add")}
+      {#if user?.username === subject.username}
+        <a href={`/${user.username}/items/create`} class="contents">
+          <button
+            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow basis-full"
+          >
+            <div class="mx-auto flex gap-2">
+              <Icon icon="plus" style="w-8 mx-auto" />
+              <div class="my-auto text-xl whitespace-nowrap">
+                {$t("items.add")}
+              </div>
             </div>
-          </div>
-        </button>
-      </a>
+          </button>
+        </a>
+      {/if}
     </div>
   {/if}
 
@@ -208,9 +206,9 @@
   </div>
   {#if total > 0}
     <button
-      class="rounded-2xl py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white fixed bottom-16 w-96 right-0"
+      class="rounded-2xl py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white fixed bottom-16 right-4"
       on:click={checkout}
-      >
+    >
       <div class="mx-auto flex">
         <div class="my-auto text-2xl">
           {$t("user.dashboard.checkout")}
