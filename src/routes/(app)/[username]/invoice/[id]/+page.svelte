@@ -145,15 +145,13 @@
   {/if}
 
   {#each invoice.items as i}
-    <div class="flex tabular-nums">
-      <div class="mr-auto"><span class="mr-2">{i.quantity}</span> {i.name}</div>
-      <div class="flex gap-2">
-        <div class="font-semibold">
-          {f(i.price * i.quantity, currency)}
-        </div>
-        <div class="text-secondary">
-          {sat(btc(i.price * i.quantity, rate))}
-        </div>
+    <div class="grid grid-cols-4 text-xl">
+      <div class="mr-auto grow col-span-2"><span class="mr-2">{i.quantity}</span> {i.name}</div>
+      <div class="font-semibold text-right">
+        {f(i.price * i.quantity, currency)}
+      </div>
+      <div class="text-secondary text-right text-lg my-auto">
+        {sat(btc(i.price * i.quantity, rate))}
       </div>
     </div>
   {/each}
@@ -170,7 +168,7 @@
         {/if}
       </div>
       <div>
-        <span class="text-secondary font-normal text-lg"
+        <span class="text-secondary font-normal text-xl"
           >⚡️{`${s(amount)}`}</span
         >
 
