@@ -29,7 +29,8 @@ let parse = async (t, host) => {
   if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
 
   // lightning
-  if (t.toLowerCase().startsWith("lightning:")) t = t.toLowerCase().replace("lightning:", "");
+  if (t.toLowerCase().startsWith("lightning:"))
+    t = t.toLowerCase().replace("lightning:", "");
   if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
   if (t.includes(":")) t = t.split(":")[1];
 

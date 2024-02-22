@@ -1,4 +1,4 @@
-import { addTranslations, setLocale, setRoute } from '$lib/translations';
+import { addTranslations, setLocale, setRoute } from "$lib/translations";
 
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {

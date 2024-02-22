@@ -26,7 +26,7 @@ export const actions = {
     try {
       let r = await post("/bitcoin/send", await fd(request), auth(cookies));
     } catch (e) {
-        console.log("problem sending bitcoin", e);
+      console.log("problem sending bitcoin", e);
       return fail(400, { address, amount, feeRate, message: e.message });
     }
 

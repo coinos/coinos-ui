@@ -9,22 +9,34 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { post, back, f, fiat as toFiat, s, sats, focus } from "$lib/utils";
+  import {
+    btc,
+    sat,
+    post,
+    back,
+    f,
+    fiat as toFiat,
+    s,
+    sats,
+    focus,
+  } from "$lib/utils";
   export let data;
   export let form;
 
-  let { address, hash, payreq, recipient, tip, rates, user } = data;
+  let { invoice, rates, user } = data;
+  let { address, hash, payreq, user: recipient, tip } = invoice;
   let { currency } = user;
 
   $: reload(data);
   let reload = (data) => {
-    ({ address, hash, payreq, recipient, tip, rates, user } = data);
+    ({ invoice, rates, user } = data);
+    ({ address, hash, payreq, user: recipient, tip } = invoice);
     ({ currency } = user);
   };
 
-  $: rate = data.rate * (rates[user.currency] / rates[data.currency]);
+  $: rate = invoice.rate * (rates[user.currency] / rates[invoice.currency]);
 
-  let amount = form?.amount || data.amount;
+  let amount = form?.amount || invoice.amount;
   let a,
     af,
     amountFiat = amount * (rate / sats),
@@ -86,12 +98,12 @@
   </div>
 {/if}
 
-<div class="container px-4 max-w-xl mx-auto">
+<div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <div class="text-center mb-8">
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.send")}
-      </h1>
+    <h1 class="text-4xl font-bold">
+      {$t("payments.send")}
+    </h1>
+    <div>
       <h2 class="text-2xl md:text-3xl font-semibold">
         {f(toFiat(amount, rate), currency)}
         {#if tip}
@@ -100,7 +112,7 @@
           </span>
         {/if}
       </h2>
-      <h3 class="text-secondary md:text-lg mb-6 mt-1">
+      <h3 class="text-secondary md:text-lg mt-1">
         ⚡️{s(amount)}
 
         {#if tip}
@@ -109,18 +121,39 @@
           </span>
         {/if}
       </h3>
+    </div>
 
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.to")}
+    <h1 class="text-xl md:text-2xl text-secondary">
+      {$t("payments.to")}
+    </h1>
+
+    <div class="flex p-1 gap-2 justify-center">
+      <Avatar user={recipient} size={"20"} />
+      <p class="text-4xl break-words my-auto">
+        {recipient.username}
+      </p>
+    </div>
+
+    {#if invoice.items.length}
+      <h1 class="text-xl md:text-2xl text-secondary">
+        {$t("payments.for")}
       </h1>
 
-      <div class="flex p-1 gap-2 justify-center">
-        <Avatar user={recipient} size={"20"} />
-        <p class="text-4xl break-words my-auto">
-          {recipient.username}
-        </p>
-      </div>
-    </div>
+      {#each invoice.items as i}
+        <div class="grid grid-cols-4 text-xl">
+          <div class="mr-auto grow col-span-2">
+            <span class="mr-2">{i.quantity}</span>
+            {i.name}
+          </div>
+          <div class="font-semibold text-right">
+            {f(i.price * i.quantity, invoice.currency)}
+          </div>
+          <div class="text-secondary text-right text-lg my-auto">
+            {sat(btc(i.price * i.quantity, invoice.rate))}
+          </div>
+        </div>
+      {/each}
+    {/if}
   {:else}
     <Numpad
       bind:amount={a}

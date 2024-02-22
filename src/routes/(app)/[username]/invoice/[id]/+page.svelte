@@ -51,7 +51,6 @@
     user: { username, currency },
   } = invoice;
 
-
   let qr;
   let tipPercent = 0;
 
@@ -93,7 +92,7 @@
   let subbed;
 
   onMount(async () => {
-    $showQr = $showQr && 1
+    $showQr = $showQr && 1;
     if (browser) {
       last.subscribe((v) => {
         if (!v || subbed) return;
@@ -146,7 +145,10 @@
 
   {#each invoice.items as i}
     <div class="grid grid-cols-4 text-xl">
-      <div class="mr-auto grow col-span-2"><span class="mr-2">{i.quantity}</span> {i.name}</div>
+      <div class="mr-auto grow col-span-2">
+        <span class="mr-2">{i.quantity}</span>
+        {i.name}
+      </div>
       <div class="font-semibold text-right">
         {f(i.price * i.quantity, currency)}
       </div>
@@ -181,7 +183,6 @@
     </div>
   {/if}
 
-
   <button
     type="button"
     class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border bg-black text-white text-xl whitespace-nowrap"
@@ -193,7 +194,9 @@
     </div>
   </button>
 
-  <div class="w-full flex justify-center gap-2 flex-wrap text-secondary text-xl">
+  <div
+    class="w-full flex justify-center gap-2 flex-wrap text-secondary text-xl"
+  >
     <a href={link} class="w-full">
       <button
         class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
@@ -225,7 +228,6 @@
     <!--   </div></button -->
     <!-- > -->
   </div>
-
 
   <div class="flex justify-around text-secondary">
     <button

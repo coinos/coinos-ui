@@ -77,6 +77,7 @@
       amount: btc(total, rate),
       currency,
       items: items.filter((i) => i.quantity > 0),
+      prompt: subject.prompt,
       rate,
     };
 
@@ -85,7 +86,7 @@
       user: { username: subject.username },
     });
 
-    goto(`/${subject.username}/invoice/${id}?options=true`, {
+    goto(`/${subject.username}/invoice/${id}`, {
       invalidateAll: true,
     });
   };
