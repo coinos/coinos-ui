@@ -84,7 +84,7 @@
       <div class="my-auto break-words w-full">{display || username}</div>
     </div>
 
-    {#if subject.address && subject.id !== user?.id}
+    {#if subject.address}
       <div
         class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
         class:line-clamp-2={!showBio}
