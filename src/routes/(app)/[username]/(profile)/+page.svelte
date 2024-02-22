@@ -1,5 +1,5 @@
 <script>
-  import { invalidate } from "$app/navigation";
+  import { goto, invalidate } from "$app/navigation";
   import { btc, f, sat, post } from "$lib/utils";
   import { onMount } from "svelte";
   import Icon from "$comp/Icon.svelte";
@@ -11,14 +11,18 @@
   import { fade } from "svelte/transition";
   import { cubicIn } from "svelte/easing";
   import { flip } from "svelte/animate";
-  const flipDurationMs = 200;
-  const dropTargetStyle = {};
 
   export let data;
+
+  let flipDurationMs = 200;
+  let dropTargetStyle = {};
+
   let { subject, user, items, rates } = data;
+  $: ({ currency } = subject);
+  $: rate = rates[currency];
   $: refresh(data);
   let refresh = (d) => ({ items, subject, user, rates } = d);
-  $: dragDisabled = subject?.id !== user?.id
+  $: dragDisabled = subject?.id !== user?.id;
 
   let deleting;
   $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
@@ -26,9 +30,7 @@
     deleting = item;
   };
 
-  let consider = (e) => {
-    items = e.detail.items;
-  };
+  let consider = (e) => (items = e.detail.items);
 
   let finalize = async (e) => {
     items = e.detail.items;
@@ -36,6 +38,25 @@
       await post("/api/items/sort", { items });
       invalidate("app:items");
     }
+  };
+
+  let checkout = async () => {
+    let invoice = {
+      type: "lightning",
+      amount: btc(total, rate),
+      currency,
+      items: items.filter((i) => i.quantity > 0),
+      rate,
+    };
+
+    let { id } = await post(`/${subject.username}/invoice`, {
+      invoice,
+      user: { username: subject.username },
+    });
+
+    goto(`/${subject.username}/invoice/${id}?options=true`, {
+      invalidateAll: true,
+    });
   };
 </script>
 
@@ -46,7 +67,7 @@
 <div class="space-y-5">
   {#if user?.id === subject.id}
     <div class="flex justify-center lg:justify-start">
-      <Balance {user} rate={rates[user.currency]} />
+      <Balance {user} {rate} />
     </div>
 
     {#if !user.balance}
@@ -62,6 +83,7 @@
     >
       <a href={`/send`} class="w-full">
         <button
+          type="button"
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-primary"
         >
           <div class="mx-auto flex">
@@ -103,12 +125,14 @@
 
   <div
     class="grid grid-cols-1 md:grid-cols-2 gap-4"
+    class:pb-20={total > 0}
     use:dndzone={{ items, flipDurationMs, dropTargetStyle, dragDisabled }}
     on:consider={consider}
     on:finalize={finalize}
   >
     {#each items as i (i.id)}
-      <div
+      <button
+        type="button"
         class="w-full text-center cursor-pointer hover:opacity-80"
         on:click={() => i.quantity++}
       >
@@ -132,7 +156,7 @@
           {/if}
           {#if user?.username === subject.username}
             <div class="flex gap-2 justify-center absolute top-2 right-2">
-              <div on:click|stopPropagation={() => {}}>
+              <button type="button" on:click|stopPropagation={() => {}}>
                 <a href={`/${user.username}/items/${i.id}`}>
                   <button
                     class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
@@ -140,7 +164,7 @@
                     <Icon icon="edit" style="w-8 mx-auto invert" />
                   </button>
                 </a>
-              </div>
+              </button>
               <button
                 class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
                 on:click|stopPropagation={() => del(i)}
@@ -156,20 +180,22 @@
               <div class="text-2xl break-words">{i.name}</div>
               <div class="flex gap-2">
                 <div class="font-semibold">
-                  {f(i.price, subject.currency)}
+                  {f(i.price, currency)}
                 </div>
                 <div class="text-secondary">
-                  {sat(btc(i.price, rates[subject.currency]))}
+                  {sat(btc(i.price, rate))}
                 </div>
               </div>
             </div>
             <div class="flex gap-1 ml-auto mb-auto justify-around tabular-nums">
               {#if i.quantity}
-              <div
-                on:click|stopPropagation={() => i.quantity > 0 && i.quantity--}
-              >
-                <Icon icon="minus" style="w-10 min-w-10" />
-              </div>
+                <button
+                  type="button"
+                  on:click|stopPropagation={() =>
+                    i.quantity > 0 && i.quantity--}
+                >
+                  <Icon icon="minus" style="w-10 min-w-10" />
+                </button>
               {/if}
               <div class="text-2xl my-auto text-center">
                 {#if i.quantity}{i.quantity}{:else}&mdash;{/if}
@@ -177,30 +203,24 @@
             </div>
           </div>
         </div>
-      </div>
+      </button>
     {/each}
   </div>
   {#if total > 0}
-    <div>
-      <a
-        href={`/send/${subject.username}/${total}/${subject.currency}`}
-        class="w-full"
+    <button
+      class="rounded-2xl py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white fixed bottom-16 w-96 right-0"
+      on:click={checkout}
       >
-        <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-full bg-black text-white"
-        >
-          <div class="mx-auto flex">
-            <div class="my-auto text-2xl">
-              {$t("user.dashboard.checkout")}
-              {f(total, subject.currency)}
-              <span class="text-base">
-                {sat(btc(total, rates[subject.currency]), subject.currency)}
-              </span>
-            </div>
-          </div>
-        </button>
-      </a>
-    </div>
+      <div class="mx-auto flex">
+        <div class="my-auto text-2xl">
+          {$t("user.dashboard.checkout")}
+          {f(total, currency)}
+          <span class="text-base">
+            {sat(btc(total, rate), currency)}
+          </span>
+        </div>
+      </div>
+    </button>
   {/if}
 </div>
 

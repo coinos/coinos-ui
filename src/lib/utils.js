@@ -49,7 +49,6 @@ export let post = async (url, body, headers, timeout = 8000) => {
   };
 
   let controller = new AbortController();
-  console.log(controller, timeout);
   let id = setTimeout(() => {
     controller.abort(new Error("Operation timed out"));
   }, timeout);

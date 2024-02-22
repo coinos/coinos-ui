@@ -6,10 +6,7 @@ export const actions = {
     let form = await fd(request);
     try {
       await post("/items", form, auth(cookies));
-
-      console.log("YEAH");
     } catch (e) {
-      console.log("E", e)
       return fail(400, { message: e.message });
     }
 
