@@ -77,66 +77,12 @@
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
   <div class="hidden lg:block lg:w-[300px]" />
-  <div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-sm">
+  <div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-sm mb-5">
     <div
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
       <div class="my-auto break-words w-full">{display || username}</div>
-      <button on:click={toggleDetails}>
-        <Icon icon="stats" style="w-12 min-w-[50px]" />
-      </button>
     </div>
-
-    {#if showDetails}
-      <div>
-        <div class="font-bold">{$t("user.profilePage")}</div>
-        <div class="flex gap-4">
-          <div class="break-all grow text-secondary text-lg">
-            {profile}
-          </div>
-          <div class="flex mb-auto gap-1">
-            <button class="my-auto" on:click={() => copy(profile)}
-              ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-            >
-            <a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto">
-              <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-            </a>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="font-bold">{$t("user.lightningAddress")}</div>
-        <div class="flex gap-4">
-          <div class="break-all grow text-secondary text-lg">
-            {lnaddr}
-          </div>
-          <div class="flex mb-auto gap-1">
-            <button class="my-auto" on:click={() => copy(lnaddr)}
-              ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-            >
-            <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-              <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-            </a>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="font-bold">{$t("user.nostrPubkey")}</div>
-        <div class="flex gap-4">
-          <div class="break-all grow text-secondary text-lg">
-            {npub}
-          </div>
-          <div class="flex my-auto gap-1">
-            <button class="my-auto" on:click={() => copy(npub)}
-              ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-            >
-            <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-              <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-            </a>
-          </div>
-        </div>
-      </div>
-    {/if}
 
     {#if subject.address && subject.id !== user?.id}
       <div
@@ -160,76 +106,81 @@
       >
     </div>
 
-    <div class="flex flex-wrap gap-2 w-full">
+    <div class="flex flex-wrap gap-2 w-full text-xl">
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
-          <div class="w-full flex">
-            <button
-              class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
-              on:click={unfollow}
-            >
-              <div class="mx-auto flex">
-                <Icon icon={"profile"} style="my-auto h-6 mr-2 invert" />
-                <div class="my-auto">{$t("user.following")}</div>
-              </div>
-            </button>
-          </div>
+          <button
+            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow"
+            on:click={unfollow}
+          >
+            <div class="mx-auto flex">
+              <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" />
+              <div class="my-auto">{$t("user.following")}</div>
+            </div>
+          </button>
         {:else}
-          <div class="w-full flex">
-            <button
-              class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-              on:click={follow}
-            >
-              <div class="mx-auto flex">
-                <Icon icon={"profile"} style="my-auto h-6 mr-2" />
-                <div class="my-auto">{$t("user.follow")}</div>
-              </div>
-            </button>
-          </div>
+          <button
+            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow"
+            on:click={follow}
+          >
+            <div class="mx-auto flex">
+              <Icon icon={"profile"} style="my-auto h-6 mr-2" />
+              <div class="my-auto">{$t("user.follow")}</div>
+            </div>
+          </button>
         {/if}
       {/if}
 
       {#if user && user.username !== subject.username && subject.pubkey}
-        <div class="w-full flex">
-            <a href={`/${user.username}/messages/${subject.username}`} class="mx-auto">
-            <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-            >
-              <div class="mx-auto flex">
-                <Icon icon="message" style="mr-2 my-auto" />
-                <div class="mt-1 my-auto">{$t("user.message")}</div>
-              </div>
-            </button>
-          </a>
-        </div>
+        <a
+          href={`/${user.username}/messages/${subject.username}`}
+          class="contents"
+        >
+          <button
+            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
+          >
+            <div class="mx-auto flex">
+              <Icon icon="message" style="w-8 mr-2 my-auto" />
+              <div class="mt-1 my-auto">{$t("user.message")}</div>
+            </div>
+          </button>
+        </a>
       {/if}
 
       {#if !subject.anon && subject.username !== user?.username}
-        <div class="w-full flex">
-          <a
-            href={user
-              ? `/send/${subject.username}`
-              : `/${subject.username}/receive`}
-            class="mx-auto"
+        <a
+          href={user
+            ? `/send/${subject.username}`
+            : `/${subject.username}/receive`}
+          class="contents"
+        >
+          <button
+            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
           >
-            <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
-            >
-              <div class="mx-auto flex">
-                <Icon icon="send" style="mr-2" />
-                <div class="mt-1">{$t("user.pay")}</div>
-              </div>
-            </button>
-          </a>
-        </div>
+            <div class="mx-auto flex">
+              <Icon icon="send" style="w-8 mr-2" />
+              <div class="mt-1">{$t("user.pay")}</div>
+            </div>
+          </button>
+        </a>
       {/if}
+      <button
+        type="button"
+        on:click={toggleDetails}
+        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
+      >
+        <div class="mx-auto flex">
+          <Icon icon="edit" style="w-8 mr-2" />
+          <div class="mt-1">{$t("user.details")}</div>
+        </div>
+      </button>
 
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>
           <input placeholder="Password reset" bind:value={password} />
           <button
             type="submit"
-            class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60"
           >
             <div class="mx-auto flex">
               <Icon icon="clock" style="mr-2 my-auto w-8" />
@@ -239,6 +190,58 @@
         </form>
       {/if}
     </div>
+    {#if showDetails}
+      <div class="text-xl space-y-5">
+        <div>
+          <div class="font-bold">{$t("user.profilePage")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-secondary">
+              {profile}
+            </div>
+            <div class="flex mb-auto gap-1">
+              <button class="my-auto" on:click={() => copy(profile)}
+                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+              >
+              <a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto">
+                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold">{$t("user.lightningAddress")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-secondary">
+              {lnaddr}
+            </div>
+            <div class="flex mb-auto gap-1">
+              <button class="my-auto" on:click={() => copy(lnaddr)}
+                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+              >
+              <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
+                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold">{$t("user.nostrPubkey")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-secondary">
+              {npub}
+            </div>
+            <div class="flex my-auto gap-1">
+              <button class="my-auto" on:click={() => copy(npub)}
+                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+              >
+              <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
+                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
   </div>
 
   <div class="w-full">

@@ -138,12 +138,12 @@
     <input name="username" value={recipient.username} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
 
-    <div class="flex w-full">
+    <div class="flex w-full text-xl">
       {#if amount}
         <button
           use:focus
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
           disabled={submitting}
         >
           {#if submitting}
@@ -155,7 +155,7 @@
       {:else}
         <button
           type="button"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
           on:click={setAmount}
         >
           {$t("payments.next")}
@@ -163,7 +163,7 @@
       {/if}
     </div>
   </form>
-  <div class="flex my-10">
+  <div class="flex my-10 text-xl">
     <button class="mx-auto" on:click={external}
       >{$t("payments.moreOptions")}</button
     >
