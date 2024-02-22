@@ -2,6 +2,7 @@
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import {
+    btc,
     post,
     back,
     copy,
@@ -15,7 +16,7 @@
   } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { last } from "$lib/store";
+  import { last, showQr } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Heart from "$comp/Heart.svelte";
@@ -26,6 +27,7 @@
   export let data;
 
   let ndef;
+  let showOptions;
 
   let reading = async ({ message, serialNumber }) => {
     let name = serialNumber.replace(/:/g, "-");
@@ -49,7 +51,6 @@
     user: { username, currency },
   } = invoice;
 
-  let showQr = true;
 
   let qr;
   let tipPercent = 0;
@@ -92,6 +93,7 @@
   let subbed;
 
   onMount(async () => {
+    $showQr = $showQr && 1
     if (browser) {
       last.subscribe((v) => {
         if (!v || subbed) return;
@@ -125,7 +127,7 @@
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
-  {#if showQr}
+  {#if $showQr === 1}
     <div>
       <a
         href={[types.bitcoin, types.liquid].includes(invoice.type)
@@ -141,6 +143,20 @@
       </a>
     </div>
   {/if}
+
+  {#each invoice.items as i}
+    <div class="flex tabular-nums">
+      <div class="mr-auto"><span class="mr-2">{i.quantity}</span> {i.name}</div>
+      <div class="flex gap-2">
+        <div class="font-semibold">
+          {f(i.price * i.quantity, currency)}
+        </div>
+        <div class="text-secondary">
+          {sat(btc(i.price * i.quantity, rate))}
+        </div>
+      </div>
+    </div>
+  {/each}
 
   {#if amount > 0}
     <div class="text-center font-bold text-2xl">
@@ -167,9 +183,55 @@
     </div>
   {/if}
 
-  <div class="flex justify-center text-secondary">
+
+  <button
+    type="button"
+    class="flex gap-2 text-center break-all text-lg rounded-2xl hover:opacity-80 p-4 w-full mx-auto justify-center border bg-black text-white text-xl"
+    on:click={() => copy(txt)}
+  >
+    <Icon icon="copy" style="w-8 my-auto invert" />
+    <div class="my-auto font-bold">
+      {txt.substr(0, 11)}..{txt.substr(-11)}
+    </div>
+  </button>
+
+  <div class="w-full flex justify-center gap-2 flex-wrap text-secondary">
+    <a href={link} class="w-full">
+      <button
+        class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg"
+      >
+        <Icon icon="mobile" style="mr-1 w-8" />
+        <div class="my-auto">{$t("payments.openLink")}</div>
+      </button>
+    </a>
+
     <button
-      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
+      class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg"
+      on:click={() => ($showQr = $showQr ? false : 2)}
+    >
+      <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+      <div class="my-auto">
+        {$showQr ? $t("payments.hide") : $t("payments.show")}
+        {$t("payments.qr")}
+      </div></button
+    >
+
+    <!-- <button -->
+    <!--   class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg" -->
+    <!--   on:click={() => (showOptions = !showOptions)} -->
+    <!-- > -->
+    <!--   <Icon icon="settings" style="w-8 mr-1 my-auto" /> -->
+    <!--   <div class="my-auto"> -->
+    <!--     {showOptions ? $t("payments.hide") : $t("payments.show")} -->
+    <!--     {$t("payments.options")} -->
+    <!--   </div></button -->
+    <!-- > -->
+  </div>
+
+
+  <div class="flex justify-around text-secondary">
+    <button
+      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
       class:bg-primary={type === types.bitcoin}
       class:text-black={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
@@ -179,7 +241,7 @@
     </button>
 
     <button
-      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
+      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
       class:bg-primary={type === types.liquid}
       class:text-black={type === types.liquid}
       on:click={() => setType(types.liquid)}
@@ -189,7 +251,7 @@
     </button>
 
     <button
-      class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 rounded-full"
+      class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
       class:bg-primary={type === types.lightning}
       class:text-black={type === types.lightning}
       on:click={() => setType(types.lightning)}
@@ -204,45 +266,29 @@
   {#if type === types.liquid}
     <div class="flex justify-center">
       <div class="my-auto text-xl text-center text-secondary">
-        {$t("payments.onlyLbtc")} <span class="text-teal-500 font-bold">L-BTC</span>,
+        {$t("payments.onlyLbtc")}
+        <span class="text-teal-500 font-bold">L-BTC</span>,
         {$t("payments.dontDeposit")}
       </div>
     </div>
   {/if}
 
-  <button
-    type="button"
-    class="flex gap-2 text-center break-all text-lg rounded-full hover:opacity-80 p-4 w-full mx-auto justify-center border text-black text-xl"
-    on:click={() => copy(txt)}
-  >
-    <Icon icon="copy" style="w-8 my-auto font-semibold" />
-    <div class="my-auto">
-      {txt.substr(0, 11)}..{txt.substr(-11)}
-    </div>
-  </button>
-
-
-  <div class="w-full flex justify-center gap-2 flex-wrap text-secondary">
-    <a href={link} class="w-full">
-      <button
-        class="w-full flex justify-center rounded-full border py-3 px-5 hover:opacity-80 text-lg"
+  {#if $showQr === 2}
+    <div>
+      <a
+        href={[types.bitcoin, types.liquid].includes(invoice.type)
+          ? invoice.text
+          : "lightning:" + invoice.text}
       >
-        <Icon icon="mobile" style="mr-1 w-6" />
-        <div>{$t("payments.openLink")}</div>
-      </button>
-    </a>
-
-    <button
-      class="w-full flex justify-center rounded-full border py-3 px-5 hover:opacity-80 text-lg"
-      on:click={() => (showQr = !showQr)}
-    >
-      <Icon icon="qr" style="mr-1 invert" />
-      <div>
-        {showQr ? $t("payments.hide") : $t("payments.show")}
-        {$t("payments.qr")}
-      </div></button
-    >
-  </div>
+        <img
+          {src}
+          class="mx-auto z-10 shadow-inner rounded-2xl"
+          bind:this={qr}
+          alt={txt}
+        />
+      </a>
+    </div>
+  {/if}
 </div>
 
 <style>

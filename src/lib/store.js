@@ -1,7 +1,7 @@
 import { get, writable } from "svelte/store";
 import { browser } from "$app/environment";
 
-const persistSession = (key, defaultValue) => {
+let persistSession = (key, defaultValue) => {
   let s = writable(
     browser &&
       sessionStorage.getItem(key) &&
@@ -17,7 +17,7 @@ const persistSession = (key, defaultValue) => {
   return s;
 };
 
-const persistLocal = (key, defaultValue) => {
+let persistLocal = (key, defaultValue) => {
   let s = writable(
     browser &&
       localStorage.getItem(key) &&
@@ -38,21 +38,22 @@ const persistLocal = (key, defaultValue) => {
   return s;
 };
 
-export const avatar = writable();
-export const banner = writable();
-export const event = writable();
-export const events = writable({});
-export const invoice = writable();
-export const last = writable();
-export const loginRedirect = writable();
-export const decrypted = persistLocal("decrypted", {});
-export const newPayment = persistLocal("newPayment");
-export const password = writable();
-export const passwordPrompt = writable();
-export const pin = persistSession("pin");
-export const rate = writable();
-export const request = writable();
-export const requestRedirect = writable();
-export const token = persistSession("token");
-export const user = writable();
-export const ndef = writable();
+export let avatar = writable();
+export let banner = writable();
+export let event = writable();
+export let events = writable({});
+export let invoice = writable();
+export let last = writable();
+export let loginRedirect = writable();
+export let decrypted = persistLocal("decrypted", {});
+export let newPayment = persistLocal("newPayment");
+export let password = writable();
+export let passwordPrompt = writable();
+export let pin = persistSession("pin");
+export let rate = writable();
+export let request = writable();
+export let requestRedirect = writable();
+export let token = persistSession("token");
+export let user = writable();
+export let ndef = writable();
+  export let showQr = persistLocal("showQr");
