@@ -52,7 +52,7 @@
         on:keypress={keypress}
         class="w-full p-4 border rounded-xl h-48 text-xl"
         bind:value={text}
-          autocapitalize="none"
+        autocapitalize="none"
       />
     </div>
 

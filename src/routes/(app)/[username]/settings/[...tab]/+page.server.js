@@ -27,7 +27,7 @@ export const actions = {
       return fail(400, { message: e.message });
     }
 
-      if (user.language) cookies.set("lang", user.language, { path: "/" });
+    if (user.language) cookies.set("lang", user.language, { path: "/" });
 
     return { user, success: true };
   },

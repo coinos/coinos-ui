@@ -23,7 +23,11 @@
       },
       { key: "nav.support", icon: "support", href: `/support` },
       { key: "nav.map", icon: "map", href: `/${user.username}/map` },
-      { key: "nav.messages", icon: "message", href: `/${user.username}/messages` },
+      {
+        key: "nav.messages",
+        icon: "message",
+        href: `/${user.username}/messages`,
+      },
       { key: "nav.merch", icon: "shop", href: `https://coinosmerch.com` },
       { key: "nav.signOut", icon: "logout", href: `/logout` },
     ];

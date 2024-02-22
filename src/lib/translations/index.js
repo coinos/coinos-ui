@@ -18,7 +18,7 @@ for (let i = 0; i < availableLocales.length; i++) {
 }
 const loaders = availableLocales.map(createLocaleLoader);
 
-export const defaultLocale = 'en';
+export const defaultLocale = "en";
 
 const config = {
   fallbackLocale: "en",

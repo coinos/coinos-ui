@@ -78,7 +78,7 @@
       let data = new FormData(formElement);
 
       if (data.get("newNsec")) {
-          await setNsec(user, data.get("newNsec"));
+        await setNsec(user, data.get("newNsec"));
         data.set("nsec", user.nsec);
         data.set("pubkey", user.pubkey);
       }

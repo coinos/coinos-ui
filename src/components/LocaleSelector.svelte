@@ -2,7 +2,7 @@
   import { t, locale, locales } from "$lib/translations";
   export let style;
 
-    $: l = $locale
+  $: l = $locale;
 
   const handleChange = ({ currentTarget }) => {
     const { value } = currentTarget;
