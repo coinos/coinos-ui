@@ -86,7 +86,7 @@
 
     {#if subject.address}
       <div
-        class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
+        class="text-secondary mx-auto text-center lg:mx-0"
         class:line-clamp-2={!showBio}
         on:click={toggleBio}
         on:keydown={toggleBio}
