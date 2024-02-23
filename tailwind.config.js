@@ -67,7 +67,8 @@ const config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: [...fontFamily.sans]
+				sans: [...fontFamily.sans],
+				"bebasNeue": ['"Bebas Neue"', 'sans-serif']
 			},
 			screens: {
 				xs: "360px"

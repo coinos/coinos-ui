@@ -157,8 +157,8 @@
 <div class="pt-4">
   <div class="w-[243px] mx-auto mb-10 mt-6">
     <a href="/">
-      <Icon icon="logo-dark" style="hidden dark:block mb-5" />
-      <Icon icon="logo" style="dark:hidden block" />
+      <img src="images/logo.png" alt="" class="dark:hidden block" />
+			<img src="images/logo-white.png" alt="" class="hidden dark:block mb-5" />
     </a>
   </div>
 
@@ -308,7 +308,7 @@
         {$t("login.haveAccount")}
         <a
           href={"/login"}
-          class="block md:inline text-black dark:text-blue-400 underline underline-offset-4 hover:opacity-80"
+          class="block md:inline underline underline-offset-4 text-black dark:text-white decoration-swapee-purple hover:opacity-75 decoration-2"
         >
           {$t("login.signIn")}
         </a>
