@@ -66,7 +66,11 @@
   <label for="memoPrompt" class="font-bold mb-1 block"
     >{$t("user.settings.memoPrompt")}</label
   >
-  <textarea name="memoPrompt" placeholder={$t("user.settings.memoPromptPlaceholder")} bind:value={user.memoPrompt}></textarea>
+  <textarea
+    name="memoPrompt"
+    placeholder={$t("user.settings.memoPromptPlaceholder")}
+    bind:value={user.memoPrompt}
+  />
 </div>
 
 <div>

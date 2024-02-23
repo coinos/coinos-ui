@@ -51,7 +51,7 @@
       {:else}
         <input
           on:keydown={validate}
-            use:focus
+          use:focus
           bind:value={v}
           class="outline-none border-0 text-center py-0"
           type="text"
