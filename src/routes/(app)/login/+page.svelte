@@ -79,8 +79,8 @@
 <div class="pt-10">
   <div class="w-[243px] mx-auto mb-10">
     <a href="/">
-      <Icon icon="logo-dark" style="hidden dark:block" />
-      <Icon icon="logo" style="dark:hidden block" />
+      <img src="images/logo.png" alt="" class="dark:hidden block" />
+			<img src="images/logo-white.png" alt="" class="hidden dark:block" />
     </a>
   </div>
 
@@ -88,7 +88,7 @@
     <div
       class="shadow-xl dark:bg-stone-800 rounded-3xl p-5 sm:p-10 pb-8 sm:pb-12 space-y-5 w-full mx-5 md:mx-0 md:w-[400px] "
     >
-      <h1 class="text-2xl font-bold text-center dark:text-gray-50">{$t("login.signIn")}</h1>
+      <h1 class="text-4xl text-center dark:text-gray-50 font-bold font-bebasNeue tracking-[0.25rem]">{$t("login.signIn")}</h1>
 
       {#if form?.error}
         <div class="text-red-600 text-center" in:fly>
@@ -156,14 +156,14 @@
         </div>
 
         <div class="flex justify-end items-center">
-          <a href="/forgot" class="underline underline-offset-4 text-black dark:text-blue-400"
+          <a href="/forgot" class="underline underline-offset-4 text-black dark:text-white decoration-swapee-purple hover:opacity-75 decoration-2 "
             >{$t("login.forgotUserOrPassword")}</a
           >
         </div>
 
         <button
           type="submit"
-          class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80 dark:bg-swapee-purple active:scale-95 transition-all"
+          class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80 dark:bg-swapee-purple active:scale-95 transition-all "
           disabled={loading}
           bind:this={btn}
         >
@@ -179,7 +179,7 @@
         {$t("login.haveAccount")}
         <a
           href={"/register"}
-          class="block md:inline text-black dark:text-blue-400 underline underline-offset-4 hover:opacity-80"
+          class="block md:inline-block underline underline-offset-4 text-black dark:text-white decoration-swapee-purple hover:opacity-75 decoration-2"
         >
           {$t("login.register")}
         </a>
