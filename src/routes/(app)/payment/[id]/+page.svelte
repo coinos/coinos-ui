@@ -39,8 +39,6 @@
       currency,
     } = p);
 
-    console.log("FEE", fee);
-
     if (amount > 0) [txid, vout] = ref.split(":");
     else txid = hash;
 

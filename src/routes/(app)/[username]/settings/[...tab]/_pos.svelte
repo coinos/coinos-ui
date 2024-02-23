@@ -63,6 +63,13 @@
 </div>
 
 <div>
+  <label for="memoPrompt" class="font-bold mb-1 block"
+    >{$t("user.settings.memoPrompt")}</label
+  >
+  <textarea name="memoPrompt" placeholder={$t("user.settings.memoPromptPlaceholder")} bind:value={user.memoPrompt}></textarea>
+</div>
+
+<div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.notifications")}</span>
     <Toggle id="notify" bind:value={user.notify} />

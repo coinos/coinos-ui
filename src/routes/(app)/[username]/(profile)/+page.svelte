@@ -78,6 +78,7 @@
       currency,
       items: items.filter((i) => i.quantity > 0),
       prompt: subject.prompt,
+      memoPrompt: subject.memoPrompt,
       rate,
     };
 
@@ -86,9 +87,7 @@
       user: { username: subject.username },
     });
 
-    goto(`/${subject.username}/invoice/${id}`, {
-      invalidateAll: true,
-    });
+      goto(`/send/invoice/${id}`, { invalidateAll: true });
   };
 
   let reset = () =>
@@ -167,7 +166,7 @@
     {#each items as i (i.id)}
       <button
         type="button"
-        class="w-full text-center cursor-pointer hover:opacity-80"
+        class="w-full text-center cursor-pointer hover:opacity-80 mb-auto"
         on:click={() => i.quantity++}
       >
         <div class="relative w-full h-64 overflow-hidden rounded-xl">
