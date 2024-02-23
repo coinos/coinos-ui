@@ -73,7 +73,7 @@
 
   $: if (total > 0 && browser) {
     let payButton = document.querySelector("#payButton");
-    payButton.addEventListener("click", checkout);
+    if (payButton) payButton.addEventListener("click", checkout);
   }
 
   let checkout = async () => {
