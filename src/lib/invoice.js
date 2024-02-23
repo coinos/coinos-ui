@@ -28,7 +28,5 @@ export default async ({ cookies, request, url }) => {
 
   if (invoice.memoPrompt && !invoice.memo) {
     redirect(307, `/${user.username}/invoice/${id}/memo`);
-  }
-
-  else redirect(307, `/${user.username}/invoice/${id}`);
+  } else redirect(307, `/${user.username}/invoice/${id}`);
 };

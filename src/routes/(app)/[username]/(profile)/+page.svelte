@@ -71,6 +71,11 @@
       dragDisabled = false;
   }
 
+  $: if (total > 0 && browser) {
+      let payButton = document.querySelector("#payButton");
+    payButton.addEventListener("click", checkout);
+  }
+
   let checkout = async () => {
     let invoice = {
       type: "lightning",
@@ -87,7 +92,7 @@
       user: { username: subject.username },
     });
 
-      goto(`/send/invoice/${id}`, { invalidateAll: true });
+    goto(`/send/invoice/${id}`, { invalidateAll: true });
   };
 
   let reset = () =>

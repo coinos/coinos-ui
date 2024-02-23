@@ -153,6 +153,7 @@
             ? `/send/${subject.username}`
             : `/${subject.username}/receive`}
           class="contents"
+          id="payButton"
         >
           <button
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"

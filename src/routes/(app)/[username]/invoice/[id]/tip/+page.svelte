@@ -115,11 +115,14 @@
     <input type="hidden" name="tip" value={tip} />
     <input type="hidden" name="username" value={username} />
     <input type="hidden" name="rate" value={invoice.rate} />
-    <input type="hidden" name="memoPrompt" value={invoice.memoPrompt} />
     <input type="hidden" name="prompt" value="false" />
     <input type="hidden" name="type" value={type} />
     <input type="hidden" name="hash" value={hash} />
     <input type="hidden" name="items" value={JSON.stringify(items)} />
+
+    {#if invoice.memoPrompt}
+    <input type="hidden" name="memoPrompt" value={invoice.memoPrompt} />
+    {/if}
 
     <h1 class="text-4xl font-semibold my-8">{$t("invoice.addTipq")}</h1>
     {#if !showCustomAmount}
