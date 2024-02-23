@@ -54,7 +54,9 @@
       <Pinpad bind:v={p} {cancel} />
 
       <div>
-        <label for="locktime" class="font-bold">{$t("user.settings.rememberFor")}</label>
+        <label for="locktime" class="font-bold"
+          >{$t("user.settings.rememberFor")}</label
+        >
         <select
           name="locktime"
           class="select-styles block py-3 w-full"

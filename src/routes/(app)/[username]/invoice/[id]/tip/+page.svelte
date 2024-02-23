@@ -121,7 +121,7 @@
     <input type="hidden" name="items" value={JSON.stringify(items)} />
 
     {#if invoice.memoPrompt}
-    <input type="hidden" name="memoPrompt" value={invoice.memoPrompt} />
+      <input type="hidden" name="memoPrompt" value={invoice.memoPrompt} />
     {/if}
 
     <h1 class="text-4xl font-semibold my-8">{$t("invoice.addTipq")}</h1>

@@ -2,7 +2,16 @@
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
-  import { copy, select, f, sat, get, reverseFormat, s, sats } from "$lib/utils";
+  import {
+    copy,
+    select,
+    f,
+    sat,
+    get,
+    reverseFormat,
+    s,
+    sats,
+  } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { goto } from "$app/navigation";
   import { t } from "$lib/translations";
@@ -69,7 +78,7 @@
   <h1 class="text-4xl font-semibold text-center">{$t("invoice.addMemo")}</h1>
   <div class="space-y-2">
     <input
-       use:select
+      use:select
       name="memo"
       class="w-full p-4 border rounded-xl text-xl"
       bind:value={invoice.memo}

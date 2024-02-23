@@ -44,7 +44,7 @@
   onMount(async () => {
     if (browser) {
       checkSocket();
-      $pin = getCookie('pin');
+      $pin = getCookie("pin");
 
       if (window.NDEFReader && user.nfc) {
         try {
