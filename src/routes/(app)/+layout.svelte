@@ -10,7 +10,6 @@
     passwordPrompt,
     password,
     pin,
-    user as u,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
@@ -40,7 +39,6 @@
   $: update(data);
   let update = (data) => {
     ({ rate, user, subject, token, rates } = data);
-    if (browser) $u = user;
   };
 
   onMount(async () => {
