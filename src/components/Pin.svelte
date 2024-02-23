@@ -2,7 +2,7 @@
   import { t } from "$lib/translations";
   import { post, success, fail, focus, setCookie } from "$lib/utils";
   import Pinpad from "$comp/Pinpad.svelte";
-  import { pin, user } from "$lib/store";
+  import { pin } from "$lib/store";
   import { onMount } from "svelte";
 
   export let value = "";
@@ -20,6 +20,8 @@
   let loaded;
   onMount(() => setTimeout(() => (loaded = true), 500));
 
+  let locktime = 30 * 60;
+
   $: loaded && checkPin(p);
   let checkPin = async (p) => {
     if (p?.length !== 6) return;
@@ -32,7 +34,7 @@
 
     if (result) {
       if (notify) success("Pin confirmed");
-      if ($user.locktime) setCookie("pin", p, $user.locktime);
+      if (locktime) setCookie("pin", p, locktime);
       $pin = p;
     } else {
       fail("Invalid pin");
@@ -52,11 +54,11 @@
       <Pinpad bind:v={p} {cancel} />
 
       <div>
-        <label class="font-bold">{$t("user.settings.rememberFor")}</label>
+        <label for="locktime" class="font-bold">{$t("user.settings.rememberFor")}</label>
         <select
           name="locktime"
           class="select-styles block py-3 w-full"
-            bind:value={$user.locktime}
+          bind:value={locktime}
         >
           <option value={30}>30 {$t("user.settings.seconds")}</option>
           <option value={5 * 60}>5 {$t("user.settings.minutes")}</option>
