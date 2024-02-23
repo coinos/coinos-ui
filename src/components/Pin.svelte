@@ -1,14 +1,13 @@
 <script>
   import { t } from "$lib/translations";
-  import { post, success, fail, focus } from "$lib/utils";
+  import { post, success, fail, focus, setCookie } from "$lib/utils";
   import Pinpad from "$comp/Pinpad.svelte";
-  import { pin } from "$lib/store";
+  import { pin, user } from "$lib/store";
   import { onMount } from "svelte";
 
   export let value = "";
   export let title = $t("user.settings.verifyPIN");
   export let cancel = () => (p = "");
-  export let persist = true;
   export let notify = true;
 
   let p = "";
@@ -33,7 +32,8 @@
 
     if (result) {
       if (notify) success("Pin confirmed");
-      if (persist) $pin = p;
+      if ($user.locktime) setCookie("pin", p, $user.locktime);
+      $pin = p;
     } else {
       fail("Invalid pin");
       value = "";
@@ -50,6 +50,23 @@
     >
       <h1 class="text-center text-2xl font-semibold">{title}</h1>
       <Pinpad bind:v={p} {cancel} />
+
+      <div>
+        <label class="font-bold">{$t("user.settings.rememberFor")}</label>
+        <select
+          name="locktime"
+          class="select-styles block py-3 w-full"
+            bind:value={$user.locktime}
+        >
+          <option value={30}>30 {$t("user.settings.seconds")}</option>
+          <option value={5 * 60}>5 {$t("user.settings.minutes")}</option>
+          <option value={10 * 60}>10 {$t("user.settings.minutes")}</option>
+          <option value={30 * 60}>30 {$t("user.settings.minutes")}</option>
+          <option value={60 * 60}>1 {$t("user.settings.hour")}</option>
+          <option value={8 * 60 * 60}>8 {$t("user.settings.hours")}</option>
+        </select>
+      </div>
+
       <div class="w-full flex">
         <button
           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"

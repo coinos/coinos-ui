@@ -15,7 +15,7 @@
 <div class="space-y-2">
   {#if user.haspin && !$pin}
     <button
-      class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
+      class="text-xl rounded-2xl border py-5 px-6 hover:opacity-80 min-w-[72px] bg-black text-white font-bold"
       on:click={() => (show = true)}>{$t("user.showBalance")}</button
     >
   {:else}

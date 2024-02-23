@@ -160,7 +160,7 @@
     "nostrPubkey": "Nostr pubkey",
     "requestPayment": "Request Payment",
     "welcome": "Welcome! Your account balance is empty. You can start by making a deposit or by asking someone to pay you.",
-    "showBalance": "Show Balance",
+    "showBalance": "Reveal balance",
     "bitcoin": "Bitcoin",
     "lightning": "Lightning",
     "invoice": "Invoice",
@@ -204,6 +204,7 @@
       "placeholder": "Enter an address, invoice or username"
     },
     "settings": {
+      "rememberFor": "Remember for",
       "import": "Import key",
       "destination": "Autowithdrawal address",
       "destinationDesc": "The address that withdrawals will be sent to",
@@ -256,6 +257,7 @@
       "localCurrency": "Currency",
       "btcUnit": "Display bitcoin in:",
       "bitcoin": "bitcoin",
+      "seconds": "seconds",
       "minutes": "minutes",
       "hour": "hour",
       "hours": "hours",

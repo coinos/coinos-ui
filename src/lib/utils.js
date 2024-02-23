@@ -223,6 +223,7 @@ export let sats = 100000000;
 
 export let back = () =>
   browser && (history.length ? history.go(-1) : goto("/"));
+
 export let focus = (el) =>
   browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
 
@@ -316,3 +317,21 @@ export let isLiquid = (text) =>
   (text.startsWith("ex1q") && text.length === 42) ||
   text.startsWith("el1qq") ||
   text.startsWith("lq1qq");
+
+export function getCookie(name) {
+  let nameEQ = name + "=";
+  let ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === " ") c = c.substring(1);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+export function setCookie(name, value, seconds) {
+  const now = new Date();
+  now.setTime(now.getTime() + seconds * 1000);
+  const expires = "expires=" + now.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
