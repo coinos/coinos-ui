@@ -227,6 +227,9 @@ export let back = () =>
 export let focus = (el) =>
   browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
 
+export let select = (el) =>
+  browser && screen.width > 1280 && setTimeout(() => el.select(), 1);
+
 export let sleep = (n) => new Promise((r) => setTimeout(r, n));
 export let wait = async (f, n = 100, s = 300) => {
   let i = 0;

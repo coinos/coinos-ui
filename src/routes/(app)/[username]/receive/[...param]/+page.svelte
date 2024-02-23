@@ -36,11 +36,6 @@
   <input type="hidden" name="username" value={username} />
   <input type="hidden" name="type" value={type} />
   <input type="hidden" name="rate" value={rate} />
-
-  {#if request}
-    <input type="hidden" name="request_id" value={request.id} />
-  {/if}
-
   <input type="hidden" name="prompt" value={prompt} />
 
   <div class="space-y-3 w-[300px] mx-auto">

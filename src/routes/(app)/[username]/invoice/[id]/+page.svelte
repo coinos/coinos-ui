@@ -42,12 +42,12 @@
     amount,
     hash,
     type,
+    memoPrompt,
     rate,
     received,
     prompt,
     text,
     tip,
-    request_id,
     user: { username, currency },
   } = invoice;
 
@@ -144,15 +144,15 @@
   {/if}
 
   {#each invoice.items as i}
-    <div class="grid grid-cols-4 text-xl">
-      <div class="mr-auto grow col-span-2">
-        <span class="mr-2">{i.quantity}</span>
+    <div class="grid grid-cols-12 text-xl">
+      <div class="col-span-1 my-auto">{i.quantity}</div>
+      <div class="mr-auto grow col-span-7 my-auto">
         {i.name}
       </div>
-      <div class="font-semibold text-right">
+      <div class="col-span-2 font-semibold text-right my-auto">
         {f(i.price * i.quantity, currency)}
       </div>
-      <div class="text-secondary text-right text-lg my-auto">
+      <div class="col-span-2 text-secondary text-right text-lg my-auto">
         {sat(btc(i.price * i.quantity, rate))}
       </div>
     </div>
