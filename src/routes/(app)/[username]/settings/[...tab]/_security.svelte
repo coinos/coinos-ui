@@ -209,28 +209,6 @@
   {/if}
 </div>
 
-{#if user.haspin}
-  <div>
-    <label for="locktime" class="font-bold mb-1"
-      >{$t("user.settings.autoLock")}</label
-    >
-    <p class="text-secondary mb-1">
-      {$t("user.settings.autoLockDescription")}
-    </p>
-    <select
-      name="locktime"
-      class="select-styles block py-3 w-full"
-      value={parseInt(user.locktime)}
-    >
-      <option value={5 * 60}>5 {$t("user.settings.minutes")}</option>
-      <option value={10 * 60}>10 {$t("user.settings.minutes")}</option>
-      <option value={30 * 60}>30 {$t("user.settings.minutes")}</option>
-      <option value={60 * 60}>1 {$t("user.settings.hour")}</option>
-      <option value={8 * 60 * 60}>8 {$t("user.settings.hours")}</option>
-    </select>
-  </div>
-{/if}
-
 <div>
   <span class="font-bold mb-1">{$t("user.settings.twofa")}</span>
   <p class="text-secondary mb-4">
@@ -248,18 +226,18 @@
     </div>
 
     <button type="button" class="primary" on:click={startConfirming2fa}>
-      <Icon icon="mobile" style="mr-1" />
-      Confirm
+      <Icon icon="numpad" style="w-8 mr-1" />
+      <div class="my-auto">Confirm</div>
     </button>
   {:else if user.twofa}
     <button type="button" class="primary" on:click={startDisabling2fa}>
-      <Icon icon="mobile" style="mr-1" />
-      {$t("user.settings.twofaDisable")}
+      <Icon icon="mobile" style="w-8 mr-1" />
+      <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
     <button type="button" class="primary" on:click={startEnabling2fa}>
-      <Icon icon="mobile" style="mr-1" />
-      {$t("user.settings.twofaSetup")}
+      <Icon icon="mobile" style="w-8 mr-1" />
+      <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}
 

@@ -10,6 +10,7 @@
     passwordPrompt,
     password,
     pin,
+    user as u,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
@@ -17,7 +18,7 @@
   import Invoice from "$comp/Invoice.svelte";
   import Password from "$comp/Password.svelte";
   import Request from "$comp/Request.svelte";
-  import { warning, protectedRoutes } from "$lib/utils";
+  import { getCookie, warning, protectedRoutes } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, onNavigate } from "$app/navigation";
 
@@ -39,13 +40,13 @@
   $: update(data);
   let update = (data) => {
     ({ rate, user, subject, token, rates } = data);
+    if (browser) $u = user;
   };
 
   onMount(async () => {
     if (browser) {
       checkSocket();
-      let locktime = user && user.locktime ? user.locktime : 300;
-      expireTimer = setTimeout(expirePin, locktime * 1000);
+      $pin = getCookie('pin');
 
       if (window.NDEFReader && user.nfc) {
         try {
@@ -83,11 +84,6 @@
     }
 
     checkTimer = setTimeout(checkSocket, 1000);
-  };
-
-  let expirePin = () => {
-    $pin = null;
-    expireTimer = setTimeout(expirePin, user.locktime * 1000 || 300000);
   };
 
   onDestroy(() => {
