@@ -147,7 +147,7 @@
         </a>
       {/if}
 
-      {#if !subject.anon && subject.username !== user?.username}
+      {#if !subject.anon && subject.username !== user?.username && !subject.hidepay}
         <a
           href={user
             ? `/send/${subject.username}`
