@@ -291,6 +291,7 @@
     }
   },
   "payments": {
+    "tips": "Tips",
     "options": "options",
     "bump": "Bump fee",
     "networkFee": "Network fee",
