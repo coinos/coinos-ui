@@ -76,8 +76,10 @@
 </script>
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
-  <div class="hidden lg:block lg:w-[300px]" />
-  <div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-sm mb-5">
+  <div class="hidden lg:block lg:w-[280px] xl:w-[360px]" />
+  <div
+    class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-5 left-20 mx-auto mb-5"
+  >
     <div
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
@@ -165,15 +167,14 @@
           </button>
         </a>
       {/if}
+
       <button
         type="button"
         on:click={toggleDetails}
-        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
+        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex justify-center w-full"
       >
-        <div class="mx-auto flex">
-          <Icon icon="edit" style="w-8 mr-2" />
-          <div class="mt-1">{$t("user.details")}</div>
-        </div>
+        <Icon icon="edit" style="w-8 mr-2" />
+        <div class="mt-1">{$t("user.details")}</div>
       </button>
 
       {#if user?.admin && user.username !== subject.username}
