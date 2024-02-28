@@ -194,7 +194,7 @@
 
   <div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
     <div class="header">
-      <h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+      <h1 class="text-center text-4xl md:text-5xl font-semibold mb-8 font-bebasNeue tracking-[0.2rem]">
         {$t("user.settings.header")}
       </h1>
 

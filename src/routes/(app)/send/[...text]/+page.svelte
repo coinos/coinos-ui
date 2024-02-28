@@ -32,8 +32,8 @@
 <svelte:window bind:innerWidth={w} />
 
 <AppHeader {data} />
-<div class="container px-4 max-w-xl mx-auto space-y-5 mt-20">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
+<div class="container px-4 max-w-xl mx-auto space-y-7 mt-24">
+  <h1 class="px-3 md:px-0 text-center text-4xl md:text-5xl font-semibold font-bebasNeue tracking-[0.2rem]">
     {$t("payments.send")}
   </h1>
 
@@ -52,7 +52,7 @@
       <textarea
         {placeholder}
         on:keypress={keypress}
-        class="w-full p-4 border rounded-xl h-48 dark:bg-stone-800 placeholder:text-stone-300"
+        class="w-full p-4 border border-stone-400 focus:outline-none focus:ring-2 hover:ring-2 ring-stone-900 dark:ring-white transition-all duration-500 rounded-xl h-48 dark:bg-stone-800 placeholder:text-stone-300"
         bind:value={text}
         bind:this={textarea}
       />
