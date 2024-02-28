@@ -70,8 +70,8 @@
 </a>
 
 <div class="container mx-auto max-w-lg px-4 space-y-8 break-all text-2xl">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
-    {$t(amount < 0 ? "payments.sent" : "payments.received")}
+  <h1 class="px-3 md:px-0 text-center text-4xl md:text-5xl font-semibold mb-8 font-bebasNeue tracking-[0.2rem]">
+    {$t(amount < 0 ? "payments.sent" : "payments.received")} 
   </h1>
 
   {#if p.with}

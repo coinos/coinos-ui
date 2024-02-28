@@ -1,6 +1,8 @@
 <script>
     import { enhance } from "$app/forms";
 	import * as Accordion from "$lib/shadcn/components/ui/accordion";
+	import * as Sheet from "$lib/shadcn/components/ui/sheet";
+    import { Button } from "$lib/shadcn/components/ui/button";
 	import { Separator } from "$lib/shadcn/components/ui/separator";
 	import { page } from '$app/stores';
 	import { t } from "$lib/translations";
@@ -9,7 +11,7 @@
     import Footer from "../components/Footer.svelte";
 	
 	export let data;
-	let about, faq;
+	let about, faq, s
 	let askedQuestionsAccordionValue = "item-0"
 
 	let askedQuestionsAccordion = [
@@ -79,25 +81,50 @@
 <!-- nav -->
 <nav class="navbar navbar-expand-lg dark:bg-black py-3 ">
 	<div class="container-xxl px-lg-5 px-sm-4 px-3">
-		<a class="navbar-brand site_logo" href="#">
+		<a class="navbar-brand site_logo max-lg:ml-1" href="#">
 			{#if data.colorThemeSelected == "light"}
 				<img src="images/logo.png" alt="" />
 			{:else}
 				<img src="images/logo-white.png" alt="" />
 			{/if}
 		</a>
-		<button
-			class="navbar-toggler border-0 shadow-none"
-			type="button"
-			data-bs-toggle="offcanvas"
-			data-bs-target="#offcanvas"
-		>
-			<span class="navbar-toggler-icon" />
-		</button>
-		<div class="offcanvas offcanvas-start flex-lg-row flex-column" id="offcanvas">
-			<div class="py-4 pb-5 px-3 d-lg-none d-flex justify-content-end w-100">
-				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
-			</div>
+		<Sheet.Root >
+			<Sheet.Trigger asChild let:builder>
+				<Button builders={[builder]} variant="ghost" class="lg:hidden dark:hover:bg-stone-800 px-1">
+					<svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+					  </svg>
+				</Button>
+			</Sheet.Trigger>
+			<Sheet.Content side="left" id="offcanvas" class="bg-white dark:!bg-black border-r-2 border-black dark:!border-white">
+			  <ul class=" text-lg-start text-center mx-auto mb-2 dark:text-white mt-16 pl-0">
+				<li class="nav-item mb-4">
+					<a class="nav-link active dark:!text-white" href="#">How it works</a>
+				</li>
+				<li class="nav-item mb-4">
+					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(about)}>About</a>
+				</li>
+				</ul>
+				<div
+					class="flex flex-wrap items-center gap-4 lg:pt-0 justify-center mt-4"
+					role="search"
+				>
+				<a href="/register" class="btn_black flex-1 w-full text-center text-nowrap"><span class=" dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">get started</span></a>
+				<a href="/login" class="btn_white flex-1 w-full text-center text-nowrap"><span class=" dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">sign in</span></a>
+				</div>
+				<form method="POST" bind:this={toggleThemeForm} use:enhance={submitUpdateTheme} class="mx-auto flex justify-center mt-4" >
+					{#if themeSelected && themeSelected == "dark"}
+						<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" />
+					{:else if themeSelected && themeSelected == "light"}
+						<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}" />
+					{/if}
+				</form>
+			</Sheet.Content>
+		  </Sheet.Root>
+		<div class="offcanvas offcanvas-start flex-lg-row flex-column  !border-r-2 !border-r-white" id="offcanvas">
 			<ul class="navbar-nav text-lg-start text-center mx-auto mb-2 mb-lg-0 dark:text-white">
 				<li class="nav-item me-lg-5 mb-lg-0 mb-4">
 					<a class="nav-link active dark:!text-white" href="#">How it works</a>
@@ -156,19 +183,20 @@
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
 					<img src="images/swapee-grid-1-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
 					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Create your account</h5>
-					<p class="txt_slate_blue dark:!text-gray-200 lh-base">
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						A username and password is all you need to get started. <a
 							href="#"
-							class="swapee_grid_link">Don’t forget it!</a
+							class="swapee_grid_link dark:!text-gray-200">Don’t forget it!</a
 						>
 					</p>
 				</div>
+				
 			</div>
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
 					<img src="images/swapee-grid-2-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
 					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Ask for payments</h5>
-					<p class="txt_slate_blue dark:!text-gray-200 lh-base">
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						It’s the same as you normally would traditionally, but with bitcoin.
 					</p>
 				</div>
@@ -177,7 +205,7 @@
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
 					<img src="images/swapee-grid-3-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
 					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">That's all!</h5>
-					<p class="txt_slate_blue dark:!text-gray-200 lh-base">
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						Spend your coins immediately or save it and watch it grow, the choice is yours.
 					</p>
 				</div>

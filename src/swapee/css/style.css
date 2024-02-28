@@ -116,7 +116,6 @@ body{
     -o-transition: var(--transition_3s);
 }
 
-#offcanvas ul li a.active::after,
 #offcanvas ul li a:hover::after{
     width: 50px;
 }

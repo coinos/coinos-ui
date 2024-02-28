@@ -57,7 +57,7 @@
   <AppHeader {data} />
 {/if}
 
-<div class="container px-4 max-w-lg mx-auto mt-20 space-y-8">
+<div class="container px-4 max-w-lg mx-auto mt-24 space-y-8">
   {#if sent}
     <h1 class="text-center text-3xl md:text-4xl font-semibold">Thank you!</h1>
     <div class="text-center text-lg text-secondary">
@@ -73,7 +73,7 @@
       </a>
     </div>
   {:else}
-    <h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">
+    <h1 class="text-center text-4xl md:text-5xl font-semibold mb-8 font-bebasNeue tracking-[0.2rem]">
       {$t("user.support.header")}
     </h1>
 
