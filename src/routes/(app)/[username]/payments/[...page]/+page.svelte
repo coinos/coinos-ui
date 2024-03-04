@@ -9,9 +9,11 @@
   import { page } from "$app/stores";
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
+  import { DatePicker } from "stwui";
 
   export let data;
 
+  let calendar;
   let { start, end, user, rates, payments } = data;
 
   let change = ({ target: { value } }) => goto(value);
@@ -144,6 +146,13 @@
       </div>
     </div>
 
+    <div data-theme="mytheme">
+      <DatePicker name="date" label="Date" showTime minuteStep={15}>
+        <DatePicker.Label slot="label">Date</DatePicker.Label>
+        <DatePicker.Trailing slot="trailing" data={calendar} />
+      </DatePicker>
+    </div>
+
     <div class="flex flex-wrap justify-center mb-8">
       {#if pages.length > 1}
         {#each pages as _, i}
@@ -256,7 +265,7 @@
           {$t("payments.tips")}
         {/if}
       </span>
-      <span></span>
+      <span />
 
       {#each Object.keys(totals) as c}
         {@const total = totals[c]["fiat"]}
@@ -265,12 +274,10 @@
         {@const gain = (pv * 100) / total - 100}
         <span class="text-lg"><b>{f(total, c)}</b></span>
         <span class="text-lg">
-          
-        {#if payments.some((p) => p.tip > 0)}
-          <b>{f(tips, c)}</b>
-        {/if}
-      <span></span>
-        
+          {#if payments.some((p) => p.tip > 0)}
+            <b>{f(tips, c)}</b>
+          {/if}
+          <span />
         </span>
       {/each}
     </div>
