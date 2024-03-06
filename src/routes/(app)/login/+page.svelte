@@ -175,7 +175,7 @@
       </form>
 
       <p class="text-secondary text-center font-medium">
-        {$t("login.haveAccount")}
+        {$t("login.noAccount")}
         <a
           href={"/register"}
           class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
