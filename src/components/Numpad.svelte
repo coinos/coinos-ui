@@ -183,6 +183,7 @@
     e.key === "Enter" && (e.preventDefault() || submit.click());
 </script>
 
+{symbol}
 <div class="flex justify-center items-center mb-3 px-3">
   <div class="space-y-5">
     <div class="text-center">
