@@ -7,7 +7,9 @@
 
   export let data, form, send;
   let { currency } = data.user;
-  let { minSendable, maxSendable, callback, metadata, rates } = data;
+  let { currencies, minSendable, maxSendable, callback, metadata, rates } =
+    data;
+
 
   $: rate = rates[currency];
 
@@ -36,7 +38,15 @@
     </div>
   {/if}
 
-  <Numpad bind:amount bind:rate {currency} bind:submit={send} />
+  {JSON.stringify(currencies[currency])}
+  <select bind:value={currency}>
+    {#each currencies as c}
+      <option value={c.code}>{c.symbol}</option>
+    {/each}
+  </select>
+
+  {amount} {rate} {currency}
+  <Numpad bind:amount bind:rate bind:currency bind:submit={send} />
 
   <form action="?/pay" method="POST" use:enhance on:submit={submit}>
     <input name="amount" value={amount} type="hidden" />
