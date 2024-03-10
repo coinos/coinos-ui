@@ -252,7 +252,7 @@
           </div>
         </a>
       {:else}
-        <p class="text-secondary dark:text-gray-200 text-lg text-center">{$t("payments.empty")}</p>
+        <p class="text-secondary dark:text-gray-100 text-lg text-center">{$t("payments.empty")}</p>
       {/each}
     </div>
 

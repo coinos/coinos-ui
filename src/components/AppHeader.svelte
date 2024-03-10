@@ -55,6 +55,15 @@
             ><Icon icon="home" style="mx-auto w-6 md:w-8 dark:invert" />
           </button>
         </a>
+        <a href={`/${user.username}/buy`}>
+          <button
+            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+              .url.pathname === `/${user.username}/buy`
+              ? 'opacity-100'
+              : 'opacity-70 hover:opacity-80'}"
+            ><Icon icon="shop" style="mx-auto w-6 md:w-8 dark:invert" />
+          </button>
+        </a>
         <a href={`/${user.username}/receive`}>
           <button
             class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
