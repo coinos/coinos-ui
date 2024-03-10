@@ -53,6 +53,9 @@
           <li class="pb-3">
 						<a href="/support" class="!text-white/80 opacity-100 hover:!text-swapee-purple/100 font-semibold">Support</a>
 					</li>
+					<li class="pb-3">
+								  <a href="/sitemap" class="!text-white/80 opacity-100 hover:!text-swapee-purple/100 font-semibold">Sitemap</a>
+							  </li>
 				</ul>
 			</div>
 		</div>
