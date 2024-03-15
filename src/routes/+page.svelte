@@ -1,4 +1,5 @@
 <script>
+	import { gsap } from "gsap";
     import { enhance } from "$app/forms";
 	import * as Accordion from "$lib/shadcn/components/ui/accordion";
 	import * as Sheet from "$lib/shadcn/components/ui/sheet";
@@ -9,6 +10,8 @@
 	import { scroll } from '$lib/utils';
     import ThemeToggle from "../components/buttons/ThemeToggle.svelte";
     import Footer from "../components/Footer.svelte";
+    import { browser } from "$app/environment";
+    import { onMount } from "svelte";
 	
 	export let data;
 	let about, faq, s
@@ -22,6 +25,10 @@
 
 	let themeSelected = data.colorThemeSelected;
 	let toggleThemeForm;
+	let homeNav;
+	let homeNavActiveLeft = 32;
+	let homeNavActiveTranslate = 0;
+	let NavHowItWorksEl;
 
 	function toggleThemeSelected() {
 		themeSelected = themeSelected === "light" ? "dark" : "light"; 
@@ -37,10 +44,20 @@
 			htmlClasses.add("light");
 			htmlClasses.remove("dark");
 		}
-
 		toggleThemeSelected()
 	}
 
+	function defineHomeNavActive(element) {
+		homeNavActiveTranslate = element.getBoundingClientRect().width;
+		homeNavActiveLeft = element.getBoundingClientRect().left - homeNav.getBoundingClientRect().left 
+	}
+
+	onMount(() => {
+		if (NavHowItWorksEl) {
+			defineHomeNavActive(NavHowItWorksEl)
+		}
+	})
+	
 </script>
 
 <svelte:head>
@@ -80,7 +97,7 @@
 
 <!-- nav -->
 <nav class="navbar navbar-expand-lg dark:bg-black py-3 ">
-	<div class="container-xxl px-lg-5 px-sm-4 px-3">
+	<div class="container-xxl px-lg-5 px-sm-4 px-3">	
 		<a class="navbar-brand site_logo max-lg:ml-1" href="#">
 			{#if data.colorThemeSelected == "light"}
 				<img src="images/logo.png" alt="" />
@@ -99,7 +116,7 @@
 			<Sheet.Content side="left" id="offcanvas" class="bg-white dark:!bg-black border-r-2 border-black dark:!border-white">
 			  <ul class=" text-lg-start text-center mx-auto mb-2 dark:text-white mt-16 pl-0">
 				<li class="nav-item mb-4">
-					<a class="nav-link active dark:!text-white" href="#">How it works</a>
+					<a class="nav-link dark:!text-white" href="#">How it works</a>
 				</li>
 				<li class="nav-item mb-4">
 					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
@@ -123,33 +140,40 @@
 					{/if}
 				</form>
 			</Sheet.Content>
-		  </Sheet.Root>
-		<div class="offcanvas offcanvas-start flex-lg-row flex-column  !border-r-2 !border-r-white" id="offcanvas">
-			<ul class="navbar-nav text-lg-start text-center mx-auto mb-2 mb-lg-0 dark:text-white">
-				<li class="nav-item me-lg-5 mb-lg-0 mb-4">
-					<a class="nav-link active dark:!text-white" href="#">How it works</a>
+		</Sheet.Root>
+		<div class="hidden lg:flex justify-between items-center !border-r-2 !border-r-white">
+			<ul class="flex gap-x-8 relative text-center mx-auto mb-2 dark:text-white uppercase font-semibold" bind:this={homeNav}>
+				<li class="">
+					<a class="text-black dark:!text-white no-underline" href="#" bind:this={NavHowItWorksEl} on:click={(e) => {defineHomeNavActive(e.target)}}>How it works</a>
 				</li>
-				<li class="nav-item me-lg-5 mb-lg-0 mb-4">
-					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
+				<li class="">
+					<a class="text-black  dark:!text-white no-underline" href="" on:click={(e) => {
+						defineHomeNavActive(e.target)
+						scroll(faq)
+					}}>F.A.Q.</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(about)}>About</a>
+				<li class="">
+					<a class="text-black  dark:!text-white no-underline" href="" on:click={(e) => {
+						defineHomeNavActive(e.target)
+						scroll(faq)
+					}}>About</a>
 				</li>
+				<div class="home-nav-active absolute top-8 h-1 w-10 rounded-sm bg-swapee-purple transition-all duration-300 ease-in-out" style={`left: ${homeNavActiveLeft}px; transform: translate(${(homeNavActiveTranslate / 2) - 20}px, 0px);`}></div>
 			</ul>
-			<div
-				class="flex items-center gap-4 lg:pt-0"
-				role="search"
-			>
-			<a href="/register" class="btn_black"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">get started</span></a>
-			<a href="/login" class="btn_white"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">sign in</span></a>
-			<form method="POST" bind:this={toggleThemeForm} use:enhance={submitUpdateTheme} >
-				{#if themeSelected && themeSelected == "dark"}
-					<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" />
-				{:else if themeSelected && themeSelected == "light"}
-					<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}" />
-				{/if}
-			</form>
-			</div>
+		</div>
+		<div
+			class="hidden lg:flex items-center gap-4 lg:pt-0"
+			role="search"
+		>
+		<a href="/register" class="btn_black"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">get started</span></a>
+		<a href="/login" class="btn_white"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">sign in</span></a>
+		<form method="POST" bind:this={toggleThemeForm} use:enhance={submitUpdateTheme} >
+			{#if themeSelected && themeSelected == "dark"}
+				<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" />
+			{:else if themeSelected && themeSelected == "light"}
+				<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}" />
+			{/if}
+		</form>
 		</div>
 	</div>
 </nav>
@@ -360,4 +384,8 @@
 	</div>
 </div>
 
-<Footer />
+<Footer />	
+
+<style>
+ 
+</style>
