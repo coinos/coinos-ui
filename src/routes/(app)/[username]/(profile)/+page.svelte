@@ -84,8 +84,8 @@
       </div>
       <div class="space-y-8 mt-8">
         {#if !user.balance}
-          <p class="text-secondary text-lg">
-            {$t("user.welcome")}
+          <p class="text-secondary dark:text-gray-300 text-lg max-w-2xl text-center lg:text-start mx-auto">
+            {$t("user.welcome")} 
           </p>
         {/if}
 
@@ -94,10 +94,10 @@
         >
           <a href={`/send`} class="w-full md:w-40">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full"
+              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full "
             >
               <div class="mx-auto my-auto flex">
-                <Icon icon="send" style="my-auto h-6 mr-2" />
+                <Icon icon="send" style="my-auto h-6 mr-2 text-red-300 dark:invert" />
                 <div class="my-auto">{$t("user.dashboard.send")}</div>
               </div>
             </button>
@@ -108,7 +108,7 @@
               class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full"
             >
               <div class="mx-auto flex">
-                <Icon icon="numpad" style="my-auto h-6 mr-2" />
+                <Icon icon="numpad" style="my-auto h-6 mr-2 dark:invert" />
                 <div class="my-auto mt-1">{$t("user.dashboard.receive")}</div>
               </div>
             </button>

@@ -41,36 +41,45 @@
 
 {#if !$loading}
   <header
-    class="bg-gradient-to-r {$colorTheme} h-[175px] w-full relative bg-cover mb-20"
+    class="bg-gradient-to-r {$colorTheme} dark:!from-violet-600 dark:!to-swapee-purple h-[175px] w-full relative bg-cover mb-20"
     style:background-image={bg}
   >
-    <nav class="flex justify-end items-center space-x-4 p-5">
+    <nav class="flex justify-end items-center gap-x-2 xs:gap-x-4 p-5">
       {#if user}
         <a href={`/${user.username}`}>
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="home" style="mx-auto w-6 md:w-8" />
+            ><Icon icon="home" style="mx-auto w-6 md:w-8 dark:invert" />
+          </button>
+        </a>
+        <a href={`/${user.username}/buy`}>
+          <button
+            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+              .url.pathname === `/${user.username}/buy`
+              ? 'opacity-100'
+              : 'opacity-70 hover:opacity-80'}"
+            ><Icon icon="shop" style="mx-auto w-6 md:w-8 dark:invert" />
           </button>
         </a>
         <a href={`/${user.username}/receive`}>
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}/receive`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="numpad" style="mx-auto w-6 md:w-8" />
+            ><Icon icon="numpad" style="mx-auto w-6 md:w-8 dark:invert" />
           </button>
         </a>
         <a href={`/${user.username}/payments`}>
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}/payments`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'} relative"
-            ><Icon icon="clock" style="mx-auto w-6 md:w-8" />
+            ><Icon icon="clock" style="mx-auto w-6 md:w-8 dark:invert" />
             {#if $newPayment}
               <span class="absolute top-0 right-0">
                 <span class="flex h-3 w-3">
@@ -87,17 +96,17 @@
         </a>
         <a href={`/send`}>
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/send`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="send" style="mx-auto w-6 md:w-8" />
+            ><Icon icon="send" style="mx-auto w-6 md:w-8 dark:invert" />
           </button>
         </a>
         <div class="relative">
           <OutClick on:outclick={() => (showMenu = false)}>
             <button
-              class="bg-white p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+              class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
                 .url.pathname === `/${user.username}` ||
               $page.url.pathname === `/${user.username}/settings` ||
               $page.url.pathname === `/support`
@@ -106,36 +115,37 @@
                     showMenu ? 'opacity-80' : ''
                   }`}"
               on:click={() => (showMenu = !showMenu)}
-              ><Icon icon="menu" style="mx-auto w-6 md:w-8" />
+              ><Icon icon="menu" style="mx-auto w-6 md:w-8 dark:invert" />
             </button>
 
             <div
               class="{showMenu
                 ? 'block'
-                : 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z-50"
+                : 'hidden'} absolute top-14 right-0 bg-white dark:bg-black dark:border-2 dark:border-gray-50 rounded-3xl p-8 shadow-xl z-50"
             >
               <ul class="space-y-5 w-48">
                 {#each menuButtons as { href, icon, key }}
                   <li>
                     <a {href} data-sveltekit-prefetch="off">
                       <button
-                        class="flex justify-center items-center font-semibold hover:opacity-80"
-                        ><Icon {icon} style="mr-2 w-6 md:w-8" /> {$t(key)}
+                        class="flex justify-center items-center font-semibold hover:opacity-80 dark:hover:opacity-70"
+                        ><Icon {icon} style="mr-2 w-6 md:w-8 dark:invert" /> {$t(key)}
                       </button>
                     </a>
                   </li>
                 {/each}
               </ul>
-              <hr class="my-4" />
-              <a href="/"
-                ><img src="/images/logo.svg" alt="Swapee" class="w-32" /></a
-              >
+              <hr class="my-4 dark:border-white" />
+              <a href="/">
+                <img src="/images/logo.svg" alt="Swapee" class="w-32 dark:hidden" />
+                <img src="/images/logo-white.png" alt="Swapee" class="w-32 hidden dark:block" />
+              </a>
             </div>
           </OutClick>
         </div>
       {:else}
         <a href={`/login?redirect=${$page.url.pathname}`}>
-          <button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
+          <button class="bg-white dark:bg-black px-5 py-2 rounded-xl font-semibold text-sm"
             >{$t("nav.signIn")}</button
           >
         </a>

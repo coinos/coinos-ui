@@ -155,15 +155,16 @@
 {/if}
 
 <div class="pt-4">
-  <div class="w-[243px] mx-auto">
+  <div class="w-[243px] mx-auto mb-10 mt-6">
     <a href="/">
-      <Icon icon="logo" />
+      <img src="images/logo.png" alt="" class="dark:hidden block" />
+			<img src="images/logo-white.png" alt="" class="hidden dark:block mb-5" />
     </a>
   </div>
 
   <div class="flex justify-center items-center">
     <div
-      class="shadow-xl rounded-3xl p-4 pt-0 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]"
+      class="shadow-xl dark:bg-stone-800 rounded-3xl p-5 sm:p-10 pb-8 sm:pb-12 pt-3 sm:pt-6 space-y-5 w-full mx-5 md:mx-0 md:w-[400px]"
     >
       <input
         type="file"
@@ -174,11 +175,13 @@
 
       <div class="relative">
         <button
-          class="absolute w-8 h-12 left-12 bg-white rounded top-12"
+          class="absolute w-8 h-12 left-[5%] min-[400px]:left-12 bg-white dark:bg-stone-700 rounded top-12"
           on:click={decr}
         >
-          <Icon icon="chevron-left" style="w-8 " />
+          <Icon icon="chevron-left" style="w-8 dark:invert" />
         </button>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="relative w-32 mx-auto" on:click={selectAvatar}>
           <button
             class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
@@ -190,16 +193,16 @@
             />
           </button>
           <button
-            class="absolute bg-white rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80"
+            class="absolute bg-white dark:bg-stone-700 rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80"
           >
-            <Icon icon="upload" style="w-8" />
+            <Icon icon="upload" style="w-8 dark:invert" />
           </button>
         </div>
         <button
-          class="absolute w-8 h-12 right-12 bg-white rounded top-12"
+          class="absolute w-8 h-12 right-[5%] min-[400px]:right-12 bg-white dark:bg-stone-700 rounded top-12"
           on:click={incr}
         >
-          <Icon icon="chevron-left" style="w-8 rotate-180" />
+          <Icon icon="chevron-left" style="w-8 rotate-180 dark:invert" />
         </button>
       </div>
 
@@ -231,7 +234,7 @@
             name="username"
             type="text"
             required
-            class="bg-primary"
+            class="input-swapee mt-1"
             bind:value={username}
             on:focus={clear}
             autocapitalize="none"
@@ -239,10 +242,10 @@
           <button
             type="button"
             on:click={refresh}
-            class="absolute right-0 top-4"
+            class="absolute right-0 top-5"
             tabindex="5"
           >
-            <Icon icon="random" style="w-10 m-4" />
+            <Icon icon="random" style="w-10 m-4 dark:invert" />
           </button>
         </div>
 
@@ -256,7 +259,7 @@
               name="password"
               type="text"
               required
-              class="bg-primary"
+              class="input-swapee mt-1"
               bind:value={$password}
               autocapitalize="none"
             />
@@ -266,7 +269,7 @@
               name="password"
               type="password"
               required
-              class="bg-primary"
+              class="input-swapee mt-1"
               bind:value={$password}
               autocapitalize="none"
               on:focus={clear}
@@ -276,20 +279,20 @@
             type="button"
             tabindex="4"
             on:click={() => (revealPassword = !revealPassword)}
-            class="absolute right-0 top-4"
+            class="absolute right-0 {revealPassword ? 'top-[22px]' : 'top-5'}"
           >
-            <Icon icon={revealPassword ? "eye" : "eye-off"} style="m-6" />
+            <Icon icon={revealPassword ? "eye" : "eye-off"} style="m-6 dark:invert" />
           </button>
         </div>
 
-        <p class="text-secondary text-sm">
+        <p class="text-secondary dark:text-gray-200 text-sm">
           {$t("login.passwordRecommendation")}
         </p>
 
         <button
           tabindex="3"
-          type="submit"
-          class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
+          type="button"
+          class="bg-black dark:bg-swapee-purple text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80 active:scale-95 transition-all"
           disabled={loading}
           bind:this={btn}
         >
@@ -301,11 +304,11 @@
         </button>
       </form>
 
-      <p class="text-secondary text-center font-medium">
+      <p class="text-secondary dark:text-gray-200 text-center font-medium">
         {$t("login.haveAccount")}
         <a
           href={"/login"}
-          class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
+          class="block md:inline underline underline-offset-4 text-black dark:text-white decoration-swapee-purple hover:opacity-75 decoration-2"
         >
           {$t("login.signIn")}
         </a>

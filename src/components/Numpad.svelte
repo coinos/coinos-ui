@@ -183,7 +183,7 @@
       <div
         class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
       >
-        <div class="my-auto" class:text-5xl={!fiat}>
+        <div class="my-auto font-bebasNeue tracking-[0.2rem]" class:text-5xl={!fiat}>
           {fiat ? symbol : "⚡️"}
         </div>
         <div
@@ -194,11 +194,11 @@
           on:blur={blur}
           on:input={input}
           on:keydown={keydown}
-          class="outline-none my-auto"
+          class="outline-none my-auto font-bebasNeue tracking-[0.4rem] mt-2"
         />
       </div>
       <div class="mt-2">
-        <span class="text-secondary mr-1"
+        <span class="text-secondary dark:text-gray-300 mr-1"
           >{fiat ? sat(amount) : f(amountFiat, currency)}</span
         >
         <button
@@ -213,7 +213,7 @@
                   : 0;
             }
             fiat = !fiat;
-          }}><Icon icon="swap" style="inline hover:opacity-80" /></button
+          }}><Icon icon="swap" style="inline hover:opacity-80 dark:invert" /></button
         >
       </div>
     </div>
@@ -223,7 +223,7 @@
 				{#if value === arrow}
 					<button
 						type="button"
-						class="bg-gray-100 rounded-xl py-4 px-8 font-semibold active:bg-black active:flex justify-center items-center hover:opacity-80"
+						class="bg-gray-100 dark:bg-stone-800 rounded-xl py-4 px-8 font-semibold active:bg-black dark:active:bg-stone-900 active:flex justify-center items-center hover:opacity-80"
 						on:click={() => handleInput(value)}
 					>
 						<Left />
@@ -231,7 +231,7 @@
 				{:else}
 					<button
 						type="button"
-						class="bg-gray-100 rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
+						class="bg-gray-100 dark:bg-stone-800 rounded-xl py-4 px-8 font-semibold active:bg-black dark:active:bg-stone-900 active:text-white hover:opacity-80"
 						on:click={() => handleInput(value)}>{value}</button
 					>
 				{/if}

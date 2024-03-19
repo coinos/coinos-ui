@@ -30,6 +30,7 @@
 
   let { user, token, rates, tab, cookies } = data;
   let prev;
+  let currentTheme = "";
 
   $: update(data);
   let update = () => {
@@ -189,21 +190,22 @@
 >
   <input type="hidden" name="pin" value={$pin} />
   <input type="hidden" name="tab" value={tab} />
+  <input type="hidden" name="currentTheme" value={currentTheme} />
 
   <div class="mt-24 mb-20 px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
     <div class="header">
-      <h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
+      <h1 class="text-center text-4xl md:text-5xl font-semibold mb-8 font-bebasNeue tracking-[0.2rem]">
         {$t("user.settings.header")}
       </h1>
 
       <div
-        class="font-bold flex justify-around items-center border-b pb-3 text-secondary"
+        class="font-bold flex justify-around items-center border-b dark:border-b-gray-50 pb-3 text-secondary"
       >
         {#each tabs.filter((t) => t.name !== "shopify") as { name, key }}
           <a href={`/${user.username}/settings/${name}`}>
             <button
               type="button"
-              class="hover:opacity-80"
+              class="hover:opacity-80 dark:text-gray-100"
               class:text-black={tab === name ||
                 (tab === "shopify" && name === "pos")}
               >{$t(`user.settings.${key}`)}</button
@@ -213,16 +215,16 @@
       </div>
     </div>
 
-    <svelte:component this={comp} {user} {rates} {submit} />
+    <svelte:component this={comp} {user} {rates} {submit} on:changeTheme={(e) => currentTheme = e.detail }/>
   </div>
 
   <div
-    class="z-10 fixed bottom-0 bg-white shadow border-t w-full flex justify-center items-center py-3"
+    class="z-10 fixed bottom-0 bg-white dark:bg-black shadow border-t dark:border-t-gray-50 w-full flex justify-center items-center py-3"
   >
     <button
       bind:this={submit}
       type="submit"
-      class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
+      class="border-2 border-black dark:bg-white dark:text-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
       class:bg-black={submitting}
     >
       {#if submitting}
