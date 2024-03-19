@@ -73,7 +73,7 @@
 </script>
 
 <div>
-  <label for="username" class="font-bold mb-1 block"
+  <label for="username" class="font-bold mb-3 block"
     >{$t("user.settings.username")}</label
   >
   <div class="flex mb-2">
@@ -81,26 +81,26 @@
       type="text"
       name="username"
       bind:value={user.username}
-      class="w-auto min-w-0 pr-1 grow"
+      class="w-auto min-w-0 pr-1 grow dark:bg-stone-800 dark:border-0"
     />
   </div>
 </div>
 
 <div>
-  <label for="display" class="font-bold mb-1 block"
+  <label for="display" class="font-bold mb-3 block"
     >{$t("user.settings.displayName")}</label
   >
-  <input type="text" name="display" bind:value={user.display} />
+  <input type="text" name="display" bind:value={user.display} class="dark:bg-stone-800 dark:border-0" />
 </div>
 
 <div class="space-y-1 relative">
   <label for="email" class="font-bold block">{$t("user.settings.email")}</label>
-  <p class="text-secondary">
+  <p class="text-secondary dark:text-gray-200">
     {$t("user.settings.emailDescription")}
   </p>
 
   <div class="relative">
-    <input type="text" name="email" bind:value={user.email} />
+    <input type="text" name="email" bind:value={user.email} class="dark:bg-stone-800 dark:border-0" />
     {#if user.verified}
       <Icon icon="check" style="absolute right-5 top-3 w-8" />
     {:else if user.email}
@@ -114,6 +114,7 @@
 
   <div class="flex">
     {#if $avatar || user.profile}
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
         on:click={selectAvatar}
@@ -121,11 +122,12 @@
       >
         <img
           src={$avatar?.src || `/api/public/${user.profile}.webp`}
-          class="absolute w-full h-full object-cover object-center visible overflow-hidden"
+          class="absolute w-full h-full object-cover object-center visible overflow-hidden "
           alt={user.username}
         />
       </div>
     {:else}
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         class="rounded-full border-4 border-white p-4 bg-gradient-to-r {$colorTheme} w-24 my-auto hover:opacity-80 cursor-pointer"
         on:click={selectAvatar}
@@ -138,7 +140,7 @@
       <!-- found missing translation -->
       <button
         type="button"
-        class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
+        class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80 dark:border-white"
         on:click={selectAvatar}
         on:keydown={selectAvatar}>{$t("user.settings.select")}</button
       >
@@ -157,11 +159,12 @@
 </div>
 
 <div>
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-3">
     <span class="font-bold">{$t("user.settings.bannerImage")}</span>
   </div>
 
   {#if $banner || user.banner}
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <img
       src={$banner ? $banner.src : `/api/public/${user.banner}.webp`}
       class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
@@ -170,8 +173,9 @@
       alt="Banner"
     />
   {:else}
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-      class="bg-gradient-to-r {$colorTheme} w-full h-48 mb-4 cursor-pointer hover:opacity-80"
+      class="bg-gradient-to-r {$colorTheme} dark:!from-stone-800 dark:!to-stone-800 w-full h-48 mb-4 cursor-pointer hover:opacity-80"
       on:click={selectBanner}
       on:keydown={selectBanner}
       alt="Banner"
@@ -180,7 +184,7 @@
 
   <button
     type="button"
-    class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
+    class="border dark:border-white rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80 "
     on:click={selectBanner}
     on:keydown={selectBanner}>{$t("user.settings.select")}</button
   >
@@ -197,7 +201,7 @@
 </div>
 
 <div>
-  <label for="address" class="font-bold mb-1 block"
+  <label for="address" class="font-bold mb-3 block"
     >{$t("user.settings.about")}</label
   >
   <textarea
@@ -205,5 +209,6 @@
     name="address"
     bind:value={user.address}
     placeholder={$t("user.settings.aboutPlaceholder")}
+    class="dark:bg-stone-800 dark:border-0 dark:placeholder:text-gray-300"
   />
 </div>

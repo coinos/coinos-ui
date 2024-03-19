@@ -1,6 +1,63 @@
 <script>
+	import { gsap } from "gsap";
+    import { enhance } from "$app/forms";
+	import * as Accordion from "$lib/shadcn/components/ui/accordion";
+	import * as Sheet from "$lib/shadcn/components/ui/sheet";
+    import { Button } from "$lib/shadcn/components/ui/button";
+	import { Separator } from "$lib/shadcn/components/ui/separator";
+	import { page } from '$app/stores';
+	import { t } from "$lib/translations";
 	import { scroll } from '$lib/utils';
-	let about, faq;
+    import ThemeToggle from "../components/buttons/ThemeToggle.svelte";
+    import Footer from "../components/Footer.svelte";
+    import { browser } from "$app/environment";
+    import { onMount } from "svelte";
+	
+	export let data;
+	let about, faq, s
+	let askedQuestionsAccordionValue = "item-0"
+
+	let askedQuestionsAccordion = [
+		{id: 0, title: "What does it cost?", description: "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."},
+		{id: 1, title: "Do I need any special device or software?", description: "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."},
+		{id: 2, title: "When do my funds settle?", description: "It's free to register an account and receive payments. We charge a 0.1% conversion fee if you withdraw regular bitcoin to lightning or vice versa."}
+	]
+
+	let themeSelected = data.colorThemeSelected;
+	let toggleThemeForm;
+	let homeNav;
+	let homeNavActiveLeft = 32;
+	let homeNavActiveTranslate = 0;
+	let NavHowItWorksEl;
+
+	function toggleThemeSelected() {
+		themeSelected = themeSelected === "light" ? "dark" : "light"; 
+	}
+
+	function submitUpdateTheme ({ action }) {
+		const theme = action.searchParams.get('theme');
+		const htmlClasses = document.documentElement.classList;
+		if (theme == "dark" && !(htmlClasses.contains("dark"))) {
+			htmlClasses.add("dark");
+			htmlClasses.remove("light");
+		} else if (theme == "light" && !(htmlClasses.contains("light"))) {
+			htmlClasses.add("light");
+			htmlClasses.remove("dark");
+		}
+		toggleThemeSelected()
+	}
+
+	function defineHomeNavActive(element) {
+		homeNavActiveTranslate = element.getBoundingClientRect().width;
+		homeNavActiveLeft = element.getBoundingClientRect().left - homeNav.getBoundingClientRect().left 
+	}
+
+	onMount(() => {
+		if (NavHowItWorksEl) {
+			defineHomeNavActive(NavHowItWorksEl)
+		}
+	})
+	
 </script>
 
 <svelte:head>
@@ -39,94 +96,140 @@
 </div>
 
 <!-- nav -->
-<nav class="navbar navbar-expand-lg bg-transparent py-3">
-	<div class="container-xxl px-lg-5 px-sm-4 px-3">
-		<a class="navbar-brand site_logo" href="#"><img src="images/logo.png" alt="" /></a>
-		<button
-			class="navbar-toggler border-0 shadow-none"
-			type="button"
-			data-bs-toggle="offcanvas"
-			data-bs-target="#offcanvas"
-		>
-			<span class="navbar-toggler-icon" />
-		</button>
-		<div class="offcanvas offcanvas-start flex-lg-row flex-column" id="offcanvas">
-			<div class="py-4 pb-5 px-3 d-lg-none d-flex justify-content-end w-100">
-				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
-			</div>
-			<ul class="navbar-nav text-lg-start text-center mx-auto mb-2 mb-lg-0">
-				<li class="nav-item me-lg-5 mb-lg-0 mb-4">
-					<a class="nav-link active" href="#">How it works</a>
+<nav class="navbar navbar-expand-lg dark:bg-black py-3 ">
+	<div class="container-xxl px-lg-5 px-sm-4 px-3">	
+		<a class="navbar-brand site_logo max-lg:ml-1" href="#">
+			{#if data.colorThemeSelected == "light"}
+				<img src="images/logo.png" alt="" />
+			{:else}
+				<img src="images/logo-white.png" alt="" />
+			{/if}
+		</a>
+		<Sheet.Root >
+			<Sheet.Trigger asChild let:builder>
+				<Button builders={[builder]} variant="ghost" class="lg:hidden dark:hover:bg-stone-800 px-1">
+					<svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+					  </svg>
+				</Button>
+			</Sheet.Trigger>
+			<Sheet.Content side="left" id="offcanvas" class="bg-white dark:!bg-black border-r-2 border-black dark:!border-white">
+			  <ul class=" text-lg-start text-center mx-auto mb-2 dark:text-white mt-16 pl-0">
+				<li class="nav-item mb-4">
+					<a class="nav-link dark:!text-white" href="#">How it works</a>
 				</li>
-				<li class="nav-item me-lg-5 mb-lg-0 mb-4">
-					<a class="nav-link" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
+				<li class="nav-item mb-4">
+					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="" on:click={() => scroll(about)}>About</a>
+					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(about)}>About</a>
 				</li>
+				</ul>
+				<div
+					class="flex flex-wrap items-center gap-4 lg:pt-0 justify-center mt-4"
+					role="search"
+				>
+				<a href="/register" class="btn_black flex-1 w-full text-center text-nowrap"><span class=" dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">get started</span></a>
+				<a href="/login" class="btn_white flex-1 w-full text-center text-nowrap"><span class=" dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">sign in</span></a>
+				</div>
+				<form method="POST" bind:this={toggleThemeForm} use:enhance={submitUpdateTheme} class="mx-auto flex justify-center mt-4" >
+					{#if themeSelected && themeSelected == "dark"}
+						<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" />
+					{:else if themeSelected && themeSelected == "light"}
+						<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}" />
+					{/if}
+				</form>
+			</Sheet.Content>
+		</Sheet.Root>
+		<div class="hidden lg:flex justify-between items-center !border-r-2 !border-r-white">
+			<ul class="flex gap-x-8 relative text-center mx-auto mb-2 dark:text-white uppercase font-semibold" bind:this={homeNav}>
+				<li class="">
+					<a class="text-black dark:!text-white no-underline" href="#" bind:this={NavHowItWorksEl} on:click={(e) => {defineHomeNavActive(e.target)}}>How it works</a>
+				</li>
+				<li class="">
+					<a class="text-black  dark:!text-white no-underline" href="" on:click={(e) => {
+						defineHomeNavActive(e.target)
+						scroll(faq)
+					}}>F.A.Q.</a>
+				</li>
+				<li class="">
+					<a class="text-black  dark:!text-white no-underline" href="" on:click={(e) => {
+						defineHomeNavActive(e.target)
+						scroll(faq)
+					}}>About</a>
+				</li>
+				<div class="home-nav-active absolute top-8 h-1 w-10 rounded-sm bg-swapee-purple transition-all duration-300 ease-in-out" style={`left: ${homeNavActiveLeft}px; transform: translate(${(homeNavActiveTranslate / 2) - 20}px, 0px);`}></div>
 			</ul>
-			<div
-				class="d-flex justify-content-lg-end justify-content-center nav_btn pt-lg-0 pt-5"
-				role="search"
-			>
-				<a href="/register" class="btn_black"><span>get started</span></a>
-				<a href="/login" class="btn_white"><span>sign in</span></a>
-			</div>
+		</div>
+		<div
+			class="hidden lg:flex items-center gap-4 lg:pt-0"
+			role="search"
+		>
+		<a href="/register" class="btn_black"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">get started</span></a>
+		<a href="/login" class="btn_white"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">sign in</span></a>
+		<form method="POST" bind:this={toggleThemeForm} use:enhance={submitUpdateTheme} >
+			{#if themeSelected && themeSelected == "dark"}
+				<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" />
+			{:else if themeSelected && themeSelected == "light"}
+				<ThemeToggle on:click={toggleThemeSelected} formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}" />
+			{/if}
+		</form>
 		</div>
 	</div>
 </nav>
 
 <!-- hero -->
-<div class="site_hero pt-md-5 pt-4">
-	<div class="container-lg px-sm-4 px-3 pt-md-5 text-center">
+<div class="site_hero pt-md-5 pt-4 dark:bg-black">
+	<div class="container-lg px-sm-4 px-3 pt-md-5 mb-16  text-center">
 		<h1
-			class="text-center text-black f_bebas_neue text-uppercase fw-bold letter_space_2 display-3 lh-1"
+			class="text-center dark:text-white f_bebas_neue text-uppercase fw-bold letter_space_2 display-3 lh-1"
 		>
 			The easiest way to get <br />
 			started with bitcoin.
 		</h1>
-		<p class="text-center txt_slate_blue mb-4">
+		<p class="text-center txt_slate_blue dark:!text-gray-200 mb-4">
 			A simple but powerful web wallet for everyone. *No software or hardware required.*
 		</p>
 		<a href="/register" class="btn_purple"><span class="px-5">Start in Seconds</span></a>
 	</div>
 	<div class="container-xxl px-lg-5 px-sm-4 px-3">
 		<div class="w-100">
-			<img class="w-100" src="images/hero_bg.png" alt="" />
+			<img src="images/hero_bg.png" alt="" class="w-full slide-top" />
 		</div>
 	</div>
 </div>
 
 <!-- first grid -->
-<section class="py-4">
+<section class="py-4 dark:bg-black">
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row justify-content-center">
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
-					<img src="images/swapee-grid-1-3.png" alt="" />
-					<h5 class="f_bebas_neue fw-bold letter_space_1">Create your account</h5>
-					<p class="txt_slate_blue lh-base">
+					<img src="images/swapee-grid-1-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
+					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Create your account</h5>
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						A username and password is all you need to get started. <a
 							href="#"
-							class="swapee_grid_link">Don’t forget it!</a
+							class="swapee_grid_link dark:!text-gray-200">Don’t forget it!</a
 						>
 					</p>
 				</div>
+				
 			</div>
 			<div class="col-lg-4 col-md-6 mb-lg-0 mb-4">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
-					<img src="images/swapee-grid-2-3.png" alt="" />
-					<h5 class="f_bebas_neue fw-bold letter_space_1">Ask for payments</h5>
-					<p class="txt_slate_blue lh-base">
+					<img src="images/swapee-grid-2-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
+					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Ask for payments</h5>
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						It’s the same as you normally would traditionally, but with bitcoin.
 					</p>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="swapee_3_grids h-100 text-center col-md-10 mx-auto">
-					<img src="images/swapee-grid-3-3.png" alt="" />
-					<h5 class="f_bebas_neue fw-bold letter_space_1">That's all!</h5>
-					<p class="txt_slate_blue lh-base">
+					<img src="images/swapee-grid-3-3.png" class="mx-auto hover:scale-[1.025] transition-all duration-500 ease-in-out" alt="" />
+					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">That's all!</h5>
+					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						Spend your coins immediately or save it and watch it grow, the choice is yours.
 					</p>
 				</div>
@@ -136,62 +239,62 @@
 </section>
 
 <!-- lightning network -->
-<section class="pt-md-5" bind:this={about}>
+<section class="pt-md-5 dark:bg-black" bind:this={about}>
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row align-items-center justify-content-center flex-md-row flex-column-reverse">
 			<div class="col-md-7 mb-md-0 mb-4">
 				<div>
 					<h6 class="f_bebas_neue txt_purple">Say Goodbye to Waiting</h6>
-					<h2 class="h1 letter_space_2 f_bebas_neue fw-bold text-black br_md_none mb-3 lh-1">
+					<h2 class="h1 letter_space_2 f_bebas_neue fw-bold dark:text-white br_md_none mb-3 lh-1">
 						Lightning Network <br />
 						Brings Instant Payments
 					</h2>
-					<p class="txt_slate_blue">
+					<p class="txt_slate_blue dark:!text-gray-200">
 						Say goodbye to the headaches of waiting for bank settlements and dealing with
 						chargebacks with our payment solution. With instant settlement and no 3% credit card
 						processing fees, merchants can enjoy hassle-free retail payments.
 					</p>
 
-					<div class="mt-4 sec_btn">
-						<a href="#" class="btn_white f_bebas_neue"><span>Learn More</span></a>
-						<a href="#" class="btn_black f_bebas_neue"><span>Get Started</span></a>
+					<div class="mt-4 sec_btn flex gap-x-3 gap-y-3 flex-wrap">
+						<a href="#" class="btn_white f_bebas_neue"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">Learn More</span></a>
+						<a href="/register" class="btn_black f_bebas_neue"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Started</span></a>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-5 mb-md-0 mb-5 scale_img_right">
+			<div class="col-md-5 mb-md-0 mb-5 scale_img_rig">
 				<div>
-					<img src="images/swapee-sec-calculator.png" class="w-100" alt="" />
+					<img src={data.colorThemeSelected == "light" ? "images/swapee-sec-calculator.png" : "images/swapee-sec-calculator-dark.png"} class="hover:scale-[1.015] transition-all duration-500 ease-in-out" alt="" />
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="pt-5 bg_light">
+<section class="pt-5 bg_light dark:!bg-[#0D0D0D]">
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row align-items-center justify-content-center">
-			<div class="col-md-5 scale_img_left">
+			<div class="col-md-5">
 				<div>
-					<img src="images/swapee-sec-2-img.png" class="w-100" alt="" />
+					<img src="images/swapee-sec-2-img.png" class="slide-top" alt="" />
 				</div>
 			</div>
 
 			<div class="col-md-7 mb-md-0 mb-4">
 				<div>
 					<h6 class="f_bebas_neue txt_purple">Quick and painless</h6>
-					<h2 class="h1 f_bebas_neue fw-bold text-black br_md_none mb-3 letter_space_2 lh-1">
-						Simple to use
+					<h2 class="h1 f_bebas_neue fw-bold dark:text-white br_md_none mb-3 letter_space_2 lh-1">
+						Simple to uses
 					</h2>
-					<p class="txt_slate_blue mb-4">
+					<p class="txt_slate_blue dark:!text-gray-200 mb-4">
 						Just enter an amount in your local currency, share the QR code and you’re done. We do
 						all the heavy lifting so you can focus on your business. You always have the option of
 						taking custody of your funds by withdrawing instantly at any time.
 					</p>
 
-					<div class="mt-4 sec_btn">
-						<a href="#" class="btn_white f_bebas_neue"><span>Learn More</span></a>
-						<a href="/register" class="btn_purple f_bebas_neue"><span>Get Started</span></a>
+					<div class="mt-4 sec_btn flex gap-x-3 gap-y-3 flex-wrap">
+						<a href="#" class="btn_white f_bebas_neue"><span >Learn More</span></a>
+						<a href="/register" class="btn_purple f_bebas_neue"><span >Get Started</span></a>
 					</div>
 				</div>
 			</div>
@@ -199,116 +302,74 @@
 	</div>
 </section>
 
-<section class="sec_3 position-relative">
+<section class="sec_3 position-relative dark:bg-black">
 	<div class="col-md-5 d-xxl-none d-md-block d-none position-absolute img_position">
 		<div>
-			<img src="images/swapee-sec-3-img.png" class="w-100" alt="" />
+			<img src={data.colorThemeSelected == "light" ? "images/swapee-sec-3-img.png" : "images/swapee-sec-3-img-dark.png"} alt="" class="hover:scale-[0.985] transition-all duration-500 ease-in-out" />
 		</div>
 	</div>
 
 	<div class="container-lg px-sm-4 px-3">
 		<div class="row align-items-center justify-content-center flex-md-row flex-column-reverse">
-			<div class="col-md-6 mb-md-0 mb-4">
+			<div class="col-md-6 mb-md-0">
 				<div>
 					<h6 class="f_bebas_neue txt_purple">Customized & Personalized</h6>
-					<h2 class="h1 letter_space_2 f_bebas_neue fw-bold text-black br_md_none mb-3 lh-1">
+					<h2 class="h1 letter_space_2 f_bebas_neue fw-bold dark:text-white br_md_none mb-3 lh-1">
 						Brand it your way!
 					</h2>
-					<p class="txt_slate_blue">
+					<p class="txt_slate_blue dark:!text-gray-200">
 						You have complete control over your profile page's aesthetic. Customize it with your
 						preferred color scheme, avatar, and banner to reflect your brand, personality and
 						interests.
 					</p>
 
-					<div class="mt-4 sec_btn">
-						<a href="#" class="btn_white f_bebas_neue mb-3"><span>Learn More</span></a>
-						<a href="#" class="btn_black f_bebas_neue mb-3"><span>Get Started</span></a>
+					<div class="sec_btn mt-4 flex gap-x-3 flex-wrap">
+						<a href="#" class="btn_white f_bebas_neue mb-3"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">Learn More</span></a>
+						<a href="/register" class="btn_black f_bebas_neue mb-3"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Started</span></a>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-6 mb-md-0 mb-4 sec_3_img">
+			<div class="col-md-6 mb-md-0 mb-4 overflow-hidden">
 				<div class="d-xxl-block d-md-none d-block">
-					<img src="images/swapee-sec-3-img.png" class="w-100" alt="" />
+					<img src={data.colorThemeSelected == "light" ? "images/swapee-sec-3-img.png" : "images/swapee-sec-3-img-dark.png"} alt="" class="hover:scale-[0.985] transition-all duration-500 ease-in-out" />
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="py-5 bg_light">
+<section class="py-5 bg_light dark:!bg-[#0D0D0D]">
 	<div class="container-lg px-sm-4 px-3" bind:this={faq}>
 		<div class="row align-items-center justify-content-center">
 			<div class="col-12 text-center">
 				<h6 class="f_bebas_neue txt_purple">This might help</h6>
-				<h2 class="h1 letter_space_2 f_bebas_neue fw-bold text-black br_md_none mb-5 lh-1">
+				<h2 class="h1 letter_space_2 f_bebas_neue fw-bold dark:text-white br_md_none mb-5 lh-1">
 					Frequently asked <br /> questions
 				</h2>
 			</div>
 
-			<div class="accordion" id="accordionExample">
-				<div class="accordion-item swapee_accordion">
-					<h2 class="" id="headingOne">
-						<button class="accordion-button shadow-none" type="button">
-							<span class="line"> What does it cost? </span>
-						</button>
-					</h2>
-					<div id="collapseOne">
-						<div class="accordion-body">
-							<p class="txt_slate_blue">
-								Registering an account and receiving payments on Swapee.me is completely free. Our
-								aim is to offer a smooth user experience without any financial barriers. However,
-								when converting regular Bitcoin to Lightning or vice versa, we apply a modest 0.1%
-								conversion fee to ensure secure and efficient transactions.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="accordion-item swapee_accordion">
-					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button shadow-none" type="button">
-							<span class="line"> Do I need any special device or software? </span>
-						</button>
-					</h2>
-					<div id="collapseTwo">
-						<div class="accordion-body">
-							<p class="txt_slate_blue">
-								No, Swapee.me is designed to be incredibly user-friendly. You can access our
-								platform using any device that can connect to a web browser - whether it's your
-								mobile phone, PC, tablet, or any other compatible device. Swapee.me prioritizes
-								accessibility and ease of use for all users, regardless of their chosen device.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="accordion-item swapee_accordion">
-					<h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button shadow-none " type="button">
-							<span class="line"> When do my funds settle? </span>
-						</button>
-					</h2>
-					<div id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<p class="txt_slate_blue">
-								At Swapee.me, we value your time. Lightning payments on our platform settle
-								instantly, reflecting our commitment to efficiency and user satisfaction. Forget
-								waiting for extended transaction confirmations; with Swapee.me, you can experience
-								the speed and efficiency of the Lightning Network firsthand.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Accordion.Root class="w-full flex flex-col gap-3" bind:value={askedQuestionsAccordionValue} >
+				{#each askedQuestionsAccordion as askedQuestionAccordion }
+					<Accordion.Item value={`item-${askedQuestionAccordion.id}`} class="bg-white dark:!bg-black rounded-[10px] border-[1px] border-gray-300 px-4">
+						<Accordion.Trigger class="py-0">
+							<h2 class="text-base pt-3 pb-3 font-bold border-b-black dark:!border-b-swapee-purple {askedQuestionsAccordionValue == `item-${askedQuestionAccordion.id}` ? 'border-b-2' : ''}">{askedQuestionAccordion.title}</h2>
+						</Accordion.Trigger>
+						<Accordion.Content class="text-base text-slate-500 dark:text-gray-200 mt-0">
+							<Separator orientation="horizontal" class="mt-0 mb-3 bg-purple-950" />
+							<p class="mb-0">{askedQuestionAccordion.description}</p>
+						</Accordion.Content>	
+					</Accordion.Item>
+				{/each}
+			</Accordion.Root>
 		</div>
 	</div>
 </section>
 
 <!-- bitcoin_location -->
-<div class="bitcoin_location">
+<div class="bitcoin_location dark:bg-black bg-map-light dark:!bg-map-dark bg-no-repeat">
 	<div class="container-lg px-sm-4 px-3">
-		<h2 class="h3 text-center text-black f_bebas_neue fw-bold letter_space_2">
+		<h2 class="h3 text-center dark:text-white f_bebas_neue fw-bold letter_space_2">
 			Real-World Bitcoin Locations
 		</h2>
 		<p class="text-center opacity-75 mb-md-5 mb-4">
@@ -317,56 +378,14 @@
 			with <span class="fs_18 fw-bold">Swapee!</span>
 		</p>
 		<div class="d-flex justify-content-center align-items-start flex-wrap">
-			<a href="#" class="btn_line me-sm-3 me-2 mb-4">Business Listings</a>
-			<a href="#" class="btn_black"><span class="px-sm-5">Get Listed</span></a>
+			<a href="#" class="btn_line me-sm-3 me-2 mb-4 dark:!text-white">Business Listings</a>
+			<a href="#" class="btn_black"><span class="px-sm-5 dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Listed</span></a>
 		</div>
 	</div>
 </div>
 
-<!-- footer -->
-<footer class="site_footer">
-	<div class="container-lg px-4">
-		<!-- footer_top -->
-		<div class="footer_top pb-4">
-			<div class="row align-items-center justify-content-between">
-				<div class="col-md-5 mb-md-0 mb-5">
-					<a href="#" class="footer_logo"><img src="images/footer-logo.png" alt="" /></a>
-					<!-- <p class="text-white-50 mt-5 mb-4"> -->
-					<!-- 	Copyright © 2023. Swapee.me is a Registered Cryptoasset firm and is registered with the -->
-					<!-- 	UK Financial Conduct Authority. -->
-					<!-- 	<br /> -->
-					<!-- 	<br /> -->
-					<!-- 	All rights reserved. -->
-					<!-- </p> -->
-					<a class="btn_language" href="#">English</a>
-				</div>
-				<div
-					class="ps-md-4 footer_top_right col-md-6 d-flex align-items-center justify-content-end justify-content-sm-center justify-content-between"
-				>
-					<div class="row justify-content-md-end">
-						<div class="col-sm-6 mb-xl-0 mb-4 pe-md-0 pe-sm-5">
-							<h6 class="text-white opacity-75 mb-0">Business enquiries</h6>
-							<a href="mailto:business@swapee.me">business@swapee.me</a>
-						</div>
-						<div class="col-sm-6 pe-xl-5 mb-4 pe-md-0 pe-sm-5">
-							<h6 class="text-white opacity-75 mb-0">Support enquiries</h6>
-							<a href="mailto:support@swapee.me">support@swapee.me</a>
-						</div>
-					</div>
-				</div>
-			</div>
+<Footer />	
 
-			<!-- footer_bottom -->
-			<div class="footer_bottom pt-4 pb-2">
-				<ul class="list-unstyled mb-0 ps-0">
-					<li class="pb-3">
-						<a href="/docs">Documentation</a>
-					</li>
-					<li class="pb-3">
-						<a href="/privacy">Privacy Policy</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</footer>
+<style>
+ 
+</style>

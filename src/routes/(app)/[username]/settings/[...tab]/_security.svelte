@@ -155,19 +155,19 @@
 <input type="hidden" name="confirm" bind:value={password} />
 
 <div class="relative mb-5">
-  <label for="password" class="block font-bold block mb-1"
+  <label for="password" class="block font-bold mb-3 "
     >{$t("user.settings.newPassword")}</label
   >
   {#if revealPassword}
-    <input name="password" type="text" bind:value={password} />
+    <input name="password" type="text" bind:value={password} class="dark:bg-stone-800 dark:border-0" />
   {:else}
-    <input name="password" type="password" bind:value={password} />
+    <input name="password" type="password" bind:value={password} class="dark:bg-stone-800 dark:border-0" />
   {/if}
   <button
     type="button"
     on:click={togglePassword}
     on:keydown={togglePassword}
-    class="absolute right-5 top-11"
+    class="absolute right-5 dark:invert-[95%] {revealPassword ? 'top-[54px]' : 'top-[52px]'} "
   >
     <Icon icon={revealPassword ? "eye" : "eye-off"} />
   </button>
@@ -179,7 +179,7 @@
       ? $t("user.settings.verifyPIN")
       : $t("user.settings.securityPIN")}</span
   >
-  <p class="text-secondary mb-1">
+  <p class="text-secondary dark:text-gray-200 mb-4">
     {$t("user.settings.securityPINDescription")}
   </p>
   {#if verifying}
@@ -192,8 +192,8 @@
       notify={false}
     />
   {:else}
-    <button type="button" class="primary" on:click={togglePin}
-      ><Icon icon="lock" style="mr-1" />
+    <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={togglePin}
+      ><Icon icon="lock" style="mr-1 dark:invert" />
       {user.haspin
         ? $t("user.settings.disablePIN")
         : $t("user.settings.enablePIN")}</button
@@ -206,7 +206,7 @@
     <label for="locktime" class="font-bold mb-1"
       >{$t("user.settings.autoLock")}</label
     >
-    <p class="text-secondary mb-1">
+    <p class="text-secondary dark:text-gray-200 mb-1">
       {$t("user.settings.autoLockDescription")}
     </p>
     <select
@@ -224,8 +224,8 @@
 {/if}
 
 <div>
-  <span class="font-bold mb-1">{$t("user.settings.twofa")}</span>
-  <p class="text-secondary mb-4">
+  <span class="font-bold mb-4">{$t("user.settings.twofa")}</span>
+  <p class="text-secondary dark:text-gray-200 mb-4">
     {$t("user.settings.twofaDescription")}
   </p>
 
@@ -239,18 +239,18 @@
       <b>{otp.secret}</b>
     </div>
 
-    <button type="button" class="primary" on:click={startConfirming2fa}>
-      <Icon icon="mobile" style="mr-1" />
+    <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={startConfirming2fa}>
+      <Icon icon="mobile" style="mr-1 dark:invert" />
       Confirm
     </button>
   {:else if user.twofa}
-    <button type="button" class="primary" on:click={startDisabling2fa}>
-      <Icon icon="mobile" style="mr-1" />
+    <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={startDisabling2fa}>
+      <Icon icon="mobile" style="mr-1 dark:invert" />
       {$t("user.settings.twofaDisable")}
     </button>
   {:else}
-    <button type="button" class="primary" on:click={startEnabling2fa}>
-      <Icon icon="mobile" style="mr-1" />
+    <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={startEnabling2fa}>
+      <Icon icon="mobile" style="mr-1 dark:invert" />
       {$t("user.settings.twofaSetup")}
     </button>
   {/if}
@@ -271,22 +271,22 @@
     >{$t("user.settings.seedPhrase")}</label
   >
 
-  <p class="text-secondary mb-1">
+  <p class="text-secondary dark:text-gray-200 mb-4">
     {$t("user.settings.seedDescription")}
   </p>
 
-  <button type="button" class="primary" on:click={toggleSeed}>
-    <Icon icon="warning" style="mr-1 w-6 my-auto" />
+  <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={toggleSeed}>
+    <Icon icon="warning" style="mr-2 w-6 my-auto dark:invert" />
     {revealSeed ? $t("user.settings.hideSeed") : $t("user.settings.revealSeed")}
   </button>
 
   {#if revealSeed}
-    <div class="text-lg">
+    <div class="text-lg my-6">
       {mnemonic}
     </div>
 
-    <button type="button" class="primary" on:click={() => copy(mnemonic)}>
-      <Icon icon="copy" style="mr-1 w-6 my-auto" />
+    <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={() => copy(mnemonic)}>
+      <Icon icon="copy" style="mr-1 w-6 my-auto dark:invert" />
       Copy
     </button>
   {/if}
@@ -297,22 +297,22 @@
     >{$t("user.settings.nostrKeys")}</label
   >
 
-  <p class="text-secondary mb-1">
+  <p class="text-secondary dark:text-gray-200 mb-4">
     {$t("user.settings.nostrDescription")}
   </p>
 
-  <button type="button" class="primary" on:click={toggleNsec}>
-    <Icon icon="warning" style="mr-1 w-6 my-auto" />
+  <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={toggleNsec}>
+    <Icon icon="warning" style="mr-2 w-6 my-auto dark:invert" />
     {revealNsec ? $t("user.settings.hideNsec") : $t("user.settings.revealNsec")}
   </button>
 
   {#if revealNsec}
-    <div class="text-lg break-all">
+    <div class="text-lg break-all my-6">
       {nsec}
     </div>
 
-    <button type="button" class="primary" on:click={() => copy(nsec)}>
-      <Icon icon="copy" style="mr-1 w-6 my-auto" />
+    <button type="button" class="py-2 px-4 font-bold rounded-full mx-auto border-[1px] flex border-gray-200 dark:border-gray-50" on:click={() => copy(nsec)}>
+      <Icon icon="copy" style="mr-1 w-6 my-auto dark:invert" />
       Copy
     </button>
   {/if}

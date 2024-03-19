@@ -75,9 +75,8 @@
   };
 </script>
 
-<div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
-  <div class="hidden lg:block lg:w-[300px]" />
-  <div class="lg:w-[300px] lg:absolute space-y-5 left-20 mx-auto max-w-sm">
+<div class="mx-auto w-full px-4 flex flex-col lg:flex-row">
+  <div class="lg:w-[300px] space-y-5 mx-auto max-w-sm lg:ml-24">
     <div
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
@@ -152,11 +151,11 @@
     <div class="flex justify-center gap-2">
       <a href={`/${subject.pubkey}/follows`}
         ><b>{subject.follows.length}</b>
-        <span class="text-secondary">{$t("user.following")}</span></a
+        <span class="text-secondary dark:text-gray-300">{$t("user.following")}</span></a
       >
       <a href={`/${subject.pubkey}/followers`}
         ><b>{subject.followers.length}</b>
-        <span class="text-secondary">{$t("user.followers")}</span></a
+        <span class="text-secondary dark:text-gray-300">{$t("user.followers")}</span></a
       >
     </div>
 
@@ -242,7 +241,7 @@
   </div>
 
   <div class="w-full">
-    <div class="mx-auto space-y-5 lg:max-w-xl lg:pl-10 xl:max-w-2xl lg:pl-10">
+    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10">
       <slot />
     </div>
   </div>
@@ -250,16 +249,16 @@
 
 {#if currency}
   <div
-    class="flex fixed w-full px-4 bg-white py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
+    class="flex fixed w-full px-4 bg-white dark:bg-black py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
   >
-    <div class="text-secondary flex mr-auto">
+    <div class="text-secondary dark:text-gray-300 flex mr-auto">
       <div class="flex mr-1">
         <div class="my-auto mr-1">1</div>
         <img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
       </div>
       <div>= {f(rates[currency], currency)}</div>
     </div>
-    <div class="text-secondary flex ml-auto">
+    <div class="text-secondary dark:text-gray-300 flex ml-auto">
       <div class="flex">
         <div class="mr-1">⚡️{s((1 * sats) / rates[currency])} =</div>
         <div>{f(1, currency)}</div>

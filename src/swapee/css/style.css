@@ -91,7 +91,6 @@ body{
 #offcanvas ul li a{
     font-size: 14px;
     font-weight: 600;
-    color: var(--bs-black);
     text-transform: uppercase;
     font-family: 'Work Sans', sans-serif;
     position: relative;
@@ -104,7 +103,7 @@ body{
     left: 50%;
     width: 0;
     height: 2px;
-    background: #7005f38a;
+    background: #7105f3;
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
@@ -117,7 +116,6 @@ body{
     -o-transition: var(--transition_3s);
 }
 
-#offcanvas ul li a.active::after,
 #offcanvas ul li a:hover::after{
     width: 50px;
 }
@@ -231,7 +229,7 @@ body{
     align-items: center;
     padding-top: 90px;
     padding-bottom: 90px;
-    background: url("../img/map.png") no-repeat;
+    background: url("../img/footer-logo.png") no-repeat;
     background-size: cover;
 }
 
@@ -313,7 +311,7 @@ body{
     padding-bottom: 12vw;
 }
 
-/* accordion */
+/* accordion NOT MORE BEING USED (AFTER ALTERATIONS, NOW THE ACCORDION IS BUILT WITH TAILWIND + SHADCN) */
 .swapee_accordion {
     border-radius: 10px;
     -webkit-border-radius: 10px;

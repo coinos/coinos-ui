@@ -57,7 +57,7 @@
   <AppHeader {data} />
 {/if}
 
-<div class="container px-4 max-w-lg mx-auto mt-20 space-y-8">
+<div class="container px-4 max-w-lg mx-auto mt-24 space-y-8">
   {#if sent}
     <h1 class="text-center text-3xl md:text-4xl font-semibold">Thank you!</h1>
     <div class="text-center text-lg text-secondary">
@@ -73,11 +73,11 @@
       </a>
     </div>
   {:else}
-    <h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">
+    <h1 class="text-center text-4xl md:text-5xl font-semibold mb-8 font-bebasNeue tracking-[0.2rem]">
       {$t("user.support.header")}
     </h1>
 
-		<p class="text-secondary text-lg">
+		<p class="text-secondary dark:text-gray-200 text-lg">
 			Fill out this form or email us directly at <a
 				class="underline"
 				href="mailto:support@swapee.me">support@swapee.me</a
@@ -85,12 +85,12 @@
 		</p>
 
     <form on:submit={submit}>
-      <div class="mb-4">
+      <div class="mb-6">
         <label for="account" class="font-semibold"
           >{$t("user.support.accountName")}</label
         >
         <input
-          class="bg-primary"
+          class="input-swapee mt-3"
           type="text"
           name="account"
           required
@@ -98,12 +98,12 @@
         />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <label for="email" class="font-semibold"
           >{$t("user.support.email")}</label
         >
         <input
-          class="bg-primary"
+          class="input-swapee mt-3"
           type="email"
           name="email"
           bind:value={email}
@@ -111,13 +111,13 @@
         />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <label for="message" class="font-semibold"
           >{$t("user.support.message")}</label
         >
         <textarea
           rows={5}
-          class="bg-primary"
+          class="input-swapee mt-3"
           type="text"
           name="message"
           bind:value={message}
@@ -130,7 +130,7 @@
         disabled={!email || !message}
         class="g-recaptcha {!email || !message
           ? 'opacity-50'
-          : 'opacity-100'} bg-black text-white font-bold rounded-xl py-3 w-full mx-auto {email &&
+          : 'opacity-100'} bg-black dark:bg-swapee-purple text-white font-bold rounded-xl py-3 w-full mx-auto {email &&
         message
           ? 'hover:opacity-80'
           : ''}">{$t("user.support.send")}</button

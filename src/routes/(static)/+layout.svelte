@@ -9,7 +9,11 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 <LandingHeader {user} />
-<main class="container flex px-10 md:px-40 mx-auto min-h-[600px] pb-20">
+<main class="container flex px-10 lg:px-40 mx-auto min-h-[600px] pb-20">
   <slot />
 </main>
 <Footer />
+
+<style>
+  
+</style>

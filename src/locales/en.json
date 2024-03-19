@@ -199,7 +199,7 @@
       "scan": "Scan",
       "paste": "Paste",
       "next": "Next",
-      "placeholder": "Paste a bitcoin address, lightning invoice or coinos username"
+      "placeholder": "Paste a bitcoin address, lightning invoice or Swapee username"
     },
     "settings": {
       "notifications": "Payment notifications",
