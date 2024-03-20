@@ -19,6 +19,7 @@ let parse = async (t, host) => {
       options: { amount },
     } = bip21.decode(t));
 
+  if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
   if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split("@")[0];
   if (t.includes("@") && t.includes(".")) {
     try {
