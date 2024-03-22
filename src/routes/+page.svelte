@@ -98,7 +98,7 @@
 <!-- nav -->
 <nav class="navbar navbar-expand-lg dark:bg-black py-3 ">
 	<div class="container-xxl px-lg-5 px-sm-4 px-3">	
-		<a class="navbar-brand site_logo max-lg:ml-1" href="#">
+		<a class="navbar-brand site_logo max-lg:ml-1" href="/">
 			{#if data.colorThemeSelected == "light"}
 				<img src="images/logo.png" alt="" />
 			{:else}
@@ -116,13 +116,13 @@
 			<Sheet.Content side="left" id="offcanvas" class="bg-white dark:!bg-black border-r-2 border-black dark:!border-white">
 			  <ul class=" text-lg-start text-center mx-auto mb-2 dark:text-white mt-16 pl-0">
 				<li class="nav-item mb-4">
-					<a class="nav-link dark:!text-white" href="#">How it works</a>
+					<a class="nav-link dark:!text-white" href="/">How it works</a>
 				</li>
 				<li class="nav-item mb-4">
-					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(faq)}>F.A.Q.</a>
+					<a class="nav-link dark:!text-white" href="/" on:click={() => scroll(faq)}>F.A.Q.</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link dark:!text-white" href="" on:click={() => scroll(about)}>About</a>
+					<a class="nav-link dark:!text-white" href="/" on:click={() => scroll(about)}>About</a>
 				</li>
 				</ul>
 				<div
@@ -144,16 +144,16 @@
 		<div class="hidden lg:flex justify-between items-center !border-r-2 !border-r-white">
 			<ul class="flex gap-x-8 relative text-center mx-auto mb-2 dark:text-white uppercase font-semibold" bind:this={homeNav}>
 				<li class="">
-					<a class="text-black dark:!text-white no-underline" href="#" bind:this={NavHowItWorksEl} on:click={(e) => {defineHomeNavActive(e.target)}}>How it works</a>
+					<a class="text-black dark:!text-white no-underline" href="/" bind:this={NavHowItWorksEl} on:click={(e) => {defineHomeNavActive(e.target)}}>How it works</a>
 				</li>
 				<li class="">
-					<a class="text-black  dark:!text-white no-underline" href="" on:click={(e) => {
+					<a class="text-black  dark:!text-white no-underline" href="/" on:click={(e) => {
 						defineHomeNavActive(e.target)
 						scroll(faq)
 					}}>F.A.Q.</a>
 				</li>
 				<li class="">
-					<a class="text-black  dark:!text-white no-underline" href="" on:click={(e) => {
+					<a class="text-black  dark:!text-white no-underline" href="/" on:click={(e) => {
 						defineHomeNavActive(e.target)
 						scroll(faq)
 					}}>About</a>
@@ -209,7 +209,7 @@
 					<h5 class="f_bebas_neue fw-bold letter_space_1 dark:text-white">Create your account</h5>
 					<p class="txt_slate_blue dark:!text-gray-200 lh-base max-w-[425px] mx-auto">
 						A username and password is all you need to get started. <a
-							href="#"
+							href="/"
 							class="swapee_grid_link dark:!text-gray-200">Don’t forget it!</a
 						>
 					</p>
@@ -256,7 +256,7 @@
 					</p>
 
 					<div class="mt-4 sec_btn flex gap-x-3 gap-y-3 flex-wrap">
-						<a href="#" class="btn_white f_bebas_neue"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">Learn More</span></a>
+						<a href="/" class="btn_white f_bebas_neue"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">Learn More</span></a>
 						<a href="/register" class="btn_black f_bebas_neue"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Started</span></a>
 					</div>
 				</div>
@@ -293,7 +293,7 @@
 					</p>
 
 					<div class="mt-4 sec_btn flex gap-x-3 gap-y-3 flex-wrap">
-						<a href="#" class="btn_white f_bebas_neue"><span >Learn More</span></a>
+						<a href="/" class="btn_white f_bebas_neue"><span >Learn More</span></a>
 						<a href="/register" class="btn_purple f_bebas_neue"><span >Get Started</span></a>
 					</div>
 				</div>
@@ -324,7 +324,7 @@
 					</p>
 
 					<div class="sec_btn mt-4 flex gap-x-3 flex-wrap">
-						<a href="#" class="btn_white f_bebas_neue mb-3"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">Learn More</span></a>
+						<a href="/" class="btn_white f_bebas_neue mb-3"><span class="dark:!bg-black dark:!text-white dark:!border-white dark:!border-2">Learn More</span></a>
 						<a href="/register" class="btn_black f_bebas_neue mb-3"><span class="dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Started</span></a>
 					</div>
 				</div>
@@ -378,8 +378,8 @@
 			with <span class="fs_18 fw-bold">Swapee!</span>
 		</p>
 		<div class="d-flex justify-content-center align-items-start flex-wrap">
-			<a href="#" class="btn_line me-sm-3 me-2 mb-4 dark:!text-white">Business Listings</a>
-			<a href="#" class="btn_black"><span class="px-sm-5 dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Listed</span></a>
+			<a href="/" class="btn_line me-sm-3 me-2 mb-4 dark:!text-white">Business Listings</a>
+			<a href="/" class="btn_black"><span class="px-sm-5 dark:!bg-white dark:!text-black dark:!border-black dark:!border-2">Get Listed</span></a>
 		</div>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 <script>
   import { hexToUint8Array } from "uint8array-extras";
-  import { f, post, s, sats, success, fail } from "$lib/utils";
+  import { f, copy, post, s, sats, success, fail } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
@@ -138,14 +138,14 @@
     {/if}
 
     {#if subject.address && subject.id !== user?.id}
-      <div
+      <button
         class="text-secondary mx-auto text-center lg:text-left lg:mx-0"
         class:line-clamp-3={showBio}
         on:click={toggleBio}
         on:keydown={toggleBio}
       >
         {subject.address}
-      </div>
+      </button>
     {/if}
 
     <div class="flex justify-center gap-2">
