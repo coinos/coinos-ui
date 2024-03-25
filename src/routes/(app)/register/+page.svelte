@@ -179,7 +179,10 @@
         >
           <Icon icon="chevron-left" style="w-8 " />
         </button>
-        <div class="relative w-32 mx-auto" on:click={selectAvatar}>
+        <button
+          class="block relative w-32 mx-auto"
+          on:click={selectAvatar}
+        >
           <button
             class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
           >
@@ -194,7 +197,7 @@
           >
             <Icon icon="upload" style="w-8" />
           </button>
-        </div>
+        </button>
         <button
           class="absolute w-8 h-12 right-12 bg-white rounded top-12"
           on:click={incr}
@@ -227,7 +230,6 @@
           >
           <input
             use:focus
-            tabindex="1"
             name="username"
             type="text"
             required
@@ -237,10 +239,10 @@
             autocapitalize="none"
           />
           <button
+            tabindex="-1"
             type="button"
             on:click={refresh}
             class="absolute right-0 top-4"
-            tabindex="5"
           >
             <Icon icon="random" style="w-10 m-4" />
           </button>
@@ -252,7 +254,6 @@
           >
           {#if revealPassword}
             <input
-              tabindex="2"
               name="password"
               type="text"
               required
@@ -262,7 +263,6 @@
             />
           {:else}
             <input
-              tabindex="2"
               name="password"
               type="password"
               required
@@ -274,7 +274,7 @@
           {/if}
           <button
             type="button"
-            tabindex="4"
+            tabindex="-1"
             on:click={() => (revealPassword = !revealPassword)}
             class="absolute right-0 top-4"
           >
@@ -287,7 +287,6 @@
         </p>
 
         <button
-          tabindex="3"
           type="submit"
           class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
           disabled={loading}

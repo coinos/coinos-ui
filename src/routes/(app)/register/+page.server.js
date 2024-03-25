@@ -25,7 +25,7 @@ export const actions = {
     try {
       await post("/register", { user }, { "cf-connecting-ip": ip });
     } catch (e) {
-      if (e.message.includes("taken")) error = e.message;
+      error = e.message;
     }
 
     try {

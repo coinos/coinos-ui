@@ -144,7 +144,7 @@
         </button>
       </a>
 
-      {#if user?.username === subject.username}
+        {#if user?.username === subject.username && user.menu}
         <a href={`/${user.username}/items/create`} class="contents">
           <button
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow basis-full"
