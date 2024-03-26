@@ -11,7 +11,7 @@
   import { sign, send, encrypt, decrypt } from "$lib/nostr";
   import { event as e, password } from "$lib/store";
   import { tick, onMount } from "svelte";
-  import { getEventHash } from "nostr-tools";
+  import { getEventHash } from "@asoltys/nostr-tools";
 
   export let data;
 
