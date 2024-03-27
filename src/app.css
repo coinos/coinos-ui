@@ -95,6 +95,10 @@ html {
   font-family: 'Inter', sans-serif;
 }
 
+.f_bebas_neue{
+  font-family: 'Bebas Neue', sans-serif;
+}
+
 :root {
   --purple: #7105f3;
   --slate_blue: #7f8a9d;
