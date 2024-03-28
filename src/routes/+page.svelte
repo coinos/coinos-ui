@@ -338,7 +338,7 @@
 				{#each askedQuestionsAccordion as askedQuestionAccordion }
 					<Accordion.Item value={`item-${askedQuestionAccordion.id}`} class="bg-white dark:!bg-black rounded-[10px] border-[1px] border-gray-300 px-4">
 						<Accordion.Trigger class="py-0">
-							<h2 class="text-base pt-3 pb-3 font-bold border-b-black dark:!border-b-swapee-purple {askedQuestionsAccordionValue == `item-${askedQuestionAccordion.id}` ? 'border-b-2' : ''}">{askedQuestionAccordion.title}</h2>
+							<h2 class="text-base pt-3 pb-3 font-bold border-b-black dark:!border-b-swapee-purple dark:text-gray-100 !mb-0 {askedQuestionsAccordionValue == `item-${askedQuestionAccordion.id}` ? 'border-b-2' : ''}">{askedQuestionAccordion.title}</h2>
 						</Accordion.Trigger>
 						<Accordion.Content class="text-base text-slate-500 dark:text-gray-200 mt-0">
 							<Separator orientation="horizontal" class="mt-0 mb-3 bg-purple-950" />
@@ -352,12 +352,14 @@
 </section>
 
 <!-- bitcoin_location -->
-<div class="flex px-1 justify-center items-center py-[5.625rem] dark:bg-black bg-map-light dark:!bg-map-dark bg-no-repeat">
+<div class="flex px-1 justify-center items-center py-[5.625rem] dark:bg-black">
+	<img src="images/map.png" alt="" class="absolute dark:hidden max-h-[354px] min-h-[354px] w-full object-cover object-center" height="375">
+	<img src="images/map-dark.png" alt="" class="absolute hidden dark:block max-h-[354px] min-h-[354px] w-full object-cover object-center" height="375">
 	<div class="container sm:px-6 px-3">
 		<h2 class="text-[2.5rem] text-center dark:text-white f_bebas_neue font-bold mb-2">
 			Real-World Bitcoin Locations
 		</h2>
-		<p class="text-center opacity-75 md:mb-5 mb-4">
+		<p class="text-center opacity-75 md:mb-5 mb-4 dark:!text-gray-100">
 			Join the <span class="text-lg font-bold">Growing businesses</span> that accept
 			<span class="text-lg font-bold">Bitcoin</span>
 			with <span class="text-lg font-bold">Swapee!</span>

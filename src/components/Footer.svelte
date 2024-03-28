@@ -1,7 +1,10 @@
 <script>
-  import Icon from "$comp/Icon.svelte";
-  import LocaleSelector from "$comp/LocaleSelector.svelte";
-  import { t } from "$lib/translations";
+	import Icon from "$comp/Icon.svelte";
+	import LocaleSelector from "$comp/LocaleSelector.svelte";
+	import { t } from "$lib/translations";
+
+	const date = new Date()
+	const currentYear = date.getFullYear()
 
 	const followLinks = [
 		{ url: 'https://twitter.com/swapeewallet', titleID: 'twitter' },
@@ -9,10 +12,10 @@
 		{ url: 'https://linktr.ee/swapee.me', titleID: 'linktree' }
 	];
 
-  const companyLinks = [
-    { url: "/docs", titleID: "documentation" },
-    { url: "/support", titleID: "support" },
-  ];
+	const companyLinks = [
+		{ url: "/docs", titleID: "documentation" },
+		{ url: "/support", titleID: "support" },
+	];
 </script>
 <footer class="pt-16 bg-black">
 	<div class="max-w-[1296px] mx-auto px-8">
@@ -20,7 +23,7 @@
 			<div class="flex-col md:flex-row flex md:items-center justify-between">
 				<div class="flex-1 mb-12 sm:mb-5">
 					<a href="#" ><img src="images/footer-logo.png" alt="swapee logo" class="max-w-36" /></a>
-					<p class="text-gray-200 mt-10">Copyright © 2023. Swapee.me</p>
+					<p class="text-gray-200 mt-10">Copyright © {currentYear ?? 2024}. Swapee.me</p>
 					<p class="text-gray-200 mt-3">All rights reserved.</p>
 					<a href="#" class="btn_language inline-block mt-6 font-bold !text-white hover:!text-black">English</a>
 				</div>
