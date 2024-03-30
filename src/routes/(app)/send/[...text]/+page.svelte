@@ -109,10 +109,26 @@
         {$t("user.send.contacts")}
       </h1>
       <div>
+        <!-- <a href={`/send/$aaaa`}>
+          <div
+            class="border-b p-2 last:border-b-0 hover:bg-gray-200 dark:hover:bg-swapee-purple transition-all duration-200 ease-out rounded-2xl hover:ring-1 ring-swapee-purple"
+          >
+            <div class="flex">
+              <div>
+                <div class="flex">
+                  <Avatar  size={20} disabled={true} />
+                  <div class="my-auto text-left">
+                    <p class="ml-1 text-lg break-words">aaa aasa</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a> -->
         {#each contacts as c}
           <a href={`/send/${c.username}`}>
             <div
-              class="border-b p-2 last:border-b-0 hover:bg-gray-100 rounded-2xl"
+            class="border-b p-2 last:border-b-0 hover:bg-gray-200 dark:hover:bg-swapee-purple transition-all duration-200 ease-out rounded-2xl hover:ring-1 ring-swapee-purple"
             >
               <div class="flex">
                 <div>
