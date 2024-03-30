@@ -128,7 +128,7 @@
         {#each contacts as c}
           <a href={`/send/${c.username}`}>
             <div
-            class="border-b p-2 last:border-b-0 hover:bg-gray-200 dark:hover:bg-swapee-purple transition-all duration-200 ease-out rounded-2xl hover:ring-1 ring-swapee-purple"
+            class="border-b p-2 last:border-b-0 hover:bg-gray-200 dark:hover:bg-stone-800 transition-all duration-200 ease-out rounded-2xl"
             >
               <div class="flex">
                 <div>
