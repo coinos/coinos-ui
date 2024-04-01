@@ -10,3 +10,4 @@ To get started, clone or download the repo, then:
     pnpm run dev
 
 You'll need to run [`coinos-server`](https://github.com/coinos/coinos-server) as well
+
