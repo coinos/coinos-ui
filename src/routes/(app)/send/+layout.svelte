@@ -9,7 +9,7 @@
   let cancel = () => goto(`/${user.username}`);
 </script>
 
-{#if user.haspin && (!$pin || $pin?.length !== 6)}
+{#if user?.haspin && (!$pin || $pin?.length !== 6)}
   <Pin bind:value={$pin} {cancel} />
 {/if}
 

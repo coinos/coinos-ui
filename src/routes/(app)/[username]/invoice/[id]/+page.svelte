@@ -1,5 +1,5 @@
 <script>
-  import { enhance } from "$app/forms";
+    import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import {
     btc,
@@ -42,10 +42,7 @@
     amount,
     hash,
     type,
-    memoPrompt,
     rate,
-    received,
-    prompt,
     text,
     tip,
     user: { username, currency },
@@ -61,8 +58,6 @@
       hash,
       type,
       rate,
-      received,
-      prompt,
       text,
       tip,
       user: { username, currency },

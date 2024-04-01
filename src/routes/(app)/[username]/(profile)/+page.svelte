@@ -92,7 +92,11 @@
       user: { username: subject.username },
     });
 
-    goto(`/send/invoice/${id}`, { invalidateAll: true });
+    if (invoice.memoPrompt) {
+      return goto(`/${subject.username}/invoice/${id}/memo`);
+    }
+    if (user) goto(`/send/invoice/${id}`, { invalidateAll: true });
+    else goto(`/${subject.username}/invoice/${id}`);
   };
 
   let reset = () =>
@@ -144,20 +148,18 @@
         </button>
       </a>
 
-        {#if user?.username === subject.username && user.menu}
-        <a href={`/${user.username}/items/create`} class="contents">
-          <button
-            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow basis-full"
-          >
-            <div class="mx-auto flex gap-2">
-              <Icon icon="plus" style="w-8 mx-auto" />
-              <div class="my-auto text-xl whitespace-nowrap">
-                {$t("items.add")}
-              </div>
+      <a href={`/${user.username}/items/create`} class="contents">
+        <button
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow basis-full"
+        >
+          <div class="mx-auto flex gap-2">
+            <Icon icon="plus" style="w-8 mx-auto" />
+            <div class="my-auto text-xl whitespace-nowrap">
+              {$t("items.add")}
             </div>
-          </button>
-        </a>
-      {/if}
+          </div>
+        </button>
+      </a>
     </div>
   {/if}
 

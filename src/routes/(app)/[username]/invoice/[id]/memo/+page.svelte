@@ -13,10 +13,8 @@
     sats,
   } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
-  import { goto } from "$app/navigation";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
-  import { tick } from "svelte";
 
   let submitting;
   let submit;

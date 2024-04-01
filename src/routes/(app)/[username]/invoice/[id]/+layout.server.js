@@ -34,5 +34,6 @@ export async function load({ depends, params, url, parent }) {
   }
 
   let src = Qr.drawImg(invoice.text || "", { size: 340 });
+
   return { id, invoice, src };
 }
