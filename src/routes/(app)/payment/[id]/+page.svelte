@@ -30,6 +30,7 @@
       amount,
       created,
       confirmed,
+      memo,
       rate,
       type,
       ref,
@@ -52,6 +53,7 @@
     amount,
     created,
     confirmed,
+    memo,
     rate,
     type,
     ref,
@@ -154,7 +156,7 @@
     </div>
 
     <div>
-      <span class="text-lg text-secondary">Total</span>
+      <span class="text-lg text-secondary">{$t("payments.total")}</span>
       <div>
         {f(fiat(a + (tip || 0), rate), currency)}
         <span class="text-secondary text-lg">⚡️{`${s(a + (tip || 0))}`} </span>
@@ -163,7 +165,7 @@
   {/if}
 
   <div>
-    <span class="text-lg text-secondary">Network fee</span>
+    <span class="text-lg text-secondary">{$t("payments.networkFee")}</span>
     <div>
       {f(fiat(fee, rate), currency)}
       <span class="text-secondary text-lg">⚡️{`${s(fee)}`}</span>
@@ -172,7 +174,7 @@
 
   {#if ourfee > 0}
     <div>
-      <span class="text-lg text-secondary">Platform fee</span>
+      <span class="text-lg text-secondary">{$t("payments.platformFee")}</span>
       <div>
         {f(fiat(ourfee, rate), currency)}
         <span class="text-secondary">⚡️{`${s(ourfee)}`}</span>
@@ -181,12 +183,26 @@
   {/if}
 
   <div>
-    <span class="text-lg text-secondary">Date</span>
+    <span class="text-lg text-secondary">{$t("payments.date")}</span>
     <div>
       {format(new Date(created), "h:mmaaa")}
       {format(new Date(created), "MMM d, yyyy")}
     </div>
   </div>
+
+  {#if memo}
+    <div>
+      <span class="text-lg text-secondary">{$t("payments.memo")}</span>
+      <div>{memo}</div>
+    </div>
+  {/if}
+
+  {#if type === "lightning"}
+    <div>
+      <span class="text-lg text-secondary">{$t("payments.preimage")}</span>
+      <div>{ref}</div>
+    </div>
+  {/if}
 
   {#if type === "bitcoin" || type === "liquid"}
     <div>
