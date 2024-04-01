@@ -319,7 +319,7 @@
 		"id": "Transaction ID",
 		"details": "Transaction Details",
 		"header": "Payments",
-		"preimage": "Proof of payment",
+		"preimage": "Lightning preimage",
 		"maxfee": "Max routing fee",
 		"type": "Type",
 		"time": "Time",
