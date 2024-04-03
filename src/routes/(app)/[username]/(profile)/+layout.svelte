@@ -164,7 +164,7 @@
         {#if following}
           <div class="w-full flex">
             <button
-              class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
+              class="mx-auto rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex w-60 bg-black text-white"
               on:click={unfollow}
             >
               <div class="mx-auto flex">
@@ -176,7 +176,7 @@
         {:else}
           <div class="w-full flex">
             <button
-              class="mx-auto rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+              class="mx-auto rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex w-60"
               on:click={follow}
             >
               <div class="mx-auto flex">
@@ -192,7 +192,7 @@
         <div class="w-full flex">
           <a href={`/${subject.username}/messages`} class="mx-auto">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+              class="rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex w-60"
             >
               <div class="mx-auto flex">
                 <Icon icon="message" style="mr-2 my-auto" />
@@ -212,7 +212,7 @@
             class="mx-auto"
           >
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+              class="rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex w-60"
             >
               <div class="mx-auto flex">
                 <Icon icon="send" style="mr-2" />
@@ -228,7 +228,7 @@
           <input placeholder="Password reset" bind:value={password} />
           <button
             type="submit"
-            class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex w-60"
+            class="rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex w-60"
           >
             <div class="mx-auto flex">
               <Icon icon="clock" style="mr-2 my-auto w-8" />

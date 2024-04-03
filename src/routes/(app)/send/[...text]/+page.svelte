@@ -124,7 +124,7 @@
               </div>
             </div>
           </div>
-        </a> -->
+        </a> -->         
         {#each contacts as c}
           <a href={`/send/${c.username}`}>
             <div
