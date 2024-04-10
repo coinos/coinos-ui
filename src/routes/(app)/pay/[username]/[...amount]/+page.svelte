@@ -15,7 +15,7 @@
   export let form;
 
   let { subject, rate, rates, user } = data;
-  let currency = user.currency || subject.currency || "USD";
+  let currency = user?.currency || subject?.currency || "USD";
   let next;
 
   let amount = form?.amount || data.amount;
@@ -25,25 +25,25 @@
     hash,
     amountFiat = 0;
 
-  $: r = rate || rates[user.currency || subject.currency];
+  $: r = rate || rates[user?.currency || subject?.currency];
 
   let setAmount = async () => {
     amount = a;
     amountFiat = parseFloat(af).toFixed(2);
     rate = fiat ? (sats * amountFiat) / amount : r;
 
-    ({ hash } = await post(`/${subject.username}/invoice`, {
+    let id;
+    ({ id, hash } = await post(`/${subject.username}/invoice`, {
       invoice: {
         amount,
-        hash: "internal",
         rate: rates[subject.currency],
         prompt: subject.prompt,
-        type: "internal",
+        type: "lightning",
       },
       user: subject,
     }));
 
-    goto(`/${subject.username}/invoice/${hash}`);
+    goto(`/${subject.username}/invoice/${id}`);
   };
 
   let loading;

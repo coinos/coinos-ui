@@ -53,7 +53,7 @@ let parse = async (t, host) => {
       redirect(307, r);
     }
 
-    if (user) redirect(307, `/send/${user.username}`);
+    if (user) redirect(307, `/pay/${user.username}`);
     else if (id) redirect(307, `/send/${id}`);
   }
 
@@ -63,7 +63,7 @@ let parse = async (t, host) => {
     if (user.anon) user = null;
   } catch (e) {}
 
-  if (user) redirect(307, `/send/user/${t}`);
+  if (user) redirect(307, `/pay/${t}`);
 
   let fund;
   try {
@@ -78,7 +78,7 @@ let parse = async (t, host) => {
     invoice = await get(`/invoice/${t}`);
   } catch (e) {}
 
-  if (invoice) redirect(307, `/send/invoice/${invoice.hash}`);
+  if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
 };
 
 export async function load({ cookies, params, request, url }) {

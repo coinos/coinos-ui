@@ -40,6 +40,7 @@ export let load = async ({ cookies, request, url }) => {
     host,
     pathname,
     i18n: { locale, route: pathname },
+    user,
     translations: translations.get(),
   };
 };

@@ -152,7 +152,7 @@
       {#if !subject.anon && subject.username !== user?.username && !subject.hidepay}
         <a
           href={user
-            ? `/send/${subject.username}`
+            ? `/pay/${subject.username}`
             : `/${subject.username}/receive`}
           class="contents"
           id="payButton"
