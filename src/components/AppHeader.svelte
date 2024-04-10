@@ -132,7 +132,7 @@
                 {/each}
               </ul>
               <hr class="my-4" />
-              <a href="/"
+              <a href="/?stay=true"
                 ><img src="/images/logo.svg" alt="Coinos" class="w-32" /></a
               >
             </div>

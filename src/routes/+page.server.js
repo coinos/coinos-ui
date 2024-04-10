@@ -1,4 +1,5 @@
-// export const prerender = true;
-export let load = async () => {
+import { redirect } from "@sveltejs/kit";
+
+export let load = async ({ parent, url }) => {
   return { faqs: ["cost", "compatibility", "safety", "pos", "bitcoin"] };
 };
