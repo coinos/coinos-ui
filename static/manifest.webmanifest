@@ -5,7 +5,7 @@
   "scope": "/",
   "start_url": "/start",
   "name": "Coinos",
-  "description": "Bitcoin web wallet",
+  "description": "The easiest way to get started with Bitcoin",
   "short_name": "Coinos",
   "icons": [
     {
@@ -28,6 +28,14 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+      {
+        "src": "/screenshot.png",
+        "sizes": "632x701",
+        "type": "image/gif",
+        "label": "Homepage"
+      }
   ],
   "protocol_handlers": [
     {
