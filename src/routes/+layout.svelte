@@ -12,15 +12,13 @@
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
 
-
   onMount(() => {
     if (!browser) return;
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       $installPrompt = event;
     });
-  };
-
+  });
 </script>
 
 <svelte:head>
