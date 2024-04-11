@@ -1,4 +1,5 @@
 <script>
+  import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
   import { loading, t } from "$lib/translations";
