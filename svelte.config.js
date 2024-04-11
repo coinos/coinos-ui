@@ -17,9 +17,6 @@ const config = {
       crawl: false,
       entries: [],
     },
-    serviceWorker: {
-      register: false
-    }
   },
   onwarn: (warning, handler) => {
     if (warning.code.includes("caption") || warning.filename.includes("Toast"))

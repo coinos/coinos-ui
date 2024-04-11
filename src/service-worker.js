@@ -33,7 +33,6 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log("FETCH")
   // ignore POST requests etc
   if (event.request.method !== "GET") return;
 
