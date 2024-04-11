@@ -2,23 +2,6 @@
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
   import { loading, t } from "$lib/translations";
-  import { onMount } from "svelte";
-  import { dev } from "$app/environment";
-
-    onMount(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/service-worker.js", {
-          type: dev ? "module" : "classic",
-        })
-        .then((registration) => {
-          console.log("SW registered: ", registration);
-        })
-        .catch((registrationError) => {
-          console.log("SW registration failed: ", registrationError);
-        });
-    }
-  });
 
   export let data;
   let { pathname } = data;
