@@ -156,7 +156,7 @@
 
       {#if $installPrompt}
         <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow basis-full fixed bottom-16"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow basis-full fixed bottom-16 xl:hidden"
           on:click={install}
         >
           <div class="mx-auto flex gap-2">
