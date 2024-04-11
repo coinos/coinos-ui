@@ -102,6 +102,21 @@
   let reset = () =>
     (dragDisabled =
       user?.username !== subject?.username || window.innerWidth < 768);
+
+  let installPrompt;
+  onMount(() => {
+    if (!browser) return;
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      installPrompt = event;
+    });
+  });
+
+  let install = async () => {
+    if (!installPrompt) return;
+    await installPrompt.prompt();
+    installPrompt = null;
+  };
 </script>
 
 <svelte:window on:resize={reset} />
@@ -148,18 +163,17 @@
         </button>
       </a>
 
-      <a href={`/${user.username}/items/create`} class="contents">
+      {#if installPrompt}
         <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow basis-full"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow basis-full fixed bottom-16"
+          on:click={install}
         >
           <div class="mx-auto flex gap-2">
-            <Icon icon="plus" style="w-8 mx-auto" />
-            <div class="my-auto text-xl whitespace-nowrap">
-              {$t("items.add")}
-            </div>
+            <Icon icon="save" style="w-8 mx-auto invert" />
+            <div class="my-auto text-xl whitespace-nowrap">Install app</div>
           </div>
         </button>
-      </a>
+      {/if}
     </div>
   {/if}
 
