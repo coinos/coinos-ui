@@ -6,6 +6,7 @@
   import FaqCard from "$comp/FaqCard.svelte";
   import Image from "$comp/Image.svelte";
   import Footer from "$comp/Footer.svelte";
+  import About from "$comp/About.svelte";
 
   import { locale, t } from "$lib/translations";
   import { onDestroy, onMount, tick } from "svelte";
@@ -28,19 +29,9 @@
   let loaded;
 
   let observer;
-  let isIntersecting = false;
 
-  let About;
   onMount(async () => {
-    observer = new IntersectionObserver(async (entries) => {
-      About = (await import("$comp/About.svelte")).default;
-      isIntersecting = isIntersecting || entries[0].isIntersecting;
-    });
-
     loaded = true;
-
-    await tick();
-    observer.observe(document.getElementById("faq"));
   });
 
   onDestroy(() => (loaded = false));
@@ -103,9 +94,7 @@
       <div bind:this={about} />
     </div>
 
-    {#if isIntersecting}
-      <About />
-    {/if}
+    <About />
   </main>
 
   <Footer />

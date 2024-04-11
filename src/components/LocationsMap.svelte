@@ -214,33 +214,27 @@
   onDestroy(() => map && map.remove());
 </script>
 
-<div class="container mx-auto p-2 space-y-5">
-  <div class="flex w-full h-[60vh]" id="map" bind:this={mapWrapper}>
-    <div
-      id="map-container"
-      class="mx-auto h-full w-full z-0"
-      bind:this={mapContainer}
-    />
-    <div class="relative">
-      <div class="flex absolute flex top-2 right-2 gap-2">
-        <button
-          class="rounded-full border-2 border-black bg-white w-10 h-10"
-          on:click={toggle}
-        >
-          {#if timeout}
-            <Icon icon="pause" style="w-4 m-auto" />
-          {:else}
-            <Icon icon="play" style="w-4 m-auto" />
-          {/if}
-        </button>
-        <button
-          class="rounded-full border-2 border-black bg-white w-10 h-10"
-          on:click={full}
-        >
-          <Icon icon="full" style="w-4 m-auto" />
-        </button>
-      </div>
-    </div>
+
+<div class="w-screen h-screen flex" id="map" bind:this={mapWrapper}>
+  <div
+                                  id="map-container"
+                                  class="mx-auto h-full w-full z-0"
+                                  bind:this={mapContainer}
+                                  />
+                                  <div class="relative">
+                                    <div class="flex absolute flex top-2 right-2 gap-2">
+                                      <button
+                                         class="rounded-full border-2 border-black bg-white w-10 h-10"
+                                         on:click={toggle}
+                                         >
+                                         {#if timeout}
+                                           <Icon icon="pause" style="w-4 m-auto" />
+                                         {:else}
+                                           <Icon icon="play" style="w-4 m-auto" />
+                                         {/if}
+                                      </button>
+                                    </div>
+                                  </div>
   </div>
 
   <!-- <div class="hidden lg:grid grid-cols-3 justify-items-center"> -->
@@ -253,7 +247,7 @@
   <!-- 		> -->
   <!-- 	{/each} -->
   <!-- </div> -->
-</div>
+
 
 <style>
   #map:fullscreen,
