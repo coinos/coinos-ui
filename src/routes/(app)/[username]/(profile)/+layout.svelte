@@ -168,14 +168,16 @@
         </a>
       {/if}
 
+      {#if user.username !== subject.username}
       <button
         type="button"
         on:click={toggleDetails}
         class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex justify-center w-full"
       >
-        <Icon icon="edit" style="w-8 mr-2" />
-        <div class="mt-1">{$t("user.details")}</div>
+        <Icon icon="profile" style="w-8 mr-2" />
+        <div class="mt-1">{$t("user.info")}</div>
       </button>
+      {/if}
 
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>

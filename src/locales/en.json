@@ -155,7 +155,7 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
-		"details": "Details",
+		"info": "Info",
 		"noMessages": "You have not sent or received any messages yet",
 		"profilePage": "Profile page",
 		"nostrPubkey": "Nostr pubkey",

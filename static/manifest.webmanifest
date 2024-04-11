@@ -11,30 +11,80 @@
     {
       "src": "/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-256x256.png",
       "sizes": "256x256",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-384x384.png",
       "sizes": "384x384",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "screenshots": [
       {
-        "src": "/screenshot.png",
-        "sizes": "632x701",
-        "type": "image/gif",
-        "label": "Homepage"
+        "src": "/home.png",
+        "sizes": "801x920",
+        "type": "image/png",
+        "label": "Homepage",
+        "form_factor": "wide"
+      },
+      {
+        "src": "/receive.png",
+        "sizes": "801x920",
+        "type": "image/png",
+        "label": "Receive",
+        "form_factor": "wide"
+      },
+      {
+        "src": "/home.png",
+        "sizes": "801x920",
+        "type": "image/png",
+        "label": "Homepage",
+        "form_factor": "narrow"
+      },
+      {
+        "src": "/receive.png",
+        "sizes": "801x920",
+        "type": "image/png",
+        "label": "Receive",
+        "form_factor": "narrow"
       }
   ],
   "protocol_handlers": [
