@@ -42,6 +42,7 @@ export let avatar = writable();
 export let banner = writable();
 export let event = writable();
 export let events = writable({});
+export let installPrompt = writable();
 export let invoice = writable();
 export let last = writable();
 export let loginRedirect = writable();
