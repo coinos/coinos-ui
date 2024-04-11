@@ -155,6 +155,7 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
+    "isntall": "Install app",
 		"info": "Info",
 		"noMessages": "You have not sent or received any messages yet",
 		"profilePage": "Profile page",

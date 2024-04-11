@@ -2,7 +2,6 @@
   import { browser } from "$app/environment";
   import { goto, invalidate } from "$app/navigation";
   import { btc, f, sat, post } from "$lib/utils";
-  import { onMount } from "svelte";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import DeleteItem from "$comp/DeleteItem.svelte";
@@ -10,6 +9,7 @@
   import { fade } from "svelte/transition";
   import { cubicIn } from "svelte/easing";
   import { flip } from "svelte/animate";
+  import { installPrompt } from "$lib/store";
 
   import {
     dndzone,
@@ -103,19 +103,10 @@
     (dragDisabled =
       user?.username !== subject?.username || window.innerWidth < 768);
 
-  let installPrompt;
-  onMount(() => {
-    if (!browser) return;
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      installPrompt = event;
-    });
-  });
-
   let install = async () => {
-    if (!installPrompt) return;
-    await installPrompt.prompt();
-    installPrompt = null;
+    if (!$installPrompt) return;
+    await $installPrompt.prompt();
+    $installPrompt = null;
   };
 </script>
 
@@ -163,14 +154,14 @@
         </button>
       </a>
 
-      {#if installPrompt}
+      {#if $installPrompt}
         <button
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow basis-full fixed bottom-16"
           on:click={install}
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="save" style="w-8 mx-auto invert" />
-            <div class="my-auto text-xl whitespace-nowrap">Install app</div>
+            <div class="my-auto text-xl whitespace-nowrap">{$t("user.install")}</div>
           </div>
         </button>
       {/if}
