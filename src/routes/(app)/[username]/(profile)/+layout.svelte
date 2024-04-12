@@ -168,7 +168,7 @@
         </a>
       {/if}
 
-      {#if user.username !== subject.username}
+      {#if user?.username !== subject.username}
         <button
           type="button"
           on:click={toggleDetails}
