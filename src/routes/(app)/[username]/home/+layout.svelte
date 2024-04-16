@@ -149,7 +149,7 @@
         </a>
       {/if}
 
-      {#if !subject.anon && subject.username !== user?.username}
+      {#if !subject.anon && subject.username !== user?.username && !subject.hidepay}
         <a
           href={user
             ? `/pay/${subject.username}`
@@ -168,6 +168,7 @@
         </a>
       {/if}
 
+      {#if user?.username !== subject.username}
         <button
           type="button"
           on:click={toggleDetails}
@@ -176,6 +177,7 @@
           <Icon icon="profile" style="w-8 mr-2" />
           <div class="mt-1">{$t("user.info")}</div>
         </button>
+      {/if}
 
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>

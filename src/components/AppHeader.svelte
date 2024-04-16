@@ -51,10 +51,10 @@
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
-        <a href={`/${user.username}`}>
+        <a href={`/${user.username}/home`}>
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
-              .url.pathname === `/${user.username}`
+              .url.pathname === `/${user.username}/home`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
             ><Icon icon="home" style="mx-auto w-6 sm:w-8" />
