@@ -97,6 +97,7 @@
       </div>
     {/if}
 
+    <div>
     <div class="flex justify-center gap-2">
       <a href={`/${subject.pubkey}/follows`}
         ><b>{subject.follows.length}</b>
@@ -107,6 +108,70 @@
         <span class="text-secondary">{$t("user.followers")}</span></a
       >
     </div>
+
+    <button type="button" on:click={toggleDetails} class="flex text-base text-secondary mx-auto">
+      <div class="mt-1">
+        {$t("user.moreDetails")}
+      </div>
+      <Icon
+        icon="chevron-left"
+        style={`w-6 mr-2 my-auto ${showDetails ? "-rotate-90" : "rotate-180"}`}
+      />
+    </button>
+    </div>
+
+    {#if showDetails}
+      <div class="text-xl space-y-5">
+        <div>
+          <div class="font-bold">{$t("user.profilePage")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-secondary">
+              {profile}
+            </div>
+            <div class="flex mb-auto gap-1">
+              <button class="my-auto" on:click={() => copy(profile)}
+                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+              >
+              <a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto">
+                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold">{$t("user.lightningAddress")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-secondary">
+              {lnaddr}
+            </div>
+            <div class="flex mb-auto gap-1">
+              <button class="my-auto" on:click={() => copy(lnaddr)}
+                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+              >
+              <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
+                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold">{$t("user.nostrPubkey")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-secondary">
+              {npub}
+            </div>
+            <div class="flex my-auto gap-1">
+              <button class="my-auto" on:click={() => copy(npub)}
+                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+              >
+              <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
+                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
 
     <div class="flex flex-wrap gap-2 w-full text-xl">
       {#if user && user.username !== subject.username && subject.pubkey}
@@ -168,17 +233,6 @@
         </a>
       {/if}
 
-      {#if user?.username !== subject.username}
-        <button
-          type="button"
-          on:click={toggleDetails}
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex justify-center w-full"
-        >
-          <Icon icon="profile" style="w-8 mr-2" />
-          <div class="mt-1">{$t("user.info")}</div>
-        </button>
-      {/if}
-
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>
           <input placeholder="Password reset" bind:value={password} />
@@ -194,58 +248,6 @@
         </form>
       {/if}
     </div>
-    {#if showDetails}
-      <div class="text-xl space-y-5">
-        <div>
-          <div class="font-bold">{$t("user.profilePage")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-secondary">
-              {profile}
-            </div>
-            <div class="flex mb-auto gap-1">
-              <button class="my-auto" on:click={() => copy(profile)}
-                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-              >
-              <a href={`/qr/${encodeURIComponent(profile)}`} class="my-auto">
-                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="font-bold">{$t("user.lightningAddress")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-secondary">
-              {lnaddr}
-            </div>
-            <div class="flex mb-auto gap-1">
-              <button class="my-auto" on:click={() => copy(lnaddr)}
-                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-              >
-              <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="font-bold">{$t("user.nostrPubkey")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-secondary">
-              {npub}
-            </div>
-            <div class="flex my-auto gap-1">
-              <button class="my-auto" on:click={() => copy(npub)}
-                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-              >
-              <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    {/if}
   </div>
 
   <div class="w-full">

@@ -288,7 +288,9 @@
 			"send": "送信"
 		},
 		"details": "詳細",
-		"noMessages": "まだメッセージを送信または受信していません"
+		"noMessages": "まだメッセージを送信または受信していません",
+		"install": "アプリをインストールする",
+		"moreDetails": "リンクと詳細"
 	},
 	"payments": {
 		"networkFee": "ネットワーク料金",

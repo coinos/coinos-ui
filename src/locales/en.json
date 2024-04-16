@@ -155,8 +155,8 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
-    "install": "Install app",
-		"info": "Info",
+		"install": "Install app",
+		"moreDetails": "Links and details",
 		"noMessages": "You have not sent or received any messages yet",
 		"profilePage": "Profile page",
 		"nostrPubkey": "Nostr pubkey",
