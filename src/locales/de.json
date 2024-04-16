@@ -311,7 +311,9 @@
 		"notes": "Anmerkungen",
 		"pay": "Zahlen",
 		"details": "Einzelheiten",
-		"noMessages": "Sie haben noch keine Nachrichten gesendet oder empfangen"
+		"noMessages": "Sie haben noch keine Nachrichten gesendet oder empfangen",
+		"install": "App installieren",
+		"moreDetails": "Links und Details"
 	},
 	"payments": {
 		"header": "Transaktionen",

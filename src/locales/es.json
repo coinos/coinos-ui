@@ -288,7 +288,9 @@
 			"send": "Enviar"
 		},
 		"details": "Detalles",
-		"noMessages": "Aún no has enviado ni recibido ningún mensaje"
+		"noMessages": "Aún no has enviado ni recibido ningún mensaje",
+		"install": "Instalar aplicación",
+		"moreDetails": "Enlaces y detalles"
 	},
 	"payments": {
 		"networkFee": "Tarifa de Red",

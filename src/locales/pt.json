@@ -309,7 +309,9 @@
 		"profilePage": "Página de perfil",
 		"nostrPubkey": "Nostr pubkey",
 		"details": "Detalhes",
-		"noMessages": "Você ainda não enviou ou recebeu nenhuma mensagem"
+		"noMessages": "Você ainda não enviou ou recebeu nenhuma mensagem",
+		"install": "Instalar aplicativo",
+		"moreDetails": "Links e detalhes"
 	},
 	"payments": {
 		"amount": "Quantidade",

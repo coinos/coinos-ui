@@ -284,7 +284,9 @@
 		"profilePage": "Page de profil",
 		"nostrPubkey": "Clé publique nostr",
 		"details": "Détails",
-		"noMessages": "Vous n'avez pas encore envoyé ou reçu de messages"
+		"noMessages": "Vous n'avez pas encore envoyé ou reçu de messages",
+		"install": "Installer l'application",
+		"moreDetails": "Liens et détails"
 	},
 	"news": {
 		"header": "Nouvelles",
