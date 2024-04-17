@@ -98,26 +98,32 @@
     {/if}
 
     <div>
-    <div class="flex justify-center gap-2">
-      <a href={`/${subject.pubkey}/follows`}
-        ><b>{subject.follows.length}</b>
-        <span class="text-secondary">{$t("user.following")}</span></a
-      >
-      <a href={`/${subject.pubkey}/followers`}
-        ><b>{subject.followers.length}</b>
-        <span class="text-secondary">{$t("user.followers")}</span></a
-      >
-    </div>
-
-    <button type="button" on:click={toggleDetails} class="flex text-base text-secondary mx-auto">
-      <div class="mt-1">
-        {$t("user.moreDetails")}
+      <div class="flex justify-center gap-2">
+        <a href={`/${subject.pubkey}/follows`}
+          ><b>{subject.follows.length}</b>
+          <span class="text-secondary">{$t("user.following")}</span></a
+        >
+        <a href={`/${subject.pubkey}/followers`}
+          ><b>{subject.followers.length}</b>
+          <span class="text-secondary">{$t("user.followers")}</span></a
+        >
       </div>
-      <Icon
-        icon="chevron-left"
-        style={`w-6 mr-2 my-auto ${showDetails ? "-rotate-90" : "rotate-180"}`}
-      />
-    </button>
+
+      <button
+        type="button"
+        on:click={toggleDetails}
+        class="flex text-base text-secondary mx-auto"
+      >
+        <div class="mt-1">
+          {$t("user.moreDetails")}
+        </div>
+        <Icon
+          icon="chevron-left"
+          style={`w-6 mr-2 my-auto ${
+            showDetails ? "-rotate-90" : "rotate-180"
+          }`}
+        />
+      </button>
     </div>
 
     {#if showDetails}
