@@ -43,43 +43,29 @@
       KRW: "₩",
     }[currency] || "";
 
-  const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "<"];
+  const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "0", "<"];
 
+  let n = "";
   const handleInput = (value) => {
+    console.log("N", n);
+    console.log("value", value);
     if (selecting) amount = 0;
-    selecting = false;
 
     if (fiat) {
-      if (amountFiat === 0 && value !== "." && value !== "<" && value !== "0") {
-        amountFiat = value;
-      } else if ((amountFiat === 0 || amountFiat === "0") && value === "0") {
-        return;
-      } else if (amountFiat === 0 && value === ".") {
-        amountFiat = "0.";
-      } else if (
-        amountFiat !== 0 &&
-        amountFiat.includes(".") &&
-        value === "."
-      ) {
-        return;
+      if (value === "C") {
+        n = "";
       } else if (value === "<") {
-        if (amountFiat !== 0) {
-          amountFiat = amountFiat.slice(0, amountFiat.length - 1);
-          if (amountFiat.length === 0) {
-            amountFiat = 0;
-            amount = 0;
-          }
-        }
-      } else if (
-        value !== "." &&
-        value !== "<" &&
-        parseInt(amountFiat + value) > rate
-      ) {
-        warning($t("user.receive.lessThan1BTCWarning"));
-      } else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
-        return;
+        n = n.slice(0, -1);
       } else {
-        amountFiat = amountFiat + value;
+        n += value;
+      }
+
+      if (!n) {
+        amountFiat = "0";
+      } else {
+        console.log("BF", amountFiat);
+        amountFiat = (parseInt(n, 10) / 100).toFixed(2);
+        console.log("AF", amountFiat);
       }
     } else {
       if (value === ".") {
@@ -136,6 +122,7 @@
 
     if (fiat) {
       amountFiat = html;
+      n = parseFloat(html).toFixed(2)
     } else {
       amount = parseInt(html.replace(/,/g, ""));
     }
