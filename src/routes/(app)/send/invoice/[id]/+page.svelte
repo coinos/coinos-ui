@@ -51,9 +51,14 @@
   let submit = () => (submitting = true);
 
   let external = async () => {
-    let invoice = { type: "lightning", amount, currency };
     let { id } = await post(`/${recipient.username}/invoice`, {
-      invoice,
+      invoice: {
+        ...invoice,
+        type: "lightning",
+        amount,
+        currency,
+        rate,
+      },
       user: { username: recipient.username },
     });
 
