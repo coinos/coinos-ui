@@ -15,7 +15,7 @@
   export let form;
 
   let { subject, rate, rates, user } = data;
-  let currency = user?.currency || subject?.currency || "USD";
+  let currency = subject?.currency || "USD";
   let next;
 
   let amount = form?.amount || data.amount;
@@ -25,7 +25,7 @@
     hash,
     amountFiat = 0;
 
-  $: r = rate || rates[user?.currency || subject?.currency];
+  $: r = rate || rates[subject?.currency];
 
   let setAmount = async () => {
     amount = a;

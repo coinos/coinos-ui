@@ -95,8 +95,7 @@
     if (invoice.memoPrompt) {
       return goto(`/${subject.username}/invoice/${id}/memo`);
     }
-    if (user) goto(`/send/invoice/${id}`, { invalidateAll: true });
-    else goto(`/${subject.username}/invoice/${id}`);
+    goto(`/${subject.username}/invoice/${id}`);
   };
 
   let reset = () =>
@@ -295,7 +294,7 @@
         </div>
       </div>
     </button>
-  {:else}
+  {:else if user.username !== subject.username}
     <a href={`/pay/${subject.username}`} class="contents">
       <button
         class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
