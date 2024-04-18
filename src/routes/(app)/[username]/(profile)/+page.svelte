@@ -161,16 +161,20 @@
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="save" style="w-8 mx-auto invert" />
-            <div class="my-auto text-xl whitespace-nowrap">{$t("user.install")}</div>
+            <div class="my-auto text-xl whitespace-nowrap">
+              {$t("user.install")}
+            </div>
           </div>
         </button>
       {/if}
     </div>
   {/if}
 
+  {#if items.length}
+    <h2 class="text-2xl font-bold">Select items</h2>
+  {/if}
   <div
-    class="grid sm:grid-cols-2 gap-4"
-    class:pb-20={total > 0}
+    class="grid sm:grid-cols-2 gap-4 pb-20"
     use:dndzone={{ items, flipDurationMs, dropTargetStyle, dragDisabled }}
     on:consider={handleConsider}
     on:finalize={handleFinalize}
@@ -275,9 +279,10 @@
       </button>
     {/each}
   </div>
+  <div class="fixed inset-x-0 mx-autoflex" class:bottom-16={items.length} class:static={!items.length}>
   {#if total > 0}
     <button
-      class="rounded-2xl py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white fixed bottom-16 right-4"
+      class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
       on:click={checkout}
     >
       <div class="mx-auto flex">
@@ -290,7 +295,19 @@
         </div>
       </div>
     </button>
+  {:else}
+    <a href={`/pay/${subject.username}`} class="contents">
+      <button
+        class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
+      >
+        <div class="mx-auto flex gap-2">
+            <Icon icon="send" style="w-8 invert" />
+            <div class="my-auto text-2xl">{$t("user.dashboard.payNow")}</div>
+        </div>
+      </button>
+    </a>
   {/if}
+  </div>
 </div>
 
 <style>
@@ -304,5 +321,9 @@
     background: #333;
     opacity: 0.5;
     margin: 0;
+  }
+
+  .bottom-half {
+    @apply bottom-1/2
   }
 </style>

@@ -117,12 +117,9 @@
         <div class="mt-1">
           {$t("user.moreDetails")}
         </div>
-        <Icon
-          icon="chevron-left"
-          style={`w-6 mr-2 my-auto ${
-            showDetails ? "-rotate-90" : "rotate-180"
-          }`}
-        />
+        <div class:-rotate-90={showDetails} class:rotate-180={!showDetails} class="my-auto">
+          <Icon icon="chevron-left" style="w-6 mr-2" />
+        </div>
       </button>
     </div>
 
@@ -215,25 +212,6 @@
             <div class="mx-auto flex">
               <Icon icon="message" style="w-8 mr-2 my-auto" />
               <div class="mt-1 my-auto">{$t("user.message")}</div>
-            </div>
-          </button>
-        </a>
-      {/if}
-
-      {#if !subject.anon && subject.username !== user?.username && !subject.hidepay}
-        <a
-          href={user
-            ? `/pay/${subject.username}`
-            : `/${subject.username}/receive`}
-          class="contents"
-          id="payButton"
-        >
-          <button
-            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
-          >
-            <div class="mx-auto flex">
-              <Icon icon="send" style="w-8 mr-2" />
-              <div class="mt-1">{$t("user.pay")}</div>
             </div>
           </button>
         </a>

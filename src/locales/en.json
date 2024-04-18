@@ -156,7 +156,7 @@
 	},
 	"user": {
 		"install": "Install app",
-		"moreDetails": "Links and details",
+		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages yet",
 		"profilePage": "Profile page",
 		"nostrPubkey": "Nostr pubkey",
@@ -181,6 +181,7 @@
 		"this": "This",
 		"lightningAddress": "Lightning address",
 		"dashboard": {
+      "payNow": "Pay now",
 			"checkout": "Checkout",
 			"go": "Go",
 			"dashboard": "Dashboard",

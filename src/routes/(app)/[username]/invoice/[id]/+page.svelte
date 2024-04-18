@@ -87,7 +87,6 @@
   let subbed;
 
   onMount(async () => {
-    $showQr = $showQr && 1;
     if (browser) {
       last.subscribe((v) => {
         if (!v || subbed) return;
@@ -121,7 +120,7 @@
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
-  {#if $showQr === 1}
+  {#if $showQr}
     <div>
       <a
         href={[types.bitcoin, types.liquid].includes(invoice.type)
@@ -203,7 +202,7 @@
 
     <button
       class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
-      on:click={() => ($showQr = $showQr ? false : 2)}
+      on:click={() => ($showQr = !$showQr)}
     >
       <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
       <div class="my-auto">
@@ -265,23 +264,6 @@
         <span class="text-teal-500 font-bold">L-BTC</span>,
         {$t("payments.dontDeposit")}
       </div>
-    </div>
-  {/if}
-
-  {#if $showQr === 2}
-    <div>
-      <a
-        href={[types.bitcoin, types.liquid].includes(invoice.type)
-          ? invoice.text
-          : "lightning:" + invoice.text}
-      >
-        <img
-          {src}
-          class="mx-auto z-10 shadow-inner rounded-2xl"
-          bind:this={qr}
-          alt={txt}
-        />
-      </a>
     </div>
   {/if}
 </div>
