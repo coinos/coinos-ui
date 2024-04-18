@@ -179,11 +179,11 @@
 
   <button
     type="button"
-    class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border bg-black text-white text-xl whitespace-nowrap"
+    class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap"
     on:click={() => copy(txt)}
   >
-    <Icon icon="copy" style="w-8 my-auto invert" />
-    <div class="my-auto font-bold">
+    <Icon icon="copy" style="w-8 my-auto" />
+    <div class="my-auto">
       {txt.substr(0, 11)}..{txt.substr(-10)}
     </div>
   </button>

@@ -57,7 +57,6 @@
         type: "lightning",
         amount,
         currency,
-        rate,
       },
       user: { username: recipient.username },
     });
