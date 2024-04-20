@@ -278,34 +278,37 @@
       </button>
     {/each}
   </div>
-  <div class="fixed inset-x-0 mx-autoflex" class:bottom-16={items.length} class:static={!items.length}>
-  {#if total > 0}
-    <button
-      class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
-      on:click={checkout}
-    >
-      <div class="mx-auto flex">
-        <div class="my-auto text-2xl">
-          {$t("user.dashboard.checkout")}
-          {f(total, currency)}
-          <span class="text-base">
-            {sat(btc(total, rate), currency)}
-          </span>
-        </div>
-      </div>
-    </button>
-  {:else if user?.username !== subject.username}
-    <a href={`/pay/${subject.username}`} class="contents">
+  <div
+    class="fixed inset-x-0 mx-auto flex bottom-16"
+    class:static={!items.length}
+  >
+    {#if total > 0}
       <button
         class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
+        on:click={checkout}
       >
-        <div class="mx-auto flex gap-2">
-            <Icon icon="send" style="w-8 invert" />
-            <div class="my-auto text-2xl">{$t("user.dashboard.payNow")}</div>
+        <div class="mx-auto flex">
+          <div class="my-auto text-2xl">
+            {$t("user.dashboard.checkout")}
+            {f(total, currency)}
+            <span class="text-base">
+              {sat(btc(total, rate), currency)}
+            </span>
+          </div>
         </div>
       </button>
-    </a>
-  {/if}
+    {:else if user?.username !== subject.username}
+      <a href={`/pay/${subject.username}`} class="contents">
+        <button
+          class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
+        >
+          <div class="mx-auto flex gap-2">
+            <Icon icon="send" style="w-8 invert" />
+            <div class="my-auto text-2xl">{$t("user.dashboard.payNow")}</div>
+          </div>
+        </button>
+      </a>
+    {/if}
   </div>
 </div>
 
@@ -323,6 +326,6 @@
   }
 
   .bottom-half {
-    @apply bottom-1/2
+    @apply bottom-1/2;
   }
 </style>
