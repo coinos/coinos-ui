@@ -226,7 +226,7 @@
   {/if}
 
   <div class="flex gap-2">
-    {#if amount < 0 && !confirmed}
+    {#if user.admin}
       <button
         class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
         on:click={bump}
