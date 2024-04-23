@@ -43,7 +43,7 @@
       user: subject,
     }));
 
-    goto(`/${subject.username}/invoice/${id}`);
+    goto(`/send/invoice/${id}`);
   };
 
   let loading;
