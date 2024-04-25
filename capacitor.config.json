@@ -1,0 +1,8 @@
+{
+  "appId": "io.coinos",
+  "appName": "coinos",
+  "server": {
+    "hostname": "coinos.io",
+    "url": "https://coinos.io"
+  }
+}
