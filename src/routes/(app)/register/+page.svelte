@@ -84,7 +84,6 @@
 
   let loading;
   async function handleSubmit(e) {
-    console.log("HERE")
     loading = true;
 
     let data = new FormData(this);
@@ -213,7 +212,6 @@
         </div>
       {/if}
 
-      OHH
       <form
         class="space-y-5"
         on:submit|preventDefault={handleSubmit}
@@ -293,7 +291,7 @@
 
         <button
           tabindex="3"
-          type="button"
+          type="submit"
           class="bg-black dark:bg-swapee-purple text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80 active:scale-95 transition-all"
           disabled={loading}
           bind:this={btn}
