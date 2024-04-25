@@ -7,7 +7,7 @@
 		"header": "À Propos",
 		"locations": {
 			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente swapee. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@swapee.me\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
 		},
 		"team": {
 			"header": "L'Équipe",
@@ -26,21 +26,14 @@
 	"error": {
 		"header": "Erreur",
 		"message": "S'il vous plait réessayez ou contactez l'assistance.",
-		"signIn": "Vous devez connecter pour continuer."
+		"signIn": "Vous devez connecter pour continuer.",
+		"unrecognizedInput": "Donnée non reconnu"
 	},
 	"faq": {
 		"header": "FAQ",
-		"why": {
-			"question": "Pourquoi accepter le Bitcoin?",
-			"answer": "Avec le Bitcoin, les commerçants économisent sur les frais, les consommateurs bénéficient de la confidentialité et les épargnants gagnent en pouvoir d'achat. Nous promouvrons votre entreprise auprès d'une communauté enthousiaste qui préfère faire ses achats dans des lieux acceptant le Bitcoin."
-		},
 		"cost": {
 			"question": "Combien cela coûte-t-il?",
 			"answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% pour convertir entre le Bitcoin lightning et le Bitcoin on-chain. Envoyer à d'autres comptes Coinos est gratuit."
-		},
-		"individuals": {
-			"question": "Qui peut l'utiliser?",
-			"answer": "N'importe qui, n'importe où dans le monde. Coinos convient aux particuliers comme aux entreprises."
 		},
 		"compatibility": {
 			"question": "Ai-je besoin d'un dispositif ou d'un logiciel spécial?",
@@ -53,14 +46,6 @@
 		"pos": {
 			"question": "Coinos peut-il s'intégrer à mon PoS existant?",
 			"answer": "Nous recommandons d'entrer les ventes dans votre PoS existant comme des transactions en espèces."
-		},
-		"accounting": {
-			"question": "Qu'en est-il de la comptabilité?",
-			"answer": "Nous affichons tous les paiements en termes de votre monnaie locale et vous permettons de filtrer par date pour que vous puissiez déclarer vos revenus normalement. Vous pouvez exporter l'historique de votre compte dans un fichier csv. Si vous vendez du Bitcoin avec un bénéfice, vous voudrez peut-être déclarer les plus-values."
-		},
-		"offramp": {
-			"question": "Puis-je convertir le Bitcoin que je reçois en ma monnaie locale?",
-			"answer": "Vous pouvez retirer vos fonds à tout moment vers une bourse ou un courtier pour vendre votre Bitcoin et recevoir un virement bancaire. Nous pourrions être prêts à fournir une liquidation directe par virement électronique à certains commerçants canadiens."
 		},
 		"bitcoin": {
 			"question": "Que puis-je faire avec le Bitcoin?",
@@ -125,7 +110,11 @@
 		"signIn": "Connexion",
 		"failed": "Echec de Connexion",
 		"optional": "Optionnel",
-		"token": "Jeton 2FA"
+		"token": "Jeton 2FA",
+		"forgot": "Mot de passe oublié?",
+		"reset": "Reinitialiser le mot de passe",
+		"submit": "Soumettre",
+		"newPassword": "Nouveau mot de passe"
 	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
@@ -137,7 +126,11 @@
 		"support": "Assistance",
 		"profile": "Profil",
 		"map": "Carte",
-		"merch": "Marchandise"
+		"merch": "Marchandise",
+		"about": "À Propos",
+		"docs": "Documents",
+		"messages": "Messages",
+		"funds": "Fonds"
 	},
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
@@ -146,12 +139,13 @@
 		"paymentSuccessful": "Paiement réussi!",
 		"invoice": "Facture",
 		"total": "Total",
-		"tip": "Pourboire"
+		"tip": "Pourboire",
+		"addMemo": "Ajouter un mémo"
 	},
 	"jobs": {
 		"header": "Emplois",
 		"subheader": "Postes disponibles actuels",
-		"pitch1": "swapee recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
+		"pitch1": "coinos recherche pour des développeurs pour joindre notre équipe croissant (temps plein ou partiel, télétravail OK)",
 		"pitch2": "Avez-vous hâte de travailler sur bitcoin open source? Regardez sur nos dépôts sur",
 		"github": "GitHub",
 		"pitch3": "Si vous pensez que vous pouvez exercer une influence positive, nous voulons que vous contribuez. Envoyer votre CV à"
@@ -170,7 +164,8 @@
 			"go": "Allez",
 			"receive": "Reçois un Paiement",
 			"deposit": "Déposer",
-			"voucher": "Bon"
+			"voucher": "Bon",
+			"checkout": "Vérifier"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
@@ -220,7 +215,39 @@
 			"displayName": "Nom d'Utilisateur",
 			"minutes": "minutes",
 			"hour": "heure",
-			"hours": "heures"
+			"hours": "heures",
+			"hideSeed": "Cache phrase mnémotechnique",
+			"revealSeed": "Montre phrase mnémotechnique",
+			"notifications": "Notifications de paiement",
+			"notificationsDesc": "Reçevez un courriel quand un paiement arrive à ta conte",
+			"seedPhrase": "Phrase mnémotechnique",
+			"nostrKeys": "Clé nostr",
+			"nostrDescription": "Votre clé nostr est utilisé pour signer et décrypter vos messages, gardez-le sauf ou quelqu'un peut se faire passer pour vous.",
+			"seedDescription": "Cette phrase mnémotechnique à 12 mots est utilisé pour générer votre clé privée et vos clés de portefeuille que vous controllez qui déterminez vos addresses de retrait automatique.  Sauvegardez-le et jamais permettez à personne de le voir.",
+			"emailDescription": "Pour seulement reinitialisations de mot de passe et notifications de paiements seulement.",
+			"hideNsec": "Cache clé privée nostr",
+			"saved": "Paramètres sauvegardés!",
+			"verifying": "Courriel de verification envoyé.",
+			"verified": "Courriel verifié!",
+			"revealNsec": "Montre clé privée nostr",
+			"publishNip5": "Publie identité nostr",
+			"nip5a": "Utilise",
+			"nip5b": "comme votre addresse nostr verifié publiquement",
+			"shopify": "Intégration Shopify",
+			"destination": "Adresse de retrait automatique",
+			"destinationDesc": "L'adresse à laquelle les retraits seront envoyés",
+			"destinationPlaceholder": "Entrez une adresse Bitcoin, Liquid ou Lightning",
+			"reserve": "Montant de la réserve",
+			"reserveDesc": "Le montant qui restera sur votre compte une fois le retrait terminé",
+			"threshold": "Seuil de retrait automatique",
+			"thresholdDesc": "Lorsque votre solde dépasse ce montant, un retrait sera déclenché",
+			"autoWithdraw": "Retrait automatique",
+			"autoWithdrawDescription": "Activez les retraits vers une adresse externe lorsque votre solde atteint un seuil donné",
+			"memoPrompt": "Instructions de paiement",
+			"memoPromptPlaceholder": "par exemple. Veuillez entrer votre nom pour la commande",
+			"rememberFor": "Rappelez-vous pour",
+			"import": "Clé d'importation",
+			"seconds": "secondes"
 		},
 		"support": {
 			"header": "Assistance",
@@ -235,14 +262,14 @@
 		"unfollow": "Ne plus suivre",
 		"following": "Vous suivez",
 		"this": "Cette",
-		"lightningAddress": "adresse de Lightning",
-		"likeAnEmail": "est comme un courriel pour bitcoin.  Vous pouvez le publier sur votre site web ou votre carte de visite et l'utiliser plusieurs fois.",
+		"lightningAddress": "Adresse de lightning",
 		"send": {
 			"contacts": "Contacts",
 			"scan": "Scannez",
 			"paste": "Collez",
 			"next": "Prochain",
-			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos"
+			"placeholder": "Collez une adresse de bitcoin, facture de lightning ou nom d'utilisateur coinos",
+			"makeQR": "QR"
 		},
 		"requestPayment": "Demander un Paiement",
 		"welcome": "Bienvenue! Le solde de votre conte est vide. Vous pouvez commencer par déposer ou recevoir un paiement.",
@@ -253,14 +280,19 @@
 		"messages": "Messages",
 		"feed": "Flux",
 		"notes": "Notes",
-		"pay": "Payer"
+		"pay": "Payer",
+		"profilePage": "Page de profil",
+		"nostrPubkey": "Clé publique nostr",
+		"details": "Détails",
+		"noMessages": "Vous n'avez pas encore envoyé ou reçu de messages",
+		"install": "Installer l'application",
+		"moreDetails": "Liens et détails"
 	},
 	"news": {
 		"header": "Nouvelles",
 		"subheader": "Dernières Informations"
 	},
 	"payments": {
-		"moneyPot": "Pot d'argent",
 		"addFunds": "Ajouter d'argent",
 		"takeFunds": "Prendre d'argent",
 		"show": "Démontrer",
@@ -312,6 +344,30 @@
 		"redeemed": "Racheté",
 		"redeemedBy": "Racheté par",
 		"sendMessage": "Écrire une message...",
-		"fundsClaimed": "Les fonds sont réclamés!"
+		"fundsClaimed": "Les fonds sont réclamés!",
+		"print": "Imprime",
+		"create": "Crée",
+		"fund": "Finance",
+		"networkFee": "Prix de réseau",
+		"platformFee": "Prix de plateforme",
+		"fastest": "Plus rapide",
+		"fast": "Rapide",
+		"medium": "Moyen",
+		"slow": "Lent",
+		"maxfee": "Prix maximum de routage",
+		"onlyLbtc": "Nous soutenons uniquement",
+		"dontDeposit": "ne déposez pas encore d'autres actifs",
+		"tips": "Conseils",
+		"options": "choix",
+		"bump": "Frais forfaitaires",
+		"for": "pour"
+	},
+	"items": {
+		"add": "Ajouter un item",
+		"edit": "Modifier l'article",
+		"name": "Nom",
+		"price": "Prix",
+		"submit": "Soumettre",
+		"image": "Image"
 	}
 }
