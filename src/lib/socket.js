@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import { event, invoice, request, newPayment, last, user } from "$lib/store";
+import { event, invoice, request, newPayment, last } from "$lib/store";
 import { success, sat } from "$lib/utils";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { invalidate } from "$app/navigation";
