@@ -1,9 +1,10 @@
 <script>
+  import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
-  import "../swapee/css/animation.css";
- 
   import { loading, t } from "$lib/translations";
+  import { onMount } from "svelte";
+  import { installPrompt } from "$lib/store";
 
   export let data;
   let { pathname } = data;
@@ -11,12 +12,20 @@
   let host = PUBLIC_DOMAIN.includes("localhost")
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
+
+  onMount(() => {
+    if (!browser) return;
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      $installPrompt = event;
+    });
+  });
 </script>
 
 <svelte:head>
-	<title>swapee</title>
-	<meta property="og:title" content="swapee" />
-	<meta name="twitter:title" content="swapee" />
+  <title>coinos</title>
+  <meta property="og:title" content="coinos" />
+  <meta name="twitter:title" content="coinos" />
 
   <meta property="og:image" content={`${host}/images/logo.webp`} />
 
@@ -24,14 +33,14 @@
   <meta property="og:description" content="An easy to use bitcoin web wallet" />
   <meta name="description" content="An easy to use bitcoin web wallet" />
 
-	<meta name="keywords" content="swapee easy bitcoin web wallet" />
+  <meta name="keywords" content="coinos easy bitcoin web wallet" />
 
   <meta name="twitter:image" content={`${host}/images/logo.webp`} />
   <meta name="twitter:card" content="summary_large_image" />
 
-	<meta property="og:url" content={host + pathname} />
-	<meta name="twitter:site" content="@swapeewallet" />
-	<meta name="twitter:creator" content="@swapeewallet" />
+  <meta property="og:url" content={host + pathname} />
+  <meta name="twitter:site" content="@coinoswallet" />
+  <meta name="twitter:creator" content="@coinoswallet" />
 </svelte:head>
 
 {#if !$loading}

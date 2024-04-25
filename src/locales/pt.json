@@ -5,9 +5,6 @@
 	},
 	"about": {
 		"header": "Sobre",
-		"p1": "O Swapee é uma aplicação de pagamento de bitcoin de código aberto. O desenvolvimento começou em Vancouver em Setembro de 2012 como forma de fornecer aos comerciantes locais uma forma conveniente de aceitar pagamentos de bitcoin.",
-		"p2": "Você pode baixar o código fonte para executar uma instância e ligá-lo aos seus próprios nós de bitcoin e da Lightning Network. Vamos ajudá-lo a começar a ser um depositário benevolente e fornecedor de pagamentos para a sua comunidade..",
-		"p3": "As transferências de conta entre utilizadores no nosso servidor são feitas off-chain, por isso são completamente gratuitas, instantâneas e ilimitadas.",
 		"team": {
 			"header": "O time",
 			"adam": {
@@ -23,53 +20,54 @@
 		},
 		"locations": {
 			"header": "Locais",
-			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Swapee. Esperamos que o seu seja o próximo!"
+			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Coinos. Esperamos que o seu seja o próximo!"
 		}
 	},
 	"error": {
 		"header": "Erro",
 		"message": "Por favor tente novamente ou contate o suporte.",
-		"signIn": "Por favor, faça o login para continuar."
+		"signIn": "Por favor, faça o login para continuar.",
+		"unrecognizedInput": "Entrada não reconhecida"
 	},
-  "faq": {
-    "header": "FAQ",
-    "why": {
-      "question": "¿Por qué aceptar Bitcoin?",
-      "answer": "Con Bitcoin, los comerciantes ahorran en comisiones, los consumidores obtienen privacidad y los ahorradores ganan poder adquisitivo. Promocionaremos tu negocio a una comunidad entusiasta que prefiere comprar en lugares que aceptan Bitcoin."
-    },
-    "cost": {
-      "question": "¿Cuánto cuesta?",
-      "answer": "Recibir pagos en tu cuenta es gratis. Las retiradas a carteras externas incurren en una pequeña tarifa que varía según las condiciones de la red. Cobramos el 0.1% para convertir entre Bitcoin lightning y on-chain. Enviar a otras cuentas de Swapee es gratis."
-    },
-    "individuals": {
-      "question": "¿Quién puede usarlo?",
-      "answer": "Cualquiera, en cualquier parte del mundo. Swapee es adecuado para individuos y negocios."
-    },
-    "compatibility": {
-      "question": "¿Necesito algún dispositivo o software especial?",
-      "answer": "No, Swapee es una aplicación web que funciona en cualquier lugar que tenga Internet. Los comerciantes pueden usarla en una tableta o mostrar un código QR para que los clientes lo escaneen con sus teléfonos."
-    },
-    "safety": {
-      "question": "¿Cuándo se liquidan mis fondos?",
-      "answer": "Los pagos lightning se liquidan al instante. Puedes retirar tu saldo a otra cartera en segundos. Los depósitos en cadena tardan en promedio de 5 a 10 minutos en confirmarse."
-    },
-    "pos": {
-      "question": "¿Puede Swapee integrarse con mi PoS existente?",
-      "answer": "Recomendamos ingresar las ventas en tu PoS existente como transacciones en efectivo."
-    },
-    "accounting": {
-      "question": "¿Qué pasa con la contabilidad?",
-      "answer": "Mostramos todos los pagos en términos de tu moneda local y te permitimos filtrar por fecha para que puedas informar tus ingresos como de costumbre. Puedes exportar tu historial de cuenta a un archivo csv. Si vendes Bitcoin con beneficio, es posible que desees informar las ganancias de capital."
-    },
-    "offramp": {
-      "question": "¿Puedo convertir el Bitcoin que recibo a mi moneda local?",
-      "answer": "Puedes retirar tus fondos en cualquier momento a un exchange o correduría para vender tu Bitcoin y recibir una transferencia bancaria. Es posible que estemos dispuestos a proporcionar liquidación directa a través de e-transferencia a comerciantes canadienses seleccionados."
-    },
-    "bitcoin": {
-      "question": "¿Qué puedo hacer con Bitcoin?",
-      "answer": "Gástalo en otros comerciantes o paga tus gastos con él al conseguir que tu personal, proveedores y arrendador lo acepten."
-    }
-  },
+	"faq": {
+		"header": "FAQ",
+		"why": {
+			"question": "¿Por qué aceptar Bitcoin?",
+			"answer": "Con Bitcoin, los comerciantes ahorran en comisiones, los consumidores obtienen privacidad y los ahorradores ganan poder adquisitivo. Promocionaremos tu negocio a una comunidad entusiasta que prefiere comprar en lugares que aceptan Bitcoin."
+		},
+		"cost": {
+			"question": "¿Cuánto cuesta?",
+			"answer": "Recibir pagos en tu cuenta es gratis. Las retiradas a carteras externas incurren en una pequeña tarifa que varía según las condiciones de la red. Cobramos el 0.1% para convertir entre Bitcoin lightning y on-chain. Enviar a otras cuentas de Coinos es gratis."
+		},
+		"individuals": {
+			"question": "¿Quién puede usarlo?",
+			"answer": "Cualquiera, en cualquier parte del mundo. Coinos es adecuado para individuos y negocios."
+		},
+		"compatibility": {
+			"question": "¿Necesito algún dispositivo o software especial?",
+			"answer": "No, Coinos es una aplicación web que funciona en cualquier lugar que tenga Internet. Los comerciantes pueden usarla en una tableta o mostrar un código QR para que los clientes lo escaneen con sus teléfonos."
+		},
+		"safety": {
+			"question": "¿Cuándo se liquidan mis fondos?",
+			"answer": "Los pagos lightning se liquidan al instante. Puedes retirar tu saldo a otra cartera en segundos. Los depósitos en cadena tardan en promedio de 5 a 10 minutos en confirmarse."
+		},
+		"pos": {
+			"question": "¿Puede Coinos integrarse con mi PoS existente?",
+			"answer": "Recomendamos ingresar las ventas en tu PoS existente como transacciones en efectivo."
+		},
+		"accounting": {
+			"question": "¿Qué pasa con la contabilidad?",
+			"answer": "Mostramos todos los pagos en términos de tu moneda local y te permitimos filtrar por fecha para que puedas informar tus ingresos como de costumbre. Puedes exportar tu historial de cuenta a un archivo csv. Si vendes Bitcoin con beneficio, es posible que desees informar las ganancias de capital."
+		},
+		"offramp": {
+			"question": "¿Puedo convertir el Bitcoin que recibo a mi moneda local?",
+			"answer": "Puedes retirar tus fondos en cualquier momento a un exchange o correduría para vender tu Bitcoin y recibir una transferencia bancaria. Es posible que estemos dispuestos a proporcionar liquidación directa a través de e-transferencia a comerciantes canadienses seleccionados."
+		},
+		"bitcoin": {
+			"question": "¿Qué puedo hacer con Bitcoin?",
+			"answer": "Gástalo en otros comerciantes o paga tus gastos con él al conseguir que tu personal, proveedores y arrendador lo acepten."
+		}
+	},
 	"footer": {
 		"company": "Empresa",
 		"followUs": "Siga-nos",
@@ -103,12 +101,13 @@
 		"paymentSuccessful": "Pagamento recebido!",
 		"invoice": "Fatura",
 		"total": "Total",
-		"tip": "Gorjeta"
+		"tip": "Gorjeta",
+		"addMemo": "Adicionar memorando"
 	},
 	"jobs": {
 		"header": "Vagas de emprego",
 		"subheader": "Atualmente abertas",
-		"pitch1": "Swapee está procurando ativamente desenvolvedores para se juntar à nossa crescente equipe (tempo integral ou meio-período, trabalho remoto OK).",
+		"pitch1": "Coinos está procurando ativamente desenvolvedores para se juntar à nossa crescente equipe (tempo integral ou meio-período, trabalho remoto OK).",
 		"pitch2": "Entusiasmado com o trabalho em bitcoin open source? Então dê uma olhada em nossos repositórios em",
 		"github": "GitHub",
 		"pitch3": "Se você acha que pode causar um impacto, gostaríamos muito de ouvir de você. Envie-nos seu currículo para"
@@ -134,21 +133,31 @@
 		}
 	},
 	"login": {
-		"optional": "Opcional",
+		"forgot": "Forgot password?",
+		"reset": "Password reset",
+		"optional": "Optional",
+		"submit": "Submit",
 		"token": "2FA Token",
-		"username": "Usuário",
-		"password": "Senha",
+		"username": "Username",
+		"password": "Password",
+		"newPassword": "New password",
 		"email": "Email",
-		"passwordRecommendation": "Recomendamos uma senha longa e aleatória gerada com um gerenciador de senhas.",
-		"forgotUserOrPassword": "Esqueceu o usuário ou senha?",
-		"haveAccount": "Já tem uma conta?",
-		"noAccount": "Não tem uma conta?",
-		"register": "Registre",
-		"signIn": "Entrar",
-		"failed": "Falha no login"
+		"passwordRecommendation": "We recommend using a long, random password if you intend to keep funds in your account.",
+		"forgotUserOrPassword": "Forgot password?",
+		"haveAccount": "Already have an account?",
+		"noAccount": "Don't have an account?",
+		"register": "Register",
+		"signIn": "Sign In",
+		"failed": "Login failed"
 	},
 	"nav": {
-		"profile": "Perfil",
+		"about": "About",
+		"docs": "Docs",
+		"messages": "Messages",
+		"funds": "Funds",
+		"map": "Map",
+		"merch": "Swag",
+		"profile": "Profile",
 		"startInSeconds": "Inicie em segundos",
 		"account": "Conta",
 		"signIn": "Entrar",
@@ -157,16 +166,16 @@
 		"settings": "Ajustes",
 		"support": "Suporte"
 	},
-	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old swapee? Visit <a href=\"https://classic.swapee.me\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.swapee.me</a>",
+	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
 		"header": "Notícias",
 		"subheader": "Últimos Updates",
 		"update1": ""
 	},
 	"user": {
-    "requestPayment": "Gerar fatura",
-    "welcome": "Bem-vindo! O saldo da sua conta está vazio. Você pode começar fazendo um depósito ou recebendo um pagamento.",
-    "showBalance": "Mostrar Saldo",
+		"requestPayment": "Gerar fatura",
+		"welcome": "Bem-vindo! O saldo da sua conta está vazio. Você pode começar fazendo um depósito ou recebendo um pagamento.",
+		"showBalance": "Mostrar Saldo",
 		"bitcoin": "Bitcoin",
 		"lightning": "Lightning",
 		"invoice": "Fatura",
@@ -183,8 +192,7 @@
 		"pay": "Pagar",
 		"scanToPayBTC": "Escaneie para pagar com bitcoin",
 		"this": "Este",
-		"lightningAddress": "endereço lightning",
-		"likeAnEmail": "é como um email para o bitcoin. Você pode publicá-lo em seu site ou cartão de visita e usá-lo várias vezes.",
+		"lightningAddress": "Endereço lightning",
 		"dashboard": {
 			"go": "Ir",
 			"dashboard": "Painel de controle",
@@ -198,7 +206,8 @@
 			"receive": "Receber",
 			"withdraw": "Enviar",
 			"deposit": "Deposit",
-			"voucher": "Voucher"
+			"voucher": "Voucher",
+			"checkout": "Confira"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Favor inserir uma quantidade inferior a 1 bitcoin.",
@@ -209,7 +218,8 @@
 			"scan": "Escanear",
 			"paste": "Colar",
 			"next": "Continuar",
-			"placeholder": "Colar um endereço de bitcoin, fatura lightning ou nome de usuário na swapee"
+			"placeholder": "Colar um endereço de bitcoin, fatura lightning ou nome de usuário na coinos",
+			"makeQR": "QR"
 		},
 		"settings": {
 			"saveSettings": "Salvar ajustes",
@@ -230,7 +240,7 @@
 			"emailNotifications": "Notificações por email",
 			"emailNotificationsDescription": "Ser notificado por e-mail quando ocorrer uma mudança em sua conta ou quando as pessoas lhe enviarem pagamentos.",
 			"smsNotifications": "Notificações por SMS",
-			"smsNotificationsDescription": "A Swapee lhe enviará notificações por SMS quando isto estiver habilitado.",
+			"smsNotificationsDescription": "A Coinos lhe enviará notificações por SMS quando isto estiver habilitado.",
 			"theme": "Cor do tema",
 			"tipPrompt": "Mostrar opção gorjetas",
 			"tipPromptDescription": "Pergunte às pessoas se elas querem acrescentar uma gorjeta antes de pagar sua fatura",
@@ -255,7 +265,39 @@
 			"select": "Selecionar",
 			"verifyPIN": "Verificar PIN",
 			"enablePIN": "Habilitar PIN",
-			"disablePIN": "Desabilitar PIN"
+			"disablePIN": "Desabilitar PIN",
+			"shopify": "Integração com Shopify",
+			"notifications": "Notificações de pagamento",
+			"notificationsDesc": "Receba um e-mail sempre que um pagamento chegar à sua conta",
+			"seedPhrase": "Frase-semente",
+			"nostrKeys": "Chave Nostr",
+			"nostrDescription": "Sua chave nostr é usada para assinar e descriptografar mensagens, mantê-las seguras ou alguém pode se passar por você.",
+			"seedDescription": "Esta frase inicial de 12 palavras é usada para derivar sua chave privada nostr e suas chaves de carteira de autocustódia que determinam seus endereços de retirada automática. Faça backup e não deixe ninguém ver.",
+			"emailDescription": "Apenas para redefinições de senha e notificações de pagamento",
+			"hideNsec": "Ocultar chave secreta nostr",
+			"saved": "Configurações salvas!",
+			"verifying": "E-mail de verificação enviado",
+			"verified": "Email verificado!",
+			"revealNsec": "Revelar a chave secreta do nostr",
+			"hideSeed": "Ocultar frase inicial",
+			"revealSeed": "Revelar frase-semente",
+			"publishNip5": "Publicar identidade nostr",
+			"nip5a": "Usar",
+			"nip5b": "como seu endereço nostr verificado publicamente",
+			"destination": "Endereço de retirada automática",
+			"destinationDesc": "O endereço para onde os saques serão enviados",
+			"destinationPlaceholder": "Insira um endereço Bitcoin, Liquid ou Lightning",
+			"reserve": "Valor da reserva",
+			"reserveDesc": "O valor que restará em sua conta após a conclusão do saque",
+			"threshold": "Limite de retirada automática",
+			"thresholdDesc": "Quando o seu saldo exceder esse valor, um saque será acionado",
+			"autoWithdraw": "Retirada automática",
+			"autoWithdrawDescription": "Habilite saques para um endereço externo quando seu saldo atingir um determinado limite",
+			"memoPrompt": "Instruções de check-out",
+			"memoPromptPlaceholder": "por exemplo. Por favor insira seu nome para o pedido",
+			"rememberFor": "Lembre-se por",
+			"import": "Chave de importação",
+			"seconds": "segundos"
 		},
 		"support": {
 			"header": "Suporte",
@@ -263,7 +305,13 @@
 			"accountName": "Usuário",
 			"message": "Mensagem",
 			"send": "Enviar"
-		}
+		},
+		"profilePage": "Página de perfil",
+		"nostrPubkey": "Nostr pubkey",
+		"details": "Detalhes",
+		"noMessages": "Você ainda não enviou ou recebeu nenhuma mensagem",
+		"install": "Instalar aplicativo",
+		"moreDetails": "Links e detalhes"
 	},
 	"payments": {
 		"amount": "Quantidade",
@@ -305,6 +353,43 @@
 		"redeem": "Resgatar",
 		"redeemed": "Resgatado",
 		"redeemedBy": "Resgatado por",
-		"sendMessage": "Escreva uma mensagem..."
+		"sendMessage": "Escreva uma mensagem...",
+		"networkFee": "Taxa de rede",
+		"platformFee": "Taxa de plataforma",
+		"fastest": "O mais rápido",
+		"fast": "Rápido",
+		"medium": "Médio",
+		"slow": "Lento",
+		"create": "Criar",
+		"fund": "Fundo",
+		"addFunds": "Adicionar fundos",
+		"takeFunds": "Pegue fundos",
+		"show": "Mostrar",
+		"hide": "Esconder",
+		"qr": "QR",
+		"copyLink": "Link de cópia",
+		"copyText": "Copiar texto",
+		"openLink": "Carteira aberta",
+		"moreOptions": "Mais opções",
+		"total": "Total",
+		"gainLoss": "Ganho/Perda",
+		"presentValue": "Valor presente",
+		"maxfee": "Taxa máxima de roteamento",
+		"fundsClaimed": "Fundos reivindicados!",
+		"print": "Imprimir",
+		"onlyLbtc": "Nós apenas apoiamos",
+		"dontDeposit": "não deposite outros ativos ainda",
+		"tips": "Pontas",
+		"options": "opções",
+		"bump": "Taxa de aumento",
+		"for": "para"
+	},
+	"items": {
+		"add": "Adicionar Item",
+		"edit": "Editar item",
+		"name": "Nome",
+		"price": "Preço",
+		"submit": "Enviar",
+		"image": "Imagem"
 	}
 }

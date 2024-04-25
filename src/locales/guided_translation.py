@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import argparse, json, logging, sys
+import argparse, json, logging, sys, requests, os
 from pathlib import Path
 
 DEFAULT_FROM_LOCALE = 'en'
@@ -28,7 +28,8 @@ def create_locale(locale_code):
         lang_file.write('\n')
     logging.debug("Created locale %s.", locale_code)
 
-def localize_string(string_id, from_data, to_data):
+def localize_string(string_id, from_data, to_data, to_locale):
+    api_key = os.environ.get('GOOGLE_API_KEY')
     logging.debug("Translating string with id %s", string_id)
     id_parts = string_id.split('.')
 
@@ -37,25 +38,46 @@ def localize_string(string_id, from_data, to_data):
     for id_part in id_parts:
         to_translate = to_translate[id_part]
 
-    # get translated string
-    print("Please translate the following text (id " + string_id + "):")
-    print(to_translate)
+    # Google Translate API endpoint
+    url = "https://translation.googleapis.com/language/translate/v2"
 
-    translated = input("Type the translated text then press ENTER: ")
-    print(translated)
+    # Prepare data for POST request
+    data = {
+        'q': to_translate,
+        'source': 'en',  # assuming the source language is English
+        'target': to_locale,
+        'format': 'text'
+    }
 
-    # find/create place to put translated string
-    translation_location = to_data  # the dictionary or list that should contain the translated string
-    for id_part in id_parts[:-1]:
-        if id_part not in translation_location:
-            translation_location[id_part] = {}
-        translation_location = translation_location[id_part]
+    # Headers for the request
+    headers = {"Content-Type": "application/json"}
 
-    translation_location[id_parts[-1]] = translated
+    # Make the request
+    response = requests.post(url, headers=headers, params={'key': api_key}, json=data)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the response and extract translation
+        translated_text = response.json()['data']['translations'][0]['translatedText']
+        print("Translated text:", translated_text)
+    else:
+        print("Error while translating:", response.json())
+        translated_text = None
+
+    # Proceed only if translation was successful
+    if translated_text:
+        # find/create place to put translated string
+        translation_location = to_data  # the dictionary or list that should contain the translated string
+        for id_part in id_parts[:-1]:
+            if id_part not in translation_location:
+                translation_location[id_part] = {}
+            translation_location = translation_location[id_part]
+
+        translation_location[id_parts[-1]] = translated_text
 
 if __name__ == "__main__":
     # setup and parse commandline arguments
-    args_parser = argparse.ArgumentParser(description="guided translation of swapee")
+    args_parser = argparse.ArgumentParser(description="guided translation of coinos")
     args_parser.add_argument('from_locale', nargs='?', type=str,
                              help="which locale to translate from")
     args_parser.add_argument('to_locale', nargs='?', type=str,
@@ -133,7 +155,7 @@ This could mean that this text was translated first, or it could mean this text 
         # localize strings!
         try:
             for string_id in untranslated_strings:
-                localize_string(string_id, from_data, to_data)
+                localize_string(string_id, from_data, to_data, to_locale)
                 to_id_list.append(string_id)
         except KeyboardInterrupt:
             print("\nProgram interrupted.  Saving strings...")
