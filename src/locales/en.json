@@ -177,6 +177,8 @@
     "this": "This",
     "lightningAddress": "Lightning address",
     "dashboard": {
+      "checkout": "Checkout",
+      "payNow": "Pay now",
       "receive": "Receive",
       "go": "Go",
       "dashboard": "Dashboard",
