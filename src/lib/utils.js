@@ -41,13 +41,14 @@ export let get = (url, headers = {}) => {
     });
 };
 
-export let post = (url, body, headers) => {
-  headers = {
-    ...headers,
+export let post = async (url, body, headers) => {
+    headers = {
     "content-type": "application/json",
     accept: "application/json",
+    ...headers,
   };
-  return fetch(base + url, {
+
+  let response = await fetch(base + url, {
     method: "POST",
     body: JSON.stringify(body),
     headers,
@@ -77,6 +78,8 @@ export let post = (url, body, headers) => {
 
       return body;
     });
+
+  return response;
 };
 
 export let copy = (text) => {
@@ -101,7 +104,11 @@ export function reverseFormat(val, locale) {
 
 export let protectedRoutes = [/customers/, /settings/, /payments/];
 
+let recent = [];
 export let success = (m, clear = true) => {
+  if (recent.includes(m)) return;
+  recent.push(m);
+  setTimeout(() => (recent = []), 5000);
   if (clear) toast.pop();
   toast.push(m, {
     theme: {
@@ -152,13 +159,14 @@ export let login = async (user, cookies, ip) => {
     if (text.startsWith("2fa")) throw new Error("2fa");
   }
 
-  let { token } = await res.json();
+  let { user: u, token } = await res.json();
   if (!token) throw new Error("Login failed");
 
   let expires = new Date();
   expires.setSeconds(expires.getSeconds() + maxAge);
 
   let opts = { path: "/", expires };
+  if (u.language) cookies.set("lang", u.language, opts);
   cookies.set("username", user.username, opts);
   cookies.set("token", token, opts);
 };
@@ -208,8 +216,12 @@ export let sats = 100000000;
 
 export let back = () =>
   browser && (history.length ? history.go(-1) : goto("/"));
+
 export let focus = (el) =>
   browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
+
+export let select = (el) =>
+  browser && screen.width > 1280 && setTimeout(() => el.select(), 1);
 
 export let sleep = (n) => new Promise((r) => setTimeout(r, n));
 export let wait = async (f, n = 100, s = 300) => {
@@ -271,7 +283,6 @@ export let types = {
   lightning: "lightning",
   internal: "internal",
   fund: "fund",
-  classic: "classic",
 };
 
 export let ease = (t) =>
@@ -302,3 +313,21 @@ export let isLiquid = (text) =>
   (text.startsWith("ex1q") && text.length === 42) ||
   text.startsWith("el1qq") ||
   text.startsWith("lq1qq");
+
+export function getCookie(name) {
+  let nameEQ = name + "=";
+  let ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === " ") c = c.substring(1);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+export function setCookie(name, value, seconds) {
+  const now = new Date();
+  now.setTime(now.getTime() + seconds * 1000);
+  const expires = "expires=" + now.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
