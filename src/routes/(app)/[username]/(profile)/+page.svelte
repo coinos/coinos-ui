@@ -133,10 +133,10 @@
       <a href={`/send`} class="contents grow">
         <button
           type="button"
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow"
         >
           <div class="mx-auto flex gap-2">
-            <Icon icon="send" style="w-8" />
+            <Icon icon="send" style="w-8 invert" />
             <div class="my-auto">{$t("user.dashboard.send")}</div>
           </div>
         </button>
@@ -144,10 +144,10 @@
 
       <a href={`/${user.username}/receive`} class="contents">
         <button
-          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow"
         >
           <div class="mx-auto flex gap-2">
-            <Icon icon="numpad" style="w-8" />
+            <Icon icon="numpad" style="w-8 invert" />
             <div class="my-auto">{$t("user.dashboard.receive")}</div>
           </div>
         </button>
@@ -166,6 +166,33 @@
           </div>
         </button>
       {/if}
+    </div>
+
+    <div class="flex flex-wrap gap-3 justify-center w-full text-xl">
+        <a href={`/${user.username}/buy`} class="w-full contents">
+      <button
+        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow mt-2"
+      >
+        <div class="mx-auto flex gap-2">
+          <img
+            src="/images/bitcoin.svg"
+            class="w-8 border-4 border-transparent mr-2"
+            alt="Bitcoin"
+          />
+          <div class="my-auto">Buy Bitcoin</div>
+        </div>
+      </button>
+    </a>
+    <a href={`/${user.username}/items/create`} class="w-full contents">
+      <button
+        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow mt-2"
+      >
+        <div class="mx-auto flex gap-2">
+            <Icon icon="plus" style="w-8 mx-auto invert" />
+            <div class="my-auto">{$t("items.add")}</div>
+        </div>
+      </button>
+    </a>
     </div>
   {/if}
 
@@ -238,7 +265,7 @@
             </div>
           {/if}
         </div>
-        <div class="bg-white rounded-xl py-2">
+        <div class="bg-black text-white rounded-xl py-2">
           <div class="flex text-left gap-2">
             <div class="overflow-hidden space-y-1">
               <div class="text-2xl break-words">{i.name}</div>

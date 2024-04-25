@@ -75,7 +75,7 @@
 
   <div>
     <label for="name" class="font-bold mb-1 block">{$t("items.name")}</label>
-    <input name="name" bind:value={item.name} />
+    <input name="name" bind:value={item.name} class="bg-black text-white" />
   </div>
 
   <div>
@@ -84,7 +84,7 @@
       <input
         name="price"
         bind:value={item.price}
-        class="border-r-none rounded-r-none"
+        class="border-r-none rounded-r-none bg-black text-white"
       />
       <div
         class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
@@ -135,7 +135,7 @@
   </div>
 
   <button
-    class="rounded-full py-5 px-6 font-bold hover:opacity-80 bg-black text-white text-2xl w-full text-center"
+    class="rounded-full py-5 px-6 font-bold hover:opacity-80 border bg-black text-white text-2xl w-full text-center"
   >
     {#if submitting}
       <Spinner />

@@ -50,7 +50,7 @@ const config = {
 					foreground: "hsl(var(--card-foreground) / <alpha-value>)"
 				},
 				primary: '#eee',
-				secondary: '#70757E',
+				secondary: '#b0b5bE',
 				yellow: '#FFEA01',
 				gradient: '#C3CFE2',
 				lightgrey: '#EAECEF',
