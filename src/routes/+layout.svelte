@@ -2,6 +2,7 @@
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
   import "../swapee/css/animation.css";
+ 
   import { loading, t } from "$lib/translations";
 
   export let data;

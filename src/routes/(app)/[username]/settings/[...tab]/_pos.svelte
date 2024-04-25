@@ -110,7 +110,7 @@
 <a href="./shopify">
   <button
     type="button"
-    class="flex rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full gap-2 my-5 justify-center"
+    class="flex rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full gap-2 my-5 justify-center dark:border-white"
   >
     <img src="/icons/shopify.svg" alt="" class="w-8" />
     <div class="my-auto">Shopify Integration</div>
