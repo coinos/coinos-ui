@@ -169,8 +169,8 @@
 
   <div class="flex justify-center gap-2">
     <button
-      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
-      class:bg-gray-200={type === types.bitcoin}
+      class="hover:bg-neutral-700 my-auto flex gap-1 p-2"
+      class:bg-neutral-700={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
     >
       <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
@@ -178,8 +178,8 @@
     </button>
 
     <button
-      class="hover:bg-gray-200 my-auto flex gap-1 p-2"
-      class:bg-gray-200={type === types.liquid}
+      class="hover:bg-neutral-700 my-auto flex gap-1 p-2"
+      class:bg-neutral-700={type === types.liquid}
       on:click={() => setType(types.liquid)}
     >
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
@@ -187,11 +187,11 @@
     </button>
 
     <button
-      class="hover:bg-gray-200 flex gap-1 p-2"
-      class:bg-gray-200={type === types.lightning}
+      class="hover:bg-neutral-700 flex gap-1 p-2"
+      class:bg-neutral-700={type === types.lightning}
       on:click={() => setType(types.lightning)}
     >
-      <div class="bg-white rounded-full w-8 h-8 text-center flex">
+      <div class="bg-black rounded-full w-8 h-8 text-center flex">
         <div class="m-auto">⚡️</div>
       </div>
       <div class="my-auto text-lg">Lightning</div>
@@ -209,10 +209,10 @@
 
   <button
     type="button"
-    class="flex gap-2 text-center break-all rounded-full text-white bg-black hover:opacity-80 p-4 w-full md:w-80 mx-auto text-xl justify-center"
+    class="flex gap-2 text-center break-all rounded-full text-white bg-black border hover:opacity-80 p-4 w-full md:w-80 mx-auto text-xl justify-center"
     on:click={() => copy(txt)}
   >
-    <Icon icon="copy" style="w-8 invert my-auto" />
+    <Icon icon="copy" style="w-8 my-auto" />
     <div class="my-auto font-semibold">
       {txt.substr(0, 6)} ... {txt.substr(-10)}
     </div>
@@ -223,7 +223,7 @@
       <button
         class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
       >
-        <Icon icon="mobile" style="mr-1 w-6" />
+        <Icon icon="mobile" style="mr-1 w-6 invert" />
         <div class="text-secondary">{$t("payments.openLink")}</div>
       </button>
     </a>
@@ -232,7 +232,7 @@
       class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
       on:click={() => (showQr = !showQr)}
     >
-      <Icon icon="qr" style="mr-1 invert" />
+      <Icon icon="qr" style="mr-1" />
       <div class="text-secondary">
         {showQr ? $t("payments.hide") : $t("payments.show")}
         {$t("payments.qr")}
