@@ -15,6 +15,8 @@ export async function load({ params: { id }, parent, url }) {
   if (invoice.user.username === user?.username)
     error(500, { message: "Cannot send to self" });
 
+  if (!user) redirect(307, `/${invoice.user.username}/invoice/${id}`);
+
   return { invoice, rates, user };
 }
 
