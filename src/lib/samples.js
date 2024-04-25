@@ -5,34 +5,34 @@ let api = PUBLIC_DOMAIN.includes("localhost")
   : `https://${PUBLIC_DOMAIN}/api`;
 
 export default {
-	register: `curl "https://swapee.me/api/register" -H "content-type: application/json" -d '{
+  register: `curl "${api}/register" -H "content-type: application/json" -d '{
   "user": {
     "username": "demo",
     "password": "hunter2"
   }
 }'`,
-	login: `curl "https://swapee.me/api/login" -H "content-type: application/json" -d '{
+  login: `curl "${api}/login" -H "content-type: application/json" -d '{
   "username": "demo",
   "password": "hunter2"
 }'`,
-	payments: `curl "https://swapee.me/api/payments" 
+  payments: `curl "${api}/payments" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
 `,
-	lightning: `curl "https://swapee.me/api/payments" 
+  lightning: `curl "${api}/payments" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
     "payreq": "lnbc1pj94d8fsp5n77k340ps4m9jn7kp8he8yynpddvurv6mcsrrqpnq5l2jxdxzlwqpp5m96pqhc5nrlk8cqsu9ufdxxa43sarp8vwf9egvm2pg9nl0zu9r8qdq2vdhkjmn0wvxqztgcqpjrzjqwhmav82kntsppmkp8jp4vg4h9nns78tsy8mg7ve4lq5txrkp0h56zlarvqqdtcqqsqqqqqqqqqqp6cq9q9qyysgqzxlypywzphyujm3ga5j5csfcmqvlnae0fgnvymkaaw94eeg7py5rqzysyjkr3ev2snq63qpsc69vf54adkd0szvmvwt5cuadjnuy95sq4xfa40"
 }'`,
-	bitcoin: `curl "https://swapee.me/api/payments" 
+  bitcoin: `curl "${api}/bitcoin/send" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
     "amount": 5000,
     "address": "bc1q3unh97w4rmelflrm2hvdwz37d8kray3vn4d5ca"
 }'`,
-	internal: `HASH=$(curl "https://swapee.me/api/invoice" 
+  internal: `HASH=$(curl "${api}/invoice" 
     -H "content-type: application/json" 
     -H "Authorization: Bearer $token"
     -d '{
@@ -45,17 +45,17 @@ export default {
       }
   }' | jq -r '.hash');
 
-  curl "https://swapee.me/api/payments" 
+  curl "${api}/payments" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
     "amount": 5000,
     "hash": $HASH
 }'`,
-	rates: `curl "https://swapee.me/api/rates" 
+  rates: `curl "${api}/rates" 
   -H "content-type: application/json" 
 }'`,
-	lightningInvoice: `curl "https://swapee.me/api/invoice" 
+  lightningInvoice: `curl "${api}/invoice" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
@@ -64,7 +64,7 @@ export default {
       "type": "lightning"
     }
 }'`,
-	bitcoinAddress: `curl "https://swapee.me/api/invoice" 
+  bitcoinAddress: `curl "${api}/invoice" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
@@ -73,7 +73,7 @@ export default {
       "type": "bitcoin"
     }
 }'`,
-	webhook: `curl "https://swapee.me/api/invoice" 
+  webhook: `curl "${api}/invoice" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
@@ -83,7 +83,7 @@ export default {
       "secret": "webhooksecret"
     }
 }'`,
-	fetchInvoice: `curl "https://swapee.me/api/invoice/bc1qmhfk9stzffhd9umzmld92vff7zg3mdlh7rvvaj" 
+  fetchInvoice: `curl "${api}/invoice/bc1qmhfk9stzffhd9umzmld92vff7zg3mdlh7rvvaj" 
   -H "content-type: application/json"'`,
   invoiceResponse: `{
   "amount":3141
@@ -98,5 +98,5 @@ export default {
   "received":0
   "created":1677537428134
 }`,
-	socketAuth: `echo '{"type":"login","data":{"username":"user","password":"password"}}' | websocat -n https://swapee.me/ws`
+  socketAuth: `echo '{"type":"login","data":{"username":"user","password":"password"}}' | websocat -n https://coinos.io/ws`,
 };
