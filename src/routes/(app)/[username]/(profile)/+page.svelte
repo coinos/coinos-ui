@@ -94,7 +94,7 @@
         >
           <a href={`/send`} class="w-full md:w-40">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full "
+              class="rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full "
             >
               <div class="mx-auto my-auto flex">
                 <Icon icon="send" style="my-auto h-6 mr-2 text-red-300 dark:invert" />
@@ -105,7 +105,7 @@
 
           <a href={`/${user.username}/receive`} class="w-full md:w-40 my-auto">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full"
+              class="rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full"
             >
               <div class="mx-auto flex">
                 <Icon icon="numpad" style="my-auto h-6 mr-2 dark:invert" />
@@ -116,7 +116,7 @@
 
           <a href={`/buy`} class="w-full md:w-52">
             <button
-              class="rounded-full border py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full"
+              class="rounded-full border dark:border-white py-3 px-6 font-bold hover:opacity-80 flex h-14 w-full"
             >
               <div class="mx-auto flex">
                 <!-- <Icon icon="plus" style="my-auto h-6 mr-2" /> -->

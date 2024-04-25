@@ -48,7 +48,7 @@
       {#if user}
         <a href={`/${user.username}`}>
           <button
-            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:!bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
@@ -57,7 +57,7 @@
         </a>
         <a href={`/${user.username}/buy`}>
           <button
-            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:!bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}/buy`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
@@ -66,7 +66,7 @@
         </a>
         <a href={`/${user.username}/receive`}>
           <button
-            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:!bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}/receive`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
@@ -75,7 +75,7 @@
         </a>
         <a href={`/${user.username}/payments`}>
           <button
-            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:!bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}/payments`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'} relative"
@@ -96,7 +96,7 @@
         </a>
         <a href={`/send`}>
           <button
-            class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-white dark:!bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/send`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
@@ -106,7 +106,7 @@
         <div class="relative">
           <OutClick on:outclick={() => (showMenu = false)}>
             <button
-              class="bg-white dark:bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
+              class="bg-white dark:!bg-black p-2 rounded-full w-12 h-12 md:w-16 md:h-16 drop-shadow-xl border border-black/10 {$page
                 .url.pathname === `/${user.username}` ||
               $page.url.pathname === `/${user.username}/settings` ||
               $page.url.pathname === `/support`
@@ -121,7 +121,7 @@
             <div
               class="{showMenu
                 ? 'block'
-                : 'hidden'} absolute top-14 right-0 bg-white dark:bg-black dark:border-2 dark:border-gray-50 rounded-3xl p-8 shadow-xl z-50"
+                : 'hidden'} absolute top-14 right-0 bg-white dark:!bg-black dark:border-2 dark:border-gray-50 rounded-3xl p-8 shadow-xl z-50"
             >
               <ul class="space-y-5 w-48">
                 {#each menuButtons as { href, icon, key }}
@@ -145,7 +145,7 @@
         </div>
       {:else}
         <a href={`/login?redirect=${$page.url.pathname}`}>
-          <button class="bg-white dark:bg-black px-5 py-2 rounded-xl font-semibold text-sm"
+          <button class="bg-white dark:!bg-black px-5 py-2 rounded-xl font-semibold text-sm"
             >{$t("nav.signIn")}</button
           >
         </a>
