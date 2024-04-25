@@ -169,30 +169,30 @@
     </div>
 
     <div class="flex flex-wrap gap-3 justify-center w-full text-xl">
-        <a href={`/${user.username}/buy`} class="w-full contents">
-      <button
-        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow mt-2"
-      >
-        <div class="mx-auto flex gap-2">
-          <img
-            src="/images/bitcoin.svg"
-            class="w-8 border-4 border-transparent mr-2"
-            alt="Bitcoin"
-          />
-          <div class="my-auto">Buy Bitcoin</div>
-        </div>
-      </button>
-    </a>
-    <a href={`/${user.username}/items/create`} class="w-full contents">
-      <button
-        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow mt-2"
-      >
-        <div class="mx-auto flex gap-2">
+      <a href={`/${user.username}/buy`} class="w-full contents">
+        <button
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow mt-2"
+        >
+          <div class="mx-auto flex gap-2">
+            <img
+              src="/images/bitcoin.svg"
+              class="w-8 border-4 border-transparent mr-2"
+              alt="Bitcoin"
+            />
+            <div class="my-auto">Buy Bitcoin</div>
+          </div>
+        </button>
+      </a>
+      <a href={`/${user.username}/items/create`} class="w-full contents">
+        <button
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow mt-2"
+        >
+          <div class="mx-auto flex gap-2">
             <Icon icon="plus" style="w-8 mx-auto invert" />
             <div class="my-auto">{$t("items.add")}</div>
-        </div>
-      </button>
-    </a>
+          </div>
+        </button>
+      </a>
     </div>
   {/if}
 
@@ -327,7 +327,7 @@
     {:else if user?.username !== subject.username}
       <a href={`/pay/${subject.username}`} class="contents">
         <button
-          class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
+          class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto border"
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="send" style="w-8 invert" />

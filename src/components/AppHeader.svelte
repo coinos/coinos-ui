@@ -152,7 +152,7 @@
       {/if}
     </nav>
     <div
-      class="absolute md:w-[64px] md:mx-auto lg:left-[164px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
+      class="absolute md:w-[64px] md:mx-auto lg:left-[154px] xl:left-[194px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
     >
       <Avatar user={subject} />
     </div>
