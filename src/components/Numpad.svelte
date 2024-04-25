@@ -206,7 +206,7 @@
       </div>
       <div class="mt-2">
         <span class="text-secondary mr-1"
-          >{fiat ? sat(amount) : f(amountFiat, currency)}</span
+          >{fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}</span
         >
         <button
           type="button"
