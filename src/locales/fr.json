@@ -165,7 +165,8 @@
 			"receive": "Reçois un Paiement",
 			"deposit": "Déposer",
 			"voucher": "Bon",
-			"checkout": "Vérifier"
+			"checkout": "Vérifier",
+			"payNow": "Payez maintenant"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",

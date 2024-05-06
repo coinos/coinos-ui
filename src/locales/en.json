@@ -181,7 +181,7 @@
 		"this": "This",
 		"lightningAddress": "Lightning address",
 		"dashboard": {
-      "payNow": "Pay now",
+			"payNow": "Pay now",
 			"checkout": "Checkout",
 			"go": "Go",
 			"dashboard": "Dashboard",

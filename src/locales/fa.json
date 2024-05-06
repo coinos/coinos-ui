@@ -188,7 +188,8 @@
 			"withdraw": "ارسال",
 			"deposit": "سپرده",
 			"voucher": "کوپن",
-			"checkout": "وارسی"
+			"checkout": "وارسی",
+			"payNow": "الان پرداخت کن"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "لطفا مقدار کمتر از 1 بیت کوین را وارد کنید.",

@@ -198,7 +198,8 @@
 			"withdraw": "Senden",
 			"deposit": "Einzahlung",
 			"voucher": "Beleg",
-			"checkout": "Kasse"
+			"checkout": "Kasse",
+			"payNow": "Zahlen Sie jetzt"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Bitte geben Sie einen Betrag unter 1 Bitcoin ein.",
