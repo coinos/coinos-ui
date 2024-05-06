@@ -200,7 +200,8 @@
 			"deposit": "Κατάθεση",
 			"voucher": "Κουπόν",
 			"fetchingRate": "ποσοστό ανάκτησης...",
-			"checkout": "Ολοκλήρωση αγοράς"
+			"checkout": "Ολοκλήρωση αγοράς",
+			"payNow": "Πλήρωσε τώρα"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Παρακαλώ εισάγετε ένα ποσό μικρότερο από 1 bitcoin ",

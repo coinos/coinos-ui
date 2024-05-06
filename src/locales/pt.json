@@ -207,7 +207,8 @@
 			"withdraw": "Enviar",
 			"deposit": "Deposit",
 			"voucher": "Voucher",
-			"checkout": "Confira"
+			"checkout": "Confira",
+			"payNow": "Pague agora"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Favor inserir uma quantidade inferior a 1 bitcoin.",

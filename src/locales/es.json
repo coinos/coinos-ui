@@ -188,7 +188,8 @@
 			"voucher": "Vale",
 			"go": "Ir",
 			"dashboard": "Panel",
-			"checkout": "Verificar"
+			"checkout": "Verificar",
+			"payNow": "Pagar ahora"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Por favor, introduzca una cantidad menor a 1 bitcoin.",

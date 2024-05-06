@@ -188,7 +188,8 @@
 			"withdraw": "发送",
 			"deposit": "订金",
 			"voucher": "代金券",
-			"checkout": "查看"
+			"checkout": "查看",
+			"payNow": "现在付款"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "请输入小于 1 比特币的金额。",
