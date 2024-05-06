@@ -36,13 +36,15 @@
 <div class="flex flex-wrap gap-2">
   {#each channels as c}
     <div class="p-4 border">
-      <div>{c.peer} {c.pid.substr(0, 6)}</div>
+      <div>{c.peer} {c.pid.substr(0, 6)} {c.short_channel_id}/{c.direction}</div>
       <!-- <div>Receivable {f(c.receivable_msat / 1000)}</div> -->
       <!-- <div>Spendable {f(c.spendable_msat)}</div> -->
-      <div>To us {f(c.to_us_msat / 1000)}</div>
+      <div>Inbound {f(c.total_msat - c.to_us_msat)}</div>
+      <div>Outbound {f(c.to_us_msat)}</div>
       <div>Total {f(c.total_msat)}</div>
       <div>In {f(c.in_fulfilled_msat)}</div>
       <div>Out {f(c.out_fulfilled_msat)}</div>
+      <div>Ratio {(c.in_fulfilled_msat / c.total_msat).toFixed(2)}</div>
       <div>Base {c.fee_base_msat}</div>
       <div>PPM {c.fee_proportional_millionths}</div>
       <div>

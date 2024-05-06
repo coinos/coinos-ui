@@ -5,17 +5,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:33424"
+            "192.99.168.230:42894"
          ],
-         "features": "08a0800a8a5961",
+         "features": "08a0800a8a59a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "5ad31359117d45aac1d7d6301a555b34fdb4703dca33d365b897447367bfee4a",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "99d3c8577f08fcb224f27ea787c6188a1e3b28a9bf97bdb15db55abf15358ded",
+               "last_tx_fee_msat": 4196000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5795,
+                  "perkb": 23180
                },
                "owner": "channeld",
                "short_channel_id": "822777x4155x0",
@@ -50,7 +50,7 @@
                "their_reserve_msat": 129758000,
                "our_reserve_msat": 129758000,
                "spendable_msat": 11459358324,
-               "receivable_msat": 1244598676,
+               "receivable_msat": 1244576676,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 50000,
                "maximum_htlc_out_msat": 12846071000,
@@ -87,17 +87,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58684"
+            "192.99.168.230:42838"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "86c199cb78667274aa51226a864fba127f160275f6520921a330c94580cb233b",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "9bc358c6094518eedec9cb1cc5198d977eba9f610bb2f113474c8eb27bc416c7",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "831353x2050x0",
@@ -131,7 +131,7 @@
                "their_reserve_msat": 34368000,
                "our_reserve_msat": 34368000,
                "spendable_msat": 3273078603,
-               "receivable_msat": 78399397,
+               "receivable_msat": 77651397,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 3402474000,
@@ -164,11 +164,11 @@
          ]
       },
       {
-         "id": "03bc6fef4a3fde898a65366e4626db3b7dce775137022f0e89ef1881aa0db69ee4",
+         "id": "02bbd1fef23c1c2aafdff16b3c7673a1bd366d81303fbad8be861ba6a2b59016b9",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:57956"
+            "192.99.168.230:42822"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -184,11 +184,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "9a032a8e9e2f36c89f5c0a64b7b200e14b551306e8901847b79131118fe190e0",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "47bc1dca4d28d7b6baf156ebfa62b6ccee10c0c17e70c76ca358c5933240b4b1",
+               "last_tx_fee_msat": 4646000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 6416,
+                  "perkb": 25664
                },
                "owner": "channeld",
                "short_channel_id": "760870x939x6",
@@ -211,7 +211,7 @@
                   "remote_funds_msat": 40000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 25487409551,
+               "to_us_msat": 26289016551,
                "min_to_us_msat": 0,
                "max_to_us_msat": 39567866138,
                "total_msat": 40000000000,
@@ -221,8 +221,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 400000000,
                "our_reserve_msat": 400000000,
-               "spendable_msat": 25087409551,
-               "receivable_msat": 14094238449,
+               "spendable_msat": 25889016551,
+               "receivable_msat": 13297279449,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 39600000000,
@@ -242,12 +242,12 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 197561,
-               "in_offered_msat": 28665227733022,
-               "in_payments_fulfilled": 7333,
-               "in_fulfilled_msat": 849198476691,
-               "out_payments_offered": 14319,
-               "out_offered_msat": 4497848922094,
+               "in_payments_offered": 197567,
+               "in_offered_msat": 28666677154404,
+               "in_payments_fulfilled": 7337,
+               "in_fulfilled_msat": 850000083691,
+               "out_payments_offered": 14356,
+               "out_offered_msat": 4530208245301,
                "out_payments_fulfilled": 5077,
                "out_fulfilled_msat": 823711067140,
                "htlcs": []
@@ -331,32 +331,22 @@
          ]
       },
       {
-         "id": "02206e0d372def3b196fa8b096c238f0372f3caaa631b4d16f15c129583a69a0c8",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:39926"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
          "id": "03f3c108ccd536b8526841f0a5c58212bb9e6584a1eb493080e7c1cc34f82dad71",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
             "24.86.66.39:9735"
          ],
-         "remote_addr": "207.81.214.251:51710",
-         "features": "08a0800a0a69a2",
+         "remote_addr": "207.81.214.251:47974",
+         "features": "08a0802a8a59a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "b307dd6578ac0af56ad457b4e4bc8f33d6ecce3ae6f2c699c11561ae6878ad93",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "f6c1c04712c27a11fa39014bf47de5f5befcd12124a371bd32a07abc24accc56",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "767628x643x0",
@@ -390,7 +380,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 160000000,
                "our_reserve_msat": 160000000,
-               "spendable_msat": 12745844897,
+               "spendable_msat": 12745820897,
                "receivable_msat": 2921799103,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
@@ -435,11 +425,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "dccd9f3f9a254d816b9283cc5b9852717959d65edf3935893314d9af4a988e3d",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "baf80e5d874b3bfc9d0393a285e429fed33d16fa20104bb9ee4dd85a8b6bbc5f",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "781298x1591x1",
@@ -473,7 +463,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
-               "spendable_msat": 2885975390,
+               "spendable_msat": 2885951390,
                "receivable_msat": 2001668610,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
@@ -511,17 +501,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58396"
+            "192.99.168.230:42668"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "b9dc72f1e2bb95ccc4a7509f39a10c13b05b1f9c2a18f6840000d0e801047876",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "c622826e5c9cb21deb3ad7a2b30f2da508b0f0beb1cd8530a5a92c5d77dd7f07",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "834063x778x1",
@@ -555,7 +545,7 @@
                "their_reserve_msat": 160000000,
                "our_reserve_msat": 160000000,
                "spendable_msat": 5389073185,
-               "receivable_msat": 10272574815,
+               "receivable_msat": 10273550815,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 15840000000,
@@ -579,8 +569,8 @@
                "in_offered_msat": 779568411052,
                "in_payments_fulfilled": 302,
                "in_fulfilled_msat": 68089730185,
-               "out_payments_offered": 698,
-               "out_offered_msat": 199900729718,
+               "out_payments_offered": 699,
+               "out_offered_msat": 200100779518,
                "out_payments_fulfilled": 140,
                "out_fulfilled_msat": 62540657000,
                "htlcs": []
@@ -598,11 +588,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "6ab060297319f39780678441310f9b13d41dec79df6ca1d23d0e176de6485739",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "3239b97fb7767d4d06c7950a2a5ba1e7c42c78a4d807f73a20f8b837f2ec1808",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "823953x1301x1",
@@ -626,7 +616,7 @@
                   "remote_funds_msat": 10000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 9340268473,
+               "to_us_msat": 8340268473,
                "min_to_us_msat": 0,
                "max_to_us_msat": 9340268473,
                "total_msat": 10000000000,
@@ -636,8 +626,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 9240268473,
-               "receivable_msat": 547375527,
+               "spendable_msat": 8240268473,
+               "receivable_msat": 1547351527,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 100000,
                "maximum_htlc_out_msat": 9900000000,
@@ -661,10 +651,10 @@
                "in_offered_msat": 450735534622,
                "in_payments_fulfilled": 63,
                "in_fulfilled_msat": 14819011572,
-               "out_payments_offered": 145,
-               "out_offered_msat": 76695828228,
-               "out_payments_fulfilled": 10,
-               "out_fulfilled_msat": 5478743099,
+               "out_payments_offered": 147,
+               "out_offered_msat": 78636794050,
+               "out_payments_fulfilled": 11,
+               "out_fulfilled_msat": 6478743099,
                "htlcs": []
             }
          ]
@@ -674,17 +664,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58368"
+            "192.99.168.230:42756"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "7e62ba1bbcfef733f93b75e20682a61e13e8cf3c409244221a817bac8c0d7268",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "abc68ed23674c1e1a078ea37941a47e787c5346f103818904d2f31b668a32fd2",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "835167x1656x1",
@@ -707,7 +697,7 @@
                   "remote_funds_msat": 1000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 969506915,
+               "to_us_msat": 522139915,
                "min_to_us_msat": 0,
                "max_to_us_msat": 980329429,
                "total_msat": 1000000000,
@@ -717,8 +707,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 10000000,
                "our_reserve_msat": 10000000,
-               "spendable_msat": 959506915,
-               "receivable_msat": 2141085,
+               "spendable_msat": 512139915,
+               "receivable_msat": 450484085,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 990000000,
@@ -738,14 +728,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2989,
-               "in_offered_msat": 87540070183,
-               "in_payments_fulfilled": 96,
-               "in_fulfilled_msat": 4497949915,
-               "out_payments_offered": 167,
-               "out_offered_msat": 21603024481,
-               "out_payments_fulfilled": 15,
-               "out_fulfilled_msat": 3528443000,
+               "in_payments_offered": 2991,
+               "in_offered_msat": 87582703183,
+               "in_payments_fulfilled": 98,
+               "in_fulfilled_msat": 4540582915,
+               "out_payments_offered": 170,
+               "out_offered_msat": 22093024481,
+               "out_payments_fulfilled": 18,
+               "out_fulfilled_msat": 4018443000,
                "htlcs": []
             }
          ]
@@ -761,11 +751,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "1906de3dfd8bb672b35abb3a12691df71ec7ef0439b14732122f085f71f49ed4",
-               "last_tx_fee_msat": 5639000,
+               "scratch_txid": "bb7f931be93ed0fac4ac0d98d974d4f6f7269e278889f1d876f381f2d464939e",
+               "last_tx_fee_msat": 4418000,
                "feerate": {
-                  "perkw": 7788,
-                  "perkb": 31152
+                  "perkw": 6102,
+                  "perkb": 24408
                },
                "owner": "channeld",
                "short_channel_id": "837664x1587x1",
@@ -799,7 +789,7 @@
                "their_reserve_msat": 101200000,
                "our_reserve_msat": 101200000,
                "spendable_msat": 9096981365,
-               "receivable_msat": 803983635,
+               "receivable_msat": 807585635,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 10018800000,
@@ -823,8 +813,8 @@
                "in_offered_msat": 32011088367,
                "in_payments_fulfilled": 18,
                "in_fulfilled_msat": 10306321365,
-               "out_payments_offered": 6344,
-               "out_offered_msat": 202852284450,
+               "out_payments_offered": 6367,
+               "out_offered_msat": 203801134059,
                "out_payments_fulfilled": 30,
                "out_fulfilled_msat": 1108140000,
                "htlcs": []
@@ -842,11 +832,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "6fc3df5519256716aa5d1d2c6f6c644be242a1f3e09a9cf1dde89c75d145adb9",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "3282222a029358c4e50a032b8bca2022c5c81010223daaa37c420dd93e1071c5",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "814572x1439x0",
@@ -870,7 +860,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 7030557589,
+               "to_us_msat": 14831945589,
                "min_to_us_msat": 4594087927,
                "max_to_us_msat": 16000000000,
                "total_msat": 16000000000,
@@ -880,8 +870,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 160000000,
                "our_reserve_msat": 160000000,
-               "spendable_msat": 6858201589,
-               "receivable_msat": 8809442411,
+               "spendable_msat": 14659565589,
+               "receivable_msat": 1008054411,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 15840000000,
@@ -901,10 +891,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 9913,
-               "in_offered_msat": 2202353994387,
-               "in_payments_fulfilled": 535,
-               "in_fulfilled_msat": 18562088381,
+               "in_payments_offered": 10054,
+               "in_offered_msat": 2238139088738,
+               "in_payments_fulfilled": 541,
+               "in_fulfilled_msat": 26363476381,
                "out_payments_offered": 1550,
                "out_offered_msat": 221234394482,
                "out_payments_fulfilled": 592,
@@ -918,17 +908,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58342"
+            "192.99.168.230:9735"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "b4ef470b2c203c51a5adc6cad30d4789c817c7d455243fbf82b6c76590c71951",
-               "last_tx_fee_msat": 5640000,
+               "scratch_txid": "661f7830ebf5faded4848e5bca62bc822bed82b5140f6e0866f3650e17ee3245",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7789,
-                  "perkb": 31156
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "822210x3718x0",
@@ -951,7 +941,7 @@
                   "remote_funds_msat": 10000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2026847302,
+               "to_us_msat": 2030238302,
                "min_to_us_msat": 0,
                "max_to_us_msat": 9896935762,
                "total_msat": 10000000000,
@@ -961,8 +951,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 1926847302,
-               "receivable_msat": 7856515698,
+               "spendable_msat": 1930238302,
+               "receivable_msat": 7852385698,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 9900000000,
@@ -982,10 +972,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2750,
-               "in_offered_msat": 279392179675,
-               "in_payments_fulfilled": 796,
-               "in_fulfilled_msat": 11833688661,
+               "in_payments_offered": 2751,
+               "in_offered_msat": 279395570675,
+               "in_payments_fulfilled": 797,
+               "in_fulfilled_msat": 11837079661,
                "out_payments_offered": 98,
                "out_offered_msat": 21214219823,
                "out_payments_fulfilled": 43,
@@ -999,17 +989,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58946"
+            "192.99.168.230:42736"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "71bf72f3fdb78098a5276ff2648779844290af14589c0133f37c9381e922183a",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "a7bf03cdc85e70ee6fab858f9b502ff3d5d56e9351141ec4bd350cd05d651cb0",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "764840x1514x0",
@@ -1032,7 +1022,7 @@
                   "remote_funds_msat": 5000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 4611292810,
+               "to_us_msat": 4055996150,
                "min_to_us_msat": 0,
                "max_to_us_msat": 4943042944,
                "total_msat": 5000000000,
@@ -1042,8 +1032,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
-               "spendable_msat": 4561292810,
-               "receivable_msat": 322079190,
+               "spendable_msat": 4005996150,
+               "receivable_msat": 876627850,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -1063,14 +1053,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 728452,
-               "in_offered_msat": 82690131888342,
-               "in_payments_fulfilled": 10968,
-               "in_fulfilled_msat": 385227659587,
-               "out_payments_offered": 49467,
-               "out_offered_msat": 6623239772311,
-               "out_payments_fulfilled": 2314,
-               "out_fulfilled_msat": 380616366777,
+               "in_payments_offered": 728455,
+               "in_offered_msat": 82690506890342,
+               "in_payments_fulfilled": 10971,
+               "in_fulfilled_msat": 385602661587,
+               "out_payments_offered": 49689,
+               "out_offered_msat": 6776819607991,
+               "out_payments_fulfilled": 2324,
+               "out_fulfilled_msat": 381546665437,
                "htlcs": []
             }
          ]
@@ -1080,17 +1070,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "128.199.66.191:38864"
+            "192.99.168.230:42862"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "a585a016d2e8b4eaa995ffd3f725072f558585a3024401ff0e80c4783c64825a",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "88708a8fb903b7d62fb26f1ae51eafcc6845f7c5d4848264da59c426d937c225",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "822223x2662x1",
@@ -1124,7 +1114,7 @@
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
                "spendable_msat": 2407629951,
-               "receivable_msat": 2475742049,
+               "receivable_msat": 2474994049,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -1144,8 +1134,8 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 3197,
-               "in_offered_msat": 62402463189,
+               "in_payments_offered": 3198,
+               "in_offered_msat": 62402664191,
                "in_payments_fulfilled": 2912,
                "in_fulfilled_msat": 7081890109,
                "out_payments_offered": 131,
@@ -1163,15 +1153,15 @@
          "netaddr": [
             "159.69.32.62:47930"
          ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
+         "features": "8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020008a8251a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "33e3716a83cdcd8e9d8630ff451740f9f9f3993231b82b1de7503c3a822ac408",
-               "last_tx_fee_msat": 2535000,
+               "scratch_txid": "5eed62e149d28037865a6eef7267f75e8032c02a43a49e9e3b23006f7f804e43",
+               "last_tx_fee_msat": 4164000,
                "feerate": {
-                  "perkw": 3500,
-                  "perkb": 14000
+                  "perkw": 5750,
+                  "perkb": 23000
                },
                "owner": "channeld",
                "short_channel_id": "827820x3939x0",
@@ -1195,7 +1185,7 @@
                   "remote_funds_msat": 5000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 4894090042,
+               "to_us_msat": 4937194116,
                "min_to_us_msat": 0,
                "max_to_us_msat": 4943454076,
                "total_msat": 5000000000,
@@ -1206,7 +1196,7 @@
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
                "spendable_msat": 4294967295,
-               "receivable_msat": 48433958,
+               "receivable_msat": 523884,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -1226,14 +1216,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 103860,
-               "in_offered_msat": 11127119634256,
-               "in_payments_fulfilled": 316,
-               "in_fulfilled_msat": 46437612592,
-               "out_payments_offered": 1021,
-               "out_offered_msat": 565369086589,
-               "out_payments_fulfilled": 193,
-               "out_fulfilled_msat": 41543522550,
+               "in_payments_offered": 104258,
+               "in_offered_msat": 11149046555898,
+               "in_payments_fulfilled": 322,
+               "in_fulfilled_msat": 48480716666,
+               "out_payments_offered": 1070,
+               "out_offered_msat": 578106065078,
+               "out_payments_fulfilled": 194,
+               "out_fulfilled_msat": 43543522550,
                "htlcs": []
             }
          ]
@@ -1243,17 +1233,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41370"
+            "192.99.168.230:42674"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "5f67d7b9cb23e1e44d1986e33ee2d09c78ec6f1e7bc0979266b83272114329ac",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "67f0159d05036c5b6f6d70beb3af3d602ca59ae04415302b8239035312e51550",
+               "last_tx_fee_msat": 4419000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 6103,
+                  "perkb": 24412
                },
                "owner": "channeld",
                "short_channel_id": "828158x2619x7",
@@ -1276,7 +1266,7 @@
                   "remote_funds_msat": 12000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 7843499924,
+               "to_us_msat": 7867956924,
                "min_to_us_msat": 0,
                "max_to_us_msat": 11871432747,
                "total_msat": 12000000000,
@@ -1286,8 +1276,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 120000000,
                "our_reserve_msat": 120000000,
-               "spendable_msat": 7723499924,
-               "receivable_msat": 4019872076,
+               "spendable_msat": 7747956924,
+               "receivable_msat": 3999007076,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 11880000000,
@@ -1307,12 +1297,12 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 8417,
-               "in_offered_msat": 1623101068687,
-               "in_payments_fulfilled": 272,
-               "in_fulfilled_msat": 40078369146,
-               "out_payments_offered": 10235,
-               "out_offered_msat": 550093885435,
+               "in_payments_offered": 8420,
+               "in_offered_msat": 1623225528187,
+               "in_payments_fulfilled": 274,
+               "in_fulfilled_msat": 40102826146,
+               "out_payments_offered": 10237,
+               "out_offered_msat": 552089440661,
                "out_payments_fulfilled": 128,
                "out_fulfilled_msat": 32234869222,
                "htlcs": []
@@ -1330,11 +1320,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "06ce74461af8dbae2bb7345d4edceab23ad12792942020f9bc5d82a2dfda04ec",
-               "last_tx_fee_msat": 2535000,
+               "scratch_txid": "e5172dfc969863de6aa86f8b64dfd1453326dd036e481265b5db838c18c51582",
+               "last_tx_fee_msat": 4164000,
                "feerate": {
-                  "perkw": 3500,
-                  "perkb": 14000
+                  "perkw": 5750,
+                  "perkb": 23000
                },
                "owner": "channeld",
                "short_channel_id": "836614x1277x13",
@@ -1357,9 +1347,9 @@
                   "remote_funds_msat": 50000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 20626239981,
+               "to_us_msat": 33555502981,
                "min_to_us_msat": 0,
-               "max_to_us_msat": 20626239981,
+               "max_to_us_msat": 33555502981,
                "total_msat": 50000000000,
                "fee_base_msat": 0,
                "fee_proportional_millionths": 450,
@@ -1367,8 +1357,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 500000000,
                "our_reserve_msat": 500000000,
-               "spendable_msat": 20126239981,
-               "receivable_msat": 28866284019,
+               "spendable_msat": 33055502981,
+               "receivable_msat": 15932215019,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1000,
                "maximum_htlc_out_msat": 49500000000,
@@ -1388,12 +1378,12 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 7812,
-               "in_offered_msat": 3625964114660,
-               "in_payments_fulfilled": 256,
-               "in_fulfilled_msat": 38050006820,
-               "out_payments_offered": 292,
-               "out_offered_msat": 134484587073,
+               "in_payments_offered": 7825,
+               "in_offered_msat": 3642137607473,
+               "in_payments_fulfilled": 264,
+               "in_fulfilled_msat": 50979269820,
+               "out_payments_offered": 297,
+               "out_offered_msat": 139586215688,
                "out_payments_fulfilled": 27,
                "out_fulfilled_msat": 17423766839,
                "htlcs": []
@@ -1405,13 +1395,13 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:33534"
+            "192.99.168.230:42880"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "70eb92bf647365670a566d972cb15d0c1c5c6c3203001e4932000532df514df9",
+               "scratch_txid": "67b7e8be405c9aeed298a16907a75a47acd9ca6b54b8afbd3ba9695f6b35c59a",
                "last_tx_fee_msat": 2105000,
                "feerate": {
                   "perkw": 2907,
@@ -1473,8 +1463,8 @@
                "in_offered_msat": 6693525464,
                "in_payments_fulfilled": 27,
                "in_fulfilled_msat": 4638438802,
-               "out_payments_offered": 0,
-               "out_offered_msat": 0,
+               "out_payments_offered": 1,
+               "out_offered_msat": 811460958,
                "out_payments_fulfilled": 0,
                "out_fulfilled_msat": 0,
                "htlcs": []
@@ -1482,31 +1472,11 @@
          ]
       },
       {
-         "id": "02922cc30aa420b31b7759c5cb9a0f6c47775358a4151ebd03f4b7d1e2953b8d93",
+         "id": "0332812f11475e862a129bb14c1e338698725b630ab8356f481b6b3d0d26045afc",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:34130"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
-         "id": "03ee759b6b2466e4b8a4736714154f5c3353235524b94185af072d40c930464a8e",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41326"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
-         "channels": []
-      },
-      {
-         "id": "036fadc1a6d9dcf3e379fffe33d395fbcb33f9810de245d9344d60da4614ea7544",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41556"
+            "192.99.168.230:42766"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -1522,11 +1492,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "27b18ae1df8bafa5e1c0b34a88d7f7b1b8649cdb16a290135fc0090e21d488d5",
-               "last_tx_fee_msat": 6220000,
+               "scratch_txid": "d97f567b4255d94359a5a48ff0285b695c177bb9e90f76bfd8960c1772189bce",
+               "last_tx_fee_msat": 4648000,
                "feerate": {
-                  "perkw": 8591,
-                  "perkb": 34364
+                  "perkw": 6419,
+                  "perkb": 25676
                },
                "owner": "channeld",
                "short_channel_id": "805742x2066x0",
@@ -1550,7 +1520,7 @@
                   "remote_funds_msat": 100000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 1859080594,
+               "to_us_msat": 11822577604,
                "min_to_us_msat": 0,
                "max_to_us_msat": 66139256287,
                "total_msat": 100000000000,
@@ -1560,8 +1530,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 1000000000,
                "our_reserve_msat": 1000000000,
-               "spendable_msat": 859080594,
-               "receivable_msat": 97122569406,
+               "spendable_msat": 10822577604,
+               "receivable_msat": 87163712396,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 20000000000,
@@ -1581,14 +1551,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 37760,
-               "in_offered_msat": 5210445399998,
-               "in_payments_fulfilled": 36533,
-               "in_fulfilled_msat": 349361767325,
-               "out_payments_offered": 4220,
-               "out_offered_msat": 876287768709,
-               "out_payments_fulfilled": 2108,
-               "out_fulfilled_msat": 347502686731,
+               "in_payments_offered": 37803,
+               "in_offered_msat": 5247823643998,
+               "in_payments_fulfilled": 36573,
+               "in_fulfilled_msat": 368734011325,
+               "out_payments_offered": 4227,
+               "out_offered_msat": 886456333313,
+               "out_payments_fulfilled": 2113,
+               "out_fulfilled_msat": 356911433721,
                "htlcs": []
             }
          ]
@@ -1598,17 +1568,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41324"
+            "192.99.168.230:42830"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "f6a5beaae740c43ae04a885910a1c20b8c2cc1cc52d94bb5511f590bfc77d6e7",
-               "last_tx_fee_msat": 4661000,
+               "scratch_txid": "fecf38ea6e0d87e7c991095a7fa345c6ed666653cb93cedd302e112b28477021",
+               "last_tx_fee_msat": 5373000,
                "feerate": {
-                  "perkw": 6437,
-                  "perkb": 25748
+                  "perkw": 7420,
+                  "perkb": 29680
                },
                "owner": "channeld",
                "short_channel_id": "841312x2288x1",
@@ -1631,7 +1601,7 @@
                   "remote_funds_msat": 5500000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 5263501695,
+               "to_us_msat": 3403328695,
                "min_to_us_msat": 0,
                "max_to_us_msat": 5334652150,
                "total_msat": 5500000000,
@@ -1641,8 +1611,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 55000000,
                "our_reserve_msat": 55000000,
-               "spendable_msat": 5208501695,
-               "receivable_msat": 167749305,
+               "spendable_msat": 3348328695,
+               "receivable_msat": 2025822305,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 5445000000,
@@ -1662,14 +1632,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 455,
-               "in_offered_msat": 28042270983,
+               "in_payments_offered": 457,
+               "in_offered_msat": 29542945983,
                "in_payments_fulfilled": 46,
                "in_fulfilled_msat": 5887865695,
-               "out_payments_offered": 19,
-               "out_offered_msat": 931068000,
-               "out_payments_fulfilled": 11,
-               "out_fulfilled_msat": 624364000,
+               "out_payments_offered": 30,
+               "out_offered_msat": 2791241000,
+               "out_payments_fulfilled": 22,
+               "out_fulfilled_msat": 2484537000,
                "htlcs": []
             }
          ]
@@ -1685,11 +1655,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "cb53fc6118b547d2e94b50677d91eea05e3520f6d6016c07115f7ac61a24e23a",
-               "last_tx_fee_msat": 6220000,
+               "scratch_txid": "3d13b9feada5afaa318ae4064b634ccfd418972f53e0b752b401e5515889a961",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8591,
-                  "perkb": 34364
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "831684x1588x1",
@@ -1723,7 +1693,7 @@
                "their_reserve_msat": 22500000,
                "our_reserve_msat": 22500000,
                "spendable_msat": 1965172086,
-               "receivable_msat": 221477914,
+               "receivable_msat": 222451914,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 2227500000,
@@ -1743,12 +1713,12 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 26763,
-               "in_offered_msat": 1146327823333,
+               "in_payments_offered": 26782,
+               "in_offered_msat": 1148279376994,
                "in_payments_fulfilled": 67,
                "in_fulfilled_msat": 4177253238,
-               "out_payments_offered": 621,
-               "out_offered_msat": 148520817447,
+               "out_payments_offered": 622,
+               "out_offered_msat": 149461790808,
                "out_payments_fulfilled": 10,
                "out_fulfilled_msat": 2189581152,
                "htlcs": []
@@ -1766,11 +1736,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "025108a2b39998bc607dae72828788d902cd74ed41d2794e506ef11f48149523",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "f22ce02b1e5e3f765ae166bba360e913ac1bc57ebb77252d4322e788a6e9dad9",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "836159x1956x0",
@@ -1794,7 +1764,7 @@
                   "remote_funds_msat": 8000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2954628556,
+               "to_us_msat": 2754113285,
                "min_to_us_msat": 0,
                "max_to_us_msat": 2974687600,
                "total_msat": 8000000000,
@@ -1804,8 +1774,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 80000000,
                "our_reserve_msat": 80000000,
-               "spendable_msat": 2874628556,
-               "receivable_msat": 4953015444,
+               "spendable_msat": 2674113285,
+               "receivable_msat": 5153506715,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 7920000000,
@@ -1825,14 +1795,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 37,
-               "in_offered_msat": 12000692801,
+               "in_payments_offered": 39,
+               "in_offered_msat": 12601013406,
                "in_payments_fulfilled": 15,
                "in_fulfilled_msat": 2974691600,
-               "out_payments_offered": 9,
-               "out_offered_msat": 4802008087,
-               "out_payments_fulfilled": 3,
-               "out_fulfilled_msat": 20063044,
+               "out_payments_offered": 20,
+               "out_offered_msat": 5243291089,
+               "out_payments_fulfilled": 6,
+               "out_fulfilled_msat": 220578315,
                "htlcs": []
             }
          ]
@@ -1842,17 +1812,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "79.202.32.30:9735"
+            "192.99.168.230:42376"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "a3507eb22356c2012ee60c75536b1057918a18017b684d830cf7c0d830a045a0",
-               "last_tx_fee_msat": 3436000,
+               "scratch_txid": "d29101c4d6fceef60142b500ea054d2066023187117013599bbd77f7a75e45d4",
+               "last_tx_fee_msat": 3437000,
                "feerate": {
-                  "perkw": 4745,
-                  "perkb": 18980
+                  "perkw": 4747,
+                  "perkb": 18988
                },
                "owner": "channeld",
                "short_channel_id": "800954x4307x3",
@@ -1923,17 +1893,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58424"
+            "192.99.168.230:41916"
          ],
          "features": "08a0000a8a59a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "10f21048362f008eaf0aa983339be511276fe50ab1a7e03f7964e54117609dc5",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "78ac291c3de46235e66f443b4f764ce28bfdef74dbc69be0b5171d49cf5568fa",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "819053x1965x0",
@@ -1957,7 +1927,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 1979424039,
+               "to_us_msat": 1479424039,
                "min_to_us_msat": 52536001,
                "max_to_us_msat": 2000000000,
                "total_msat": 2000000000,
@@ -1967,8 +1937,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 20000000,
                "our_reserve_msat": 20000000,
-               "spendable_msat": 1947068039,
-               "receivable_msat": 575961,
+               "spendable_msat": 1447044039,
+               "receivable_msat": 500575961,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 1980000000,
@@ -1988,14 +1958,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2368,
-               "in_offered_msat": 110372176462,
+               "in_payments_offered": 2369,
+               "in_offered_msat": 110411562113,
                "in_payments_fulfilled": 407,
                "in_fulfilled_msat": 11272783084,
-               "out_payments_offered": 731,
-               "out_offered_msat": 86517709835,
-               "out_payments_fulfilled": 450,
-               "out_fulfilled_msat": 11293359045,
+               "out_payments_offered": 732,
+               "out_offered_msat": 87017709835,
+               "out_payments_fulfilled": 451,
+               "out_fulfilled_msat": 11793359045,
                "htlcs": []
             }
          ]
@@ -2005,17 +1975,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41580"
+            "192.99.168.230:42870"
          ],
          "features": "08a0000a0269a2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "f2a8241ec0153eb7f0d7fa25d50b6085ecb7e2905e4b16aa9c39f8ae13475908",
-               "last_tx_fee_msat": 4185000,
+               "scratch_txid": "7e6968be52159d9bf308eab9aff8d2ce9aa8790cb6925f2b1b0ee959c9b8209e",
+               "last_tx_fee_msat": 4193000,
                "feerate": {
-                  "perkw": 5780,
-                  "perkb": 23120
+                  "perkw": 5791,
+                  "perkb": 23164
                },
                "owner": "channeld",
                "short_channel_id": "819236x1027x0",
@@ -2050,7 +2020,7 @@
                "their_reserve_msat": 11230000,
                "our_reserve_msat": 11230000,
                "spendable_msat": 1040919154,
-               "receivable_msat": 47370846,
+               "receivable_msat": 47347846,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 1111866000,
@@ -2083,31 +2053,21 @@
          ]
       },
       {
-         "id": "031bcd483083ae1cb6a4b41a806a15b41205f8e8639bd25ef16abddeb5e28c6b8e",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:58678"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
          "id": "0203e5b16ebe87b089f22e18752f1f7a66a1bdf77879df8d1c9e8d912dbfb9beb4",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "150.136.37.44:9735"
+            "192.99.168.230:41932"
          ],
          "features": "80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008a000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "e1bdca0c00cf5317a14c00f33516cdfd607744f37f35bf28e6e57bcee25a8787",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "7ce6d55d404638f42446e12bc02b9e7d5e351ff9011eb41d4d163a37b3411388",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "828345x968x0",
@@ -2141,7 +2101,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 9786992265,
+               "spendable_msat": 9786968265,
                "receivable_msat": 651735,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
@@ -2175,16 +2135,6 @@
          ]
       },
       {
-         "id": "038ce95a759b233b70977d70c4a4c254c8522e0656be4760a10a365c6a19aed964",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41554"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
-         "channels": []
-      },
-      {
          "id": "0322d0e43b3d92d30ed187f4e101a9a9605c3ee5fc9721e6dac3ce3d7732fbb13e",
          "connected": true,
          "num_channels": 1,
@@ -2195,11 +2145,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "2f0a21fb1d9ed0e4b3a21d4fa3057dac7cbcd1f39b08f2a72ee7c89cb413e7d8",
-               "last_tx_fee_msat": 2535000,
+               "scratch_txid": "b0c95f058d64bb4b30d244da24385e4b6c6c81b754683e9f60a62b1e6178d866",
+               "last_tx_fee_msat": 4345000,
                "feerate": {
-                  "perkw": 3500,
-                  "perkb": 14000
+                  "perkw": 6000,
+                  "perkb": 24000
                },
                "owner": "channeld",
                "short_channel_id": "837725x1158x1",
@@ -2222,7 +2172,7 @@
                   "remote_funds_msat": 51000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 26401794385,
+               "to_us_msat": 26402794385,
                "min_to_us_msat": 0,
                "max_to_us_msat": 26927464293,
                "total_msat": 51000000000,
@@ -2232,8 +2182,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 510000000,
                "our_reserve_msat": 510000000,
-               "spendable_msat": 25891794385,
-               "receivable_msat": 24080729615,
+               "spendable_msat": 25892794385,
+               "receivable_msat": 24074389615,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 50490000000,
@@ -2253,10 +2203,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 703,
-               "in_offered_msat": 156613608367,
-               "in_payments_fulfilled": 93,
-               "in_fulfilled_msat": 31335225893,
+               "in_payments_offered": 705,
+               "in_offered_msat": 156615608367,
+               "in_payments_fulfilled": 94,
+               "in_fulfilled_msat": 31336225893,
                "out_payments_offered": 79,
                "out_offered_msat": 16826483028,
                "out_payments_fulfilled": 24,
@@ -2270,17 +2220,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "45.118.134.132:9735"
+            "192.99.168.230:42688"
          ],
          "features": "08a0000a0a69a2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "25c0ac248ea2e3793db0cf4dadd8506f6f14f4e7b8ed3f4112c0f836568c9794",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "cbd532da7a0f2ef0bc3b7cfb64e319a21a66c1394a8c9faa487194b7afa6b7b8",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "797312x2022x1",
@@ -2314,7 +2264,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 20000000,
                "our_reserve_msat": 20000000,
-               "spendable_msat": 1929278489,
+               "spendable_msat": 1929254489,
                "receivable_msat": 18365511,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
@@ -2358,11 +2308,21 @@
          "channels": []
       },
       {
-         "id": "03daf5c09ab086a61d289caf56c309253456b1d8a9f095cc894ac1855ef4eaee7f",
+         "id": "0257def3353025d53cb887b4bab12f1726ff85610ef609f713e63719dad79a225d",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:51464"
+            "192.99.168.230:42758"
+         ],
+         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
+         "channels": []
+      },
+      {
+         "id": "03485ed03830e7d2a241058920ed91c173423e30b30e6fb099db49fe1991f70f9b",
+         "connected": true,
+         "num_channels": 0,
+         "netaddr": [
+            "192.99.168.230:42286"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -2372,27 +2332,17 @@
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:40490"
+            "192.99.168.230:42826"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
       },
       {
-         "id": "02fd7ca78c73b4a5e72e1d9e94adbecac129c940ab124bcdeca1de9915c6c287ad",
+         "id": "028880864cd4436c3fcb48f293d7cab056b94c48bfe734f8cb4704df334a685ba7",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:41278"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
-         "id": "02e676dea3ee88be92c35df8cbc5d2ca348a611833434df2e61d3c1e9671d1c2a1",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41574"
+            "192.99.168.230:42834"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -2408,11 +2358,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "9f937f86decdf3296eaa4ca8b1722b185d7db21d06eb78facf98002716f81c70",
-               "last_tx_fee_msat": 5641000,
+               "scratch_txid": "0f7ca67c273cbcddf473beb7daf20a04fae053095d907b606cd7d2f1ec0586a0",
+               "last_tx_fee_msat": 4648000,
                "feerate": {
-                  "perkw": 7791,
-                  "perkb": 31164
+                  "perkw": 6419,
+                  "perkb": 25676
                },
                "owner": "channeld",
                "short_channel_id": "829769x2312x1",
@@ -2446,7 +2396,7 @@
                "their_reserve_msat": 80000000,
                "our_reserve_msat": 80000000,
                "spendable_msat": 7420066845,
-               "receivable_msat": 403292155,
+               "receivable_msat": 406223155,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 7920000000,
@@ -2466,8 +2416,8 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 1676,
-               "in_offered_msat": 178322150444,
+               "in_payments_offered": 1681,
+               "in_offered_msat": 179770512147,
                "in_payments_fulfilled": 47,
                "in_fulfilled_msat": 13133951185,
                "out_payments_offered": 4739,
@@ -2489,11 +2439,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "fbc05910dd904788871ce5659e7bacaf00e9cf0f3929eb498d982a2eb7a3b8cc",
-               "last_tx_fee_msat": 4188000,
+               "scratch_txid": "c4372ca4c29db9603f0474b247299231d1440340202fca084697a54c52d61403",
+               "last_tx_fee_msat": 4196000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "834702x2065x0",
@@ -2526,7 +2476,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 10000000,
                "our_reserve_msat": 10000000,
-               "spendable_msat": 966641000,
+               "spendable_msat": 966617000,
                "receivable_msat": 1003000,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
@@ -2560,31 +2510,21 @@
          ]
       },
       {
-         "id": "02bd12d2121da090b8945d46afb05cf3ee735c6eb112aa9b46523daa407a17e018",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41236"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
          "id": "03df75dccb85e82f4b5cf4a6bcb28b32ea12c878e809e89f4e3b35541eafebffff",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:50642"
+            "192.99.168.230:42592"
          ],
          "features": "2000880a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "a9449f5d5f6dd57ee7fdbd9864ba3d2a9ea95d092b771df1a7362d7cd4ec0c4a",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "3dc7a4502530d78173b8a7511f9606e766e086e9f81e064f26b24db8b19e6112",
+               "last_tx_fee_msat": 4646000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 6416,
+                  "perkb": 25664
                },
                "owner": "channeld",
                "short_channel_id": "829940x1216x2",
@@ -2607,7 +2547,7 @@
                   "remote_funds_msat": 7500000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 5184465429,
+               "to_us_msat": 6671915565,
                "min_to_us_msat": 0,
                "max_to_us_msat": 7424168430,
                "total_msat": 7500000000,
@@ -2617,8 +2557,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 75000000,
                "our_reserve_msat": 75000000,
-               "spendable_msat": 5109465429,
-               "receivable_msat": 2223906571,
+               "spendable_msat": 6596915565,
+               "receivable_msat": 739380435,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 7425000000,
@@ -2638,14 +2578,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 650,
-               "in_offered_msat": 191228903801,
-               "in_payments_fulfilled": 117,
-               "in_fulfilled_msat": 22394006839,
-               "out_payments_offered": 1333,
-               "out_offered_msat": 201655863665,
-               "out_payments_fulfilled": 28,
-               "out_fulfilled_msat": 17209541410,
+               "in_payments_offered": 673,
+               "in_offered_msat": 194359872547,
+               "in_payments_fulfilled": 128,
+               "in_fulfilled_msat": 24528105360,
+               "out_payments_offered": 1398,
+               "out_offered_msat": 205329321369,
+               "out_payments_fulfilled": 43,
+               "out_fulfilled_msat": 17856189795,
                "htlcs": []
             }
          ]
@@ -2661,11 +2601,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "9385560276579a064dbf8555c87cb1a4c4d37f745510a805867886e7f5233058",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "734d3d8962418fa5d4a64f8536adba885ea4a8509cc18096422da2fa5e3edf0f",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "822634x4548x0",
@@ -2688,7 +2628,7 @@
                   "remote_funds_msat": 5000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2752209159,
+               "to_us_msat": 2777209159,
                "min_to_us_msat": 0,
                "max_to_us_msat": 4928107803,
                "total_msat": 5000000000,
@@ -2698,8 +2638,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
-               "spendable_msat": 2702209159,
-               "receivable_msat": 2179438841,
+               "spendable_msat": 2727209159,
+               "receivable_msat": 2155414841,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -2719,12 +2659,12 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 7267,
-               "in_offered_msat": 808514815355,
-               "in_payments_fulfilled": 152,
-               "in_fulfilled_msat": 19663112754,
-               "out_payments_offered": 2911,
-               "out_offered_msat": 179997840316,
+               "in_payments_offered": 7276,
+               "in_offered_msat": 809149462187,
+               "in_payments_fulfilled": 153,
+               "in_fulfilled_msat": 19688112754,
+               "out_payments_offered": 2914,
+               "out_offered_msat": 180126150316,
                "out_payments_fulfilled": 269,
                "out_fulfilled_msat": 16910903595,
                "htlcs": []
@@ -2732,11 +2672,11 @@
          ]
       },
       {
-         "id": "0380ab732318aea33220a3d781602ab87cb1dffab99587055300bd7c82d4073d1a",
+         "id": "039142da13aa7c5a1f378a6fe87683eb53f1a6dbf4b854278732f3eba2fc0578fd",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:41386"
+            "192.99.168.230:42876"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -2746,17 +2686,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "52.13.118.208:9735"
+            "192.99.168.230:42700"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "da47ede37b7fec0908fac0ae2b60211a598dd67027933cfd9a9e2ff04dee1015",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "4ab74db0e12a710c529ff1d03fb456d78df424512cbaf43d94bba96c2c2a6950",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "756119x1816x0",
@@ -2779,7 +2719,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2986419264,
+               "to_us_msat": 20460621884,
                "min_to_us_msat": 500840210,
                "max_to_us_msat": 50000000000,
                "total_msat": 50000000000,
@@ -2789,8 +2729,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 500000000,
                "our_reserve_msat": 500000000,
-               "spendable_msat": 2474063264,
-               "receivable_msat": 46513580736,
+               "spendable_msat": 19948241884,
+               "receivable_msat": 29039378116,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1000,
                "maximum_htlc_out_msat": 49500000000,
@@ -2810,14 +2750,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 288356,
-               "in_offered_msat": 46531802344119,
-               "in_payments_fulfilled": 81993,
-               "in_fulfilled_msat": 2196497637810,
-               "out_payments_offered": 30020,
-               "out_offered_msat": 7939613915537,
-               "out_payments_fulfilled": 5262,
-               "out_fulfilled_msat": 2243511218546,
+               "in_payments_offered": 288488,
+               "in_offered_msat": 46584533692268,
+               "in_payments_fulfilled": 82119,
+               "in_fulfilled_msat": 2223971840430,
+               "out_payments_offered": 30021,
+               "out_offered_msat": 7949613915537,
+               "out_payments_fulfilled": 5263,
+               "out_fulfilled_msat": 2253511218546,
                "htlcs": []
             }
          ]
@@ -2827,17 +2767,18 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41404"
+            "146.70.120.211:41444"
          ],
+         "remote_addr": "207.81.214.251:44052",
          "features": "08a0800a0a69a2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "0b8c0e168381e12208d985ab779ae37bb2be091a951cd2d3c768aa4d2cfef4f1",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "7ca505ff489242f266117decf74129451526f506f2df99f571b524e79f6d4c8c",
+               "last_tx_fee_msat": 4196000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5795,
+                  "perkb": 23180
                },
                "owner": "channeld",
                "short_channel_id": "827300x1202x1",
@@ -2861,7 +2802,7 @@
                   "remote_funds_msat": 5000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 3140228962,
+               "to_us_msat": 2758945360,
                "min_to_us_msat": 0,
                "max_to_us_msat": 4568565407,
                "total_msat": 5000000000,
@@ -2871,8 +2812,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
-               "spendable_msat": 3090228962,
-               "receivable_msat": 1797415038,
+               "spendable_msat": 2708945360,
+               "receivable_msat": 2178676640,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 4950000000,
@@ -2892,14 +2833,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 1210,
-               "in_offered_msat": 219017790157,
-               "in_payments_fulfilled": 66,
-               "in_fulfilled_msat": 12684333596,
-               "out_payments_offered": 229,
-               "out_offered_msat": 103525500798,
-               "out_payments_fulfilled": 42,
-               "out_fulfilled_msat": 9544104634,
+               "in_payments_offered": 1228,
+               "in_offered_msat": 222230683624,
+               "in_payments_fulfilled": 79,
+               "in_fulfilled_msat": 13773545794,
+               "out_payments_offered": 232,
+               "out_offered_msat": 105748581112,
+               "out_payments_fulfilled": 44,
+               "out_fulfilled_msat": 11014600434,
                "htlcs": []
             }
          ]
@@ -2909,17 +2850,27 @@
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:37684"
+            "192.99.168.230:41718"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
       },
       {
-         "id": "03a4b1054110a01df557341a575cdf9d7f66f2889ed898d80c319856a982f8bc07",
+         "id": "03470a9cc5690eb074389ac9408c04f1636059301c6bf90aba210436de53efe69e",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:41310"
+            "192.99.168.230:42734"
+         ],
+         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
+         "channels": []
+      },
+      {
+         "id": "02fa00d53db84060fcf98b3ce3e52d96bc41fa0a740ce8fdfb659290dc9f8dbb16",
+         "connected": true,
+         "num_channels": 0,
+         "netaddr": [
+            "192.99.168.230:42742"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -2935,11 +2886,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "3ca2b35cb7a1a5282cc77d3f34326a92b047388b232c64f4c41217ce7eb8d3d0",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "2d2b78b1c663c9d7da59488756c67ec67acb7d57040dd061f752e8d9423aeaf3",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "790472x1473x1",
@@ -2972,7 +2923,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 55000000,
                "our_reserve_msat": 55000000,
-               "spendable_msat": 5377216554,
+               "spendable_msat": 5377192554,
                "receivable_msat": 427446,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
@@ -2997,8 +2948,8 @@
                "in_offered_msat": 242591493712,
                "in_payments_fulfilled": 3473,
                "in_fulfilled_msat": 16629728645,
-               "out_payments_offered": 3655,
-               "out_offered_msat": 283220628251,
+               "out_payments_offered": 3656,
+               "out_offered_msat": 283380628251,
                "out_payments_fulfilled": 51,
                "out_fulfilled_msat": 16685156091,
                "htlcs": []
@@ -3016,11 +2967,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "8a4672f0d56fdb02c7cd0ed75c46c30b0eb83910755bb29acb498f1bb0d835d5",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "b8666c1ca8c55bf54e554c853e7a45da3d98e3b36a91b65f73dccc994e644760",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "841698x1286x1",
@@ -3043,9 +2994,9 @@
                   "remote_funds_msat": 7500000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 7326885257,
+               "to_us_msat": 6548496063,
                "min_to_us_msat": 0,
-               "max_to_us_msat": 7326986267,
+               "max_to_us_msat": 7338079257,
                "total_msat": 7500000000,
                "fee_base_msat": 0,
                "fee_proportional_millionths": 450,
@@ -3053,8 +3004,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 75000000,
                "our_reserve_msat": 75000000,
-               "spendable_msat": 7251885257,
-               "receivable_msat": 79762743,
+               "spendable_msat": 6473496063,
+               "receivable_msat": 859127937,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 7425000000,
@@ -3073,14 +3024,14 @@
                "status": [
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 27,
-               "in_offered_msat": 133333988859,
-               "in_payments_fulfilled": 4,
-               "in_fulfilled_msat": 7326986267,
-               "out_payments_offered": 1,
-               "out_offered_msat": 101010,
-               "out_payments_fulfilled": 1,
-               "out_fulfilled_msat": 101010,
+               "in_payments_offered": 30,
+               "in_offered_msat": 133970182859,
+               "in_payments_fulfilled": 6,
+               "in_fulfilled_msat": 7338180267,
+               "out_payments_offered": 19,
+               "out_offered_msat": 1873691699,
+               "out_payments_fulfilled": 8,
+               "out_fulfilled_msat": 789684204,
                "htlcs": []
             }
          ]
@@ -3116,11 +3067,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "ca3c44d92aa599601e5258e53979673ddd12f54d2f1ae54d28a9a66052b3f1c5",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "3c40f3bcccdea61187330e40a23beb2e71fbec51cb725f9f2f5bf43fbd154415",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "835395x2776x1",
@@ -3154,7 +3105,7 @@
                "their_reserve_msat": 16000000,
                "our_reserve_msat": 16000000,
                "spendable_msat": 1529310500,
-               "receivable_msat": 20337500,
+               "receivable_msat": 21313500,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 1584000000,
@@ -3174,8 +3125,8 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 214,
-               "in_offered_msat": 72412241528,
+               "in_payments_offered": 249,
+               "in_offered_msat": 73178115221,
                "in_payments_fulfilled": 6,
                "in_fulfilled_msat": 1545312500,
                "out_payments_offered": 31,
@@ -3207,11 +3158,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "8753a52e1351a263bb97109c8a990c6a3c40273b4a0f24515816376fc2d20e5d",
-               "last_tx_fee_msat": 5113000,
+               "scratch_txid": "a195a8070bf189101bc6c4222fd7d2c7ba07bed1fc9d21224035dda6912b6bd2",
+               "last_tx_fee_msat": 4420000,
                "feerate": {
-                  "perkw": 7061,
-                  "perkb": 28244
+                  "perkw": 6104,
+                  "perkb": 24416
                },
                "owner": "channeld",
                "short_channel_id": "836868x1716x4",
@@ -3288,11 +3239,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "26f76777c89f96a5176449b8d7022ba4cf2365f123bb1d27cb5688270c0e88c0",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "ae369a372bd102c4e1a6e96ee9f794ba7e25e452b08dcf34d4dbe2aadd832f45",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "812411x1399x0",
@@ -3315,7 +3266,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2396661865,
+               "to_us_msat": 1796661865,
                "min_to_us_msat": 33705119,
                "max_to_us_msat": 2500000000,
                "total_msat": 2500000000,
@@ -3325,8 +3276,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 25000000,
                "our_reserve_msat": 25000000,
-               "spendable_msat": 2359305865,
-               "receivable_msat": 78338135,
+               "spendable_msat": 1759281865,
+               "receivable_msat": 678338135,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 2475000000,
@@ -3346,14 +3297,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 35520,
-               "in_offered_msat": 13884481550194,
+               "in_payments_offered": 35521,
+               "in_offered_msat": 13884537091350,
                "in_payments_fulfilled": 336,
                "in_fulfilled_msat": 71314503390,
-               "out_payments_offered": 7975,
-               "out_offered_msat": 1016245492278,
-               "out_payments_fulfilled": 487,
-               "out_fulfilled_msat": 71417841525,
+               "out_payments_offered": 7977,
+               "out_offered_msat": 1016845492278,
+               "out_payments_fulfilled": 489,
+               "out_fulfilled_msat": 72017841525,
                "htlcs": []
             }
          ]
@@ -3363,17 +3314,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41582"
+            "192.99.168.230:42620"
          ],
          "features": "08a0000a0269a2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "1c0788474cde60b0674ca89e0873c133f45478a290f60bbb7ae03063bce525b5",
-               "last_tx_fee_msat": 4185000,
+               "scratch_txid": "d0e17dc8cb04f9d7a7a9ff65f19e5abf7e1591b741819bb722a192be7ab42365",
+               "last_tx_fee_msat": 4193000,
                "feerate": {
-                  "perkw": 5780,
-                  "perkb": 23120
+                  "perkw": 5791,
+                  "perkb": 23164
                },
                "owner": "channeld",
                "short_channel_id": "792281x1861x1",
@@ -3407,7 +3358,7 @@
                "their_reserve_msat": 16000000,
                "our_reserve_msat": 16000000,
                "spendable_msat": 458233311,
-               "receivable_msat": 1097420689,
+               "receivable_msat": 1097397689,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 1584000000,
@@ -3444,17 +3395,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:59358"
+            "192.99.168.230:42672"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "d427b8b93b1dcf938ef04fd318b147502a4682acb86d0229645e1f60a426bbaf",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "879ce8f6349430a18852dcfe02066e9503de3f574890fcf33baad682d8815bf3",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "757478x967x1",
@@ -3477,7 +3428,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 36534621271,
+               "to_us_msat": 33710195027,
                "min_to_us_msat": 500544364,
                "max_to_us_msat": 50000000000,
                "total_msat": 50000000000,
@@ -3487,8 +3438,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 500000000,
                "our_reserve_msat": 500000000,
-               "spendable_msat": 36022265271,
-               "receivable_msat": 12965378729,
+               "spendable_msat": 33197815027,
+               "receivable_msat": 15789804973,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 49500000000,
@@ -3508,14 +3459,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2080059,
-               "in_offered_msat": 192611235819925,
-               "in_payments_fulfilled": 46571,
-               "in_fulfilled_msat": 3025625626791,
-               "out_payments_offered": 81196,
-               "out_offered_msat": 21831294597828,
-               "out_payments_fulfilled": 10671,
-               "out_fulfilled_msat": 3039091005520,
+               "in_payments_offered": 2080276,
+               "in_offered_msat": 192686239663779,
+               "in_payments_fulfilled": 46728,
+               "in_fulfilled_msat": 3060391858547,
+               "out_payments_offered": 81597,
+               "out_offered_msat": 22064642694841,
+               "out_payments_fulfilled": 10696,
+               "out_fulfilled_msat": 3076681663520,
                "htlcs": []
             }
          ]
@@ -3525,17 +3476,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41392"
+            "192.99.168.230:42652"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "8e772b333699dade942ba20a0f74cba5470eeebd205a18edc84104b04eb41f9f",
-               "last_tx_fee_msat": 5639000,
+               "scratch_txid": "1efe457330a51bac36fc549b8f7281c9a6aba81203d54eec2d16c0bde1957355",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7788,
-                  "perkb": 31152
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "766827x615x1",
@@ -3569,7 +3520,7 @@
                "their_reserve_msat": 40000000,
                "our_reserve_msat": 40000000,
                "spendable_msat": 3842536092,
-               "receivable_msat": 60828908,
+               "receivable_msat": 60087908,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 3960000000,
@@ -3593,8 +3544,8 @@
                "in_offered_msat": 29182928786606,
                "in_payments_fulfilled": 1502,
                "in_fulfilled_msat": 150699198925,
-               "out_payments_offered": 20284,
-               "out_offered_msat": 4437391292336,
+               "out_payments_offered": 20333,
+               "out_offered_msat": 4443882831185,
                "out_payments_fulfilled": 1189,
                "out_fulfilled_msat": 146816662833,
                "htlcs": []
@@ -3602,31 +3553,21 @@
          ]
       },
       {
-         "id": "02622fc631c36db04fbd694df25bbf6de78d829f0c1232c229eafb221855d35b40",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41246"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
          "id": "02258ef4b60edd70bb5b004baa2008eb974f8972f516a414627fe83fdb6ebef60c",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58592"
+            "192.99.168.230:42748"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "687bd76411d952894f93ae10d38ae0dc2b7c247afd89e3fc486fa31d119d550d",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "7eeeb173724ac268125aea3a6d92bf9f738690de7b60facb7558eec3a457a98d",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "824413x446x1",
@@ -3660,7 +3601,7 @@
                "their_reserve_msat": 70000000,
                "our_reserve_msat": 70000000,
                "spendable_msat": 4294967295,
-               "receivable_msat": 58705749,
+               "receivable_msat": 59681749,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 6930000000,
@@ -3697,17 +3638,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41558"
+            "192.99.168.230:42696"
          ],
          "features": "080a6aa2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "0cd2c84003c96ba3ab485a714923097e010b1fc776264f3c937d0961a3b6c91c",
-               "last_tx_fee_msat": 4185000,
+               "scratch_txid": "d970ce697dc0f5d0d44c94643ffcdb0e3ecf6fc7bea24413f0fbacfd6f39e0b7",
+               "last_tx_fee_msat": 4193000,
                "feerate": {
-                  "perkw": 5780,
-                  "perkb": 23120
+                  "perkw": 5791,
+                  "perkb": 23164
                },
                "owner": "channeld",
                "short_channel_id": "771692x1346x0",
@@ -3730,7 +3671,7 @@
                   "remote_funds_msat": 3020094000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2547863553,
+               "to_us_msat": 2578820553,
                "min_to_us_msat": 0,
                "max_to_us_msat": 2957863553,
                "total_msat": 3020094000,
@@ -3740,8 +3681,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 30200000,
                "our_reserve_msat": 30200000,
-               "spendable_msat": 2517663553,
-               "receivable_msat": 429684447,
+               "spendable_msat": 2548620553,
+               "receivable_msat": 398704447,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 2989894000,
@@ -3761,10 +3702,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 607,
-               "in_offered_msat": 248748004303,
-               "in_payments_fulfilled": 104,
-               "in_fulfilled_msat": 15676539480,
+               "in_payments_offered": 608,
+               "in_offered_msat": 248778961303,
+               "in_payments_fulfilled": 105,
+               "in_fulfilled_msat": 15707496480,
                "out_payments_offered": 980,
                "out_offered_msat": 98480924286,
                "out_payments_fulfilled": 141,
@@ -3784,12 +3725,29 @@
          "channels": []
       },
       {
-         "id": "03cf21f22b4fba02465b07ee8dac66f1029abdad6cb5adadb10699bb5d4e66f6c8",
+         "id": "02d106657c060b14550b22f94f373a7e192bb136ae73553e30a89a828f5e18fe64",
          "connected": true,
-         "num_channels": 1,
+         "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:58820"
+            "192.99.168.230:42832"
          ],
+         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
+         "channels": []
+      },
+      {
+         "id": "035aa6a14b6fa662d09a78c60a9e3bbc7db327c183fe5b016b3c1419969598416b",
+         "connected": true,
+         "num_channels": 0,
+         "netaddr": [
+            "192.99.168.230:42570"
+         ],
+         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
+         "channels": []
+      },
+      {
+         "id": "03cf21f22b4fba02465b07ee8dac66f1029abdad6cb5adadb10699bb5d4e66f6c8",
+         "connected": false,
+         "num_channels": 1,
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
@@ -3899,17 +3857,17 @@
          "connected": true,
          "num_channels": 3,
          "netaddr": [
-            "34.122.245.143:9735"
+            "192.99.168.230:42684"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "82a99ea741f01b97c5b98dd21df1c435566e8f5f6302267e6a2c19e37a697291",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "a3cdf1a447674a74a698470234f2f94e22c5c0b163b8581dc8f38c4c5336e72c",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "798400x3365x1",
@@ -3932,7 +3890,7 @@
                   "remote_funds_msat": 16777215000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 170998436,
+               "to_us_msat": 184022750,
                "min_to_us_msat": 0,
                "max_to_us_msat": 16606157433,
                "total_msat": 16777215000,
@@ -3942,8 +3900,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 167772000,
                "our_reserve_msat": 167772000,
-               "spendable_msat": 3226436,
-               "receivable_msat": 16420092564,
+               "spendable_msat": 16250750,
+               "receivable_msat": 16408044250,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 16609443000,
@@ -3963,23 +3921,23 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 11380,
-               "in_offered_msat": 1828969084470,
-               "in_payments_fulfilled": 1802,
-               "in_fulfilled_msat": 109200973527,
-               "out_payments_offered": 1974,
-               "out_offered_msat": 598537171087,
-               "out_payments_fulfilled": 721,
-               "out_fulfilled_msat": 109029975091,
+               "in_payments_offered": 11387,
+               "in_offered_msat": 1835957440829,
+               "in_payments_fulfilled": 1806,
+               "in_fulfilled_msat": 115583581757,
+               "out_payments_offered": 2061,
+               "out_offered_msat": 607463340725,
+               "out_payments_fulfilled": 785,
+               "out_fulfilled_msat": 115399559007,
                "htlcs": []
             },
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "bf56a6ad11385757c4d3759ec38da724518844da5d8094b6073ad9cb315d41da",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "17d244ed4dcd4ee2508842e238f148fed128200795371afc56dbee2cee266ddd",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "820284x834x1",
@@ -4002,7 +3960,7 @@
                   "remote_funds_msat": 50000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 567031226,
+               "to_us_msat": 670563979,
                "min_to_us_msat": 0,
                "max_to_us_msat": 6445190786,
                "total_msat": 50000000000,
@@ -4012,8 +3970,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 500000000,
                "our_reserve_msat": 500000000,
-               "spendable_msat": 67031226,
-               "receivable_msat": 48916340774,
+               "spendable_msat": 170563979,
+               "receivable_msat": 48812060021,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 49500000000,
@@ -4033,23 +3991,23 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2498,
-               "in_offered_msat": 366534317160,
-               "in_payments_fulfilled": 1862,
-               "in_fulfilled_msat": 97545396232,
-               "out_payments_offered": 1469,
-               "out_offered_msat": 152338061407,
-               "out_payments_fulfilled": 925,
-               "out_fulfilled_msat": 96978365006,
+               "in_payments_offered": 2537,
+               "in_offered_msat": 369534086594,
+               "in_payments_fulfilled": 1895,
+               "in_fulfilled_msat": 99134813194,
+               "out_payments_offered": 1521,
+               "out_offered_msat": 157092167213,
+               "out_payments_fulfilled": 943,
+               "out_fulfilled_msat": 98464249215,
                "htlcs": []
             },
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "97f86db92606cbd01ec08631126f9a39ab30574f0eeccc5f7a1cb99936e56e1e",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "44059554fef0591f95f32314bda5992d94d5c965dd97278550082155aec1439f",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "820283x4161x1",
@@ -4072,9 +4030,9 @@
                   "remote_funds_msat": 50000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 549952700,
+               "to_us_msat": 1353604284,
                "min_to_us_msat": 0,
-               "max_to_us_msat": 22182111621,
+               "max_to_us_msat": 25640310327,
                "total_msat": 50000000000,
                "fee_base_msat": 0,
                "fee_proportional_millionths": 450,
@@ -4082,8 +4040,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 500000000,
                "our_reserve_msat": 500000000,
-               "spendable_msat": 49952700,
-               "receivable_msat": 48931695300,
+               "spendable_msat": 853604284,
+               "receivable_msat": 48129019716,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 49500000000,
@@ -4103,14 +4061,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2418,
-               "in_offered_msat": 378526712948,
-               "in_payments_fulfilled": 1722,
-               "in_fulfilled_msat": 113380917373,
-               "out_payments_offered": 2147,
-               "out_offered_msat": 302650882675,
-               "out_payments_fulfilled": 949,
-               "out_fulfilled_msat": 112830964673,
+               "in_payments_offered": 2444,
+               "in_offered_msat": 406223482070,
+               "in_payments_fulfilled": 1747,
+               "in_fulfilled_msat": 140891573605,
+               "out_payments_offered": 2404,
+               "out_offered_msat": 344588374714,
+               "out_payments_fulfilled": 1075,
+               "out_fulfilled_msat": 139537969321,
                "htlcs": []
             }
          ]
@@ -4122,16 +4080,16 @@
          "netaddr": [
             "192.99.168.230:9740"
          ],
-         "remote_addr": "192.99.168.230:45644",
+         "remote_addr": "192.99.168.230:45708",
          "features": "08a0000a0a69a2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "d09f955226584ed63e70e73a829f46f6830b83363eb08eca6acc68473d6516be",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "75a35fe017c89f11318bd5ec388fe8913746f5f3b0c2fb600b3724c48a52fb37",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "798949x2384x1",
@@ -4165,7 +4123,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 20000000,
                "our_reserve_msat": 20000000,
-               "spendable_msat": 1879903146,
+               "spendable_msat": 1879879146,
                "receivable_msat": 67740854,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
@@ -4203,17 +4161,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:59068"
+            "192.99.168.230:41774"
          ],
          "features": "08a0000a8a5961",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "7647dc821b4dc32e0fe9f51d2bafd7eafbe067bf60e6cf3db75ba4a1bedec807",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "995abc779beed8aedacee2fba402b68e3e078ab5b07868caab8a3c72f7dcd294",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "833912x2827x0",
@@ -4248,7 +4206,7 @@
                "their_reserve_msat": 23568000,
                "our_reserve_msat": 23568000,
                "spendable_msat": 2108139951,
-               "receivable_msat": 189222049,
+               "receivable_msat": 189198049,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
                "maximum_htlc_out_msat": 2333286000,
@@ -4279,16 +4237,6 @@
                "htlcs": []
             }
          ]
-      },
-      {
-         "id": "022f5e7bd6c1310a3a26ad3d080d58d548eab49971e6bb2b8e07139c59be1216a8",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:41242"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
       },
       {
          "id": "02fab1674e0a6406018092945a7eb128ce6ffe2b592656dd184e2d4ae1cc3da7a0",
@@ -4373,16 +4321,16 @@
          "netaddr": [
             "192.99.168.230:9738"
          ],
-         "remote_addr": "192.99.168.230:44570",
+         "remote_addr": "192.99.168.230:44970",
          "features": "08a0000a0a69a2",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "9433ba48e569b40fbbcd2c2f1aa570445f2c653063e231a2365de5b7ad58f930",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "22190b19151dc3cfe2a6c647c1ccece884425fa16a8792a544b89938c87eed9d",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "789444x3101x0",
@@ -4441,8 +4389,8 @@
                "in_offered_msat": 9846679812348,
                "in_payments_fulfilled": 1672,
                "in_fulfilled_msat": 296232929831,
-               "out_payments_offered": 1444,
-               "out_offered_msat": 591776778226,
+               "out_payments_offered": 1445,
+               "out_offered_msat": 591976868226,
                "out_payments_fulfilled": 757,
                "out_fulfilled_msat": 281392530148,
                "htlcs": []
@@ -4454,17 +4402,17 @@
          "connected": true,
          "num_channels": 2,
          "netaddr": [
-            "89.149.39.60:26731"
+            "192.99.168.230:42842"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "2ba5b92923da518291d1c4b5da4044d883fecae246ad9bd4b3cd6424e63a9147",
-               "last_tx_fee_msat": 5639000,
+               "scratch_txid": "657397f69eb3d4ddb67b1020f8ef9526794eaebd3f40fb82d91012db84242ae1",
+               "last_tx_fee_msat": 6857000,
                "feerate": {
-                  "perkw": 7788,
-                  "perkb": 31152
+                  "perkw": 9470,
+                  "perkb": 37880
                },
                "owner": "channeld",
                "short_channel_id": "803873x1810x1",
@@ -4530,11 +4478,11 @@
             },
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "80ff636b82ade40a0d7eefc2ed8ecfc4b99705e9c585ffc3586fc2ab1bdead25",
-               "last_tx_fee_msat": 5640000,
+               "scratch_txid": "6b114754c031e988ca953d5e77effac532613d5de66b882ddbd29eef4434a846",
+               "last_tx_fee_msat": 6857000,
                "feerate": {
-                  "perkw": 7789,
-                  "perkb": 31156
+                  "perkw": 9470,
+                  "perkb": 37880
                },
                "owner": "channeld",
                "short_channel_id": "839549x875x4",
@@ -4557,9 +4505,9 @@
                   "remote_funds_msat": 16500000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 13559085188,
+               "to_us_msat": 16314503313,
                "min_to_us_msat": 0,
-               "max_to_us_msat": 15593777331,
+               "max_to_us_msat": 16314779191,
                "total_msat": 16500000000,
                "fee_base_msat": 0,
                "fee_proportional_millionths": 450,
@@ -4567,8 +4515,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 165000000,
                "our_reserve_msat": 165000000,
-               "spendable_msat": 13394085188,
-               "receivable_msat": 2759277812,
+               "spendable_msat": 16149503313,
+               "receivable_msat": 269687,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 16335000000,
@@ -4588,14 +4536,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 79589,
-               "in_offered_msat": 8573337608123,
-               "in_payments_fulfilled": 851,
-               "in_fulfilled_msat": 137471181576,
-               "out_payments_offered": 57,
-               "out_offered_msat": 216506146162,
-               "out_payments_fulfilled": 21,
-               "out_fulfilled_msat": 123912096388,
+               "in_payments_offered": 87774,
+               "in_offered_msat": 9337789366138,
+               "in_payments_fulfilled": 986,
+               "in_fulfilled_msat": 150226599701,
+               "out_payments_offered": 59,
+               "out_offered_msat": 226506146162,
+               "out_payments_fulfilled": 23,
+               "out_fulfilled_msat": 133912096388,
                "htlcs": []
             }
          ]
@@ -4605,17 +4553,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:58674"
+            "192.99.168.230:42524"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "ae8da58af3c885575714ebb9d4a42ec7a6456d95fdb678ae432932e77a4b2451",
-               "last_tx_fee_msat": 787000,
+               "scratch_txid": "70da40d467ed1d9709981f2b0a41a871f3a294193e64955ffc470f8acc597879",
+               "last_tx_fee_msat": 910000,
                "feerate": {
-                  "perkw": 1087,
-                  "perkb": 4348
+                  "perkw": 1256,
+                  "perkb": 5024
                },
                "owner": "channeld",
                "short_channel_id": "827195x1382x1",
@@ -4682,31 +4630,21 @@
          ]
       },
       {
-         "id": "0311b7346ad49be19bf6bc9213b850981db124beb2883e704949c06e3cdd2dbf3f",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:33382"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
          "id": "0341d8286e4a69a21f923a3d2556c107f5a3ed9e087658c2e43b7a3f15af9ee31a",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:39918"
+            "192.99.168.230:42552"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "694d226ba0936552afac0a70f401232141e549228a6f555abbe1c8289d870637",
-               "last_tx_fee_msat": 5640000,
+               "scratch_txid": "0be6a6c616ab2a5ac88b03b8c3cda1964aea54cb8e85f7627592c36913e127cb",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7789,
-                  "perkb": 31156
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "827209x1547x1",
@@ -4740,7 +4678,7 @@
                "their_reserve_msat": 10000000,
                "our_reserve_msat": 10000000,
                "spendable_msat": 925378880,
-               "receivable_msat": 37984120,
+               "receivable_msat": 37245120,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 990000000,
@@ -4783,11 +4721,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "cbca3913389ac04da687cc19f2b6786ec39fce2d4e80aa74215cdb496efb974a",
-               "last_tx_fee_msat": 5364000,
+               "scratch_txid": "5998bc3a5aadef1500b95c7bbfbeff96310dcc622c3c42d5df9a1f8c0d48ec3b",
+               "last_tx_fee_msat": 5399000,
                "feerate": {
-                  "perkw": 7408,
-                  "perkb": 29632
+                  "perkw": 7456,
+                  "perkb": 29824
                },
                "owner": "channeld",
                "short_channel_id": "815014x1636x1",
@@ -4811,7 +4749,7 @@
                   "remote_funds_msat": 10000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 812556776,
+               "to_us_msat": 924989776,
                "min_to_us_msat": 0,
                "max_to_us_msat": 9745634502,
                "total_msat": 10000000000,
@@ -4821,8 +4759,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 712556776,
-               "receivable_msat": 9071620224,
+               "spendable_msat": 824989776,
+               "receivable_msat": 8959084224,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 9900000000,
@@ -4842,10 +4780,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 3555,
-               "in_offered_msat": 195944291157,
-               "in_payments_fulfilled": 3202,
-               "in_fulfilled_msat": 25624020626,
+               "in_payments_offered": 3562,
+               "in_offered_msat": 196066067896,
+               "in_payments_fulfilled": 3205,
+               "in_fulfilled_msat": 25736453626,
                "out_payments_offered": 835,
                "out_offered_msat": 74014397371,
                "out_payments_fulfilled": 659,
@@ -4855,41 +4793,21 @@
          ]
       },
       {
-         "id": "02a62c657ff13d460ff915cf147e2654b93eebe5169f4aea7c7d2b2044c712fe4c",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:33200"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
-         "channels": []
-      },
-      {
-         "id": "03c534e58bf40c895f72b9030b457001c3ff7b63c203f9e1ae9fc7876e776d7325",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:47012"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
-      },
-      {
          "id": "024d24bff5248f7cc44195172650894db79a5494b28bdf7c02f098f42db37e5146",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:59306"
+            "192.99.168.230:42898"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "bbcd263a971ce97d7e9e39a051b738e49e376b0ede33ff5ae15295e48073c0be",
-               "last_tx_fee_msat": 6220000,
+               "scratch_txid": "7aadb6c29c1e3a42f930067e524ca384716586b5893ff3406dac6367be115e0c",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8591,
-                  "perkb": 34364
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "823394x927x1",
@@ -4923,7 +4841,7 @@
                "their_reserve_msat": 26620000,
                "our_reserve_msat": 26620000,
                "spendable_msat": 14200413,
-               "receivable_msat": 2576287587,
+               "receivable_msat": 2577261587,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 2635458000,
@@ -4966,11 +4884,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "fc10bbe919a94ad5439be1f0cb88551392c869cc97290d1e03eb020e052c2870",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "debd58f9602943dd71c7b5b72839e773aa37e0211a2391ef856f292db9e6a420",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "830539x440x3",
@@ -4994,7 +4912,7 @@
                   "remote_funds_msat": 10000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 7686721965,
+               "to_us_msat": 7769805965,
                "min_to_us_msat": 0,
                "max_to_us_msat": 9480855050,
                "total_msat": 10000000000,
@@ -5004,8 +4922,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 7586721965,
-               "receivable_msat": 2196650035,
+               "spendable_msat": 7669805965,
+               "receivable_msat": 2112818035,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 9900000000,
@@ -5025,10 +4943,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 168,
-               "in_offered_msat": 50627501556,
-               "in_payments_fulfilled": 99,
-               "in_fulfilled_msat": 10641490905,
+               "in_payments_offered": 172,
+               "in_offered_msat": 50710585556,
+               "in_payments_fulfilled": 103,
+               "in_fulfilled_msat": 10724574905,
                "out_payments_offered": 30,
                "out_offered_msat": 6489230938,
                "out_payments_fulfilled": 19,
@@ -5042,13 +4960,13 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41586"
+            "192.99.168.230:42628"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "f2b21a2b9dc92fce65925176899418f3ec912bf4ec1e0a65d28ff07c97f1a924",
+               "scratch_txid": "d5f9eef00c83f3dd9b5fb354ccbcf179d344691bbc3baf92833d64be413ddc9f",
                "last_tx_fee_msat": 1026000,
                "feerate": {
                   "perkw": 1417,
@@ -5110,8 +5028,8 @@
                "in_offered_msat": 34955023242,
                "in_payments_fulfilled": 51,
                "in_fulfilled_msat": 7932732677,
-               "out_payments_offered": 15,
-               "out_offered_msat": 4947772707,
+               "out_payments_offered": 16,
+               "out_offered_msat": 4987140643,
                "out_payments_fulfilled": 1,
                "out_fulfilled_msat": 15005500,
                "htlcs": []
@@ -5123,17 +5041,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41376"
+            "94.62.54.174:9735"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "b278bf49a727752afee329aa8a4297cc3583038d7e87261638a82f1f7625834c",
-               "last_tx_fee_msat": 5114000,
+               "scratch_txid": "8cafb7405d2c62cf7eafbb199d550a858238708e27d2f99603393f347bdc43f0",
+               "last_tx_fee_msat": 2894000,
                "feerate": {
-                  "perkw": 7063,
-                  "perkb": 28252
+                  "perkw": 3996,
+                  "perkb": 15984
                },
                "owner": "channeld",
                "short_channel_id": "829183x1666x1",
@@ -5156,9 +5074,9 @@
                   "remote_funds_msat": 10000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 9888262486,
+               "to_us_msat": 9893595937,
                "min_to_us_msat": 0,
-               "max_to_us_msat": 9891869802,
+               "max_to_us_msat": 9893595937,
                "total_msat": 10000000000,
                "fee_base_msat": 0,
                "fee_proportional_millionths": 450,
@@ -5166,7 +5084,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 9788262486,
+               "spendable_msat": 9793595937,
                "receivable_msat": 0,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
@@ -5187,10 +5105,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2924,
-               "in_offered_msat": 229486202976,
-               "in_payments_fulfilled": 46,
-               "in_fulfilled_msat": 16532660491,
+               "in_payments_offered": 2925,
+               "in_offered_msat": 229491536427,
+               "in_payments_fulfilled": 47,
+               "in_fulfilled_msat": 16537993942,
                "out_payments_offered": 3449,
                "out_offered_msat": 149755512375,
                "out_payments_fulfilled": 26,
@@ -5210,11 +5128,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "68c26a1c2ac0ef1738b45e74ff6d03078784b07a46e279080d8ea20e5b0587de",
-               "last_tx_fee_msat": 5640000,
+               "scratch_txid": "fd43d5a4c0b63e2d50e83c5e74529a7d2a448397b5c855a654c6371145fdca82",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7789,
-                  "perkb": 31156
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "831345x2165x1",
@@ -5248,7 +5166,7 @@
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
                "spendable_msat": 4294967295,
-               "receivable_msat": 207425102,
+               "receivable_msat": 206686102,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -5268,8 +5186,8 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 537,
-               "in_offered_msat": 91223124735,
+               "in_payments_offered": 542,
+               "in_offered_msat": 91952978328,
                "in_payments_fulfilled": 75,
                "in_fulfilled_msat": 7907188824,
                "out_payments_offered": 1804,
@@ -5291,11 +5209,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "a8be24e9665d82a320f66913d779a9c69c9fca1c8f5236194832d75f98d7ad85",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "fe32580537cd64bdef5b18f0638127ebc33898ea1eee193ecd2cecfeae9beb85",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "798741x2445x1",
@@ -5318,7 +5236,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 1956575363,
+               "to_us_msat": 1956443231,
                "min_to_us_msat": 82128131,
                "max_to_us_msat": 2000000000,
                "total_msat": 2000000000,
@@ -5328,8 +5246,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 20000000,
                "our_reserve_msat": 20000000,
-               "spendable_msat": 1924219363,
-               "receivable_msat": 23424637,
+               "spendable_msat": 1924063231,
+               "receivable_msat": 23556769,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 1980000000,
@@ -5353,13 +5271,23 @@
                "in_offered_msat": 195489900798,
                "in_payments_fulfilled": 1381,
                "in_fulfilled_msat": 5203425609,
-               "out_payments_offered": 668,
-               "out_offered_msat": 94927033393,
-               "out_payments_fulfilled": 65,
-               "out_fulfilled_msat": 5246850246,
+               "out_payments_offered": 679,
+               "out_offered_msat": 97743989795,
+               "out_payments_fulfilled": 66,
+               "out_fulfilled_msat": 5246982378,
                "htlcs": []
             }
          ]
+      },
+      {
+         "id": "020545bc9d4bcf516746829a169434214810b89f2abf35548b2309015029c00719",
+         "connected": true,
+         "num_channels": 0,
+         "netaddr": [
+            "192.99.168.230:42882"
+         ],
+         "features": "80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000008a000888a52a1",
+         "channels": []
       },
       {
          "id": "02f460ae6d3d3e104f8afe520ae0cff3d94c35c2ba8df66da89f3c8006a265b90a",
@@ -5372,11 +5300,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "6a0c2bf8e19766eac2a3a28379d668ec8ed60d2f1d9a9da15c25a3124ed9b1ca",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "9eeebb9099f857aee76379fb606f266015343198f7cc405ce28c9d5e8d14ee14",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "825230x2582x2",
@@ -5400,7 +5328,7 @@
                   "remote_funds_msat": 20000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 19392490176,
+               "to_us_msat": 19493281176,
                "min_to_us_msat": 0,
                "max_to_us_msat": 19690109778,
                "total_msat": 20000000000,
@@ -5410,8 +5338,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 200000000,
                "our_reserve_msat": 200000000,
-               "spendable_msat": 19192490176,
-               "receivable_msat": 389157824,
+               "spendable_msat": 19293281176,
+               "receivable_msat": 289342824,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 19800000000,
@@ -5431,12 +5359,12 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 16051,
-               "in_offered_msat": 2115492285632,
-               "in_payments_fulfilled": 142,
-               "in_fulfilled_msat": 51082953976,
-               "out_payments_offered": 1627,
-               "out_offered_msat": 617063984741,
+               "in_payments_offered": 16079,
+               "in_offered_msat": 2116753242257,
+               "in_payments_fulfilled": 146,
+               "in_fulfilled_msat": 51183744976,
+               "out_payments_offered": 1629,
+               "out_offered_msat": 618834054604,
                "out_payments_fulfilled": 52,
                "out_fulfilled_msat": 31690463800,
                "htlcs": []
@@ -5454,11 +5382,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "05c24aa725c9676d3d67580f84b1ae8bdf5f0126b3edf176e922fce2edea00ba",
-               "last_tx_fee_msat": 6220000,
+               "scratch_txid": "e51ac597a0ba9c3ad7b6ce60f36ad4690ad398a8ffe18648e7814b4c8b93ea5c",
+               "last_tx_fee_msat": 4646000,
                "feerate": {
-                  "perkw": 8591,
-                  "perkb": 34364
+                  "perkw": 6417,
+                  "perkb": 25668
                },
                "owner": "channeld",
                "short_channel_id": "806644x532x1",
@@ -5482,7 +5410,7 @@
                   "remote_funds_msat": 10000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 7163884778,
+               "to_us_msat": 8521295993,
                "min_to_us_msat": 0,
                "max_to_us_msat": 9890479558,
                "total_msat": 10000000000,
@@ -5492,8 +5420,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 7063884778,
-               "receivable_msat": 2717765222,
+               "spendable_msat": 8421295993,
+               "receivable_msat": 1364998007,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 9900000000,
@@ -5513,27 +5441,17 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 16018,
-               "in_offered_msat": 3137673210444,
-               "in_payments_fulfilled": 11734,
-               "in_fulfilled_msat": 97713983994,
-               "out_payments_offered": 791,
-               "out_offered_msat": 289879209511,
-               "out_payments_fulfilled": 491,
-               "out_fulfilled_msat": 90550099216,
+               "in_payments_offered": 16544,
+               "in_offered_msat": 3539813389414,
+               "in_payments_fulfilled": 11741,
+               "in_fulfilled_msat": 99577745209,
+               "out_payments_offered": 792,
+               "out_offered_msat": 290385559511,
+               "out_payments_fulfilled": 492,
+               "out_fulfilled_msat": 91056449216,
                "htlcs": []
             }
          ]
-      },
-      {
-         "id": "026b5dddc38c41af942f364f5eef2019c479f7327bfff03aec74c4c9cd178b5815",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:59006"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
       },
       {
          "id": "03fd105d7df6595d5a36f016b8ff9ca74e5474e29593c4bba85f4d7ad4663bc5ee",
@@ -5546,11 +5464,11 @@
          "channels": []
       },
       {
-         "id": "025bb9819c7f1ddb800e255f718bcff22449fed3a5bf855c72b6213fa8962066f4",
+         "id": "03478eb73ccea80db10420e4c09aec8d5430e72639481a79b3121197b67be6b6aa",
          "connected": true,
          "num_channels": 0,
          "netaddr": [
-            "192.99.168.230:41250"
+            "192.99.168.230:42886"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": []
@@ -5576,11 +5494,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "fcd05e20ce08d76f442d3c3e313447ec16371e2c0259c535f0187d809b4a76b6",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "9242de91e295675605b4e4af8df9be166bfdfe30dfa2fb8fbce9efc4aa4d22a9",
+               "last_tx_fee_msat": 4420000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 6104,
+                  "perkb": 24416
                },
                "owner": "channeld",
                "short_channel_id": "830024x1499x4",
@@ -5614,7 +5532,7 @@
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
                "spendable_msat": 3122665611,
-               "receivable_msat": 1760706389,
+               "receivable_msat": 1764296389,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -5638,8 +5556,8 @@
                "in_offered_msat": 1648046101614,
                "in_payments_fulfilled": 40,
                "in_fulfilled_msat": 3837474577,
-               "out_payments_offered": 61,
-               "out_offered_msat": 15705225779,
+               "out_payments_offered": 62,
+               "out_offered_msat": 16105785789,
                "out_payments_fulfilled": 1,
                "out_fulfilled_msat": 664808966,
                "htlcs": []
@@ -5648,11 +5566,8 @@
       },
       {
          "id": "02b590065ad48c3312b3df0c2cc1b56e924672b77d931a199c58e9c0e33f3460eb",
-         "connected": true,
+         "connected": false,
          "num_channels": 1,
-         "netaddr": [
-            "192.99.168.230:41576"
-         ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
@@ -5663,7 +5578,6 @@
                   "perkw": 910,
                   "perkb": 3640
                },
-               "owner": "channeld",
                "short_channel_id": "833896x980x1",
                "direction": 0,
                "channel_id": "437e51070e3821035cf23d5871b8f8780d2e7135f5a2c4a672cd3e011e0a4d4e",
@@ -5713,7 +5627,7 @@
                ],
                "status": [
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
-                  "CHANNELD_NORMAL:Channel ready for use. Channel announced."
+                  "CHANNELD_NORMAL:Will attempt reconnect in 300 seconds"
                ],
                "in_payments_offered": 722,
                "in_offered_msat": 25645003224,
@@ -5732,17 +5646,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:48208"
+            "192.99.168.230:42546"
          ],
          "features": "08a0802a8a5961",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "267a9704b388f1c7d50ab6beb605e5c5e235422ff0bcb2a59d60430216b976d5",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "1ea9f7c16fd9778bde28d3937fdc0308f40121b8973d6c53be89fcdfd1ce457e",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "839874x1793x0",
@@ -5766,7 +5680,7 @@
                   "remote_funds_msat": 50000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 49476195512,
+               "to_us_msat": 49429026348,
                "min_to_us_msat": 0,
                "max_to_us_msat": 49486200612,
                "total_msat": 50000000000,
@@ -5776,8 +5690,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 500000000,
                "our_reserve_msat": 500000000,
-               "spendable_msat": 48976195512,
-               "receivable_msat": 11448488,
+               "spendable_msat": 48929026348,
+               "receivable_msat": 58593652,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1000,
                "maximum_htlc_out_msat": 49500000000,
@@ -5797,27 +5711,17 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 1019,
-               "in_offered_msat": 329946454766,
-               "in_payments_fulfilled": 191,
-               "in_fulfilled_msat": 65166058791,
-               "out_payments_offered": 463,
-               "out_offered_msat": 153145299642,
-               "out_payments_fulfilled": 66,
-               "out_fulfilled_msat": 15689863279,
+               "in_payments_offered": 1145,
+               "in_offered_msat": 357210114695,
+               "in_payments_fulfilled": 216,
+               "in_fulfilled_msat": 67605303587,
+               "out_payments_offered": 535,
+               "out_offered_msat": 161745994011,
+               "out_payments_fulfilled": 86,
+               "out_fulfilled_msat": 18176277239,
                "htlcs": []
             }
          ]
-      },
-      {
-         "id": "02d54fabf4a4adafb74020c723d81a174729024d4f65fa4d45986b9b0e8546fa63",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:39922"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
       },
       {
          "id": "03501a74753e0f6ae270a1e4e2ffbbc37f7a796360e650c1121c18e116b22ac106",
@@ -5830,11 +5734,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "ada9ef3f84c3114af3899d39da0a9c0493b321a9f667554802d5b06c5830a52d",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "643d507724ebc6ec930615a2857bd4258c0be468edf8aeaacf8910348e704d16",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "790630x1538x0",
@@ -5867,7 +5771,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 40000000,
                "our_reserve_msat": 40000000,
-               "spendable_msat": 75505311,
+               "spendable_msat": 75481311,
                "receivable_msat": 3832138689,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
@@ -5911,11 +5815,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "6c90704d3534a66e563e1a8d72f49ed55b4dd6e9523a3885516fed4b96626d79",
-               "last_tx_fee_msat": 5637000,
+               "scratch_txid": "7579cb081d3e7fd6a053c208e28b0ea26393886a3850cfec6af6c3c163ce63dd",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7785,
-                  "perkb": 31140
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "813119x125x1",
@@ -5938,7 +5842,7 @@
                   "remote_funds_msat": 21000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 20540809283,
+               "to_us_msat": 20757378283,
                "min_to_us_msat": 0,
                "max_to_us_msat": 20785997091,
                "total_msat": 21000000000,
@@ -5948,8 +5852,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 210000000,
                "our_reserve_msat": 210000000,
-               "spendable_msat": 20330809283,
-               "receivable_msat": 232562717,
+               "spendable_msat": 20547378283,
+               "receivable_msat": 15245717,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 20790000000,
@@ -5969,10 +5873,10 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 14744,
-               "in_offered_msat": 2403657045548,
-               "in_payments_fulfilled": 912,
-               "in_fulfilled_msat": 93896564099,
+               "in_payments_offered": 14750,
+               "in_offered_msat": 2403952692507,
+               "in_payments_fulfilled": 916,
+               "in_fulfilled_msat": 94113133099,
                "out_payments_offered": 1584,
                "out_offered_msat": 827757529303,
                "out_payments_fulfilled": 156,
@@ -5982,209 +5886,21 @@
          ]
       },
       {
-         "id": "03fd6248c98efa9bd561eb412843922e0eb3c7345fbb6208b94f85c758f23121b0",
-         "connected": false,
-         "num_channels": 1,
-         "features": "",
-         "channels": [
-            {
-               "state": "ONCHAIN",
-               "scratch_txid": "c6bb5d1ccb113b7002789a7abd0f4c621afb7c360153183dc4e5613cad1fa732",
-               "last_tx_fee_msat": 2482000,
-               "feerate": {
-                  "perkw": 3427,
-                  "perkb": 13708
-               },
-               "owner": "onchaind",
-               "short_channel_id": "779929x3054x1",
-               "direction": 0,
-               "channel_id": "3b4ca8fffd40e7d9ed2e318b9f5d0fb7cad5bdcee0a97259359a8c9d57acca4d",
-               "funding_txid": "4ccaac579d8c9a355972a9e0cebdd5cab70f5d9f8b312eedd9e740fdffa84c3b",
-               "funding_outnum": 1,
-               "close_to_addr": "bc1q06kzt2kem0ea2ex0vst577zpxwcvc7twhsffgw",
-               "close_to": "00147eac25aad9dbf3d564cf64174f784133b0cc796e",
-               "private": false,
-               "opener": "remote",
-               "closer": "local",
-               "alias": {
-                  "local": "11783278x14856552x57847"
-               },
-               "features": [
-                  "option_static_remotekey"
-               ],
-               "funding": {
-                  "local_funds_msat": 0,
-                  "remote_funds_msat": 200000000,
-                  "pushed_msat": 0
-               },
-               "to_us_msat": 120419925,
-               "min_to_us_msat": 0,
-               "max_to_us_msat": 120467325,
-               "total_msat": 200000000,
-               "fee_base_msat": 1000,
-               "fee_proportional_millionths": 10,
-               "dust_limit_msat": 546000,
-               "max_total_htlc_in_msat": 18446744073709551615,
-               "their_reserve_msat": 2000000,
-               "our_reserve_msat": 2000000,
-               "spendable_msat": 118419925,
-               "receivable_msat": 70260075,
-               "minimum_htlc_in_msat": 0,
-               "minimum_htlc_out_msat": 1,
-               "maximum_htlc_out_msat": 198000000,
-               "their_to_self_delay": 144,
-               "our_to_self_delay": 144,
-               "max_accepted_htlcs": 30,
-               "state_changes": [
-                  {
-                     "timestamp": "2023-03-08T21:16:28.913Z",
-                     "old_state": "CHANNELD_AWAITING_LOCKIN",
-                     "new_state": "CHANNELD_NORMAL",
-                     "cause": "remote",
-                     "message": "Lockin complete"
-                  },
-                  {
-                     "timestamp": "2024-05-01T05:05:15.997Z",
-                     "old_state": "CHANNELD_NORMAL",
-                     "new_state": "CHANNELD_SHUTTING_DOWN",
-                     "cause": "user",
-                     "message": "User or plugin invoked close command"
-                  },
-                  {
-                     "timestamp": "2024-05-01T05:05:17.035Z",
-                     "old_state": "CHANNELD_SHUTTING_DOWN",
-                     "new_state": "AWAITING_UNILATERAL",
-                     "cause": "user",
-                     "message": "Forcibly closed by `close` command timeout"
-                  },
-                  {
-                     "timestamp": "2024-05-03T00:11:49.299Z",
-                     "old_state": "AWAITING_UNILATERAL",
-                     "new_state": "FUNDING_SPEND_SEEN",
-                     "cause": "user",
-                     "message": "Onchain funding spend"
-                  },
-                  {
-                     "timestamp": "2024-05-03T00:11:49.354Z",
-                     "old_state": "FUNDING_SPEND_SEEN",
-                     "new_state": "ONCHAIN",
-                     "cause": "user",
-                     "message": "Onchain init reply"
-                  }
-               ],
-               "status": [
-                  "ONCHAIN:Tracking our own unilateral close",
-                  "ONCHAIN:1 outputs unresolved: waiting confirmation that we spent DELAYED_OUTPUT_TO_US (c6bb5d1ccb113b7002789a7abd0f4c621afb7c360153183dc4e5613cad1fa732:1) using OUR_DELAYED_RETURN_TO_WALLET"
-               ],
-               "in_payments_offered": 14,
-               "in_offered_msat": 653677964,
-               "in_payments_fulfilled": 3,
-               "in_fulfilled_msat": 180468925,
-               "out_payments_offered": 5,
-               "out_offered_msat": 252947379,
-               "out_payments_fulfilled": 2,
-               "out_fulfilled_msat": 60049000,
-               "htlcs": []
-            }
-         ]
-      },
-      {
-         "id": "023e24602891c28a7872ea1ad5c1bb41abe4206ae1599bb981e3278a121e7895d6",
-         "connected": true,
-         "num_channels": 1,
-         "netaddr": [
-            "192.99.168.230:41312"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
-         "channels": [
-            {
-               "state": "CHANNELD_NORMAL",
-               "scratch_txid": "01d32e3e306cfb81e5c84dbc0e679b826ee59150be169f1f6e6c29f9f1f5bad5",
-               "last_tx_fee_msat": 5638000,
-               "feerate": {
-                  "perkw": 7786,
-                  "perkb": 31144
-               },
-               "owner": "channeld",
-               "short_channel_id": "828545x2818x1",
-               "direction": 0,
-               "channel_id": "bebfa726674f2fdb85f8ee02a02a5e8d36cb5cd30553c87fd1e47042f7242636",
-               "funding_txid": "372624f74270e4d17fc85305d35ccb368d5e2aa002eef885db2f4f6726a7bfbe",
-               "funding_outnum": 1,
-               "close_to_addr": "bc1pgeaf2dqhlvs8fx2mxr7gsjpe9zrauyvm90q5ew8zh4vc25kzlpzsj63tlt",
-               "close_to": "5120467a953417fb2074995b30fc8848392887de119b2bc14cb8e2bd598552c2f845",
-               "private": false,
-               "opener": "remote",
-               "alias": {
-                  "local": "7754781x3353764x25089"
-               },
-               "features": [
-                  "option_static_remotekey"
-               ],
-               "funding": {
-                  "local_funds_msat": 0,
-                  "remote_funds_msat": 15000000000,
-                  "pushed_msat": 0
-               },
-               "to_us_msat": 11928813977,
-               "min_to_us_msat": 0,
-               "max_to_us_msat": 14835135512,
-               "total_msat": 15000000000,
-               "fee_base_msat": 0,
-               "fee_proportional_millionths": 450,
-               "dust_limit_msat": 546000,
-               "max_total_htlc_in_msat": 18446744073709551615,
-               "their_reserve_msat": 150000000,
-               "our_reserve_msat": 150000000,
-               "spendable_msat": 11778813977,
-               "receivable_msat": 2904556023,
-               "minimum_htlc_in_msat": 0,
-               "minimum_htlc_out_msat": 1,
-               "maximum_htlc_out_msat": 14850000000,
-               "their_to_self_delay": 144,
-               "our_to_self_delay": 1802,
-               "max_accepted_htlcs": 30,
-               "state_changes": [
-                  {
-                     "timestamp": "2024-02-02T11:16:42.582Z",
-                     "old_state": "CHANNELD_AWAITING_LOCKIN",
-                     "new_state": "CHANNELD_NORMAL",
-                     "cause": "remote",
-                     "message": "Lockin complete"
-                  }
-               ],
-               "status": [
-                  "CHANNELD_NORMAL:Reconnected, and reestablished.",
-                  "CHANNELD_NORMAL:Channel ready for use. Channel announced."
-               ],
-               "in_payments_offered": 2897,
-               "in_offered_msat": 466040863035,
-               "in_payments_fulfilled": 133,
-               "in_fulfilled_msat": 30854804599,
-               "out_payments_offered": 3531,
-               "out_offered_msat": 299906236967,
-               "out_payments_fulfilled": 216,
-               "out_fulfilled_msat": 18925990622,
-               "htlcs": []
-            }
-         ]
-      },
-      {
          "id": "03587d4a81a217efacd4127d610f2c965c6b3c410a0ac538503c751c2486630e18",
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:37950"
+            "192.99.168.230:42460"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "a9a391627179d8f3de317ab1ee647fb92796e4b5c65051eaa84ebf9be787a53d",
-               "last_tx_fee_msat": 5639000,
+               "scratch_txid": "113ef7d3fdacf16636ef8e0647256e19360a1699e552b1d6a2380d73a74979dc",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 7788,
-                  "perkb": 31152
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "828929x605x1",
@@ -6218,7 +5934,7 @@
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
                "spendable_msat": 4699308331,
-               "receivable_msat": 184056669,
+               "receivable_msat": 183315669,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -6242,13 +5958,104 @@
                "in_offered_msat": 1254273912902,
                "in_payments_fulfilled": 128,
                "in_fulfilled_msat": 6171388797,
-               "out_payments_offered": 628,
-               "out_offered_msat": 130334520906,
+               "out_payments_offered": 629,
+               "out_offered_msat": 130734922307,
                "out_payments_fulfilled": 34,
                "out_fulfilled_msat": 1422080466,
                "htlcs": []
             }
          ]
+      },
+      {
+         "id": "023e24602891c28a7872ea1ad5c1bb41abe4206ae1599bb981e3278a121e7895d6",
+         "connected": true,
+         "num_channels": 1,
+         "netaddr": [
+            "192.99.168.230:42506"
+         ],
+         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
+         "channels": [
+            {
+               "state": "CHANNELD_NORMAL",
+               "scratch_txid": "807124f011c179fedf0cbfac120cbe1dffe0aaa3c2c337eb1941a1a88b5ae2fb",
+               "last_tx_fee_msat": 4419000,
+               "feerate": {
+                  "perkw": 6103,
+                  "perkb": 24412
+               },
+               "owner": "channeld",
+               "short_channel_id": "828545x2818x1",
+               "direction": 0,
+               "channel_id": "bebfa726674f2fdb85f8ee02a02a5e8d36cb5cd30553c87fd1e47042f7242636",
+               "funding_txid": "372624f74270e4d17fc85305d35ccb368d5e2aa002eef885db2f4f6726a7bfbe",
+               "funding_outnum": 1,
+               "close_to_addr": "bc1pgeaf2dqhlvs8fx2mxr7gsjpe9zrauyvm90q5ew8zh4vc25kzlpzsj63tlt",
+               "close_to": "5120467a953417fb2074995b30fc8848392887de119b2bc14cb8e2bd598552c2f845",
+               "private": false,
+               "opener": "remote",
+               "alias": {
+                  "local": "7754781x3353764x25089"
+               },
+               "features": [
+                  "option_static_remotekey"
+               ],
+               "funding": {
+                  "local_funds_msat": 0,
+                  "remote_funds_msat": 15000000000,
+                  "pushed_msat": 0
+               },
+               "to_us_msat": 11928813977,
+               "min_to_us_msat": 0,
+               "max_to_us_msat": 14835135512,
+               "total_msat": 15000000000,
+               "fee_base_msat": 0,
+               "fee_proportional_millionths": 450,
+               "dust_limit_msat": 546000,
+               "max_total_htlc_in_msat": 18446744073709551615,
+               "their_reserve_msat": 150000000,
+               "our_reserve_msat": 150000000,
+               "spendable_msat": 11778813977,
+               "receivable_msat": 2908150023,
+               "minimum_htlc_in_msat": 0,
+               "minimum_htlc_out_msat": 1,
+               "maximum_htlc_out_msat": 14850000000,
+               "their_to_self_delay": 144,
+               "our_to_self_delay": 1802,
+               "max_accepted_htlcs": 30,
+               "state_changes": [
+                  {
+                     "timestamp": "2024-02-02T11:16:42.582Z",
+                     "old_state": "CHANNELD_AWAITING_LOCKIN",
+                     "new_state": "CHANNELD_NORMAL",
+                     "cause": "remote",
+                     "message": "Lockin complete"
+                  }
+               ],
+               "status": [
+                  "CHANNELD_NORMAL:Reconnected, and reestablished.",
+                  "CHANNELD_NORMAL:Channel ready for use. Channel announced."
+               ],
+               "in_payments_offered": 2897,
+               "in_offered_msat": 466040863035,
+               "in_payments_fulfilled": 133,
+               "in_fulfilled_msat": 30854804599,
+               "out_payments_offered": 3531,
+               "out_offered_msat": 299906236967,
+               "out_payments_fulfilled": 216,
+               "out_fulfilled_msat": 18925990622,
+               "htlcs": []
+            }
+         ]
+      },
+      {
+         "id": "024c71c987f240c9987f6f3d5386a2c9146f00f59bae73defcc3bccc1a6e61b11c",
+         "connected": true,
+         "num_channels": 0,
+         "netaddr": [
+            "192.99.168.230:41928"
+         ],
+         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
+         "channels": []
       },
       {
          "id": "03412c0f05dec9c28d9302fa5b1dd820a9b740c18a678b9326a6fab15948e74c47",
@@ -6265,17 +6072,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41300"
+            "luublc7jg5se6nkmelessvn7vvsemps2utn3c55xdlu242hdgul6tkqd.onion:9735"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "e424ce2b1d06c7564349e3003711d4fb5a4695c8ad37b7d18f0761704b5fe22d",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "3383717854747df42e5a75f6434b89c852016d3de0abef522b201b09844f0ac7",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "800395x3123x0",
@@ -6298,7 +6105,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2716822455,
+               "to_us_msat": 2657162905,
                "min_to_us_msat": 56891918,
                "max_to_us_msat": 3000000000,
                "total_msat": 3000000000,
@@ -6308,8 +6115,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 30000000,
                "our_reserve_msat": 30000000,
-               "spendable_msat": 2674466455,
-               "receivable_msat": 253177545,
+               "spendable_msat": 2614782905,
+               "receivable_msat": 312837095,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 2970000000,
@@ -6329,14 +6136,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 2956,
-               "in_offered_msat": 537013587468,
-               "in_payments_fulfilled": 877,
-               "in_fulfilled_msat": 9893785560,
-               "out_payments_offered": 798,
-               "out_offered_msat": 145613070214,
-               "out_payments_fulfilled": 199,
-               "out_fulfilled_msat": 10176963105,
+               "in_payments_offered": 2957,
+               "in_offered_msat": 537014587918,
+               "in_payments_fulfilled": 878,
+               "in_fulfilled_msat": 9894786010,
+               "out_payments_offered": 799,
+               "out_offered_msat": 145673730214,
+               "out_payments_fulfilled": 200,
+               "out_fulfilled_msat": 10237623105,
                "htlcs": []
             }
          ]
@@ -6346,17 +6153,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:41336"
+            "192.99.168.230:42660"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "edfc144c56ebfa5a4bcfba614acfcfc0402eeba53dd5914f5721aa0db6f46173",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "533e914fbf1092df0e7b7060ee5931c6536242f311fd33a1e9b6a589eed2b286",
+               "last_tx_fee_msat": 5890000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 8135,
+                  "perkb": 32540
                },
                "owner": "channeld",
                "short_channel_id": "819160x1362x1",
@@ -6379,7 +6186,7 @@
                   "remote_funds_msat": 5000000000,
                   "pushed_msat": 0
                },
-               "to_us_msat": 2643733368,
+               "to_us_msat": 4764329245,
                "min_to_us_msat": 0,
                "max_to_us_msat": 4943068958,
                "total_msat": 5000000000,
@@ -6389,8 +6196,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 50000000,
                "our_reserve_msat": 50000000,
-               "spendable_msat": 2593733368,
-               "receivable_msat": 2287914632,
+               "spendable_msat": 4294967295,
+               "receivable_msat": 168294755,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 4950000000,
@@ -6410,27 +6217,17 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 5217,
-               "in_offered_msat": 244424379411,
-               "in_payments_fulfilled": 4174,
-               "in_fulfilled_msat": 18496210858,
-               "out_payments_offered": 478,
-               "out_offered_msat": 185113560251,
+               "in_payments_offered": 5229,
+               "in_offered_msat": 247384626842,
+               "in_payments_fulfilled": 4182,
+               "in_fulfilled_msat": 20616806735,
+               "out_payments_offered": 482,
+               "out_offered_msat": 187765944181,
                "out_payments_fulfilled": 28,
                "out_fulfilled_msat": 15852477490,
                "htlcs": []
             }
          ]
-      },
-      {
-         "id": "038e7c2c50378e73d7cec63ca887b13e8eb14add07fbde5797634fa89b5c0d6949",
-         "connected": true,
-         "num_channels": 0,
-         "netaddr": [
-            "192.99.168.230:58826"
-         ],
-         "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888252a1",
-         "channels": []
       },
       {
          "id": "02a98e8c590a1b5602049d6b21d8f4c8861970aa310762f42eae1b2be88372e924",
@@ -6447,17 +6244,17 @@
          "connected": true,
          "num_channels": 1,
          "netaddr": [
-            "192.99.168.230:33388"
+            "192.99.168.230:42108"
          ],
          "features": "800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000888a52a1",
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "6a84c1beae6facd42d31050a18f9a0ef809ced0efd2fcafeb81551f6a2a49f3f",
-               "last_tx_fee_msat": 6221000,
+               "scratch_txid": "256d9363a6e1d5c015f295d769031715767c1c8a5a4c1976344e56be99cc08af",
+               "last_tx_fee_msat": 4419000,
                "feerate": {
-                  "perkw": 8592,
-                  "perkb": 34368
+                  "perkw": 6103,
+                  "perkb": 24412
                },
                "owner": "channeld",
                "short_channel_id": "819464x1615x1",
@@ -6491,7 +6288,7 @@
                "their_reserve_msat": 35000000,
                "our_reserve_msat": 35000000,
                "spendable_msat": 3180412287,
-               "receivable_msat": 231235713,
+               "receivable_msat": 236551713,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 3465000000,
@@ -6511,8 +6308,8 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 6316,
-               "in_offered_msat": 1070670272600,
+               "in_payments_offered": 6329,
+               "in_offered_msat": 1071970490870,
                "in_payments_fulfilled": 235,
                "in_fulfilled_msat": 16924942769,
                "out_payments_offered": 1529,
@@ -6545,11 +6342,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "907b827ab59629a0c240da70733c7fcc66895764da588abdc29e417611e39a85",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "c611f8232e618466c67b2868a5ca3d0ef1520296bfe1b79675635deb544318d4",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "805531x2006x1",
@@ -6583,7 +6380,7 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 10000000,
                "our_reserve_msat": 10000000,
-               "spendable_msat": 949019275,
+               "spendable_msat": 948995275,
                "receivable_msat": 18624725,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 0,
@@ -6627,11 +6424,11 @@
          "channels": [
             {
                "state": "CHANNELD_NORMAL",
-               "scratch_txid": "ef3595fb8e11224e17cb272f2ea14d76aa37f0683f9293065fa4dafa4749554c",
-               "last_tx_fee_msat": 4189000,
+               "scratch_txid": "41706335679d64103eb9c7b4a56380c25a96cbfe9d4a8f73152438306512bb5f",
+               "last_tx_fee_msat": 4197000,
                "feerate": {
-                  "perkw": 5785,
-                  "perkb": 23140
+                  "perkw": 5796,
+                  "perkb": 23184
                },
                "owner": "channeld",
                "short_channel_id": "831838x2960x0",
@@ -6654,7 +6451,7 @@
                   "remote_funds_msat": 0,
                   "pushed_msat": 0
                },
-               "to_us_msat": 9889109027,
+               "to_us_msat": 9870588503,
                "min_to_us_msat": 141610530,
                "max_to_us_msat": 10000000000,
                "total_msat": 10000000000,
@@ -6664,8 +6461,8 @@
                "max_total_htlc_in_msat": 18446744073709551615,
                "their_reserve_msat": 100000000,
                "our_reserve_msat": 100000000,
-               "spendable_msat": 9776753027,
-               "receivable_msat": 10890973,
+               "spendable_msat": 9758208503,
+               "receivable_msat": 29411497,
                "minimum_htlc_in_msat": 0,
                "minimum_htlc_out_msat": 1,
                "maximum_htlc_out_msat": 9900000000,
@@ -6685,14 +6482,14 @@
                   "CHANNELD_NORMAL:Reconnected, and reestablished.",
                   "CHANNELD_NORMAL:Channel ready for use. Channel announced."
                ],
-               "in_payments_offered": 43315,
-               "in_offered_msat": 4170673392408,
-               "in_payments_fulfilled": 638,
-               "in_fulfilled_msat": 51323619855,
-               "out_payments_offered": 929,
-               "out_offered_msat": 269610734928,
-               "out_payments_fulfilled": 536,
-               "out_fulfilled_msat": 51434510828,
+               "in_payments_offered": 43367,
+               "in_offered_msat": 4172576577533,
+               "in_payments_fulfilled": 662,
+               "in_fulfilled_msat": 52150777431,
+               "out_payments_offered": 948,
+               "out_offered_msat": 270856613028,
+               "out_payments_fulfilled": 551,
+               "out_fulfilled_msat": 52280188928,
                "htlcs": []
             }
          ]
