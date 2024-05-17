@@ -61,6 +61,7 @@
   let {
     amount,
     hash,
+    items,
     type,
     rate,
     received,
@@ -82,6 +83,7 @@
     ({
       amount,
       hash,
+      items,
       type,
       received,
       prompt,
@@ -116,8 +118,11 @@
     <input type="hidden" name="prompt" value="false" />
     <input type="hidden" name="type" value={type} />
     <input type="hidden" name="hash" value={hash} />
+    <input type="hidden" name="items" value={JSON.stringify(items)} />
 
-    <input type="hidden" name="request_id" value={invoice.request?.id} />
+    {#if invoice.memoPrompt}
+      <input type="hidden" name="memoPrompt" value={invoice.memoPrompt} />
+    {/if}
 
     <h1 class="text-4xl font-semibold my-8">{$t("invoice.addTipq")}</h1>
     {#if !showCustomAmount}
@@ -199,6 +204,6 @@
   }
 
   .container button[type="button"] {
-    @apply w-full mt-2 bg-black text-white border hover:bg-white hover:text-black font-semibold py-5 px-7 rounded-2xl;
+    @apply w-full mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-5 px-7 rounded-2xl;
   }
 </style>
