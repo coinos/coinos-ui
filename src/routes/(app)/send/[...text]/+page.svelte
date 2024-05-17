@@ -9,7 +9,7 @@
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { back, fail } from "$lib/utils";
+  import { back, fail, focus } from "$lib/utils";
 
   export let data;
   export let form;
@@ -18,10 +18,8 @@
   let { contacts } = data;
   let w;
 
-  let el, textarea, text;
-  let placeholder = $t("user.send.placeholder");
+  let el, text;
 
-  $: $page && setTimeout(() => w > 800 && textarea?.focus(), 0);
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
   let paste = async () => {
@@ -32,12 +30,12 @@
 <svelte:window bind:innerWidth={w} />
 
 <AppHeader {data} />
-<div class="container px-4 max-w-xl mx-auto space-y-7 mt-24">
-  <h1 class="px-3 md:px-0 text-center text-4xl md:text-5xl font-semibold font-bebasNeue tracking-[0.2rem]">
+<div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.send")}
   </h1>
 
-  <form method="POST" use:enhance>
+  <form method="POST" use:enhance class="space-y-2 text-xl">
     {#if form?.error}
       <div class="mb-5">
         <div class="text-red-600">
@@ -46,89 +44,58 @@
       </div>
     {/if}
 
-    <div class="mb-4">
-      <input type="hidden" name="text" bind:value={text} />
-
+    <div class="mb-2">
       <textarea
-        {placeholder}
+        use:focus
+        name="text"
+        placeholder={$t("user.send.placeholder")}
         on:keypress={keypress}
-        class="w-full p-4 border border-stone-400 focus:outline-none focus:ring-2 hover:ring-2 ring-stone-900 dark:ring-white transition-all duration-500 rounded-xl h-48 dark:bg-stone-800 placeholder:text-stone-300"
+        class="w-full p-4 border rounded-xl h-48 text-xl"
         bind:value={text}
-        bind:this={textarea}
+        autocapitalize="none"
       />
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <a
-        href={`/qr/${encodeURIComponent(text)}`}
-        class:invisible={!text?.length}
-      >
-        <button
-          type="button"
-          class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"
-        >
-          <Icon icon="qr" style="mr-2 w-6 my-auto invert dark:invert-0" />
-          <div class="my-auto">{$t("user.send.makeQR")}</div>
-        </button>
-      </a>
-
+    <div class="flex gap-2">
       <a href="/scan" class="w-full">
         <button
           type="button"
-          class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 mr-1 w-full"
+          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center"
         >
-          <Icon icon="camera" style="mr-2 w-6 my-auto dark:invert" />
+          <Icon icon="camera" style="mr-2 w-6 my-auto" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button
         type="button"
-        class="flex border dark:border-white rounded-full px-6 py-2 font-bold hover:opacity-80 "
+        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center"
         on:click={paste}
       >
-        <Icon icon="paste" style="mr-2 w-6 my-auto dark:invert" />
+        <Icon icon="paste" style="mr-2 w-6 my-auto" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
-
-      <button
-        bind:this={el}
-        type="submit"
-        class="{!text
-          ? 'opacity-50'
-          : 'opacity-100 hover:opacity-80'} bg-black dark:bg-swapee-purple text-white border rounded-full px-6 py-2 font-bold"
-      >
-        {$t("user.send.next")}
-      </button>
     </div>
+
+    <button
+      bind:this={el}
+      type="submit"
+      class="bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold"
+    >
+      {$t("user.send.next")}
+    </button>
   </form>
 
   {#if contacts.length}
     <div class="space-y-5">
-      <h1 class="px-3 md:px-0 text-xl font-semibold mt-10">
+      <h1 class="px-3 md:px-0 text-2xl font-semibold mt-10">
         {$t("user.send.contacts")}
       </h1>
       <div>
-        <!-- <a href={`/send/$aaaa`}>
-          <div
-            class="border-b p-2 last:border-b-0 hover:bg-gray-200 dark:hover:bg-swapee-purple transition-all duration-200 ease-out rounded-2xl hover:ring-1 ring-swapee-purple"
-          >
-            <div class="flex">
-              <div>
-                <div class="flex">
-                  <Avatar  size={20} disabled={true} />
-                  <div class="my-auto text-left">
-                    <p class="ml-1 text-lg break-words">aaa aasa</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a> -->         
         {#each contacts as c}
-          <a href={`/send/${c.username}`}>
+          <a href={`/pay/${c.username}`}>
             <div
-            class="border-b p-2 last:border-b-0 hover:bg-gray-200 dark:hover:bg-stone-800 transition-all duration-200 ease-out rounded-2xl"
+              class="border-b p-2 last:border-b-0 hover:bg-gray-100 rounded-2xl"
             >
               <div class="flex">
                 <div>
