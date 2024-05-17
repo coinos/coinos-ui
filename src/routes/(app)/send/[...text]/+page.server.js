@@ -19,6 +19,7 @@ let parse = async (t, host) => {
       options: { amount },
     } = bip21.decode(t));
 
+  if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
   if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split("@")[0];
   if (t.includes("@") && t.includes(".")) {
     try {
@@ -26,17 +27,14 @@ let parse = async (t, host) => {
     } catch (e) {}
   }
 
-  if (t.endsWith("@classic")) {
-    ({ uuid: id } = await get(`/invoice/classic/${t.replace("@classic", "")}`));
-    if (id) redirect(307, `/send/invoice/${id}`);
-  }
-
   if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
 
+  // lightning
+  if (t.toLowerCase().startsWith("lightning:"))
+    t = t.toLowerCase().replace("lightning:", "");
   if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
   if (t.includes(":")) t = t.split(":")[1];
 
-  // lightning
   if (t.toLowerCase().startsWith("ln")) {
     try {
       ({ id } = await get(`/invoice/${t}`));
@@ -55,7 +53,7 @@ let parse = async (t, host) => {
       redirect(307, r);
     }
 
-    if (user) redirect(307, `/send/${user.username}`);
+    if (user) redirect(307, `/pay/${user.username}`);
     else if (id) redirect(307, `/send/${id}`);
   }
 
@@ -65,7 +63,7 @@ let parse = async (t, host) => {
     if (user.anon) user = null;
   } catch (e) {}
 
-  if (user) redirect(307, `/send/user/${t}`);
+  if (user) redirect(307, `/pay/${t}`);
 
   let fund;
   try {
@@ -80,7 +78,7 @@ let parse = async (t, host) => {
     invoice = await get(`/invoice/${t}`);
   } catch (e) {}
 
-  if (invoice) redirect(307, `/send/invoice/${invoice.hash}`);
+  if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
 };
 
 export async function load({ cookies, params, request, url }) {
