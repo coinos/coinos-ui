@@ -9,22 +9,34 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { post, back, f, fiat as toFiat, s, sats, focus } from "$lib/utils";
+  import {
+    btc,
+    sat,
+    post,
+    back,
+    f,
+    fiat as toFiat,
+    s,
+    sats,
+    focus,
+  } from "$lib/utils";
   export let data;
   export let form;
 
-  let { address, hash, payreq, recipient, tip, rates, user } = data;
+  let { invoice, rates, user } = data;
+  let { address, hash, payreq, user: recipient, tip } = invoice;
   let { currency } = user;
 
   $: reload(data);
   let reload = (data) => {
-    ({ address, hash, payreq, recipient, tip, rates, user } = data);
+    ({ invoice, rates, user } = data);
+    ({ address, hash, payreq, user: recipient, tip } = invoice);
     ({ currency } = user);
   };
 
-  $: rate = data.rate * (rates[user.currency] / rates[data.currency]);
+  $: rate = invoice.rate * (rates[user.currency] / rates[invoice.currency]);
 
-  let amount = form?.amount || data.amount;
+  let amount = form?.amount || invoice.amount;
   let a,
     af,
     amountFiat = amount * (rate / sats),
@@ -35,13 +47,17 @@
     amountFiat = af;
   };
 
-  let loading;
-  let submit = () => (loading = true);
+  let submitting;
+  let submit = () => (submitting = true);
 
   let external = async () => {
-    let invoice = { type: "lightning", amount, currency };
     let { id } = await post(`/${recipient.username}/invoice`, {
-      invoice,
+      invoice: {
+        ...invoice,
+        type: "lightning",
+        amount,
+        currency,
+      },
       user: { username: recipient.username },
     });
 
@@ -52,12 +68,12 @@
 
   $: update(form);
   let update = () => {
-    if (form?.message.includes("pin")) $pin = undefined;
-    loading = false;
+    if (form?.message?.includes("pin")) $pin = undefined;
+    submitting = false;
   };
 
   // onMount(async () => {
-  // 	if (browser && window.NDEFReader) {
+  // 	if (browser && window.NDEFReader && user.nfc) {
   // 		try {
   // 			let ndef = new NDEFReader();
   // 			await ndef.scan();
@@ -86,12 +102,12 @@
   </div>
 {/if}
 
-<div class="container px-4 max-w-xl mx-auto">
+<div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <div class="text-center mb-8">
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.send")}
-      </h1>
+    <h1 class="text-4xl font-bold">
+      {$t("payments.send")}
+    </h1>
+    <div>
       <h2 class="text-2xl md:text-3xl font-semibold">
         {f(toFiat(amount, rate), currency)}
         {#if tip}
@@ -100,7 +116,7 @@
           </span>
         {/if}
       </h2>
-      <h3 class="text-secondary md:text-lg mb-6 mt-1">
+      <h3 class="text-secondary md:text-lg mt-1">
         ⚡️{s(amount)}
 
         {#if tip}
@@ -109,26 +125,39 @@
           </span>
         {/if}
       </h3>
+    </div>
 
-      <h1 class="text-xl md:text-2xl text-secondary mb-2">
-        {$t("payments.to")}
+    <h1 class="text-xl md:text-2xl text-secondary">
+      {$t("payments.to")}
+    </h1>
+
+    <div class="flex p-1 gap-2 justify-center">
+      <Avatar user={recipient} size={"20"} />
+      <p class="text-4xl break-words my-auto">
+        {recipient.username}
+      </p>
+    </div>
+
+    {#if invoice.items.length}
+      <h1 class="text-xl md:text-2xl text-secondary">
+        {$t("payments.for")}
       </h1>
 
-      <div class="flex p-1 gap-2 justify-center">
-        {#if recipient.username.includes("@classic")}
-          <img
-            src="/images/classic.png"
-            class="w-24 border-4 border-transparent mr-1"
-            alt="Bitcoin"
-          />
-        {:else}
-          <Avatar user={recipient} size={"20"} />
-        {/if}
-        <p class="text-4xl break-words my-auto">
-          {recipient.username.replace("@classic", "")}
-        </p>
-      </div>
-    </div>
+      {#each invoice.items as i}
+        <div class="grid grid-cols-4 text-xl">
+          <div class="mr-auto grow col-span-2">
+            <span class="mr-2">{i.quantity}</span>
+            {i.name}
+          </div>
+          <div class="font-semibold text-right">
+            {f(i.price * i.quantity, invoice.currency)}
+          </div>
+          <div class="text-secondary text-right text-lg my-auto">
+            {sat(btc(i.price * i.quantity, invoice.rate))}
+          </div>
+        </div>
+      {/each}
+    {/if}
   {:else}
     <Numpad
       bind:amount={a}
@@ -146,14 +175,15 @@
     <input name="username" value={recipient.username} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
 
-    <div class="flex w-full">
+    <div class="flex w-full text-xl">
       {#if amount}
         <button
           use:focus
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
+          disabled={submitting}
         >
-          {#if loading}
+          {#if submitting}
             <Spinner />
           {:else}
             {$t("payments.send")}
@@ -162,7 +192,7 @@
       {:else}
         <button
           type="button"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
+          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
           on:click={setAmount}
         >
           {$t("payments.next")}
@@ -170,7 +200,7 @@
       {/if}
     </div>
   </form>
-  <div class="flex my-10">
+  <div class="flex my-10 text-xl">
     <button class="mx-auto" on:click={external}
       >{$t("payments.moreOptions")}</button
     >

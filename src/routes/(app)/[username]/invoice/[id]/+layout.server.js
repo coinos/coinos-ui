@@ -13,7 +13,7 @@ export async function load({ depends, params, url, parent }) {
   if (
     user &&
     invoice.uid !== user.id &&
-    !url.pathname.includes("tip") &&
+    !(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
     !options
   ) {
     redirect(307, `/send/invoice/${id}`);
@@ -34,5 +34,6 @@ export async function load({ depends, params, url, parent }) {
   }
 
   let src = Qr.drawImg(invoice.text || "", { size: 340 });
+
   return { id, invoice, src };
 }

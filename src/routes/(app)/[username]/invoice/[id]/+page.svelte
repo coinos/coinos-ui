@@ -1,7 +1,8 @@
 <script>
-  import { enhance } from "$app/forms";
+    import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import {
+    btc,
     post,
     back,
     copy,
@@ -15,7 +16,7 @@
   } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { last } from "$lib/store";
+  import { last, showQr } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Heart from "$comp/Heart.svelte";
@@ -26,6 +27,7 @@
   export let data;
 
   let ndef;
+  let showOptions;
 
   let reading = async ({ message, serialNumber }) => {
     let name = serialNumber.replace(/:/g, "-");
@@ -41,15 +43,10 @@
     hash,
     type,
     rate,
-    received,
-    prompt,
     text,
     tip,
-    request_id,
     user: { username, currency },
   } = invoice;
-
-  let showQr = true;
 
   let qr;
   let tipPercent = 0;
@@ -61,8 +58,6 @@
       hash,
       type,
       rate,
-      received,
-      prompt,
       text,
       tip,
       user: { username, currency },
@@ -120,12 +115,12 @@
       user: { username, currency },
     }));
 
-    goto(`./${id}`, { invalidateAll: true, noScroll: true });
+    goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
   };
 </script>
 
-<div class="invoice container mx-auto max-w-xl px-4 space-y-5">
-  {#if showQr}
+<div class="invoice container mx-auto max-w-xl px-4 space-y-2">
+  {#if $showQr}
     <div>
       <a
         href={[types.bitcoin, types.liquid].includes(invoice.type)
@@ -142,6 +137,21 @@
     </div>
   {/if}
 
+  {#each invoice.items as i}
+    <div class="grid grid-cols-12 text-xl">
+      <div class="col-span-1 my-auto">{i.quantity}</div>
+      <div class="mr-auto grow col-span-7 my-auto">
+        {i.name}
+      </div>
+      <div class="col-span-2 font-semibold text-right my-auto">
+        {f(i.price * i.quantity, currency)}
+      </div>
+      <div class="col-span-2 text-secondary text-right text-lg my-auto">
+        {sat(btc(i.price * i.quantity, rate))}
+      </div>
+    </div>
+  {/each}
+
   {#if amount > 0}
     <div class="text-center font-bold text-2xl">
       <div>
@@ -154,7 +164,7 @@
         {/if}
       </div>
       <div>
-        <span class="text-secondary font-normal text-lg"
+        <span class="text-secondary font-normal text-xl"
           >⚡️{`${s(amount)}`}</span
         >
 
@@ -167,10 +177,57 @@
     </div>
   {/if}
 
-  <div class="flex justify-center gap-2">
+  <button
+    type="button"
+    class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap"
+    on:click={() => copy(txt)}
+  >
+    <Icon icon="copy" style="w-8 my-auto" />
+    <div class="my-auto">
+      {txt.substr(0, 11)}..{txt.substr(-10)}
+    </div>
+  </button>
+
+  <div
+    class="w-full flex justify-center gap-2 flex-wrap text-secondary text-xl"
+  >
+    <a href={link} class="w-full">
+      <button
+        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+      >
+        <Icon icon="mobile" style="mr-1 w-8" />
+        <div class="my-auto">{$t("payments.openLink")}</div>
+      </button>
+    </a>
+
     <button
-      class="hover:bg-neutral-700 my-auto flex gap-1 p-2"
-      class:bg-neutral-700={type === types.bitcoin}
+      class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+      on:click={() => ($showQr = !$showQr)}
+    >
+      <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+      <div class="my-auto">
+        {$showQr ? $t("payments.hide") : $t("payments.show")}
+        {$t("payments.qr")}
+      </div></button
+    >
+
+    <!-- <button -->
+    <!--   class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg" -->
+    <!--   on:click={() => (showOptions = !showOptions)} -->
+    <!-- > -->
+    <!--   <Icon icon="settings" style="w-8 mr-1 my-auto" /> -->
+    <!--   <div class="my-auto"> -->
+    <!--     {showOptions ? $t("payments.hide") : $t("payments.show")} -->
+    <!--     {$t("payments.options")} -->
+    <!--   </div></button -->
+    <!-- > -->
+  </div>
+
+  <div class="flex justify-around text-secondary">
+    <button
+      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
+      class:bg-primary={type === types.bitcoin}
+      class:text-black={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
     >
       <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
@@ -178,8 +235,9 @@
     </button>
 
     <button
-      class="hover:bg-neutral-700 my-auto flex gap-1 p-2"
-      class:bg-neutral-700={type === types.liquid}
+      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
+      class:bg-primary={type === types.liquid}
+      class:text-black={type === types.liquid}
       on:click={() => setType(types.liquid)}
     >
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
@@ -187,11 +245,12 @@
     </button>
 
     <button
-      class="hover:bg-neutral-700 flex gap-1 p-2"
-      class:bg-neutral-700={type === types.lightning}
+      class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
+      class:bg-primary={type === types.lightning}
+      class:text-black={type === types.lightning}
       on:click={() => setType(types.lightning)}
     >
-      <div class="bg-black rounded-full w-8 h-8 text-center flex">
+      <div class="bg-white rounded-full w-8 h-8 text-center flex">
         <div class="m-auto">⚡️</div>
       </div>
       <div class="my-auto text-lg">Lightning</div>
@@ -200,45 +259,13 @@
 
   {#if type === types.liquid}
     <div class="flex justify-center">
-      <div class="my-auto text-xl text-center">
-        We only support <span class="text-teal-500 font-bold">L-BTC</span>,
-        don't deposit any other assets
+      <div class="my-auto text-xl text-center text-secondary">
+        {$t("payments.onlyLbtc")}
+        <span class="text-teal-500 font-bold">L-BTC</span>,
+        {$t("payments.dontDeposit")}
       </div>
     </div>
   {/if}
-
-  <button
-    type="button"
-    class="flex gap-2 text-center break-all rounded-full text-white bg-black border hover:opacity-80 p-4 w-full md:w-80 mx-auto text-xl justify-center"
-    on:click={() => copy(txt)}
-  >
-    <Icon icon="copy" style="w-8 my-auto" />
-    <div class="my-auto font-semibold">
-      {txt.substr(0, 6)} ... {txt.substr(-10)}
-    </div>
-  </button>
-
-  <div class="w-full flex justify-center gap-2 flex-wrap">
-    <a href={link} class="w-full md:w-auto">
-      <button
-        class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
-      >
-        <Icon icon="mobile" style="mr-1 w-6 invert" />
-        <div class="text-secondary">{$t("payments.openLink")}</div>
-      </button>
-    </a>
-
-    <button
-      class="w-full md:w-auto flex justify-center rounded-full border py-3 px-5 hover:opacity-80 font-semibold"
-      on:click={() => (showQr = !showQr)}
-    >
-      <Icon icon="qr" style="mr-1" />
-      <div class="text-secondary">
-        {showQr ? $t("payments.hide") : $t("payments.show")}
-        {$t("payments.qr")}
-      </div></button
-    >
-  </div>
 </div>
 
 <style>
