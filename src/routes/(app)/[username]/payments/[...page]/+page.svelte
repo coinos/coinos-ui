@@ -197,7 +197,7 @@
                   <div class="my-auto">
                     <Avatar user={p.with} size={16} disabled={true} />
                   </div>
-                  <div class="my-auto ml-1 text-secondary">
+                  <div class="my-auto ml-1 text-secondary break-all">
                     {p.with.username}
                   </div>
                 </div>
