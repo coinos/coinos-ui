@@ -42,7 +42,7 @@ export let get = (url, headers = {}) => {
 };
 
 export let post = async (url, body, headers) => {
-    headers = {
+  headers = {
     "content-type": "application/json",
     accept: "application/json",
     ...headers,
@@ -185,13 +185,18 @@ export let fd = async (req) => {
   return obj;
 };
 
-export let f = (s, currency) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-  })
-    .format(s)
-    .replace("CA", "");
+export let f = (s, currency) => {
+  try {
+      return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+    })
+      .format(s)
+      .replace("CA", "");
+  } catch (e) {
+    return "";
+  }
+};
 
 export let s = (s) =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
