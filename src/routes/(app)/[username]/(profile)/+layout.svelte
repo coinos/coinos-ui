@@ -15,19 +15,20 @@
   $: ({ events, user, subject, src, rates, text } = data);
   $: ({ currency, username: n, display } = subject);
 
-  $: username = n.length > 60 ? n.substr(0, 6) : display || n;
+  $: stripped = n.replace(/\s/g, "")
+  $: username = n.length > 60 ? n.substr(0, 6) : display || stripped;
   $: npub =
     subject.pubkey &&
     bech32m.encode("npub", toWords(hexToUint8Array(subject.pubkey)), 180);
-  $: lnaddr = `${n}@${$page.url.host}`;
-  $: profile = `${$page.url.host}/${n}`;
+  $: lnaddr = `${stripped}@${$page.url.host}`;
+  $: profile = `${$page.url.host}/${stripped}`;
 
   let follow = async () => {
     user.follows.push([
       "p",
       subject.pubkey,
       "wss://nostr.coinos.io",
-      subject.username,
+      stripped,
     ]);
     update();
   };
@@ -67,7 +68,7 @@
 
   let reset = async () => {
     try {
-      await post(`/${subject.username}/reset`, { password });
+      await post(`/${stripped}/reset`, { password });
       success("Password reset");
     } catch (e) {
       fail(e.message);
