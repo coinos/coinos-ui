@@ -136,7 +136,7 @@
               <button class="my-auto" on:click={() => copy(profile)}
                 ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
               >
-              <a href={`/qr/${encodeURIComponent(`${$page.url.protocol}://${profile}`)}`} class="my-auto">
+              <a href={`/qr/${encodeURIComponent(`${$page.url.protocol}//${profile}`)}`} class="my-auto">
                 <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
               </a>
             </div>
