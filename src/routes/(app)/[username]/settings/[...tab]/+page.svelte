@@ -166,6 +166,7 @@
 
           warning($t("user.settings.verifying"), false);
         } catch (e) {
+          fail(e.message);
           console.log(e);
         }
       }
