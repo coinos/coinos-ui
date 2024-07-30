@@ -30,7 +30,7 @@
 		"unrecognizedInput": "无法识别的输入"
 	},
 	"faq": {
-		"header": "常问问题",
+		"header": "常见问题",
 		"cost": {
 			"question": "费用是多少？",
 			"answer": "向您的帐户接收付款是免费的。提款到外部钱包会产生少量费用，具体费用根据网络状况而有所不同。"
@@ -64,7 +64,7 @@
 		"documentation": "文档"
 	},
 	"howItWorks": {
-		"header": "怎么运行的",
+		"header": "如何操作",
 		"step1": {
 			"header": "1. 创建您的帐户",
 			"description": "您只需输入用户名和密码即可开始。"
@@ -98,8 +98,8 @@
 	},
 	"landing": {
 		"header_before_icon": "这",
-		"header_with_icon": "最简单的",
-		"header_after_icon": "开始使用比特币的方式。",
+		"header_with_icon": "是开始使",
+		"header_after_icon": "用比特币最容易的方式。",
 		"subheader": "适合所有人的免费网络钱包和支付页面。",
 		"info1": {
 			"title": "通过闪电网络即时付款",
