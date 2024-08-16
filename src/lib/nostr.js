@@ -106,7 +106,7 @@ export let getPrivateKey = async (user) => {
 
 export let getMnemonic = async (user) => {
   let { cipher, username, salt } = user;
-  let mnemonic, key, seed, entropy, child, privkey;
+  let mnemonic, key, entropy, child, privkey;
 
   entropy = new Uint8Array(
     await crypto.subtle.decrypt(

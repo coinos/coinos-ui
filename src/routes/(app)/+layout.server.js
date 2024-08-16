@@ -38,6 +38,10 @@ export async function load({ cookies, request, url, params }) {
     redirect(303, `/${user.username}/generate`);
   }
 
+  if (user && !user.cpub && !pathname.includes("getcash")) {
+    redirect(303, `/${user.username}/getcash`);
+  }
+
   try {
     rate = await get("/rate");
     rates = await get("/rates");
