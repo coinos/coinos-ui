@@ -203,7 +203,7 @@
                 </div>
               {:else}
                 <div class="text-secondary flex">
-                  {#if p.type === types.lightning}
+                  {#if [types.ecash, types.lightning].includes(p.type)}
                     <div class="text-3xl">⚡️</div>
                   {:else if p.type === types.bitcoin}
                     <div class="my-auto mr-1">

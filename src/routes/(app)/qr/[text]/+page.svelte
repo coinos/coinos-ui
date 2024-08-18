@@ -1,7 +1,7 @@
 <script>
   import Icon from "$comp/Icon.svelte";
   import Qr from "$comp/Qr.svelte";
-  import { back } from "$lib/utils";
+  import { back, copy } from "$lib/utils";
   export let data;
   let { src, text } = data;
 </script>
@@ -17,9 +17,15 @@
     >
       <Qr {src} />
 
-      <div class="text-center w-full text-lg break-all">
-        {text}
-      </div>
+      <button
+        type="button"
+        class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl hover:bg-slate-100"
+        on:click={() => copy(text)}
+      >
+        <div class="my-auto">
+          {text}
+        </div>
+      </button>
     </div>
   </div>
 </div>

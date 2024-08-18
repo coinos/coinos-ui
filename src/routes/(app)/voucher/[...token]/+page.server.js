@@ -1,12 +1,13 @@
-import { auth, get } from "$lib/utils";
+import { validate } from "bitcoin-address-validation";
+import bip21 from "bip21";
+import { auth, get, isLiquid, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
+import { PUBLIC_DOMAIN } from "$env/static/public";
 import parse from "$lib/parse";
+import { test } from "$lib/parse";
 
 export async function load({ cookies, params, request, url }) {
-  let { text } = params;
-  await parse(text, url.host, cookies);
-  let contacts = await get("/contacts", auth(cookies));
-  return { contacts };
+    await parse(params.token, url.host, cookies);
 }
 
 export const actions = {

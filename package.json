@@ -6,7 +6,7 @@
     "@scure/base": "^1.1.1",
     "@scure/bip39": "^1.2.1",
     "@sveltejs/adapter-node": "^2.0.0",
-    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/kit": "^2.5.22",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@zerodevx/svelte-toast": "^0.9.5",

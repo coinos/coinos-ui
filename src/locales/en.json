@@ -157,7 +157,7 @@
 	"user": {
 		"install": "Install app",
 		"moreDetails": "Profile details",
-		"noMessages": "You have not sent or received any messages yet",
+		"noMessages": "You have not sent or received any messages",
 		"profilePage": "Profile page",
 		"nostrPubkey": "Nostr pubkey",
 		"requestPayment": "Request Payment",
@@ -293,6 +293,10 @@
 		}
 	},
 	"payments": {
+    "ecash": "Ecash",
+    "memo": "Notes",
+    "voucherText": "Enter an ecash or lnurlw code",
+    "createEcash": "Create ecash",
 		"tips": "Tips",
 		"options": "options",
 		"bump": "Bump fee",
@@ -308,11 +312,15 @@
 		"takeFunds": "Take Funds",
 		"show": "Show",
 		"hide": "Hide",
+    "voucher": "Redeem voucher",
 		"qr": "QR",
+		"copy": "Copy",
 		"copyLink": "Copy Link",
 		"copyText": "Copy Text",
 		"openLink": "Open wallet",
+    "setAmount": "Set amount",
 		"moreOptions": "More options",
+    "redeemVoucher": "Ecash/lnurlw voucher",
 		"total": "Total",
 		"gainLoss": "Gain/Loss",
 		"presentValue": "Present Value",
@@ -360,7 +368,7 @@
 		"fundsClaimed": "Funds claimed!",
 		"print": "Print",
 		"onlyLbtc": "We only support",
-		"dontDeposit": "don't deposit other assets yet"
+		"dontDeposit": "don't deposit other assets"
 	},
 	"items": {
 		"add": "Add item",

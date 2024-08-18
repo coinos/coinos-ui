@@ -56,4 +56,4 @@ export let request = writable();
 export let requestRedirect = writable();
 export let token = persistSession("token");
 export let ndef = writable();
-export let showQr = persistLocal("showQr");
+export let showQr = persistLocal("showQr", true);

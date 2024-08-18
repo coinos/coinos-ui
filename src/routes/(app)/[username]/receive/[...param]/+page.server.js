@@ -1,15 +1,19 @@
-import { auth, get } from "$lib/utils";
+import { redirect } from "@sveltejs/kit";
+import { auth, post } from "$lib/utils";
 import invoice from "$lib/invoice";
 
-export let load = async ({ cookies, params }) => {
-  let id = params.param;
+export let load = async ({ cookies, parent }) => {
+  let { user, rates } = await parent();
 
-  let request;
-  if (id) ({ request } = await get(`/request/${id}`, auth(cookies)));
+  let invoice = {
+    type: "lightning",
+    rate: rates[user.currency],
+  };
 
-  return { ...params, request };
-};
+  invoice = await post("/invoice", { invoice, user }, auth(cookies));
+  let { id } = invoice;
 
-export const actions = {
-  default: invoice,
+  if (invoice.memoPrompt && !invoice.memo) {
+    redirect(307, `/${user.username}/invoice/${id}/memo`);
+  } else redirect(307, `/${user.username}/invoice/${id}`);
 };

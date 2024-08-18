@@ -147,7 +147,7 @@
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
         >
           <div class="mx-auto flex gap-2">
-            <Icon icon="numpad" style="w-8" />
+            <Icon icon="receive" style="w-8" />
             <div class="my-auto">{$t("user.dashboard.receive")}</div>
           </div>
         </button>

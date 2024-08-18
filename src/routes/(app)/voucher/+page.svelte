@@ -15,15 +15,12 @@
   export let form;
   data.subject = data.user;
 
-  let { contacts } = data;
-
   let el, text, pasted, w;
 
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
-    pasted = true;
   };
 
   $: if (browser && pasted && text) el.click() && (pasted = false);
@@ -34,7 +31,7 @@
 <AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    {$t("payments.send")}
+    {$t("payments.voucher")}
   </h1>
 
   <form method="POST" use:enhance class="space-y-2 text-xl">
@@ -52,7 +49,7 @@
       <textarea
         use:focus
         name="text"
-        placeholder={$t("user.send.placeholder")}
+        placeholder={$t("payments.voucherText")}
         on:keypress={keypress}
         class="w-full p-4 border rounded-xl h-48 text-xl"
         bind:value={text}
@@ -65,19 +62,19 @@
       <a href="/scan" class="w-full">
         <button
           type="button"
-          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
+          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center"
         >
-          <Icon icon="camera" style="w-8 my-auto" />
+          <Icon icon="camera" style="mr-2 w-6 my-auto" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button
         type="button"
-        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
+        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center"
         on:click={paste}
       >
-        <Icon icon="paste" style="w-8 my-auto" />
+        <Icon icon="paste" style="mr-2 w-6 my-auto" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>
@@ -85,48 +82,9 @@
     <button
       bind:this={el}
       type="submit"
-      class="flex bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center"
+      class="bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold"
     >
-      <Icon icon="send" style="w-8 my-auto invert" />
-      <div class="my-auto">{$t("user.send.next")}</div>
+      {$t("user.send.next")}
     </button>
   </form>
-
-  <a href="/send/ecash">
-    <button
-      type="button"
-      class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl"
-    >
-      <Icon icon="voucher" style="w-8 my-auto" />
-      <div class="my-auto">{$t("payments.createEcash")}</div>
-    </button>
-  </a>
-
-  {#if contacts.length}
-    <div class="space-y-5">
-      <h1 class="px-3 md:px-0 text-2xl font-semibold mt-10">
-        {$t("user.send.contacts")}
-      </h1>
-      <div>
-        {#each contacts as c}
-          <a href={`/pay/${c.username}`}>
-            <div
-              class="border-b p-2 last:border-b-0 hover:bg-gray-100 rounded-2xl"
-            >
-              <div class="flex">
-                <div>
-                  <div class="flex">
-                    <Avatar user={c} size={20} disabled={true} />
-                    <div class="my-auto text-left">
-                      <p class="ml-1 text-lg break-words">{c.username}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-        {/each}
-      </div>
-    </div>
-  {/if}
 </div>
