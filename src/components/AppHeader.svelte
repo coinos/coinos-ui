@@ -66,7 +66,7 @@
               .url.pathname === `/${user.username}/receive`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="numpad" style="mx-auto w-6 sm:w-8" />
+            ><Icon icon="receive" style="mx-auto w-6 sm:w-8" />
           </button>
         </a>
         <a href={`/${user.username}/payments`}>

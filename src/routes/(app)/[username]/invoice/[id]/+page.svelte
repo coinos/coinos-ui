@@ -1,5 +1,5 @@
 <script>
-    import { enhance } from "$app/forms";
+  import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import {
     btc,
@@ -21,6 +21,7 @@
   import Icon from "$comp/Icon.svelte";
   import Heart from "$comp/Heart.svelte";
   import Image from "$comp/Image.svelte";
+  import Numpad from "$comp/Numpad.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
@@ -117,6 +118,22 @@
 
     goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
   };
+
+  let setAmount = async () => {
+    settingAmount = false;
+    invoice.amount = amount;
+    ({ id } = await post(`/${username}/invoice`, {
+      invoice,
+      user: { username, currency },
+    }));
+
+    goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
+  };
+
+  let settingAmount;
+  let toggleAmount = () => (settingAmount = !settingAmount);
+  let fiat;
+  let submit;
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
@@ -177,50 +194,50 @@
     </div>
   {/if}
 
-  <button
-    type="button"
-    class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap"
-    on:click={() => copy(txt)}
-  >
-    <Icon icon="copy" style="w-8 my-auto" />
-    <div class="my-auto">
-      {txt.substr(0, 11)}..{txt.substr(-10)}
-    </div>
-  </button>
+  <div class="text-secondary space-y-1">
+    <button
+      type="button"
+      class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap"
+      on:click={() => copy(txt)}
+    >
+      <Icon icon="copy" style="w-8 my-auto" />
+      <div class="my-auto">
+        {$t("payments.copy")}
+        {txt.substr(0, 11)}...{txt.substr(-6)}
+      </div>
+    </button>
 
-  <div
-    class="w-full flex justify-center gap-2 flex-wrap text-secondary text-xl"
-  >
-    <a href={link} class="w-full">
+    {#if user.id === invoice.user.id}
+      <button
+        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80 text-xl"
+        on:click={toggleAmount}
+      >
+        <Icon icon="edit" style="mr-1 w-8" />
+        <div class="my-auto">{$t("payments.setAmount")}</div>
+      </button>
+    {:else}
+      <a href={link} class="w-full">
+        <button
+          class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+        >
+          <Icon icon="mobile" style="mr-1 w-8" />
+          <div class="my-auto">{$t("payments.openLink")}</div>
+        </button>
+      </a>
+    {/if}
+
+    <div class="w-full flex justify-center gap-2 flex-wrap text-xl">
       <button
         class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+        on:click={() => ($showQr = !$showQr)}
       >
-        <Icon icon="mobile" style="mr-1 w-8" />
-        <div class="my-auto">{$t("payments.openLink")}</div>
-      </button>
-    </a>
-
-    <button
-      class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
-      on:click={() => ($showQr = !$showQr)}
-    >
-      <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
-      <div class="my-auto">
-        {$showQr ? $t("payments.hide") : $t("payments.show")}
-        {$t("payments.qr")}
-      </div></button
-    >
-
-    <!-- <button -->
-    <!--   class="w-full flex justify-center rounded-2xl border py-3 px-5 hover:opacity-80 text-lg" -->
-    <!--   on:click={() => (showOptions = !showOptions)} -->
-    <!-- > -->
-    <!--   <Icon icon="settings" style="w-8 mr-1 my-auto" /> -->
-    <!--   <div class="my-auto"> -->
-    <!--     {showOptions ? $t("payments.hide") : $t("payments.show")} -->
-    <!--     {$t("payments.options")} -->
-    <!--   </div></button -->
-    <!-- > -->
+        <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+        <div class="my-auto">
+          {$showQr ? $t("payments.hide") : $t("payments.show")}
+          {$t("payments.qr")}
+        </div></button
+      >
+    </div>
   </div>
 
   <div class="flex justify-around text-secondary">
@@ -266,7 +283,52 @@
       </div>
     </div>
   {/if}
+
+  {#if user.id === invoice.user.id}
+    <a href={`/voucher`}>
+      <button
+        class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap text-secondary"
+      >
+        <Icon icon="voucher" style="w-8 my-auto" />
+        <div class="my-auto">
+          {$t("payments.redeemVoucher")}
+        </div></button
+      >
+    </a>
+  {/if}
 </div>
+
+{#if settingAmount}
+  <div
+    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
+  >
+    <div
+      class="relative top-1/3 mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5"
+    >
+      <form submit={setAmount}>
+        <Numpad bind:amount bind:currency bind:rate bind:fiat bind:submit />
+        <div class="w-full flex flex-wrap gap-2">
+          <button
+            type="submit"
+            on:click={setAmount}
+            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full"
+          >
+            <div class="my-auto">Ok</div>
+          </button>
+          <button
+            bind:this={submit}
+            type="button"
+            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto w-full"
+            on:click={toggleAmount}
+            on:keydown={toggleAmount}
+          >
+            <div class="my-auto">Cancel</div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{/if}
 
 <style>
   .invoice {

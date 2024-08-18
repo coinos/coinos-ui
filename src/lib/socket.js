@@ -32,9 +32,13 @@ export const messages = (data) => ({
 
   async payment() {
     let { amount, confirmed } = data;
-    invalidate("app:user");
-    invalidate("app:invoice");
-    invalidate("app:payments");
+
+    // without setTimeout, invalidate seems to break redirections from actions
+    setTimeout(() => {
+      invalidate("app:user");
+      invalidate("app:invoice");
+      invalidate("app:payments");
+    }, 500);
 
     if (amount > 0) {
       success(`${confirmed ? "Received" : "Detected"} ${sat(amount)}!`);
