@@ -50,12 +50,13 @@
         <div class="my-auto">{$t("payments.redeem")}</div>
       </button>
     </a>
-  </div>
+
 
   <button
-    class="border rounded p-6 w-full break-all text-xl hover:bg-slate-100"
+    class="border rounded-2xl px-6 py-5 w-full break-all text-xl hover:bg-slate-100"
     on:click={() => copy(token)}
   >
     {token}
   </button>
+  </div>
 </div>
