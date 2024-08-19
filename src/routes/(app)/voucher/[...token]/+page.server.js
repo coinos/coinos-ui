@@ -7,7 +7,8 @@ import parse from "$lib/parse";
 import { test } from "$lib/parse";
 
 export async function load({ cookies, params, request, url }) {
-    await parse(params.token, url.host, cookies);
+  console.log(params.token);
+  await parse(params.token, url.host, cookies);
 }
 
 export const actions = {
