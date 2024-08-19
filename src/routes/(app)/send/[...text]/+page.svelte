@@ -92,15 +92,15 @@
         <div class="my-auto">{$t("user.send.next")}</div>
       </button>
 
-      <!-- <a href="/send/ecash" class="contents"> -->
-      <!--   <button -->
-      <!--     type="button" -->
-      <!--     class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary" -->
-      <!--   > -->
-      <!--     <Icon icon="voucher" style="w-8 my-auto" /> -->
-      <!--     <div class="my-auto">{$t("payments.createEcash")}</div> -->
-      <!--   </button> -->
-      <!-- </a> -->
+      <a href="/send/ecash" class="contents">
+        <button
+          type="button"
+          class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary"
+        >
+          <Icon icon="voucher" style="w-8 my-auto" />
+          <div class="my-auto">{$t("payments.createEcash")}</div>
+        </button>
+      </a>
     </div>
   </form>
 
