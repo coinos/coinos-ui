@@ -3,6 +3,7 @@
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
   import { fail, s } from "$lib/utils";
@@ -22,6 +23,7 @@
     fiat = false;
     amount = balance;
   };
+  let submitting;
 </script>
 
 <a href="/send">
@@ -35,15 +37,16 @@
     {$t("payments.createEcash")}
   </h1>
 
-  <form use:enhance method="POST">
+  <form use:enhance method="POST" on:submit={() => (submitting = true)}>
     <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
-    <input type="hidden" name="amount" bind:value={amount}/>
+    <input type="hidden" name="amount" bind:value={amount} />
 
     <div class="flex justify-center gap-2">
       <button
         type="button"
         class="hover:opacity-80 bg-black text-white rounded-2xl py-3 px-4 mt-2 border font-bold"
         on:click|preventDefault={setMax}
+        disabled={submitting}
         on:keydown={setMax}>Max ⚡️{s(balance)}</button
       >
 
@@ -53,7 +56,11 @@
         type="submit"
         class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
       >
-        {$t("payments.next")}
+        {#if submitting}
+          <Spinner />
+        {:else}
+          {$t("payments.mint")}
+        {/if}
       </button>
     </div>
   </form>
