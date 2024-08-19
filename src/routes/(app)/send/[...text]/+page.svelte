@@ -82,6 +82,7 @@
       </button>
     </div>
 
+    <div class="flex gap-2 flex-wrap">
     <button
       bind:this={el}
       type="submit"
@@ -90,17 +91,18 @@
       <Icon icon="send" style="w-8 my-auto invert" />
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
-  </form>
 
-  <a href="/send/ecash">
-    <button
-      type="button"
-      class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl"
-    >
-      <Icon icon="voucher" style="w-8 my-auto" />
-      <div class="my-auto">{$t("payments.createEcash")}</div>
-    </button>
-  </a>
+    <a href="/send/ecash" class="contents">
+      <button
+        type="button"
+        class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary"
+      >
+        <Icon icon="voucher" style="w-8 my-auto" />
+        <div class="my-auto">{$t("payments.createEcash")}</div>
+      </button>
+    </a>
+    </div>
+  </form>
 
   {#if contacts.length}
     <div class="space-y-5">
