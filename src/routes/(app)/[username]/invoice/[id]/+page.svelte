@@ -194,10 +194,10 @@
     </div>
   {/if}
 
-  <div class="text-secondary space-y-1">
+  <div class="text-secondary space-y-2 text-xl">
     <button
       type="button"
-      class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap"
+      class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
       on:click={() => copy(txt)}
     >
       <Icon icon="copy" style="w-8 my-auto" />
@@ -209,7 +209,7 @@
 
     {#if user?.id === invoice?.user?.id}
       <button
-        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80 text-xl"
+        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
         on:click={toggleAmount}
       >
         <Icon icon="edit" style="mr-1 w-8" />
@@ -226,7 +226,7 @@
       </a>
     {/if}
 
-    <div class="w-full flex justify-center gap-2 flex-wrap text-xl">
+    <div class="w-full flex justify-center gap-2 flex-wrap">
       <button
         class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
         on:click={() => ($showQr = !$showQr)}
