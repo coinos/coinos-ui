@@ -207,7 +207,7 @@
       </div>
     </button>
 
-    {#if user.id === invoice.user.id}
+    {#if user?.id === invoice?.user?.id}
       <button
         class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80 text-xl"
         on:click={toggleAmount}
