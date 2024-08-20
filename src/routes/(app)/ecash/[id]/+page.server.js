@@ -4,6 +4,8 @@ import parse from "$lib/parse";
 
 export async function load({ cookies, params, request, url }) {
   let { id } = params;
-  let token = await get(`/cash/${id}`);
-  return { id, token };
+  let { token, status } = await get(`/cash/${id}`);
+  let spent = parseInt(status.spent);
+  let total = parseInt(status.total);
+  return { id, token, spent, total };
 }

@@ -11,7 +11,7 @@ export async function load({ cookies, params, parent, request, url }) {
   if (!user) redirect(307, `/register?redirect=${url.pathname}`);
 
   let { token } = params;
-  if (!token.startsWith("cashu")) token = await get(`/cash/${token}`);
+  if (!token?.startsWith("cashu")) ({ token } = await get(`/cash/${token}`));
   await parse(token, url.host, cookies);
 
   if (token) error(409, "Token could not be redeemed. Was it already spent?");
