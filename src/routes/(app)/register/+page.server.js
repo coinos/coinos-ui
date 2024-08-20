@@ -21,6 +21,8 @@ export const actions = {
     let error;
 
     if (loginRedirect === "undefined") loginRedirect = undefined;
+    
+    console.log("LOGIN REDIRECT", loginRedirect)
 
     try {
       await post("/register", { user }, { "cf-connecting-ip": ip });

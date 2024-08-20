@@ -8,7 +8,7 @@
   export let disabled = false;
 
   $: s = size.toString();
-  $: link = user.anon ? `/${user.pubkey}` : `/${user.username}`;
+  $: link = user?.anon ? `/${user.pubkey}` : `/${user.username}`;
 
   $: src =
     ($avatar?.id && $avatar.id === user.id && $avatar.src) ||

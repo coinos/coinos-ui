@@ -3,20 +3,15 @@ import { auth, post, fd } from "$lib/utils";
 
 export const actions = {
   default: async ({ cookies, request }) => {
-    let token;
+    let id;
     try {
       let body = await fd(request);
-      ({ token } = await post("/mint", body, auth(cookies)));
-      console.log("token", token)
+      ({ id } = await post("/mint", body, auth(cookies)));
     } catch (e) {
-      console.log(e)
       console.log("problem creating ecash", e);
       return fail(400, { message: e.message });
     }
 
-    cookies.set("ecash", token, { path: "/" });
-
-    console.log("redirecting")
-    redirect(307, `/${cookies.get("username")}/ecash`);
+    redirect(307, `/ecash/${id}`);
   },
 };

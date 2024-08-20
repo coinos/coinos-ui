@@ -63,6 +63,7 @@ export default async (t, host, cookies) => {
       claimed = await post(`/claim`, { token: t }, auth(cookies));
       claimed = { ok: true };
     } catch (e) {
+      console.log(e);
       return e.message;
     }
     if (claimed.ok) {

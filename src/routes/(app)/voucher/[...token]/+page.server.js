@@ -1,14 +1,20 @@
 import { validate } from "bitcoin-address-validation";
 import bip21 from "bip21";
 import { auth, get, isLiquid, post } from "$lib/utils";
-import { fail, redirect } from "@sveltejs/kit";
+import { error, fail, redirect } from "@sveltejs/kit";
 import { PUBLIC_DOMAIN } from "$env/static/public";
 import parse from "$lib/parse";
 import { test } from "$lib/parse";
 
-export async function load({ cookies, params, request, url }) {
-  console.log(params.token);
-  await parse(params.token, url.host, cookies);
+export async function load({ cookies, params, parent, request, url }) {
+  let { user } = await parent();
+  if (!user) redirect(307, `/register?redirect=${url.pathname}`);
+
+  let { token } = params;
+  if (!token.startsWith("cashu")) token = await get(`/cash/${token}`);
+  await parse(token, url.host, cookies);
+
+  if (token) error(409, "Token could not be redeemed. Was it already spent?");
 }
 
 export const actions = {

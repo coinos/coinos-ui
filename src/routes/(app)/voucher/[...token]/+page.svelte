@@ -13,6 +13,8 @@
 
   export let data;
   export let form;
+
+  let { token } = data;
   data.subject = data.user;
 
   let el, text, pasted, w;
@@ -22,7 +24,6 @@
   let paste = async () => {
     text = await navigator.clipboard.readText();
   };
-
 
   $: if (browser && pasted && text) el.click() && (pasted = false);
 </script>
