@@ -297,7 +297,7 @@
           </div>
         </div>
       </button>
-    {:else if user?.username !== subject.username}
+    {:else if user?.username !== subject.username && !subject.anon}
       <a href={`/pay/${subject.username}`} class="contents">
         <button
           class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
