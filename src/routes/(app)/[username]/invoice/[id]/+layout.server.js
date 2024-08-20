@@ -5,7 +5,7 @@ import { redirect } from "@sveltejs/kit";
 export async function load({ depends, params, url, parent }) {
   depends("app:invoice");
 
-  let { user } = await parent();
+  let { subject, user } = await parent();
   let { id } = params;
   let invoice = await get(`/invoice/${id}`);
   let options = !!url.searchParams.get("options");
@@ -35,5 +35,5 @@ export async function load({ depends, params, url, parent }) {
 
   let src = Qr.drawImg(invoice.text || "", { size: 340 });
 
-  return { id, invoice, src };
+  return { id, invoice, subject, src };
 }

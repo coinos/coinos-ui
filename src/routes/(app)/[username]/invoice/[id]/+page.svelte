@@ -38,7 +38,7 @@
   let readingerror = (e) => console.log("nfc error", e);
 
   $: refresh(data);
-  let { invoice, id, user, src } = data;
+  let { invoice, id, subject, user, src } = data;
   let {
     amount,
     hash,
@@ -121,15 +121,22 @@
 
   let setAmount = async () => {
     settingAmount = false;
-    invoice.amount = amount;
+    amount = newAmount;
+    invoice.amount = newAmount;
+    invoice.tip = 0;
     ({ id } = await post(`/${username}/invoice`, {
       invoice,
       user: { username, currency },
     }));
 
-    goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
+    let url = `./${id}`;
+    if (subject?.prompt) url += "/tip";
+    else url += "?options=true";
+
+    goto(url, { invalidateAll: true, noScroll: true });
   };
 
+  let newAmount;
   let settingAmount;
   let toggleAmount = () => (settingAmount = !settingAmount);
   let fiat;
@@ -306,7 +313,13 @@
       class="relative top-1/3 mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5"
     >
       <form submit={setAmount}>
-        <Numpad bind:amount bind:currency bind:rate bind:fiat bind:submit />
+        <Numpad
+          bind:amount={newAmount}
+          bind:currency
+          bind:rate
+          bind:fiat
+          bind:submit
+        />
         <div class="w-full flex flex-wrap gap-2">
           <button
             type="submit"
