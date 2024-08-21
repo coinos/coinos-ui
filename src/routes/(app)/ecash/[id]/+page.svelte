@@ -12,7 +12,6 @@
   let currency = user?.currency || "USD";
   let rate = rates[currency];
 
-  let { proofs } = getDecodedToken(token).token[0];
   let amount = total - spent;
 
   let link = $page.url.href;
