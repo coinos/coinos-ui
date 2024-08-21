@@ -34,11 +34,12 @@ export const messages = (data) => ({
     let { amount, confirmed } = data;
 
     // without setTimeout, invalidate seems to break redirections from actions
+    let delay = amount > 0 ? 0 : 2500;
     setTimeout(() => {
       invalidate("app:user");
       invalidate("app:invoice");
       invalidate("app:payments");
-    }, 500);
+    }, delay);
 
     if (amount > 0) {
       success(`${confirmed ? "Received" : "Detected"} ${sat(amount)}!`);
