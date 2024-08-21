@@ -293,6 +293,9 @@
 		}
 	},
 	"payments": {
+    "income": "Income",
+    "subtotal": "Subtotal",
+    "expenditure": "Expenditure",
     "spent": "Already spent",
     "mint": "Mint",
     "ecash": "Ecash",

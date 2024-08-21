@@ -51,9 +51,11 @@
     : 0;
 
   let p,
-    totals,
+    incoming,
+    outgoing,
     pages = [];
-  $: data && ({ page: p, pages, start, end, totals, payments } = data);
+  $: data &&
+    ({ page: p, pages, start, end, incoming, outgoing, payments } = data);
 
   $: $page && ($newPayment = false);
   $: $newPayment && invalidate(`/users/${user.username}`);
@@ -165,8 +167,8 @@
     <div class="text-base">
       {#each payments as p}
         <a href={`/payment/${p.id}`}>
-          <div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
-            <div class="whitespace-nowrap my-auto">
+          <div class="grid grid-cols-12 border-b h-24 hover:bg-gray-100 px-4">
+            <div class="whitespace-nowrap my-auto col-span-3">
               <div class="font-bold" class:text-red-800={p.amount < 0}>
                 {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
                 {#if p.tip}
@@ -181,7 +183,9 @@
               </div>
             </div>
 
-            <div class="flex my-auto">
+            <div
+              class="flex my-auto col-span-5 truncate text-ellipsis overflow-hidden mx-auto"
+            >
               {#if p.type === types.pot}
                 <a href={`/pot/${p.memo}`}>
                   <div class="text-secondary flex">
@@ -195,9 +199,9 @@
               {:else if p.with}
                 <div class="flex">
                   <div class="my-auto">
-                    <Avatar user={p.with} size={16} disabled={true} />
+                    <Avatar user={p.with} size={12} disabled={true} />
                   </div>
-                  <div class="my-auto ml-1 text-secondary break-all">
+                  <div class="my-auto ml-1 text-secondary">
                     {p.with.username}
                   </div>
                 </div>
@@ -234,12 +238,12 @@
               {/if}
             </div>
 
-            <div class="text-secondary text-right text-sm my-auto">
+            <div class="text-secondary text-right text-sm my-auto col-span-3">
               <div>
                 {format(new Date(p.created), "h:mm aaa")}
               </div>
               <div>
-                {format(new Date(p.created), "MMM d, yyyy")}
+                {format(new Date(p.created), "MMM d, yy")}
               </div>
             </div>
           </div>
@@ -249,29 +253,40 @@
       {/each}
     </div>
 
-    <div class="grid grid-cols-3 w-full text-center">
-      <span class="text-lg text-secondary">{$t("payments.total")}</span>
-      <span class="text-lg text-secondary">
-        {#if payments.some((p) => p.tip > 0)}
-          {$t("payments.tips")}
-        {/if}
-      </span>
-      <span></span>
-
-      {#each Object.keys(totals) as c}
-        {@const total = totals[c]["fiat"]}
-        {@const tips = totals[c]["fiatTips"]}
-        {@const pv = (totals[c]["sats"] * rates[c]) / sats}
-        {@const gain = (pv * 100) / total - 100}
-        <span class="text-lg"><b>{f(total, c)}</b></span>
-        <span class="text-lg">
-          
-        {#if payments.some((p) => p.tip > 0)}
-          <b>{f(tips, c)}</b>
-        {/if}
-      <span></span>
-        
+    <div class="grid grid-cols-3 w-full text-center text-lg">
+      {#each Object.keys(incoming) as c}
+        <span class="text-base text-secondary text-left"></span>
+        <!-- <span class="text-base text-secondary" -->
+        <!--   >{$t("payments.subtotal")}</span -->
+        <!-- > -->
+        <span class="text-base text-secondary">
+          {#if tipsIn || tipsOut}{$t("payments.tips")}{/if}
         </span>
+        <span class="text-base text-secondary"
+          >{$t("payments.total")}</span
+        >
+
+        {@const totalIn = incoming[c]?.fiat || 0}
+        {@const tipsIn = incoming[c]?.fiatTips || 0}
+        {@const subtotalIn = totalIn - tipsIn}
+
+        {@const totalOut = -outgoing[c]?.fiat || 0}
+        {@const tipsOut = outgoing[c]?.fiatTips || 0}
+        {@const subtotalOut = totalOut - tipsOut}
+
+        <span class="text-left text-base text-secondary"
+          >{$t("payments.income")}</span
+        >
+        <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
+        <span><b>{tipsIn ? f(tipsIn, c) : "-"}</b></span>
+        <span><b>{totalIn ? f(totalIn, c) : "-"}</b></span>
+
+        <span class="text-left text-base text-secondary"
+          >{$t("payments.expenditure")}</span
+        >
+        <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
+        <span><b>{tipsOut ? f(tipsOut, c) : "-"}</b></span>
+        <span><b>{totalOut ? f(totalOut, c) : "-"}</b></span>
       {/each}
     </div>
 

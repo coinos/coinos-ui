@@ -1,4 +1,5 @@
 <script>
+  import handler from "$lib/handler";
   import { onDestroy, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { goto, invalidateAll } from "$app/navigation";
@@ -48,7 +49,6 @@
   };
 
   let submitting;
-  let submit = () => (submitting = true);
 
   let external = async () => {
     let { id } = await post(`/${recipient.username}/invoice`, {
@@ -168,7 +168,7 @@
     />
   {/if}
 
-  <form method="POST" use:enhance on:submit={submit}>
+  <form method="POST" use:enhance={handler(submitting)}>
     <input name="address" value={address} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="payreq" value={payreq} type="hidden" />
