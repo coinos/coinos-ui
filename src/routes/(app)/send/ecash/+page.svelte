@@ -1,5 +1,5 @@
 <script>
-  import { enhance } from "$app/forms";
+  import { enhance, applyAction } from "$app/forms";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -7,6 +7,7 @@
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
   import { fail, s } from "$lib/utils";
+  import handler from "$lib/handler";
 
   export let data;
 
@@ -37,7 +38,7 @@
     {$t("payments.createEcash")}
   </h1>
 
-  <form use:enhance method="POST" on:submit={() => (submitting = true)}>
+  <form use:enhance={handler(submitting)} method="POST">
     <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
     <input type="hidden" name="amount" bind:value={amount} />
 

@@ -19,8 +19,8 @@ export async function load({ cookies, depends, params, request }) {
   let url = `/payments?start=${start * 1000}&limit=${limit}&offset=${offset}`;
   if (end) url += `&end=${end * 1000}`;
 
-  let { count, payments, totals } = await get(url, auth(cookies));
+  let { count, payments, incoming, outgoing } = await get(url, auth(cookies));
   let pages = new Array(Math.ceil(count / limit));
 
-  return { payments, page, pages, start, end, totals };
+  return { payments, page, pages, start, end, incoming, outgoing};
 }
