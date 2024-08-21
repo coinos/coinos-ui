@@ -1,4 +1,4 @@
-import { error, fail, redirect } from "@sveltejs/kit";
+import { error, error, redirect } from "@sveltejs/kit";
 import { fd, auth, get, post } from "$lib/utils";
 
 export async function load({ params: { id }, parent, url }) {
@@ -29,7 +29,7 @@ export const actions = {
       await post("/payments", body, auth(cookies));
     } catch (e) {
       console.log("payment failed", id, e);
-      return fail(400, { message: e.message });
+      return error(400, { message: e.message });
     }
 
     redirect(307, "/sent");
