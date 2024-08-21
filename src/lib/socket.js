@@ -1,6 +1,7 @@
+import { navigating } from "$app/stores";
 import { get } from "svelte/store";
 import { event, invoice, request, newPayment, last } from "$lib/store";
-import { success, sat } from "$lib/utils";
+import { success, sat, sleep } from "$lib/utils";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { invalidate } from "$app/navigation";
 import { browser } from "$app/environment";
@@ -33,13 +34,9 @@ export const messages = (data) => ({
   async payment() {
     let { amount, confirmed } = data;
 
-    // without setTimeout, invalidate seems to break redirections from actions
-    let delay = amount > 0 ? 0 : 2500;
-    setTimeout(() => {
-      invalidate("app:user");
-      invalidate("app:invoice");
-      invalidate("app:payments");
-    }, delay);
+    invalidate("app:user");
+    invalidate("app:invoice");
+    invalidate("app:payments");
 
     if (amount > 0) {
       success(`${confirmed ? "Received" : "Detected"} ${sat(amount)}!`);
@@ -69,8 +66,10 @@ export function close() {
   if (socket) socket.close();
 }
 
-function onWebsocketMessage(msg) {
+async function onWebsocketMessage(msg) {
   let { type, data } = JSON.parse(msg.data);
+  if (get(navigating)) await sleep(2000);
+
   messages(data)[type] && messages(data)[type]();
 }
 

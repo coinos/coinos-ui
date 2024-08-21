@@ -7,7 +7,6 @@ import { redirect } from "@sveltejs/kit";
 export default async (t, host, cookies) => {
   if (!t) return;
 
-  console.log("T", t)
   if (t.startsWith("http")) redirect(307, t);
   if (t.startsWith(host)) redirect(307, `http://${t}`);
 
