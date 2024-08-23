@@ -42,7 +42,7 @@
   {/if}
 
   {#if minWithdrawable === maxWithdrawable}
-    <div class="text-center font-bold text-2xl">
+    <div class="text-center font-bold text-2xl mb-4">
       <div>
         {f(amountFiat, currency)}
       </div>
