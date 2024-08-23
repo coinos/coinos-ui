@@ -1,4 +1,5 @@
 <script>
+  import { sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Numpad from "$comp/Numpad.svelte";
@@ -18,10 +19,11 @@
   } = data;
   $: rate = rates[currency];
 
-  let amount = Math.round(maxWithdrawable / 1000),
+  let amount = Math.round(minWithdrawable / 1000),
     loading;
 
   let submit = () => (loading = true);
+  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 </script>
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
@@ -39,7 +41,20 @@
     </div>
   {/if}
 
-  <Numpad bind:amount {currency} bind:rate />
+  {#if minWithdrawable === maxWithdrawable}
+    <div class="text-center font-bold text-2xl">
+      <div>
+        {f(amountFiat, currency)}
+      </div>
+      <div>
+        <span class="text-secondary font-normal text-xl"
+          >⚡️{`${s(amount)}`}</span
+        >
+      </div>
+    </div>
+  {:else}
+    <Numpad bind:amount {currency} bind:rate />
+  {/if}
 
   <form action="?/withdraw" method="POST" use:enhance on:submit={submit}>
     <input name="amount" value={amount} type="hidden" />
