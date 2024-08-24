@@ -292,7 +292,7 @@
   {/if}
 
   {#if user?.id === invoice?.user?.id}
-    <a href={`/voucher`}>
+    <a href={`/receive`} class="block">
       <button
         class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border text-xl whitespace-nowrap text-secondary"
       >

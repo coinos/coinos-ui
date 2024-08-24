@@ -1,13 +1,9 @@
 // import adapter from '@sveltejs/adapter-node';
 import adapter from "svelte-adapter-bun";
-import preprocess from "svelte-preprocess";
+  import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const config = {
-  preprocess: [
-    preprocess({
-      postcss: true,
-    }),
-  ],
+  preprocess: vitePreprocess(),
   kit: {
     adapter: adapter(),
     csrf: {

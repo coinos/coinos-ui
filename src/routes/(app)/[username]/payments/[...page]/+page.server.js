@@ -22,5 +22,5 @@ export async function load({ cookies, depends, params, request }) {
   let { count, payments, incoming, outgoing } = await get(url, auth(cookies));
   let pages = new Array(Math.ceil(count / limit));
 
-  return { payments, page, pages, start, end, incoming, outgoing};
+  return { payments, page, pages, start, end, incoming, outgoing };
 }

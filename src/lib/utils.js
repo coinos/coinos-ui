@@ -187,7 +187,7 @@ export let fd = async (req) => {
 
 export let f = (s, currency) => {
   try {
-      return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency,
     })
@@ -288,7 +288,7 @@ export let types = {
   lightning: "lightning",
   internal: "internal",
   fund: "fund",
-  ecash: "ecash"
+  ecash: "ecash",
 };
 
 export let ease = (t) =>

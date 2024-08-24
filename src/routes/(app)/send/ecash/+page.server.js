@@ -1,11 +1,11 @@
-import { error, redirect } from "@sveltejs/kit";
+import { error, redirect, Cookies } from "@sveltejs/kit";
 import { auth, post, fd } from "$lib/utils";
 import { v4 } from "uuid";
 
 export const actions = {
   default: async ({ cookies, request }) => {
     let id;
-      let body = await fd(request);
+    let body = await fd(request);
 
     try {
       ({ id } = await post("/mint", body, auth(cookies)));

@@ -57,18 +57,9 @@ export default async (t, host, cookies) => {
     else if (id) redirect(307, `/send/${id}`);
   }
 
-  let claimed;
-  if (t.toLowerCase().startsWith("cashu")) {
-    try {
-      claimed = await post(`/claim`, { token: t }, auth(cookies));
-      claimed = { ok: true };
-    } catch (e) {
-      console.log(e);
-      return e.message;
-    }
-    if (claimed.ok) {
-      redirect(307, `/${cookies.get("username")}/payments`);
-    }
+  if (t.startsWith("cashu")) {
+    let { id } = await post("/cash", { token: t }, auth);
+    redirect(307, `/ecash/${id}`);
   }
 
   // user
