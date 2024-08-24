@@ -2,7 +2,10 @@ import { fail, redirect } from "@sveltejs/kit";
 import { auth, fd, post } from "$lib/utils";
 
 export const actions = {
-  default: async ({ cookies, request }) => {
+  default: async ({ cookies, request, url }) => {
+    if (!cookies.get("username"))
+      redirect(307, `/register?redirect=${url.pathname}`);
+
     let { token } = await fd(request);
     let claimed;
     try {
