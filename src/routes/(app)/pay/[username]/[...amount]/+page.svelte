@@ -64,6 +64,8 @@
   </div>
 {/if}
 
+{rate}
+
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
   <Numpad
     bind:amount={a}
