@@ -32,25 +32,12 @@ export default {
     "amount": 5000,
     "address": "bc1q3unh97w4rmelflrm2hvdwz37d8kray3vn4d5ca"
 }'`,
-  internal: `HASH=$(curl "${api}/invoice" 
-    -H "content-type: application/json" 
-    -H "Authorization: Bearer $token"
-    -d '{
-      "invoice": {
-        "amount": 1000,
-        "type": "lightning"
-      },
-      "user": {
-        "username": "alice"
-      }
-  }' | jq -r '.hash');
-
-  curl "${api}/payments" 
+  internal: `curl "${api}/send" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
   -d '{
     "amount": 5000,
-    "hash": $HASH
+    "username": "alice"
 }'`,
   rates: `curl "${api}/rates" 
   -H "content-type: application/json" 
