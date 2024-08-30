@@ -75,8 +75,10 @@
       ...p,
       created: new Date(p.created),
       total: p.amount + (p.tip || 0),
+      platform_fee: p.ourfee,
       amount_fiat: f((p.amount * p.rate) / sats, p.currency),
       fee_fiat: p.fee ? f((p.fee * p.rate) / sats, p.currency) : null,
+      platform_fee_fiat: p.ourfee ? f((p.ourfee * p.rate) / sats, p.currency) : null,
       tip_fiat: p.tip ? f((p.tip * p.rate) / sats, p.currency) : null,
       total_fiat: f(((p.amount + (p.tip || 0)) * p.rate) / sats, p.currency),
     }));
@@ -91,10 +93,12 @@
       "tip",
       "total",
       "fee",
+      "platform_fee",
       "amount_fiat",
       "tip_fiat",
       "total_fiat",
       "fee_fiat",
+      "platform_fee_fiat",
     ];
 
     let csv =
