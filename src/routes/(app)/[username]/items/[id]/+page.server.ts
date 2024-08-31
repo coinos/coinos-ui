@@ -1,7 +1,7 @@
 import { fd, auth, get, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
-export let load = async ({ cookies, params: { id } }) => {
+export let load = async ({ params: { id } }) => {
   let item = await get(`/items/${id}`);
   return { item };
 };
@@ -11,7 +11,7 @@ export const actions = {
     let form = await fd(request);
     try {
       await post(`/items`, form, auth(cookies));
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { message: e.message });
     }
 

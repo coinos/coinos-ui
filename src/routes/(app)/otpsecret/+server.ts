@@ -10,8 +10,8 @@ export async function POST({ cookies, request }) {
     return new Response(
       JSON.stringify({ secret, uri, qr: Qr.drawImg(uri, { size: 600 }) })
     );
-  } catch (e) {
+  } catch (e: any) {
     if (e.message.includes("pin")) throw e;
-    throw new error(500, "Problem saving secret");
+    error(500, "Problem saving secret");
   }
 }

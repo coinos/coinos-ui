@@ -6,7 +6,7 @@ export async function POST({ cookies, request }) {
   try {
     let res = await post("/replace", body, auth(cookies));
     return json(res);
-  } catch (e) {
+  } catch (e: any) {
     error(400, e.message);
   }
 }

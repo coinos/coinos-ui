@@ -1,17 +1,9 @@
 import i18n from "sveltekit-i18n";
-import lang from "./lang.json";
-
-const availableLocales = Object.keys(lang);
-const trans = {};
-for (let i = 0; i < availableLocales.length; i++) {
-  trans[availableLocales[i]] = { lang };
-}
 
 export const defaultLocale = "en";
 
 const config = {
   fallbackLocale: "en",
-  translations: trans,
   loaders: [
     {
       locale: "en",

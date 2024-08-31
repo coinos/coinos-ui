@@ -16,13 +16,13 @@ export const actions = {
       try {
         await login(user, cookies, ip);
         error = null;
-      } catch (e) {
+      } catch (e: any) {
         error ||= e.message;
       }
 
       if (error) return fail(400, { error });
       redirect(307, `/${user.username}`);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e.message);
       return fail(400, { error: e.message });
     }

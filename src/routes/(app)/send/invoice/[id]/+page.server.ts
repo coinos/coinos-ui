@@ -1,7 +1,7 @@
 import { error, redirect } from "@sveltejs/kit";
 import { fd, auth, get, post } from "$lib/utils";
 
-export async function load({ params: { id }, parent, url }) {
+export async function load({ params: { id }, parent }) {
   let { rates, user } = await parent();
 
   let invoice = await get(`/invoice/${id}`);
@@ -27,7 +27,7 @@ export const actions = {
       body.hash = id;
 
       await post("/payments", body, auth(cookies));
-    } catch (e) {
+    } catch (e: any) {
       console.log("payment failed", id, e);
       error(500, e.message);
     }

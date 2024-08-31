@@ -11,7 +11,7 @@ export const actions = {
     try {
       claimed = await post(`/claim`, { token }, auth(cookies));
       claimed = { ok: true };
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { error: e.message });
     }
     if (claimed?.ok) {

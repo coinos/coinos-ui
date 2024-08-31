@@ -1,10 +1,11 @@
 import { get } from "$lib/utils";
+import type { Message } from "$lib/types";
 
-export async function load({ params, parent, url }) {
+export async function load({ params, parent }) {
   let { user } = await parent();
   let { since = 0 } = params;
 
-  let messages = [];
+  let messages: Message[] = [];
   let recipient = await get(`/users/${params.recipient}`);
 
   try {
@@ -12,7 +13,7 @@ export async function load({ params, parent, url }) {
 
     messages = messages
       .filter(
-        (m) => m.recipient?.id === recipient.id || m.author?.id === recipient.id
+        (m: Message) => m.recipient?.id === recipient.id || m.author?.id === recipient.id
       )
       .sort((a, b) => a.created_at - b.created_at);
   } catch (e) {

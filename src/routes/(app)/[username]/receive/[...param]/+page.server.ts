@@ -1,11 +1,11 @@
 import { redirect } from "@sveltejs/kit";
 import { auth, post } from "$lib/utils";
-import invoice from "$lib/invoice";
+import type { Invoice } from "$lib/types";
 
 export let load = async ({ cookies, parent }) => {
   let {subject, user, rates } = await parent();
 
-  let invoice = {
+  let invoice: Invoice = {
     type: "lightning",
     rate: rates[user?.currency || subject?.currency],
   };

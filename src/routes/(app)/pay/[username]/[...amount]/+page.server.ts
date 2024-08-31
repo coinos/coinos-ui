@@ -4,7 +4,7 @@ import { types, sats, fd, auth, get, post } from "$lib/utils";
 export async function load({ cookies, params, parent }) {
   let subject = await get(`/users/${params.username}`);
 
-  let { rates, user } = await parent();
+  let { rates } = await parent();
   let { username } = params;
   let [amount, currency] = params.amount.split("/");
 
@@ -40,7 +40,7 @@ export const actions = {
     try {
       let body = await fd(request);
       await post("/payments", body, auth(cookies));
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       return fail(400, { message: e.message });
     }

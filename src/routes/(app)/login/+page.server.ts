@@ -1,7 +1,7 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { login, fd } from "$lib/utils";
 
-export const load = async ({ parent, url }) => {
+export const load = async ({ parent }) => {
   let { user } = await parent();
   if (user?.pubkey) redirect(307, `/${user.username}`);
 };
@@ -15,12 +15,12 @@ export const actions = {
     if (loginRedirect === "undefined") loginRedirect = undefined;
 
     try {
-      let r = await login(
+      await login(
         user,
         cookies,
         request.headers.get("cf-connecting-ip")
       );
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { error: "Login failed", message: e.message, ...form });
     }
 
