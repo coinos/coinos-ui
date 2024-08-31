@@ -1,4 +1,3 @@
-import { auth, get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export async function GET({ cookies }) {

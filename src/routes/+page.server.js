@@ -1,5 +1,3 @@
-import { redirect } from "@sveltejs/kit";
-
-export let load = async ({ parent, url }) => {
+export let load = async () => {
   return { faqs: ["cost", "compatibility", "safety", "pos", "bitcoin"] };
 };
