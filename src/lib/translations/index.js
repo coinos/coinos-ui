@@ -1,22 +1,11 @@
 import i18n from "sveltekit-i18n";
 import lang from "./lang.json";
 
-// setup loaders & translations from lang.json data
-function createLocaleLoader(localeCode) {
-  return {
-    locale: localeCode,
-    key: "",
-    loader: async () =>
-      (await import(`../../locales/${localeCode}.json`)).default,
-  };
-}
-
 const availableLocales = Object.keys(lang);
 const trans = {};
 for (let i = 0; i < availableLocales.length; i++) {
   trans[availableLocales[i]] = { lang };
 }
-const loaders = availableLocales.map(createLocaleLoader);
 
 export const defaultLocale = "en";
 

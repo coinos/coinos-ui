@@ -1,10 +1,10 @@
-import { auth, get, isLiquid, post } from "$lib/utils";
+import { get, isLiquid, post } from "$lib/utils";
 import bip21 from "bip21";
 import { validate } from "bitcoin-address-validation";
 import { PUBLIC_DOMAIN } from "$env/static/public";
 import { redirect } from "@sveltejs/kit";
 
-export default async (t, host, cookies) => {
+export default async (t, host) => {
   if (!t) return;
 
   if (t.startsWith("http")) redirect(307, t);
@@ -58,7 +58,7 @@ export default async (t, host, cookies) => {
   }
 
   if (t.startsWith("cashu")) {
-    let { id } = await post("/cash", { token: t }, auth);
+    let { id } = await post("/cash", { token: t });
     redirect(307, `/ecash/${id}`);
   }
 
