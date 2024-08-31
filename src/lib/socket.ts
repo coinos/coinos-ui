@@ -1,10 +1,9 @@
 import { navigating } from "$app/stores";
 import { get } from "svelte/store";
-import { event, invoice, request, newPayment, last } from "$lib/store";
+import { event, invoice, request, last } from "$lib/store";
 import { success, sat, sleep } from "$lib/utils";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { invalidate } from "$app/navigation";
-import { browser } from "$app/environment";
 
 let socket, token;
 

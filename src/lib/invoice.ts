@@ -1,7 +1,7 @@
 import { auth, get, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export default async ({ cookies, request, url }) => {
+export default async ({ cookies, request }) => {
   let form = await request.formData();
 
   let rates = await get("/rates");
@@ -16,6 +16,7 @@ export default async ({ cookies, request, url }) => {
     type: form.get("type"),
     prompt: form.get("prompt") === "true",
     rate: parseFloat(form.get("rate")) || rates[form.get("currency")],
+    id: undefined
   };
 
   let user = { username: form.get("username"), currency: form.get("currency") };
