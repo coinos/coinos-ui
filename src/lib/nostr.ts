@@ -2,19 +2,11 @@ import { browser } from "$app/environment";
 import { hexToUint8Array } from "uint8array-extras";
 import { get } from "svelte/store";
 import { Buffer } from "buffer";
-import { fail, wait, post, stretch } from "$lib/utils";
-import {
-  decrypted,
-  password as pw,
-  passwordPrompt,
-  pin,
-  loginRedirect,
-} from "$lib/store";
-import { goto, invalidate } from "$app/navigation";
+import { wait, post, stretch } from "$lib/utils";
+import { decrypted, password as pw, passwordPrompt, pin } from "$lib/store";
 import {
   getPublicKey,
   finalizeEvent,
-  getEventHash,
   nip04,
   nip19,
   type EventTemplate,
@@ -40,7 +32,7 @@ type User = {
 
 type EncryptParams = {
   message: string;
-  recipient: User;
+  recipient: string;
   user: User;
 };
 
@@ -93,13 +85,6 @@ export let decrypt = async ({ event, user }) => {
   }
 };
 
-function typedArrayToBuffer(array) {
-  return array.buffer.slice(
-    array.byteOffset,
-    array.byteLength + array.byteOffset
-  );
-}
-
 export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
   let k;
   if (browser) {
@@ -109,7 +94,7 @@ export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
     }
   }
 
-  let { nsec, username, salt } = user;
+  let { nsec } = user;
 
   if (nsec) {
     k = nip49decrypt(nsec, await getPassword());
@@ -120,8 +105,8 @@ export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
 };
 
 export let getMnemonic = async (user: User) => {
-  let { cipher, username, salt } = user;
-  let mnemonic, key, seed, entropy, child, privkey;
+  let { cipher, salt } = user;
+  let entropy;
 
   entropy = new Uint8Array(
     await crypto.subtle.decrypt(
@@ -167,17 +152,16 @@ export let send = (event: EventTemplate) => {
   return post("/events", { event });
 };
 
-let getPassword = async () => {
+let getPassword = async (): Promise<string> => {
   if (!get(pw)) passwordPrompt.set(true);
-  await wait(() => !!get(pw));
-  return get(pw);
+    await wait(() => !!get(pw));
+  return get(pw) || "";
 };
 
 export let reEncryptEntropy = async (user: User, newPassword: string) => {
-  let { cipher, username, salt } = user;
+  let { cipher, salt } = user;
 
-  let mnemonic, key, seed, entropy, child, privkey;
-  entropy = await crypto.subtle.decrypt(
+  let entropy = await crypto.subtle.decrypt(
     { name: "AES-GCM", iv: new Uint8Array(16) },
     await stretch(await getPassword(), hexToUint8Array(salt)),
     Uint8Array.from(fromWords(decode(cipher, 180).words))
@@ -194,6 +178,5 @@ export let reEncryptEntropy = async (user: User, newPassword: string) => {
   return encode("en", toWords(bytes), 180);
 };
 
-export let nwc = (user: User) => {
+export let nwc = (user: User) =>
   `nostr+walletconnect://${PUBLIC_COINOS_PUBKEY}?relay=${damus}&secret=${user.nwc}`;
-};

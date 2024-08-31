@@ -1,12 +1,12 @@
-import { get, writable } from "svelte/store";
+import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 
-let persistSession = (key, defaultValue) => {
+let persistSession = (key, defaultValue = undefined) => {
   let s = writable(
     browser &&
       sessionStorage.getItem(key) &&
       sessionStorage.getItem(key) !== "undefined"
-      ? JSON.parse(sessionStorage.getItem(key))
+      ? JSON.parse(sessionStorage.getItem(key) || "")
       : defaultValue
   );
 
@@ -17,12 +17,12 @@ let persistSession = (key, defaultValue) => {
   return s;
 };
 
-let persistLocal = (key, defaultValue) => {
+let persistLocal = (key, defaultValue: any = undefined) => {
   let s = writable(
     browser &&
       localStorage.getItem(key) &&
       localStorage.getItem(key) !== "undefined"
-      ? JSON.parse(localStorage.getItem(key))
+      ? JSON.parse(localStorage.getItem(key) || "")
       : defaultValue
   );
 
@@ -48,7 +48,7 @@ export let last = writable();
 export let loginRedirect = writable();
 export let decrypted = persistLocal("decrypted", {});
 export let newPayment = persistLocal("newPayment");
-export let password = writable();
+export let password = writable<string | undefined>();
 export let passwordPrompt = writable();
 export let pin = persistLocal("pin");
 export let rate = writable();
