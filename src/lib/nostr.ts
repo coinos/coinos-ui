@@ -17,6 +17,7 @@ import {
   getEventHash,
   nip04,
   nip19,
+  type EventTemplate,
 } from "nostr-tools";
 
 import {
@@ -29,10 +30,24 @@ import wordlist from "$lib/english";
 import { bech32m } from "@scure/base";
 
 import { generateSeedWords, privateKeyFromSeedWords } from "nostr-tools/nip06";
+import { PUBLIC_COINOS_PUBKEY } from "$env/static/public";
+
+let damus = "wss://relay.damus.io";
+
+type User = {
+  [key: string]: any;
+};
+
+type EncryptParams = {
+  message: string;
+  recipient: User;
+  user: User;
+};
+
 const { encode, decode, toWords, fromWords } = bech32m;
 
-export let generate = async (user) => {
-  if (!get(pin)?.length === 6) return;
+export let generate = async (user: any) => {
+  if (get(pin)?.length !== 6) return;
 
   let salt = crypto.getRandomValues(new Uint8Array(16));
   let mnemonic = generateSeedWords();
@@ -42,16 +57,16 @@ export let generate = async (user) => {
     await crypto.subtle.encrypt(
       { name: "AES-GCM", iv: new Uint8Array(16) },
       await stretch(await getPassword(), salt),
-      Uint8Array.from(Buffer.from(mnemonicToEntropy(mnemonic, wordlist), "hex"))
+      mnemonicToEntropy(mnemonic, wordlist)
     )
   );
 
-  user.pubkey = getPublicKey(sk);
+  user.pubkey = getPublicKey(hexToUint8Array(sk));
   user.cipher = encode("en", toWords(bytes), 180);
   user.salt = Buffer.from(salt).toString("hex");
 };
 
-export let encrypt = async ({ message, recipient, user }) => {
+export let encrypt = async ({ message, recipient, user }: EncryptParams) => {
   let sk = await getPrivateKey(user);
   return nip04.encrypt(sk, recipient, message);
 };
@@ -85,12 +100,12 @@ function typedArrayToBuffer(array) {
   );
 }
 
-export let getPrivateKey = async (user) => {
+export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
   let k;
   if (browser) {
     k = localStorage.getItem("nsec");
     if (k) {
-      return nip19.decode(k).data;
+      return nip19.decode(k).data as Uint8Array;
     }
   }
 
@@ -104,7 +119,7 @@ export let getPrivateKey = async (user) => {
   return k;
 };
 
-export let getMnemonic = async (user) => {
+export let getMnemonic = async (user: User) => {
   let { cipher, username, salt } = user;
   let mnemonic, key, seed, entropy, child, privkey;
 
@@ -119,30 +134,36 @@ export let getMnemonic = async (user) => {
   return entropyToMnemonic(entropy, wordlist);
 };
 
-export let getNsec = async (user) => {
+let decodeNsec = (nsec: string): Uint8Array => {
+  let { type, data } = nip19.decode(nsec);
+  if (type === "nsec" && data instanceof Uint8Array) return data;
+  else throw new Error("invalid nsec");
+};
+
+export let getNsec = async (user: User) => {
   return nip19.nsecEncode(await getPrivateKey(user));
 };
 
-export let setNsec = async (user, nsec) => {
-  let { data: sk } = nip19.decode(nsec);
-  user.pubkey = getPublicKey(sk);
+export let setNsec = async (user: User, nsec: string) => {
+  user.pubkey = getPublicKey(decodeNsec(nsec));
   user.nsec = await encryptNsec(nsec);
 };
 
-export let encryptNsec = async (nsec) => {
-  let { type, data } = nip19.decode(nsec);
-  if (type === "nsec" && data.length === 32) {
-    return nip49encrypt(data, await getPassword());
-  } else {
-    fail("invalid nsec");
-  }
+export let encryptNsec = async (nsec: string) => {
+  let d = decodeNsec(nsec);
+  return nip49encrypt(d, await getPassword());
 };
 
-export let sign = async ({ event, user }) => {
+type SignParams = {
+  event: EventTemplate;
+  user: User;
+};
+
+export let sign = async ({ event, user }: SignParams) => {
   event = finalizeEvent(event, await getPrivateKey(user));
 };
 
-export let send = (event) => {
+export let send = (event: EventTemplate) => {
   return post("/events", { event });
 };
 
@@ -152,26 +173,27 @@ let getPassword = async () => {
   return get(pw);
 };
 
-export let reEncryptEntropy = async (user, newPassword) => {
+export let reEncryptEntropy = async (user: User, newPassword: string) => {
   let { cipher, username, salt } = user;
 
   let mnemonic, key, seed, entropy, child, privkey;
-  entropy = Buffer.from(
-    await crypto.subtle.decrypt(
-      { name: "AES-GCM", iv: new Uint8Array(16) },
-      await stretch(await getPassword(), Buffer.from(salt, "hex")),
-      Uint8Array.from(fromWords(decode(cipher, 180).words))
-    ),
-    "hex"
-  ).toString("hex");
+  entropy = await crypto.subtle.decrypt(
+    { name: "AES-GCM", iv: new Uint8Array(16) },
+    await stretch(await getPassword(), hexToUint8Array(salt)),
+    Uint8Array.from(fromWords(decode(cipher, 180).words))
+  );
 
   let bytes = new Uint8Array(
     await crypto.subtle.encrypt(
       { name: "AES-GCM", iv: new Uint8Array(16) },
-      await stretch(newPassword, Buffer.from(salt, "hex")),
-      Uint8Array.from(Buffer.from(entropy, "hex"))
+      await stretch(newPassword, hexToUint8Array(salt)),
+      entropy
     )
   );
 
   return encode("en", toWords(bytes), 180);
+};
+
+export let nwc = (user: User) => {
+  `nostr+walletconnect://${PUBLIC_COINOS_PUBKEY}?relay=${damus}&secret=${user.nwc}`;
 };
