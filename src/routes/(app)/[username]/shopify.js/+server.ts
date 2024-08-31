@@ -1,4 +1,4 @@
-export async function GET({ cookies, params, url }) {
+export async function GET({ params, url }) {
   let { username } = params;
 
   let js = `

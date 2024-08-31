@@ -1,4 +1,4 @@
-import { fail, json, redirect } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import { fd, auth, post } from "$lib/utils";
 
 export async function load({ parent }) {
@@ -11,7 +11,7 @@ export const actions = {
     let body = await fd(request);
     try {
       await post("/take", body, auth(cookies));
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { message: e.message });
     }
 

@@ -2,7 +2,7 @@ import { get, auth } from "$lib/utils";
 
 let limit = 25;
 
-export async function load({ cookies, depends, params, request }) {
+export async function load({ cookies, depends, params }) {
   depends("app:payments");
 
   let parts = params.page.split("/");

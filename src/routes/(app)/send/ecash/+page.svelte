@@ -24,7 +24,9 @@
     fiat = false;
     amount = balance;
   };
+
   let submitting;
+  let toggle = () => (submitting = !submitting);
 </script>
 
 <a href="/send">
@@ -38,7 +40,7 @@
     {$t("payments.createEcash")}
   </h1>
 
-  <form use:enhance={handler(submitting)} method="POST">
+  <form use:enhance={handler(toggle)} method="POST">
     <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
     <input type="hidden" name="amount" bind:value={amount} />
 

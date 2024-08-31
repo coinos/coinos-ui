@@ -49,6 +49,7 @@
   };
 
   let submitting;
+  let toggle = () => (submitting = !submitting);
 
   let external = async () => {
     let { id } = await post(`/${recipient.username}/invoice`, {
@@ -168,7 +169,7 @@
     />
   {/if}
 
-  <form method="POST" use:enhance={handler(submitting)}>
+  <form method="POST" use:enhance={handler(toggle)}>
     <input name="address" value={address} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="payreq" value={payreq} type="hidden" />

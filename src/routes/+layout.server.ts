@@ -4,7 +4,7 @@ import {
   loadTranslations,
   translations,
   defaultLocale,
-} from "$lib/translations";
+} from "$lib/translations/index";
 
 export let load = async ({ cookies, request, url }) => {
   let { host, pathname } = url;

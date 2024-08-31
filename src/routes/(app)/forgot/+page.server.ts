@@ -1,5 +1,5 @@
-import { fail, redirect } from "@sveltejs/kit";
-import { fd, post, login } from "$lib/utils";
+import { fail } from "@sveltejs/kit";
+import { fd, post } from "$lib/utils";
 
 export const actions = {
   default: async ({ request }) => {
@@ -7,7 +7,7 @@ export const actions = {
       let { email } = await fd(request);
       await post("/forgot", { email });
       return { success: true };
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { error: e.message });
     }
   },

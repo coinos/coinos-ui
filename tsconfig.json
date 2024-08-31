@@ -13,7 +13,6 @@
     "noImplicitAny": false,  
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noUnusedLabels": true,
     "paths": {
       "$lib/*": ["./src/lib/*.ts"]
     }

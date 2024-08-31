@@ -6,7 +6,7 @@ export async function load({ params: { id } }) {
     let event = await get(`/event/${id}`);
     if (!event) error(500, "Event not found");
     return { event };
-  } catch (e: Error) {
+  } catch (e: any) {
     error(500, e.message);
   }
 }

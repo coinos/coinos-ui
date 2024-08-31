@@ -1,19 +1,19 @@
 import { auth, fd, get } from "$lib/utils";
-import { fail, redirect } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
 import parse from "$lib/parse";
 
-export async function load({ cookies, params, request, url }) {
+export async function load({ cookies, params, url }) {
   let { text } = params;
 
-  await parse(text, url.host, cookies);
+  await parse(text, url.host);
   let contacts = await get("/contacts", auth(cookies));
   return { contacts };
 }
 
 export const actions = {
-  default: async ({ cookies, request, url }) => {
+  default: async ({ request, url }) => {
     let { text } = await fd(request);
-    let msg = await parse(text, url.host, cookies);
-    return fail(400, { error: msg || "default" });
+      await parse(text, url.host);
+    return fail(400, { error: "default" });
   },
 };

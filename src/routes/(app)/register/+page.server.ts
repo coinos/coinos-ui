@@ -24,14 +24,14 @@ export const actions = {
     
     try {
       await post("/register", { user }, { "cf-connecting-ip": ip });
-    } catch (e) {
+    } catch (e: any) {
       error = e.message;
     }
 
     try {
       await login(user, cookies, ip);
       error = null;
-    } catch (e) {
+    } catch (e: any) {
       error ||= e.message;
     }
 

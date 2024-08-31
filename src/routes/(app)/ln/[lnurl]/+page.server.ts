@@ -10,7 +10,7 @@ export async function load({ params, parent }) {
   try {
     let { lnurl } = params;
     data = await get(`/decode?text=${lnurl}`);
-  } catch (e) {
+  } catch (e: any) {
     error(500, e.message);
   }
 
@@ -21,7 +21,7 @@ export async function load({ params, parent }) {
 }
 
 export const actions = {
-  pay: async ({ cookies, fetch, request }) => {
+  pay: async ({ fetch, request }) => {
     let error;
 
     let { callback, amount, minSendable, maxSendable } = await fd(request);

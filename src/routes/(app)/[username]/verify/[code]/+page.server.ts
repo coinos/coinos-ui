@@ -1,5 +1,5 @@
 import { get } from "$lib/utils";
-import { error, redirect } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
 
 export let load = async ({ params: { code } }) => {
   let user;

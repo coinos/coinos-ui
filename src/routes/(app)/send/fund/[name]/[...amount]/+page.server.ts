@@ -8,7 +8,7 @@ export const actions = {
 
     try {
       p = await post("/payments", body, auth(cookies));
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { message: e.message });
     }
 

@@ -383,5 +383,17 @@
 		"price": "Price",
 		"submit": "Submit",
 		"image": "Image"
-	}
+	},
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά"
+  }
 }

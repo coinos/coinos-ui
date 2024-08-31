@@ -23,7 +23,7 @@ export const actions = {
 
     try {
       ({ user } = await post(`/user`, user, auth(cookies)));
-    } catch (e) {
+    } catch (e: any) {
       return fail(400, { message: e.message });
     }
 
