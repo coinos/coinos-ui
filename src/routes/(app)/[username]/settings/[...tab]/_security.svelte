@@ -9,8 +9,11 @@
   import { pin as current } from "$lib/store";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
+  import { xpub } from "$lib/wallet";
 
   export let user, rates, submit;
+
+  xpub(user);
 
   let confirming2fa,
     disabling2fa,
@@ -252,31 +255,31 @@
   {/if}
 </div>
 
-<!-- <div> -->
-<!--   <label for="seedphrase" class="font-bold" -->
-<!--     >{$t("user.settings.seedPhrase")}</label -->
-<!--   > -->
-<!--  -->
-<!--   <p class="text-secondary mb-1"> -->
-<!--     {$t("user.settings.seedDescription")} -->
-<!--   </p> -->
-<!--  -->
-<!--   <button type="button" class="primary" on:click={toggleSeed}> -->
-<!--     <Icon icon="warning" style="mr-1 w-6 my-auto" /> -->
-<!--     {revealSeed ? $t("user.settings.hideSeed") : $t("user.settings.revealSeed")} -->
-<!--   </button> -->
-<!--  -->
-<!--   {#if revealSeed} -->
-<!--     <div class="text-lg"> -->
-<!--       {mnemonic} -->
-<!--     </div> -->
-<!--  -->
-<!--     <button type="button" class="primary" on:click={() => copy(mnemonic)}> -->
-<!--       <Icon icon="copy" style="mr-1 w-6 my-auto" /> -->
-<!--       Copy -->
-<!--     </button> -->
-<!--   {/if} -->
-<!-- </div> -->
+<div>
+  <label for="seedphrase" class="font-bold"
+    >{$t("user.settings.seedPhrase")}</label
+  >
+
+  <p class="text-secondary mb-1">
+    {$t("user.settings.seedDescription")}
+  </p>
+
+  <button type="button" class="primary" on:click={toggleSeed}>
+    <Icon icon="warning" style="mr-1 w-6 my-auto" />
+    {revealSeed ? $t("user.settings.hideSeed") : $t("user.settings.revealSeed")}
+  </button>
+
+  {#if revealSeed}
+    <div class="text-lg">
+      {mnemonic}
+    </div>
+
+    <button type="button" class="primary" on:click={() => copy(mnemonic)}>
+      <Icon icon="copy" style="mr-1 w-6 my-auto" />
+      Copy
+    </button>
+  {/if}
+</div>
 
 <div>
   <label for="seedphrase" class="font-bold"
