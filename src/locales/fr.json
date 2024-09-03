@@ -377,7 +377,8 @@
 		"copy": "Copie",
 		"setAmount": "Montant défini",
 		"redeemVoucher": "Ecash ou LNURLw",
-		"swap": "Échanger"
+		"swap": "Échanger",
+		"shareLink": "Partager le lien"
 	},
 	"items": {
 		"add": "Ajouter un item",

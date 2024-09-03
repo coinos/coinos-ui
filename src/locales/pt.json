@@ -399,7 +399,8 @@
 		"copy": "Cópia",
 		"setAmount": "Definir quantidade",
 		"redeemVoucher": "Ecash ou LNURLw",
-		"swap": "Trocar"
+		"swap": "Trocar",
+		"shareLink": "Compartilhar link"
 	},
 	"items": {
 		"add": "Adicionar Item",
