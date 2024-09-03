@@ -9,7 +9,7 @@
   export let form;
 
   let link = $page.url.href;
-      let { id, total, token, external, spent } = data;
+  let { id, total, version, token, external, spent } = data;
 </script>
 
 {#if form?.error}
@@ -61,4 +61,26 @@
   >
     {token}
   </button>
+
+  {#if version === 4}
+    <a data-sveltekit-reload href={`/ecash/${id}/3`} class="contents">
+      <button
+        type="button"
+        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
+      >
+        <Icon icon="settings" style="w-8 my-auto" />
+        <div class="my-auto">{$t("payments.legacyVersion")}</div>
+      </button>
+    </a>
+  {:else}
+    <a data-sveltekit-reload href={`/ecash/${id}`} class="contents">
+      <button
+        type="button"
+        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
+      >
+        <Icon icon="settings" style="w-8 my-auto" />
+        <div class="my-auto">{$t("payments.newVersion")}</div>
+      </button>
+    </a>
+  {/if}
 </div>

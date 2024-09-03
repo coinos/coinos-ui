@@ -293,6 +293,8 @@
 		}
 	},
 	"payments": {
+    "legacyVersion": "Legacy version",
+    "newVersion": "New version",
     "income": "Income",
     "subtotal": "Subtotal",
     "expenditure": "Expenditure",

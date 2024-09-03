@@ -1,6 +1,5 @@
 <script>
   import AppHeader from "$comp/AppHeader.svelte";
-  import { getDecodedToken } from "@cashu/cashu-ts";
   import { copy, sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
