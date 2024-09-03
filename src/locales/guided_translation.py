@@ -33,6 +33,8 @@ def localize_string(string_id, from_data, to_data, to_locale):
     logging.debug("Translating string with id %s", string_id)
     id_parts = string_id.split('.')
 
+    if id_parts[0] == "lang": return
+
     # get original string
     to_translate = from_data
     for id_part in id_parts:
