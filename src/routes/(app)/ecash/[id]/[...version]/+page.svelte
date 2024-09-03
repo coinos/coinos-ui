@@ -27,7 +27,7 @@
     on:click={() => copy(link)}
   >
     <Icon icon="link" style="w-8 my-auto" />
-    <div class="my-auto">{$t("payments.copyLink")}</div>
+    <div class="my-auto">{$t("payments.shareLink")}</div>
   </button>
 
   {#if spent < total}

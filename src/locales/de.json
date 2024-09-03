@@ -404,7 +404,8 @@
 		"copy": "Kopie",
 		"setAmount": "Betrag festlegen",
 		"redeemVoucher": "Ecash oder LNURLw",
-		"swap": "Tauschen"
+		"swap": "Tauschen",
+		"shareLink": "Link teilen"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

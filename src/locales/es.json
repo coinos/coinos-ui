@@ -377,7 +377,8 @@
 		"copy": "Copiar",
 		"setAmount": "Monto establecido",
 		"redeemVoucher": "Efectivo electrónico o LNURLw",
-		"swap": "Intercambio"
+		"swap": "Intercambio",
+		"shareLink": "Compartir enlace"
 	},
 	"items": {
 		"add": "Añadir artículo",

@@ -395,7 +395,8 @@
 		"copy": "Αντίγραφο",
 		"setAmount": "Ορίστε το ποσό",
 		"redeemVoucher": "Ecash ή LNURLw",
-		"swap": "Ανταλαγή"
+		"swap": "Ανταλαγή",
+		"shareLink": "Κοινή χρήση συνδέσμου"
 	},
 	"items": {
 		"add": "Πρόσθεσε είδος",

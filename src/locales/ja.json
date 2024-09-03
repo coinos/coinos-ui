@@ -377,7 +377,8 @@
 		"copy": "コピー",
 		"setAmount": "金額を設定",
 		"redeemVoucher": "Ecash または LNURLw",
-		"swap": "スワップ"
+		"swap": "スワップ",
+		"shareLink": "リンクを共有"
 	},
 	"items": {
 		"add": "アイテムの追加",

@@ -377,7 +377,8 @@
 		"copy": "复制",
 		"setAmount": "设置金额",
 		"redeemVoucher": "Ecash 或 LNURLw",
-		"swap": "交换"
+		"swap": "交换",
+		"shareLink": "分享链接"
 	},
 	"items": {
 		"add": "新增项目",
