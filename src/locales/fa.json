@@ -378,7 +378,10 @@
 		"setAmount": "مقدار را تنظیم کنید",
 		"redeemVoucher": "Ecash یا LNURLw",
 		"swap": "تعویض کنید",
-		"shareLink": "لینک را به اشتراک بگذارید"
+		"shareLink": "لینک را به اشتراک بگذارید",
+		"showText": "نمایش متن",
+		"showQr": "نمایش QR",
+		"copyPr": "کپی درخواست پرداخت"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",

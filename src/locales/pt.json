@@ -400,7 +400,10 @@
 		"setAmount": "Definir quantidade",
 		"redeemVoucher": "Ecash ou LNURLw",
 		"swap": "Trocar",
-		"shareLink": "Compartilhar link"
+		"shareLink": "Compartilhar link",
+		"showText": "Mostrar texto",
+		"showQr": "Mostrar QR",
+		"copyPr": "Copiar solicitação de pagamento"
 	},
 	"items": {
 		"add": "Adicionar Item",

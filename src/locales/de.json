@@ -405,7 +405,10 @@
 		"setAmount": "Betrag festlegen",
 		"redeemVoucher": "Ecash oder LNURLw",
 		"swap": "Tauschen",
-		"shareLink": "Link teilen"
+		"shareLink": "Link teilen",
+		"showText": "Text anzeigen",
+		"showQr": "QR anzeigen",
+		"copyPr": "Lohnanforderung kopieren"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

@@ -159,6 +159,10 @@
         />
       </a>
     </div>
+  {:else}
+    <div class="break-all pb-5 text-lg text-center">
+      {txt}
+    </div>
   {/if}
 
   {#each invoice.items as i}
@@ -209,8 +213,7 @@
     >
       <Icon icon="copy" style="w-8 my-auto" />
       <div class="my-auto">
-        {$t("payments.copy")}
-        {txt.substr(0, 11)}...{txt.substr(-6)}
+        {$t("payments.copyPr")}
       </div>
     </button>
 
@@ -238,10 +241,13 @@
         class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
         on:click={() => ($showQr = !$showQr)}
       >
-        <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+        {#if $showQr}
+          <Icon icon="text" style="w-6 mr-2 my-auto" />
+        {:else}
+          <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+        {/if}
         <div class="my-auto">
-          {$showQr ? $t("payments.hide") : $t("payments.show")}
-          {$t("payments.qr")}
+          {$showQr ? $t("payments.showText") : $t("payments.showQr")}
         </div></button
       >
     </div>

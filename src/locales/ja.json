@@ -378,7 +378,10 @@
 		"setAmount": "金額を設定",
 		"redeemVoucher": "Ecash または LNURLw",
 		"swap": "スワップ",
-		"shareLink": "リンクを共有"
+		"shareLink": "リンクを共有",
+		"showText": "テキストを表示",
+		"showQr": "QRコードを表示",
+		"copyPr": "支払い請求のコピー"
 	},
 	"items": {
 		"add": "アイテムの追加",

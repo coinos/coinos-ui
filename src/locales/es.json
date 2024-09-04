@@ -378,7 +378,10 @@
 		"setAmount": "Monto establecido",
 		"redeemVoucher": "Efectivo electrónico o LNURLw",
 		"swap": "Intercambio",
-		"shareLink": "Compartir enlace"
+		"shareLink": "Compartir enlace",
+		"showText": "Mostrar texto",
+		"showQr": "Mostrar código QR",
+		"copyPr": "Copiar solicitud de pago"
 	},
 	"items": {
 		"add": "Añadir artículo",
