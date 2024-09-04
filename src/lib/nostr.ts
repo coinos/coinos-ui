@@ -39,7 +39,8 @@ type EncryptParams = {
 const { encode, decode, toWords, fromWords } = bech32m;
 
 export let generate = async (user: any) => {
-  if (get(pin)?.length !== 6) return;
+  let p = get(pin);
+  if (p && p.length !== 6) return;
 
   let salt = crypto.getRandomValues(new Uint8Array(16));
   let mnemonic = generateSeedWords();
@@ -154,7 +155,7 @@ export let send = (event: EventTemplate) => {
 
 let getPassword = async (): Promise<string> => {
   if (!get(pw)) passwordPrompt.set(true);
-    await wait(() => !!get(pw));
+  await wait(() => !!get(pw));
   return get(pw) || "";
 };
 
