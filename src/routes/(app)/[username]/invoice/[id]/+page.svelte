@@ -217,7 +217,7 @@
     >
       <Icon icon="copy" style="w-8 my-auto" />
       <div class="my-auto">
-        {$t("payments.copyPr")}
+        {$t("payments.copy")}
       </div>
     </button>
 
