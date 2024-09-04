@@ -378,7 +378,10 @@
 		"setAmount": "Montant défini",
 		"redeemVoucher": "Ecash ou LNURLw",
 		"swap": "Échanger",
-		"shareLink": "Partager le lien"
+		"shareLink": "Partager le lien",
+		"showText": "Afficher le texte",
+		"showQr": "Afficher le QR",
+		"copyPr": "Copie de la demande de paiement"
 	},
 	"items": {
 		"add": "Ajouter un item",

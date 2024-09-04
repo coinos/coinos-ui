@@ -378,7 +378,10 @@
 		"setAmount": "设置金额",
 		"redeemVoucher": "Ecash 或 LNURLw",
 		"swap": "交换",
-		"shareLink": "分享链接"
+		"shareLink": "分享链接",
+		"showText": "显示文本",
+		"showQr": "显示二维码",
+		"copyPr": "复制付款请求"
 	},
 	"items": {
 		"add": "新增项目",
