@@ -16,7 +16,7 @@
   } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { last, showQr } from "$lib/store";
+  import { last, showQr, amountPrompt } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Heart from "$comp/Heart.svelte";
@@ -24,6 +24,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
+  import Toggle from "$comp/Toggle.svelte";
 
   export let data;
 
@@ -94,6 +95,8 @@
         subbed = true;
         send("subscribe", invoice);
       });
+
+      if ($amountPrompt) toggleAmount();
     }
   });
 
@@ -120,6 +123,7 @@
   };
 
   let setAmount = async () => {
+    if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     settingAmount = false;
     amount = newAmount;
     invoice.amount = newAmount;
@@ -345,6 +349,11 @@
           </button>
         </div>
       </form>
+
+      <div class="flex justify-between items-center">
+        <span class="font-bold">{$t("payments.amountPrompt")}</span>
+        <Toggle id="notify" bind:value={$amountPrompt} />
+      </div>
     </div>
   </div>
 {/if}

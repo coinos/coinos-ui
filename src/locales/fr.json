@@ -381,7 +381,8 @@
 		"shareLink": "Partager le lien",
 		"showText": "Afficher le texte",
 		"showQr": "Afficher le QR",
-		"copyPr": "Copie de la demande de paiement"
+		"copyPr": "Copie de la demande de paiement",
+		"amountPrompt": "Toujours demander le montant"
 	},
 	"items": {
 		"add": "Ajouter un item",

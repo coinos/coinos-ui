@@ -408,7 +408,8 @@
 		"shareLink": "Link teilen",
 		"showText": "Text anzeigen",
 		"showQr": "QR anzeigen",
-		"copyPr": "Lohnanforderung kopieren"
+		"copyPr": "Lohnanforderung kopieren",
+		"amountPrompt": "Immer nach dem Betrag fragen"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

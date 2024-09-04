@@ -403,7 +403,8 @@
 		"shareLink": "Compartilhar link",
 		"showText": "Mostrar texto",
 		"showQr": "Mostrar QR",
-		"copyPr": "Copiar solicitação de pagamento"
+		"copyPr": "Copiar solicitação de pagamento",
+		"amountPrompt": "Sempre solicite o valor"
 	},
 	"items": {
 		"add": "Adicionar Item",
