@@ -381,7 +381,8 @@
 		"shareLink": "リンクを共有",
 		"showText": "テキストを表示",
 		"showQr": "QRコードを表示",
-		"copyPr": "支払い請求のコピー"
+		"copyPr": "支払い請求のコピー",
+		"amountPrompt": "常に金額の入力を求める"
 	},
 	"items": {
 		"add": "アイテムの追加",

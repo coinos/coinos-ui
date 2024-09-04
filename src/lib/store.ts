@@ -38,6 +38,7 @@ let persistLocal = (key, defaultValue: any = undefined) => {
   return s;
 };
 
+export let amountPrompt = persistLocal("amountPrompt");
 export let avatar = writable();
 export let banner = writable();
 export let event = writable();
