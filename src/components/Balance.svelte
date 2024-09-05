@@ -6,7 +6,7 @@
   import { t } from "$lib/translations";
 
   let show;
-  export let user, rate;
+  export let user, rate, balance;
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
@@ -27,12 +27,12 @@
       {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
-        {f((user.balance * rate) / sats, user.currency)}
+        {f((balance * rate) / sats, user.currency)}
       {/if}
     </div>
 
     <div class="text-secondary text-2xl">
-      ⚡️{s(user.balance)}
+      ⚡️{s(balance)}
     </div>
   {/if}
 </div>

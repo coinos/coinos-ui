@@ -19,6 +19,7 @@
 			}
 		},
 		"locations": {
+      "viewMap": "View map",
 			"header": "Locations",
 			"description": "Over 500 businesses worldwide are accepting bitcoin with Coinos. We hope that yours will be next!"
 		}
@@ -155,11 +156,12 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
+    "url": "Public URL",
 		"install": "Install app",
 		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages",
 		"profilePage": "Profile page",
-		"nostrPubkey": "Nostr pubkey",
+		"nostrPubkey": "Pubkey",
 		"requestPayment": "Request Payment",
 		"welcome": "Welcome! Your account balance is empty. You can start by making a deposit or by asking someone to pay you.",
 		"showBalance": "Reveal balance",
@@ -181,6 +183,7 @@
 		"this": "This",
 		"lightningAddress": "Lightning address",
 		"dashboard": {
+      "setup": "Setup self-custody",
 			"payNow": "Pay now",
 			"checkout": "Checkout",
 			"go": "Go",
@@ -324,7 +327,6 @@
 		"voucher": "Payment code",
 		"qr": "QR",
 		"copy": "Copy",
-		"copyPr": "Copy pay request",
 		"amountPrompt": "Always prompt for amount",
 		"shareLink": "Share link",
 		"copyLink": "Copy link",

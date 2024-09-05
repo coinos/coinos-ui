@@ -18,8 +18,8 @@ import {
 } from "nostr-tools/nip49";
 
 import { mnemonicToEntropy, entropyToMnemonic } from "@scure/bip39";
-import wordlist from "$lib/english";
 import { bech32m } from "@scure/base";
+  import { wordlist } from "@scure/bip39/wordlists/english";
 
 import { generateSeedWords, privateKeyFromSeedWords } from "nostr-tools/nip06";
 import { PUBLIC_COINOS_PUBKEY } from "$env/static/public";
