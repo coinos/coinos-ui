@@ -96,7 +96,7 @@
         send("subscribe", invoice);
       });
 
-      if ($amountPrompt) toggleAmount();
+      if ($amountPrompt && !tip) toggleAmount();
     }
   });
 
