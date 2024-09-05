@@ -48,6 +48,7 @@ export let invoice = writable();
 export let last = writable();
 export let loginRedirect = writable();
 export let decrypted = persistLocal("decrypted", {});
+export let mnemonic = persistSession("mnemonic");
 export let newPayment = persistLocal("newPayment");
 export let password = writable<string | undefined>();
 export let passwordPrompt = writable();
