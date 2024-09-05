@@ -91,14 +91,15 @@
       {@html $t("about.locations.description")}
     </p>
     <!-- <LocationsMap {locations} /> -->
+
     <a href="/map">
       <div class="relative">
         <img src="/map.png" class="mx-auto" />
 
         <button
-          class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80 absolute left-1/2 top-1/2 text-2xl"
+          class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
         >
-          View map
+          {$t("about.locations.viewMap")}
         </button>
       </div>
     </a>
