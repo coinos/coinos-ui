@@ -13,7 +13,7 @@
   let { currency } = user;
   let rate = rates[currency];
 
-  let fiats = Object.keys(rates);
+  let fiats = Object.keys(rates).sort((a,b) => a.localeCompare(b));
   $: user.language = $locale;
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
