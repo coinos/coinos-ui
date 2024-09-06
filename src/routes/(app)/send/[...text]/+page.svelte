@@ -92,6 +92,17 @@
         <div class="my-auto">{$t("user.send.next")}</div>
       </button>
 
+      <a href="/send/well" class="contents">
+        <button
+          type="button"
+          class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary"
+        >
+        <img src="/images/well.svg" class="w-40 my-auto" />
+        <img src="/images/interac.svg" class="w-8 my-auto" />
+          <div class="my-auto">Transfer</div>
+        </button>
+      </a>
+
       <a href="/send/ecash" class="contents">
         <button
           type="button"
