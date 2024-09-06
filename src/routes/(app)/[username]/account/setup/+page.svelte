@@ -32,8 +32,8 @@
     </p>
 
     <p class="text-secondary mb-1">
-      Whoever knows these words can withdraw funds from the account. We can't
-      help you recover them if you lose them.
+      Whoever knows these words in the correct order can withdraw funds from the account. We can't
+      recover them if you lose them.
     </p>
 
     {#if reveal}

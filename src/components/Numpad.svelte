@@ -1,7 +1,7 @@
 <script>
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
-  import { f, s, focus, post, warning, sat, sats } from "$lib/utils";
+  import { f, s, focus, warning, sat, sats } from "$lib/utils";
   import { t } from "$lib/translations";
 
   export let amount,

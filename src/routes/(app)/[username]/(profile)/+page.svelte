@@ -23,11 +23,11 @@
     $installPrompt = null;
   };
 
-  user.savings = 0;
+  if (user) user.savings = 0;
 
   let accounts = [
     { balance: user.balance, setup: true, type: "Cash" },
-    { balance: user.savings, setup: false, type: "Savings" },
+    { id: "pubtest", balance: user.savings, setup: !!user.seed, type: "Savings" },
   ];
 </script>
 

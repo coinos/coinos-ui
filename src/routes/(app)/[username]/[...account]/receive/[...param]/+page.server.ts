@@ -2,16 +2,18 @@ import { redirect } from "@sveltejs/kit";
 import { auth, post } from "$lib/utils";
 import type { Invoice } from "$lib/types";
 
-export let load = async ({ cookies, parent }) => {
+export let load = async ({ cookies, params, parent }) => {
+  let { account } = params;
   let {subject, user, rates } = await parent();
 
   let invoice: Invoice = {
-    type: "lightning",
+    account,
+    type: account ? "bitcoin": "lightning",
     rate: rates[user?.currency || subject?.currency],
   };
 
   if(!user) user = subject;
-  invoice = await post("/invoice", { invoice, user }, auth(cookies));
+  invoice = await post("/invoice", { invoice, account, user }, auth(cookies));
   let { id } = invoice;
 
   if (invoice.memoPrompt && !invoice.memo) {
