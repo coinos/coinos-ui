@@ -28,7 +28,6 @@
 
   export let data;
 
-  let ndef;
   let showOptions;
 
   let reading = async ({ message, serialNumber }) => {
@@ -41,6 +40,7 @@
   $: refresh(data);
   let { invoice, id, subject, user, src } = data;
   let {
+    account,
     amount,
     hash,
     type,
@@ -56,6 +56,7 @@
   let refresh = async (data) => {
     ({ invoice, id, user, src } = data);
     ({
+      account,
       amount,
       hash,
       type,
@@ -66,21 +67,6 @@
     } = invoice);
 
     tipPercent = (tip / amount) * 100;
-
-    // if (browser && window.NDEFReader) {
-    // 	try {
-    // 		ndef = new NDEFReader();
-    // 		await ndef.scan();
-    //
-    // 		ndef.removeEventListener('readingerror', readingerror);
-    // 		ndef.removeEventListener('reading', reading);
-    //
-    // 		ndef.addEventListener('readingerror', readingerror);
-    // 		ndef.addEventListener('reading', reading);
-    // 	} catch (e) {
-    // 		console.log(e);
-    // 	}
-    // }
   };
 
   $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
@@ -97,13 +83,6 @@
       });
 
       if ($amountPrompt && !tip) toggleAmount();
-    }
-  });
-
-  onDestroy(() => {
-    if (ndef) {
-      ndef.removeEventListener("readingerror", readingerror);
-      ndef.removeEventListener("reading", reading);
     }
   });
 
@@ -257,39 +236,41 @@
     </div>
   </div>
 
-  <div class="flex justify-around text-secondary">
-    <button
-      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
-      class:bg-primary={type === types.bitcoin}
-      class:text-black={type === types.bitcoin}
-      on:click={() => setType(types.bitcoin)}
-    >
-      <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
-      <div class="my-auto text-lg">Bitcoin</div>
-    </button>
+  {#if !account}
+    <div class="flex justify-around text-secondary">
+      <button
+        class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
+        class:bg-primary={type === types.bitcoin}
+        class:text-black={type === types.bitcoin}
+        on:click={() => setType(types.bitcoin)}
+      >
+        <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
+        <div class="my-auto text-lg">Bitcoin</div>
+      </button>
 
-    <button
-      class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
-      class:bg-primary={type === types.liquid}
-      class:text-black={type === types.liquid}
-      on:click={() => setType(types.liquid)}
-    >
-      <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
-      <div class="my-auto text-lg">Liquid</div>
-    </button>
+      <button
+        class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
+        class:bg-primary={type === types.liquid}
+        class:text-black={type === types.liquid}
+        on:click={() => setType(types.liquid)}
+      >
+        <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
+        <div class="my-auto text-lg">Liquid</div>
+      </button>
 
-    <button
-      class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
-      class:bg-primary={type === types.lightning}
-      class:text-black={type === types.lightning}
-      on:click={() => setType(types.lightning)}
-    >
-      <div class="bg-white rounded-full w-8 h-8 text-center flex">
-        <div class="m-auto">⚡️</div>
-      </div>
-      <div class="my-auto text-lg">Lightning</div>
-    </button>
-  </div>
+      <button
+        class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 w-full justify-center"
+        class:bg-primary={type === types.lightning}
+        class:text-black={type === types.lightning}
+        on:click={() => setType(types.lightning)}
+      >
+        <div class="bg-white rounded-full w-8 h-8 text-center flex">
+          <div class="m-auto">⚡️</div>
+        </div>
+        <div class="my-auto text-lg">Lightning</div>
+      </button>
+    </div>
+  {/if}
 
   {#if type === types.liquid}
     <div class="flex justify-center">

@@ -5,6 +5,8 @@
   import { encrypt, decrypt } from "nostr-tools/nip49";
   import { mnemonicToEntropy, entropyToMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
+  import { fail, post } from "$lib/utils";
+  import { goto } from "$app/navigation";
 
   export let data;
   let { user } = data;
@@ -12,11 +14,14 @@
   let password;
 
   let submit = async () => {
-    console.log($mnemonic);
-    let t = await encrypt(mnemonicToEntropy($mnemonic, wordlist), password);
-
-    let m = await decrypt(t, password);
-    console.log(entropyToMnemonic(m, wordlist));
+    user.seed = await encrypt(mnemonicToEntropy($mnemonic, wordlist), password);
+    try {
+      await post("/api/user", user);
+      goto(`/${user.username}`);
+    } catch (e) {
+      console.log(e);
+      fail("Something went wrong");
+    }
   };
 </script>
 
