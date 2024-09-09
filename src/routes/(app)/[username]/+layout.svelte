@@ -20,6 +20,8 @@
   <slot />
 </div>
 
+<slot name="fixed" />
+
 <style>
   @keyframes fade-in {
     from {
