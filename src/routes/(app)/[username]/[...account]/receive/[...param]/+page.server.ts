@@ -1,19 +1,26 @@
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { auth, post } from "$lib/utils";
 import type { Invoice } from "$lib/types";
 
 export let load = async ({ cookies, params, parent }) => {
   let { account } = params;
-  let {subject, user, rates } = await parent();
+  let { subject, user, rates } = await parent();
 
   let invoice: Invoice = {
     account,
-    type: account ? "bitcoin": "lightning",
+    type: account ? "bitcoin" : "lightning",
     rate: rates[user?.currency || subject?.currency],
   };
 
-  if(!user) user = subject;
-  invoice = await post("/invoice", { invoice, account, user }, auth(cookies));
+  if (!user) user = subject;
+
+  try {
+    invoice = await post("/invoice", { invoice, account, user }, auth(cookies));
+  } catch (e) {
+    console.log(e);
+    error(500, "Failed to generate invoice");
+    }
+
   let { id } = invoice;
 
   if (invoice.memoPrompt && !invoice.memo) {

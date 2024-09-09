@@ -296,48 +296,46 @@
   {/if}
 </div>
 
-{#if settingAmount}
-  <div
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
-  >
-    <div
-      class="relative top-1/3 mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5"
-    >
-      <form submit={setAmount}>
-        <Numpad
-          bind:amount={newAmount}
-          bind:currency
-          bind:rate
-          bind:fiat
-          bind:submit
-        />
-        <div class="w-full flex flex-wrap gap-2">
-          <button
-            type="submit"
-            on:click={setAmount}
-            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full"
-          >
-            <div class="my-auto">Ok</div>
-          </button>
-          <button
-            bind:this={submit}
-            type="button"
-            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto w-full"
-            on:click={toggleAmount}
-            on:keydown={toggleAmount}
-          >
-            <div class="my-auto">Cancel</div>
-          </button>
-        </div>
-      </form>
-
-      <div class="flex justify-between items-center">
-        <span class="font-bold">{$t("payments.amountPrompt")}</span>
-        <Toggle id="notify" bind:value={$amountPrompt} />
-      </div>
-    </div>
-  </div>
-{/if}
+  <!-- <div -->
+  <!--   class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20" -->
+  <!-- > -->
+  <!--   <div -->
+  <!--     class="relative top-1/3 mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5" -->
+  <!--   > -->
+  <!--     <form submit={setAmount}> -->
+  <!--       <Numpad -->
+  <!--         bind:amount={newAmount} -->
+  <!--         bind:currency -->
+  <!--         bind:rate -->
+  <!--         bind:fiat -->
+  <!--         bind:submit -->
+  <!--       /> -->
+  <!--       <div class="w-full flex flex-wrap gap-2"> -->
+  <!--         <button -->
+  <!--           type="submit" -->
+  <!--           on:click={setAmount} -->
+  <!--           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full" -->
+  <!--         > -->
+  <!--           <div class="my-auto">Ok</div> -->
+  <!--         </button> -->
+  <!--         <button -->
+  <!--           bind:this={submit} -->
+  <!--           type="button" -->
+  <!--           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto w-full" -->
+  <!--           on:click={toggleAmount} -->
+  <!--           on:keydown={toggleAmount} -->
+  <!--         > -->
+  <!--           <div class="my-auto">Cancel</div> -->
+  <!--         </button> -->
+  <!--       </div> -->
+  <!--     </form> -->
+  <!--  -->
+  <!--     <div class="flex justify-between items-center"> -->
+  <!--       <span class="font-bold">{$t("payments.amountPrompt")}</span> -->
+  <!--       <Toggle id="notify" bind:value={$amountPrompt} /> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!-- </div> -->
 
 <style>
   .invoice {

@@ -9,7 +9,7 @@
 
   export let data;
 
-  let { subject, user, items, rates } = data;
+  let { accounts, subject, user, items, rates } = data;
   $: ({ currency } = subject);
   $: rate = rates[currency];
   $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
@@ -24,11 +24,6 @@
   };
 
   if (user) user.savings = 0;
-
-  let accounts = [
-    { balance: user.balance, setup: true, type: "Cash" },
-    { id: "pubtest", balance: user.savings, setup: !!user.seed, type: "Savings" },
-  ];
 </script>
 
 {#if !user.balance}
@@ -39,11 +34,22 @@
   </div>
 {/if}
 
-<div class="space-y-5">
+<div class="space-y-2">
   {#if user?.id === subject.id}
     {#each accounts as account}
       <Account {user} {rate} {account} />
     {/each}
+
+    <button
+      class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white"
+    >
+      <a href={`/${user.username}/account/setup`}>
+        <div class="mx-auto flex gap-2">
+          <Icon icon="plus" style="w-8 mx-auto invert" />
+          <div class="my-auto text-xl whitespace-nowrap">Add account</div>
+        </div>
+      </a>
+    </button>
 
     {#if $installPrompt}
       <button

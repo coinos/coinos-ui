@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { focus } from "$lib/utils";
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
@@ -14,9 +15,9 @@
   let password;
 
   let submit = async () => {
-    user.seed = await encrypt(mnemonicToEntropy($mnemonic, wordlist), password);
+    let seed = await encrypt(mnemonicToEntropy($mnemonic, wordlist), password);
     try {
-      await post("/api/user", user);
+      await post("/api/accounts", { seed });
       goto(`/${user.username}`);
     } catch (e) {
       console.log(e);
@@ -40,7 +41,7 @@
       than your login password. We can't reset it if you lose it.
     </p>
 
-    <input type="text" placeholder="Password" bind:value={password} />
+      <input use:focus type="text" placeholder="Password" bind:value={password} />
 
     <button
       class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"
