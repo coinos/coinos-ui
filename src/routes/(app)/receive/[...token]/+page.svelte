@@ -5,7 +5,6 @@
   import { tick } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import AppHeader from "$comp/AppHeader.svelte";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
@@ -30,7 +29,6 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.voucher")}

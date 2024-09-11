@@ -52,7 +52,7 @@
   let toggle = () => (submitting = !submitting);
 
   let external = async () => {
-    let { id } = await post(`/${recipient.username}/invoice`, {
+    let { id } = await post(`/invoice`, {
       invoice: {
         ...invoice,
         type: "lightning",
@@ -62,7 +62,7 @@
       user: { username: recipient.username },
     });
 
-    goto(`/${recipient.username}/invoice/${id}?options=true`, {
+    goto(`/invoice/${id}?options=true`, {
       invalidateAll: true,
     });
   };

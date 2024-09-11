@@ -26,16 +26,16 @@
   if (user) user.savings = 0;
 </script>
 
-{#if !user.balance}
-  <div class="mb-8">
-    <p class="text-secondary text-lg">
-      {$t("user.welcome")}
-    </p>
-  </div>
-{/if}
-
 <div class="space-y-2">
   {#if user?.id === subject.id}
+    {#if !user.balance}
+      <div class="mb-8">
+        <p class="text-secondary text-lg">
+          {$t("user.welcome")}
+        </p>
+      </div>
+    {/if}
+
     {#each accounts as account}
       <Account {user} {rate} {account} />
     {/each}
@@ -43,7 +43,7 @@
     <button
       class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white"
     >
-      <a href={`/${user.username}/account/setup`}>
+      <a href={`/account/setup`}>
         <div class="mx-auto flex gap-2">
           <Icon icon="plus" style="w-8 mx-auto invert" />
           <div class="my-auto text-xl whitespace-nowrap">Add account</div>

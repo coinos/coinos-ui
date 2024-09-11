@@ -1,5 +1,4 @@
 <script>
-  import AppHeader from "$comp/AppHeader.svelte";
   import { onNavigate } from "$app/navigation";
   export let data;
 
@@ -15,7 +14,6 @@
   });
 </script>
 
-<AppHeader {data} />
 <div class="content">
   <slot />
 </div>

@@ -7,15 +7,15 @@ export async function load({ params: { id }, parent }) {
   let invoice = await get(`/invoice/${id}`);
 
   if (invoice.prompt && invoice.tip === null)
-    redirect(307, `/${invoice.user.username}/invoice/${id}/tip`);
+    redirect(307, `/invoice/${id}/tip`);
 
   if (invoice.memoPrompt && invoice.memo === null)
-    redirect(307, `/${invoice.user.username}/invoice/${id}/memo`);
+    redirect(307, `/invoice/${id}/memo`);
 
   if (invoice.user.username === user?.username)
     error(500, { message: "Cannot send to self" });
 
-  if (!user) redirect(307, `/${invoice.user.username}/invoice/${id}`);
+  if (!user) redirect(307, `/invoice/${id}`);
 
   return { invoice, rates, user };
 }

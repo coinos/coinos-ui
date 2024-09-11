@@ -43,7 +43,7 @@
   </h3>
 </div>
 
-<a href={`/${username}/payments`} use:focus>
+<a href={`/payments`} use:focus>
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 

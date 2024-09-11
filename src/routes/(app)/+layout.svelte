@@ -14,6 +14,7 @@
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
   import LoadingSplash from "$comp/LoadingSplash.svelte";
+  import AppHeader from "$comp/AppHeader.svelte";
   import Invoice from "$comp/Invoice.svelte";
   import Password from "$comp/Password.svelte";
   import Request from "$comp/Request.svelte";
@@ -35,6 +36,7 @@
   });
 
   let { generate, rate, user, subject, token, rates } = data;
+  console.log("SUB", subject)
 
   $: update(data);
   let update = (data) => {
@@ -115,6 +117,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main class="pb-20">
+  <AppHeader {user} {subject} />
   {#if !$loading}
     <slot />
   {/if}
