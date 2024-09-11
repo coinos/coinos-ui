@@ -25,9 +25,9 @@ export default async ({ cookies, request }) => {
   let { id } = invoice;
 
   if (invoice.prompt && invoice.tip === null)
-    redirect(307, `/${user.username}/invoice/${id}/tip`);
+    redirect(307, `/invoice/${id}/tip`);
 
   if (invoice.memoPrompt && !invoice.memo) {
-    redirect(307, `/${user.username}/invoice/${id}/memo`);
-  } else redirect(307, `/${user.username}/invoice/${id}`);
+    redirect(307, `/invoice/${id}/memo`);
+  } else redirect(307, `/invoice/${id}`);
 };

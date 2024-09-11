@@ -1,4 +1,5 @@
 <script>
+  import { t } from "$lib/translations";
   import { btc, f, sat, post } from "$lib/utils";
   import { browser } from "$app/environment";
   import { goto, invalidate } from "$app/navigation";
@@ -14,7 +15,7 @@
   import DeleteItem from "$comp/DeleteItem.svelte";
   import Icon from "$comp/Icon.svelte";
 
-  export let subject, user, items, total, rate, currency;
+  export let subject, user, items, rate, currency;
 
   let flipDurationMs = 200;
   let dropTargetStyle = {};
@@ -26,6 +27,8 @@
   let del = (item) => {
     deleting = item;
   };
+
+  $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
 
   function handleConsider(e) {
     const {
@@ -77,15 +80,15 @@
       rate,
     };
 
-    let { id } = await post(`/${subject.username}/invoice`, {
+    let { id } = await post(`/invoice`, {
       invoice,
       user: { username: subject.username },
     });
 
     if (invoice.memoPrompt) {
-      return goto(`/${subject.username}/invoice/${id}/memo`);
+      return goto(`/invoice/${id}/memo`);
     }
-    goto(`/${subject.username}/invoice/${id}`);
+    goto(`/invoice/${id}`);
   };
 
   let reset = () =>
@@ -135,7 +138,7 @@
         {#if user?.username === subject.username}
           <div class="flex gap-2 justify-center absolute top-2 right-2">
             <button type="button" on:click|stopPropagation={() => {}}>
-              <a href={`/${user.username}/items/${i.id}`}>
+              <a href={`/items/${i.id}`}>
                 <button
                   class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
                 >
@@ -157,7 +160,7 @@
               on:touchstart={startDrag}
               on:keydown={handleKeyDown}
             >
-              <a href={`/${user.username}/items/${i.id}`}>
+              <a href={`/items/${i.id}`}>
                 <button
                   class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
                 >
@@ -207,3 +210,39 @@
     </button>
   {/each}
 </div>
+
+<div
+  class="fixed inset-x-0 mx-auto flex bottom-16"
+  class:static={!items.length}
+>
+  {#if total > 0}
+    <button
+      class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
+      on:click={checkout}
+    >
+      <div class="mx-auto flex">
+        <div class="my-auto text-2xl">
+          {$t("user.dashboard.checkout")}
+          {f(total, currency)}
+          <span class="text-base">
+            {sat(btc(total, rate), currency)}
+          </span>
+        </div>
+      </div>
+    </button>
+  {/if}
+</div>
+
+<style>
+  .custom-shadow-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    visibility: visible;
+    background: #333;
+    opacity: 0.5;
+    margin: 0;
+  }
+</style>

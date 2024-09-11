@@ -19,10 +19,10 @@
 </script>
 
 <header
-  class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
+  class="w-full md:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
   bind:this={header}
 >
-  <nav class="block xl:flex flex-wrap justify-between items-center">
+  <nav class="block md:flex justify-between items-center">
     <div
       class="flex justify-start md:justify-center items-center md:space-x-10"
     >
@@ -34,7 +34,7 @@
 
     <!-- desktop nav -->
     <div
-      class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold"
+      class="hidden space-x-10 md:flex justify-center items-center font-bold"
     >
       {#if $page.url.pathname === "/"}
         <button class="hover:opacity-80" on:click={() => scroll(howItWorks)}

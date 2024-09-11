@@ -219,7 +219,7 @@
 
       {#if user && user.username !== subject.username && subject.pubkey}
         <a
-          href={`/${user.username}/messages/${subject.username}`}
+          href={`/messages/${subject.username}`}
           class="contents"
         >
           <button

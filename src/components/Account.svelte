@@ -5,10 +5,10 @@
 
   export let user, rate, account;
   let { seed, balance, id } = account;
-  $: type = seed ? "Savings":"Cash";
+  $: type = seed ? "Savings" : "Cash";
 </script>
 
-<a href={`/${user.username}/${id}/payments`.replace(/undefined\//, "")}>
+<a href={`/payments`} class="block">
   <div class="border rounded-xl shadow p-4 space-y-5">
     <div class="flex justify-center lg:justify-start">
       <Balance {balance} {user} {rate} />
@@ -30,10 +30,7 @@
         </button>
       </a>
 
-      <a
-        href={`/${user.username}/${id}/receive`.replace(/undefined\//, "")}
-        class="contents"
-      >
+      <a href={`/invoice`} class="contents">
         <button
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
         >

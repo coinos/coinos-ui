@@ -29,7 +29,7 @@ export async function load({ cookies, params, parent }) {
       auth(cookies)
     );
 
-    redirect(307, `/${username}/invoice/${id}`);
+    redirect(307, `/invoice/${id}`);
   }
 
   return { amount, rate, subject };

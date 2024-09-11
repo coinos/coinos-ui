@@ -7,11 +7,7 @@
   import { loading, t } from "$lib/translations";
   import { page } from "$app/stores";
 
-  export let data;
-
-  let { subject, user } = data;
-  $: update(data);
-  let update = (data) => ({ subject, user } = data);
+  export let user, subject;
 
   let menuButtons;
   $: if (user)
@@ -19,14 +15,14 @@
       {
         key: "nav.settings",
         icon: "settings",
-        href: `/${user.username}/settings`,
+        href: `/settings`,
       },
       { key: "nav.support", icon: "support", href: `/support` },
-      { key: "nav.map", icon: "map", href: `/${user.username}/map` },
+      { key: "nav.map", icon: "map", href: `/map` },
       {
         key: "nav.messages",
         icon: "message",
-        href: `/${user.username}/messages`,
+        href: `/messages`,
       },
       { key: "nav.merch", icon: "shop", href: `https://coinosmerch.com` },
       { key: "nav.signOut", icon: "logout", href: `/logout` },
@@ -60,19 +56,19 @@
             ><Icon icon="home" style="mx-auto w-6 sm:w-8" />
           </button>
         </a>
-        <a href={`/${user.username}/receive`}>
+        <a href={`/invoice`}>
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
-              .url.pathname === `/${user.username}/receive`
+              .url.pathname.includes('invoice')
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
             ><Icon icon="receive" style="mx-auto w-6 sm:w-8" />
           </button>
         </a>
-        <a href={`/${user.username}/payments`}>
+        <a href={`/payments`}>
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
-              .url.pathname === `/${user.username}/payments`
+              .url.pathname === `/payments`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'} relative"
             ><Icon icon="clock" style="mx-auto w-6 sm:w-8" />
@@ -102,9 +98,8 @@
         <div class="relative">
           <OutClick on:outclick={() => (showMenu = false)}>
             <button
-              class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
-                .url.pathname === `/${user.username}` ||
-              $page.url.pathname === `/${user.username}/settings` ||
+              class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {
+              $page.url.pathname === `/settings` ||
               $page.url.pathname === `/support`
                 ? 'opacity-100'
                 : `opacity-70 hover:opacity-80 ${

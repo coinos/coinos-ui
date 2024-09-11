@@ -70,6 +70,6 @@ export const actions = {
     let c = callback.includes("?") ? "&" : "?";
     await fetch(`${callback}${c}k1=${k1}&pr=${pr}`).then((r) => r.json());
 
-    redirect(307, `/${username}/payments`);
+    redirect(307, `/payments`);
   },
 };

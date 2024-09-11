@@ -132,7 +132,9 @@
 		"haveAccount": "Already have an account?",
 		"noAccount": "Don't have an account?",
 		"register": "Register",
+		"createAccount": "Create account",
 		"signIn": "Sign In",
+		"signUp": "Sign Up",
 		"failed": "Login failed"
 	},
 	"nav": {
