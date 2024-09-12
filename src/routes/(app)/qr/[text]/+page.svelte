@@ -6,10 +6,6 @@
   let { src, text } = data;
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-  <Icon icon="arrow-left" style="w-10" />
-</button>
-
 <div class="container px-4 max-w-4xl mx-auto space-y-5">
   <div class="flex justify-center items-center">
     <div

@@ -13,7 +13,6 @@ export let load = async ({
     let subject = await get(`/users/${username}`);
     let { user } = await parent();
     if (!user) user = subject;
-    console.log("SUBJECT", subject)
 
     let expires = new Date();
     expires.setSeconds(expires.getSeconds() + 380 * 24 * 60 * 60);

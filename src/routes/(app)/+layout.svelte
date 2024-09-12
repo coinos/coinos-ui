@@ -17,7 +17,6 @@
   import AppHeader from "$comp/AppHeader.svelte";
   import Invoice from "$comp/Invoice.svelte";
   import Password from "$comp/Password.svelte";
-  import Request from "$comp/Request.svelte";
   import { getCookie, warning, protectedRoutes } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, onNavigate } from "$app/navigation";
@@ -36,7 +35,6 @@
   });
 
   let { generate, rate, user, subject, token, rates } = data;
-  console.log("SUB", subject)
 
   $: update(data);
   let update = (data) => {
@@ -125,10 +123,6 @@
 
 {#if $invoice}
   <Invoice {user} />
-{/if}
-
-{#if $request}
-  <Request {user} />
 {/if}
 
 <style>

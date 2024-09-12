@@ -7,6 +7,7 @@ const opts = {
 
 export async function load({ cookies }) {
   let lang = cookies.get("lang");
+  cookies.set("account", "", opts);
   cookies.set("lang", "", opts);
   cookies.set("username", "", opts);
   cookies.set("token", "", opts);
