@@ -53,11 +53,9 @@
   ></script></svelte:head
 >
 
-<div
-  class="container max-w-lg mx-auto mt-20 space-y-8 shadow-xl rounded-3xl p-10"
->
+<div class="container max-w-lg mx-auto space-y-8 p-4 pb-20">
   {#if sent}
-    <h1 class="text-center text-3xl md:text-4xl font-semibold">Thank you!</h1>
+    <h1 class="text-center text-3xl lg:text-4xl font-semibold">Thank you!</h1>
     <div class="text-center text-lg text-secondary">
       Someone will be in touch shortly.
     </div>
@@ -88,7 +86,6 @@
           >{$t("user.support.accountName")}</label
         >
         <input
-          class="bg-primary"
           type="text"
           name="account"
           required
@@ -101,7 +98,6 @@
           >{$t("user.support.email")}</label
         >
         <input
-          class="bg-primary"
           type="email"
           name="email"
           bind:value={email}
@@ -115,7 +111,6 @@
         >
         <textarea
           rows={5}
-          class="bg-primary"
           type="text"
           name="message"
           bind:value={message}

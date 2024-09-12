@@ -1,4 +1,5 @@
 <script>
+  import { account as acc } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
@@ -6,19 +7,17 @@
   export let user, rate, account;
   let { seed, balance, id } = account;
   $: type = seed ? "Savings" : "Cash";
+
+  let setAccount = () => 
+    document.cookie = `account=${id}; path=/; max-age=86400`;
 </script>
 
-<a href={`/payments`} class="block">
+<a href={`/payments`} class="block" on:click={setAccount}>
   <div class="border rounded-xl shadow p-4 space-y-5">
-    <div class="flex justify-center lg:justify-start">
-      <Balance {balance} {user} {rate} />
-      <div class="ml-auto text-right">
-        <div>{type} account</div>
-      </div>
-    </div>
+    <Balance {balance} {user} {rate} />
 
     <div class="flex flex-wrap gap-3 justify-center w-full text-xl">
-      <a href={`/send`} class="contents grow">
+      <a href={`/send`} class="contents grow" on:click={setAccount}>
         <button
           type="button"
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
@@ -30,7 +29,7 @@
         </button>
       </a>
 
-      <a href={`/invoice`} class="contents">
+      <a href={`/invoice?account=${id}`} class="contents" on:click={setAccount}>
         <button
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
         >

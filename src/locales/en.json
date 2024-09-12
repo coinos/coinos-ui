@@ -299,6 +299,7 @@
 		}
 	},
 	"payments": {
+    "enterWalletPass": "Please enter your wallet password",
 		"legacyVersion": "Legacy version",
 		"newVersion": "New version",
 		"income": "Income",

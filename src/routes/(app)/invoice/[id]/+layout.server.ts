@@ -1,4 +1,4 @@
-import Qr from "qrcode-base64";
+import * as Qr from "qrcode-base64";
 import { get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
@@ -26,11 +26,10 @@ export async function load({ depends, params, url, parent }) {
     (!amount && (pending || received)) ||
     (amount > 0 && (pending >= amount || received >= amount));
   if (paid && !url.pathname.endsWith("paid")) {
-    redirect( 307, `/invoice/${id}/paid` + (options ? "?options=true" : "")
-    );
+    redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
   }
 
-  let src = Qr.drawImg(invoice.text || "", { size: 340 });
+  let src = Qr.drawImg(invoice.text || "", { size: 500 });
 
   return { id, invoice, subject, src };
 }

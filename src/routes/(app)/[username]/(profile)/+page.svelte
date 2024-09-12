@@ -40,30 +40,32 @@
       <Account {user} {rate} {account} />
     {/each}
 
-    <button
-      class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white"
-    >
-      <a href={`/account/setup`}>
-        <div class="mx-auto flex gap-2">
-          <Icon icon="plus" style="w-8 mx-auto invert" />
-          <div class="my-auto text-xl whitespace-nowrap">Add account</div>
-        </div>
-      </a>
-    </button>
-
-    {#if $installPrompt}
+    <div class="flex justify-center gap-2">
       <button
-        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow basis-full fixed bottom-16 xl:hidden"
-        on:click={install}
+        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white w-full justify-center"
       >
-        <div class="mx-auto flex gap-2">
-          <Icon icon="save" style="w-8 mx-auto invert" />
-          <div class="my-auto text-xl whitespace-nowrap">
-            {$t("user.install")}
+        <a href={`/account/setup`}>
+          <div class="mx-auto flex gap-2">
+            <Icon icon="plus" style="w-8 mx-auto invert" />
+            <div class="my-auto text-xl whitespace-nowrap">Add account</div>
           </div>
-        </div>
+        </a>
       </button>
-    {/if}
+
+      {#if $installPrompt}
+        <button
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white xl:hidden w-full justify-center"
+          on:click={install}
+        >
+          <div class="mx-auto flex gap-2">
+            <Icon icon="save" style="w-8 mx-auto invert" />
+            <div class="my-auto text-xl whitespace-nowrap">
+              {$t("user.install")}
+            </div>
+          </div>
+        </button>
+      {/if}
+    </div>
   {/if}
 
   <Items {items} {subject} {user} {total} {currency} {rate} />

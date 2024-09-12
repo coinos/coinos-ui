@@ -1,13 +1,14 @@
-import { auth, get, post } from "$lib/utils";
+import { auth, get, post, setAccount } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export default async ({ cookies, request }) => {
+export default async ({ cookies, request, url }) => {
   let form = await request.formData();
 
   let rates = await get("/rates");
   let amount = parseInt(form.get("amount"));
 
   let invoice = {
+    account,
     amount,
     items: JSON.parse(form.get("items")),
     memo: form.get("memo"),
@@ -16,7 +17,7 @@ export default async ({ cookies, request }) => {
     type: form.get("type"),
     prompt: form.get("prompt") === "true",
     rate: parseFloat(form.get("rate")) || rates[form.get("currency")],
-    id: undefined
+    id: undefined,
   };
 
   let user = { username: form.get("username"), currency: form.get("currency") };

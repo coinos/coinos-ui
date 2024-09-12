@@ -155,7 +155,7 @@
 {/if}
 
 <div
-  class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 space-y-5"
+  class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 space-y-5 mb-20"
 >
   <h1 class="text-2xl font-bold text-center">{$t("login.createAccount")}</h1>
   <input

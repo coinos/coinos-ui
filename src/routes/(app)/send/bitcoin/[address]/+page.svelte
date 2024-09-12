@@ -8,9 +8,9 @@
 
   export let data;
 
-  let { rates, user } = data;
+  let { balance, rates, user } = data;
   let { address } = $page.params;
-  let { balance, currency, username } = user;
+  let { currency, username } = user;
 
   let amount = 0;
   let submit, fiat;

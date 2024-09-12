@@ -1,20 +1,84 @@
 <script>
+  import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Toggle from "$comp/Toggle.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { fiat as toFiat, f, focus, s, sat, closest } from "$lib/utils";
+  import { fiat as toFiat, f, focus, s, sat, closest, network } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
+  import { applyAction } from "$app/forms";
+  import { hex as hexUtil } from "@scure/base";
+  import * as btc from "@scure/btc-signer";
+  import { decrypt } from "nostr-tools/nip49";
+  import { HDKey } from "@scure/bip32";
+  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
+  import { wordlist } from "@scure/bip39/wordlists/english";
 
   export let data;
   export let form;
 
-  let { amount, address, message, fee, fees, feeRate, ourfee, rates, hex } =
-    data;
+  let { encode, decode } = hexUtil;
+  let revealPassword = false;
+  let passwordPrompt;
+  let password;
+  let cancel = () => (passwordPrompt = false);
+  let signed;
+
+  let togglePassword = () => (passwordPrompt = !passwordPrompt);
+  let handler = ({ cancel }) => {
+    if (account.seed && !signed) cancel(), togglePassword();
+    return async ({ result }) => {
+      if (result.type === "redirect") {
+        goto(result.location);
+      } else {
+        await applyAction(result);
+      }
+    };
+  };
+
+  let signTx = async () => {
+    let entropy = await decrypt(account.seed, password);
+    let mnemonic = entropyToMnemonic(entropy, wordlist);
+    let seed = await mnemonicToSeed(mnemonic);
+    let master = HDKey.fromMasterSeed(seed, network);
+    let child = master.derive("m/84'/0'/0'");
+
+    let tx = btc.Transaction.fromRaw(decode(hex));
+
+    for (let [i, input] of tx.inputs.entries()) {
+      let { nonWitnessUtxo, path } = inputs[i];
+      tx.updateInput(i, { nonWitnessUtxo });
+      let key = child.derive(path);
+      let { privateKey, publicKey } = key;
+      let address = btc.getAddress("wpkh", privateKey, network);
+      tx.signIdx(privateKey, i);
+    }
+    tx.finalize();
+    hex = tx.hex;
+    signed = true;
+    await tick();
+    submit.click();
+  };
+
+  let toggle = () => (submitting = !submitting);
+
+  let {
+    account,
+    amount,
+    address,
+    message,
+    fee,
+    fees,
+    feeRate,
+    ourfee,
+    rates,
+    hex,
+    inputs,
+  } = data;
 
   $: reload(data);
   let reload = () => {
@@ -115,10 +179,12 @@
       </div>
     {/if}
 
-    <form method="POST" use:enhance on:submit={() => (submitting = true)}>
+    <form method="POST" use:enhance={handler}>
       <input name="pin" value={$pin} type="hidden" />
       <input name="hex" value={hex} type="hidden" />
       <input name="rate" value={$rate} type="hidden" />
+      <input name="account" value={account.id} type="hidden" />
+      <input name="signed" value={signed} type="hidden" />
 
       <div class="flex justify-center gap-2">
         <button
@@ -138,6 +204,68 @@
     </form>
   {/if}
 </div>
+
+{#if passwordPrompt}
+  <div
+    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
+  >
+    <div
+      class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5"
+    >
+      <h1 class="text-center text-2xl font-semibold">
+        {$t("payments.enterWalletPass")}
+      </h1>
+      <form on:submit|preventDefault={signTx}>
+        <div class="relative mb-5">
+          {#if revealPassword}
+            <input
+              name="password"
+              type="text"
+              required
+              class="bg-primary"
+              bind:value={password}
+              autocapitalize="none"
+              use:focus
+            />
+          {:else}
+            <input
+              name="password"
+              type="password"
+              required
+              class="bg-primary"
+              bind:value={password}
+              autocapitalize="none"
+              use:focus
+            />
+          {/if}
+          <button
+            type="button"
+            on:click={() => (revealPassword = !revealPassword)}
+            class="absolute right-5 top-6"
+          >
+            <Icon icon={revealPassword ? "eye" : "eye-off"} />
+          </button>
+        </div>
+        <div class="w-full flex">
+          <button
+            type="button"
+            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
+            on:click={cancel}
+            on:keydown={cancel}
+          >
+            <div class="my-auto">Cancel</div>
+          </button>
+          <button
+            type="submit"
+            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
+          >
+            <div class="my-auto">Submit</div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{/if}
 
 <style>
   .no-transition {

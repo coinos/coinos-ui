@@ -2,8 +2,8 @@ import { auth, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 import type { Invoice } from "$lib/types";
 
-export let load = async ({ cookies, params, parent }) => {
-  let { account } = params;
+export let load = async ({ cookies, parent }) => {
+  let account = cookies.get("account");
   let { subject, user, rates } = await parent();
 
   let invoice: Invoice = {

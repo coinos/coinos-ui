@@ -136,14 +136,14 @@
       >
         <img
           {src}
-          class="mx-auto z-10 shadow-inner rounded-2xl"
+          class="mx-auto z-10 rounded-2xl w-[260px] rounded-2xl"
           bind:this={qr}
           alt={txt}
         />
       </a>
     </div>
   {:else}
-    <div class="break-all pb-5 text-lg text-center">
+    <div class="break-all pb-5 text-center text-secondary">
       {txt}
     </div>
   {/if}
