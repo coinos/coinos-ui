@@ -1,7 +1,8 @@
-import { auth, get, post, setAccount } from "$lib/utils";
+import { auth, get, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export default async ({ cookies, request, url }) => {
+export default async ({ cookies, request }) => {
+  let account = cookies.get("account");
   let form = await request.formData();
 
   let rates = await get("/rates");
