@@ -16,6 +16,7 @@ export async function load({ depends, params, url, parent }) {
     !(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
     !options
   ) {
+    console.log("YO")
     redirect(307, `/send/invoice/${id}`);
   }
 

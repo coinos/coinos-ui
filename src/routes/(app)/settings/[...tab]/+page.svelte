@@ -249,9 +249,3 @@
     </button>
   </div>
 </form>
-
-<style>
-  .settings {
-    view-transition-name: settings;
-  }
-</style>
