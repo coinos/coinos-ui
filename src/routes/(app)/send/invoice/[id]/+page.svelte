@@ -93,10 +93,6 @@
   // });
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-  <Icon icon="arrow-left" style="w-10" />
-</button>
-
 {#if form?.message}
   <div class="text-red-600 text-center">
     {form.message}

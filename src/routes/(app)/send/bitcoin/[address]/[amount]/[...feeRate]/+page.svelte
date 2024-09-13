@@ -55,6 +55,7 @@
       let key = child.derive(path);
       let { privateKey, publicKey } = key;
       let address = btc.getAddress("wpkh", privateKey, network);
+      console.log("ADDR", address)
       tx.signIdx(privateKey, i);
     }
     tx.finalize();
@@ -111,15 +112,6 @@
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
   let goBack = () => goto(`/send/bitcoin/${address}`);
 </script>
-
-<button
-  type="button"
-  class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-  data-sveltekit-preload-data="false"
-  on:click={goBack}
->
-  <Icon icon="arrow-left" style="w-10" />
-</button>
 
 <div
   class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition"
