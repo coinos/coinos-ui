@@ -3,27 +3,25 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">Choose account type</h1>
+  <h1 class="text-center text-3xl font-semibold">Choose your custodian</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
     <a href="/account/cash">
     <div class="shadow p-8 rounded-xl flex gap-4">
-      <img src="/images/cash.png" class="w-20" />
+      <img src="/icons/logo-symbol.svg" class="w-20" />
       <div>
-      <div class="text-xl">Cash</div>
+      <div class="text-xl">Coinos</div>
       <div class="text-secondary">
-        Your balance is held with a custodian. Payments are faster and
-        cheaper.
+        https://mint.coinos.io
       </div>
       </div>
     </div>
     <div class="shadow p-8 rounded-xl flex gap-4">
-      <img src="/images/keys.png" class="w-20" />
+      <img src="/images/minibits.png" class="w-20" />
       <div>
-      <div class="text-xl">Savings</div>
+      <div class="text-xl">Minibits</div>
       <div class="text-secondary">
-        You hold the keys to the account and are responsible for safeguarding
-        them.
+        https://mint.minibits.cash/bitcoin
       </div>
       </div>
     </div>
