@@ -15,7 +15,7 @@
   import DeleteItem from "$comp/DeleteItem.svelte";
   import Icon from "$comp/Icon.svelte";
 
-  export let subject, user, items, rate, currency;
+    export let subject, user, items, rate, currency, total;
 
   let flipDurationMs = 200;
   let dropTargetStyle = {};
@@ -27,8 +27,6 @@
   let del = (item) => {
     deleting = item;
   };
-
-  $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
 
   function handleConsider(e) {
     const {

@@ -6,7 +6,15 @@
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { fiat as toFiat, f, focus, s, sat, closest, network } from "$lib/utils";
+  import {
+    fiat as toFiat,
+    f,
+    focus,
+    s,
+    sat,
+    closest,
+    network,
+  } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -36,6 +44,7 @@
         goto(result.location);
       } else {
         await applyAction(result);
+        invalidate("app:payments");
       }
     };
   };
@@ -55,7 +64,6 @@
       let key = child.derive(path);
       let { privateKey, publicKey } = key;
       let address = btc.getAddress("wpkh", privateKey, network);
-      console.log("ADDR", address)
       tx.signIdx(privateKey, i);
     }
     tx.finalize();

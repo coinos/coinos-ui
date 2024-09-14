@@ -76,7 +76,7 @@
   {/if}
 </div>
 
-<a href={`/`}>
+<a href={`/${user.username}`}>
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 
