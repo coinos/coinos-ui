@@ -1,6 +1,7 @@
 import { auth, get } from "$lib/utils";
 
 export async function load({ cookies, depends, parent }) {
+  depends("app:payments");
   depends("app:items");
 
   let { subject } = await parent();

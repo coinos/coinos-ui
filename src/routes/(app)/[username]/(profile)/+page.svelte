@@ -14,7 +14,7 @@
   $: rate = rates[currency];
   $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
 
-  let refresh = (d) => ({ items, subject, user, rates } = d);
+  let refresh = (d) => ({ accounts, items, subject, user, rates } = d);
   $: refresh(data);
 
   let install = async () => {
@@ -41,16 +41,16 @@
     {/each}
 
     <div class="flex justify-center gap-2">
-      <button
-        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white w-full justify-center"
-      >
-        <a href={`/account/setup`}>
+      <a href={`/account/setup`} class="contents">
+        <button
+          class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white w-full justify-center"
+        >
           <div class="mx-auto flex gap-2">
             <Icon icon="plus" style="w-8 mx-auto invert" />
             <div class="my-auto text-xl whitespace-nowrap">Add account</div>
           </div>
-        </a>
-      </button>
+        </button>
+      </a>
 
       {#if $installPrompt}
         <button
