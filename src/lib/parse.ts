@@ -45,9 +45,9 @@ export default async (t, host) => {
 
   // bitcoin
   if (validate(t) || isLiquid(t)) {
-      let r = `/send/bitcoin/${t}`;
-      if (amount) r += "/" + amount;
-      redirect(307, r);
+    let r = `/send/bitcoin/${t}`;
+    if (amount) r += "/" + amount;
+    redirect(307, r);
   }
 
   if (t.startsWith("cashu")) {
