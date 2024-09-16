@@ -39,12 +39,12 @@ export async function load({ cookies, request, url, params }) {
     redirect(307, `/${user.username}`);
   }
 
-  if ( protectedRoutes.find((p) => pathname.match(p)) && (!user)) {
+  if (protectedRoutes.find((p) => pathname.match(p)) && !user) {
     redirect(307, "/login");
   }
 
   if (user && !user.pubkey && !pathname.includes("generate")) {
-    console.log("user missing pubkey", user)
+    console.log("user missing pubkey", user);
     redirect(303, `/${user.username}/generate`);
   }
 

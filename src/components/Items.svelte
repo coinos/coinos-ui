@@ -15,7 +15,7 @@
   import DeleteItem from "$comp/DeleteItem.svelte";
   import Icon from "$comp/Icon.svelte";
 
-    export let subject, user, items, rate, currency, total;
+  export let subject, user, items, rate, currency, total;
 
   let flipDurationMs = 200;
   let dropTargetStyle = {};
