@@ -159,6 +159,7 @@
 		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages",
 		"profilePage": "Profile page",
+		"nwc": "Nostr wallet connect",
 		"nostrPubkey": "Nostr pubkey",
 		"requestPayment": "Request Payment",
 		"welcome": "Welcome! Your account balance is empty. You can start by making a deposit or by asking someone to pay you.",

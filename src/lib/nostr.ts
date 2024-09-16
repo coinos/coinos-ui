@@ -22,9 +22,6 @@ import wordlist from "$lib/english";
 import { bech32m } from "@scure/base";
 
 import { generateSeedWords, privateKeyFromSeedWords } from "nostr-tools/nip06";
-import { PUBLIC_COINOS_PUBKEY } from "$env/static/public";
-
-let damus = "wss://relay.damus.io";
 
 type User = {
   [key: string]: any;
@@ -178,6 +175,3 @@ export let reEncryptEntropy = async (user: User, newPassword: string) => {
 
   return encode("en", toWords(bytes), 180);
 };
-
-export let nwc = (user: User) =>
-  `nostr+walletconnect://${PUBLIC_COINOS_PUBKEY}?relay=${damus}&secret=${user.nwc}`;

@@ -6,6 +6,10 @@
   import { sign, send } from "$lib/nostr";
   import { bech32m } from "@scure/base";
   import { page } from "$app/stores";
+  import {
+    PUBLIC_COINOS_PUBKEY as pk,
+    PUBLIC_COINOS_RELAY as relay,
+  } from "$env/static/public";
 
   export let data;
 
@@ -15,7 +19,7 @@
   $: ({ events, user, subject, src, rates, text } = data);
   $: ({ currency, username: n, display } = subject);
 
-  $: stripped = n.replace(/\s/g, "")
+  $: stripped = n.replace(/\s/g, "");
   $: username = n.length > 60 ? n.substr(0, 6) : display || stripped;
   $: npub =
     subject.pubkey &&
@@ -23,13 +27,12 @@
   $: lnaddr = `${stripped}@${$page.url.host}`;
   $: profile = `${$page.url.host}/${stripped}`;
 
+  $: nwc = `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
+    relay
+  )}&secret=${user.nwc}`;
+
   let follow = async () => {
-    user.follows.push([
-      "p",
-      subject.pubkey,
-      "wss://nostr.coinos.io",
-      stripped,
-    ]);
+    user.follows.push(["p", subject.pubkey, "wss://nostr.coinos.io", stripped]);
     update();
   };
 
@@ -118,7 +121,11 @@
         <div class="mt-1">
           {$t("user.moreDetails")}
         </div>
-        <div class:-rotate-90={showDetails} class:rotate-180={!showDetails} class="my-auto">
+        <div
+          class:-rotate-90={showDetails}
+          class:rotate-180={!showDetails}
+          class="my-auto"
+        >
           <Icon icon="chevron-left" style="w-6 mr-2" />
         </div>
       </button>
@@ -136,7 +143,12 @@
               <button class="my-auto" on:click={() => copy(profile)}
                 ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
               >
-              <a href={`/qr/${encodeURIComponent(`${$page.url.protocol}//${profile}`)}`} class="my-auto">
+              <a
+                href={`/qr/${encodeURIComponent(
+                  `${$page.url.protocol}//${profile}`
+                )}`}
+                class="my-auto"
+              >
                 <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
               </a>
             </div>
@@ -174,6 +186,27 @@
             </div>
           </div>
         </div>
+        {#if user.id === subject.id}
+          <div>
+            <div class="font-bold">{$t("user.nwc")}</div>
+            <div class="flex gap-4">
+              <div class="break-all grow text-secondary">
+                {nwc}
+              </div>
+              <div class="flex my-auto gap-1">
+                <button class="my-auto" on:click={() => copy(nwc)}
+                  ><Icon
+                    icon="copy"
+                    style="max-w-max w-8 min-w-[32px]"
+                  /></button
+                >
+                <a href={`/qr/${encodeURIComponent(nwc)}`} class="my-auto">
+                  <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+                </a>
+              </div>
+            </div>
+          </div>
+        {/if}
       </div>
     {/if}
 
