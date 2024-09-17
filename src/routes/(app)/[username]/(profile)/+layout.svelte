@@ -27,7 +27,7 @@
   $: lnaddr = `${stripped}@${$page.url.host}`;
   $: profile = `${$page.url.host}/${stripped}`;
 
-  $: nwc = `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
+  $: nwc = user && `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
     relay
   )}&secret=${user.nwc}`;
 
