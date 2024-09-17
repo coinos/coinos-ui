@@ -137,7 +137,7 @@
           content: JSON.stringify({
             name: user.username,
             about: user.address,
-            picture: `${PUBLIC_COINOS_URL}/public/${user.profile}.webp`,
+            picture: `${$page.url.origin}/public/${user.profile}.webp`,
           }),
           tags: [],
         };

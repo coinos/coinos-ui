@@ -5,7 +5,7 @@
   import { t } from "$lib/translations";
 
   export let user, rate, account;
-  let { seed, balance, id } = account;
+  let { name, seed, balance, id } = account;
   $: type = seed ? "Savings" : "Cash";
 
   $: refresh(account);
@@ -17,7 +17,15 @@
 
 <a href={`/payments`} class="block" on:click={setAccount}>
   <div class="border rounded-xl shadow p-4 space-y-5">
-    <Balance {balance} {user} {rate} />
+    <div class="flex">
+      <Balance {balance} {user} {rate} />
+      <a href={`/account/${id}`} class="contents">
+        <button class="ml-auto flex gap-1 mb-auto">
+          <div class="my-auto text-secondary">{name}</div>
+          <Icon icon="settings" style="w-8 my-auto" />
+        </button>
+      </a>
+    </div>
 
     <div class="flex flex-wrap gap-3 justify-center w-full text-xl">
       <a href={`/send`} class="contents grow" on:click={setAccount}>
