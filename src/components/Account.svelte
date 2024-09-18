@@ -20,7 +20,7 @@
     <div class="flex">
       <Balance {balance} {user} {rate} />
       <a href={`/account/${id}`} class="contents">
-        <button class="ml-auto flex gap-1 mb-auto">
+        <button class="ml-auto flex gap-1 mb-auto pb-2 pl-2">
           <div class="my-auto text-secondary">{name}</div>
           <Icon icon="settings" style="w-8 my-auto" />
         </button>
