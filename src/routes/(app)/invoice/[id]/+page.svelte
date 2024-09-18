@@ -136,14 +136,14 @@
       >
         <img
           {src}
-          class="mx-auto z-10 rounded-2xl w-[260px] rounded-2xl"
+          class="mx-auto z-10 max-w-[360px]"
           bind:this={qr}
           alt={txt}
         />
       </a>
     </div>
   {:else}
-    <div class="break-all pb-5 text-center text-secondary">
+    <div class="break-all pb-5 text-center text-secondary text-xl">
       {txt}
     </div>
   {/if}
@@ -188,7 +188,7 @@
     </div>
   {/if}
 
-  <div class="text-secondary space-y-2 text-xl">
+  <div class="text-secondary space-y-2 text-xl pt-2">
     <button
       type="button"
       class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
@@ -303,7 +303,7 @@
     <div
       class="relative mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5 top-10"
     >
-      <form submit={setAmount}>
+      <form on:submit|preventDefault={setAmount}>
         <Numpad
           bind:amount={newAmount}
           bind:currency
@@ -313,6 +313,7 @@
         />
         <div class="w-full flex flex-wrap gap-2">
           <button
+            bind:this={submit}
             type="submit"
             on:click={setAmount}
             class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full"
@@ -320,7 +321,6 @@
             <div class="my-auto">Ok</div>
           </button>
           <button
-            bind:this={submit}
             type="button"
             class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto w-full"
             on:click={toggleAmount}
@@ -331,8 +331,8 @@
         </div>
       </form>
 
-      <div class="flex justify-between items-center">
-        <span class="font-bold">{$t("payments.amountPrompt")}</span>
+      <div class="flex justify-center gap-3">
+        <div class="text-secondary">{$t("payments.amountPrompt")}</div>
         <Toggle id="notify" bind:value={$amountPrompt} />
       </div>
     </div>
@@ -342,10 +342,5 @@
 <style>
   .invoice {
     view-transition-name: invoice;
-  }
-
-  .clip-qr {
-    @apply overflow-hidden;
-    clip-path: inset(5%);
   }
 </style>
