@@ -30,18 +30,14 @@
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
-  <h1 class="text-3xl md:text-4xl font-semibold mb-2">
-    {$t("payments.createEcash")}
-  </h1>
-
   <form use:enhance={handler(toggle)} method="POST">
     <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
     <input type="hidden" name="amount" bind:value={amount} />
 
-    <div class="flex justify-center gap-2">
+    <div>
       <button
         type="button"
-        class="hover:opacity-80 bg-black text-white rounded-2xl py-3 px-4 mt-2 border font-bold"
+        class="hover:opacity-80 rounded-2xl py-3 px-4 mt-2 border font-bold w-full max-w-[340px] mx-auto"
         on:click|preventDefault={setMax}
         disabled={submitting}
         on:keydown={setMax}>Max ⚡️{s(balance)}</button
@@ -51,12 +47,13 @@
         use:focus
         bind:this={submit}
         type="submit"
-        class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
+        class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-full flex justify-center gap-2 max-w-[340px] mx-auto"
       >
         {#if submitting}
           <Spinner />
         {:else}
-          {$t("payments.mint")}
+          <img src="/images/cash.png" class="w-8" />
+          <div class="my-auto">{$t("payments.mint")}</div>
         {/if}
       </button>
     </div>

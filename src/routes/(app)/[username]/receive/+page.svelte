@@ -1,5 +1,4 @@
 <script>
-  import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import {
     btc,
@@ -82,7 +81,7 @@
         send("subscribe", invoice);
       });
 
-      if ($amountPrompt && tip === null) toggleAmount();
+      if ($amountPrompt && tip === undefined) toggleAmount();
     }
   });
 

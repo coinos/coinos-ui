@@ -14,10 +14,10 @@ export interface User {
 }
 
 export interface Invoice {
-  account: string;
+  account_id: string;
   id?: string;
   memoPrompt?: boolean;
   memo?: string;
   rate: number;
-  type: string;
+  type?: string;
 }

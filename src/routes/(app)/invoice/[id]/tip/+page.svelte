@@ -59,6 +59,7 @@
   $: refresh(data);
   let { invoice, id, user, rates } = data;
   let {
+    account_id,
     amount,
     hash,
     items,
@@ -81,6 +82,7 @@
 
     ({ invoice, id } = data);
     ({
+      account_id,
       amount,
       hash,
       items,
@@ -111,6 +113,7 @@
 
 <div class="container px-4 max-w-lg text-center mx-auto">
   <form method="POST" use:enhance class:invisible={submitting}>
+    <input type="hidden" name="account_id" value={account_id} />
     <input type="hidden" name="amount" value={amount} />
     <input type="hidden" name="tip" value={tip} />
     <input type="hidden" name="username" value={username} />

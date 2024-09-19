@@ -18,7 +18,7 @@
 
   let { user } = data;
 
-  let confirm, password;
+  let confirm, password, revealPassword, revealConfirm;
 
   onMount(() => {
     if (!$mnemonic) goto("/account/savings");
@@ -65,13 +65,66 @@
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
     <p class="text-secondary mb-1">
-      Please add a password to the account. It should be different than your
-      login password. <b class="text-red-700">We won't be able to reset it.</b> You'll
-      need it to make withdrawals.
+      Careful! If you lose this password you won't be able to use the account.
+      We can't recover it for you.
     </p>
 
-    <input use:focus type="text" placeholder="Password" bind:value={password} />
-    <input type="text" placeholder="Confirm password" bind:value={confirm} />
+    <div class="relative">
+      {#if revealPassword}
+        <input
+          name="password"
+          type="text"
+          required
+          bind:value={password}
+          autocapitalize="none"
+        />
+      {:else}
+        <input
+          use:focus
+          name="password"
+          type="password"
+          required
+          bind:value={password}
+          autocapitalize="none"
+        />
+      {/if}
+      <button
+        type="button"
+        on:click={() => (revealPassword = !revealPassword)}
+        class="absolute right-5 -translate-y-1/2 top-1/2"
+      >
+        <Icon icon={revealPassword ? "eye" : "eye-off"} />
+      </button>
+    </div>
+
+    <div class="relative">
+      {#if revealConfirm}
+        <input
+          name="password"
+          type="text"
+          placeholder="Confirm password"
+          required
+          bind:value={confirm}
+          autocapitalize="none"
+        />
+      {:else}
+        <input
+          name="password"
+          type="password"
+          placeholder="Confirm password"
+          required
+          bind:value={confirm}
+          autocapitalize="none"
+        />
+      {/if}
+      <button
+        type="button"
+        on:click={() => (revealConfirm = !revealConfirm)}
+        class="absolute right-5 -translate-y-1/2 top-1/2"
+      >
+        <Icon icon={revealConfirm ? "eye" : "eye-off"} />
+      </button>
+    </div>
 
     <button
       class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"
