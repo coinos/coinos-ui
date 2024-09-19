@@ -58,11 +58,7 @@
   let toggle = () => (show = !show);
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-  <Icon icon="arrow-left" style="w-10" />
-</button>
-
-<div class="container px-4 max-w-xl mx-auto text-center space-y-5">
+<div class="container px-4 max-w-xl mx-auto text-center space-y-2">
   {#if amount}
     {#if form?.message}
       <div class="text-red-600 text-center">
@@ -81,12 +77,9 @@
       <h3 class="text-secondary text-xl">⚡️{s(amount)}</h3>
     </div>
 
-    <div>
-      <div class="text-lg text-secondary">
-        {$t("payments.to")}
-      </div>
-
-      <p class="text-2xl break-words font-semibold mb-8">{alias}</p>
+    <div class="text-xl">
+      <span class="text-secondary">{$t("payments.to")}</span>
+      <span class="break-words font-semibold">{alias}</span>
     </div>
 
     {#if ourfee}
@@ -109,7 +102,7 @@
       use:enhance
       on:submit={submit}
       action="?/send"
-      class="space-y-5"
+      class="space-y-2"
     >
       <input name="payreq" value={payreq} type="hidden" />
       <input name="amount" value={amount} type="hidden" />

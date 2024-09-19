@@ -18,7 +18,7 @@
 
   let el, text, pasted, w;
 
-  let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
+  let keypress = (e) => e.key === "Enter" ? (e.preventDefault() || el.click()) : (pasted = false);
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
@@ -52,7 +52,7 @@
         name="text"
         placeholder={$t("user.send.placeholder")}
         on:keypress={keypress}
-        class="w-full p-4 border rounded-xl h-48 text-xl"
+        class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={text}
         on:paste={() => (pasted = true)}
         autocapitalize="none"
@@ -95,7 +95,7 @@
           type="button"
           class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary"
         >
-          <Icon icon="voucher" style="w-8 my-auto" />
+          <img src="/images/cash.png" class="w-8" />
           <div class="my-auto">{$t("payments.createEcash")}</div>
         </button>
       </a>

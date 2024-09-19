@@ -2,14 +2,14 @@ import { auth, get, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export default async ({ cookies, request }) => {
-  let account = cookies.get("account");
+  let account_id = cookies.get("account_id");
   let form = await request.formData();
 
   let rates = await get("/rates");
   let amount = parseInt(form.get("amount"));
 
   let invoice = {
-    account,
+    account_id,
     amount,
     items: JSON.parse(form.get("items")),
     memo: form.get("memo"),

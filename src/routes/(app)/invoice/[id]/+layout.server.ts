@@ -7,30 +7,32 @@ export async function load({ depends, params, url, parent }) {
 
   let { subject, user } = await parent();
   let { id } = params;
-  let invoice = await get(`/invoice/${id}`);
-  let options = !!url.searchParams.get("options");
+  let invoice;
 
-  if (
-    user &&
-    invoice.uid !== user.id &&
-    !(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
-    !options
-  ) {
-    console.log("YO")
-    redirect(307, `/send/invoice/${id}`);
+  if (id) {
+    invoice = await get(`/invoice/${id}`);
+    let options = !!url.searchParams.get("options");
+
+    if (
+      user &&
+      invoice.uid !== user.id &&
+      !(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
+      !options
+    ) {
+      redirect(307, `/send/invoice/${id}`);
+    }
+
+    let { amount, pending, received } = invoice;
+    amount = parseInt(amount);
+
+    let paid =
+      (!amount && (pending || received)) ||
+      (amount > 0 && (pending >= amount || received >= amount));
+    if (paid && !url.pathname.endsWith("paid")) {
+      redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
+    }
   }
 
-  let { amount, pending, received } = invoice;
-  amount = parseInt(amount);
-
-  let paid =
-    (!amount && (pending || received)) ||
-    (amount > 0 && (pending >= amount || received >= amount));
-  if (paid && !url.pathname.endsWith("paid")) {
-    redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
-  }
-
-  let src = Qr.drawImg(invoice.text || "", { size: 500 });
-
+  let src = Qr.drawImg(invoice?.text || "", { size: 500 });
   return { id, invoice, subject, src };
 }

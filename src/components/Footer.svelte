@@ -4,7 +4,7 @@
   import { t } from "$lib/translations";
 
   const followLinks = [
-    { url: "https://twitter.com/coinoswallet", titleID: "twitter" },
+    { url: "nostr:nprofile1qqst4qyeqenw7zm0fwjsty68h6cnys5jre2xd8ngqpjv5a2j26s78fspz4mhxue69uhhyetvv9ujucm0d9hx7uewd9hsgwx239", titleID: "nostr" },
     { url: "https://t.me/coinoswallet", titleID: "telegram" },
     { url: "https://linktr.ee/coinos.io", titleID: "linktree" },
   ];

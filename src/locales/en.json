@@ -62,6 +62,7 @@
 		"support": "Support",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
+		"nostr": "Nostr",
 		"documentation": "Documentation"
 	},
 	"howItWorks": {
@@ -310,7 +311,7 @@
 		"ecash": "Ecash",
 		"memo": "Notes",
 		"voucherText": "Enter an ecash or lnurlw code",
-		"createEcash": "Create ecash",
+		"createEcash": "Mint e-cash",
 		"tips": "Tips",
 		"options": "options",
 		"bump": "Bump fee",
@@ -338,7 +339,7 @@
 		"openLink": "Open wallet",
 		"setAmount": "Set amount",
 		"moreOptions": "More options",
-		"redeemVoucher": "Ecash or LNURLw",
+		"redeemVoucher": "Ecash",
 		"total": "Total",
 		"gainLoss": "Gain/Loss",
 		"presentValue": "Present Value",

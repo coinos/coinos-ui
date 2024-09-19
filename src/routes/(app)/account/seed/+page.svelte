@@ -17,9 +17,6 @@
   });
 
   let generate = async () => {
-    $mnemonic = "- - - - - - - - - - - -";
-    await tick();
-    await new Promise((r) => setTimeout(r, 250));
     $mnemonic = await generateMnemonic(wordlist);
   };
 </script>
@@ -30,7 +27,7 @@
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
     {#if $mnemonic}
       <div
-        class="text-2xl border p-4 rounded-2xl text-secondary grid grid-rows-6 grid-flow-col gap-2 justify-center gap-x-40"
+        class="text-lg border p-4 rounded-2xl text-secondary grid grid-cols-3 gap-2 justify-center"
       >
         {#each $mnemonic.split(" ") as w, i}
           <div>
