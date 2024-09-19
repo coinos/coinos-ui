@@ -21,7 +21,7 @@
   let confirm, password;
 
   onMount(() => {
-      if (!$mnemonic) goto("/account/savings");
+    if (!$mnemonic) goto("/account/savings");
   });
 
   let submit = async () => {
@@ -71,12 +71,7 @@
     </p>
 
     <input use:focus type="text" placeholder="Password" bind:value={password} />
-    <input
-      use:focus
-      type="text"
-      placeholder="Confirm password"
-      bind:value={confirm}
-    />
+    <input type="text" placeholder="Confirm password" bind:value={confirm} />
 
     <button
       class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"

@@ -19,7 +19,7 @@ import {
 
 import { mnemonicToEntropy, entropyToMnemonic } from "@scure/bip39";
 import { bech32m } from "@scure/base";
-  import { wordlist } from "@scure/bip39/wordlists/english";
+import { wordlist } from "@scure/bip39/wordlists/english";
 
 import { generateSeedWords, privateKeyFromSeedWords } from "nostr-tools/nip06";
 
