@@ -19,6 +19,7 @@
   let { user } = data;
 
   let confirm, password, revealPassword, revealConfirm;
+      let type = "bitcoin";
 
   onMount(() => {
     if (!$mnemonic) goto("/account/savings");
@@ -44,7 +45,7 @@
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
 
       let receiving = child.deriveChild(0);
-      await post("/api/accounts", { fingerprint, pubkey, seed });
+      await post("/api/accounts", { fingerprint, pubkey, seed, type });
       goto(`/${user.username}`);
     } catch (e) {
       console.log(e);
@@ -65,8 +66,8 @@
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
     <p class="text-secondary mb-1">
-      Careful! If you lose this password you won't be able to use the account.
-      We can't recover it for you.
+      If you lose this password you won't be able to use the account. We can't
+      recover it for you even if you have the seed phrase.
     </p>
 
     <div class="relative">
