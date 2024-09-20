@@ -1,7 +1,7 @@
 import { auth, get } from "$lib/utils";
 
 export async function load({ cookies }) {
-  let account_id = cookies.get("account_id");
-  let { balance } = await get(`/account/${account_id}`, auth(cookies));
+  let aid = cookies.get("aid");
+  let { balance } = await get(`/account/${aid}`, auth(cookies));
   return { balance };
 }
