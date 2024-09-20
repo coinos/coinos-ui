@@ -2,16 +2,16 @@ import { fail, redirect } from "@sveltejs/kit";
 import { auth, get, post, fd } from "$lib/utils";
 
 export async function load({ params: { address, amount, feeRate }, cookies }) {
-  let account = cookies.get("account");
+  let account_id = cookies.get("account_id");
 
   try {
     let { fee, fees, inputs, ourfee, hex } = await post(
       "/bitcoin/fee",
-      { address, amount, feeRate, account },
+      { address, amount, feeRate, account_id },
       auth(cookies)
     );
 
-    account = await get(`/account/${account}`, auth(cookies));
+    let account = await get(`/account/${account_id}`, auth(cookies));
 
     return {
       account,
@@ -25,7 +25,7 @@ export async function load({ params: { address, amount, feeRate }, cookies }) {
       inputs,
     };
   } catch (e: any) {
-    return { account, amount, address, feeRate, message: e.message };
+    return { amount, address, feeRate, message: e.message };
   }
 }
 

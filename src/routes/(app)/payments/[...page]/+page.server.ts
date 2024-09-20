@@ -5,7 +5,7 @@ let limit = 25;
 export async function load({ cookies, depends, params }) {
   depends("app:payments");
 
-  let account = cookies.get("account");
+  let account_id = cookies.get("account_id");
   let parts = params.page.split("/");
 
   let start, end, page;
@@ -17,7 +17,7 @@ export async function load({ cookies, depends, params }) {
   let offset = (page - 1) * limit;
   if (!start) start = Date.now() / 1000 - 24 * 60 * 60;
 
-  let url = `/payments?account=${account}&start=${
+  let url = `/payments?account_id=${account_id}&start=${
     start * 1000
   }&limit=${limit}&offset=${offset}`;
   if (end) url += `&end=${end * 1000}`;

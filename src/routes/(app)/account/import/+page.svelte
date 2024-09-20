@@ -1,11 +1,12 @@
 <script>
+  import { goto } from "$app/navigation";
+  import { mnemonic } from "$lib/store";
   import { versions } from "$lib/utils";
   import { t } from "$lib/translations";
   import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
   import { validateMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
-  import { HDKey } from "@scure/bip32";
 
   let el, pasted, text;
 
@@ -16,10 +17,12 @@
 
   let submit = () => {
     let valid = validateMnemonic(text, wordlist);
-    let v2 = HDKey.fromExtendedKey(text, versions);
-
-    console.log(valid);
-    console.log(v2);
+    if (valid) {
+      $mnemonic = text;
+      goto("/account/pass");
+    } else {
+      fail("Failed to validate seed phrase");
+    }
   };
 
   $: if (browser && pasted && text) form.submit() && (pasted = false);
@@ -34,7 +37,7 @@
         <textarea
           use:focus
           name="text"
-          placeholder="Enter a seed phrase or extended key"
+          placeholder="Enter a seed phrase"
           class="w-full p-4 border rounded-xl h-48 text-xl"
           bind:value={text}
           autocapitalize="none"
