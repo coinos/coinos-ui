@@ -1,4 +1,7 @@
 {
+  "accounts": {
+    "savings": "Savings"
+  },
 	"404": {
 		"404": "404",
 		"pageNotFound": "Page not found."
