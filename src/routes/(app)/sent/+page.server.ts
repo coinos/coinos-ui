@@ -1,7 +1,7 @@
 import { get, auth } from "$lib/utils";
 
 export let load = async ({ cookies }) => {
-  let account_id = cookies.get("account_id");
-  let { payments } = await get(`/payments?account_id=${account_id}`, auth(cookies));
+  let aid = cookies.get("aid");
+  let { payments } = await get(`/payments?aid=${aid}`, auth(cookies));
   return { payments };
 };

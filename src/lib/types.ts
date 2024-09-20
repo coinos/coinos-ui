@@ -14,7 +14,7 @@ export interface User {
 }
 
 export interface Invoice {
-  account_id: string;
+  aid: string;
   id?: string;
   memoPrompt?: boolean;
   memo?: string;

@@ -40,7 +40,7 @@
   $: refresh(data);
   let { invoice, id, subject, user, src } = data;
   let {
-    account_id,
+    aid,
     amount,
     hash,
     type,
@@ -56,7 +56,7 @@
   let refresh = async (data) => {
     ({ invoice, id, user, src } = data);
     ({
-      account_id,
+      aid,
       amount,
       hash,
       type,
@@ -236,7 +236,7 @@
     </div>
   </div>
 
-  {#if account_id === user.id}
+  {#if aid === user.id}
     <div class="grid grid-cols-2 justify-around text-secondary">
       <button
         class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"

@@ -3,18 +3,18 @@ import { error, redirect } from "@sveltejs/kit";
 import type { Invoice } from "$lib/types";
 
 export let load = async ({ cookies, parent }) => {
-  let account_id = cookies.get("account_id");
+  let aid = cookies.get("aid");
   let { subject, user, rates } = await parent();
 
   let invoice: Invoice = {
-    account_id,
+    aid,
     rate: rates[user?.currency || subject?.currency],
   };
 
   if (!user) user = subject;
 
   try {
-    invoice = await post("/invoice", { invoice, account_id, user }, auth(cookies));
+    invoice = await post("/invoice", { invoice, aid, user }, auth(cookies));
   } catch (e) {
     console.log(e);
     error(500, "Failed to generate invoice");
