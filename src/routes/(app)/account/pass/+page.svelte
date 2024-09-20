@@ -19,7 +19,8 @@
   let { user } = data;
 
   let confirm, password, revealPassword, revealConfirm;
-      let type = "bitcoin";
+  let type = "bitcoin";
+  let name = $t("accounts.savings");
 
   onMount(() => {
     if (!$mnemonic) goto("/account/savings");
@@ -45,7 +46,7 @@
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
 
       let receiving = child.deriveChild(0);
-      await post("/api/accounts", { fingerprint, pubkey, seed, type });
+      await post("/api/accounts", { fingerprint, pubkey, name, seed, type });
       goto(`/${user.username}`);
     } catch (e) {
       console.log(e);
@@ -90,6 +91,7 @@
         />
       {/if}
       <button
+        tabindex="-1"
         type="button"
         on:click={() => (revealPassword = !revealPassword)}
         class="absolute right-5 -translate-y-1/2 top-1/2"
@@ -110,7 +112,6 @@
         />
       {:else}
         <input
-          name="password"
           type="password"
           placeholder="Confirm password"
           required
@@ -120,6 +121,7 @@
       {/if}
       <button
         type="button"
+        tabindex="-1"
         on:click={() => (revealConfirm = !revealConfirm)}
         class="absolute right-5 -translate-y-1/2 top-1/2"
       >
