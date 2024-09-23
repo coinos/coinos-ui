@@ -213,6 +213,8 @@
                 <div class="text-secondary flex">
                   {#if [types.ecash, types.lightning].includes(p.type)}
                     <div class="text-3xl">⚡️</div>
+                  {:else if p.type === types.reconcile}
+                    <Icon icon="balance" style="w-6 mr-2" />
                   {:else if p.type === types.bitcoin}
                     <div class="my-auto mr-1">
                       <img

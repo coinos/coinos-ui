@@ -22,16 +22,17 @@ export async function load({ params: { id }, parent }) {
 
 export const actions = {
   default: async ({ cookies, params: { id }, request }) => {
+    let p;
     try {
       let body = await fd(request);
       body.hash = id;
 
-      await post("/payments", body, auth(cookies));
+      p = await post("/payments", body, auth(cookies));
     } catch (e: any) {
       console.log("payment failed", id, e);
       error(500, e.message);
     }
 
-    redirect(307, "/sent");
+    redirect(307, `/sent/${p.id}`);
   },
 };

@@ -4,7 +4,7 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">Wallet setup</h1>
+  <h1 class="text-center text-3xl font-semibold">{$t("accounts.accountSetup")}</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <div class="space-y-5">
@@ -12,8 +12,8 @@
         <div class="shadow p-8 rounded-xl flex gap-4 hover:bg-primary">
           <img src="/icons/random.svg" class="w-20" />
           <div>
-            <div class="text-xl">Create</div>
-            <div class="text-secondary">Generate a new seed phrase in your browser</div>
+            <div class="text-xl">{$t("accounts.create")}</div>
+            <div class="text-secondary">{$t("accounts.generateSeed")}</div>
           </div>
         </div>
       </a>
@@ -21,8 +21,8 @@
         <div class="shadow p-8 rounded-xl flex gap-4 hover:bg-primary">
           <img src="/images/keys.png" class="w-20" />
           <div>
-            <div class="text-xl">Import</div>
-            <div class="text-secondary">Enter an existing seed phrase or wallet key</div>
+            <div class="text-xl">{$t("accounts.import")}</div>
+            <div class="text-secondary">{$t("accounts.importSeed")}</div>
           </div>
         </div>
       </a>

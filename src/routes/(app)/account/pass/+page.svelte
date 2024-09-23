@@ -28,7 +28,7 @@
 
   let submit = async () => {
     if (!password || password !== confirm) {
-      fail("Passwords don't match");
+      fail($t("accounts.passwordMismatch"));
       return;
     }
 
@@ -59,7 +59,7 @@
 
 <div class="space-y-5">
   <div>
-    <h1 class="text-center text-3xl font-semibold">Account password</h1>
+    <h1 class="text-center text-3xl font-semibold">{$t("accounts.accountPassword")}</h1>
   </div>
 
   <form
@@ -67,8 +67,7 @@
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
     <p class="text-secondary mb-1">
-      If you lose this password you won't be able to use the account. We can't
-      recover it for you even if you have the seed phrase.
+    {$t("accounts.passwordWarning")}
     </p>
 
     <div class="relative">
@@ -85,6 +84,7 @@
           use:focus
           name="password"
           type="password"
+          placeholder={$t("accounts.password")}
           required
           bind:value={password}
           autocapitalize="none"
@@ -113,7 +113,7 @@
       {:else}
         <input
           type="password"
-          placeholder="Confirm password"
+          placeholder={$t("accounts.confirmPassword")}
           required
           bind:value={confirm}
           autocapitalize="none"
