@@ -1,5 +1,4 @@
 <script>
-  import { account as acc } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
@@ -11,8 +10,7 @@
   $: refresh(account);
   let refresh = (a) => ({ seed, balance, id } = a);
 
-  let setAccount = () =>
-    (document.cookie = `aid=${id}; path=/; max-age=86400`);
+  let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
 </script>
 
 <a href={`/payments`} class="block" on:click={setAccount}>
@@ -40,7 +38,7 @@
         </button>
       </a>
 
-      <a href={`/invoice?account=${id}`} class="contents" on:click={setAccount}>
+      <a href={`/invoice`} class="contents" on:click={setAccount}>
         <button
           class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-primary grow"
         >

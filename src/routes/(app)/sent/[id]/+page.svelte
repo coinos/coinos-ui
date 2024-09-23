@@ -6,11 +6,8 @@
   import { t } from "$lib/translations";
 
   export let data;
-  let { payments, user } = data;
+  let { amount, rate, tip, user } = data;
   let { currency, username } = user;
-
-  let payment = payments[0];
-  let { amount, rate, tip } = payment;
   amount = Math.abs(amount);
 
   toast.pop(0);

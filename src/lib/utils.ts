@@ -287,6 +287,7 @@ export let types = {
   internal: "internal",
   fund: "fund",
   ecash: "ecash",
+  reconcile: "reconcile",
 };
 
 export let ease = (t: number): number =>

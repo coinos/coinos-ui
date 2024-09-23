@@ -35,14 +35,15 @@ export const actions = {
     params: { address, amount, feeRate },
     request,
   }) => {
+    let p;
     try {
       let body = await fd(request);
-      await post("/bitcoin/send", body, auth(cookies));
+      p = await post("/bitcoin/send", body, auth(cookies));
     } catch (e: any) {
       console.log("problem sending bitcoin", e);
       return fail(400, { address, amount, feeRate, message: e.message });
     }
 
-    redirect(307, "/sent");
+    redirect(307, `/sent/${p.id}`);
   },
 };
