@@ -34,6 +34,7 @@
       rate,
       type,
       ref,
+      path,
       tip,
       ourfee,
       fee,
@@ -57,6 +58,7 @@
     rate,
     type,
     ref,
+    path,
     tip,
     ourfee,
     fee,
@@ -218,6 +220,21 @@
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
           on:click={() => copy(txid)}
+        >
+          <Icon icon="copy" style="ml-2 w-12 my-auto" />
+        </button>
+      </div>
+    </div>
+  {/if}
+
+  {#if path}
+    <div>
+      <span class="text-lg text-secondary">Path</span>
+      <div class="flex">
+        <div>{path}</div>
+        <button
+          class="flex font-bold hover:opacity-80 mb-auto my-auto"
+          on:click={() => copy(path)}
         >
           <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>

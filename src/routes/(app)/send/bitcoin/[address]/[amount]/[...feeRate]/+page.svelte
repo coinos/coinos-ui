@@ -5,6 +5,7 @@
   import Toggle from "$comp/Toggle.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
+  import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
   import {
     fiat as toFiat,
@@ -21,6 +22,7 @@
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
+  import { hash160 } from "@scure/btc-signer/utils";
   import { decrypt } from "nostr-tools/nip49";
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
@@ -51,22 +53,24 @@
   let signTx = async () => {
     let entropy = await decrypt(account.seed, password);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
-    let seed = await mnemonicToSeed(mnemonic);
+    let seed = await mnemonicToSeed(mnemonic, password);
     let master = HDKey.fromMasterSeed(seed, network);
     let child = master.derive("m/84'/0'/0'");
 
     let tx = btc.Transaction.fromRaw(decode(hex));
 
     for (let [i, input] of tx.inputs.entries()) {
-      let { nonWitnessUtxo, path } = inputs[i];
-      tx.updateInput(i, { nonWitnessUtxo });
+      let { witnessUtxo, path } = inputs[i];
+      witnessUtxo.amount = BigInt(witnessUtxo.amount);
+      witnessUtxo.script = decode(witnessUtxo.script);
       let key = child.derive(path);
-      let { privateKey, publicKey } = key;
-      let address = btc.getAddress("wpkh", privateKey, network);
-      tx.signIdx(privateKey, i);
+      tx.updateInput(i, { witnessUtxo });
+      tx.signIdx(key.privateKey, i);
     }
+
     tx.finalize();
     hex = tx.hex;
+    console.log("HEX", hex);
     signed = true;
     await tick();
     submit.click();
@@ -182,7 +186,7 @@
       <input name="pin" value={$pin} type="hidden" />
       <input name="hex" value={hex} type="hidden" />
       <input name="rate" value={$rate} type="hidden" />
-      <input name="account" value={account.id} type="hidden" />
+      <input name="aid" value={account.id} type="hidden" />
       <input name="signed" value={signed} type="hidden" />
 
       <div class="flex justify-center gap-2">
@@ -205,7 +209,7 @@
 </div>
 
 {#if passwordPrompt}
-  <WalletPass bind:password bind:cancel />
+  <WalletPass bind:password bind:cancel submit={signTx} />
 {/if}
 
 <style>

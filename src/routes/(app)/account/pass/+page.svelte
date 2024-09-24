@@ -44,8 +44,6 @@
       let child = master.derive("m/84'/0'/0'");
       let pubkey = child.publicExtendedKey;
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
-
-      let receiving = child.deriveChild(0);
       await post("/api/accounts", { fingerprint, pubkey, name, seed, type });
       goto(`/${user.username}`);
     } catch (e) {
@@ -59,7 +57,9 @@
 
 <div class="space-y-5">
   <div>
-    <h1 class="text-center text-3xl font-semibold">{$t("accounts.accountPassword")}</h1>
+    <h1 class="text-center text-3xl font-semibold">
+      {$t("accounts.accountPassword")}
+    </h1>
   </div>
 
   <form
@@ -67,7 +67,7 @@
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
     <p class="text-secondary mb-1">
-    {$t("accounts.passwordWarning")}
+      {$t("accounts.passwordWarning")}
     </p>
 
     <div class="relative">
@@ -129,10 +129,21 @@
       </button>
     </div>
 
-    <button
-      class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"
-    >
-      Submit
-    </button>
+    <div class="flex gap-2">
+      <a href={`/account/seed`} class="contents">
+        <button
+          type="button"
+          class="bg-primary w-full px-5 py-6 text-xl rounded-2xl font-bold"
+        >
+          {$t("accounts.back")}
+        </button>
+      </a>
+      <button
+        type="submit"
+        class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"
+      >
+        {$t("accounts.next")}
+      </button>
+    </div>
   </form>
 </div>

@@ -1,4 +1,5 @@
 <script>
+  import Mnemonic from "$comp/Mnemonic.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { goto } from "$app/navigation";
   import { copy, fail, focus, post } from "$lib/utils";
@@ -46,28 +47,28 @@
       <div class="space-y-2">
         <button
           type="submit"
-          class="rounded-2xl border py-3 font-bold mx-auto bg-black text-white px-4 w-full"
-          >Submit</button
+          class="rounded-2xl border py-5 font-bold mx-auto bg-black text-white px-6 w-full"
+          >{$t("accounts.save")}</button
         >
         {#if mnemonic}
-          <div class="p-8">{mnemonic}</div>
+          <Mnemonic {mnemonic} />
 
           <button
             on:click={() => copy(mnemonic)}
             type="button"
-            class="flex gap-2 rounded-2xl border py-3 font-bold mx-auto px-4 w-full justify-center"
+            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
             <Icon icon="copy" style="w-8 my-auto" />
-            <div class="my-auto">Copy</div></button
+            <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
           <button
             on:click={toggle}
             type="button"
-            class="flex gap-2 rounded-2xl border py-3 font-bold mx-auto px-4 w-full justify-center bg-primary"
+            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
             <Icon icon="eye" style="w-8 my-auto" />
-            <div class="my-auto">Reveal mnemonic</div></button
+            <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
           >
         {/if}
 
@@ -75,10 +76,10 @@
         <button
           on:click={del}
           type="button"
-          class="flex gap-2 rounded-2xl border py-3 font-bold mx-auto px-4 w-full justify-center bg-primary"
+          class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
         >
           <Icon icon="trash" style="w-8 my-auto" />
-          <div class="my-auto"><span class="text-red-600">Delete</span> account</div></button
+          <div class="my-auto">{$t("accounts.deleteAccount")}</div></button
         >
         {/if}
       </div>

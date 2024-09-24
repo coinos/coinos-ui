@@ -28,14 +28,6 @@
 
 <div class="space-y-2">
   {#if user?.id === subject.id}
-    {#if !user.balance}
-      <div class="mb-8">
-        <p class="text-secondary text-lg">
-          {$t("user.welcome")}
-        </p>
-      </div>
-    {/if}
-
     {#each accounts as account}
       <Account {user} {rate} {account} />
     {/each}
@@ -47,7 +39,9 @@
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="plus" style="w-8 mx-auto invert" />
-            <div class="my-auto text-xl whitespace-nowrap">{$t("accounts.addAccount")}</div>
+            <div class="my-auto text-xl whitespace-nowrap">
+              {$t("accounts.addAccount")}
+            </div>
           </div>
         </button>
       </a>

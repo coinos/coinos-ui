@@ -1,5 +1,13 @@
 {
   "accounts": {
+    "back": "Back",
+    "next": "Next",
+    "seedPhrase": "Seed phrase",
+    "save": "Save",
+    "copy": "Copy",
+    "revealMnemonic": "Reveal seed phrase",
+    "regenerate": "Regenerate",
+    "deleteAccount": "Delete account",
     "addAccount": "Add account",
     "create": "Create",
     "import": "Import",

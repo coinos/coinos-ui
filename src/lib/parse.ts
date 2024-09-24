@@ -10,7 +10,7 @@ export default async (t, host) => {
   if (t.startsWith("http")) redirect(307, t);
   if (t.startsWith(host)) redirect(307, `http://${t}`);
 
-  let amount, id, user;
+  let amount, user;
 
   t = t.trim();
   t.toLowerCase().startsWith("bitcoin:") &&
@@ -37,7 +37,7 @@ export default async (t, host) => {
 
   if (t.toLowerCase().startsWith("ln")) {
     try {
-      ({ id } = await get(`/invoice/${t}`));
+      await get(`/invoice/${t}`);
     } catch (e) {
       redirect(307, `/send/lightning/${t}`);
     }
