@@ -4,7 +4,6 @@ import type { Invoice } from "$lib/types";
 
 export let load = async ({ cookies, parent }) => {
   let aid = cookies.get("aid");
-  console.log("AID", aid)
   let { subject, user, rates } = await parent();
 
   let invoice: Invoice = {

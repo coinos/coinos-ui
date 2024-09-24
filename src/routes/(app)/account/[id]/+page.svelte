@@ -39,17 +39,17 @@
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <form class="space-y-5" method="POST">
-      <div>
-        <label for="display" class="font-bold mb-1 block">Account name</label>
-        <input use:focus type="text" name="name" bind:value={name} />
-      </div>
-
+      <!-- <div> -->
+      <!--   <label for="display" class="font-bold mb-1 block">Account name</label> -->
+      <!--   <input use:focus type="text" name="name" bind:value={name} /> -->
+      <!-- </div> -->
+      <!--  -->
       <div class="space-y-2">
-        <button
-          type="submit"
-          class="rounded-2xl border py-5 font-bold mx-auto bg-black text-white px-6 w-full"
-          >{$t("accounts.save")}</button
-        >
+        <!-- <button -->
+        <!--   type="submit" -->
+        <!--   class="rounded-2xl border py-5 font-bold mx-auto bg-black text-white px-6 w-full" -->
+        <!--   >{$t("accounts.save")}</button -->
+        <!-- > -->
         {#if mnemonic}
           <Mnemonic {mnemonic} />
 

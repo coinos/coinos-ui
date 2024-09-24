@@ -78,7 +78,9 @@
       platform_fee: p.ourfee,
       amount_fiat: f((p.amount * p.rate) / sats, p.currency),
       fee_fiat: p.fee ? f((p.fee * p.rate) / sats, p.currency) : null,
-      platform_fee_fiat: p.ourfee ? f((p.ourfee * p.rate) / sats, p.currency) : null,
+      platform_fee_fiat: p.ourfee
+        ? f((p.ourfee * p.rate) / sats, p.currency)
+        : null,
       tip_fiat: p.tip ? f((p.tip * p.rate) / sats, p.currency) : null,
       total_fiat: f(((p.amount + (p.tip || 0)) * p.rate) / sats, p.currency),
     }));
@@ -127,30 +129,28 @@
   };
 </script>
 
-<div class="mt-24 mb-20 payments">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
+<div class="mt-24 mb-20 payments space-y-5">
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.header")}
   </h1>
 
-  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
-    <div class="flex text-md text-secondary relative">
-      <div class="mx-auto flex justify-center w-full gap-1">
-        {#each presets as { start, end, title }, i}
-          <a
-            class:active={selection === i}
-            href={`/payments/${getUnixTime(start) + "/"}1`}
+  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
+    <div class="mx-auto flex justify-center w-full gap-1">
+      {#each presets as { start, end, title }, i}
+        <a
+          class:active={selection === i}
+          href={`/payments/${getUnixTime(start) + "/"}1`}
+        >
+          <button
+            class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]"
           >
-            <button
-              class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]"
-            >
-              <div class="my-auto">{title}</div>
-            </button>
-          </a>
-        {/each}
-      </div>
+            <div class="my-auto">{title}</div>
+          </button>
+        </a>
+      {/each}
     </div>
 
-    <div class="flex flex-wrap justify-center mb-8">
+    <div class="flex flex-wrap justify-center">
       {#if pages.length > 1}
         {#each pages as _, i}
           <a
@@ -261,16 +261,14 @@
 
     <div class="grid grid-cols-3 w-full text-center text-lg">
       {#each Object.keys(incoming) as c}
-        <span class="text-base text-secondary text-left"></span>
+        <span class="text-base text-secondary text-left" />
         <!-- <span class="text-base text-secondary" -->
         <!--   >{$t("payments.subtotal")}</span -->
         <!-- > -->
         <span class="text-base text-secondary">
           {#if tipsIn || tipsOut}{$t("payments.tips")}{/if}
         </span>
-        <span class="text-base text-secondary"
-          >{$t("payments.total")}</span
-        >
+        <span class="text-base text-secondary">{$t("payments.total")}</span>
 
         {@const totalIn = incoming[c]?.fiat || 0}
         {@const tipsIn = incoming[c]?.fiatTips || 0}
@@ -295,15 +293,14 @@
         <span><b>{totalOut ? f(totalOut, c) : "-"}</b></span>
       {/each}
     </div>
-
-    <button
-      class="ml-auto rounded-full border py-2 px-4 w-36 hover:opacity-80 flex mx-auto"
-      on:click={csv}
-    >
-      <Icon icon="save" style="opacity-50 mr-2 my-auto" />
-      <div class="my-auto">{$t("payments.export")}</div>
-    </button>
   </div>
+  <button
+    class="ml-auto rounded-2xl border py-5 px-6 hover:opacity-80 flex mx-auto text-xl gap-2"
+    on:click={csv}
+  >
+    <Icon icon="save" style="my-auto" />
+    <div class="my-auto">{$t("payments.export")}</div>
+  </button>
 </div>
 
 <style>

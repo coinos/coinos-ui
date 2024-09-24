@@ -58,7 +58,7 @@
       <a href={`/account/savings`} class="contents">
         <button
           type="button"
-          class="bg-primary w-full px-5 py-6 text-xl rounded-2xl font-bold"
+          class="border w-full py-5 px-6 text-xl rounded-2xl"
         >
           {$t("accounts.back")}
         </button>
@@ -66,7 +66,7 @@
       <a href={`/account/pass`} class="contents">
         <button
           type="button"
-          class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"
+          class="border w-full py-5 px-6 text-xl rounded-2xl"
         >
           {$t("accounts.next")}
         </button>
