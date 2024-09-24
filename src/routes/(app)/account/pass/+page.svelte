@@ -133,14 +133,14 @@
       <a href={`/account/seed`} class="contents">
         <button
           type="button"
-          class="bg-primary w-full px-5 py-6 text-xl rounded-2xl font-bold"
+          class="border grow px-5 py-6 text-xl rounded-2xl"
         >
           {$t("accounts.back")}
         </button>
       </a>
       <button
         type="submit"
-        class="bg-black text-white w-full px-5 py-6 text-xl rounded-2xl font-bold"
+        class="border grow px-5 py-6 text-xl rounded-2xl"
       >
         {$t("accounts.next")}
       </button>

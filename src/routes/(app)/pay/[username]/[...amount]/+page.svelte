@@ -61,7 +61,7 @@
   </div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
+<div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
   <Numpad
     bind:amount={a}
     bind:amountFiat={af}

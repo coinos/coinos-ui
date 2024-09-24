@@ -323,7 +323,7 @@
 		}
 	},
 	"payments": {
-    "enterWalletPass": "Please enter your wallet password",
+    "enterWalletPass": "Wallet password",
 		"legacyVersion": "Legacy version",
 		"newVersion": "New version",
 		"income": "Income",

@@ -22,7 +22,6 @@
             name="password"
             type="text"
             required
-            class="bg-primary"
             bind:value={password}
             autocapitalize="none"
             use:focus
@@ -32,7 +31,6 @@
             name="password"
             type="password"
             required
-            class="bg-primary"
             bind:value={password}
             autocapitalize="none"
             use:focus
@@ -41,7 +39,7 @@
         <button
           type="button"
           on:click={() => (revealPassword = !revealPassword)}
-          class="absolute right-5 top-6"
+          class="absolute right-5 top-1/2"
         >
           <Icon icon={revealPassword ? "eye" : "eye-off"} />
         </button>
@@ -49,7 +47,7 @@
       <div class="w-full flex justify-center gap-2">
         <button
           type="button"
-          class="border-2 bg-primary rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
+          class="border rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
           on:click={cancel}
           on:keydown={cancel}
         >
@@ -57,7 +55,7 @@
         </button>
         <button
           type="submit"
-          class="rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow bg-black text-white"
+          class="border rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
         >
           <div class="my-auto">Submit</div>
         </button>
