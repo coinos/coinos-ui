@@ -46,10 +46,10 @@
           <Icon icon={revealPassword ? "eye" : "eye-off"} />
         </button>
       </div>
-      <div class="w-full flex">
+      <div class="w-full flex justify-center gap-2">
         <button
           type="button"
-          class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
+          class="border-2 bg-primary rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
           on:click={cancel}
           on:keydown={cancel}
         >
@@ -57,7 +57,7 @@
         </button>
         <button
           type="submit"
-          class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
+          class="rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow bg-black text-white"
         >
           <div class="my-auto">Submit</div>
         </button>

@@ -10,7 +10,8 @@
   $: refresh(account);
   let refresh = (a) => ({ seed, balance, id } = a);
 
-  let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
+  let setAccount = () => 
+    (document.cookie = `aid=${id}; path=/; max-age=86400`);
 </script>
 
 <a href={`/payments`} class="block" on:click={setAccount}>
