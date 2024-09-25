@@ -143,8 +143,8 @@
       </a>
     </div>
   {:else}
-    <div class="break-all pb-5 text-center text-secondary text-xl">
-      {txt}
+    <div class="break-all pb-5 text-center text-secondary text-xl min-h-[120px] flex">
+      <div class="m-auto">{txt}</div>
     </div>
   {/if}
 
