@@ -15,7 +15,7 @@ export const actions = {
       return fail(400, { error: e.message });
     }
     if (claimed?.ok) {
-      redirect(307, `/${cookies.get("username")}/payments`);
+      redirect(307, `/payments`);
     }
   },
 };
