@@ -44,7 +44,7 @@
       let child = master.derive("m/84'/0'/0'");
       let pubkey = child.publicExtendedKey;
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
-      await post("/api/accounts", { fingerprint, pubkey, name, seed, type });
+      await post("/account", { fingerprint, pubkey, name, seed, type });
       goto(`/${user.username}`);
     } catch (e) {
       console.log(e);
