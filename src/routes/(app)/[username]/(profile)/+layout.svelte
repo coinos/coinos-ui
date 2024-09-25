@@ -82,7 +82,7 @@
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
   <div class="hidden lg:block lg:w-[280px] xl:w-[360px]" />
   <div
-    class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-5 left-20 mx-auto mb-5"
+    class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto"
   >
     <button type="button" on:click={toggleDetails} class="flex text-3xl font-bold text-center mx-auto justify-center gap-2">
         <div class="my-auto break-words">{display || username}</div>

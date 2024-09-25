@@ -14,7 +14,7 @@
 </script>
 
 <a href={`/payments`} class="block" on:click={setAccount}>
-  <div class="p-8 space-y-5 bg-primary rounded-2xl border">
+  <div class="py-4 px-2 space-y-5 bg-primary rounded-2xl border">
     <div class="flex">
       <Balance {balance} {user} {rate} />
       {#if seed}
@@ -26,10 +26,10 @@
       {/if}
     </div>
 
-    <div class="flex flex-wrap gap-1 justify-center w-full text-xl">
+    <div class="flex gap-1 justify-center w-full text-xl">
       <a href={`/invoice`} class="contents" on:click={setAccount}>
         <button
-          class="rounded-2xl border py-5 px-6 hover:opacity-80 flex grow bg-white"
+          class="rounded-2xl border py-5 px-4 hover:opacity-80 flex grow bg-white"
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="receive" style="w-8" />
@@ -40,7 +40,7 @@
 
       <a href={`/scan`} class="contents" on:click={setAccount}>
         <button
-          class="rounded-2xl border py-5 px-6 hover:opacity-80 flex shrink bg-white"
+          class="rounded-2xl border py-5 px-4 hover:opacity-80 flex shrink bg-white"
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="camera" style="w-8" />

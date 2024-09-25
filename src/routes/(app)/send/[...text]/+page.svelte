@@ -63,7 +63,7 @@
       <a href="/scan" class="w-full">
         <button
           type="button"
-          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
+          class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-2"
         >
           <Icon icon="camera" style="w-8 my-auto" />
           <div class="my-auto">{$t("user.send.scan")}</div>
@@ -72,7 +72,7 @@
 
       <button
         type="button"
-        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
+        class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-2"
         on:click={paste}
       >
         <Icon icon="paste" style="w-8 my-auto" />
