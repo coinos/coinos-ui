@@ -41,14 +41,17 @@
         mnemonicToEntropy($mnemonic, wordlist),
         password
       );
+
       let master = HDKey.fromMasterSeed(
         await mnemonicToSeed($mnemonic, password),
         versions
       );
+
       let child = master.derive("m/84'/0'/0'");
       let pubkey = child.publicExtendedKey;
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
       await post("/account", { fingerprint, pubkey, name, seed, type });
+      $mnemonic = "";
       goto(`/${user.username}`);
     } catch (e) {
       console.log(e);
@@ -56,7 +59,6 @@
     }
 
     submitting = false;
-    $mnemonic = "";
   };
 </script>
 
