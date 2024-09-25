@@ -12,7 +12,7 @@ export async function load({ params: { id }, parent }) {
   if (invoice.memoPrompt && invoice.memo === null)
     redirect(307, `/invoice/${id}/memo`);
 
-  if (invoice.account === user?.id)
+  if (user && invoice.account === user?.id)
     error(500, { message: "Cannot send to self" });
 
   if (!user) redirect(307, `/invoice/${id}`);

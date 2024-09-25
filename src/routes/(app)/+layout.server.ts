@@ -24,9 +24,6 @@ export async function load({ cookies, request, url, params }) {
     }
   }
 
-  if (!subject) subject = user;
-  if (!user) user = subject;
-
   if (user?.needsMigration) {
     redirect(307, `/migrate`);
   }

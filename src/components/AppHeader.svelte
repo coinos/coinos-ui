@@ -9,6 +9,8 @@
 
   export let user, subject;
 
+  $: if (!subject) subject = user;
+
   let menuButtons;
   $: if (user)
     menuButtons = [
@@ -58,8 +60,9 @@
         </a>
         <a href={`/invoice`}>
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
-              .url.pathname.includes('invoice')
+            class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page.url.pathname.includes(
+              'invoice'
+            )
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
             ><Icon icon="receive" style="mx-auto w-6 sm:w-8" />
@@ -98,8 +101,8 @@
         <div class="relative">
           <OutClick on:outclick={() => (showMenu = false)}>
             <button
-              class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {
-              $page.url.pathname === `/settings` ||
+              class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
+                .url.pathname === `/settings` ||
               $page.url.pathname === `/support`
                 ? 'opacity-100'
                 : `opacity-70 hover:opacity-80 ${
@@ -141,11 +144,13 @@
         </a>
       {/if}
     </nav>
-    <div
-      class="absolute md:w-[64px] md:mx-auto lg:left-[154px] xl:left-[194px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
-    >
-      <Avatar user={subject} />
-    </div>
+    {#if subject}
+      <div
+        class="absolute md:w-[64px] md:mx-auto lg:left-[154px] xl:left-[194px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
+      >
+        <Avatar user={subject} />
+      </div>
+    {/if}
   </header>
 {/if}
 

@@ -24,6 +24,7 @@ export async function load({ depends, params, url, parent }) {
 
     let { amount, pending, received } = invoice;
     amount = parseInt(amount);
+    subject = user || invoice.user;
 
     let paid =
       (!amount && (pending || received)) ||
@@ -34,5 +35,5 @@ export async function load({ depends, params, url, parent }) {
   }
 
   let src = Qr.drawImg(invoice?.text || "", { size: 500 });
-  return { id, invoice, subject, src };
+  return { id, invoice, subject, src, user };
 }
