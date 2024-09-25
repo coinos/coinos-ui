@@ -1,5 +1,7 @@
 {
   "accounts": {
+    "showQR": "Show QR",
+    "revealNwc": "Reveal NWC",
     "finish": "Finish",
     "back": "Back",
     "next": "Next",
