@@ -272,7 +272,6 @@
         <div class="my-auto text-lg">Lightning</div>
       </button>
 
-      {#if user?.id === invoice?.user?.id}
         <a href={`/receive`} class="block contents">
           <button
             class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
@@ -281,7 +280,6 @@
             <div class="my-auto text-lg">Ecash</div>
           </button>
         </a>
-      {/if}
     </div>
 
     {#if type === types.liquid}
