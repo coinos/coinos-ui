@@ -6,7 +6,8 @@ export async function load({ cookies, depends, parent }) {
 
   let { subject } = await parent();
 
-  let accounts = await get("/accounts", auth(cookies));
+  let accounts = [];
+  if (cookies.get("token")) accounts = await get("/accounts", auth(cookies));
 
   let items = await get(`/${subject.id}/items`, auth(cookies));
   items.map((i) => (i.quantity = 0));

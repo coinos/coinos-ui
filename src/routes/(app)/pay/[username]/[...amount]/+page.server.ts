@@ -2,10 +2,12 @@ import { error, fail, redirect } from "@sveltejs/kit";
 import { types, sats, fd, auth, get, post } from "$lib/utils";
 
 export async function load({ cookies, params, parent }) {
+  let { username } = params;
+  let { rates, user } = await parent();
+
+  if (user.username = username) error(500, "Cannot send to self");
   let subject = await get(`/users/${params.username}`);
 
-  let { rates } = await parent();
-  let { username } = params;
   let [amount, currency] = params.amount.split("/");
 
   let rate;

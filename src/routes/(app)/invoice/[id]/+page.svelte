@@ -143,7 +143,9 @@
       </a>
     </div>
   {:else}
-    <div class="break-all pb-5 text-center text-secondary text-xl min-h-[120px] flex">
+    <div
+      class="break-all pb-5 text-center text-secondary text-xl min-h-[120px] flex"
+    >
       <div class="m-auto">{txt}</div>
     </div>
   {/if}
@@ -236,7 +238,7 @@
     </div>
   </div>
 
-  {#if aid === user.id}
+  {#if aid === user?.id}
     <div class="grid grid-cols-2 justify-around text-secondary">
       <button
         class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
