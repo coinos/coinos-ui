@@ -16,9 +16,14 @@
 <a href={`/payments`} class="block space-y-2" on:click={setAccount}>
   <div class="flex">
     <Balance {balance} {user} {rate} />
+      <a href={`/payments`} class="contents" on:click={setAccount}>
+        <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
+          <Icon icon="clock" style="w-8 my-auto" />
+        </button>
+      </a>
     {#if seed}
       <a href={`/account/${id}`} class="contents">
-        <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
+        <button class="flex gap-1 mb-auto pb-4 pl-4">
           <Icon icon="settings" style="w-8 my-auto" />
         </button>
       </a>
