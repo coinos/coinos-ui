@@ -13,7 +13,7 @@
   <Pin cancel={() => (show = false)} />
 {/if}
 
-<div class="space-y-2">
+<div>
   {#if user.haspin && !$pin}
     <button
       class="flex gap-2 text-xl rounded-2xl border py-5 px-6 hover:opacity-80 bg-black text-white font-bold"
@@ -23,7 +23,7 @@
       <div class="my-auto">{$t("user.showBalance")}</div></button
     >
   {:else}
-    <div class="text-5xl font-bold tabular-nums">
+    <div class="text-4xl font-bold tabular-nums">
       {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
@@ -31,7 +31,7 @@
       {/if}
     </div>
 
-    <div class="text-secondary text-2xl">
+    <div class="text-secondary text-xl">
       ⚡️{s(balance)}
     </div>
   {/if}
