@@ -20,7 +20,8 @@
 		},
 		"locations": {
 			"header": "Locais",
-			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Coinos. Esperamos que o seu seja o próximo!"
+			"description": "Aqui estão algumas empresas que estão aceitando bitcoin com a Coinos. Esperamos que o seu seja o próximo!",
+			"viewMap": "Ver mapa"
 		}
 	},
 	"error": {
@@ -77,7 +78,8 @@
 		"support": "Suporte",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
-		"documentation": "Documentação"
+		"documentation": "Documentação",
+		"nostr": "Nostr"
 	},
 	"howItWorks": {
 		"header": "Como funciona",
@@ -148,7 +150,9 @@
 		"noAccount": "Don't have an account?",
 		"register": "Register",
 		"signIn": "Sign In",
-		"failed": "Login failed"
+		"failed": "Login failed",
+		"createAccount": "Criar uma conta",
+		"signUp": "Inscrever-se"
 	},
 	"nav": {
 		"about": "About",
@@ -208,7 +212,8 @@
 			"deposit": "Deposit",
 			"voucher": "Voucher",
 			"checkout": "Confira",
-			"payNow": "Pague agora"
+			"payNow": "Pague agora",
+			"setup": "Configurar autocustódia"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Favor inserir uma quantidade inferior a 1 bitcoin.",
@@ -312,7 +317,9 @@
 		"details": "Detalhes",
 		"noMessages": "Você ainda não enviou ou recebeu nenhuma mensagem",
 		"install": "Instalar aplicativo",
-		"moreDetails": "Links e detalhes"
+		"moreDetails": "Links e detalhes",
+		"url": "URL pública",
+		"nwc": "Nostr carteira conectar"
 	},
 	"payments": {
 		"amount": "Quantidade",
@@ -404,7 +411,8 @@
 		"showText": "Mostrar texto",
 		"showQr": "Mostrar QR",
 		"copyPr": "Copiar solicitação de pagamento",
-		"amountPrompt": "Sempre solicite o valor"
+		"amountPrompt": "Sempre solicite o valor",
+		"enterWalletPass": "Senha da carteira"
 	},
 	"items": {
 		"add": "Adicionar Item",
@@ -413,5 +421,28 @@
 		"price": "Preço",
 		"submit": "Enviar",
 		"image": "Imagem"
+	},
+	"accounts": {
+		"back": "Voltar",
+		"next": "Próximo",
+		"seedPhrase": "Frase semente",
+		"save": "Salvar",
+		"copy": "Cópia",
+		"revealMnemonic": "Revelar frase semente",
+		"regenerate": "Regenerado",
+		"deleteAccount": "Excluir conta",
+		"addAccount": "Adicionar conta",
+		"create": "Criar",
+		"import": "Importar",
+		"accountSetup": "Configuração da conta",
+		"enterSeed": "Insira uma frase semente",
+		"passwordMismatch": "As senhas não correspondem",
+		"generateSeed": "Gere uma nova frase semente no seu navegador",
+		"accountPassword": "Senha da conta",
+		"importSeed": "Insira uma frase semente existente",
+		"passwordWarning": "Se você perder essa senha, não poderá sacar fundos da conta ou restaurar sua seed phrase. Não podemos recuperá-la para você.",
+		"savings": "Poupança",
+		"password": "Senha",
+		"confirmPassword": "Confirme sua senha"
 	}
 }
