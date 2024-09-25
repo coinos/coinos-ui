@@ -28,9 +28,11 @@
 
 <div class="space-y-2">
   {#if user?.id === subject.id}
+    <div>
     {#each accounts as account}
       <Account {user} {rate} {account} />
     {/each}
+    </div>
 
     <div class="flex justify-center gap-2">
       <a href={`/account/savings`} class="contents">
