@@ -32,7 +32,7 @@
 
   <div class="flex justify-center w-full text-lg gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
-      <button class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl">
+      <button class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl bg-primary">
         <div class="mx-auto flex gap-2">
           <Icon icon="receive" style="w-8" />
           <div class="my-auto">{$t("user.dashboard.receive")}</div>
@@ -43,7 +43,7 @@
     <a href={`/send`} class="contents grow" on:click={setAccount}>
       <button
                       type="button"
-                      class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl"
+                      class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl bg-primary"
                       >
                       <div class="mx-auto flex gap-1">
                         <Icon icon="send" style="w-8" />

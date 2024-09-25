@@ -27,9 +27,11 @@
   $: lnaddr = `${stripped}@${$page.url.host}`;
   $: profile = `${$page.url.host}/${stripped}`;
 
-  $: nwc = user && `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
-    relay
-  )}&secret=${user.nwc}`;
+  $: nwc =
+    user &&
+    `nostr+walletconnect://${pk}?relay=${encodeURIComponent(relay)}&secret=${
+      user.nwc
+    }`;
 
   let follow = async () => {
     user.follows.push(["p", subject.pubkey, "wss://nostr.coinos.io", stripped]);
@@ -84,9 +86,13 @@
   <div
     class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto"
   >
-    <button type="button" on:click={toggleDetails} class="flex text-3xl font-bold text-center mx-auto justify-center gap-2">
-        <div class="my-auto break-words">{display || username}</div>
-        <Icon icon="qr" style="w-8 invert my-auto" />
+    <button
+      type="button"
+      on:click={toggleDetails}
+      class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
+    >
+      <div class="my-auto break-words">{display || username}</div>
+      <Icon icon="qr" style="w-8 invert my-auto" />
     </button>
 
     {#if subject.address}
@@ -100,18 +106,18 @@
       </div>
     {/if}
 
-    <div>
-      <div class="flex justify-center gap-2">
-        <a href={`/${subject.pubkey}/follows`}
-          ><b>{subject.follows.length}</b>
-          <span class="text-secondary">{$t("user.following")}</span></a
-        >
-        <a href={`/${subject.pubkey}/followers`}
-          ><b>{subject.followers.length}</b>
-          <span class="text-secondary">{$t("user.followers")}</span></a
-        >
-      </div>
-    </div>
+    <!-- <div> -->
+    <!--   <div class="flex justify-center gap-2"> -->
+    <!--     <a href={`/${subject.pubkey}/follows`} -->
+    <!--       ><b>{subject.follows.length}</b> -->
+    <!--       <span class="text-secondary">{$t("user.following")}</span></a -->
+    <!--     > -->
+    <!--     <a href={`/${subject.pubkey}/followers`} -->
+    <!--       ><b>{subject.followers.length}</b> -->
+    <!--       <span class="text-secondary">{$t("user.followers")}</span></a -->
+    <!--     > -->
+    <!--   </div> -->
+    <!-- </div> -->
 
     {#if showDetails}
       <div class="space-y-5 pb-20">
@@ -193,45 +199,45 @@
     {/if}
 
     <div class="flex flex-wrap gap-2 w-full text-xl">
-      {#if user && user.username !== subject.username && subject.pubkey}
-        {#if following}
-          <button
-            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow"
-            on:click={unfollow}
-          >
-            <div class="mx-auto flex">
-              <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" />
-              <div class="my-auto">{$t("user.following")}</div>
-            </div>
-          </button>
-        {:else}
-          <button
-            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow"
-            on:click={follow}
-          >
-            <div class="mx-auto flex">
-              <Icon icon={"profile"} style="my-auto h-6 mr-2" />
-              <div class="my-auto">{$t("user.follow")}</div>
-            </div>
-          </button>
-        {/if}
-      {/if}
+      <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
+      <!--   {#if following} -->
+      <!--     <button -->
+      <!--       class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow" -->
+      <!--       on:click={unfollow} -->
+      <!--     > -->
+      <!--       <div class="mx-auto flex"> -->
+      <!--         <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" /> -->
+      <!--         <div class="my-auto">{$t("user.following")}</div> -->
+      <!--       </div> -->
+      <!--     </button> -->
+      <!--   {:else} -->
+      <!--     <button -->
+      <!--       class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow" -->
+      <!--       on:click={follow} -->
+      <!--     > -->
+      <!--       <div class="mx-auto flex"> -->
+      <!--         <Icon icon={"profile"} style="my-auto h-6 mr-2" /> -->
+      <!--         <div class="my-auto">{$t("user.follow")}</div> -->
+      <!--       </div> -->
+      <!--     </button> -->
+      <!--   {/if} -->
+      <!-- {/if} -->
 
-      {#if user && user.username !== subject.username && subject.pubkey}
-        <a
-          href={`/messages/${subject.username}`}
-          class="contents"
-        >
-          <button
-            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
-          >
-            <div class="mx-auto flex">
-              <Icon icon="message" style="w-8 mr-2 my-auto" />
-              <div class="mt-1 my-auto">{$t("user.message")}</div>
-            </div>
-          </button>
-        </a>
-      {/if}
+      <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
+      <!--   <a -->
+      <!--     href={`/messages/${subject.username}`} -->
+      <!--     class="contents" -->
+      <!--   > -->
+      <!--     <button -->
+      <!--       class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow" -->
+      <!--     > -->
+      <!--       <div class="mx-auto flex"> -->
+      <!--         <Icon icon="message" style="w-8 mr-2 my-auto" /> -->
+      <!--         <div class="mt-1 my-auto">{$t("user.message")}</div> -->
+      <!--       </div> -->
+      <!--     </button> -->
+      <!--   </a> -->
+      <!-- {/if} -->
 
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>
@@ -242,7 +248,6 @@
           >
             <div class="mx-auto flex">
               <Icon icon="clock" style="mr-2 my-auto w-8" />
-              <div class="mt-1 my-auto">Reset</div>
             </div>
           </button>
         </form>

@@ -272,14 +272,14 @@
         <div class="my-auto text-lg">Lightning</div>
       </button>
 
-        <a href={`/receive`} class="block contents">
-          <button
-            class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-          >
-            <img src="/images/cash.png" class="w-8 my-auto" />
-            <div class="my-auto text-lg">Ecash</div>
-          </button>
-        </a>
+      <a href={`/receive`} class="block contents">
+        <button
+          class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
+        >
+          <img src="/images/cash.png" class="w-8 my-auto" />
+          <div class="my-auto text-lg">Ecash</div>
+        </button>
+      </a>
     </div>
 
     {#if type === types.liquid}
@@ -301,7 +301,7 @@
     <div
       class="relative mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5 top-10"
     >
-      <form on:submit|preventDefault={setAmount}>
+      <form on:submit|preventDefault={setAmount} class="space-y-5">
         <Numpad
           bind:amount={newAmount}
           bind:currency

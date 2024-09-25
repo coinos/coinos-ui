@@ -183,8 +183,8 @@
     e.key === "Enter" && (e.preventDefault() || submit.click());
 </script>
 
-<div class="flex justify-center items-center mb-3 px-3">
-  <div class="space-y-5">
+<div class="flex justify-center items-center">
+  <div class="space-y-5 w-full">
     <div class="text-center">
       <div
         class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
@@ -225,7 +225,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto">
+    <div class="grid grid-cols-3 gap-2 w-full mx-auto">
       {#each numPad as value}
         {#if value === arrow}
           <button
