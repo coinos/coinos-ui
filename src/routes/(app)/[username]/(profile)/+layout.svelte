@@ -6,10 +6,6 @@
   import { sign, send } from "$lib/nostr";
   import { bech32m } from "@scure/base";
   import { page } from "$app/stores";
-  import {
-    PUBLIC_COINOS_PUBKEY as pk,
-    PUBLIC_COINOS_RELAY as relay,
-  } from "$env/static/public";
 
   export let data;
 
@@ -26,12 +22,6 @@
     bech32m.encode("npub", toWords(hexToUint8Array(subject.pubkey)), 180);
   $: lnaddr = `${stripped}@${$page.url.host}`;
   $: profile = `${$page.url.host}/${stripped}`;
-
-  $: nwc =
-    user &&
-    `nostr+walletconnect://${pk}?relay=${encodeURIComponent(relay)}&secret=${
-      user.nwc
-    }`;
 
   let follow = async () => {
     user.follows.push(["p", subject.pubkey, "wss://nostr.coinos.io", stripped]);
@@ -174,27 +164,6 @@
             </div>
           </div>
         </div>
-        {#if user.id === subject.id}
-          <div>
-            <div class="text-secondary">{$t("user.nwc")}</div>
-            <div class="flex gap-4">
-              <div class="break-all grow text-xl">
-                {nwc}
-              </div>
-              <div class="flex my-auto gap-1">
-                <button class="my-auto" on:click={() => copy(nwc)}
-                  ><Icon
-                    icon="copy"
-                    style="max-w-max w-8 min-w-[32px]"
-                  /></button
-                >
-                <a href={`/qr/${encodeURIComponent(nwc)}`} class="my-auto">
-                  <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-                </a>
-              </div>
-            </div>
-          </div>
-        {/if}
       </div>
     {/if}
 
