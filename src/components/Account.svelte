@@ -15,7 +15,7 @@
 
 <a
   href={`/payments`}
-  class="px-2 space-y-5 border-b block last:border-none"
+  class="px-2 border-b block last:border-none"
   on:click={setAccount}
 >
   <div class="flex">

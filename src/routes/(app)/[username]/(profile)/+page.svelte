@@ -26,7 +26,7 @@
   if (user) user.savings = 0;
 </script>
 
-<div class="space-y-2">
+<div class="space-y-2 mt-5">
   {#if user?.id === subject.id}
     <div class="space-y-5">
       {#each accounts as account}
