@@ -35,7 +35,7 @@
     <div>
       <button
         type="button"
-        class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
+        class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-3 px-4 w-full mx-auto justify-center border whitespace-nowrap mb-2"
         on:click={generate}
       >
         <Icon icon="random" style="w-8 my-auto" />
@@ -44,7 +44,7 @@
 
       <button
         type="button"
-        class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
+        class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-3 px-4 w-full mx-auto justify-center border whitespace-nowrap mb-2"
         on:click={() => copy($mnemonic)}
       >
         <Icon icon="copy" style="w-8 my-auto" />

@@ -37,7 +37,7 @@
     <div>
       <button
         type="button"
-        class="hover:opacity-80 rounded-2xl py-3 px-4 mt-2 border font-bold w-full max-w-[340px] mx-auto"
+        class="hover:opacity-80 rounded-2xl py-5 px-6 mt-2 font-bold w-full mx-auto bg-primary"
         on:click|preventDefault={setMax}
         disabled={submitting}
         on:keydown={setMax}>Max ⚡️{s(balance)}</button
@@ -47,12 +47,11 @@
         use:focus
         bind:this={submit}
         type="submit"
-        class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-full flex justify-center gap-2 max-w-[340px] mx-auto"
+        class="opacity-100 hover:opacity-80 rounded-2xl border py-5 font-bold mt-2 bg-black text-white px-6 w-full flex justify-center gap-2 mx-auto"
       >
         {#if submitting}
           <Spinner />
         {:else}
-          <img src="/images/cash.png" class="w-8" />
           <div class="my-auto">{$t("payments.mint")}</div>
         {/if}
       </button>
