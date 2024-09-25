@@ -63,17 +63,6 @@
 </div>
 
 <div>
-  <label for="memoPrompt" class="font-bold mb-1 block"
-    >{$t("user.settings.memoPrompt")}</label
-  >
-  <textarea
-    name="memoPrompt"
-    placeholder={$t("user.settings.memoPromptPlaceholder")}
-    bind:value={user.memoPrompt}
-  />
-</div>
-
-<div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.notifications")}</span>
     <Toggle id="notify" bind:value={user.notify} />
@@ -90,18 +79,6 @@
   </div>
   <p class="text-secondary mt-1 w-9/12">
     {$t("user.settings.tipPromptDescription")}
-  </p>
-</div>
-
-<div>
-  <div class="flex justify-between items-center">
-    <span class="font-bold">{$t("user.settings.publishNip5")}</span>
-    <Toggle id="nip5" bind:value={user.nip5} />
-  </div>
-  <p class="text-secondary mt-1 w-9/12">
-    {$t("user.settings.nip5a")}
-    <span class="font-bold">{user.username}@{$page.url.host}</span>
-    {$t("user.settings.nip5b")}
   </p>
 </div>
 

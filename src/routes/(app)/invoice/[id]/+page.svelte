@@ -276,7 +276,7 @@
             class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
           >
             <img src="/images/cash.png" class="w-8 my-auto" />
-            <div class="my-auto text-lg">E-cash</div>
+            <div class="my-auto text-lg">Ecash</div>
           </button>
         </a>
       {/if}
