@@ -1,5 +1,6 @@
 {
   "accounts": {
+    "finish": "Finish",
     "back": "Back",
     "next": "Next",
     "seedPhrase": "Seed phrase",

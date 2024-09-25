@@ -443,6 +443,7 @@
 		"passwordWarning": "Se você perder essa senha, não poderá sacar fundos da conta ou restaurar sua seed phrase. Não podemos recuperá-la para você.",
 		"savings": "Poupança",
 		"password": "Senha",
-		"confirmPassword": "Confirme sua senha"
+		"confirmPassword": "Confirme sua senha",
+		"finish": "Terminar"
 	}
 }

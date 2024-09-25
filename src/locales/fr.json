@@ -421,6 +421,7 @@
 		"passwordWarning": "Si vous perdez ce mot de passe, vous ne pourrez pas retirer de fonds du compte ni restaurer votre phrase de départ. Nous ne pouvons pas le récupérer pour vous.",
 		"savings": "Économies",
 		"password": "Mot de passe",
-		"confirmPassword": "Confirmez le mot de passe"
+		"confirmPassword": "Confirmez le mot de passe",
+		"finish": "Finition"
 	}
 }

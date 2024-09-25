@@ -421,6 +421,7 @@
 		"passwordWarning": "如果您丢失了此密码，您将无法从账户中提取资金或恢复您的种子短语。我们无法为您恢复它。",
 		"savings": "储蓄",
 		"password": "密码",
-		"confirmPassword": "确认密码"
+		"confirmPassword": "确认密码",
+		"finish": "结束"
 	}
 }
