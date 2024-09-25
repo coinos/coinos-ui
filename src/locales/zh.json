@@ -20,7 +20,8 @@
 		},
 		"locations": {
 			"header": "地点",
-			"description": "以下是一些接受 Coinos 比特币支付平台的企业，希望您的公司可以加入我们！"
+			"description": "以下是一些接受 Coinos 比特币支付平台的企业，希望您的公司可以加入我们！",
+			"viewMap": "查看地图"
 		}
 	},
 	"error": {
@@ -61,7 +62,8 @@
 		"support": "支持",
 		"telegram": "电报",
 		"twitter": "推特",
-		"documentation": "文档"
+		"documentation": "文档",
+		"nostr": "诺斯特"
 	},
 	"howItWorks": {
 		"header": "如何操作",
@@ -132,7 +134,9 @@
 		"noAccount": "没有帐户？",
 		"register": "登记",
 		"signIn": "登入",
-		"failed": "登录失败"
+		"failed": "登录失败",
+		"createAccount": "创建账户",
+		"signUp": "报名"
 	},
 	"nav": {
 		"about": "关于",
@@ -189,7 +193,8 @@
 			"deposit": "订金",
 			"voucher": "代金券",
 			"checkout": "查看",
-			"payNow": "现在付款"
+			"payNow": "现在付款",
+			"setup": "设置自我监护"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "请输入小于 1 比特币的金额。",
@@ -291,7 +296,9 @@
 		"details": "细节",
 		"noMessages": "您尚未发送或接收任何消息",
 		"install": "安装应用程序",
-		"moreDetails": "链接和详细信息"
+		"moreDetails": "链接和详细信息",
+		"url": "公共 URL",
+		"nwc": "Nostr 钱包连接"
 	},
 	"payments": {
 		"networkFee": "网络费",
@@ -382,7 +389,8 @@
 		"showText": "显示文本",
 		"showQr": "显示二维码",
 		"copyPr": "复制付款请求",
-		"amountPrompt": "始终提示金额"
+		"amountPrompt": "始终提示金额",
+		"enterWalletPass": "钱包密码"
 	},
 	"items": {
 		"add": "新增项目",
@@ -391,5 +399,28 @@
 		"price": "价格",
 		"submit": "提交",
 		"image": "图像"
+	},
+	"accounts": {
+		"back": "后退",
+		"next": "下一个",
+		"seedPhrase": "种子短语",
+		"save": "节省",
+		"copy": "复制",
+		"revealMnemonic": "显示种子短语",
+		"regenerate": "再生",
+		"deleteAccount": "删除帐户",
+		"addAccount": "添加帐户",
+		"create": "创造",
+		"import": "进口",
+		"accountSetup": "帐户设置",
+		"enterSeed": "输入种子短语",
+		"passwordMismatch": "密码不匹配",
+		"generateSeed": "在浏览器中生成新的种子短语",
+		"accountPassword": "账户密码",
+		"importSeed": "输入现有的种子短语",
+		"passwordWarning": "如果您丢失了此密码，您将无法从账户中提取资金或恢复您的种子短语。我们无法为您恢复它。",
+		"savings": "储蓄",
+		"password": "密码",
+		"confirmPassword": "确认密码"
 	}
 }

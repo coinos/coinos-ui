@@ -20,7 +20,8 @@
 		},
 		"locations": {
 			"header": "Ubicaciones",
-			"description": "Aquí hay algunos negocios que aceptan bitcoin con Coinos. ¡Esperamos que el tuyo sea el siguiente!"
+			"description": "Aquí hay algunos negocios que aceptan bitcoin con Coinos. ¡Esperamos que el tuyo sea el siguiente!",
+			"viewMap": "Ver mapa"
 		}
 	},
 	"error": {
@@ -61,7 +62,8 @@
 		"support": "Soporte",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
-		"documentation": "Documentación"
+		"documentation": "Documentación",
+		"nostr": "Nostálgico"
 	},
 	"howItWorks": {
 		"header": "Cómo Funciona",
@@ -132,7 +134,9 @@
 		"noAccount": "¿No tienes una cuenta?",
 		"register": "Registrarse",
 		"signIn": "Iniciar Sesión",
-		"failed": "Inicio de sesión fallido"
+		"failed": "Inicio de sesión fallido",
+		"createAccount": "Crear una cuenta",
+		"signUp": "Inscribirse"
 	},
 	"nav": {
 		"about": "Acerca de",
@@ -189,7 +193,8 @@
 			"go": "Ir",
 			"dashboard": "Panel",
 			"checkout": "Verificar",
-			"payNow": "Pagar ahora"
+			"payNow": "Pagar ahora",
+			"setup": "Configurar la autocustodia"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Por favor, introduzca una cantidad menor a 1 bitcoin.",
@@ -291,7 +296,9 @@
 		"details": "Detalles",
 		"noMessages": "Aún no has enviado ni recibido ningún mensaje",
 		"install": "Instalar aplicación",
-		"moreDetails": "Enlaces y detalles"
+		"moreDetails": "Enlaces y detalles",
+		"url": "URL pública",
+		"nwc": "Conexión de billetera Nostr"
 	},
 	"payments": {
 		"networkFee": "Tarifa de Red",
@@ -382,7 +389,8 @@
 		"showText": "Mostrar texto",
 		"showQr": "Mostrar código QR",
 		"copyPr": "Copiar solicitud de pago",
-		"amountPrompt": "Siempre solicite la cantidad"
+		"amountPrompt": "Siempre solicite la cantidad",
+		"enterWalletPass": "Contraseña de la billetera"
 	},
 	"items": {
 		"add": "Añadir artículo",
@@ -391,5 +399,28 @@
 		"price": "Precio",
 		"submit": "Entregar",
 		"image": "Imagen"
+	},
+	"accounts": {
+		"back": "Atrás",
+		"next": "Próximo",
+		"seedPhrase": "Frase semilla",
+		"save": "Ahorrar",
+		"copy": "Copiar",
+		"revealMnemonic": "Revelar frase semilla",
+		"regenerate": "Regenerado",
+		"deleteAccount": "Eliminar cuenta",
+		"addAccount": "Agregar cuenta",
+		"create": "Crear",
+		"import": "Importar",
+		"accountSetup": "Configuración de cuenta",
+		"enterSeed": "Introduzca una frase inicial",
+		"passwordMismatch": "Las contraseñas no coinciden",
+		"generateSeed": "Genera una nueva frase semilla en tu navegador",
+		"accountPassword": "Contraseña de la cuenta",
+		"importSeed": "Introduzca una frase semilla existente",
+		"passwordWarning": "Si pierde esta contraseña, no podrá retirar fondos de la cuenta ni recuperar su frase inicial. No podemos recuperarla por usted.",
+		"savings": "Ahorros",
+		"password": "Contraseña",
+		"confirmPassword": "Confirmar Contraseña"
 	}
 }
