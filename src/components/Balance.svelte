@@ -17,7 +17,7 @@
   {#if user.haspin && !$pin}
     <button
       class="flex gap-2 text-xl rounded-2xl border py-5 px-6 hover:opacity-80 bg-black text-white font-bold"
-      on:click={() => (show = true)}
+      on:click|preventDefault={() => (show = true)}
     >
       <Icon icon="eye" style="w-8 invert my-auto" />
       <div class="my-auto">{$t("user.showBalance")}</div></button

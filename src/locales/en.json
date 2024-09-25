@@ -17,7 +17,7 @@
     "accountSetup": "Account setup",
     "enterSeed": "Enter a seed phrase",
     "passwordMismatch": "Passwords don't match",
-    "generateSeed": "Generate a new seed phrase in your browser",
+    "generateSeed": "Generate a new seed phrase",
     "accountPassword": "Account password",
     "importSeed": "Enter an existing seed phrase",
     "passwordWarning": "If you lose this password you won't be able to withdraw funds from the account or restore your seed phrase. We can't recover it for you.",
