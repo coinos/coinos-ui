@@ -14,9 +14,10 @@ export interface User {
 }
 
 export interface Invoice {
+  aid: string;
   id?: string;
   memoPrompt?: boolean;
   memo?: string;
   rate: number;
-  type: string;
+  type?: string;
 }

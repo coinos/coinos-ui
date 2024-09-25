@@ -3,7 +3,7 @@
   import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
   import Popup from "$comp/Popup.svelte";
-  import { shuffleArray } from "$lib/utils";
+  import { back, shuffleArray } from "$lib/utils";
 
   import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -220,8 +220,16 @@
     class="mx-auto h-full w-full z-0"
     bind:this={mapContainer}
   />
+    <div class="absolute flex top-2 left-2 gap-2">
+      <button
+        class="rounded-full border-2 border-black bg-white w-10 h-10"
+        on:click={back}
+      >
+          <Icon icon="arrow-left" style="w-4 m-auto" />
+      </button>
+    </div>
   <div class="relative">
-    <div class="flex absolute flex top-2 right-2 gap-2">
+    <div class="absolute flex top-2 right-2 gap-2">
       <button
         class="rounded-full border-2 border-black bg-white w-10 h-10"
         on:click={toggle}

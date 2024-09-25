@@ -5,7 +5,6 @@
   import { tick } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import AppHeader from "$comp/AppHeader.svelte";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
@@ -30,10 +29,9 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    {$t("payments.voucher")}
+    {$t("user.dashboard.receive")}
   </h1>
 
   <form method="POST" use:enhance class="space-y-2 text-xl">
@@ -53,7 +51,7 @@
         name="text"
         placeholder={$t("payments.voucherText")}
         on:keypress={keypress}
-        class="w-full p-4 border rounded-xl h-48 text-xl"
+        class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={text}
         on:paste={() => (pasted = true)}
         autocapitalize="none"
@@ -64,19 +62,19 @@
       <a href="/scan" class="w-full">
         <button
           type="button"
-          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center"
+          class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-1"
         >
-          <Icon icon="camera" style="mr-2 w-6 my-auto" />
+          <Icon icon="camera" style="w-8 my-auto" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button
         type="button"
-        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center"
+        class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-1"
         on:click={paste}
       >
-        <Icon icon="paste" style="mr-2 w-6 my-auto" />
+        <Icon icon="paste" style="w-8 my-auto" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>

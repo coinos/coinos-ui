@@ -7,7 +7,8 @@
 		"header": "À Propos",
 		"locations": {
 			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>"
+			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">fais-le-nous savoir!</a>",
+			"viewMap": "Voir la carte"
 		},
 		"team": {
 			"header": "L'Équipe",
@@ -61,7 +62,8 @@
 		"support": "Assistance",
 		"jobs": "Jobs",
 		"linktree": "Linktree",
-		"documentation": "Documentation"
+		"documentation": "Documentation",
+		"nostr": "Noster"
 	},
 	"howItWorks": {
 		"header": "Comment cela Fonctionne",
@@ -114,7 +116,9 @@
 		"forgot": "Mot de passe oublié?",
 		"reset": "Reinitialiser le mot de passe",
 		"submit": "Soumettre",
-		"newPassword": "Nouveau mot de passe"
+		"newPassword": "Nouveau mot de passe",
+		"createAccount": "Créer un compte",
+		"signUp": "S'inscrire"
 	},
 	"nav": {
 		"startInSeconds": "Commence en Secondes",
@@ -166,7 +170,8 @@
 			"deposit": "Déposer",
 			"voucher": "Bon",
 			"checkout": "Vérifier",
-			"payNow": "Payez maintenant"
+			"payNow": "Payez maintenant",
+			"setup": "Mettre en place l'auto-garde"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
@@ -287,7 +292,9 @@
 		"details": "Détails",
 		"noMessages": "Vous n'avez pas encore envoyé ou reçu de messages",
 		"install": "Installer l'application",
-		"moreDetails": "Liens et détails"
+		"moreDetails": "Liens et détails",
+		"url": "URL publique",
+		"nwc": "Connexion au portefeuille Nostr"
 	},
 	"news": {
 		"header": "Nouvelles",
@@ -382,7 +389,8 @@
 		"showText": "Afficher le texte",
 		"showQr": "Afficher le QR",
 		"copyPr": "Copie de la demande de paiement",
-		"amountPrompt": "Toujours demander le montant"
+		"amountPrompt": "Toujours demander le montant",
+		"enterWalletPass": "Mot de passe du portefeuille"
 	},
 	"items": {
 		"add": "Ajouter un item",
@@ -391,5 +399,28 @@
 		"price": "Prix",
 		"submit": "Soumettre",
 		"image": "Image"
+	},
+	"accounts": {
+		"back": "Dos",
+		"next": "Suivant",
+		"seedPhrase": "Phrase de départ",
+		"save": "Sauvegarder",
+		"copy": "Copie",
+		"revealMnemonic": "Révéler la phrase de départ",
+		"regenerate": "Régénérer",
+		"deleteAccount": "Supprimer le compte",
+		"addAccount": "Ajouter un compte",
+		"create": "Créer",
+		"import": "Importer",
+		"accountSetup": "Configuration du compte",
+		"enterSeed": "Entrez une phrase de départ",
+		"passwordMismatch": "Les mots de passe ne correspondent pas",
+		"generateSeed": "Générez une nouvelle phrase de départ dans votre navigateur",
+		"accountPassword": "Mot de passe du compte",
+		"importSeed": "Entrez une phrase de départ existante",
+		"passwordWarning": "Si vous perdez ce mot de passe, vous ne pourrez pas retirer de fonds du compte ni restaurer votre phrase de départ. Nous ne pouvons pas le récupérer pour vous.",
+		"savings": "Économies",
+		"password": "Mot de passe",
+		"confirmPassword": "Confirmez le mot de passe"
 	}
 }

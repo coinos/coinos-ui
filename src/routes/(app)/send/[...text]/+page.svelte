@@ -5,7 +5,6 @@
   import { tick } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import AppHeader from "$comp/AppHeader.svelte";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
@@ -19,7 +18,7 @@
 
   let el, text, pasted, w;
 
-  let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
+  let keypress = (e) => e.key === "Enter" ? (e.preventDefault() || el.click()) : (pasted = false);
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
@@ -31,7 +30,6 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<AppHeader {data} />
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.send")}
@@ -54,7 +52,7 @@
         name="text"
         placeholder={$t("user.send.placeholder")}
         on:keypress={keypress}
-        class="w-full p-4 border rounded-xl h-48 text-xl"
+        class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={text}
         on:paste={() => (pasted = true)}
         autocapitalize="none"
@@ -65,7 +63,7 @@
       <a href="/scan" class="w-full">
         <button
           type="button"
-          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
+          class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-2"
         >
           <Icon icon="camera" style="w-8 my-auto" />
           <div class="my-auto">{$t("user.send.scan")}</div>
@@ -74,7 +72,7 @@
 
       <button
         type="button"
-        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
+        class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-2"
         on:click={paste}
       >
         <Icon icon="paste" style="w-8 my-auto" />
@@ -97,7 +95,7 @@
           type="button"
           class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary"
         >
-          <Icon icon="voucher" style="w-8 my-auto" />
+          <img src="/images/cash.png" class="w-8" />
           <div class="my-auto">{$t("payments.createEcash")}</div>
         </button>
       </a>

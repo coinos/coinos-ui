@@ -1,8 +1,9 @@
-import { redirect } from "@sveltejs/kit";
-  import { get, auth, protectedRoutes } from "$lib/utils";
+import { error, redirect } from "@sveltejs/kit";
+import { get, auth, protectedRoutes } from "$lib/utils";
 
 export async function load({ cookies, request, url, params }) {
   let { pathname } = url;
+  let { username } = params;
   let token = cookies.get("token");
   let rate,
     rates = { USD: 1 };
@@ -13,6 +14,18 @@ export async function load({ cookies, request, url, params }) {
       user = await get("/me", auth(cookies));
     } catch (e) {}
   }
+
+  let subject;
+  if (username) {
+    try {
+      subject = await get(`/users/${username}`);
+    } catch (e) {
+      error(500, "Unable to retrieve user account data");
+    }
+  }
+
+  if (!subject) subject = user;
+  if (!user) user = subject;
 
   if (user?.needsMigration) {
     redirect(307, `/migrate`);
@@ -26,14 +39,12 @@ export async function load({ cookies, request, url, params }) {
     redirect(307, `/${user.username}`);
   }
 
-  if (
-    protectedRoutes.find((p) => pathname.match(p)) &&
-    (!user || user.username !== params.username)
-  ) {
+  if (protectedRoutes.find((p) => pathname.match(p)) && !user) {
     redirect(307, "/login");
   }
 
   if (user && !user.pubkey && !pathname.includes("generate")) {
+    console.log("user missing pubkey", user);
     redirect(303, `/${user.username}/generate`);
   }
 
@@ -44,5 +55,5 @@ export async function load({ cookies, request, url, params }) {
     console.log(e);
   }
 
-  return { user, token, rate, rates };
+  return { user, token, rate, rates, subject };
 }

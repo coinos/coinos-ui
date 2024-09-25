@@ -7,31 +7,32 @@ export async function load({ params: { id }, parent }) {
   let invoice = await get(`/invoice/${id}`);
 
   if (invoice.prompt && invoice.tip === null)
-    redirect(307, `/${invoice.user.username}/invoice/${id}/tip`);
+    redirect(307, `/invoice/${id}/tip`);
 
   if (invoice.memoPrompt && invoice.memo === null)
-    redirect(307, `/${invoice.user.username}/invoice/${id}/memo`);
+    redirect(307, `/invoice/${id}/memo`);
 
-  if (invoice.user.username === user?.username)
+  if (invoice.account === user?.id)
     error(500, { message: "Cannot send to self" });
 
-  if (!user) redirect(307, `/${invoice.user.username}/invoice/${id}`);
+  if (!user) redirect(307, `/invoice/${id}`);
 
   return { invoice, rates, user };
 }
 
 export const actions = {
   default: async ({ cookies, params: { id }, request }) => {
+    let p;
     try {
       let body = await fd(request);
       body.hash = id;
 
-      await post("/payments", body, auth(cookies));
+      p = await post("/payments", body, auth(cookies));
     } catch (e: any) {
       console.log("payment failed", id, e);
       error(500, e.message);
     }
 
-    redirect(307, "/sent");
+    redirect(307, `/sent/${p.id}`);
   },
 };

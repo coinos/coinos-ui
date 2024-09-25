@@ -9,16 +9,17 @@ export const actions = {
   setAmount: async ({ request }) => fd(request),
 
   send: async ({ cookies, request }) => {
+    let p;
     try {
       let body = await fd(request);
 
-      await post("/payments", body, auth(cookies));
+      p = await post("/payments", body, auth(cookies));
     } catch (e: any) {
       if (e.message.includes("unusable"))
         e.message = "Failed to route payment, try sending a lower amount";
       return fail(400, { message: e.message });
     }
 
-    redirect(307, "/sent");
+    redirect(307, `/sent/${p.id}`);
   },
 };

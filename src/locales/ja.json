@@ -20,7 +20,8 @@
 		},
 		"locations": {
 			"header": "所在地",
-			"description": "Coinosでビットコインを受け入れている企業をいくつか紹介します。次はあなたのものになることを願っています!"
+			"description": "Coinosでビットコインを受け入れている企業をいくつか紹介します。次はあなたのものになることを願っています!",
+			"viewMap": "地図を見る"
 		}
 	},
 	"error": {
@@ -61,7 +62,8 @@
 		"support": "サポート",
 		"telegram": "電報",
 		"twitter": "ツイッター",
-		"documentation": "ドキュメンテーション"
+		"documentation": "ドキュメンテーション",
+		"nostr": "ノストル"
 	},
 	"howItWorks": {
 		"header": "使い方",
@@ -132,7 +134,9 @@
 		"noAccount": "アカウントをお持ちでない場合は、",
 		"register": "登録する",
 		"signIn": "サインイン",
-		"failed": "ログインに失敗しました"
+		"failed": "ログインに失敗しました",
+		"createAccount": "アカウントを作成する",
+		"signUp": "サインアップ"
 	},
 	"nav": {
 		"about": "について",
@@ -189,7 +193,8 @@
 			"deposit": "デポジット",
 			"voucher": "バウチャー",
 			"checkout": "チェックアウト",
-			"payNow": "今払う"
+			"payNow": "今払う",
+			"setup": "自己管理の設定"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "1 ビットコイン未満の金額を入力してください。",
@@ -291,7 +296,9 @@
 		"details": "詳細",
 		"noMessages": "まだメッセージを送信または受信していません",
 		"install": "アプリをインストールする",
-		"moreDetails": "リンクと詳細"
+		"moreDetails": "リンクと詳細",
+		"url": "公開URL",
+		"nwc": "Nostrウォレットコネクト"
 	},
 	"payments": {
 		"networkFee": "ネットワーク料金",
@@ -382,7 +389,8 @@
 		"showText": "テキストを表示",
 		"showQr": "QRコードを表示",
 		"copyPr": "支払い請求のコピー",
-		"amountPrompt": "常に金額の入力を求める"
+		"amountPrompt": "常に金額の入力を求める",
+		"enterWalletPass": "ウォレットパスワード"
 	},
 	"items": {
 		"add": "アイテムの追加",
@@ -391,5 +399,28 @@
 		"price": "価格",
 		"submit": "提出する",
 		"image": "画像"
+	},
+	"accounts": {
+		"back": "戻る",
+		"next": "次",
+		"seedPhrase": "シードフレーズ",
+		"save": "保存",
+		"copy": "コピー",
+		"revealMnemonic": "シードフレーズを表示",
+		"regenerate": "再生する",
+		"deleteAccount": "アカウントを削除",
+		"addAccount": "アカウントを追加",
+		"create": "作成する",
+		"import": "輸入",
+		"accountSetup": "アカウント設定",
+		"enterSeed": "シードフレーズを入力してください",
+		"passwordMismatch": "パスワードが一致しません",
+		"generateSeed": "ブラウザで新しいシードフレーズを生成する",
+		"accountPassword": "アカウントパスワード",
+		"importSeed": "既存のシードフレーズを入力してください",
+		"passwordWarning": "このパスワードを紛失した場合、アカウントから資金を引き出したり、シードフレーズを復元したりできなくなります。弊社では回復することはできません。",
+		"savings": "貯蓄",
+		"password": "パスワード",
+		"confirmPassword": "パスワードを認証する"
 	}
 }

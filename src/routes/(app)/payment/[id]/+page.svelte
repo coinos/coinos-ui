@@ -3,7 +3,6 @@
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";
   import {
-    back,
     copy,
     f,
     s,
@@ -34,6 +33,7 @@
       rate,
       type,
       ref,
+      path,
       tip,
       ourfee,
       fee,
@@ -57,6 +57,7 @@
     rate,
     type,
     ref,
+    path,
     tip,
     ourfee,
     fee,
@@ -95,12 +96,6 @@
         direction[0].toUpperCase() + direction.substr(1, direction.length);
   });
 </script>
-
-<a href={`/${username}/payments`}>
-  <button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80">
-    <Icon icon="arrow-left" style="w-10" />
-  </button>
-</a>
 
 <div class="container mx-auto max-w-lg px-4 space-y-8 break-all text-2xl">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
@@ -225,40 +220,18 @@
     </div>
   {/if}
 
-  <div class="flex gap-2">
-    {#if user.admin}
-      <button
-        class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
-        on:click={bump}
-      >
-        <div class="mx-auto flex">
-          <Icon icon="clock" style="my-auto h-6 mr-2" />
-          <div class="my-auto mt-1 text-base">{$t("payments.bump")}</div>
-        </div>
-      </button>
-    {/if}
-
-    {#if user.hasprinter}
-      <button
-        class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
-        on:click={print}
-      >
-        <div class="mx-auto flex">
-          <Icon icon="printer" style="my-auto h-6 mr-2" />
-          <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>
-        </div>
-      </button>
-    {:else}
-      <a href={`/payment/${id}/plain`}>
+  {#if path}
+    <div>
+      <span class="text-lg text-secondary">Path</span>
+      <div class="flex">
+        <div>{path}</div>
         <button
-          class="rounded-full border py-3 px-6 hover:opacity-80 flex w-full md:w-60"
+          class="flex font-bold hover:opacity-80 mb-auto my-auto"
+          on:click={() => copy(path)}
         >
-          <div class="mx-auto flex">
-            <Icon icon="printer" style="my-auto h-6 mr-2" />
-            <div class="my-auto mt-1 text-base">{$t("payments.print")}</div>
-          </div>
+          <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
-      </a>
-    {/if}
-  </div>
+      </div>
+    </div>
+  {/if}
 </div>

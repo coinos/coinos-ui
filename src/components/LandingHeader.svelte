@@ -19,22 +19,22 @@
 </script>
 
 <header
-  class="w-full lg:w-5/6 py-5 mx-auto fixed md:sticky z-10 top-0 bg-white/90"
+  class="w-full lg:w-5/6 py-5 mx-auto fixed sticky z-10 top-0 bg-white/90"
   bind:this={header}
 >
-  <nav class="block xl:flex flex-wrap justify-between items-center">
+  <nav class="block lg:flex justify-between items-center">
     <div
-      class="flex justify-start md:justify-center items-center md:space-x-10"
+      class="flex justify-start lg:justify-center items-center lg:space-x-10"
     >
       <a href="/" on:click={() => scroll(header)}>
-        <Icon icon="logo" style="hidden md:block mb-5 xl:mb-0" />
-        <Icon icon="logo" style="block md:hidden ml-5 w-48" />
+        <Icon icon="logo" style="hidden lg:block mb-5 xl:mb-0" />
+        <Icon icon="logo" style="block lg:hidden ml-5 w-48" />
       </a>
     </div>
 
     <!-- desktop nav -->
     <div
-      class="hidden space-x-10 md:flex flex-wrap justify-center items-center font-bold"
+      class="hidden space-x-10 lg:flex justify-center items-center font-bold"
     >
       {#if $page.url.pathname === "/"}
         <button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
@@ -76,13 +76,13 @@
 
     <!-- mobile nav -->
     <button
-      class="block md:hidden absolute top-[34.5px] right-10 z"
+      class="block lg:hidden absolute top-[34.5px] right-10 z"
       on:click={() => (showMobileMenu = !showMobileMenu)}
       ><Icon icon={!showMobileMenu ? "menu" : "close"} />
     </button>
 
     <div
-      class="container w-full px-10 md:hidden absolute top-0 {showMobileMenu
+      class="container w-full px-10 lg:hidden absolute top-0 {showMobileMenu
         ? 'right-0'
         : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-white"
     >

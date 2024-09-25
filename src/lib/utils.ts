@@ -1,7 +1,7 @@
 import { browser } from "$app/environment";
 import { toast } from "@zerodevx/svelte-toast";
 import { goto } from "$app/navigation";
-import { PUBLIC_COINOS_URL } from "$env/static/public";
+import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
 import { page } from "$app/stores";
 import { get as getStore } from "svelte/store";
 
@@ -41,7 +41,11 @@ export let get = (url: string, headers = {}) => {
     });
 };
 
-export let post = async (url: string, body: object, headers: HeadersInit | undefined = undefined) => {
+export let post = async (
+  url: string,
+  body: object,
+  headers: HeadersInit | undefined = undefined
+) => {
   headers = {
     "content-type": "application/json",
     accept: "application/json",
@@ -242,7 +246,11 @@ export let select = (el: HTMLInputElement): any =>
 export let sleep = (n: number): Promise<void> =>
   new Promise((r) => setTimeout(r, n));
 
-export let wait = async (f: () => boolean | Promise<boolean>, n: number = 100, s: number = 300): Promise<boolean> => {
+export let wait = async (
+  f: () => boolean | Promise<boolean>,
+  n: number = 100,
+  s: number = 300
+): Promise<boolean> => {
   let i = 0;
   while (!(await f()) && i < s) {
     await sleep(n);
@@ -279,6 +287,7 @@ export let types = {
   internal: "internal",
   fund: "fund",
   ecash: "ecash",
+  reconcile: "reconcile",
 };
 
 export let ease = (t: number): number =>
@@ -327,3 +336,30 @@ export function setCookie(name: string, value: string, seconds: number): void {
   const expires = "expires=" + now.toUTCString();
   document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
+
+export let network = {
+  bitcoin: {
+    bech32: "bc",
+    pubKeyHash: 0x00,
+    scriptHash: 0x05,
+    wif: 0x80,
+  },
+  regtest: {
+    bech32: "bcrt",
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef,
+  },
+}[PUBLIC_COINOS_NETWORK];
+
+export let versions = {
+  bitcoin: {
+    private: 0x0488ade4,
+    public: 0x0488b21e,
+  },
+  regtest: {
+    private: 0x04358394,
+    public: 0x043587cf,
+  },
+}[PUBLIC_COINOS_NETWORK];
+
