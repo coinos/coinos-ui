@@ -3,7 +3,6 @@
   import { goto } from "$app/navigation";
   import { pin } from "$lib/store";
   import { enhance } from "$app/forms";
-  import AppHeader from "$comp/AppHeader.svelte";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -33,7 +32,7 @@
     rate = fiat ? (sats * amountFiat) / amount : r;
 
     let id;
-    ({ id, hash } = await post(`/${subject.username}/invoice`, {
+    ({ id, hash } = await post(`/invoice`, {
       invoice: {
         amount,
         rate: rates[subject.currency],
@@ -56,15 +55,13 @@
   };
 </script>
 
-<AppHeader {data} />
-
 {#if form?.message}
   <div class="text-red-600 text-center">
     {form.message}
   </div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto space-y-8">
+<div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
   <Numpad
     bind:amount={a}
     bind:amountFiat={af}

@@ -29,7 +29,7 @@ export async function load({ cookies, params, parent }) {
       auth(cookies)
     );
 
-    redirect(307, `/${username}/invoice/${id}`);
+    redirect(307, `/invoice/${id}`);
   }
 
   return { amount, rate, subject };
@@ -37,14 +37,15 @@ export async function load({ cookies, params, parent }) {
 
 export const actions = {
   default: async ({ cookies, request }) => {
+    let p;
     try {
       let body = await fd(request);
-      await post("/payments", body, auth(cookies));
+      p = await post("/payments", body, auth(cookies));
     } catch (e: any) {
       console.log(e);
       return fail(400, { message: e.message });
     }
 
-    redirect(307, "/sent");
+    redirect(307, `/sent/${p.id}`);
   },
 };

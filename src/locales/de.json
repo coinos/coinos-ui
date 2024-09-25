@@ -20,7 +20,8 @@
 		},
 		"locations": {
 			"header": "Standorte",
-			"description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Coinos akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!"
+			"description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Coinos akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!",
+			"viewMap": "Karte anzeigen"
 		}
 	},
 	"error": {
@@ -78,7 +79,8 @@
 		"twitter": "Twitter",
 		"news": "Neuigkeiten",
 		"linktree": "Linktree",
-		"documentation": "Dokumentation"
+		"documentation": "Dokumentation",
+		"nostr": "Nostr"
 	},
 	"howItWorks": {
 		"header": "So funktioniert's",
@@ -149,7 +151,9 @@
 		"forgot": "Passwort vergessen?",
 		"reset": "Passwort zurücksetzen",
 		"submit": "Einreichen",
-		"newPassword": "Neues Kennwort"
+		"newPassword": "Neues Kennwort",
+		"createAccount": "Benutzerkonto erstellen",
+		"signUp": "Melden Sie sich an"
 	},
 	"nav": {
 		"profile": "Profil",
@@ -199,7 +203,8 @@
 			"deposit": "Einzahlung",
 			"voucher": "Beleg",
 			"checkout": "Kasse",
-			"payNow": "Zahlen Sie jetzt"
+			"payNow": "Zahlen Sie jetzt",
+			"setup": "Selbstverwahrung einrichten"
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Bitte geben Sie einen Betrag unter 1 Bitcoin ein.",
@@ -314,7 +319,9 @@
 		"details": "Einzelheiten",
 		"noMessages": "Sie haben noch keine Nachrichten gesendet oder empfangen",
 		"install": "App installieren",
-		"moreDetails": "Links und Details"
+		"moreDetails": "Links und Details",
+		"url": "Öffentliche URL",
+		"nwc": "Nostr-Wallet verbinden"
 	},
 	"payments": {
 		"header": "Transaktionen",
@@ -409,7 +416,8 @@
 		"showText": "Text anzeigen",
 		"showQr": "QR anzeigen",
 		"copyPr": "Lohnanforderung kopieren",
-		"amountPrompt": "Immer nach dem Betrag fragen"
+		"amountPrompt": "Immer nach dem Betrag fragen",
+		"enterWalletPass": "Wallet-Passwort"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
@@ -418,5 +426,28 @@
 		"price": "Preis",
 		"submit": "Einreichen",
 		"image": "Bild"
+	},
+	"accounts": {
+		"back": "Zurück",
+		"next": "Nächste",
+		"seedPhrase": "Seed-Phrase",
+		"save": "Speichern",
+		"copy": "Kopie",
+		"revealMnemonic": "Seed-Phrase anzeigen",
+		"regenerate": "Regenerieren",
+		"deleteAccount": "Konto löschen",
+		"addAccount": "Konto hinzufügen",
+		"create": "Erstellen",
+		"import": "Import",
+		"accountSetup": "Kontoeinrichtung",
+		"enterSeed": "Geben Sie eine Seed-Phrase ein",
+		"passwordMismatch": "Passwörter stimmen nicht überein",
+		"generateSeed": "Generieren Sie eine neue Seed-Phrase in Ihrem Browser",
+		"accountPassword": "Kontokennwort",
+		"importSeed": "Geben Sie eine vorhandene Seed-Phrase ein",
+		"passwordWarning": "Wenn Sie dieses Passwort verlieren, können Sie weder Geld vom Konto abheben noch Ihre Seed-Phrase wiederherstellen. Wir können es nicht für Sie wiederherstellen.",
+		"savings": "Ersparnisse",
+		"password": "Passwort",
+		"confirmPassword": "Passwort bestätigen"
 	}
 }

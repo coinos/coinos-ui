@@ -1,5 +1,4 @@
 <script>
-  import AppHeader from "$comp/AppHeader.svelte";
   import { copy, sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";

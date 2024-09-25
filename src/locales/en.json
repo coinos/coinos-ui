@@ -1,4 +1,27 @@
 {
+  "accounts": {
+    "back": "Back",
+    "next": "Next",
+    "seedPhrase": "Seed phrase",
+    "save": "Save",
+    "copy": "Copy",
+    "revealMnemonic": "Reveal seed phrase",
+    "regenerate": "Regenerate",
+    "deleteAccount": "Delete account",
+    "addAccount": "Add account",
+    "create": "Create",
+    "import": "Import",
+    "accountSetup": "Account setup",
+    "enterSeed": "Enter a seed phrase",
+    "passwordMismatch": "Passwords don't match",
+    "generateSeed": "Generate a new seed phrase in your browser",
+    "accountPassword": "Account password",
+    "importSeed": "Enter an existing seed phrase",
+    "passwordWarning": "If you lose this password you won't be able to withdraw funds from the account or restore your seed phrase. We can't recover it for you.",
+    "savings": "Savings",
+    "password": "Password",
+    "confirmPassword": "Confirm password"
+  },
 	"404": {
 		"404": "404",
 		"pageNotFound": "Page not found."
@@ -19,6 +42,7 @@
 			}
 		},
 		"locations": {
+      "viewMap": "View map",
 			"header": "Locations",
 			"description": "Over 500 businesses worldwide are accepting bitcoin with Coinos. We hope that yours will be next!"
 		}
@@ -61,6 +85,7 @@
 		"support": "Support",
 		"telegram": "Telegram",
 		"twitter": "Twitter",
+		"nostr": "Nostr",
 		"documentation": "Documentation"
 	},
 	"howItWorks": {
@@ -131,7 +156,9 @@
 		"haveAccount": "Already have an account?",
 		"noAccount": "Don't have an account?",
 		"register": "Register",
+		"createAccount": "Create account",
 		"signIn": "Sign In",
+		"signUp": "Sign Up",
 		"failed": "Login failed"
 	},
 	"nav": {
@@ -140,7 +167,7 @@
 		"messages": "Messages",
 		"funds": "Funds",
 		"map": "Map",
-		"merch": "Swag",
+		"merch": "Shop",
 		"profile": "Profile",
 		"startInSeconds": "Start in Seconds",
 		"account": "Account",
@@ -155,6 +182,7 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
+    "url": "Public URL",
 		"install": "Install app",
 		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages",
@@ -182,6 +210,7 @@
 		"this": "This",
 		"lightningAddress": "Lightning address",
 		"dashboard": {
+      "setup": "Setup self-custody",
 			"payNow": "Pay now",
 			"checkout": "Checkout",
 			"go": "Go",
@@ -294,6 +323,7 @@
 		}
 	},
 	"payments": {
+    "enterWalletPass": "Wallet password",
 		"legacyVersion": "Legacy version",
 		"newVersion": "New version",
 		"income": "Income",
@@ -303,8 +333,8 @@
 		"mint": "Mint",
 		"ecash": "Ecash",
 		"memo": "Notes",
-		"voucherText": "Enter an ecash or lnurlw code",
-		"createEcash": "Create ecash",
+		"voucherText": "Enter an ecash token or lnurlw code",
+		"createEcash": "Mint ecash",
 		"tips": "Tips",
 		"options": "options",
 		"bump": "Bump fee",
@@ -325,15 +355,14 @@
 		"voucher": "Payment code",
 		"qr": "QR",
 		"copy": "Copy",
-		"copyPr": "Copy pay request",
-		"amountPrompt": "Always prompt for amount",
+		"amountPrompt": "Prompt for amount",
 		"shareLink": "Share link",
 		"copyLink": "Copy link",
 		"copyText": "Copy text",
 		"openLink": "Open wallet",
 		"setAmount": "Set amount",
 		"moreOptions": "More options",
-		"redeemVoucher": "Ecash or LNURLw",
+		"redeemVoucher": "Ecash",
 		"total": "Total",
 		"gainLoss": "Gain/Loss",
 		"presentValue": "Present Value",

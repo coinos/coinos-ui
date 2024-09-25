@@ -52,7 +52,7 @@
   let toggle = () => (submitting = !submitting);
 
   let external = async () => {
-    let { id } = await post(`/${recipient.username}/invoice`, {
+    let { id } = await post(`/invoice`, {
       invoice: {
         ...invoice,
         type: "lightning",
@@ -62,7 +62,7 @@
       user: { username: recipient.username },
     });
 
-    goto(`/${recipient.username}/invoice/${id}?options=true`, {
+    goto(`/invoice/${id}?options=true`, {
       invalidateAll: true,
     });
   };
@@ -92,10 +92,6 @@
   // 	}
   // });
 </script>
-
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
-  <Icon icon="arrow-left" style="w-10" />
-</button>
 
 {#if form?.message}
   <div class="text-red-600 text-center">

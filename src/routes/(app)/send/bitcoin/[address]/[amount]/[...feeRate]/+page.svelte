@@ -1,20 +1,96 @@
 <script>
+  import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Toggle from "$comp/Toggle.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
+  import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
-  import { fiat as toFiat, f, focus, s, sat, closest } from "$lib/utils";
+  import {
+    fiat as toFiat,
+    f,
+    focus,
+    s,
+    sat,
+    closest,
+    network,
+  } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
+  import { applyAction } from "$app/forms";
+  import { hex as hexUtil } from "@scure/base";
+  import * as btc from "@scure/btc-signer";
+  import { hash160 } from "@scure/btc-signer/utils";
+  import { decrypt } from "nostr-tools/nip49";
+  import { HDKey } from "@scure/bip32";
+  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
+  import { wordlist } from "@scure/bip39/wordlists/english";
 
   export let data;
   export let form;
 
-  let { amount, address, message, fee, fees, feeRate, ourfee, rates, hex } =
-    data;
+  let { encode, decode } = hexUtil;
+  let passwordPrompt;
+  let password;
+  let cancel = () => (passwordPrompt = false);
+  let signed;
+
+  let togglePassword = () => (passwordPrompt = !passwordPrompt);
+  let handler = ({ cancel }) => {
+    if (account.seed && !signed) cancel(), togglePassword();
+    return async ({ result }) => {
+      if (result.type === "redirect") {
+        goto(result.location);
+      } else {
+        await applyAction(result);
+        invalidate("app:payments");
+      }
+    };
+  };
+
+  let signTx = async () => {
+    let entropy = await decrypt(account.seed, password);
+    let mnemonic = entropyToMnemonic(entropy, wordlist);
+    let seed = await mnemonicToSeed(mnemonic, password);
+    let master = HDKey.fromMasterSeed(seed, network);
+    let child = master.derive("m/84'/0'/0'");
+
+    let tx = btc.Transaction.fromRaw(decode(hex));
+
+    for (let [i, input] of tx.inputs.entries()) {
+      let { witnessUtxo, path } = inputs[i];
+      witnessUtxo.amount = BigInt(witnessUtxo.amount);
+      witnessUtxo.script = decode(witnessUtxo.script);
+      let key = child.derive(path);
+      tx.updateInput(i, { witnessUtxo });
+      tx.signIdx(key.privateKey, i);
+    }
+
+    tx.finalize();
+    hex = tx.hex;
+    console.log("HEX", hex);
+    signed = true;
+    await tick();
+    submit.click();
+  };
+
+  let toggle = () => (submitting = !submitting);
+
+  let {
+    account,
+    amount,
+    address,
+    message,
+    fee,
+    fees,
+    feeRate,
+    ourfee,
+    rates,
+    hex,
+    inputs,
+  } = data;
 
   $: reload(data);
   let reload = () => {
@@ -47,15 +123,6 @@
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
   let goBack = () => goto(`/send/bitcoin/${address}`);
 </script>
-
-<button
-  type="button"
-  class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80"
-  data-sveltekit-preload-data="false"
-  on:click={goBack}
->
-  <Icon icon="arrow-left" style="w-10" />
-</button>
 
 <div
   class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition"
@@ -115,10 +182,12 @@
       </div>
     {/if}
 
-    <form method="POST" use:enhance on:submit={() => (submitting = true)}>
+    <form method="POST" use:enhance={handler}>
       <input name="pin" value={$pin} type="hidden" />
       <input name="hex" value={hex} type="hidden" />
       <input name="rate" value={$rate} type="hidden" />
+      <input name="aid" value={account.id} type="hidden" />
+      <input name="signed" value={signed} type="hidden" />
 
       <div class="flex justify-center gap-2">
         <button
@@ -138,6 +207,10 @@
     </form>
   {/if}
 </div>
+
+{#if passwordPrompt}
+  <WalletPass bind:password bind:cancel submit={signTx} />
+{/if}
 
 <style>
   .no-transition {
