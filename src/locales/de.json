@@ -448,6 +448,7 @@
 		"passwordWarning": "Wenn Sie dieses Passwort verlieren, können Sie weder Geld vom Konto abheben noch Ihre Seed-Phrase wiederherstellen. Wir können es nicht für Sie wiederherstellen.",
 		"savings": "Ersparnisse",
 		"password": "Passwort",
-		"confirmPassword": "Passwort bestätigen"
+		"confirmPassword": "Passwort bestätigen",
+		"finish": "Beenden"
 	}
 }

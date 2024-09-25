@@ -421,6 +421,7 @@
 		"passwordWarning": "Si pierde esta contraseña, no podrá retirar fondos de la cuenta ni recuperar su frase inicial. No podemos recuperarla por usted.",
 		"savings": "Ahorros",
 		"password": "Contraseña",
-		"confirmPassword": "Confirmar Contraseña"
+		"confirmPassword": "Confirmar Contraseña",
+		"finish": "Finalizar"
 	}
 }

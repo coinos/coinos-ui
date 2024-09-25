@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { tick, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { encrypt } from "nostr-tools/nip49";
   import {
     mnemonicToSeed,
@@ -17,6 +18,7 @@
   export let data;
 
   let { user } = data;
+  let submitting;
 
   let confirm, password, revealPassword, revealConfirm;
   let type = "bitcoin";
@@ -27,6 +29,8 @@
   });
 
   let submit = async () => {
+    submitting = true;
+    await tick();
     if (!password || password !== confirm) {
       fail($t("accounts.passwordMismatch"));
       return;
@@ -51,6 +55,7 @@
       fail(e.message);
     }
 
+    submitting = false;
     $mnemonic = "";
   };
 </script>
@@ -131,18 +136,20 @@
 
     <div class="flex gap-2">
       <a href={`/account/seed`} class="contents">
-        <button
-          type="button"
-          class="border grow px-5 py-6 text-xl rounded-2xl"
-        >
+        <button type="button" class="border grow px-5 py-6 text-xl rounded-2xl">
           {$t("accounts.back")}
         </button>
       </a>
       <button
+        disabled={submitting}
         type="submit"
-        class="border grow px-5 py-6 text-xl rounded-2xl"
+        class="border grow px-5 py-6 text-xl rounded-2xl bg-black text-white"
       >
-        {$t("accounts.next")}
+        {#if submitting}
+          <Spinner />
+        {:else}
+          {$t("accounts.finish")}
+        {/if}
       </button>
     </div>
   </form>
