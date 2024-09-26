@@ -249,7 +249,7 @@
   onDestroy(() => map && map.remove());
 </script>
 
-<div class="w-screen h-screen flex" id="map" bind:this={mapWrapper}>
+<div class="w-screen h-dvh flex" id="map" bind:this={mapWrapper}>
   <div
     id="map-container"
     class="mx-auto h-full w-full z-0"
