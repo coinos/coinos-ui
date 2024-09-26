@@ -129,7 +129,7 @@
   };
 </script>
 
-<div class="mt-24 mb-20 payments space-y-5">
+<div class="space-y-5">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.header")}
   </h1>
@@ -306,9 +306,5 @@
 <style>
   .active * {
     @apply bg-black text-white border-black;
-  }
-
-  .payments {
-    view-transition-name: payments;
   }
 </style>
