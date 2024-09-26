@@ -234,8 +234,8 @@
       <div
         class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] min-h-[100px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-0 top-16 rounded-2xl shadow text-ellipsis"
       >
-        <div class="relative mb-4">
-          <input bind:value={search} />
+        <div class="relative mb-4 sticky top-0 bg-primary z-10">
+          <input bind:value={search} class="w-full" />
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}
               <button on:click={clearSearch}>
