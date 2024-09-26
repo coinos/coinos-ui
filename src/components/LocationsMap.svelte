@@ -1,4 +1,5 @@
 <script>
+  import MaplibreGeocoder from "@maplibre/maplibre-gl-geocoder";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
@@ -6,6 +7,7 @@
   import { back } from "$lib/utils";
 
   import "maplibre-gl/dist/maplibre-gl.css";
+  import "@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css";
 
   export let locations;
   let map;
@@ -145,10 +147,84 @@
   let popups = {};
   let counter = 0;
 
-  onMount(() => {
+  onMount(async () => {
     if (browser) {
-      import("maplibre-gl").then(({ default: maplibre }) => {
-        map = new maplibre.Map({
+      console.log("hi");
+
+      try {
+        const request = `https://photon.komoot.io/api/?q=vancouver&limit=5`;
+        const response = await fetch(request);
+        const geojson = await response.json();
+        console.log(geojson);
+      } catch (e) {
+        console.log(e);
+      }
+
+      import("maplibre-gl").then(({ default: maplibregl }) => {
+        const geocoderApi = {
+          forwardGeocode: async (config) => {
+            console.log("forwardGeocode called with query:", config.query); // Debugging log
+
+            const features = [];
+            try {
+              console.log("OHYES");
+              const request = `https://photon.komoot.io/api/?q=${config.query}&limit=5`;
+              const response = await fetch(request);
+              const geojson = await response.json();
+              console.log("OHNO");
+
+              for (const feature of geojson.features) {
+                const center = feature.center;
+                const point = {
+                  type: "Feature",
+                  geometry: {
+                    type: "Point",
+                    coordinates: center,
+                  },
+                  place_name: feature.place_name,
+                  properties: feature.properties,
+                  text: feature.text,
+                  place_type: feature.place_type,
+                  center,
+                };
+                features.push(point);
+              }
+            } catch (e) {
+              console.log("OH NO", e);
+              console.error(`Failed to forwardGeocode with error: ${e}`);
+            }
+
+            return {
+              features,
+            };
+          },
+        };
+
+        // let searchInput;
+        // let debounceTimer;
+        // function handleInput(event) {
+        //   clearTimeout(debounceTimer);
+        //
+        //   debounceTimer = setTimeout(() => {
+        //     const query = event.target.value;
+        //     if (query.length > 0) {
+        //       geocoderApi.forwardGeocode({ query }).then((result) => {
+        //         console.log(result); // Display suggestions as needed
+        //       });
+        //     }
+        //   }, 300);
+        // }
+
+        // searchInput = document.querySelector(
+        //   ".maplibregl-ctrl-geocoder--input"
+        // );
+        //
+        // if (searchInput) {
+        //   console.log("ADDING");
+        //   searchInput.addEventListener("input", handleInput);
+        // }
+
+        map = new maplibregl.Map({
           container: mapContainer,
           style: "https://tiles.stadiamaps.com/styles/stamen_toner.json",
           center: [-123.05, 49.26],
@@ -172,9 +248,9 @@
               props: { tags },
             });
 
-            let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.5 })
+            let marker = new maplibregl.Marker({ color: "#F7931A", scale: 0.5 })
               .setLngLat([lon, lat])
-              .setPopup(new maplibre.Popup().setDOMContent(popupContainer))
+              .setPopup(new maplibregl.Popup().setDOMContent(popupContainer))
               .addTo(map);
 
             marker.id = counter++;
@@ -195,6 +271,13 @@
           });
 
           updateLabelVisibility();
+
+          map.addControl(
+            new MaplibreGeocoder(geocoderApi, {
+              maplibregl,
+            }),
+            "top-left"
+          );
         });
 
         map.on("mousedown", stopFlying);
@@ -221,14 +304,6 @@
     class="mx-auto h-full w-full z-0"
     bind:this={mapContainer}
   />
-  <div class="absolute flex top-2 left-2 gap-2">
-    <button
-      class="rounded-full border-2 border-black bg-white w-10 h-10"
-      on:click={back}
-    >
-      <Icon icon="arrow-left" style="w-4 m-auto" />
-    </button>
-  </div>
   <div class="relative">
     {#if !showList}
       <div
@@ -259,6 +334,12 @@
       </div>
     {/if}
     <div class="absolute flex top-2 right-2 gap-2">
+      <button
+        class="rounded-full border-2 border-black bg-white w-10 h-10"
+        on:click={back}
+      >
+        <Icon icon="arrow-left" style="w-4 m-auto" />
+      </button>
       <button
         class="rounded-full border-2 border-black bg-white w-10 h-10"
         on:click={toggleList}
