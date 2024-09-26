@@ -3,7 +3,7 @@
   import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
   import Popup from "$comp/Popup.svelte";
-  import { back, shuffleArray } from "$lib/utils";
+  import { back } from "$lib/utils";
 
   import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -11,6 +11,8 @@
   let map;
   let mapContainer, mapWrapper;
   let markers = [];
+  let search;
+  let clearSearch = (e) => (search = "");
 
   let currentIndex = -1;
   let timeout;
@@ -47,13 +49,20 @@
     }
   };
 
+  $: list = search
+    ? markers.filter((m) =>
+        m.tags.name.toLowerCase().includes(search.toLowerCase())
+      )
+    : inview;
+
   function select(m) {
     stopFlying();
     currentIndex = inview.indexOf(m);
-    flyToMarker(m);
+    flyToMarker(m, 500);
   }
 
-  async function flyToMarker(marker) {
+  async function flyToMarker(marker, duration = 1500) {
+    if (!marker) return;
     map.flyTo({
       zoom: 12,
       center: marker.getLngLat(),
@@ -61,30 +70,32 @@
       easing: function (t) {
         return 1 - Math.pow(1 - t, 3);
       },
-      duration: 3000,
+      duration,
     });
 
-    await new Promise((r) => setTimeout(r, 3000));
     marker.getElement().click();
-    await new Promise((r) => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 2500));
 
     if (!timeout) return;
-
-    map.flyTo({
-      zoom: 10.5,
-      center: marker.getLngLat(),
-      essential: true,
-      easing: function (t) {
-        return 1 - Math.pow(1 - t, 3);
-      },
-      duration: 1500,
-    });
+    //
+    // map.flyTo({
+    //   zoom: 10.5,
+    //   center: marker.getLngLat(),
+    //   essential: true,
+    //   easing: function (t) {
+    //     return 1 - Math.pow(1 - t, 3);
+    //   },
+    //   duration: 1000,
+    // });
   }
 
   let toggle = () => {
     if (timeout) stopFlying();
     else startFlying();
   };
+
+  let toggleList = () => (showList = !showList);
+  let showList;
 
   let currentPopup;
   function startFlying() {
@@ -94,10 +105,11 @@
     if (currentIndex >= inview.length) currentIndex = 0;
     flyToMarker(inview[currentIndex]);
 
-    timeout = setTimeout(startFlying, 6000);
+    timeout = setTimeout(startFlying, 4000);
   }
 
   function stopFlying() {
+    updateLabelVisibility();
     if (!timeout) return;
     timeout = clearTimeout(timeout);
 
@@ -127,9 +139,9 @@
     }
 
     inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
-    shuffleArray(inview);
   }
 
+  let locationMarkers = {};
   let popups = {};
   let counter = 0;
 
@@ -160,7 +172,7 @@
               props: { tags },
             });
 
-            let marker = new maplibre.Marker({ color: "#F7931A" })
+            let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.5 })
               .setLngLat([lon, lat])
               .setPopup(new maplibre.Popup().setDOMContent(popupContainer))
               .addTo(map);
@@ -177,23 +189,12 @@
             });
 
             marker.tags = tags;
+            locationMarkers[location.id] = marker;
 
             markers.push(marker);
           });
 
           updateLabelVisibility();
-
-          let observer = new IntersectionObserver(
-            (entries, observer) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) startFlying();
-                else stopFlying();
-              });
-            },
-            { threshold: 0.5 }
-          );
-
-          observer.observe(mapContainer);
         });
 
         map.on("mousedown", stopFlying);
@@ -220,16 +221,50 @@
     class="mx-auto h-full w-full z-0"
     bind:this={mapContainer}
   />
-    <div class="absolute flex top-2 left-2 gap-2">
+  <div class="absolute flex top-2 left-2 gap-2">
+    <button
+      class="rounded-full border-2 border-black bg-white w-10 h-10"
+      on:click={back}
+    >
+      <Icon icon="arrow-left" style="w-4 m-auto" />
+    </button>
+  </div>
+  <div class="relative">
+    {#if !showList}
+      <div
+        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] min-h-[100px] max-h-[calc(100vh*0.75)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-0 top-16 rounded-2xl shadow text-ellipsis"
+      >
+        <div class="relative mb-4">
+          <input bind:value={search} />
+          <div class="flex gap-1 absolute right-6 top-3">
+            {#if search}
+              <button on:click={clearSearch}>
+                <Icon icon="close" style="w-8" />
+              </button>
+            {:else}
+              <Icon icon="search" style="w-8" />
+            {/if}
+          </div>
+        </div>
+
+        {#each list as marker, i}
+          <button
+            on:click={() => select(marker)}
+            class:font-bold={currentIndex === i}
+            class="block whitespace-nowrap text-ellipsis"
+          >
+            {marker.tags.name}
+          </button>
+        {/each}
+      </div>
+    {/if}
+    <div class="absolute flex top-2 right-2 gap-2">
       <button
         class="rounded-full border-2 border-black bg-white w-10 h-10"
-        on:click={back}
+        on:click={toggleList}
       >
-          <Icon icon="arrow-left" style="w-4 m-auto" />
+        <Icon icon="list" style="w-4 m-auto" />
       </button>
-    </div>
-  <div class="relative">
-    <div class="absolute flex top-2 right-2 gap-2">
       <button
         class="rounded-full border-2 border-black bg-white w-10 h-10"
         on:click={toggle}
@@ -243,17 +278,6 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="hidden lg:grid grid-cols-3 justify-items-center"> -->
-<!-- 	{#each inview as m} -->
-<!-- 		<button -->
-<!-- 			on:click={() => select(m)} -->
-<!-- 			class="text-left" -->
-<!-- 			class:font-bold={m.id === inview[currentIndex]?.id} -->
-<!-- 			id={`marker-${m.id}`}>{m.tags.name}</button -->
-<!-- 		> -->
-<!-- 	{/each} -->
-<!-- </div> -->
 
 <style>
   #map:fullscreen,
