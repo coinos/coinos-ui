@@ -55,7 +55,14 @@
       )
     : inview;
 
+  let scroll = () => {
+    const el = document.querySelector(".selected");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  let selected;
   function select(m) {
+    selected = m;
     stopFlying();
     currentIndex = inview.indexOf(m);
     flyToMarker(m, 500);
@@ -73,7 +80,9 @@
       duration,
     });
 
+    await new Promise((r) => setTimeout(r, duration));
     marker.getElement().click();
+    updateLabelVisibility();
     await new Promise((r) => setTimeout(r, 2500));
 
     if (!timeout) return;
@@ -108,6 +117,26 @@
     timeout = setTimeout(startFlying, 4000);
   }
 
+  function debounce(func, delay) {
+    let timeout;
+    let immediate = true;
+
+    return function (...args) {
+      const context = this;
+
+      if (immediate) {
+        func.apply(context, args);
+        immediate = false;
+      }
+
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        immediate = true;
+      }, delay);
+    };
+  }
+
   function stopFlying() {
     updateLabelVisibility();
     if (!timeout) return;
@@ -118,12 +147,12 @@
     }
 
     map.jumpTo({ center: map.getCenter(), zoom: map.getZoom() });
-    map.off("moveend"); // Remove moveend listener if set
+    map.off("moveend");
   }
 
   let inview = [];
 
-  function updateLabelVisibility() {
+  let updateLabelVisibility = debounce(() => {
     inview = [];
     if (!map) return;
     let zoom = map.getZoom();
@@ -139,7 +168,7 @@
     }
 
     inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
-  }
+  }, 500);
 
   let locationMarkers = {};
   let popups = {};
@@ -167,7 +196,7 @@
 
             let popupContainer = document.createElement("div");
 
-            let popup = new Popup({
+            new Popup({
               target: popupContainer,
               props: { tags },
             });
@@ -183,7 +212,12 @@
               let p = marker.getPopup();
               popups[marker.id] = p;
               p.setDOMContent(popupContainer);
+              setTimeout(() => {
+                selected = marker;
+                setTimeout(scroll, 10);
+              }, 50);
               p.on("close", () => {
+                selected = undefined;
                 delete popups[marker.id];
               });
             });
@@ -250,7 +284,8 @@
         {#each list as marker, i}
           <button
             on:click={() => select(marker)}
-            class:font-bold={currentIndex === i}
+            class:font-bold={selected === marker}
+            class:selected={selected === marker}
             class="block whitespace-nowrap text-ellipsis"
           >
             {marker.tags.name}
