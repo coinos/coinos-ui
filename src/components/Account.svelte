@@ -16,21 +16,23 @@
 <a href={`/payments`} class="block space-y-2" on:click={setAccount}>
   <div class="flex">
     <Balance {balance} {user} {rate} />
-      <a href={`/payments`} class="contents" on:click={setAccount}>
-        <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
-          <Icon icon="clock" style="w-8 my-auto" />
-        </button>
-      </a>
-      <a href={`/account/${id}`} class="contents">
-        <button class="flex gap-1 mb-auto pb-4 pl-4">
-          <Icon icon="settings" style="w-8 my-auto" />
-        </button>
-      </a>
+    <a href={`/payments`} class="contents" on:click={setAccount}>
+      <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
+        <Icon icon="clock" style="w-8 my-auto" />
+      </button>
+    </a>
+    <a href={`/account/${id}`} class="contents">
+      <button class="flex gap-1 mb-auto pb-4 pl-4">
+        <Icon icon="settings" style="w-8 my-auto" />
+      </button>
+    </a>
   </div>
 
   <div class="flex justify-center w-full text-lg gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
-      <button class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl bg-primary">
+      <button
+        class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl bg-primary"
+      >
         <div class="mx-auto flex gap-2">
           <Icon icon="receive" style="w-8" />
           <div class="my-auto">{$t("user.dashboard.receive")}</div>
@@ -40,13 +42,13 @@
 
     <a href={`/send`} class="contents grow" on:click={setAccount}>
       <button
-                      type="button"
-                      class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl bg-primary"
-                      >
-                      <div class="mx-auto flex gap-1">
-                        <Icon icon="send" style="w-8" />
-                        <div class="my-auto">{$t("user.dashboard.send")}</div>
-                      </div>
+        type="button"
+        class="py-3 px-4 hover:opacity-80 flex grow border rounded-2xl bg-primary"
+      >
+        <div class="mx-auto flex gap-1">
+          <Icon icon="send" style="w-8" />
+          <div class="my-auto">{$t("user.dashboard.send")}</div>
+        </div>
       </button>
     </a>
   </div>
