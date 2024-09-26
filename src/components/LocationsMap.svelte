@@ -57,7 +57,7 @@
 
   let scroll = () => {
     const el = document.querySelector(".selected");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
   };
 
   let selected;
@@ -266,7 +266,7 @@
   <div class="relative">
     {#if !showList}
       <div
-        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis"
+        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
       >
         <div class="relative mb-4 sticky top-0 bg-primary z-10">
           <input bind:value={search} class="w-full" />
@@ -286,7 +286,7 @@
             on:click={() => select(marker)}
             class:font-bold={selected === marker}
             class:selected={selected === marker}
-            class="block whitespace-nowrap text-ellipsis"
+            class="block whitespace-nowrap text-ellipsis text-left w-full overflow-hidden"
           >
             {marker.tags.name}
           </button>
