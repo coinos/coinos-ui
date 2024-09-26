@@ -172,7 +172,7 @@
               props: { tags },
             });
 
-            let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.5 })
+            let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.65 })
               .setLngLat([lon, lat])
               .setPopup(new maplibre.Popup().setDOMContent(popupContainer))
               .addTo(map);
@@ -232,7 +232,7 @@
   <div class="relative">
     {#if !showList}
       <div
-        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] min-h-[100px] max-h-[calc(100vh*0.75)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-0 top-16 rounded-2xl shadow text-ellipsis"
+        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] min-h-[100px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-0 top-16 rounded-2xl shadow text-ellipsis"
       >
         <div class="relative mb-4">
           <input bind:value={search} />
