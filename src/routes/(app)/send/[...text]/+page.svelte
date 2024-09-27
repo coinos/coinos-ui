@@ -22,6 +22,7 @@
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
+    await tick();
     pasted = true;
   };
 
