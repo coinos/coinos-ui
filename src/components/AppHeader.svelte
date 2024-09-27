@@ -49,7 +49,7 @@
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
-        <a href={`/${user.username}`}>
+        <a href={`/${user.username}`} data-sveltekit-preload-code="eager">
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}`
@@ -58,7 +58,7 @@
             ><Icon icon="home" style="mx-auto w-6 sm:w-8" />
           </button>
         </a>
-        <a href={`/invoice`}>
+        <a href={`/invoice`} data-sveltekit-preload-data="tap" data-sveltekit-preload-code="eager">
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page.url.pathname.includes(
               'invoice'
@@ -68,7 +68,7 @@
             ><Icon icon="receive" style="mx-auto w-6 sm:w-8" />
           </button>
         </a>
-        <a href={`/payments`}>
+        <a href={`/payments`} data-sveltekit-preload-code="eager">
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/payments`
@@ -89,7 +89,7 @@
             {/if}
           </button>
         </a>
-        <a href={`/send`}>
+        <a href={`/send`} data-sveltekit-preload-code="eager">
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/send`
@@ -120,7 +120,7 @@
               <ul class="space-y-5 w-48">
                 {#each menuButtons as { href, icon, key }}
                   <li>
-                    <a {href} data-sveltekit-prefetch="off">
+                    <a {href} data-sveltekit-preload-code="eager">
                       <button
                         class="flex justify-center items-center font-semibold hover:opacity-80"
                         ><Icon {icon} style="mr-2 w-6 sm:w-8" /> {$t(key)}
