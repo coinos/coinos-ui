@@ -28,7 +28,7 @@
     </a>
   </div>
 
-  <div class="flex justify-center w-full text-lg gap-2">
+  <div class="flex justify-center w-full text-xl gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
       <button
         class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl"
