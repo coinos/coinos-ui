@@ -26,7 +26,7 @@
   if (user) user.savings = 0;
 </script>
 
-<div class="space-y-2 mt-5 w-full">
+<div class="space-y-2 mt-5">
   {#if user?.id === subject.id}
     <div class="space-y-5">
       {#each accounts as account}
@@ -37,7 +37,7 @@
     <div class="flex justify-center gap-2">
       <a href={`/account/savings`} class="contents">
         <button
-          class="rounded-2xl border py-4 px-5 hover:opacity-80 flex w-full justify-center"
+          class="rounded-2xl py-5 px-6 hover:opacity-80 flex w-full justify-center bg-primary"
         >
           <div class="mx-auto flex gap-2">
             <Icon icon="plus" style="w-8 mx-auto" />
