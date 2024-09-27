@@ -82,7 +82,7 @@
         send("subscribe", invoice);
       });
 
-      if ($amountPrompt && tip === null) toggleAmount();
+      if ($amountPrompt && !amount) toggleAmount();
     }
   });
 
