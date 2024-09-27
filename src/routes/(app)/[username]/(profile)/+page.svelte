@@ -28,7 +28,7 @@
 
 <div class="space-y-2 mt-5">
   {#if user?.id === subject.id}
-    <div class="space-y-5">
+    <div class="space-y-5" data-sveltekit-preload-data="false">
       {#each accounts as account}
         <Account {user} {rate} {account} />
       {/each}
