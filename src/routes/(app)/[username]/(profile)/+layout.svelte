@@ -63,7 +63,7 @@
 
   let reset = async () => {
     try {
-      await post(`/${stripped}/reset`, { password });
+      await post(`/reset`, { username, password });
       success("Password reset");
     } catch (e) {
       fail(e.message);
