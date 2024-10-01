@@ -63,7 +63,7 @@
 
   let reset = async () => {
     try {
-      await post(`/reset`, { username, password });
+      await post(`/reset`, { username: n, password });
       success("Password reset");
     } catch (e) {
       fail(e.message);
