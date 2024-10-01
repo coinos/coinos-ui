@@ -2,9 +2,10 @@ import * as Qr from "qrcode-base64";
 import { get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export async function load({ depends, params, url, parent }) {
+export async function load({ cookies, depends, params, url, parent }) {
   depends("app:invoice");
 
+  let token = cookies.get("token");
   let { subject, user } = await parent();
   let { id } = params;
   let invoice;
@@ -35,5 +36,5 @@ export async function load({ depends, params, url, parent }) {
   }
 
   let src = Qr.drawImg(invoice?.text || "", { size: 500 });
-  return { id, invoice, subject, src, user };
+  return { id, invoice, subject, src, user, token };
 }
