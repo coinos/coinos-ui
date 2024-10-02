@@ -390,7 +390,8 @@
 		"showQr": "Mostrar código QR",
 		"copyPr": "Copiar solicitud de pago",
 		"amountPrompt": "Siempre solicite la cantidad",
-		"enterWalletPass": "Contraseña de la billetera"
+		"enterWalletPass": "Contraseña de la billetera",
+		"failedToRoute": "No se pudo enviar el pago; es posible que no se pueda contactar al destinatario. Intente enviar un monto menor o aumentar la reserva de tarifa máxima."
 	},
 	"items": {
 		"add": "Añadir artículo",
@@ -422,6 +423,8 @@
 		"savings": "Ahorros",
 		"password": "Contraseña",
 		"confirmPassword": "Confirmar Contraseña",
-		"finish": "Finalizar"
+		"finish": "Finalizar",
+		"showQR": "Mostrar código QR",
+		"revealNwc": "Revelar NWC"
 	}
 }

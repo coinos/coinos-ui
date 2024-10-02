@@ -62,7 +62,7 @@
   {#if amount}
     {#if form?.message}
       <div class="text-red-600 text-center">
-        {form.message}
+        {$t(form.message)}
       </div>
     {/if}
 

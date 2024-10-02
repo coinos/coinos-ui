@@ -417,7 +417,8 @@
 		"showQr": "QR anzeigen",
 		"copyPr": "Lohnanforderung kopieren",
 		"amountPrompt": "Immer nach dem Betrag fragen",
-		"enterWalletPass": "Wallet-Passwort"
+		"enterWalletPass": "Wallet-Passwort",
+		"failedToRoute": "Die Weiterleitung der Zahlung ist fehlgeschlagen. Der Empfänger ist möglicherweise nicht erreichbar. Versuchen Sie, einen kleineren Betrag zu senden oder die maximale Gebührenreserve zu erhöhen."
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
@@ -449,6 +450,8 @@
 		"savings": "Ersparnisse",
 		"password": "Passwort",
 		"confirmPassword": "Passwort bestätigen",
-		"finish": "Beenden"
+		"finish": "Beenden",
+		"showQR": "QR anzeigen",
+		"revealNwc": "NWC enthüllen"
 	}
 }

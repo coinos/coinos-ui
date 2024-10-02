@@ -15,8 +15,8 @@ export const actions = {
 
       p = await post("/payments", body, auth(cookies));
     } catch (e: any) {
-      if (e.message.includes("unusable"))
-        e.message = "Failed to route payment, try sending a lower amount";
+      if (e.message.includes("unusable") || e.message.includes("routes"))
+        e.message = "payments.failedToRoute";
       return fail(400, { message: e.message });
     }
 

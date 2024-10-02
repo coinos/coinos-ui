@@ -390,7 +390,8 @@
 		"showQr": "Afficher le QR",
 		"copyPr": "Copie de la demande de paiement",
 		"amountPrompt": "Toujours demander le montant",
-		"enterWalletPass": "Mot de passe du portefeuille"
+		"enterWalletPass": "Mot de passe du portefeuille",
+		"failedToRoute": "Impossible d'acheminer le paiement, le destinataire n'est peut-être pas joignable. Essayez d'envoyer un montant inférieur ou d'augmenter la réserve de frais maximale."
 	},
 	"items": {
 		"add": "Ajouter un item",
@@ -422,6 +423,8 @@
 		"savings": "Économies",
 		"password": "Mot de passe",
 		"confirmPassword": "Confirmez le mot de passe",
-		"finish": "Finition"
+		"finish": "Finition",
+		"showQR": "Afficher le QR",
+		"revealNwc": "Révéler le NWC"
 	}
 }

@@ -390,7 +390,8 @@
 		"showQr": "QRコードを表示",
 		"copyPr": "支払い請求のコピー",
 		"amountPrompt": "常に金額の入力を求める",
-		"enterWalletPass": "ウォレットパスワード"
+		"enterWalletPass": "ウォレットパスワード",
+		"failedToRoute": "支払いのルーティングに失敗しました。受取人に連絡が取れない可能性があります。送金金額を減らすか、最大手数料準備金を増やしてみてください。"
 	},
 	"items": {
 		"add": "アイテムの追加",
@@ -422,6 +423,8 @@
 		"savings": "貯蓄",
 		"password": "パスワード",
 		"confirmPassword": "パスワードを認証する",
-		"finish": "仕上げる"
+		"finish": "仕上げる",
+		"showQR": "QRコードを表示",
+		"revealNwc": "NWCを公開"
 	}
 }
