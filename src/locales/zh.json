@@ -390,7 +390,8 @@
 		"showQr": "显示二维码",
 		"copyPr": "复制付款请求",
 		"amountPrompt": "始终提示金额",
-		"enterWalletPass": "钱包密码"
+		"enterWalletPass": "钱包密码",
+		"failedToRoute": "付款路线失败，收款人可能无法联系到。请尝试发送较少的金额或增加最大费用储备。"
 	},
 	"items": {
 		"add": "新增项目",
@@ -422,6 +423,8 @@
 		"savings": "储蓄",
 		"password": "密码",
 		"confirmPassword": "确认密码",
-		"finish": "结束"
+		"finish": "结束",
+		"showQR": "显示二维码",
+		"revealNwc": "揭示 NWC"
 	}
 }

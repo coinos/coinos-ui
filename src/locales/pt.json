@@ -412,7 +412,8 @@
 		"showQr": "Mostrar QR",
 		"copyPr": "Copiar solicitação de pagamento",
 		"amountPrompt": "Sempre solicite o valor",
-		"enterWalletPass": "Senha da carteira"
+		"enterWalletPass": "Senha da carteira",
+		"failedToRoute": "Falha ao encaminhar o pagamento, o destinatário pode não estar acessível. Tente enviar uma quantia menor ou aumentar a reserva de taxa máxima."
 	},
 	"items": {
 		"add": "Adicionar Item",
@@ -444,6 +445,8 @@
 		"savings": "Poupança",
 		"password": "Senha",
 		"confirmPassword": "Confirme sua senha",
-		"finish": "Terminar"
+		"finish": "Terminar",
+		"showQR": "Mostrar QR",
+		"revealNwc": "Revelar NWC"
 	}
 }
