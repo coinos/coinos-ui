@@ -210,7 +210,7 @@
         >
         <button
           type="button"
-          on:click={() => {
+          on:click|preventDefault|stopPropagation={() => {
             if (fiat) {
               amount = parseInt((amountFiat / (rate / sats)).toFixed(0));
             } else {
@@ -231,7 +231,7 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-            on:click={() => handleInput(value)}
+            on:click|preventDefault|stopPropagation={() => handleInput(value)}
           >
             <Left />
           </button>
@@ -239,7 +239,7 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
-            on:click={() => handleInput(value)}>{value}</button
+            on:click|preventDefault|stopPropagation={() => handleInput(value)}>{value}</button
           >
         {/if}
       {/each}
