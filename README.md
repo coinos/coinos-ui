@@ -6,7 +6,7 @@ Coinos is a web-based bitcoin and nostr client. You can use it as a front end to
 
 To get started, clone or download the repo, then:
 
-1. Create a `.env` file and copy the contents of `.env.production` into it.
+1. Create a `.env` file and copy the contents of `.env.sample` into it.
 2. Install the dependencies and run the app:
 
     ```sh
