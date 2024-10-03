@@ -7,4 +7,3 @@ node_modules
 android
 ios
 .history/
-pnpm-lock.yaml
