@@ -6,8 +6,16 @@ Coinos is a web-based bitcoin and nostr client. You can use it as a front end to
 
 To get started, clone or download the repo, then:
 
-    pnpm install
-    pnpm run dev
+1. Create a `.env` file and copy the contents of `.env.sample` into it.
+2. Install the dependencies and run the app:
+
+    ```sh
+    bun install
+    bun run dev
+    ```
 
 You'll need to run [`coinos-server`](https://github.com/coinos/coinos-server) as well
 
+# Docs
+
+Checkout the API documentation at: http://localhost:5173/docs
