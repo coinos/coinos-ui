@@ -85,8 +85,13 @@
           </div>
         </div>
       </button>
-    {:else if user?.username !== subject.username && !subject.anon}
-      <a href={`/pay/${subject.username}`} class="contents">
+    {:else if user?.username !== subject.username && (!subject.anon || subject.lud16)}
+      <a
+        href={subject.anon
+          ? `/send/${encodeURIComponent(subject.lud16)}`
+          : `/pay/${subject.username}`}
+        class="contents"
+      >
         <button
           class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
         >

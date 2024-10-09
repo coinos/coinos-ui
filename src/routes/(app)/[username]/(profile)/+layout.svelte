@@ -203,7 +203,7 @@
           >
             <div class="mx-auto flex">
               <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" />
-              <div class="my-auto">{$t("user.following")}</div>
+              <div class="my-auto">{$t("user.unfollow")}</div>
             </div>
           </button>
         {:else}
@@ -219,18 +219,18 @@
         {/if}
       {/if}
 
-      {#if user && user.username !== subject.username && subject.pubkey}
-        <a href={`/messages/${subject.username}`} class="contents">
-          <button
-            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
-          >
-            <div class="mx-auto flex">
-              <Icon icon="message" style="w-8 mr-2 my-auto" />
-              <div class="mt-1 my-auto">{$t("user.message")}</div>
-            </div>
-          </button>
-        </a>
-      {/if}
+      <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
+      <!--   <a href={`/messages/${subject.username}`} class="contents"> -->
+      <!--     <button -->
+      <!--       class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow" -->
+      <!--     > -->
+      <!--       <div class="mx-auto flex"> -->
+      <!--         <Icon icon="message" style="w-8 mr-2 my-auto" /> -->
+      <!--         <div class="mt-1 my-auto">{$t("user.message")}</div> -->
+      <!--       </div> -->
+      <!--     </button> -->
+      <!--   </a> -->
+      <!-- {/if} -->
 
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>
