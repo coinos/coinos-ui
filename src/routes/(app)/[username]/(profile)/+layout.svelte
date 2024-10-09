@@ -1,6 +1,8 @@
 <script>
+  import { invalidate } from "$app/navigation";
+  import { browser } from "$app/environment";
   import { hexToUint8Array } from "uint8array-extras";
-  import { copy, f, post, s, sats, success, fail } from "$lib/utils";
+  import { copy, f, get, post, s, sats, success, fail } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
@@ -28,8 +30,12 @@
   $: profile = `${$page.url.host}/${subject.anon ? npub : stripped}`;
 
   let follow = async () => {
-    user.follows.push(["p", subject.pubkey, "wss://nostr.coinos.io", stripped]);
-    update();
+    user.follows.push(subject.pubkey);
+    user.follows = user.follows;
+    let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
+    tags.push(["p", subject.pubkey]);
+    await update(tags);
+    invalidate("app:user");
   };
 
   let unfollow = async () => {
@@ -37,22 +43,32 @@
       user.follows.findIndex((t) => t[1] === subject.pubkey),
       1
     );
-    update();
+    user.follows = user.follows;
+    let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
+    tags.splice(
+      tags.findIndex((t) => t[1] === subject.pubkey),
+      1
+    );
+    await update(tags);
   };
 
-  let update = async () => {
+  let update = async (tags) => {
+    if (!browser) return;
+
     let event = {
       pubkey: user.pubkey,
       created_at: Math.floor(Date.now() / 1000),
       kind: 3,
       content: "",
-      tags: user.follows,
+      tags,
     };
 
-    await sign({ event, user });
-    await send(event);
-
-    user.follows = user.follows;
+    try {
+      await sign({ event, user });
+      await send(event);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   $: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
@@ -179,45 +195,42 @@
     {/if}
 
     <div class="flex flex-wrap gap-2 w-full text-xl">
-      <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
-      <!--   {#if following} -->
-      <!--     <button -->
-      <!--       class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow" -->
-      <!--       on:click={unfollow} -->
-      <!--     > -->
-      <!--       <div class="mx-auto flex"> -->
-      <!--         <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" /> -->
-      <!--         <div class="my-auto">{$t("user.following")}</div> -->
-      <!--       </div> -->
-      <!--     </button> -->
-      <!--   {:else} -->
-      <!--     <button -->
-      <!--       class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow" -->
-      <!--       on:click={follow} -->
-      <!--     > -->
-      <!--       <div class="mx-auto flex"> -->
-      <!--         <Icon icon={"profile"} style="my-auto h-6 mr-2" /> -->
-      <!--         <div class="my-auto">{$t("user.follow")}</div> -->
-      <!--       </div> -->
-      <!--     </button> -->
-      <!--   {/if} -->
-      <!-- {/if} -->
+      {#if user && user.username !== subject.username && subject.pubkey}
+        {#if following}
+          <button
+            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow"
+            on:click={unfollow}
+          >
+            <div class="mx-auto flex">
+              <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" />
+              <div class="my-auto">{$t("user.following")}</div>
+            </div>
+          </button>
+        {:else}
+          <button
+            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow"
+            on:click={follow}
+          >
+            <div class="mx-auto flex">
+              <Icon icon={"profile"} style="my-auto h-6 mr-2" />
+              <div class="my-auto">{$t("user.follow")}</div>
+            </div>
+          </button>
+        {/if}
+      {/if}
 
-      <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
-      <!--   <a -->
-      <!--     href={`/messages/${subject.username}`} -->
-      <!--     class="contents" -->
-      <!--   > -->
-      <!--     <button -->
-      <!--       class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow" -->
-      <!--     > -->
-      <!--       <div class="mx-auto flex"> -->
-      <!--         <Icon icon="message" style="w-8 mr-2 my-auto" /> -->
-      <!--         <div class="mt-1 my-auto">{$t("user.message")}</div> -->
-      <!--       </div> -->
-      <!--     </button> -->
-      <!--   </a> -->
-      <!-- {/if} -->
+      {#if user && user.username !== subject.username && subject.pubkey}
+        <a href={`/messages/${subject.username}`} class="contents">
+          <button
+            class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60 grow"
+          >
+            <div class="mx-auto flex">
+              <Icon icon="message" style="w-8 mr-2 my-auto" />
+              <div class="mt-1 my-auto">{$t("user.message")}</div>
+            </div>
+          </button>
+        </a>
+      {/if}
 
       {#if user?.admin && user.username !== subject.username}
         <form class="w-full flex" on:submit|preventDefault={reset}>

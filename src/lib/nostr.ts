@@ -147,7 +147,7 @@ export let sign = async ({ event, user }: SignParams) => {
 };
 
 export let send = (event: EventTemplate) => {
-  return post("/events", { event });
+    return post("/events", { event });
 };
 
 let getPassword = async (): Promise<string> => {

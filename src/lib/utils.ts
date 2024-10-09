@@ -60,6 +60,7 @@ export let post = async (
     .then(async (r) => {
       if (r.ok) return r.text();
       let text = await r.text();
+      console.log("TEXT", text)
 
       let message;
       try {

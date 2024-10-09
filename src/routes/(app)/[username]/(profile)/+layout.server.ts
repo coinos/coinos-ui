@@ -1,6 +1,6 @@
 import { get } from "$lib/utils";
 
-export async function load({ depends, parent }) {
+  export async function load({ depends, parent }) {
   depends("app:user");
 
   let { subject, user } = await parent();
