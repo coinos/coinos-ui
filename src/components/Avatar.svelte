@@ -10,12 +10,13 @@
   $: s = size.toString();
   $: link = user?.anon ? `/${user.pubkey}` : `/${user.username}`;
 
-  $: src =
-    ($avatar?.id && $avatar.id === user.id && $avatar.src) ||
-    "/api/public/" +
-      (user.profile
-        ? user.profile + ".webp"
-        : "punks/" + punk(user.pubkey || user.id || "aa"));
+  let base = "/api/public";
+  $: profile = user?.profile ? `${base}/${user.profile}.webp` : user?.picture;
+  $: fallback = `${base}/punks/` + punk(user.pubkey || user.id || "aa");
+  $: tmp = $avatar?.id && $avatar.id === user.id && $avatar.src;
+  $: src = tmp || profile || fallback;
+
+  let handle = () => (src = fallback);
 </script>
 
 <a href={link} class:pointer-events-none={disabled}>
@@ -26,6 +27,7 @@
       {src}
       class="w-full h-full object-cover object-center overflow-hidden"
       alt={user.username}
+      on:error={handle}
     />
   </div>
 </a>

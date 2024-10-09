@@ -1,13 +1,24 @@
 <script>
+  import { onMount } from "svelte";
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";
   import { browser } from "$app/environment";
   import VirtualScroll from "svelte-virtual-scroll-list";
+  import { invalidate } from "$app/navigation";
 
   export let data;
+
   let {
     subject: { follows },
   } = data;
+
+  $: refresh(data);
+  let refresh = (data) => {
+    ({
+      subject: { follows },
+    } = data);
+  };
+
   let w;
 </script>
 
@@ -18,10 +29,10 @@
     {$t("user.following")}
   </h1>
 
-  {#if browser}
-    {#if follows.length}
+  {#if follows.length}
+    {#if browser}
       <VirtualScroll data={follows} key="pubkey" let:data pageMode={true}>
-        <a href={`/${data.pubkey}`}>
+        <a href={`/${data.pubkey}/follows`} data-sveltekit-preload-data="tap">
           <div
             class="flex py-4 text-sm lg:text-lg text-secondary"
             :key={data.pubkey}
@@ -37,15 +48,15 @@
 
             <div class="w-full flex pb-1 text-black my-auto">
               <div>
-                {data.display_name || ""}
-                <span class="text-secondary">@{data.username}</span>
+                <div>{data.display_name || ""}</div>
+                <div class="text-secondary text-base">@{data.name}</div>
               </div>
             </div>
           </div>
         </a>
       </VirtualScroll>
-    {:else}
-      <div>No follows</div>
     {/if}
+  {:else}
+    <div>No follows</div>
   {/if}
 </div>

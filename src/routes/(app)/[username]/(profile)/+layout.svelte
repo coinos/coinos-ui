@@ -10,18 +10,22 @@
   export let data;
 
   let { encode, toWords } = bech32m;
-  let events, user, subject, src, text;
 
-  $: ({ events, user, subject, src, rates, text } = data);
-  $: ({ currency, username: n, display } = subject);
+  let { events, user, subject, src, rates, text } = data;
+  let { currency, npub, username: n, display } = subject;
+
+  $: refresh(data);
+  let refresh = (data) => {
+    ({ events, user, subject, src, rates, text } = data);
+    ({ currency, npub, username: n, display } = subject);
+  };
 
   $: stripped = n.replace(/\s/g, "");
   $: username = n.length > 60 ? n.substr(0, 6) : display || stripped;
-  $: npub =
-    subject.pubkey &&
-    bech32m.encode("npub", toWords(hexToUint8Array(subject.pubkey)), 180);
-  $: lnaddr = `${stripped}@${$page.url.host}`;
-  $: profile = `${$page.url.host}/${stripped}`;
+  $: lnaddr = subject?.anon
+    ? subject.lud16 || undefined
+    : `${stripped}@${$page.url.host}`;
+  $: profile = `${$page.url.host}/${subject.anon ? npub : stripped}`;
 
   let follow = async () => {
     user.follows.push(["p", subject.pubkey, "wss://nostr.coinos.io", stripped]);
@@ -96,37 +100,44 @@
       </div>
     {/if}
 
-    <!-- <div> -->
-    <!--   <div class="flex justify-center gap-2"> -->
-    <!--     <a href={`/${subject.pubkey}/follows`} -->
-    <!--       ><b>{subject.follows.length}</b> -->
-    <!--       <span class="text-secondary">{$t("user.following")}</span></a -->
-    <!--     > -->
-    <!--     <a href={`/${subject.pubkey}/followers`} -->
-    <!--       ><b>{subject.followers.length}</b> -->
-    <!--       <span class="text-secondary">{$t("user.followers")}</span></a -->
-    <!--     > -->
-    <!--   </div> -->
-    <!-- </div> -->
+    <div>
+      <div class="flex justify-center gap-2">
+        <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
+          ><b>{subject.follows.length}</b>
+          <span class="text-secondary">{$t("user.following")}</span></a
+        >
+        <a
+          href={`/${subject.pubkey}/followers`}
+          data-sveltekit-preload-data="tap"
+          ><b>{subject.followers.length}</b>
+          <span class="text-secondary">{$t("user.followers")}</span></a
+        >
+      </div>
+    </div>
 
     {#if showDetails}
       <div class="space-y-5 pb-20">
-        <div>
-          <div class="text-secondary">{$t("user.lightningAddress")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-xl">
-              {lnaddr}
-            </div>
-            <div class="flex mb-auto gap-1">
-              <button class="my-auto" on:click={() => copy(lnaddr)}
-                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
-              >
-              <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
-              </a>
+        {#if lnaddr}
+          <div>
+            <div class="text-secondary">{$t("user.lightningAddress")}</div>
+            <div class="flex gap-4">
+              <div class="break-all grow text-xl">
+                {lnaddr}
+              </div>
+              <div class="flex mb-auto gap-1">
+                <button class="my-auto" on:click={() => copy(lnaddr)}
+                  ><Icon
+                    icon="copy"
+                    style="max-w-max w-8 min-w-[32px]"
+                  /></button
+                >
+                <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
+                  <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        {/if}
         <div>
           <div class="text-secondary">{$t("user.url")}</div>
           <div class="flex gap-4">
