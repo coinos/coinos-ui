@@ -1,6 +1,12 @@
 import { auth, post } from "$lib/utils";
-import { json } from "@sveltejs/kit";
+import { json, error } from "@sveltejs/kit";
 
 export async function POST({ cookies, request }) {
-  return json(post("/event", await request.json(), auth(cookies)));
+  let body = await request.json();
+  try {
+    let result = await post("/event", body, auth(cookies));
+    return json(result);
+  } catch (e: any) {
+    error(500, e.message);
+  }
 }
