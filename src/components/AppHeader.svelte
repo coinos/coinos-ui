@@ -36,7 +36,8 @@
     $banner?.id && $banner.id === subject.id
       ? `url(${$banner.src})`
       : subject?.banner
-      ? `url(/api/public/${subject.banner}.webp)`
+      ? subject.banner.includes(":") ? `url(${subject.banner})`
+      : `url(/api/public/${subject.banner}.webp)`
       : undefined;
 
   $: $page && (showMenu = false);
@@ -58,7 +59,11 @@
             ><Icon icon="home" style="mx-auto w-6 sm:w-8" />
           </button>
         </a>
-        <a href={`/invoice`} data-sveltekit-preload-data="tap" data-sveltekit-preload-code="eager">
+        <a
+          href={`/invoice`}
+          data-sveltekit-preload-data="tap"
+          data-sveltekit-preload-code="eager"
+        >
           <button
             class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page.url.pathname.includes(
               'invoice'

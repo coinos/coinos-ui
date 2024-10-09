@@ -9,13 +9,13 @@ export let load = async ({
 }) => {
   depends("app:user");
 
-  try {
+  try  {
     let subject = await get(`/users/${username}`);
     let { user } = await parent();
 
     let expires = new Date();
     expires.setSeconds(expires.getSeconds() + 380 * 24 * 60 * 60);
-      cookies.set("username", username, { path: "/", expires });
+    cookies.set("username", username, { path: "/", expires });
 
     return { subject, user };
   } catch (e) {
