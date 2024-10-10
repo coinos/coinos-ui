@@ -13,7 +13,18 @@
 
   let { encode, toWords } = bech32m;
 
-  let { events, user, subject, src, rates, text } = data;
+  let {
+    events,
+    user,
+    subject,
+    src,
+    rates,
+    text,
+    count,
+    follows,
+    followers,
+    followList,
+  } = data;
   let { currency, npub, username: n, display } = subject;
 
   $: refresh(data);
@@ -30,8 +41,7 @@
   $: profile = `${$page.url.host}/${subject.anon ? npub : stripped}`;
 
   let follow = async () => {
-    user.follows.push(subject.pubkey);
-    user.follows = user.follows;
+    followList = [...followList, subject.pubkey];
     let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
     tags.push(["p", subject.pubkey]);
     await update(tags);
@@ -39,11 +49,11 @@
   };
 
   let unfollow = async () => {
-    user.follows.splice(
-      user.follows.findIndex((t) => t[1] === subject.pubkey),
+    followList.splice(
+      followList.findIndex((t) => t[1] === subject.pubkey),
       1
     );
-    user.follows = user.follows;
+    followList = followList;
     let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
     tags.splice(
       tags.findIndex((t) => t[1] === subject.pubkey),
@@ -71,7 +81,10 @@
     }
   };
 
-  $: following = !!user?.follows.find((t) => t.includes(subject.pubkey));
+  let following;
+  followList.then(
+    (l) => (following = l.some((t) => t.includes(subject.pubkey)))
+  );
 
   let showBio;
   let toggleBio = () => (showBio = !showBio);
@@ -127,13 +140,13 @@
     <div>
       <div class="flex justify-center gap-2">
         <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
-          ><b>{si(subject.follows.length)}</b>
+                                               ><b>{#await follows then f}{si(f.length)}{/await}</b>
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
           data-sveltekit-preload-data="tap"
-          ><b>{si(subject.count)}</b>
+          ><b>{#await count then c}{si(c)}{/await}</b>
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
       </div>

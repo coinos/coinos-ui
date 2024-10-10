@@ -5,25 +5,10 @@ export async function load({ depends, parent }) {
 
   let { subject, user } = await parent();
 
-  subject.follows = [];
-  subject.followers = [];
+  let count = get(`/${subject.pubkey}/count`).catch(() => 0);
+  let follows = get(`/${subject.pubkey}/follows`).catch(() => []);
+  let followers = get(`/${subject.pubkey}/followers`).catch(() => []);
+  let followList = get(`/${user.pubkey}/follows?tagsonly=true`).catch(() => []);
 
-  try {
-    subject.follows = await get(`/${subject.pubkey}/follows`);
-  } catch (e) {
-    console.log("problem fetching follows", e);
-  }
-
-  try {
-    subject.followers = await get(`/${subject.pubkey}/followers`);
-  } catch (e) {
-    console.log("problem fetching followers", e);
-  }
-
-  // subject.followers = [];
-  if (user) {
-    user.follows = await get(`/${user.pubkey}/follows?tagsonly=true`);
-  }
-
-  return { subject, user };
+  return { count, follows, followers, followList };
 }

@@ -8,21 +8,11 @@
 
   export let data;
 
-  let {
-    subject: { follows },
-  } = data;
-
+  let { follows } = data;
   $: refresh(data);
-  let refresh = (data) => {
-    ({
-      subject: { follows },
-    } = data);
-  };
+  let refresh = (data) => ({ follows } = data);
 
-  let w;
 </script>
-
-<svelte:window bind:innerWidth={w} />
 
 <div class="px-3 md:px-0 w-full md:w-[400px] mx-auto">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
@@ -33,10 +23,7 @@
     {#if browser}
       <VirtualScroll data={follows} key="pubkey" let:data pageMode={true}>
         <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap">
-          <div
-            class="flex py-4 text-lg text-secondary"
-            :key={data.pubkey}
-          >
+          <div class="flex py-4 text-lg text-secondary" :key={data.pubkey}>
             <div class="mb-auto mr-2">
               <div class="md:hidden">
                 <Avatar size={12} user={data} disabled={true} />
