@@ -13,13 +13,13 @@
 
   let { encode, toWords } = bech32m;
 
-  let { events, user, subject, src, rates, text, count, follows, followList } =
+  let { events, user, subject, src, rates, text, follows, followers, followList } =
     data;
   let { currency, npub, username: n, display } = subject;
 
   $: refresh(data);
   let refresh = (data) => {
-    ({ events, user, subject, src, rates, text, follows, count, followList } =
+    ({ events, user, subject, src, rates, text, follows, followers, followList } =
       data);
     ({ currency, npub, username: n, display } = subject);
   };
@@ -131,8 +131,7 @@
       <div class="flex justify-center gap-2">
         <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
           ><b
-            >{#await follows}<span class="text-secondary">&mdash;</span
-              >{:then f}{si(f.length)}{/await}</b
+            >{si(follows)}</b
           >
           <span class="text-secondary">{$t("user.following")}</span></a
         >
@@ -140,8 +139,7 @@
           href={`/${subject.pubkey}/followers`}
           data-sveltekit-preload-data="tap"
           ><b
-            >{#await count}<span class="text-secondary">&mdash;</span
-              >{:then c}{si(c)}{/await}</b
+            >{si(followers)}</b
           >
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
