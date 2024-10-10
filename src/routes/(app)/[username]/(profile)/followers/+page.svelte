@@ -5,21 +5,17 @@
   import VirtualScroll from "svelte-virtual-scroll-list";
 
   export let data;
-  let {
-    subject: { followers },
-  } = data;
-
-  let w;
+  let { followers } = data;
 </script>
 
-<svelte:window bind:innerWidth={w} />
-
-<div class="px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
+<div class="px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-5">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("user.followers")}
   </h1>
 
-  {#if browser}
+  {#await followers}
+      <div>Loading followers...</div>
+  {:then followers}
     {#if followers.length}
       <VirtualScroll data={followers} key="pubkey" let:data pageMode={true}>
         <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap">
@@ -48,5 +44,5 @@
     {:else}
       <div>No followers</div>
     {/if}
-  {/if}
+  {/await}
 </div>

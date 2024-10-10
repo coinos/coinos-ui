@@ -13,23 +13,14 @@
 
   let { encode, toWords } = bech32m;
 
-  let {
-    events,
-    user,
-    subject,
-    src,
-    rates,
-    text,
-    count,
-    follows,
-    followers,
-    followList,
-  } = data;
+  let { events, user, subject, src, rates, text, count, follows, followList } =
+    data;
   let { currency, npub, username: n, display } = subject;
 
   $: refresh(data);
   let refresh = (data) => {
-    ({ events, user, subject, src, rates, text } = data);
+    ({ events, user, subject, src, rates, text, follows, count, followList } =
+      data);
     ({ currency, npub, username: n, display } = subject);
   };
 
@@ -140,13 +131,19 @@
     <div>
       <div class="flex justify-center gap-2">
         <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
-                                               ><b>{#await follows then f}{si(f.length)}{/await}</b>
+          ><b
+            >{#await follows}<span class="text-secondary">&mdash;</span
+              >{:then f}{si(f.length)}{/await}</b
+          >
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
           data-sveltekit-preload-data="tap"
-          ><b>{#await count then c}{si(c)}{/await}</b>
+          ><b
+            >{#await count}<span class="text-secondary">&mdash;</span
+              >{:then c}{si(c)}{/await}</b
+          >
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
       </div>
@@ -219,7 +216,7 @@
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
           <button
-            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white grow"
+            class="mx-auto rounded-2xl border py-4 px-5 font-bold hover:opacity-80 flex bg-black text-white grow"
             on:click={unfollow}
           >
             <div class="mx-auto flex">
@@ -269,8 +266,8 @@
     </div>
   </div>
 
-  <div class="w-full">
-    <div class="mx-auto space-y-5 lg:max-w-xl lg:pl-10 xl:max-w-2xl lg:pl-10">
+  <div class="w-full mt-5">
+    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10">
       <slot />
     </div>
   </div>
