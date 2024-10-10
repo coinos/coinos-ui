@@ -24,7 +24,7 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<div class="px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-8">
+<div class="px-3 md:px-0 w-full md:w-[400px] mx-auto">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     {$t("user.following")}
   </h1>
@@ -32,9 +32,9 @@
   {#if follows.length}
     {#if browser}
       <VirtualScroll data={follows} key="pubkey" let:data pageMode={true}>
-        <a href={`/${data.pubkey}/follows`} data-sveltekit-preload-data="tap">
+        <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap">
           <div
-            class="flex py-4 text-sm lg:text-lg text-secondary"
+            class="flex py-4 text-lg text-secondary"
             :key={data.pubkey}
           >
             <div class="mb-auto mr-2">

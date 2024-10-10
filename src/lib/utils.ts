@@ -60,7 +60,6 @@ export let post = async (
     .then(async (r) => {
       if (r.ok) return r.text();
       let text = await r.text();
-      console.log("TEXT", text)
 
       let message;
       try {
@@ -217,20 +216,16 @@ export let f = (s: number, currency: string): string => {
 export let s = (s: number): string =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
 
-export let sat = (s: number): string => {
-  s = Math.abs(s);
-  let p = Math.floor(Math.log(s) / Math.LN10 + 0.000000001);
-  let d = Math.floor((p + 1) / 3);
+export let sat = (s: number): string => "⚡️" + si(Math.abs(s)).toString();
 
-  return (
-    "⚡️" +
-    (parseInt(s.toString()) > 0
-      ? new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
-          s / Math.pow(1000, d)
-        ) + ["", "K", "M", "G", "T", "P", "E", "Z"][d]
-      : 0
-    ).toString()
-  );
+export let si = (s: number) => {
+  if (s < 1000) return s.toString(); // Return the original number if it's less than 1000
+
+  const units = ["", "K", "M", "G", "T", "P", "E", "Z"];
+  const d = Math.floor(Math.log10(s) / 3); // Calculate the unit index
+  const scaled = s / Math.pow(1000, d); // Scale the number to the correct unit
+
+  return new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(scaled) + units[d];
 };
 
 export let sats = 100000000;
@@ -363,4 +358,3 @@ export let versions = {
     public: 0x043587cf,
   },
 }[PUBLIC_COINOS_NETWORK];
-

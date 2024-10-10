@@ -2,7 +2,7 @@
   import { invalidate } from "$app/navigation";
   import { browser } from "$app/environment";
   import { hexToUint8Array } from "uint8array-extras";
-  import { copy, f, get, post, s, sats, success, fail } from "$lib/utils";
+  import { copy, f, get, post, s, sats, success, fail, si } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
@@ -105,27 +105,35 @@
       <Icon icon="qr" style="w-8 invert my-auto" />
     </button>
 
-    {#if subject.address}
+    {#if subject.address || subject.about}
       <div
-        class="text-secondary mx-auto text-center lg:mx-0"
+        class="text-secondary mx-auto text-center lg:mx-0 break-words space-y-1"
         class:line-clamp-2={!showBio}
         on:click={toggleBio}
         on:keydown={toggleBio}
       >
-        {subject.address}
+        <div>
+          {subject.address || subject.about}
+        </div>
+
+        {#if subject.website}
+          <div>
+            <a href={subject.website} class="underline">{subject.website}</a>
+          </div>
+        {/if}
       </div>
     {/if}
 
     <div>
       <div class="flex justify-center gap-2">
         <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
-          ><b>{subject.follows.length}</b>
+          ><b>{si(subject.follows.length)}</b>
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
           data-sveltekit-preload-data="tap"
-          ><b>{subject.followers.length}</b>
+          ><b>{si(subject.count)}</b>
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
       </div>
