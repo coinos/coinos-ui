@@ -26,7 +26,7 @@
   if (user) user.savings = 0;
 </script>
 
-<div class="space-y-2 mt-5">
+<div class="space-y-2">
   {#if user?.id === subject.id}
     <div class="space-y-5" data-sveltekit-preload-data="false">
       {#each accounts as account}
@@ -96,8 +96,8 @@
           class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
         >
           <div class="mx-auto flex gap-2">
-            <Icon icon="send" style="w-8 invert" />
-            <div class="my-auto text-2xl">{$t("user.dashboard.payNow")}</div>
+            <div class="text-xl my-auto">⚡️</div>
+            <div class="my-auto text-2xl">{$t("user.pay")}</div>
           </div>
         </button>
       </a>

@@ -31,8 +31,10 @@
     : `${stripped}@${$page.url.host}`;
   $: profile = `${$page.url.host}/${subject.anon ? npub : stripped}`;
 
+  let list = [];
+  $: followList.then((l) => (list = l));
   let follow = async () => {
-    followList = [...followList, subject.pubkey];
+    list = [...list, subject.pubkey];
     let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
     tags.push(["p", subject.pubkey]);
     await update(tags);
@@ -40,11 +42,11 @@
   };
 
   let unfollow = async () => {
-    followList.splice(
-      followList.findIndex((t) => t[1] === subject.pubkey),
+    list.splice(
+      list.findIndex((t) => t[1] === subject.pubkey),
       1
     );
-    followList = followList;
+    list = list;
     let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
     tags.splice(
       tags.findIndex((t) => t[1] === subject.pubkey),
@@ -72,10 +74,7 @@
     }
   };
 
-  let following;
-  followList.then(
-    (l) => (following = l.some((t) => t.includes(subject.pubkey)))
-  );
+  $: following = list.some((t) => t.includes(subject.pubkey));
 
   let showBio;
   let toggleBio = () => (showBio = !showBio);
@@ -212,11 +211,11 @@
       </div>
     {/if}
 
-    <div class="flex flex-wrap gap-2 w-full text-xl">
+    <div class="flex flex-wrap gap-2 w-full text-lg">
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
           <button
-            class="mx-auto rounded-2xl border py-4 px-5 font-bold hover:opacity-80 flex bg-black text-white grow"
+            class="mx-auto rounded-2xl border py-2 px-3 font-bold hover:opacity-80 flex bg-black text-white grow"
             on:click={unfollow}
           >
             <div class="mx-auto flex">
@@ -226,7 +225,7 @@
           </button>
         {:else}
           <button
-            class="mx-auto rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex grow"
+            class="mx-auto rounded-2xl border py-2 px-3 font-bold hover:opacity-80 flex grow"
             on:click={follow}
           >
             <div class="mx-auto flex">
@@ -266,8 +265,8 @@
     </div>
   </div>
 
-  <div class="w-full mt-5">
-    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10">
+  <div class="w-full">
+    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
       <slot />
     </div>
   </div>
