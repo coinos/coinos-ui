@@ -22,9 +22,9 @@
   {#if browser}
     {#if followers.length}
       <VirtualScroll data={followers} key="pubkey" let:data pageMode={true}>
-        <a href={`/${data.pubkey}`}>
+        <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap">
           <div
-            class="flex border-b last:border-b-0 py-4 text-sm lg:text-lg text-secondary"
+            class="flex border-b last:border-b-0 py-4 text-2xl text-secondary"
             :key={data.pubkey}
           >
             <div class="mb-auto mr-2">
@@ -38,8 +38,8 @@
 
             <div class="w-full flex pb-1 text-black my-auto">
               <div>
-                {data.display_name || ""}
-                <span class="text-secondary">@{data.username}</span>
+                <div>{data.display_name || ""}</div>
+                <div class="text-secondary text-lg">@{data.name}</div>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { get } from "$lib/utils";
 
-  export async function load({ depends, parent }) {
+export async function load({ depends, parent }) {
   depends("app:user");
 
   let { subject, user } = await parent();
@@ -14,13 +14,13 @@ import { get } from "$lib/utils";
     console.log("problem fetching follows", e);
   }
 
-  // try {
-  //   subject.followers = await get(`/${subject.pubkey}/followers`);
-  // } catch (e) {
-  //   console.log("problem fetching followers", e);
-  // }
+  try {
+    subject.followers = await get(`/${subject.pubkey}/followers`);
+  } catch (e) {
+    console.log("problem fetching followers", e);
+  }
 
-  subject.followers = [];
+  // subject.followers = [];
   if (user) {
     user.follows = await get(`/${user.pubkey}/follows?tagsonly=true`);
   }
