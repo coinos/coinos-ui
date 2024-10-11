@@ -235,7 +235,7 @@
     <div
       class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-white space-y-5 top-5"
     >
-      <form on:submit|preventDefault={setAmount}>
+      <form on:submit|preventDefault={setAmount} class="space-y-5">
         <Numpad
           bind:amount={newAmount}
           bind:currency
