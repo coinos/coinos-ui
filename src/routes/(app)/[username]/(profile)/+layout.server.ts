@@ -6,7 +6,9 @@ export async function load({ depends, parent }) {
   let { subject, user } = await parent();
 
   let { follows, followers } = await get(`/${subject.pubkey}/count`);
-  let followList = get(`/${user.pubkey}/follows?tagsonly=true`).catch(() => []);
+  let followList = new Promise((r) => r([]));
+  if (user)
+    followList = get(`/${user.pubkey}/follows?tagsonly=true`).catch(() => []);
 
   return { follows, followers, followList };
 }
