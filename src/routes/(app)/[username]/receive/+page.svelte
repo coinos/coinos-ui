@@ -1,25 +1,11 @@
 <script>
   import { send } from "$lib/socket";
-  import {
-    btc,
-    post,
-    back,
-    copy,
-    f,
-    get,
-    types,
-    sat,
-    reverseFormat,
-    s,
-    sats,
-  } from "$lib/utils";
+  import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
-  import Heart from "$comp/Heart.svelte";
-  import Image from "$comp/Image.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
@@ -29,66 +15,32 @@
 
   let showOptions;
 
-  let reading = async ({ message, serialNumber }) => {
-    let name = serialNumber.replace(/:/g, "-");
-    let result = await post(`/fund/${name}/withdraw`, { amount, hash, name });
+  let { id, rates, subject, user, src, text } = data;
+  $: refresh(data);
+  let refresh = (data) => {
+    ({ id, rates, subject, user, src, text } = data);
   };
 
-  let readingerror = (e) => console.log("nfc error", e);
-
-  $: refresh(data);
-  let { invoice, id, subject, user, src } = data;
-  let {
-    aid,
-    amount,
-    hash,
-    type,
-    rate,
-    text,
-    tip,
-    user: { username, currency },
-  } = invoice;
+  let { currency, username } = subject;
+  let rate = rates[currency];
+  let type = types.lightning;
+  let hash = "";
 
   let qr;
-  let tipPercent = 0;
-
-  let refresh = async (data) => {
-    ({ invoice, id, user, src } = data);
-    ({
-      aid,
-      amount,
-      hash,
-      type,
-      rate,
-      text,
-      tip,
-      user: { username, currency },
-    } = invoice);
-
-    tipPercent = (tip / amount) * 100;
-  };
-
-  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
-  $: tipAmount = ((tip * rate) / sats).toFixed(2);
-
-  let subbed;
-
-  onMount(async () => {
-    if (browser) {
-      last.subscribe((v) => {
-        if (!v || subbed) return;
-        subbed = true;
-        send("subscribe", invoice);
-      });
-
-      if ($amountPrompt && tip === undefined) toggleAmount();
-    }
-  });
 
   $: link = [types.bitcoin, types.liquid].includes(type)
     ? text
     : `lightning:${text}`;
   $: txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
+
+  let aid = subject.id;
+  let invoice = {
+    aid,
+    type: types.lightning,
+    items: [],
+    user: subject,
+  };
+  let amount, amountFiat, tip;
 
   let setType = async (type) => {
     invoice.type = type;
@@ -97,7 +49,10 @@
       user: { username, currency },
     }));
 
-    goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
+    goto(`/invoice/${id}?options=true`, {
+      invalidateAll: true,
+      noScroll: true,
+    });
   };
 
   let setAmount = async () => {
@@ -111,7 +66,7 @@
       user: { username, currency },
     }));
 
-    let url = `./${id}`;
+    let url = `/invoice/${id}`;
     if (subject?.prompt) url += "/tip";
     else url += "?options=true";
 
@@ -128,11 +83,7 @@
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   {#if $showQr}
     <div>
-      <a
-        href={[types.bitcoin, types.liquid].includes(invoice.type)
-          ? invoice.text
-          : "lightning:" + invoice.text}
-      >
+      <a href={link}>
         <img
           {src}
           class="mx-auto z-10 max-w-[360px]"
@@ -141,11 +92,11 @@
         />
       </a>
     </div>
-  {:else}
-    <div class="break-all pb-5 text-center text-secondary text-xl">
-      {txt}
-    </div>
   {/if}
+
+  <div class="break-all text-center text-secondary text-xl">
+    {txt}
+  </div>
 
   {#each invoice.items as i}
     <div class="grid grid-cols-12 text-xl">
@@ -217,22 +168,6 @@
         </button>
       </a>
     {/if}
-
-    <div class="w-full flex justify-center gap-2 flex-wrap">
-      <button
-        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
-        on:click={() => ($showQr = !$showQr)}
-      >
-        {#if $showQr}
-          <Icon icon="text" style="w-6 mr-2 my-auto" />
-        {:else}
-          <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
-        {/if}
-        <div class="my-auto">
-          {$showQr ? $t("payments.showText") : $t("payments.showQr")}
-        </div></button
-      >
-    </div>
   </div>
 
   {#if aid === user.id}
@@ -298,7 +233,7 @@
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
   >
     <div
-      class="relative mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5 top-10"
+      class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-white space-y-5 top-5"
     >
       <form on:submit|preventDefault={setAmount}>
         <Numpad
@@ -315,7 +250,7 @@
             on:click={setAmount}
             class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full"
           >
-            <div class="my-auto">Ok</div>
+            <div class="my-auto">{$t("payments.ok")}</div>
           </button>
           <button
             type="button"
@@ -323,7 +258,7 @@
             on:click={toggleAmount}
             on:keydown={toggleAmount}
           >
-            <div class="my-auto">Cancel</div>
+            <div class="my-auto">{$t("payments.cancel")}</div>
           </button>
         </div>
       </form>
@@ -335,9 +270,3 @@
     </div>
   </div>
 {/if}
-
-<style>
-  .invoice {
-    view-transition-name: invoice;
-  }
-</style>

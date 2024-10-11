@@ -4,13 +4,11 @@
   import {
     btc,
     post,
-    back,
     copy,
     f,
     get,
     types,
     sat,
-    reverseFormat,
     s,
     sats,
   } from "$lib/utils";
@@ -19,8 +17,6 @@
   import { last, showQr, amountPrompt } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
-  import Heart from "$comp/Heart.svelte";
-  import Image from "$comp/Image.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
@@ -142,10 +138,10 @@
         />
       </a>
     </div>
-  {:else}
-    <div
-      class="break-all pb-5 text-center text-secondary text-xl min-h-[120px] flex"
-    >
+  {/if}
+
+  {#if type !== types.lightning || !$showQr}
+    <div class="break-all text-center text-xl text-secondary flex">
       <div class="m-auto">{txt}</div>
     </div>
   {/if}
@@ -221,21 +217,23 @@
       </a>
     {/if}
 
-    <div class="w-full flex justify-center gap-2 flex-wrap">
-      <button
-        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
-        on:click={() => ($showQr = !$showQr)}
-      >
-        {#if $showQr}
-          <Icon icon="text" style="w-6 mr-2 my-auto" />
-        {:else}
-          <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
-        {/if}
-        <div class="my-auto">
-          {$showQr ? $t("payments.showText") : $t("payments.showQr")}
-        </div></button
-      >
-    </div>
+    {#if type === types.lightning}
+      <div class="w-full flex justify-center gap-2 flex-wrap">
+        <button
+          class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+          on:click={() => ($showQr = !$showQr)}
+        >
+          {#if $showQr}
+            <Icon icon="text" style="w-6 mr-2 my-auto" />
+          {:else}
+            <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+          {/if}
+          <div class="my-auto">
+            {$showQr ? $t("payments.showText") : $t("payments.showQr")}
+          </div></button
+        >
+      </div>
+    {/if}
   </div>
 
   {#if aid === user?.id}
@@ -299,7 +297,7 @@
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
   >
     <div
-      class="relative mx-auto p-12 border w-96 shadow-lg rounded-md bg-white space-y-5 top-10"
+      class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-white space-y-5 top-5"
     >
       <form on:submit|preventDefault={setAmount} class="space-y-5">
         <Numpad
@@ -316,7 +314,7 @@
             on:click={setAmount}
             class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full"
           >
-            <div class="my-auto">Ok</div>
+            <div class="my-auto">{$t("payments.ok")}</div>
           </button>
           <button
             type="button"
@@ -324,7 +322,7 @@
             on:click={toggleAmount}
             on:keydown={toggleAmount}
           >
-            <div class="my-auto">Cancel</div>
+            <div class="my-auto">{$t("payments.cancel")}</div>
           </button>
         </div>
       </form>
@@ -336,9 +334,3 @@
     </div>
   </div>
 {/if}
-
-<style>
-  .invoice {
-    view-transition-name: invoice;
-  }
-</style>

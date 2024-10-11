@@ -239,7 +239,8 @@
           <button
             type="button"
             class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
-            on:click|preventDefault|stopPropagation={() => handleInput(value)}>{value}</button
+            on:click|preventDefault|stopPropagation={() => handleInput(value)}
+            >{value}</button
           >
         {/if}
       {/each}
