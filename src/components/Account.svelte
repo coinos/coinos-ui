@@ -13,7 +13,7 @@
   let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
 </script>
 
-<a href={`/payments`} class="block space-y-2 border-b-8 border-primary py-4 last:border-b-0 border-dashed" on:click={setAccount}>
+<a href={`/payments`} class="block space-y-2 border-b-8 border-black py-4 last:border-b-0" on:click={setAccount}>
   <div class="flex">
     <Balance {balance} {user} {rate} />
     <a href={`/payments`} class="contents" on:click={setAccount}>

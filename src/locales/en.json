@@ -229,7 +229,8 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Please enter an amount less than 1 bitcoin.",
-			"showQR": "Show QR"
+			"showQR": "Show QR",
+			"hideQR": "Hide QR"
 		},
 		"send": {
 			"makeQR": "QR",
@@ -326,6 +327,8 @@
 		}
 	},
 	"payments": {
+    "ok": "Ok",
+    "cancel": "Cancel",
     "failedToRoute": "Failed to route payment, recipient may not be reachable. Try sending a smaller amount or increasing the max fee reserve.",
     "enterWalletPass": "Wallet password",
 		"legacyVersion": "Legacy version",
