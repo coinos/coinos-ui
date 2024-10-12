@@ -1,17 +1,24 @@
 import { navigating } from "$app/stores";
 import { get } from "svelte/store";
 import { event, invoice, request, last } from "$lib/store";
-import { success, sat, sleep } from "$lib/utils";
+import { success, sat, sleep, wait } from "$lib/utils";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { invalidate } from "$app/navigation";
 
-let socket, token;
+let socket;
+let token;
 
 export const auth = () => token && send("login", token);
 
-export const send = (type, data) => {
-  socket?.readyState === 1 && socket.send(JSON.stringify({ type, data }));
-  return true;
+export const send = async (type, data) => {
+  try {
+    await wait(() => socket && socket.readyState === 1, 100, 10);
+  } catch (e: any) {
+    if (e.message === "timeout") reconnectToWebsocket();
+  }
+
+  await wait(() => socket.readyState === 1, 100, 10);
+  socket.send(JSON.stringify({ type, data }));
 };
 
 export const messages = (data) => ({
@@ -32,7 +39,6 @@ export const messages = (data) => ({
 
   async payment() {
     let { amount, confirmed } = data;
-
     invalidate("app:user");
     invalidate("app:invoice");
     invalidate("app:payments");

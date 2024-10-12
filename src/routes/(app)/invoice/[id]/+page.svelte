@@ -1,17 +1,7 @@
 <script>
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
-  import {
-    btc,
-    post,
-    copy,
-    f,
-    get,
-    types,
-    sat,
-    s,
-    sats,
-  } from "$lib/utils";
+  import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
@@ -62,13 +52,21 @@
       user: { username, currency },
     } = invoice);
 
+      if (browser && !subbed[id])
+      send("subscribe", invoice)
+        .then(() => (subbed[id] = true))
+        .catch((e) => {
+          console.log("failed to subscribe to invoice notifications", invoice);
+          console.log(e);
+        });
+
     tipPercent = (tip / amount) * 100;
   };
 
   $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
   $: tipAmount = ((tip * rate) / sats).toFixed(2);
 
-  let subbed;
+  let subbed = {};
 
   onMount(async () => {
     if (browser) {
