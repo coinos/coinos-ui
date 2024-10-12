@@ -93,11 +93,11 @@
         class="contents"
       >
         <button
-          class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
+          class="rounded-2xl py-5 px-6 min-w-[200px] font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
         >
           <div class="mx-auto flex gap-2">
-            <div class="text-xl my-auto">⚡️</div>
-            <div class="my-auto text-2xl">{$t("user.pay")}</div>
+            <div class="text-4xl my-auto">⚡️</div>
+            <div class="my-auto text-2xl">{$t("user.pay")} {subject.username}</div>
           </div>
         </button>
       </a>

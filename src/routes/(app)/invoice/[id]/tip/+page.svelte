@@ -56,7 +56,6 @@
   let submit;
 
   export let data;
-  console.log("DATA", data)
   $: refresh(data);
   let { invoice, id, user, rates } = data;
   let {
