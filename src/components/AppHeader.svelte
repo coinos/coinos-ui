@@ -60,7 +60,7 @@
           </button>
         </a>
         <a
-          href={`/invoice`}
+                                 href={`/${user.username}/receive`}
           data-sveltekit-preload-data="tap"
           data-sveltekit-preload-code="eager"
         >
