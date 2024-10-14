@@ -108,25 +108,29 @@
       <input name="amount" value={amount} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />
 
-      <div class="w-40 mx-auto">
-        <label for="maxfee" class="text-lg text-secondary"
-          >{$t("payments.maxfee")}</label
-        >
-
-        <div class="flex">
-          <input
-            id="maxfee"
-            name="maxfee"
-            bind:value={maxfee}
-            class="border-r-0 rounded-r-none py-2"
-          />
-          <div
-            class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
+      {#if form?.message}
+        <div class="w-40 mx-auto">
+          <label for="maxfee" class="text-lg text-secondary"
+            >{$t("payments.maxfee")}</label
           >
-            ⚡️
+
+          <div class="flex">
+            <input
+              id="maxfee"
+              name="maxfee"
+              bind:value={maxfee}
+              class="border-r-0 rounded-r-none py-2"
+            />
+            <div
+              class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
+            >
+              ⚡️
+            </div>
           </div>
         </div>
-      </div>
+      {:else}
+        <input name="maxfee" type="hidden" bind:value={maxfee} />
+      {/if}
 
       <div class="flex w-full">
         <button

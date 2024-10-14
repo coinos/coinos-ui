@@ -48,7 +48,7 @@
 
     {#if commentAllowed}
       <textarea
-        name="text"
+        name="comment"
         placeholder={$t("payments.message")}
         class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={comment}
