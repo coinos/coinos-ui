@@ -24,7 +24,9 @@ export const actions = {
   pay: async ({ fetch, request }) => {
     let error;
 
-    let { callback, amount, minSendable, maxSendable, comment } = await fd(request);
+    let { callback, amount, minSendable, maxSendable, comment } = await fd(
+      request
+    );
     minSendable = Math.round(minSendable / 1000);
     maxSendable = Math.round(maxSendable / 1000);
 
@@ -35,9 +37,9 @@ export const actions = {
     if (error) return fail(400, { error });
 
     let url = `${callback}?amount=${amount * 1000}`;
-
     if (comment) url += `&comment=${comment}`;
-      let { pr } = await fetch(url).then((r) => r.json());
+
+    let { pr } = await fetch(url).then((r) => r.json());
     redirect(307, `/send/lightning/${pr}`);
   },
 
