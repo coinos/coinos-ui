@@ -330,6 +330,7 @@
     "ok": "Ok",
     "cancel": "Cancel",
     "failedToRoute": "Failed to route payment, recipient may not be reachable. Try sending a smaller amount or increasing the max fee reserve.",
+    "message": "Message",
     "enterWalletPass": "Wallet password",
 		"legacyVersion": "Legacy version",
 		"newVersion": "New version",

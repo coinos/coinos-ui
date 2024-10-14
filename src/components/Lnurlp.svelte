@@ -5,9 +5,10 @@
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
 
-  export let data, form, send;
+  export let data, form, send, comment;
   let { currency } = data.user;
-  let { minSendable, maxSendable, callback, metadata, rates } = data;
+  let { minSendable, maxSendable, commentAllowed, callback, metadata, rates } =
+    data;
 
   $: rate = rates[currency];
 
@@ -16,7 +17,7 @@
   let submit = () => (loading = true);
 </script>
 
-<div class="container px-4 mt-20 max-w-xl mx-auto">
+<div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
   <div class="text-center mb-8">
     {#each JSON.parse(metadata) as m}
       <div>
@@ -44,6 +45,16 @@
     <input name="maxSendable" value={maxSendable} type="hidden" />
     <input name="callback" value={callback} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
+
+    {#if commentAllowed}
+      <textarea
+        name="text"
+        placeholder={$t("payments.message")}
+        class="w-full p-4 border rounded-xl h-32 text-xl"
+        bind:value={comment}
+        autocapitalize="none"
+      />
+    {/if}
 
     <div class="flex w-full">
       <button
