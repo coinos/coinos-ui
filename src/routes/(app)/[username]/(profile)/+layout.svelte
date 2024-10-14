@@ -13,14 +13,32 @@
 
   let { encode, toWords } = bech32m;
 
-  let { events, user, subject, src, rates, text, follows, followers, followList } =
-    data;
+  let {
+    events,
+    user,
+    subject,
+    src,
+    rates,
+    text,
+    follows,
+    followers,
+    followList,
+  } = data;
   let { currency, npub, username: n, display } = subject;
 
   $: refresh(data);
   let refresh = (data) => {
-    ({ events, user, subject, src, rates, text, follows, followers, followList } =
-      data);
+    ({
+      events,
+      user,
+      subject,
+      src,
+      rates,
+      text,
+      follows,
+      followers,
+      followList,
+    } = data);
     ({ currency, npub, username: n, display } = subject);
   };
 
@@ -35,7 +53,9 @@
   $: followList.then((l) => (list = l));
   let follow = async () => {
     list = [...list, subject.pubkey];
-    let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
+    let tags = await get(
+      `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`
+    );
     tags.push(["p", subject.pubkey]);
     await update(tags);
     invalidate("app:user");
@@ -47,7 +67,9 @@
       1
     );
     list = list;
-    let tags = await get(`/api/${user.pubkey}/follows?tagsonly=true`);
+    let tags = await get(
+      `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`
+    );
     tags.splice(
       tags.findIndex((t) => t[1] === subject.pubkey),
       1
@@ -130,17 +152,13 @@
     <div>
       <div class="flex justify-center gap-2">
         <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
-          ><b
-            >{si(follows)}</b
-          >
+          ><b>{si(follows)}</b>
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
           data-sveltekit-preload-data="tap"
-          ><b
-            >{si(followers)}</b
-          >
+          ><b>{si(followers)}</b>
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
       </div>
@@ -264,7 +282,9 @@
   </div>
 
   <div class="w-full">
-    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
+    <div
+      class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0"
+    >
       <slot />
     </div>
   </div>
