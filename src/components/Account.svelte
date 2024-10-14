@@ -3,7 +3,7 @@
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
 
-  export let user, rate, account;
+  export let user, rate, account, last;
   let { name, seed, balance, id } = account;
   $: type = seed ? "Savings" : "Cash";
 
@@ -13,7 +13,7 @@
   let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
 </script>
 
-<a href={`/payments`} class="block space-y-2 border-b-8 border-black py-4 last:border-b-0" on:click={setAccount}>
+<a href={`/payments`} class="block space-y-2 border-b-8 border-black py-4" class:border-b-0={last} on:click={setAccount}>
   <div class="flex">
     <Balance {balance} {user} {rate} />
     <a href={`/payments`} class="contents" on:click={setAccount}>
