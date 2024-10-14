@@ -29,8 +29,8 @@
 <div class="space-y-2">
   {#if user?.id === subject.id}
     <div class="space-y-5" data-sveltekit-preload-data="false">
-      {#each accounts as account}
-        <Account {user} {rate} {account} />
+      {#each accounts as account, i}
+        <Account {user} {rate} {account} last={i === accounts.length - 1} />
       {/each}
     </div>
 
@@ -97,7 +97,10 @@
         >
           <div class="mx-auto flex gap-2">
             <div class="text-4xl my-auto">⚡️</div>
-            <div class="my-auto text-2xl">{$t("user.pay")} {subject.username}</div>
+            <div class="my-auto text-2xl">
+              {$t("user.pay")}
+              {subject.username}
+            </div>
           </div>
         </button>
       </a>
