@@ -13,7 +13,12 @@
   let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
 </script>
 
-<a href={`/payments`} class="block space-y-2 border-b-8 border-black py-4" class:border-b-0={last} on:click={setAccount}>
+<a
+  href={`/payments`}
+  class="block space-y-2 border-black py-4"
+  class:border-b-8={!last}
+  on:click={setAccount}
+>
   <div class="flex">
     <Balance {balance} {user} {rate} />
     <a href={`/payments`} class="contents" on:click={setAccount}>
@@ -30,9 +35,7 @@
 
   <div class="flex justify-center w-full text-xl gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
-      <button
-        class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl"
-      >
+      <button class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl">
         <div class="mx-auto flex gap-2">
           <Icon icon="receive" style="w-8" />
           <div class="my-auto">{$t("user.dashboard.receive")}</div>
