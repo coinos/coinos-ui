@@ -151,13 +151,13 @@
 
     <div>
       <div class="flex justify-center gap-2">
-        <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap"
+        <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap" rel="nofollow"
           ><b>{si(follows)}</b>
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
-          data-sveltekit-preload-data="tap"
+          data-sveltekit-preload-data="tap" rel="nofollow"
           ><b>{si(followers)}</b>
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
