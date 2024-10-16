@@ -18,7 +18,7 @@
   {:then followers}
     {#if followers.length}
       <VirtualScroll data={followers} key="pubkey" let:data pageMode={true}>
-        <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap" rel="nofollow noindex">
+        <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap" rel="nofollow">
           <div
             class="flex border-b last:border-b-0 py-4 text-2xl text-secondary"
             :key={data.pubkey}
