@@ -23,7 +23,7 @@
     {#if follows.length}
       {#if browser}
         <VirtualScroll data={follows} key="pubkey" let:data pageMode={true}>
-          <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap">
+          <a href={`/${data.pubkey}`} data-sveltekit-preload-data="tap" rel="nofollow noindex">
             <div class="flex py-4 text-lg text-secondary" :key={data.pubkey}>
               <div class="mb-auto mr-2">
                 <div class="md:hidden">
