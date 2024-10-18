@@ -12,8 +12,7 @@
         <div>
           <div class="text-xl">Cash</div>
           <div class="text-secondary">
-            Your balance is held with a custodian. Payments are fast and
-            free.
+            Your balance is held with a custodian. Payments are fast and free.
           </div>
         </div>
       </div>

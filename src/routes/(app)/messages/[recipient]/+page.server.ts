@@ -13,7 +13,8 @@ export async function load({ params, parent }) {
 
     messages = messages
       .filter(
-        (m: Message) => m.recipient?.id === recipient.id || m.author?.id === recipient.id
+        (m: Message) =>
+          m.recipient?.id === recipient.id || m.author?.id === recipient.id,
       )
       .sort((a, b) => a.created_at - b.created_at);
   } catch (e) {

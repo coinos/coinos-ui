@@ -34,9 +34,9 @@
   {/if}
 
   <div class="text-center text-xl">
-    <span class="capitalize">{$t("payments.from")}</span> <span class="text-secondary">{mint}</span>
+    <span class="capitalize">{$t("payments.from")}</span>
+    <span class="text-secondary">{mint}</span>
   </div>
-
 
   {#if spent > 0}
     <div class="text-center font-bold text-2xl">

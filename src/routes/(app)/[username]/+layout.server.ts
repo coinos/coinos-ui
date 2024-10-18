@@ -9,7 +9,7 @@ export let load = async ({
 }) => {
   depends("app:user");
 
-  try  {
+  try {
     let subject = await get(`/users/${username}`);
     let { user } = await parent();
 

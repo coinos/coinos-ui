@@ -15,7 +15,10 @@
 
 <div>
   {#if user.haspin && !$pin}
-    <button on:click|preventDefault={() => (show = true)} class="flex gap-2 text-xl">
+    <button
+      on:click|preventDefault={() => (show = true)}
+      class="flex gap-2 text-xl"
+    >
       <Icon icon="eye-off" style="w-8 my-auto" />
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>

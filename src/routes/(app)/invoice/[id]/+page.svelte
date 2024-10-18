@@ -52,7 +52,7 @@
       user: { username, currency },
     } = invoice);
 
-      if (browser && !subbed[id])
+    if (browser && !subbed[id])
       send("subscribe", invoice)
         .then(() => (subbed[id] = true))
         .catch((e) => {

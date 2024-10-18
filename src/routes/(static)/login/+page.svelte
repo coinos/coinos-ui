@@ -76,7 +76,9 @@
   <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
 {/if}
 
-<div class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20">
+<div
+  class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20"
+>
   <h1 class="text-2xl font-bold text-center">{$t("login.signIn")}</h1>
 
   {#if form?.error}
@@ -157,15 +159,14 @@
       {/if}
     </button>
 
-
-  <p class="text-secondary text-center font-medium">
-    {$t("login.noAccount")}
-    <a
-      href={"/register"}
-      class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
-    >
-      {$t("login.register")}
-    </a>
-  </p>
+    <p class="text-secondary text-center font-medium">
+      {$t("login.noAccount")}
+      <a
+        href={"/register"}
+        class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
+      >
+        {$t("login.register")}
+      </a>
+    </p>
   </form>
 </div>

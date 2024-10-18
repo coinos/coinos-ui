@@ -6,7 +6,7 @@ export async function load({ cookies, parent }) {
   if (!user) redirect(307, "/login");
 
   let users = (await get("/users", auth(cookies))).sort(
-    (a, b) => b.balance - a.balance
+    (a, b) => b.balance - a.balance,
   );
   return { users };
 }

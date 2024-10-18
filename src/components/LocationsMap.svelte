@@ -51,13 +51,18 @@
 
   $: list = search
     ? markers.filter((m) =>
-        m.tags.name.toLowerCase().includes(search.toLowerCase())
+        m.tags.name.toLowerCase().includes(search.toLowerCase()),
       )
     : inview;
 
   let scroll = () => {
     const el = document.querySelector(".selected");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    if (el)
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest",
+      });
   };
 
   let selected;

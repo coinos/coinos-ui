@@ -320,7 +320,7 @@ var qrcode = function (typeNumber, errorCorrectLevel) {
       buffer.put(data.getMode(), 4);
       buffer.put(
         data.getLength(),
-        QRUtil.getLengthInBits(data.getMode(), typeNumber)
+        QRUtil.getLengthInBits(data.getMode(), typeNumber),
       );
       data.write(buffer);
     }
@@ -337,7 +337,7 @@ var qrcode = function (typeNumber, errorCorrectLevel) {
           buffer.getLengthInBits() +
           ">" +
           totalDataCount * 8 +
-          ")"
+          ")",
       );
     }
 
@@ -946,7 +946,7 @@ function qrPolynomial(num, shift) {
     for (var i = 0; i < _this.getLength(); i += 1) {
       for (var j = 0; j < e.getLength(); j += 1) {
         num[i + j] ^= QRMath.gexp(
-          QRMath.glog(_this.getAt(i)) + QRMath.glog(e.getAt(j))
+          QRMath.glog(_this.getAt(i)) + QRMath.glog(e.getAt(j)),
         );
       }
     }
@@ -1178,7 +1178,7 @@ var QRRSBlock = (function () {
         "bad rs block @ typeNumber:" +
           typeNumber +
           "/errorCorrectLevel:" +
-          errorCorrectLevel
+          errorCorrectLevel,
       );
     }
 

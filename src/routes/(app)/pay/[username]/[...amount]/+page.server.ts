@@ -5,7 +5,7 @@ export async function load({ cookies, params, parent }) {
   let { username } = params;
   let { rates, user } = await parent();
 
-  if ((user?.username === username)) error(500, "Cannot send to self");
+  if (user?.username === username) error(500, "Cannot send to self");
   let subject = await get(`/users/${username}`);
 
   let [amount, currency] = params.amount.split("/");
@@ -28,7 +28,7 @@ export async function load({ cookies, params, parent }) {
         },
         user: { username },
       },
-      auth(cookies)
+      auth(cookies),
     );
 
     redirect(307, `/invoice/${id}`);

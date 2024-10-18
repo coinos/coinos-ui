@@ -1,4 +1,4 @@
-import { fd} from "$lib/utils";
+import { fd } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 import parse from "$lib/parse";
 
@@ -11,7 +11,7 @@ export async function load({ params, parent, url }) {
 export const actions = {
   default: async ({ request, url }) => {
     let { text } = await fd(request);
-    await parse(text, url.host );
-      return fail(400, { error: "default" });
+    await parse(text, url.host);
+    return fail(400, { error: "default" });
   },
 };

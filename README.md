@@ -9,10 +9,10 @@ To get started, clone or download the repo, then:
 1. Create a `.env` file and copy the contents of `.env.sample` into it.
 2. Install the dependencies and run the app:
 
-    ```sh
-    bun install
-    bun run dev
-    ```
+   ```sh
+   bun install
+   bun run dev
+   ```
 
 You'll need to run [`coinos-server`](https://github.com/coinos/coinos-server) as well
 

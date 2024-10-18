@@ -8,7 +8,7 @@ export async function load({ params: { address, amount, feeRate }, cookies }) {
     let { fee, fees, inputs, ourfee, hex } = await post(
       "/bitcoin/fee",
       { address, amount, feeRate, aid },
-      auth(cookies)
+      auth(cookies),
     );
 
     let account = await get(`/account/${aid}`, auth(cookies));

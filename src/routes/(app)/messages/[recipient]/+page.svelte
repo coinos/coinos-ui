@@ -17,7 +17,7 @@
 
   function fadeScale(
     node,
-    { delay = 0, duration = 200, easing = (x) => x, baseScale = 0 }
+    { delay = 0, duration = 200, easing = (x) => x, baseScale = 0 },
   ) {
     const o = +getComputedStyle(node).opacity;
     const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);
@@ -43,8 +43,8 @@
   let initialize = async (p) => {
     await Promise.all(
       messages.map(
-        async (event) => (event.message = await decrypt({ event, user }))
-      )
+        async (event) => (event.message = await decrypt({ event, user })),
+      ),
     );
 
     messages = messages;

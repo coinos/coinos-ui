@@ -13,7 +13,7 @@ export async function load({ cookies, params, url }) {
 export const actions = {
   default: async ({ request, url }) => {
     let { text } = await fd(request);
-      await parse(text, url.host);
+    await parse(text, url.host);
     return fail(400, { error: "default" });
   },
 };

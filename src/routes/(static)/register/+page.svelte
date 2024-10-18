@@ -98,7 +98,7 @@
     if ($avatar) {
       try {
         let { hash } = JSON.parse(
-          await upload($avatar.file, $avatar.type, $avatar.progress, token)
+          await upload($avatar.file, $avatar.type, $avatar.progress, token),
         );
 
         data.set("profile", hash);

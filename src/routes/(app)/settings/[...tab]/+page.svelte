@@ -87,7 +87,7 @@
         try {
           data.set(
             "cipher",
-            await reEncryptEntropy(user, data.get("password"))
+            await reEncryptEntropy(user, data.get("password")),
           );
         } catch (e) {
           console.log("Failed to encrypt keys with new password");
@@ -98,7 +98,7 @@
       if ($avatar) {
         try {
           let { hash } = JSON.parse(
-            await upload($avatar.file, $avatar.type, $avatar.progress, token)
+            await upload($avatar.file, $avatar.type, $avatar.progress, token),
           );
 
           data.set("profile", hash);
@@ -115,7 +115,7 @@
       if ($banner) {
         try {
           let { hash } = JSON.parse(
-            await upload($banner.file, $banner.type, $banner.progress, token)
+            await upload($banner.file, $banner.type, $banner.progress, token),
           );
 
           data.set("banner", hash);
@@ -161,7 +161,7 @@
           await post(
             "/api/request",
             { id: user.id, email: user.email },
-            auth(cookies)
+            auth(cookies),
           );
 
           warning($t("user.settings.verifying"), false);

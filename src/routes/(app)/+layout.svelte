@@ -19,7 +19,7 @@
   import Password from "$comp/Password.svelte";
   import { getCookie, warning, protectedRoutes } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
-  import { goto, onNavigate } from "$app/navigation";
+  import { goto, afterNavigate, preloadData } from "$app/navigation";
 
   export let data;
 
@@ -29,6 +29,10 @@
   let update = (data) => {
     ({ rate, user, subject, token, rates } = data);
   };
+
+  afterNavigate(() => {
+    preloadData(`/${user.username}/receive`);
+  });
 
   onMount(async () => {
     if (browser) {
