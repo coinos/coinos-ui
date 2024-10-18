@@ -1,11 +1,10 @@
 import { error, redirect } from "@sveltejs/kit";
 import { auth, get, post, fd } from "$lib/utils";
 
-
 export let load = async ({ cookies, params }) => {
   let account = await get(`/account/${params.id}`, auth(cookies));
   return { account };
-}
+};
 
 export const actions = {
   default: async ({ cookies, params, request }) => {

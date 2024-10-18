@@ -11,12 +11,15 @@ const config = {
     },
   },
   server: {
-  proxy: process.env.NODE_ENV === 'development' ? {
-      "/api/": {
-        target: "http://localhost:3119",
-        rewrite: (path) => path.replace(/^\/api\//, ""),
-      },
-    } : undefined,
+    proxy:
+      process.env.NODE_ENV === "development"
+        ? {
+            "/api/": {
+              target: "http://localhost:3119",
+              rewrite: (path) => path.replace(/^\/api\//, ""),
+            },
+          }
+        : undefined,
   },
 };
 

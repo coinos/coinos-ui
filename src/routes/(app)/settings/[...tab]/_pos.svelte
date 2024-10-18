@@ -13,7 +13,7 @@
   let { currency } = user;
   let rate = rates[currency];
 
-  let fiats = Object.keys(rates).sort((a,b) => a.localeCompare(b));
+  let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
   $: user.language = $locale;
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
@@ -38,6 +38,36 @@
   if (!user.threshold) user.threshold = 1000000;
   if (!user.reserve) user.reserve = 100000;
   let reserveEl, thresholdEl;
+
+  let subscription;
+  $: updateNotifications(user.push);
+  let updateNotifications = async (push) => {
+    if (push && navigator.serviceWorker) {
+      const VAPID_PUBLIC_KEY =
+        "BEfgMDTeAn1F8ZQUGC6v5iKTD86zYXaa3QVr1E-ylKXC5c24JplcfSAN9PDlXAsVtUd3cU6j4-LsX_TKQzz_yDQ";
+
+      const swRegistration = await navigator.serviceWorker.getRegistration();
+      const pushManager = swRegistration.pushManager;
+      if (!isPushManagerActive(pushManager)) {
+        console.log("not active");
+        return;
+      }
+      subscription = await pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: VAPID_PUBLIC_KEY,
+      });
+    }
+  };
+
+  function isPushManagerActive(pushManager) {
+    if (pushManager) return true;
+
+    if (!window.navigator.standalone) {
+      console.log("not standalone");
+    }
+
+    return false;
+  }
 </script>
 
 <div>
@@ -71,6 +101,18 @@
     {$t("user.settings.notificationsDesc")}
   </p>
 </div>
+
+<div>
+  <div class="flex justify-between items-center">
+    <span class="font-bold">{$t("user.settings.pushNotifications")}</span>
+    <Toggle id="push" bind:value={user.push} />
+  </div>
+  <p class="text-secondary mt-1 w-9/12">
+    {$t("user.settings.pushNotificationsDesc")}
+  </p>
+</div>
+
+{JSON.stringify(subscription)}
 
 <div>
   <div class="flex justify-between items-center">

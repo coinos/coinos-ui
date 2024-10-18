@@ -10,7 +10,7 @@
         "⚡️" +
         (parseInt(s) > 0
           ? new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
-              s / Math.pow(1000, d)
+              s / Math.pow(1000, d),
             ) + ["", "K", "M", "G", "T", "P", "E", "Z"][d]
           : 0
         ).toString()
@@ -42,7 +42,7 @@
     link.setAttribute("type", "text/css");
     link.setAttribute(
       "href",
-      "https://fonts.googleapis.com/css?family=Public+Sans:400italic,400,300,700"
+      "https://fonts.googleapis.com/css?family=Public+Sans:400italic,400,300,700",
     );
 
     var style = document.createElement("style");
@@ -91,7 +91,7 @@
     <div style="width: 100%; text-align: center; ">
       <div style="font-size: 24px; font-weight: bold; margin-bottom: 12px;">${f(
         (data.amount * data.rate) / 100000000,
-        data.currency
+        data.currency,
       )}</div>
       <div style="color: #666; font-size: 18px;">${sat(data.amount)}</div>
     </div>

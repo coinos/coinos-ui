@@ -1,7 +1,7 @@
 {
   "theme_color": "#fff",
   "background_color": "#000",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/start",
   "name": "Coinos",
@@ -58,34 +58,34 @@
     }
   ],
   "screenshots": [
-      {
-        "src": "/home.png",
-        "sizes": "801x920",
-        "type": "image/png",
-        "label": "Homepage",
-        "form_factor": "wide"
-      },
-      {
-        "src": "/receive.png",
-        "sizes": "801x920",
-        "type": "image/png",
-        "label": "Receive",
-        "form_factor": "wide"
-      },
-      {
-        "src": "/home.png",
-        "sizes": "801x920",
-        "type": "image/png",
-        "label": "Homepage",
-        "form_factor": "narrow"
-      },
-      {
-        "src": "/receive.png",
-        "sizes": "801x920",
-        "type": "image/png",
-        "label": "Receive",
-        "form_factor": "narrow"
-      }
+    {
+      "src": "/home.png",
+      "sizes": "801x920",
+      "type": "image/png",
+      "label": "Homepage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/receive.png",
+      "sizes": "801x920",
+      "type": "image/png",
+      "label": "Receive",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/home.png",
+      "sizes": "801x920",
+      "type": "image/png",
+      "label": "Homepage",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/receive.png",
+      "sizes": "801x920",
+      "type": "image/png",
+      "label": "Receive",
+      "form_factor": "narrow"
+    }
   ],
   "protocol_handlers": [
     {

@@ -4,7 +4,9 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">{$t("accounts.accountSetup")}</h1>
+  <h1 class="text-center text-3xl font-semibold">
+    {$t("accounts.accountSetup")}
+  </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <div class="space-y-5">

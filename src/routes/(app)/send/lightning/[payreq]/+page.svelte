@@ -36,14 +36,14 @@
     amount < 100
       ? amount * 5
       : amount < 1000
-      ? amount
-      : amount < 10000
-      ? amount * 0.5
-      : amount < 100000
-      ? amount * 0.1
-      : amount < 1000000
-      ? amount * 0.05
-      : amount * 0.01
+        ? amount
+        : amount < 10000
+          ? amount * 0.5
+          : amount < 100000
+            ? amount * 0.1
+            : amount < 1000000
+              ? amount * 0.05
+              : amount * 0.01,
   );
 
   let loading;

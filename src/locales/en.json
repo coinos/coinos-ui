@@ -1,30 +1,30 @@
 {
-  "accounts": {
-    "showQR": "Show QR",
-    "revealNwc": "Reveal NWC",
-    "finish": "Finish",
-    "back": "Back",
-    "next": "Next",
-    "seedPhrase": "Seed phrase",
-    "save": "Save",
-    "copy": "Copy",
-    "revealMnemonic": "Reveal seed phrase",
-    "regenerate": "Regenerate",
-    "deleteAccount": "Delete account",
-    "addAccount": "Add account",
-    "create": "Create",
-    "import": "Import",
-    "accountSetup": "Account setup",
-    "enterSeed": "Enter a seed phrase",
-    "passwordMismatch": "Passwords don't match",
-    "generateSeed": "Generate a new seed phrase",
-    "accountPassword": "Account password",
-    "importSeed": "Enter an existing seed phrase",
-    "passwordWarning": "If you lose this password you won't be able to withdraw funds from the account or restore your seed phrase. We can't recover it for you.",
-    "savings": "Savings",
-    "password": "Password",
-    "confirmPassword": "Confirm password"
-  },
+	"accounts": {
+		"showQR": "Show QR",
+		"revealNwc": "Reveal NWC",
+		"finish": "Finish",
+		"back": "Back",
+		"next": "Next",
+		"seedPhrase": "Seed phrase",
+		"save": "Save",
+		"copy": "Copy",
+		"revealMnemonic": "Reveal seed phrase",
+		"regenerate": "Regenerate",
+		"deleteAccount": "Delete account",
+		"addAccount": "Add account",
+		"create": "Create",
+		"import": "Import",
+		"accountSetup": "Account setup",
+		"enterSeed": "Enter a seed phrase",
+		"passwordMismatch": "Passwords don't match",
+		"generateSeed": "Generate a new seed phrase",
+		"accountPassword": "Account password",
+		"importSeed": "Enter an existing seed phrase",
+		"passwordWarning": "If you lose this password you won't be able to withdraw funds from the account or restore your seed phrase. We can't recover it for you.",
+		"savings": "Savings",
+		"password": "Password",
+		"confirmPassword": "Confirm password"
+	},
 	"404": {
 		"404": "404",
 		"pageNotFound": "Page not found."
@@ -45,7 +45,7 @@
 			}
 		},
 		"locations": {
-      "viewMap": "View map",
+			"viewMap": "View map",
 			"header": "Locations",
 			"description": "Over 500 businesses worldwide are accepting bitcoin with Coinos. We hope that yours will be next!"
 		}
@@ -185,7 +185,7 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
-    "url": "Public URL",
+		"url": "Public URL",
 		"install": "Install app",
 		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages",
@@ -213,7 +213,7 @@
 		"this": "This",
 		"lightningAddress": "Lightning address",
 		"dashboard": {
-      "setup": "Setup self-custody",
+			"setup": "Setup self-custody",
 			"payNow": "Pay now",
 			"checkout": "Checkout",
 			"go": "Go",
@@ -255,7 +255,9 @@
 			"thresholdDesc": "When your balance exceeds this amount, a withdrawal will be triggered",
 			"autoWithdraw": "Autowithdrawal",
 			"autoWithdrawDescription": "Enable withdrawals to an external address when your balance reaches a given threshold",
-			"notifications": "Payment notifications",
+			"notifications": "Email notifications",
+			"pushNotifications": "Push notifications",
+			"pushNotificationsDesc": "Get push notifications to your phone's status bar",
 			"notificationsDesc": "Receive an email whenever a payment lands in your account",
 			"seedPhrase": "Seed phrase",
 			"nostrKeys": "Nostr key",
@@ -327,11 +329,11 @@
 		}
 	},
 	"payments": {
-    "ok": "Ok",
-    "cancel": "Cancel",
-    "failedToRoute": "Failed to route payment, recipient may not be reachable. Try sending a smaller amount or increasing the max fee reserve.",
-    "message": "Message",
-    "enterWalletPass": "Wallet password",
+		"ok": "Ok",
+		"cancel": "Cancel",
+		"failedToRoute": "Failed to route payment, recipient may not be reachable. Try sending a smaller amount or increasing the max fee reserve.",
+		"message": "Message",
+		"enterWalletPass": "Wallet password",
 		"legacyVersion": "Legacy version",
 		"newVersion": "New version",
 		"income": "Income",

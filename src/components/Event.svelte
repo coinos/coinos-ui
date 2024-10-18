@@ -14,12 +14,12 @@
     return diff > d
       ? Math.round(diff / d) + "d"
       : diff > h
-      ? Math.round(diff / h) + "h"
-      : diff > m
-      ? Math.round(diff / m) + "m"
-      : diff > 2
-      ? diff + "s"
-      : "now";
+        ? Math.round(diff / h) + "h"
+        : diff > m
+          ? Math.round(diff / m) + "m"
+          : diff > 2
+            ? diff + "s"
+            : "now";
   };
 
   let w;

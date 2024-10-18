@@ -18,7 +18,8 @@
 
   let el, text, pasted, w;
 
-  let keypress = (e) => e.key === "Enter" ? (e.preventDefault() || el.click()) : (pasted = false);
+  let keypress = (e) =>
+    e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);
 
   let paste = async () => {
     text = await navigator.clipboard.readText();

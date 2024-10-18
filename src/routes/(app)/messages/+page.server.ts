@@ -10,7 +10,7 @@ interface Note {
   seen: number;
 }
 
-export async function load({ params, parent, }) {
+export async function load({ params, parent }) {
   let { user } = await parent();
   if (user.username !== params.username) redirect(307, `/${params.username}`);
   let { since = 0 } = params;
@@ -22,7 +22,9 @@ export async function load({ params, parent, }) {
     let { pubkey } = user;
     try {
       messages = await get(`/${pubkey}/${since}/messages`);
-      messages = messages.sort((a: Message, b: Message) => b.created_at - a.created_at);
+      messages = messages.sort(
+        (a: Message, b: Message) => b.created_at - a.created_at,
+      );
     } catch (e) {
       console.log(`failed to fetch nostr messages`, e);
     }

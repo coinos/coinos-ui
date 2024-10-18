@@ -1,3 +1,3 @@
-export let load = async () => {
-  return { faqs: ["cost", "compatibility", "safety", "pos", "bitcoin"] };
+export const load = async () => {
+	return { faqs: ["cost", "compatibility", "safety", "pos", "bitcoin"] };
 };

@@ -2,40 +2,40 @@ import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 
 let persistSession = (key, defaultValue = undefined) => {
-  let s = writable(
-    browser &&
-      sessionStorage.getItem(key) &&
-      sessionStorage.getItem(key) !== "undefined"
-      ? JSON.parse(sessionStorage.getItem(key) || "")
-      : defaultValue
-  );
+	let s = writable(
+		browser &&
+		sessionStorage.getItem(key) &&
+		sessionStorage.getItem(key) !== "undefined"
+			? JSON.parse(sessionStorage.getItem(key) || "")
+			: defaultValue,
+	);
 
-  s.subscribe((v) => {
-    browser && sessionStorage.setItem(key, JSON.stringify(v));
-  });
+	s.subscribe((v) => {
+		browser && sessionStorage.setItem(key, JSON.stringify(v));
+	});
 
-  return s;
+	return s;
 };
 
 let persistLocal = (key, defaultValue: any = undefined) => {
-  let s = writable(
-    browser &&
-      localStorage.getItem(key) &&
-      localStorage.getItem(key) !== "undefined"
-      ? JSON.parse(localStorage.getItem(key) || "")
-      : defaultValue
-  );
+	let s = writable(
+		browser &&
+		localStorage.getItem(key) &&
+		localStorage.getItem(key) !== "undefined"
+			? JSON.parse(localStorage.getItem(key) || "")
+			: defaultValue,
+	);
 
-  s.subscribe((v) => {
-    try {
-      browser && localStorage.setItem(key, JSON.stringify(v));
-    } catch (e) {
-      console.log("problem setting key", v);
-      console.log(e);
-    }
-  });
+	s.subscribe((v) => {
+		try {
+			browser && localStorage.setItem(key, JSON.stringify(v));
+		} catch (e) {
+			console.log("problem setting key", v);
+			console.log(e);
+		}
+	});
 
-  return s;
+	return s;
 };
 
 export let account = writable();

@@ -46,7 +46,7 @@
 
   $: selection = start
     ? presets.findIndex(
-        (p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1
+        (p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1,
       )
     : 0;
 

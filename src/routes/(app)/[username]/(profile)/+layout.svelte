@@ -54,7 +54,7 @@
   let follow = async () => {
     list = [...list, subject.pubkey];
     let tags = await get(
-      `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`
+      `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`,
     );
     tags.push(["p", subject.pubkey]);
     await update(tags);
@@ -64,15 +64,15 @@
   let unfollow = async () => {
     list.splice(
       list.findIndex((t) => t[1] === subject.pubkey),
-      1
+      1,
     );
     list = list;
     let tags = await get(
-      `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`
+      `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`,
     );
     tags.splice(
       tags.findIndex((t) => t[1] === subject.pubkey),
-      1
+      1,
     );
     await update(tags);
   };
@@ -151,13 +151,17 @@
 
     <div>
       <div class="flex justify-center gap-2">
-        <a href={`/${subject.pubkey}/follows`} data-sveltekit-preload-data="tap" rel="nofollow"
+        <a
+          href={`/${subject.pubkey}/follows`}
+          data-sveltekit-preload-data="tap"
+          rel="nofollow"
           ><b>{si(follows)}</b>
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
-          data-sveltekit-preload-data="tap" rel="nofollow"
+          data-sveltekit-preload-data="tap"
+          rel="nofollow"
           ><b>{si(followers)}</b>
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
@@ -199,7 +203,7 @@
               >
               <a
                 href={`/qr/${encodeURIComponent(
-                  `${$page.url.protocol}//${profile}`
+                  `${$page.url.protocol}//${profile}`,
                 )}`}
                 class="my-auto"
               >

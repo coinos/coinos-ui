@@ -37,10 +37,10 @@
     }
   };
 
-let nwc;
+  let nwc;
   let revealNwc = () =>
     (nwc = `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
-      relay
+      relay,
     )}&secret=${user.nwc}`);
 </script>
 

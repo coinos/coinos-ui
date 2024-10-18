@@ -14,10 +14,7 @@
 </script>
 
 <div class="text-center mt-20 md:mt-0">
-  <div
-    class="flex w-full max-w-[200px] mx-auto py-4"
-    in:scale={{ start: 0.5 }}
-  >
+  <div class="flex w-full max-w-[200px] mx-auto py-4" in:scale={{ start: 0.5 }}>
     <Icon icon="check" style="mx-auto" />
   </div>
   <h1 class="text-3xl md:text-4xl font-bold mb-6">{$t("payments.sent")}!</h1>

@@ -24,9 +24,8 @@ export const actions = {
   pay: async ({ fetch, request }) => {
     let error;
 
-    let { callback, amount, minSendable, maxSendable, comment } = await fd(
-      request
-    );
+    let { callback, amount, minSendable, maxSendable, comment } =
+      await fd(request);
     minSendable = Math.round(minSendable / 1000);
     maxSendable = Math.round(maxSendable / 1000);
 

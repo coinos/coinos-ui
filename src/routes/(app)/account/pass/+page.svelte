@@ -39,12 +39,12 @@
     try {
       let seed = await encrypt(
         mnemonicToEntropy($mnemonic, wordlist),
-        password
+        password,
       );
 
       let master = HDKey.fromMasterSeed(
         await mnemonicToSeed($mnemonic, password),
-        versions
+        versions,
       );
 
       let child = master.derive("m/84'/0'/0'");

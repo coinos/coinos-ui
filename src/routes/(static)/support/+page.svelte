@@ -24,7 +24,7 @@
       grecaptcha.execute(recaptchaSiteKey, { action: "submit" }).then((token) =>
         post("/support", { username: user?.username, email, message, token })
           .then(() => (sent = true))
-          .catch(() => fail("problem submitting"))
+          .catch(() => fail("problem submitting")),
       );
     });
   };
@@ -97,12 +97,7 @@
         <label for="email" class="font-semibold"
           >{$t("user.support.email")}</label
         >
-        <input
-          type="email"
-          name="email"
-          bind:value={email}
-          required
-        />
+        <input type="email" name="email" bind:value={email} required />
       </div>
 
       <div class="mb-4">

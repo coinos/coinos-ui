@@ -19,7 +19,7 @@
             <b
               >{f(
                 ($invoice.amount * $invoice.rate) / sats,
-                $invoice.currency
+                $invoice.currency,
               )}</b
             >
             {sat($invoice.amount)}

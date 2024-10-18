@@ -7,6 +7,5 @@
 </script>
 
 <div class="h-screen w-screen">
-<LocationsMap {locations} />
+  <LocationsMap {locations} />
 </div>
-
