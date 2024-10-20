@@ -14,6 +14,7 @@ export const actions = {
 
     if (form.tab === "pos") {
       form.notify = form.notify === "on";
+      form.push = form.push === "on";
       form.nip5 = form.nip5 === "on";
       form.prompt = form.prompt === "on";
       form.autowithdraw = form.autowithdraw === "on";

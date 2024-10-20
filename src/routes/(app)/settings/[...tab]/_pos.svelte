@@ -1,12 +1,14 @@
 <script>
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
+  import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import Toggle from "$comp/Toggle.svelte";
   import { locale, t } from "$lib/translations";
-  import { success, fail } from "$lib/utils";
+  import { post, success, fail } from "$lib/utils";
   import { page } from "$app/stores";
+  import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
   export let user, rates, submit;
 
@@ -39,35 +41,48 @@
   if (!user.reserve) user.reserve = 100000;
   let reserveEl, thresholdEl;
 
-  let subscription;
-  $: updateNotifications(user.push);
-  let updateNotifications = async (push) => {
-    if (push && navigator.serviceWorker) {
-      const VAPID_PUBLIC_KEY =
-        "BEfgMDTeAn1F8ZQUGC6v5iKTD86zYXaa3QVr1E-ylKXC5c24JplcfSAN9PDlXAsVtUd3cU6j4-LsX_TKQzz_yDQ";
+  let push, pm;
 
-      const swRegistration = await navigator.serviceWorker.getRegistration();
-      const pushManager = swRegistration.pushManager;
-      if (!isPushManagerActive(pushManager)) {
-        console.log("not active");
-        return;
-      }
-      subscription = await pushManager.subscribe({
+  onMount(async () => {
+    if (!browser) return;
+
+    pm =
+      navigator?.serviceWorker &&
+      (await navigator.serviceWorker.getRegistration()).pushManager;
+
+    permission = await pm.permissionState({
+      userVisibleOnly: true,
+      applicationServerKey: PUBLIC_VAPID_PUBKEY,
+    });
+
+    push = permission === "granted";
+  });
+
+  let permission;
+  $: updateNotifications(push);
+  let updateNotifications = async (push) => {
+    let subscription;
+    if (!browser || !pm) return (push = false);
+
+    if (permission === "granted") {
+      subscription = await pm.getSubscription();
+    }
+
+    if (subscription && !push) {
+      return post("/subscription/delete", { subscription });
+    }
+
+    if (push && permission === "prompt") {
+      subscription = await pm.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: VAPID_PUBLIC_KEY,
+        applicationServerKey: PUBLIC_VAPID_PUBKEY,
       });
     }
-  };
 
-  function isPushManagerActive(pushManager) {
-    if (pushManager) return true;
-
-    if (!window.navigator.standalone) {
-      console.log("not standalone");
+    if (subscription) {
+      await post("/subscription", { subscription });
     }
-
-    return false;
-  }
+  };
 </script>
 
 <div>
@@ -105,14 +120,18 @@
 <div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.pushNotifications")}</span>
-    <Toggle id="push" bind:value={user.push} />
+    {#if permission !== "denied"}
+      <Toggle id="push" bind:value={push} />
+    {/if}
   </div>
   <p class="text-secondary mt-1 w-9/12">
-    {$t("user.settings.pushNotificationsDesc")}
+    {#if permission === "denied"}
+      {$t("user.settings.pushNotificationsDisabled")}
+    {:else}
+      {$t("user.settings.pushNotificationsDesc")}
+    {/if}
   </p>
 </div>
-
-{JSON.stringify(subscription)}
 
 <div>
   <div class="flex justify-between items-center">
