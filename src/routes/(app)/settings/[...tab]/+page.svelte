@@ -28,12 +28,12 @@
   let submit;
   let formElement;
 
-  let { user, token, rates, tab, cookies } = data;
+  let { user, token, rates, tab, cookies, subscriptions } = data;
   let prev;
 
   $: update(data);
   let update = () => {
-    ({ user, token, rates, tab } = data);
+    ({ user, token, rates, tab, subscriptions } = data);
     prev = { ...user };
   };
 
@@ -229,7 +229,7 @@
       </div>
     </div>
 
-    <svelte:component this={comp} {user} {rates} {submit} />
+    <svelte:component this={comp} {user} {rates} {submit} {subscriptions} />
   </div>
 
   <div
