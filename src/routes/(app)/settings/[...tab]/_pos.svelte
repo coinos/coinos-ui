@@ -10,7 +10,7 @@
   import { page } from "$app/stores";
   import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
-  export let user, rates, submit;
+  export let user, rates, submit, subscriptions;
 
   let { currency } = user;
   let rate = rates[currency];
@@ -41,7 +41,7 @@
   if (!user.reserve) user.reserve = 100000;
   let reserveEl, thresholdEl;
 
-  let push, pm;
+  let push, pm, subscription;
 
   onMount(async () => {
     if (!browser) return;
@@ -55,18 +55,16 @@
       applicationServerKey: PUBLIC_VAPID_PUBKEY,
     });
 
-    push = permission === "granted";
+    if (permission === "granted") {
+      subscription = await pm.getSubscription();
+      if (subscriptions.includes(JSON.stringify(subscription))) push = true;
+    }
   });
 
   let permission;
   $: updateNotifications(push);
   let updateNotifications = async (push) => {
-    let subscription;
     if (!browser || !pm) return (push = false);
-
-    if (permission === "granted") {
-      subscription = await pm.getSubscription();
-    }
 
     if (subscription && !push) {
       return post("/subscription/delete", { subscription });
