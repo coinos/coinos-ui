@@ -70,7 +70,7 @@
       return post("/subscription/delete", { subscription });
     }
 
-    if (push && permission === "prompt") {
+    if (push && permission !== "denied") {
       subscription = await pm.subscribe({
         userVisibleOnly: true,
         applicationServerKey: PUBLIC_VAPID_PUBKEY,

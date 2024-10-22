@@ -1,9 +1,9 @@
-import { navigating } from "$app/stores";
-import { get } from "svelte/store";
-import { event, invoice, request, last } from "$lib/store";
-import { success, sat, sleep, wait } from "$lib/utils";
-import { PUBLIC_SOCKET } from "$env/static/public";
 import { invalidate } from "$app/navigation";
+import { navigating } from "$app/stores";
+import { PUBLIC_SOCKET } from "$env/static/public";
+import { event, invoice, last, request } from "$lib/store";
+import { sat, sleep, success, wait } from "$lib/utils";
+import { get } from "svelte/store";
 
 let socket;
 let token;
@@ -12,12 +12,12 @@ export const auth = () => token && send("login", token);
 
 export const send = async (type, data) => {
 	try {
-		await wait(() => socket && socket.readyState === 1, 100, 10);
+		await wait(() => socket && socket.readyState === 1, 1000, 10);
 	} catch (e: any) {
 		if (e.message === "timeout") reconnectToWebsocket();
 	}
 
-	await wait(() => socket.readyState === 1, 100, 10);
+	await wait(() => socket.readyState === 1, 1000, 10);
 	socket.send(JSON.stringify({ type, data }));
 };
 
@@ -38,7 +38,7 @@ export const messages = (data) => ({
 	},
 
 	async payment() {
-		let { amount, confirmed } = data;
+		const { amount, confirmed } = data;
 		invalidate("app:user");
 		invalidate("app:invoice");
 		invalidate("app:payments");
@@ -72,10 +72,10 @@ export function close() {
 }
 
 async function onWebsocketMessage(msg) {
-	let { type, data } = JSON.parse(msg.data);
+	const { type, data } = JSON.parse(msg.data);
 	if (get(navigating)) await sleep(2000);
 
-	messages(data)[type] && messages(data)[type]();
+	if (messages(data)[type]) messages(data)[type]();
 }
 
 function onWebsocketOpen() {
