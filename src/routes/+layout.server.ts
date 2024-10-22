@@ -1,15 +1,14 @@
-import { auth, get } from "$lib/utils";
 import {
-	locales,
-	loadTranslations,
-	translations,
 	defaultLocale,
+	loadTranslations,
+	locales,
 } from "$lib/translations/index";
+import { auth, get } from "$lib/utils";
 
-export let load = async ({ cookies, request, url }) => {
-	let { host, pathname } = url;
+export const load = async ({ cookies, request, url }) => {
+	const { host, pathname } = url;
 	let user;
-	let token = cookies.get("token");
+	const token = cookies.get("token");
 	if (token) {
 		try {
 			user = await get("/me", auth(cookies));
@@ -27,7 +26,7 @@ export let load = async ({ cookies, request, url }) => {
 	}
 
 	// Get defined locales
-	let supportedLocales = locales.get().map((l) => l.toLowerCase());
+	const supportedLocales = locales.get().map((l) => l.toLowerCase());
 
 	// Use default locale if current locale is not supported
 	if (!supportedLocales.includes(locale)) {
@@ -41,6 +40,5 @@ export let load = async ({ cookies, request, url }) => {
 		pathname,
 		i18n: { locale, route: pathname },
 		user,
-		translations: translations.get(),
 	};
 };

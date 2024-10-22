@@ -17,9 +17,12 @@
   import Icon from "$comp/Icon.svelte";
   import { format } from "date-fns";
   import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
+  import locales from "$lib/locales";
 
   export let data;
   let { user, payment: p } = data;
+  let locale = locales[user.language];
+
   $: refresh(data);
   let refresh = (d) => {
     ({ user, payment: p } = d);
@@ -180,8 +183,8 @@
   <div>
     <span class="text-lg text-secondary">{$t("payments.date")}</span>
     <div>
-      {format(new Date(created), "h:mmaaa")}
-      {format(new Date(created), "MMM d, yyyy")}
+      {format(new Date(created), "h:mmaaa", { locale })}
+      {format(new Date(created), "MMM d, yyyy", { locale })}
     </div>
   </div>
 
