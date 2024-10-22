@@ -6,7 +6,6 @@ export async function GET({ setHeaders }) {
 
 	try {
 		({ locations } = await get("/locations"));
-		console.log(locations);
 		setHeaders({ "cache-control": "public, max-age=600" });
 	} catch (e) {
 		console.log("failed to fetch locations");
