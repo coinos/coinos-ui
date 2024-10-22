@@ -6,8 +6,14 @@
   import Items from "$comp/Items.svelte";
   import { t } from "$lib/translations";
   import { installPrompt } from "$lib/store";
+  import { afterNavigate, preloadData } from "$app/navigation";
 
   export let data;
+
+  afterNavigate(() => {
+    preloadData(`/${user.username}/receive`);
+    preloadData("/send");
+  });
 
   let { accounts, subject, user, items, rates } = data;
   $: ({ currency } = subject);
