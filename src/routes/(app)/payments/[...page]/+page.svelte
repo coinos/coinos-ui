@@ -9,10 +9,11 @@
   import { page } from "$app/stores";
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
-
+  import locales from "$lib/locales";
   export let data;
 
   let { start, end, user, rates, payments } = data;
+  let locale = locales[user.language];
 
   let change = ({ target: { value } }) => goto(value);
   let link = (p) => {
@@ -246,10 +247,10 @@
 
             <div class="text-secondary text-right text-sm my-auto col-span-3">
               <div>
-                {format(new Date(p.created), "h:mm aaa")}
+                {format(new Date(p.created), "h:mm aaa", { locale })}
               </div>
               <div>
-                {format(new Date(p.created), "MMM d, yy")}
+                {format(new Date(p.created), "MMM d, yy", { locale })}
               </div>
             </div>
           </div>

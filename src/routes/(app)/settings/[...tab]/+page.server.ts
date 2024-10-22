@@ -6,7 +6,6 @@ export async function load({ cookies, params, url }) {
 		redirect(307, `${url.pathname}/account`);
 	params.cookies = cookies.getAll();
 	const subscriptions = await get("/subscriptions", auth(cookies));
-	console.log("subs", subscriptions);
 	return { cookies: cookies.getAll(), subscriptions, tab: params.tab };
 }
 
