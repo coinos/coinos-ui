@@ -1,8 +1,8 @@
 import { browser } from "$app/environment";
-import { toast } from "@zerodevx/svelte-toast";
 import { goto } from "$app/navigation";
-import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
 import { page } from "$app/stores";
+import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
+import { toast } from "@zerodevx/svelte-toast";
 import { get as getStore } from "svelte/store";
 
 export function scroll(section: any) {
@@ -10,12 +10,12 @@ export function scroll(section: any) {
 	setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 500);
 }
 
-let base = browser ? "" : PUBLIC_COINOS_URL;
+const base = browser ? "" : PUBLIC_COINOS_URL;
 
-export let punk = (k: string) =>
+export const punk = (k: string) =>
 	Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1 + ".webp";
 
-export let g = (url: string, fetch: any, headers: object) =>
+export const g = (url: string, fetch: any, headers: object) =>
 	fetch(base + url, { headers })
 		.then((r: Response) => r.text())
 		.then((body: string) => {
@@ -26,7 +26,7 @@ export let g = (url: string, fetch: any, headers: object) =>
 			}
 		});
 
-export let get = (url: string, headers = {}) => {
+export const get = (url: string, headers = {}) => {
 	return fetch(base + url, { headers })
 		.then(async (r) => {
 			if (r.ok) return r.text();
@@ -41,7 +41,7 @@ export let get = (url: string, headers = {}) => {
 		});
 };
 
-export let post = async (
+export const post = async (
 	url: string,
 	body: object,
 	headers: HeadersInit | undefined = undefined,
@@ -52,14 +52,14 @@ export let post = async (
 		...headers,
 	};
 
-	let response = await fetch(base + url, {
+	const response = await fetch(base + url, {
 		method: "POST",
 		body: JSON.stringify(body),
 		headers,
 	})
 		.then(async (r) => {
 			if (r.ok) return r.text();
-			let text = await r.text();
+			const text = await r.text();
 
 			let message;
 			try {
@@ -87,30 +87,30 @@ export let post = async (
 	return response;
 };
 
-export let copy = (text: string) => {
+export const copy = (text: string) => {
 	navigator.clipboard.writeText(text);
 	success("Copied!");
 };
 
-export let copyNoNewlines = (text: string) => {
-	let stripped = text.replace(/\n/g, " ").replace(/\s+/g, " ");
+export const copyNoNewlines = (text: string) => {
+	const stripped = text.replace(/\n/g, " ").replace(/\s+/g, " ");
 	navigator.clipboard.writeText(stripped);
 	success("Copied!");
 };
 
 export function reverseFormat(val: string, locale: string): number {
-	let parts = new Intl.NumberFormat(locale).formatToParts(1111.1);
-	let group = parts.find((part) => part.type === "group")!.value;
-	let decimal = parts.find((part) => part.type === "decimal")!.value;
+	const parts = new Intl.NumberFormat(locale).formatToParts(1111.1);
+	const group = parts.find((part) => part.type === "group")!.value;
+	const decimal = parts.find((part) => part.type === "decimal")!.value;
 	let reversedVal = val.replace(new RegExp("\\" + group, "g"), "");
 	reversedVal = reversedVal.replace(new RegExp("\\" + decimal, "g"), ".");
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
-export let protectedRoutes: RegExp[] = [/customers/, /settings/, /payments/];
+export const protectedRoutes: RegExp[] = [/customers/, /settings/, /payments/];
 
 let recent: string[] = [];
-export let success = (m: string, clear: boolean = true) => {
+export const success = (m: string, clear = true) => {
 	if (recent.includes(m)) return;
 	recent.push(m);
 	setTimeout(() => (recent = []), 5000);
@@ -122,7 +122,7 @@ export let success = (m: string, clear: boolean = true) => {
 	});
 };
 
-export let warning = (m: string, clear: boolean = true) => {
+export const warning = (m: string, clear = true) => {
 	if (clear) toast.pop();
 	toast.push(m, {
 		theme: {
@@ -131,7 +131,7 @@ export let warning = (m: string, clear: boolean = true) => {
 	});
 };
 
-export let fail = (m: string, clear: boolean = true) => {
+export const fail = (m: string, clear = true) => {
 	if (clear) toast.pop();
 	toast.push(m, {
 		theme: {
@@ -140,7 +140,7 @@ export let fail = (m: string, clear: boolean = true) => {
 	});
 };
 
-export let info = (m: string) => {
+export const info = (m: string) => {
 	toast.pop();
 	toast.push(m, {
 		theme: {
@@ -149,14 +149,14 @@ export let info = (m: string) => {
 	});
 };
 
-export let login = async (
+export const login = async (
 	user: { username: string; password: string },
 	cookies: any,
 	ip: string,
 ) => {
-	let maxAge = 380 * 24 * 60 * 60;
+	const maxAge = 380 * 24 * 60 * 60;
 
-	let res = await fetch(base + "/login", {
+	const res = await fetch(base + "/login", {
 		method: "POST",
 		body: JSON.stringify(user),
 		headers: {
@@ -166,41 +166,41 @@ export let login = async (
 		},
 	});
 	if (res.status === 401) {
-		let text = await res.text();
+		const text = await res.text();
 		if (text.startsWith("2fa")) throw new Error("2fa");
 	}
 
-	let { user: u, token } = await res.json();
+	const { user: u, token } = await res.json();
 	if (!token) throw new Error("Login failed");
 
-	let expires = new Date();
+	const expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
-	let opts = { path: "/", expires };
+	const opts = { path: "/", expires };
 	if (u.language) cookies.set("lang", u.language, opts);
 	cookies.set("username", user.username, opts);
 	cookies.set("token", token, opts);
 };
 
-export let auth = (cookies: any) => ({
+export const auth = (cookies: any) => ({
 	authorization: `Bearer ${cookies.get("token")}`,
 });
 
-export let btc = (fiat: number, rate: number): number =>
+export const btc = (fiat: number, rate: number): number =>
 	Math.round((fiat * sats) / rate);
 
-export let fiat = (amount: number, rate: number): number =>
+export const fiat = (amount: number, rate: number): number =>
 	(amount * rate) / sats;
 
-export let fd = async (req: Request): Promise<any> => {
-	let obj: Record<string, any> = Object.fromEntries(await req.formData());
-	for (let k in obj)
+export const fd = async (req: Request): Promise<any> => {
+	const obj: Record<string, any> = Object.fromEntries(await req.formData());
+	for (const k in obj)
 		(obj[k] === "undefined" && (obj[k] = undefined)) ||
 			(obj[k] === "false" && (obj[k] = false));
 	return obj;
 };
 
-export let f = (s: number, currency: string): string => {
+export const f = (s: number, currency: string): string => {
 	try {
 		return new Intl.NumberFormat("en-US", {
 			style: "currency",
@@ -213,12 +213,12 @@ export let f = (s: number, currency: string): string => {
 	}
 };
 
-export let s = (s: number): string =>
+export const s = (s: number): string =>
 	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
 
-export let sat = (s: number): string => "⚡️" + si(Math.abs(s)).toString();
+export const sat = (s: number): string => "⚡️" + si(Math.abs(s)).toString();
 
-export let si = (s: number) => {
+export const si = (s: number) => {
 	if (s < 1000) return s.toString(); // Return the original number if it's less than 1000
 
 	const units = ["", "K", "M", "G", "T", "P", "E", "Z"];
@@ -232,24 +232,24 @@ export let si = (s: number) => {
 	);
 };
 
-export let sats = 100000000;
+export const sats = 100000000;
 
-export let back = (): any =>
+export const back = (): any =>
 	browser && (history.length ? history.go(-1) : goto("/"));
 
-export let focus = (el: HTMLElement): any =>
+export const focus = (el: HTMLElement): any =>
 	browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
 
-export let select = (el: HTMLInputElement): any =>
+export const select = (el: HTMLInputElement): any =>
 	browser && screen.width > 1280 && setTimeout(() => el.select(), 1);
 
-export let sleep = (n: number): Promise<void> =>
+export const sleep = (n: number): Promise<void> =>
 	new Promise((r) => setTimeout(r, n));
 
-export let wait = async (
+export const wait = async (
 	f: () => boolean | Promise<boolean>,
-	n: number = 100,
-	s: number = 300,
+	n = 100,
+	s = 300,
 ): Promise<boolean> => {
 	let i = 0;
 	while (!(await f()) && i < s) {
@@ -260,7 +260,7 @@ export let wait = async (
 	return f();
 };
 
-export let stretch = async (password: string, salt: Uint8Array) =>
+export const stretch = async (password: string, salt: Uint8Array) =>
 	crypto.subtle.deriveKey(
 		{
 			name: "PBKDF2",
@@ -280,7 +280,7 @@ export let stretch = async (password: string, salt: Uint8Array) =>
 		["encrypt", "decrypt"],
 	);
 
-export let types = {
+export const types = {
 	bitcoin: "bitcoin",
 	liquid: "liquid",
 	lightning: "lightning",
@@ -290,7 +290,7 @@ export let types = {
 	reconcile: "reconcile",
 };
 
-export let ease = (t: number): number =>
+export const ease = (t: number): number =>
 	t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
 
 export function shuffleArray<T>(array: T[]): void {
@@ -300,12 +300,12 @@ export function shuffleArray<T>(array: T[]): void {
 	}
 }
 
-export let closest = (a: number[], n: number): number =>
+export const closest = (a: number[], n: number): number =>
 	a.reduce((prev, curr) =>
 		Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev,
 	);
 
-export let isLiquid = (text: string): boolean =>
+export const isLiquid = (text: string): boolean =>
 	text.startsWith("Az") ||
 	text.startsWith("lq1") ||
 	text.startsWith("VJL") ||
@@ -320,8 +320,8 @@ export let isLiquid = (text: string): boolean =>
 	text.startsWith("lq1qq");
 
 export function getCookie(name: string): string | null {
-	let nameEQ = name + "=";
-	let ca = document.cookie.split(";");
+	const nameEQ = name + "=";
+	const ca = document.cookie.split(";");
 	for (let i = 0; i < ca.length; i++) {
 		let c = ca[i];
 		while (c.charAt(0) === " ") c = c.substring(1);
@@ -337,7 +337,7 @@ export function setCookie(name: string, value: string, seconds: number): void {
 	document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
-export let network = {
+export const network = {
 	bitcoin: {
 		bech32: "bc",
 		pubKeyHash: 0x00,
@@ -352,7 +352,7 @@ export let network = {
 	},
 }[PUBLIC_COINOS_NETWORK];
 
-export let versions = {
+export const versions = {
 	bitcoin: {
 		private: 0x0488ade4,
 		public: 0x0488b21e,
