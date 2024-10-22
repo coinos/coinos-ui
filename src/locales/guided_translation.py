@@ -41,7 +41,7 @@ def localize_string(string_id, from_data, to_data, to_locale):
         to_translate = to_translate[id_part]
 
     # Google Translate API endpoint
-    url = "https://translation.googleapis.com/language/translate/v2"
+    url = "http://127.0.0.1:5000/translate"
 
     # Prepare data for POST request
     data = {
@@ -55,12 +55,12 @@ def localize_string(string_id, from_data, to_data, to_locale):
     headers = {"Content-Type": "application/json"}
 
     # Make the request
-    response = requests.post(url, headers=headers, params={'key': api_key}, json=data)
+    response = requests.post(url, headers=headers, json=data)
     
     # Check if the request was successful
     if response.status_code == 200:
         # Parse the response and extract translation
-        translated_text = response.json()['data']['translations'][0]['translatedText']
+        translated_text = response.json()['translatedText']
         print("Translated text:", translated_text)
     else:
         print("Error while translating:", response.json())

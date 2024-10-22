@@ -198,7 +198,8 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "1 ビットコイン未満の金額を入力してください。",
-			"showQR": "QRを表示"
+			"showQR": "QRを表示",
+			"hideQR": "QRを隠す"
 		},
 		"send": {
 			"makeQR": "QR",
@@ -284,7 +285,10 @@
 			"memoPromptPlaceholder": "例えばご注文のお名前を入力してください",
 			"rememberFor": "覚えておいてください",
 			"import": "インポートキー",
-			"seconds": "秒"
+			"seconds": "秒",
+			"pushNotifications": "プッシュ通知",
+			"pushNotificationsDesc": "デバイスの支払い通知を取得します",
+			"pushNotificationsDisabled": "通知権限をこのデバイスに拒否しました。 それをやりたくない場合は、ブラウザの設定を確認してください."
 		},
 		"support": {
 			"header": "サポート",
@@ -391,7 +395,10 @@
 		"copyPr": "支払い請求のコピー",
 		"amountPrompt": "常に金額の入力を求める",
 		"enterWalletPass": "ウォレットパスワード",
-		"failedToRoute": "支払いのルーティングに失敗しました。受取人に連絡が取れない可能性があります。送金金額を減らすか、最大手数料準備金を増やしてみてください。"
+		"failedToRoute": "支払いのルーティングに失敗しました。受取人に連絡が取れない可能性があります。送金金額を減らすか、最大手数料準備金を増やしてみてください。",
+		"ok": "お問い合わせ",
+		"cancel": "キャンセル",
+		"message": "メッセージ"
 	},
 	"items": {
 		"add": "アイテムの追加",

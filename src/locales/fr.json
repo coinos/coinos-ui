@@ -175,7 +175,8 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
-			"showQR": "Voire le QR code"
+			"showQR": "Voire le QR code",
+			"hideQR": "Masquer le QR"
 		},
 		"settings": {
 			"header": "Préférences",
@@ -253,7 +254,10 @@
 			"memoPromptPlaceholder": "par exemple. Veuillez entrer votre nom pour la commande",
 			"rememberFor": "Rappelez-vous pour",
 			"import": "Clé d'importation",
-			"seconds": "secondes"
+			"seconds": "secondes",
+			"pushNotifications": "Notifications de poussée",
+			"pushNotificationsDesc": "Obtenez des notifications de paiement sur votre appareil",
+			"pushNotificationsDisabled": "Vous avez refusé l'autorisation de notification sur cet appareil. Vérifiez les paramètres de votre navigateur si vous voulez annuler cela."
 		},
 		"support": {
 			"header": "Assistance",
@@ -391,7 +395,10 @@
 		"copyPr": "Copie de la demande de paiement",
 		"amountPrompt": "Toujours demander le montant",
 		"enterWalletPass": "Mot de passe du portefeuille",
-		"failedToRoute": "Impossible d'acheminer le paiement, le destinataire n'est peut-être pas joignable. Essayez d'envoyer un montant inférieur ou d'augmenter la réserve de frais maximale."
+		"failedToRoute": "Impossible d'acheminer le paiement, le destinataire n'est peut-être pas joignable. Essayez d'envoyer un montant inférieur ou d'augmenter la réserve de frais maximale.",
+		"ok": "Oui",
+		"cancel": "Annuler",
+		"message": "Message"
 	},
 	"items": {
 		"add": "Ajouter un item",
