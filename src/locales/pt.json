@@ -217,7 +217,8 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Favor inserir uma quantidade inferior a 1 bitcoin.",
-			"showQR": "Mostrar QR code"
+			"showQR": "Mostrar QR code",
+			"hideQR": "Ocultar QR"
 		},
 		"send": {
 			"contacts": "Contatos",
@@ -303,7 +304,10 @@
 			"memoPromptPlaceholder": "por exemplo. Por favor insira seu nome para o pedido",
 			"rememberFor": "Lembre-se por",
 			"import": "Chave de importação",
-			"seconds": "segundos"
+			"seconds": "segundos",
+			"pushNotifications": "Notificações push",
+			"pushNotificationsDesc": "Obter notificações de pagamento no seu dispositivo",
+			"pushNotificationsDisabled": "Negou permissão de notificação neste dispositivo. Verifique as configurações do navegador se quiser desfazer isso."
 		},
 		"support": {
 			"header": "Suporte",
@@ -413,7 +417,10 @@
 		"copyPr": "Copiar solicitação de pagamento",
 		"amountPrompt": "Sempre solicite o valor",
 		"enterWalletPass": "Senha da carteira",
-		"failedToRoute": "Falha ao encaminhar o pagamento, o destinatário pode não estar acessível. Tente enviar uma quantia menor ou aumentar a reserva de taxa máxima."
+		"failedToRoute": "Falha ao encaminhar o pagamento, o destinatário pode não estar acessível. Tente enviar uma quantia menor ou aumentar a reserva de taxa máxima.",
+		"ok": "Ok",
+		"cancel": "Cancelar",
+		"message": "Mensagem"
 	},
 	"items": {
 		"add": "Adicionar Item",

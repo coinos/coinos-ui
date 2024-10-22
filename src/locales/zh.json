@@ -198,7 +198,8 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "请输入小于 1 比特币的金额。",
-			"showQR": "显示二维码"
+			"showQR": "显示二维码",
+			"hideQR": "隐藏 QR"
 		},
 		"send": {
 			"makeQR": "二维码",
@@ -284,7 +285,10 @@
 			"memoPromptPlaceholder": "例如请输入您的订单姓名",
 			"rememberFor": "记住为",
 			"import": "导入密钥",
-			"seconds": "秒"
+			"seconds": "秒",
+			"pushNotifications": "推动通知",
+			"pushNotificationsDesc": "在设备上获取付款通知",
+			"pushNotificationsDisabled": "你拒绝了这个设备的通知许可 如果您想要取消, 请检查您的浏览器设置 ."
 		},
 		"support": {
 			"header": "支持",
@@ -391,7 +395,10 @@
 		"copyPr": "复制付款请求",
 		"amountPrompt": "始终提示金额",
 		"enterWalletPass": "钱包密码",
-		"failedToRoute": "付款路线失败，收款人可能无法联系到。请尝试发送较少的金额或增加最大费用储备。"
+		"failedToRoute": "付款路线失败，收款人可能无法联系到。请尝试发送较少的金额或增加最大费用储备。",
+		"ok": "还好",
+		"cancel": "取消",
+		"message": "消息"
 	},
 	"items": {
 		"add": "新增项目",

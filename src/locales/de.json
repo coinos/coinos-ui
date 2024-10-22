@@ -208,7 +208,8 @@
 		},
 		"receive": {
 			"lessThan1BTCWarning": "Bitte geben Sie einen Betrag unter 1 Bitcoin ein.",
-			"showQR": "QR-Code zeigen"
+			"showQR": "QR-Code zeigen",
+			"hideQR": "QR verstecken"
 		},
 		"send": {
 			"contacts": "Kontakte",
@@ -295,7 +296,10 @@
 			"memoPromptPlaceholder": "z.B. Bitte geben Sie für die Bestellung Ihren Namen ein",
 			"rememberFor": "Denken Sie daran",
 			"import": "Schlüssel importieren",
-			"seconds": "Sekunden"
+			"seconds": "Sekunden",
+			"pushNotifications": "Push-Benachrichtigungen",
+			"pushNotificationsDesc": "Erhalten Sie Zahlungsinformationen auf Ihrem Gerät",
+			"pushNotificationsDisabled": "Sie haben die Benachrichtigungsberechtigung auf diesem Gerät verweigert. Überprüfen Sie Ihre Browser-Einstellungen, wenn Sie das rückgängig machen möchten."
 		},
 		"support": {
 			"header": "Support",
@@ -418,7 +422,10 @@
 		"copyPr": "Lohnanforderung kopieren",
 		"amountPrompt": "Immer nach dem Betrag fragen",
 		"enterWalletPass": "Wallet-Passwort",
-		"failedToRoute": "Die Weiterleitung der Zahlung ist fehlgeschlagen. Der Empfänger ist möglicherweise nicht erreichbar. Versuchen Sie, einen kleineren Betrag zu senden oder die maximale Gebührenreserve zu erhöhen."
+		"failedToRoute": "Die Weiterleitung der Zahlung ist fehlgeschlagen. Der Empfänger ist möglicherweise nicht erreichbar. Versuchen Sie, einen kleineren Betrag zu senden oder die maximale Gebührenreserve zu erhöhen.",
+		"ok": "Ok",
+		"cancel": "Abbrechen",
+		"message": "Nachricht"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
