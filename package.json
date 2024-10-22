@@ -53,6 +53,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "builddev": "vite build --mode development",
     "docker": "docker build . -t coinos-ui",
     "preview": "vite preview",
     "lint": "prettier --check .",
