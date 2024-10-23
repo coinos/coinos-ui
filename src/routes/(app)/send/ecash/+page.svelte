@@ -30,7 +30,20 @@
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
-  <form use:enhance={handler(toggle)} method="POST">
+  <div
+    class="p-4 border rounded-2xl space-y-2 text-left text-secondary text-sm flex gap-2"
+  >
+    <div class=" space-y-5">
+      <div>
+        {$t("payments.ecashDesc")}
+        <a href="https://cashu.space/" class="font-bold">cashu.space</a>.
+      </div>
+    </div>
+  </div>
+  <form use:enhance={handler(toggle)} method="POST" class="space-y-5">
+    <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
+      {$t("payments.fundingAmount")}
+    </h1>
     <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
     <input type="hidden" name="amount" bind:value={amount} />
 
