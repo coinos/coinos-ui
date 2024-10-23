@@ -425,7 +425,9 @@
 		"failedToRoute": "Die Weiterleitung der Zahlung ist fehlgeschlagen. Der Empfänger ist möglicherweise nicht erreichbar. Versuchen Sie, einen kleineren Betrag zu senden oder die maximale Gebührenreserve zu erhöhen.",
 		"ok": "Ok",
 		"cancel": "Abbrechen",
-		"message": "Nachricht"
+		"message": "Nachricht",
+		"fundingAmount": "Förderbetrag",
+		"ecashDesc": "Ecash-Tokens werden mit etwas Bitcoin finanziert. Sie können wieder in Münzen eingelöst oder in andere Brieftaschen geladen werden. Verwenden Sie sie, um Bitcoin an jemanden zu geben, der möglicherweise noch keine Brieftasche hat, indem Sie sie einfach die Zeichenkette texten oder die URL teilen. Mehr erfahren"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

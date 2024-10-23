@@ -398,7 +398,9 @@
 		"failedToRoute": "No se pudo enviar el pago; es posible que no se pueda contactar al destinatario. Intente enviar un monto menor o aumentar la reserva de tarifa máxima.",
 		"ok": "Ok",
 		"cancel": "Cancelar",
-		"message": "Mensaje"
+		"message": "Mensaje",
+		"fundingAmount": "Cuantía de financiación",
+		"ecashDesc": "Las fichas de Ecash se financian con alguna cantidad de bitcoin. Pueden ser redimidos de nuevo en monedas o cargados en otras carteras. Úsalos para dar bitcoin a alguien que puede no tener una cartera todavía por simplemente enviarles el texto de la cadena token o compartir la URL. Más información en"
 	},
 	"items": {
 		"add": "Añadir artículo",

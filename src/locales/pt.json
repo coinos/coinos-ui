@@ -420,7 +420,9 @@
 		"failedToRoute": "Falha ao encaminhar o pagamento, o destinatário pode não estar acessível. Tente enviar uma quantia menor ou aumentar a reserva de taxa máxima.",
 		"ok": "Ok",
 		"cancel": "Cancelar",
-		"message": "Mensagem"
+		"message": "Mensagem",
+		"fundingAmount": "Montante de financiamento",
+		"ecashDesc": "Os tokens Ecash são financiados com alguma quantidade de bitcoin. Eles podem ser resgatados em coinos ou carregados em outras carteiras. Use-os para dar bitcoin a alguém que pode não ter uma carteira ainda, simplesmente enviando-lhes a string token ou compartilhando a URL. Saiba mais em"
 	},
 	"items": {
 		"add": "Adicionar Item",
