@@ -3,7 +3,7 @@ import {
 	loadTranslations,
 	locales,
 } from "$lib/translations/index";
-import { auth, get } from "$lib/utils";
+import { auth, get, sleep } from "$lib/utils";
 
 export const load = async ({ cookies, request, url }) => {
 	const { host, pathname } = url;
@@ -12,7 +12,10 @@ export const load = async ({ cookies, request, url }) => {
 	if (token) {
 		try {
 			user = await get("/me", auth(cookies));
-		} catch (e) {}
+		} catch (e) {
+			if (e.message.startsWith("Rate")) await sleep(3000);
+			user = await get("/me", auth(cookies));
+		}
 	}
 
 	// Try to get the locale from cookie

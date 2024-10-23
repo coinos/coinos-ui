@@ -98,7 +98,7 @@
       data);
     if (!fees) return;
     delete fees.minimumFee;
-    feeRate = closest(Object.values(fees), feeRate);
+    feeRate = feeRate ? closest(Object.values(fees), feeRate) : fees.halfHourFee;
     if (!$rate) $rate = rates[currency];
   };
 
@@ -106,10 +106,9 @@
   let submitting, submit, showSettings;
 
   let feeNames = {
-    fastestFee: "Fastest",
-    halfHourFee: "Fast",
-    hourFee: "Medium",
-    economyFee: "Slow",
+    fastestFee: $t("payments.fastest"),
+    halfHourFee: $t("payments.fast"),
+    hourFee: $t("payments.medium"),
   };
 
   let toggleSettings = () => (showSettings = !showSettings);
@@ -152,7 +151,7 @@
           on:change={setFee}
           class="border text-lg bg-white p-4 rounded-2xl text-center my-auto"
         >
-          {#each Object.keys(fees) as feeName}
+          {#each Object.keys(feeNames) as feeName}
             <option value={fees[feeName]}
               >{feeNames[feeName]} &mdash; ⚡️{fees[feeName]}/vb</option
             >
