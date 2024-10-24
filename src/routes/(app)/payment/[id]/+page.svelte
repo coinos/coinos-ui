@@ -188,14 +188,23 @@
     </div>
   </div>
 
-  {#if memo}
+  {#if type === types.ecash}
+    <a href={`/ecash/${memo}`} class="block">
+      <button
+        class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white gap-2 items-center"
+      >
+        <img src="/images/cash.png" class="w-8" />
+        <div>{$t("payments.ecashToken")}</div>
+      </button>
+    </a>
+  {:else if memo}
     <div>
       <span class="text-lg text-secondary">{$t("payments.memo")}</span>
       <div>{memo}</div>
     </div>
   {/if}
 
-  {#if type === "lightning"}
+  {#if type === types.lightning}
     <div>
       <span class="text-lg text-secondary">{$t("payments.preimage")}</span>
       <div>{ref}</div>
