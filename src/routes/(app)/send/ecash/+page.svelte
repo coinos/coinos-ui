@@ -31,9 +31,9 @@
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
   <div
-    class="p-4 border rounded-2xl space-y-2 text-left text-secondary text-sm flex gap-2"
+    class="p-4 border rounded-2xl space-y-2 text-lg text-left flex gap-2"
   >
-    <div class=" space-y-5">
+    <div class="space-y-5">
       <div>
         {$t("payments.ecashDesc")}
         <a href="https://cashu.space/" class="font-bold">cashu.space</a>.
