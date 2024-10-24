@@ -32,19 +32,8 @@
   };
 
   $: amount = form?.amount || data.amount;
-  $: maxfee = Math.round(
-    amount < 100
-      ? amount * 5
-      : amount < 1000
-        ? amount
-        : amount < 10000
-          ? amount * 0.5
-          : amount < 100000
-            ? amount * 0.1
-            : amount < 1000000
-              ? amount * 0.05
-              : amount * 0.01,
-  );
+  $: maxfee = Math.round(amount * 0.01) || 1;
+  let showMax;
 
   let loading;
   let submit = () => (loading = true);
@@ -108,11 +97,15 @@
       <input name="amount" value={amount} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />
 
-      {#if form?.message}
-        <div class="w-40 mx-auto">
+      {#if form?.message || showMax}
+        <div class="mx-auto space-y-2">
           <label for="maxfee" class="text-lg text-secondary"
             >{$t("payments.maxfee")}</label
           >
+
+          <div class="text-secondary">
+            {$t("payments.maxFeeDesc")}
+          </div>
 
           <div class="flex">
             <input
@@ -129,6 +122,7 @@
           </div>
         </div>
       {:else}
+        <button on:click={() => (showMax = !showMax)}>Advanced settings</button>
         <input name="maxfee" type="hidden" bind:value={maxfee} />
       {/if}
 

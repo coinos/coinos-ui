@@ -427,7 +427,8 @@
 		"cancel": "Abbrechen",
 		"message": "Nachricht",
 		"fundingAmount": "Förderbetrag",
-		"ecashDesc": "Ecash-Tokens werden mit etwas Bitcoin finanziert. Sie können wieder in Münzen eingelöst oder in andere Brieftaschen geladen werden. Verwenden Sie sie, um Bitcoin an jemanden zu geben, der möglicherweise noch keine Brieftasche hat, indem Sie sie einfach die Zeichenkette texten oder die URL teilen. Mehr erfahren"
+		"ecashDesc": "Ecash-Tokens werden mit etwas Bitcoin finanziert. Sie können wieder in Münzen eingelöst oder in andere Brieftaschen geladen werden. Verwenden Sie sie, um Bitcoin an jemanden zu geben, der möglicherweise noch keine Brieftasche hat, indem Sie sie einfach die Zeichenkette texten oder die URL teilen. Mehr erfahren",
+		"maxFeeDesc": "Setzt eine Obergrenze der Netzleitgebühr. Wenn zu niedrig gesetzt, kann die Zahlung scheitern. Sie können es höher setzen und versuchen wieder. Wir debitieren den vollen Betrag, während wir versuchen, die Zahlung, aber Gutschrift zurück jeden ungenutzten Teil."
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

@@ -400,7 +400,8 @@
 		"cancel": "Cancelar",
 		"message": "Mensaje",
 		"fundingAmount": "Cuantía de financiación",
-		"ecashDesc": "Las fichas de Ecash se financian con alguna cantidad de bitcoin. Pueden ser redimidos de nuevo en monedas o cargados en otras carteras. Úsalos para dar bitcoin a alguien que puede no tener una cartera todavía por simplemente enviarles el texto de la cadena token o compartir la URL. Más información en"
+		"ecashDesc": "Los tokens de Ecash se cargan con una cantidad de Bitcoin. Se pueden canjear de nuevo en Coinos o cargar en otras billeteras. Úsalos para regalar Bitcoin a alguien que aún no tenga una billetera, simplemente enviándole el token por mensaje de texto o compartiendo el enlace. Aprende más en",
+		"maxFeeDesc": "Establece un límite superior en la tasa de enrutamiento de la red. Si se establece demasiado bajo el pago puede fallar. Puedes ponerlo más alto e intentarlo de nuevo. Debitamos toda la cantidad mientras intentamos el pago pero acreditamos cualquier parte no utilizada."
 	},
 	"items": {
 		"add": "Añadir artículo",

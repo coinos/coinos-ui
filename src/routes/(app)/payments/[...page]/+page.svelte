@@ -211,13 +211,15 @@
                   </div>
                 </div>
               {:else}
-                <div class="text-secondary flex">
-                  {#if [types.ecash, types.lightning].includes(p.type)}
+                <div class="text-secondary flex gap-2">
+                  {#if p.type === types.lightning}
                     <div class="text-3xl">⚡️</div>
+                  {:else if p.type === types.ecash}
+                    <img src="/images/cash.png" class="w-12" />
                   {:else if p.type === types.reconcile}
-                    <Icon icon="balance" style="w-6 mr-2" />
+                    <Icon icon="balance" style="w-6" />
                   {:else if p.type === types.bitcoin}
-                    <div class="my-auto mr-1">
+                    <div class="my-auto">
                       <img
                         src="/images/bitcoin.svg"
                         class="w-12 border-4 border-transparent"
@@ -225,7 +227,7 @@
                       />
                     </div>
                   {:else if p.type === types.liquid}
-                    <div class="my-auto mr-1">
+                    <div class="my-auto">
                       <img
                         src="/images/liquid.svg"
                         class="w-12 border-4 border-transparent"
