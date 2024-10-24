@@ -188,7 +188,7 @@
     </div>
   </div>
 
-  {#if type === types.ecash}
+  {#if type === types.ecash && amount < 0}
     <a href={`/ecash/${memo}`} class="block">
       <button
         class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white gap-2 items-center"
