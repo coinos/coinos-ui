@@ -31,10 +31,12 @@
   };
 
   afterNavigate(() => {
-    preloadData(`/${user.username}`);
-    preloadData(`/${user.username}/receive`);
-    preloadData("/payments");
-    preloadData("/send");
+    if (user) {
+      preloadData(`/${user.username}`);
+      preloadData(`/${user.username}/receive`);
+      preloadData("/payments");
+      preloadData("/send");
+    }
   });
 
   onMount(async () => {
