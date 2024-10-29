@@ -8,7 +8,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { f, post, s, sat, sats } from "$lib/utils";
+  import { f, fail, post, s, sat, sats } from "$lib/utils";
 
   export let data;
   export let form;
@@ -32,15 +32,19 @@
     rate = fiat ? (sats * amountFiat) / amount : r;
 
     let id;
-    ({ id, hash } = await post(`/invoice`, {
-      invoice: {
-        amount,
-        rate: rates[subject.currency],
-        prompt: subject.prompt,
-        type: "lightning",
-      },
-      user: subject,
-    }));
+    try {
+      ({ id, hash } = await post(`/invoice`, {
+        invoice: {
+          amount,
+          rate: rates[subject.currency],
+          prompt: subject.prompt,
+          type: "lightning",
+        },
+        user: subject,
+      }));
+    } catch (e) {
+      fail(e.message);
+    }
 
     goto(`/send/invoice/${id}`);
   };
