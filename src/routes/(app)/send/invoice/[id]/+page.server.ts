@@ -1,4 +1,4 @@
-import { auth, fd, get, post } from "$lib/utils";
+import { auth, fd, get, post, types } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params: { id }, parent }) {
@@ -14,7 +14,7 @@ export async function load({ cookies, params: { id }, parent }) {
 		redirect(307, `/invoice/${id}/memo`);
 
 	if (invoice.aid === aid) error(500, { message: "Cannot send to self" });
-	else if (user) redirect(307, `/send/${invoice.type}/${invoice.hash}`);
+	else if (user && invoice.type !== types.lightning) redirect(307, `/send/${invoice.type}/${invoice.hash}`);
 
 	if (!user) redirect(307, `/invoice/${id}`);
 

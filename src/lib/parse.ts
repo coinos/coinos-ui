@@ -10,8 +10,7 @@ export default async (t, host) => {
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
-	let amount;
-	let user;
+	let amount, user;
 
 	t = t.trim();
 	t.toLowerCase().startsWith("bitcoin:") &&
@@ -30,14 +29,6 @@ export default async (t, host) => {
 
 	if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
 
-	// invoice
-	let invoice;
-	try {
-		invoice = await get(`/invoice/${t}`);
-	} catch (e) {}
-
-	if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
-
 	// lightning
 	if (t.toLowerCase().startsWith("lightning:"))
 		t = t.toLowerCase().replace("lightning:", "");
@@ -55,7 +46,7 @@ export default async (t, host) => {
 	// bitcoin
 	if (validate(t) || isLiquid(t)) {
 		let r = `/send/bitcoin/${t}`;
-		if (amount) r += `/${amount}`;
+		if (amount) r += "/" + amount;
 		redirect(307, r);
 	}
 
@@ -78,4 +69,12 @@ export default async (t, host) => {
 	} catch (e) {}
 
 	if (fund) redirect(307, `/send/fund/${t}`);
+
+	// invoice
+	let invoice;
+	try {
+		invoice = await get(`/invoice/${t}`);
+	} catch (e) {}
+
+	if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
 };
