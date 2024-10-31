@@ -4,16 +4,18 @@ import { redirect } from "@sveltejs/kit";
 import bip21 from "bip21";
 import { validate } from "bitcoin-address-validation";
 
-export default async (t, host) => {
-	if (!t) return;
+export default async (s, host) => {
+	if (!s) return;
+	let t = s;
 
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
-	let amount, user;
+	let amount;
+	let user;
 
 	t = t.trim();
-	t.toLowerCase().startsWith("bitcoin:") &&
+	if (t.toLowerCase().startsWith("bitcoin:"))
 		({
 			address: t,
 			options: { amount },
@@ -46,7 +48,7 @@ export default async (t, host) => {
 	// bitcoin
 	if (validate(t) || isLiquid(t)) {
 		let r = `/send/bitcoin/${t}`;
-		if (amount) r += "/" + amount;
+		if (amount) r += `/${amount}`;
 		redirect(307, r);
 	}
 
