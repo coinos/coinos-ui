@@ -37,7 +37,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-  <Numpad bind:amount bind:currency bind:rate {submit} />
+  <Numpad bind:amount bind:currency bind:rate />
 
   <form method="POST" use:enhance on:submit={submit}>
     <input name="id" value={id} type="hidden" />

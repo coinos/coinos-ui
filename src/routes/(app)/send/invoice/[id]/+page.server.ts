@@ -1,38 +1,39 @@
+import { auth, fd, get, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
-import { fd, auth, get, post } from "$lib/utils";
 
-export async function load({ params: { id }, parent }) {
-  let { rates, user } = await parent();
+export async function load({ cookies, params: { id }, parent }) {
+	const aid = cookies.get("aid");
+	const { rates, user } = await parent();
 
-  let invoice = await get(`/invoice/${id}`);
+	const invoice = await get(`/invoice/${id}`);
 
-  if (invoice.prompt && invoice.tip === null)
-    redirect(307, `/invoice/${id}/tip`);
+	if (invoice.prompt && invoice.tip === null)
+		redirect(307, `/invoice/${id}/tip`);
 
-  if (invoice.memoPrompt && invoice.memo === null)
-    redirect(307, `/invoice/${id}/memo`);
+	if (invoice.memoPrompt && invoice.memo === null)
+		redirect(307, `/invoice/${id}/memo`);
 
-  if (user && invoice.account === user?.id)
-    error(500, { message: "Cannot send to self" });
+	if (invoice.aid === aid) error(500, { message: "Cannot send to self" });
+  else if (user) redirect(307, `/send/${invoice.type}/${invoice.hash}`);
 
-  if (!user) redirect(307, `/invoice/${id}`);
+	if (!user) redirect(307, `/invoice/${id}`);
 
-  return { invoice, rates, user };
+	return { invoice, rates, user };
 }
 
 export const actions = {
-  default: async ({ cookies, params: { id }, request }) => {
-    let p;
-    try {
-      let body = await fd(request);
-      body.hash = id;
+	default: async ({ cookies, params: { id }, request }) => {
+		let p;
+		try {
+			const body = await fd(request);
+			body.hash = id;
 
-      p = await post("/payments", body, auth(cookies));
-    } catch (e: any) {
-      console.log("payment failed", id, e);
-      error(500, e.message);
-    }
+			p = await post("/payments", body, auth(cookies));
+		} catch (e: any) {
+			console.log("payment failed", id, e);
+			error(500, e.message);
+		}
 
-    redirect(307, `/sent/${p.id}`);
-  },
+		redirect(307, `/sent/${p.id}`);
+	},
 };

@@ -29,6 +29,14 @@ export default async (t, host) => {
 
 	if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
 
+	// invoice
+	let invoice;
+	try {
+		invoice = await get(`/invoice/${t}`);
+	} catch (e) {}
+
+	if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
+
 	// lightning
 	if (t.toLowerCase().startsWith("lightning:"))
 		t = t.toLowerCase().replace("lightning:", "");
@@ -69,12 +77,4 @@ export default async (t, host) => {
 	} catch (e) {}
 
 	if (fund) redirect(307, `/send/fund/${t}`);
-
-	// invoice
-	let invoice;
-	try {
-		invoice = await get(`/invoice/${t}`);
-	} catch (e) {}
-
-	if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
 };

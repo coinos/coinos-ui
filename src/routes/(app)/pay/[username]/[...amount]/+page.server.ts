@@ -12,7 +12,6 @@ export async function load({ cookies, params, parent }) {
 
 	let rate;
 
-	console.log("HI", amount);
 	if (amount) {
 		rate = rates[currency ? currency.toUpperCase() : subject.currency];
 		if (!rate) error(500, "Invalid currency symbol");
