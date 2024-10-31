@@ -48,7 +48,7 @@
     amountFiat = af;
   };
 
-  let submitting;
+  let submit, submitting;
   let toggle = () => (submitting = !submitting);
 
   let external = async () => {
@@ -162,6 +162,7 @@
       {currency}
       bind:fiat
       bind:rate
+      {submit}
     />
   {/if}
 
@@ -188,6 +189,7 @@
         </button>
       {:else}
         <button
+          bind:this={submit}
           type="button"
           class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
           on:click={setAmount}

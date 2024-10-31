@@ -2,11 +2,11 @@ import { auth, get, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export default async ({ cookies, request }) => {
-	let aid = cookies.get("aid");
-	let form = await request.formData();
+	const form = await request.formData();
+	const aid = form.get("aid") || cookies.get("aid");
 
-	let rates = await get("/rates");
-	let amount = parseInt(form.get("amount"));
+	const rates = await get("/rates");
+	const amount = parseInt(form.get("amount"));
 
 	let invoice = {
 		aid,
@@ -21,10 +21,13 @@ export default async ({ cookies, request }) => {
 		id: undefined,
 	};
 
-	let user = { username: form.get("username"), currency: form.get("currency") };
+	const user = {
+		username: form.get("username"),
+		currency: form.get("currency"),
+	};
 
 	invoice = await post("/invoice", { invoice, user }, auth(cookies));
-	let { id } = invoice;
+	const { id } = invoice;
 
 	if (invoice.prompt && invoice.tip === null)
 		redirect(307, `/invoice/${id}/tip`);
