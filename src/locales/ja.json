@@ -4,7 +4,7 @@
 		"pageNotFound": "ページが見つかりません。"
 	},
 	"about": {
-		"header": "について",
+		"header": "About",
 		"team": {
 			"header": "チーム",
 			"adam": {
@@ -99,9 +99,9 @@
 		"pitch3": "影響を与えることができると思われる場合は、ぜひご連絡ください。履歴書を下記までお送りください"
 	},
 	"landing": {
-		"header_before_icon": "の",
-		"header_with_icon": "最も簡単な",
-		"header_after_icon": "ビットコインを始める方法。",
+		"header_before_icon": "最も",
+		"header_with_icon": "簡単な",
+		"header_after_icon": "ビットコインの始め方。",
 		"subheader": "誰でも使える無料のウェブウォレットと支払いページ。",
 		"info1": {
 			"title": "ライトニングによる即時支払い",
@@ -139,7 +139,7 @@
 		"signUp": "サインアップ"
 	},
 	"nav": {
-		"about": "について",
+		"about": "About",
 		"docs": "ドキュメント",
 		"messages": "メッセージ",
 		"funds": "資金",
@@ -238,7 +238,7 @@
 			"username": "ユーザー名",
 			"email": "Eメール",
 			"newPassword": "パスワードを変更する",
-			"about": "について",
+			"about": "About",
 			"aboutPlaceholder": "あなたまたはあなたの会社の住所と営業時間についてのちょっとしたこと",
 			"emailNotifications": "電子メール通知",
 			"emailNotificationsDescription": "アカウントに変更が発生したとき、または他の人から支払いが送られたときに、電子メールで通知を受け取ります。",
