@@ -2,29 +2,29 @@ import { fail, redirect } from "@sveltejs/kit";
 import { fd, post, login } from "$lib/utils";
 
 export const actions = {
-  default: async ({ cookies, params, request }) => {
-    let ip = request.headers.get("cf-connecting-ip");
-    let error;
+	default: async ({ cookies, params, request }) => {
+		const ip = request.headers.get("cf-connecting-ip");
+		let error;
 
-    let { code } = params;
-    let { password } = await fd(request);
+		const { code } = params;
+		const { password } = await fd(request);
 
-    try {
-      let user = await post("/reset", { code, password });
-      user.password = password;
+		try {
+			const user = await post("/reset", { code, password });
+			user.password = password;
 
-      try {
-        await login(user, cookies, ip);
-        error = null;
-      } catch (e: any) {
-        error ||= e.message;
-      }
+			try {
+				await login(user, cookies, ip);
+				error = null;
+			} catch (e: any) {
+				error ||= e.message;
+			}
 
-      if (error) return fail(400, { error });
-      redirect(307, `/${user.username}`);
-    } catch (e: any) {
-      console.log(e.message);
-      return fail(400, { error: e.message });
-    }
-  },
+			if (error) return fail(400, { error });
+			redirect(307, `/${user.username}`);
+		} catch (e: any) {
+			console.log(e.message);
+			return fail(400, { error: e.message });
+		}
+	},
 };

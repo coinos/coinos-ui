@@ -35,15 +35,15 @@ type EncryptParams = {
 
 const { encode, decode, toWords, fromWords } = bech32m;
 
-export let generate = async (user: any) => {
-	let p = get(pin);
+export const generate = async (user: any) => {
+	const p = get(pin);
 	if (p && p.length !== 6) return;
 
-	let salt = crypto.getRandomValues(new Uint8Array(16));
-	let mnemonic = generateSeedWords();
-	let sk = privateKeyFromSeedWords(mnemonic);
+	const salt = crypto.getRandomValues(new Uint8Array(16));
+	const mnemonic = generateSeedWords();
+	const sk = privateKeyFromSeedWords(mnemonic);
 
-	let bytes = new Uint8Array(
+	const bytes = new Uint8Array(
 		await crypto.subtle.encrypt(
 			{ name: "AES-GCM", iv: new Uint8Array(16) },
 			await stretch(await getPassword(), salt),
@@ -56,19 +56,19 @@ export let generate = async (user: any) => {
 	user.salt = Buffer.from(salt).toString("hex");
 };
 
-export let encrypt = async ({ message, recipient, user }: EncryptParams) => {
-	let sk = await getPrivateKey(user);
+export const encrypt = async ({ message, recipient, user }: EncryptParams) => {
+	const sk = await getPrivateKey(user);
 	return nip04.encrypt(sk, recipient, message);
 };
 
-export let decrypt = async ({ event, user }) => {
-	let cache = get(decrypted);
+export const decrypt = async ({ event, user }) => {
+	const cache = get(decrypted);
 	try {
 		let { content, pubkey, id } = event;
 		if (cache[id]) return cache[id];
 		if (pubkey === user.pubkey) pubkey = event.tags[0][1];
 
-		let message = await nip04.decrypt(
+		const message = await nip04.decrypt(
 			await getPrivateKey(user),
 			pubkey,
 			content,
@@ -83,7 +83,7 @@ export let decrypt = async ({ event, user }) => {
 	}
 };
 
-export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
+export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 	let k;
 	if (browser) {
 		k = localStorage.getItem("nsec");
@@ -92,7 +92,7 @@ export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
 		}
 	}
 
-	let { nsec } = user;
+	const { nsec } = user;
 
 	if (nsec) {
 		k = nip49decrypt(nsec, await getPassword());
@@ -102,8 +102,8 @@ export let getPrivateKey = async (user: User): Promise<Uint8Array> => {
 	return k;
 };
 
-export let getMnemonic = async (user: User) => {
-	let { cipher, salt } = user;
+export const getMnemonic = async (user: User) => {
+	const { cipher, salt } = user;
 	let entropy;
 
 	entropy = new Uint8Array(
@@ -117,23 +117,23 @@ export let getMnemonic = async (user: User) => {
 	return entropyToMnemonic(entropy, wordlist);
 };
 
-let decodeNsec = (nsec: string): Uint8Array => {
-	let { type, data } = nip19.decode(nsec);
+const decodeNsec = (nsec: string): Uint8Array => {
+	const { type, data } = nip19.decode(nsec);
 	if (type === "nsec" && data instanceof Uint8Array) return data;
-	else throw new Error("invalid nsec");
+	throw new Error("invalid nsec");
 };
 
-export let getNsec = async (user: User) => {
+export const getNsec = async (user: User) => {
 	return nip19.nsecEncode(await getPrivateKey(user));
 };
 
-export let setNsec = async (user: User, nsec: string) => {
+export const setNsec = async (user: User, nsec: string) => {
 	user.pubkey = getPublicKey(decodeNsec(nsec));
 	user.nsec = await encryptNsec(nsec);
 };
 
-export let encryptNsec = async (nsec: string) => {
-	let d = decodeNsec(nsec);
+export const encryptNsec = async (nsec: string) => {
+	const d = decodeNsec(nsec);
 	return nip49encrypt(d, await getPassword());
 };
 
@@ -142,30 +142,30 @@ type SignParams = {
 	user: User;
 };
 
-export let sign = async ({ event, user }: SignParams) => {
+export const sign = async ({ event, user }: SignParams) => {
 	event = finalizeEvent(event, await getPrivateKey(user));
 };
 
-export let send = (event: EventTemplate) => {
+export const send = (event: EventTemplate) => {
 	return post("/events", { event });
 };
 
-let getPassword = async (): Promise<string> => {
+const getPassword = async (): Promise<string> => {
 	if (!get(pw)) passwordPrompt.set(true);
 	await wait(() => !!get(pw));
 	return get(pw) || "";
 };
 
-export let reEncryptEntropy = async (user: User, newPassword: string) => {
-	let { cipher, salt } = user;
+export const reEncryptEntropy = async (user: User, newPassword: string) => {
+	const { cipher, salt } = user;
 
-	let entropy = await crypto.subtle.decrypt(
+	const entropy = await crypto.subtle.decrypt(
 		{ name: "AES-GCM", iv: new Uint8Array(16) },
 		await stretch(await getPassword(), hexToUint8Array(salt)),
 		Uint8Array.from(fromWords(decode(cipher, 180).words)),
 	);
 
-	let bytes = new Uint8Array(
+	const bytes = new Uint8Array(
 		await crypto.subtle.encrypt(
 			{ name: "AES-GCM", iv: new Uint8Array(16) },
 			await stretch(newPassword, hexToUint8Array(salt)),
