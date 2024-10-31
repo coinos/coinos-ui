@@ -1,8 +1,8 @@
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 
-let persistSession = (key, defaultValue = undefined) => {
-	let s = writable(
+const persistSession = (key, defaultValue = undefined) => {
+	const s = writable(
 		browser &&
 		sessionStorage.getItem(key) &&
 		sessionStorage.getItem(key) !== "undefined"
@@ -17,8 +17,8 @@ let persistSession = (key, defaultValue = undefined) => {
 	return s;
 };
 
-let persistLocal = (key, defaultValue: any = undefined) => {
-	let s = writable(
+const persistLocal = (key, defaultValue: any = undefined) => {
+	const s = writable(
 		browser &&
 		localStorage.getItem(key) &&
 		localStorage.getItem(key) !== "undefined"
@@ -38,25 +38,25 @@ let persistLocal = (key, defaultValue: any = undefined) => {
 	return s;
 };
 
-export let account = writable();
-export let amountPrompt = persistLocal("amountPrompt");
-export let avatar = writable();
-export let banner = writable();
-export let event = writable();
-export let events = writable({});
-export let installPrompt = writable();
-export let invoice = writable();
-export let last = writable();
-export let loginRedirect = writable();
-export let decrypted = persistLocal("decrypted", {});
-export let mnemonic = persistSession("mnemonic");
-export let newPayment = persistLocal("newPayment");
-export let password = writable<string | undefined>();
-export let passwordPrompt = writable();
-export let pin = persistLocal("pin");
-export let rate = writable();
-export let request = writable();
-export let requestRedirect = writable();
-export let token = persistSession("token");
-export let ndef = writable();
-export let showQr = persistLocal("showQr", true);
+export const account = writable();
+export const amountPrompt = persistLocal("amountPrompt");
+export const avatar = writable();
+export const banner = writable();
+export const event = writable();
+export const events = writable({});
+export const installPrompt = writable();
+export const invoice = writable();
+export const last = writable();
+export const loginRedirect = writable();
+export const decrypted = persistLocal("decrypted", {});
+export const mnemonic = persistSession("mnemonic");
+export const newPayment = persistLocal("newPayment");
+export const password = writable<string | undefined>();
+export const passwordPrompt = writable();
+export const pin = persistLocal("pin");
+export const rate = writable();
+export const request = writable();
+export const requestRedirect = writable();
+export const token = persistSession("token");
+export const ndef = writable();
+export const showQr = persistLocal("showQr", true);

@@ -1,10 +1,10 @@
 export const upload = async (file, type, progress) => {
-	let url = `/api/upload/${type}`;
-	let formData = new FormData();
+	const url = `/api/upload/${type}`;
+	const formData = new FormData();
 	formData.append("file", file);
 
 	return new Promise((resolve, reject) => {
-		let ajax = new XMLHttpRequest();
+		const ajax = new XMLHttpRequest();
 		ajax.addEventListener("load", () => {
 			if (ajax.readyState === ajax.DONE) {
 				if (ajax.status === 200) resolve(ajax.response);

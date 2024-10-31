@@ -1,8 +1,8 @@
 import Qr from "qrcode-base64";
 
 export async function load({ params }) {
-  let { text } = params;
-  let src = Qr.drawImg(text, { size: 600 });
+	const { text } = params;
+	const src = Qr.drawImg(text, { size: 600 });
 
-  return { src, text };
+	return { src, text };
 }

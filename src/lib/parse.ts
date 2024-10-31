@@ -10,7 +10,8 @@ export default async (t, host) => {
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
-	let amount, user;
+	let amount;
+	let user;
 
 	t = t.trim();
 	t.toLowerCase().startsWith("bitcoin:") &&
@@ -54,7 +55,7 @@ export default async (t, host) => {
 	// bitcoin
 	if (validate(t) || isLiquid(t)) {
 		let r = `/send/bitcoin/${t}`;
-		if (amount) r += "/" + amount;
+		if (amount) r += `/${amount}`;
 		redirect(307, r);
 	}
 

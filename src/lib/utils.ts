@@ -13,7 +13,7 @@ export function scroll(section: any) {
 const base = browser ? "" : PUBLIC_COINOS_URL;
 
 export const punk = (k: string) =>
-	Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1 + ".webp";
+	`${Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1}.webp`;
 
 export const g = (url: string, fetch: any, headers: object) =>
 	fetch(base + url, { headers })
@@ -100,10 +100,10 @@ export const copyNoNewlines = (text: string) => {
 
 export function reverseFormat(val: string, locale: string): number {
 	const parts = new Intl.NumberFormat(locale).formatToParts(1111.1);
-	const group = parts.find((part) => part.type === "group")!.value;
-	const decimal = parts.find((part) => part.type === "decimal")!.value;
-	let reversedVal = val.replace(new RegExp("\\" + group, "g"), "");
-	reversedVal = reversedVal.replace(new RegExp("\\" + decimal, "g"), ".");
+	const group = parts.find((part) => part.type === "group")?.value;
+	const decimal = parts.find((part) => part.type === "decimal")?.value;
+	let reversedVal = val.replace(new RegExp(`\\${group}`, "g"), "");
+	reversedVal = reversedVal.replace(new RegExp(`\\${decimal}`, "g"), ".");
 	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
 }
 
@@ -156,7 +156,7 @@ export const login = async (
 ) => {
 	const maxAge = 380 * 24 * 60 * 60;
 
-	const res = await fetch(base + "/login", {
+	const res = await fetch(`${base}/login`, {
 		method: "POST",
 		body: JSON.stringify(user),
 		headers: {
@@ -216,14 +216,14 @@ export const f = (s: number, currency: string): string => {
 export const s = (s: number): string =>
 	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
 
-export const sat = (s: number): string => "⚡️" + si(Math.abs(s)).toString();
+export const sat = (s: number): string => `⚡️${si(Math.abs(s)).toString()}`;
 
 export const si = (s: number) => {
 	if (s < 1000) return s.toString(); // Return the original number if it's less than 1000
 
 	const units = ["", "K", "M", "G", "T", "P", "E", "Z"];
 	const d = Math.floor(Math.log10(s) / 3); // Calculate the unit index
-	const scaled = s / Math.pow(1000, d); // Scale the number to the correct unit
+	const scaled = s / 1000 ** d; // Scale the number to the correct unit
 
 	return (
 		new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
@@ -320,7 +320,7 @@ export const isLiquid = (text: string): boolean =>
 	text.startsWith("lq1qq");
 
 export function getCookie(name: string): string | null {
-	const nameEQ = name + "=";
+	const nameEQ = `${name}=`;
 	const ca = document.cookie.split(";");
 	for (let i = 0; i < ca.length; i++) {
 		let c = ca[i];
@@ -333,8 +333,8 @@ export function getCookie(name: string): string | null {
 export function setCookie(name: string, value: string, seconds: number): void {
 	const now = new Date();
 	now.setTime(now.getTime() + seconds * 1000);
-	const expires = "expires=" + now.toUTCString();
-	document.cookie = name + "=" + value + ";" + expires + ";path=/";
+	const expires = `expires=${now.toUTCString()}`;
+	document.cookie = `${name}=${value};${expires};path=/`;
 }
 
 export const network = {

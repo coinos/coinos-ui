@@ -4,6 +4,6 @@ import { auth, post } from "$lib/utils";
 export const prerender = false;
 
 export async function POST({ cookies, request }) {
-  let result = await post("/email", await request.json(), auth(cookies));
-  return json(result);
+	const result = await post("/email", await request.json(), auth(cookies));
+	return json(result);
 }

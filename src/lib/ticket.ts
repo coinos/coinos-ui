@@ -3,15 +3,15 @@ import { env } from "$env/dynamic/private";
 import tickets from "$lib/tickets";
 
 export const createTicket = async (cookies, username) => {
-	let { ticket } = await get("/ticket");
+	const { ticket } = await get("/ticket");
 
-	let { address } = await post(
+	const { address } = await post(
 		`/${username}/invoice`,
 		{ invoice: { network: "liquid" }, user: { username } },
 		auth(cookies),
 	);
 
-	let { asset } = await post(
+	const { asset } = await post(
 		"/assets",
 		{
 			address,

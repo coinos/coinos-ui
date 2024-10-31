@@ -1,6 +1,6 @@
 import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
 
-let api = PUBLIC_DOMAIN.includes("localhost")
+const api = PUBLIC_DOMAIN.includes("localhost")
 	? `${PUBLIC_COINOS_URL}`
 	: `https://${PUBLIC_DOMAIN}/api`;
 
