@@ -1,5 +1,5 @@
+import { auth, fd, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
-import { fd, auth, post } from "$lib/utils";
 
 export async function load({ cookies, params }) {
 	return post("/parse", params, auth(cookies));
@@ -15,7 +15,11 @@ export const actions = {
 
 			p = await post("/payments", body, auth(cookies));
 		} catch (e: any) {
-			if (e.message.includes("unusable") || e.message.includes("routes"))
+			if (
+				e.message.includes("unusable") ||
+				e.message.includes("routes") ||
+				e.message.includes("minflow")
+			)
 				e.message = "payments.failedToRoute";
 			return fail(400, { message: e.message });
 		}
