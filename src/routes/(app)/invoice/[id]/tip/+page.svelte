@@ -153,12 +153,21 @@
           <button type="button" on:click={() => (tipPercent = 0)}>Reset</button>
         </div>
       {:else}
-        {#each tipAmounts as amount}
-          <button
-            type="button"
-            class:active={active(amount, tipPercent)}
-            on:click={() => handleTipButtonClick(amount)}>{amount}</button
-          >
+        {#each tipAmounts as amount, i}
+          {#if i === 0}
+            <button
+              use:focus
+              type="button"
+              class:active={active(amount, tipPercent)}
+              on:click={() => handleTipButtonClick(amount)}>{amount}</button
+            >
+          {:else}
+            <button
+              type="button"
+              class:active={active(amount, tipPercent)}
+              on:click={() => handleTipButtonClick(amount)}>{amount}</button
+            >
+          {/if}
         {/each}
       {/if}
 

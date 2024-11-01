@@ -1,4 +1,5 @@
 <script>
+  import { focus } from "$lib/utils";
   import { goto } from "$app/navigation";
   import Icon from "$comp/Icon.svelte";
   import Image from "$comp/Image.svelte";
@@ -29,6 +30,7 @@
     <div class="flex justify-center">
       <a href="/register">
         <button
+          use:focus
           class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
         >
           {$t("nav.startInSeconds")}
