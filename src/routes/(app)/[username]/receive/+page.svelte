@@ -170,7 +170,7 @@
     {/if}
   </div>
 
-  {#if aid === user.id}
+  {#if aid === user?.id}
     <div class="grid grid-cols-2 justify-around text-secondary">
       <button
         class="hover:bg-base-200 my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"

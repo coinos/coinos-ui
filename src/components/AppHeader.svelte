@@ -17,7 +17,11 @@
       { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
       { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
       { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
-      { key: "nav.merch", icon: "ph:storefront-bold", href: `https://coinosmerch.com` },
+      {
+        key: "nav.merch",
+        icon: "ph:storefront-bold",
+        href: `https://coinosmerch.com`,
+      },
       { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
       { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
     ];
@@ -63,7 +67,11 @@
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
           >
-            <iconify-icon icon="ph:hand-coins-bold" flip="horizontal" width="32" />
+            <iconify-icon
+              icon="ph:hand-coins-bold"
+              flip="horizontal"
+              width="32"
+            />
           </button>
         </a>
         <a href={`/payments`} data-sveltekit-preload-code="eager">
@@ -122,17 +130,16 @@
                       <button
                         class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                         on:click={dark}
-                        > 
-                        
-                        <iconify-icon icon={icon} width="30" />
+                      >
+                        <iconify-icon {icon} width="30" />
                         {$t(key)}
                       </button>
                     {:else}
                       <a {href} data-sveltekit-preload-code="eager">
                         <button
                           class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
-                          >
-                          <iconify-icon icon={icon} width="30" />
+                        >
+                          <iconify-icon {icon} width="30" />
                           {$t(key)}
                         </button>
                       </a>
@@ -142,7 +149,7 @@
               </ul>
               <hr class="my-4" />
               <a href="/?stay=true"
-                ><img src="/images/logo.svg" alt="Coinos" class="w-32" /></a
+                ><iconify-icon icon="coinos:logo" width="130" /></a
               >
             </div>
           </OutClick>
