@@ -1,5 +1,5 @@
-import { writable } from "svelte/store";
 import { browser } from "$app/environment";
+import { writable } from "svelte/store";
 
 const persistSession = (key, defaultValue = undefined) => {
 	const s = writable(
@@ -57,6 +57,7 @@ export const pin = persistLocal("pin");
 export const rate = writable();
 export const request = writable();
 export const requestRedirect = writable();
+export const theme = persistLocal("light");
 export const token = persistSession("token");
 export const ndef = writable();
 export const showQr = persistLocal("showQr", true);

@@ -23,11 +23,7 @@ html {
 
 input,
 textarea {
-  @apply block border rounded-2xl px-5 py-4 w-full;
-}
-
-button.primary {
-  @apply rounded-full border py-2 font-bold my-4 flex px-4 bg-white mx-auto hover:opacity-80;
+  @apply input input-bordered input-primary w-full
 }
 
 .select-styles {

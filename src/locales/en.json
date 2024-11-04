@@ -165,6 +165,7 @@
 		"failed": "Login failed"
 	},
 	"nav": {
+    "dark": "Dark",
 		"about": "About",
 		"docs": "Docs",
 		"messages": "Messages",

@@ -200,7 +200,7 @@
       notify={false}
     />
   {:else}
-    <button type="button" class="primary" on:click={togglePin}
+    <button type="button" class="btn btn-primary" on:click={togglePin}
       ><Icon icon="lock" style="mr-1" />
       {user.haspin
         ? $t("user.settings.disablePIN")
@@ -225,17 +225,17 @@
       <b>{otp.secret}</b>
     </div>
 
-    <button type="button" class="primary" on:click={startConfirming2fa}>
+    <button type="button" class="btn btn-primary" on:click={startConfirming2fa}>
       <Icon icon="numpad" style="w-8 mr-1" />
       <div class="my-auto">Confirm</div>
     </button>
   {:else if user.twofa}
-    <button type="button" class="primary" on:click={startDisabling2fa}>
+    <button type="button" class="btn btn-primary" on:click={startDisabling2fa}>
       <Icon icon="mobile" style="w-8 mr-1" />
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
-    <button type="button" class="primary" on:click={startEnabling2fa}>
+    <button type="button" class="btn btn-primary" on:click={startEnabling2fa}>
       <Icon icon="mobile" style="w-8 mr-1" />
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
@@ -287,8 +287,8 @@
     {$t("user.settings.nostrDescription")}
   </p>
 
-  <div class="flex">
-    <button type="button" class="primary" on:click={toggleNsec}>
+  <div class="flex gap-2">
+    <button type="button" class="btn btn-primary" on:click={toggleNsec}>
       {#if revealNsec}
         <Icon icon="eye-off" style="mr-1 w-6 my-auto" />
         {$t("user.settings.hideNsec")}
@@ -298,7 +298,7 @@
       {/if}
     </button>
 
-    <button type="button" class="primary" on:click={toggleImporting}>
+    <button type="button" class="btn btn-primary" on:click={toggleImporting}>
       <Icon icon="save" style="mr-1 w-6 my-auto" />
       {$t("user.settings.import")}
     </button>
@@ -313,7 +313,7 @@
       {nsec}
     </div>
 
-    <button type="button" class="primary" on:click={() => copy(nsec)}>
+    <button type="button" class="btn btn-primary" on:click={() => copy(nsec)}>
       <Icon icon="copy" style="mr-1 w-6 my-auto" />
       Copy
     </button>
