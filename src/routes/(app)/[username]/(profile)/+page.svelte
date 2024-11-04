@@ -41,9 +41,7 @@
     </div>
 
     <a href={`/account/savings`} class="contents">
-      <button
-        class="rounded-2xl py-5 px-6 hover:opacity-80 flex w-full justify-center bg-primary"
-      >
+      <button class="btn btn-primary">
         <div class="mx-auto flex gap-2">
           <Icon icon="plus" style="w-8 mx-auto" />
           <div class="my-auto text-xl whitespace-nowrap">

@@ -220,7 +220,7 @@
             <button
               type="button"
               class="hover:opacity-80"
-              class:text-black={tab === name ||
+              class:text-primary={tab === name ||
                 (tab === "shopify" && name === "pos")}
               >{$t(`user.settings.${key}`)}</button
             >

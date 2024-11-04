@@ -113,7 +113,7 @@
         {#each contacts as c}
           <a href={`/pay/${c.username}`}>
             <div
-              class="border-b p-2 last:border-b-0 hover:bg-gray-100 rounded-2xl"
+              class="border-b p-2 last:border-b-0 hover:bg-base-200 rounded-2xl"
             >
               <div class="flex">
                 <div>

@@ -1,6 +1,6 @@
 <script>
   import OutClick from "svelte-outclick";
-  import { banner, newPayment } from "$lib/store";
+  import { banner, theme, newPayment } from "$lib/store";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
@@ -14,19 +14,11 @@
   let menuButtons;
   $: if (user)
     menuButtons = [
-      {
-        key: "nav.settings",
-        icon: "settings",
-        href: `/settings`,
-      },
+      { key: "nav.settings", icon: "settings", href: `/settings` },
       { key: "nav.support", icon: "support", href: `/support` },
       { key: "nav.map", icon: "map", href: `/map` },
-      // {
-      //   key: "nav.messages",
-      //   icon: "message",
-      //   href: `/messages`,
-      // },
       { key: "nav.merch", icon: "shop", href: `https://coinosmerch.com` },
+      { key: "nav.dark", icon: "moon", href: `/dark` },
       { key: "nav.signOut", icon: "logout", href: `/logout` },
     ];
 
@@ -42,18 +34,20 @@
         : undefined;
 
   $: $page && (showMenu = false);
+
+  let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
 </script>
 
 {#if !$loading}
   <header
-    class="bg-gradient-to-r from-primary to-gradient h-[175px] w-full relative bg-cover mb-20"
+    class="bg-gradient-to-r from-primary to-gradient h-[175px] w-full relative bg-cover mb-20 text-secondary"
     style:background-image={bg}
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
         <a href={`/${user.username}`} data-sveltekit-preload-code="eager">
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
+            class="bg-base p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
@@ -117,17 +111,25 @@
             <div
               class="{showMenu
                 ? 'block'
-                : 'hidden'} absolute top-14 right-0 bg-white rounded-3xl p-8 shadow-xl z-50"
+                : 'hidden'} absolute top-14 right-0 bg-base-100 rounded-3xl p-8 shadow-xl z-50"
             >
               <ul class="space-y-5 w-48">
                 {#each menuButtons as { href, icon, key }}
                   <li>
-                    <a {href} data-sveltekit-preload-code="eager">
+                    {#if key.includes("dark")}
                       <button
                         class="flex justify-center items-center font-semibold hover:opacity-80"
+                        on:click={dark}
                         ><Icon {icon} style="mr-2 w-6 sm:w-8" /> {$t(key)}
                       </button>
-                    </a>
+                    {:else}
+                      <a {href} data-sveltekit-preload-code="eager">
+                        <button
+                          class="flex justify-center items-center font-semibold hover:opacity-80"
+                          ><Icon {icon} style="mr-2 w-6 sm:w-8" /> {$t(key)}
+                        </button>
+                      </a>
+                    {/if}
                   </li>
                 {/each}
               </ul>
