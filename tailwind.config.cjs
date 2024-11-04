@@ -7,8 +7,6 @@ module.exports = {
 				primary: "#F5F7FA",
 				secondary: "#70757E",
 				gradient: "#C3CFE2",
-				lightgrey: "#EAECEF",
-				grey: "#70757E",
 			},
 		},
 	},
@@ -18,19 +16,13 @@ module.exports = {
 			{
 				light: {
 					...require("daisyui/src/theming/themes").lofi,
-					primary: "#F5F7FA",
-					secondary: "#70757E",
 					gradient: "#C3CFE2",
-					lightgrey: "#EAECEF",
-					grey: "#70757E",
 				},
 			},
 			{
 				dark: {
 					...require("daisyui/src/theming/themes").black,
 					gradient: "#C3CFE2",
-					lightgrey: "#EAECEF",
-					grey: "#70757E",
 				},
 			},
 		], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]

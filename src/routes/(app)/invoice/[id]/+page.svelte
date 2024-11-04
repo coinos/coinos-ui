@@ -190,7 +190,7 @@
       class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
       on:click={() => copy(txt)}
     >
-      <Icon icon="copy" style="w-8 my-auto" />
+      <iconify-icon icon="ph:copy-bold" width="32" />
       <div class="my-auto">
         {$t("payments.copy")}
       </div>
@@ -201,15 +201,15 @@
         class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
         on:click={toggleAmount}
       >
-        <Icon icon="edit" style="mr-1 w-8" />
+        <iconify-icon icon="ph:pencil-bold" width="32" />
         <div class="my-auto">{$t("payments.setAmount")}</div>
       </button>
     {:else}
       <a href={link} class="w-full">
         <button
-          class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+          class="w-full flex justify-center items-center gap-2 rounded-2xl border py-5 px-6 hover:opacity-80"
         >
-          <Icon icon="mobile" style="mr-1 w-8" />
+          <iconify-icon icon="ph:wallet-bold" width="32" />
           <div class="my-auto">{$t("payments.openLink")}</div>
         </button>
       </a>
@@ -218,13 +218,13 @@
     {#if type === types.lightning}
       <div class="w-full flex justify-center gap-2 flex-wrap">
         <button
-          class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
+          class="w-full flex justify-center items-center gap-2 rounded-2xl border py-5 px-6 hover:opacity-80"
           on:click={() => ($showQr = !$showQr)}
         >
           {#if $showQr}
-            <Icon icon="text" style="w-6 mr-2 my-auto" />
+            <iconify-icon icon="ph:text-align-center-bold" width="32" />
           {:else}
-            <Icon icon="qr" style="w-8 mr-1 invert my-auto" />
+            <iconify-icon icon="ph:qr-code-bold" width="32" />
           {/if}
           <div class="my-auto">
             {$showQr ? $t("payments.showText") : $t("payments.showQr")}
@@ -237,8 +237,8 @@
   {#if aid === user?.id}
     <div class="grid grid-cols-2 justify-around text-secondary">
       <button
-        class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        class:bg-primary={type === types.bitcoin}
+        class="hover:bg-base-300 my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
+        class:bg-base-300={type === types.bitcoin}
         class:text-black={type === types.bitcoin}
         on:click={() => setType(types.bitcoin)}
       >
@@ -247,8 +247,8 @@
       </button>
 
       <button
-        class="hover:bg-primary my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        class:bg-primary={type === types.liquid}
+        class="hover:bg-base-300 my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
+        class:bg-base-300={type === types.liquid}
         class:text-black={type === types.liquid}
         on:click={() => setType(types.liquid)}
       >
@@ -257,12 +257,12 @@
       </button>
 
       <button
-        class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        class:bg-primary={type === types.lightning}
+        class="hover:bg-base-300 flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
+        class:bg-base-300={type === types.lightning}
         class:text-black={type === types.lightning}
         on:click={() => setType(types.lightning)}
       >
-        <div class="bg-white rounded-full w-8 h-8 text-center flex">
+        <div class="bg-base-100 rounded-full w-8 h-8 text-center flex">
           <div class="m-auto">⚡️</div>
         </div>
         <div class="my-auto text-lg">Lightning</div>
@@ -270,7 +270,7 @@
 
       <a href={`/receive`} class="block contents">
         <button
-          class="hover:bg-primary flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
+          class="hover:bg-base-300 flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
         >
           <img src="/images/cash.png" class="w-8 my-auto" />
           <div class="my-auto text-lg">Ecash</div>
@@ -295,7 +295,7 @@
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
   >
     <div
-      class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-white space-y-5 top-5"
+      class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-base-100 space-y-5 top-5"
     >
       <form on:submit|preventDefault={setAmount} class="space-y-5">
         <Numpad

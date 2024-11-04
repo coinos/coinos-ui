@@ -48,60 +48,42 @@
       </div>
     {/if}
 
-    <div class="mb-2">
-      <textarea
-        use:focus
-        name="text"
-        placeholder={$t("user.send.placeholder")}
-        on:keypress={keypress}
-        class="w-full p-4 border rounded-xl h-32 text-xl"
-        bind:value={text}
-        on:paste={() => (pasted = true)}
-        autocapitalize="none"
-      />
-    </div>
+    <textarea
+      use:focus
+      name="text"
+      placeholder={$t("user.send.placeholder")}
+      on:keypress={keypress}
+      class="w-full p-4 border rounded-xl h-32 text-xl"
+      bind:value={text}
+      on:paste={() => (pasted = true)}
+      autocapitalize="none"
+    />
 
     <div class="flex gap-2">
-      <a href="/scan" class="w-full">
-        <button
-          type="button"
-          class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-2"
-        >
-          <Icon icon="camera" style="w-8 my-auto" />
-          <div class="my-auto">{$t("user.send.scan")}</div>
+      <a href="/scan" class="contents">
+        <button type="button" class="btn !w-auto flex-grow">
+          <iconify-icon icon="ph:camera-bold" width="32" />
+          {$t("user.send.scan")}
         </button>
       </a>
 
-      <button
-        type="button"
-        class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-2"
-        on:click={paste}
-      >
-        <Icon icon="paste" style="w-8 my-auto" />
-        <div class="my-auto">{$t("user.send.paste")}</div>
+      <button type="button" class="btn !w-auto flex-grow" on:click={paste}>
+        <iconify-icon icon="ph:clipboard-text-bold" width="32" />
+        {$t("user.send.paste")}
       </button>
     </div>
 
-    <div class="flex gap-2 flex-wrap">
-      <button
-        bind:this={el}
-        type="submit"
-        class="flex bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center"
-      >
-        <Icon icon="send" style="w-8 my-auto invert" />
-        <div class="my-auto">{$t("user.send.next")}</div>
-      </button>
+    <button bind:this={el} type="submit" class="btn btn-accent">
+      <iconify-icon icon="ph:paper-plane-right-bold" width="32" />
+      <div class="my-auto">{$t("user.send.next")}</div>
+    </button>
 
-      <a href="/send/ecash" class="contents">
-        <button
-          type="button"
-          class="flex border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center text-xl bg-primary"
-        >
-          <img src="/images/cash.png" class="w-8" />
-          <div class="my-auto">{$t("payments.createEcash")}</div>
-        </button>
-      </a>
-    </div>
+    <a href="/send/ecash" class="block">
+      <button type="button" class="btn">
+        <img src="/images/cash.png" class="w-8" />
+        <div class="my-auto">{$t("payments.createEcash")}</div>
+      </button>
+    </a>
   </form>
 
   {#if contacts.length}
@@ -112,9 +94,7 @@
       <div>
         {#each contacts as c}
           <a href={`/pay/${c.username}`}>
-            <div
-              class="border-b p-2 last:border-b-0 hover:bg-base-200 rounded-2xl"
-            >
+            <div class="border-b p-2 last:border-b-0 hover:bg-base-200">
               <div class="flex">
                 <div>
                   <div class="flex">

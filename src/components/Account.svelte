@@ -23,35 +23,31 @@
     <Balance {balance} {user} {rate} />
     <a href={`/payments`} class="contents" on:click={setAccount}>
       <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
-        <Icon icon="clock" style="w-8 my-auto" />
+        <iconify-icon icon="ph:clock-bold" width="32" />
       </button>
     </a>
     <a href={`/account/${id}`} class="contents">
       <button class="flex gap-1 mb-auto pb-4 pl-4">
-        <Icon icon="settings" style="w-8 my-auto" />
+        <iconify-icon icon="ph:gear-bold" width="32" />
       </button>
     </a>
   </div>
 
   <div class="flex justify-center w-full text-xl gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
-      <button class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl">
-        <div class="mx-auto flex gap-2">
-          <Icon icon="receive" style="w-8" />
-          <div class="my-auto">{$t("user.dashboard.receive")}</div>
-        </div>
+      <button class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl gap-2 justify-center items-center">
+        <iconify-icon icon="ph:hand-coins-bold" width="32" />
+        <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
     <a href={`/send`} class="contents grow" on:click={setAccount}>
       <button
         type="button"
-        class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl"
+        class="py-5 px-6 hover:opacity-80 flex grow rounded-2xa gap-2 justify-center items-center"
       >
-        <div class="mx-auto flex gap-1">
-          <Icon icon="send" style="w-8" />
-          <div class="my-auto">{$t("user.dashboard.send")}</div>
-        </div>
+        <iconify-icon icon="ph:paper-plane-right-bold" width="32" />
+        <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>
     </a>
   </div>
