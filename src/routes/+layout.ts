@@ -1,4 +1,5 @@
 import { addTranslations, setLocale, setRoute } from "$lib/translations/index";
+import "iconify-icon";
 
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {

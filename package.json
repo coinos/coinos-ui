@@ -24,6 +24,7 @@
     "daisyui": "^4.12.14",
     "date-fns": "^2.29.3",
     "html5-qrcode": "^2.3.8",
+    "iconify-icon": "^2.1.0",
     "leaflet": "^1.9.3",
     "leaflet.markercluster": "^1.5.3",
     "maplibre-gl": "^3.3.1",
