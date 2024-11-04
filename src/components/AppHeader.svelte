@@ -14,12 +14,12 @@
   let menuButtons;
   $: if (user)
     menuButtons = [
-      { key: "nav.settings", icon: "settings", href: `/settings` },
-      { key: "nav.support", icon: "support", href: `/support` },
-      { key: "nav.map", icon: "map", href: `/map` },
-      { key: "nav.merch", icon: "shop", href: `https://coinosmerch.com` },
-      { key: "nav.dark", icon: "moon", href: `/dark` },
-      { key: "nav.signOut", icon: "logout", href: `/logout` },
+      { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
+      { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
+      { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
+      { key: "nav.merch", icon: "ph:storefront-bold", href: `https://coinosmerch.com` },
+      { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
+      { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
     ];
 
   let showMenu = false;
@@ -40,37 +40,39 @@
 
 {#if !$loading}
   <header
-    class="bg-gradient-to-r from-primary to-gradient h-[175px] w-full relative bg-cover mb-20 text-secondary"
+    class="bg-gradient-to-r from-primary to-gradient h-[175px] w-full relative bg-cover mb-20"
     style:background-image={bg}
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
         <a href={`/${user.username}`} data-sveltekit-preload-code="eager">
           <button
-            class="bg-base p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
+            class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/${user.username}`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="home" style="mx-auto w-6 sm:w-8" />
+          >
+            <iconify-icon icon="pepicons-pop:house" width="32" />
           </button>
         </a>
         <a href={`/${user.username}/receive`}>
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page.url.pathname.includes(
+            class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page.url.pathname.includes(
               'invoice',
             )
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="receive" style="mx-auto w-6 sm:w-8" />
+          >
+            <iconify-icon icon="ph:hand-coins-bold" flip="horizontal" width="32" />
           </button>
         </a>
         <a href={`/payments`} data-sveltekit-preload-code="eager">
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
+            class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/payments`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'} relative"
-            ><Icon icon="clock" style="mx-auto w-6 sm:w-8" />
+            ><iconify-icon icon="ph:clock-bold" width="32" />
             {#if $newPayment}
               <span class="absolute top-0 right-0">
                 <span class="flex h-3 w-3">
@@ -87,17 +89,17 @@
         </a>
         <a href={`/send`} data-sveltekit-preload-code="eager">
           <button
-            class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
+            class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
               .url.pathname === `/send`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><Icon icon="send" style="mx-auto w-6 sm:w-8" />
+            ><iconify-icon icon="majesticons:send-line" width="32" />
           </button>
         </a>
         <div class="relative">
           <OutClick on:outclick={() => (showMenu = false)}>
             <button
-              class="bg-white p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
+              class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl border border-black/10 {$page
                 .url.pathname === `/settings` ||
               $page.url.pathname === `/support`
                 ? 'opacity-100'
@@ -105,7 +107,7 @@
                     showMenu ? 'opacity-80' : ''
                   }`}"
               on:click={() => (showMenu = !showMenu)}
-              ><Icon icon="menu" style="mx-auto w-6 sm:w-8" />
+              ><iconify-icon icon="ph:list-bold" width="32" />
             </button>
 
             <div
@@ -118,15 +120,20 @@
                   <li>
                     {#if key.includes("dark")}
                       <button
-                        class="flex justify-center items-center font-semibold hover:opacity-80"
+                        class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                         on:click={dark}
-                        ><Icon {icon} style="mr-2 w-6 sm:w-8" /> {$t(key)}
+                        > 
+                        
+                        <iconify-icon icon={icon} width="30" />
+                        {$t(key)}
                       </button>
                     {:else}
                       <a {href} data-sveltekit-preload-code="eager">
                         <button
-                          class="flex justify-center items-center font-semibold hover:opacity-80"
-                          ><Icon {icon} style="mr-2 w-6 sm:w-8" /> {$t(key)}
+                          class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
+                          >
+                          <iconify-icon icon={icon} width="30" />
+                          {$t(key)}
                         </button>
                       </a>
                     {/if}
@@ -142,7 +149,7 @@
         </div>
       {:else}
         <a href={`/login?redirect=${$page.url.pathname}`}>
-          <button class="bg-white px-5 py-2 rounded-xl font-semibold text-sm"
+          <button class="bg-base-100 px-5 py-2 rounded-xl font-semibold text-sm"
             >{$t("nav.signIn")}</button
           >
         </a>
