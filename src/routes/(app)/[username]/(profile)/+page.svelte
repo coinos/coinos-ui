@@ -41,13 +41,9 @@
     </div>
 
     <a href={`/account/savings`} class="contents">
-      <button class="btn btn-primary">
-        <div class="mx-auto flex gap-2">
-          <Icon icon="plus" style="w-8 mx-auto" />
-          <div class="my-auto text-xl whitespace-nowrap">
-            {$t("accounts.addAccount")}
-          </div>
-        </div>
+      <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
+        <iconify-icon icon="ph:plus-circle-bold" width="32" />
+        {$t("accounts.addAccount")}
       </button>
     </a>
 

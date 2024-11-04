@@ -26,6 +26,10 @@ textarea {
   @apply input input-bordered input-primary w-full
 }
 
+.btn {
+  @apply rounded-2xl btn-lg btn-block
+}
+
 .select-styles {
   @apply border rounded-2xl py-4 px-5;
   cursor: pointer;

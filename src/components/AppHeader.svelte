@@ -52,7 +52,7 @@
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
           >
-            <iconify-icon icon="pepicons-pop:house" width="32" />
+            <iconify-icon icon="ph:house-bold" width="32" />
           </button>
         </a>
         <a href={`/${user.username}/receive`}>
@@ -93,7 +93,7 @@
               .url.pathname === `/send`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><iconify-icon icon="majesticons:send-line" width="32" />
+            ><iconify-icon icon="ph:paper-plane-right-bold" width="32" />
           </button>
         </a>
         <div class="relative">
