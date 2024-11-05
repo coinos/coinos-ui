@@ -14,9 +14,9 @@
       {$t("landing.header_before_icon")}
       <span class="relative">
         {$t("landing.header_with_icon")}
-        <Icon
-          icon="rays"
-          style="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24"
+        <iconify-icon
+          icon="coinos:rays"
+          class="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24"
         />
       </span>
       {$t("landing.header_after_icon")}
@@ -29,7 +29,10 @@
 
     <div class="flex justify-center">
       <a href="/register">
-        <button use:focus class="btn !rounded-full bg-primary text-primary-content hover:bg-primary hover:bg-opacity-80">
+        <button
+          use:focus
+          class="btn !rounded-full bg-primary text-primary-content hover:bg-primary hover:bg-opacity-80"
+        >
           {$t("nav.startInSeconds")}
         </button>
       </a>

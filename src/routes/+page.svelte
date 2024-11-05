@@ -21,9 +21,9 @@
   let about;
 
   const howItWorksSteps = [
-    { image: "hand", stepID: "step1" },
-    { image: "bolt", stepID: "step2" },
-    { image: "smile", stepID: "step3" },
+    { image: "coinos:hand", stepID: "step1" },
+    { image: "coinos:bolt", stepID: "step2" },
+    { image: "coinos:smile", stepID: "step3" },
   ];
 
   let loaded;

@@ -2,6 +2,7 @@
   import Icon from "$comp/Icon.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import { t } from "$lib/translations";
+  import { theme } from "$lib/store";
 
   const followLinks = [
     {
@@ -16,6 +17,7 @@
     { url: "/docs", titleID: "documentation" },
     { url: "/support", titleID: "support" },
   ];
+  let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
 </script>
 
 <footer
@@ -36,10 +38,17 @@
         </a>
       </div>
     </div>
-    <div class="w-full flex">
-      <div class="mx-auto">
-        <LocaleSelector />
-      </div>
+    <div class="w-full flex gap-2 justify-center items-center">
+      <LocaleSelector />
+      <button
+        class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
+        on:click={dark}
+      >
+        <iconify-icon
+          icon={$theme === "dark" ? "ph:sun-bold" : "ph:moon-stars-bold"}
+          width="30"
+        />
+      </button>
     </div>
   </div>
 
@@ -72,5 +81,5 @@
     </ul>
   </div>
 
-  <Icon icon="shield" style="mx-auto md:mx-0" />
+  <iconify-icon icon="coinos:shield" class="mx-auto md:mx-0" width="96" />
 </footer>
