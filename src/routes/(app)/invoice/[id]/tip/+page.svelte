@@ -112,7 +112,12 @@
 </script>
 
 <div class="container px-4 max-w-lg text-center mx-auto">
-  <form method="POST" use:enhance class:invisible={submitting}>
+  <form
+    method="POST"
+    use:enhance
+    class:invisible={submitting}
+    class="space-y-5"
+  >
     <input type="hidden" name="aid" value={aid} />
     <input type="hidden" name="amount" value={amount} />
     <input type="hidden" name="tip" value={tip} />
@@ -147,33 +152,41 @@
         </div>
       </div>
 
-      {#if tip}
-        <div>
-          <button type="button" on:click={() => submit.click()}>Next</button>
-          <button type="button" on:click={() => (tipPercent = 0)}>Reset</button>
-        </div>
-      {:else}
-        {#each tipAmounts as amount, i}
-          {#if i === 0}
-            <button
-              use:focus
-              type="button"
-              class:active={active(amount, tipPercent)}
-              on:click={() => handleTipButtonClick(amount)}>{amount}</button
-            >
-          {:else}
-            <button
-              type="button"
-              class:active={active(amount, tipPercent)}
-              on:click={() => handleTipButtonClick(amount)}>{amount}</button
-            >
-          {/if}
-        {/each}
-      {/if}
+      <div class="space-y-2">
+        {#if tip}
+          <button type="button" class="btn" on:click={() => submit.click()}
+            >Next</button
+          >
+          <button type="button" class="btn" on:click={() => (tipPercent = 0)}
+            >Reset</button
+          >
+        {:else}
+          {#each tipAmounts as amount, i}
+            {#if i === 0}
+              <button
+                use:focus
+                type="button"
+                class="btn"
+                class:active={active(amount, tipPercent)}
+                on:click={() => handleTipButtonClick(amount)}>{amount}</button
+              >
+            {:else}
+              <button
+                type="button"
+                class="btn"
+                class:active={active(amount, tipPercent)}
+                on:click={() => handleTipButtonClick(amount)}>{amount}</button
+              >
+            {/if}
+          {/each}
+        {/if}
+      </div>
 
       <div>
-        <button type="button" on:click={() => (showCustomAmount = true)}
-          >Custom</button
+        <button
+          type="button"
+          class="btn"
+          on:click={() => (showCustomAmount = true)}>Custom</button
         >
       </div>
     {/if}
@@ -182,40 +195,18 @@
   </form>
 
   {#if showCustomAmount}
-    <form on:submit|preventDefault={apply}>
-      <div class="relative">
-        <span
-          class="absolute top-[18px] left-5 font-semibold {!customTipAmount
-            ? 'opacity-50'
-            : 'opacity-100'}">$</span
-        >
-        <input
-          bind:this={customInput}
-          type="number"
-          step="0.01"
-          on:input={(e) => handleCustomTipAmount(e)}
-          class="pl-10"
-          placeholder="Custom amount"
-          use:focus
-        />
-        <button
-          type="submit"
-          class="w-full mt-2 bg-black text-white font-semibold py-3 px-7 rounded-2xl {!customTipAmount
-            ? 'opacity-50'
-            : 'opacity-100 hover:opacity-80'}"
-          disabled={!customTipAmount}>Apply</button
-        >
-      </div>
+    <form on:submit|preventDefault={apply} class="space-y-2">
+      <input
+        bind:this={customInput}
+        type="number"
+        step="0.01"
+        on:input={(e) => handleCustomTipAmount(e)}
+        placeholder={$t("payments.amount")}
+        use:focus
+      />
+      <button type="submit" class="btn" disabled={!customTipAmount}
+        >Apply</button
+      >
     </form>
   {/if}
 </div>
-
-<style>
-  .active {
-    @apply !bg-black !text-white;
-  }
-
-  .container button[type="button"] {
-    @apply w-full mt-2 bg-primary text-black hover:bg-black hover:text-white font-semibold py-5 px-7 rounded-2xl;
-  }
-</style>

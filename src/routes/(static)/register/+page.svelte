@@ -275,7 +275,7 @@
       {$t("login.haveAccount")}
       <a
         href={"/login"}
-        class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
+        class="block md:inline text-primary-content underline underline-offset-4 hover:opacity-80"
       >
         {$t("login.signIn")}
       </a>
