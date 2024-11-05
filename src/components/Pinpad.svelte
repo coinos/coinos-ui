@@ -38,14 +38,14 @@
 
 <div class="flex justify-center items-center">
   <div class="space-y-5">
-    <div class="text-5xl md:text-6xl font-semibold relative w-[300px]">
+    <div class="font-semibold relative w-[300px]">
       {#if hide}
         <input
           on:keydown={validate}
           use:focus
           bind:value={v}
           type="password"
-          class="outline-none border-0 text-center py-0"
+          class="outline-none border-0 text-center py-0 !text-5xl"
           pattern="[0-9]+"
         />
       {:else}
@@ -53,7 +53,7 @@
           on:keydown={validate}
           use:focus
           bind:value={v}
-          class="outline-none border-0 text-center py-0"
+          class="outline-none border-0 text-center py-0 !text-5xl"
           type="text"
           pattern="[0-9]+"
         />

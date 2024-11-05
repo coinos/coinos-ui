@@ -32,8 +32,8 @@
 
 <svelte:window on:resize={resize} />
 
-<div class="flex w-full mb-4 px-4">
-  <div class="bg-black mx-auto rounded-3xl">
+<div class="flex w-full mb-4 p-4">
+  <div class="mx-auto rounded-3xl">
     <video
       bind:this={vid}
       class="border-4 rounded-3xl border-black max-h-[calc(100vh*0.7)]"
@@ -41,13 +41,8 @@
   </div>
 </div>
 
-<div class="flex w-full mb-4">
-  <button
-    class="mx-auto border rounded-full px-6 py-2 font-bold hover:opacity-80"
-    on:click={back}
-  >
-    Cancel
-  </button>
+<div class="flex justify-center">
+  <button class="btn !w-auto" on:click={back}>Cancel</button>
 </div>
 
 <style>
