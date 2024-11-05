@@ -177,7 +177,10 @@
     on:keydown={togglePassword}
     class="absolute right-5 top-11"
   >
-    <Icon icon={revealPassword ? "eye" : "eye-off"} />
+    <iconify-icon
+      icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+      width="32"
+    />
   </button>
 </div>
 
@@ -200,8 +203,12 @@
       notify={false}
     />
   {:else}
-    <button type="button" class="btn btn-primary" on:click={togglePin}
-      ><Icon icon="lock" style="mr-1" />
+    <button type="button" class="btn" on:click={togglePin}
+      >
+      <iconify-icon
+        icon={user.haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
+        width="32"
+      />
       {user.haspin
         ? $t("user.settings.disablePIN")
         : $t("user.settings.enablePIN")}</button
@@ -225,18 +232,18 @@
       <b>{otp.secret}</b>
     </div>
 
-    <button type="button" class="btn btn-primary" on:click={startConfirming2fa}>
-      <Icon icon="numpad" style="w-8 mr-1" />
+    <button type="button" class="btn" on:click={startConfirming2fa}>
+      <iconify-icon icon="ph:numpad-bold" width="32" />
       <div class="my-auto">Confirm</div>
     </button>
   {:else if user.twofa}
-    <button type="button" class="btn btn-primary" on:click={startDisabling2fa}>
-      <Icon icon="mobile" style="w-8 mr-1" />
+    <button type="button" class="btn" on:click={startDisabling2fa}>
+      <iconify-icon icon="ph:device-mobile-bold" width="32" />
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
-    <button type="button" class="btn btn-primary" on:click={startEnabling2fa}>
-      <Icon icon="mobile" style="w-8 mr-1" />
+    <button type="button" class="btn" on:click={startEnabling2fa}>
+      <iconify-icon icon="ph:device-mobile-bold" width="32" />
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}
@@ -252,32 +259,6 @@
   {/if}
 </div>
 
-<!-- <div> -->
-<!--   <label for="seedphrase" class="font-bold" -->
-<!--     >{$t("user.settings.seedPhrase")}</label -->
-<!--   > -->
-<!--  -->
-<!--   <p class="text-secondary mb-1"> -->
-<!--     {$t("user.settings.seedDescription")} -->
-<!--   </p> -->
-<!--  -->
-<!--   <button type="button" class="primary" on:click={toggleSeed}> -->
-<!--     <Icon icon="warning" style="mr-1 w-6 my-auto" /> -->
-<!--     {revealSeed ? $t("user.settings.hideSeed") : $t("user.settings.revealSeed")} -->
-<!--   </button> -->
-<!--  -->
-<!--   {#if revealSeed} -->
-<!--     <div class="text-lg"> -->
-<!--       {mnemonic} -->
-<!--     </div> -->
-<!--  -->
-<!--     <button type="button" class="primary" on:click={() => copy(mnemonic)}> -->
-<!--       <Icon icon="copy" style="mr-1 w-6 my-auto" /> -->
-<!--       Copy -->
-<!--     </button> -->
-<!--   {/if} -->
-<!-- </div> -->
-
 <div>
   <label for="seedphrase" class="font-bold"
     >{$t("user.settings.nostrKeys")}</label
@@ -288,18 +269,22 @@
   </p>
 
   <div class="flex gap-2">
-    <button type="button" class="btn btn-primary" on:click={toggleNsec}>
+    <button type="button" class="btn !w-auto flex-grow" on:click={toggleNsec}>
       {#if revealNsec}
-        <Icon icon="eye-off" style="mr-1 w-6 my-auto" />
+        <iconify-icon icon="ph:eye-slash-bold" width="32" />
         {$t("user.settings.hideNsec")}
       {:else}
-        <Icon icon="warning" style="mr-1 w-6 my-auto" />
+        <iconify-icon icon="ph:warning-bold" width="32" />
         {$t("user.settings.revealNsec")}
       {/if}
     </button>
 
-    <button type="button" class="btn btn-primary" on:click={toggleImporting}>
-      <Icon icon="save" style="mr-1 w-6 my-auto" />
+    <button
+      type="button"
+      class="btn !w-auto flex-grow"
+      on:click={toggleImporting}
+    >
+      <iconify-icon icon="ph:floppy-disk-bold" width="32" />
       {$t("user.settings.import")}
     </button>
   </div>
@@ -313,8 +298,8 @@
       {nsec}
     </div>
 
-    <button type="button" class="btn btn-primary" on:click={() => copy(nsec)}>
-      <Icon icon="copy" style="mr-1 w-6 my-auto" />
+    <button type="button" class="btn" on:click={() => copy(nsec)}>
+      <iconify-icon icon="ph:copy-bold" width="32" />
       Copy
     </button>
   {/if}

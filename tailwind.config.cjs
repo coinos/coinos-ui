@@ -1,15 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ["./src/**/*.{html,js,svelte}"],
-	theme: {
-		extend: {
-			colors: {
-				primary: "#F5F7FA",
-				secondary: "#70757E",
-				gradient: "#C3CFE2",
-			},
-		},
-	},
 	plugins: [require("tailwind-scrollbar"), require("daisyui")],
 	daisyui: {
 		themes: [
@@ -22,6 +13,7 @@ module.exports = {
 			{
 				dark: {
 					...require("daisyui/src/theming/themes").black,
+          secondary: "#CCC",
 					gradient: "#C3CFE2",
 				},
 			},

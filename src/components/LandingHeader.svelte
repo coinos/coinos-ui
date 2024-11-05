@@ -27,8 +27,7 @@
       class="flex justify-start lg:justify-center items-center lg:space-x-10"
     >
       <a href="/" on:click={() => scroll(header)}>
-        <Icon icon="logo" style="hidden lg:block mb-5 xl:mb-0" />
-        <Icon icon="logo" style="block lg:hidden ml-5 w-48" />
+        <iconify-icon icon="coinos:logo" width="224" />
       </a>
     </div>
 

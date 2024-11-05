@@ -21,22 +21,18 @@ html {
   background-color: white;
 }
 
-input,
+input {
+  @apply input input-bordered input-lg input-primary;
+}
+
 textarea {
-  @apply input input-bordered input-primary w-full
+  @apply textarea textarea-bordered textarea-lg textarea-primary;
+}
+
+input, textarea {
+  @apply w-full rounded-2xl;
 }
 
 .btn {
   @apply rounded-2xl btn-lg btn-block
-}
-
-.select-styles {
-  @apply border rounded-2xl py-4 px-5;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: 1em;
 }

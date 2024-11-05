@@ -23,10 +23,10 @@
 </script>
 
 <div
-  class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
+  class="fixed inset-0 bg-opacity-50 overflow-y-auto h-full w-full z-20"
 >
   <div
-    class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5"
+    class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5"
   >
     <h1 class="text-center text-2xl font-semibold">
       Please enter your password
@@ -38,7 +38,6 @@
             name="password"
             type="text"
             required
-            class="bg-primary"
             bind:value={password}
             autocapitalize="none"
             use:focus
@@ -48,7 +47,6 @@
             name="password"
             type="password"
             required
-            class="bg-primary"
             bind:value={password}
             autocapitalize="none"
             use:focus
@@ -59,7 +57,10 @@
           on:click={() => (revealPassword = !revealPassword)}
           class="absolute right-5 top-6"
         >
-          <Icon icon={revealPassword ? "eye" : "eye-off"} />
+    <iconify-icon
+      icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+      width="32"
+    />
         </button>
       </div>
       <div class="w-full flex">
