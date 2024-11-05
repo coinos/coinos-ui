@@ -23,7 +23,7 @@
 </script>
 
 <div
-  class="fixed inset-0 bg-opacity-50 overflow-y-auto h-full w-full z-20"
+  class="fixed inset-0 bg-base-100 bg-opacity-90 overflow-y-auto h-full w-full z-50"
 >
   <div
     class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5"
@@ -57,10 +57,10 @@
           on:click={() => (revealPassword = !revealPassword)}
           class="absolute right-5 top-6"
         >
-    <iconify-icon
-      icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-      width="32"
-    />
+          <iconify-icon
+            icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+            width="32"
+          />
         </button>
       </div>
       <div class="w-full flex">

@@ -181,6 +181,18 @@
 
   let keydown = (e) =>
     e.key === "Enter" && (e.preventDefault() || submit.click());
+
+  let swap = () => {
+    if (fiat) {
+      amount = parseInt((amountFiat / (rate / sats)).toFixed(0));
+    } else {
+      amountFiat =
+        (amount * (rate / sats)).toFixed(2) > 0.0
+          ? (amount * (rate / sats)).toFixed(2)
+          : 0;
+    }
+    fiat = !fiat;
+  };
 </script>
 
 <div class="flex justify-center items-center">
@@ -204,24 +216,11 @@
           bind:this={element}
         />
       </div>
-      <div class="mt-2">
-        <span class="text-secondary mr-1"
-          >{fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}</span
-        >
-        <button
-          type="button"
-          on:click|preventDefault|stopPropagation={() => {
-            if (fiat) {
-              amount = parseInt((amountFiat / (rate / sats)).toFixed(0));
-            } else {
-              amountFiat =
-                (amount * (rate / sats)).toFixed(2) > 0.0
-                  ? (amount * (rate / sats)).toFixed(2)
-                  : 0;
-            }
-            fiat = !fiat;
-          }}><Icon icon="swap" style="inline hover:opacity-80" /></button
-        >
+      <div
+        class="flex items-center justify-center text-2xl cursor-pointer"
+        on:click|preventDefault|stopPropagation={swap}
+      >
+        {fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}
       </div>
     </div>
 
