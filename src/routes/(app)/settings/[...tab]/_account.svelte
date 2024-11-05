@@ -75,21 +75,22 @@
   </p>
 
   <label
-    class="input input-bordered input-lg rounded-2xl flex items-center gap-2"
+    class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
   >
-    <input
-      type="text"
-      name="email"
-      class="blank grow"
-      bind:value={user.email}
-    />
-    <!-- {#if user.verified} -->
-    <!--   <iconify-icon icon="ph:check-bold" width="32" /> -->
-    <!-- {:else if user.email} -->
-    <div class="text-warning">
-      <iconify-icon icon="ph:clock-bold" width="32" />
-    </div>
-    <!-- {/if} -->
+    <input type="text" name="email" class="blank" bind:value={user.email} />
+    {#if user.verified}
+      <iconify-icon
+        icon="ph:check-bold"
+        class="text-success ml-auto"
+        width="32"
+      />
+    {:else if user.email}
+      <iconify-icon
+        icon="ph:clock-bold"
+        class="text-warning ml-auto"
+        width="32"
+      />
+    {/if}
   </label>
 </div>
 

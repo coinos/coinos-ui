@@ -138,7 +138,7 @@
     </div>
 
     <div class="flex justify-end items-center">
-      <a href="/forgot" class="underline underline-offset-4 text-black"
+      <a href="/forgot" class="underline underline-offset-4 text-primary-content"
         >{$t("login.forgotUserOrPassword")}</a
       >
     </div>
@@ -155,7 +155,7 @@
       {$t("login.noAccount")}
       <a
         href={"/register"}
-        class="block md:inline text-black underline underline-offset-4 hover:opacity-80"
+        class="block md:inline text-primary-content underline underline-offset-4 hover:opacity-80"
       >
         {$t("login.register")}
       </a>

@@ -7,9 +7,6 @@ module.exports = {
 			{
 				light: {
 					...require("daisyui/src/theming/themes").lofi,
-          ".btn": {
-            // "background-color": "red"
-          },
 					gradient: "#C3CFE2",
 				},
 			},
