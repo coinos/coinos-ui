@@ -131,11 +131,20 @@
                         class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                         on:click={dark}
                       >
-                        <iconify-icon {icon} width="30" />
-                        {$t(key)}
+                        <iconify-icon
+                          icon={$theme === "dark"
+                            ? "ph:sun-bold"
+                            : "ph:moon-stars-bold"}
+                          width="30"
+                        />
+                        {$t(`nav.${$theme === "dark" ? "light" : "dark"}`)}
                       </button>
                     {:else}
-                      <a {href} data-sveltekit-preload-code="eager">
+                      <a
+                        {href}
+                        data-sveltekit-preload-code="eager"
+                        data-sveltekit-preload-data="false"
+                      >
                         <button
                           class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                         >
@@ -156,9 +165,7 @@
         </div>
       {:else}
         <a href={`/login?redirect=${$page.url.pathname}`}>
-          <button class="bg-base-100 px-5 py-2 rounded-xl font-semibold text-sm"
-            >{$t("nav.signIn")}</button
-          >
+          <button class="btn !rounded-full">{$t("nav.signIn")}</button>
         </a>
       {/if}
     </nav>

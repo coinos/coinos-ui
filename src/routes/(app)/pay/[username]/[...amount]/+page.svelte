@@ -97,7 +97,7 @@
         <button
           type="button"
           bind:this={next}
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
+          class="btn"
           on:click={setAmount}
           on:keydown={setAmount}
         >

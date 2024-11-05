@@ -47,23 +47,22 @@
         >
       {/if}
       {#if user}
-        <button class="btn !w-auto" on:click={() => goto(`/${user.username}`)}
+        <button class="btn !w-auto !rounded-full" on:click={() => goto(`/${user.username}`)}
           >Home
         </button>
-        <button class="btn !w-auto" on:click={() => goto("/logout")}>
+        <button class="btn !w-auto !rounded-full" on:click={() => goto("/logout")}>
           {$t("nav.signOut")}
         </button>
       {:else}
-        <button class="btn !w-auto" on:click={() => goto("/register")}
+        <button class="btn !w-auto !rounded-full" on:click={() => goto("/register")}
           >{$t("nav.register")}
         </button>
-        <button class="btn !w-auto" on:click={() => goto("/login")}>
+        <button class="btn !w-auto !rounded-full" on:click={() => goto("/login")}>
           {$t("nav.signIn")}
         </button>
       {/if}
     </div>
 
-    <!-- mobile nav -->
     <button
       class="block lg:hidden absolute top-[34.5px] right-10 z"
       on:click={() => (showMobileMenu = !showMobileMenu)}

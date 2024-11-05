@@ -5,6 +5,8 @@
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
+  import InvoiceData from "$comp/InvoiceData.svelte";
+  import InvoiceActions from "$comp/InvoiceActions.svelte";
   import InvoiceTypes from "$comp/InvoiceTypes.svelte";
   import SetAmount from "$comp/SetAmount.svelte";
   import { t } from "$lib/translations";
@@ -80,87 +82,32 @@
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
-  {#if $showQr}
-    <div>
-      <a href={link}>
-        <img
-          {src}
-          class="mx-auto z-10 max-w-[360px] border-4 border-white"
-          bind:this={qr}
-          alt={txt}
-        />
-      </a>
-    </div>
-  {/if}
-
-  <div class="break-all text-center text-secondary text-xl">
+  <InvoiceData
+     {src}
+    {link}
+    {qr}
     {txt}
-  </div>
+    {invoice}
+    {amount}
+    {amountFiat}
+    {currency}
+    {tip}
+    {rate}
+    showQr={$showQr}
+  />
 
-  {#each invoice.items as i}
-    <div class="grid grid-cols-12 text-xl">
-      <div class="col-span-1 my-auto">{i.quantity}</div>
-      <div class="mr-auto grow col-span-7 my-auto">
-        {i.name}
-      </div>
-      <div class="col-span-2 font-semibold text-right my-auto">
-        {f(i.price * i.quantity, currency)}
-      </div>
-      <div class="col-span-2 text-secondary text-right text-lg my-auto">
-        {sat(btc(i.price * i.quantity, rate))}
-      </div>
-    </div>
-  {/each}
-
-  {#if amount > 0}
-    <div class="text-center font-bold text-2xl">
-      <div>
-        {f(amountFiat, currency)}
-
-        {#if tip}
-          <span class="text-sm">
-            +{f(tip * (rate / sats), currency)}
-          </span>
-        {/if}
-      </div>
-      <div>
-        <span class="text-secondary font-normal text-xl"
-          >⚡️{`${s(amount)}`}</span
-        >
-
-        {#if tip}
-          <span class="text-sm text-secondary font-normal">
-            +⚡️{s(tip)}
-          </span>
-        {/if}
-      </div>
-    </div>
-  {/if}
-
-  <div class="text-secondary space-y-2 text-xl pt-2">
-    <button type="button" class="btn" on:click={() => copy(txt)}>
-      <iconify-icon icon="ph:copy-bold" width="32" />
-      <div class="my-auto">
-        {$t("payments.copy")}
-      </div>
-    </button>
-
-    {#if user?.id === invoice?.user?.id}
-      <button class="btn" on:click={toggleAmount}>
-        <iconify-icon icon="ph:pencil-bold" width="32" />
-        <div class="my-auto">{$t("payments.setAmount")}</div>
-      </button>
-    {:else}
-      <a href={link} class="w-full">
-        <button
-          class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
-        >
-          <iconify-icon icon="ph:device-mobile-bold" width="32" />
-          <div class="my-auto">{$t("payments.openLink")}</div>
-        </button>
-      </a>
-    {/if}
-  </div>
+  <InvoiceActions
+    {toggleAmount}
+    {user}
+    {invoice}
+    {copy}
+    {link}
+    {type}
+    {types}
+    {showQr}
+    {txt}
+    t={$t}
+  />
 
   <InvoiceTypes {aid} {user} {type} {types} {setType} t={$t} />
 </div>

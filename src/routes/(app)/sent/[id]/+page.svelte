@@ -41,6 +41,6 @@
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
 </a>
 
-<div class="fixed bottom-10 w-full text-center">
+<div class="flex justify-center">
   {$t("payments.tapAnywhere")}
 </div>

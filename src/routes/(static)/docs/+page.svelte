@@ -26,19 +26,19 @@
     and connect it to your own Bitcoin and Lightning nodes. The code is
     available for download at <a
       href="https://github.com/coinos"
-      class="text-black">https://github.com/coinos</a
+      class="text-primary-content">https://github.com/coinos</a
     >
   </p>
 
   <p class="text-secondary">
     Coinos has a simple REST API that can be used to register accounts and make
     payments and queries. The following examples show how you can call the API
-    with <a href="https://curl.se/" class="text-black">curl</a> from your command
+    with <a href="https://curl.se/" class="text-primary-content">curl</a> from your command
     line.
   </p>
 
   <h2 class="text-2xl">API Base URL</h2>
-  <div class="bg-black text-white rounded-lg p-4 flex gap-4">
+  <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4">
     <div>{api}</div>
     <button class="ml-auto my-auto invert opacity-90" on:click={() => copy(api)}
       ><Icon icon="copy" style="w-10 max-w-none" /></button
@@ -57,7 +57,7 @@
     Save it in a variable called <b>$token</b> to run the examples.
   </p>
 
-  <div class="bg-black text-white rounded-lg p-4 flex gap-4">
+  <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4">
     <div class="w-full break-all">{tokenSample}</div>
     <button
       class="ml-auto my-auto invert opacity-90"
