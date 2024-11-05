@@ -168,9 +168,12 @@
     </div>
 
     <div class="text-base">
-      {#each payments as p}
-        <a href={`/payment/${p.id}`}>
-          <div class="grid grid-cols-12 border-b h-24 hover:bg-base-200 px-4">
+      {#each payments as p, i}
+        <a href={`/payment/${p.id}`} class="contents">
+          <div
+            class="grid grid-cols-12 border-b border-base-200 h-24 hover:bg-base-200 px-4"
+            class:border-b-0={i === payments.length - 1}
+          >
             <div class="whitespace-nowrap my-auto col-span-3">
               <div class="font-bold" class:text-red-800={p.amount < 0}>
                 {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}

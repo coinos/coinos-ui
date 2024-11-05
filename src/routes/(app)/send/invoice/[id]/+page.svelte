@@ -166,7 +166,7 @@
     />
   {/if}
 
-  <form method="POST" use:enhance={handler(toggle)}>
+  <form method="POST" use:enhance={handler(toggle)} class="space-y-2">
     <input name="address" value={address} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="payreq" value={payreq} type="hidden" />
@@ -178,7 +178,7 @@
         <button
           use:focus
           type="submit"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
+          class="btn btn-primary"
           disabled={submitting}
         >
           {#if submitting}
@@ -191,17 +191,15 @@
         <button
           bind:this={submit}
           type="button"
-          class="opacity-100 hover:opacity-80'} rounded-2xl border py-5 font-bold mx-auto mt-2 bg-black text-white px-6 w-40"
+          class="btn !w-auto"
           on:click={setAmount}
         >
           {$t("payments.next")}
         </button>
       {/if}
     </div>
-  </form>
-  <div class="flex my-10 text-xl">
-    <button class="mx-auto" on:click={external}
+    <button type="button" class="btn" on:click={external}
       >{$t("payments.moreOptions")}</button
     >
-  </div>
+  </form>
 </div>

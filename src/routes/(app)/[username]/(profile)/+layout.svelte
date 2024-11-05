@@ -3,7 +3,6 @@
   import { browser } from "$app/environment";
   import { hexToUint8Array } from "uint8array-extras";
   import { copy, f, get, post, s, sats, success, fail, si } from "$lib/utils";
-  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
   import { bech32m } from "@scure/base";
@@ -127,7 +126,7 @@
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
       <div class="my-auto break-words">{display || username}</div>
-      <Icon icon="qr" style="w-8 invert my-auto" />
+      <iconify-icon icon="ph:qr-code-bold" width="32" />
     </button>
 
     {#if subject.address || subject.about}
@@ -179,13 +178,10 @@
               </div>
               <div class="flex mb-auto gap-1">
                 <button class="my-auto" on:click={() => copy(lnaddr)}
-                  ><Icon
-                    icon="copy"
-                    style="max-w-max w-8 min-w-[32px]"
-                  /></button
+                  ><iconify-icon icon="ph:copy-bold" width="32" /></button
                 >
                 <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-                  <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+                  <iconify-icon icon="ph:qr-code-bold" width="32" />
                 </a>
               </div>
             </div>
@@ -199,7 +195,7 @@
             </div>
             <div class="flex mb-auto gap-1">
               <button class="my-auto" on:click={() => copy(profile)}
-                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+                ><iconify-icon icon="ph:copy-bold" width="32" /></button
               >
               <a
                 href={`/qr/${encodeURIComponent(
@@ -207,7 +203,7 @@
                 )}`}
                 class="my-auto"
               >
-                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+                <iconify-icon icon="ph:qr-code-bold" width="32" />
               </a>
             </div>
           </div>
@@ -220,10 +216,10 @@
             </div>
             <div class="flex my-auto gap-1">
               <button class="my-auto" on:click={() => copy(npub)}
-                ><Icon icon="copy" style="max-w-max w-8 min-w-[32px]" /></button
+                ><iconify-icon icon="ph:copy-bold" width="32" /></button
               >
               <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-                <Icon icon="qr" style="invert max-w-max min-w-[32px]" />
+                <iconify-icon icon="ph:qr-code-bold" width="32" />
               </a>
             </div>
           </div>
@@ -234,24 +230,14 @@
     <div class="flex flex-wrap gap-2 w-full text-lg">
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
-          <button
-            class="mx-auto rounded-2xl border py-2 px-3 font-bold hover:opacity-80 flex bg-black text-white grow"
-            on:click={unfollow}
-          >
-            <div class="mx-auto flex">
-              <Icon icon={"profile"} style="my-auto w-8 mr-2 invert" />
-              <div class="my-auto">{$t("user.unfollow")}</div>
-            </div>
+          <button class="btn" on:click={unfollow}>
+            <iconify-icon icon="ph:user-bold" width="32" />
+            <div class="my-auto">{$t("user.unfollow")}</div>
           </button>
         {:else}
-          <button
-            class="mx-auto rounded-2xl border py-2 px-3 font-bold hover:opacity-80 flex grow"
-            on:click={follow}
-          >
-            <div class="mx-auto flex">
-              <Icon icon={"profile"} style="my-auto h-6 mr-2" />
-              <div class="my-auto">{$t("user.follow")}</div>
-            </div>
+          <button class="btn" on:click={follow}>
+            <iconify-icon icon="ph:user-bold" width="32" />
+            <div class="my-auto">{$t("user.follow")}</div>
           </button>
         {/if}
       {/if}
@@ -277,7 +263,7 @@
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60"
           >
             <div class="mx-auto flex">
-              <Icon icon="clock" style="mr-2 my-auto w-8" />
+              <iconify-icon icon="ph:clock" width="32" />
             </div>
           </button>
         </form>

@@ -166,6 +166,7 @@
 	},
 	"nav": {
     "dark": "Dark",
+    "light": "Light", 
 		"about": "About",
 		"docs": "Docs",
 		"messages": "Messages",

@@ -262,7 +262,7 @@
   />
   <div class="absolute flex top-2 left-2 gap-2">
     <button
-      class="rounded-full border-2 border-black bg-white w-10 h-10"
+      class="rounded-full border-2 border-black bg-base-100 w-10 h-10"
       on:click={back}
     >
       <Icon icon="arrow-left" style="w-4 m-auto" />
@@ -271,9 +271,9 @@
   <div class="relative">
     {#if !showList}
       <div
-        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-primary absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
+        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-white absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
       >
-        <div class="relative mb-4 sticky top-0 bg-primary z-10">
+        <div class="relative mb-4 sticky top-0 bg-white z-10">
           <input bind:value={search} class="w-full" />
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}

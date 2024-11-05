@@ -107,39 +107,39 @@
             {$t("payments.maxFeeDesc")}
           </div>
 
-          <div class="flex">
+          <label
+            class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2 text-left"
+          >
             <input
               id="maxfee"
               name="maxfee"
               bind:value={maxfee}
-              class="border-r-0 rounded-r-none py-2"
+              class="blank !grow"
             />
-            <div
-              class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
-            >
-              ⚡️
-            </div>
-          </div>
+            <div class="ml-auto">⚡️</div>
+          </label>
         </div>
-      {:else}
-        <button on:click={() => (showMax = !showMax)}>Advanced settings</button>
-        <input name="maxfee" type="hidden" bind:value={maxfee} />
       {/if}
 
-      <div class="flex w-full">
-        <button
-          type="submit"
-          class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24 mx-auto"
-          disabled={loading}
-          use:focus
+      <button
+        type="submit"
+        class="btn btn-primary"
+        disabled={loading}
+        use:focus
+      >
+        {#if loading}
+          <Spinner />
+        {:else}
+          {$t("payments.send")}
+        {/if}
+      </button>
+
+      {#if !(form?.message || showMax)}
+        <button type="button" class="btn" on:click={() => (showMax = !showMax)}
+          >Advanced settings</button
         >
-          {#if loading}
-            <Spinner />
-          {:else}
-            {$t("payments.send")}
-          {/if}
-        </button>
-      </div>
+        <input name="maxfee" type="hidden" bind:value={maxfee} />
+      {/if}
     </form>
   {:else}
     <form
@@ -152,13 +152,7 @@
       <input name="rate" value={$rate} type="hidden" />
 
       <Numpad bind:amount={a} {currency} bind:rate={$rate} />
-      <button
-        type="submit"
-        class="bg-black text-white rounded-xl h-[48px] flex w-full justify-center items-center font-semibold
-				opacity-100 hover:opacity-80"
-      >
-        Next
-      </button>
+      <button type="submit" class="btn"> Next </button>
     </form>
   {/if}
 </div>

@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="bg-black text-white rounded-lg p-4 flex gap-4 whitespace-pre-wrap font-mono"
+  class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 whitespace-pre-wrap font-mono"
 >
   <div class="overflow-x-scroll max-w-full scrollbar-hide">
     <div class="break-all min-w-[800px]">{samples[sample]}</div>

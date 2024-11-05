@@ -113,7 +113,7 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main class="pb-20 min-h-screen" data-theme={$theme}>
+<main class="min-h-dvh" data-theme={$theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
     <slot />
