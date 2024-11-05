@@ -230,7 +230,7 @@
         {#if value === arrow}
           <button
             type="button"
-            class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
+            class="btn"
             on:click|preventDefault|stopPropagation={() => handleInput(value)}
           >
             <Left />
@@ -238,7 +238,7 @@
         {:else}
           <button
             type="button"
-            class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
+            class="btn"
             on:click|preventDefault|stopPropagation={() => handleInput(value)}
             >{value}</button
           >

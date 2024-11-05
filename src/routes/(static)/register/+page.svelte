@@ -167,7 +167,7 @@
 
   <div class="relative">
     <button
-      class="absolute w-8 h-12 left-12 bg-white rounded top-12"
+      class="absolute w-8 h-12 left-12 bg-base-100 rounded top-12"
       on:click={decr}
     >
       <Icon icon="chevron-left" style="w-8 " />
@@ -183,13 +183,13 @@
         />
       </button>
       <button
-        class="absolute bg-white rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80"
+        class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80"
       >
         <Icon icon="upload" style="w-8" />
       </button>
     </button>
     <button
-      class="absolute w-8 h-12 right-12 bg-white rounded top-12"
+      class="absolute w-8 h-12 right-12 bg-base-100 rounded top-12"
       on:click={incr}
     >
       <Icon icon="chevron-left" style="w-8 rotate-180" />
@@ -217,7 +217,6 @@
         name="username"
         type="text"
         required
-        class="bg-primary"
         bind:value={username}
         on:focus={clear}
         autocapitalize="none"
@@ -241,7 +240,6 @@
           name="password"
           type="text"
           required
-          class="bg-primary"
           bind:value={$password}
           autocapitalize="none"
         />
@@ -250,7 +248,6 @@
           name="password"
           type="password"
           required
-          class="bg-primary"
           bind:value={$password}
           autocapitalize="none"
           on:focus={clear}
@@ -266,12 +263,7 @@
       </button>
     </div>
 
-    <button
-      type="submit"
-      class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
-      disabled={loading}
-      bind:this={btn}
-    >
+    <button type="submit" class="btn" disabled={loading} bind:this={btn}>
       {#if loading}
         <Spinner />
       {:else}

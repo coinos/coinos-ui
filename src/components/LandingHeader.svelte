@@ -47,27 +47,17 @@
         >
       {/if}
       {#if user}
-        <button
-          class="border rounded-full px-6 py-2 font-bold"
-          on:click={() => goto(`/${user.username}`)}
+        <button class="btn !w-auto" on:click={() => goto(`/${user.username}`)}
           >Home
         </button>
-        <button
-          class="bg-black text-white border rounded-full px-6 py-2 font-bold"
-          on:click={() => goto("/logout")}
-        >
+        <button class="btn !w-auto" on:click={() => goto("/logout")}>
           {$t("nav.signOut")}
         </button>
       {:else}
-        <button
-          class="border rounded-full px-6 py-2 font-bold hover:opacity-80"
-          on:click={() => goto("/register")}
-          >{$t("nav.startInSeconds")}
+        <button class="btn !w-auto" on:click={() => goto("/register")}
+          >{$t("nav.register")}
         </button>
-        <button
-          class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
-          on:click={() => goto("/login")}
-        >
+        <button class="btn !w-auto" on:click={() => goto("/login")}>
           {$t("nav.signIn")}
         </button>
       {/if}

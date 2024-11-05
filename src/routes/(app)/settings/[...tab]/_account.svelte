@@ -1,7 +1,6 @@
 <script>
   import { tick } from "svelte";
   import { avatar, banner } from "$lib/store";
-  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
@@ -58,12 +57,7 @@
     >{$t("user.settings.username")}</label
   >
   <div class="flex mb-2">
-    <input
-      type="text"
-      name="username"
-      bind:value={user.username}
-      class="w-auto min-w-0 pr-1 grow"
-    />
+    <input type="text" name="username" bind:value={user.username} />
   </div>
 </div>
 
@@ -80,14 +74,23 @@
     {$t("user.settings.emailDescription")}
   </p>
 
-  <div class="relative">
-    <input type="text" name="email" bind:value={user.email} />
-    {#if user.verified}
-      <Icon icon="check" style="absolute right-5 top-3 w-8" />
-    {:else if user.email}
-      <Icon icon="orangeclock" style="absolute right-5 top-3 w-8" />
-    {/if}
-  </div>
+  <label
+    class="input input-bordered input-lg rounded-2xl flex items-center gap-2"
+  >
+    <input
+      type="text"
+      name="email"
+      class="blank grow"
+      bind:value={user.email}
+    />
+    <!-- {#if user.verified} -->
+    <!--   <iconify-icon icon="ph:check-bold" width="32" /> -->
+    <!-- {:else if user.email} -->
+    <div class="text-warning">
+      <iconify-icon icon="ph:clock-bold" width="32" />
+    </div>
+    <!-- {/if} -->
+  </label>
 </div>
 
 <div>
@@ -113,13 +116,14 @@
         on:keydown={selectAvatar}
       >
         <Icon icon="logo-symbol-white" style="mx-auto" />
+        <iconify-icon icon="ph:floppy-disk-bold" width="32" />
       </div>
     {/if}
     <div class="ml-2 p-2">
       <!-- found missing translation -->
       <button
         type="button"
-        class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
+        class="btn"
         on:click={selectAvatar}
         on:keydown={selectAvatar}>{$t("user.settings.select")}</button
       >
@@ -161,7 +165,7 @@
 
   <button
     type="button"
-    class="border rounded-2xl font-bold w-24 text-center px-0 py-2 hover:opacity-80"
+    class="btn !w-auto"
     on:click={selectBanner}
     on:keydown={selectBanner}>{$t("user.settings.select")}</button
   >

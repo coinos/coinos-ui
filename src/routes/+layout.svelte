@@ -4,7 +4,7 @@
   import "../app.css";
   import { loading, t } from "$lib/translations";
   import { onMount } from "svelte";
-  import { installPrompt } from "$lib/store";
+  import { installPrompt, theme } from "$lib/store";
 
   export let data;
   let { pathname } = data;
@@ -44,7 +44,9 @@
 </svelte:head>
 
 {#if !$loading}
-  <slot />
+  <main data-theme={$theme}>
+    <slot />
+  </main>
 {/if}
 
 <style global>

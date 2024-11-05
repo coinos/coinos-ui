@@ -29,10 +29,7 @@
 
     <div class="flex justify-center">
       <a href="/register">
-        <button
-          use:focus
-          class="bg-black text-white border rounded-full px-6 py-2 font-bold hover:opacity-80"
-        >
+        <button use:focus class="btn !rounded-full bg-primary text-primary-content hover:bg-primary hover:bg-opacity-80">
           {$t("nav.startInSeconds")}
         </button>
       </a>
