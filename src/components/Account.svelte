@@ -36,7 +36,7 @@
   <div class="flex justify-center w-full text-xl gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
       <button class="btn !w-auto flex-grow">
-        <iconify-icon icon="ph:hand-coins-bold" width="32" />
+        <iconify-icon icon="ph:hand-coins-bold" width="32" flip="horizontal" />
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
