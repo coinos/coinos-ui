@@ -139,11 +139,7 @@
   {/if}
 
   <div class="text-secondary space-y-2 text-xl pt-2">
-    <button
-      type="button"
-      class="flex gap-2 items-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
-      on:click={() => copy(txt)}
-    >
+    <button type="button" class="btn" on:click={() => copy(txt)}>
       <iconify-icon icon="ph:copy-bold" width="32" />
       <div class="my-auto">
         {$t("payments.copy")}
@@ -151,10 +147,7 @@
     </button>
 
     {#if user?.id === invoice?.user?.id}
-      <button
-        class="w-full flex justify-center items-center gap-2 rounded-2xl border py-5 px-6 hover:opacity-80"
-        on:click={toggleAmount}
-      >
+      <button class="btn" on:click={toggleAmount}>
         <iconify-icon icon="ph:pencil-bold" width="32" />
         <div class="my-auto">{$t("payments.setAmount")}</div>
       </button>

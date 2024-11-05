@@ -96,7 +96,7 @@
   >
   <select
     name="currency"
-    class="select-styles block py-3 w-full"
+    class="select block py-3 w-full"
     value={user.currency}
   >
     {#each fiats as fiat}

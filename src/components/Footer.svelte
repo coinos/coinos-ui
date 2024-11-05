@@ -23,7 +23,9 @@
 >
   <div class="space-y-5">
     <div class="text-center w-full">
-      <a href="/"><Icon icon="logo" style="w-48 mx-auto md:mx-0" /></a>
+      <a href="/">
+        <iconify-icon icon="coinos:logo" width="224" />
+      </a>
     </div>
     <div class="flex gap-2 justify-center sm:hidden">
       <div>

@@ -270,7 +270,7 @@
 			"saved": "Settings saved!",
 			"verifying": "Verification email sent",
 			"verified": "Email verified!",
-			"revealNsec": "Reveal nostr secret key",
+			"revealNsec": "Reveal secret key",
 			"hideSeed": "Hide seed phrase",
 			"revealSeed": "Reveal seed phrase",
 			"saveSettings": "Save Settings",

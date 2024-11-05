@@ -213,14 +213,14 @@
       </h1>
 
       <div
-        class="font-bold flex justify-around items-center border-b pb-3 text-secondary"
+        class="flex justify-around items-center border-b pb-3"
       >
         {#each tabs.filter((t) => t.name !== "shopify") as { name, key }}
           <a href={`/settings/${name}`}>
             <button
               type="button"
               class="hover:opacity-80"
-              class:text-primary={tab === name ||
+              class:font-bold={tab === name ||
                 (tab === "shopify" && name === "pos")}
               >{$t(`user.settings.${key}`)}</button
             >
@@ -233,13 +233,13 @@
   </div>
 
   <div
-    class="z-10 fixed bottom-0 bg-white shadow border-t w-full flex justify-center items-center py-3"
+    class="z-10 fixed bottom-0 bg-base-100 shadow border-t w-full flex justify-center items-center py-3"
   >
     <button
       bind:this={submit}
       type="submit"
-      class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80"
-      class:bg-black={submitting}
+      class="btn !w-auto"
+      class:bg-base-200={submitting}
     >
       {#if submitting}
         <Spinner />

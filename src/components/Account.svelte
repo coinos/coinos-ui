@@ -35,17 +35,14 @@
 
   <div class="flex justify-center w-full text-xl gap-2">
     <a href={`/invoice`} class="contents" on:click={setAccount}>
-      <button class="py-5 px-6 hover:opacity-80 flex grow rounded-2xl gap-2 justify-center items-center">
+      <button class="btn !w-auto flex-grow">
         <iconify-icon icon="ph:hand-coins-bold" width="32" />
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
     <a href={`/send`} class="contents grow" on:click={setAccount}>
-      <button
-        type="button"
-        class="py-5 px-6 hover:opacity-80 flex grow rounded-2xa gap-2 justify-center items-center"
-      >
+      <button type="button" class="btn !w-auto flex-grow">
         <iconify-icon icon="ph:paper-plane-right-bold" width="32" />
         <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>
