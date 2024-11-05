@@ -10,6 +10,7 @@
     passwordPrompt,
     password,
     pin,
+    theme,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
@@ -103,7 +104,7 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main class="pb-20">
+<main class="pb-20" data-theme={$theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
     <slot />

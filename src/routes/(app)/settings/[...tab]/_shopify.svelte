@@ -27,7 +27,7 @@
   <label for="shopifyStore" class="font-bold mb-1 block">Store ID</label>
   <div class="flex mb-2">
     <div
-      class="text-gray-600 p-4 my-auto bg-gray-100 border rounded-l-2xl border-r-0 pr-1"
+      class="input input-bordered input-lg border-r-0 rounded-2xl rounded-r-none flex items-center text-right pr-1 bg-base-200 border-primary"
     >
       admin.shopify.com/store/
     </div>

@@ -6,7 +6,6 @@
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { back, fail, focus } from "$lib/utils";
 
@@ -59,31 +58,20 @@
     </div>
 
     <div class="flex gap-2">
-      <a href="/scan" class="w-full">
-        <button
-          type="button"
-          class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-1"
-        >
-          <Icon icon="camera" style="w-8 my-auto" />
+      <a href="/scan" class="contents">
+        <button type="button" class="btn !w-auto flex-grow">
+          <iconify-icon icon="ph:camera-bold" width="32" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
-      <button
-        type="button"
-        class="flex border rounded-2xl px-5 py-4 hover:opacity-80 w-full justify-center gap-1"
-        on:click={paste}
-      >
-        <Icon icon="paste" style="w-8 my-auto" />
+      <button type="button" class="btn !w-auto flex-grow" on:click={paste}>
+        <iconify-icon icon="ph:clipboard-text-bold" width="32" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>
 
-    <button
-      bind:this={el}
-      type="submit"
-      class="bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold"
-    >
+    <button bind:this={el} type="submit" class="btn">
       {$t("user.send.next")}
     </button>
   </form>

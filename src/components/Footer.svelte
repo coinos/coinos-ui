@@ -19,7 +19,7 @@
 </script>
 
 <footer
-  class="space-y-10 md:space-y-0 text-xl block md:flex justify-around mb-20"
+  class="space-y-10 md:space-y-0 text-xl block md:flex justify-around pb-20"
 >
   <div class="space-y-5">
     <div class="text-center w-full">
@@ -30,9 +30,7 @@
     <div class="flex gap-2 justify-center sm:hidden">
       <div>
         <a href="/register">
-          <button
-            class="bg-black text-white border rounded-full px-4 py-2 font-bold hover:opacity-80 text-lg"
-          >
+          <button class="btn">
             {$t("nav.startInSeconds")}
           </button>
         </a>
@@ -40,9 +38,7 @@
     </div>
     <div class="w-full flex">
       <div class="mx-auto">
-        <LocaleSelector
-          style="p-2 text-center hover:opacity-80 cursor-pointer border rounded-full"
-        />
+        <LocaleSelector />
       </div>
     </div>
   </div>

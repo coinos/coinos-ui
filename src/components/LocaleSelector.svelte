@@ -11,16 +11,8 @@
   };
 </script>
 
-<select name="language" bind:value={l} class={style} on:change={handleChange}>
+<select name="language" bind:value={l} on:change={handleChange}>
   {#each $locales as locale}
     <option value={locale}>{$t(`lang.${locale}`)}</option>
   {/each}
 </select>
-
-<style>
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-</style>

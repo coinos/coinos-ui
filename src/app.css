@@ -25,11 +25,19 @@ input {
   @apply input input-bordered input-lg input-primary;
 }
 
+input.blank {
+  all: unset;
+}
+
 textarea {
   @apply textarea textarea-bordered textarea-lg textarea-primary;
 }
 
-input, textarea {
+select {
+  @apply select select-bordered select-lg select-primary;
+}
+
+input, textarea, select  {
   @apply w-full rounded-2xl;
 }
 

@@ -1,6 +1,5 @@
 <script>
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
   import { onMount } from "svelte";
   import { format } from "date-fns";
   import { newPayment } from "$lib/store";
@@ -128,6 +127,9 @@
       }
     }
   };
+
+  const showPage = (i) => i < 6 || i >= pages.length - 6;
+  const isEllipsis = (i) => pages.length > 12 && i === 6;
 </script>
 
 <div class="space-y-5">
@@ -138,33 +140,29 @@
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <div class="mx-auto flex justify-center w-full gap-1">
       {#each presets as { start, end, title }, i}
-        <a
-          class:active={selection === i}
-          href={`/payments/${getUnixTime(start) + "/"}1`}
-        >
-          <button
-            class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px]"
-          >
+        <a href={`/payments/${getUnixTime(start) + "/"}1`}>
+          <button class="btn" class:btn-active={selection === i}>
             <div class="my-auto">{title}</div>
           </button>
         </a>
       {/each}
     </div>
 
-    <div class="flex flex-wrap justify-center">
+    <div class="join flex flex-wrap justify-center">
       {#if pages.length > 1}
         {#each pages as _, i}
-          <a
-            class="mr-1 last:mr-0"
-            href={`${path}/${i + 1}`}
-            class:active={parseInt(p) === i + 1}
-          >
-            <div
-              class="border py-2 rounded-full border-2 w-12 h-12 hover:opacity-80 text-center"
-            >
-              {i + 1}
-            </div>
-          </a>
+          {#if showPage(i)}
+            <a href={`${path}/${i + 1}`}>
+              <div
+                class="join-item btn !btn-sm"
+                class:btn-active={parseInt(p) === i + 1}
+              >
+                {i + 1}
+              </div>
+            </a>
+          {:else if isEllipsis(i)}
+            <div class="join-item btn !w-auto !btn-sm btn-disabled">...</div>
+          {/if}
         {/each}
       {/if}
     </div>
@@ -172,7 +170,7 @@
     <div class="text-base">
       {#each payments as p}
         <a href={`/payment/${p.id}`}>
-          <div class="grid grid-cols-12 border-b h-24 hover:bg-gray-100 px-4">
+          <div class="grid grid-cols-12 border-b h-24 hover:bg-base-200 px-4">
             <div class="whitespace-nowrap my-auto col-span-3">
               <div class="font-bold" class:text-red-800={p.amount < 0}>
                 {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
@@ -217,7 +215,7 @@
                   {:else if p.type === types.ecash}
                     <img src="/images/cash.png" class="w-12" />
                   {:else if p.type === types.reconcile}
-                    <Icon icon="balance" style="w-6" />
+                    <iconify-icon icon="ph:scales-bold" width="32" />
                   {:else if p.type === types.bitcoin}
                     <div class="my-auto">
                       <img
@@ -297,17 +295,11 @@
       {/each}
     </div>
   </div>
-  <button
-    class="ml-auto rounded-2xl border py-5 px-6 hover:opacity-80 flex mx-auto text-xl gap-2"
-    on:click={csv}
-  >
-    <Icon icon="save" style="my-auto" />
-    <div class="my-auto">{$t("payments.export")}</div>
-  </button>
-</div>
 
-<style>
-  .active * {
-    @apply bg-black text-white border-black;
-  }
-</style>
+  <div class="flex justify-center">
+    <button class="btn !w-auto" on:click={csv}>
+      <iconify-icon icon="ph:floppy-disk-bold" width="32" />
+      <div class="my-auto">{$t("payments.export")}</div>
+    </button>
+  </div>
+</div>

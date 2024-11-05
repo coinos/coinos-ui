@@ -6,11 +6,10 @@
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
-  import Numpad from "$comp/Numpad.svelte";
+  import InvoiceTypes from "$comp/InvoiceTypes.svelte";
+  import SetAmount from "$comp/SetAmount.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
-  import Toggle from "$comp/Toggle.svelte";
 
   export let data;
 
@@ -130,7 +129,7 @@
       >
         <img
           {src}
-          class="mx-auto z-10 max-w-[360px]"
+          class="mx-auto z-10 max-w-[360px] border-4 border-white"
           bind:this={qr}
           alt={txt}
         />
@@ -185,11 +184,7 @@
   {/if}
 
   <div class="text-secondary space-y-2 text-xl pt-2">
-    <button
-      type="button"
-      class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-5 px-6 w-full mx-auto justify-center border whitespace-nowrap mb-2"
-      on:click={() => copy(txt)}
-    >
+    <button type="button" class="btn" on:click={() => copy(txt)}>
       <iconify-icon icon="ph:copy-bold" width="32" />
       <div class="my-auto">
         {$t("payments.copy")}
@@ -197,18 +192,13 @@
     </button>
 
     {#if user?.id === invoice?.user?.id}
-      <button
-        class="w-full flex justify-center rounded-2xl border py-5 px-6 hover:opacity-80"
-        on:click={toggleAmount}
-      >
+      <button class="btn" on:click={toggleAmount}>
         <iconify-icon icon="ph:pencil-bold" width="32" />
         <div class="my-auto">{$t("payments.setAmount")}</div>
       </button>
     {:else}
       <a href={link} class="w-full">
-        <button
-          class="w-full flex justify-center items-center gap-2 rounded-2xl border py-5 px-6 hover:opacity-80"
-        >
+        <button class="btn">
           <iconify-icon icon="ph:wallet-bold" width="32" />
           <div class="my-auto">{$t("payments.openLink")}</div>
         </button>
@@ -217,10 +207,7 @@
 
     {#if type === types.lightning}
       <div class="w-full flex justify-center gap-2 flex-wrap">
-        <button
-          class="w-full flex justify-center items-center gap-2 rounded-2xl border py-5 px-6 hover:opacity-80"
-          on:click={() => ($showQr = !$showQr)}
-        >
+        <button class="btn" on:click={() => ($showQr = !$showQr)}>
           {#if $showQr}
             <iconify-icon icon="ph:text-align-center-bold" width="32" />
           {:else}
@@ -234,101 +221,18 @@
     {/if}
   </div>
 
-  {#if aid === user?.id}
-    <div class="grid grid-cols-2 justify-around text-secondary">
-      <button
-        class="hover:bg-base-300 my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        class:bg-base-300={type === types.bitcoin}
-        class:text-black={type === types.bitcoin}
-        on:click={() => setType(types.bitcoin)}
-      >
-        <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
-        <div class="my-auto text-lg">Bitcoin</div>
-      </button>
-
-      <button
-        class="hover:bg-base-300 my-auto flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        class:bg-base-300={type === types.liquid}
-        class:text-black={type === types.liquid}
-        on:click={() => setType(types.liquid)}
-      >
-        <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
-        <div class="my-auto text-lg">Liquid</div>
-      </button>
-
-      <button
-        class="hover:bg-base-300 flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        class:bg-base-300={type === types.lightning}
-        class:text-black={type === types.lightning}
-        on:click={() => setType(types.lightning)}
-      >
-        <div class="bg-base-100 rounded-full w-8 h-8 text-center flex">
-          <div class="m-auto">⚡️</div>
-        </div>
-        <div class="my-auto text-lg">Lightning</div>
-      </button>
-
-      <a href={`/receive`} class="block contents">
-        <button
-          class="hover:bg-base-300 flex gap-1 sm:gap-2 py-3 px-2 sm:px-5 justify-center"
-        >
-          <img src="/images/cash.png" class="w-8 my-auto" />
-          <div class="my-auto text-lg">Ecash</div>
-        </button>
-      </a>
-    </div>
-
-    {#if type === types.liquid}
-      <div class="flex justify-center">
-        <div class="my-auto text-xl text-center text-secondary">
-          {$t("payments.onlyLbtc")}
-          <span class="text-teal-500 font-bold">L-BTC</span>,
-          {$t("payments.dontDeposit")}
-        </div>
-      </div>
-    {/if}
-  {/if}
+  <InvoiceTypes {aid} {user} {type} {types} {setType} t={$t} />
 </div>
 
-{#if settingAmount}
-  <div
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
-  >
-    <div
-      class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-base-100 space-y-5 top-5"
-    >
-      <form on:submit|preventDefault={setAmount} class="space-y-5">
-        <Numpad
-          bind:amount={newAmount}
-          bind:currency
-          bind:rate
-          bind:fiat
-          bind:submit
-        />
-        <div class="w-full flex flex-wrap gap-2">
-          <button
-            bind:this={submit}
-            type="submit"
-            on:click={setAmount}
-            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto bg-black text-white w-full"
-          >
-            <div class="my-auto">{$t("payments.ok")}</div>
-          </button>
-          <button
-            type="button"
-            class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto w-full"
-            on:click={toggleAmount}
-            on:keydown={toggleAmount}
-          >
-            <div class="my-auto">{$t("payments.cancel")}</div>
-          </button>
-        </div>
-      </form>
-
-      <div class="flex justify-center gap-3">
-        <div class="text-secondary">{$t("payments.amountPrompt")}</div>
-        <Toggle id="notify" bind:value={$amountPrompt} />
-      </div>
-    </div>
-  </div>
-{/if}
+<SetAmount
+  {currency}
+  {rate}
+  {fiat}
+  {submit}
+  {settingAmount}
+  {setAmount}
+  {newAmount}
+  {toggleAmount}
+  amountPrompt={$amountPrompt}
+  t={$t}
+/>

@@ -1,7 +1,6 @@
 <script>
   import { onMount, tick } from "svelte";
   import { browser } from "$app/environment";
-  import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import Toggle from "$comp/Toggle.svelte";
@@ -94,11 +93,7 @@
   <label for="currency" class="font-bold block mb-1"
     >{$t("user.settings.localCurrency")}</label
   >
-  <select
-    name="currency"
-    class="select block py-3 w-full"
-    value={user.currency}
-  >
+  <select name="currency" value={user.currency}>
     {#each fiats as fiat}
       <option value={fiat}>{fiat}</option>
     {/each}
@@ -263,11 +258,8 @@
   </div>
 {/if}
 
-<a href="./shopify">
-  <button
-    type="button"
-    class="flex rounded-full border py-2 px-4 font-bold hover:opacity-80 w-full gap-2 my-5 justify-center"
-  >
+<a href="./shopify" class="block">
+  <button type="button" class="btn">
     <img src="/icons/shopify.svg" class="w-8" />
     <div class="my-auto">{$t("user.settings.shopify")}</div>
   </button>

@@ -101,7 +101,6 @@
         name="username"
         type="text"
         required
-        class="bg-primary"
         bind:value={username}
         use:focus
         autocapitalize="none"
@@ -117,7 +116,6 @@
           name="password"
           type="text"
           required
-          class="bg-primary"
           bind:value={$password}
           autocapitalize="none"
         />
@@ -126,7 +124,6 @@
           name="password"
           type="password"
           required
-          class="bg-primary"
           bind:value={$password}
           autocapitalize="none"
         />
@@ -146,12 +143,7 @@
       >
     </div>
 
-    <button
-      type="submit"
-      class="bg-black text-white w-full rounded-2xl p-4 font-semibold hover:opacity-80"
-      disabled={loading}
-      bind:this={btn}
-    >
+    <button type="submit" class="btn" disabled={loading} bind:this={btn}>
       {#if loading}
         <Spinner />
       {:else}
