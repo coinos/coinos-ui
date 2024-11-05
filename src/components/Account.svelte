@@ -15,7 +15,7 @@
 
 <a
   href={`/payments`}
-  class="block space-y-2 border-black py-4"
+  class="block space-y-2 border-primary py-4"
   class:border-b-8={!last}
   on:click={setAccount}
 >

@@ -1,3 +1,3 @@
-<div class="container mt-4">
+<main class="min-h-dvh">
   <slot />
-</div>
+</main>
