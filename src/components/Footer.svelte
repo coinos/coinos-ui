@@ -21,7 +21,7 @@
 </script>
 
 <footer
-  class="space-y-10 md:space-y-0 text-xl block md:flex justify-around pb-20"
+  class="space-y-10 md:space-y-0 text-xl block md:flex justify-around pb-8 px-4"
 >
   <div class="space-y-5">
     <div class="text-center w-full">
@@ -38,7 +38,7 @@
         </a>
       </div>
     </div>
-    <div class="w-full flex gap-2 justify-center items-center">
+    <div class="w-full flex flex-wrap sm:flex-nowrap gap-2 justify-center items-center">
       <LocaleSelector />
       <button
         class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
@@ -81,5 +81,5 @@
     </ul>
   </div>
 
-  <iconify-icon icon="coinos:shield" class="mx-auto md:mx-0" width="96" />
+  <iconify-icon icon="coinos:shield" class="flex justify-center" width="96" />
 </footer>

@@ -19,7 +19,7 @@
 </script>
 
 <header
-  class="w-full lg:w-5/6 py-5 mx-auto fixed sticky z-10 top-0"
+  class="w-full lg:w-5/6 p-2 mx-auto fixed sticky z-10 top-0 bg-base-100"
   bind:this={header}
 >
   <nav class="block lg:flex justify-between items-center">
