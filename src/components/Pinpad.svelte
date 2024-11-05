@@ -36,56 +36,53 @@
   let hide = true;
 </script>
 
-<div class="flex justify-center items-center">
-  <div class="space-y-5">
-    <div class="font-semibold relative w-[300px]">
-      {#if hide}
-        <input
-          on:keydown={validate}
-          use:focus
-          bind:value={v}
-          type="password"
-          class="outline-none border-0 text-center py-0 !text-5xl"
-          pattern="[0-9]+"
-        />
-      {:else}
-        <input
-          on:keydown={validate}
-          use:focus
-          bind:value={v}
-          class="outline-none border-0 text-center py-0 !text-5xl"
-          type="text"
-          pattern="[0-9]+"
-        />
-      {/if}
+<label
+  class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
+>
+  {#if hide}
+    <input
+      on:keydown={validate}
+      use:focus
+      bind:value={v}
+      type="password"
+      class="blank text-center !text-5xl !w-96 block"
+      pattern="[0-9]+"
+    />
+  {:else}
+    <input
+      on:keydown={validate}
+      use:focus
+      bind:value={v}
+      class="blank text-center !text-5xl !w-96 block"
+      type="text"
+      pattern="[0-9]+"
+    />
+  {/if}
+  <iconify-icon
+    icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"}
+    width="32"
+    on:click|stopPropagation|preventDefault={() => (hide = !hide)}
+    class="cursor-pointer"
+  />
+</label>
+
+<div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">
+  {#each numPad as value}
+    {#if value === arrow}
       <button
         type="button"
-        on:click={() => (hide = !hide)}
-        class="absolute -right-5 top-5"
+        class="btn"
+        on:click|stopPropagation|preventDefault={() => handleInput(value)}
       >
-        <Icon icon={hide ? "eye-off" : "eye"} style="w-8" />
+        <Left />
       </button>
-    </div>
-
-    <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">
-      {#each numPad as value}
-        {#if value === arrow}
-          <button
-            type="button"
-            class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white flex justify-center items-center hover:opacity-80"
-            on:click|stopPropagation|preventDefault={() => handleInput(value)}
-          >
-            <Left />
-          </button>
-        {:else}
-          <button
-            type="button"
-            class="bg-primary rounded-xl py-4 px-8 font-semibold active:bg-black active:text-white hover:opacity-80"
-            on:click|stopPropagation|preventDefault={() => handleInput(value)}
-            >{value}</button
-          >
-        {/if}
-      {/each}
-    </div>
-  </div>
+    {:else}
+      <button
+        type="button"
+        class="btn"
+        on:click|stopPropagation|preventDefault={() => handleInput(value)}
+        >{value}</button
+      >
+    {/if}
+  {/each}
 </div>

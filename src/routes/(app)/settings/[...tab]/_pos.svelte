@@ -165,7 +165,7 @@
       >{$t("user.settings.threshold")}</label
     >
     <button type="button" class="flex w-full" on:click={editThreshold}>
-      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-primary">
+      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
         ⚡️
       </div>
       <div
@@ -185,7 +185,7 @@
       >{$t("user.settings.reserve")}</label
     >
     <button type="button" class="flex w-full" on:click={editReserve}>
-      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-primary">
+      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
         ⚡️
       </div>
       <div
@@ -203,11 +203,9 @@
 
 {#if editingThreshold}
   <div
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto"
   >
-    <div
-      class="relative top-40 mx-auto p-5 border shadow-lg rounded-md bg-white space-y-5 w-lg max-w-lg"
-    >
+    <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
       <h1 class="text-center text-2xl font-semibold">
         {$t("user.settings.threshold")}
       </h1>
@@ -223,8 +221,7 @@
         bind:this={doneReserve}
         type="button"
         on:click={doneEditing}
-        class="p-4 bg-black text-white rounded-2xl text-lg font-semibold w-full"
-        >Ok</button
+        class="btn">Ok</button
       >
     </div>
   </div>
@@ -232,10 +229,10 @@
 
 {#if editingReserve}
   <div
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg"
   >
     <div
-      class="relative top-40 mx-auto p-5 border shadow-lg rounded-md bg-white space-y-5 w-lg max-w-lg text-center"
+      class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center"
     >
       <h1 class="text-2xl font-semibold">
         {$t("user.settings.reserve")}
@@ -251,8 +248,7 @@
         bind:this={doneReserve}
         type="button"
         on:click={doneEditing}
-        class="p-4 bg-black text-white rounded-2xl text-lg font-semibold w-full"
-        >Ok</button
+        class="btn">Ok</button
       >
     </div>
   </div>

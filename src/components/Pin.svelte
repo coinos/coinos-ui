@@ -44,9 +44,12 @@
 </script>
 
 {#if loaded}
-  <div class="fixed inset-0 overflow-y-auto h-full w-full z-50">
+  <div
+    class="fixed bg-base-100 bg-opacity-90 inset-0 h-full w-full z-50 cursor-default"
+    on:click|preventDefault
+  >
     <div
-      class="relative top-40 mx-auto p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5"
+      class="mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 max-w-lg"
     >
       <h1 class="text-center text-2xl font-semibold">{title}</h1>
       <Pinpad bind:v={p} {cancel} />
@@ -57,7 +60,6 @@
         >
         <select
           name="locktime"
-          class="select-styles block py-3 w-full"
           bind:value={locktime}
         >
           <option value={30}>30 {$t("user.settings.seconds")}</option>
@@ -70,10 +72,7 @@
       </div>
 
       <div class="w-full flex">
-        <button
-          class="border-2 border-primary rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-          on:click|preventDefault={cancel}
-        >
+        <button class="btn" on:click|preventDefault={cancel}>
           <div class="my-auto">Cancel</div>
         </button>
       </div>

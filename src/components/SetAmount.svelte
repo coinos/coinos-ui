@@ -16,10 +16,10 @@
 
 {#if settingAmount}
   <div
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+    class="fixed inset-0 bg-base-100 bg-opacity-90 overflow-y-auto h-full w-full z-50"
   >
     <div
-      class="relative mx-auto p-12 border max-w-xl shadow-lg rounded-md bg-base-100 space-y-5 top-5"
+      class="relative mx-auto p-12 max-w-xl shadow-lg rounded-md bg-base-100 space-y-5"
     >
       <form on:submit|preventDefault={setAmount} class="space-y-5">
         <Numpad
