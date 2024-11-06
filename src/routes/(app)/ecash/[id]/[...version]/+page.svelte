@@ -53,7 +53,7 @@
   {/if}
 
   <button
-    class="btn break-all text-xl !h-auto !py-5 font-normal"
+    class="btn break-all !h-auto py-5 font-normal leading-normal"
     on:click={() => copy(token)}
   >
     {token}

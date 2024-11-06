@@ -34,7 +34,7 @@
             bind:this={submit}
             type="submit"
             on:click|preventDefault|stopPropagation={setAmount}
-            class="btn"
+            class="btn btn-accent"
           >
             <div class="my-auto">{t("payments.ok")}</div>
           </button>
