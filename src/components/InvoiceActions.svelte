@@ -25,7 +25,7 @@
       <div class="my-auto">{t("payments.setAmount")}</div>
     </button>
   {:else}
-    <a href={link} class="block contents">
+    <a href={link} class="block">
       <button class="btn">
         <iconify-icon icon="ph:wallet-bold" width="32" />
         <div class="my-auto">{t("payments.openLink")}</div>
