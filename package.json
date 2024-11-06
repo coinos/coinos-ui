@@ -2,7 +2,6 @@
   "name": "my-app",
   "version": "0.0.1",
   "devDependencies": {
-    "@asoltys/nostr-tools": "^2.1.7",
     "@capacitor/android": "^6.0.0",
     "@capacitor/cli": "^6.0.0",
     "@capacitor/core": "^6.0.0",
