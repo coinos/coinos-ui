@@ -1,5 +1,5 @@
+import { fd, login } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
-import { login, fd } from "$lib/utils";
 
 export const load = async ({ parent }) => {
 	const { user } = await parent();
@@ -11,6 +11,8 @@ export const actions = {
 		const form = await fd(request);
 		let { username, password, token, loginRedirect } = form;
 		const user = { username, password, token };
+
+		console.log("LOGIN", user);
 
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
