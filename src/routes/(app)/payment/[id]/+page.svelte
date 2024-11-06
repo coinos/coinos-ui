@@ -190,9 +190,7 @@
 
   {#if type === types.ecash && amount < 0}
     <a href={`/ecash/${memo}`} class="block">
-      <button
-        class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white gap-2 items-center"
-      >
+      <button class="btn">
         <img src="/images/cash.png" class="w-8" />
         <div>{$t("payments.ecashToken")}</div>
       </button>

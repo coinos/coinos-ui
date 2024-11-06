@@ -43,10 +43,10 @@
     <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
     <input type="hidden" name="amount" bind:value={amount} />
 
-    <div>
+    <div class="flex gap-2">
       <button
         type="button"
-        class="hover:opacity-80 rounded-2xl py-5 px-6 mt-2 font-bold w-full mx-auto bg-primary"
+        class="btn !w-auto grow"
         on:click|preventDefault={setMax}
         disabled={submitting}
         on:keydown={setMax}>Max ⚡️{s(balance)}</button
@@ -56,12 +56,12 @@
         use:focus
         bind:this={submit}
         type="submit"
-        class="opacity-100 hover:opacity-80 rounded-2xl border py-5 font-bold mt-2 bg-black text-white px-6 w-full flex justify-center gap-2 mx-auto"
+        class="btn btn-accent !w-auto grow"
       >
         {#if submitting}
           <Spinner />
         {:else}
-          <div class="my-auto">{$t("payments.mint")}</div>
+          <div class="my-auto">{$t("payments.next")}</div>
         {/if}
       </button>
     </div>

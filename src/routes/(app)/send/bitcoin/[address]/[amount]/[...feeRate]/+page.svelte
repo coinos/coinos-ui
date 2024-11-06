@@ -193,7 +193,7 @@
           use:focus
           bind:this={submit}
           type="submit"
-          class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
+          class="btn btn-accent"
           disabled={submitting}
         >
           {#if submitting}

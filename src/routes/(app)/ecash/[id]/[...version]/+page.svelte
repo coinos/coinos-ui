@@ -2,7 +2,6 @@
   import { enhance } from "$app/forms";
   import { copy, sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
   export let data;
@@ -21,34 +20,32 @@
 {/if}
 
 <div class="flex flex-wrap gap-2 text-xl">
-  <button
-    type="button"
-    class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
-    on:click={() => copy(link)}
-  >
-    <Icon icon="link" style="w-8 my-auto" />
+  <button type="button" class="btn" on:click={() => copy(link)}>
+    <iconify-icon icon="ph:link-bold" width="32" />
     <div class="my-auto">{$t("payments.shareLink")}</div>
   </button>
 
   {#if spent < total}
     {#if external}
       <a href={`/ecash/${id}/swap`} class="contents">
-        <button
-          type="submit"
-          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
-        >
-          <Icon icon="receive" style="w-8 my-auto" />
+        <button type="submit" class="btn">
+          <iconify-icon
+            icon="ph:hand-coins-bold"
+            width="32"
+            flip="horizontal"
+          />
           <div class="my-auto">{$t("payments.swap")}</div>
         </button>
       </a>
     {:else}
       <form method="POST" use:enhance class="w-full">
         <input type="hidden" name="token" bind:value={token} />
-        <button
-          type="submit"
-          class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
-        >
-          <Icon icon="receive" style="w-8 my-auto" />
+        <button type="submit" class="btn">
+          <iconify-icon
+            icon="ph:hand-coins-bold"
+            width="32"
+            flip="horizontal"
+          />
           <div class="my-auto">{$t("payments.redeem")}</div>
         </button>
       </form>
@@ -56,7 +53,7 @@
   {/if}
 
   <button
-    class="border rounded-2xl px-6 py-5 w-full break-all text-xl hover:bg-slate-100"
+    class="btn break-all text-xl !h-auto !py-5 font-normal"
     on:click={() => copy(token)}
   >
     {token}
@@ -64,21 +61,15 @@
 
   {#if version === 4}
     <a data-sveltekit-reload href={`/ecash/${id}/3`} class="contents">
-      <button
-        type="button"
-        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
-      >
-        <Icon icon="settings" style="w-8 my-auto" />
+      <button type="button" class="btn">
+        <iconify-icon icon="ph:gear-bold" width="32" />
         <div class="my-auto">{$t("payments.legacyVersion")}</div>
       </button>
     </a>
   {:else}
     <a data-sveltekit-reload href={`/ecash/${id}`} class="contents">
-      <button
-        type="button"
-        class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full justify-center gap-2"
-      >
-        <Icon icon="settings" style="w-8 my-auto" />
+      <button type="button" class="btn">
+        <iconify-icon icon="ph:gear-bold" width="32" />
         <div class="my-auto">{$t("payments.newVersion")}</div>
       </button>
     </a>
