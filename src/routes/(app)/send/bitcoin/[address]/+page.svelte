@@ -34,18 +34,13 @@
   <div class="flex justify-center gap-2">
     <button
       type="button"
-      class="hover:opacity-80 bg-black text-white rounded-2xl py-3 px-4 mt-2 border font-bold"
+      class="btn !w-auto grow"
       on:click|preventDefault={setMax}
       on:keydown={setMax}>Max ⚡️{s(balance)}</button
     >
 
-    <form action={`/send/bitcoin/${address}/${amount}`}>
-      <button
-        use:focus
-        bind:this={submit}
-        type="submit"
-        class="opacity-100 hover:opacity-80 rounded-2xl border py-3 font-bold mt-2 bg-black text-white px-4 w-24"
-      >
+    <form action={`/send/bitcoin/${address}/${amount}`} class="contents">
+      <button use:focus bind:this={submit} type="submit" class="btn !w-auto grow btn-accent">
         {$t("payments.next")}
       </button>
     </form>
