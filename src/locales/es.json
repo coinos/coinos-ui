@@ -152,7 +152,10 @@
 		"signOut": "Cerrar sesión",
 		"dashboard": "Tablero",
 		"settings": "Configuraciones",
-		"support": "Soporte"
+		"support": "Soporte",
+		"dark": "Oscuro",
+		"light": "Luz",
+		"register": "Registro"
 	},
 	"news": {
 		"header": "Noticias",
@@ -401,7 +404,8 @@
 		"message": "Mensaje",
 		"fundingAmount": "Cuantía de financiación",
 		"ecashDesc": "Los tokens de Ecash se cargan con una cantidad de Bitcoin. Se pueden canjear de nuevo en Coinos o cargar en otras billeteras. Úsalos para regalar Bitcoin a alguien que aún no tenga una billetera, simplemente enviándole el token por mensaje de texto o compartiendo el enlace. Aprende más en",
-		"maxFeeDesc": "Establece un límite superior en la tasa de enrutamiento de la red. Si se establece demasiado bajo el pago puede fallar. Puedes ponerlo más alto e intentarlo de nuevo. Debitamos toda la cantidad mientras intentamos el pago pero acreditamos cualquier parte no utilizada."
+		"maxFeeDesc": "Establece un límite superior en la tasa de enrutamiento de la red. Si se establece demasiado bajo el pago puede fallar. Puedes ponerlo más alto e intentarlo de nuevo. Debitamos toda la cantidad mientras intentamos el pago pero acreditamos cualquier parte no utilizada.",
+		"ecashToken": "Ecash token"
 	},
 	"items": {
 		"add": "Añadir artículo",
