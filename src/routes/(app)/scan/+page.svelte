@@ -20,7 +20,8 @@
     }
 
     let options = { highlightScanRegion: true, highlightCodeOutline: true };
-    let cb = ({ data }) => scanner.stop() || goto(`/send/${encodeURI(data)}`);
+    let cb = ({ data }) =>
+      scanner.stop() || goto(`/send/${encodeURIComponent(data)}`);
     scanner = new QrScanner(vid, cb, options);
     await tick();
     scanner.start();
