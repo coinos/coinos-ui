@@ -128,8 +128,31 @@
     }
   };
 
-  const showPage = (i) => i < 6 || i >= pages.length - 6;
-  const isEllipsis = (i) => pages.length > 12 && i === 6;
+  $: showPage = (i) => {
+    const currentPage = parseInt(p);
+    const maxVisiblePages = 12;
+
+    if (i === 0 || i === pages.length - 1) return true;
+
+    let start = Math.max(
+      1,
+      currentPage - Math.floor((maxVisiblePages - 4) / 2),
+    );
+    let end = start + maxVisiblePages - 5;
+
+    if (end >= pages.length - 1) {
+      end = pages.length - 2;
+      start = Math.max(1, end - (maxVisiblePages - 5));
+    }
+
+    return i >= start && i <= end;
+  };
+
+  $: isEllipsis = (i) => {
+    return (
+      (i === 1 && !showPage(i)) || (i === pages.length - 2 && !showPage(i))
+    );
+  };
 </script>
 
 <div class="space-y-5">
