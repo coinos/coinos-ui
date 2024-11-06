@@ -22,11 +22,11 @@ html {
 }
 
 input {
-  @apply input input-bordered input-lg input-primary;
+  @apply input
 }
 
-input.blank {
-  all: unset;
+.input {
+  @apply input-bordered input-lg input-primary;
 }
 
 textarea {
@@ -37,8 +37,21 @@ select {
   @apply select select-bordered select-lg select-primary;
 }
 
-input, textarea, select  {
+input, textarea, select, .input  {
   @apply w-full rounded-2xl;
+}
+
+.input:focus, .input:focus-within {
+  @apply outline-offset-0;
+}
+
+input.clean {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .btn {

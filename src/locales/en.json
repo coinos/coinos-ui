@@ -357,7 +357,7 @@
 		"fastest": "Fastest",
 		"fundingAmount": "Funding amount",
 		"fast": "Fast",
-		"ecashDesc": "Ecash tokens get funded with an amount of bitcoin. They can be redeemed into a coinos account or loaded into other wallets. You can use them to give bitcoin to someone who may not have a wallet yet. Learn more at",
+		"ecashDesc": "Ecash tokens are funded with bitcoin. They may be redeemed in exchange for a lightning payment equal to their value or loaded back into a coinos account at any time. They can also be transferred to other ecash wallets either wholly or partially. You might use them to give bitcoin to someone who doesn't have a wallet by texting the token to them or sharing a link to it. Learn more at",
     "ecashToken": "Ecash token",
 		"medium": "Medium",
 		"maxFeeDesc": "Set an upper limit on the network routing fee. If set too low the payment may fail. You can set it higher and try again. We debit the full amount while attempting the payment but credit back any unused portion.",

@@ -95,50 +95,50 @@
     />
     <input type="hidden" name="token" value={token} />
 
-    <div>
-      <label for="username" class="font-semibold">{$t("login.username")}</label>
-      <input
-        name="username"
-        type="text"
-        required
-        bind:value={username}
-        use:focus
-        autocapitalize="none"
-      />
-    </div>
+    <input
+      name="username"
+      type="text"
+      required
+      bind:value={username}
+      use:focus
+      autocapitalize="none"
+      placeholder={$t("login.username")}
+    />
 
-    <div class="relative">
-      <label for="password" class="block font-semibold"
-        >{$t("login.password")}</label
-      >
+    <label for="password" class="input flex items-center justify-center gap-2 w-full">
       {#if revealPassword}
         <input
+          class="clean w-full grow focus:!outline-offset-0"
           name="password"
           type="text"
           required
           bind:value={$password}
           autocapitalize="none"
+          placeholder={$t("login.password")}
         />
       {:else}
         <input
+          class="clean w-full grow focus:!outline-offset-0"
           name="password"
           type="password"
           required
           bind:value={$password}
           autocapitalize="none"
+          placeholder={$t("login.password")}
         />
       {/if}
-      <button
-        type="button"
+      <iconify-icon
+        class="cursor-pointer ml-auto"
         on:click={() => (revealPassword = !revealPassword)}
-        class="absolute right-5 top-10"
-      >
-        <Icon icon={revealPassword ? "eye" : "eye-off"} />
-      </button>
-    </div>
+        icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+        width="32"
+      />
+    </label>
 
     <div class="flex justify-end items-center">
-      <a href="/forgot" class="underline underline-offset-4 text-primary-content"
+      <a
+        href="/forgot"
+        class="underline underline-offset-4 text-secondary"
         >{$t("login.forgotUserOrPassword")}</a
       >
     </div>
@@ -155,7 +155,7 @@
       {$t("login.noAccount")}
       <a
         href={"/register"}
-        class="block md:inline text-primary-content underline underline-offset-4 hover:opacity-80"
+        class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
       >
         {$t("login.register")}
       </a>

@@ -114,7 +114,7 @@
               id="maxfee"
               name="maxfee"
               bind:value={maxfee}
-              class="blank !grow"
+              class="clean !grow"
             />
             <div class="ml-auto">⚡️</div>
           </label>

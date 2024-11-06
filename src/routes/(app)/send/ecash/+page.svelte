@@ -30,14 +30,10 @@
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
-  <div
-    class="p-4 border rounded-2xl space-y-2 text-lg text-left flex gap-2"
-  >
-    <div class="space-y-5">
-      <div>
-        {$t("payments.ecashDesc")}
-        <a href="https://cashu.space/" class="font-bold">cashu.space</a>.
-      </div>
+  <div class="card text-left rounded-2xl shadow shadow-primary p-4 bg-base-200">
+    <div class="text-secondary">
+      {$t("payments.ecashDesc")}
+      <a href="https://cashu.space/" class="font-bold">cashu.space</a>
     </div>
   </div>
   <form use:enhance={handler(toggle)} method="POST" class="space-y-5">
