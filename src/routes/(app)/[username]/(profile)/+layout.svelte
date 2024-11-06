@@ -282,7 +282,7 @@
 
 {#if currency}
   <div
-    class="flex fixed w-full px-4 bg-white py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
+    class="flex fixed w-full px-4 bg-base-100 py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
   >
     <div class="text-secondary flex mr-auto">
       <div class="flex mr-1">
