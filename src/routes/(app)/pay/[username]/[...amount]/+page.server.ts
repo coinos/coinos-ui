@@ -5,7 +5,7 @@ export async function load({ cookies, params, parent }) {
 	const { username } = params;
 	const { rates, user } = await parent();
 
-	if (user?.username === username) error(500, "Cannot send to self");
+	if (user?.username === username) redirect(307, `/${username}/receive`);
 	const subject = await get(`/users/${username}`);
 
 	let [amount, currency] = params.amount.split("/");
