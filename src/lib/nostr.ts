@@ -41,7 +41,6 @@ export const generate = async (user: any) => {
 	const salt = crypto.getRandomValues(new Uint8Array(16));
 	const mnemonic = generateSeedWords();
 	const sk = privateKeyFromSeedWords(mnemonic);
-	console.log("SK", sk);
 
 	const bytes = new Uint8Array(
 		await crypto.subtle.encrypt(
@@ -51,9 +50,7 @@ export const generate = async (user: any) => {
 		),
 	);
 
-	const ska = hex.decode(sk);
-	console.log("SKA", ska);
-	user.pubkey = getPublicKey(ska);
+	user.pubkey = getPublicKey(sk);
 	user.cipher = encode("en", toWords(bytes), 180);
 	user.salt = Buffer.from(salt).toString("hex");
 };
