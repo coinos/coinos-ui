@@ -1,7 +1,6 @@
 <script>
   import { goto } from "$app/navigation";
   import { scroll } from "$lib/utils";
-  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
@@ -19,7 +18,7 @@
 </script>
 
 <header
-  class="w-full lg:w-5/6 p-2 mx-auto fixed sticky z-10 top-0 bg-base-100"
+  class="w-full lg:w-5/6 p-4 mx-auto fixed sticky z-10 top-0 bg-base-100"
   bind:this={header}
 >
   <nav class="block lg:flex justify-between items-center">
@@ -47,17 +46,27 @@
         >
       {/if}
       {#if user}
-        <button class="btn !w-auto !rounded-full" on:click={() => goto(`/${user.username}`)}
+        <button
+          class="btn !w-auto !rounded-full"
+          on:click={() => goto(`/${user.username}`)}
           >Home
         </button>
-        <button class="btn !w-auto !rounded-full" on:click={() => goto("/logout")}>
+        <button
+          class="btn !w-auto !rounded-full"
+          on:click={() => goto("/logout")}
+        >
           {$t("nav.signOut")}
         </button>
       {:else}
-        <button class="btn !w-auto !rounded-full" on:click={() => goto("/register")}
+        <button
+          class="btn !w-auto !rounded-full"
+          on:click={() => goto("/register")}
           >{$t("nav.register")}
         </button>
-        <button class="btn !w-auto !rounded-full" on:click={() => goto("/login")}>
+        <button
+          class="btn !w-auto !rounded-full"
+          on:click={() => goto("/login")}
+        >
           {$t("nav.signIn")}
         </button>
       {/if}
@@ -66,7 +75,8 @@
     <button
       class="block lg:hidden absolute top-[34.5px] right-10 z"
       on:click={() => (showMobileMenu = !showMobileMenu)}
-      ><Icon icon={!showMobileMenu ? "menu" : "close"} />
+    >
+      <iconify-icon icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"} width="32" />
     </button>
 
     <div
