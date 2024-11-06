@@ -8,6 +8,12 @@ export default async (s, host) => {
 	if (!s) return;
 	let t = s;
 
+	if (t.includes("lightning=")) {
+		const url = new URL(t);
+		const params = new URLSearchParams(url.search);
+		t = params.get("lightning");
+	}
+
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
