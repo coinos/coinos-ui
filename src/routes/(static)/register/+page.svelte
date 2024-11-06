@@ -8,7 +8,6 @@
   import { enhance } from "$app/forms";
 
   import Pin from "$comp/Pin.svelte";
-  import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
 
   import { focus, fail } from "$lib/utils";
@@ -170,7 +169,7 @@
       class="absolute w-8 h-12 left-12 bg-base-100 rounded top-12"
       on:click={decr}
     >
-      <Icon icon="chevron-left" style="w-8 " />
+      <iconify-icon icon="ph:caret-left-bold" width="32" />
     </button>
     <button class="block relative w-32 mx-auto" on:click={selectAvatar}>
       <button
@@ -183,16 +182,16 @@
         />
       </button>
       <button
-        class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 bg-opacity-80"
+        class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12"
       >
-        <Icon icon="upload" style="w-8" />
+        <iconify-icon icon="ph:upload-simple-bold" width="24" />
       </button>
     </button>
     <button
       class="absolute w-8 h-12 right-12 bg-base-100 rounded top-12"
       on:click={incr}
     >
-      <Icon icon="chevron-left" style="w-8 rotate-180" />
+      <iconify-icon icon="ph:caret-right-bold" width="32" />
     </button>
   </div>
 
@@ -210,9 +209,12 @@
     />
     <input type="hidden" name="token" value={token} />
 
-    <div class="relative">
-      <label for="username" class="font-semibold">{$t("login.username")}</label>
+    <label
+      for="username"
+      class="input flex items-center justify-center gap-2 w-full"
+    >
       <input
+        class="clean"
         use:focus
         name="username"
         type="text"
@@ -220,48 +222,51 @@
         bind:value={username}
         on:focus={clear}
         autocapitalize="none"
+        placeholder={$t("login.username")}
       />
-      <button
+      <iconify-icon
+        class="cursor-pointer"
         tabindex="-1"
-        type="button"
         on:click={refresh}
-        class="absolute right-0 top-4"
-      >
-        <Icon icon="random" style="w-10 m-4" />
-      </button>
-    </div>
+        icon="ph:dice-three-bold"
+        width="32"
+      />
+    </label>
 
-    <div class="relative">
-      <label for="password" class="block font-semibold"
-        >{$t("login.password")}</label
-      >
+    <label
+      for="password"
+      class="input flex items-center justify-center gap-2 w-full"
+    >
       {#if revealPassword}
         <input
+          class="clean"
           name="password"
           type="text"
           required
           bind:value={$password}
           autocapitalize="none"
+          placeholder={$t("login.password")}
         />
       {:else}
         <input
+          class="clean"
           name="password"
           type="password"
           required
           bind:value={$password}
           autocapitalize="none"
           on:focus={clear}
+          placeholder={$t("login.password")}
         />
       {/if}
-      <button
-        type="button"
+      <iconify-icon
         tabindex="-1"
+        class="cursor-pointer"
         on:click={() => (revealPassword = !revealPassword)}
-        class="absolute right-0 top-4"
-      >
-        <Icon icon={revealPassword ? "eye" : "eye-off"} style="m-6" />
-      </button>
-    </div>
+        icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+        width="32"
+      />
+    </label>
 
     <button type="submit" class="btn" disabled={loading} bind:this={btn}>
       {#if loading}

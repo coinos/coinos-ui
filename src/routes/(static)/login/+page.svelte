@@ -110,7 +110,7 @@
     >
       {#if revealPassword}
         <input
-          class="clean w-full grow focus:!outline-offset-0"
+          class="clean"
           name="password"
           type="text"
           required
@@ -120,7 +120,7 @@
         />
       {:else}
         <input
-          class="clean w-full grow focus:!outline-offset-0"
+          class="clean"
           name="password"
           type="password"
           required
