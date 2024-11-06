@@ -1,24 +1,24 @@
-import { browser } from "$app/environment";
-import { hexToUint8Array } from "uint8array-extras";
-import { get } from "svelte/store";
 import { Buffer } from "buffer";
-import { wait, post, stretch } from "$lib/utils";
+import { browser } from "$app/environment";
 import { decrypted, password as pw, passwordPrompt, pin } from "$lib/store";
+import { post, stretch, wait } from "$lib/utils";
 import {
-	getPublicKey,
+	type EventTemplate,
 	finalizeEvent,
+	getPublicKey,
 	nip04,
 	nip19,
-	type EventTemplate,
 } from "nostr-tools";
+import { get } from "svelte/store";
+import { hexToUint8Array } from "uint8array-extras";
 
 import {
-	encrypt as nip49encrypt,
 	decrypt as nip49decrypt,
+	encrypt as nip49encrypt,
 } from "nostr-tools/nip49";
 
-import { mnemonicToEntropy, entropyToMnemonic } from "@scure/bip39";
 import { bech32m } from "@scure/base";
+import { entropyToMnemonic, mnemonicToEntropy } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english";
 
 import { generateSeedWords, privateKeyFromSeedWords } from "nostr-tools/nip06";
