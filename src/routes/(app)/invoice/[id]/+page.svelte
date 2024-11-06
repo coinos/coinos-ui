@@ -123,28 +123,28 @@
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   <InvoiceData
-    {src}
-    {link}
-    {qr}
-    {txt}
-    {invoice}
-    {amount}
-    {amountFiat}
-    {currency}
-    {tip}
-    {rate}
+    bind:src
+    bind:link
+    bind:qr
+    bind:txt
+    bind:invoice
+    bind:amount
+    bind:amountFiat
+    bind:currency
+    bind:tip
+    bind:rate
     bind:showQr={$showQr}
   />
 
   <InvoiceActions
-    {toggleAmount}
-    {user}
-    {invoice}
+    bind:toggleAmount
+    bind:user
+    bind:invoice
     {copy}
-    {link}
-    {type}
+    bind:link
+    bind:type
     {types}
-    {txt}
+    bind:txt
     t={$t}
     bind:showQr={$showQr}
   />
@@ -153,14 +153,14 @@
 </div>
 
 <SetAmount
-  {currency}
-  {rate}
-  {fiat}
-  {submit}
-  {settingAmount}
-  {setAmount}
-  {newAmount}
-  {toggleAmount}
+  bind:currency
+  bind:rate
+  bind:fiat
+  bind:submit
+  bind:settingAmount
+  bind:setAmount
+  bind:newAmount
+  bind:toggleAmount
   amountPrompt={$amountPrompt}
   t={$t}
 />
