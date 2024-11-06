@@ -22,11 +22,11 @@
 
   const links = [
     {
-      href: `/${user.username}`,
+      href: `/${user?.username}`,
       icon: "ph:house-bold",
     },
     {
-      href: `/${user.username}/receive`,
+      href: `/${user?.username}/receive`,
       icon: "ph:hand-coins-bold",
       flip: "horizontal",
     },
