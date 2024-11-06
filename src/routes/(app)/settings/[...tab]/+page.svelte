@@ -233,7 +233,7 @@
   </div>
 
   <div
-    class="z-10 fixed bottom-0 bg-base-100 shadow border-t w-full flex justify-center items-center py-3"
+    class="z-10 fixed bottom-0 bg-base-100 shadow border-t border-t-8 border-accent w-full flex justify-center items-center py-3"
   >
     <button
       bind:this={submit}
