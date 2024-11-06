@@ -77,7 +77,7 @@
   <label
     class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
   >
-    <input type="text" name="email" class="blank" bind:value={user.email} />
+    <input type="text" name="email" class="clean" bind:value={user.email} />
     {#if user.verified}
       <iconify-icon
         icon="ph:check-bold"

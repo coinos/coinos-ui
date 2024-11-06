@@ -45,7 +45,7 @@
       use:focus
       bind:value={v}
       type="password"
-      class="blank text-center !text-5xl !w-96 block"
+      class="clean text-center !text-5xl !w-96 block"
       pattern="[0-9]+"
     />
   {:else}
@@ -53,7 +53,7 @@
       on:keydown={validate}
       use:focus
       bind:value={v}
-      class="blank text-center !text-5xl !w-96 block"
+      class="clean text-center !text-5xl !w-96 block"
       type="text"
       pattern="[0-9]+"
     />
