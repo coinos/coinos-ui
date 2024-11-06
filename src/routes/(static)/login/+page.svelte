@@ -50,7 +50,6 @@
 
     let data = new FormData(this);
     let user = Object.fromEntries(data);
-    await generate(user);
 
     for (let k in user) {
       data.set(k, user[k]);
@@ -105,7 +104,10 @@
       placeholder={$t("login.username")}
     />
 
-    <label for="password" class="input flex items-center justify-center gap-2 w-full">
+    <label
+      for="password"
+      class="input flex items-center justify-center gap-2 w-full"
+    >
       {#if revealPassword}
         <input
           class="clean w-full grow focus:!outline-offset-0"
@@ -136,9 +138,7 @@
     </label>
 
     <div class="flex justify-end items-center">
-      <a
-        href="/forgot"
-        class="underline underline-offset-4 text-secondary"
+      <a href="/forgot" class="underline underline-offset-4 text-secondary"
         >{$t("login.forgotUserOrPassword")}</a
       >
     </div>
