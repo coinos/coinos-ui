@@ -87,6 +87,8 @@
 
     let data = new FormData(this);
     let user = Object.fromEntries(data);
+
+    console.log("USER", JSON.stringify(user))
     await generate(user);
 
     for (let k in user) {
