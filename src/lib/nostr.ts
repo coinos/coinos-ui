@@ -10,14 +10,13 @@ import {
 	nip19,
 } from "nostr-tools";
 import { get } from "svelte/store";
-import { hexToUint8Array } from "uint8array-extras";
 
 import {
 	decrypt as nip49decrypt,
 	encrypt as nip49encrypt,
 } from "nostr-tools/nip49";
 
-import { bech32m } from "@scure/base";
+import { bech32m, hex } from "@scure/base";
 import { entropyToMnemonic, mnemonicToEntropy } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english";
 
@@ -51,7 +50,7 @@ export const generate = async (user: any) => {
 		),
 	);
 
-	user.pubkey = getPublicKey(hexToUint8Array(sk));
+	user.pubkey = getPublicKey(hex.decode(sk));
 	user.cipher = encode("en", toWords(bytes), 180);
 	user.salt = Buffer.from(salt).toString("hex");
 };
@@ -96,7 +95,7 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 
 	if (nsec) {
 		k = nip49decrypt(nsec, await getPassword());
-	} else k = hexToUint8Array(privateKeyFromSeedWords(await getMnemonic(user)));
+	} else k = hex.decode(privateKeyFromSeedWords(await getMnemonic(user)));
 
 	localStorage.setItem("nsec", nip19.nsecEncode(k));
 	return k;
@@ -161,14 +160,14 @@ export const reEncryptEntropy = async (user: User, newPassword: string) => {
 
 	const entropy = await crypto.subtle.decrypt(
 		{ name: "AES-GCM", iv: new Uint8Array(16) },
-		await stretch(await getPassword(), hexToUint8Array(salt)),
+		await stretch(await getPassword(), hex.decode(salt)),
 		Uint8Array.from(fromWords(decode(cipher, 180).words)),
 	);
 
 	const bytes = new Uint8Array(
 		await crypto.subtle.encrypt(
 			{ name: "AES-GCM", iv: new Uint8Array(16) },
-			await stretch(newPassword, hexToUint8Array(salt)),
+			await stretch(newPassword, hex.decode(salt)),
 			entropy,
 		),
 	);
