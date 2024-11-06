@@ -11,8 +11,6 @@
   let w;
   $: if (!subject) subject = user;
 
-  let showMenu = false;
-
   $: bg =
     $banner?.id && $banner.id === subject.id
       ? `url(${$banner.src})`
@@ -64,7 +62,7 @@
             </button>
           </a>
         {/each}
-        <Menu bind:showMenu {w} {user} t={$t} {opacity} />
+        <Menu {opacity} {user} t={$t} {w} />
       {:else}
         <a href={`/login?redirect=${$page.url.pathname}`}>
           <button class="btn !rounded-full">{$t("nav.signIn")}</button>
