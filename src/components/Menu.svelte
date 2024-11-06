@@ -1,5 +1,6 @@
 <script>
   import { theme } from "$lib/store";
+  import DarkToggle from "$comp/DarkToggle.svelte";
   import OutClick from "svelte-outclick";
   export let t, user, w, opacity;
 
@@ -40,18 +41,7 @@
         {#each menuButtons as { href, icon, key }}
           <li>
             {#if key.includes("dark")}
-              <button
-                class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
-                on:click={dark}
-              >
-                <iconify-icon
-                  icon={$theme === "dark"
-                    ? "ph:sun-bold"
-                    : "ph:moon-stars-bold"}
-                  width="32"
-                />
-                {t(`nav.${$theme === "dark" ? "light" : "dark"}`)}
-              </button>
+              <DarkToggle />
             {:else}
               <a
                 {href}
@@ -71,7 +61,7 @@
         {/each}
       </ul>
       <hr class="my-4" />
-      <a href="/?stay=true"><iconify-icon icon="coinos:logo" width="130" /></a>
+      <a href="/?stay=true"><iconify-icon icon="coinos:logo" width="160" /></a>
     </div>
   </OutClick>
 </div>
