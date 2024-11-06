@@ -33,7 +33,7 @@
           <button
             bind:this={submit}
             type="submit"
-            on:click={setAmount}
+            on:click|preventDefault|stopPropagation={setAmount}
             class="btn"
           >
             <div class="my-auto">{t("payments.ok")}</div>
@@ -41,8 +41,8 @@
           <button
             type="button"
             class="btn"
-            on:click={toggleAmount}
-            on:keydown={toggleAmount}
+            on:click|preventDefault|stopPropagation={toggleAmount}
+            on:keydown|preventDefault|stopPropagation={toggleAmount}
           >
             <div class="my-auto">{t("payments.cancel")}</div>
           </button>
