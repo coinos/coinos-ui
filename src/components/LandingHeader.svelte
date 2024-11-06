@@ -4,6 +4,9 @@
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
+  import DarkToggle from "$comp/DarkToggle.svelte";
+  import LocaleSelector from "$comp/LocaleSelector.svelte";
+
   export let howItWorks;
   export let faq;
   export let about;
@@ -22,18 +25,14 @@
   bind:this={header}
 >
   <nav class="block lg:flex justify-between items-center">
-    <div
-      class="flex justify-start lg:justify-center items-center lg:space-x-10"
-    >
+    <div class="flex justify-start lg:justify-center items-center lg:space-x-5">
       <a href="/" on:click={() => scroll(header)}>
         <iconify-icon icon="coinos:logo" width="224" />
       </a>
     </div>
 
     <!-- desktop nav -->
-    <div
-      class="hidden space-x-10 lg:flex justify-center items-center font-bold"
-    >
+    <div class="hidden space-x-5 lg:flex justify-center items-center font-bold">
       {#if $page.url.pathname === "/"}
         <button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
           >{$t("howItWorks.header")}</button
@@ -59,7 +58,7 @@
         </button>
       {:else}
         <button
-          class="btn !w-auto !rounded-full"
+          class="btn btn-accent !w-auto !rounded-full"
           on:click={() => goto("/register")}
           >{$t("nav.register")}
         </button>
@@ -76,15 +75,20 @@
       class="block lg:hidden absolute top-[34.5px] right-10 z"
       on:click={() => (showMobileMenu = !showMobileMenu)}
     >
-      <iconify-icon icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"} width="32" />
+      <iconify-icon
+        icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"}
+        width="32"
+      />
     </button>
 
     <div
-      class="container w-full px-10 lg:hidden absolute top-0 {showMobileMenu
+      class="container w-full p-10 lg:hidden absolute top-0 {showMobileMenu
         ? 'right-0'
-        : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-white"
+        : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-base-100"
     >
-      <div class="space-y-8 mt-24 font-bold text-xl">
+      <div class="space-y-5 mt-24 font-bold text-xl">
+        <LocaleSelector />
+        <DarkToggle />
         <button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
           >{$t("howItWorks.header")}</button
         >
@@ -95,15 +99,10 @@
           >{$t("about.header")}</button
         >
         {#if !user}
-          <button
-            class="border rounded-full px-6 py-2 font-bold block w-full"
-            on:click={() => goto("/register")}
-            >{$t("nav.startInSeconds")}
+          <button class="btn btn-accent" on:click={() => goto("/register")}
+            >{$t("nav.register")}
           </button>
-          <button
-            class="bg-black text-white border rounded-full px-6 py-2 font-bold block w-full"
-            on:click={() => goto("/login")}
-          >
+          <button class="btn" on:click={() => goto("/login")}>
             {$t("nav.signIn")}
           </button>
         {:else}
@@ -113,7 +112,7 @@
             >{$t("nav.account")}
           </button>
           <button
-            class="bg-black text-white border rounded-full px-6 py-2 font-bold block"
+            class="bg-primary text-white border rounded-full px-6 py-2 font-bold block"
             on:click={() => goto("/logout")}
           >
             {$t("nav.signOut")}
