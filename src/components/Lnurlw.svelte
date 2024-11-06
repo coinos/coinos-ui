@@ -66,10 +66,7 @@
     <input name="k1" value={k1} type="hidden" />
 
     <div class="flex w-full">
-      <button
-        type="submit"
-        class="opacity-100 hover:opacity-80'} rounded-2xl border py-3 font-bold mx-auto mt-2 bg-black text-white px-4 w-24"
-      >
+      <button type="submit" class="btn">
         {#if loading}
           <Spinner />
         {:else}

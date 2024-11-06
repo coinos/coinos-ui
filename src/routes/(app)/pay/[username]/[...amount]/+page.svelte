@@ -97,7 +97,7 @@
         <button
           type="button"
           bind:this={next}
-          class="btn"
+          class="btn btn-accent"
           on:click={setAmount}
           on:keydown={setAmount}
         >

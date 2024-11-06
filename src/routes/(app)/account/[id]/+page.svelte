@@ -53,12 +53,8 @@
         {#if mnemonic}
           <Mnemonic {mnemonic} />
 
-          <button
-            on:click={() => copy(mnemonic)}
-            type="button"
-            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
-          >
-            <Icon icon="copy" style="w-8 my-auto" />
+          <button on:click={() => copy(mnemonic)} type="button" class="btn">
+            <iconify-icon icon="ph:copy-bold" width="32" />
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
@@ -67,7 +63,7 @@
             type="button"
             class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
-            <Icon icon="eye" style="w-8 my-auto" />
+            <iconify-icon icon="ph:eye-bold" width="32" />
             <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
           >
         {:else if nwc}
@@ -79,7 +75,7 @@
             type="button"
             class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
-            <Icon icon="copy" style="w-8 my-auto" />
+            <iconify-icon icon="ph:copy-bold" width="32" />
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
           <a href={`/qr/${encodeURIComponent(nwc)}`} class="my-auto block">
@@ -88,7 +84,7 @@
               type="button"
               class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
             >
-              <Icon icon="qr" style="w-8 my-auto invert" />
+              <iconify-icon icon="ph:qr-code-bold" width="32" />
               <div class="my-auto">{$t("user.receive.showQR")}</div></button
             >
           </a>
