@@ -169,7 +169,10 @@
 		"messages": "Mitteilungen",
 		"funds": "Mittel",
 		"map": "Karte",
-		"merch": "Beute"
+		"merch": "Beute",
+		"dark": "Dunkel",
+		"light": "Licht",
+		"register": "Register"
 	},
 	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Coinos-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
@@ -428,7 +431,8 @@
 		"message": "Nachricht",
 		"fundingAmount": "Förderbetrag",
 		"ecashDesc": "Ecash-Tokens werden mit etwas Bitcoin finanziert. Sie können wieder in Münzen eingelöst oder in andere Brieftaschen geladen werden. Verwenden Sie sie, um Bitcoin an jemanden zu geben, der möglicherweise noch keine Brieftasche hat, indem Sie sie einfach die Zeichenkette texten oder die URL teilen. Mehr erfahren",
-		"maxFeeDesc": "Setzt eine Obergrenze der Netzleitgebühr. Wenn zu niedrig gesetzt, kann die Zahlung scheitern. Sie können es höher setzen und versuchen wieder. Wir debitieren den vollen Betrag, während wir versuchen, die Zahlung, aber Gutschrift zurück jeden ungenutzten Teil."
+		"maxFeeDesc": "Setzt eine Obergrenze der Netzleitgebühr. Wenn zu niedrig gesetzt, kann die Zahlung scheitern. Sie können es höher setzen und versuchen wieder. Wir debitieren den vollen Betrag, während wir versuchen, die Zahlung, aber Gutschrift zurück jeden ungenutzten Teil.",
+		"ecashToken": "Ecash token"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

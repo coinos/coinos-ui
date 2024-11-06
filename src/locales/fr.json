@@ -134,7 +134,10 @@
 		"about": "À Propos",
 		"docs": "Documents",
 		"messages": "Messages",
-		"funds": "Fonds"
+		"funds": "Fonds",
+		"dark": "Noir",
+		"light": "Lumière",
+		"register": "Registre"
 	},
 	"invoice": {
 		"addTip": "Ajoutez un pourboire",
@@ -401,7 +404,8 @@
 		"message": "Message",
 		"fundingAmount": "Montant du financement",
 		"ecashDesc": "Ecash jetons obtenir financé avec une certaine quantité de Bitcoin. Ils peuvent être rachetés dans des pièces de monnaie ou chargés dans d'autres portefeuilles. Utilisez-les pour donner Bitcoin à quelqu'un qui peut ne pas avoir encore un portefeuille en texto simplement la chaîne de jeton ou le partage de l'URL. En savoir plus à",
-		"maxFeeDesc": "Définit une limite supérieure sur les frais de routage réseau. Si le paiement est trop bas, il peut échouer. Vous pouvez le placer plus haut et essayer à nouveau. Nous débitons le montant total tout en tentant le paiement, mais créditons toute partie inutilisée."
+		"maxFeeDesc": "Définit une limite supérieure sur les frais de routage réseau. Si le paiement est trop bas, il peut échouer. Vous pouvez le placer plus haut et essayer à nouveau. Nous débitons le montant total tout en tentant le paiement, mais créditons toute partie inutilisée.",
+		"ecashToken": "Jeton Ecash"
 	},
 	"items": {
 		"add": "Ajouter un item",

@@ -168,7 +168,10 @@
 		"signOut": "Sair",
 		"dashboard": "Painel de controle",
 		"settings": "Ajustes",
-		"support": "Suporte"
+		"support": "Suporte",
+		"dark": "Escuto",
+		"light": "Luz",
+		"register": "Registo"
 	},
 	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {
@@ -423,7 +426,8 @@
 		"message": "Mensagem",
 		"fundingAmount": "Montante de financiamento",
 		"ecashDesc": "Os tokens Ecash são financiados com alguma quantidade de bitcoin. Eles podem ser resgatados em coinos ou carregados em outras carteiras. Use-os para dar bitcoin a alguém que pode não ter uma carteira ainda, simplesmente enviando-lhes a string token ou compartilhando a URL. Saiba mais em",
-		"maxFeeDesc": "Define um limite superior na taxa de roteamento da rede. Se definido demasiado baixo o pagamento pode falhar. Você pode colocá-lo mais alto e tentar novamente. Nós debitamos o valor total ao tentar o pagamento, mas creditamos de volta qualquer parte não utilizada."
+		"maxFeeDesc": "Define um limite superior na taxa de roteamento da rede. Se definido demasiado baixo o pagamento pode falhar. Você pode colocá-lo mais alto e tentar novamente. Nós debitamos o valor total ao tentar o pagamento, mas creditamos de volta qualquer parte não utilizada.",
+		"ecashToken": "Token de Ecash"
 	},
 	"items": {
 		"add": "Adicionar item",

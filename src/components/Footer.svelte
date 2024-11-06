@@ -39,6 +39,7 @@
     <div
       class="w-full flex flex-wrap sm:flex-nowrap gap-2 justify-center items-center"
     >
+      <DarkToggle />
       <LocaleSelector />
     </div>
   </div>
