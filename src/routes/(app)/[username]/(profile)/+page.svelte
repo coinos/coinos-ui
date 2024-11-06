@@ -47,17 +47,10 @@
       </button>
     </a>
 
-    {#if $installPrompt}
-      <button
-        class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex bg-black text-white xl:hidden w-full justify-center"
-        on:click={install}
-      >
-        <div class="mx-auto flex gap-2">
-          <Icon icon="save" style="w-8 mx-auto invert" />
-          <div class="my-auto text-xl whitespace-nowrap">
-            {$t("user.install")}
-          </div>
-        </div>
+    {#if $installPrompt || true}
+      <button class="btn btn-accent" on:click={install}>
+        <iconify-icon icon="ph:floppy-disk-bold" width="32" />
+        {$t("user.install")}
       </button>
     {/if}
   {/if}

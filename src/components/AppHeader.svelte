@@ -56,7 +56,7 @@
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
           >
-            <iconify-icon icon="ph:house-bold" width="32" />
+            <iconify-icon icon="ph:house-bold" width="24" />
           </button>
         </a>
         <a href={`/${user.username}/receive`}>
@@ -70,7 +70,7 @@
             <iconify-icon
               icon="ph:hand-coins-bold"
               flip="horizontal"
-              width="32"
+              width="24"
             />
           </button>
         </a>
@@ -80,7 +80,7 @@
               .url.pathname === `/payments`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'} relative"
-            ><iconify-icon icon="ph:clock-bold" width="32" />
+            ><iconify-icon icon="ph:clock-bold" width="24" />
             {#if $newPayment}
               <span class="absolute top-0 right-0">
                 <span class="flex h-3 w-3">
@@ -101,7 +101,7 @@
               .url.pathname === `/send`
               ? 'opacity-100'
               : 'opacity-70 hover:opacity-80'}"
-            ><iconify-icon icon="ph:paper-plane-right-bold" width="32" />
+            ><iconify-icon icon="ph:paper-plane-right-bold" width="24" />
           </button>
         </a>
         <div class="relative">
@@ -115,7 +115,7 @@
                     showMenu ? 'opacity-80' : ''
                   }`}"
               on:click={() => (showMenu = !showMenu)}
-              ><iconify-icon icon="ph:list-bold" width="32" />
+              ><iconify-icon icon="ph:list-bold" width="24" />
             </button>
 
             <div
@@ -135,7 +135,7 @@
                           icon={$theme === "dark"
                             ? "ph:sun-bold"
                             : "ph:moon-stars-bold"}
-                          width="30"
+                          width="32"
                         />
                         {$t(`nav.${$theme === "dark" ? "light" : "dark"}`)}
                       </button>
@@ -148,7 +148,7 @@
                         <button
                           class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                         >
-                          <iconify-icon {icon} width="30" />
+                          <iconify-icon {icon} width="32" />
                           {$t(key)}
                         </button>
                       </a>
