@@ -1,6 +1,6 @@
-import * as Qr from "qrcode-base64";
 import { get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
+import * as Qr from "qrcode-base64";
 
 export async function load({ cookies, depends, params, url, parent }) {
 	depends("app:invoice");
@@ -36,5 +36,6 @@ export async function load({ cookies, depends, params, url, parent }) {
 	}
 
 	const src = Qr.drawImg(invoice?.text || "", { size: 500 });
-	return { id, invoice, subject, src, user, token };
+	const theme = cookies.get("theme");
+	return { id, invoice, subject, src, user, token, theme };
 }

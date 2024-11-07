@@ -55,5 +55,6 @@ export async function load({ cookies, request, url, params }) {
 		console.log(e);
 	}
 
-	return { user, token, rate, rates, subject };
+	const theme = cookies.get("theme");
+	return { user, token, rate, rates, subject, theme };
 }

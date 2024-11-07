@@ -1,7 +1,10 @@
 <script>
   import { t } from "$lib/translations";
   import { theme } from "$lib/store";
-  let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
+  let dark = () => {
+    $theme = $theme === "dark" ? "light" : "dark";
+    document.cookie = `theme=${$theme}; path=/; max-age=86400`;
+  };
 </script>
 
 <button

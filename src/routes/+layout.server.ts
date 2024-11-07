@@ -37,8 +37,10 @@ export const load = async ({ cookies, request, url }) => {
 	}
 
 	await loadTranslations(locale, pathname); // keep this just before the `return`
+	const theme = cookies.get("theme");
 
 	return {
+		theme,
 		host,
 		pathname,
 		i18n: { locale, route: pathname },
