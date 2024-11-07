@@ -4,14 +4,17 @@
   import "../app.css";
   import { loading, t } from "$lib/translations";
   import { onMount } from "svelte";
-  import { installPrompt, theme } from "$lib/store";
+  import { installPrompt, theme as themeStore } from "$lib/store";
 
   export let data;
-  let { pathname } = data;
+  let { pathname, theme } = data;
+  $themeStore = theme;
 
   let host = PUBLIC_DOMAIN.includes("localhost")
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
+
+  $: theme = $themeStore
 
   onMount(() => {
     if (!browser) return;
@@ -44,7 +47,7 @@
 </svelte:head>
 
 {#if !$loading}
-  <main data-theme={$theme}>
+  <main data-theme={theme}>
     <slot />
   </main>
 {/if}

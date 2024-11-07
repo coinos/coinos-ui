@@ -10,7 +10,7 @@
     passwordPrompt,
     password,
     pin,
-    theme,
+    theme as themeStore,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
@@ -24,12 +24,15 @@
 
   export let data;
 
-  let { generate, rate, user, subject, token, rates } = data;
+  let { generate, rate, user, subject, token, rates, theme } = data;
+  $: theme = $themeStore;
 
   $: update(data);
   let update = (data) => {
-    ({ rate, user, subject, token, rates } = data);
+    ({ rate, user, subject, token, rates, theme } = data);
   };
+
+  $themeStore = theme;
 
   afterNavigate(() => {
     if (user) {
@@ -113,7 +116,7 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main class="pb-20 min-h-dvh" data-theme={$theme}>
+<main class="pb-20 min-h-dvh" data-theme={theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
     <slot />
