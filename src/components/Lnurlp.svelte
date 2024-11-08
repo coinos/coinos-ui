@@ -1,19 +1,29 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
 
-  export let data, form, send, comment;
+  let {
+    data,
+    form,
+    send = $bindable(),
+    comment = $bindable()
+  } = $props();
   let { currency } = data.user;
   let { minSendable, maxSendable, commentAllowed, callback, metadata, rates } =
     data;
 
-  $: rate = rates[currency];
+  let rate;
+  run(() => {
+    rate = rates[currency];
+  });
 
-  let amount = Math.round(minSendable / 1000),
-    loading;
+  let amount = $state(Math.round(minSendable / 1000)),
+    loading = $state();
   let submit = () => (loading = true);
 </script>
 
@@ -39,7 +49,7 @@
 
   <Numpad bind:amount bind:rate {currency} bind:submit={send} />
 
-  <form action="?/pay" method="POST" use:enhance on:submit={submit}>
+  <form action="?/pay" method="POST" use:enhance onsubmit={submit}>
     <input name="amount" value={amount} type="hidden" />
     <input name="minSendable" value={minSendable} type="hidden" />
     <input name="maxSendable" value={maxSendable} type="hidden" />
@@ -53,7 +63,7 @@
         class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={comment}
         autocapitalize="none"
-      />
+></textarea>
     {/if}
 
     <div class="flex w-full">

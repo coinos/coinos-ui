@@ -1,12 +1,15 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import ItemForm from "$comp/ItemForm.svelte";
   import { fail } from "$lib/utils";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
-  $: form?.message && fail(form.message);
+  run(() => {
+    form?.message && fail(form.message);
+  });
   let { item, user } = data;
 </script>
 

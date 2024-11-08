@@ -3,7 +3,7 @@
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
-  export let data;
+  let { data } = $props();
   let { user, error } = data;
 </script>
 
@@ -27,7 +27,7 @@
 </div>
 
 <a href={`/${user.username}`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 
 <div class="flex justify-center">

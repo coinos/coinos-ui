@@ -19,7 +19,7 @@
   import { format } from "date-fns";
   import { PUBLIC_EXPLORER as expl } from "$env/static/public";
 
-  export let data;
+  let { data } = $props();
   let { user, payment: p } = data;
 
   let { username } = user;
@@ -84,5 +84,5 @@
 </div>
 
 <a href={`/payment/${id}`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>

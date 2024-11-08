@@ -3,22 +3,22 @@
   import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
-  export let user;
-  $: paymentsUrl =
-    user.shopifyStore &&
+  let { user = $bindable() } = $props();
+  let paymentsUrl =
+    $derived(user.shopifyStore &&
     "https://admin.shopify.com/store/" +
       user.shopifyStore +
-      "/settings/payments";
-  $: checkoutUrl =
-    user.shopifyStore &&
+      "/settings/payments");
+  let checkoutUrl =
+    $derived(user.shopifyStore &&
     "https://admin.shopify.com/store/" +
       user.shopifyStore +
-      "/settings/checkout";
-  $: appsUrl =
-    user.shopifyStore &&
+      "/settings/checkout");
+  let appsUrl =
+    $derived(user.shopifyStore &&
     "https://admin.shopify.com/store/" +
       user.shopifyStore +
-      "/settings/apps/development";
+      "/settings/apps/development");
 
   let script = `<script src="${$page.url.protocol}//${$page.url.host}/${user.username}/shopify.js"><\/script>`;
 </script>

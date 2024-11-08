@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import { onMount } from "svelte";
   import Event from "$comp/Event.svelte";
@@ -7,10 +9,9 @@
   import { fail } from "$lib/utils";
   import { sign, send } from "$lib/nostr";
 
-  export let events;
-  export let user = undefined;
+  let { events = $bindable(), user = undefined } = $props();
 
-  let message;
+  let message = $state();
 
   let submit = async () => {
     try {
@@ -38,14 +39,14 @@
     }
   };
 
-  $: sorted = Object.values(events)
+  let sorted = $derived(Object.values(events)
     .filter((ev) => ev?.pubkey && ev?.kind === 1)
-    .sort((a, b) => b.seen - a.seen);
+    .sort((a, b) => b.seen - a.seen));
 </script>
 
 {#if user}
   <form
-    on:submit|preventDefault={submit}
+    onsubmit={preventDefault(submit)}
     class="flex justify-center gap-4 max-w-2xl mx-auto"
   >
     <div class="grow">
@@ -68,14 +69,16 @@
     <VirtualScroll
       data={sorted}
       key="id"
-      let:data
+      
       pageMode={true}
       estimateSize={200}
     >
-      <a href={`/${data.user.pubkey}/event/${data.id}`}>
-        <Event event={data} />
-      </a>
-    </VirtualScroll>
+      {#snippet children({ data })}
+            <a href={`/${data.user.pubkey}/event/${data.id}`}>
+          <Event event={data} />
+        </a>
+                {/snippet}
+        </VirtualScroll>
   {:else}
     <div class="flex w-full">
       <div class="mx-auto text-secondary">{$t("user.noNotes")}</div>

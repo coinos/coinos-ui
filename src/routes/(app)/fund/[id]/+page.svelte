@@ -9,7 +9,7 @@
   import { types, copy, f, s, sat, sats } from "$lib/utils";
   import { loginRedirect } from "$lib/store";
 
-  export let data;
+  let { data } = $props();
 
   let { amount, src, payments, rates, user } = data;
   let { id } = $page.params;
@@ -19,10 +19,10 @@
   let currency = user ? user.currency : "CAD";
   let rate = rates[currency];
 
-  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
+  let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   $loginRedirect = $page.url.pathname;
 
-  let show;
+  let show = $state();
   let toggle = () => (show = !show);
 </script>
 
@@ -83,14 +83,14 @@
       <div class="flex gap-2" data-sveltekit-prefetch="off">
         <button
           class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          on:click={toggle}
+          onclick={toggle}
         >
           <Icon icon="qr" style="invert" />
           {show ? $t("payments.hide") : $t("payments.show")} QR
         </button>
         <button
           class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          on:click={() => copy($page.url.host + $page.url.pathname)}
+          onclick={() => copy($page.url.host + $page.url.pathname)}
         >
           <Icon icon="copy" style="w-6" />
           {$t("payments.copyLink")}

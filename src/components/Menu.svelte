@@ -1,26 +1,35 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { theme } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
   import OutClick from "svelte-outclick";
-  export let t, user, w, opacity;
+  let {
+    t,
+    user,
+    w,
+    opacity
+  } = $props();
 
   let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
-  let showMenu = false;
+  let showMenu = $state(false);
 
-  let menuButtons;
-  $: if (user)
-    menuButtons = [
-      { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
-      { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
-      { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
-      {
-        key: "nav.merch",
-        icon: "ph:storefront-bold",
-        href: `https://coinosmerch.com`,
-      },
-      { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
-      { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
-    ];
+  let menuButtons = $state();
+  run(() => {
+    if (user)
+      menuButtons = [
+        { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
+        { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
+        { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
+        {
+          key: "nav.merch",
+          icon: "ph:storefront-bold",
+          href: `https://coinosmerch.com`,
+        },
+        { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
+        { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
+      ];
+  });
 
   let hideMenu = () => (showMenu = false);
   let toggleMenu = () => (showMenu = !showMenu);
@@ -28,8 +37,8 @@
 
 <div>
   <OutClick on:outclick={hideMenu}>
-    <button class="btn-menu {opacity('/support')}" on:click={toggleMenu}
-      ><iconify-icon icon="ph:list-bold" width={w > 640 ? 32 : 24} />
+    <button class="btn-menu {opacity('/support')}" onclick={toggleMenu}
+      ><iconify-icon icon="ph:list-bold" width={w > 640 ? 32 : 24}></iconify-icon>
     </button>
 
     <div
@@ -47,12 +56,12 @@
                 {href}
                 data-sveltekit-preload-code="eager"
                 data-sveltekit-preload-data="false"
-                on:click={hideMenu}
+                onclick={hideMenu}
               >
                 <button
                   class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                 >
-                  <iconify-icon {icon} width="32" />
+                  <iconify-icon {icon} width="32"></iconify-icon>
                   {t(key)}
                 </button>
               </a>
@@ -61,7 +70,7 @@
         {/each}
       </ul>
       <hr class="my-4" />
-      <a href="/?stay=true"><iconify-icon icon="coinos:logo" width="160" /></a>
+      <a href="/?stay=true"><iconify-icon icon="coinos:logo" width="160"></iconify-icon></a>
     </div>
   </OutClick>
 </div>

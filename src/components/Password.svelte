@@ -1,13 +1,15 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import Icon from "$comp/Icon.svelte";
   import { focus, fail, post } from "$lib/utils";
   import { password as pw, passwordPrompt } from "$lib/store";
 
-  export let user;
+  let { user } = $props();
 
-  let password;
+  let password = $state();
   let { username } = user;
-  let revealPassword = false;
+  let revealPassword = $state(false);
 
   let cancel = () => ($passwordPrompt = false);
 
@@ -31,7 +33,7 @@
     <h1 class="text-center text-2xl font-semibold">
       Please enter your password
     </h1>
-    <form on:submit|preventDefault={submit}>
+    <form onsubmit={preventDefault(submit)}>
       <div class="relative mb-5">
         {#if revealPassword}
           <input
@@ -54,21 +56,21 @@
         {/if}
         <button
           type="button"
-          on:click={() => (revealPassword = !revealPassword)}
+          onclick={() => (revealPassword = !revealPassword)}
           class="absolute right-5 top-6"
         >
           <iconify-icon
             icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
             width="32"
-          />
+></iconify-icon>
         </button>
       </div>
       <div class="w-full flex">
         <button
           type="button"
           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-          on:click={cancel}
-          on:keydown={cancel}
+          onclick={cancel}
+          onkeydown={cancel}
         >
           <div class="my-auto">Cancel</div>
         </button>

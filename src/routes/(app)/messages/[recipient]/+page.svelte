@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { cubicInOut } from "svelte/easing";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
@@ -13,7 +15,7 @@
   import { tick, onMount } from "svelte";
   import { getEventHash } from "nostr-tools";
 
-  export let data;
+  let { data } = $props();
 
   function fadeScale(
     node,
@@ -36,10 +38,9 @@
     };
   }
 
-  let { messages, recipient, user } = data;
-  let input, pane;
+  let { messages, recipient, user } = $state(data);
+  let input, pane = $state();
 
-  $: initialize($password);
   let initialize = async (p) => {
     await Promise.all(
       messages.map(
@@ -61,7 +62,7 @@
     }
   });
 
-  let sent, submitting, message;
+  let sent, submitting, message = $state();
   let submit = async () => {
     submitting = true;
 
@@ -109,6 +110,9 @@
       submit();
     }
   };
+  run(() => {
+    initialize($password);
+  });
 </script>
 
 <div class="container max-w-xl mx-auto px-4 space-y-5">
@@ -116,7 +120,7 @@
     type="button"
     class="hover:opacity-80"
     data-sveltekit-preload-data="false"
-    on:click={back}
+    onclick={back}
   >
     <Icon icon="arrow-left" style="w-10" />
   </button>
@@ -162,7 +166,7 @@
   <form
     method="POST"
     class="w-full border rounded-xl outline-none gap-4 flex p-0 pr-2"
-    on:submit|preventDefault={submit}
+    onsubmit={preventDefault(submit)}
   >
     <input type="hidden" name="requester_id" value={user.id} />
     <input type="hidden" name="recipient" value={recipient.username} />
@@ -172,8 +176,8 @@
       contenteditable
       class="grow break-all py-4 outline-none mt-0 pl-4"
       bind:innerHTML={message}
-      on:keydown={keydown}
-    />
+      onkeydown={keydown}
+></div>
     <button type="submit" class="my-auto shrink-0">
       <Icon icon="send" style="w-8" />
     </button>

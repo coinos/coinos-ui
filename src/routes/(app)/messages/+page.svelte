@@ -1,20 +1,21 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";
   import { event as e, password } from "$lib/store";
   import { browser } from "$app/environment";
   import { decrypt } from "$lib/nostr";
 
-  export let data;
+  let { data } = $props();
 
   let { messages, notes, invoices, sent, received, subject, user, rates } =
-    data;
-  $: refresh(data);
+    $state(data);
   let refresh = (d) =>
     ({ messages, notes, invoices, sent, received, subject, user, rates } = d);
 
   let keys = new Set();
-  let latest = [];
+  let latest = $state([]);
   let ready;
 
   e.subscribe(async (event) => {
@@ -35,7 +36,6 @@
     }
   });
 
-  $: initialize($password);
   let initialize = async (p) => {
     let i = 0;
     ready = false;
@@ -61,6 +61,12 @@
     latest = latest;
     ready = true;
   };
+  run(() => {
+    refresh(data);
+  });
+  run(() => {
+    initialize($password);
+  });
 </script>
 
 <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">

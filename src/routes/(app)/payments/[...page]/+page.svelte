@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import Avatar from "$comp/Avatar.svelte";
   import { onMount } from "svelte";
   import { format } from "date-fns";
@@ -9,9 +11,9 @@
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
   import locales from "$lib/locales";
-  export let data;
+  let { data } = $props();
 
-  let { start, end, user, rates, payments } = data;
+  let { start, end, user, rates, payments } = $state(data);
   let locale = locales[user.language];
 
   let change = ({ target: { value } }) => goto(value);
@@ -21,7 +23,7 @@
     return `/p/${p.id}`;
   };
 
-  $: presets = [
+  let presets = $derived([
     {
       title: $t("payments.day"),
       start: sub(new Date(), { days: 1 }),
@@ -42,27 +44,33 @@
       start: sub(new Date(), { years: 5 }),
       end: null,
     },
-  ];
+  ]);
 
-  $: selection = start
+  let selection = $derived(start
     ? presets.findIndex(
         (p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1,
       )
-    : 0;
+    : 0);
 
-  let p,
-    incoming,
-    outgoing,
-    pages = [];
-  $: data &&
-    ({ page: p, pages, start, end, incoming, outgoing, payments } = data);
+  let p = $state(),
+    incoming = $state(),
+    outgoing = $state(),
+    pages = $state([]);
+  run(() => {
+    data &&
+      ({ page: p, pages, start, end, incoming, outgoing, payments } = data);
+  });
 
-  $: $page && ($newPayment = false);
-  $: $newPayment && invalidate(`/users/${user.username}`);
+  run(() => {
+    $page && ($newPayment = false);
+  });
+  run(() => {
+    $newPayment && invalidate(`/users/${user.username}`);
+  });
 
-  $: path = $page.params.page
+  let path = $derived($page.params.page
     ? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf("/"))
-    : $page.url.pathname;
+    : $page.url.pathname);
 
   let csv = async () => {
     let url = `/payments`;
@@ -128,7 +136,7 @@
     }
   };
 
-  $: showPage = (i) => {
+  let showPage = $derived((i) => {
     const currentPage = parseInt(p);
     const maxVisiblePages = 12;
 
@@ -146,13 +154,13 @@
     }
 
     return i >= start && i <= end;
-  };
+  });
 
-  $: isEllipsis = (i) => {
+  let isEllipsis = $derived((i) => {
     return (
       (i === 1 && !showPage(i)) || (i === pages.length - 2 && !showPage(i))
     );
-  };
+  });
 </script>
 
 <div class="space-y-5">
@@ -241,7 +249,7 @@
                   {:else if p.type === types.ecash}
                     <img src="/images/cash.png" class="w-12" />
                   {:else if p.type === types.reconcile}
-                    <iconify-icon icon="ph:scales-bold" width="32" />
+                    <iconify-icon icon="ph:scales-bold" width="32"></iconify-icon>
                   {:else if p.type === types.bitcoin}
                     <div class="my-auto">
                       <img
@@ -288,7 +296,7 @@
 
     <div class="grid grid-cols-3 w-full text-center text-lg">
       {#each Object.keys(incoming) as c}
-        <span class="text-base text-secondary text-left" />
+        <span class="text-base text-secondary text-left"></span>
         <!-- <span class="text-base text-secondary" -->
         <!--   >{$t("payments.subtotal")}</span -->
         <!-- > -->
@@ -323,8 +331,8 @@
   </div>
 
   <div class="flex justify-center">
-    <button class="btn !w-auto" on:click={csv}>
-      <iconify-icon icon="ph:floppy-disk-bold" width="32" />
+    <button class="btn !w-auto" onclick={csv}>
+      <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("payments.export")}</div>
     </button>
   </div>

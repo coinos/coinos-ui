@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -28,14 +30,13 @@
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
   let { encode, decode } = hexUtil;
-  let passwordPrompt;
-  let password;
-  let cancel = () => (passwordPrompt = false);
-  let signed;
+  let passwordPrompt = $state();
+  let password = $state();
+  let cancel = $state(() => (passwordPrompt = false));
+  let signed = $state();
 
   let togglePassword = () => (passwordPrompt = !passwordPrompt);
   let handler = ({ cancel }) => {
@@ -90,9 +91,8 @@
     rates,
     hex,
     inputs,
-  } = data;
+  } = $state(data);
 
-  $: reload(data);
   let reload = () => {
     ({ amount, address, message, fee, fees, feeRate, ourfee, rates, hex } =
       data);
@@ -103,7 +103,7 @@
   };
 
   let { balance, currency } = data.user;
-  let submitting, submit, showSettings;
+  let submitting = $state(), submit = $state(), showSettings;
 
   let feeNames = {
     fastestFee: $t("payments.fastest"),
@@ -113,7 +113,6 @@
 
   let toggleSettings = () => (showSettings = !showSettings);
 
-  $: update(form);
   let update = () => {
     submitting = false;
     if (form?.message?.includes("pin")) $pin = undefined;
@@ -121,6 +120,12 @@
 
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
   let goBack = () => goto(`/send/bitcoin/${address}`);
+  run(() => {
+    reload(data);
+  });
+  run(() => {
+    update(form);
+  });
 </script>
 
 <div
@@ -148,7 +153,7 @@
       <div class="flex flex-wrap gap-4 justify-center">
         <select
           bind:value={feeRate}
-          on:change={setFee}
+          onchange={setFee}
           class="border text-lg bg-white p-4 rounded-2xl text-center my-auto"
         >
           {#each Object.keys(feeNames) as feeName}

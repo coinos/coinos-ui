@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -6,22 +8,24 @@
   import { rate } from "$lib/store";
   import { fail, s } from "$lib/utils";
 
-  export let data;
+  let { data } = $props();
 
   let { balance, rates, user } = data;
   let { address } = $page.params;
   let { currency, username } = user;
 
-  let amount = 0;
-  let submit, fiat;
+  let amount = $state(0);
+  let submit = $state(), fiat = $state();
 
-  $: update(data);
   let update = () => ($rate = data.rates[currency]);
 
   let setMax = () => {
     fiat = false;
     amount = balance;
   };
+  run(() => {
+    update(data);
+  });
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
@@ -35,8 +39,8 @@
     <button
       type="button"
       class="btn !w-auto grow"
-      on:click|preventDefault={setMax}
-      on:keydown={setMax}>Max ⚡️{s(balance)}</button
+      onclick={preventDefault(setMax)}
+      onkeydown={setMax}>Max ⚡️{s(balance)}</button
     >
 
     <form action={`/send/bitcoin/${address}/${amount}`} class="contents">

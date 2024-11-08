@@ -24,7 +24,7 @@
     { name: "cole", socials: [] },
   ];
 
-  let locations;
+  let locations = $state();
   onMount(async () => {
     try {
       ({ locations } = await fetch("/locations").then((r) => r.json()));

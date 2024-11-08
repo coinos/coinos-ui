@@ -1,8 +1,17 @@
-<script>
-  export let value,
+<script lang="ts">
+  interface Props {
+    value: any;
+    handle: any;
+    min?: number;
+    max?: number;
+  }
+
+  let {
+    value = $bindable(),
     handle,
     min = 0,
-    max = 100;
+    max = 100
+  }: Props = $props();
 </script>
 
 <input
@@ -13,7 +22,7 @@
   bind:value
   class="px-0 py-0 my-5"
   style="--bgPercent: {((value - min) * 100) / (max - min)}%;"
-  on:input={handle}
+  oninput={handle}
 />
 
 <style>

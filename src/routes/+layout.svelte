@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
@@ -6,15 +8,17 @@
   import { onMount } from "svelte";
   import { installPrompt, theme as themeStore } from "$lib/store";
 
-  export let data;
-  let { pathname, theme } = data;
+  let { data, children } = $props();
+  let { pathname, theme } = $state(data);
   $themeStore = theme;
 
   let host = PUBLIC_DOMAIN.includes("localhost")
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
 
-  $: theme = $themeStore
+  run(() => {
+    theme = $themeStore
+  });
 
   onMount(() => {
     if (!browser) return;
@@ -48,7 +52,7 @@
 
 {#if !$loading}
   <main data-theme={theme}>
-    <slot />
+    {@render children?.()}
   </main>
 {/if}
 

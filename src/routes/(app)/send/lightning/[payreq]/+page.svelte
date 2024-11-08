@@ -1,4 +1,6 @@
 <script>
+  import { run } from "svelte/legacy";
+
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Icon from "$comp/Icon.svelte";
@@ -8,8 +10,7 @@
   import { back, fiat, f, s, focus } from "$lib/utils";
   import { rate, pin } from "$lib/store";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
   let { payreq } = $page.params;
   let {
@@ -17,10 +18,9 @@
     ourfee,
     rates,
     user: { currency },
-  } = data;
-  let a;
+  } = $state(data);
+  let a = $state();
 
-  $: reload(data);
   let reload = (data) => {
     ({
       alias,
@@ -31,13 +31,10 @@
     if (!$rate) $rate = rates[currency];
   };
 
-  $: amount = form?.amount || data.amount;
-  $: maxfee = Math.max(5, Math.round(amount * 0.005));
-  let showMax;
+  let showMax = $state();
 
-  let loading;
+  let loading = $state();
   let submit = () => (loading = true);
-  $: update(form);
   let update = () => {
     if (form?.message?.includes("pin")) $pin = undefined;
     loading = false;
@@ -45,6 +42,17 @@
 
   let show;
   let toggle = () => (show = !show);
+  run(() => {
+    reload(data);
+  });
+  let amount = $derived(form?.amount || data.amount);
+  let maxfee;
+  run(() => {
+    maxfee = Math.max(5, Math.round(amount * 0.005));
+  });
+  run(() => {
+    update(form);
+  });
 </script>
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">
@@ -89,7 +97,7 @@
     <form
       method="POST"
       use:enhance
-      on:submit={submit}
+      onsubmit={submit}
       action="?/send"
       class="space-y-2"
     >
@@ -135,7 +143,7 @@
       </button>
 
       {#if !(form?.message || showMax)}
-        <button type="button" class="btn" on:click={() => (showMax = !showMax)}
+        <button type="button" class="btn" onclick={() => (showMax = !showMax)}
           >Advanced settings</button
         >
         <input name="maxfee" type="hidden" bind:value={maxfee} />

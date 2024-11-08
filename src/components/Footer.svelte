@@ -24,7 +24,7 @@
   <div class="space-y-5">
     <div class="text-center w-full">
       <a href="/">
-        <iconify-icon icon="coinos:logo" width="224" />
+        <iconify-icon icon="coinos:logo" width="224"></iconify-icon>
       </a>
     </div>
     <div class="flex gap-2 justify-center sm:hidden">
@@ -73,5 +73,5 @@
     </ul>
   </div>
 
-  <iconify-icon icon="coinos:shield" class="flex justify-center" width="96" />
+  <iconify-icon icon="coinos:shield" class="flex justify-center" width="96"></iconify-icon>
 </footer>

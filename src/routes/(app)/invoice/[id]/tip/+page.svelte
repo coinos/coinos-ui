@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
@@ -11,10 +13,10 @@
   import { tick } from "svelte";
 
   const tipAmounts = ["No", "10%", "15%", "20%"];
-  let showCustomAmount;
+  let showCustomAmount = $state();
 
-  let customInput;
-  let customTipAmount;
+  let customInput = $state();
+  let customTipAmount = $state();
 
   let apply = async () => {
     if (customTipAmount > 0) {
@@ -40,7 +42,7 @@
     tipPercent = e.target.value;
   };
 
-  let submitting;
+  let submitting = $state();
   const handleTipButtonClick = async (amount) => {
     submitting = true;
     if (amount === "No") {
@@ -53,11 +55,10 @@
     submit.click();
   };
 
-  let submit;
+  let submit = $state();
 
-  export let data;
-  $: refresh(data);
-  let { invoice, id, user, rates } = data;
+  let { data } = $props();
+  let { invoice, id, user, rates } = $state(data);
   let {
     aid,
     amount,
@@ -70,10 +71,10 @@
     text,
     tip,
     user: { username, currency },
-  } = invoice;
+  } = $state(invoice);
 
   let qr;
-  let tipPercent = 0;
+  let tipPercent = $state(0);
 
   let fullscreen;
 
@@ -97,18 +98,27 @@
     tipPercent = (tip / amount) * 100;
   };
 
-  $: currency = user?.currency || invoice.currency;
-  $: rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
 
-  $: tip = Math.round((amount / 100) * tipPercent);
 
-  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
 
-  $: tipAmount = ((tip * rate) / sats).toFixed(2);
 
-  $: invoiceAmountFiatFormatted = f(amountFiat, currency);
 
   onMount(() => ($request = undefined));
+  run(() => {
+    refresh(data);
+  });
+  run(() => {
+    currency = user?.currency || invoice.currency;
+  });
+  run(() => {
+    rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
+  });
+  run(() => {
+    tip = Math.round((amount / 100) * tipPercent);
+  });
+  let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
+  let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
+  let invoiceAmountFiatFormatted = $derived(f(amountFiat, currency));
 </script>
 
 <div class="container px-4 max-w-lg text-center mx-auto">
@@ -154,10 +164,10 @@
 
       <div class="space-y-2">
         {#if tip}
-          <button type="button" class="btn" on:click={() => submit.click()}
+          <button type="button" class="btn" onclick={() => submit.click()}
             >Next</button
           >
-          <button type="button" class="btn" on:click={() => (tipPercent = 0)}
+          <button type="button" class="btn" onclick={() => (tipPercent = 0)}
             >Reset</button
           >
         {:else}
@@ -168,14 +178,14 @@
                 type="button"
                 class="btn"
                 class:active={active(amount, tipPercent)}
-                on:click={() => handleTipButtonClick(amount)}>{amount}</button
+                onclick={() => handleTipButtonClick(amount)}>{amount}</button
               >
             {:else}
               <button
                 type="button"
                 class="btn"
                 class:active={active(amount, tipPercent)}
-                on:click={() => handleTipButtonClick(amount)}>{amount}</button
+                onclick={() => handleTipButtonClick(amount)}>{amount}</button
               >
             {/if}
           {/each}
@@ -186,21 +196,21 @@
         <button
           type="button"
           class="btn"
-          on:click={() => (showCustomAmount = true)}>Custom</button
+          onclick={() => (showCustomAmount = true)}>Custom</button
         >
       </div>
     {/if}
 
-    <button type="submit" bind:this={submit} />
+    <button type="submit" bind:this={submit}></button>
   </form>
 
   {#if showCustomAmount}
-    <form on:submit|preventDefault={apply} class="space-y-2">
+    <form onsubmit={preventDefault(apply)} class="space-y-2">
       <input
         bind:this={customInput}
         type="number"
         step="0.01"
-        on:input={(e) => handleCustomTipAmount(e)}
+        oninput={(e) => handleCustomTipAmount(e)}
         placeholder={$t("payments.amount")}
         use:focus
       />

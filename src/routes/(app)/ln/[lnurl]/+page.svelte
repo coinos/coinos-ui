@@ -1,7 +1,7 @@
 <script>
   import Lnurlp from "$comp/Lnurlp.svelte";
   import Lnurlw from "$comp/Lnurlw.svelte";
-  export let data;
+  let { data } = $props();
   let { tag } = data;
 </script>
 

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { scale } from "svelte/transition";
   import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
@@ -6,15 +8,17 @@
   import { t } from "$lib/translations";
   import { fiat, f, s, sat, sats } from "$lib/utils";
 
-  export let data;
-  let amount, currency, rate, received, pending, tip, user, id;
-  $: update(data);
+  let { data } = $props();
+  let amount, currency = $state(), rate = $state(), received = $state(), pending = $state(), tip = $state(), user = $state(), id;
   let update = (data) => {
     ({ amount, currency, rate, received, pending, tip, user, id } =
       data.invoice);
   };
 
   toast.pop(0);
+  run(() => {
+    update(data);
+  });
 </script>
 
 <div class="container px-4 text-center mx-auto">
@@ -77,7 +81,7 @@
 </div>
 
 <a href={`/${user.username}`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 
 <div class="flex justify-center">

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { btc, f, sat } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import Account from "$comp/Account.svelte";
@@ -8,20 +10,22 @@
   import { installPrompt } from "$lib/store";
   import { afterNavigate, preloadData } from "$app/navigation";
 
-  export let data;
+  let { data } = $props();
 
   afterNavigate(() => {
     preloadData(`/${user.username}/receive`);
     preloadData("/send");
   });
 
-  let { accounts, subject, user, items, rates } = data;
-  $: ({ currency } = subject);
-  $: rate = rates[currency];
-  $: total = items.reduce((a, b) => a + b.price * b.quantity, 0);
+  let { accounts, subject, user, items, rates } = $state(data);
+  let { currency } = $derived(subject);
+  let rate = $derived(rates[currency]);
+  let total = $derived(items.reduce((a, b) => a + b.price * b.quantity, 0));
 
   let refresh = (d) => ({ accounts, items, subject, user, rates } = d);
-  $: refresh(data);
+  run(() => {
+    refresh(data);
+  });
 
   let install = async () => {
     if (!$installPrompt) return;
@@ -42,14 +46,14 @@
 
     <a href={`/account/savings`} class="contents">
       <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-        <iconify-icon icon="ph:plus-circle-bold" width="32" />
+        <iconify-icon icon="ph:plus-circle-bold" width="32"></iconify-icon>
         {$t("accounts.addAccount")}
       </button>
     </a>
 
     {#if $installPrompt}
-      <button class="btn btn-accent lg:hidden" on:click={install}>
-        <iconify-icon icon="ph:floppy-disk-bold" width="32" />
+      <button class="btn btn-accent lg:hidden" onclick={install}>
+        <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
         {$t("user.install")}
       </button>
     {/if}
@@ -64,7 +68,7 @@
     {#if total > 0}
       <button
         class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
-        on:click={checkout}
+        onclick={checkout}
       >
         <div class="mx-auto flex">
           <div class="my-auto text-2xl">

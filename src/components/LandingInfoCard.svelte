@@ -1,10 +1,13 @@
 <script>
   import Image from "./Image.svelte";
 
-  export let image;
-  export let title;
-  export let description = undefined;
-  export let order = undefined;
+  let {
+    image,
+    title,
+    description = undefined,
+    order = undefined,
+    children
+  } = $props();
 </script>
 
 <div class="block lg:flex justify-center lg:space-x-20 items-center">
@@ -25,7 +28,7 @@
       {#if description}
         {description}
       {:else}
-        <slot />
+        {@render children?.()}
       {/if}
     </p>
   </div>

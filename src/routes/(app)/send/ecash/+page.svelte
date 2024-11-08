@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { enhance, applyAction } from "$app/forms";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
@@ -9,15 +11,14 @@
   import { fail, s } from "$lib/utils";
   import handler from "$lib/handler";
 
-  export let data;
+  let { data } = $props();
 
   let { rates, user } = data;
   let { balance, currency, username } = user;
 
-  let amount = 0;
-  let submit, fiat;
+  let amount = $state(0);
+  let submit = $state(), fiat = $state();
 
-  $: update(data);
   let update = () => ($rate = data.rates[currency]);
 
   let setMax = () => {
@@ -25,8 +26,11 @@
     amount = balance;
   };
 
-  let submitting;
+  let submitting = $state();
   let toggle = () => (submitting = !submitting);
+  run(() => {
+    update(data);
+  });
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
@@ -47,9 +51,9 @@
       <button
         type="button"
         class="btn !w-auto grow"
-        on:click|preventDefault={setMax}
+        onclick={preventDefault(setMax)}
         disabled={submitting}
-        on:keydown={setMax}>Max ⚡️{s(balance)}</button
+        onkeydown={setMax}>Max ⚡️{s(balance)}</button
       >
 
       <button

@@ -1,9 +1,11 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { focus } from "$lib/utils";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
-  export let cancel, password, submit;
-  let revealPassword;
+  let { cancel, password = $bindable(), submit } = $props();
+  let revealPassword = $state();
 </script>
 
 <div
@@ -15,7 +17,7 @@
     <h1 class="text-center text-2xl font-semibold">
       {$t("payments.enterWalletPass")}
     </h1>
-    <form on:submit|preventDefault={submit}>
+    <form onsubmit={preventDefault(submit)}>
       <div class="relative mb-5">
         {#if revealPassword}
           <input
@@ -38,7 +40,7 @@
         {/if}
         <button
           type="button"
-          on:click={() => (revealPassword = !revealPassword)}
+          onclick={() => (revealPassword = !revealPassword)}
           class="absolute right-5 top-1/2"
         >
           <Icon icon={revealPassword ? "eye" : "eye-off"} />
@@ -48,8 +50,8 @@
         <button
           type="button"
           class="border rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
-          on:click={cancel}
-          on:keydown={cancel}
+          onclick={cancel}
+          onkeydown={cancel}
         >
           <div class="my-auto">Cancel</div>
         </button>

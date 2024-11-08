@@ -1,7 +1,7 @@
 <script>
   import Icon from "$comp/Icon.svelte";
   import LocationsMap from "$comp/LocationsMap.svelte";
-  export let data;
+  let { data } = $props();
 
   let { locations } = data;
 </script>

@@ -1,15 +1,16 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import { upload } from "$lib/upload";
   import { fail } from "$lib/utils";
   import { applyAction, deserialize } from "$app/forms";
   import Spinner from "$comp/Spinner.svelte";
-  export let item;
-  export let user;
+  let { item = $bindable(), user } = $props();
 
-  let fileInput, formElement, file, submitting, progress;
+  let fileInput = $state(), formElement = $state(), file, submitting = $state(), progress;
   let select = () => fileInput.click();
-  let src;
+  let src = $state();
 
   let tooLarge = {};
   let handleFile = async ({ target }, type) => {
@@ -67,7 +68,7 @@
 <form
   method="POST"
   class="space-y-5"
-  on:submit|preventDefault={handleSubmit}
+  onsubmit={preventDefault(handleSubmit)}
   bind:this={formElement}
 >
   <input type="hidden" name="id" bind:value={item.id} />
@@ -104,24 +105,24 @@
             {src}
             alt={item.name}
             class="object-cover w-full h-full"
-            on:click={select}
-            on:keydown={select}
+            onclick={select}
+            onkeydown={select}
           />
         {:else if item.image}
           <img
             src={`/api/public/${item.image}.webp`}
             alt={item.name}
             class="object-cover w-full h-full"
-            on:click={select}
-            on:keydown={select}
+            onclick={select}
+            onkeydown={select}
           />
         {:else}
           <div
             class="bg-gradient-to-r from-primary to-gradient mb-4 cursor-pointer hover:opacity-80 w-full h-full"
-            on:click={select}
-            on:keydown={select}
+            onclick={select}
+            onkeydown={select}
             alt="Banner"
-          />
+></div>
         {/if}
       </div>
     </div>
@@ -130,7 +131,7 @@
       type="file"
       class="hidden"
       bind:this={fileInput}
-      on:change={(e) => handleFile(e, "item")}
+      onchange={(e) => handleFile(e, "item")}
     />
   </div>
 

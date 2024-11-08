@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { getMnemonic, getNsec } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
@@ -10,26 +12,26 @@
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
-  export let user, rates, submit;
+  let { user = $bindable(), rates, submit } = $props();
 
-  let confirming2fa,
-    disabling2fa,
-    importing,
+  let confirming2fa = $state(),
+    disabling2fa = $state(),
+    importing = $state(),
     locked,
     mnemonic,
-    newNsec,
-    nsec,
+    newNsec = $state(),
+    nsec = $state(),
     old,
-    otp,
-    password,
-    pin,
-    revealPassword,
+    otp = $state(),
+    password = $state(),
+    pin = $state(),
+    revealPassword = $state(),
     revealSeed,
-    revealNsec,
-    token = "",
-    setting2fa,
-    settingPin,
-    verify;
+    revealNsec = $state(),
+    token = $state(""),
+    setting2fa = $state(),
+    settingPin = $state(),
+    verify = $state();
 
   let toggleImporting = () => {
     revealNsec = false;
@@ -56,8 +58,6 @@
     }
   };
 
-  $: verifying = pin?.length > 5;
-  $: verify && checkPin(pin);
   let checkPin = async () => {
     old = $current;
 
@@ -88,7 +88,7 @@
     return true;
   };
 
-  let disablingPin = false;
+  let disablingPin = $state(false);
 
   let togglePin = async () => {
     if (user.haspin) {
@@ -129,7 +129,6 @@
     disabling2fa = false;
   };
 
-  $: enable2fa(token);
   let enable2fa = async (twoFa) => {
     try {
       if (setting2fa && token.length === 6) {
@@ -143,7 +142,6 @@
     }
   };
 
-  $: disable2fa(token);
   let disable2fa = async () => {
     try {
       if (disabling2fa && token.length === 6) {
@@ -157,6 +155,19 @@
       fail("Failed to disable 2FA, try again");
     }
   };
+  let verifying;
+  run(() => {
+    verifying = pin?.length > 5;
+  });
+  run(() => {
+    verify && checkPin(pin);
+  });
+  run(() => {
+    enable2fa(token);
+  });
+  run(() => {
+    disable2fa(token);
+  });
 </script>
 
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
@@ -173,14 +184,14 @@
   {/if}
   <button
     type="button"
-    on:click={togglePassword}
-    on:keydown={togglePassword}
+    onclick={togglePassword}
+    onkeydown={togglePassword}
     class="absolute right-5 top-11"
   >
     <iconify-icon
       icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
       width="32"
-    />
+></iconify-icon>
   </button>
 </div>
 
@@ -203,12 +214,12 @@
       notify={false}
     />
   {:else}
-    <button type="button" class="btn" on:click={togglePin}
+    <button type="button" class="btn" onclick={togglePin}
       >
       <iconify-icon
         icon={user.haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
-      />
+></iconify-icon>
       {user.haspin
         ? $t("user.settings.disablePIN")
         : $t("user.settings.enablePIN")}</button
@@ -232,18 +243,18 @@
       <b>{otp.secret}</b>
     </div>
 
-    <button type="button" class="btn" on:click={startConfirming2fa}>
-      <iconify-icon icon="ph:numpad-bold" width="32" />
+    <button type="button" class="btn" onclick={startConfirming2fa}>
+      <iconify-icon icon="ph:numpad-bold" width="32"></iconify-icon>
       <div class="my-auto">Confirm</div>
     </button>
   {:else if user.twofa}
-    <button type="button" class="btn" on:click={startDisabling2fa}>
-      <iconify-icon icon="ph:device-mobile-bold" width="32" />
+    <button type="button" class="btn" onclick={startDisabling2fa}>
+      <iconify-icon icon="ph:device-mobile-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
-    <button type="button" class="btn" on:click={startEnabling2fa}>
-      <iconify-icon icon="ph:device-mobile-bold" width="32" />
+    <button type="button" class="btn" onclick={startEnabling2fa}>
+      <iconify-icon icon="ph:device-mobile-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}
@@ -269,12 +280,12 @@
   </p>
 
   <div class="flex gap-2">
-    <button type="button" class="btn !w-auto flex-grow" on:click={toggleNsec}>
+    <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
       {#if revealNsec}
-        <iconify-icon icon="ph:eye-slash-bold" width="32" />
+        <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
         {$t("user.settings.hideNsec")}
       {:else}
-        <iconify-icon icon="ph:warning-bold" width="32" />
+        <iconify-icon icon="ph:warning-bold" width="32"></iconify-icon>
         {$t("user.settings.revealNsec")}
       {/if}
     </button>
@@ -282,9 +293,9 @@
     <button
       type="button"
       class="btn !w-auto flex-grow"
-      on:click={toggleImporting}
+      onclick={toggleImporting}
     >
-      <iconify-icon icon="ph:floppy-disk-bold" width="32" />
+      <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
       {$t("user.settings.import")}
     </button>
   </div>
@@ -298,8 +309,8 @@
       {nsec}
     </div>
 
-    <button type="button" class="btn" on:click={() => copy(nsec)}>
-      <iconify-icon icon="ph:copy-bold" width="32" />
+    <button type="button" class="btn" onclick={() => copy(nsec)}>
+      <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
       Copy
     </button>
   {/if}

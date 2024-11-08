@@ -2,7 +2,7 @@
   import { copyNoNewlines as copy } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import samples from "$lib/samples";
-  export let sample;
+  let { sample } = $props();
 </script>
 
 <div
@@ -13,7 +13,7 @@
   </div>
   <button
     class="ml-auto my-auto invert opacity-90"
-    on:click={() => copy(samples[sample])}
+    onclick={() => copy(samples[sample])}
     ><Icon icon="copy" style="w-10 max-w-none" /></button
   >
 </div>

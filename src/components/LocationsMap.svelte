@@ -1,5 +1,5 @@
 <script>
-  import { tick, onMount, onDestroy } from "svelte";
+  import { tick, onMount, onDestroy, mount } from "svelte";
   import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
   import Popup from "$comp/Popup.svelte";
@@ -7,15 +7,15 @@
 
   import "maplibre-gl/dist/maplibre-gl.css";
 
-  export let locations;
+  let { locations } = $props();
   let map;
-  let mapContainer, mapWrapper;
+  let mapContainer = $state(), mapWrapper = $state();
   let markers = [];
-  let search;
+  let search = $state();
   let clearSearch = (e) => (search = "");
 
   let currentIndex = -1;
-  let timeout;
+  let timeout = $state();
 
   let full = () => {
     if (!document.fullscreenElement) {
@@ -49,11 +49,6 @@
     }
   };
 
-  $: list = search
-    ? markers.filter((m) =>
-        m.tags.name.toLowerCase().includes(search.toLowerCase()),
-      )
-    : inview;
 
   let scroll = () => {
     const el = document.querySelector(".selected");
@@ -65,7 +60,7 @@
       });
   };
 
-  let selected;
+  let selected = $state();
   function select(m) {
     selected = m;
     stopFlying();
@@ -109,7 +104,7 @@
   };
 
   let toggleList = () => (showList = !showList);
-  let showList;
+  let showList = $state();
 
   let currentPopup;
   function startFlying() {
@@ -155,7 +150,7 @@
     map.off("moveend");
   }
 
-  let inview = [];
+  let inview = $state([]);
 
   let updateLabelVisibility = debounce(() => {
     inview = [];
@@ -201,10 +196,10 @@
 
             let popupContainer = document.createElement("div");
 
-            new Popup({
-              target: popupContainer,
-              props: { tags },
-            });
+            mount(Popup, {
+                            target: popupContainer,
+                            props: { tags },
+                          });
 
             let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.65 })
               .setLngLat([lon, lat])
@@ -252,6 +247,11 @@
   });
 
   onDestroy(() => map && map.remove());
+  let list = $derived(search
+    ? markers.filter((m) =>
+        m.tags.name.toLowerCase().includes(search.toLowerCase()),
+      )
+    : inview);
 </script>
 
 <div class="w-screen h-dvh flex" id="map" bind:this={mapWrapper}>
@@ -259,11 +259,11 @@
     id="map-container"
     class="mx-auto h-full w-full z-0"
     bind:this={mapContainer}
-  />
+></div>
   <div class="absolute flex top-2 left-2 gap-2">
     <button
       class="rounded-full border-2 border-black bg-base-100 w-10 h-10"
-      on:click={back}
+      onclick={back}
     >
       <Icon icon="arrow-left" style="w-4 m-auto" />
     </button>
@@ -277,7 +277,7 @@
           <input bind:value={search} class="w-full" />
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}
-              <button on:click={clearSearch}>
+              <button onclick={clearSearch}>
                 <Icon icon="close" style="w-8" />
               </button>
             {:else}
@@ -288,7 +288,7 @@
 
         {#each list as marker, i}
           <button
-            on:click={() => select(marker)}
+            onclick={() => select(marker)}
             class:font-bold={selected === marker}
             class:selected={selected === marker}
             class="block whitespace-nowrap text-ellipsis text-left w-full overflow-hidden"
@@ -301,13 +301,13 @@
     <div class="absolute flex top-2 right-2 gap-2">
       <button
         class="rounded-full border-2 border-black bg-white w-10 h-10"
-        on:click={toggleList}
+        onclick={toggleList}
       >
         <Icon icon="list" style="w-4 m-auto" />
       </button>
       <button
         class="rounded-full border-2 border-black bg-white w-10 h-10"
-        on:click={toggle}
+        onclick={toggle}
       >
         {#if timeout}
           <Icon icon="pause" style="w-4 m-auto" />

@@ -1,10 +1,15 @@
-<script>
+<script lang="ts">
   import { t } from "$lib/translations";
 
   // this ID will be used to get the strings from the locale
   // question is at faq.[questionID].question
-  // answer is at faq.[questionID].answer
-  export let questionID;
+  
+  interface Props {
+    // answer is at faq.[questionID].answer
+    questionID: any;
+  }
+
+  let { questionID }: Props = $props();
 </script>
 
 <div class="mx-auto w-full md:w-2/3 lg:w-[700px] space-y-5">

@@ -1,5 +1,12 @@
 <script>
-  export let aid, user, type, types, t, setType;
+  let {
+    aid,
+    user,
+    type,
+    types,
+    t,
+    setType
+  } = $props();
 </script>
 
 {#if aid === user?.id}
@@ -8,7 +15,7 @@
       class="btn flex-nowrap"
       class:bg-base-300={type === types.bitcoin}
       class:text-secondary={type === types.bitcoin}
-      on:click={() => setType(types.bitcoin)}
+      onclick={() => setType(types.bitcoin)}
     >
       <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
       <div class="my-auto text-lg">Bitcoin</div>
@@ -18,7 +25,7 @@
       class="btn flex-nowrap"
       class:bg-base-300={type === types.liquid}
       class:text-secondary={type === types.liquid}
-      on:click={() => setType(types.liquid)}
+      onclick={() => setType(types.liquid)}
     >
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
       <div class="my-auto text-lg">Liquid</div>
@@ -28,7 +35,7 @@
       class="btn flex-nowrap"
       class:bg-base-300={type === types.lightning}
       class:text-secondary={type === types.lightning}
-      on:click={() => setType(types.lightning)}
+      onclick={() => setType(types.lightning)}
     >
       <div class="bg-base-100 rounded-full w-8 h-8 text-center flex">
         <div class="m-auto">⚡️</div>

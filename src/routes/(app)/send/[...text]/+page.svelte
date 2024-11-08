@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
@@ -10,13 +12,12 @@
   import Spinner from "$comp/Spinner.svelte";
   import { back, fail, focus } from "$lib/utils";
 
-  export let data;
-  export let form;
+  let { data = $bindable(), form } = $props();
   data.subject = data.user;
 
   let { contacts } = data;
 
-  let el, text, pasted, w;
+  let el = $state(), text = $state(), pasted = $state(), w = $state();
 
   let keypress = (e) =>
     e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);
@@ -27,7 +28,9 @@
     pasted = true;
   };
 
-  $: if (browser && pasted && text) el.click() && (pasted = false);
+  run(() => {
+    if (browser && pasted && text) el.click() && (pasted = false);
+  });
 </script>
 
 <svelte:window bind:innerWidth={w} />
@@ -52,29 +55,29 @@
       use:focus
       name="text"
       placeholder={$t("user.send.placeholder")}
-      on:keypress={keypress}
+      onkeypress={keypress}
       class="w-full p-4 border rounded-xl h-32 text-xl"
       bind:value={text}
-      on:paste={() => (pasted = true)}
+      onpaste={() => (pasted = true)}
       autocapitalize="none"
-    />
+></textarea>
 
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon icon="ph:camera-bold" width="32" />
+          <iconify-icon icon="ph:camera-bold" width="32"></iconify-icon>
           {$t("user.send.scan")}
         </button>
       </a>
 
-      <button type="button" class="btn !w-auto flex-grow" on:click={paste}>
-        <iconify-icon icon="ph:clipboard-text-bold" width="32" />
+      <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
+        <iconify-icon icon="ph:clipboard-text-bold" width="32"></iconify-icon>
         {$t("user.send.paste")}
       </button>
     </div>
 
     <button bind:this={el} type="submit" class="btn btn-accent">
-      <iconify-icon icon="ph:paper-plane-right-bold" width="32" />
+      <iconify-icon icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 

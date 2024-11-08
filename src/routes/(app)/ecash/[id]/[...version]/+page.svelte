@@ -4,11 +4,10 @@
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
   let link = $page.url.href;
-  let { id, total, version, token, external, spent } = data;
+  let { id, total, version, token, external, spent } = $state(data);
 </script>
 
 {#if form?.error}
@@ -20,8 +19,8 @@
 {/if}
 
 <div class="flex flex-wrap gap-2 text-xl">
-  <button type="button" class="btn" on:click={() => copy(link)}>
-    <iconify-icon icon="ph:link-bold" width="32" />
+  <button type="button" class="btn" onclick={() => copy(link)}>
+    <iconify-icon icon="ph:link-bold" width="32"></iconify-icon>
     <div class="my-auto">{$t("payments.shareLink")}</div>
   </button>
 
@@ -33,7 +32,7 @@
             icon="ph:hand-coins-bold"
             width="32"
             flip="horizontal"
-          />
+></iconify-icon>
           <div class="my-auto">{$t("payments.swap")}</div>
         </button>
       </a>
@@ -45,7 +44,7 @@
             icon="ph:hand-coins-bold"
             width="32"
             flip="horizontal"
-          />
+></iconify-icon>
           <div class="my-auto">{$t("payments.redeem")}</div>
         </button>
       </form>
@@ -54,7 +53,7 @@
 
   <button
     class="btn break-all !h-auto py-5 font-normal leading-normal"
-    on:click={() => copy(token)}
+    onclick={() => copy(token)}
   >
     {token}
   </button>
@@ -62,14 +61,14 @@
   {#if version === 4}
     <a data-sveltekit-reload href={`/ecash/${id}/3`} class="contents">
       <button type="button" class="btn">
-        <iconify-icon icon="ph:gear-bold" width="32" />
+        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
         <div class="my-auto">{$t("payments.legacyVersion")}</div>
       </button>
     </a>
   {:else}
     <a data-sveltekit-reload href={`/ecash/${id}`} class="contents">
       <button type="button" class="btn">
-        <iconify-icon icon="ph:gear-bold" width="32" />
+        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
         <div class="my-auto">{$t("payments.newVersion")}</div>
       </button>
     </a>

@@ -5,8 +5,8 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
 
-  export let data;
-  let { amount, rate, tip, user } = data;
+  let { data } = $props();
+  let { amount, rate, tip, user } = $state(data);
   let { currency, username } = user;
   amount = Math.abs(amount);
 
@@ -38,7 +38,7 @@
 </div>
 
 <a href={`/${username}`} use:focus>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 
 <div class="flex justify-center">

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { fail, post, wait } from "$lib/utils";
   import { onMount } from "svelte";
   import { goto, invalidate } from "$app/navigation";
@@ -8,10 +10,10 @@
   import { generate } from "$lib/nostr";
   import { browser } from "$app/environment";
 
-  export let data;
-  let { user } = data;
+  let { data } = $props();
+  let { user } = $state(data);
 
-  let loaded;
+  let loaded = $state();
   let gen = async () => {
     if (!browser) return;
 
@@ -43,7 +45,9 @@
 
   onMount(() => browser && setTimeout(() => (loaded = true) && gen(), 50));
 
-  $: $pin?.length === 6 && gen(user);
+  run(() => {
+    $pin?.length === 6 && gen(user);
+  });
 </script>
 
 {#if loaded && user?.haspin && $pin?.length !== 6}

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Icon from "$comp/Icon.svelte";
@@ -8,25 +10,29 @@
   import { back } from "$lib/utils";
   import { pin } from "$lib/store";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
   let { rates } = data;
-  let { amount, id } = $page.params;
-  let { currency } = data.user;
-  let loading;
+  let { amount, id } = $state($page.params);
+  let { currency } = $state(data.user);
+  let loading = $state();
 
   let submit = () => (loading = true);
-  $: update(form);
   let update = () => {
     if (form?.message.includes("pin")) $pin = undefined;
     loading = false;
   };
 
-  $: rate = rates[currency];
+  run(() => {
+    update(form);
+  });
+  let rate;
+  run(() => {
+    rate = rates[currency];
+  });
 </script>
 
-<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" on:click={back}>
+<button class="ml-5 md:ml-20 mt-5 md:mt-10 hover:opacity-80" onclick={back}>
   <Icon icon="arrow-left" style="w-10" />
 </button>
 
@@ -39,7 +45,7 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto">
   <Numpad bind:amount bind:currency bind:rate />
 
-  <form method="POST" use:enhance on:submit={submit}>
+  <form method="POST" use:enhance onsubmit={submit}>
     <input name="id" value={id} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
