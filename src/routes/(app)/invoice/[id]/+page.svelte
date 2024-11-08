@@ -74,7 +74,6 @@
   };
 
   let setAmount = $state(async () => {
-    console.log("LALA", newAmount);
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     settingAmount = false;
     amount = newAmount;
