@@ -5,7 +5,7 @@
 {#if aid === user?.id}
   <div class="grid grid-cols-2 gap-2 justify-around text-secondary">
     <button
-      class="btn"
+      class="btn flex-nowrap"
       class:bg-base-300={type === types.bitcoin}
       class:text-secondary={type === types.bitcoin}
       on:click={() => setType(types.bitcoin)}
@@ -15,7 +15,7 @@
     </button>
 
     <button
-      class="btn"
+      class="btn flex-nowrap"
       class:bg-base-300={type === types.liquid}
       class:text-secondary={type === types.liquid}
       on:click={() => setType(types.liquid)}
@@ -25,7 +25,7 @@
     </button>
 
     <button
-      class="btn"
+      class="btn flex-nowrap"
       class:bg-base-300={type === types.lightning}
       class:text-secondary={type === types.lightning}
       on:click={() => setType(types.lightning)}
@@ -37,7 +37,7 @@
     </button>
 
     <a href={`/receive`} class="block contents">
-      <button class="btn">
+      <button class="btn flex-nowrap">
         <img src="/images/cash.png" class="w-8 my-auto" />
         <div class="my-auto text-lg">Ecash</div>
       </button>
