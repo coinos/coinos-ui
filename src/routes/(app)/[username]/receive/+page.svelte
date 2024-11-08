@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { send } from "$lib/socket";
   import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
@@ -12,12 +14,11 @@
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
-  export let data;
+  let { data } = $props();
 
   let showOptions;
 
-  let { id, rates, subject, user, src, text } = data;
-  $: refresh(data);
+  let { id, rates, subject, user, src, text } = $state(data);
   let refresh = (data) => {
     ({ id, rates, subject, user, src, text } = data);
   };
@@ -29,19 +30,15 @@
 
   let qr;
 
-  $: link = [types.bitcoin, types.liquid].includes(type)
-    ? text
-    : `lightning:${text}`;
-  $: txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
 
   let aid = subject.id;
-  let invoice = {
+  let invoice = $state({
     aid,
     type: types.lightning,
     items: [],
     user: subject,
-  };
-  let amount, amountFiat, tip;
+  });
+  let amount = $state(), amountFiat, tip;
 
   let setType = async (type) => {
     invoice.type = type;
@@ -75,10 +72,16 @@
   };
 
   let newAmount;
-  let settingAmount;
+  let settingAmount = $state();
   let toggleAmount = () => (settingAmount = !settingAmount);
-  let fiat;
   let submit;
+  run(() => {
+    refresh(data);
+  });
+  let link = $derived([types.bitcoin, types.liquid].includes(type)
+    ? text
+    : `lightning:${text}`);
+  let txt = $derived([types.bitcoin, types.liquid].includes(type) ? hash : text);
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
@@ -115,7 +118,6 @@
 <SetAmount
   {currency}
   {rate}
-  {fiat}
   {submit}
   {settingAmount}
   {setAmount}

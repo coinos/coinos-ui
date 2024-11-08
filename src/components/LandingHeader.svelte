@@ -7,13 +7,15 @@
   import DarkToggle from "$comp/DarkToggle.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
 
-  export let howItWorks;
-  export let faq;
-  export let about;
-  export let user;
+  let {
+    howItWorks,
+    faq,
+    about,
+    user
+  } = $props();
 
-  let showMobileMenu = false;
-  let header;
+  let showMobileMenu = $state(false);
+  let header = $state();
   const mobileMenuButtonClick = (section) => {
     showMobileMenu = false;
     scroll(section);
@@ -26,45 +28,45 @@
 >
   <nav class="block lg:flex justify-between items-center">
     <div class="flex justify-start lg:justify-center items-center lg:space-x-5">
-      <a href="/" on:click={() => scroll(header)}>
-        <iconify-icon icon="coinos:logo" width="224" />
+      <a href="/" onclick={() => scroll(header)}>
+        <iconify-icon icon="coinos:logo" width="224"></iconify-icon>
       </a>
     </div>
 
     <!-- desktop nav -->
     <div class="hidden space-x-5 lg:flex justify-center items-center font-bold">
       {#if $page.url.pathname === "/"}
-        <button class="hover:opacity-80" on:click={() => scroll(howItWorks)}
+        <button class="hover:opacity-80" onclick={() => scroll(howItWorks)}
           >{$t("howItWorks.header")}</button
         >
-        <button class="hover:opacity-80" on:click={() => scroll(faq)}
+        <button class="hover:opacity-80" onclick={() => scroll(faq)}
           >{$t("faq.header")}</button
         >
-        <button class="hover:opacity-80" on:click={() => scroll(about)}
+        <button class="hover:opacity-80" onclick={() => scroll(about)}
           >{$t("about.header")}</button
         >
       {/if}
       {#if user}
         <button
           class="btn !w-auto !rounded-full"
-          on:click={() => goto(`/${user.username}`)}
+          onclick={() => goto(`/${user.username}`)}
           >Home
         </button>
         <button
           class="btn !w-auto !rounded-full"
-          on:click={() => goto("/logout")}
+          onclick={() => goto("/logout")}
         >
           {$t("nav.signOut")}
         </button>
       {:else}
         <button
           class="btn btn-accent !w-auto !rounded-full"
-          on:click={() => goto("/register")}
+          onclick={() => goto("/register")}
           >{$t("nav.register")}
         </button>
         <button
           class="btn !w-auto !rounded-full"
-          on:click={() => goto("/login")}
+          onclick={() => goto("/login")}
         >
           {$t("nav.signIn")}
         </button>
@@ -73,12 +75,12 @@
 
     <button
       class="block lg:hidden absolute top-[34.5px] right-10 z"
-      on:click={() => (showMobileMenu = !showMobileMenu)}
+      onclick={() => (showMobileMenu = !showMobileMenu)}
     >
       <iconify-icon
         icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"}
         width="32"
-      />
+></iconify-icon>
     </button>
 
     <div
@@ -89,31 +91,31 @@
       <div class="space-y-5 mt-24 font-bold text-xl">
         <LocaleSelector />
         <DarkToggle />
-        <button on:click={() => mobileMenuButtonClick(howItWorks)} class="block"
+        <button onclick={() => mobileMenuButtonClick(howItWorks)} class="block"
           >{$t("howItWorks.header")}</button
         >
-        <button on:click={() => mobileMenuButtonClick(faq)} class="block"
+        <button onclick={() => mobileMenuButtonClick(faq)} class="block"
           >{$t("faq.header")}</button
         >
-        <button on:click={() => mobileMenuButtonClick(about)} class="block"
+        <button onclick={() => mobileMenuButtonClick(about)} class="block"
           >{$t("about.header")}</button
         >
         {#if !user}
-          <button class="btn btn-accent" on:click={() => goto("/register")}
+          <button class="btn btn-accent" onclick={() => goto("/register")}
             >{$t("nav.register")}
           </button>
-          <button class="btn" on:click={() => goto("/login")}>
+          <button class="btn" onclick={() => goto("/login")}>
             {$t("nav.signIn")}
           </button>
         {:else}
           <button
             class="border rounded-full px-6 py-2 font-bold block"
-            on:click={() => goto(`/${user.username}`)}
+            onclick={() => goto(`/${user.username}`)}
             >{$t("nav.account")}
           </button>
           <button
             class="bg-primary text-white border rounded-full px-6 py-2 font-bold block"
-            on:click={() => goto("/logout")}
+            onclick={() => goto("/logout")}
           >
             {$t("nav.signOut")}
           </button>

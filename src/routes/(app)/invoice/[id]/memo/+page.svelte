@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
@@ -17,11 +19,10 @@
   import { enhance } from "$app/forms";
 
   let submitting;
-  let submit;
+  let submit = $state();
 
-  export let data;
-  $: refresh(data);
-  let { invoice, id, user, rates } = data;
+  let { data } = $props();
+  let { invoice, id, user, rates } = $state(data);
   let {
     amount,
     hash,
@@ -34,7 +35,7 @@
     text,
     tip,
     user: { username, currency },
-  } = invoice;
+  } = $state(invoice);
 
   invoice.memo = user?.username;
 
@@ -55,6 +56,9 @@
       user: { username },
     } = invoice);
   };
+  run(() => {
+    refresh(data);
+  });
 </script>
 
 <form

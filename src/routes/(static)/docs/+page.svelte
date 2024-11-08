@@ -5,7 +5,7 @@
   import Code from "$comp/Code.svelte";
   import Icon from "$comp/Icon.svelte";
 
-  export let data;
+  let { data } = $props();
 
   let { user, token } = data;
 
@@ -40,7 +40,7 @@
   <h2 class="text-2xl">API Base URL</h2>
   <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4">
     <div>{api}</div>
-    <button class="ml-auto my-auto invert opacity-90" on:click={() => copy(api)}
+    <button class="ml-auto my-auto invert opacity-90" onclick={() => copy(api)}
       ><Icon icon="copy" style="w-10 max-w-none" /></button
     >
   </div>
@@ -61,7 +61,7 @@
     <div class="w-full break-all">{tokenSample}</div>
     <button
       class="ml-auto my-auto invert opacity-90"
-      on:click={() => copy(tokenSample)}
+      onclick={() => copy(tokenSample)}
       ><Icon icon="copy" style="w-10 max-w-none" /></button
     >
   </div>

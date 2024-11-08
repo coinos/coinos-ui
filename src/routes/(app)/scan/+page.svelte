@@ -6,7 +6,7 @@
   import { back } from "$lib/utils";
   import { goto } from "$app/navigation";
 
-  let scanner, vid, resizing;
+  let scanner, vid = $state(), resizing;
 
   let resize = () => {
     if (resizing) clearTimeout(resizing);
@@ -31,19 +31,19 @@
   onDestroy(() => scanner?.stop());
 </script>
 
-<svelte:window on:resize={resize} />
+<svelte:window onresize={resize} />
 
 <div class="flex w-full mb-4 p-4">
   <div class="mx-auto rounded-3xl">
     <video
       bind:this={vid}
       class="border-4 rounded-3xl border-black max-h-[calc(100vh*0.7)]"
-    />
+></video>
   </div>
 </div>
 
 <div class="flex justify-center">
-  <button class="btn !w-auto" on:click={back}>Cancel</button>
+  <button class="btn !w-auto" onclick={back}>Cancel</button>
 </div>
 
 <style>

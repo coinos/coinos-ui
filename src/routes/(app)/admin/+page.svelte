@@ -1,9 +1,9 @@
 <script>
   import { post } from "$lib/utils";
-  export let data;
+  let { data } = $props();
   let reset = (username) => post(`/reset`, { password });
   let { users } = data;
-  let password;
+  let password = $state();
 </script>
 
 {#each users as { balance, username, expected }}
@@ -15,7 +15,7 @@
     <div>
       <button
         class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
-        on:click={() => reset(username)}>Reset</button
+        onclick={() => reset(username)}>Reset</button
       >
     </div>
   </div>

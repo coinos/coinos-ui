@@ -5,10 +5,10 @@
   import { fly } from "svelte/transition";
   import { password } from "$lib/store";
 
-  export let form;
+  let { form } = $props();
   let email;
   let loading;
-  let revealPassword;
+  let revealPassword = $state();
 </script>
 
 <div class="pt-10">
@@ -56,7 +56,7 @@
           {/if}
           <button
             type="button"
-            on:click={() => (revealPassword = !revealPassword)}
+            onclick={() => (revealPassword = !revealPassword)}
             class="absolute right-5 top-10"
           >
             <Icon icon={revealPassword ? "eye" : "eye-off"} />

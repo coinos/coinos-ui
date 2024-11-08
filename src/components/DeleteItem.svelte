@@ -1,9 +1,11 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import Icon from "$comp/Icon.svelte";
   import { fail, post } from "$lib/utils";
   import { invalidate } from "$app/navigation";
 
-  export let item;
+  let { item = $bindable() } = $props();
 
   let cancel = () => (item = null);
 
@@ -25,13 +27,13 @@
     class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5"
   >
     <h1 class="text-center text-2xl font-semibold">Delete item</h1>
-    <form on:submit|preventDefault={submit}>
+    <form onsubmit={preventDefault(submit)}>
       <div class="w-full flex">
         <button
           type="button"
           class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-          on:click={cancel}
-          on:keydown={cancel}
+          onclick={cancel}
+          onkeydown={cancel}
         >
           <div class="my-auto">No</div>
         </button>

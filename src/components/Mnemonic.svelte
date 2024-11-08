@@ -1,5 +1,5 @@
 <script>
-  export let mnemonic;
+  let { mnemonic } = $props();
 </script>
 
 <div class="flex w-full border p-4 rounded-2xl h-full">

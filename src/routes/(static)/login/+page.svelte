@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { onMount } from "svelte";
   import { applyAction, deserialize } from "$app/forms";
   import { tick } from "svelte";
@@ -23,28 +25,24 @@
     if (lang) document.cookie = `lang=${lang} ;`;
   });
 
-  export let form;
+  let { form } = $props();
 
-  let token, formElement;
+  let token = $state(), formElement;
   let code = [];
   let redirect;
 
   $password = undefined;
 
-  $: need2fa = form?.message === "2fa";
   let cancel = () => (need2fa = false);
-  $: if (form?.message === "2fa" && form.token === token) token = "";
 
-  let username, email, btn;
+  let username = $state(), email, btn = $state();
 
-  $: update(form);
   let update = (form) => form && ({ username, password: $password } = form);
 
-  $: token && token?.length === 6 && tick().then(() => btn.click());
 
-  let revealPassword = false;
+  let revealPassword = $state(false);
 
-  let loading;
+  let loading = $state();
   async function handleSubmit(e) {
     loading = true;
 
@@ -69,6 +67,19 @@
     applyAction(result);
     loading = false;
   }
+  let need2fa;
+  run(() => {
+    need2fa = form?.message === "2fa";
+  });
+  run(() => {
+    if (form?.message === "2fa" && form.token === token) token = "";
+  });
+  run(() => {
+    update(form);
+  });
+  run(() => {
+    token && token?.length === 6 && tick().then(() => btn.click());
+  });
 </script>
 
 {#if need2fa}
@@ -86,7 +97,7 @@
     </div>
   {/if}
 
-  <form class="space-y-5" on:submit|preventDefault={handleSubmit} method="POST">
+  <form class="space-y-5" onsubmit={preventDefault(handleSubmit)} method="POST">
     <input
       type="hidden"
       name="loginRedirect"
@@ -131,10 +142,10 @@
       {/if}
       <iconify-icon
         class="cursor-pointer ml-auto"
-        on:click={() => (revealPassword = !revealPassword)}
+        onclick={() => (revealPassword = !revealPassword)}
         icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
         width="32"
-      />
+></iconify-icon>
     </label>
 
     <div class="flex justify-end items-center">

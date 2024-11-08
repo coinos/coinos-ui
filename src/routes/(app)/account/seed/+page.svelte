@@ -9,7 +9,7 @@
   import { generateMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
 
-  export let data;
+  let { data } = $props();
   let { user } = data;
 
   onMount(async () => {
@@ -36,7 +36,7 @@
       <button
         type="button"
         class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-3 px-4 w-full mx-auto justify-center border whitespace-nowrap mb-2"
-        on:click={generate}
+        onclick={generate}
       >
         <Icon icon="random" style="w-8 my-auto" />
         <div class="my-auto">{$t("accounts.regenerate")}</div>
@@ -45,7 +45,7 @@
       <button
         type="button"
         class="flex gap-2 text-center break-all rounded-2xl hover:opacity-80 py-3 px-4 w-full mx-auto justify-center border whitespace-nowrap mb-2"
-        on:click={() => copy($mnemonic)}
+        onclick={() => copy($mnemonic)}
       >
         <Icon icon="copy" style="w-8 my-auto" />
         <div class="my-auto">

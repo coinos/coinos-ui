@@ -1,6 +1,5 @@
 <script>
-  export let image;
-  export let style;
+  let { image, style } = $props();
 </script>
 
 <img src="/images/{image}.webp" alt={image} class={style} />

@@ -1,21 +1,33 @@
-<script>
+<script lang="ts">
+  import { run, preventDefault, stopPropagation } from "svelte/legacy";
+
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
   import { f, s, focus, warning, sat, sats } from "$lib/utils";
   import { t } from "$lib/translations";
 
-  export let amount,
-    currency,
-    element,
-    fiat = !amount,
-    rate,
-    submit = undefined;
+  interface Props {
+    amount: any;
+    currency: any;
+    element: any;
+    fiat?: any;
+    rate: any;
+    submit?: any;
+    amountFiat?: number;
+  }
 
-  export let amountFiat = 0;
+  let {
+    amount = $bindable(),
+    currency,
+    element = $bindable(),
+    fiat = $bindable(!amount),
+    rate = $bindable(),
+    submit = undefined,
+    amountFiat = $bindable(0),
+  }: Props = $props();
 
   let arrow = "<";
 
-  $: update(amount, amountFiat);
   let update = (a, f) => {
     if (fiat) {
       amount = Math.round(f / (rate / sats));
@@ -101,8 +113,6 @@
       }
     }
   };
-
-  $: html = fiat ? amountFiat : s(amount);
 
   let prev = "";
 
@@ -193,6 +203,13 @@
     }
     fiat = !fiat;
   };
+  run(() => {
+    update(amount, amountFiat);
+  });
+  let html;
+  run(() => {
+    html = fiat ? amountFiat : s(amount);
+  });
 </script>
 
 <div class="flex justify-center items-center">
@@ -208,17 +225,17 @@
           use:focus
           contenteditable
           bind:innerHTML={html}
-          on:focus={select}
-          on:blur={blur}
-          on:input={input}
-          on:keydown={keydown}
+          onfocus={select}
+          onblur={blur}
+          oninput={input}
+          onkeydown={keydown}
           class="outline-none my-auto"
           bind:this={element}
-        />
+        ></div>
       </div>
       <div
         class="flex items-center justify-center text-2xl cursor-pointer"
-        on:click|preventDefault|stopPropagation={swap}
+        onclick={stopPropagation(preventDefault(swap))}
       >
         {fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}
       </div>
@@ -230,7 +247,7 @@
           <button
             type="button"
             class="btn"
-            on:click|preventDefault|stopPropagation={() => handleInput(value)}
+            onclick={stopPropagation(preventDefault(() => handleInput(value)))}
           >
             <Left />
           </button>
@@ -238,7 +255,7 @@
           <button
             type="button"
             class="btn"
-            on:click|preventDefault|stopPropagation={() => handleInput(value)}
+            onclick={stopPropagation(preventDefault(() => handleInput(value)))}
             >{value}</button
           >
         {/if}

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { browser } from "$app/environment";
   import { onDestroy } from "svelte";
   import { fail, success, post } from "$lib/utils";
@@ -6,16 +8,18 @@
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
-  export let data;
+  let { data = $bindable() } = $props();
 
   let { user } = data;
-  $: if (user) {
-    data.subject = { ...user };
-  }
+  run(() => {
+    if (user) {
+      data.subject = { ...user };
+    }
+  });
 
-  let email;
-  let message;
-  let sent;
+  let email = $state();
+  let message = $state();
+  let sent = $state();
   let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
 
   let submit = (e) => {
@@ -80,7 +84,7 @@
       > and we'll do our best to get back to you in a timely manner.
     </p>
 
-    <form on:submit={submit}>
+    <form onsubmit={submit}>
       <div class="mb-4">
         <label for="account" class="font-semibold"
           >{$t("user.support.accountName")}</label
@@ -110,7 +114,7 @@
           name="message"
           bind:value={message}
           required
-        />
+></textarea>
       </div>
 
       <button

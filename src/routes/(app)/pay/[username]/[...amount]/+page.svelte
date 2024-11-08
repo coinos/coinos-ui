@@ -1,4 +1,6 @@
 <script>
+  import { run } from "svelte/legacy";
+
   import { t } from "$lib/translations";
   import { goto } from "$app/navigation";
   import { pin } from "$lib/store";
@@ -10,21 +12,18 @@
   import { page } from "$app/stores";
   import { f, fail, post, s, sat, sats } from "$lib/utils";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
-  let { subject, rate, rates, user } = data;
+  let { subject, rate, rates, user } = $state(data);
   let currency = subject?.currency || "USD";
-  let next;
+  let next = $state();
 
-  let amount = form?.amount || data.amount;
-  let a,
-    af,
-    fiat = !amount,
-    hash,
+  let amount = $state(form?.amount || data.amount);
+  let a = $state(),
+    af = $state(0),
+    fiat = $state(!amount),
+    hash = $state(),
     amountFiat = 0;
-
-  $: r = rate || rates[subject?.currency];
 
   let setAmount = async () => {
     amount = a;
@@ -49,14 +48,20 @@
     goto(`/send/invoice/${id}`);
   };
 
-  let loading;
+  let loading = $state();
   let submit = () => (loading = true);
 
-  $: update(form);
   let update = () => {
     if (form?.message?.includes("pin")) $pin = undefined;
     loading = false;
   };
+  let r;
+  run(() => {
+    r = rate || rates[subject?.currency];
+  });
+  run(() => {
+    update(form);
+  });
 </script>
 
 {#if form?.message}
@@ -72,10 +77,10 @@
     {currency}
     bind:fiat
     bind:rate={r}
-    bind:submit={next}
+    submit={next}
   />
 
-  <form method="POST" use:enhance on:submit={submit}>
+  <form method="POST" use:enhance onsubmit={submit}>
     <input name="amount" value={amount} type="hidden" />
     <input name="username" value={subject.username} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
@@ -98,8 +103,8 @@
           type="button"
           bind:this={next}
           class="btn btn-accent"
-          on:click={setAmount}
-          on:keydown={setAmount}
+          onclick={setAmount}
+          onkeydown={setAmount}
         >
           {$t("payments.next")}</button
         >

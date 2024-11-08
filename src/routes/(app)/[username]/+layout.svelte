@@ -1,9 +1,9 @@
 <script>
-  export let data;
+  let { data, children, fixed } = $props();
 </script>
 
 <div class="content">
-  <slot />
+  {@render children?.()}
 </div>
 
-<slot name="fixed" />
+{@render fixed?.()}

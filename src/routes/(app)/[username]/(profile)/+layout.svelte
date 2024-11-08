@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { invalidate } from "$app/navigation";
   import { browser } from "$app/environment";
   import { hexToUint8Array } from "uint8array-extras";
@@ -8,7 +10,7 @@
   import { bech32m } from "@scure/base";
   import { page } from "$app/stores";
 
-  export let data;
+  let { data, children } = $props();
 
   let { encode, toWords } = bech32m;
 
@@ -22,10 +24,9 @@
     follows,
     followers,
     followList,
-  } = data;
-  let { currency, npub, username: n, display } = subject;
+  } = $state(data);
+  let { currency, npub, username: n, display } = $state(subject);
 
-  $: refresh(data);
   let refresh = (data) => {
     ({
       events,
@@ -41,15 +42,8 @@
     ({ currency, npub, username: n, display } = subject);
   };
 
-  $: stripped = n.replace(/\s/g, "");
-  $: username = n.length > 60 ? n.substr(0, 6) : display || stripped;
-  $: lnaddr = subject?.anon
-    ? subject.lud16 || undefined
-    : `${stripped}@${$page.url.host}`;
-  $: profile = `${$page.url.host}/${subject.anon ? npub : stripped}`;
 
-  let list = [];
-  $: followList.then((l) => (list = l));
+  let list = $state([]);
   let follow = async () => {
     list = [...list, subject.pubkey];
     let tags = await get(
@@ -95,15 +89,14 @@
     }
   };
 
-  $: following = list.some((t) => t.includes(subject.pubkey));
 
-  let showBio;
+  let showBio = $state();
   let toggleBio = () => (showBio = !showBio);
 
-  let showDetails;
+  let showDetails = $state();
   let toggleDetails = () => (showDetails = !showDetails);
 
-  let password;
+  let password = $state();
 
   let reset = async () => {
     try {
@@ -113,28 +106,41 @@
       fail(e.message);
     }
   };
+  run(() => {
+    refresh(data);
+  });
+  let stripped = $derived(n.replace(/\s/g, ""));
+  let username = $derived(n.length > 60 ? n.substr(0, 6) : display || stripped);
+  let lnaddr = $derived(subject?.anon
+    ? subject.lud16 || undefined
+    : `${stripped}@${$page.url.host}`);
+  let profile = $derived(`${$page.url.host}/${subject.anon ? npub : stripped}`);
+  run(() => {
+    followList.then((l) => (list = l));
+  });
+  let following = $derived(list.some((t) => t.includes(subject.pubkey)));
 </script>
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
-  <div class="hidden lg:block lg:w-[280px] xl:w-[360px]" />
+  <div class="hidden lg:block lg:w-[280px] xl:w-[360px]"></div>
   <div
     class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto"
   >
     <button
       type="button"
-      on:click={toggleDetails}
+      onclick={toggleDetails}
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
       <div class="my-auto break-words">{display || username}</div>
-      <iconify-icon icon="ph:qr-code-bold" width="32" />
+      <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
     </button>
 
     {#if subject.address || subject.about}
       <div
         class="text-secondary mx-auto text-center lg:mx-0 break-words space-y-1"
         class:line-clamp-2={!showBio}
-        on:click={toggleBio}
-        on:keydown={toggleBio}
+        onclick={toggleBio}
+        onkeydown={toggleBio}
       >
         <div>
           {subject.address || subject.about}
@@ -177,11 +183,11 @@
                 {lnaddr}
               </div>
               <div class="flex mb-auto gap-1">
-                <button class="my-auto" on:click={() => copy(lnaddr)}
-                  ><iconify-icon icon="ph:copy-bold" width="32" /></button
+                <button class="my-auto" onclick={() => copy(lnaddr)}
+                  ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
                 >
                 <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-                  <iconify-icon icon="ph:qr-code-bold" width="32" />
+                  <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
                 </a>
               </div>
             </div>
@@ -194,8 +200,8 @@
               {profile}
             </div>
             <div class="flex mb-auto gap-1">
-              <button class="my-auto" on:click={() => copy(profile)}
-                ><iconify-icon icon="ph:copy-bold" width="32" /></button
+              <button class="my-auto" onclick={() => copy(profile)}
+                ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
               >
               <a
                 href={`/qr/${encodeURIComponent(
@@ -203,7 +209,7 @@
                 )}`}
                 class="my-auto"
               >
-                <iconify-icon icon="ph:qr-code-bold" width="32" />
+                <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
               </a>
             </div>
           </div>
@@ -215,11 +221,11 @@
               {npub}
             </div>
             <div class="flex my-auto gap-1">
-              <button class="my-auto" on:click={() => copy(npub)}
-                ><iconify-icon icon="ph:copy-bold" width="32" /></button
+              <button class="my-auto" onclick={() => copy(npub)}
+                ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
               >
               <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-                <iconify-icon icon="ph:qr-code-bold" width="32" />
+                <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
               </a>
             </div>
           </div>
@@ -230,13 +236,13 @@
     <div class="flex flex-wrap gap-2 w-full text-lg">
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
-          <button class="btn" on:click={unfollow}>
-            <iconify-icon icon="ph:user-bold" width="32" />
+          <button class="btn" onclick={unfollow}>
+            <iconify-icon icon="ph:user-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("user.unfollow")}</div>
           </button>
         {:else}
-          <button class="btn" on:click={follow}>
-            <iconify-icon icon="ph:user-bold" width="32" />
+          <button class="btn" onclick={follow}>
+            <iconify-icon icon="ph:user-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("user.follow")}</div>
           </button>
         {/if}
@@ -256,14 +262,14 @@
       <!-- {/if} -->
 
       {#if user?.admin && user.username !== subject.username}
-        <form class="w-full flex" on:submit|preventDefault={reset}>
+        <form class="w-full flex" onsubmit={preventDefault(reset)}>
           <input placeholder="Password reset" bind:value={password} />
           <button
             type="submit"
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60"
           >
             <div class="mx-auto flex">
-              <iconify-icon icon="ph:clock" width="32" />
+              <iconify-icon icon="ph:clock" width="32"></iconify-icon>
             </div>
           </button>
         </form>
@@ -275,7 +281,7 @@
     <div
       class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0"
     >
-      <slot />
+      {@render children?.()}
     </div>
   </div>
 </div>

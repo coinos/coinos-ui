@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import punks from "$lib/punks";
   import { upload } from "$lib/upload";
   import { afterNavigate, invalidateAll } from "$app/navigation";
@@ -23,12 +25,10 @@
     animals,
   } from "unique-names-generator";
 
-  export let form;
-  export let data;
+  let { form = $bindable(), data } = $props();
 
-  $: data && ($avatar = undefined);
-  let username;
-  let { index } = data;
+  let username = $state();
+  let { index } = $state(data);
 
   let cleared;
   let clear = () => {
@@ -64,24 +64,20 @@
     }
   });
 
-  let token, formElement;
+  let token = $state(), formElement;
   let code = [];
   let redirect;
 
-  $: need2fa = form?.message === "2fa";
   let cancel = () => (need2fa = false);
-  $: if (form?.message === "2fa" && form.token === token) token = "";
 
-  let email, btn;
+  let email, btn = $state();
 
-  $: update(form);
   let update = (form) => form && ({ username, password: $password } = form);
 
-  $: token && token?.length === 6 && tick().then(() => btn.click());
 
-  let revealPassword;
+  let revealPassword = $state();
 
-  let loading;
+  let loading = $state();
   async function handleSubmit(e) {
     loading = true;
 
@@ -127,8 +123,7 @@
     loading = false;
   }
 
-  let avatarInput;
-  $: src = `/api/public/${punks[index]}.webp`;
+  let avatarInput = $state();
   let decr = () => (index = index <= 0 ? 63 : index - 1);
   let incr = () => (index = index >= 63 ? 0 : index + 1);
   let selectAvatar = () => avatarInput.click();
@@ -149,6 +144,26 @@
 
     reader.readAsDataURL(file);
   };
+  run(() => {
+    data && ($avatar = undefined);
+  });
+  let need2fa;
+  run(() => {
+    need2fa = form?.message === "2fa";
+  });
+  run(() => {
+    if (form?.message === "2fa" && form.token === token) token = "";
+  });
+  run(() => {
+    update(form);
+  });
+  run(() => {
+    token && token?.length === 6 && tick().then(() => btn.click());
+  });
+  let src;
+  run(() => {
+    src = `/api/public/${punks[index]}.webp`;
+  });
 </script>
 
 {#if need2fa}
@@ -163,17 +178,17 @@
     type="file"
     class="hidden"
     bind:this={avatarInput}
-    on:change={(e) => handleFile(e, "profile")}
+    onchange={(e) => handleFile(e, "profile")}
   />
 
   <div class="relative">
     <button
       class="absolute w-8 h-12 left-12 bg-base-100 rounded top-12"
-      on:click={decr}
+      onclick={decr}
     >
-      <iconify-icon icon="ph:caret-left-bold" width="32" />
+      <iconify-icon icon="ph:caret-left-bold" width="32"></iconify-icon>
     </button>
-    <div class="block relative w-32 mx-auto" on:click={selectAvatar}>
+    <div class="block relative w-32 mx-auto" onclick={selectAvatar}>
       <button
         class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
       >
@@ -186,14 +201,14 @@
       <button
         class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12"
       >
-        <iconify-icon icon="ph:upload-simple-bold" width="24" />
+        <iconify-icon icon="ph:upload-simple-bold" width="24"></iconify-icon>
       </button>
     </div>
     <button
       class="absolute w-8 h-12 right-12 bg-base-100 rounded top-12"
-      on:click={incr}
+      onclick={incr}
     >
-      <iconify-icon icon="ph:caret-right-bold" width="32" />
+      <iconify-icon icon="ph:caret-right-bold" width="32"></iconify-icon>
     </button>
   </div>
 
@@ -203,7 +218,7 @@
     </div>
   {/if}
 
-  <form class="space-y-5" on:submit|preventDefault={handleSubmit} method="POST">
+  <form class="space-y-5" onsubmit={preventDefault(handleSubmit)} method="POST">
     <input
       type="hidden"
       name="loginRedirect"
@@ -222,17 +237,17 @@
         type="text"
         required
         bind:value={username}
-        on:focus={clear}
+        onfocus={clear}
         autocapitalize="none"
         placeholder={$t("login.username")}
       />
       <iconify-icon
         class="cursor-pointer"
         tabindex="-1"
-        on:click={refresh}
+        onclick={refresh}
         icon="ph:dice-three-bold"
         width="32"
-      />
+></iconify-icon>
     </label>
 
     <label
@@ -257,17 +272,17 @@
           required
           bind:value={$password}
           autocapitalize="none"
-          on:focus={clear}
+          onfocus={clear}
           placeholder={$t("login.password")}
         />
       {/if}
       <iconify-icon
         tabindex="-1"
         class="cursor-pointer"
-        on:click={() => (revealPassword = !revealPassword)}
+        onclick={() => (revealPassword = !revealPassword)}
         icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
         width="32"
-      />
+></iconify-icon>
     </label>
 
     <button type="submit" class="btn" disabled={loading} bind:this={btn}>

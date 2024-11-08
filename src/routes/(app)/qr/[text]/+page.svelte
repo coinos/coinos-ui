@@ -2,7 +2,7 @@
   import Icon from "$comp/Icon.svelte";
   import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
-  export let data;
+  let { data } = $props();
   let { src, text } = data;
 </script>
 
@@ -12,9 +12,9 @@
   <button
     type="button"
     class="btn break-all !h-auto flex-nowrap p-4 font-normal leading-normal"
-    on:click={() => copy(text)}
+    onclick={() => copy(text)}
   >
-    <iconify-icon icon="ph:copy-bold" width="32" />
+    <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
     <div class="my-auto">{text}</div>
   </button>
 </div>

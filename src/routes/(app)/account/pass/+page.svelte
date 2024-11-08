@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { preventDefault } from 'svelte/legacy';
+
   import { tick, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
@@ -15,12 +17,12 @@
   import { goto } from "$app/navigation";
   import { HDKey } from "@scure/bip32";
 
-  export let data;
+  let { data } = $props();
 
   let { user } = data;
-  let submitting;
+  let submitting = $state();
 
-  let confirm, password, revealPassword, revealConfirm;
+  let confirm = $state(), password = $state(), revealPassword = $state(), revealConfirm = $state();
   let type = "bitcoin";
   let name = $t("accounts.savings");
 
@@ -70,7 +72,7 @@
   </div>
 
   <form
-    on:submit|preventDefault={submit}
+    onsubmit={preventDefault(submit)}
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
     <p class="text-secondary mb-1">
@@ -100,7 +102,7 @@
       <button
         tabindex="-1"
         type="button"
-        on:click={() => (revealPassword = !revealPassword)}
+        onclick={() => (revealPassword = !revealPassword)}
         class="absolute right-5 -translate-y-1/2 top-1/2"
       >
         <Icon icon={revealPassword ? "eye" : "eye-off"} />
@@ -129,7 +131,7 @@
       <button
         type="button"
         tabindex="-1"
-        on:click={() => (revealConfirm = !revealConfirm)}
+        onclick={() => (revealConfirm = !revealConfirm)}
         class="absolute right-5 -translate-y-1/2 top-1/2"
       >
         <Icon icon={revealConfirm ? "eye" : "eye-off"} />

@@ -4,11 +4,11 @@
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
-  export let data;
+  let { data } = $props();
 
   let { amount, id, user, rates } = data;
   let { currency } = user;
-  $: rate = rates[currency];
+  let rate = $derived(rates[currency]);
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5 text-center">
@@ -33,7 +33,7 @@
 </div>
 
 <a href={`/payments`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 
 <div class="flex justify-center">

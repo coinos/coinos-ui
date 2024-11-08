@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
@@ -22,24 +24,20 @@
 
   import { PUBLIC_COINOS_URL } from "$env/static/public";
 
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
-  let submit;
-  let formElement;
+  let submit = $state();
+  let formElement = $state();
 
-  let { user, token, rates, tab, cookies, subscriptions } = data;
+  let { user, token, rates, tab, cookies, subscriptions } = $state(data);
   let prev;
 
-  $: update(data);
   let update = () => {
     ({ user, token, rates, tab, subscriptions } = data);
     prev = { ...user };
   };
 
-  $: form?.user && ({ user } = form);
 
-  $: form?.success && throttledSuccess();
 
   let justUpdated;
   let throttledSuccess = () => {
@@ -50,12 +48,7 @@
     }
   };
 
-  $: form?.message && fail(form.message);
 
-  $: if (form?.message?.startsWith("Pin")) {
-    fail("Wrong pin, try again");
-    $pin = "";
-  }
 
   let tabs = [
     { name: "account", key: "ACCOUNT", comp: Account },
@@ -64,13 +57,10 @@
     { name: "shopify", key: "SHOPIFY", comp: Shopify },
   ];
 
-  $: ({ comp } = tabs.find((t) => t.name === tab));
 
   let { address, id, username } = user;
-  let submitting;
+  let submitting = $state();
 
-  $: if (!$loading && $page.url.searchParams.get("verified"))
-    success($t("user.settings.verified"));
 
   async function handleSubmit() {
     try {
@@ -191,6 +181,31 @@
 
     submitting = false;
   }
+  run(() => {
+    update(data);
+  });
+  run(() => {
+    form?.user && ({ user } = form);
+  });
+  run(() => {
+    form?.success && throttledSuccess();
+  });
+  run(() => {
+    form?.message && fail(form.message);
+  });
+  run(() => {
+    if (form?.message?.startsWith("Pin")) {
+      fail("Wrong pin, try again");
+      $pin = "";
+    }
+  });
+  let { comp } = $derived(tabs.find((t) => t.name === tab));
+  run(() => {
+    if (!$loading && $page.url.searchParams.get("verified"))
+      success($t("user.settings.verified"));
+  });
+
+  const SvelteComponent = $derived(comp);
 </script>
 
 {#if user.haspin && $pin?.length !== 6}
@@ -200,7 +215,7 @@
 <form
   method="POST"
   class="mb-[154px] settings"
-  on:submit|preventDefault={handleSubmit}
+  onsubmit={preventDefault(handleSubmit)}
   bind:this={formElement}
 >
   <input type="hidden" name="pin" value={$pin} />
@@ -229,7 +244,7 @@
       </div>
     </div>
 
-    <svelte:component this={comp} {user} {rates} {submit} {subscriptions} />
+    <SvelteComponent {user} {rates} {submit} {subscriptions} />
   </div>
 
   <div

@@ -1,6 +1,6 @@
 <script>
   import Event from "$comp/Event.svelte";
-  export let data;
+  let { data } = $props();
   let { event } = data;
 </script>
 

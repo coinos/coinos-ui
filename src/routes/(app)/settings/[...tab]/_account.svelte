@@ -4,11 +4,11 @@
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
-  export let user, rates, submit;
+  let { user = $bindable(), rates, submit } = $props();
 
   let { id } = user;
 
-  let avatarFile, avatarInput, bannerFile, bannerInput;
+  let avatarFile, avatarInput = $state(), bannerFile, bannerInput = $state();
 
   let selectAvatar = () => avatarInput.click();
   let selectBanner = () => bannerInput.click();
@@ -18,7 +18,7 @@
     percent = Math.round((event.loaded / event.total) * 100);
   };
 
-  let tooLarge = {};
+  let tooLarge = $state({});
 
   let handleFile = async ({ target }, type) => {
     tooLarge[type] = false;
@@ -47,9 +47,9 @@
 
   if (!user.display) user.display = user.username;
 
-  $: url = `${$page.url.host}/${user.username}`;
-  $: full = `${$page.url.protocol}//${url}`;
-  $: addr = `${user.username}@${$page.url.host}`;
+  let url = $derived(`${$page.url.host}/${user.username}`);
+  let full = $derived(`${$page.url.protocol}//${url}`);
+  let addr = $derived(`${user.username}@${$page.url.host}`);
 </script>
 
 <div>
@@ -83,13 +83,13 @@
         icon="ph:check-bold"
         class="text-success ml-auto"
         width="32"
-      />
+></iconify-icon>
     {:else if user.email}
       <iconify-icon
         icon="ph:clock-bold"
         class="text-warning ml-auto"
         width="32"
-      />
+></iconify-icon>
     {/if}
   </label>
 </div>
@@ -101,8 +101,8 @@
     {#if $avatar || user.profile}
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
-        on:click={selectAvatar}
-        on:keydown={selectAvatar}
+        onclick={selectAvatar}
+        onkeydown={selectAvatar}
       >
         <img
           src={$avatar?.src || `/api/public/${user.profile}.webp`}
@@ -113,11 +113,11 @@
     {:else}
       <div
         class="rounded-full border-4 border-white p-4 bg-gradient-to-r from-primary to-gradient w-24 my-auto hover:opacity-80 cursor-pointer"
-        on:click={selectAvatar}
-        on:keydown={selectAvatar}
+        onclick={selectAvatar}
+        onkeydown={selectAvatar}
       >
         <Icon icon="logo-symbol-white" style="mx-auto" />
-        <iconify-icon icon="ph:floppy-disk-bold" width="32" />
+        <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
       </div>
     {/if}
     <div class="ml-2 p-2">
@@ -125,14 +125,14 @@
       <button
         type="button"
         class="btn"
-        on:click={selectAvatar}
-        on:keydown={selectAvatar}>{$t("user.settings.select")}</button
+        onclick={selectAvatar}
+        onkeydown={selectAvatar}>{$t("user.settings.select")}</button
       >
       <input
         type="file"
         class="hidden"
         bind:this={avatarInput}
-        on:change={(e) => handleFile(e, "profile")}
+        onchange={(e) => handleFile(e, "profile")}
       />
     </div>
   </div>
@@ -151,30 +151,30 @@
     <img
       src={$banner ? $banner.src : `/api/public/${user.banner}.webp`}
       class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
-      on:click={selectBanner}
-      on:keydown={selectBanner}
+      onclick={selectBanner}
+      onkeydown={selectBanner}
       alt="Banner"
     />
   {:else}
     <div
       class="bg-gradient-to-r from-primary to-gradient w-full h-48 mb-4 cursor-pointer hover:opacity-80"
-      on:click={selectBanner}
-      on:keydown={selectBanner}
+      onclick={selectBanner}
+      onkeydown={selectBanner}
       alt="Banner"
-    />
+></div>
   {/if}
 
   <button
     type="button"
     class="btn !w-auto"
-    on:click={selectBanner}
-    on:keydown={selectBanner}>{$t("user.settings.select")}</button
+    onclick={selectBanner}
+    onkeydown={selectBanner}>{$t("user.settings.select")}</button
   >
   <input
     type="file"
     class="hidden"
     bind:this={bannerInput}
-    on:change={(e) => handleFile(e, "banner")}
+    onchange={(e) => handleFile(e, "banner")}
   />
 
   {#if tooLarge["banner"]}
@@ -191,5 +191,5 @@
     name="address"
     bind:value={user.address}
     placeholder={$t("user.settings.aboutPlaceholder")}
-  />
+></textarea>
 </div>

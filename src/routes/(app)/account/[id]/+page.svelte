@@ -14,19 +14,19 @@
     PUBLIC_COINOS_RELAY as relay,
   } from "$env/static/public";
 
-  export let data;
+  let { data } = $props();
   let { account, user } = data;
   let { id, name, seed } = account;
-  let mnemonic, password;
-  let passwordPrompt;
-  let cancel = () => (passwordPrompt = false);
+  let mnemonic = $state(), password = $state();
+  let passwordPrompt = $state();
+  let cancel = $state(() => (passwordPrompt = false));
   let toggle = () => (passwordPrompt = !passwordPrompt);
 
-  let submit = async () => {
+  let submit = $state(async () => {
     toggle();
     let entropy = await decrypt(seed, password);
     mnemonic = entropyToMnemonic(entropy, wordlist);
-  };
+  });
 
   let del = async () => {
     try {
@@ -37,7 +37,7 @@
     }
   };
 
-  let nwc;
+  let nwc = $state();
   let revealNwc = () =>
     (nwc = `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
       relay,
@@ -53,17 +53,17 @@
         {#if mnemonic}
           <Mnemonic {mnemonic} />
 
-          <button on:click={() => copy(mnemonic)} type="button" class="btn">
-            <iconify-icon icon="ph:copy-bold" width="32" />
+          <button onclick={() => copy(mnemonic)} type="button" class="btn">
+            <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
           <button
-            on:click={toggle}
+            onclick={toggle}
             type="button"
             class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
-            <iconify-icon icon="ph:eye-bold" width="32" />
+            <iconify-icon icon="ph:eye-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
           >
         {:else if nwc}
@@ -71,26 +71,26 @@
             {nwc}
           </div>
           <button
-            on:click={() => copy(nwc)}
+            onclick={() => copy(nwc)}
             type="button"
             class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
-            <iconify-icon icon="ph:copy-bold" width="32" />
+            <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
           <a href={`/qr/${encodeURIComponent(nwc)}`} class="my-auto block">
             <button
-              on:click={() => copy(nwc)}
+              onclick={() => copy(nwc)}
               type="button"
               class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
             >
-              <iconify-icon icon="ph:qr-code-bold" width="32" />
+              <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
               <div class="my-auto">{$t("user.receive.showQR")}</div></button
             >
           </a>
         {:else}
           <button
-            on:click={revealNwc}
+            onclick={revealNwc}
             type="button"
             class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
@@ -101,7 +101,7 @@
 
         {#if seed}
           <button
-            on:click={del}
+            onclick={del}
             type="button"
             class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
           >
@@ -111,7 +111,7 @@
         {/if}
       </div>
 
-      <div />
+      <div></div>
     </form>
   </div>
 </div>

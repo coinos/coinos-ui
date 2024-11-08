@@ -3,7 +3,7 @@
   import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
-  export let data;
+  let { data } = $props();
   let { user } = data;
 
   let link = user ? `/${user.username}` : "/";

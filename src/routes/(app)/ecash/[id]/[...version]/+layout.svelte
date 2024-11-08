@@ -3,7 +3,7 @@
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
 
-  export let data;
+  let { data, children } = $props();
 
   let { id, rates, user, token, total, spent, external, mint } = data;
   let currency = user?.currency || "USD";
@@ -11,8 +11,8 @@
 
   let amount = total - spent;
 
-  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
-  $: spentFiat = parseFloat(((spent * rate) / sats).toFixed(2));
+  let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
+  let spentFiat = $derived(parseFloat(((spent * rate) / sats).toFixed(2)));
 </script>
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
@@ -52,5 +52,5 @@
     </div>
   {/if}
 
-  <slot />
+  {@render children?.()}
 </div>

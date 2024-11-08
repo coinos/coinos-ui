@@ -4,7 +4,7 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
 
-  export let data;
+  let { data } = $props();
   let { user } = data;
   toast.pop(0);
 </script>
@@ -20,7 +20,7 @@
 </div>
 
 <a href={`/payments`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50" />
+  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 
 <div class="flex justify-center">

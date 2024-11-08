@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -6,7 +8,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
 
-  export let data, form;
+  let { data, form } = $props();
 
   let { currency, username } = data.user;
   let {
@@ -17,13 +19,16 @@
     callback,
     rates,
   } = data;
-  $: rate = rates[currency];
+  let rate;
+  run(() => {
+    rate = rates[currency];
+  });
 
-  let amount = Math.round(minWithdrawable / 1000),
-    loading;
+  let amount = $state(Math.round(minWithdrawable / 1000)),
+    loading = $state();
 
   let submit = () => (loading = true);
-  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
+  let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
 </script>
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
@@ -56,7 +61,7 @@
     <Numpad bind:amount {currency} bind:rate />
   {/if}
 
-  <form action="?/withdraw" method="POST" use:enhance on:submit={submit}>
+  <form action="?/withdraw" method="POST" use:enhance onsubmit={submit}>
     <input name="amount" value={amount} type="hidden" />
     <input name="username" value={username} type="hidden" />
     <input name="currency" value={currency} type="hidden" />

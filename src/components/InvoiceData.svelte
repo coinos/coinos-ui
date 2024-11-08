@@ -1,16 +1,18 @@
 <script>
   import { btc, f, sat, s, sats } from "$lib/utils";
-  export let showQr,
+  let {
+    showQr,
     src,
     link,
-    qr,
+    qr = $bindable(),
     txt,
     invoice,
     amount,
     amountFiat,
     currency,
     tip,
-    rate;
+    rate
+  } = $props();
 </script>
 
 {#if showQr}

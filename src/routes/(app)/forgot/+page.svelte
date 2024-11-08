@@ -6,8 +6,8 @@
   import Spinner from "$comp/Spinner.svelte";
   import { fly } from "svelte/transition";
 
-  export let form;
-  let email;
+  let { form } = $props();
+  let email = $state();
   let loading;
 </script>
 

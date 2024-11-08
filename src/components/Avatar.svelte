@@ -1,20 +1,29 @@
-<script>
+<script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { avatar, banner } from "$lib/store";
   import Icon from "$comp/Icon.svelte";
   import { punk } from "$lib/utils";
 
-  export let user;
-  export let size = 32;
-  export let disabled = false;
+  interface Props {
+    user: any;
+    size?: number;
+    disabled?: boolean;
+  }
 
-  $: s = size.toString();
-  $: link = user?.anon ? `/${user.pubkey}` : `/${user.username}`;
+  let { user, size = 32, disabled = false }: Props = $props();
+
+  let s = $derived(size.toString());
+  let link = $derived(user?.anon ? `/${user.pubkey}` : `/${user.username}`);
 
   let base = "/api/public";
-  $: profile = user?.profile ? `${base}/${user.profile}.webp` : user?.picture;
-  $: fallback = `${base}/punks/` + punk(user.pubkey || user.id || "aa");
-  $: tmp = $avatar?.id && $avatar.id === user.id && $avatar.src;
-  $: src = tmp || profile || fallback;
+  let profile = $derived(user?.profile ? `${base}/${user.profile}.webp` : user?.picture);
+  let fallback = $derived(`${base}/punks/` + punk(user.pubkey || user.id || "aa"));
+  let tmp = $derived($avatar?.id && $avatar.id === user.id && $avatar.src);
+  let src;
+  run(() => {
+    src = tmp || profile || fallback;
+  });
 
   let handle = () => (src = fallback);
 </script>
@@ -27,7 +36,7 @@
       {src}
       class="w-full h-full object-cover object-center overflow-hidden"
       alt={user.username}
-      on:error={handle}
+      onerror={handle}
     />
   </div>
 </a>

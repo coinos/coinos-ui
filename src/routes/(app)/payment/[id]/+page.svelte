@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";
@@ -19,11 +21,10 @@
   import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
   import locales from "$lib/locales";
 
-  export let data;
-  let { user, payment: p } = data;
+  let { data } = $props();
+  let { user, payment: p } = $state(data);
   let locale = locales[user.language];
 
-  $: refresh(data);
   let refresh = (d) => {
     ({ user, payment: p } = d);
     ({
@@ -65,7 +66,7 @@
     ourfee,
     fee,
     currency,
-  } = p;
+  } = $state(p);
   let a = Math.abs(amount);
 
   let expl = {
@@ -86,17 +87,20 @@
     }
   };
 
-  let txid, vout;
+  let txid = $state(), vout = $state();
   if (amount > 0) [txid, vout] = ref.split(":");
   else txid = hash;
 
-  let direction = "";
+  let direction = $state("");
   onMount(() => {
     direction = amount > 0 ? $t("payments.from") : $t("payments.to");
 
     if (direction)
       direction =
         direction[0].toUpperCase() + direction.substr(1, direction.length);
+  });
+  run(() => {
+    refresh(data);
   });
 </script>
 
@@ -222,7 +226,7 @@
         </div>
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
-          on:click={() => copy(txid)}
+          onclick={() => copy(txid)}
         >
           <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
@@ -237,7 +241,7 @@
         <div>{path}</div>
         <button
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
-          on:click={() => copy(path)}
+          onclick={() => copy(path)}
         >
           <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>

@@ -17,7 +17,7 @@
         <iconify-icon
           icon="coinos:rays"
           class="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24"
-        />
+></iconify-icon>
       </span>
       {$t("landing.header_after_icon")}
     </h1>

@@ -1,4 +1,6 @@
 <script>
+  import { run } from "svelte/legacy";
+
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
@@ -13,7 +15,7 @@
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
-  export let data;
+  let { data } = $props();
 
   let showOptions;
 
@@ -24,8 +26,7 @@
 
   let readingerror = (e) => console.log("nfc error", e);
 
-  $: refresh(data);
-  let { invoice, id, subject, user, src } = data;
+  let { invoice, id, subject, user, src } = $state(data);
   let {
     aid,
     amount,
@@ -35,9 +36,9 @@
     text,
     tip,
     user: { username, currency },
-  } = invoice;
+  } = $state(invoice);
 
-  let qr;
+  let qr = $state();
   let tipPercent = 0;
 
   let refresh = async (data) => {
@@ -64,9 +65,6 @@
     tipPercent = (tip / amount) * 100;
   };
 
-  $: amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
-  $: tipAmount = ((tip * rate) / sats).toFixed(2);
-
   let subbed = {};
 
   onMount(async () => {
@@ -81,11 +79,6 @@
     }
   });
 
-  $: link = [types.bitcoin, types.liquid].includes(type)
-    ? text
-    : `lightning:${text}`;
-  $: txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
-
   let setType = async (type) => {
     invoice.type = type;
     ({ id } = await post(`/invoice`, {
@@ -96,7 +89,7 @@
     goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
   };
 
-  let setAmount = async () => {
+  let setAmount = $state(async () => {
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     settingAmount = false;
     amount = newAmount;
@@ -112,39 +105,57 @@
     else url += "?options=true";
 
     goto(url, { invalidateAll: true, noScroll: true });
-  };
+  });
 
-  let newAmount;
-  let settingAmount;
-  let toggleAmount = () => (settingAmount = !settingAmount);
-  let fiat;
-  let submit;
+  let newAmount = $state();
+  let settingAmount = $state();
+  let toggleAmount = $state(() => (settingAmount = !settingAmount));
+  let fiat = $state(true);
+  let submit = $state();
+  run(() => {
+    refresh(data);
+  });
+  let amountFiat;
+  run(() => {
+    amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
+  });
+  let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
+  let link;
+  run(() => {
+    link = [types.bitcoin, types.liquid].includes(type)
+      ? text
+      : `lightning:${text}`;
+  });
+  let txt;
+  run(() => {
+    txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
+  });
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   <InvoiceData
-    bind:src
-    bind:link
-    bind:qr
-    bind:txt
-    bind:invoice
-    bind:amount
-    bind:amountFiat
-    bind:currency
-    bind:tip
-    bind:rate
-    bind:showQr={$showQr}
+    {src}
+    {link}
+    {qr}
+    {txt}
+    {invoice}
+    {amount}
+    {amountFiat}
+    {currency}
+    {tip}
+    {rate}
+    showQr={$showQr}
   />
 
   <InvoiceActions
-    bind:toggleAmount
-    bind:user
-    bind:invoice
+    {toggleAmount}
+    {user}
+    {invoice}
     {copy}
-    bind:link
-    bind:type
+    {link}
+    {type}
     {types}
-    bind:txt
+    {txt}
     t={$t}
     bind:showQr={$showQr}
   />
@@ -153,14 +164,14 @@
 </div>
 
 <SetAmount
-  bind:currency
-  bind:rate
-  bind:fiat
-  bind:submit
-  bind:settingAmount
-  bind:setAmount
   bind:newAmount
-  bind:toggleAmount
+  bind:fiat
+  {currency}
+  {rate}
+  {submit}
+  {settingAmount}
+  {setAmount}
+  {toggleAmount}
   amountPrompt={$amountPrompt}
   t={$t}
 />

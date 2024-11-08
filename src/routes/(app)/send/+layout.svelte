@@ -3,7 +3,7 @@
   import Pin from "$comp/Pin.svelte";
   import { pin } from "$lib/store";
 
-  export let data;
+  let { data, children } = $props();
 
   let { user } = data;
   let cancel = () => goto(`/${user.username}`);
@@ -13,4 +13,4 @@
   <Pin bind:value={$pin} {cancel} />
 {/if}
 
-<slot />
+{@render children?.()}

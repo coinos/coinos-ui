@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import LandingHeader from "$comp/LandingHeader.svelte";
   import LandingHero from "$comp/LandingHero.svelte";
   import LandingInfoCard from "$comp/LandingInfoCard.svelte";
@@ -11,14 +13,16 @@
   import { locale, t } from "$lib/translations";
   import { onDestroy, onMount, tick } from "svelte";
 
-  export let data;
-  let { faqs, locations, user } = data;
+  let { data } = $props();
+  let { faqs, locations, user } = $state(data);
   let update = (data) => ({ faqs, locations, user } = data);
-  $: update(data);
+  run(() => {
+    update(data);
+  });
 
-  let howItWorks;
-  let faq;
-  let about;
+  let howItWorks = $state();
+  let faq = $state();
+  let about = $state();
 
   const howItWorksSteps = [
     { image: "coinos:hand", stepID: "step1" },
@@ -26,7 +30,7 @@
     { image: "coinos:smile", stepID: "step3" },
   ];
 
-  let loaded;
+  let loaded = $state();
 
   let observer;
 
@@ -66,8 +70,8 @@
         title={$t("landing.info3.title")}
         description={$t("landing.info3.description")}
       />
-      <div bind:this={howItWorks} />
-      <div id="about" />
+      <div bind:this={howItWorks}></div>
+      <div id="about"></div>
     </div>
 
     <div>
@@ -79,7 +83,7 @@
           <HowItWorksCard image={step.image} stepID={step.stepID} />
         {/each}
       </div>
-      <div bind:this={faq} />
+      <div bind:this={faq}></div>
     </div>
 
     <div>
@@ -91,7 +95,7 @@
           <FaqCard questionID={f} />
         {/each}
       </div>
-      <div bind:this={about} />
+      <div bind:this={about}></div>
     </div>
 
     <About />

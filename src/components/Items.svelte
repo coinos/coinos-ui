@@ -1,4 +1,6 @@
 <script>
+  import { run, stopPropagation } from 'svelte/legacy';
+
   import { t } from "$lib/translations";
   import { btc, f, sat, post } from "$lib/utils";
   import { browser } from "$app/environment";
@@ -15,15 +17,22 @@
   import DeleteItem from "$comp/DeleteItem.svelte";
   import Icon from "$comp/Icon.svelte";
 
-  export let subject, user, items, rate, currency, total;
+  let {
+    subject,
+    user,
+    items = $bindable(),
+    rate,
+    currency,
+    total
+  } = $props();
 
   let flipDurationMs = 200;
   let dropTargetStyle = {};
 
   let dragDisabled =
-    subject?.id !== user?.id || (browser && window.innerWidth < 768);
+    $state(subject?.id !== user?.id || (browser && window.innerWidth < 768));
 
-  let deleting;
+  let deleting = $state();
   let del = (item) => {
     deleting = item;
   };
@@ -62,10 +71,6 @@
       dragDisabled = false;
   }
 
-  $: if (total > 0 && browser) {
-    let payButton = document.querySelector("#payButton");
-    if (payButton) payButton.addEventListener("click", checkout);
-  }
 
   let checkout = async () => {
     let invoice = {
@@ -92,9 +97,15 @@
   let reset = () =>
     (dragDisabled =
       user?.username !== subject?.username || window.innerWidth < 768);
+  run(() => {
+    if (total > 0 && browser) {
+      let payButton = document.querySelector("#payButton");
+      if (payButton) payButton.addEventListener("click", checkout);
+    }
+  });
 </script>
 
-<svelte:window on:resize={reset} />
+<svelte:window onresize={reset} />
 
 {#if deleting}
   <DeleteItem bind:item={deleting} />
@@ -106,21 +117,21 @@
 <div
   class="grid sm:grid-cols-2 gap-4 pb-20"
   use:dndzone={{ items, flipDurationMs, dropTargetStyle, dragDisabled }}
-  on:consider={handleConsider}
-  on:finalize={handleFinalize}
+  onconsider={handleConsider}
+  onfinalize={handleFinalize}
 >
   {#each items as i (i.id)}
     <button
       type="button"
       class="w-full text-center cursor-pointer hover:opacity-80 mb-auto"
-      on:click={() => i.quantity++}
+      onclick={() => i.quantity++}
     >
       <div class="relative w-full h-64 overflow-hidden rounded-xl">
         {#if i[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
           <div
             in:fade={{ duration: 200, easing: cubicIn }}
             class="custom-shadow-item"
-          />
+></div>
         {:else if i.image}
           <img
             src={`/api/public/${i.image}.webp`}
@@ -131,7 +142,7 @@
           <div
             class="bg-gradient-to-r from-primary to-gradient mb-4 cursor-pointer hover:opacity-80 w-full h-full"
             alt="Banner"
-          />
+></div>
         {/if}
         {#if user?.username === subject.username}
           <div class="flex gap-2 justify-center absolute top-2 right-2">
@@ -144,16 +155,16 @@
             </a>
             <button
               class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
-              on:click|stopPropagation={() => del(i)}
+              onclick={stopPropagation(() => del(i))}
             >
               <Icon icon="trash" style="w-8 mx-auto invert" />
             </button>
             <div
-              on:click|stopPropagation={() => {}}
+              onclick={stopPropagation(() => {})}
               class="sm:hidden"
-              on:mousedown={startDrag}
-              on:touchstart={startDrag}
-              on:keydown={handleKeyDown}
+              onmousedown={startDrag}
+              ontouchstart={startDrag}
+              onkeydown={handleKeyDown}
             >
               <a href={`/items/${i.id}`}>
                 <button
@@ -183,7 +194,7 @@
             {#if i.quantity}
               <button
                 type="button"
-                on:click|stopPropagation={() => i.quantity > 0 && i.quantity--}
+                onclick={stopPropagation(() => i.quantity > 0 && i.quantity--)}
               >
                 <Icon icon="minus" style="w-10 min-w-10" />
               </button>
@@ -194,7 +205,7 @@
             {#if i.quantity}
               <button
                 type="button"
-                on:click|stopPropagation={() => i.quantity++}
+                onclick={stopPropagation(() => i.quantity++)}
               >
                 <Icon icon="plus" style="w-10 min-w-10" />
               </button>
@@ -213,7 +224,7 @@
   {#if total > 0}
     <button
       class="rounded-2xl py-5 px-6 font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
-      on:click={checkout}
+      onclick={checkout}
     >
       <div class="mx-auto flex">
         <div class="my-auto text-2xl">

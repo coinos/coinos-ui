@@ -1,7 +1,7 @@
 <script>
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
-  export let event;
+  let { event } = $props();
 
   let { id, user, seen, content } = event;
 
@@ -22,7 +22,7 @@
             : "now";
   };
 
-  let w;
+  let w = $state();
 </script>
 
 <svelte:window bind:innerWidth={w} />

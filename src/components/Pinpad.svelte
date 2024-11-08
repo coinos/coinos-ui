@@ -1,11 +1,12 @@
 <script>
+  import { preventDefault, stopPropagation } from 'svelte/legacy';
+
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
   import { focus, post, warning } from "$lib/utils";
   import { t } from "$lib/translations";
 
-  export let v;
-  export let cancel;
+  let { v = $bindable(), cancel } = $props();
 
   let arrow = "<";
   let loading = false;
@@ -33,7 +34,7 @@
     }
   };
 
-  let hide = true;
+  let hide = $state(true);
 </script>
 
 <label
@@ -41,7 +42,7 @@
 >
   {#if hide}
     <input
-      on:keydown={validate}
+      onkeydown={validate}
       use:focus
       bind:value={v}
       type="password"
@@ -50,7 +51,7 @@
     />
   {:else}
     <input
-      on:keydown={validate}
+      onkeydown={validate}
       use:focus
       bind:value={v}
       class="clean text-center !text-5xl !w-96 block"
@@ -61,9 +62,9 @@
   <iconify-icon
     icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"}
     width="32"
-    on:click|stopPropagation|preventDefault={() => (hide = !hide)}
+    onclick={stopPropagation(preventDefault(() => (hide = !hide)))}
     class="cursor-pointer"
-  />
+></iconify-icon>
 </label>
 
 <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">
@@ -72,7 +73,7 @@
       <button
         type="button"
         class="btn"
-        on:click|stopPropagation|preventDefault={() => handleInput(value)}
+        onclick={stopPropagation(preventDefault(() => handleInput(value)))}
       >
         <Left />
       </button>
@@ -80,7 +81,7 @@
       <button
         type="button"
         class="btn"
-        on:click|stopPropagation|preventDefault={() => handleInput(value)}
+        onclick={stopPropagation(preventDefault(() => handleInput(value)))}
         >{value}</button
       >
     {/if}

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send } from "$lib/socket";
@@ -22,16 +24,14 @@
   import { t, locale, loading } from "$lib/translations";
   import { goto, onNavigate } from "$app/navigation";
 
-  export let data;
+  let { data, children } = $props();
 
-  let { generate, rate, user, subject, token, rates, theme } = data;
+  let { generate, rate, user, subject, token, rates, theme } = $state(data);
 
-  $: update(data);
   let update = (data) => {
     ({ rate, user, subject, token, rates, theme } = data);
   };
 
-  $: theme = $themeStore;
   $themeStore = theme;
 
   onMount(async () => {
@@ -58,7 +58,6 @@
     }
   });
 
-  $: browser && connect(token);
 
   let lost,
     checkTimer,
@@ -83,6 +82,15 @@
       clearTimeout(checkTimer);
       clearTimeout(expireTimer);
     }
+  });
+  run(() => {
+    update(data);
+  });
+  run(() => {
+    theme = $themeStore;
+  });
+  run(() => {
+    browser && connect(token);
   });
 </script>
 
@@ -110,7 +118,7 @@
 <main class="min-h-dvh" data-theme={theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
-    <slot />
+    {@render children?.()}
   {/if}
 </main>
 

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import handler from "$lib/handler";
   import { onDestroy, onMount } from "svelte";
   import { t } from "$lib/translations";
@@ -21,34 +23,31 @@
     sats,
     focus,
   } from "$lib/utils";
-  export let data;
-  export let form;
+  let { data, form } = $props();
 
-  let { invoice, rates, user } = data;
-  let { address, hash, payreq, user: recipient, tip } = invoice;
-  let { currency } = user;
+  let { invoice, rates, user } = $state(data);
+  let { address, hash, payreq, user: recipient, tip } = $state(invoice);
+  let { currency } = $state(user);
 
-  $: reload(data);
   let reload = (data) => {
     ({ invoice, rates, user } = data);
     ({ address, hash, payreq, user: recipient, tip } = invoice);
     ({ currency } = user);
   };
 
-  $: rate = invoice.rate * (rates[user.currency] / rates[invoice.currency]);
 
-  let amount = form?.amount || invoice.amount;
-  let a,
-    af,
+  let amount = $state(form?.amount || invoice.amount);
+  let a = $state(),
+    af = $state(),
     amountFiat = amount * (rate / sats),
-    fiat = !amount;
+    fiat = $state(!amount);
 
   let setAmount = () => {
     amount = a;
     amountFiat = af;
   };
 
-  let submit, submitting;
+  let submit = $state(), submitting = $state();
   let toggle = () => (submitting = !submitting);
 
   let external = async () => {
@@ -67,7 +66,6 @@
     });
   };
 
-  $: update(form);
   let update = () => {
     if (form?.message?.includes("pin")) $pin = undefined;
     submitting = false;
@@ -91,6 +89,16 @@
   // 		}
   // 	}
   // });
+  run(() => {
+    reload(data);
+  });
+  let rate;
+  run(() => {
+    rate = invoice.rate * (rates[user.currency] / rates[invoice.currency]);
+  });
+  run(() => {
+    update(form);
+  });
 </script>
 
 {#if form?.message}
@@ -192,13 +200,13 @@
           bind:this={submit}
           type="button"
           class="btn !w-auto"
-          on:click={setAmount}
+          onclick={setAmount}
         >
           {$t("payments.next")}
         </button>
       {/if}
     </div>
-    <button type="button" class="btn" on:click={external}
+    <button type="button" class="btn" onclick={external}
       >{$t("payments.moreOptions")}</button
     >
   </form>

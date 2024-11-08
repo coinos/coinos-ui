@@ -1,12 +1,14 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import Icon from "$comp/Icon.svelte";
   import Pin from "$comp/Pin.svelte";
   import { f, s, sat, sats } from "$lib/utils";
   import { pin } from "$lib/store";
   import { t } from "$lib/translations";
 
-  let show;
-  export let user, rate, balance;
+  let show = $state();
+  let { user, rate, balance } = $props();
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
@@ -16,7 +18,7 @@
 <div>
   {#if user.haspin && !$pin}
     <button
-      on:click|preventDefault={() => (show = true)}
+      onclick={preventDefault(() => (show = true))}
       class="flex gap-2 text-xl"
     >
       <Icon icon="eye-off" style="w-8 my-auto" />

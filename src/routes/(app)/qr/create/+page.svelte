@@ -1,9 +1,11 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
-  let el, text, pasted;
+  let el = $state(), text = $state(), pasted = $state();
 
   let keypress = (e) =>
     e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);
@@ -15,7 +17,9 @@
 
   let submit = () => goto(`/qr/${encodeURIComponent(text)}`);
 
-  $: if (browser && pasted && text) el.click() && (pasted = false);
+  run(() => {
+    if (browser && pasted && text) el.click() && (pasted = false);
+  });
 </script>
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
@@ -23,25 +27,25 @@
     Create QR
   </h1>
 
-  <form on:submit|preventDefault={submit} class="space-y-2 text-xl">
+  <form onsubmit={preventDefault(submit)} class="space-y-2 text-xl">
     <div class="mb-2">
       <textarea
         use:focus
         name="text"
         placeholder="Enter some text or a URL to put in a QR"
-        on:keypress={keypress}
+        onkeypress={keypress}
         class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={text}
-        on:paste={() => (pasted = true)}
+        onpaste={() => (pasted = true)}
         autocapitalize="none"
-      />
+></textarea>
     </div>
 
     <div class="flex gap-2">
       <button
         type="button"
         class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
-        on:click={paste}
+        onclick={paste}
       >
         <Icon icon="paste" style="w-8 my-auto" />
         <div class="my-auto">{$t("user.send.paste")}</div>

@@ -1,4 +1,6 @@
 <script>
+  import { run, preventDefault } from 'svelte/legacy';
+
   import { goto } from "$app/navigation";
   import { mnemonic } from "$lib/store";
   import { fail, focus, versions } from "$lib/utils";
@@ -8,7 +10,7 @@
   import { validateMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
 
-  let el, pasted, text;
+  let el = $state(), pasted = $state(), text = $state();
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
@@ -26,14 +28,16 @@
     }
   };
 
-  $: if (browser && pasted && text) form.submit() && (pasted = false);
+  run(() => {
+    if (browser && pasted && text) form.submit() && (pasted = false);
+  });
 </script>
 
 <div class="space-y-5">
   <h1 class="text-center text-3xl font-semibold">{$t("accounts.import")}</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
-    <form on:submit|preventDefault={submit} class="space-y-2">
+    <form onsubmit={preventDefault(submit)} class="space-y-2">
       <textarea
         use:focus
         name="text"
@@ -41,7 +45,7 @@
         class="w-full p-4 border rounded-xl h-48 text-xl"
         bind:value={text}
         autocapitalize="none"
-      />
+></textarea>
       <button
         bind:this={el}
         type="submit"

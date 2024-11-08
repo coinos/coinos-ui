@@ -4,7 +4,7 @@
   import { browser } from "$app/environment";
   import VirtualScroll from "svelte-virtual-scroll-list";
 
-  export let data;
+  let { data } = $props();
   let { followers } = data;
 </script>
 
@@ -17,34 +17,36 @@
     <div>Loading followers...</div>
   {:then followers}
     {#if followers.length}
-      <VirtualScroll data={followers} key="pubkey" let:data pageMode={true}>
-        <a
-          href={`/${data.pubkey}`}
-          data-sveltekit-preload-data="tap"
-          rel="nofollow"
-        >
-          <div
-            class="flex border-b last:border-b-0 py-4 text-2xl text-secondary"
-            :key={data.pubkey}
+      <VirtualScroll data={followers} key="pubkey"  pageMode={true}>
+        {#snippet children({ data })}
+                <a
+            href={`/${data.pubkey}`}
+            data-sveltekit-preload-data="tap"
+            rel="nofollow"
           >
-            <div class="mb-auto mr-2">
-              <div class="md:hidden">
-                <Avatar size={12} user={data} disabled={true} />
+            <div
+              class="flex border-b last:border-b-0 py-4 text-2xl text-secondary"
+              :key={data.pubkey}
+            >
+              <div class="mb-auto mr-2">
+                <div class="md:hidden">
+                  <Avatar size={12} user={data} disabled={true} />
+                </div>
+                <div class="hidden md:block">
+                  <Avatar size={20} user={data} disabled={true} />
+                </div>
               </div>
-              <div class="hidden md:block">
-                <Avatar size={20} user={data} disabled={true} />
-              </div>
-            </div>
 
-            <div class="w-full flex pb-1 text-black my-auto">
-              <div>
-                <div>{data.display_name || ""}</div>
-                <div class="text-secondary text-lg">@{data.name}</div>
+              <div class="w-full flex pb-1 text-black my-auto">
+                <div>
+                  <div>{data.display_name || ""}</div>
+                  <div class="text-secondary text-lg">@{data.name}</div>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
-      </VirtualScroll>
+          </a>
+                      {/snippet}
+            </VirtualScroll>
     {:else}
       <div>No followers</div>
     {/if}

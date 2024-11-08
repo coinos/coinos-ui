@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { onMount, tick } from "svelte";
   import { browser } from "$app/environment";
   import Numpad from "$comp/Numpad.svelte";
@@ -9,16 +11,20 @@
   import { page } from "$app/stores";
   import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
-  export let user, rates, submit, subscriptions;
+  let {
+    user = $bindable(),
+    rates,
+    submit,
+    subscriptions
+  } = $props();
 
-  let { currency } = user;
-  let rate = rates[currency];
+  let { currency } = $state(user);
+  let rate = $state(rates[currency]);
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
-  $: user.language = $locale;
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
-  let editingReserve, editingThreshold, doneReserve, doneThreshold;
+  let editingReserve = $state(), editingThreshold = $state(), doneReserve = $state(), doneThreshold;
   let doneEditing = () => {
     editingReserve = false;
     editingThreshold = false;
@@ -38,9 +44,9 @@
 
   if (!user.threshold) user.threshold = 1000000;
   if (!user.reserve) user.reserve = 100000;
-  let reserveEl, thresholdEl;
+  let reserveEl = $state(), thresholdEl = $state();
 
-  let push, pm, subscription;
+  let push = $state(), pm, subscription;
 
   onMount(async () => {
     if (!browser) return;
@@ -60,8 +66,7 @@
     }
   });
 
-  let permission;
-  $: updateNotifications(push);
+  let permission = $state();
   let updateNotifications = async (push) => {
     if (!browser || !pm) return (push = false);
 
@@ -80,6 +85,12 @@
       await post("/subscription", { subscription });
     }
   };
+  run(() => {
+    user.language = $locale;
+  });
+  run(() => {
+    updateNotifications(push);
+  });
 </script>
 
 <div>
@@ -154,17 +165,17 @@
     <textarea
       name="destination"
       placeholder={$t("user.settings.destinationPlaceholder")}
-      on:keypress={keypress}
+      onkeypress={keypress}
       class="w-full p-4 border rounded-xl h-48"
       bind:value={user.destination}
-    />
+></textarea>
   </div>
 
   <div>
     <label for="display" class="font-bold mb-1 block"
       >{$t("user.settings.threshold")}</label
     >
-    <button type="button" class="flex w-full" on:click={editThreshold}>
+    <button type="button" class="flex w-full" onclick={editThreshold}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
         ⚡️
       </div>
@@ -184,7 +195,7 @@
     <label for="display" class="font-bold mb-1 block"
       >{$t("user.settings.reserve")}</label
     >
-    <button type="button" class="flex w-full" on:click={editReserve}>
+    <button type="button" class="flex w-full" onclick={editReserve}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
         ⚡️
       </div>
@@ -220,7 +231,7 @@
       <button
         bind:this={doneReserve}
         type="button"
-        on:click={doneEditing}
+        onclick={doneEditing}
         class="btn">Ok</button
       >
     </div>
@@ -247,7 +258,7 @@
       <button
         bind:this={doneReserve}
         type="button"
-        on:click={doneEditing}
+        onclick={doneEditing}
         class="btn">Ok</button
       >
     </div>

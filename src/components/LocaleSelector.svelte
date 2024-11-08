@@ -1,8 +1,13 @@
 <script>
-  import { t, locale, locales } from "$lib/translations";
-  export let style;
+  import { run } from 'svelte/legacy';
 
-  $: l = $locale;
+  import { t, locale, locales } from "$lib/translations";
+  let { style } = $props();
+
+  let l;
+  run(() => {
+    l = $locale;
+  });
 
   const handleChange = ({ currentTarget }) => {
     const { value } = currentTarget;
@@ -11,7 +16,7 @@
   };
 </script>
 
-<select name="language" bind:value={l} on:change={handleChange}>
+<select name="language" bind:value={l} onchange={handleChange}>
   {#each $locales as locale}
     <option value={locale}>{$t(`lang.${locale}`)}</option>
   {/each}
