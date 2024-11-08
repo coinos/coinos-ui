@@ -12,10 +12,10 @@
   import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
   let { data } = $props();
-  let user = $derived(data.user);
-  let rates = $derived(data.rates);
-  let { currency } = $state(user);
-  let rate = $state(rates[currency]);
+  let { user } = $state(data);
+  let { rates, subscriptions } = data;
+  let { currency } = user;
+  let rate = rates[currency];
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
@@ -224,7 +224,7 @@
       </h1>
       <Numpad
         bind:amount={user.threshold}
-          {currency}
+        {currency}
         bind:rate
         bind:submit={doneReserve}
         bind:element={thresholdEl}

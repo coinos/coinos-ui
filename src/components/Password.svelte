@@ -1,5 +1,6 @@
 <script>
-  import { preventDefault } from 'svelte/legacy';
+  import { t } from "$lib/translations";
+  import { preventDefault } from "svelte/legacy";
 
   import Icon from "$comp/Icon.svelte";
   import { focus, fail, post } from "$lib/utils";
@@ -31,12 +32,16 @@
     class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5"
   >
     <h1 class="text-center text-2xl font-semibold">
-      Please enter your password
+      {$t("user.settings.pleaseEnterYourPassword")}
     </h1>
-    <form onsubmit={preventDefault(submit)}>
-      <div class="relative mb-5">
+    <form onsubmit={preventDefault(submit)} class="space-y-2">
+      <label
+        for="password"
+        class="input flex items-center justify-center gap-2 w-full"
+      >
         {#if revealPassword}
           <input
+            class="clean"
             name="password"
             type="text"
             required
@@ -46,6 +51,7 @@
           />
         {:else}
           <input
+            class="clean"
             name="password"
             type="password"
             required
@@ -54,32 +60,18 @@
             use:focus
           />
         {/if}
-        <button
-          type="button"
+        <iconify-icon
+          class="cursor-pointer"
           onclick={() => (revealPassword = !revealPassword)}
-          class="absolute right-5 top-6"
+          icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+          width="32"
+        ></iconify-icon>
+      </label>
+      <div class="w-full flex gap-2">
+        <button type="button" class="btn !w-auto grow" onclick={cancel} onkeydown={cancel}
+          >Cancel</button
         >
-          <iconify-icon
-            icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-            width="32"
-></iconify-icon>
-        </button>
-      </div>
-      <div class="w-full flex">
-        <button
-          type="button"
-          class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-          onclick={cancel}
-          onkeydown={cancel}
-        >
-          <div class="my-auto">Cancel</div>
-        </button>
-        <button
-          type="submit"
-          class="border-2 border-black rounded-xl font-semibold mx-auto py-3 w-40 hover:opacity-80 mx-auto"
-        >
-          <div class="my-auto">Submit</div>
-        </button>
+        <button type="submit" class="btn btn-accent !w-auto grow">Submit</button>
       </div>
     </form>
   </div>
