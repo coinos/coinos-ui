@@ -88,7 +88,7 @@
     let data = new FormData(this);
     let user = Object.fromEntries(data);
 
-    console.log("USER", JSON.stringify(user))
+    console.log("USER", JSON.stringify(user));
     await generate(user);
 
     for (let k in user) {
@@ -173,7 +173,7 @@
     >
       <iconify-icon icon="ph:caret-left-bold" width="32" />
     </button>
-    <button class="block relative w-32 mx-auto" on:click={selectAvatar}>
+    <div class="block relative w-32 mx-auto" on:click={selectAvatar}>
       <button
         class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
       >
@@ -188,7 +188,7 @@
       >
         <iconify-icon icon="ph:upload-simple-bold" width="24" />
       </button>
-    </button>
+    </div>
     <button
       class="absolute w-8 h-12 right-12 bg-base-100 rounded top-12"
       on:click={incr}
