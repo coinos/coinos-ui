@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "$app/navigation";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
@@ -11,16 +12,16 @@
   let refresh = (a) => ({ seed, balance, id } = a);
 
   let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
-  let go = (url) => {
+  let go = () => {
     setAccount();
-    goto(url);
+    goto("/payments");
   };
 </script>
 
 <div
   class="block space-y-2 border-primary py-4 cursor-pointer"
   class:border-b-8={!last}
-  on:click={() => go("/payments")}
+  on:click={go}
 >
   <div class="flex">
     <Balance {balance} {user} {rate} />
