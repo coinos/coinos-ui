@@ -26,7 +26,8 @@
 
   let readingerror = (e) => console.log("nfc error", e);
 
-  let { invoice, id, subject, user, src } = $state(data);
+  let { invoice, id, subject, user } = $state(data);
+  let src = $derived(data.src);
   let {
     aid,
     amount,
@@ -38,32 +39,15 @@
     user: { username, currency },
   } = $state(invoice);
 
-  let qr = $state();
-  let tipPercent = 0;
+  let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
 
-  let refresh = async (data) => {
-    ({ invoice, id, user, src } = data);
-    ({
-      aid,
-      amount,
-      hash,
-      type,
-      rate,
-      text,
-      tip,
-      user: { username, currency },
-    } = invoice);
-
-    if (browser && !subbed[id])
-      send("subscribe", invoice)
-        .then(() => (subbed[id] = true))
-        .catch((e) => {
-          console.log("failed to subscribe to invoice notifications", invoice);
-          console.log(e);
-        });
-
-    tipPercent = (tip / amount) * 100;
-  };
+  // if (browser && !subbed[id])
+  //   send("subscribe", invoice)
+  //     .then(() => (subbed[id] = true))
+  //     .catch((e) => {
+  //       console.log("failed to subscribe to invoice notifications", invoice);
+  //       console.log(e);
+  //     });
 
   let subbed = {};
 
@@ -90,6 +74,7 @@
   };
 
   let setAmount = $state(async () => {
+    console.log("LALA", newAmount);
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     settingAmount = false;
     amount = newAmount;
@@ -104,6 +89,7 @@
     if (subject?.prompt) url += "/tip";
     else url += "?options=true";
 
+    console.log("GO", url);
     goto(url, { invalidateAll: true, noScroll: true });
   });
 
@@ -112,31 +98,20 @@
   let toggleAmount = $state(() => (settingAmount = !settingAmount));
   let fiat = $state(true);
   let submit = $state();
-  run(() => {
-    refresh(data);
-  });
-  let amountFiat;
-  run(() => {
-    amountFiat = parseFloat(((amount * rate) / sats).toFixed(2));
-  });
+  let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
-  let link;
-  run(() => {
-    link = [types.bitcoin, types.liquid].includes(type)
-      ? text
-      : `lightning:${text}`;
-  });
-  let txt;
-  run(() => {
-    txt = [types.bitcoin, types.liquid].includes(type) ? hash : text;
-  });
+  let link = $derived(
+    [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`,
+  );
+  let txt = $derived(
+    [types.bitcoin, types.liquid].includes(type) ? hash : text,
+  );
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   <InvoiceData
     {src}
     {link}
-    {qr}
     {txt}
     {invoice}
     {amount}

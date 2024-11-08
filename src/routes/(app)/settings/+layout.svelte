@@ -1,5 +1,6 @@
 <script>
-  import { run, preventDefault } from 'svelte/legacy';
+  import { run, preventDefault } from "svelte/legacy";
+  import { setContext } from "svelte";
 
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
@@ -11,33 +12,20 @@
   import Pin from "$comp/Pin.svelte";
   import { loading, t } from "$lib/translations";
   import { fail, auth, post, sleep, warning, success } from "$lib/utils";
-  import { avatar, banner, password, pin } from "$lib/store";
+  import { avatar, banner, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
   import { sign, send, reEncryptEntropy, setNsec } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
-
-  import Account from "./_account.svelte";
-  import Pos from "./_pos.svelte";
-  import Security from "./_security.svelte";
-  import Shopify from "./_shopify.svelte";
-
   import { PUBLIC_COINOS_URL } from "$env/static/public";
 
   let { data, form } = $props();
 
-  let submit = $state();
   let formElement = $state();
 
-  let { user, token, rates, tab, cookies, subscriptions } = $state(data);
-  let prev;
-
-  let update = () => {
-    ({ user, token, rates, tab, subscriptions } = data);
-    prev = { ...user };
-  };
-
-
+  let { user, token, rates, cookies, subscriptions } = $state(data);
+  let { tab } = $derived(data);
+  let prev = $derived({ ...user });
 
   let justUpdated;
   let throttledSuccess = () => {
@@ -48,19 +36,15 @@
     }
   };
 
-
-
   let tabs = [
-    { name: "account", key: "ACCOUNT", comp: Account },
-    { name: "pos", key: "POINT_OF_SALE", comp: Pos },
-    { name: "security", key: "SECURITY", comp: Security },
-    { name: "shopify", key: "SHOPIFY", comp: Shopify },
+    { name: "account", key: "ACCOUNT" },
+    { name: "preferences", key: "POINT_OF_SALE" },
+    { name: "security", key: "SECURITY" },
+    { name: "shopify", key: "SHOPIFY" },
   ];
-
 
   let { address, id, username } = user;
   let submitting = $state();
-
 
   async function handleSubmit() {
     try {
@@ -182,9 +166,6 @@
     submitting = false;
   }
   run(() => {
-    update(data);
-  });
-  run(() => {
     form?.user && ({ user } = form);
   });
   run(() => {
@@ -199,13 +180,10 @@
       $pin = "";
     }
   });
-  let { comp } = $derived(tabs.find((t) => t.name === tab));
   run(() => {
     if (!$loading && $page.url.searchParams.get("verified"))
       success($t("user.settings.verified"));
   });
-
-  const SvelteComponent = $derived(comp);
 </script>
 
 {#if user.haspin && $pin?.length !== 6}
@@ -227,9 +205,7 @@
         {$t("user.settings.header")}
       </h1>
 
-      <div
-        class="flex justify-around items-center border-b pb-3"
-      >
+      <div class="flex justify-around items-center border-b pb-3">
         {#each tabs.filter((t) => t.name !== "shopify") as { name, key }}
           <a href={`/settings/${name}`}>
             <button
@@ -244,14 +220,14 @@
       </div>
     </div>
 
-    <SvelteComponent {user} {rates} {submit} {subscriptions} />
+    <slot />
   </div>
 
   <div
     class="z-10 fixed bottom-0 bg-base-100 shadow border-t border-t-8 border-accent w-full flex justify-center items-center py-3"
   >
     <button
-      bind:this={submit}
+      bind:this={$save}
       type="submit"
       class="btn !w-auto"
       class:bg-base-200={submitting}

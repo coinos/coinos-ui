@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
@@ -17,7 +17,10 @@
 
   let { contacts } = data;
 
-  let el = $state(), text = $state(), pasted = $state(), w = $state();
+  let el = $state(),
+    text = $state(),
+    pasted = $state(),
+    w = $state();
 
   let keypress = (e) =>
     e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);
@@ -60,7 +63,7 @@
       bind:value={text}
       onpaste={() => (pasted = true)}
       autocapitalize="none"
-></textarea>
+    ></textarea>
 
     <div class="flex gap-2">
       <a href="/scan" class="contents">
@@ -95,18 +98,12 @@
         {$t("user.send.contacts")}
       </h1>
       <div>
-        {#each contacts as c}
-          <a href={`/pay/${c.username}`}>
-            <div class="border-b p-2 last:border-b-0 hover:bg-base-200">
-              <div class="flex">
-                <div>
-                  <div class="flex">
-                    <Avatar user={c} size={20} disabled={true} />
-                    <div class="my-auto text-left">
-                      <p class="ml-1 text-lg break-words">{c.username}</p>
-                    </div>
-                  </div>
-                </div>
+        {#each contacts as c, i}
+          <a href={`/pay/${c.username}`} class="contents">
+            <div class="flex hover:bg-base-200 p-2">
+              <Avatar user={c} size={20} disabled={true} />
+              <div class="my-auto text-left">
+                <p class="ml-1 text-lg break-words">{c.username}</p>
               </div>
             </div>
           </a>

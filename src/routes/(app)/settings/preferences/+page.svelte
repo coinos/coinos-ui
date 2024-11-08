@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { onMount, tick } from "svelte";
   import { browser } from "$app/environment";
@@ -11,20 +11,19 @@
   import { page } from "$app/stores";
   import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
-  let {
-    user = $bindable(),
-    rates,
-    submit,
-    subscriptions
-  } = $props();
-
+  let { data } = $props();
+  let user = $derived(data.user);
+  let rates = $derived(data.rates);
   let { currency } = $state(user);
   let rate = $state(rates[currency]);
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
-  let editingReserve = $state(), editingThreshold = $state(), doneReserve = $state(), doneThreshold;
+  let editingReserve = $state(),
+    editingThreshold = $state(),
+    doneReserve = $state(),
+    doneThreshold;
   let doneEditing = () => {
     editingReserve = false;
     editingThreshold = false;
@@ -44,9 +43,12 @@
 
   if (!user.threshold) user.threshold = 1000000;
   if (!user.reserve) user.reserve = 100000;
-  let reserveEl = $state(), thresholdEl = $state();
+  let reserveEl = $state(),
+    thresholdEl = $state();
 
-  let push = $state(), pm, subscription;
+  let push = $state(),
+    pm,
+    subscription;
 
   onMount(async () => {
     if (!browser) return;
@@ -104,7 +106,7 @@
   <label for="currency" class="font-bold block mb-1"
     >{$t("user.settings.localCurrency")}</label
   >
-  <select name="currency" value={user.currency}>
+  <select name="currency" value={currency}>
     {#each fiats as fiat}
       <option value={fiat}>{fiat}</option>
     {/each}
@@ -168,7 +170,7 @@
       onkeypress={keypress}
       class="w-full p-4 border rounded-xl h-48"
       bind:value={user.destination}
-></textarea>
+    ></textarea>
   </div>
 
   <div>
@@ -222,7 +224,7 @@
       </h1>
       <Numpad
         bind:amount={user.threshold}
-        bind:currency
+          {currency}
         bind:rate
         bind:submit={doneReserve}
         bind:element={thresholdEl}

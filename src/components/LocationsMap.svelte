@@ -1,7 +1,6 @@
 <script>
   import { tick, onMount, onDestroy, mount } from "svelte";
   import { browser } from "$app/environment";
-  import Icon from "$comp/Icon.svelte";
   import Popup from "$comp/Popup.svelte";
   import { back } from "$lib/utils";
 
@@ -9,7 +8,8 @@
 
   let { locations } = $props();
   let map;
-  let mapContainer = $state(), mapWrapper = $state();
+  let mapContainer = $state(),
+    mapWrapper = $state();
   let markers = [];
   let search = $state();
   let clearSearch = (e) => (search = "");
@@ -48,7 +48,6 @@
       }
     }
   };
-
 
   let scroll = () => {
     const el = document.querySelector(".selected");
@@ -197,9 +196,9 @@
             let popupContainer = document.createElement("div");
 
             mount(Popup, {
-                            target: popupContainer,
-                            props: { tags },
-                          });
+              target: popupContainer,
+              props: { tags },
+            });
 
             let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.65 })
               .setLngLat([lon, lat])
@@ -247,11 +246,13 @@
   });
 
   onDestroy(() => map && map.remove());
-  let list = $derived(search
-    ? markers.filter((m) =>
-        m.tags.name.toLowerCase().includes(search.toLowerCase()),
-      )
-    : inview);
+  let list = $derived(
+    search
+      ? markers.filter((m) =>
+          m.tags.name.toLowerCase().includes(search.toLowerCase()),
+        )
+      : inview,
+  );
 </script>
 
 <div class="w-screen h-dvh flex" id="map" bind:this={mapWrapper}>
@@ -259,29 +260,29 @@
     id="map-container"
     class="mx-auto h-full w-full z-0"
     bind:this={mapContainer}
-></div>
+  ></div>
   <div class="absolute flex top-2 left-2 gap-2">
     <button
-      class="rounded-full border-2 border-black bg-base-100 w-10 h-10"
+      class="rounded-full border-2 border-black bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
       onclick={back}
     >
-      <Icon icon="arrow-left" style="w-4 m-auto" />
+      <iconify-icon icon="ph:arrow-left-bold" width="24"></iconify-icon>
     </button>
   </div>
   <div class="relative">
     {#if !showList}
       <div
-        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-white absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
+        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-base-100 absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
       >
-        <div class="relative mb-4 sticky top-0 bg-white z-10">
+        <div class="relative mb-4 sticky top-0 bg-base-100 z-10">
           <input bind:value={search} class="w-full" />
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}
               <button onclick={clearSearch}>
-                <Icon icon="close" style="w-8" />
+                <iconify-icon icon="ph:x-bold" width="32"></iconify-icon>
               </button>
             {:else}
-              <Icon icon="search" style="w-8" />
+              <iconify-icon icon="ph:search-bold" width="32"></iconify-icon>
             {/if}
           </div>
         </div>
@@ -300,19 +301,19 @@
     {/if}
     <div class="absolute flex top-2 right-2 gap-2">
       <button
-        class="rounded-full border-2 border-black bg-white w-10 h-10"
+        class="rounded-full border-2 border-primary bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
         onclick={toggleList}
       >
-        <Icon icon="list" style="w-4 m-auto" />
+        <iconify-icon icon="ph:list-bold" width="24"></iconify-icon>
       </button>
       <button
-        class="rounded-full border-2 border-black bg-white w-10 h-10"
+        class="rounded-full border-2 border-primary bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
         onclick={toggle}
       >
         {#if timeout}
-          <Icon icon="pause" style="w-4 m-auto" />
+          <iconify-icon icon="ph:pause-bold" width="24"></iconify-icon>
         {:else}
-          <Icon icon="play" style="w-4 m-auto" />
+          <iconify-icon icon="ph:play-bold" width="24"></iconify-icon>
         {/if}
       </button>
     </div>

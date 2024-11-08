@@ -4,11 +4,14 @@
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
-  let { user = $bindable(), rates, submit } = $props();
-
+  let { data } = $props();
+  let { user, rates } = $state(data);
   let { id } = user;
 
-  let avatarFile, avatarInput = $state(), bannerFile, bannerInput = $state();
+  let avatarFile,
+    avatarInput = $state(),
+    bannerFile,
+    bannerInput = $state();
 
   let selectAvatar = () => avatarInput.click();
   let selectBanner = () => bannerInput.click();
@@ -45,8 +48,6 @@
     reader.readAsDataURL(file);
   };
 
-  if (!user.display) user.display = user.username;
-
   let url = $derived(`${$page.url.host}/${user.username}`);
   let full = $derived(`${$page.url.protocol}//${url}`);
   let addr = $derived(`${user.username}@${$page.url.host}`);
@@ -79,17 +80,11 @@
   >
     <input type="text" name="email" class="clean" bind:value={user.email} />
     {#if user.verified}
-      <iconify-icon
-        icon="ph:check-bold"
-        class="text-success ml-auto"
-        width="32"
-></iconify-icon>
+      <iconify-icon icon="ph:check-bold" class="text-success ml-auto" width="32"
+      ></iconify-icon>
     {:else if user.email}
-      <iconify-icon
-        icon="ph:clock-bold"
-        class="text-warning ml-auto"
-        width="32"
-></iconify-icon>
+      <iconify-icon icon="ph:clock-bold" class="text-warning ml-auto" width="32"
+      ></iconify-icon>
     {/if}
   </label>
 </div>
@@ -116,7 +111,7 @@
         onclick={selectAvatar}
         onkeydown={selectAvatar}
       >
-        <Icon icon="logo-symbol-white" style="mx-auto" />
+        <iconify-icon icon="coinos:symbol" class="mx-auto"></iconify-icon>
         <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
       </div>
     {/if}
@@ -161,7 +156,7 @@
       onclick={selectBanner}
       onkeydown={selectBanner}
       alt="Banner"
-></div>
+    ></div>
   {/if}
 
   <button
@@ -191,5 +186,5 @@
     name="address"
     bind:value={user.address}
     placeholder={$t("user.settings.aboutPlaceholder")}
-></textarea>
+  ></textarea>
 </div>
