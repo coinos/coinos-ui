@@ -48,7 +48,7 @@
     </a>
 
     {#if $installPrompt}
-      <button class="btn btn-accent" on:click={install}>
+      <button class="btn btn-accent lg:hidden" on:click={install}>
         <iconify-icon icon="ph:floppy-disk-bold" width="32" />
         {$t("user.install")}
       </button>
