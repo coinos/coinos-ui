@@ -35,7 +35,6 @@ export async function load({ cookies, depends, params, url, parent }) {
 		}
 	}
 
-	console.log("REDRAW", invoice?.text);
 	const src = Qr.drawImg(invoice?.text || "", { size: 500 });
 	const theme = cookies.get("theme");
 	return { id, invoice, subject, src, user, token, theme };
