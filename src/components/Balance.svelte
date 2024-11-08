@@ -1,5 +1,5 @@
 <script>
-  import { preventDefault } from 'svelte/legacy';
+  import { preventDefault } from "svelte/legacy";
 
   import Icon from "$comp/Icon.svelte";
   import Pin from "$comp/Pin.svelte";
@@ -9,6 +9,11 @@
 
   let show = $state();
   let { user, rate, balance } = $props();
+  let toggleShow = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    show = !show;
+  };
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
@@ -17,10 +22,7 @@
 
 <div>
   {#if user.haspin && !$pin}
-    <button
-      onclick={preventDefault(() => (show = true))}
-      class="flex gap-2 text-xl"
-    >
+    <button onclick={toggleShow} class="flex gap-2 text-xl">
       <Icon icon="eye-off" style="w-8 my-auto" />
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
