@@ -89,7 +89,7 @@
   </label>
 </div>
 
-<div>
+<div class="space-y-2">
   <span class="font-bold">{$t("user.settings.profileImage")}</span>
 
   <div class="flex">
@@ -107,13 +107,10 @@
       </div>
     {:else}
       <div
-        class="rounded-full border-4 border-white p-4 bg-gradient-to-r from-primary to-gradient w-24 my-auto hover:opacity-80 cursor-pointer"
+        class="rounded-full border-4 border-base-100 p-4 bg-base-200 w-24 h-24 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
         onkeydown={selectAvatar}
-      >
-        <iconify-icon icon="coinos:symbol" class="mx-auto"></iconify-icon>
-        <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
-      </div>
+      ></div>
     {/if}
     <div class="ml-2 p-2">
       <!-- found missing translation -->
@@ -137,7 +134,7 @@
   {/if}
 </div>
 
-<div>
+<div class="space-y-2">
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.bannerImage")}</span>
   </div>
@@ -152,7 +149,7 @@
     />
   {:else}
     <div
-      class="bg-gradient-to-r from-primary to-gradient w-full h-48 mb-4 cursor-pointer hover:opacity-80"
+      class="bg-base-200 w-full h-48 mb-4 cursor-pointer hover:opacity-80"
       onclick={selectBanner}
       onkeydown={selectBanner}
       alt="Banner"
