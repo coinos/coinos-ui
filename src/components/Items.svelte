@@ -135,23 +135,20 @@
         {/if}
         {#if user?.username === subject.username}
           <div class="flex gap-2 justify-center absolute top-2 right-2">
-            <button type="button" on:click|stopPropagation={() => {}}>
-              <a href={`/items/${i.id}`}>
-                <button
-                  class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
-                >
-                  <Icon icon="edit" style="w-8 mx-auto invert" />
-                </button>
-              </a>
-            </button>
+            <a href={`/items/${i.id}`}>
+              <button
+                class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
+              >
+                <Icon icon="edit" style="w-8 mx-auto invert" />
+              </button>
+            </a>
             <button
               class="bg-black rounded-full w-12 h-12 bg-opacity-40 hover:bg-opacity-100"
               on:click|stopPropagation={() => del(i)}
             >
               <Icon icon="trash" style="w-8 mx-auto invert" />
             </button>
-            <button
-              type="button"
+            <div
               on:click|stopPropagation={() => {}}
               class="sm:hidden"
               on:mousedown={startDrag}
@@ -165,7 +162,7 @@
                   <Icon icon="move" style="w-8 mx-auto invert" />
                 </button>
               </a>
-            </button>
+            </div>
           </div>
         {/if}
       </div>

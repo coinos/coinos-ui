@@ -11,13 +11,16 @@
   let refresh = (a) => ({ seed, balance, id } = a);
 
   let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
+  let go = (url) => {
+    setAccount();
+    goto(url);
+  };
 </script>
 
-<a
-  href={`/payments`}
-  class="block space-y-2 border-primary py-4"
+<div
+  class="block space-y-2 border-primary py-4 cursor-pointer"
   class:border-b-8={!last}
-  on:click={setAccount}
+  on:click={() => go("/payments")}
 >
   <div class="flex">
     <Balance {balance} {user} {rate} />
@@ -48,4 +51,4 @@
       </button>
     </a>
   </div>
-</a>
+</div>
