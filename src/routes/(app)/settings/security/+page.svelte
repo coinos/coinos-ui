@@ -1,5 +1,6 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
+  import { getContext } from "svelte";
 
   import { getMnemonic, getNsec } from "$lib/nostr";
   import { tick } from "svelte";
@@ -8,11 +9,13 @@
   import Icon from "$comp/Icon.svelte";
   import Qr from "$comp/Qr.svelte";
   import { copy, post, success, fail } from "$lib/utils";
-  import { pin as current } from "$lib/store";
+  import { save, pin as current } from "$lib/store";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
-  let { user = $bindable(), rates, submit } = $props();
+  let { data } = $props();
+  let { user, rates } = $state(data);
+  let { id } = user;
 
   let confirming2fa = $state(),
     disabling2fa = $state(),
@@ -24,14 +27,14 @@
     old,
     otp = $state(),
     password = $state(),
-    pin = $state(),
+    pin = $state(""),
     revealPassword = $state(),
     revealSeed,
     revealNsec = $state(),
     token = $state(""),
     setting2fa = $state(),
     settingPin = $state(),
-    verify = $state();
+    verify = $state("");
 
   let toggleImporting = () => {
     revealNsec = false;
@@ -67,7 +70,7 @@
         $current = pin;
         pin = "";
         verify = "";
-        submit.click();
+        $save.click();
         settingPin = false;
         verifying = false;
       } else {
@@ -95,7 +98,7 @@
       try {
         disablingPin = true;
         await tick();
-        submit.click();
+        $save.click();
       } catch (e) {
         console.log(e);
         fail("Failed to disable pin");
@@ -138,6 +141,7 @@
         cancel();
       }
     } catch (e) {
+      console.log(e);
       fail("Failed to enable 2FA, try again");
     }
   };
@@ -155,10 +159,7 @@
       fail("Failed to disable 2FA, try again");
     }
   };
-  let verifying;
-  run(() => {
-    verifying = pin?.length > 5;
-  });
+  let verifying = $derived(pin?.length > 5);
   run(() => {
     verify && checkPin(pin);
   });
@@ -170,6 +171,7 @@
   });
 </script>
 
+{console.log("SAVE", $save)}
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
 <input type="hidden" name="confirm" bind:value={password} />
 
@@ -191,7 +193,7 @@
     <iconify-icon
       icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
       width="32"
-></iconify-icon>
+    ></iconify-icon>
   </button>
 </div>
 
@@ -214,12 +216,11 @@
       notify={false}
     />
   {:else}
-    <button type="button" class="btn" onclick={togglePin}
-      >
+    <button type="button" class="btn" onclick={togglePin}>
       <iconify-icon
         icon={user.haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
-></iconify-icon>
+      ></iconify-icon>
       {user.haspin
         ? $t("user.settings.disablePIN")
         : $t("user.settings.enablePIN")}</button

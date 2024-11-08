@@ -61,3 +61,4 @@ export const theme = writable("light");
 export const token = persistSession("token");
 export const ndef = writable();
 export const showQr = persistLocal("showQr", true);
+export const save = writable();

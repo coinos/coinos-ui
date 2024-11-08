@@ -4,7 +4,6 @@
     showQr,
     src,
     link,
-    qr = $bindable(),
     txt,
     invoice,
     amount,
@@ -21,7 +20,6 @@
       <img
         {src}
         class="mx-auto z-10 max-w-[360px] border-4 border-white"
-        bind:this={qr}
         alt={txt}
       />
     </a>
