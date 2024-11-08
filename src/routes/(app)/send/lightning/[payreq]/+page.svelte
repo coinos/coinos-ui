@@ -32,7 +32,7 @@
   };
 
   $: amount = form?.amount || data.amount;
-  $: maxfee = Math.round(amount * 0.01) || 1;
+  $: maxfee = Math.max(5, Math.round(amount * 0.005));
   let showMax;
 
   let loading;
