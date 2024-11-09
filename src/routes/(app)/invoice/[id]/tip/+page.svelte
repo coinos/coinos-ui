@@ -1,7 +1,6 @@
 <script>
-  import { run, preventDefault } from 'svelte/legacy';
+  import { untrack } from "svelte";
 
-  import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
   import { copy, focus, f, sat, get, reverseFormat, s, sats } from "$lib/utils";
@@ -18,7 +17,9 @@
   let customInput = $state();
   let customTipAmount = $state();
 
-  let apply = async () => {
+  let apply = async (e) => {
+    e.preventDefault();
+
     if (customTipAmount > 0) {
       tipPercent = (customTipAmount / amountFiat) * 100;
       showCustomAmount = false;
@@ -29,8 +30,9 @@
     !customTipAmount && Math.round(tipPercent) === parseInt(amount.slice(0, 2));
 
   const handleCustomTipAmount = (e) => {
-    tipPercent = 0;
     customTipAmount = e.target.value;
+    tipPercent = (customTipAmount / amountFiat) * 100;
+    tip = Math.round((amount / 100) * tipPercent);
   };
 
   let timeout;
@@ -40,15 +42,18 @@
       customInput.value = "";
     }
     tipPercent = e.target.value;
+    tip = Math.round((amount / 100) * tipPercent);
   };
 
   let submitting = $state();
-  const handleTipButtonClick = async (amount) => {
+  const handleTipButtonClick = async (v) => {
     submitting = true;
-    if (amount === "No") {
+    if (v === "No") {
       tipPercent = 0;
+      tip = 0;
     } else {
-      tipPercent = parseInt(amount.slice(0, 2));
+      tipPercent = parseInt(v.slice(0, 2));
+      tip = Math.round((amount / 100) * tipPercent);
     }
 
     await tick();
@@ -65,57 +70,25 @@
     hash,
     items,
     type,
-    rate,
     received,
     prompt,
     text,
     tip,
-    user: { username, currency },
+    user: { username },
   } = $state(invoice);
 
   let qr;
-  let tipPercent = $state(0);
+  let tipPercent = $state((tip / amount) * 100);
 
   let fullscreen;
 
-  let refresh = (data) => {
-    $inv = null;
+  let currency = user?.currency || invoice.currency;
+  let rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
 
-    ({ invoice, id } = data);
-    ({
-      aid,
-      amount,
-      hash,
-      items,
-      type,
-      received,
-      prompt,
-      text,
-      tip,
-      user: { username },
-    } = invoice);
-
-    tipPercent = (tip / amount) * 100;
-  };
-
-
-
-
-
-
-  onMount(() => ($request = undefined));
-  run(() => {
-    refresh(data);
+  $effect(() => {
+    tip = Math.round((amount / 100) * untrack(() => tipPercent));
   });
-  run(() => {
-    currency = user?.currency || invoice.currency;
-  });
-  run(() => {
-    rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
-  });
-  run(() => {
-    tip = Math.round((amount / 100) * tipPercent);
-  });
+
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
   let invoiceAmountFiatFormatted = $derived(f(amountFiat, currency));
@@ -205,7 +178,7 @@
   </form>
 
   {#if showCustomAmount}
-    <form onsubmit={preventDefault(apply)} class="space-y-2">
+    <form onsubmit={apply} class="space-y-2">
       <input
         bind:this={customInput}
         type="number"

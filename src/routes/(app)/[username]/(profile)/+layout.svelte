@@ -1,6 +1,4 @@
 <script>
-  import { run, preventDefault } from 'svelte/legacy';
-
   import { invalidate } from "$app/navigation";
   import { browser } from "$app/environment";
   import { hexToUint8Array } from "uint8array-extras";
@@ -25,23 +23,8 @@
     followers,
     followList,
   } = $state(data);
+
   let { currency, npub, username: n, display } = $state(subject);
-
-  let refresh = (data) => {
-    ({
-      events,
-      user,
-      subject,
-      src,
-      rates,
-      text,
-      follows,
-      followers,
-      followList,
-    } = data);
-    ({ currency, npub, username: n, display } = subject);
-  };
-
 
   let list = $state([]);
   let follow = async () => {
@@ -89,7 +72,6 @@
     }
   };
 
-
   let showBio = $state();
   let toggleBio = () => (showBio = !showBio);
 
@@ -98,7 +80,8 @@
 
   let password = $state();
 
-  let reset = async () => {
+  let reset = async (e) => {
+    e.preventDefault();
     try {
       await post(`/reset`, { username: n, password });
       success("Password reset");
@@ -106,18 +89,16 @@
       fail(e.message);
     }
   };
-  run(() => {
-    refresh(data);
-  });
+
   let stripped = $derived(n.replace(/\s/g, ""));
   let username = $derived(n.length > 60 ? n.substr(0, 6) : display || stripped);
-  let lnaddr = $derived(subject?.anon
-    ? subject.lud16 || undefined
-    : `${stripped}@${$page.url.host}`);
+  let lnaddr = $derived(
+    subject?.anon
+      ? subject.lud16 || undefined
+      : `${stripped}@${$page.url.host}`,
+  );
   let profile = $derived(`${$page.url.host}/${subject.anon ? npub : stripped}`);
-  run(() => {
-    followList.then((l) => (list = l));
-  });
+  $effect(() => followList.then((l) => (list = l)));
   let following = $derived(list.some((t) => t.includes(subject.pubkey)));
 </script>
 
@@ -184,10 +165,12 @@
               </div>
               <div class="flex mb-auto gap-1">
                 <button class="my-auto" onclick={() => copy(lnaddr)}
-                  ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
+                  ><iconify-icon icon="ph:copy-bold" width="32"
+                  ></iconify-icon></button
                 >
                 <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-                  <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+                  <iconify-icon icon="ph:qr-code-bold" width="32"
+                  ></iconify-icon>
                 </a>
               </div>
             </div>
@@ -201,7 +184,8 @@
             </div>
             <div class="flex mb-auto gap-1">
               <button class="my-auto" onclick={() => copy(profile)}
-                ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
+                ><iconify-icon icon="ph:copy-bold" width="32"
+                ></iconify-icon></button
               >
               <a
                 href={`/qr/${encodeURIComponent(
@@ -222,7 +206,8 @@
             </div>
             <div class="flex my-auto gap-1">
               <button class="my-auto" onclick={() => copy(npub)}
-                ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
+                ><iconify-icon icon="ph:copy-bold" width="32"
+                ></iconify-icon></button
               >
               <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
                 <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
@@ -262,7 +247,7 @@
       <!-- {/if} -->
 
       {#if user?.admin && user.username !== subject.username}
-        <form class="w-full flex" onsubmit={preventDefault(reset)}>
+        <form class="w-full flex" onsubmit={reset}>
           <input placeholder="Password reset" bind:value={password} />
           <button
             type="submit"
