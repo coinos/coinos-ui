@@ -1,9 +1,6 @@
 <script>
-  import { preventDefault } from "svelte/legacy";
-
-  import Icon from "$comp/Icon.svelte";
   import Pin from "$comp/Pin.svelte";
-  import { f, s, sat, sats } from "$lib/utils";
+  import { f, s, si, sat, sats } from "$lib/utils";
   import { pin } from "$lib/store";
   import { t } from "$lib/translations";
 
@@ -23,20 +20,21 @@
 <div>
   {#if user.haspin && !$pin}
     <button onclick={toggleShow} class="flex gap-2 text-xl">
-      <Icon icon="eye-off" style="w-8 my-auto" />
+      <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
   {:else}
-    <div class="text-4xl font-bold tabular-nums">
-      {#if isNaN(rate)}
-        <div class="text-gray-200">&mdash;</div>
-      {:else}
-        {f((balance * rate) / sats, user.currency)}
-      {/if}
+    <div class="text-4xl font-bold flex items-center">
+      <iconify-icon icon="ph:lightning-fill" width="32" class="text-yellow-300"></iconify-icon>
+      {s(balance)}
     </div>
 
     <div class="text-secondary text-xl">
-      ⚡️{s(balance)}
+      {#if isNaN(rate)}
+        <div class="text-gray-200">&mdash;</div>
+      {:else}
+        {si(((balance * rate) / sats).toFixed(2))} {user.currency}
+      {/if}
     </div>
   {/if}
 </div>

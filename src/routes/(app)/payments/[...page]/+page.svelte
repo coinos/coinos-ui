@@ -1,12 +1,12 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import Avatar from "$comp/Avatar.svelte";
   import { onMount } from "svelte";
   import { format } from "date-fns";
   import { newPayment } from "$lib/store";
   import { t } from "$lib/translations";
-  import { get, f, s, sat, sats, types } from "$lib/utils";
+  import { get, f, s, si, sat, sats, types } from "$lib/utils";
   import { page } from "$app/stores";
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
@@ -46,11 +46,14 @@
     },
   ]);
 
-  let selection = $derived(start
-    ? presets.findIndex(
-        (p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1,
-      )
-    : 0);
+  let selection = $derived(
+    start
+      ? presets.findIndex(
+          (p) =>
+            Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1,
+        )
+      : 0,
+  );
 
   let p = $state(),
     incoming = $state(),
@@ -68,9 +71,11 @@
     $newPayment && invalidate(`/users/${user.username}`);
   });
 
-  let path = $derived($page.params.page
-    ? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf("/"))
-    : $page.url.pathname);
+  let path = $derived(
+    $page.params.page
+      ? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf("/"))
+      : $page.url.pathname,
+  );
 
   let csv = async () => {
     let url = `/payments`;
@@ -206,8 +211,17 @@
             class:border-b-0={i === payments.length - 1}
           >
             <div class="whitespace-nowrap my-auto col-span-3">
-              <div class="font-bold" class:text-red-800={p.amount < 0}>
-                {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
+              <div
+                class="font-bold flex items-center"
+                class:text-red-800={p.amount < 0}
+              >
+                <iconify-icon
+                  icon="ph:lightning-fill"
+                  width="24"
+                  class="text-yellow-300"
+                ></iconify-icon>
+                {si(Math.abs(p.amount) + (p.tip || 0), 0, 1)}
+
                 {#if p.tip}
                   <span class="text-sm text-secondary">
                     +{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
@@ -215,8 +229,9 @@
                 {/if}
               </div>
 
-              <div class="text-secondary">
-                {sat(Math.abs(p.amount) + (p.tip || 0))}
+              <div class="text-secondary flex items-center">
+                {si(Math.abs(p.amount) * (p.rate / sats), 2)}
+                {p.currency}
               </div>
             </div>
 
@@ -249,7 +264,8 @@
                   {:else if p.type === types.ecash}
                     <img src="/images/cash.png" class="w-12" />
                   {:else if p.type === types.reconcile}
-                    <iconify-icon icon="ph:scales-bold" width="32"></iconify-icon>
+                    <iconify-icon icon="ph:scales-bold" width="32"
+                    ></iconify-icon>
                   {:else if p.type === types.bitcoin}
                     <div class="my-auto">
                       <img

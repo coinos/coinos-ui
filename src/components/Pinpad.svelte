@@ -1,5 +1,5 @@
 <script>
-  import { preventDefault, stopPropagation } from 'svelte/legacy';
+  import { preventDefault, stopPropagation } from "svelte/legacy";
 
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
@@ -64,7 +64,7 @@
     width="32"
     onclick={stopPropagation(preventDefault(() => (hide = !hide)))}
     class="cursor-pointer"
-></iconify-icon>
+  ></iconify-icon>
 </label>
 
 <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">
@@ -73,7 +73,9 @@
       <button
         type="button"
         class="btn"
-        onclick={stopPropagation(preventDefault(() => handleInput(value)))}
+        onclick={((e) => e.preventDefault(),
+        e.stopPropagation(),
+        handleInput(value))}
       >
         <Left />
       </button>
@@ -81,8 +83,9 @@
       <button
         type="button"
         class="btn"
-        onclick={stopPropagation(preventDefault(() => handleInput(value)))}
-        >{value}</button
+        onclick={((e) => e.preventDefault(),
+        e.stopPropagation(),
+        handleInput(value))}>{value}</button
       >
     {/if}
   {/each}
