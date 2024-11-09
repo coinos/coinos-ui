@@ -41,7 +41,7 @@ input, textarea, select, .input  {
   @apply w-full rounded-2xl;
 }
 
-textarea:focus, textarea:focus-within, .input:focus, .input:focus-within, .btn:focus, .btn:focus-within {
+textarea:focus, textarea:focus-within, .input:focus, .input:focus-within {
   @apply outline-offset-0;
 }
 
@@ -55,5 +55,5 @@ input.clean {
 }
 
 .btn {
-  @apply rounded-2xl btn-lg btn-block
+  @apply rounded-2xl btn-lg btn-block outline-none
 }
