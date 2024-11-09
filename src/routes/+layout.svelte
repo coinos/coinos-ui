@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
@@ -11,14 +11,11 @@
   let { data, children } = $props();
   let { pathname, theme } = $state(data);
   $themeStore = theme;
+  $effect(() => (theme = $themeStore));
 
   let host = PUBLIC_DOMAIN.includes("localhost")
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
-
-  run(() => {
-    theme = $themeStore
-  });
 
   onMount(() => {
     if (!browser) return;
