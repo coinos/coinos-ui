@@ -98,7 +98,6 @@
   <form
     method="POST"
     use:enhance
-    class:invisible={submitting}
     class="space-y-5"
   >
     <input type="hidden" name="aid" value={aid} />

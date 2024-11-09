@@ -10,11 +10,10 @@ export async function load({ cookies, params, parent }) {
 
 	let [amount, currency] = params.amount.split("/");
 
-	let rate;
+	const rate = rates[currency ? currency.toUpperCase() : subject.currency];
+	if (!rate) error(500, "Invalid currency symbol");
 
 	if (amount) {
-		rate = rates[currency ? currency.toUpperCase() : subject.currency];
-		if (!rate) error(500, "Invalid currency symbol");
 		if (currency) amount = (amount * sats) / rate;
 
 		const { id } = await post(
@@ -40,15 +39,30 @@ export async function load({ cookies, params, parent }) {
 
 export const actions = {
 	default: async ({ cookies, request }) => {
-		let p;
+		let id;
 		try {
 			const body = await fd(request);
-			p = await post("/payments", body, auth(cookies));
-		} catch (e: any) {
+			const { amount, rate, prompt, type, username } = body;
+
+			({ id } = await post(
+				"/invoice",
+				{
+					invoice: {
+						amount,
+						rate,
+						prompt,
+						type,
+					},
+					user: { username },
+				},
+				auth(cookies),
+			));
+		} catch (e) {
 			console.log(e);
-			return fail(400, { message: e.message });
+			const { message } = e as Error;
+			return fail(400, { message });
 		}
 
-		redirect(307, `/sent/${p.id}`);
+		redirect(307, `/invoice/${id}`);
 	},
 };
