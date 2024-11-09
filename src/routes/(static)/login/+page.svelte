@@ -1,14 +1,13 @@
 <script>
-  import { run, preventDefault } from 'svelte/legacy';
+  import { run, preventDefault } from "svelte/legacy";
+  import handler from "$lib/handler";
 
   import { onMount } from "svelte";
   import { applyAction, deserialize } from "$app/forms";
   import { tick } from "svelte";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
-  import Pin from "$comp/Pin.svelte";
-  import Icon from "$comp/Icon.svelte";
-  import Spinner from "$comp/Spinner.svelte";
+  import Pinpad from "$comp/Pinpad.svelte";
   import { focus, fail } from "$lib/utils";
   import { password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
@@ -27,7 +26,7 @@
 
   let { form } = $props();
 
-  let token = $state(), formElement;
+  let token = $state("");
   let code = [];
   let redirect;
 
@@ -35,16 +34,20 @@
 
   let cancel = () => (need2fa = false);
 
-  let username = $state(), email, btn = $state();
+  let username = $state(),
+    email,
+    btn = $state();
 
-  let update = (form) => form && ({ username, password: $password } = form);
-
+  $effect(() => form && ({ username, password: $password } = form));
+  let need2fa = $derived(form?.message === "2fa");
+  $effect(() => {
+    if (need2fa && form.token === token) token = "";
+  });
 
   let revealPassword = $state(false);
 
-  let loading = $state();
   async function handleSubmit(e) {
-    loading = true;
+    console.log("SUBMITTING");
 
     let data = new FormData(this);
     let user = Object.fromEntries(data);
@@ -65,39 +68,29 @@
     }
 
     applyAction(result);
-    loading = false;
   }
-  let need2fa;
-  run(() => {
-    need2fa = form?.message === "2fa";
-  });
-  run(() => {
-    if (form?.message === "2fa" && form.token === token) token = "";
-  });
-  run(() => {
-    update(form);
-  });
-  run(() => {
-    token && token?.length === 6 && tick().then(() => btn.click());
+
+  $effect(() => {
+    console.log("TOKEN", token);
+    token?.length === 6 &&
+      tick().then(() => {
+        btn.click();
+      });
   });
 </script>
-
-{#if need2fa}
-  <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
-{/if}
 
 <div
   class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20"
 >
   <h1 class="text-2xl font-bold text-center">{$t("login.signIn")}</h1>
 
-  {#if form?.error}
+  {#if form?.error && !form?.message.includes("2fa")}
     <div class="text-red-600 text-center" in:fly>
       {form.error}
     </div>
   {/if}
 
-  <form class="space-y-5" onsubmit={preventDefault(handleSubmit)} method="POST">
+  <form use:enhance class="space-y-5" onsubmit={handleSubmit} method="POST">
     <input
       type="hidden"
       name="loginRedirect"
@@ -145,7 +138,7 @@
         onclick={() => (revealPassword = !revealPassword)}
         icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
         width="32"
-></iconify-icon>
+      ></iconify-icon>
     </label>
 
     <div class="flex justify-end items-center">
@@ -154,12 +147,8 @@
       >
     </div>
 
-    <button type="submit" class="btn" disabled={loading} bind:this={btn}>
-      {#if loading}
-        <Spinner />
-      {:else}
-        {$t("login.signIn")}
-      {/if}
+    <button type="submit" class="btn" bind:this={btn}>
+      {$t("login.signIn")}
     </button>
 
     <p class="text-secondary text-center font-medium">
@@ -173,3 +162,23 @@
     </p>
   </form>
 </div>
+
+{#if need2fa && token.length < 6}
+  <div
+    class="fixed bg-base-100 bg-opacity-90 inset-0 h-full w-full z-50 cursor-default"
+    onclick={(e) => e.stopPropagation()}
+  >
+    <div
+      class="mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 max-w-lg"
+    >
+      <h1 class="text-center text-2xl font-semibold">2FA</h1>
+      <Pinpad bind:v={token} {cancel} />
+
+      <div class="w-full flex">
+        <button class="btn" onclick={cancel}>
+          <div class="my-auto">Cancel</div>
+        </button>
+      </div>
+    </div>
+  </div>
+{/if}

@@ -216,19 +216,21 @@ export const f = (s: number, currency: string): string => {
 export const s = (s: number): string =>
 	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
 
-export const sat = (s: number): string => `⚡️${si(Math.abs(s)).toString()}`;
+export const sat = (s: number): string => `${si(Math.abs(s)).toString()}`;
 
-export const si = (s: number) => {
-	if (s < 1000) return s.toString(); // Return the original number if it's less than 1000
-
+export const si = (n: number, minimumFractionDigits = 1, maximumFractionDigits = 2) => {
 	const units = ["", "K", "M", "G", "T", "P", "E", "Z"];
-	const d = Math.floor(Math.log10(s) / 3); // Calculate the unit index
-	const scaled = s / 1000 ** d; // Scale the number to the correct unit
+
+	let s = n;
+	let d = 0;
+	if (s >= 1000) {
+		d = Math.floor(Math.log10(s) / 3); // Calculate the unit index
+		s = n / 1000 ** d; // Scale the number to the correct unit
+	}
 
 	return (
-		new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
-			scaled,
-		) + units[d]
+		new Intl.NumberFormat("en-US", { minimumFractionDigits, maximumFractionDigits }).format(s) +
+		units[d]
 	);
 };
 

@@ -12,14 +12,16 @@ export const actions = {
 		let { username, password, token, loginRedirect } = form;
 		const user = { username, password, token };
 
-		console.log("LOGIN", user);
+		console.log("LOGIN", user, form);
 
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
 		try {
 			await login(user, cookies, request.headers.get("cf-connecting-ip"));
-		} catch (e: any) {
-			return fail(400, { error: "Login failed", message: e.message, ...form });
+		} catch (e) {
+			const { message } = e as Error;
+			console.log("message", message);
+			return fail(400, { error: "Login failed", message, ...form });
 		}
 
 		redirect(307, loginRedirect || `/${user.username}`);
