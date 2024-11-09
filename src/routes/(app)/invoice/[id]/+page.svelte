@@ -26,18 +26,11 @@
 
   let readingerror = (e) => console.log("nfc error", e);
 
-  let { invoice, id, subject, user } = $state(data);
-  let src = $derived(data.src);
-  let {
-    aid,
-    amount,
-    hash,
-    type,
-    rate,
-    text,
-    tip,
-    user: { username, currency },
-  } = $state(invoice);
+  let { id, subject, user } = $state(data);
+  let { invoice, src } = $derived(data);
+  let { hash, text } = $derived(invoice);
+  let { aid, amount, type, rate, tip } = $state(invoice);
+  let { username, currency } = invoice.user;
 
   let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
 
@@ -102,6 +95,7 @@
   let link = $derived(
     [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`,
   );
+
   let txt = $derived(
     [types.bitcoin, types.liquid].includes(type) ? hash : text,
   );
