@@ -13,8 +13,10 @@ export async function load({ cookies, params: { id }, parent }) {
 	if (invoice.memoPrompt && invoice.memo === null)
 		redirect(307, `/invoice/${id}/memo`);
 
-	if (user && invoice.aid === aid) error(500, { message: "Cannot send to self" });
-	else if (user && invoice.type !== types.lightning) redirect(307, `/send/${invoice.type}/${invoice.hash}`);
+	if (user && invoice.aid === aid)
+		error(500, { message: "Cannot send to self" });
+	else if (user && invoice.type !== types.lightning)
+		redirect(307, `/send/${invoice.type}/${invoice.hash}`);
 
 	if (!user) redirect(307, `/invoice/${id}`);
 
