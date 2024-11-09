@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import handler from "$lib/handler";
   import { onDestroy, onMount } from "svelte";
@@ -29,25 +29,22 @@
   let { address, hash, payreq, user: recipient, tip } = $state(invoice);
   let { currency } = $state(user);
 
-  let reload = (data) => {
-    ({ invoice, rates, user } = data);
-    ({ address, hash, payreq, user: recipient, tip } = invoice);
-    ({ currency } = user);
-  };
-
-
   let amount = $state(form?.amount || invoice.amount);
+  let rate = $derived(
+    invoice.rate * (rates[user.currency] / rates[invoice.currency]),
+  );
   let a = $state(),
     af = $state(),
-    amountFiat = amount * (rate / sats),
     fiat = $state(!amount);
 
+  let amountFiat = $state(amount * (rate / sats));
   let setAmount = () => {
     amount = a;
     amountFiat = af;
   };
 
-  let submit = $state(), submitting = $state();
+  let submit = $state(),
+    submitting = $state();
   let toggle = () => (submitting = !submitting);
 
   let external = async () => {
@@ -66,10 +63,10 @@
     });
   };
 
-  let update = () => {
+  $effect(() => {
     if (form?.message?.includes("pin")) $pin = undefined;
     submitting = false;
-  };
+  });
 
   // onMount(async () => {
   // 	if (browser && window.NDEFReader && user.nfc) {
@@ -89,16 +86,6 @@
   // 		}
   // 	}
   // });
-  run(() => {
-    reload(data);
-  });
-  let rate;
-  run(() => {
-    rate = invoice.rate * (rates[user.currency] / rates[invoice.currency]);
-  });
-  run(() => {
-    update(form);
-  });
 </script>
 
 {#if form?.message}
@@ -167,9 +154,9 @@
     <Numpad
       bind:amount={a}
       bind:amountFiat={af}
-      {currency}
       bind:fiat
-      bind:rate
+      {currency}
+      {rate}
       {submit}
     />
   {/if}
