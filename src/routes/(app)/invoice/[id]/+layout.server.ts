@@ -36,6 +36,6 @@ export async function load({ cookies, depends, params, url, parent }) {
 	}
 
 	const src = Qr.drawImg(invoice?.text || "", { size: 500 });
-	const theme = cookies.get("theme");
+	const theme = cookies.get("theme") || "light";
 	return { id, invoice, subject, src, user, token, theme };
 }
