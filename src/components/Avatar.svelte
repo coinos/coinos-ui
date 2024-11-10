@@ -24,12 +24,7 @@
     `${base}/punks/` + punk(user.pubkey || user.id || "aa"),
   );
   let tmp = $derived($avatar?.id && $avatar.id === user.id && $avatar.src);
-  let src;
-  run(() => {
-    src = tmp || profile || fallback;
-  });
-
-  let handle = () => (src = fallback);
+  let src = $derived(tmp || profile || fallback);
 </script>
 
 {#snippet body()}
@@ -40,7 +35,6 @@
       {src}
       class="w-full h-full object-cover object-center overflow-hidden"
       alt={user.username}
-      onerror={handle}
     />
   </div>
 {/snippet}
