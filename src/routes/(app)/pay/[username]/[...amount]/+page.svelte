@@ -32,6 +32,7 @@
     <input name="amount" value={amount} type="hidden" />
     <input name="rate" value={rate} type="hidden" />
     <input name="username" value={subject.username} type="hidden" />
+    <input name="prompt" value={subject.prompt} type="hidden" />
 
     <button type="submit" bind:this={next} class="btn btn-accent">
       {$t("payments.next")}</button
