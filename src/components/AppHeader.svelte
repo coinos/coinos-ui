@@ -11,7 +11,7 @@
   let { user, subject = $bindable() } = $props();
 
   let w = $state();
-  $effect(() => (subject ||= user));
+  $effect(() => (subject = subject || user));
 
   let bg = $derived(
     $banner?.id && $banner.id === subject.id
