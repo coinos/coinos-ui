@@ -8,8 +8,6 @@ export default async ({ cookies, request }) => {
 	const rates = await get("/rates");
 	const amount = parseInt(form.get("amount"));
 
-  console.log("TIP", form.get("tip"))
-
 	let invoice = {
 		aid,
 		amount,
