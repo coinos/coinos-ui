@@ -1,5 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
   import { getContext } from "svelte";
 
   import { getMnemonic, getNsec } from "$lib/nostr";
@@ -160,15 +159,10 @@
     }
   };
   let verifying = $derived(pin?.length > 5);
-  run(() => {
-    verify && checkPin(pin);
-  });
-  run(() => {
-    enable2fa(token);
-  });
-  run(() => {
-    disable2fa(token);
-  });
+
+  $effect(() => verify && checkPin(pin));
+  $effect(() => setting2fa && enable2fa(token));
+  $effect(() => disabling2fa && disable2fa(token));
 </script>
 
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
@@ -279,7 +273,7 @@
     {$t("user.settings.nostrDescription")}
   </p>
 
-  <div class="flex gap-2">
+  <div class="flex flex-wrap sm:flex-nowrap gap-2">
     <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
       {#if revealNsec}
         <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
