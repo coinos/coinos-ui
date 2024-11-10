@@ -40,10 +40,10 @@ export async function load({ cookies, params, parent }) {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		let id;
-		try {
-			const body = await fd(request);
-			const { amount, rate, prompt, type, username } = body;
+		const body = await fd(request);
+		const { amount, rate, prompt, type, username } = body;
 
+		try {
 			({ id } = await post(
 				"/invoice",
 				{
@@ -63,6 +63,7 @@ export const actions = {
 			return fail(400, { message });
 		}
 
+		if (prompt) redirect(307, `/invoice/${id}/tip`);
 		redirect(307, `/invoice/${id}`);
 	},
 };
