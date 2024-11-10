@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
@@ -26,13 +26,12 @@
 
   let { data, children } = $props();
 
-  let { generate, rate, user, subject, token, rates, theme } = $state(data);
-
-  let update = (data) => {
-    ({ rate, user, subject, token, rates, theme } = data);
-  };
+  let { generate, rate, user, subject, token, rates } = $derived(data);
+  let { theme } = $state(data);
 
   $themeStore = theme;
+  $effect(() => (theme = $themeStore));
+  $effect(() => browser && connect(token));
 
   afterNavigate(() => {
     if (user) {
@@ -67,7 +66,6 @@
     }
   });
 
-
   let lost,
     checkTimer,
     expireTimer,
@@ -91,15 +89,6 @@
       clearTimeout(checkTimer);
       clearTimeout(expireTimer);
     }
-  });
-  run(() => {
-    theme = $themeStore;
-  });
-  run(() => {
-    update(data);
-  });
-  run(() => {
-    browser && connect(token);
   });
 </script>
 
@@ -125,7 +114,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main class="pb-20 min-h-dvh" data-theme={theme}>
-  <AppHeader {user} bind:subject />
+  <AppHeader {user} {subject} />
   {#if !$loading}
     {@render children?.()}
   {/if}

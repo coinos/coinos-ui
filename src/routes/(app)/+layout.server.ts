@@ -13,7 +13,8 @@ export async function load({ cookies, request, url, params }) {
 		try {
 			user = await get("/me", auth(cookies));
 		} catch (e) {
-			if (e.message.startsWith("Rate")) await sleep(3000);
+			const { message } = e as Error;
+			if (message.startsWith("Rate")) await sleep(3000);
 			user = await get("/me", auth(cookies));
 		}
 	}
