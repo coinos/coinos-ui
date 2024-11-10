@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { banner, theme, newPayment } from "$lib/store";
   import { goto } from "$app/navigation";
@@ -11,18 +11,17 @@
   let { user, subject = $bindable() } = $props();
 
   let w = $state();
-  run(() => {
-    if (!subject) subject = user;
-  });
+  $effect(() => (subject ||= user));
 
-  let bg =
-    $derived($banner?.id && $banner.id === subject.id
+  let bg = $derived(
+    $banner?.id && $banner.id === subject.id
       ? `url(${$banner.src})`
       : subject?.banner
         ? subject.banner.includes(":")
           ? `url(${subject.banner})`
           : `url(/api/public/${subject.banner}.webp)`
-        : undefined);
+        : undefined,
+  );
 
   const links = [
     {
@@ -47,7 +46,8 @@
   let opacity = $derived((href) =>
     $page.url.pathname === href
       ? "opacity-100"
-      : "opacity-90 hover:opacity-none");
+      : "opacity-90 hover:opacity-none",
+  );
 </script>
 
 <svelte:window bind:innerWidth={w} />
@@ -62,7 +62,8 @@
         {#each links as { href, icon, flip }}
           <a {href} data-sveltekit-preload-code="eager">
             <button class="btn-menu {opacity(href)}">
-              <iconify-icon {icon} width={w > 640 ? 32 : 24} {flip}></iconify-icon>
+              <iconify-icon {icon} width={w > 640 ? 32 : 24} {flip}
+              ></iconify-icon>
             </button>
           </a>
         {/each}

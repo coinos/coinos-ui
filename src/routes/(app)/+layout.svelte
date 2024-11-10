@@ -125,7 +125,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main class="pb-20 min-h-dvh" data-theme={theme}>
-  <AppHeader {user} {subject} />
+  <AppHeader {user} bind:subject />
   {#if !$loading}
     {@render children?.()}
   {/if}
