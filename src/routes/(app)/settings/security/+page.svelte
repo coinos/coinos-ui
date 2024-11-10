@@ -171,7 +171,6 @@
   });
 </script>
 
-{console.log("SAVE", $save)}
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
 <input type="hidden" name="confirm" bind:value={password} />
 
