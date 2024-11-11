@@ -47,8 +47,6 @@
   let revealPassword = $state(false);
 
   async function handleSubmit(e) {
-    console.log("SUBMITTING");
-
     let data = new FormData(this);
     let user = Object.fromEntries(data);
 
@@ -71,7 +69,6 @@
   }
 
   $effect(() => {
-    console.log("TOKEN", token);
     token?.length === 6 &&
       tick().then(() => {
         btn.click();
