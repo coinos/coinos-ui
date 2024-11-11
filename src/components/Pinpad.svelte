@@ -13,7 +13,10 @@
 
   const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "0", "<"];
 
-  const handleInput = (n) => {
+  const handleInput = (e, n) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     v = (v || "").toString();
     if (n === "C") return (v = "");
     if (n === "<") return (v = v.length > 1 ? Math.floor(v / 10) : "");
@@ -70,22 +73,12 @@
 <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">
   {#each numPad as value}
     {#if value === arrow}
-      <button
-        type="button"
-        class="btn"
-        onclick={((e) => e.preventDefault(),
-        e.stopPropagation(),
-        handleInput(value))}
-      >
+      <button type="button" class="btn" onclick={(e) => handleInput(e, value)}>
         <Left />
       </button>
     {:else}
-      <button
-        type="button"
-        class="btn"
-        onclick={((e) => e.preventDefault(),
-        e.stopPropagation(),
-        handleInput(value))}>{value}</button
+      <button type="button" class="btn" onclick={(e) => handleInput(e, value)}
+        >{value}</button
       >
     {/if}
   {/each}
