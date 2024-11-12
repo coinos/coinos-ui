@@ -12,8 +12,6 @@ export const actions = {
 		let { username, password, token, loginRedirect } = form;
 		const user = { username, password, token };
 
-		console.log("LOGIN", user, form);
-
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
 		try {

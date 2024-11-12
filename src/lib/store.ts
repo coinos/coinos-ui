@@ -44,6 +44,7 @@ export const avatar = writable();
 export const banner = writable();
 export const event = writable();
 export const events = writable({});
+export const fiat = persistLocal("fiat", true);
 export const installPrompt = writable();
 export const invoice = writable();
 export const last = writable();

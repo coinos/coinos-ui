@@ -1,13 +1,14 @@
 <script>
+  import { onMount } from "svelte";
+  import { fiat } from "$lib/store";
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
   import { f, s, focus, warning, sat, sats } from "$lib/utils";
   import { t } from "$lib/translations";
 
-  export let amount,
+  export let amount = 0,
     currency,
     element,
-    fiat = !amount,
     rate,
     submit = undefined;
 
@@ -17,7 +18,7 @@
 
   $: update(amount, amountFiat);
   let update = (a, f) => {
-    if (fiat) {
+    if ($fiat) {
       amount = Math.round(f / (rate / sats));
     } else {
       amountFiat = ((a * rate) / sats).toFixed(2);
@@ -49,7 +50,7 @@
     if (selecting) amount = 0;
     selecting = false;
 
-    if (fiat) {
+    if ($fiat) {
       if (amountFiat === 0 && value !== "." && value !== "<" && value !== "0") {
         amountFiat = value;
       } else if ((amountFiat === 0 || amountFiat === "0") && value === "0") {
@@ -102,7 +103,7 @@
     }
   };
 
-  $: html = fiat ? amountFiat : s(amount);
+  $: html = $fiat ? amountFiat : s(amount);
 
   let prev = "";
 
@@ -122,7 +123,7 @@
       .replace(/\./g, "")
       .replace("F", ".");
 
-    if (fiat) clean = clean.replace(",", "");
+    if ($fiat) clean = clean.replace(",", "");
     if (clean !== html) {
       html = clean;
       i = html.length;
@@ -134,7 +135,7 @@
       i--;
     }
 
-    if (fiat) {
+    if ($fiat) {
       amountFiat = html;
     } else {
       amount = parseInt(html.replace(/,/g, ""));
@@ -143,7 +144,7 @@
     if (!amount) amount = null;
 
     setTimeout(() => {
-      if (!fiat) {
+      if (!$fiat) {
         let p = prev.split(",")[0].length;
         if (html.length > prev.length && p === 3) i++;
         if (html.length < prev.length && p === 1 && i > 1) i--;
@@ -183,7 +184,7 @@
     e.key === "Enter" && (e.preventDefault() || submit.click());
 
   let swap = () => {
-    if (fiat) {
+    if ($fiat) {
       amount = parseInt((amountFiat / (rate / sats)).toFixed(0));
     } else {
       amountFiat =
@@ -191,7 +192,7 @@
           ? (amount * (rate / sats)).toFixed(2)
           : 0;
     }
-    fiat = !fiat;
+    $fiat = !$fiat;
   };
 </script>
 
@@ -201,8 +202,8 @@
       <div
         class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
       >
-        <div class="my-auto" class:text-5xl={!fiat}>
-          {fiat ? symbol : "⚡️"}
+        <div class="my-auto" class:text-5xl={!$fiat}>
+          {$fiat ? symbol : "⚡️"}
         </div>
         <div
           use:focus
@@ -220,7 +221,7 @@
         class="flex items-center justify-center text-2xl cursor-pointer"
         on:click|preventDefault|stopPropagation={swap}
       >
-        {fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}
+        {$fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}
       </div>
     </div>
 

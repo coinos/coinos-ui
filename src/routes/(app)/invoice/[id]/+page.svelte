@@ -81,11 +81,10 @@
     if (subject?.prompt) url += "/tip";
     else url += "?options=true";
 
-    console.log("GO", url);
     goto(url, { invalidateAll: true, noScroll: true });
   });
 
-  let newAmount = $state();
+  let newAmount = $state(0);
   let settingAmount = $state();
   let toggleAmount = $state(() => (settingAmount = !settingAmount));
   let fiat = $state(true);
