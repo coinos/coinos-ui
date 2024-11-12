@@ -34,7 +34,7 @@
       {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
-        {fiat(balance, rate).toFixed(2)} {user.currency}
+        {f(fiat(balance, rate))} {user.currency}
       {/if}
     </div>
   {/if}

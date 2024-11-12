@@ -283,9 +283,11 @@
       <div>= {f(rates[currency], currency)}</div>
     </div>
     <div class="text-secondary flex ml-auto">
-      <div class="flex">
-        <div class="mr-1">⚡️{s((1 * sats) / rates[currency])} =</div>
-        <div>{f(1, currency)}</div>
+      <div class="flex items-center">
+        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        ></iconify-icon>
+        {s((1 * sats) / rates[currency])} =
+        {f(1, currency)} {currency}
       </div>
     </div>
   </div>
