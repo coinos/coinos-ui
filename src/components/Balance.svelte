@@ -1,6 +1,6 @@
 <script>
   import Pin from "$comp/Pin.svelte";
-  import { f, s, si, sat, sats } from "$lib/utils";
+  import { f, fiat, s, si, sat, sats } from "$lib/utils";
   import { pin } from "$lib/store";
   import { t } from "$lib/translations";
 
@@ -25,7 +25,8 @@
     </button>
   {:else}
     <div class="text-4xl font-bold flex items-center">
-      <iconify-icon icon="ph:lightning-fill" width="32" class="text-yellow-300"></iconify-icon>
+      <iconify-icon icon="ph:lightning-fill" width="32" class="text-yellow-300"
+      ></iconify-icon>
       {s(balance)}
     </div>
 
@@ -33,7 +34,7 @@
       {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
-        {si(((balance * rate) / sats).toFixed(2))} {user.currency}
+        {fiat(balance, rate).toFixed(2)} {user.currency}
       {/if}
     </div>
   {/if}
