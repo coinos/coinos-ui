@@ -203,7 +203,10 @@
         class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
       >
         <div class="my-auto" class:text-5xl={!$fiat}>
-          {$fiat ? symbol : "⚡️"}
+          {#if $fiat}{symbol}{:else}
+            <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+            ></iconify-icon>
+          {/if}
         </div>
         <div
           use:focus
@@ -221,7 +224,13 @@
         class="flex items-center justify-center text-2xl cursor-pointer"
         on:click|preventDefault|stopPropagation={swap}
       >
-        {$fiat ? "⚡️" + s(amount) : f(amountFiat, currency)}
+        {#if $fiat}
+          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          ></iconify-icon>
+          {s(amount)}
+        {:else}
+          {f(amountFiat, currency)} {currency}
+        {/if}
       </div>
     </div>
 

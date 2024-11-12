@@ -200,25 +200,23 @@ export const fd = async (req: Request): Promise<any> => {
 	return obj;
 };
 
-export const f = (s: number, currency: string): string => {
-	try {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency,
-		})
-			.format(s)
-			.replace("CA", "");
-	} catch (e) {
-		return "";
-	}
-};
+export const f = (s: number): string =>
+	new Intl.NumberFormat("en-US", {
+		style: "decimal",
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
+	}).format(s);
 
 export const s = (s: number): string =>
 	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
 
 export const sat = (s: number): string => `${si(Math.abs(s)).toString()}`;
 
-export const si = (n: number, minimumFractionDigits = 1, maximumFractionDigits = 2) => {
+export const si = (
+	n: number,
+	minimumFractionDigits = 1,
+	maximumFractionDigits = 2,
+) => {
 	const units = ["", "K", "M", "G", "T", "P", "E", "Z"];
 
 	let s = n;
@@ -229,8 +227,10 @@ export const si = (n: number, minimumFractionDigits = 1, maximumFractionDigits =
 	}
 
 	return (
-		new Intl.NumberFormat("en-US", { minimumFractionDigits, maximumFractionDigits }).format(s) +
-		units[d]
+		new Intl.NumberFormat("en-US", {
+			minimumFractionDigits,
+			maximumFractionDigits,
+		}).format(s) + units[d]
 	);
 };
 
