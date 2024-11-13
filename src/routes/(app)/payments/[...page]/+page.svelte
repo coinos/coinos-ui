@@ -1,6 +1,5 @@
 <script>
   import { run } from "svelte/legacy";
-
   import Avatar from "$comp/Avatar.svelte";
   import { onMount } from "svelte";
   import { format } from "date-fns";
@@ -230,8 +229,7 @@
               </div>
 
               <div class="text-secondary flex items-center">
-                {si(Math.abs(p.amount) * (p.rate / sats), 2)}
-                {p.currency}
+                {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
               </div>
             </div>
 

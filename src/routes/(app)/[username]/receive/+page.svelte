@@ -34,6 +34,7 @@
     aid,
     type: types.lightning,
     items: [],
+    uid: subject.id,
     user: subject,
   });
   let amount = $state(),
@@ -115,7 +116,7 @@
     t={$t}
   />
 
-  <InvoiceTypes {aid} {user} {type} {types} {setType} t={$t} />
+  <InvoiceTypes {aid} {invoice} {user} {type} {types} {setType} t={$t} />
 </div>
 
 <SetAmount

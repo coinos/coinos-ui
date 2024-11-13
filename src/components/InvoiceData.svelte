@@ -10,7 +10,7 @@
     amountFiat,
     currency,
     tip,
-    rate
+    rate,
   } = $props();
 </script>
 
@@ -49,23 +49,31 @@
 
 {#if amount > 0}
   <div class="text-center font-bold text-2xl">
-    <div>
-      {f(amountFiat, currency)}
+    <div class="flex justify-center items-end gap-2">
+      <div>{f(amountFiat, currency)}</div>
 
       {#if tip}
-        <span class="text-sm">
-          +{f(tip * (rate / sats), currency)}
-        </span>
+        <div class="text-base flex items-center gap-1">
+          <div>+</div>
+          <div>{f(tip * (rate / sats), currency)}</div>
+        </div>
       {/if}
     </div>
-    <div>
-      <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span
-      >
-
+    <div class="flex justify-center items-end text-secondary font-normal text-xl gap-2">
+      <div class="flex items-center">
+        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        ></iconify-icon>
+        <div>
+          {`${s(amount)}`}
+        </div>
+      </div>
       {#if tip}
-        <span class="text-sm text-secondary font-normal">
-          +⚡️{s(tip)}
-        </span>
+        <div class="text-base flex items-center">
+          <div>+</div>
+          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          ></iconify-icon>
+          <div>{s(tip)}</div>
+        </div>
       {/if}
     </div>
   </div>

@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
@@ -87,7 +87,8 @@
     }
   };
 
-  let txid = $state(), vout = $state();
+  let txid = $state(),
+    vout = $state();
   if (amount > 0) [txid, vout] = ref.split(":");
   else txid = hash;
 
@@ -103,6 +104,21 @@
     refresh(data);
   });
 </script>
+
+{#snippet field(title, amount)}
+  <div>
+    <span class="text-lg text-secondary">{$t(title)}</span>
+    <div class="flex gap-2 items-end">
+      <div class="flex items-center">
+        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        ></iconify-icon>{amount}
+      </div>
+      <span class="text-secondary text-lg">
+        {f(fiat(amount, rate), currency)}
+      </span>
+    </div>
+  </div>
+{/snippet}
 
 <div class="container mx-auto max-w-lg px-4 space-y-8 break-all text-2xl">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
@@ -135,53 +151,18 @@
       </a>
     </div>
   {/if}
-  <div>
-    <span class="text-lg text-secondary">{$t("payments.amount")}</span>
-    <div>
-      {f(fiat(a, rate), currency)}
-      <span class="text-secondary text-lg">
-        ⚡️{s(a)}
-      </span>
-    </div>
-  </div>
+
+  {@render field("payments.amount", a)}
 
   {#if tip}
-    <div>
-      <span class="text-lg text-secondary">{$t("invoice.tip")}</span>
-      <div>
-        {f(fiat(tip, rate), currency)}
-        ({Math.round((tip * 100) / Math.abs(a))}%)
-        <span class="text-secondary text-lg">
-          ⚡️{s(tip)}
-        </span>
-      </div>
-    </div>
-
-    <div>
-      <span class="text-lg text-secondary">{$t("payments.total")}</span>
-      <div>
-        {f(fiat(a + (tip || 0), rate), currency)}
-        <span class="text-secondary text-lg">⚡️{`${s(a + (tip || 0))}`} </span>
-      </div>
-    </div>
+    {@render field("invoice.tip", tip)}
+    {@render field("payments.total", a + (tip || 0))}
   {/if}
 
-  <div>
-    <span class="text-lg text-secondary">{$t("payments.networkFee")}</span>
-    <div>
-      {f(fiat(fee, rate), currency)}
-      <span class="text-secondary text-lg">⚡️{`${s(fee)}`}</span>
-    </div>
-  </div>
+  {@render field("payments.networkFee", fee)}
 
   {#if ourfee > 0}
-    <div>
-      <span class="text-lg text-secondary">{$t("payments.platformFee")}</span>
-      <div>
-        {f(fiat(ourfee, rate), currency)}
-        <span class="text-secondary">⚡️{`${s(ourfee)}`}</span>
-      </div>
-    </div>
+    {@render field("payments.platformFee", ourfee)}
   {/if}
 
   <div>
