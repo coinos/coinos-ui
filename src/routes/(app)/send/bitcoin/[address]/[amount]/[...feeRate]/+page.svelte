@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { tick } from "svelte";
   import { t } from "$lib/translations";
@@ -71,7 +71,6 @@
 
     tx.finalize();
     hex = tx.hex;
-    console.log("HEX", hex);
     signed = true;
     await tick();
     submit.click();
@@ -86,24 +85,26 @@
     message,
     fee,
     fees,
-    feeRate,
     ourfee,
     rates,
     hex,
     inputs,
-  } = $state(data);
+  } = $derived(data);
 
-  let reload = () => {
-    ({ amount, address, message, fee, fees, feeRate, ourfee, rates, hex } =
-      data);
-    if (!fees) return;
+  let { feeRate } = $state(data);
+
+  $effect(() => {
     delete fees.minimumFee;
-    feeRate = feeRate ? closest(Object.values(fees), feeRate) : fees.halfHourFee;
+    feeRate = feeRate
+      ? closest(Object.values(fees), feeRate)
+      : fees.halfHourFee;
     if (!$rate) $rate = rates[currency];
-  };
+  });
 
   let { balance, currency } = data.user;
-  let submitting = $state(), submit = $state(), showSettings;
+  let submitting = $state(),
+    submit = $state(),
+    showSettings;
 
   let feeNames = {
     fastestFee: $t("payments.fastest"),
@@ -113,19 +114,8 @@
 
   let toggleSettings = () => (showSettings = !showSettings);
 
-  let update = () => {
-    submitting = false;
-    if (form?.message?.includes("pin")) $pin = undefined;
-  };
-
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
   let goBack = () => goto(`/send/bitcoin/${address}`);
-  run(() => {
-    reload(data);
-  });
-  run(() => {
-    update(form);
-  });
 </script>
 
 <div
