@@ -127,7 +127,7 @@
     bind:showQr={$showQr}
   />
 
-  <InvoiceTypes {aid} {user} {type} {types} {setType} t={$t} />
+  <InvoiceTypes {aid} {invoice} {user} {type} {types} {setType} t={$t} />
 </div>
 
 <SetAmount

@@ -1,15 +1,8 @@
 <script>
-  let {
-    aid,
-    user,
-    type,
-    types,
-    t,
-    setType
-  } = $props();
+  let { aid, invoice, user, type, types, t, setType } = $props();
 </script>
 
-{#if aid === user?.id}
+{#if invoice.uid === aid}
   <div class="grid grid-cols-2 gap-2 justify-around text-secondary">
     <button
       class="btn flex-nowrap"
@@ -38,7 +31,10 @@
       onclick={() => setType(types.lightning)}
     >
       <div class="bg-base-100 rounded-full w-8 h-8 text-center flex">
-        <div class="m-auto">⚡️</div>
+        <div class="m-auto">
+          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          ></iconify-icon>
+        </div>
       </div>
       <div class="my-auto text-lg">Lightning</div>
     </button>

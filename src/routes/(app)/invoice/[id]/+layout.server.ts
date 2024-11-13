@@ -25,7 +25,7 @@ export async function load({ cookies, depends, params, url, parent }) {
 
 		let { amount, pending, received } = invoice;
 		amount = parseInt(amount);
-		subject = user || invoice.user;
+		subject = invoice.user;
 
 		const paid =
 			(!amount && (pending || received)) ||

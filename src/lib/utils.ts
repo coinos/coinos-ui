@@ -200,12 +200,15 @@ export const fd = async (req: Request): Promise<any> => {
 	return obj;
 };
 
-export const f = (s: number): string =>
+export const f = (s: number, currency: string): string =>
 	new Intl.NumberFormat("en-US", {
-		style: "decimal",
+		style: "currency",
+		currency,
 		minimumFractionDigits: 2,
 		maximumFractionDigits: 2,
-	}).format(s);
+	})
+		.format(s)
+		.replace("CA", "");
 
 export const s = (s: number): string =>
 	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
