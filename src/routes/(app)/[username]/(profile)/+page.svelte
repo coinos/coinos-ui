@@ -1,6 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
-
+  import { scale } from "svelte/transition";
   import { btc, f, sat } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import Account from "$comp/Account.svelte";
@@ -21,11 +20,6 @@
   let { currency } = $derived(subject);
   let rate = $derived(rates[currency]);
   let total = $derived(items.reduce((a, b) => a + b.price * b.quantity, 0));
-
-  let refresh = (d) => ({ accounts, items, subject, user, rates } = d);
-  run(() => {
-    refresh(data);
-  });
 
   let install = async () => {
     if (!$installPrompt) return;

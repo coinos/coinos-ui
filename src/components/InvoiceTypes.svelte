@@ -30,9 +30,9 @@
       class:text-secondary={type === types.lightning}
       onclick={() => setType(types.lightning)}
     >
-      <div class="bg-base-100 rounded-full w-8 h-8 text-center flex">
+      <div class="bg-base-100 rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto">
-          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300 text-3xl"
           ></iconify-icon>
         </div>
       </div>

@@ -1,70 +1,26 @@
 <script>
-  import { run } from "svelte/legacy";
-
-  import { scale } from "svelte/transition";
-  import Icon from "$comp/Icon.svelte";
-  import { toast } from "@zerodevx/svelte-toast";
-  import { browser } from "$app/environment";
+  import Success from "$comp/Success.svelte";
   import { t } from "$lib/translations";
-  import { toFiat, f, s, sat, sats } from "$lib/utils";
 
   let { data } = $props();
-  let amount,
-    currency = $state(),
-    rate = $state(),
-    received = $state(),
-    pending = $state(),
-    tip = $state(),
-    user = $state(),
-    id;
-  let update = (data) => {
-    ({ amount, currency, rate, received, pending, tip, user, id } =
-      data.invoice);
-  };
+  let { amount, currency, rate, received, pending, tip, user, id } = $derived(
+    data.invoice,
+  );
 
-  toast.pop(0);
-  run(() => {
-    update(data);
-  });
+  // toast.pop(0);
 </script>
 
 <div class="container px-4 text-center mx-auto">
-  {#if received}
-    <div
-      class="flex w-full py-5 max-w-[200px] mx-auto"
-      in:scale={{ start: 0.5 }}
-    >
-      <Icon icon="check" style="mx-auto" />
-    </div>
-
-    <h1 class="text-3xl md:text-4xl font-bold mb-6">
-      {$t("invoice.paymentSuccessful")}
-    </h1>
-
-    <h2 class="text-2xl md:text-3xl font-semibold">
-      {f(toFiat(received - tip, rate), currency)}
-      {#if tip}
-        <span class="text-lg">
-          + {f(toFiat(tip, rate), currency)}
-        </span>
-      {/if}
-    </h2>
-    <h3 class="text-secondary md:text-lg mb-6 mt-1">
-      ⚡️{s(received - tip)}
-
-      {#if tip}
-        <span class="text-lg">
-          + ⚡️{s(tip)}
-        </span>
-      {/if}
-    </h3>
-  {/if}
+  <Success
+    amount={received - tip}
+    {rate}
+    {tip}
+    {currency}
+    title={$t("invoice.paymentSuccessful")}
+  />
 
   {#if pending}
-    <div
-      class="flex w-full py-5 max-w-[200px] mx-auto"
-      in:scale={{ start: 0.5 }}
-    >
+    <div class="flex w-full py-5 max-w-[200px] mx-auto">
       <Icon icon="orangeclock" style="mx-auto" />
     </div>
 
@@ -88,9 +44,9 @@
 </div>
 
 <a href={`/${user.username}`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
+  <div class="opacity-0 w-screen h-screen fixed top-24 left-0 z-50"></div>
 </a>
 
-<div class="flex justify-center">
+<div class="flex justify-center mt-4">
   {$t("payments.tapAnywhere")}
 </div>

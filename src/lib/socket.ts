@@ -1,8 +1,8 @@
-import { invalidate } from "$app/navigation";
-import { navigating } from "$app/stores";
+import { goto, invalidate } from "$app/navigation";
+import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { event, invoice, last, request } from "$lib/store";
-import { sat, sleep, success, wait } from "$lib/utils";
+import { s, sleep, success, wait } from "$lib/utils";
 import { get } from "svelte/store";
 
 let socket;
@@ -38,13 +38,20 @@ export const messages = (data) => ({
 	},
 
 	async payment() {
-		const { amount, confirmed } = data;
+		const { amount, confirmed, iid } = data;
 		invalidate("app:user");
 		invalidate("app:invoice");
 		invalidate("app:payments");
 
+		const {
+			url: { pathname },
+		} = get(page);
+
 		if (amount > 0) {
-			success(`${confirmed ? "Received" : "Detected"} ${sat(amount)}!`);
+			if (pathname.includes("receive")) {
+				await wait(() => !get(navigating));
+				await goto(`/invoice/${iid}`);
+			} else success(`${confirmed ? "Received" : "Detected"} ⚡️${s(amount)}!`);
 		}
 	},
 

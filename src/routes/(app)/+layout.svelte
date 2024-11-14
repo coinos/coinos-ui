@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send } from "$lib/socket";
@@ -26,7 +24,7 @@
 
   let { data, children } = $props();
 
-  let { generate, rate, user, subject, token, rates } = $derived(data);
+  let { user, subject, token } = $derived(data);
   let { theme } = $state(data);
 
   $themeStore = theme;
@@ -113,13 +111,9 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main class="pb-20 min-h-dvh" data-theme={theme}>
+<main class="pb-4 min-h-dvh" data-theme={theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
     {@render children?.()}
   {/if}
 </main>
-
-{#if $invoice}
-  <Invoice {user} />
-{/if}

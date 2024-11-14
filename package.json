@@ -39,6 +39,7 @@
     "screenfull": "^6.0.2",
     "svelte": "^5.1.12",
     "svelte-adapter-bun": "^0.5.1",
+    "svelte-confetti": "^2.0.0",
     "svelte-dnd-action": "^0.9.39",
     "svelte-outclick": "^3.3.3",
     "svelte-preprocess": "^6.0.0",

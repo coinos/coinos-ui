@@ -1,6 +1,4 @@
 <script>
-  import { run } from 'svelte/legacy';
-
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send } from "$lib/socket";
@@ -26,13 +24,12 @@
 
   let { data, children } = $props();
 
-  let { generate, rate, user, subject, token, rates, theme } = $state(data);
-
-  let update = (data) => {
-    ({ rate, user, subject, token, rates, theme } = data);
-  };
+  let { user, subject, token } = $derived(data);
+  let { theme } = $state(data);
 
   $themeStore = theme;
+  $effect(() => (theme = $themeStore));
+  $effect(() => browser && connect(token));
 
   onMount(async () => {
     if (browser) {
@@ -58,7 +55,6 @@
     }
   });
 
-
   let lost,
     checkTimer,
     expireTimer,
@@ -83,15 +79,6 @@
       clearTimeout(expireTimer);
     }
   });
-  run(() => {
-    update(data);
-  });
-  run(() => {
-    theme = $themeStore;
-  });
-  run(() => {
-    browser && connect(token);
-  });
 </script>
 
 {#if browser && user && $passwordPrompt}
@@ -115,13 +102,9 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
-<main class="min-h-dvh" data-theme={theme}>
+<main class="pb-4 min-h-dvh" data-theme={theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
     {@render children?.()}
   {/if}
 </main>
-
-{#if $invoice}
-  <Invoice {user} />
-{/if}
