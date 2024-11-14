@@ -1,6 +1,7 @@
 <script>
-  import { fiat, f, focus, s, sat, sats } from "$lib/utils";
+  import { f, focus, s, sat, sats } from "$lib/utils";
   import { scale } from "svelte/transition";
+  import Amount from "$comp/Amount.svelte";
   import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
@@ -18,29 +19,13 @@
     <Icon icon="check" style="mx-auto" />
   </div>
   <h1 class="text-3xl md:text-4xl font-bold mb-6">{$t("payments.sent")}!</h1>
-  <h2 class="text-2xl md:text-3xl font-semibold">
-    {f(fiat(amount, rate), currency)}
-    {#if tip}
-      <span class="text-lg">
-        + {f(fiat(tip, rate), currency)}
-      </span>
-    {/if}
-  </h2>
-  <h3 class="text-secondary md:text-lg mb-6 mt-1">
-    ⚡️{s(amount)}
-
-    {#if tip}
-      <span class="text-lg">
-        + ⚡️{s(tip)}
-      </span>
-    {/if}
-  </h3>
+  <Amount {amount} {tip} {rate} {currency} />
 </div>
 
 <a href={`/${username}`} use:focus>
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 
-<div class="flex justify-center">
+<div class="flex justify-center mt-4">
   {$t("payments.tapAnywhere")}
 </div>

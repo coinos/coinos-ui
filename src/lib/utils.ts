@@ -189,7 +189,7 @@ export const auth = (cookies: any) => ({
 export const btc = (fiat: number, rate: number): number =>
 	Math.round((fiat * sats) / rate);
 
-export const fiat = (amount: number, rate: number): number =>
+export const toFiat = (amount: number, rate: number): number =>
 	(amount * rate) / sats;
 
 export const fd = async (req: Request): Promise<any> => {

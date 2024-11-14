@@ -258,7 +258,8 @@
               {:else}
                 <div class="text-secondary flex gap-2">
                   {#if p.type === types.lightning}
-                    <div class="text-3xl">⚡️</div>
+                    <div class="text-3xl"><iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        ></iconify-icon></div>
                   {:else if p.type === types.ecash}
                     <img src="/images/cash.png" class="w-12" />
                   {:else if p.type === types.reconcile}

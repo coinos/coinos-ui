@@ -7,7 +7,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { back, fiat, f, s, focus } from "$lib/utils";
+  import { back, toFiat, f, s, focus } from "$lib/utils";
   import { rate, pin } from "$lib/store";
 
   let { data, form } = $props();
@@ -68,10 +68,7 @@
         {$t("payments.send")}
       </h1>
 
-      <h2 class="text-3xl font-semibold">
-        {f(fiat(amount, $rate), currency)}
-      </h2>
-      <h3 class="text-secondary text-xl">⚡️{s(amount)}</h3>
+      <Amount {amount} rate={$rate} {currency} />
     </div>
 
     <div class="text-xl">
@@ -86,7 +83,7 @@
         <div class="flex flex-wrap gap-4 justify-center">
           <div class="my-auto">
             <h2 class="text-xl">
-              {f(fiat(ourfee, $rate), currency)}
+              {f(toFiat(ourfee, $rate), currency)}
             </h2>
             <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
           </div>
