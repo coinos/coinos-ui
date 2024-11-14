@@ -1,9 +1,7 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
-  import Icon from "$comp/Icon.svelte";
+  import Amount from "$comp/Amount.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
@@ -21,15 +19,7 @@
   } = $state(data);
   let a = $state();
 
-  let reload = (data) => {
-    ({
-      alias,
-      ourfee,
-      rates,
-      user: { currency },
-    } = data);
-    if (!$rate) $rate = rates[currency];
-  };
+  $effect(() => ($rate ||= rates[currency]));
 
   let showMax = $state();
 
@@ -42,17 +32,8 @@
 
   let show;
   let toggle = () => (show = !show);
-  run(() => {
-    reload(data);
-  });
   let amount = $derived(form?.amount || data.amount);
-  let maxfee;
-  run(() => {
-    maxfee = Math.max(5, Math.round(amount * 0.005));
-  });
-  run(() => {
-    update(form);
-  });
+  let maxfee = $state(Math.max(5, Math.round(amount * 0.005)));
 </script>
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">

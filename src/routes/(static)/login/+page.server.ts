@@ -18,7 +18,6 @@ export const actions = {
 			await login(user, cookies, request.headers.get("cf-connecting-ip"));
 		} catch (e) {
 			const { message } = e as Error;
-			console.log("message", message);
 			return fail(400, { error: "Login failed", message, ...form });
 		}
 

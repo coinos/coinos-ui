@@ -25,31 +25,6 @@
   let { user, payment: p } = $state(data);
   let locale = locales[user.language];
 
-  let refresh = (d) => {
-    ({ user, payment: p } = d);
-    ({
-      id,
-      hash,
-      amount,
-      created,
-      confirmed,
-      memo,
-      rate,
-      type,
-      ref,
-      path,
-      tip,
-      ourfee,
-      fee,
-      currency,
-    } = p);
-
-    if (amount > 0) [txid, vout] = ref.split(":");
-    else txid = hash;
-
-    if (!fee) fee = 0;
-  };
-
   let { username } = user;
   let {
     id,
@@ -64,9 +39,10 @@
     path,
     tip,
     ourfee,
-    fee,
+    fee = 0,
     currency,
-  } = $state(p);
+  } = $derived(p);
+  let [txid, vout] = $derived(amount > 0 ? ref.split(":") : [hash]);
   let a = Math.abs(amount);
 
   let expl = {
@@ -87,11 +63,6 @@
     }
   };
 
-  let txid = $state(),
-    vout = $state();
-  if (amount > 0) [txid, vout] = ref.split(":");
-  else txid = hash;
-
   let direction = $state("");
   onMount(() => {
     direction = amount > 0 ? $t("payments.from") : $t("payments.to");
@@ -99,9 +70,6 @@
     if (direction)
       direction =
         direction[0].toUpperCase() + direction.substr(1, direction.length);
-  });
-  run(() => {
-    refresh(data);
   });
 </script>
 
@@ -111,7 +79,7 @@
     <div class="flex gap-2 items-end">
       <div class="flex items-center">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-        ></iconify-icon>{amount}
+        ></iconify-icon>{s(amount)}
       </div>
       <span class="text-secondary text-lg">
         {f(toFiat(amount, rate), currency)}

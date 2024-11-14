@@ -214,12 +214,14 @@
                 class="font-bold flex items-center"
                 class:text-red-800={p.amount < 0}
               >
-                <iconify-icon
-                  icon="ph:lightning-fill"
-                  width="24"
-                  class="text-yellow-300"
-                ></iconify-icon>
-                {si(Math.abs(p.amount) + (p.tip || 0), 0, 1)}
+                <div class="flex items-center">
+                  <iconify-icon
+                    icon="ph:lightning-fill"
+                    width="24"
+                    class="text-yellow-300"
+                  ></iconify-icon>
+                  <div>{si(Math.abs(p.amount), 0, 1)}</div>
+                </div>
 
                 {#if p.tip}
                   <span class="text-sm text-secondary">
@@ -256,28 +258,25 @@
                   </div>
                 </div>
               {:else}
-                <div class="text-secondary flex gap-2">
+                <div class="text-secondary flex items-center gap-1">
                   {#if p.type === types.lightning}
-                    <div class="text-3xl"><iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-        ></iconify-icon></div>
+                    <iconify-icon
+                      icon="ph:lightning-fill"
+                      class="text-yellow-300 text-3xl"
+                    ></iconify-icon>
                   {:else if p.type === types.ecash}
                     <img src="/images/cash.png" class="w-12" />
                   {:else if p.type === types.reconcile}
                     <iconify-icon icon="ph:scales-bold" width="32"
                     ></iconify-icon>
                   {:else if p.type === types.bitcoin}
-                    <div class="my-auto">
-                      <img
-                        src="/images/bitcoin.svg"
-                        class="w-12 border-4 border-transparent"
-                        alt="Bitcoin"
-                      />
-                    </div>
+                    <iconify-icon icon="logos:bitcoin" class="text-3xl"
+                    ></iconify-icon>
                   {:else if p.type === types.liquid}
                     <div class="my-auto">
                       <img
                         src="/images/liquid.svg"
-                        class="w-12 border-4 border-transparent"
+                        class="w-10 border-4 border-transparent"
                         alt="Liquid"
                       />
                     </div>

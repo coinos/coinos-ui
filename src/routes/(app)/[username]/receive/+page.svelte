@@ -1,7 +1,5 @@
 <script>
   import { run } from "svelte/legacy";
-
-  import { send } from "$lib/socket";
   import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
