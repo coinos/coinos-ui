@@ -1,15 +1,22 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { scale } from "svelte/transition";
   import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import { fiat, f, s, sat, sats } from "$lib/utils";
+  import { toFiat, f, s, sat, sats } from "$lib/utils";
 
   let { data } = $props();
-  let amount, currency = $state(), rate = $state(), received = $state(), pending = $state(), tip = $state(), user = $state(), id;
+  let amount,
+    currency = $state(),
+    rate = $state(),
+    received = $state(),
+    pending = $state(),
+    tip = $state(),
+    user = $state(),
+    id;
   let update = (data) => {
     ({ amount, currency, rate, received, pending, tip, user, id } =
       data.invoice);
@@ -35,10 +42,10 @@
     </h1>
 
     <h2 class="text-2xl md:text-3xl font-semibold">
-      {f(fiat(received - tip, rate), currency)}
+      {f(toFiat(received - tip, rate), currency)}
       {#if tip}
         <span class="text-lg">
-          + {f(fiat(tip, rate), currency)}
+          + {f(toFiat(tip, rate), currency)}
         </span>
       {/if}
     </h2>
@@ -63,9 +70,9 @@
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
     <h2 class="text-2xl md:text-3xl font-semibold">
-      {f(fiat(pending - tip, rate), currency)}
+      {f(toFiat(pending - tip, rate), currency)}
       {#if tip}
-        + {f(fiat(tip, rate), currency)}
+        + {f(toFiat(tip, rate), currency)}
       {/if}
     </h2>
 

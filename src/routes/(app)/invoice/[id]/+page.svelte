@@ -28,9 +28,8 @@
 
   let { id, subject, user } = $state(data);
   let { invoice, src } = $derived(data);
-  let { hash, text } = $derived(invoice);
-  let { aid, amount, type, rate, tip } = $state(invoice);
-  let { username, currency } = invoice.user;
+  let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
+  let { username, currency } = $derived(invoice.user);
 
   let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
 
@@ -69,7 +68,6 @@
   let setAmount = $state(async () => {
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     settingAmount = false;
-    amount = newAmount;
     invoice.amount = newAmount;
     invoice.tip = 0;
     ({ id } = await post(`/invoice`, {

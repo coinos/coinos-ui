@@ -1,6 +1,6 @@
 <script>
   import { scale } from "svelte/transition";
-  import { fiat, f, s } from "$lib/utils";
+  import { toFiat, f, s } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
@@ -25,7 +25,7 @@
     {$t("payments.fundsClaimed")}
   </h1>
   <h2 class="text-2xl md:text-3xl font-semibold">
-    {f(fiat(amount, rate), currency)}
+    {f(toFiat(amount, rate), currency)}
   </h2>
   <h3 class="text-secondary md:text-lg mb-6 mt-1">
     ⚡️{s(amount)}

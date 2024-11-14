@@ -7,6 +7,7 @@
   import { goto, invalidateAll } from "$app/navigation";
   import { pin } from "$lib/store";
   import { enhance } from "$app/forms";
+  import Amount from "$comp/Amount.svelte";
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -18,7 +19,7 @@
     post,
     back,
     f,
-    fiat as toFiat,
+    toFiat,
     s,
     sats,
     focus,
@@ -99,25 +100,8 @@
     <h1 class="text-4xl font-bold">
       {$t("payments.send")}
     </h1>
-    <div>
-      <h2 class="text-2xl md:text-3xl font-semibold">
-        {f(toFiat(amount, rate), currency)}
-        {#if tip}
-          <span class="text-lg">
-            + {f(toFiat(tip, rate), currency)}
-          </span>
-        {/if}
-      </h2>
-      <h3 class="text-secondary md:text-lg mt-1">
-        ⚡️{s(amount)}
 
-        {#if tip}
-          <span class="text-lg">
-            + ⚡️{s(tip)}
-          </span>
-        {/if}
-      </h3>
-    </div>
+    <Amount {amount} {tip} {rate} {currency} />
 
     <h1 class="text-xl md:text-2xl text-secondary">
       {$t("payments.to")}

@@ -8,7 +8,7 @@
     copy,
     f,
     s,
-    fiat,
+    toFiat,
     post,
     sats,
     fail,
@@ -114,7 +114,7 @@
         ></iconify-icon>{amount}
       </div>
       <span class="text-secondary text-lg">
-        {f(fiat(amount, rate), currency)}
+        {f(toFiat(amount, rate), currency)}
       </span>
     </div>
   </div>

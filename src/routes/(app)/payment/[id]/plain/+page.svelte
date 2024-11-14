@@ -8,7 +8,7 @@
     copy,
     f,
     s,
-    fiat,
+    toFiat,
     post,
     sats,
     success,
@@ -42,7 +42,7 @@
   <div>
     <span class="text-lg text-secondary">Amount</span>
     <div>
-      {f(fiat(a, rate), currency)}
+      {f(toFiat(a, rate), currency)}
     </div>
   </div>
 
@@ -50,7 +50,7 @@
     <div>
       <span class="text-lg text-secondary">Tip</span>
       <div>
-        {f(fiat(tip, rate), currency)}
+        {f(toFiat(tip, rate), currency)}
         ({Math.round((tip * 100) / Math.abs(a))}%)
       </div>
     </div>
@@ -58,7 +58,7 @@
     <div>
       <span class="text-lg text-secondary">Total</span>
       <div>
-        {f(fiat(a + (tip || 0), rate), currency)}
+        {f(toFiat(a + (tip || 0), rate), currency)}
       </div>
     </div>
   {/if}
