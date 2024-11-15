@@ -45,7 +45,7 @@ textarea:focus, textarea:focus-within, .input:focus, .input:focus-within {
   @apply outline-offset-0;
 }
 
-input.clean {
+input.clean, textarea.clean {
   border: none;
   outline: none;
   padding: 0;

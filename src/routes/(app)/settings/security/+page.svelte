@@ -19,11 +19,9 @@
   let confirming2fa = $state(),
     disabling2fa = $state(),
     importing = $state(),
-    locked,
-    mnemonic,
+    mnemonic = $state(),
     newNsec = $state(),
     nsec = $state(),
-    old,
     otp = $state(),
     password = $state(),
     pin = $state(""),
@@ -61,8 +59,6 @@
   };
 
   let checkPin = async () => {
-    old = $current;
-
     try {
       if (pin.length > 5 && pin === verify) {
         user.haspin = true;
@@ -168,26 +164,30 @@
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
 <input type="hidden" name="confirm" bind:value={password} />
 
-<div class="relative mb-5">
+<div>
   <label for="password" class="block font-bold block mb-1"
     >{$t("user.settings.newPassword")}</label
   >
-  {#if revealPassword}
-    <input name="password" type="text" bind:value={password} />
-  {:else}
-    <input name="password" type="password" bind:value={password} />
-  {/if}
-  <button
-    type="button"
-    onclick={togglePassword}
-    onkeydown={togglePassword}
-    class="absolute right-5 top-11"
+  <label
+    for="password"
+    class="input flex items-center justify-center gap-2 w-full"
   >
+    {#if revealPassword}
+      <input name="password" type="text" bind:value={password} class="clean" />
+    {:else}
+      <input
+        name="password"
+        type="password"
+        bind:value={password}
+        class="clean"
+      />
+    {/if}
     <iconify-icon
+      onclick={togglePassword}
       icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
       width="32"
     ></iconify-icon>
-  </button>
+  </label>
 </div>
 
 <div>
@@ -264,7 +264,7 @@
   {/if}
 </div>
 
-<div>
+<div class="space-y-2">
   <label for="seedphrase" class="font-bold"
     >{$t("user.settings.nostrKeys")}</label
   >
@@ -274,6 +274,15 @@
   </p>
 
   <div class="flex flex-wrap sm:flex-nowrap gap-2">
+    <button
+      type="button"
+      class="btn !w-auto flex-grow"
+      onclick={toggleImporting}
+    >
+      <iconify-icon icon="ph:arrow-down-left-bold" width="32"></iconify-icon>
+      {$t("user.settings.import")}
+    </button>
+
     <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
       {#if revealNsec}
         <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
@@ -283,15 +292,6 @@
         {$t("user.settings.revealNsec")}
       {/if}
     </button>
-
-    <button
-      type="button"
-      class="btn !w-auto flex-grow"
-      onclick={toggleImporting}
-    >
-      <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
-      {$t("user.settings.import")}
-    </button>
   </div>
 
   {#if importing}
@@ -299,13 +299,10 @@
   {/if}
 
   {#if revealNsec}
-    <div class="text-lg break-all">
-      {nsec}
-    </div>
+    <button type="button" class="btn break-all !h-auto font-normal leading-normal flex-nowrap" onclick={() => copy(nsec)}>
+      <div>{nsec}</div>
 
-    <button type="button" class="btn" onclick={() => copy(nsec)}>
       <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
-      Copy
     </button>
   {/if}
 </div>
