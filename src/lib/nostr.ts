@@ -95,7 +95,7 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 
 	if (nsec) {
 		k = nip49decrypt(nsec, await getPassword());
-	} else k = hex.decode(privateKeyFromSeedWords(await getMnemonic(user)));
+	} else k = privateKeyFromSeedWords(await getMnemonic(user));
 
 	localStorage.setItem("nsec", nip19.nsecEncode(k));
 	return k;
