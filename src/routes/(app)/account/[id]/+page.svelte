@@ -17,7 +17,8 @@
   let { data } = $props();
   let { account, user } = data;
   let { id, name, seed } = account;
-  let mnemonic = $state(), password = $state();
+  let mnemonic = $state(),
+    password = $state();
   let passwordPrompt = $state();
   let cancel = $state(() => (passwordPrompt = false));
   let toggle = () => (passwordPrompt = !passwordPrompt);
@@ -58,11 +59,7 @@
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
-          <button
-            onclick={toggle}
-            type="button"
-            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
-          >
+          <button onclick={toggle} type="button" class="btn">
             <iconify-icon icon="ph:eye-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
           >
@@ -70,41 +67,25 @@
           <div class="break-all grow text-xl">
             {nwc}
           </div>
-          <button
-            onclick={() => copy(nwc)}
-            type="button"
-            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
-          >
+          <button onclick={() => copy(nwc)} type="button" class="btn">
             <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
           <a href={`/qr/${encodeURIComponent(nwc)}`} class="my-auto block">
-            <button
-              onclick={() => copy(nwc)}
-              type="button"
-              class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
-            >
+            <button onclick={() => copy(nwc)} type="button" class="btn">
               <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
               <div class="my-auto">{$t("user.receive.showQR")}</div></button
             >
           </a>
         {:else}
-          <button
-            onclick={revealNwc}
-            type="button"
-            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
-          >
+          <button onclick={revealNwc} type="button" class="btn">
             <Icon icon="eye" style="w-8 my-auto" />
             <div class="my-auto">{$t("accounts.revealNwc")}</div></button
           >
         {/if}
 
         {#if seed}
-          <button
-            onclick={del}
-            type="button"
-            class="flex gap-2 rounded-2xl border py-5 mx-auto px-6 w-full justify-center"
-          >
+          <button onclick={del} type="button" class="btn">
             <Icon icon="trash" style="w-8 my-auto" />
             <div class="my-auto">{$t("accounts.deleteAccount")}</div></button
           >
