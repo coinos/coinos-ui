@@ -141,14 +141,14 @@
           href={`/${subject.pubkey}/follows`}
           data-sveltekit-preload-data="tap"
           rel="nofollow"
-          ><b>{si(follows)}</b>
+          ><b>{si(follows, 0, 0)}</b>
           <span class="text-secondary">{$t("user.following")}</span></a
         >
         <a
           href={`/${subject.pubkey}/followers`}
           data-sveltekit-preload-data="tap"
           rel="nofollow"
-          ><b>{si(followers)}</b>
+          ><b>{si(followers, 0, 0)}</b>
           <span class="text-secondary">{$t("user.followers")}</span></a
         >
       </div>
