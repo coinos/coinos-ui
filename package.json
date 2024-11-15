@@ -28,7 +28,7 @@
     "leaflet": "^1.9.3",
     "leaflet.markercluster": "^1.5.3",
     "maplibre-gl": "^3.3.1",
-    "nostr-tools": "^2.7.2",
+    "nostr-tools": "^2.10.3",
     "postcss": "^8.4.20",
     "prettier": "^3.1.0",
     "prettier-plugin-svelte": "^3.2.6",
