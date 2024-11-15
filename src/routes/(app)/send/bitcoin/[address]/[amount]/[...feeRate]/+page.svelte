@@ -10,7 +10,7 @@
   import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
   import {
-    fiat as toFiat,
+    toFiat,
     f,
     focus,
     s,
