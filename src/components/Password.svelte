@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { t } from "$lib/translations";
   import { preventDefault } from "svelte/legacy";
 
@@ -68,10 +68,14 @@
         ></iconify-icon>
       </label>
       <div class="w-full flex gap-2">
-        <button type="button" class="btn !w-auto grow" onclick={cancel} onkeydown={cancel}
-          >Cancel</button
+        <button
+          type="button"
+          class="btn !w-auto grow"
+          onclick={cancel}
+          onkeydown={cancel}>Cancel</button
         >
-        <button type="submit" class="btn btn-accent !w-auto grow">Submit</button>
+        <button type="submit" class="btn btn-accent !w-auto grow">Submit</button
+        >
       </div>
     </form>
   </div>

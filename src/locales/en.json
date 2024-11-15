@@ -248,7 +248,7 @@
 			"memoPrompt": "Checkout instructions",
 			"memoPromptPlaceholder": "e.g. Please enter your name for the order",
 			"rememberFor": "Remember for",
-			"import": "Import key",
+			"import": "Import secret key",
 			"destination": "Autowithdrawal address",
 			"destinationDesc": "The address that withdrawals will be sent to",
 			"destinationPlaceholder": "Enter a Bitcoin, Liquid or Lightning address",

@@ -1,5 +1,5 @@
-<script>
-  import { run } from 'svelte/legacy';
+<script lang="ts">
+  import { run } from "svelte/legacy";
 
   import LandingHeader from "$comp/LandingHeader.svelte";
   import LandingHero from "$comp/LandingHero.svelte";
