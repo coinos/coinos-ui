@@ -103,9 +103,7 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 
 export const getMnemonic = async (user: User) => {
 	const { cipher, salt } = user;
-	let entropy;
-
-	entropy = new Uint8Array(
+	const entropy = new Uint8Array(
 		await crypto.subtle.decrypt(
 			{ name: "AES-GCM", iv: new Uint8Array(16) },
 			await stretch(await getPassword(), Buffer.from(salt, "hex")),
