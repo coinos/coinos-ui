@@ -3,7 +3,7 @@
   import { theme } from "$lib/store";
   let dark = () => {
     $theme = $theme === "dark" ? "light" : "dark";
-    document.cookie = `theme=${$theme}; path=/; max-age=86400`;
+    document.cookie = `theme=${$theme}; path=/; max-age=21000000`;
   };
 </script>
 
