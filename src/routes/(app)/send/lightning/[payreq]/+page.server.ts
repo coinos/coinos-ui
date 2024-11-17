@@ -9,14 +9,18 @@ export async function load({ cookies, params }) {
 }
 
 export const actions = {
-	setAmount: async ({ params, request }) => {
-		const data = await fd(request);
+	setAmount: async ({ cookies, params, request }) => {
+		let data = await fd(request);
 		const { payreq } = params;
 		const { amount } = data;
 		if (payreq.startsWith("lno")) {
-			data.payreq = (
-				await post("/fetchinvoice", { amount, offer: payreq })
-			).invoice;
+			const { invoice } = await post("/fetchinvoice", {
+				amount,
+				offer: payreq,
+			});
+
+			data = await post("/parse", { payreq: invoice }, auth(cookies));
+			data.payreq = invoice;
 		}
 
 		return data;
