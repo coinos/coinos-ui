@@ -99,10 +99,10 @@
 		"pitch3": "如果您认为自己可以产生影响，我们很乐意听取您的意见。将您的简历发送至"
 	},
 	"landing": {
-		"header_before_icon": "这",
-		"header_with_icon": "是开始使",
-		"header_after_icon": "用比特币最容易的方式。",
-		"subheader": "适合所有人的免费网络钱包和支付页面。",
+		"header_before_icon": "最",
+		"header_with_icon": "简单",
+		"header_after_icon": "的开始使用比特币的方式。",
+		"subheader": "为每个人提供免费的网页钱包和支付页面。",
 		"info1": {
 			"title": "通过闪电网络即时付款",
 			"description": "我们让商家可以轻松接收零售付款。无需等待银行结算或担心退款。即时结算，秒级。告别 3% 的卡费。"
@@ -148,7 +148,7 @@
 		"profile": "个人资料",
 		"startInSeconds": "立即开始",
 		"account": "帐户",
-		"signIn": "登入",
+		"signIn": "登录",
 		"signOut": "登出",
 		"dashboard": "仪表板",
 		"settings": "设置",
