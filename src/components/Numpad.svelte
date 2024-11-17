@@ -21,7 +21,7 @@
     if ($fiat) {
       amount = f ? Math.round(f / (rate / sats)) : 0;
     } else {
-      amountFiat = ((a * rate) / sats).toFixed(2);
+      amountFiat = a ? ((a * rate) / sats).toFixed(2) : 0;
     }
   };
 
