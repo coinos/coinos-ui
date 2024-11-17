@@ -44,8 +44,9 @@ export default async (s, host) => {
 	if (t.includes(":")) t = t.split(":")[1];
 
 	if (t.toLowerCase().startsWith("lno")) {
-		const { invoice } = await get(`/offer/${t}`);
-		redirect(307, `/send/lightning/${invoice}`);
+		const { offer_amount_msat: a } = await get(`/decode/${t}`);
+		if (a) ({ invoice: t } = await post("/fetchinvoice", { offer: t }));
+		redirect(307, `/send/lightning/${t}`);
 	}
 
 	if (t.toLowerCase().startsWith("lno")) {

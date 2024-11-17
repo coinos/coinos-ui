@@ -10,13 +10,13 @@
 
   let { data, form } = $props();
 
-  let { payreq } = $page.params;
   let {
     alias,
+    payreq,
     ourfee,
     rates,
     user: { currency },
-  } = $state(data);
+  } = $derived({ ...data, ...form });
   let a = $state();
 
   $effect(() => ($rate ||= rates[currency]));
@@ -25,12 +25,8 @@
 
   let loading = $state();
   let submit = () => (loading = true);
-  let update = () => {
-    if (form?.message?.includes("pin")) $pin = undefined;
-    loading = false;
-  };
 
-  let show;
+  let next = $state();
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.amount);
   let maxfee = $state(Math.max(5, Math.round(amount * 0.005)));
@@ -128,17 +124,14 @@
       {/if}
     </form>
   {:else}
-    <form
-      method="POST"
-      action="?/setAmount"
-      class="w-[300px] mx-auto"
-      use:enhance
-    >
+    <form method="POST" action="?/setAmount" class="space-y-2" use:enhance>
       <input type="hidden" value={a} name="amount" />
       <input name="rate" value={$rate} type="hidden" />
 
-      <Numpad bind:amount={a} {currency} bind:rate={$rate} />
-      <button type="submit" class="btn"> Next </button>
+      <Numpad bind:amount={a} {currency} bind:rate={$rate} submit={next} />
+      <button type="submit" class="btn" bind:this={next}
+        >{$t("payments.next")}</button
+      >
     </form>
   {/if}
 </div>

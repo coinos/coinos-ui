@@ -19,7 +19,7 @@
   $: update(amount, amountFiat);
   let update = (a, f) => {
     if ($fiat) {
-      amount = Math.round(f / (rate / sats));
+      amount = f ? Math.round(f / (rate / sats)) : 0;
     } else {
       amountFiat = ((a * rate) / sats).toFixed(2);
     }
