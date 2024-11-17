@@ -43,7 +43,12 @@ export default async (s, host) => {
 	if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
 	if (t.includes(":")) t = t.split(":")[1];
 
-	if (t.toLowerCase().startsWith("ln")) {
+	if (t.toLowerCase().startsWith("lno")) {
+		const { invoice } = await get(`/offer/${t}`);
+		redirect(307, `/send/lightning/${invoice}`);
+	}
+
+	if (t.toLowerCase().startsWith("lno")) {
 		try {
 			await get(`/invoice/${t}`);
 		} catch (e) {
