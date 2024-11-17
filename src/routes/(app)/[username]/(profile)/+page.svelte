@@ -1,4 +1,6 @@
 <script>
+  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import { scale } from "svelte/transition";
   import { btc, f, sat } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
@@ -8,6 +10,7 @@
   import { t } from "$lib/translations";
   import { installPrompt } from "$lib/store";
   import { afterNavigate, preloadData } from "$app/navigation";
+  import { page } from "$app/stores";
 
   let { data } = $props();
 
@@ -28,7 +31,13 @@
   };
 
   if (user) user.savings = 0;
+  let { host }  = $derived($page.url);
 </script>
+
+<a
+  href={`nostrsigner:?compressionType=none&returnType=signature&type=get_public_key&callbackUrl=http://${host}/amber/${user.id}/`}
+  rel="external">Get pubkey</a
+>
 
 <div class="space-y-2">
   {#if user?.id === subject.id}
