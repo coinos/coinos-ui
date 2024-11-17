@@ -5,7 +5,6 @@
   import { copy, fail, focus, post } from "$lib/utils";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
   import { decrypt } from "nostr-tools/nip49";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
@@ -79,14 +78,14 @@
           </a>
         {:else}
           <button onclick={revealNwc} type="button" class="btn">
-            <Icon icon="eye" style="w-8 my-auto" />
+            <iconify-icon icon="ph:eye-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.revealNwc")}</div></button
           >
         {/if}
 
         {#if seed}
           <button onclick={del} type="button" class="btn">
-            <Icon icon="trash" style="w-8 my-auto" />
+            <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.deleteAccount")}</div></button
           >
         {/if}
