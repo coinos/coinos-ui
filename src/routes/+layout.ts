@@ -1,5 +1,7 @@
+import { browser } from "$app/environment";
 import { addTranslations, setLocale, setRoute } from "$lib/translations/index";
 import { addIcon } from "iconify-icon";
+import cookies from "js-cookie";
 
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {
@@ -10,6 +12,22 @@ export const load = async ({ data }) => {
 
 	await setRoute(route);
 	await setLocale(locale);
+
+	if (browser) {
+		let theme = cookies.get("theme");
+
+		if (!theme) {
+			theme = matchMedia("(prefers-color-scheme: dark)").matches
+				? "dark"
+				: "light";
+
+			const expires = new Date();
+			expires.setSeconds(expires.getSeconds() + 21000000);
+
+			cookies.set("theme", theme, { path: "/", expires });
+			if (theme === "dark") location.reload();
+		}
+	}
 };
 
 addIcon("coinos:logo", {
