@@ -1,4 +1,5 @@
 import { browser } from "$app/environment";
+import { theme as themeStore } from "$lib/store";
 import { addTranslations, setLocale, setRoute } from "$lib/translations/index";
 import { addIcon } from "iconify-icon";
 import cookies from "js-cookie";
@@ -25,7 +26,7 @@ export const load = async ({ data }) => {
 			expires.setSeconds(expires.getSeconds() + 21000000);
 
 			cookies.set("theme", theme, { path: "/", expires });
-			if (theme === "dark") location.reload();
+			if (theme === "dark") setTimeout(() => themeStore.set(theme), 100);
 		}
 	}
 };
