@@ -2,11 +2,25 @@ import { auth, fd, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params }) {
-	return post("/parse", params, auth(cookies));
+	if (params.payreq.startsWith("lno")) return params;
+	const data = await post("/parse", params, auth(cookies));
+	data.payreq = params.payreq;
+	return data;
 }
 
 export const actions = {
-	setAmount: async ({ request }) => fd(request),
+	setAmount: async ({ params, request }) => {
+		const data = await fd(request);
+		const { payreq } = params;
+		const { amount } = data;
+		if (payreq.startsWith("lno")) {
+			data.payreq = (
+				await post("/fetchinvoice", { amount, offer: payreq })
+			).invoice;
+		}
+
+		return data;
+	},
 
 	send: async ({ cookies, request }) => {
 		let p;
