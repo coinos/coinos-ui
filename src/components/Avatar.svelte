@@ -1,8 +1,5 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
-
   import { avatar, banner } from "$lib/store";
-  import Icon from "$comp/Icon.svelte";
   import { punk } from "$lib/utils";
 
   interface Props {
