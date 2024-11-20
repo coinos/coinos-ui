@@ -21,7 +21,7 @@ html {
   background-color: white;
 }
 
-input {
+input:not([type="range"]) {
   @apply input
 }
 
@@ -37,7 +37,7 @@ select {
   @apply select select-bordered select-lg select-primary;
 }
 
-input, textarea, select, .input  {
+input:not([type="range"]), textarea, select, .input  {
   @apply w-full rounded-2xl;
 }
 
@@ -46,12 +46,12 @@ textarea:focus, textarea:focus-within, .input:focus, .input:focus-within {
 }
 
 input.clean, textarea.clean {
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
-  background: none;
-  box-shadow: none;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
 }
 
 .btn {

@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { preventDefault } from 'svelte/legacy';
+  import { preventDefault } from "svelte/legacy";
 
   import { tick, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
-  import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { encrypt } from "nostr-tools/nip49";
   import {
@@ -22,7 +21,10 @@
   let { user } = data;
   let submitting = $state();
 
-  let confirm = $state(), password = $state(), revealPassword = $state(), revealConfirm = $state();
+  let confirm = $state(),
+    password = $state(),
+    revealPassword = $state(),
+    revealConfirm = $state();
   let type = "bitcoin";
   let name = $t("accounts.savings");
 
@@ -79,7 +81,10 @@
       {$t("accounts.passwordWarning")}
     </p>
 
-    <div class="relative">
+    <label
+      for="password"
+      class="input flex items-center justify-center gap-2 w-full"
+    >
       {#if revealPassword}
         <input
           name="password"
@@ -87,6 +92,7 @@
           required
           bind:value={password}
           autocapitalize="none"
+          class="clean"
         />
       {:else}
         <input
@@ -97,27 +103,31 @@
           required
           bind:value={password}
           autocapitalize="none"
+          class="clean"
         />
       {/if}
-      <button
-        tabindex="-1"
-        type="button"
-        onclick={() => (revealPassword = !revealPassword)}
-        class="absolute right-5 -translate-y-1/2 top-1/2"
-      >
-        <Icon icon={revealPassword ? "eye" : "eye-off"} />
-      </button>
-    </div>
 
-    <div class="relative">
+      <iconify-icon
+        class="cursor-pointer ml-auto"
+        onclick={() => (revealPassword = !revealPassword)}
+        icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+        width="32"
+      ></iconify-icon>
+    </label>
+
+    <label
+      for="confirm"
+      class="input flex items-center justify-center gap-2 w-full"
+    >
       {#if revealConfirm}
         <input
-          name="password"
+          name="confirm"
           type="text"
           placeholder="Confirm password"
           required
           bind:value={confirm}
           autocapitalize="none"
+          class="clean"
         />
       {:else}
         <input
@@ -126,28 +136,27 @@
           required
           bind:value={confirm}
           autocapitalize="none"
+          class="clean"
         />
       {/if}
-      <button
-        type="button"
-        tabindex="-1"
+      <iconify-icon
+        class="cursor-pointer ml-auto"
         onclick={() => (revealConfirm = !revealConfirm)}
-        class="absolute right-5 -translate-y-1/2 top-1/2"
-      >
-        <Icon icon={revealConfirm ? "eye" : "eye-off"} />
-      </button>
-    </div>
+        icon={revealConfirm ? "ph:eye-bold" : "ph:eye-slash-bold"}
+        width="32"
+      ></iconify-icon>
+    </label>
 
     <div class="flex gap-2">
       <a href={`/account/seed`} class="contents">
-        <button type="button" class="border grow px-5 py-6 text-xl rounded-2xl">
+        <button type="button" class="btn !w-auto grow">
           {$t("accounts.back")}
         </button>
       </a>
       <button
         disabled={submitting}
         type="submit"
-        class="border grow px-5 py-6 text-xl rounded-2xl bg-black text-white"
+        class="btn btn-accent !w-auto grow"
       >
         {#if submitting}
           <Spinner />
