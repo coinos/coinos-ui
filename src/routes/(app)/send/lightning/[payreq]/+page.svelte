@@ -20,6 +20,7 @@
   let a = $state();
 
   $effect(() => ($rate ||= rates[currency]));
+  $effect(() => form && (loading = false));
 
   let showMax = $state();
 
