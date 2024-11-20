@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";
@@ -20,12 +18,12 @@
   import { format } from "date-fns";
   import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
   import locales from "$lib/locales";
+  import { goto } from "$app/navigation";
 
   let { data } = $props();
   let { user, payment: p } = $state(data);
-  let locale = locales[user.language];
+  let locale = user ? locales[user.language] : locales["en"];
 
-  let { username } = user;
   let {
     id,
     hash,
@@ -94,16 +92,14 @@
   </h1>
 
   {#if p.with}
-    <div>
+    <div onclick={() => goto(`/${p.with.username}`)}>
       <span class="text-lg text-secondary my-auto mr-2">{direction}</span>
-      <a href={`/${p.with.username}`}>
-        <div class="flex">
-          <div class="my-auto">
-            <Avatar user={p.with} size={20} />
-          </div>
-          <div class="my-auto ml-1">{p.with.username}</div>
+      <div class="flex">
+        <div class="my-auto">
+          <Avatar user={p.with} size={20} />
         </div>
-      </a>
+        <div class="my-auto ml-1">{p.with.username}</div>
+      </div>
     </div>
   {/if}
   {#if p.type === types.fund}
