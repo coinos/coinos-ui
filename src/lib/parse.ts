@@ -1,5 +1,5 @@
 import { PUBLIC_DOMAIN } from "$env/static/public";
-import { get, isLiquid, post } from "$lib/utils";
+import { get, sats, isLiquid, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 import bip21 from "bip21";
 import { validate } from "bitcoin-address-validation";
@@ -21,11 +21,6 @@ export default async (s, host) => {
 	let user;
 
 	t = t.trim();
-	if (t.toLowerCase().startsWith("bitcoin:"))
-		({
-			address: t,
-			options: { amount },
-		} = bip21.decode(t));
 
 	if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
 	if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split("@")[0];
@@ -58,9 +53,15 @@ export default async (s, host) => {
 	}
 
 	// bitcoin
+	if (t.toLowerCase().startsWith("bitcoin:"))
+		({
+			address: t,
+			options: { amount },
+		} = bip21.decode(t));
+
 	if (validate(t) || isLiquid(t)) {
 		let r = `/send/bitcoin/${t}`;
-		if (amount) r += `/${amount}`;
+		if (amount) r += `/${Math.round(amount * sats)}`;
 		redirect(307, r);
 	}
 

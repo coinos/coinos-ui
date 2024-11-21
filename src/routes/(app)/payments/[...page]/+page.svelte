@@ -142,7 +142,7 @@
 
   let showPage = $derived((i) => {
     const currentPage = parseInt(p);
-    const maxVisiblePages = 12;
+    const maxVisiblePages = 10;
 
     if (i === 0 || i === pages.length - 1) return true;
 
@@ -168,11 +168,11 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
+  <h1 class="text-center text-3xl md:text-4xl font-semibold">
     {$t("payments.header")}
   </h1>
 
-  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
+  <div class="container w-full mx-auto text-lg px-2 max-w-xl space-y-2">
     <div class="mx-auto flex justify-center w-full gap-1">
       {#each presets as { start, end, title }, i}
         <a href={`/payments/${getUnixTime(start) + "/"}1`}>
@@ -204,15 +204,14 @@
 
     <div class="text-base">
       {#each payments as p, i}
-        <a href={`/payment/${p.id}`} class="contents">
           <div
-            class="grid grid-cols-12 border-b border-base-200 h-24 hover:bg-base-200 px-4"
+            class="grid grid-cols-12 border-b border-base-200 h-16 hover:bg-base-200"
             class:border-b-0={i === payments.length - 1}
+            onclick={() => goto(`/payment/${p.id}`)}
           >
             <div class="whitespace-nowrap my-auto col-span-3">
               <div
                 class="font-bold flex items-center"
-                class:text-red-800={p.amount < 0}
               >
                 <div class="flex items-center">
                   <iconify-icon
@@ -220,23 +219,23 @@
                     width="24"
                     class="text-yellow-300"
                   ></iconify-icon>
-                  <div>{si(Math.abs(p.amount), 0, 1)}</div>
+                  <div>{s(Math.abs(p.amount))}</div>
                 </div>
+              </div>
+
+              <div class="text-secondary flex items-center text-base">
+                {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
 
                 {#if p.tip}
                   <span class="text-sm text-secondary">
-                    +{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
+                    &nbsp;+{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
                   </span>
                 {/if}
-              </div>
-
-              <div class="text-secondary flex items-center">
-                {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
               </div>
             </div>
 
             <div
-              class="flex my-auto col-span-5 truncate text-ellipsis overflow-hidden mx-auto"
+              class="flex my-auto col-span-6 truncate text-ellipsis overflow-hidden mx-auto"
             >
               {#if p.type === types.pot}
                 <a href={`/pot/${p.memo}`}>
@@ -302,7 +301,6 @@
               </div>
             </div>
           </div>
-        </a>
       {:else}
         <p class="text-secondary text-lg text-center">{$t("payments.empty")}</p>
       {/each}
