@@ -8,6 +8,7 @@ module.exports = {
 				light: {
 					...require("daisyui/src/theming/themes").lofi,
 					gradient: "#C3CFE2",
+          error: "#b91c1c",
 				},
 			},
 			{
@@ -15,6 +16,7 @@ module.exports = {
 					...require("daisyui/src/theming/themes").black,
           secondary: "#CCC",
 					gradient: "#C3CFE2",
+          error: "#f87171",
 				},
 			},
 		], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]

@@ -207,6 +207,7 @@
           <div
             class="grid grid-cols-12 border-b border-base-200 h-16 hover:bg-base-200"
             class:border-b-0={i === payments.length - 1}
+            class:text-error={p.amount < 0}
             onclick={() => goto(`/payment/${p.id}`)}
           >
             <div class="whitespace-nowrap my-auto col-span-3">
