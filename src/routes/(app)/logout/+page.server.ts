@@ -11,5 +11,6 @@ export async function load({ cookies }) {
 	cookies.set("lang", "", opts);
 	cookies.set("username", "", opts);
 	cookies.set("token", "", opts);
+	cookies.set("pin", "", opts);
 	redirect(307, `/login?lang=${lang}`);
 }
