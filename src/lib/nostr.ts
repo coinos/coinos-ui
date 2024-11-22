@@ -140,7 +140,8 @@ type SignParams = {
 };
 
 export const sign = async ({ event, user }: SignParams) => {
-	event = finalizeEvent(event, await getPrivateKey(user));
+	const sk = await getPrivateKey(user);
+	event = finalizeEvent(event, sk);
 };
 
 export const send = (event: EventTemplate) => {
