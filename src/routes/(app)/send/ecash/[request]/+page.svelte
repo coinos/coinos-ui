@@ -12,6 +12,14 @@
   import { getPrivateKey, sign, send } from "$lib/nostr";
   import { getDecodedToken } from "@cashu/cashu-ts";
   import type { PaymentRequestPayload } from "@cashu/cashu-ts";
+  import { AbstractSimplePool } from "nostr-tools/abstract-pool";
+
+  const alwaysTrue: any = (t: Event) => {
+    t[Symbol("verified")] = true;
+    return true;
+  };
+
+  export const pool = new AbstractSimplePool({ verifyEvent: alwaysTrue });
 
   const { data, form } = $props();
 
@@ -42,7 +50,7 @@
       );
 
       await sign({ event, user });
-      await send(event);
+      await Promise.any(pool.publish(recipient.relays, event));
 
       goto(`/sent/${pid}`);
     } catch (e) {
