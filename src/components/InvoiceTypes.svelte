@@ -11,12 +11,12 @@
       onclick={() => setType(types.lightning)}
     >
       <div
-        class="bg-base-100 rounded-full w-8 h-8 items-center justify-center flex"
+        class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
       >
         <div class="m-auto">
           <iconify-icon
             icon="ph:lightning-fill"
-            class="text-yellow-300 text-3xl"
+            class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
       </div>
