@@ -49,7 +49,6 @@
         JSON.stringify(paymentPayload),
       );
 
-      await sign({ event, user });
       await Promise.any(pool.publish(recipient.relays, event));
 
       goto(`/sent/${pid}`);
