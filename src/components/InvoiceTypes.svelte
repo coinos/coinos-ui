@@ -6,6 +6,32 @@
   <div class="grid grid-cols-2 gap-2 justify-around text-secondary">
     <button
       class="btn flex-nowrap"
+      class:bg-base-300={type === types.lightning}
+      class:text-secondary={type === types.lightning}
+      onclick={() => setType(types.lightning)}
+    >
+      <div
+        class="bg-base-100 rounded-full w-8 h-8 items-center justify-center flex"
+      >
+        <div class="m-auto">
+          <iconify-icon
+            icon="ph:lightning-fill"
+            class="text-yellow-300 text-3xl"
+          ></iconify-icon>
+        </div>
+      </div>
+      <div class="my-auto text-lg">Lightning</div>
+    </button>
+
+    <a href={`/receive`} class="block contents">
+      <button class="btn flex-nowrap">
+        <img src="/images/cash.png" class="w-8 my-auto" />
+        <div class="my-auto text-lg">Ecash</div>
+      </button>
+    </a>
+
+    <button
+      class="btn flex-nowrap"
       class:bg-base-300={type === types.bitcoin}
       class:text-secondary={type === types.bitcoin}
       onclick={() => setType(types.bitcoin)}
@@ -23,28 +49,6 @@
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
       <div class="my-auto text-lg">Liquid</div>
     </button>
-
-    <button
-      class="btn flex-nowrap"
-      class:bg-base-300={type === types.lightning}
-      class:text-secondary={type === types.lightning}
-      onclick={() => setType(types.lightning)}
-    >
-      <div class="bg-base-100 rounded-full w-8 h-8 items-center justify-center flex">
-        <div class="m-auto">
-          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300 text-3xl"
-          ></iconify-icon>
-        </div>
-      </div>
-      <div class="my-auto text-lg">Lightning</div>
-    </button>
-
-    <a href={`/receive`} class="block contents">
-      <button class="btn flex-nowrap">
-        <img src="/images/cash.png" class="w-8 my-auto" />
-        <div class="my-auto text-lg">Ecash</div>
-      </button>
-    </a>
   </div>
 
   {#if type === types.liquid}
