@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
@@ -31,7 +29,7 @@
     pasted = true;
   };
 
-  run(() => {
+  $effect(() => {
     if (browser && pasted && text) el.click() && (pasted = false);
   });
 </script>

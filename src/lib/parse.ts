@@ -1,5 +1,5 @@
 import { PUBLIC_DOMAIN } from "$env/static/public";
-import { get, isLiquid, auth, post, sats } from "$lib/utils";
+import { get, isLiquid, post, sats } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 import bip21 from "bip21";
 import { validate } from "bitcoin-address-validation";
@@ -65,7 +65,8 @@ export default async (s, host) => {
 		redirect(307, `/ecash/${id}`);
 	}
 
-  if (t.startsWith("creq")) redirect(307, `/send/ecash/${t}`);
+	console.log("HI", t);
+	if (t.startsWith("creq")) redirect(307, `/send/ecash/${t}`);
 
 	// user
 	try {

@@ -1,5 +1,5 @@
+import { auth, fd, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
-import { auth, post, fd } from "$lib/utils";
 
 export const actions = {
 	default: async ({ cookies, request }) => {
@@ -8,9 +8,10 @@ export const actions = {
 
 		try {
 			({ id } = await post("/mint", body, auth(cookies)));
-		} catch (e: any) {
+		} catch (e) {
+			const { message } = e as Error;
 			console.log("problem creating ecash", e);
-			error(400, { message: e.message });
+			error(400, { message });
 		}
 
 		redirect(307, `/ecash/${id}`);
