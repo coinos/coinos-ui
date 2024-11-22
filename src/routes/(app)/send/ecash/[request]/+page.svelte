@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { post } from "$lib/utils";
+  import { goto } from "$app/navigation";
+  import { fail, post } from "$lib/utils";
   import { applyAction, deserialize } from "$app/forms";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -8,7 +9,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { rate, pin } from "$lib/store";
   import { wrapEvent } from "nostr-tools/nip17";
-  import { getPrivateKey, sign } from "$lib/nostr";
+  import { getPrivateKey, sign, send } from "$lib/nostr";
   import { getDecodedToken } from "@cashu/cashu-ts";
   import type { PaymentRequestPayload } from "@cashu/cashu-ts";
 
@@ -20,27 +21,35 @@
     e.preventDefault();
     submitting = true;
 
-    let { token } = await post("/ecash/mint", { amount });
-    const dec = (token) => getDecodedToken(token).token[0];
-    let { proofs } = dec(token);
-    let { id, mints, unit = "" } = req;
-    // let mint = mints[0];
-    let mint = "http://mint:3338";
-    const paymentPayload: PaymentRequestPayload = {
-      id,
-      mint,
-      unit,
-      proofs,
-    };
+    try {
+      let { pid, token } = await post("/ecash/mint", { amount });
+      const dec = (token) => getDecodedToken(token).token[0];
+      let { proofs } = dec(token);
+      let { id, mints, unit = "" } = req;
+      let mint = mints[0];
+      const paymentPayload: PaymentRequestPayload = {
+        id,
+        mint,
+        unit,
+        proofs,
+      };
 
-    const paymentPayloadString = JSON.stringify(paymentPayload);
-    let event = wrapEvent(
-      await getPrivateKey(user),
-      { publicKey: recipient.pubkey },
-      JSON.stringify(paymentPayload),
-    );
+      const paymentPayloadString = JSON.stringify(paymentPayload);
+      let event = wrapEvent(
+        await getPrivateKey(user),
+        { publicKey: recipient.pubkey },
+        JSON.stringify(paymentPayload),
+      );
 
-    await sign({ event, user });
+      await sign({ event, user });
+      await send(event);
+
+      goto(`/sent/${pid}`);
+    } catch (e) {
+      console.log(e);
+      fail(e.message);
+    }
+
     submitting = false;
   };
 

@@ -7,7 +7,7 @@
   let { data, form } = $props();
 
   let link = $page.url.href;
-  let { id, total, version, token, external, spent } = $state(data);
+  let { id, total, token, external, spent } = $state(data);
 </script>
 
 {#if form?.error}
@@ -57,20 +57,4 @@
   >
     {token}
   </button>
-
-  {#if version === 4}
-    <a data-sveltekit-reload href={`/ecash/${id}/3`} class="contents">
-      <button type="button" class="btn">
-        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
-        <div class="my-auto">{$t("payments.legacyVersion")}</div>
-      </button>
-    </a>
-  {:else}
-    <a data-sveltekit-reload href={`/ecash/${id}`} class="contents">
-      <button type="button" class="btn">
-        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
-        <div class="my-auto">{$t("payments.newVersion")}</div>
-      </button>
-    </a>
-  {/if}
 </div>
