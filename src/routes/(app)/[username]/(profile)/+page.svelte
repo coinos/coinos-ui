@@ -56,7 +56,7 @@
   <Items {items} {subject} {user} {total} {currency} {rate} />
 
   <div
-    class="fixed inset-x-0 mx-auto flex bottom-16"
+    class="fixed inset-x-0 mx-auto flex bottom-16 px-4"
     class:static={!items.length}
   >
     {#if total > 0}
@@ -81,15 +81,12 @@
           : `/pay/${subject.username}`}
         class="contents"
       >
-        <button
-          class="rounded-2xl py-5 px-6 min-w-[200px] font-bold hover:bg-neutral-700 flex bg-black text-white mx-auto"
-        >
-          <div class="mx-auto flex gap-2">
-            <div class="text-4xl my-auto">⚡️</div>
-            <div class="my-auto text-2xl">
-              {$t("user.pay")}
-              {subject.username}
-            </div>
+        <button class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto">
+          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          ></iconify-icon>
+          <div>
+            {$t("user.pay")}
+            {subject.username}
           </div>
         </button>
       </a>
