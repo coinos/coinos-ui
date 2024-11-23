@@ -1,21 +1,21 @@
 <script>
   import { copyNoNewlines as copy } from "$lib/utils";
-  import Icon from "$comp/Icon.svelte";
   import samples from "$lib/samples";
   let { sample } = $props();
 </script>
 
 <div
-  class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 whitespace-pre-wrap font-mono"
+  class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 whitespace-pre-wrap font-mono items-center"
 >
   <div class="overflow-x-scroll max-w-full scrollbar-hide">
     <div class="break-all min-w-[800px]">{samples[sample]}</div>
   </div>
-  <button
-    class="ml-auto my-auto invert opacity-90"
+  <iconify-icon
+    icon="ph:copy-bold"
     onclick={() => copy(samples[sample])}
-    ><Icon icon="copy" style="w-10 max-w-none" /></button
-  >
+    width="42"
+    class="ml-auto cursor-pointer"
+  ></iconify-icon>
 </div>
 
 <style>
