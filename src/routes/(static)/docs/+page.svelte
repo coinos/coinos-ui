@@ -36,11 +36,14 @@
   </p>
 
   <h2 class="text-2xl">API Base URL</h2>
-  <div class="bg-primary text-secondary rounded-lg p-4 flex gap-4">
+  <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center">
     <div>{api}</div>
-    <button class="ml-auto my-auto invert opacity-90" onclick={() => copy(api)}
-      ><Icon icon="copy" style="w-10 max-w-none" /></button
-    >
+      <iconify-icon
+    icon="ph:copy-bold"
+    onclick={() => copy(api)}
+    width="42"
+    class="ml-auto cursor-pointer"
+  ></iconify-icon>
   </div>
 
   <h2 class="text-2xl">Auth Token</h2>
@@ -55,13 +58,14 @@
     Save it in a variable called <b>$token</b> to run the examples.
   </p>
 
-  <div class="bg-primary text-secondary rounded-lg p-4 flex gap-4">
+  <div class="bg-primary text-primary-content  rounded-lg p-4 flex gap-4 items-center">
     <div class="w-full break-all">{tokenSample}</div>
-    <button
-      class="ml-auto my-auto invert opacity-90"
-      onclick={() => copy(tokenSample)}
-      ><Icon icon="copy" style="w-10 max-w-none" /></button
-    >
+          <iconify-icon
+    icon="ph:copy-bold"
+    onclick={() => copy(tokenSample)}
+    width="42"
+    class="ml-auto cursor-pointer"
+  ></iconify-icon>
   </div>
 
   <h2 class="text-2xl">POST /register</h2>
