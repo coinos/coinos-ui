@@ -23,12 +23,15 @@
       <div class="my-auto text-lg">Lightning</div>
     </button>
 
-    <a href={`/receive`} class="block contents">
-      <button class="btn flex-nowrap">
-        <img src="/images/cash.png" class="w-8 my-auto" />
-        <div class="my-auto text-lg">Ecash</div>
-      </button>
-    </a>
+    <button
+      class="btn flex-nowrap"
+      class:bg-base-300={type === types.ecash}
+      class:text-secondary={type === types.ecash}
+      onclick={() => setType(types.ecash)}
+    >
+      <img src="/images/cash.png" class="w-8 my-auto" />
+      <div class="my-auto text-lg">Ecash</div>
+    </button>
 
     <button
       class="btn flex-nowrap"
