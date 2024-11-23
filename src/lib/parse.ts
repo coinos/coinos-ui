@@ -65,7 +65,6 @@ export default async (s, host) => {
 		redirect(307, `/ecash/${id}`);
 	}
 
-	console.log("HI", t);
 	if (t.startsWith("creq")) redirect(307, `/send/ecash/${t}`);
 
 	// user
