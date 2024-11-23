@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { fail, post } from "$lib/utils";
+  import { focus, fail, post } from "$lib/utils";
   import { applyAction, deserialize } from "$app/forms";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -31,25 +31,28 @@
 
     try {
       let { pid, token } = await post("/ecash/mint", { amount });
-      const dec = (token) => getDecodedToken(token).token[0];
-      let { proofs } = dec(token);
+      let { proofs } = getDecodedToken(token);
       let { id, mints, unit = "" } = req;
       let mint = mints[0];
-      const paymentPayload: PaymentRequestPayload = {
+
+      const payload = {
         id,
         mint,
         unit,
         proofs,
       };
 
-      const paymentPayloadString = JSON.stringify(paymentPayload);
-      let event = wrapEvent(
-        await getPrivateKey(user),
-        { publicKey: recipient.pubkey },
-        JSON.stringify(paymentPayload),
-      );
+      if (type === "nostr") {
+        let event = wrapEvent(
+          await getPrivateKey(user),
+          { publicKey: recipient.pubkey },
+          JSON.stringify(payload),
+        );
 
-      await Promise.any(pool.publish(recipient.relays, event));
+        await Promise.any(pool.publish(recipient.relays, event));
+      } else if (type === "post") {
+        await post("/ecash/post", { target, payload });
+      }
 
       goto(`/sent/${pid}`);
     } catch (e) {
@@ -60,7 +63,10 @@
     submitting = false;
   };
 
-  let { rates, recipient, req, user } = $derived({ ...data, ...form });
+  let { rates, recipient, req, user, type, target } = $derived({
+    ...data,
+    ...form,
+  });
   let { currency } = $derived(user);
   let a = $state();
   let next = $state();

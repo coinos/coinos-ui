@@ -7,9 +7,16 @@ export async function load({ cookies, params, url }) {
 		redirect(307, `/login?redirect=${encodeURIComponent(url.pathname)}`);
 
 	const req = { ...decodePaymentRequest(params.request) };
-	const { target } = req.transport[0];
-	const recipient = await get(`/profile/${target}`);
-	return { req, recipient };
+	const [{ target, type }] = req.transport;
+
+	let recipient = { name: "", pubkey: null };
+	if (type === "nostr") {
+		recipient = await get(`/profile/${target}`);
+	} else if (type === "post") {
+		recipient.name = new URL(target).hostname;
+	}
+
+	return { req, recipient, type, target };
 }
 
 export const actions = {

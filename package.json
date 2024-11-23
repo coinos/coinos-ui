@@ -6,7 +6,7 @@
     "@capacitor/cli": "^6.0.0",
     "@capacitor/core": "^6.0.0",
     "@capacitor/ios": "^6.1.2",
-    "@cashu/cashu-ts": "^1.2.1",
+    "@cashu/cashu-ts": "^2.0.0-rc4",
     "@iconify/iconify": "^3.1.1",
     "@scure/base": "^1.1.8",
     "@scure/bip39": "^1.2.1",
