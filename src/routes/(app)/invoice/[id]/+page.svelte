@@ -56,13 +56,21 @@
   });
 
   let setType = async (type) => {
-    invoice.type = type;
-    ({ id } = await post(`/invoice`, {
-      invoice,
-      user: { username, currency },
-    }));
+    $showQr = true;
+    if (type === types.lightning && !amount)
+      goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
+    else {
+      invoice.type = type;
+      ({ id } = await post(`/invoice`, {
+        invoice,
+        user: { username, currency },
+      }));
 
-    goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
+      goto(`/invoice/${id}?options=true`, {
+        invalidateAll: true,
+        noScroll: true,
+      });
+    }
   };
 
   let setAmount = async (e) => {
@@ -74,7 +82,7 @@
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     invoice.amount = newAmount;
     invoice.tip = 0;
-    
+
     ({ id } = await post(`/invoice`, {
       invoice,
       user: { username, currency },

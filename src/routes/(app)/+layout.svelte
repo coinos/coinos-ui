@@ -1,7 +1,7 @@
 <script>
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
-  import { close, connect, send } from "$lib/socket";
+  import { close, connect, send, socket } from "$lib/socket";
   import {
     last,
     invoice,
@@ -16,7 +16,6 @@
   import { browser } from "$app/environment";
   import LoadingSplash from "$comp/LoadingSplash.svelte";
   import AppHeader from "$comp/AppHeader.svelte";
-  import Invoice from "$comp/Invoice.svelte";
   import Password from "$comp/Password.svelte";
   import { getCookie, warning, protectedRoutes } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
@@ -29,7 +28,6 @@
 
   $themeStore = theme;
   $effect(() => (theme = $themeStore));
-  $effect(() => browser && connect(token));
 
   afterNavigate(() => {
     if (user) {
@@ -64,14 +62,13 @@
     }
   });
 
-  let lost,
-    checkTimer,
-    expireTimer,
+  let checkTimer,
     counter = 0;
 
   let checkSocket = () => {
     counter++;
-    lost = Date.now() - $last > 30000;
+    let lost = socket?.readyState !== 1 || !$last || Date.now() - $last > 30000;
+    console.log("LOST?", lost);
     if (lost) connect(token);
     if (counter > 5) {
       send("heartbeat", token);
@@ -85,7 +82,6 @@
     if (browser) {
       close();
       clearTimeout(checkTimer);
-      clearTimeout(expireTimer);
     }
   });
 </script>

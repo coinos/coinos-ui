@@ -35,7 +35,7 @@
     </a>
   {/if}
 
-  {#if txt.startsWith("ln")}
+  {#if txt.length > 120}
     <div class="w-full flex justify-center gap-2 flex-wrap">
       <button class="btn" onclick={() => (showQr = !showQr)}>
         {#if showQr}

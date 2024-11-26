@@ -1,4 +1,4 @@
-import { get, auth } from "$lib/utils";
+import { auth, get } from "$lib/utils";
 
 const limit = 25;
 

@@ -1,20 +1,13 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { goto } from "$app/navigation";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
 
-  let {
-    user,
-    rate,
-    account,
-    last
-  } = $props();
-  let { name, seed, balance, id } = $state(account);
-
-  let refresh = (a) => ({ seed, balance, id } = a);
+  let { user, rate, account, last } = $props();
+  let { name, seed, balance, id } = $derived(account);
 
   let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
   let go = () => {
@@ -22,9 +15,6 @@
     goto("/payments");
   };
   let type = $derived(seed ? "Savings" : "Cash");
-  run(() => {
-    refresh(account);
-  });
 </script>
 
 <div
@@ -47,16 +37,18 @@
   </div>
 
   <div class="flex justify-center w-full text-xl gap-2">
-    <a href={`/invoice`} class="contents" onclick={setAccount}>
+    <a href={"/invoice"} class="contents" onclick={setAccount}>
       <button class="btn !w-auto flex-grow">
-        <iconify-icon icon="ph:hand-coins-bold" width="32" flip="horizontal"></iconify-icon>
+        <iconify-icon icon="ph:hand-coins-bold" width="32" flip="horizontal"
+        ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
     <a href={`/send`} class="contents grow" onclick={setAccount}>
       <button type="button" class="btn !w-auto flex-grow">
-        <iconify-icon icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
+        <iconify-icon icon="ph:paper-plane-right-bold" width="32"
+        ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>
     </a>

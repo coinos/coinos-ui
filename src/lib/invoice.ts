@@ -2,7 +2,6 @@ import { auth, get, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export default async ({ cookies, request }) => {
-	console.log("LOADING");
 	const form = await request.formData();
 	const aid = form.get("aid") || cookies.get("aid");
 

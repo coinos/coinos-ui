@@ -5,19 +5,10 @@
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Toggle from "$comp/Toggle.svelte";
-  import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
-  import {
-    toFiat,
-    f,
-    focus,
-    s,
-    sat,
-    closest,
-    network,
-  } from "$lib/utils";
+  import { toFiat, f, focus, s, sat, closest, network } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -29,6 +20,8 @@
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english";
+
+  import Amount from "$comp/Amount.svelte";
 
   let { data, form } = $props();
 
@@ -130,34 +123,20 @@
   {:else}
     <div class="text-xl text-secondary break-all">{address}</div>
 
-    <div class="text-center">
-      <h2 class="text-2xl md:text-3xl font-semibold">
-        {f(toFiat(amount, $rate), currency)}
-      </h2>
-      <h3 class="text-secondary md:text-lg mb-6 mt-1">⚡️{s(amount)}</h3>
-    </div>
+    <Amount {amount} rate={$rate} {currency} />
 
     <div class="text-center">
       <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
 
       <div class="flex flex-wrap gap-4 justify-center">
-        <select
-          bind:value={feeRate}
-          onchange={setFee}
-          class="border text-lg bg-white p-4 rounded-2xl text-center my-auto"
-        >
+        <select bind:value={feeRate} onchange={setFee}>
           {#each Object.keys(feeNames) as feeName}
             <option value={fees[feeName]}
-              >{feeNames[feeName]} &mdash; ⚡️{fees[feeName]}/vb</option
+              >{feeNames[feeName]} &mdash; {fees[feeName]} sats/vb</option
             >
           {/each}
         </select>
-        <div class="my-auto">
-          <h2 class="text-xl">
-            {f(toFiat(fee, $rate), currency)}
-          </h2>
-          <h3 class="text-secondary">⚡️{s(fee)}</h3>
-        </div>
+        <Amount amount={fee} rate={$rate} {currency} />
       </div>
     </div>
 

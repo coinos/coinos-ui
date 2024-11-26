@@ -39,9 +39,10 @@ export const actions = {
 		try {
 			const body = await fd(request);
 			p = await post("/bitcoin/send", body, auth(cookies));
-		} catch (e: any) {
+		} catch (e) {
 			console.log("problem sending bitcoin", e);
-			return fail(400, { address, amount, feeRate, message: e.message });
+			const { message } = e as Error;
+			return fail(400, { address, amount, feeRate, message });
 		}
 
 		redirect(307, `/sent/${p.id}`);
