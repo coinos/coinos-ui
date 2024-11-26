@@ -3,7 +3,7 @@ import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, request, url, params }) {
 	const { pathname } = url;
-	const { username } = params;
+	const { id, username } = params;
 	const token = cookies.get("token");
 	let rate;
 	let rates = { USD: 1 };
@@ -20,7 +20,14 @@ export async function load({ cookies, request, url, params }) {
 	}
 
 	let subject;
-	if (username) {
+
+	if (url.pathname.startsWith("/invoice") && id) {
+		try {
+			({ user: subject } = await get(`/invoice/${id}`));
+		} catch (e) {
+			console.log("unable to fetch invoice", id, e);
+		}
+	} else if (username) {
 		try {
 			subject = await get(`/users/${username}`);
 		} catch (e) {

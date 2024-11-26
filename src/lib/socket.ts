@@ -3,9 +3,10 @@ import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { event, invoice, last, request } from "$lib/store";
 import { s, sleep, success, wait } from "$lib/utils";
+import cookies from "js-cookie";
 import { get } from "svelte/store";
 
-let socket;
+export let socket;
 let token;
 
 export const auth = () => token && send("login", token);
@@ -13,8 +14,9 @@ export const auth = () => token && send("login", token);
 export const send = async (type, data) => {
 	try {
 		await wait(() => socket && socket.readyState === 1, 1000, 10);
-	} catch (e: any) {
-		if (e.message === "timeout") reconnectToWebsocket();
+	} catch (e) {
+		const { message } = e as Error;
+		if (message === "timeout") reconnectToWebsocket();
 	}
 
 	await wait(() => socket.readyState === 1, 1000, 10);
@@ -47,8 +49,14 @@ export const messages = (data) => ({
 			url: { pathname },
 		} = get(page);
 
+		const username = cookies.get("username");
+
 		if (amount > 0) {
-			if (pathname.includes("receive")) {
+			if (
+				pathname.includes(`/${username}`) ||
+				pathname.includes("/receive") ||
+				pathname.includes("/invoice")
+			) {
 				await wait(() => !get(navigating));
 				await goto(`/invoice/${iid}`);
 			} else success(`${confirmed ? "Received" : "Detected"} ⚡️${s(amount)}!`);
@@ -63,7 +71,14 @@ const maxReconnectDelay = 16000;
 
 let currentReconnectDelay = initialReconnectDelay;
 
+let connecting;
 export function connect(t) {
+	if (connecting) return;
+	connecting = true;
+	setTimeout(() => {
+		connecting = false;
+	}, 5000);
+
 	token = t;
 
 	if (socket) return auth();
@@ -87,6 +102,7 @@ async function onWebsocketMessage(msg) {
 
 function onWebsocketOpen() {
 	currentReconnectDelay = initialReconnectDelay;
+	send("heartbeat", token);
 }
 
 function onWebsocketClose() {

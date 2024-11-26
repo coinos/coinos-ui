@@ -151,7 +151,7 @@ export const info = (m: string) => {
 
 export const login = async (
 	user: { username: string; password: string },
-	cookies: any,
+	cookies,
 	ip: string,
 ) => {
 	const maxAge = 380 * 24 * 60 * 60;
@@ -182,7 +182,7 @@ export const login = async (
 	cookies.set("token", token, opts);
 };
 
-export const auth = (cookies: any) => ({
+export const auth = (cookies) => ({
 	authorization: `Bearer ${cookies.get("token")}`,
 });
 

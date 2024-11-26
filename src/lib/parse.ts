@@ -1,7 +1,7 @@
 import { PUBLIC_DOMAIN } from "$env/static/public";
+import { decode } from "$lib/bip21";
 import { get, isLiquid, post, sats } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
-import bip21 from "bip21";
 import { validate } from "bitcoin-address-validation";
 
 export default async (s, host) => {
@@ -19,6 +19,23 @@ export default async (s, host) => {
 		try {
 			t = await get(`/encode?address=${t}`);
 		} catch (e) {}
+	}
+
+	// bitcoin
+	if (
+		t.toLowerCase().startsWith("bitcoin:") ||
+		t.toLowerCase().startsWith("liquidnetwork:")
+	) {
+		({
+			address: t,
+			options: { amount },
+		} = decode(t));
+	}
+
+	if (validate(t) || isLiquid(t)) {
+		let r = `/send/bitcoin/${t}`;
+		if (amount) r += `/${Math.round(amount * sats)}`;
+		redirect(307, r);
 	}
 
 	// lightning
@@ -45,19 +62,6 @@ export default async (s, host) => {
 		} catch (e) {
 			redirect(307, `/send/lightning/${t}`);
 		}
-	}
-
-	// bitcoin
-	if (t.toLowerCase().startsWith("bitcoin:"))
-		({
-			address: t,
-			options: { amount },
-		} = bip21.decode(t));
-
-	if (validate(t) || isLiquid(t)) {
-		let r = `/send/bitcoin/${t}`;
-		if (amount) r += `/${Math.round(amount * sats)}`;
-		redirect(307, r);
 	}
 
 	if (t.startsWith("cashu")) {

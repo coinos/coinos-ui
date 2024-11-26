@@ -103,7 +103,7 @@
 
     <Amount {amount} {tip} {rate} {currency} />
 
-    <h1 class="text-xl md:text-2xl text-secondary">
+    <h1 class="text-xl text-secondary">
       {$t("payments.to")}
     </h1>
 

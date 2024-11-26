@@ -15,7 +15,7 @@ export const load = async ({
 
 		const expires = new Date();
 		expires.setSeconds(expires.getSeconds() + 380 * 24 * 60 * 60);
-		cookies.set("username", username, { path: "/", expires });
+		cookies.set("username", username, { path: "/", expires, httpOnly: false });
 
 		return { subject, user };
 	} catch (e) {
