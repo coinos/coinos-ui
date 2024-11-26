@@ -65,11 +65,16 @@
     goto(`./${id}?options=true`, { invalidateAll: true, noScroll: true });
   };
 
-  let setAmount = $state(async () => {
-    if (typeof $amountPrompt === "undefined") $amountPrompt = true;
+  let setAmount = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     settingAmount = false;
+
+    if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     invoice.amount = newAmount;
     invoice.tip = 0;
+    
     ({ id } = await post(`/invoice`, {
       invoice,
       user: { username, currency },
@@ -80,7 +85,7 @@
     else url += "?options=true";
 
     goto(url, { invalidateAll: true, noScroll: true });
-  });
+  };
 
   let newAmount = $state(0);
   let settingAmount = $state();

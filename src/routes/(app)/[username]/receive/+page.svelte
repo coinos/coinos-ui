@@ -16,10 +16,8 @@
 
   let showOptions;
 
-  let { id, rates, subject, user, src, text } = $state(data);
-  let refresh = (data) => {
-    ({ id, rates, subject, user, src, text } = data);
-  };
+  let { id, rates, subject, user, text } = $state(data);
+  let { src } = $derived(data);
 
   let { currency, username } = subject;
   let rate = rates[currency];
@@ -52,12 +50,17 @@
     });
   };
 
-  let setAmount = async () => {
-    if (typeof $amountPrompt === "undefined") $amountPrompt = true;
+  let setAmount = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     settingAmount = false;
+
+    if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     amount = newAmount;
     invoice.amount = newAmount;
     invoice.tip = 0;
+
     ({ id } = await post(`/invoice`, {
       invoice,
       user: { username, currency },
@@ -75,15 +78,16 @@
   let fiat = $state(true);
   let toggleAmount = () => (settingAmount = !settingAmount);
   let submit;
-  run(() => {
-    refresh(data);
-  });
   let link = $derived(
     [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`,
   );
   let txt = $derived(
     [types.bitcoin, types.liquid].includes(type) ? hash : text,
   );
+
+  onMount(() => {
+    if ($amountPrompt && !amount) toggleAmount();
+  });
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
@@ -126,6 +130,5 @@
   {settingAmount}
   {setAmount}
   {toggleAmount}
-  amountPrompt={$amountPrompt}
   t={$t}
 />
