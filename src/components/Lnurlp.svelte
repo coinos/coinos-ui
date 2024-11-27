@@ -39,7 +39,7 @@
     </div>
   {/if}
 
-  <Numpad bind:amount bind:rate {currency} bind:submit={send} />
+  <Numpad bind:amount {rate} {currency} bind:submit={send} />
 
   <form action="?/pay" method="POST" use:enhance onsubmit={submit}>
     <input name="amount" value={amount} type="hidden" />

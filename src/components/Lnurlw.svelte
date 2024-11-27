@@ -53,7 +53,7 @@
       </div>
     </div>
   {:else}
-    <Numpad bind:amount {currency} bind:rate />
+    <Numpad bind:amount {currency} {rate} />
   {/if}
 
   <form action="?/withdraw" method="POST" use:enhance onsubmit={submit}>

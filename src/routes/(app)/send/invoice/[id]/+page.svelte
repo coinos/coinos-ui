@@ -1,6 +1,5 @@
 <script>
-  import { run } from "svelte/legacy";
-
+  import { untrack } from "svelte";
   import handler from "$lib/handler";
   import { onDestroy, onMount } from "svelte";
   import { t } from "$lib/translations";
