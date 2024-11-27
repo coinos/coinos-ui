@@ -1,6 +1,5 @@
 <script>
-  import { run } from "svelte/legacy";
-
+  import { untrack } from "svelte";
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
