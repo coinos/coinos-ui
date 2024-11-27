@@ -27,19 +27,23 @@
     {
       href: `/${user?.username}`,
       icon: "ph:house-bold",
+      label: "Home",
     },
     {
       href: `/${user?.username}/receive`,
       icon: "ph:hand-coins-bold",
       flip: "horizontal",
+      label: "Receive",
     },
     {
       href: `/payments`,
       icon: "ph:clock-bold",
+      label: "Payments",
     },
     {
       href: `/send`,
       icon: "ph:paper-plane-right-bold",
+      label: "Send",
     },
   ];
 
@@ -59,8 +63,8 @@
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
-        {#each links as { href, icon, flip }}
-          <a {href} data-sveltekit-preload-code="eager">
+        {#each links as { href, icon, flip, label }}
+          <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
             <button class="btn-menu {opacity(href)}">
               <iconify-icon {icon} width={w > 640 ? 32 : 24} {flip}
               ></iconify-icon>

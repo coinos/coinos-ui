@@ -146,7 +146,10 @@
 	},
 	"login": {
 		"forgot": "Forgot password?",
+		"resetSent": "A password reset link will be sent to your email if we have it on file.",
+		"continue": "Continue",
 		"reset": "Password reset",
+		"resetDesc": "We can send a reset link if you added and verified your email otherwise please reach out to",
 		"optional": "Optional",
 		"submit": "Submit",
 		"token": "2FA Token",
@@ -165,8 +168,8 @@
 		"failed": "Login failed"
 	},
 	"nav": {
-    "dark": "Dark",
-    "light": "Light", 
+		"dark": "Dark",
+		"light": "Light",
 		"about": "About",
 		"docs": "Docs",
 		"messages": "Messages",
@@ -176,7 +179,7 @@
 		"profile": "Profile",
 		"register": "Register",
 		"account": "Account",
-    "startInSeconds": "Start in Seconds",
+		"startInSeconds": "Start in Seconds",
 		"signIn": "Sign In",
 		"signOut": "Sign out",
 		"dashboard": "Dashboard",
@@ -244,7 +247,7 @@
 			"placeholder": "Enter an address, invoice or username"
 		},
 		"settings": {
-      "pleaseEnterYourPassword": "Please enter your password",
+			"pleaseEnterYourPassword": "Please enter your password",
 			"memoPrompt": "Checkout instructions",
 			"memoPromptPlaceholder": "e.g. Please enter your name for the order",
 			"rememberFor": "Remember for",
@@ -359,7 +362,7 @@
 		"fundingAmount": "Funding amount",
 		"fast": "Fast",
 		"ecashDesc": "Ecash tokens are funded with bitcoin. They may be redeemed in exchange for a lightning payment equal to their value or loaded back into a coinos account at any time. They can also be transferred to other ecash wallets either wholly or partially. You might use them to give bitcoin to someone who doesn't have a wallet by texting the token to them or sharing a link to it. Learn more at",
-    "ecashToken": "Ecash token",
+		"ecashToken": "Ecash token",
 		"medium": "Medium",
 		"maxFeeDesc": "Set an upper limit on the network routing fee. If set too low the payment may fail. You can set it higher and try again. We debit the full amount while attempting the payment but credit back any unused portion.",
 		"slow": "Slow",

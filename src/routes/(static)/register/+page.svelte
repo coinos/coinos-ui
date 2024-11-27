@@ -9,6 +9,7 @@
 
   import Pin from "$comp/Pin.svelte";
   import Spinner from "$comp/Spinner.svelte";
+  import PasswordInput from "$comp/PasswordInput.svelte";
 
   import { focus, fail } from "$lib/utils";
   import { avatar, password, loginRedirect } from "$lib/store";
@@ -27,6 +28,7 @@
 
   let username = $state();
   let { index } = $state(data);
+  let revealPassword = $state(false);
 
   let cleared;
   let clear = () => {
@@ -40,6 +42,8 @@
 
   let refresh = async (e) => {
     e.preventDefault();
+    cleared = false;
+
     username = uniqueNamesGenerator({
       dictionaries: [animals, NumberDictionary.generate({ min: 10, max: 99 })],
       length: 2,
@@ -72,8 +76,6 @@
 
   let email,
     btn = $state();
-
-  let revealPassword = $state();
 
   let loading = $state();
   async function handleSubmit(e) {
@@ -245,45 +247,11 @@
       >
     </label>
 
-    <label
-      for="password"
-      class="input flex items-center justify-center gap-2 w-full"
-    >
-      {#if revealPassword}
-        <input
-          class="clean"
-          name="password"
-          type="text"
-          required
-          bind:value={$password}
-          autocapitalize="none"
-          placeholder={$t("login.password")}
-        />
-      {:else}
-        <input
-          class="clean"
-          name="password"
-          type="password"
-          required
-          bind:value={$password}
-          autocapitalize="none"
-          onfocus={clear}
-          placeholder={$t("login.password")}
-        />
-      {/if}
-      <button
-        type="button"
-        tabindex="-1"
-        onclick={() => (revealPassword = !revealPassword)}
-        class="contents"
-        aria-label="Toggle"
-      >
-        <iconify-icon
-          icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-          width="32"
-        ></iconify-icon></button
-      >
-    </label>
+    <PasswordInput
+      bind:value={$password}
+      placeholder={$t("login.password")}
+      bind:show={revealPassword}
+    />
 
     <button type="submit" class="btn" disabled={loading} bind:this={btn}>
       {#if loading}
