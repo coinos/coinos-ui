@@ -41,12 +41,14 @@
     currency,
   } = $derived(p);
   let [txid, vout] = $derived(amount > 0 ? ref.split(":") : [hash]);
-  let a = Math.abs(amount);
+  let a = $derived(Math.abs(amount));
 
-  let expl = {
-    bitcoin: PUBLIC_EXPLORER,
-    liquid: PUBLIC_LIQUID_EXPLORER,
-  }[type];
+  let expl = $derived(
+    {
+      bitcoin: PUBLIC_EXPLORER,
+      liquid: PUBLIC_LIQUID_EXPLORER,
+    }[type],
+  );
 
   let print = async () => {
     await post(`/payment/${id}/print`, { id });
@@ -92,15 +94,15 @@
   </h1>
 
   {#if p.with}
-    <div onclick={() => goto(`/${p.with.username}`)}>
+    <a href={`/${p.with.username}`}>
       <span class="text-lg text-secondary my-auto mr-2">{direction}</span>
       <div class="flex">
         <div class="my-auto">
-          <Avatar user={p.with} size={20} />
+          <Avatar user={p.with} size={20} disabled={true} />
         </div>
         <div class="my-auto ml-1">{p.with.username}</div>
       </div>
-    </div>
+    </a>
   {/if}
   {#if p.type === types.fund}
     <div>
@@ -140,7 +142,7 @@
   {#if type === types.ecash && amount < 0}
     <a href={`/ecash/${memo}`} class="block">
       <button class="btn">
-        <img src="/images/cash.png" class="w-8" />
+        <img src="/images/cash.png" class="w-8" alt="Cash" />
         <div>{$t("payments.ecashToken")}</div>
       </button>
     </a>
