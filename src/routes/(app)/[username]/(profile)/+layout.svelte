@@ -22,9 +22,9 @@
     follows,
     followers,
     followList,
-  } = $state(data);
+  } = $derived(data);
 
-  let { currency, npub, username: n, display } = $state(subject);
+  let { currency, npub, username: n, display } = $derived(subject);
 
   let list = $state([]);
   let follow = async () => {
@@ -287,7 +287,8 @@
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
         {s((1 * sats) / rates[currency])} =
-        {f(1, currency)} {currency}
+        {f(1, currency)}
+        {currency}
       </div>
     </div>
   </div>
