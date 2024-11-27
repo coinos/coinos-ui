@@ -1,4 +1,5 @@
 <script>
+  import Amount from "$comp/Amount.svelte";
   import Success from "$comp/Success.svelte";
   import { t } from "$lib/translations";
 
@@ -11,35 +12,21 @@
 </script>
 
 <div class="container px-4 text-center mx-auto">
-  <Success
-    amount={received - tip}
-    {rate}
-    {tip}
-    {currency}
-    title={$t("invoice.paymentSuccessful")}
-  />
-
   {#if pending}
-    <div class="flex w-full py-5 max-w-[200px] mx-auto">
-      <Icon icon="orangeclock" style="mx-auto" />
-    </div>
+    <iconify-icon icon="ph:clock-bold" class="text-warning" width="160"
+    ></iconify-icon>
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
-    <h2 class="text-2xl md:text-3xl font-semibold">
-      {f(toFiat(pending - tip, rate), currency)}
-      {#if tip}
-        + {f(toFiat(tip, rate), currency)}
-      {/if}
-    </h2>
 
-    <h3 class="text-secondary md:text-lg mb-6 mt-1">
-      ⚡️{s(pending - tip)}
-      {#if tip}
-        <span class="text-lg">
-          + ⚡️{s(tip)}
-        </span>
-      {/if}
-    </h3>
+    <Amount amount={pending - tip} {tip} {rate} {currency} />
+  {:else}
+    <Success
+      amount={received - tip}
+      {rate}
+      {tip}
+      {currency}
+      title={$t("invoice.paymentSuccessful")}
+    />
   {/if}
 </div>
 

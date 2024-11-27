@@ -1,5 +1,5 @@
 <script>
-  let { value = $bindable() } = $props();
+  let { value = $bindable(), focus = () => {} } = $props();
   let toggle = (e) => (show = !show);
   let show = $state(false);
   let icon = $derived(show ? "ph:eye-bold" : "ph:eye-slash-bold");
@@ -12,7 +12,7 @@
   {#if show}
     <input name="password" type="text" bind:value class="clean" />
   {:else}
-    <input name="password" type="password" bind:value class="clean" />
+    <input name="password" type="password" bind:value class="clean" use:focus />
   {/if}
   <button type="button" aria-label="Toggle" onclick={toggle} class="contents">
     <iconify-icon {icon} width="32"></iconify-icon>

@@ -1,25 +1,26 @@
 <script lang="ts">
   import { t } from "$lib/translations";
-  import { preventDefault } from "svelte/legacy";
+  import PasswordInput from "$comp/PasswordInput.svelte";
 
-  import Icon from "$comp/Icon.svelte";
   import { focus, fail, post } from "$lib/utils";
   import { password as pw, passwordPrompt } from "$lib/store";
 
   let { user } = $props();
-
   let password = $state();
-  let { username } = user;
-  let revealPassword = $state(false);
 
   let cancel = () => ($passwordPrompt = false);
 
-  let submit = async () => {
+  let submit = async (e) => {
+    console.log("submitting");
+    e.preventDefault();
     try {
-      await post("/password", { password });
+      console.log("res?");
+      let res = await post("/password", { password });
+      console.log(res);
       $passwordPrompt = false;
       $pw = password;
     } catch (e) {
+      console.log(e);
       fail("Invalid password, try again");
     }
   };
@@ -34,47 +35,17 @@
     <h1 class="text-center text-2xl font-semibold">
       {$t("user.settings.pleaseEnterYourPassword")}
     </h1>
-    <form onsubmit={preventDefault(submit)} class="space-y-2">
-      <label
-        for="password"
-        class="input flex items-center justify-center gap-2 w-full"
-      >
-        {#if revealPassword}
-          <input
-            class="clean"
-            name="password"
-            type="text"
-            required
-            bind:value={password}
-            autocapitalize="none"
-            use:focus
-          />
-        {:else}
-          <input
-            class="clean"
-            name="password"
-            type="password"
-            required
-            bind:value={password}
-            autocapitalize="none"
-            use:focus
-          />
-        {/if}
-        <iconify-icon
-          class="cursor-pointer"
-          onclick={() => (revealPassword = !revealPassword)}
-          icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-          width="32"
-        ></iconify-icon>
-      </label>
+    <form onsubmit={submit} class="space-y-2">
+      <PasswordInput bind:value={password} {focus} />
       <div class="w-full flex gap-2">
         <button
           type="button"
           class="btn !w-auto grow"
           onclick={cancel}
-          onkeydown={cancel}>Cancel</button
+          onkeydown={cancel}>{$t("payments.cancel")}</button
         >
-        <button type="submit" class="btn btn-accent !w-auto grow">Submit</button
+        <button type="submit" class="btn btn-accent !w-auto grow"
+          >{$t("payments.submit")}</button
         >
       </div>
     </form>
