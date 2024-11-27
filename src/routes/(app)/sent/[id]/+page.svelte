@@ -4,13 +4,13 @@
   import Success from "$comp/Success.svelte";
 
   let { data } = $props();
-  let { amount, rate, tip, user } = $state(data);
+  let { rate, tip, user } = $state(data);
   let { currency, username } = user;
-  amount = Math.abs(amount);
+  let amount = $state(Math.abs(data.amount));
 </script>
 
 <Success {amount} {rate} {tip} {currency} title={`${$t("payments.sent")}!`} />
-<a href={`/${username}`} use:focus>
+<a href={`/${username}`} use:focus aria-label="Continue">
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 

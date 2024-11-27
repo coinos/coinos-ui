@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import Icon from "$comp/Icon.svelte";
   import Image from "$comp/Image.svelte";
-  import LocationsMap from "$comp/LocationsMap.svelte";
   import { t } from "$lib/translations";
 
   let team = [
@@ -90,18 +89,17 @@
     >
       {@html $t("about.locations.description")}
     </p>
-    <!-- <LocationsMap {locations} /> -->
 
-    <a href="/map">
-      <div class="relative">
-        <img src="/map.png" class="mx-auto" />
+    <div class="relative">
+      <a href="/map" class="contents">
+        <img src="/map.png" class="mx-auto" alt="Map" />
+      </a>
 
-        <button
-          class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
-        >
-          {$t("about.locations.viewMap")}
-        </button>
-      </div>
-    </a>
+      <button
+        class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
+      >
+        {$t("about.locations.viewMap")}
+      </button>
+    </div>
   </div>
 {/if}

@@ -1,12 +1,11 @@
 <script>
   import { getContext } from "svelte";
-
   import { getMnemonic, getNsec } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
-  import Icon from "$comp/Icon.svelte";
   import Qr from "$comp/Qr.svelte";
+  import PasswordInput from "$comp/PasswordInput.svelte";
   import { copy, post, success, fail } from "$lib/utils";
   import { save, pin as current } from "$lib/store";
   import { invalidate } from "$app/navigation";
@@ -48,7 +47,6 @@
     }
   };
 
-  let togglePassword = () => (revealPassword = !revealPassword);
   let toggleSeed = async () => {
     try {
       mnemonic = await getMnemonic(user);
@@ -168,26 +166,8 @@
   <label for="password" class="block font-bold block mb-1"
     >{$t("user.settings.newPassword")}</label
   >
-  <label
-    for="password"
-    class="input flex items-center justify-center gap-2 w-full"
-  >
-    {#if revealPassword}
-      <input name="password" type="text" bind:value={password} class="clean" />
-    {:else}
-      <input
-        name="password"
-        type="password"
-        bind:value={password}
-        class="clean"
-      />
-    {/if}
-    <iconify-icon
-      onclick={togglePassword}
-      icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-      width="32"
-    ></iconify-icon>
-  </label>
+
+  <PasswordInput bind:value={password} />
 </div>
 
 <div>
@@ -299,7 +279,11 @@
   {/if}
 
   {#if revealNsec}
-    <button type="button" class="btn break-all !h-auto font-normal leading-normal flex-nowrap" onclick={() => copy(nsec)}>
+    <button
+      type="button"
+      class="btn break-all !h-auto font-normal leading-normal flex-nowrap"
+      onclick={() => copy(nsec)}
+    >
       <div>{nsec}</div>
 
       <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>

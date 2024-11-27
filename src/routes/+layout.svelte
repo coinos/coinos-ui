@@ -10,7 +10,7 @@
 
   let { data, children } = $props();
   let { pathname, theme } = $state(data);
-  $themeStore = theme;
+  $themeStore = data.theme;
   $effect(() => (theme = $themeStore));
 
   let host = PUBLIC_DOMAIN.includes("localhost")

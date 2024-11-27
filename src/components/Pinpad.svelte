@@ -1,6 +1,4 @@
 <script>
-  import { preventDefault, stopPropagation } from "svelte/legacy";
-
   import Left from "$comp/Left.svelte";
   import Icon from "$comp/Icon.svelte";
   import { focus, post, warning } from "$lib/utils";
@@ -38,6 +36,12 @@
   };
 
   let hide = $state(true);
+
+  let toggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    hide = !hide;
+  };
 </script>
 
 <label
@@ -62,12 +66,10 @@
       pattern="[0-9]+"
     />
   {/if}
-  <iconify-icon
-    icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"}
-    width="32"
-    onclick={stopPropagation(preventDefault(() => (hide = !hide)))}
-    class="cursor-pointer"
-  ></iconify-icon>
+  <button type="button" class="contents" onclick={toggle}>
+    <iconify-icon icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
+    ></iconify-icon></button
+  >
 </label>
 
 <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">

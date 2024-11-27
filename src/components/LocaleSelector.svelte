@@ -1,18 +1,16 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { t, locale, locales } from "$lib/translations";
   let { style } = $props();
-
-  let l;
-  run(() => {
-    l = $locale;
-  });
+  let l = $state($locale);
 
   const handleChange = ({ currentTarget }) => {
     const { value } = currentTarget;
     document.cookie = `lang=${value}; path=/`;
+    console.log("settinglocale", value);
     $locale = value;
+    l = value;
   };
 </script>
 

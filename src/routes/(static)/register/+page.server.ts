@@ -1,5 +1,5 @@
+import { fd, login, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
-import { fd, post, login } from "$lib/utils";
 
 export const load = async ({ parent }) => {
 	const { user } = await parent();
@@ -24,18 +24,19 @@ export const actions = {
 
 		try {
 			await post("/register", { user }, { "cf-connecting-ip": ip });
-		} catch (e: any) {
-			error = e.message;
+		} catch (e) {
+			({ message: error } = e as Error);
 		}
 
 		try {
 			await login(user, cookies, ip);
 			error = null;
-		} catch (e: any) {
-			error ||= e.message;
+		} catch (e) {
+			const { message } = e as Error;
+			error ||= message;
 		}
 
 		if (error) return fail(400, { error });
-		redirect(307, loginRedirect || `/${user.username}`);
+		redirect(303, loginRedirect || `/${user.username}`);
 	},
 };

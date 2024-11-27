@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -7,20 +7,12 @@
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
 
-  let {
-    data,
-    form,
-    send = $bindable(),
-    comment = $bindable()
-  } = $props();
+  let { data, form, send = $bindable(), comment = $bindable() } = $props();
   let { currency } = data.user;
   let { minSendable, maxSendable, commentAllowed, callback, metadata, rates } =
     data;
 
-  let rate;
-  run(() => {
-    rate = rates[currency];
-  });
+  let rate = $derived(rates[currency]);
 
   let amount = $state(Math.round(minSendable / 1000)),
     loading = $state();
@@ -63,7 +55,7 @@
         class="w-full p-4 border rounded-xl h-32 text-xl"
         bind:value={comment}
         autocapitalize="none"
-></textarea>
+      ></textarea>
     {/if}
 
     <div class="flex w-full">
