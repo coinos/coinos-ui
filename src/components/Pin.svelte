@@ -45,23 +45,22 @@
 
 {#if loaded}
   <div
+    role="dialog"
     class="fixed bg-base-100 bg-opacity-90 inset-0 h-full w-full z-50 cursor-default"
     on:click|preventDefault
+    aria-labelledby="title"
   >
     <div
       class="mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 max-w-lg"
     >
-      <h1 class="text-center text-2xl font-semibold">{title}</h1>
+      <h1 id="title" class="text-center text-2xl font-semibold">{title}</h1>
       <Pinpad bind:v={p} {cancel} />
 
       <div>
         <label for="locktime" class="font-bold"
           >{$t("user.settings.rememberFor")}</label
         >
-        <select
-          name="locktime"
-          bind:value={locktime}
-        >
+        <select name="locktime" bind:value={locktime}>
           <option value={30}>30 {$t("user.settings.seconds")}</option>
           <option value={5 * 60}>5 {$t("user.settings.minutes")}</option>
           <option value={10 * 60}>10 {$t("user.settings.minutes")}</option>

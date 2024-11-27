@@ -18,12 +18,17 @@
     : `export token=<your auth token>`;
 </script>
 
+{#snippet cp(something)}
+  <button type="button" class="ml-auto" onclick={() => copy(something)}>
+    <iconify-icon icon="ph:copy-bold" width="42"></iconify-icon>
+  </button>
+{/snippet}
+
 <div class="space-y-8 lg:text-xl mt-20 pt-20 md:pt-0 w-full max-w-full">
   <h1 class="text-4xl">Documentation</h1>
 
   <p class="text-secondary">
-    Coinos is free and open source software. The code is
-    available at <a
+    Coinos is free and open source software. The code is available at <a
       href="https://github.com/coinos"
       class="text-secondary underline">github.com/coinos</a
     >
@@ -31,19 +36,18 @@
 
   <p class="text-secondary">
     Coinos has a REST API that can be used to register accounts and make
-    payments. The following examples show how you can call the API
-    with <a href="https://curl.se/" class="text-secondary underline">curl</a>
+    payments. The following examples show how you can call the API with <a
+      href="https://curl.se/"
+      class="text-secondary underline">curl</a
+    >
   </p>
 
   <h2 class="text-2xl">API Base URL</h2>
-  <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center">
+  <div
+    class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center"
+  >
     <div>{api}</div>
-      <iconify-icon
-    icon="ph:copy-bold"
-    onclick={() => copy(api)}
-    width="42"
-    class="ml-auto cursor-pointer"
-  ></iconify-icon>
+    {@render cp(api)}
   </div>
 
   <h2 class="text-2xl">Auth Token</h2>
@@ -58,14 +62,11 @@
     Save it in a variable called <b>$token</b> to run the examples.
   </p>
 
-  <div class="bg-primary text-primary-content  rounded-lg p-4 flex gap-4 items-center">
+  <div
+    class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center"
+  >
     <div class="w-full break-all">{tokenSample}</div>
-          <iconify-icon
-    icon="ph:copy-bold"
-    onclick={() => copy(tokenSample)}
-    width="42"
-    class="ml-auto cursor-pointer"
-  ></iconify-icon>
+    {@render cp(tokenSample)}
   </div>
 
   <h2 class="text-2xl">POST /register</h2>

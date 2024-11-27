@@ -8,6 +8,7 @@
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
   import Pinpad from "$comp/Pinpad.svelte";
+  import PasswordInput from "$comp/PasswordInput.svelte";
   import { focus, fail } from "$lib/utils";
   import { password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
@@ -105,38 +106,7 @@
       placeholder={$t("login.username")}
     />
 
-    <label
-      for="password"
-      class="input flex items-center justify-center gap-2 w-full"
-    >
-      {#if revealPassword}
-        <input
-          class="clean"
-          name="password"
-          type="text"
-          required
-          bind:value={$password}
-          autocapitalize="none"
-          placeholder={$t("login.password")}
-        />
-      {:else}
-        <input
-          class="clean"
-          name="password"
-          type="password"
-          required
-          bind:value={$password}
-          autocapitalize="none"
-          placeholder={$t("login.password")}
-        />
-      {/if}
-      <iconify-icon
-        class="cursor-pointer ml-auto"
-        onclick={() => (revealPassword = !revealPassword)}
-        icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-        width="32"
-      ></iconify-icon>
-    </label>
+    <PasswordInput bind:value={$password} placeholder={$t("login.password")} />
 
     <div class="flex justify-end items-center">
       <a href="/forgot" class="underline underline-offset-4 text-secondary"
@@ -164,11 +134,13 @@
   <div
     class="fixed bg-base-100 bg-opacity-90 inset-0 h-full w-full z-50 cursor-default"
     onclick={(e) => e.stopPropagation()}
+    role="dialog"
+    aria-labelledby="title"
   >
     <div
       class="mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 max-w-lg"
     >
-      <h1 class="text-center text-2xl font-semibold">2FA</h1>
+      <h1 id="title" class="text-center text-2xl font-semibold">2FA</h1>
       <Pinpad bind:v={token} {cancel} />
 
       <div class="w-full flex">
