@@ -1,6 +1,4 @@
 <script>
-  import { run, preventDefault } from 'svelte/legacy';
-
   import punks from "$lib/punks";
   import { upload } from "$lib/upload";
   import { afterNavigate, invalidateAll } from "$app/navigation";
@@ -40,7 +38,8 @@
     }
   };
 
-  let refresh = async () => {
+  let refresh = async (e) => {
+    e.preventDefault();
     username = uniqueNamesGenerator({
       dictionaries: [animals, NumberDictionary.generate({ min: 10, max: 99 })],
       length: 2,
@@ -64,27 +63,27 @@
     }
   });
 
-  let token = $state(), formElement;
+  let token = $state(),
+    formElement;
   let code = [];
   let redirect;
 
   let cancel = () => (need2fa = false);
 
-  let email, btn = $state();
-
-  let update = (form) => form && ({ username, password: $password } = form);
-
+  let email,
+    btn = $state();
 
   let revealPassword = $state();
 
   let loading = $state();
   async function handleSubmit(e) {
+    e.preventDefault();
+
     loading = true;
 
     let data = new FormData(this);
     let user = Object.fromEntries(data);
 
-    console.log("USER", JSON.stringify(user));
     await generate(user);
 
     for (let k in user) {
@@ -144,25 +143,16 @@
 
     reader.readAsDataURL(file);
   };
-  run(() => {
-    data && ($avatar = undefined);
+
+  let need2fa = $derived(form?.message === "2fa");
+  let src = $derived(`/api/public/${punks[index]}.webp`);
+
+  $effect(() => {
+    if (need2fa && form.token === token) token = "";
   });
-  let need2fa;
-  run(() => {
-    need2fa = form?.message === "2fa";
-  });
-  run(() => {
-    if (form?.message === "2fa" && form.token === token) token = "";
-  });
-  run(() => {
-    update(form);
-  });
-  run(() => {
+
+  $effect(() => {
     token && token?.length === 6 && tick().then(() => btn.click());
-  });
-  let src;
-  run(() => {
-    src = `/api/public/${punks[index]}.webp`;
   });
 </script>
 
@@ -185,11 +175,12 @@
     <button
       class="absolute w-8 h-12 left-12 bg-base-100 rounded top-12"
       onclick={decr}
+      aria-label="Previous"
     >
       <iconify-icon icon="ph:caret-left-bold" width="32"></iconify-icon>
     </button>
-    <div class="block relative w-32 mx-auto" onclick={selectAvatar}>
-      <button
+    <button class="block relative w-32 mx-auto" onclick={selectAvatar}>
+      <div
         class="w-32 h-32 rounded-full border-4 border-white overflow-hidden flex mx-auto relative"
       >
         <img
@@ -197,16 +188,17 @@
           class="w-full h-full object-cover object-center overflow-hidden"
           alt={username}
         />
-      </button>
-      <button
+      </div>
+      <div
         class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12"
       >
         <iconify-icon icon="ph:upload-simple-bold" width="24"></iconify-icon>
-      </button>
-    </div>
+      </div>
+    </button>
     <button
       class="absolute w-8 h-12 right-12 bg-base-100 rounded top-12"
       onclick={incr}
+      aria-label="Next"
     >
       <iconify-icon icon="ph:caret-right-bold" width="32"></iconify-icon>
     </button>
@@ -218,7 +210,7 @@
     </div>
   {/if}
 
-  <form class="space-y-5" onsubmit={preventDefault(handleSubmit)} method="POST">
+  <form class="space-y-5" onsubmit={handleSubmit} method="POST">
     <input
       type="hidden"
       name="loginRedirect"
@@ -241,13 +233,16 @@
         autocapitalize="none"
         placeholder={$t("login.username")}
       />
-      <iconify-icon
-        class="cursor-pointer"
+      <button
+        type="button"
         tabindex="-1"
         onclick={refresh}
-        icon="ph:dice-three-bold"
-        width="32"
-></iconify-icon>
+        aria-label="Randomize"
+        class="contents"
+      >
+        <iconify-icon icon="ph:dice-three-bold" width="32"
+        ></iconify-icon></button
+      >
     </label>
 
     <label
@@ -276,13 +271,18 @@
           placeholder={$t("login.password")}
         />
       {/if}
-      <iconify-icon
+      <button
+        type="button"
         tabindex="-1"
-        class="cursor-pointer"
         onclick={() => (revealPassword = !revealPassword)}
-        icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-        width="32"
-></iconify-icon>
+        class="contents"
+        aria-label="Toggle"
+      >
+        <iconify-icon
+          icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+          width="32"
+        ></iconify-icon></button
+      >
     </label>
 
     <button type="submit" class="btn" disabled={loading} bind:this={btn}>

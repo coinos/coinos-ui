@@ -13,32 +13,23 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import {
-    btc,
-    sat,
-    post,
-    back,
-    f,
-    toFiat,
-    s,
-    sats,
-    focus,
-  } from "$lib/utils";
+  import { btc, sat, post, back, f, toFiat, s, sats, focus } from "$lib/utils";
   let { data, form } = $props();
 
   let { invoice, rates, user } = $state(data);
   let { address, hash, payreq, user: recipient, tip } = $state(invoice);
   let { currency } = $state(user);
+  let { amount } = $state(form || invoice);
 
-  let amount = $state(form?.amount || invoice.amount);
   let rate = $derived(
     invoice.rate * (rates[user.currency] / rates[invoice.currency]),
   );
+
   let a = $state(),
     af = $state(),
-    fiat = $state(!amount);
+    fiat = $state(untrack(() => !amount));
 
-  let amountFiat = $state(amount * (rate / sats));
+  let amountFiat = $state((untrack(() => amount) * untrack(() => rate)) / sats);
   let setAmount = () => {
     amount = a;
     amountFiat = af;

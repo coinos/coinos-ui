@@ -23,7 +23,7 @@
 >
   <div class="space-y-5">
     <div class="text-center w-full">
-      <a href="/">
+      <a href="/" aria-label="Home">
         <iconify-icon icon="coinos:logo" width="224"></iconify-icon>
       </a>
     </div>

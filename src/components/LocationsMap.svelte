@@ -263,6 +263,7 @@
   ></div>
   <div class="absolute flex top-2 left-2 gap-2">
     <button
+       aria-label="Back"
       class="rounded-full border-2 border-black bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
       onclick={back}
     >
@@ -278,7 +279,7 @@
           <input bind:value={search} class="w-full" />
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}
-              <button onclick={clearSearch}>
+              <button type="button" onclick={clearSearch} aria-label="Clear">
                 <iconify-icon icon="ph:x-bold" width="32"></iconify-icon>
               </button>
             {:else}

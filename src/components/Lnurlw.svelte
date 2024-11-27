@@ -1,6 +1,4 @@
 <script>
-  import { run } from 'svelte/legacy';
-
   import { sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -19,10 +17,7 @@
     callback,
     rates,
   } = data;
-  let rate;
-  run(() => {
-    rate = rates[currency];
-  });
+  let rate = $derived(rates[currency]);
 
   let amount = $state(Math.round(minWithdrawable / 1000)),
     loading = $state();
