@@ -274,7 +274,11 @@ const map = {
 	IRR: "fa-IR",
 };
 
-export const loc = ({ currency: c, language: l }) => map[l]?.[c] || map[c];
+export const loc = (user) => {
+	if (!user) return;
+	const { currency: c, language: l } = user;
+	return map[l]?.[c] || map[c];
+};
 
 export const f = (s: number, currency: string, locale = "en-US") =>
 	new Intl.NumberFormat(locale, {
