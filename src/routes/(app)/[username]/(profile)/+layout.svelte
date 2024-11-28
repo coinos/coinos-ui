@@ -2,7 +2,18 @@
   import { invalidate } from "$app/navigation";
   import { browser } from "$app/environment";
   import { hexToUint8Array } from "uint8array-extras";
-  import { copy, f, get, post, s, sats, success, fail, si } from "$lib/utils";
+  import {
+    copy,
+    f,
+    loc,
+    get,
+    post,
+    s,
+    sats,
+    success,
+    fail,
+    si,
+  } from "$lib/utils";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
   import { bech32m } from "@scure/base";
@@ -25,6 +36,7 @@
   } = $derived(data);
 
   let { currency, npub, username: n, display } = $derived(subject);
+  let locale = loc(user);
 
   let list = $state([]);
   let follow = async () => {
@@ -280,14 +292,14 @@
         <div class="my-auto mr-1">1</div>
         <img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
       </div>
-      <div>= {f(rates[currency], currency)}</div>
+      <div>= {f(rates[currency], currency, locale)}</div>
     </div>
     <div class="text-secondary flex ml-auto">
       <div class="flex items-center">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
         {s((1 * sats) / rates[currency])} =
-        {f(1, currency)}
+        {f(1, currency, locale)}
       </div>
     </div>
   </div>
