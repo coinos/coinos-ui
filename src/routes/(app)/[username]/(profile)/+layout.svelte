@@ -288,7 +288,6 @@
         ></iconify-icon>
         {s((1 * sats) / rates[currency])} =
         {f(1, currency)}
-        {currency}
       </div>
     </div>
   </div>

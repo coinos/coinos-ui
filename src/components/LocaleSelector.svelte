@@ -8,7 +8,6 @@
   const handleChange = ({ currentTarget }) => {
     const { value } = currentTarget;
     document.cookie = `lang=${value}; path=/`;
-    console.log("settinglocale", value);
     $locale = value;
     l = value;
   };

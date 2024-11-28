@@ -1,4 +1,6 @@
 <script>
+  import Amount from "$comp/Amount.svelte";
+
   import { btc, f, sat, s, sats } from "$lib/utils";
   let {
     showQr,
@@ -9,6 +11,7 @@
     amount,
     amountFiat,
     currency,
+    locale,
     tip,
     rate,
   } = $props();
@@ -47,34 +50,4 @@
   </div>
 {/each}
 
-{#if amount > 0}
-  <div class="text-center font-bold text-2xl">
-    <div class="flex justify-center items-end gap-2">
-      <div>{f(amountFiat, currency)}</div>
-
-      {#if tip}
-        <div class="text-base flex items-center gap-1">
-          <div>+</div>
-          <div>{f(tip * (rate / sats), currency)}</div>
-        </div>
-      {/if}
-    </div>
-    <div class="flex justify-center items-end text-secondary font-normal text-xl gap-2">
-      <div class="flex items-center">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-        ></iconify-icon>
-        <div>
-          {`${s(amount)}`}
-        </div>
-      </div>
-      {#if tip}
-        <div class="text-base flex items-center">
-          <div>+</div>
-          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-          ></iconify-icon>
-          <div>{s(tip)}</div>
-        </div>
-      {/if}
-    </div>
-  </div>
-{/if}
+<Amount {amount} {currency} {rate} {locale} />

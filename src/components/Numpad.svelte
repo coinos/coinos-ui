@@ -10,6 +10,7 @@
     currency,
     element,
     rate,
+    locale,
     submit = undefined;
 
   export let amountFiat = 0;
@@ -229,7 +230,7 @@
           ></iconify-icon>
           {s(amount)}
         {:else}
-          {f(amountFiat, currency)} {currency}
+          {f(amountFiat, currency, locale)}
         {/if}
       </div>
     </div>

@@ -1,6 +1,6 @@
 <script>
   import Pin from "$comp/Pin.svelte";
-  import { f, toFiat, s, si, sat, sats } from "$lib/utils";
+  import { loc, f, toFiat, s, si, sat, sats } from "$lib/utils";
   import { pin } from "$lib/store";
   import { t } from "$lib/translations";
 
@@ -34,7 +34,7 @@
       {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
-        {f(toFiat(balance, rate), user.currency)}
+        {f(toFiat(balance, rate), user.currency, loc(user))}
       {/if}
     </div>
   {/if}

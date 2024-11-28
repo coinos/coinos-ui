@@ -1,5 +1,6 @@
 <script>
   let {
+    name = $bindable("password"),
     show = $bindable(),
     value = $bindable(),
     focus = () => {},
@@ -14,10 +15,10 @@
   class="input flex items-center justify-center gap-2 w-full"
 >
   {#if show}
-    <input name="password" type="text" bind:value class="clean" {placeholder} />
+    <input {name} type="text" bind:value class="clean" {placeholder} />
   {:else}
     <input
-      name="password"
+      {name}
       type="password"
       bind:value
       class="clean"
