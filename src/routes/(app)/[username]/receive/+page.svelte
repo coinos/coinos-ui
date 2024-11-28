@@ -1,6 +1,17 @@
 <script>
   import { run } from "svelte/legacy";
-  import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
+  import {
+    btc,
+    loc,
+    post,
+    copy,
+    f,
+    get,
+    types,
+    sat,
+    s,
+    sats,
+  } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
@@ -18,6 +29,7 @@
 
   let { id, rates, subject, user, text } = $state(data);
   let { src } = $derived(data);
+  let locale = loc(user);
 
   let { currency, username } = subject;
   let rate = rates[currency];
@@ -48,7 +60,10 @@
         user: { username, currency },
       }));
 
-      goto(`/invoice/${id}?options=true`, { invalidateAll: true, noScroll: true });
+      goto(`/invoice/${id}?options=true`, {
+        invalidateAll: true,
+        noScroll: true,
+      });
     }
   };
 
@@ -95,6 +110,7 @@
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   <InvoiceData
     {src}
+    {locale}
     {link}
     {qr}
     {txt}
@@ -127,6 +143,7 @@
   bind:newAmount
   bind:fiat
   {currency}
+  locale={loc(user)}
   {rate}
   {submit}
   {settingAmount}

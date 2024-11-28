@@ -6,6 +6,7 @@
   let {
     currency = $bindable(),
     fiat = $bindable(),
+    locale = $bindable(),
     rate = $bindable(),
     submit = $bindable(),
     settingAmount,
@@ -24,7 +25,14 @@
       class="relative mx-auto p-12 max-w-xl shadow-lg rounded-md bg-base-100 space-y-5"
     >
       <form onsubmit={setAmount} class="space-y-5">
-        <Numpad bind:amount={newAmount} bind:fiat {currency} {rate} {submit} />
+        <Numpad
+          bind:amount={newAmount}
+          bind:fiat
+          {currency}
+          {rate}
+          {submit}
+          {locale}
+        />
         <div class="w-full flex flex-wrap gap-2">
           <button
             bind:this={submit}

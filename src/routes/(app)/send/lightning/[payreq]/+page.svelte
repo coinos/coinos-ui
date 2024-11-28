@@ -1,4 +1,5 @@
 <script>
+  import { untrack } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Amount from "$comp/Amount.svelte";
@@ -30,7 +31,7 @@
   let next = $state();
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.amount);
-  let maxfee = $state(Math.max(5, Math.round(amount * 0.005)));
+  let maxfee = $state(Math.max(5, Math.round(untrack(amount) * 0.005)));
 </script>
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">

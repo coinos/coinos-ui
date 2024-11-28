@@ -2,7 +2,7 @@
   import { untrack } from "svelte";
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
-  import { btc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
+  import { btc, loc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
@@ -29,6 +29,7 @@
   let { invoice, src } = $derived(data);
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
   let { username, currency } = $derived(invoice.user);
+  let locale = loc(user);
 
   let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
 
@@ -119,6 +120,7 @@
     {amount}
     {amountFiat}
     {currency}
+    {locale}
     {tip}
     {rate}
     showQr={$showQr}

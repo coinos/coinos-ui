@@ -5,14 +5,23 @@
   import { format } from "date-fns";
   import { newPayment } from "$lib/store";
   import { t } from "$lib/translations";
-  import { get, f, s, si, sat, sats, types } from "$lib/utils";
+  import { get, f, s, si, sat, loc, sats, types } from "$lib/utils";
   import { page } from "$app/stores";
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
   import locales from "$lib/locales";
   let { data } = $props();
-  let { start, end, user, rates, payments, incoming, outgoing } =
-    $derived(data);
+  let {
+    start,
+    end,
+    user,
+    rates,
+    payments,
+    incoming,
+    outgoing,
+    pages,
+    page: p,
+  } = $derived(data);
 
   let locale = locales[user.language];
 
@@ -54,9 +63,6 @@
         )
       : 0,
   );
-
-  let p = $state(),
-    pages = $state([]);
 
   $effect(() => {
     if ($newPayment) {
@@ -135,7 +141,8 @@
     }
   };
 
-  let showPage = $derived((i) => {
+  let showPage = (i) => {
+    console.log("SHOW", i);
     const currentPage = parseInt(p);
     const maxVisiblePages = 10;
 
@@ -153,13 +160,10 @@
     }
 
     return i >= start && i <= end;
-  });
+  };
 
-  let isEllipsis = $derived((i) => {
-    return (
-      (i === 1 && !showPage(i)) || (i === pages.length - 2 && !showPage(i))
-    );
-  });
+  let isEllipsis = (i) =>
+    (i === 1 && !showPage(i)) || (i === pages.length - 2 && !showPage(i));
 </script>
 
 <div class="space-y-5">
@@ -218,7 +222,7 @@
             </div>
 
             <div class="text-secondary flex items-center text-base">
-              {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
+              {f(Math.abs(p.amount) * (p.rate / sats), p.currency, loc(user))}
 
               {#if p.tip}
                 <span class="text-sm text-secondary">
@@ -322,15 +326,15 @@
           >{$t("payments.income")}</span
         >
         <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
-        <span><b>{tipsIn ? f(tipsIn, c) : "-"}</b></span>
-        <span><b>{totalIn ? f(totalIn, c) : "-"}</b></span>
+        <span><b>{tipsIn ? f(tipsIn, c, loc(user)) : "-"}</b></span>
+        <span><b>{totalIn ? f(totalIn, c, loc(user)) : "-"}</b></span>
 
         <span class="text-left text-base text-secondary"
           >{$t("payments.expenditure")}</span
         >
         <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
-        <span><b>{tipsOut ? f(tipsOut, c) : "-"}</b></span>
-        <span><b>{totalOut ? f(totalOut, c) : "-"}</b></span>
+        <span><b>{tipsOut ? f(tipsOut, c, loc(user)) : "-"}</b></span>
+        <span><b>{totalOut ? f(totalOut, c, loc(user)) : "-"}</b></span>
       {/each}
     </div>
   </div>

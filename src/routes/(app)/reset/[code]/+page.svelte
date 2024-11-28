@@ -1,5 +1,6 @@
 <script>
   import { t } from "$lib/translations";
+  import PasswordInput from "$comp/PasswordInput.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { fly } from "svelte/transition";
@@ -8,7 +9,6 @@
   let { form } = $props();
   let email;
   let loading;
-  let revealPassword = $state();
 </script>
 
 <div class="pt-10">
@@ -31,37 +31,10 @@
       {/if}
 
       <form class="space-y-5" method="POST">
-        <div class="relative">
-          <label for="password" class="block font-semibold"
-            >{$t("login.newPassword")}</label
-          >
-          {#if revealPassword}
-            <input
-              name="password"
-              type="text"
-              required
-              class="bg-primary"
-              bind:value={$password}
-              autocapitalize="none"
-            />
-          {:else}
-            <input
-              name="password"
-              type="password"
-              required
-              class="bg-primary"
-              bind:value={$password}
-              autocapitalize="none"
-            />
-          {/if}
-          <button
-            type="button"
-            onclick={() => (revealPassword = !revealPassword)}
-            class="absolute right-5 top-10"
-          >
-            <Icon icon={revealPassword ? "eye" : "eye-off"} />
-          </button>
-        </div>
+        <PasswordInput
+          bind:value={$password}
+          placeholder={$t("login.password")}
+        />
 
         <div class="text-secondary">
           A new seed phrase will be generated for your account. You'll need to

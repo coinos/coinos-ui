@@ -200,15 +200,89 @@ export const fd = async (req: Request): Promise<any> => {
 	return obj;
 };
 
-export const f = (s: number, currency: string): string =>
-	new Intl.NumberFormat("en-US", {
+const map = {
+	en: {
+		CAD: "en-CA",
+		USD: "en-US",
+		GBP: "en-GB",
+		AUD: "en-AU",
+		EUR: "en-IE", // Eurozone English (Ireland)
+		NZD: "en-NZ",
+		JPY: "en-JP", // English in Japan
+		INR: "en-IN", // English in India
+		ZAR: "en-ZA", // South Africa
+	},
+	fr: {
+		CAD: "fr-CA", // French Canada
+		EUR: "fr-FR", // France
+		CHF: "fr-CH", // French Switzerland
+		XOF: "fr-SN", // Francophone West Africa
+	},
+	de: {
+		EUR: "de-DE", // Germany
+		CHF: "de-CH", // German Switzerland
+		USD: "de-US", // German for the US
+	},
+	es: {
+		EUR: "es-ES", // Spain
+		USD: "es-US", // Spanish for the US
+		MXN: "es-MX", // Mexico
+		ARS: "es-AR", // Argentina
+		CLP: "es-CL", // Chile
+	},
+	pt: {
+		EUR: "pt-PT", // Portugal
+		BRL: "pt-BR", // Brazil
+	},
+	zh: {
+		CNY: "zh-CN", // Simplified Chinese (Mainland China)
+		HKD: "zh-HK", // Traditional Chinese (Hong Kong)
+		TWD: "zh-TW", // Traditional Chinese (Taiwan)
+		USD: "zh-US", // Chinese for the US
+	},
+	ja: {
+		JPY: "ja-JP", // Japan
+		USD: "ja-US", // Japanese for the US
+	},
+	ru: {
+		RUB: "ru-RU", // Russia
+		USD: "ru-US", // Russian for the US
+	},
+	el: {
+		EUR: "el-GR", // Greece
+	},
+	fa: {
+		IRR: "fa-IR", // Iran
+	},
+	// Global currency mappings (fallbacks)
+	CAD: "en-CA",
+	USD: "en-US",
+	GBP: "en-GB",
+	AUD: "en-AU",
+	EUR: "en-IE",
+	NZD: "en-NZ",
+	JPY: "ja-JP",
+	INR: "en-IN",
+	ZAR: "en-ZA",
+	CHF: "de-CH",
+	MXN: "es-MX",
+	BRL: "pt-BR",
+	CNY: "zh-CN",
+	HKD: "zh-HK",
+	TWD: "zh-TW",
+	RUB: "ru-RU",
+	IRR: "fa-IR",
+};
+
+export const loc = ({ currency: c, language: l }) => map[l]?.[c] || map[c];
+
+export const f = (s: number, currency: string, locale = "en-US") =>
+	new Intl.NumberFormat(locale, {
 		style: "currency",
 		currency,
 		minimumFractionDigits: 2,
 		maximumFractionDigits: 2,
-	})
-		.format(s)
-		.replace("CA", "");
+	}).format(s);
 
 export const s = (s: number): string =>
 	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
@@ -367,3 +441,5 @@ export const versions = {
 		public: 0x043587cf,
 	},
 }[PUBLIC_COINOS_NETWORK];
+
+export const str = (s) => s.toString();
