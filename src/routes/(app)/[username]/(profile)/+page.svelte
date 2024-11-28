@@ -14,10 +14,9 @@
     preloadData("/send");
   });
 
-  let { accounts, subject, user, items, rates } = $state(data);
+  let { accounts, subject, user, rates } = $state(data);
   let { currency } = $derived(subject);
   let rate = $derived(rates[currency]);
-  let total = $derived(items.reduce((a, b) => a + b.price * b.quantity, 0));
 
   let install = async () => {
     if (!$installPrompt) return;
@@ -49,5 +48,27 @@
         {$t("user.install")}
       </button>
     {/if}
+  {/if}
+</div>
+
+<div class="fixed inset-x-0 mx-auto flex bottom-16 px-4">
+  {#if user?.username !== subject.username && (!subject.anon || subject.lud16)}
+    <a
+      href={subject.anon
+        ? `/send/${encodeURIComponent(subject.lud16)}`
+        : `/pay/${subject.username}`}
+      class="contents"
+    >
+      <button
+        class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto"
+      >
+        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        ></iconify-icon>
+        <div>
+          {$t("user.pay")}
+          {subject.username}
+        </div>
+      </button>
+    </a>
   {/if}
 </div>
