@@ -11,7 +11,7 @@
     >
       <div class="flex items-center">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-        ></iconify-icon>{s(amount)}
+        ></iconify-icon>{s(amount, locale)}
       </div>
 
       {#if tip}
@@ -19,7 +19,7 @@
           <div>+</div>
           <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
           ></iconify-icon>
-          <div>{s(tip)}</div>
+          <div>{s(tip, locale)}</div>
         </div>
       {/if}
     </h2>

@@ -24,6 +24,7 @@
   } = $derived(data);
 
   let locale = locales[user.language];
+  let userLocale = loc(user);
 
   let change = ({ target: { value } }) => goto(value);
   let link = (p) => {
@@ -216,12 +217,12 @@
                   width="24"
                   class="text-yellow-300"
                 ></iconify-icon>
-                <div>{s(Math.abs(p.amount))}</div>
+                <div>{s(Math.abs(p.amount), userLocale)}</div>
               </div>
             </div>
 
             <div class="text-secondary flex items-center text-base">
-              {f(Math.abs(p.amount) * (p.rate / sats), p.currency, loc(user))}
+              {f(Math.abs(p.amount) * (p.rate / sats), p.currency, userLocale)}
 
               {#if p.tip}
                 <span class="text-sm text-secondary">
@@ -311,7 +312,7 @@
         <span class="text-base text-secondary">
           {#if tipsIn || tipsOut}{$t("payments.tips")}{/if}
         </span>
-        <span class="text-base text-secondary">{$t("payments.total")}</span>
+        <span class="text-base text-secondary text-right">{$t("payments.total")}</span>
 
         {@const totalIn = incoming[c]?.fiat || 0}
         {@const tipsIn = incoming[c]?.fiatTips || 0}
@@ -325,15 +326,15 @@
           >{$t("payments.income")}</span
         >
         <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
-        <span><b>{tipsIn ? f(tipsIn, c, loc(user)) : "-"}</b></span>
-        <span><b>{totalIn ? f(totalIn, c, loc(user)) : "-"}</b></span>
+        <span><b>{tipsIn > 0 ? f(tipsIn, c, userLocale) : "-"}</b></span>
+        <span class="text-right"><b>{totalIn > 0 ? f(totalIn, c, userLocale) : "-"}</b></span>
 
         <span class="text-left text-base text-secondary"
           >{$t("payments.expenditure")}</span
         >
         <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
-        <span><b>{tipsOut ? f(tipsOut, c, loc(user)) : "-"}</b></span>
-        <span><b>{totalOut ? f(totalOut, c, loc(user)) : "-"}</b></span>
+        <span><b>{tipsOut > 0 ? f(tipsOut, c, userLocale) : "-"}</b></span>
+        <span class="text-right"><b>{totalOut > 0 ? f(totalOut, c, userLocale) : "-"}</b></span>
       {/each}
     </div>
   </div>

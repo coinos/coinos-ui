@@ -6,6 +6,7 @@
     copy,
     f,
     s,
+    loc,
     toFiat,
     post,
     sats,
@@ -23,6 +24,7 @@
   let { data } = $props();
   let { user, payment: p } = $state(data);
   let locale = user ? locales[user.language] : locales["en"];
+  let userLocale = loc(user);
 
   let {
     id,
@@ -79,10 +81,10 @@
     <div class="flex gap-2 items-end">
       <div class="flex items-center">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-        ></iconify-icon>{s(amount)}
+        ></iconify-icon>{s(amount, userLocale)}
       </div>
       <span class="text-secondary text-lg">
-        {f(toFiat(amount, rate), currency)}
+        {f(toFiat(amount, rate), currency, userLocale)}
       </span>
     </div>
   </div>

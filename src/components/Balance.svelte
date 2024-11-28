@@ -6,6 +6,7 @@
 
   let show = $state();
   let { user, rate, balance } = $props();
+  let locale = loc(user);
   let toggleShow = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -27,14 +28,14 @@
     <div class="text-4xl font-bold flex items-center">
       <iconify-icon icon="ph:lightning-fill" width="32" class="text-yellow-300"
       ></iconify-icon>
-      {s(balance)}
+      {s(balance, locale)}
     </div>
 
     <div class="text-secondary text-xl">
       {#if isNaN(rate)}
         <div class="text-gray-200">&mdash;</div>
       {:else}
-        {f(toFiat(balance, rate), user.currency, loc(user))}
+        {f(toFiat(balance, rate), user.currency, locale)}
       {/if}
     </div>
   {/if}
