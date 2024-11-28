@@ -142,7 +142,6 @@
   };
 
   let showPage = (i) => {
-    console.log("SHOW", i);
     const currentPage = parseInt(p);
     const maxVisiblePages = 10;
 

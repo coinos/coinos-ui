@@ -6,7 +6,12 @@
     focus = () => {},
     placeholder,
   } = $props();
-  let toggle = (e) => (show = !show);
+
+  let toggle = (e) => {
+    e.preventDefault();
+    show = !show;
+  };
+
   let icon = $derived(show ? "ph:eye-bold" : "ph:eye-slash-bold");
 </script>
 
