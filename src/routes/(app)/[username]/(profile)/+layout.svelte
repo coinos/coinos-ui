@@ -299,7 +299,7 @@
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
         {s((1 * sats) / rates[currency])} =
-        {f(1, currency, locale)}
+        {f(1, currency, locale, 0, 0)}
       </div>
     </div>
   </div>
