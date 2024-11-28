@@ -7,7 +7,7 @@
   import { t } from "$lib/translations";
 
   export let amount = 0,
-    currency,
+    currency = "USD",
     element,
     rate,
     locale,
@@ -15,12 +15,40 @@
 
   export let amountFiat = 0;
 
+  function getCurrencyInfo(locale = "en-US", currency) {
+    const formatter = new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+      currencyDisplay: "symbol",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    const parts = formatter.formatToParts(123456.78);
+    const { value: decimal } = parts.find((part) => part.type === "decimal");
+    const currencyPart = parts.find((part) => part.type === "currency");
+    const symbol = currencyPart ? currencyPart.value : "";
+
+    const firstNumberIndex = parts.findIndex((part) => part.type === "integer");
+    const currencyIndex = parts.findIndex((part) => part.type === "currency");
+    const position = currencyIndex < firstNumberIndex ? "before" : "after";
+
+    return { symbol, position, decimal };
+  }
+
+  function strip(input) {
+    const regex = new RegExp(`[^0-9\.]`, "g");
+    return input.replace(decimal, ".").replace(regex, "");
+  }
+
+  let { decimal, symbol, position } = getCurrencyInfo(locale, currency);
+
   let arrow = "<";
 
   $: update(amount, amountFiat);
   let update = (a, f) => {
     if ($fiat) {
-      amount = f ? Math.round(f / (rate / sats)) : 0;
+      amount = f ? Math.round(strip(f) / (rate / sats)) : 0;
     } else {
       amountFiat = a ? ((a * rate) / sats).toFixed(2) : 0;
     }
@@ -28,40 +56,41 @@
 
   let loading = false;
 
-  let symbol =
-    {
-      USD: "$",
-      CAD: "$",
-      AUD: "$",
-      NZD: "$",
-      MXN: "$",
-      BRL: "R$",
-      HKD: "$",
-      TWD: "$",
-      JPY: "¥",
-      CNY: "¥",
-      GBP: "£",
-      EUR: "€",
-      KRW: "₩",
-    }[currency] || "";
-
-  const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "<"];
+  const numPad = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    decimal,
+    "0",
+    "<",
+  ];
 
   const handleInput = (value) => {
     if (selecting) amount = 0;
     selecting = false;
 
     if ($fiat) {
-      if (amountFiat === 0 && value !== "." && value !== "<" && value !== "0") {
+      if (
+        amountFiat === 0 &&
+        value !== decimal &&
+        value !== "<" &&
+        value !== "0"
+      ) {
         amountFiat = value;
       } else if ((amountFiat === 0 || amountFiat === "0") && value === "0") {
         return;
-      } else if (amountFiat === 0 && value === ".") {
-        amountFiat = "0.";
+      } else if (amountFiat === 0 && value === decimal) {
+        amountFiat = `0${decimal}`;
       } else if (
         amountFiat !== 0 &&
-        amountFiat.includes(".") &&
-        value === "."
+        amountFiat.includes(decimal) &&
+        value === decimal
       ) {
         return;
       } else if (value === "<") {
@@ -73,7 +102,7 @@
           }
         }
       } else if (
-        value !== "." &&
+        value !== decimal &&
         value !== "<" &&
         parseInt(amountFiat + value) > rate
       ) {
@@ -84,7 +113,7 @@
         amountFiat = amountFiat + value;
       }
     } else {
-      if (value === ".") {
+      if (value === decimal) {
         return;
       } else if (!amount && value !== "<" && value !== "0") {
         amount = parseInt(value);
@@ -109,7 +138,7 @@
   let prev = "";
 
   let input = (e) => {
-    if (prev === "0" && html !== "0.") {
+    if (prev === "0" && html !== `0${decimal}`) {
       prev = "";
       html = html.replace("0", "");
     }
@@ -117,19 +146,35 @@
     let sel = getSelection();
     let i = sel.focusOffset;
 
+    if (html[0] === "0") i = html.length;
+
+    if (html.split(decimal)[0][0] === "0" && html.length > 1) {
+      html = html.replace("0", "");
+      i++;
+    }
+
+    if (html[0] === decimal) {
+      html = `0${html}`;
+      i = html.length;
+    }
+
+    if (html.includes(decimal) && html.split(decimal)[1].length > 2) {
+      html = html.slice(0, html.indexOf(decimal) + 3);
+      i = html.length;
+    }
+
+    let d = decimal.replace(".", "\\.");
     let clean = html
       .substr(0, 15)
-      .replace(/[^0-9.,]+/g, "")
-      .replace(".", "F")
-      .replace(/\./g, "")
-      .replace("F", ".");
+      .replace(new RegExp(`[^0-9${d}]+`, "g"), "")
+      .replace(new RegExp(d), "X")
+      .replace(new RegExp(d, "g"), "")
+      .replace("X", decimal);
 
-    if ($fiat) clean = clean.replace(",", "");
     if (clean !== html) {
       html = clean;
       i = html.length;
     }
-
     if (amount > sats && html.length > prev.length) {
       html = prev;
       warning($t("user.receive.lessThan1BTCWarning"));
@@ -204,7 +249,11 @@
         class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
       >
         <div class="my-auto" class:text-5xl={!$fiat}>
-          {#if $fiat}{symbol}{:else}
+          {#if $fiat}
+            {#if position === "before"}
+              {symbol}
+            {/if}
+          {:else}
             <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
             ></iconify-icon>
           {/if}
@@ -220,6 +269,9 @@
           class="outline-none my-auto"
           bind:this={element}
         />
+        {#if $fiat && position === "after"}
+          {symbol}
+        {/if}
       </div>
       <div
         class="flex items-center justify-center text-2xl cursor-pointer"

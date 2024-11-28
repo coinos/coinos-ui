@@ -1,7 +1,18 @@
 <script>
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
-  import { btc, loc, post, copy, f, get, types, sat, s, sats } from "$lib/utils";
+  import {
+    btc,
+    loc,
+    post,
+    copy,
+    f,
+    get,
+    types,
+    sat,
+    s,
+    sats,
+  } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
@@ -145,6 +156,7 @@
   bind:newAmount
   bind:fiat
   {currency}
+  {locale}
   {rate}
   {submit}
   {settingAmount}
