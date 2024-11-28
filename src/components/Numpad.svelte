@@ -72,65 +72,9 @@
   ];
 
   const handleInput = (value) => {
-    if (selecting) amount = 0;
-    selecting = false;
-
-    if ($fiat) {
-      if (
-        amountFiat === 0 &&
-        value !== decimal &&
-        value !== "<" &&
-        value !== "0"
-      ) {
-        amountFiat = value;
-      } else if ((amountFiat === 0 || amountFiat === "0") && value === "0") {
-        return;
-      } else if (amountFiat === 0 && value === decimal) {
-        amountFiat = `0${decimal}`;
-      } else if (
-        amountFiat !== 0 &&
-        amountFiat.includes(decimal) &&
-        value === decimal
-      ) {
-        return;
-      } else if (value === "<") {
-        if (amountFiat !== 0) {
-          amountFiat = amountFiat.slice(0, amountFiat.length - 1);
-          if (amountFiat.length === 0) {
-            amountFiat = 0;
-            amount = 0;
-          }
-        }
-      } else if (
-        value !== decimal &&
-        value !== "<" &&
-        parseInt(amountFiat + value) > rate
-      ) {
-        warning($t("user.receive.lessThan1BTCWarning"));
-      } else if (amountFiat !== 0 && amountFiat.match(/\.../)) {
-        return;
-      } else {
-        amountFiat = amountFiat + value;
-      }
-    } else {
-      if (value === decimal) {
-        return;
-      } else if (!amount && value !== "<" && value !== "0") {
-        amount = parseInt(value);
-      } else if (value === "<") {
-        if (amount !== 0) {
-          amount = Math.floor(amount / 10);
-          if (amount.length === 0) {
-            amount = 0;
-            amountFiat = 0;
-          }
-        }
-      } else if (value !== "<" && parseInt(amount + value) > sats) {
-        warning($t("user.receive.lessThan1BTCWarning"));
-      } else {
-        amount = parseInt(amount.toString() + value);
-      }
-    }
+    if (value === "<") html = html.substr(0, html.length - 1);
+    else html += value;
+    input();
   };
 
   $: html = $fiat ? amountFiat : s(amount);
@@ -196,10 +140,11 @@
         if (html.length < prev.length && p === 1 && i > 1) i--;
       }
 
-      let node = e.target.childNodes[0];
+      let node = element.childNodes[0];
       let range = document.createRange();
 
       if (node) {
+        if (i > node.length) i = node.length;
         range.setStart(node, i);
         range.setEnd(node, i);
 
@@ -280,7 +225,7 @@
         {#if $fiat}
           <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
           ></iconify-icon>
-          {s(amount)}
+          {s(amount, locale)}
         {:else}
           {f(amountFiat, currency, locale)}
         {/if}

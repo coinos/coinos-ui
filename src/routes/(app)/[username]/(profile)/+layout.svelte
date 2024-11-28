@@ -292,7 +292,7 @@
         <div class="my-auto mr-1">1</div>
         <img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
       </div>
-      <div>= {f(rates[currency], currency, locale)}</div>
+      <div>&#61; {f(rates[currency], currency, locale, 0, 0)}</div>
     </div>
     <div class="text-secondary flex ml-auto">
       <div class="flex items-center">

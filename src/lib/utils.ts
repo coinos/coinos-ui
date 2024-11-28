@@ -280,16 +280,22 @@ export const loc = (user) => {
 	return map[l]?.[c] || map[c];
 };
 
-export const f = (s: number, currency: string, locale = "en-US") =>
+export const f = (
+	s: number,
+	currency: string,
+	locale = "en-US",
+	minimumFractionDigits = 2,
+	maximumFractionDigits = 2,
+) =>
 	new Intl.NumberFormat(locale, {
 		style: "currency",
 		currency,
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
+		minimumFractionDigits,
+		maximumFractionDigits,
 	}).format(s);
 
-export const s = (s: number): string =>
-	new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(s);
+export const s = (s: number, locale = "en-US"): string =>
+	new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(s);
 
 export const sat = (s: number): string => `${si(Math.abs(s)).toString()}`;
 
