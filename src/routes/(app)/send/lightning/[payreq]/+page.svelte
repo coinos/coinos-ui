@@ -31,7 +31,7 @@
   let next = $state();
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.amount);
-  let maxfee = $state(Math.max(5, Math.round(untrack(amount) * 0.005)));
+  let maxfee = $state(Math.max(5, Math.round(untrack(() => amount) * 0.005)));
 </script>
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">
