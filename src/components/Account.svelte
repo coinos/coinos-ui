@@ -18,9 +18,8 @@
 </script>
 
 <div
-  class="block space-y-2 border-primary py-4 cursor-pointer"
+  class="block space-y-2 border-primary py-4"
   class:border-b-8={!last}
-  onclick={go}
   aria-label="Payments"
 >
   <div class="flex">

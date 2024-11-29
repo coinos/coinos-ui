@@ -1,4 +1,5 @@
 <script>
+  import Amount from "$comp/Amount.svelte";
   import Pin from "$comp/Pin.svelte";
   import { loc, f, toFiat, s, si, sat, sats } from "$lib/utils";
   import { pin } from "$lib/store";
@@ -6,6 +7,7 @@
 
   let show = $state();
   let { user, rate, balance } = $props();
+  let { currency } = $derived(user);
   let locale = loc(user);
   let toggleShow = (e) => {
     e.preventDefault();
@@ -25,18 +27,7 @@
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
   {:else}
-    <div class="text-4xl font-bold flex items-center">
-      <iconify-icon icon="ph:lightning-fill" width="32" class="text-yellow-300"
-      ></iconify-icon>
-      {s(balance, locale)}
-    </div>
 
-    <div class="text-secondary text-xl">
-      {#if isNaN(rate)}
-        <div class="text-gray-200">&mdash;</div>
-      {:else}
-        {f(toFiat(balance, rate), user.currency, locale)}
-      {/if}
-    </div>
+    <Amount amount={balance} {rate} {currency} {locale} align="left" />
   {/if}
 </div>
