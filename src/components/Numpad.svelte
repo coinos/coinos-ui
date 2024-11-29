@@ -15,6 +15,10 @@
 
   export let amountFiat = 0;
 
+  let pasted = async () => {
+    html = (await navigator.clipboard.readText()).replace(/,/g, "");
+  };
+
   function getCurrencyInfo(locale = "en-US", currency) {
     const formatter = new Intl.NumberFormat(locale, {
       style: "currency",
@@ -207,6 +211,7 @@
           use:focus
           contenteditable
           bind:innerHTML={html}
+          on:paste={pasted}
           on:focus={select}
           on:blur={blur}
           on:input={input}
