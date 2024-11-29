@@ -31,48 +31,57 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-	// ignore POST requests etc
+	// Ignore non-GET requests
 	if (event.request.method !== "GET") return;
 
 	async function respond() {
 		const url = new URL(event.request.url);
 		const cache = await caches.open(CACHE);
 
-		// `build`/`files` can always be served from the cache
-		if (ASSETS.includes(url.pathname)) {
-			const response = await cache.match(url.pathname);
+		// Check for a cached response
+		const cachedResponse = await cache.match(event.request);
 
-			if (response) {
-				return response;
+		// If cached, attempt a conditional request with `If-None-Match`
+		if (cachedResponse) {
+			const etag = cachedResponse.headers.get("ETag");
+			const fetchOptions = etag
+				? {
+						headers: {
+							"If-None-Match": etag,
+						},
+				  }
+				: {};
+
+			try {
+				const networkResponse = await fetch(event.request, fetchOptions);
+
+				if (networkResponse.status === 200) {
+					// Update cache and return the new response
+					cache.put(event.request, networkResponse.clone());
+					return networkResponse;
+				}
+
+				if (networkResponse.status === 304) {
+					// Return cached response if not modified
+					return cachedResponse;
+				}
+			} catch (err) {
+				console.error("Network error:", err);
+				// Fall back to cached response if the network fails
+				return cachedResponse;
 			}
 		}
 
-		// for everything else, try the network first, but
-		// fall back to the cache if we're offline
+		// If no cache, fetch the resource and store it if successful
 		try {
-			const response = await fetch(event.request);
-
-			// if we're offline, fetch can return a value that is not a Response
-			// instead of throwing - and we can't pass this non-Response to respondWith
-			if (!(response instanceof Response)) {
-				throw new Error("invalid response from fetch");
+			const networkResponse = await fetch(event.request);
+			if (networkResponse.status === 200) {
+				cache.put(event.request, networkResponse.clone());
 			}
-
-			if (response.status === 200) {
-				cache.put(event.request, response.clone());
-			}
-
-			return response;
+			return networkResponse;
 		} catch (err) {
-			const response = await cache.match(event.request);
-
-			if (response) {
-				return response;
-			}
-
-			// if there's no cache, then just error out
-			// as there is nothing we can do to respond to this request
-			throw err;
+			console.error("Fetch failed and no cache available:", err);
+			throw err; // No fallback available
 		}
 	}
 

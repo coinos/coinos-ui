@@ -74,14 +74,20 @@
   const handleInput = (value) => {
     if (value === "<") html = html.substr(0, html.length - 1);
     else html += value;
-    input();
+    input(null, true);
   };
 
-  $: html = $fiat ? amountFiat : s(amount);
+  $: html = $fiat ? amountFiat : (amount || 0).toString();
 
   let prev = "";
 
-  let input = (e) => {
+  let input = (e, numpad = false) => {
+    let d = decimal.replace(".", "\\.");
+
+    if (!$fiat && html.includes(decimal)) {
+      html = html.replace(new RegExp(d), "");
+    }
+
     if (prev === "0" && html !== `0${decimal}`) {
       prev = "";
       html = html.replace("0", "");
@@ -107,7 +113,6 @@
       i = html.length;
     }
 
-    let d = decimal.replace(".", "\\.");
     let clean = html
       .substr(0, 15)
       .replace(new RegExp(`[^0-9${d}]+`, "g"), "")
@@ -120,51 +125,46 @@
       i = html.length;
     }
     if (amount > sats && html.length > prev.length) {
-      html = prev;
+      html = html.substr(0, html.length - 1);
+      i = html.length;
       warning($t("user.receive.lessThan1BTCWarning"));
-      i--;
     }
 
     if ($fiat) {
       amountFiat = html;
     } else {
-      amount = parseInt(html.replace(/,/g, ""));
+      amount = parseInt(html);
     }
 
     if (!amount) amount = null;
 
-    setTimeout(() => {
-      if (!$fiat) {
-        let p = prev.split(",")[0].length;
-        if (html.length > prev.length && p === 3) i++;
-        if (html.length < prev.length && p === 1 && i > 1) i--;
-      }
+    if (!numpad) {
+      setTimeout(() => {
+        let node = element.childNodes[0];
+        let range = document.createRange();
 
-      let node = element.childNodes[0];
-      let range = document.createRange();
+        if (node) {
+          if (i > node.length) i = node.length;
+          range.setStart(node, i);
+          range.setEnd(node, i);
 
-      if (node) {
-        if (i > node.length) i = node.length;
-        range.setStart(node, i);
-        range.setEnd(node, i);
+          let sel = getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          node.selectionStart = node.selectionEnd;
+        }
 
-        let sel = getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-      }
-
-      prev = html.toString();
-    }, 0);
+        prev = html.toString();
+      }, 0);
+    }
   };
 
-  let selecting;
   let select = (e) => {
     let range = document.createRange();
     range.selectNodeContents(e.target);
     let sel = getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    selecting = true;
   };
 
   let blur = () => {
