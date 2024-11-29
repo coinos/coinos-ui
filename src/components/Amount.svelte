@@ -1,5 +1,5 @@
 <script>
-  import { s, f, toFiat } from "$lib/utils";
+  import { copy, s, f, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
   const { align, amount, locale, tip, rate, currency } = $props();
 </script>
@@ -7,10 +7,10 @@
 {#if amount}
   <div>
     <h2
-      class="text-2xl md:text-3xl font-semibold flex items-end"
+      class="text-2xl md:text-3xl font-semibold flex items-end cursor-copy"
       class:justify-center={align !== "left"}
     >
-      <div class="flex items-center">
+      <div class="flex items-center" onclick={() => copy(amount)}>
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>{s(amount, locale)}
       </div>
@@ -25,8 +25,9 @@
       {/if}
     </h2>
     <h3
-      class="flex text-secondary md:text-lg"
+      class="flex text-secondary md:text-lg cursor-copy"
       class:justify-center={align !== "left"}
+      onclick={() => copy(toFiat(amount, rate).toFixed(2))}
     >
       {f(toFiat(amount, rate), currency, locale)}
       {#if tip}
