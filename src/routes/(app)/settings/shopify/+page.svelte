@@ -3,22 +3,27 @@
   import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
-  let { user = $bindable() } = $props();
-  let paymentsUrl =
-    $derived(user.shopifyStore &&
-    "https://admin.shopify.com/store/" +
-      user.shopifyStore +
-      "/settings/payments");
-  let checkoutUrl =
-    $derived(user.shopifyStore &&
-    "https://admin.shopify.com/store/" +
-      user.shopifyStore +
-      "/settings/checkout");
-  let appsUrl =
-    $derived(user.shopifyStore &&
-    "https://admin.shopify.com/store/" +
-      user.shopifyStore +
-      "/settings/apps/development");
+  let { data } = $props();
+  let { user } = $derived(data);
+
+  let paymentsUrl = $derived(
+    user.shopifyStore &&
+      "https://admin.shopify.com/store/" +
+        user.shopifyStore +
+        "/settings/payments",
+  );
+  let checkoutUrl = $derived(
+    user.shopifyStore &&
+      "https://admin.shopify.com/store/" +
+        user.shopifyStore +
+        "/settings/checkout",
+  );
+  let appsUrl = $derived(
+    user.shopifyStore &&
+      "https://admin.shopify.com/store/" +
+        user.shopifyStore +
+        "/settings/apps/development",
+  );
 
   let script = `<script src="${$page.url.protocol}//${$page.url.host}/${user.username}/shopify.js"><\/script>`;
 </script>
@@ -27,7 +32,7 @@
   <label for="shopifyStore" class="font-bold mb-1 block">Store ID</label>
   <div class="flex mb-2">
     <div
-      class="input input-bordered input-lg border-r-0 rounded-2xl rounded-r-none flex items-center text-right pr-1 bg-base-200 border-primary"
+      class="input input-bordered input-lg !border-r-0 rounded-2xl !rounded-r-none flex items-center text-right !pr-1 bg-base-200 border-primary"
     >
       admin.shopify.com/store/
     </div>
@@ -35,7 +40,7 @@
       type="text"
       name="shopifyStore"
       bind:value={user.shopifyStore}
-      class="border-l-0 rounded-l-none w-auto min-w-0 pl-1 grow"
+      class="!border-l-0 !rounded-l-none w-auto min-w-0 !pl-1 grow"
     />
   </div>
   <p class="text-secondary my-2">
