@@ -57,12 +57,9 @@
   ]);
 
   let selection = $derived(
-    start
-      ? presets.findIndex(
-          (p) =>
-            Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1,
-        )
-      : 0,
+    presets.findIndex(
+      (p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1,
+    ),
   );
 
   $effect(() => {
@@ -312,7 +309,9 @@
         <span class="text-base text-secondary">
           {#if tipsIn || tipsOut}{$t("payments.tips")}{/if}
         </span>
-        <span class="text-base text-secondary text-right">{$t("payments.total")}</span>
+        <span class="text-base text-secondary text-right"
+          >{$t("payments.total")}</span
+        >
 
         {@const totalIn = incoming[c]?.fiat || 0}
         {@const tipsIn = incoming[c]?.fiatTips || 0}
@@ -327,14 +326,18 @@
         >
         <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
         <span><b>{tipsIn > 0 ? f(tipsIn, c, userLocale) : "-"}</b></span>
-        <span class="text-right"><b>{totalIn > 0 ? f(totalIn, c, userLocale) : "-"}</b></span>
+        <span class="text-right"
+          ><b>{totalIn > 0 ? f(totalIn, c, userLocale) : "-"}</b></span
+        >
 
         <span class="text-left text-base text-secondary"
           >{$t("payments.expenditure")}</span
         >
         <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
         <span><b>{tipsOut > 0 ? f(tipsOut, c, userLocale) : "-"}</b></span>
-        <span class="text-right"><b>{totalOut > 0 ? f(totalOut, c, userLocale) : "-"}</b></span>
+        <span class="text-right"
+          ><b>{totalOut > 0 ? f(totalOut, c, userLocale) : "-"}</b></span
+        >
       {/each}
     </div>
   </div>

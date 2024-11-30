@@ -98,15 +98,6 @@ export const copyNoNewlines = (text: string) => {
 	success("Copied!");
 };
 
-export function reverseFormat(val: string, locale: string): number {
-	const parts = new Intl.NumberFormat(locale).formatToParts(1111.1);
-	const group = parts.find((part) => part.type === "group")?.value;
-	const decimal = parts.find((part) => part.type === "decimal")?.value;
-	let reversedVal = val.replace(new RegExp(`\\${group}`, "g"), "");
-	reversedVal = reversedVal.replace(new RegExp(`\\${decimal}`, "g"), ".");
-	return Number.isNaN(reversedVal) ? 0 : +reversedVal;
-}
-
 export const protectedRoutes: RegExp[] = [/customers/, /settings/, /payments/];
 
 let recent: string[] = [];
@@ -289,7 +280,7 @@ export const f = (
 ) =>
 	new Intl.NumberFormat(locale, {
 		style: "currency",
-		currency,
+		currency: currency || "USD",
 		minimumFractionDigits,
 		maximumFractionDigits,
 	}).format(s);
