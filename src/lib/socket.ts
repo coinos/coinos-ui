@@ -13,13 +13,13 @@ export const auth = () => token && send("login", token);
 
 export const send = async (type, data) => {
 	try {
-		await wait(() => socket && socket.readyState === 1, 1000, 10);
+		await wait(() => socket?.readyState === 1, 1000, 10);
 	} catch (e) {
 		const { message } = e as Error;
 		if (message === "timeout") reconnectToWebsocket();
 	}
 
-	await wait(() => socket.readyState === 1, 1000, 10);
+	await wait(() => socket?.readyState === 1, 1000, 10);
 	socket.send(JSON.stringify({ type, data }));
 };
 

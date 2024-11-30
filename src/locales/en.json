@@ -191,6 +191,7 @@
 		"subheader": "Latest Updates"
 	},
 	"user": {
+    "loadMore": "Load more",
 		"url": "Public URL",
 		"install": "Install app",
 		"moreDetails": "Profile details",

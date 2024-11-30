@@ -8,12 +8,18 @@
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { back, fail, focus } from "$lib/utils";
+  import { back, get, fail, focus } from "$lib/utils";
 
   let { data = $bindable(), form } = $props();
   data.subject = data.user;
 
-  let { contacts } = data;
+  let { contacts } = $state(data);
+
+  let loaded = $state();
+  let loadMore = async () => {
+    loaded = true;
+    contacts = await get("/contacts");
+  };
 
   let el = $state(),
     text = $state(),
@@ -108,5 +114,11 @@
         {/each}
       </div>
     </div>
+  {/if}
+
+  {#if !loaded}
+    <button onclick={loadMore} type="button" class="btn"
+      >{$t("user.loadMore")}</button
+    >
   {/if}
 </div>
