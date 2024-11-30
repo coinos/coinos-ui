@@ -2,7 +2,7 @@ import parse from "$lib/parse";
 import { auth, fd, get } from "$lib/utils";
 import { fail } from "@sveltejs/kit";
 
-const limit = 1;
+const limit = 10;
 export async function load({ cookies, params, url }) {
 	const { text } = params;
 
