@@ -4,7 +4,7 @@
   const { align, amount, locale, tip, rate, currency } = $props();
 </script>
 
-{#if amount}
+{#if typeof amount !== "undefined"}
   <div>
     <h2
       class="text-2xl md:text-3xl font-semibold flex items-end cursor-copy"

@@ -26,8 +26,9 @@
       <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
-  {:else}
-
+  {:else if !isNaN(rate)}
     <Amount amount={balance} {rate} {currency} {locale} align="left" />
+  {:else}
+    <div class="text-gray-200">&mdash;</div>
   {/if}
 </div>
