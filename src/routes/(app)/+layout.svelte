@@ -17,7 +17,7 @@
   import LoadingSplash from "$comp/LoadingSplash.svelte";
   import AppHeader from "$comp/AppHeader.svelte";
   import Password from "$comp/Password.svelte";
-  import { getCookie, warning, protectedRoutes } from "$lib/utils";
+  import { getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, afterNavigate, preloadData } from "$app/navigation";
 

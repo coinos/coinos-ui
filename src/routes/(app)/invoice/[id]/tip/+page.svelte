@@ -3,7 +3,7 @@
 
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
-  import { copy, focus, f, sat, get, reverseFormat, s, sats } from "$lib/utils";
+  import { copy, focus, f, sat, get, s, sats } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import Slider from "$comp/Slider.svelte";
   import { goto } from "$app/navigation";

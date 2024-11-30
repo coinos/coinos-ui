@@ -10,7 +10,6 @@
     f,
     sat,
     get,
-    reverseFormat,
     s,
     sats,
   } from "$lib/utils";

@@ -1,6 +1,6 @@
 import { auth, get, str } from "$lib/utils";
 
-const limit = 5;
+const limit = 10;
 
 export async function load({ cookies, depends, params }) {
 	depends("app:payments");
@@ -30,9 +30,7 @@ export async function load({ cookies, depends, params }) {
 		auth(cookies),
 	);
 
-	console.log("payments", payments.length);
 	const pages = new Array(Math.ceil(count / limit));
-	console.log("pages", pages);
 
 	return { payments, page, pages, start, end, incoming, outgoing };
 }
