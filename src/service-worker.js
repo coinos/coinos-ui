@@ -37,6 +37,11 @@ self.addEventListener("fetch", (event) => {
 		const url = new URL(event.request.url);
 		const cache = await caches.open(CACHE);
 
+		if (url.pathname.startsWith("/api")) {
+			// Allow the network to handle these requests
+			return;
+		}
+
 		// `build`/`files` can always be served from the cache
 		if (ASSETS.includes(url.pathname)) {
 			const response = await cache.match(url.pathname);
