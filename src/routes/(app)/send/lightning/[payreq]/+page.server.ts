@@ -32,14 +32,8 @@ export const actions = {
 			const body = await fd(request);
 
 			p = await post("/payments", body, auth(cookies));
-		} catch (e: any) {
-			if (
-				e.message.includes("unusable") ||
-				e.message.includes("routes") ||
-				e.message.includes("minflow")
-			)
-				e.message = "payments.failedToRoute";
-			return fail(400, { message: e.message });
+		} catch (_) {
+			return fail(400, { message: "payments.failedToRoute" });
 		}
 
 		redirect(307, `/sent/${p.id}`);

@@ -114,6 +114,27 @@
 </div>
 
 <div>
+  <label for="currency" class="font-bold block mb-1"
+    >{$t("user.settings.integrations")}</label
+  >
+  <div class="flex flex-wrap gap-2 justify-center">
+    <a href="/settings/nostr" class="block grow">
+      <button type="button" class="btn">
+        <img src="/images/nostr.png" class="w-8" />
+        <div class="my-auto">{$t("user.settings.nostr")}</div>
+      </button>
+    </a>
+
+    <a href="/settings/shopify" class="block grow">
+      <button type="button" class="btn">
+        <img src="/icons/shopify.svg" class="w-8" />
+        <div class="my-auto">{$t("user.settings.shopify")}</div>
+      </button>
+    </a>
+  </div>
+</div>
+
+<div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.notifications")}</span>
     <Toggle id="notify" bind:value={user.notify} />
@@ -268,19 +289,3 @@
     </div>
   </div>
 {/if}
-
-<div class="flex flex-wrap gap-2 justify-center">
-  <a href="/settings/nostr" class="block grow">
-    <button type="button" class="btn">
-      <img src="/images/nostr.png" class="w-8" />
-      <div class="my-auto">{$t("user.settings.nostr")}</div>
-    </button>
-  </a>
-
-  <a href="/settings/shopify" class="block grow">
-    <button type="button" class="btn">
-      <img src="/icons/shopify.svg" class="w-8" />
-      <div class="my-auto">{$t("user.settings.shopify")}</div>
-    </button>
-  </a>
-</div>
