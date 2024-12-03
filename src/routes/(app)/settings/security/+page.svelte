@@ -1,6 +1,6 @@
 <script>
   import { getContext } from "svelte";
-  import { getMnemonic, getNsec } from "$lib/nostr";
+  import { getMnemonic } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
@@ -244,49 +244,3 @@
   {/if}
 </div>
 
-<div class="space-y-2">
-  <label for="seedphrase" class="font-bold"
-    >{$t("user.settings.nostrKeys")}</label
-  >
-
-  <p class="text-secondary mb-1">
-    {$t("user.settings.nostrDescription")}
-  </p>
-
-  <div class="flex flex-wrap sm:flex-nowrap gap-2">
-    <button
-      type="button"
-      class="btn !w-auto flex-grow"
-      onclick={toggleImporting}
-    >
-      <iconify-icon icon="ph:arrow-down-left-bold" width="32"></iconify-icon>
-      {$t("user.settings.import")}
-    </button>
-
-    <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
-      {#if revealNsec}
-        <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
-        {$t("user.settings.hideNsec")}
-      {:else}
-        <iconify-icon icon="ph:warning-bold" width="32"></iconify-icon>
-        {$t("user.settings.revealNsec")}
-      {/if}
-    </button>
-  </div>
-
-  {#if importing}
-    <input name="newNsec" bind:value={newNsec} placeholder="nsec..." />
-  {/if}
-
-  {#if revealNsec}
-    <button
-      type="button"
-      class="btn break-all !h-auto font-normal leading-normal flex-nowrap"
-      onclick={() => copy(nsec)}
-    >
-      <div>{nsec}</div>
-
-      <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
-    </button>
-  {/if}
-</div>

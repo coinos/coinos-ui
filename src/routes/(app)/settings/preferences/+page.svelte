@@ -180,7 +180,7 @@
     <button type="button" class="flex w-full" onclick={editThreshold}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-      ></iconify-icon>
+        ></iconify-icon>
       </div>
       <div
         class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
@@ -201,7 +201,7 @@
     <button type="button" class="flex w-full" onclick={editReserve}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
-      ></iconify-icon>
+        ></iconify-icon>
       </div>
       <div
         class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
@@ -269,9 +269,18 @@
   </div>
 {/if}
 
-<a href="./shopify" class="block">
-  <button type="button" class="btn">
-    <img src="/icons/shopify.svg" class="w-8" />
-    <div class="my-auto">{$t("user.settings.shopify")}</div>
-  </button>
-</a>
+<div class="flex flex-wrap gap-2 justify-center">
+  <a href="/settings/nostr" class="block grow">
+    <button type="button" class="btn">
+      <img src="/images/nostr.png" class="w-8" />
+      <div class="my-auto">{$t("user.settings.nostr")}</div>
+    </button>
+  </a>
+
+  <a href="/settings/shopify" class="block grow">
+    <button type="button" class="btn">
+      <img src="/icons/shopify.svg" class="w-8" />
+      <div class="my-auto">{$t("user.settings.shopify")}</div>
+    </button>
+  </a>
+</div>

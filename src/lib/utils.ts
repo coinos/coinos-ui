@@ -98,8 +98,6 @@ export const copyNoNewlines = (text: string) => {
 	success("Copied!");
 };
 
-export const protectedRoutes: RegExp[] = [/customers/, /settings/, /payments/];
-
 let recent: string[] = [];
 export const success = (m: string, clear = true) => {
 	if (recent.includes(m)) return;

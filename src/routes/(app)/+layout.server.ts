@@ -1,4 +1,4 @@
-import { auth, get, protectedRoutes, sleep } from "$lib/utils";
+import { auth, get, sleep } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, request, url, params }) {
@@ -45,10 +45,6 @@ export async function load({ cookies, request, url, params }) {
 		request.method === "GET"
 	) {
 		redirect(307, `/${user.username}`);
-	}
-
-	if (protectedRoutes.find((p) => pathname.match(p)) && !user) {
-		redirect(307, "/login");
 	}
 
 	if (user && !user.pubkey && !pathname.includes("generate")) {

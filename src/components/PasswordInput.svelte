@@ -4,11 +4,11 @@
     show = $bindable(),
     value = $bindable(),
     focus = () => {},
-    placeholder,
+    placeholder = undefined,
   } = $props();
 
   let toggle = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     show = !show;
   };
 
