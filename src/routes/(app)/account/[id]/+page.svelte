@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/stores";
   import Mnemonic from "$comp/Mnemonic.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { goto } from "$app/navigation";
@@ -22,6 +23,8 @@
   let cancel = $state(() => (passwordPrompt = false));
   let toggle = () => (passwordPrompt = !passwordPrompt);
 
+  let lud16 = $derived(`${user.username}@${$page.url.host}`);
+
   let submit = $state(async () => {
     toggle();
     let entropy = await decrypt(seed, password);
@@ -41,7 +44,7 @@
   let revealNwc = () =>
     (nwc = `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
       relay,
-    )}&secret=${user.nwc}`);
+    )}&secret=${user.nwc}&lud16=${lud16}`);
 </script>
 
 <div class="space-y-5">
