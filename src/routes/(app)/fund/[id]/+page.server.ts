@@ -1,13 +1,7 @@
-import { redirect } from "@sveltejs/kit";
 import { auth, get, post } from "$lib/utils";
-import Qr from "qrcode-base64";
+import { redirect } from "@sveltejs/kit";
 
-export const load = async ({ params: { id }, url }) => {
-	const { amount, payments } = await get(`/fund/${id}`);
-
-	const src = Qr.drawImg(url.href, { size: 300 });
-	return { amount, payments, src };
-};
+export const load = async ({ params: { id } }) => get(`/fund/${id}`);
 
 export const actions = {
 	default: async ({ cookies, locals, params }) => {

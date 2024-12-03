@@ -21,7 +21,7 @@
   <div>
     <a href={link}>
       <img
-        {src}
+        src={`/qr/${encodeURIComponent(invoice.text)}/raw`}
         class="mx-auto z-10 max-w-[360px] border-4 border-white"
         alt={txt}
       />

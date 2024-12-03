@@ -209,7 +209,7 @@
 
   {#if setting2fa}
     <a href={otp.uri}>
-      <Qr src={otp.qr} />
+      <Qr text={otp.uri} />
     </a>
 
     <div class="text-center my-4">

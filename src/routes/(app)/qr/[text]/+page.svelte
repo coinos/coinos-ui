@@ -3,11 +3,11 @@
   import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
   let { data } = $props();
-  let { src, text } = data;
+  let { text } = data;
 </script>
 
 <div class="container px-4 max-w-4xl mx-auto space-y-5">
-  <Qr {src} />
+  <Qr {text} />
 
   <button
     type="button"
