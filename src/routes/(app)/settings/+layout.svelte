@@ -40,7 +40,6 @@
     { name: "account", key: "ACCOUNT" },
     { name: "preferences", key: "POINT_OF_SALE" },
     { name: "security", key: "SECURITY" },
-    { name: "shopify", key: "SHOPIFY" },
   ];
 
   let { address, id, username } = user;
@@ -212,7 +211,7 @@
               type="button"
               class="hover:opacity-80"
               class:font-bold={tab === name ||
-                (tab === "shopify" && name === "pos")}
+                (name === "preferences" && ["nostr", "shopify"].includes(tab))}
               >{$t(`user.settings.${key}`)}</button
             >
           </a>

@@ -1,7 +1,7 @@
 {
 	"accounts": {
 		"showQR": "Show QR",
-		"revealNwc": "Reveal NWC",
+		"revealNwc": "Reveal connection string",
 		"finish": "Finish",
 		"back": "Back",
 		"next": "Next",
@@ -248,6 +248,7 @@
 			"placeholder": "Enter an address, invoice or username"
 		},
 		"settings": {
+      "connectNostr": "Nostr Wallet Connect",
 			"pleaseEnterYourPassword": "Please enter your password",
 			"memoPrompt": "Checkout instructions",
 			"memoPromptPlaceholder": "e.g. Please enter your name for the order",
@@ -258,7 +259,8 @@
 			"destinationPlaceholder": "Enter a Bitcoin, Liquid or Lightning address",
 			"reserve": "Reserve amount",
 			"reserveDesc": "The amount to be left in your account after the withdrawal is complete",
-			"shopify": "Shopify integration",
+      "nostr": "Nostr",
+			"shopify": "Shopify",
 			"threshold": "Autowithdrawal threshold",
 			"thresholdDesc": "When your balance exceeds this amount, a withdrawal will be triggered",
 			"autoWithdraw": "Autowithdrawal",
@@ -269,8 +271,10 @@
 			"pushNotificationsDisabled": "You've denied notification permission on this device. Check your browser settings if you want to undo that.",
 			"notificationsDesc": "Receive an email whenever a payment lands in your account",
 			"seedPhrase": "Seed phrase",
-			"nostrKeys": "Nostr key",
-			"nostrDescription": "Your nostr key is used to sign and decrypt messages, keep it safe or someone may be able to impersonate you.",
+			"nostrKeys": "Nostr secret key",
+			"nostrDescription": "Your nostr secret key is used to sign and decrypt messages, keep it safe or someone may be able to impersonate you.",
+      "nwc": "Nostr wallet connect",
+      "nwcDescription": "Enable your nostr app to send payments from your account",
 			"seedDescription": "This 12 word seed phrase is used to derive your nostr private key and your self-custodial wallet keys which determine your auto-withdrawal addresses. Back it up and don't let anyone see it.",
 			"emailDescription": "For password resets and payment notifications only",
 			"hideNsec": "Hide nostr secret key",
