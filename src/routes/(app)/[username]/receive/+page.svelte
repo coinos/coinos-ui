@@ -28,7 +28,6 @@
   let showOptions;
 
   let { id, rates, subject, user, text } = $state(data);
-  let { src } = $derived(data);
   let locale = loc(user);
 
   let { currency, username } = subject;
@@ -38,10 +37,11 @@
   let qr;
 
   let aid = subject.id;
-  let invoice = $state({
+  let invoice = $derived({
     aid,
     type: types.lightning,
     items: [],
+    text,
     uid: subject.id,
     user: subject,
   });
@@ -109,7 +109,6 @@
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">
   <InvoiceData
-    {src}
     {locale}
     {link}
     {qr}
