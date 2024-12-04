@@ -4,7 +4,6 @@
   import { btc, f, sat, s, sats } from "$lib/utils";
   let {
     showQr,
-    src,
     link,
     txt,
     invoice,
