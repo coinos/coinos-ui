@@ -1,10 +1,14 @@
-import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
+import { PUBLIC_COINOS_URL, PUBLIC_DOMAIN } from "$env/static/public";
 
 const api = PUBLIC_DOMAIN.includes("localhost")
 	? `${PUBLIC_COINOS_URL}`
 	: `https://${PUBLIC_DOMAIN}/api`;
 
 export default {
+	me: `curl "${api}/me" -H "content-type: application/json"`,
+	update: `curl "${api}/user" -H "content-type: application/json" -d '{
+    "username": "demo",
+  }'`,
 	register: `curl "${api}/register" -H "content-type: application/json" -d '{
   "user": {
     "username": "demo",

@@ -79,6 +79,26 @@
   <p class="text-secondary">Login to an account to get its auth token</p>
   <Code sample="login" />
 
+  <h2 class="text-2xl">GET /me</h2>
+  <p class="text-secondary">Get your account details and balance</p>
+  <Code sample="me" />
+
+  <h2 class="text-2xl">POST /user</h2>
+  <p class="text-secondary">Update your account/settings</p>
+  <div>Request params (all optional)</div>
+  <div class="grid grid-cols-3 ml-2">
+    <div class="font-bold">username</div>
+    <div class="col-span-2">string - letters and numbers, no spaces</div>
+    <div class="font-bold">display</div>
+    <div class="col-span-2">string - spaces allowed</div>
+    <div class="font-bold">currency</div>
+    <div class="col-span-2">string - three-letter ISO currency code e.g. CAD or USD</div>
+    <div class="font-bold">language</div>
+    <div class="col-span-2">string - two-letter language code e.g. en, fr, es</div>
+  </div>
+
+  <Code sample="update" />
+
   <h2 class="text-2xl">POST /invoice</h2>
   <p class="text-secondary">Create an invoice.</p>
 
