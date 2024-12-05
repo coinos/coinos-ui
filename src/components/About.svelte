@@ -95,11 +95,13 @@
         <img src="/map.png" class="mx-auto" alt="Map" />
       </a>
 
-      <button
-        class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
-      >
-        {$t("about.locations.viewMap")}
-      </button>
+      <a href="/map" class="contents">
+        <button
+          class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
+        >
+          {$t("about.locations.viewMap")}
+        </button>
+      </a>
     </div>
   </div>
 {/if}
