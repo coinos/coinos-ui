@@ -15,7 +15,6 @@
     start,
     end,
     user,
-    rates,
     payments,
     incoming,
     outgoing,

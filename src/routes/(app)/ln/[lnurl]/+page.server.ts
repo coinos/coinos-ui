@@ -1,11 +1,14 @@
-import { fd, auth, get, post } from "$lib/utils";
+import getRates from "$lib/rates";
+import { auth, fd, get, post } from "$lib/utils";
 import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ params, parent }) {
 	const { user } = await parent();
 	if (!user) redirect(307, "/register");
 
-	let data;
+	let data = {
+		rate: await getRates()[user.currency],
+	};
 
 	try {
 		const { lnurl } = params;

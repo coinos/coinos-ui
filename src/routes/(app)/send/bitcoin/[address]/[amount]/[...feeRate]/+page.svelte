@@ -71,18 +71,8 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let {
-    account,
-    amount,
-    address,
-    message,
-    fee,
-    fees,
-    ourfee,
-    rates,
-    hex,
-    inputs,
-  } = $derived(data);
+  let { account, amount, address, message, fee, fees, ourfee, hex, inputs } =
+    $derived(data);
 
   let { feeRate } = $state(data);
 
@@ -91,7 +81,10 @@
     feeRate = feeRate
       ? closest(Object.values(fees), feeRate)
       : fees.halfHourFee;
-    if (!$rate) $rate = rates[currency];
+  });
+
+  $effect(() => {
+    if (!$rate) $rate = data.rate;
   });
 
   let { balance, currency } = data.user;

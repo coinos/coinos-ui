@@ -10,7 +10,7 @@
 
   let { data, form } = $props();
 
-  let { subject, rate, rates, user } = $state(data);
+  let { subject, rate, user } = $state(data);
   let currency = subject?.currency || "USD";
   let next = $state();
 

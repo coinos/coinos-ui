@@ -1,9 +1,11 @@
+import getRates from "$lib/rates";
 import { auth, fd, get, post, sats, types } from "$lib/utils";
 import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent }) {
 	const { username } = params;
-	const { rates, user } = await parent();
+	const { user } = await parent();
+	const rates = await getRates();
 
 	if (user?.username === username) redirect(307, `/${username}/receive`);
 	const subject = await get(`/users/${username}`);

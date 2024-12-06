@@ -11,13 +11,12 @@
 
   let { data } = $props();
 
-  let { amount, src, payments, rates, user } = data;
+  let { amount, src, payments, rate, user } = data;
   let { id } = $page.params;
 
   toast.pop(0);
 
   let currency = user ? user.currency : "CAD";
-  let rate = rates[currency];
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   $loginRedirect = $page.url.pathname;

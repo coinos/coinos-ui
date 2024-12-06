@@ -6,7 +6,6 @@ export async function load({ cookies, request, url, params }) {
 	const { id, username } = params;
 	const token = cookies.get("token");
 	let rate;
-	let rates = { USD: 1 };
 
 	let user;
 	if (token) {
@@ -54,11 +53,10 @@ export async function load({ cookies, request, url, params }) {
 
 	try {
 		rate = await get("/rate");
-		rates = await get("/rates");
 	} catch (e) {
 		console.log(e);
 	}
 
 	const theme = cookies.get("theme") || "light";
-	return { user, token, rate, rates, subject, theme };
+	return { user, token, rate, subject, theme };
 }

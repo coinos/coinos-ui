@@ -9,10 +9,8 @@
 
   let { data, form, send = $bindable(), comment = $bindable() } = $props();
   let { currency } = data.user;
-  let { minSendable, maxSendable, commentAllowed, callback, metadata, rates } =
+  let { minSendable, maxSendable, commentAllowed, callback, metadata, rate } =
     data;
-
-  let rate = $derived(rates[currency]);
 
   let amount = $state(Math.round(minSendable / 1000)),
     loading = $state();

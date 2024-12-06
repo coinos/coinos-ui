@@ -1,10 +1,12 @@
+import getRates from "$lib/rates";
 import type { Invoice } from "$lib/types";
 import { auth, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, parent }) => {
 	const aid = cookies.get("aid");
-	let { subject, user, rates } = await parent();
+	let { subject, user } = await parent();
+	const rates = await getRates();
 	if (aid === user.id) redirect(307, `/${user.username}/receive`);
 
 	let invoice: Invoice = {

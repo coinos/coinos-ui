@@ -1,8 +1,10 @@
+import getRates from "$lib/rates";
 import { get } from "$lib/utils";
 
 export async function load({ depends, parent }) {
 	depends("app:user");
 
+	const rates = await getRates();
 	const { subject, user } = await parent();
 
 	const { follows, followers } = await get(`/${subject.pubkey}/count`);
@@ -12,5 +14,5 @@ export async function load({ depends, parent }) {
 			() => [],
 		);
 
-	return { follows, followers, followList };
+	return { follows, followers, followList, rate: rates[subject.currency] };
 }

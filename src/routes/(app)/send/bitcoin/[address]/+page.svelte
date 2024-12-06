@@ -10,14 +10,14 @@
 
   let { data } = $props();
 
-  let { balance, rates, user } = data;
+  let { balance, user } = data;
   let { address } = $page.params;
   let { currency, username } = user;
 
   let amount = $state(0);
   let submit = $state(), fiat = $state();
 
-  let update = () => ($rate = data.rates[currency]);
+  let update = () => ($rate = data.rate);
 
   let setMax = () => {
     fiat = false;

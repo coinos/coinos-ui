@@ -63,7 +63,7 @@
     submitting = false;
   };
 
-  let { rates, recipient, req, user, type, target } = $derived({
+  let { recipient, req, user, type, target } = $derived({
     ...data,
     ...form,
   });
@@ -73,7 +73,7 @@
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.req.amount);
 
-  $effect(() => ($rate ||= rates[currency]));
+  $effect(() => ($rate ||= data.rate);
   $effect(() => form && (submitting = false));
 </script>
 

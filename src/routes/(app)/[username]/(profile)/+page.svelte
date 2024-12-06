@@ -14,9 +14,7 @@
     preloadData("/send");
   });
 
-  let { accounts, subject, user, rates } = $state(data);
-  let { currency } = $derived(subject);
-  let rate = $derived(rates[currency]);
+  let { accounts, subject, rate, user } = $state(data);
 
   let install = async () => {
     if (!$installPrompt) return;

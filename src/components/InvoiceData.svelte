@@ -49,4 +49,4 @@
   </div>
 {/each}
 
-<Amount {amount} {currency} {rate} {locale} />
+<Amount {amount} {currency} {rate} {locale} {tip} />

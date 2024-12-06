@@ -27,11 +27,10 @@
 
   let showOptions;
 
-  let { id, rates, subject, user, text } = $state(data);
+  let { id, rate, subject, user, text } = $state(data);
   let locale = loc(user);
 
   let { currency, username } = subject;
-  let rate = rates[currency];
   let type = types.lightning;
   let hash = "";
   let qr;

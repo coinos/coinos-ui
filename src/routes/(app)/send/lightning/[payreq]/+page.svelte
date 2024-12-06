@@ -15,12 +15,11 @@
     alias,
     payreq,
     ourfee,
-    rates,
     user: { currency },
   } = $derived({ ...data, ...form });
   let a = $state();
 
-  $effect(() => ($rate ||= rates[currency]));
+  $effect(() => ($rate ||= data.rate);
   $effect(() => form && (loading = false));
 
   let showMax = $state();

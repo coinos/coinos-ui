@@ -25,14 +25,14 @@
       {/if}
     </h2>
     <h3
-      class="flex text-secondary md:text-lg cursor-copy"
+      class="flex text-secondary md:text-lg cursor-copy items-center gap-1"
       class:justify-center={align !== "left"}
       onclick={() => copy(toFiat(amount, rate).toFixed(2))}
     >
       {f(toFiat(amount, rate), currency, locale)}
       {#if tip}
         <span class="text-base">
-          + {f(toFiat(tip, rate), currency, locale)}
+          +{f(toFiat(tip, rate), currency, locale)}
         </span>
       {/if}
     </h3>

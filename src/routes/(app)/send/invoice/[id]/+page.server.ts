@@ -1,9 +1,10 @@
+import getRates from "$lib/rates";
 import { auth, fd, get, post, types } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params: { id }, parent }) {
 	const aid = cookies.get("aid");
-	const { rates, user } = await parent();
+	const { user } = await parent();
 
 	const invoice = await get(`/invoice/${id}`);
 
@@ -20,7 +21,11 @@ export async function load({ cookies, params: { id }, parent }) {
 
 	if (!user) redirect(307, `/invoice/${id}`);
 
-	return { invoice, rates, user };
+	const rates = await getRates();
+	const rate = rates[user.currency];
+	const invoiceRate = rates[invoice.currency];
+
+	return { invoice, user, rate, invoiceRate };
 }
 
 export const actions = {
@@ -31,9 +36,10 @@ export const actions = {
 			body.hash = id;
 
 			p = await post("/payments", body, auth(cookies));
-		} catch (e: any) {
+		} catch (e) {
+			const { message } = e as Error;
 			console.log("payment failed", id, e);
-			error(500, e.message);
+			error(500, message);
 		}
 
 		redirect(307, `/sent/${p.id}`);

@@ -63,7 +63,7 @@
   let submit = $state();
 
   let { data } = $props();
-  let { invoice, id, user, rates } = $state(data);
+  let { invoice, id, user } = $state(data);
   let {
     aid,
     amount,
@@ -83,7 +83,7 @@
   let fullscreen;
 
   let currency = user?.currency || invoice.currency;
-  let rate = invoice.rate * (rates[currency] / rates[invoice.currency]);
+  let rate = invoice.rate * (data.rate / data.invoiceRate);
 
   $effect(() => {
     tip = Math.round((amount / 100) * untrack(() => tipPercent));
@@ -95,11 +95,7 @@
 </script>
 
 <div class="container px-4 max-w-lg text-center mx-auto">
-  <form
-    method="POST"
-    use:enhance
-    class="space-y-5"
-  >
+  <form method="POST" use:enhance class="space-y-5">
     <input type="hidden" name="aid" value={aid} />
     <input type="hidden" name="amount" value={amount} />
     <input type="hidden" name="tip" value={tip} />
