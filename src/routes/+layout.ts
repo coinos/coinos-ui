@@ -4,6 +4,8 @@ import { addTranslations, setLocale, setRoute } from "$lib/translations/index";
 import { addIcon } from "iconify-icon";
 import cookies from "js-cookie";
 
+export const ssr = false;
+
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {
 	const { i18n, translations } = data;

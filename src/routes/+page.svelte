@@ -12,7 +12,7 @@
   import { onDestroy, onMount, tick } from "svelte";
 
   let { data } = $props();
-  let { faqs, locations, user } = $state(data);
+  let { faqs, locations, user } = $derived(data);
 
   let howItWorks = $state();
   let faq = $state();
