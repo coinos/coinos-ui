@@ -9,10 +9,10 @@
 
   let { data } = $props();
 
-  let { messages, notes, invoices, sent, received, subject, user, rates } =
+  let { messages, notes, invoices, sent, received, subject, user } =
     $state(data);
   let refresh = (d) =>
-    ({ messages, notes, invoices, sent, received, subject, user, rates } = d);
+    ({ messages, notes, invoices, sent, received, subject, user } = d);
 
   let keys = new Set();
   let latest = $state([]);

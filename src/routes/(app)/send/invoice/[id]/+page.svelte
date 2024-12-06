@@ -15,14 +15,12 @@
   import { btc, sat, post, back, f, toFiat, s, sats, focus } from "$lib/utils";
   let { data, form } = $props();
 
-  let { invoice, rates, user } = $state(data);
+  let { invoice, user } = $state(data);
   let { address, hash, payreq, user: recipient, tip } = $state(invoice);
   let { currency } = $state(user);
   let { amount } = $state(form || invoice);
 
-  let rate = $derived(
-    invoice.rate * (rates[user.currency] / rates[invoice.currency]),
-  );
+  let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
 
   let a = $state(),
     af = $state(),

@@ -1,19 +1,10 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
-  import {
-    copy,
-    select,
-    f,
-    sat,
-    get,
-    s,
-    sats,
-  } from "$lib/utils";
-  import Icon from "$comp/Icon.svelte";
+  import { copy, select, f, sat, get, s, sats } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
 
@@ -21,7 +12,7 @@
   let submit = $state();
 
   let { data } = $props();
-  let { invoice, id, user, rates } = $state(data);
+  let { invoice, id, user } = $derived(data);
   let {
     amount,
     hash,
@@ -34,30 +25,9 @@
     text,
     tip,
     user: { username, currency },
-  } = $state(invoice);
+  } = $derived(invoice);
 
   invoice.memo = user?.username;
-
-  let refresh = (data) => {
-    $inv = null;
-
-    ({ invoice, id } = data);
-    ({
-      amount,
-      hash,
-      items,
-      memoPrompt,
-      type,
-      received,
-      prompt,
-      text,
-      tip,
-      user: { username },
-    } = invoice);
-  };
-  run(() => {
-    refresh(data);
-  });
 </script>
 
 <form

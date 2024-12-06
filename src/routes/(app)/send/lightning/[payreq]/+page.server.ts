@@ -1,9 +1,13 @@
+import getRates from "$lib/rates";
 import { auth, fd, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, params }) {
+export async function load({ cookies, params, parent }) {
+	const { user } = await parent();
 	if (params.payreq.startsWith("lno")) return params;
+	const rates = await getRates();
 	const data = await post("/parse", params, auth(cookies));
+	data.rate = rates[user.currency];
 	data.payreq = params.payreq;
 	return data;
 }

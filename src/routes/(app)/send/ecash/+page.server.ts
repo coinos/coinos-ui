@@ -1,5 +1,12 @@
+import getRates from "$lib/rates";
 import { auth, fd, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
+
+export async function load({ parent }) {
+	const rates = await getRates();
+	const { user } = await parent();
+	return { rate: rates[user.currency] };
+}
 
 export const actions = {
 	default: async ({ cookies, request }) => {

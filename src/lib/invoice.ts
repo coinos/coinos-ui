@@ -1,12 +1,13 @@
-import { auth, get, post } from "$lib/utils";
+import getRates from "$lib/rates";
+import { auth, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export default async ({ cookies, request }) => {
 	const form = await request.formData();
 	const aid = form.get("aid") || cookies.get("aid");
 
-	const rates = await get("/rates");
 	const amount = parseInt(form.get("amount"));
+	const rates = await getRates();
 
 	let invoice = {
 		aid,

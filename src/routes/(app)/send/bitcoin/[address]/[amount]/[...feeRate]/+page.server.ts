@@ -1,8 +1,15 @@
+import getRates from "$lib/rates";
 import { auth, fd, get, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
-export async function load({ params: { address, amount, feeRate }, cookies }) {
+export async function load({
+	params: { address, amount, feeRate },
+	cookies,
+	parent,
+}) {
 	const aid = cookies.get("aid");
+	const rates = await getRates();
+	const { user } = await parent();
 
 	try {
 		const { fee, fees, inputs, ourfee, hex } = await post(
@@ -20,6 +27,7 @@ export async function load({ params: { address, amount, feeRate }, cookies }) {
 			fee,
 			fees,
 			feeRate,
+			rate: rates[user.currency],
 			ourfee,
 			hex,
 			inputs,

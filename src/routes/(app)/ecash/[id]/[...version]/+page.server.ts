@@ -1,5 +1,12 @@
-import { fail, redirect } from "@sveltejs/kit";
+import getRates from "$lib/rates";
 import { auth, fd, post } from "$lib/utils";
+import { fail, redirect } from "@sveltejs/kit";
+
+export async function load({ parent }) {
+	const { user } = await parent();
+	const rates = await getRates();
+	return { rate: rates[user.currency] };
+}
 
 export const actions = {
 	default: async ({ cookies, request, url }) => {

@@ -15,9 +15,8 @@
     maxWithdrawable,
     k1,
     callback,
-    rates,
+    rate,
   } = data;
-  let rate = $derived(rates[currency]);
 
   let amount = $state(Math.round(minWithdrawable / 1000)),
     loading = $state();

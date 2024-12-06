@@ -10,7 +10,7 @@
   } from "$env/static/public";
 
   let { data } = $props();
-  let { user, rates } = $derived(data);
+  let { user } = $derived(data);
   let { id, npub } = $derived(user);
 
   let importing = $state(),

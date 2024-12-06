@@ -5,7 +5,7 @@
   import { page } from "$app/stores";
 
   let { data } = $props();
-  let { user, rates } = $state(data);
+  let { user } = $state(data);
   let { id } = user;
 
   let avatarFile,

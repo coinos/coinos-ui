@@ -23,7 +23,7 @@
 
   let formElement = $state();
 
-  let { user, token, rates, cookies, subscriptions } = $state(data);
+  let { user, token, cookies, subscriptions } = $state(data);
   let { tab } = $derived(data);
   let prev = $derived({ ...user });
 

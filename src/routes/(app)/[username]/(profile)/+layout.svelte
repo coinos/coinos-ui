@@ -25,10 +25,10 @@
 
   let {
     events,
+    rate,
     user,
     subject,
     src,
-    rates,
     text,
     follows,
     followers,
@@ -292,13 +292,13 @@
         <div class="my-auto mr-1">1</div>
         <img src="/images/bitcoin.svg" class="w-5 my-auto" alt="Bitcoin" />
       </div>
-      <div>&#61; {f(rates[currency], currency, locale, 0, 0)}</div>
+      <div>&#61; {f(rate, currency, locale, 0, 0)}</div>
     </div>
     <div class="text-secondary flex ml-auto">
       <div class="flex items-center">
         <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
-        {s((1 * sats) / rates[currency])} =
+        {s((1 * sats) / rate)} =
         {f(1, currency, locale, 0, 0)}
       </div>
     </div>
