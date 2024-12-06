@@ -73,7 +73,7 @@
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.req.amount);
 
-  $effect(() => ($rate ||= data.rate);
+  $effect(() => ($rate ||= data.rate));
   $effect(() => form && (submitting = false));
 </script>
 
