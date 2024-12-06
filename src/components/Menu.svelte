@@ -1,35 +1,24 @@
 <script>
-  import { run } from 'svelte/legacy';
-
   import { theme } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
   import OutClick from "svelte-outclick";
-  let {
-    t,
-    user,
-    w,
-    opacity
-  } = $props();
+  let { t, user, w, opacity } = $props();
 
   let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
   let showMenu = $state(false);
 
-  let menuButtons = $state();
-  run(() => {
-    if (user)
-      menuButtons = [
-        { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
-        { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
-        { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
-        {
-          key: "nav.merch",
-          icon: "ph:storefront-bold",
-          href: `https://coinosmerch.com`,
-        },
-        { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
-        { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
-      ];
-  });
+  let menuButtons = [
+    { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
+    { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
+    { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
+    {
+      key: "nav.merch",
+      icon: "ph:storefront-bold",
+      href: `https://coinosmerch.com`,
+    },
+    { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
+    { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
+  ];
 
   let hideMenu = () => (showMenu = false);
   let toggleMenu = () => (showMenu = !showMenu);
@@ -38,7 +27,8 @@
 <div>
   <OutClick on:outclick={hideMenu}>
     <button class="btn-menu {opacity('/support')}" onclick={toggleMenu}
-      ><iconify-icon icon="ph:list-bold" width={w > 640 ? 32 : 24}></iconify-icon>
+      ><iconify-icon icon="ph:list-bold" width={w > 640 ? 32 : 24}
+      ></iconify-icon>
     </button>
 
     <div
@@ -70,7 +60,9 @@
         {/each}
       </ul>
       <hr class="my-4" />
-      <a href="/?stay=true"><iconify-icon icon="coinos:logo" width="160"></iconify-icon></a>
+      <a href="/?stay=true"
+        ><iconify-icon icon="coinos:logo" width="160"></iconify-icon></a
+      >
     </div>
   </OutClick>
 </div>
