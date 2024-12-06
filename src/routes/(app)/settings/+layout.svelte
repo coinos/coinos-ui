@@ -1,5 +1,4 @@
 <script>
-  import { run, preventDefault } from "svelte/legacy";
   import { setContext } from "svelte";
 
   import { browser } from "$app/environment";
@@ -19,12 +18,13 @@
   import { invalidateAll } from "$app/navigation";
   import { PUBLIC_COINOS_URL } from "$env/static/public";
 
-  let { data, form } = $props();
+  let { children, data, form } = $props();
 
   let formElement = $state();
 
-  let { user, token, cookies, subscriptions } = $state(data);
+  let { token, cookies, subscriptions } = $derived(data);
   let { tab } = $derived(data);
+  let { user } = $derived(form || data);
   let prev = $derived({ ...user });
 
   let justUpdated;
@@ -42,10 +42,11 @@
     { name: "security", key: "SECURITY" },
   ];
 
-  let { address, id, username } = user;
+  let { address, id, username } = $derived(user);
   let submitting = $state();
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       submitting = true;
       let data = new FormData(formElement);
@@ -164,22 +165,15 @@
 
     submitting = false;
   }
-  run(() => {
-    form?.user && ({ user } = form);
-  });
-  run(() => {
-    form?.success && throttledSuccess();
-  });
-  run(() => {
-    form?.message && fail(form.message);
-  });
-  run(() => {
+  $effect(() => form?.success && throttledSuccess());
+  $effect(() => form?.message && fail(form.message));
+  $effect(() => {
     if (form?.message?.startsWith("Pin")) {
       fail("Wrong pin, try again");
       $pin = "";
     }
   });
-  run(() => {
+  $effect(() => {
     if (!$loading && $page.url.searchParams.get("verified"))
       success($t("user.settings.verified"));
   });
@@ -192,7 +186,7 @@
 <form
   method="POST"
   class="mb-[154px] settings"
-  onsubmit={preventDefault(handleSubmit)}
+  onsubmit={handleSubmit}
   bind:this={formElement}
 >
   <input type="hidden" name="pin" value={$pin} />
@@ -219,7 +213,7 @@
       </div>
     </div>
 
-    <slot />
+    {@render children?.()}
   </div>
 
   <div
