@@ -52,7 +52,7 @@
       class="text-green-400"
       width="160"
       in:scale={{ start: 0.2, duration: 500 }}
-    />
+    ></iconify-icon>
   {/if}
   <h1 class="text-3xl md:text-4xl font-bold mb-6">{title}</h1>
   <Amount {amount} {tip} {rate} {currency} />

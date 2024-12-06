@@ -5,9 +5,8 @@
 
   let { data, children } = $props();
 
-  let { id, rates, user, token, total, spent, external, mint } = data;
+  let { id, user, token, total, spent, external, mint, rate } = data;
   let currency = user?.currency || "USD";
-  let rate = rates[currency];
 
   let amount = total - spent;
 

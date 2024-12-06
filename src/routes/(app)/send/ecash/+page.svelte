@@ -26,7 +26,7 @@
 
   let submitting = $state();
   let toggle = () => (submitting = !submitting);
-  $effect(() => ({ rate: $rate } = user));
+  $effect(() => ({ rate: $rate } = data));
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">

@@ -30,7 +30,7 @@
   {/if}
 </div>
 
-<a href={`/${user.username}`}>
+<a href={`/${user.username}`} aria-label="Continue">
   <div class="opacity-0 w-screen h-screen fixed top-24 left-0 z-50"></div>
 </a>
 
