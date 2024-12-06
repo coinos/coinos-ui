@@ -49,4 +49,6 @@
   </div>
 {/each}
 
-<Amount {amount} {currency} {rate} {locale} {tip} />
+{#if amount > 0}
+  <Amount {amount} {currency} {rate} {locale} {tip} />
+{/if}
