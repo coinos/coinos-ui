@@ -29,6 +29,7 @@ self.addEventListener("activate", (event) => {
 	event.waitUntil(deleteOldCaches());
 });
 
+/*
 self.addEventListener("fetch", (event) => {
 	// ignore POST requests etc
 	if (event.request.method !== "GET") return;
@@ -82,6 +83,7 @@ self.addEventListener("fetch", (event) => {
 
 	event.respondWith(respond());
 });
+*/
 
 self.addEventListener("push", (event) => {
 	const { title, body, url } = event.data.json();
