@@ -19,7 +19,7 @@
   } = $derived({ ...data, ...form });
   let a = $state();
 
-  $effect(() => ($rate ||= data.rate);
+  $effect(() => ($rate ||= data.rate));
   $effect(() => form && (loading = false));
 
   let showMax = $state();
