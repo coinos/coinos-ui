@@ -17,11 +17,11 @@
 </script>
 
 {#if showQr}
-  <div>
+  <div class="max-w-[360px] mx-auto">
     <a href={link}>
       <img
         src={`/qr/${encodeURIComponent(invoice.text)}/raw`}
-        class="mx-auto z-10 max-w-[360px] border-4 border-white"
+        class="z-10 border-4 border-white"
         alt={txt}
       />
     </a>
