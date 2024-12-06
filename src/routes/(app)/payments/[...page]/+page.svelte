@@ -170,10 +170,12 @@
   <div class="container w-full mx-auto text-lg px-2 max-w-xl space-y-2">
     <div class="mx-auto flex justify-center w-full gap-1">
       {#each presets as { start, end, title }, i}
-        <a href={`/payments/${getUnixTime(start) + "/"}1`}>
-          <button class="btn" class:btn-active={selection === i}>
-            <div class="my-auto">{title}</div>
-          </button>
+        <a
+          href={`/payments/${getUnixTime(start)}/1`}
+          class="btn !w-auto"
+          class:!btn-active={selection === i}
+        >
+          {title}
         </a>
       {/each}
     </div>

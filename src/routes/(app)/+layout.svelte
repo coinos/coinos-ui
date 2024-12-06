@@ -26,7 +26,7 @@
   let { user, subject, token } = $derived(data);
   let { theme } = $state(data);
 
-  $themeStore = theme;
+  $effect(() => ($themeStore = theme));
   $effect(() => (theme = $themeStore));
 
   afterNavigate(() => {
