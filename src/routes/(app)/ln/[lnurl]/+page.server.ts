@@ -5,21 +5,21 @@ import { error, fail, redirect } from "@sveltejs/kit";
 export async function load({ params, parent }) {
 	const { user } = await parent();
 	if (!user) redirect(307, "/register");
+	const rates = await getRates();
 
-	let data = {
-		rate: await getRates()[user.currency],
-	};
-
+	let data;
 	try {
 		const { lnurl } = params;
 		data = await get(`/decode?text=${lnurl}`);
-	} catch (e: any) {
-		error(500, e.message);
+	} catch (e) {
+		const { message } = e as Error;
+		error(500, message);
 	}
 
 	if (!["payRequest", "withdrawRequest"].includes(data.tag))
 		error(500, "We only support LNURLp and LNURLw at this time");
 
+	data.rate = rates[user.currency];
 	return data;
 }
 
