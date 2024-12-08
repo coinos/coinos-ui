@@ -5,7 +5,6 @@ export async function load({ cookies, request, url, params }) {
 	const { pathname } = url;
 	const { id, username } = params;
 	const token = cookies.get("token");
-	let rate;
 
 	let user;
 	if (token) {
@@ -51,12 +50,6 @@ export async function load({ cookies, request, url, params }) {
 		redirect(303, "/generate");
 	}
 
-	try {
-		rate = await get("/rate");
-	} catch (e) {
-		console.log(e);
-	}
-
 	const theme = cookies.get("theme") || "light";
-	return { user, token, rate, subject, theme };
+	return { user, token, subject, theme };
 }
