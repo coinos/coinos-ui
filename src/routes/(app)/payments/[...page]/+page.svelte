@@ -193,7 +193,7 @@
               </div>
             </a>
           {:else if isEllipsis(i)}
-            <div class="join-item btn !w-auto !btn-sm btn-disabled">...</div>
+            <div class="join-item btn !w-auto !btn-sm btn-disabled !bg-base-200">...</div>
           {/if}
         {/each}
       {/if}
