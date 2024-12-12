@@ -10,7 +10,7 @@
   let { data } = $props();
 
   afterNavigate(() => {
-    preloadData(`/${user.username}/receive`);
+    if (user) preloadData(`/${user.username}/receive`);
     preloadData("/send");
   });
 
