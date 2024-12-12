@@ -1,9 +1,11 @@
 import parse from "$lib/parse";
 import { auth, fd, get } from "$lib/utils";
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 
 const limit = 10;
-export async function load({ cookies, params, url }) {
+export async function load({ cookies, params, parent, url }) {
+	const { user } = await parent();
+	if (!user) redirect(307, "/login");
 	const { text } = params;
 
 	await parse(text, url.host);
