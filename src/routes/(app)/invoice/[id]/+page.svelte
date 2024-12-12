@@ -51,7 +51,7 @@
   //       console.log(e);
   //     });
 
-  let subbed = {};
+  let subbed = false;
 
   onMount(async () => {
     if (browser) {
