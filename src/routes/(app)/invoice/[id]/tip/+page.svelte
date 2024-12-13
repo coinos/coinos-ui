@@ -3,7 +3,7 @@
 
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
-  import { copy, focus, f, sat, get, s, sats } from "$lib/utils";
+  import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import Slider from "$comp/Slider.svelte";
   import { goto } from "$app/navigation";
@@ -76,6 +76,7 @@
     tip,
     user: { username },
   } = $state(invoice);
+  let locale = $derived(loc(user));
 
   let qr;
   let tipPercent = $state((tip / amount) * 100);
@@ -119,14 +120,23 @@
       <div class="flex mb-8 text-lg">
         <div>
           <span class="mr-1">
-            {f(amountFiat, currency)}
-            <span class="font-semibold">+{f(tipAmount, currency)}</span>
+            {f(amountFiat, currency, locale)}
+            <span class="font-semibold">+{f(tipAmount, currency, locale)}</span>
           </span>
         </div>
 
-        <div class="ml-auto text-lg">
-          {sat(amount)}
-          <span class="font-semibold">+{sat(tip)}</span>
+        <div class="ml-auto text-lg flex gap-2">
+          <div class="flex items-center">
+            <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+            ></iconify-icon>
+            <div>{s(amount, locale)}</div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="font-semibold">
+              +{s(tip, locale)}
+            </div>
+          </div>
         </div>
       </div>
 

@@ -3,7 +3,7 @@
   import { scale } from "svelte/transition";
   import Amount from "$comp/Amount.svelte";
   import { Confetti } from "svelte-confetti";
-  const { amount, tip, rate, currency, title } = $props();
+  const { amount, tip, rate, currency, locale, title } = $props();
 
   let loaded = $state(false);
   $effect(() => {
@@ -55,5 +55,5 @@
     ></iconify-icon>
   {/if}
   <h1 class="text-3xl md:text-4xl font-bold mb-6">{title}</h1>
-  <Amount {amount} {tip} {rate} {currency} />
+  <Amount {amount} {tip} {rate} {currency} {locale} />
 </div>
