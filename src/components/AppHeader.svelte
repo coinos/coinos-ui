@@ -23,7 +23,7 @@
         : undefined,
   );
 
-  const links = [
+  const links = $derived([
     {
       href: `/${user?.username}`,
       icon: "ph:house-bold",
@@ -45,7 +45,7 @@
       icon: "ph:paper-plane-right-bold",
       label: "Send",
     },
-  ];
+  ]);
 
   let opacity = $derived((href) =>
     $page.url.pathname === href

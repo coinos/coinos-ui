@@ -124,7 +124,8 @@
         }
       }
 
-      if (user.email !== prev.email) {
+      let email = data.get("email");
+      if (email !== prev.email) {
         try {
           cookies.get = function (n) {
             return this.find((c) => c.name === n).value;
@@ -132,11 +133,7 @@
 
           user.verified = false;
 
-          await post(
-            "/api/request",
-            { id: user.id, email: user.email },
-            auth(cookies),
-          );
+          await post("/email", { id: user.id, email });
 
           warning($t("user.settings.verifying"), false);
         } catch (e) {
