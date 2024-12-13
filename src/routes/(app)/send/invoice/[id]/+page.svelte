@@ -12,12 +12,13 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { btc, sat, post, back, f, toFiat, s, sats, focus } from "$lib/utils";
+  import { btc, sat, post, back, f, toFiat, s, sats, focus, loc } from "$lib/utils";
   let { data, form } = $props();
 
   let { invoice, user } = $state(data);
   let { address, hash, payreq, user: recipient, tip } = $state(invoice);
-  let { currency } = $state(user);
+  let { currency } = $derived(user);
+  let locale = $derived(loc(user));
   let { amount } = $state(form || invoice);
 
   let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
@@ -89,7 +90,7 @@
       {$t("payments.send")}
     </h1>
 
-    <Amount {amount} {tip} {rate} {currency} />
+    <Amount {amount} {tip} {rate} {currency} {locale} />
 
     <h1 class="text-xl text-secondary">
       {$t("payments.to")}
