@@ -1,12 +1,14 @@
 <script>
   import { tick } from "svelte";
-  import { avatar, banner } from "$lib/store";
+  import { avatar, banner as bannerStore } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
   let { data } = $props();
-  let { user } = $state(data);
+  let { user } = $derived(data);
   let { id } = user;
+  let { address, banner, profile, display, email, username, verified } =
+    $state(user);
 
   let avatarFile,
     avatarInput = $state(),
@@ -33,7 +35,7 @@
     if (type === "profile") {
       $avatar = { id, file, type, progress };
     } else if (type === "banner") {
-      $banner = { id, file, type, progress };
+      $bannerStore = { id, file, type, progress };
     }
 
     var reader = new FileReader();
@@ -41,16 +43,20 @@
       if (type === "profile") {
         $avatar.src = e.target.result;
       } else if (type === "banner") {
-        $banner.src = e.target.result;
+        $bannerStore.src = e.target.result;
       }
     };
 
     reader.readAsDataURL(file);
   };
 
-  let url = $derived(`${$page.url.host}/${user.username}`);
+  let url = $derived(`${$page.url.host}/${username}`);
   let full = $derived(`${$page.url.protocol}//${url}`);
-  let addr = $derived(`${user.username}@${$page.url.host}`);
+  let addr = $derived(`${username}@${$page.url.host}`);
+
+  $effect(() => {
+    if (email !== user.email) verified = false;
+  });
 </script>
 
 <div>
@@ -58,7 +64,7 @@
     >{$t("user.settings.username")}</label
   >
   <div class="flex mb-2">
-    <input type="text" name="username" bind:value={user.username} />
+    <input type="text" name="username" bind:value={username} />
   </div>
 </div>
 
@@ -66,7 +72,7 @@
   <label for="display" class="font-bold mb-1 block"
     >{$t("user.settings.displayName")}</label
   >
-  <input type="text" name="display" bind:value={user.display} />
+  <input type="text" name="display" bind:value={display} />
 </div>
 
 <div class="space-y-1 relative">
@@ -78,11 +84,11 @@
   <label
     class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
   >
-    <input type="text" name="email" class="clean" bind:value={user.email} />
-    {#if user.verified}
+    <input type="text" name="email" class="clean" bind:value={email} />
+    {#if verified}
       <iconify-icon icon="ph:check-bold" class="text-success ml-auto" width="32"
       ></iconify-icon>
-    {:else if user.email}
+    {:else if email}
       <iconify-icon icon="ph:clock-bold" class="text-warning ml-auto" width="32"
       ></iconify-icon>
     {/if}
@@ -93,16 +99,16 @@
   <span class="font-bold">{$t("user.settings.profileImage")}</span>
 
   <div class="flex">
-    {#if $avatar || user.profile}
+    {#if $avatar || profile}
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
         onkeydown={selectAvatar}
       >
         <img
-          src={$avatar?.src || `/api/public/${user.profile}.webp`}
+          src={$avatar?.src || `/api/public/${profile}.webp`}
           class="absolute w-full h-full object-cover object-center visible overflow-hidden"
-          alt={user.username}
+          alt={username}
         />
       </div>
     {:else}
@@ -139,9 +145,9 @@
     <span class="font-bold">{$t("user.settings.bannerImage")}</span>
   </div>
 
-  {#if $banner || user.banner}
+  {#if $bannerStore || banner}
     <img
-      src={$banner ? $banner.src : `/api/public/${user.banner}.webp`}
+      src={$bannerStore ? $bannerStore.src : `/api/public/${banner}.webp`}
       class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
       onclick={selectBanner}
       onkeydown={selectBanner}
@@ -181,7 +187,7 @@
   <textarea
     type="text"
     name="address"
-    bind:value={user.address}
+    bind:value={address}
     placeholder={$t("user.settings.aboutPlaceholder")}
   ></textarea>
 </div>
