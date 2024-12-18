@@ -23,6 +23,7 @@
     "buffer": "^6.0.3",
     "daisyui": "^4.12.14",
     "date-fns": "^2.29.3",
+    "esptool-js": "^0.5.2",
     "html5-qrcode": "^2.3.8",
     "iconify-icon": "^2.1.0",
     "js-cookie": "^3.0.5",

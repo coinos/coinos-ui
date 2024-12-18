@@ -366,6 +366,7 @@ export const types = {
 	fund: "fund",
 	ecash: "ecash",
 	reconcile: "reconcile",
+	bolt12: "bolt12",
 };
 
 export const ease = (t: number): number =>
