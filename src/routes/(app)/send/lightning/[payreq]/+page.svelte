@@ -6,18 +6,15 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { back, toFiat, f, s, focus } from "$lib/utils";
+  import { loc, back, toFiat, f, s, focus } from "$lib/utils";
   import { rate, pin } from "$lib/store";
 
   let { data, form } = $props();
 
-  let {
-    alias,
-    payreq,
-    ourfee,
-    user: { currency },
-  } = $derived({ ...data, ...form });
+  let { alias, payreq, ourfee, user } = $derived({ ...data, ...form });
   let a = $state();
+  let { currency } = $derived(user);
+  let locale = loc(user);
 
   $effect(() => ($rate ||= data.rate));
   $effect(() => form && (loading = false));
@@ -46,7 +43,7 @@
         {$t("payments.send")}
       </h1>
 
-      <Amount {amount} rate={$rate} {currency} />
+      <Amount {amount} rate={$rate} {currency} {locale} />
     </div>
 
     <div class="text-xl">
@@ -129,7 +126,7 @@
       <input type="hidden" value={a} name="amount" />
       <input name="rate" value={$rate} type="hidden" />
 
-      <Numpad bind:amount={a} {currency} bind:rate={$rate} submit={next} />
+      <Numpad bind:amount={a} {currency} {locale} bind:rate={$rate} submit={next} />
       <button type="submit" class="btn" bind:this={next}
         >{$t("payments.next")}</button
       >
