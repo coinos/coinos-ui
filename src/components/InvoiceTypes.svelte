@@ -24,24 +24,24 @@
       <div class="my-auto text-lg">Lightning</div>
     </button>
 
-    <button
-      class="btn flex-nowrap"
-      class:bg-base-300={type === types.bolt12}
-      class:text-secondary={type === types.bolt12}
-      onclick={() => setType(types.bolt12)}
-    >
-      <div
-        class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
-      >
-        <div class="m-auto">
-          <iconify-icon
-            icon="ph:lightning-fill"
-            class="text-yellow-300 text-2xl"
-          ></iconify-icon>
-        </div>
-      </div>
-      <div class="my-auto text-lg">Bolt 12</div>
-    </button>
+    <!-- <button -->
+    <!--   class="btn flex-nowrap" -->
+    <!--   class:bg-base-300={type === types.bolt12} -->
+    <!--   class:text-secondary={type === types.bolt12} -->
+    <!--   onclick={() => setType(types.bolt12)} -->
+    <!-- > -->
+    <!--   <div -->
+    <!--     class="bg-black rounded-full w-8 h-8 items-center justify-center flex" -->
+    <!--   > -->
+    <!--     <div class="m-auto"> -->
+    <!--       <iconify-icon -->
+    <!--         icon="ph:lightning-fill" -->
+    <!--         class="text-yellow-300 text-2xl" -->
+    <!--       ></iconify-icon> -->
+    <!--     </div> -->
+    <!--   </div> -->
+    <!--   <div class="my-auto text-lg">Bolt 12</div> -->
+    <!-- </button> -->
 
     <button
       class="btn flex-nowrap"
