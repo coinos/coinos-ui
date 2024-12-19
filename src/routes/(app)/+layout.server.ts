@@ -19,7 +19,7 @@ export async function load({ cookies, request, url, params }) {
 
 	let subject;
 
-	if (url.pathname.startsWith("/invoice") && id) {
+	if (url.pathname.includes("/invoice") && id) {
 		try {
 			({ user: subject } = await get(`/invoice/${id}`));
 		} catch (e) {
