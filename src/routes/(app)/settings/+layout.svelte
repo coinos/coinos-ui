@@ -125,7 +125,7 @@
       }
 
       let email = data.get("email");
-      if (email !== prev.email) {
+      if (email && email !== prev.email) {
         try {
           cookies.get = function (n) {
             return this.find((c) => c.name === n).value;
