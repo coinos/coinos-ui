@@ -16,7 +16,7 @@ export async function load({ cookies, params: { id }, parent }) {
 
 	if (user && invoice.aid === aid)
 		error(500, { message: "Cannot send to self" });
-	else if (user && invoice.type !== types.lightning)
+	else if (user && ![types.lightning, types.bolt12].includes(invoice.type))
 		redirect(307, `/send/${invoice.type}/${invoice.hash}`);
 
 	if (!user) redirect(307, `/invoice/${id}`);

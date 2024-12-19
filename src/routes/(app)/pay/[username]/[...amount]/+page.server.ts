@@ -60,7 +60,6 @@ export const actions = {
 				auth(cookies),
 			));
 		} catch (e) {
-			console.log(e);
 			const { message } = e as Error;
 			return fail(400, { message });
 		}
