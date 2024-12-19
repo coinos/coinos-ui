@@ -44,12 +44,6 @@ export default async (s, host) => {
 	if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
 	if (t.includes(":")) t = t.split(":")[1];
 
-	if (t.toLowerCase().startsWith("lno")) {
-		const { offer_amount_msat: a } = await get(`/decode/${t}`);
-		if (a) ({ invoice: t } = await post("/fetchinvoice", { offer: t }));
-		redirect(307, `/send/lightning/${t}`);
-	}
-
 	if (t.includes("lightning=")) {
 		const url = new URL(t);
 		const params = new URLSearchParams(url.search);
@@ -60,6 +54,10 @@ export default async (s, host) => {
 		try {
 			await get(`/invoice/${t}`);
 		} catch (e) {
+			if (t.toLowerCase().startsWith("lno")) {
+				const { offer_amount_msat: a } = await get(`/decode/${t}`);
+				if (a) ({ invoice: t } = await post("/fetchinvoice", { offer: t }));
+			}
 			redirect(307, `/send/lightning/${t}`);
 		}
 	}
