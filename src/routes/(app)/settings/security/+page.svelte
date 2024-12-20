@@ -12,8 +12,9 @@
   import { page } from "$app/stores";
 
   let { data } = $props();
-  let { user } = $state(data);
+  let { user } = $derived(data);
   let { id } = user;
+  let { haspin } = $derived(user);
 
   let confirming2fa = $state(),
     disabling2fa = $state(),
@@ -59,7 +60,6 @@
   let checkPin = async () => {
     try {
       if (pin.length > 5 && pin === verify) {
-        user.haspin = true;
         $current = pin;
         pin = "";
         verify = "";
@@ -87,7 +87,7 @@
   let disablingPin = $state(false);
 
   let togglePin = async () => {
-    if (user.haspin) {
+    if (haspin) {
       try {
         disablingPin = true;
         await tick();
@@ -191,10 +191,10 @@
   {:else}
     <button type="button" class="btn" onclick={togglePin}>
       <iconify-icon
-        icon={user.haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
+        icon={haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
       ></iconify-icon>
-      {user.haspin
+      {haspin
         ? $t("user.settings.disablePIN")
         : $t("user.settings.enablePIN")}</button
     >
@@ -243,4 +243,3 @@
     />
   {/if}
 </div>
-
