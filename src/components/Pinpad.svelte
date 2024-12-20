@@ -55,6 +55,7 @@
       type="password"
       class="clean text-center !text-5xl !w-96 block"
       pattern="[0-9]+"
+      placeholder="_ _ _ _ _ _"
     />
   {:else}
     <input
@@ -64,6 +65,7 @@
       class="clean text-center !text-5xl !w-96 block"
       type="text"
       pattern="[0-9]+"
+      placeholder="_ _ _ _ _ _"
     />
   {/if}
   <button type="button" class="contents" onclick={toggle}>
