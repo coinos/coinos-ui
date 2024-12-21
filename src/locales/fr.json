@@ -6,8 +6,8 @@
 	"about": {
 		"header": "À Propos",
 		"locations": {
-			"header": "Établissements",
-			"description": "Il y a des entreprises qui acceptent bitcoin utilisant le point de vente coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">faites-le-nous savoir!</a>",
+			"header": "Commerces",
+			"description": "Il y a déjà des commerces qui acceptent bitcoin utilisant un point de vente Coinos. Si vous utilisez notre appli, s'il vous plait <a href=\"mailto:contact@coinos.io\" class=\"underline underline-offset-4\">faites-le-nous savoir!</a>",
 			"viewMap": "Voir la carte"
 		},
 		"team": {
@@ -15,12 +15,12 @@
 			"adam": {
 				"name": "Adam Soltys",
 				"position": "Fondateur et directeur technique",
-				"bio": "Adam est un ingénieur en informatique qui croit que l'adoption d'une monnaie saine sera le moteur de la prospérité mondiale. Il vit à North Vancouver avec sa femme, sa fille et son fils."
+				"bio": "Adam est un ingénieur en informatique qui croit en l'adoption d'une monnaie saine comme moteur de la prospérité mondiale. Il vit à North Vancouver avec sa femme, sa fille et son fils."
 			},
 			"cole": {
 				"name": "Cole Goodwin",
 				"position": "Développement commercial",
-				"bio": "Cole est une personne motivée et passionnée par la liberté. Il a découvert le bitcoin en 2016 et l'a étudié en profondeur. Aujourd'hui, il souhaite faire découvrir le réseau Lightning au plus grand nombre d'utilisateurs possible."
+				"bio": "Cole est quelqu'un motivé et passionné par les libertés. Il a découvert le bitcoin en 2016 et l'a étudié en profondeur. Aujourd'hui, il souhaite faire découvrir le réseau Lightning au plus grand nombre d'utilisateurs possible."
 			}
 		}
 	},
@@ -28,17 +28,17 @@
 		"header": "Erreur",
 		"message": "S'il vous plait réessayez ou contactez l'assistance.",
 		"signIn": "Vous devez vous connecter pour continuer.",
-		"unrecognizedInput": "Donnée non reconnu"
+		"unrecognizedInput": "Donnée non reconnue"
 	},
 	"faq": {
 		"header": "FAQ",
 		"cost": {
 			"question": "Combien cela coûte ?",
-			"answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% pour convertir entre le réseau lightning et le réseau on-chain. L'envoie à d'autres comptes Coinos est gratuit."
+			"answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% de conversion entre le réseau lightning et le réseau on-chain. L'envoie à d'autres comptes Coinos est gratuit."
 		},
 		"compatibility": {
 			"question": "Ai-je besoin d'un appareil ou d'un logiciel spécial?",
-			"answer": "Non, Coinos est une application web qui fonctionne partout où il y a Internet. Les commerçants peuvent l'utiliser sur une tablette ou afficher un QR code pour que les clients puissent le scanner avec leur téléphone."
+			"answer": "Non, Coinos est une application sur navigateur web qui fonctionne partout où il y a Internet. Les commerçants peuvent l'utiliser sur une tablette et afficher un QR code pour que les clients puissent le scanner avec leur téléphone."
 		},
 		"safety": {
 			"question": "Quand mes fonds seront-ils versés ?",
@@ -84,16 +84,16 @@
 		"header_before_icon": "Le",
 		"header_with_icon": "moyen",
 		"header_after_icon": "le plus simple de commencer à utiliser bitcoin.",
-		"subheader": "Agrandissez votre clientèle et chiffre d'affaires en acceptant bitcoin avec un point de vente façile à utiliser. Sans logiciel ou matériel informatique supplementaire.",
+		"subheader": "Un portefeuille web gratuit et un moyen de paiement pour tous.",
 		"info1": {
 			"title": "Paiements instantanés avec Lightning",
-			"description": "Le moment où votre client envoie un paiement, c'est là. Vous ne devez pas attendre les décisions des banques ou vous inquiéter pour des rejets de paiements. C'est instantané, en quelques secondes. Dites au revoir aux frais de transactions de 3% des cartes de crédit."
+			"description": "Nous facilitons la réception des paiements pour les commerçants. Vous n'aurez plus à attendre les délais des banques ou vous inquiéter pour des rejets de paiements. C'est instantané, en quelques secondes. Dites au revoir aux frais de transactions de 3% des cartes de crédit."
 		},
 		"info2": {
 			"title": "Simple à utiliser",
-			"description1": "Juste entrer un montant dans votre monnaie locale, partager le Qr code et c'est tout!",
-			"description2": "Vos comptes sont enregistrer par défaut, ce qui élimine la nécessité de comprendre comment bitcoin et lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous puissiez vous concentrer sur votre commerce.",
-			"description3": "Vous avez toujours l'option de <span class=\"underline undeline-offset-4\">gérer</span> vos clés."
+			"description1": "Entrer un montant dans votre monnaie locale, partager le QR code et c'est tout!",
+			"description2": "Vos comptes sont enregistrer par défaut, ce qui élimine la nécessité de comprendre comment le bitcoin et lightning fonctionnent. Nous réalisons le plus gros du travail pour que vous puissiez vous concentrer sur votre commerce.",
+			"description3": "Vous avez toujours l'option de <span class=\"underline undeline-offset-4\">gérer</span> vos propres clés privées."
 		},
 		"info3": {
 			"title": "Personalisez-le comme vous voulez",
@@ -106,7 +106,7 @@
 		"email": "email",
 		"passwordRecommendation": "Nous recommendons un mot de passe long et aléatoire, généré par un gestionnaire de mots de passe.",
 		"forgotUserOrPassword": "Vous avez oublié votre nom d'utilisateur ou mot de passe ?",
-		"haveAccount": "Avez-vous déjà un compte ?",
+		"haveAccount": "Vous avez déjà un compte ?",
 		"noAccount": "Pas encore de compte ?",
 		"register": "Enregistrer",
 		"signIn": "Connexion",
