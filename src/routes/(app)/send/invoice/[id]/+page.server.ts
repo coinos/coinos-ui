@@ -3,8 +3,8 @@ import { auth, fd, get, post, types } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params: { id }, parent }) {
-	const aid = cookies.get("aid");
 	const { user } = await parent();
+	const aid = cookies.get("aid") || user.id;
 
 	const invoice = await get(`/invoice/${id}`);
 
@@ -24,8 +24,9 @@ export async function load({ cookies, params: { id }, parent }) {
 	const rates = await getRates();
 	const rate = rates[user.currency];
 	const invoiceRate = rates[invoice.currency];
+	const { balance } = await get(`/account/${aid}`, auth(cookies));
 
-	return { invoice, user, rate, invoiceRate };
+	return { balance, invoice, user, rate, invoiceRate };
 }
 
 export const actions = {

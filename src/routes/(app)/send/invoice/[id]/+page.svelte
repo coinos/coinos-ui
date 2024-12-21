@@ -12,10 +12,21 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { btc, sat, post, back, f, toFiat, s, sats, focus, loc } from "$lib/utils";
+  import {
+    btc,
+    sat,
+    post,
+    back,
+    f,
+    toFiat,
+    s,
+    sats,
+    focus,
+    loc,
+  } from "$lib/utils";
   let { data, form } = $props();
 
-  let { invoice, user } = $state(data);
+  let { balance, invoice, user } = $state(data);
   let { address, hash, payreq, user: recipient, tip } = $state(invoice);
   let { currency } = $derived(user);
   let locale = $derived(loc(user));
@@ -76,6 +87,12 @@
   // 		}
   // 	}
   // });
+
+  let setMax = (e) => {
+    e.preventDefault();
+    fiat = false;
+    amount = balance;
+  };
 </script>
 
 {#if form?.message}
@@ -157,9 +174,16 @@
         </button>
       {:else}
         <button
+          type="button"
+          class="btn !w-auto grow"
+          onclick={setMax}
+          onkeydown={setMax}>Max ⚡️{s(balance)}</button
+        >
+
+        <button
           bind:this={submit}
           type="button"
-          class="btn !w-auto"
+          class="btn btn-accent !w-auto grow"
           onclick={setAmount}
         >
           {$t("payments.next")}
