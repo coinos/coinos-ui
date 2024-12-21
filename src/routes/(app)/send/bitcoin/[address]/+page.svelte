@@ -1,6 +1,4 @@
 <script>
-  import { run, preventDefault } from 'svelte/legacy';
-
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -16,16 +14,13 @@
 
   let amount = $state(0);
   let submit = $state(), fiat = $state();
+  $effect(() => ($rate = data.rate));
 
-  let update = () => ($rate = data.rate);
-
-  let setMax = () => {
+  let setMax = (e) => {
+    e.preventDefault();
     fiat = false;
     amount = balance;
   };
-  run(() => {
-    update(data);
-  });
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
@@ -39,7 +34,7 @@
     <button
       type="button"
       class="btn !w-auto grow"
-      onclick={preventDefault(setMax)}
+      onclick={setMax}
       onkeydown={setMax}>Max ⚡️{s(balance)}</button
     >
 
