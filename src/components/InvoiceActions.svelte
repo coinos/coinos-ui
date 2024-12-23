@@ -6,10 +6,10 @@
     t,
     link,
     type,
-    types,
     showQr = $bindable(),
     txt,
-    toggleAmount
+    toggleAmount,
+    toggleMemo,
   } = $props();
 </script>
 
@@ -35,11 +35,19 @@
     </a>
   {/if}
 
+  <button class="btn" onclick={toggleMemo}>
+    <iconify-icon icon="ph:chat-centered-text-bold" width="32"></iconify-icon>
+    <div class="my-auto">
+      {t("invoice.setMemo")}
+    </div>
+  </button>
+
   {#if txt.length > 120}
     <div class="w-full flex justify-center gap-2 flex-wrap">
       <button class="btn" onclick={() => (showQr = !showQr)}>
         {#if showQr}
-          <iconify-icon icon="ph:text-align-center-bold" width="32"></iconify-icon>
+          <iconify-icon icon="ph:text-align-center-bold" width="32"
+          ></iconify-icon>
         {:else}
           <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
         {/if}

@@ -33,6 +33,8 @@ export async function load({ cookies, params, parent }) {
 			auth(cookies),
 		);
 
+	const { balance } = await get(`/account/${user.id}`, auth(cookies));
+
 		redirect(307, `/invoice/${id}`);
 	}
 

@@ -7,6 +7,7 @@
     post,
     copy,
     f,
+    fail,
     get,
     types,
     sat,
@@ -21,6 +22,7 @@
   import InvoiceActions from "$comp/InvoiceActions.svelte";
   import InvoiceTypes from "$comp/InvoiceTypes.svelte";
   import SetAmount from "$comp/SetAmount.svelte";
+  import SetMemo from "$comp/SetMemo.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
@@ -38,6 +40,7 @@
   let { id, subject, user } = $state(data);
   let { invoice, src } = $derived(data);
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
+  let { memo } = $state(invoice);
   let { username, currency } = $derived(invoice.user);
   let locale = loc(user);
 
@@ -65,23 +68,36 @@
     }
   });
 
+  let update = async () => {
+    try {
+      ({ id } = await post(`/invoice`, {
+        invoice,
+        user: { username, currency },
+      }));
+
+      let url = `/invoice/${id}`;
+      if (subject?.prompt) url += "/tip";
+      else url += "?options=true";
+
+      goto(url, { invalidateAll: true, noScroll: true });
+    } catch (e) {
+      fail(e.message);
+    }
+  };
+
   let setType = async (type) => {
     $showQr = true;
     if (type === types.lightning && !amount)
       goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
     else {
       invoice.type = type;
-      ({ id } = await post(`/invoice`, {
-        invoice,
-        user: { username, currency },
-      }));
-
-      goto(`/invoice/${id}?options=true`, {
-        invalidateAll: true,
-        noScroll: true,
-      });
+      await update();
     }
   };
+
+  let newAmount = $state(0);
+  let settingAmount = $state();
+  let toggleAmount = $state(() => (settingAmount = !settingAmount));
 
   let setAmount = async (e) => {
     e.preventDefault();
@@ -93,23 +109,24 @@
     invoice.amount = newAmount;
     invoice.tip = 0;
 
-    ({ id } = await post(`/invoice`, {
-      invoice,
-      user: { username, currency },
-    }));
-
-    let url = `./${id}`;
-    if (subject?.prompt) url += "/tip";
-    else url += "?options=true";
-
-    goto(url, { invalidateAll: true, noScroll: true });
+    await update();
   };
 
-  let newAmount = $state(0);
-  let settingAmount = $state();
-  let toggleAmount = $state(() => (settingAmount = !settingAmount));
+  let setMemo = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("setting");
+
+    settingMemo = false;
+    invoice.memo = memo;
+    console.log("MEMO", invoice.memo);
+    await update();
+  };
+
+  let settingMemo = $state();
+  let toggleMemo = () => (settingMemo = !settingMemo);
+
   let fiat = $state(true);
-  let submit = $state();
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
   let link = $derived(
@@ -134,22 +151,23 @@
     {tip}
     {rate}
     showQr={$showQr}
+    t={$t}
   />
 
   <InvoiceActions
     {toggleAmount}
+    {toggleMemo}
     {user}
     {invoice}
     {copy}
     {link}
     {type}
-    {types}
     {txt}
     t={$t}
     bind:showQr={$showQr}
   />
 
-  <InvoiceTypes {aid} {invoice} {user} {type} {types} {setType} t={$t} />
+  <InvoiceTypes {aid} {invoice} {user} {type} {setType} t={$t} />
 </div>
 
 <SetAmount
@@ -158,10 +176,11 @@
   {currency}
   {locale}
   {rate}
-  {submit}
   {settingAmount}
   {setAmount}
   {toggleAmount}
   amountPrompt={$amountPrompt}
   t={$t}
 />
+
+<SetMemo bind:memo {settingMemo} {setMemo} {toggleMemo} t={$t} />
