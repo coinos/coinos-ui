@@ -1,7 +1,7 @@
 <script>
   import Amount from "$comp/Amount.svelte";
 
-  import { btc, f, sat, s, sats } from "$lib/utils";
+  import { btc, f, sat, s, sats, types } from "$lib/utils";
   let {
     showQr,
     link,
@@ -13,7 +13,10 @@
     locale,
     tip,
     rate,
+    t,
   } = $props();
+
+  let { memo } = $derived(invoice);
 </script>
 
 {#if showQr}
@@ -25,6 +28,20 @@
         alt={txt}
       />
     </a>
+  </div>
+{/if}
+
+{#if invoice.type === types.liquid}
+  <div class="flex justify-center p-4 shadow items-center gap-2">
+    <iconify-icon icon="ph:warning-bold" width="48" class="text-warning"
+    ></iconify-icon>
+    <div>
+      <div class="my-auto text-xl text-center text-secondary">
+        {t("payments.onlyLbtc")}
+        <span class="text-teal-500 font-bold">L-BTC</span> &mdash;
+        {t("payments.dontDeposit")}
+      </div>
+    </div>
   </div>
 {/if}
 
@@ -51,4 +68,8 @@
 
 {#if amount > 0}
   <Amount {amount} {currency} {rate} {locale} {tip} />
+{/if}
+
+{#if memo}
+  <div class="text-xl text-center">{memo}</div>
 {/if}

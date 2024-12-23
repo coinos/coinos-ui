@@ -5,6 +5,7 @@
     loc,
     post,
     copy,
+    fail,
     f,
     get,
     types,
@@ -20,6 +21,7 @@
   import InvoiceActions from "$comp/InvoiceActions.svelte";
   import InvoiceTypes from "$comp/InvoiceTypes.svelte";
   import SetAmount from "$comp/SetAmount.svelte";
+  import SetMemo from "$comp/SetMemo.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
@@ -48,21 +50,30 @@
     amountFiat,
     tip;
 
+  let update = async () => {
+    try {
+      ({ id } = await post(`/invoice`, {
+        invoice,
+        user: { username, currency },
+      }));
+
+      let url = `/invoice/${id}`;
+      if (subject?.prompt) url += "/tip";
+      else url += "?options=true";
+
+      goto(url, { invalidateAll: true, noScroll: true });
+    } catch (e) {
+      fail(e.message);
+    }
+  };
+
   let setType = async (type) => {
     $showQr = true;
     if (type === types.lightning && !amount)
       goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
     else {
       invoice.type = type;
-      ({ id } = await post(`/invoice`, {
-        invoice,
-        user: { username, currency },
-      }));
-
-      goto(`/invoice/${id}?options=true`, {
-        invalidateAll: true,
-        noScroll: true,
-      });
+      await update();
     }
   };
 
@@ -77,23 +88,27 @@
     invoice.amount = newAmount;
     invoice.tip = 0;
 
-    ({ id } = await post(`/invoice`, {
-      invoice,
-      user: { username, currency },
-    }));
-
-    let url = `/invoice/${id}`;
-    if (subject?.prompt) url += "/tip";
-    else url += "?options=true";
-
-    goto(url, { invalidateAll: true, noScroll: true });
+    await update();
   };
 
   let newAmount = $state();
   let settingAmount = $state();
   let fiat = $state(true);
   let toggleAmount = () => (settingAmount = !settingAmount);
-  let submit;
+
+  let setMemo = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    settingMemo = false;
+    invoice.memo = memo;
+    await update();
+  };
+
+  let memo = $state();
+  let settingMemo = $state();
+  let toggleMemo = () => (settingMemo = !settingMemo);
+
   let link = $derived(
     [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`,
   );
@@ -119,22 +134,23 @@
     {tip}
     {rate}
     showQr={$showQr}
+    t={$t}
   />
 
   <InvoiceActions
     {toggleAmount}
+    {toggleMemo}
     {user}
     {invoice}
     {copy}
     {link}
     {type}
-    {types}
     {showQr}
     {txt}
     t={$t}
   />
 
-  <InvoiceTypes {aid} {invoice} {user} {type} {types} {setType} t={$t} />
+  <InvoiceTypes {aid} {invoice} {user} {type} {setType} t={$t} />
 </div>
 
 <SetAmount
@@ -143,9 +159,10 @@
   {currency}
   locale={loc(user)}
   {rate}
-  {submit}
   {settingAmount}
   {setAmount}
   {toggleAmount}
   t={$t}
 />
+
+<SetMemo bind:memo {settingMemo} {setMemo} {toggleMemo} t={$t} />

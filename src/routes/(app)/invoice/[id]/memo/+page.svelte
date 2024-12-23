@@ -26,8 +26,6 @@
     tip,
     user: { username, currency },
   } = $derived(invoice);
-
-  invoice.memo = user?.username;
 </script>
 
 <form

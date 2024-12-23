@@ -3,12 +3,13 @@
   import Numpad from "$comp/Numpad.svelte";
   import Toggle from "$comp/Toggle.svelte";
 
+  let submit = $state();
+
   let {
     currency = $bindable(),
     fiat = $bindable(),
     locale = $bindable(),
     rate = $bindable(),
-    submit = $bindable(),
     settingAmount,
     setAmount,
     newAmount = $bindable(),

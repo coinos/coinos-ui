@@ -1,6 +1,7 @@
 <script>
+  import { types } from "$lib/utils";
   import { goto } from "$app/navigation";
-  let { aid, invoice, user, type, types, t, setType } = $props();
+  let { aid, invoice, user, type, t, setType } = $props();
 </script>
 
 {#if invoice.uid === aid}
@@ -89,14 +90,4 @@
     </div>
     <div class="my-auto text-lg">Bolt 12</div>
   </button>
-
-  {#if type === types.liquid}
-    <div class="flex justify-center">
-      <div class="my-auto text-xl text-center text-secondary">
-        {t("payments.onlyLbtc")}
-        <span class="text-teal-500 font-bold">L-BTC</span>,
-        {t("payments.dontDeposit")}
-      </div>
-    </div>
-  {/if}
 {/if}
