@@ -24,8 +24,8 @@ export async function load({ cookies, params: { id }, parent }) {
 	const rates = await getRates();
 	const rate = rates[user.currency];
 	const invoiceRate = rates[invoice.currency];
-	const { balance } = await get(`/account/${aid}`, auth(cookies));
 
+	const { balance } = await get(`/account/${aid}`, auth(cookies));
 	return { balance, invoice, user, rate, invoiceRate };
 }
 
