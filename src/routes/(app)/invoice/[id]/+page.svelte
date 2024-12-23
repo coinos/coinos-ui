@@ -115,11 +115,9 @@
   let setMemo = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("setting");
 
     settingMemo = false;
     invoice.memo = memo;
-    console.log("MEMO", invoice.memo);
     await update();
   };
 

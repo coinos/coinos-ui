@@ -33,7 +33,7 @@ export async function load({ cookies, params, parent }) {
 			auth(cookies),
 		);
 
-	const { balance } = await get(`/account/${user.id}`, auth(cookies));
+		const { balance } = await get(`/account/${user.id}`, auth(cookies));
 
 		redirect(307, `/invoice/${id}`);
 	}
@@ -45,7 +45,10 @@ export const actions = {
 	default: async ({ cookies, request }) => {
 		let id;
 		const body = await fd(request);
+		console.log("BODY", body);
 		const { amount, rate, prompt, type, username } = body;
+
+		console.log("AMT", amount);
 
 		try {
 			({ id } = await post(
