@@ -1,28 +1,33 @@
 <script>
+  import Amount from "$comp/Amount.svelte";
+  import Payments from "$comp/Payments.svelte";
   import { format } from "date-fns";
   import { enhance } from "$app/forms";
   import { page } from "$app/stores";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
-  import { types, copy, f, s, sat, sats } from "$lib/utils";
+  import { types, copy, f, s, sat, sats, loc } from "$lib/utils";
   import { loginRedirect } from "$lib/store";
+  import { bech32 } from "@scure/base";
+  const encoder = new TextEncoder();
 
   let { data } = $props();
 
-  let { amount, src, payments, rate, user } = data;
+  let { amount, payments, rate, user } = data;
   let { id } = $page.params;
-
-  toast.pop(0);
+  let locale = loc(user);
 
   let currency = user ? user.currency : "CAD";
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
-  $loginRedirect = $page.url.pathname;
+  $effect(() => ($loginRedirect = $page.url.pathname));
 
   let show = $state();
   let toggle = () => (show = !show);
+  let href = $derived(encodeURIComponent($page.url.href));
+  let withdrawUrl = encoder.encode(`${$page.url.origin}/api/fund/${id}/withdraw`);
+  let lnurlw = bech32.encode("lnurl", bech32.toWords(withdrawUrl), 20000);
 </script>
 
 <div class="container px-4 max-w-4xl mx-auto mt-10 space-y-5">
@@ -30,117 +35,55 @@
     <div
       class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5"
     >
-      <div class="relative flex justify-center gap-2">
-        <!-- <p class="absolute right-0 top-1 underline"><Icon icon="settings" /></p> -->
-        {#if id.split("-").length === 4}
-          <h1 class="text-2xl md:text-3xl font-semibold my-auto">Card {id}</h1>
-        {:else}
-          <img src="/images/moneypot.jpg" class="w-24" alt="Fund" />
-          <div class="my-auto">
-            <h1 class="text-2xl font-semibold my-auto">
-              {$t("payments.fund")}
-            </h1>
-            <h1 class="text-secondary my-auto">{id}</h1>
-          </div>
-        {/if}
-      </div>
       {#if show}
-        <img {src} class="mx-auto" alt={id} />
+        <div class="max-w-[360px] mx-auto">
+          <img
+            src={`/qr/${href}/raw`}
+            class="z-10 border-4 border-white w-"
+            alt="URL"
+          />
+        </div>
       {/if}
       <div class="flex justify-center gap-4">
-        <div class="my-auto">
-          <h2 class="text-2xl md:text-3xl font-semibold">
-            {f(amountFiat, currency)}
-          </h2>
-          <h3 class="text-secondary md:text-lg mt-1">
-            {sat(amount)}
-          </h3>
-        </div>
+        <Amount {amount} {currency} {rate} {locale} />
       </div>
       <div class="flex gap-2" data-sveltekit-prefetch="off">
         <div class="grow">
           <a href={`/send/fund/${id}`}>
-            <button
-              class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-            >
-              <Icon icon="plus" />
+            <button class="btn">
+              <iconify-icon icon="ph:plus-bold" width="32"></iconify-icon>
               {$t("payments.addFunds")}
             </button>
           </a>
         </div>
         <div class="grow">
           <a href={`/fund/${id}/withdraw`}>
-            <button
-              class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-            >
-              <Icon icon="minus" style="rotate-180" />
+            <button class="btn">
+              <iconify-icon
+                icon="ph:hand-coins-bold"
+                width="32"
+                flip="horizontal"
+              ></iconify-icon>
               {$t("payments.takeFunds")}
             </button>
           </a>
         </div>
       </div>
       <div class="flex gap-2" data-sveltekit-prefetch="off">
-        <button
-          class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          onclick={toggle}
-        >
-          <Icon icon="qr" style="invert" />
-          {show ? $t("payments.hide") : $t("payments.show")} QR
-        </button>
-        <button
-          class="rounded-full border py-3 px-2 font-bold hover:opacity-80 flex gap-1 w-full justify-center"
-          onclick={() => copy($page.url.host + $page.url.pathname)}
-        >
-          <Icon icon="copy" style="w-6" />
-          {$t("payments.copyLink")}
-        </button>
+        <a href={`/qr/${href}`} class="btn !w-auto grow">
+          <iconify-icon icon="ph:link-bold" width="32"></iconify-icon>
+          <div class="my-auto">{$t("payments.shareLink")}</div>
+        </a>
+        <a href={`/qr/${lnurlw}`} class="btn !w-auto grow">
+          <iconify-icon
+            icon="ph:lightning-fill"
+            width="24"
+            class="text-yellow-300"
+          ></iconify-icon>
+          {$t("payments.lnurlw")}
+        </a>
       </div>
-      <div class="text-base">
-        {#each payments as p}
-          <a href={`/payment/${p.id}`}>
-            <div class="grid grid-cols-3 border-b h-24 hover:bg-gray-100 px-4">
-              <div class="whitespace-nowrap my-auto">
-                <div class="font-bold" class:text-red-800={p.amount > 0}>
-                  {f(Math.abs(p.amount) * (p.rate / sats), p.currency)}
-                  {#if p.tip}
-                    <span class="text-sm text-secondary">
-                      +{Math.round((p.tip / Math.abs(p.amount)) * 100)}%
-                    </span>
-                  {/if}
-                </div>
-
-                <div class="text-secondary">
-                  {sat(Math.abs(p.amount) + (p.tip || 0))}
-                </div>
-              </div>
-
-              <div class="flex my-auto">
-                <div class="flex">
-                  <div class="my-auto">
-                    <Avatar user={p.user} size={16} disabled={true} />
-                  </div>
-                  <div class="my-auto ml-1 text-secondary">
-                    {p.user.username}
-                  </div>
-                </div>
-              </div>
-
-              <div class="text-secondary text-right text-sm my-auto">
-                <div>
-                  {format(new Date(p.created), "h:mm aaa")}
-                </div>
-                <div>
-                  {format(new Date(p.created), "MMM d")}
-                </div>
-              </div>
-            </div>
-          </a>
-        {:else}
-          <p class="text-secondary text-lg text-center">
-            {$t("payments.empty")}
-          </p>
-        {/each}
-      </div>
+      <Payments {payments} fund={true} />
     </div>
   </div>
 </div>

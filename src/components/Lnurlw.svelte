@@ -55,7 +55,7 @@
     <Numpad bind:amount {currency} {rate} />
   {/if}
 
-  <form action="?/withdraw" method="POST" use:enhance onsubmit={submit}>
+  <form action="?/withdraw" method="POST" use:enhance onsubmit={submit} class="space-y-5">
     <input name="amount" value={amount} type="hidden" />
     <input name="username" value={username} type="hidden" />
     <input name="currency" value={currency} type="hidden" />
@@ -65,11 +65,11 @@
     <input name="k1" value={k1} type="hidden" />
 
     <div class="flex w-full">
-      <button type="submit" class="btn">
+      <button type="submit" class="btn btn-accent">
         {#if loading}
           <Spinner />
         {:else}
-          {$t("payments.redeem")}
+          {$t("payments.withdraw")}
         {/if}
       </button>
     </div>

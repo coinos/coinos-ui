@@ -1,26 +1,25 @@
 <script>
-  import handler from "$lib/handler";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { s } from "$lib/utils";
   import { pin } from "$lib/store";
+  import handler from "$lib/handler";
+  import { s } from "$lib/utils";
 
   let { data, form } = $props();
-
-  let { currency } = $derived(data.user);
-  let loading = $state();
-  let { id, balance, rate } = $derived(data);
   let { amount } = $state(data);
+  let { balance, currency } = data.user;
+  let { name, rate } = $derived(data);
+  let loading = $state();
   let fiat = $state();
 
   let submit = $state();
   let submitting = $state();
   let toggle = () => (submitting = !submitting);
   $effect(() => {
-    if (form?.message.includes("pin")) $pin = undefined;
+    if (form?.message?.includes("pin")) $pin = undefined;
     loading = false;
   });
 
@@ -38,10 +37,10 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-  <Numpad bind:amount {currency} {fiat} {rate} {submit} />
+  <Numpad bind:amount {currency} {rate} {fiat} {submit} />
 
   <form use:enhance={handler(toggle)} method="POST" class="space-y-5">
-    <input name="id" value={id} type="hidden" />
+    <input name="fund" value={name} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
 
