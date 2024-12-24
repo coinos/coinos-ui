@@ -3,7 +3,7 @@
   import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
   let { data } = $props();
-  let { text } = data;
+  let { text } = $derived(data);
 </script>
 
 <div class="container px-4 max-w-4xl mx-auto space-y-5">

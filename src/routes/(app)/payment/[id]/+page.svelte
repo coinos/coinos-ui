@@ -112,7 +112,11 @@
       <a href={`/fund/${p.memo}`}>
         <div class="flex">
           <div class="my-auto">
-            <img src="/images/moneypot.png" class="w-12" alt="Pot" />
+            <iconify-icon
+              icon="ph:lightning-fill"
+              width="24"
+              class="text-yellow-300"
+            ></iconify-icon>
           </div>
           <div class="my-auto ml-1">{p.memo}</div>
         </div>

@@ -7,10 +7,12 @@ export async function load({ params, parent }) {
 	if (!user) redirect(307, "/register");
 	const rates = await getRates();
 
+	console.log("YO");
 	let data;
 	try {
 		const { lnurl } = params;
 		data = await get(`/decode?text=${lnurl}`);
+		console.log("DATA", data);
 	} catch (e) {
 		const { message } = e as Error;
 		error(500, message);
@@ -76,8 +78,11 @@ export const actions = {
 			auth(cookies),
 		);
 
-		const c = callback.includes("?") ? "&" : "?";
-		await fetch(`${callback}${c}k1=${k1}&pr=${pr}`).then((r) => r.json());
+		const url = new URL(callback);
+		url.searchParams.append("k1", k1);
+		url.searchParams.append("pr", pr);
+
+		await fetch(url.toString());
 
 		redirect(307, "/payments");
 	},
