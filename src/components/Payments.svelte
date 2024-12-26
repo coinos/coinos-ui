@@ -76,7 +76,7 @@
           </div>
         {:else}
           <div class="text-secondary flex items-center gap-1">
-            {#if p.type === types.lightning}
+            {#if p.type === types.lightning || p.types === types.bolt12}
               <iconify-icon
                 icon="ph:lightning-fill"
                 class="text-yellow-300 text-3xl"
