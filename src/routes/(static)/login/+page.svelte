@@ -1,5 +1,5 @@
 <script>
-  import { run, preventDefault } from "svelte/legacy";
+  import { browser } from "$app/environment";
   import handler from "$lib/handler";
 
   import { onMount } from "svelte";
@@ -16,7 +16,9 @@
   import { generate } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
 
+  let nostr = $state();
   onMount(() => {
+    if (browser && window.nostr) nostr = true;
     $pin = undefined;
     localStorage.clear();
     sessionStorage.clear();
@@ -25,11 +27,11 @@
     if (lang) document.cookie = `lang=${lang} ;`;
   });
 
-  let { form } = $props();
+  let { data, form } = $props();
+  let { id } = $derived(data);
 
   let token = $state("");
   let code = [];
-  let redirect;
 
   $password = undefined;
 
@@ -48,6 +50,7 @@
   let revealPassword = $state(false);
 
   async function handleSubmit(e) {
+    e.preventDefault();
     let data = new FormData(this);
     let user = Object.fromEntries(data);
 
@@ -55,7 +58,7 @@
       data.set(k, user[k]);
     }
 
-    const response = await fetch("/login", {
+    const response = await fetch("?/login", {
       method: "POST",
       body: data,
     });
@@ -75,6 +78,47 @@
         btn.click();
       });
   });
+
+  let nostrLogin = async () => {
+    let pubkey = await window.nostr.getPublicKey();
+    const formData = new FormData();
+
+    let ev = {
+      kind: 1,
+      pubkey,
+      created_at: Date.now(),
+      content: id,
+      tags: [],
+    };
+
+    try {
+      let signedEvent = await window.nostr.signEvent(ev);
+
+      formData.append("loginRedirect", redirect);
+      formData.append("token", token);
+      formData.append("event", JSON.stringify(signedEvent));
+      formData.append("id", id);
+
+      let response = await fetch("?/nostr", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = deserialize(await response.text());
+
+      if (result.type === "success") {
+        await invalidateAll();
+      }
+
+      applyAction(result);
+    } catch (e) {
+      fail(e.message);
+    }
+  };
+
+  let redirect = $derived(
+    $loginRedirect || $page.url.searchParams.get("redirect"),
+  );
 </script>
 
 <div
@@ -88,12 +132,14 @@
     </div>
   {/if}
 
-  <form use:enhance class="space-y-5" onsubmit={handleSubmit} method="POST">
-    <input
-      type="hidden"
-      name="loginRedirect"
-      value={$loginRedirect || $page.url.searchParams.get("redirect")}
-    />
+  <form
+    use:enhance
+    class="space-y-5"
+    onsubmit={handleSubmit}
+    method="POST"
+    action="?/login"
+  >
+    <input type="hidden" name="loginRedirect" value={redirect} />
     <input type="hidden" name="token" value={token} />
 
     <input
@@ -117,6 +163,13 @@
     <button type="submit" class="btn" bind:this={btn}>
       {$t("login.signIn")}
     </button>
+
+    {#if nostr}
+      <button type="button" class="btn" onclick={nostrLogin}>
+        <img src="/images/nostr.png" class="w-8" />
+        <div class="my-auto">{$t("user.settings.nostr")}</div>
+      </button>
+    {/if}
 
     <p class="text-secondary text-center font-medium">
       {$t("login.noAccount")}
