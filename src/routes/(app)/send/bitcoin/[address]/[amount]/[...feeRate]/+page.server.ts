@@ -7,9 +7,9 @@ export async function load({
 	cookies,
 	parent,
 }) {
-	const aid = cookies.get("aid");
 	const rates = await getRates();
 	const { user } = await parent();
+	const aid = cookies.get("aid") || user.id;
 
 	try {
 		const { fee, fees, inputs, ourfee, hex } = await post(
@@ -32,8 +32,9 @@ export async function load({
 			hex,
 			inputs,
 		};
-	} catch (e: any) {
-		return { amount, address, feeRate, message: e.message };
+	} catch (e) {
+		const { message } = e as Error;
+		return { amount, address, feeRate, message };
 	}
 }
 
