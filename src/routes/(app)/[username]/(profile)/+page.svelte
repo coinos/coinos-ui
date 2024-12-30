@@ -25,13 +25,6 @@
   };
 
   if (user) user.savings = 0;
-
-  let pk = $state();;
-  onMount(async () => {
-    if (browser) {
-      pk = await window.nostr.getPublicKey();
-    }
-  });
 </script>
 
 <div class="space-y-2">
