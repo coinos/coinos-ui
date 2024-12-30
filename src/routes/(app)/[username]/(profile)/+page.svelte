@@ -1,4 +1,6 @@
 <script>
+  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import { scale } from "svelte/transition";
   import { btc, f, sat } from "$lib/utils";
   import Account from "$comp/Account.svelte";
@@ -23,6 +25,13 @@
   };
 
   if (user) user.savings = 0;
+
+  let pk = $state();;
+  onMount(async () => {
+    if (browser) {
+      pk = await window.nostr.getPublicKey();
+    }
+  });
 </script>
 
 <div class="space-y-2">
