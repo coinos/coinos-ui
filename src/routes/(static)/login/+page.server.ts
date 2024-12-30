@@ -1,5 +1,6 @@
 import { fd, get, login } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
+import { PUBLIC_COINOS_URL } from "$env/static/public";
 
 export const load = async ({ parent }) => {
 	const { user } = await parent();
@@ -34,7 +35,7 @@ export const actions = {
 
 		const maxAge = 380 * 24 * 60 * 60;
 
-		const res = await fetch("/api/nostrLogin", {
+		const res = await fetch(`${PUBLIC_COINOS_URL}/nostrLogin`, {
 			method: "POST",
 			body: JSON.stringify({ id, event }),
 			headers: {
