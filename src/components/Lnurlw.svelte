@@ -31,7 +31,7 @@
     e.preventDefault();
     $fiat = false;
     await tick();
-    amount = maxWithdrawable;
+    amount = Math.floor(maxWithdrawable / 1000);
   };
 </script>
 
@@ -87,7 +87,8 @@
           class="btn !w-auto grow"
           onclick={setMax}
           disabled={submitting}
-          onkeydown={setMax}>Max ⚡️{s(maxWithdrawable)}</button
+          onkeydown={setMax}
+          >Max ⚡️{s(Math.floor(maxWithdrawable / 1000))}</button
         >
       {/if}
 
