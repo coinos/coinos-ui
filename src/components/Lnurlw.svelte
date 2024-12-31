@@ -86,7 +86,7 @@
         class="btn !w-auto grow"
         onclick={setMax}
         disabled={submitting}
-        onkeydown={setMax}>Max ⚡️{s(balance)}</button
+        onkeydown={setMax}>Max ⚡️{s(maxWithdrawable)}</button
       >
 
       <button
