@@ -45,11 +45,6 @@ export async function load({ cookies, request, url, params }) {
 		redirect(307, `/${user.username}`);
 	}
 
-	if (user && !user.pubkey && !pathname.includes("generate")) {
-		console.log("user missing pubkey", user);
-		redirect(303, "/generate");
-	}
-
 	const theme = cookies.get("theme") || "light";
 	return { user, token, subject, theme };
 }

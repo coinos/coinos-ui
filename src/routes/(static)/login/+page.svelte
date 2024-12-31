@@ -13,7 +13,6 @@
   import { password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
-  import { generate } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
 
   let nostr = $state();

@@ -9,7 +9,6 @@
   import { page } from "$app/stores";
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
-  import locales from "$lib/locales";
   let { data } = $props();
   let {
     start,
@@ -22,8 +21,7 @@
     page: p,
   } = $derived(data);
 
-  let locale = locales[user.language];
-  let userLocale = loc(user);
+  let locale = loc(user);
 
   let change = ({ target: { value } }) => goto(value);
   let link = (p) => {
@@ -203,7 +201,7 @@
       {/if}
     </div>
 
-    <Payments {payments} />
+    <Payments {payments} locale={locale} />
 
     <div class="grid grid-cols-3 w-full text-center text-lg">
       {#each Object.keys(incoming) as c}
@@ -230,18 +228,18 @@
           >{$t("payments.income")}</span
         >
         <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
-        <span><b>{tipsIn > 0 ? f(tipsIn, c, userLocale) : "-"}</b></span>
+        <span><b>{tipsIn > 0 ? f(tipsIn, c, locale) : "-"}</b></span>
         <span class="text-right"
-          ><b>{totalIn > 0 ? f(totalIn, c, userLocale) : "-"}</b></span
+          ><b>{totalIn > 0 ? f(totalIn, c, locale) : "-"}</b></span
         >
 
         <span class="text-left text-base text-secondary"
           >{$t("payments.expenditure")}</span
         >
         <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
-        <span><b>{tipsOut > 0 ? f(tipsOut, c, userLocale) : "-"}</b></span>
+        <span><b>{tipsOut > 0 ? f(tipsOut, c, locale) : "-"}</b></span>
         <span class="text-right"
-          ><b>{totalOut > 0 ? f(totalOut, c, userLocale) : "-"}</b></span
+          ><b>{totalOut > 0 ? f(totalOut, c, locale) : "-"}</b></span
         >
       {/each}
     </div>
@@ -249,7 +247,8 @@
 
   <div class="flex justify-center">
     <button class="btn !w-auto" onclick={csv}>
-      <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"
+      ></iconify-icon>
       <div class="my-auto">{$t("payments.export")}</div>
     </button>
   </div>
