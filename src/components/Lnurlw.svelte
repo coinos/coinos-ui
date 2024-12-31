@@ -81,13 +81,15 @@
     <input name="k1" value={k1} type="hidden" />
 
     <div class="flex gap-2">
-      <button
-        type="button"
-        class="btn !w-auto grow"
-        onclick={setMax}
-        disabled={submitting}
-        onkeydown={setMax}>Max ⚡️{s(maxWithdrawable)}</button
-      >
+      {#if maxWithdrawable > minWithdrawable}
+        <button
+          type="button"
+          class="btn !w-auto grow"
+          onclick={setMax}
+          disabled={submitting}
+          onkeydown={setMax}>Max ⚡️{s(maxWithdrawable)}</button
+        >
+      {/if}
 
       <button
         use:focus
