@@ -16,15 +16,19 @@
     t,
   } = $props();
 
+  let loaded = $state(false);
   let { memo } = $derived(invoice);
+  let load = () => (loaded = true);
 </script>
 
 {#if showQr}
-  <div class="max-w-[360px] mx-auto min-h-[340px]">
+  <div class="max-w-[360px] mx-auto min-h-[360px]">
     <a href={link}>
       <img
         src={`/qr/${encodeURIComponent(invoice.text)}/raw`}
-        class="z-10 border-4 border-white"
+        class="z-10 border-4 border-white opacity-0 transition-opacity duration-300"
+        class:opacity-100={loaded}
+        onload={load}
         alt={txt}
       />
     </a>

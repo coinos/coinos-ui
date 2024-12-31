@@ -55,22 +55,12 @@
       <div class="my-auto text-lg">Liquid</div>
     </button>
 
-    <button
-      class="btn flex-nowrap"
-      class:bg-base-300={type === types.liquid}
-      class:text-secondary={type === types.liquid}
-      onclick={() => goto("/scan")}
-    >
+    <button class="btn flex-nowrap" onclick={() => goto("/scan")}>
       <iconify-icon icon="ph:camera-bold" width="32"></iconify-icon>
       <div class="my-auto text-lg">{t("user.send.scan")}</div>
     </button>
 
-    <button
-      class="btn flex-nowrap"
-      class:bg-base-300={type === types.bitcoin}
-      class:text-secondary={type === types.bitcoin}
-      onclick={() => goto("/receive")}
-    >
+    <button class="btn flex-nowrap" onclick={() => goto("/receive")}>
       <iconify-icon icon="ph:clipboard-text-bold" width="32"></iconify-icon>
       <div class="my-auto text-lg">{t("user.send.paste")}</div>
     </button>
