@@ -20,7 +20,7 @@
 </script>
 
 {#if showQr}
-  <div class="max-w-[360px] mx-auto">
+  <div class="max-w-[360px] mx-auto min-h-[340px]">
     <a href={link}>
       <img
         src={`/qr/${encodeURIComponent(invoice.text)}/raw`}
