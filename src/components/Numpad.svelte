@@ -203,7 +203,7 @@
               {symbol}
             {/if}
           {:else}
-            <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
             ></iconify-icon>
           {/if}
         </div>
@@ -228,7 +228,7 @@
         on:click|preventDefault|stopPropagation={swap}
       >
         {#if $fiat}
-          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
           ></iconify-icon>
           {s(amount, locale)}
         {:else}

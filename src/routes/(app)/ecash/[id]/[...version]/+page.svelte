@@ -20,7 +20,7 @@
 
 <div class="flex flex-wrap gap-2 text-xl">
   <button type="button" class="btn" onclick={() => copy(link)}>
-    <iconify-icon icon="ph:link-bold" width="32"></iconify-icon>
+    <iconify-icon noobserver icon="ph:link-bold" width="32"></iconify-icon>
     <div class="my-auto">{$t("payments.shareLink")}</div>
   </button>
 
@@ -28,7 +28,7 @@
     {#if external}
       <a href={`/ecash/${id}/swap`} class="contents">
         <button type="submit" class="btn">
-          <iconify-icon
+          <iconify-icon noobserver
             icon="ph:hand-coins-bold"
             width="32"
             flip="horizontal"
@@ -40,7 +40,7 @@
       <form method="POST" use:enhance class="w-full">
         <input type="hidden" name="token" bind:value={token} />
         <button type="submit" class="btn">
-          <iconify-icon
+          <iconify-icon noobserver
             icon="ph:hand-coins-bold"
             width="32"
             flip="horizontal"

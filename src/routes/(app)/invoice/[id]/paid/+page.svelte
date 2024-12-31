@@ -13,7 +13,7 @@
 
 <div class="container px-4 text-center mx-auto">
   {#if pending}
-    <iconify-icon icon="ph:clock-bold" class="text-warning" width="160"
+    <iconify-icon noobserver icon="ph:clock-bold" class="text-warning" width="160"
     ></iconify-icon>
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>

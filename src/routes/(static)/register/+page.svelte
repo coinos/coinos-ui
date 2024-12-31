@@ -179,7 +179,7 @@
       onclick={decr}
       aria-label="Previous"
     >
-      <iconify-icon icon="ph:caret-left-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:caret-left-bold" width="32"></iconify-icon>
     </button>
     <button class="block relative w-32 mx-auto" onclick={selectAvatar}>
       <div
@@ -194,7 +194,7 @@
       <div
         class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12"
       >
-        <iconify-icon icon="ph:upload-simple-bold" width="24"></iconify-icon>
+        <iconify-icon noobserver icon="ph:upload-simple-bold" width="24"></iconify-icon>
       </div>
     </button>
     <button
@@ -202,7 +202,7 @@
       onclick={incr}
       aria-label="Next"
     >
-      <iconify-icon icon="ph:caret-right-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:caret-right-bold" width="32"></iconify-icon>
     </button>
   </div>
 
@@ -242,7 +242,7 @@
         aria-label="Randomize"
         class="contents"
       >
-        <iconify-icon icon="ph:dice-three-bold" width="32"
+        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"
         ></iconify-icon></button
       >
     </label>

@@ -107,7 +107,7 @@
         />
       {/if}
 
-      <iconify-icon
+      <iconify-icon noobserver
         class="cursor-pointer ml-auto"
         onclick={() => (revealPassword = !revealPassword)}
         icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
@@ -139,7 +139,7 @@
           class="clean"
         />
       {/if}
-      <iconify-icon
+      <iconify-icon noobserver
         class="cursor-pointer ml-auto"
         onclick={() => (revealConfirm = !revealConfirm)}
         icon={revealConfirm ? "ph:eye-bold" : "ph:eye-slash-bold"}

@@ -14,7 +14,7 @@
     class="btn break-all !h-auto flex-nowrap p-4 font-normal leading-normal"
     onclick={() => copy(text)}
   >
-    <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+    <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
     <div class="my-auto">{text}</div>
   </button>
 </div>

@@ -249,7 +249,7 @@
 
   <div class="flex justify-center">
     <button class="btn !w-auto" onclick={csv}>
-      <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("payments.export")}</div>
     </button>
   </div>

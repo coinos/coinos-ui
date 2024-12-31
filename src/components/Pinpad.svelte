@@ -69,7 +69,7 @@
     />
   {/if}
   <button type="button" class="contents" onclick={toggle}>
-    <iconify-icon icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
+    <iconify-icon noobserver icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
     ></iconify-icon></button
   >
 </label>

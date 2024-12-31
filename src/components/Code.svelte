@@ -6,7 +6,7 @@
 
 {#snippet cp(something)}
   <button type="button" class="ml-auto" onclick={() => copy(something)}>
-    <iconify-icon icon="ph:copy-bold" width="42"></iconify-icon>
+    <iconify-icon noobserver icon="ph:copy-bold" width="42"></iconify-icon>
   </button>
 {/snippet}
 
