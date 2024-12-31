@@ -26,7 +26,9 @@
   let show = $state();
   let toggle = () => (show = !show);
   let href = $derived(encodeURIComponent($page.url.href));
-  let withdrawUrl = encoder.encode(`${$page.url.origin}/api/fund/${id}/withdraw`);
+  let withdrawUrl = encoder.encode(
+    `${$page.url.origin}/api/fund/${id}/withdraw`,
+  );
   let lnurlw = bech32.encode("lnurl", bech32.toWords(withdrawUrl), 20000);
 </script>
 
@@ -51,7 +53,8 @@
         <div class="grow">
           <a href={`/send/fund/${id}`}>
             <button class="btn">
-              <iconify-icon noobserver icon="ph:plus-bold" width="32"></iconify-icon>
+              <iconify-icon noobserver icon="ph:plus-bold" width="32"
+              ></iconify-icon>
               {$t("payments.addFunds")}
             </button>
           </a>
@@ -59,7 +62,8 @@
         <div class="grow">
           <a href={`/fund/${id}/withdraw`}>
             <button class="btn">
-              <iconify-icon noobserver
+              <iconify-icon
+                noobserver
                 icon="ph:hand-coins-bold"
                 width="32"
                 flip="horizontal"
@@ -71,11 +75,13 @@
       </div>
       <div class="flex gap-2" data-sveltekit-prefetch="off">
         <a href={`/qr/${href}`} class="btn !w-auto grow">
-          <iconify-icon noobserver icon="ph:link-bold" width="32"></iconify-icon>
+          <iconify-icon noobserver icon="ph:link-bold" width="32"
+          ></iconify-icon>
           <div class="my-auto">{$t("payments.shareLink")}</div>
         </a>
         <a href={`/qr/${lnurlw}`} class="btn !w-auto grow">
-          <iconify-icon noobserver
+          <iconify-icon
+            noobserver
             icon="ph:lightning-fill"
             width="24"
             class="text-yellow-300"
@@ -83,7 +89,7 @@
           {$t("payments.lnurlw")}
         </a>
       </div>
-      <Payments {payments} fund={true} />
+      <Payments {payments} fund={true} {locale} />
     </div>
   </div>
 </div>

@@ -15,7 +15,6 @@
   import { avatar, password, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
-  import { generate } from "$lib/nostr";
   import {
     NumberDictionary,
     uniqueNamesGenerator,
@@ -85,8 +84,6 @@
 
     let data = new FormData(this);
     let user = Object.fromEntries(data);
-
-    await generate(user);
 
     for (let k in user) {
       data.set(k, user[k]);

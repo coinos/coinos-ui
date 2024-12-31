@@ -17,10 +17,10 @@ import {
 } from "nostr-tools/nip49";
 
 import { bech32m, hex } from "@scure/base";
-import { entropyToMnemonic, mnemonicToEntropy } from "@scure/bip39";
+import { entropyToMnemonic } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english";
 
-import { generateSeedWords, privateKeyFromSeedWords } from "nostr-tools/nip06";
+import { privateKeyFromSeedWords } from "nostr-tools/nip06";
 
 type User = {
 	[key: string]: any;
@@ -33,27 +33,6 @@ type EncryptParams = {
 };
 
 const { encode, decode, toWords, fromWords } = bech32m;
-
-export const generate = async (user: any) => {
-	const p = get(pin);
-	if (p && p.length !== 6) return;
-
-	const salt = crypto.getRandomValues(new Uint8Array(16));
-	const mnemonic = generateSeedWords();
-	const sk = privateKeyFromSeedWords(mnemonic);
-
-	const bytes = new Uint8Array(
-		await crypto.subtle.encrypt(
-			{ name: "AES-GCM", iv: new Uint8Array(16) },
-			await stretch(await getPassword(), salt),
-			mnemonicToEntropy(mnemonic, wordlist),
-		),
-	);
-
-	user.pubkey = getPublicKey(sk);
-	user.cipher = encode("en", toWords(bytes), 180);
-	user.salt = Buffer.from(salt).toString("hex");
-};
 
 export const encrypt = async ({ message, recipient, user }: EncryptParams) => {
 	const sk = await getPrivateKey(user);
