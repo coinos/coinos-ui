@@ -167,7 +167,8 @@
 		"createAccount": "Create account",
 		"signIn": "Sign In",
 		"signUp": "Sign Up",
-		"failed": "Login failed"
+		"failed": "Login failed",
+    "nostr": "Sign in with Nostr"
 	},
 	"nav": {
 		"dark": "Dark",

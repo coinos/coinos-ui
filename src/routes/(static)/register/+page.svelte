@@ -1,4 +1,6 @@
 <script>
+  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import punks from "$lib/punks";
   import { upload } from "$lib/upload";
   import { afterNavigate, invalidateAll } from "$app/navigation";
@@ -24,6 +26,12 @@
   } from "unique-names-generator";
 
   let { form = $bindable(), data } = $props();
+  let nostr = $state();
+  let { id } = $derived(data);
+
+  onMount(() => {
+    if (browser && window.nostr) nostr = true;
+  });
 
   let username = $state();
   let { index } = $state(data);
@@ -153,6 +161,43 @@
   $effect(() => {
     token && token?.length === 6 && tick().then(() => btn.click());
   });
+
+  let nostrLogin = async () => {
+    let pubkey = await window.nostr.getPublicKey();
+    const formData = new FormData();
+
+    let ev = {
+      kind: 1,
+      pubkey,
+      created_at: Date.now(),
+      content: id,
+      tags: [],
+    };
+
+    try {
+      let signedEvent = await window.nostr.signEvent(ev);
+
+      formData.append("loginRedirect", redirect);
+      formData.append("token", token);
+      formData.append("event", JSON.stringify(signedEvent));
+      formData.append("id", id);
+
+      let response = await fetch("/login?/nostr", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = deserialize(await response.text());
+
+      if (result.type === "success") {
+        await invalidateAll();
+      }
+
+      applyAction(result);
+    } catch (e) {
+      fail(e.message);
+    }
+  };
 </script>
 
 {#if need2fa}
@@ -176,7 +221,8 @@
       onclick={decr}
       aria-label="Previous"
     >
-      <iconify-icon noobserver icon="ph:caret-left-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:caret-left-bold" width="32"
+      ></iconify-icon>
     </button>
     <button class="block relative w-32 mx-auto" onclick={selectAvatar}>
       <div
@@ -191,7 +237,8 @@
       <div
         class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12"
       >
-        <iconify-icon noobserver icon="ph:upload-simple-bold" width="24"></iconify-icon>
+        <iconify-icon noobserver icon="ph:upload-simple-bold" width="24"
+        ></iconify-icon>
       </div>
     </button>
     <button
@@ -199,7 +246,8 @@
       onclick={incr}
       aria-label="Next"
     >
-      <iconify-icon noobserver icon="ph:caret-right-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:caret-right-bold" width="32"
+      ></iconify-icon>
     </button>
   </div>
 
@@ -250,13 +298,20 @@
       bind:show={revealPassword}
     />
 
-    <button type="submit" class="btn" disabled={loading} bind:this={btn}>
+    <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
       {#if loading}
         <Spinner />
       {:else}
         {$t("login.register")}
       {/if}
     </button>
+
+    {#if nostr}
+      <button type="button" class="btn" onclick={nostrLogin}>
+        <img src="/images/nostr.png" class="w-8" />
+        <div class="my-auto">{$t("login.nostr")}</div>
+      </button>
+    {/if}
 
     <p class="text-secondary text-center font-medium">
       {$t("login.haveAccount")}

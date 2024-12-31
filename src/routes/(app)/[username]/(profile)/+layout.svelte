@@ -128,7 +128,7 @@
       <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
     </button>
 
-    {#if subject.address || subject.about}
+    {#if subject.about}
       <div
         class="text-secondary mx-auto text-center lg:mx-0 break-words space-y-1"
         class:line-clamp-2={!showBio}
@@ -136,7 +136,7 @@
         onkeydown={toggleBio}
       >
         <div>
-          {subject.address || subject.about}
+          {subject.about}
         </div>
 
         {#if subject.website}

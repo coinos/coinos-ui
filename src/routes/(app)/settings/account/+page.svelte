@@ -7,7 +7,7 @@
   let { data } = $props();
   let { user } = $derived(data);
   let { id } = user;
-  let { address, banner, profile, display, email, username, verified } =
+  let { about, banner, picture, display, email, username, verified } =
     $state(user);
 
   let avatarFile,
@@ -32,7 +32,7 @@
 
     if (file.size > 10000000) return (tooLarge[type] = true);
 
-    if (type === "profile") {
+    if (type === "picture") {
       $avatar = { id, file, type, progress };
     } else if (type === "banner") {
       $bannerStore = { id, file, type, progress };
@@ -40,7 +40,7 @@
 
     var reader = new FileReader();
     reader.onload = async (e) => {
-      if (type === "profile") {
+      if (type === "picture") {
         $avatar.src = e.target.result;
       } else if (type === "banner") {
         $bannerStore.src = e.target.result;
@@ -99,14 +99,14 @@
   <span class="font-bold">{$t("user.settings.profileImage")}</span>
 
   <div class="flex">
-    {#if $avatar || profile}
+    {#if $avatar || picture}
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
         onkeydown={selectAvatar}
       >
         <img
-          src={$avatar?.src || `/api/public/${profile}.webp`}
+          src={$avatar?.src || picture}
           class="absolute w-full h-full object-cover object-center visible overflow-hidden"
           alt={username}
         />
@@ -130,7 +130,7 @@
         type="file"
         class="hidden"
         bind:this={avatarInput}
-        onchange={(e) => handleFile(e, "profile")}
+        onchange={(e) => handleFile(e, "picture")}
       />
     </div>
   </div>
@@ -147,7 +147,7 @@
 
   {#if $bannerStore || banner}
     <img
-      src={$bannerStore ? $bannerStore.src : `/api/public/${banner}.webp`}
+      src={$bannerStore ? $bannerStore.src : banner}
       class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
       onclick={selectBanner}
       onkeydown={selectBanner}
@@ -181,13 +181,13 @@
 </div>
 
 <div>
-  <label for="address" class="font-bold mb-1 block"
+  <label for="about" class="font-bold mb-1 block"
     >{$t("user.settings.about")}</label
   >
   <textarea
     type="text"
-    name="address"
-    bind:value={address}
+    name="about"
+    bind:value={about}
     placeholder={$t("user.settings.aboutPlaceholder")}
   ></textarea>
 </div>
