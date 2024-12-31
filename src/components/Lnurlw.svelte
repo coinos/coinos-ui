@@ -1,10 +1,12 @@
 <script>
+  import { tick } from "svelte";
+  import handler from "$lib/handler";
   import { sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { pin } from "$lib/store";
+  import { fiat, pin } from "$lib/store";
 
   let { data, form } = $props();
 
@@ -18,11 +20,19 @@
     rate,
   } = data;
 
-  let amount = $state(Math.round(minWithdrawable / 1000)),
-    loading = $state();
-
-  let submit = () => (loading = true);
+  let amount = $state(Math.round(minWithdrawable / 1000));
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
+
+  let submit = $state();
+  let submitting = $state();
+  let toggle = () => (submitting = !submitting);
+
+  let setMax = async (e) => {
+    e.preventDefault();
+    $fiat = false;
+    await tick();
+    amount = maxWithdrawable;
+  };
 </script>
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
@@ -55,7 +65,13 @@
     <Numpad bind:amount {currency} {rate} />
   {/if}
 
-  <form action="?/withdraw" method="POST" use:enhance onsubmit={submit} class="space-y-5">
+  <form
+    use:enhance={handler(toggle)}
+    action="?/withdraw"
+    method="POST"
+    onsubmit={submit}
+    class="space-y-5"
+  >
     <input name="amount" value={amount} type="hidden" />
     <input name="username" value={username} type="hidden" />
     <input name="currency" value={currency} type="hidden" />
@@ -64,12 +80,25 @@
     <input name="callback" value={callback} type="hidden" />
     <input name="k1" value={k1} type="hidden" />
 
-    <div class="flex w-full">
-      <button type="submit" class="btn btn-accent">
-        {#if loading}
+    <div class="flex gap-2">
+      <button
+        type="button"
+        class="btn !w-auto grow"
+        onclick={setMax}
+        disabled={submitting}
+        onkeydown={setMax}>Max ⚡️{s(balance)}</button
+      >
+
+      <button
+        use:focus
+        bind:this={submit}
+        type="submit"
+        class="btn btn-accent !w-auto grow"
+      >
+        {#if submitting}
           <Spinner />
         {:else}
-          {$t("payments.withdraw")}
+          <div class="my-auto">{$t("payments.next")}</div>
         {/if}
       </button>
     </div>

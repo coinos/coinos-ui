@@ -1,4 +1,5 @@
 <script>
+  import { tick } from "svelte";
   import handler from "$lib/handler";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -6,7 +7,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { s } from "$lib/utils";
-  import { pin } from "$lib/store";
+  import { fiat, pin } from "$lib/store";
 
   let { data, form } = $props();
 
@@ -14,7 +15,6 @@
   let loading = $state();
   let { id, balance, rate } = $derived(data);
   let { amount } = $state(data);
-  let fiat = $state();
 
   let submit = $state();
   let submitting = $state();
@@ -24,9 +24,10 @@
     loading = false;
   });
 
-  let setMax = (e) => {
+  let setMax = async (e) => {
     e.preventDefault();
-    fiat = false;
+    $fiat = false;
+    await tick();
     amount = balance;
   };
 </script>

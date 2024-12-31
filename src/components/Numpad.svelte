@@ -53,6 +53,7 @@
   let update = (a, f) => {
     if ($fiat) {
       amount = f ? Math.round(strip(f) / (rate / sats)) : 0;
+      console.log("settung amount", amount, f);
     } else {
       amountFiat = a ? ((a * rate) / sats).toFixed(2) : 0;
     }
@@ -203,7 +204,10 @@
               {symbol}
             {/if}
           {:else}
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+            <iconify-icon
+              noobserver
+              icon="ph:lightning-fill"
+              class="text-yellow-300"
             ></iconify-icon>
           {/if}
         </div>
@@ -228,7 +232,10 @@
         on:click|preventDefault|stopPropagation={swap}
       >
         {#if $fiat}
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+          <iconify-icon
+            noobserver
+            icon="ph:lightning-fill"
+            class="text-yellow-300"
           ></iconify-icon>
           {s(amount, locale)}
         {:else}
