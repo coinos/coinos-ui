@@ -127,7 +127,7 @@
 
         <div class="ml-auto text-lg flex gap-2">
           <div class="flex items-center">
-            <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
             ></iconify-icon>
             <div>{s(amount, locale)}</div>
           </div>

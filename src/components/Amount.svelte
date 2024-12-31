@@ -11,14 +11,14 @@
       class:justify-center={align !== "left"}
     >
       <div class="flex items-center" onclick={() => copy(amount)}>
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>{s(amount, locale)}
       </div>
 
       {#if tip}
         <div class="flex items-center text-lg ml-2">
           <div>+</div>
-          <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
           ></iconify-icon>
           <div>{s(tip, locale)}</div>
         </div>

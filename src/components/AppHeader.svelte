@@ -66,7 +66,7 @@
         {#each links as { href, icon, flip, label }}
           <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
             <button class="btn-menu {opacity(href)}">
-              <iconify-icon {icon} width={w > 640 ? 32 : 24} {flip}
+              <iconify-icon noobserver {icon} width={w > 640 ? 32 : 24} {flip}
               ></iconify-icon>
             </button>
           </a>

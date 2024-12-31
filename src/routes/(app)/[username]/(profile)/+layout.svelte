@@ -125,7 +125,7 @@
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
       <div class="my-auto break-words">{display || username}</div>
-      <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
     </button>
 
     {#if subject.address || subject.about}
@@ -177,11 +177,11 @@
               </div>
               <div class="flex mb-auto gap-1">
                 <button class="my-auto" onclick={() => copy(lnaddr)}
-                  ><iconify-icon icon="ph:copy-bold" width="32"
+                  ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                   ></iconify-icon></button
                 >
                 <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
-                  <iconify-icon icon="ph:qr-code-bold" width="32"
+                  <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
                   ></iconify-icon>
                 </a>
               </div>
@@ -196,7 +196,7 @@
             </div>
             <div class="flex mb-auto gap-1">
               <button class="my-auto" onclick={() => copy(profile)}
-                ><iconify-icon icon="ph:copy-bold" width="32"
+                ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                 ></iconify-icon></button
               >
               <a
@@ -205,7 +205,7 @@
                 )}`}
                 class="my-auto"
               >
-                <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
               </a>
             </div>
           </div>
@@ -218,11 +218,11 @@
             </div>
             <div class="flex my-auto gap-1">
               <button class="my-auto" onclick={() => copy(npub)}
-                ><iconify-icon icon="ph:copy-bold" width="32"
+                ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                 ></iconify-icon></button
               >
               <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-                <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
               </a>
             </div>
           </div>
@@ -234,12 +234,12 @@
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
           <button class="btn" onclick={unfollow}>
-            <iconify-icon icon="ph:user-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:user-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("user.unfollow")}</div>
           </button>
         {:else}
           <button class="btn" onclick={follow}>
-            <iconify-icon icon="ph:user-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:user-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("user.follow")}</div>
           </button>
         {/if}
@@ -266,7 +266,7 @@
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60"
           >
             <div class="mx-auto flex">
-              <iconify-icon icon="ph:clock" width="32"></iconify-icon>
+              <iconify-icon noobserver icon="ph:clock" width="32"></iconify-icon>
             </div>
           </button>
         </form>
@@ -296,7 +296,7 @@
     </div>
     <div class="text-secondary flex ml-auto">
       <div class="flex items-center">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
         {s((1 * sats) / rate)} =
         {f(1, currency, locale, 0, 0)}

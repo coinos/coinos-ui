@@ -16,7 +16,7 @@
         class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
       >
         <div class="m-auto">
-          <iconify-icon
+          <iconify-icon noobserver
             icon="ph:lightning-fill"
             class="text-yellow-300 text-2xl"
           ></iconify-icon>
@@ -56,12 +56,12 @@
     </button>
 
     <button class="btn flex-nowrap" onclick={() => goto("/scan")}>
-      <iconify-icon icon="ph:camera-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
       <div class="my-auto text-lg">{t("user.send.scan")}</div>
     </button>
 
     <button class="btn flex-nowrap" onclick={() => goto("/receive")}>
-      <iconify-icon icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
       <div class="my-auto text-lg">{t("user.send.paste")}</div>
     </button>
   </div>
@@ -74,7 +74,7 @@
   >
     <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
       <div class="m-auto">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
         ></iconify-icon>
       </div>
     </div>

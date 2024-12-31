@@ -24,7 +24,7 @@
   <nav class="block lg:flex justify-between items-center">
     <div class="flex justify-start lg:justify-center items-center lg:space-x-5">
       <a href="/" onclick={() => scroll(header)} aria-label="Home">
-        <iconify-icon icon="coinos:logo" width="224"></iconify-icon>
+        <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
       </a>
     </div>
 
@@ -73,7 +73,7 @@
       class="block lg:hidden absolute top-[34.5px] right-10 z"
       onclick={() => (showMobileMenu = !showMobileMenu)}
     >
-      <iconify-icon
+      <iconify-icon noobserver
         icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"}
         width="32"
       ></iconify-icon>

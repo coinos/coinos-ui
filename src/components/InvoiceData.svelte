@@ -37,7 +37,7 @@
 
 {#if invoice.type === types.liquid}
   <div class="flex justify-center p-4 shadow items-center gap-2">
-    <iconify-icon icon="ph:warning-bold" width="48" class="text-warning"
+    <iconify-icon noobserver icon="ph:warning-bold" width="48" class="text-warning"
     ></iconify-icon>
     <div>
       <div class="my-auto text-xl text-center text-secondary">

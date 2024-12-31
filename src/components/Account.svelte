@@ -31,13 +31,13 @@
       aria-label="Payments"
     >
       <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
-        <iconify-icon icon="ph:clock-bold" width="32" aria-label="Payments"
+        <iconify-icon noobserver icon="ph:clock-bold" width="32" aria-label="Payments"
         ></iconify-icon>
       </button>
     </a>
     <a href={`/account/${id}`} class="contents" aria-label="Settings">
       <button class="flex gap-1 mb-auto pb-4 pl-4">
-        <iconify-icon icon="ph:gear-bold" width="32" aria-label="Settings"
+        <iconify-icon noobserver icon="ph:gear-bold" width="32" aria-label="Settings"
         ></iconify-icon>
       </button>
     </a>
@@ -46,7 +46,7 @@
   <div class="flex justify-center w-full text-xl gap-2">
     <a href={"/invoice"} class="contents" onclick={setAccount}>
       <button class="btn !w-auto flex-grow">
-        <iconify-icon icon="ph:hand-coins-bold" width="32" flip="horizontal"
+        <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
         ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
@@ -54,7 +54,7 @@
 
     <a href={`/send`} class="contents grow" onclick={setAccount}>
       <button type="button" class="btn !w-auto flex-grow">
-        <iconify-icon icon="ph:paper-plane-right-bold" width="32"
+        <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
         ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>

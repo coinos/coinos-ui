@@ -267,7 +267,7 @@
       class="rounded-full border-2 border-black bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
       onclick={back}
     >
-      <iconify-icon icon="ph:arrow-left-bold" width="24"></iconify-icon>
+      <iconify-icon noobserver icon="ph:arrow-left-bold" width="24"></iconify-icon>
     </button>
   </div>
   <div class="relative">
@@ -280,10 +280,10 @@
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}
               <button type="button" onclick={clearSearch} aria-label="Clear">
-                <iconify-icon icon="ph:x-bold" width="32"></iconify-icon>
+                <iconify-icon noobserver icon="ph:x-bold" width="32"></iconify-icon>
               </button>
             {:else}
-              <iconify-icon icon="ph:search-bold" width="32"></iconify-icon>
+              <iconify-icon noobserver icon="ph:search-bold" width="32"></iconify-icon>
             {/if}
           </div>
         </div>
@@ -305,16 +305,16 @@
         class="rounded-full border-2 border-primary bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
         onclick={toggleList}
       >
-        <iconify-icon icon="ph:list-bold" width="24"></iconify-icon>
+        <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
       </button>
       <button
         class="rounded-full border-2 border-primary bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
         onclick={toggle}
       >
         {#if timeout}
-          <iconify-icon icon="ph:pause-bold" width="24"></iconify-icon>
+          <iconify-icon noobserver icon="ph:pause-bold" width="24"></iconify-icon>
         {:else}
-          <iconify-icon icon="ph:play-bold" width="24"></iconify-icon>
+          <iconify-icon noobserver icon="ph:play-bold" width="24"></iconify-icon>
         {/if}
       </button>
     </div>

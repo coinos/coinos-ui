@@ -63,13 +63,13 @@
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon icon="ph:camera-bold" width="32"></iconify-icon>
+          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>

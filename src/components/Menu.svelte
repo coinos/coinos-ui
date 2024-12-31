@@ -27,7 +27,7 @@
 <div>
   <OutClick on:outclick={hideMenu}>
     <button class="btn-menu {opacity('/support')}" onclick={toggleMenu}
-      ><iconify-icon icon="ph:list-bold" width={w > 640 ? 32 : 24}
+      ><iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}
       ></iconify-icon>
     </button>
 
@@ -51,7 +51,7 @@
                 <button
                   class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                 >
-                  <iconify-icon {icon} width="32"></iconify-icon>
+                  <iconify-icon noobserver {icon} width="32"></iconify-icon>
                   {t(key)}
                 </button>
               </a>
@@ -61,7 +61,7 @@
       </ul>
       <hr class="my-4" />
       <a href="/?stay=true"
-        ><iconify-icon icon="coinos:logo" width="160"></iconify-icon></a
+        ><iconify-icon noobserver icon="coinos:logo" width="160"></iconify-icon></a
       >
     </div>
   </OutClick>

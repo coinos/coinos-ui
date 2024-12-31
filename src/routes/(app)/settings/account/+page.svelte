@@ -86,10 +86,10 @@
   >
     <input type="text" name="email" class="clean" bind:value={email} />
     {#if verified}
-      <iconify-icon icon="ph:check-bold" class="text-success ml-auto" width="32"
+      <iconify-icon noobserver icon="ph:check-bold" class="text-success ml-auto" width="32"
       ></iconify-icon>
     {:else if email}
-      <iconify-icon icon="ph:clock-bold" class="text-warning ml-auto" width="32"
+      <iconify-icon noobserver icon="ph:clock-bold" class="text-warning ml-auto" width="32"
       ></iconify-icon>
     {/if}
   </label>

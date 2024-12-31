@@ -72,19 +72,19 @@
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon icon="ph:camera-bold" width="32"></iconify-icon>
+          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
           {$t("user.send.scan")}
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
         {$t("user.send.paste")}
       </button>
     </div>
 
     <button bind:this={el} type="submit" class="btn btn-accent">
-      <iconify-icon icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 
@@ -97,7 +97,7 @@
 
     <a href="/send/fund" class="block">
       <button type="button" class="btn">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
         ></iconify-icon>
         <div class="my-auto">{$t("payments.createFund")}</div>
       </button>

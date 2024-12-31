@@ -190,7 +190,7 @@
     />
   {:else}
     <button type="button" class="btn" onclick={togglePin}>
-      <iconify-icon
+      <iconify-icon noobserver
         icon={haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
       ></iconify-icon>
@@ -218,17 +218,17 @@
     </div>
 
     <button type="button" class="btn" onclick={startConfirming2fa}>
-      <iconify-icon icon="ph:numpad-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:numpad-bold" width="32"></iconify-icon>
       <div class="my-auto">Confirm</div>
     </button>
   {:else if user.twofa}
     <button type="button" class="btn" onclick={startDisabling2fa}>
-      <iconify-icon icon="ph:device-mobile-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
     <button type="button" class="btn" onclick={startEnabling2fa}>
-      <iconify-icon icon="ph:device-mobile-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}

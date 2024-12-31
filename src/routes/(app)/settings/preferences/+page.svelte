@@ -200,7 +200,7 @@
     >
     <button type="button" class="flex w-full" onclick={editThreshold}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
       </div>
       <div
@@ -221,7 +221,7 @@
     >
     <button type="button" class="flex w-full" onclick={editReserve}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
       </div>
       <div

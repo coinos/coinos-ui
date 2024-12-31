@@ -37,14 +37,14 @@
 
     <a href={`/account/savings`} class="contents">
       <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-        <iconify-icon icon="ph:plus-circle-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"></iconify-icon>
         {$t("accounts.addAccount")}
       </button>
     </a>
 
     {#if $installPrompt}
       <button class="btn btn-accent lg:hidden" onclick={install}>
-        <iconify-icon icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
         {$t("user.install")}
       </button>
     {/if}
@@ -62,7 +62,7 @@
       <button
         class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto"
       >
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>
         <div>
           {$t("user.pay")}

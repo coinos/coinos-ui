@@ -80,7 +80,7 @@
     <span class="text-lg text-secondary">{$t(title)}</span>
     <div class="flex gap-2 items-end">
       <div class="flex items-center">
-        <iconify-icon icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
         ></iconify-icon>{s(amount, userLocale)}
       </div>
       <span class="text-secondary text-lg">
@@ -112,7 +112,7 @@
       <a href={`/fund/${p.memo}`}>
         <div class="flex">
           <div class="my-auto">
-            <iconify-icon
+            <iconify-icon noobserver
               icon="ph:lightning-fill"
               width="24"
               class="text-yellow-300"

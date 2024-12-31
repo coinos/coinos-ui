@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <iconify-icon
+    <iconify-icon noobserver
       icon="ph:check-fat-fill"
       class="text-green-400"
       width="160"

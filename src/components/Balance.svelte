@@ -23,7 +23,7 @@
 <div>
   {#if user.haspin && !$pin}
     <button onclick={toggleShow} class="flex gap-2 text-xl">
-      <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
   {:else if !isNaN(rate)}

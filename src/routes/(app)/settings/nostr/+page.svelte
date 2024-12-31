@@ -57,7 +57,7 @@
 
     {#if !nwc}
     <button onclick={revealNwc} type="button" class="btn grow">
-      <iconify-icon icon="ph:warning-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("accounts.revealNwc")}</div></button
     >
     {/if}
@@ -70,11 +70,11 @@
   </div>
   <div class="flex flex-wrap gap-2">
     <button onclick={() => copy(nwc)} type="button" class="btn grow">
-      <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("accounts.copy")}</div></button
     >
     <a href={`/qr/${encodeURIComponent(nwc)}`} class="btn grow">
-      <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.receive.showQR")}</div>
     </a>
   </div>
@@ -88,10 +88,10 @@
     </div>
     <div class="flex my-auto gap-1">
       <button type="button" class="my-auto" onclick={() => copy(npub)}
-        ><iconify-icon icon="ph:copy-bold" width="32"></iconify-icon></button
+        ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
       >
       <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-        <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
       </a>
     </div>
   </div>
@@ -112,16 +112,16 @@
       class="btn !w-auto flex-grow"
       onclick={toggleImporting}
     >
-      <iconify-icon icon="ph:arrow-down-left-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:arrow-down-left-bold" width="32"></iconify-icon>
       {$t("user.settings.import")}
     </button>
 
     <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
       {#if revealNsec}
-        <iconify-icon icon="ph:eye-slash-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
         {$t("user.settings.hideNsec")}
       {:else}
-        <iconify-icon icon="ph:warning-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
         {$t("user.settings.revealNsec")}
       {/if}
     </button>
@@ -139,7 +139,7 @@
     >
       <div>{nsec}</div>
 
-      <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
     </button>
   {/if}
 </div>

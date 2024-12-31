@@ -32,6 +32,6 @@
     />
   {/if}
   <button type="button" aria-label="Toggle" onclick={toggle} class="contents">
-    <iconify-icon {icon} width="32"></iconify-icon>
+    <iconify-icon noobserver {icon} width="32"></iconify-icon>
   </button>
 </label>
