@@ -42,7 +42,7 @@
     { name: "security", key: "SECURITY" },
   ];
 
-  let { address, id, username } = $derived(user);
+  let { about, id, username } = $derived(user);
   let submitting = $state();
 
   async function handleSubmit(e) {
@@ -103,14 +103,14 @@
         }
       }
 
-      if (["username", "address", "profile"].some((a) => user[a] !== prev[a])) {
+      if (["username", "about", "profile"].some((a) => user[a] !== prev[a])) {
         let event = {
           pubkey: user.pubkey,
           created_at: Math.floor(Date.now() / 1000),
           kind: 0,
           content: JSON.stringify({
             name: user.username,
-            about: user.address,
+            about: user.about,
             picture: `${$page.url.origin}/public/${user.profile}.webp`,
           }),
           tags: [],

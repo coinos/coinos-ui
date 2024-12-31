@@ -159,14 +159,14 @@
       >
     </div>
 
-    <button type="submit" class="btn" bind:this={btn}>
+    <button type="submit" class="btn btn-accent" bind:this={btn}>
       {$t("login.signIn")}
     </button>
 
     {#if nostr}
       <button type="button" class="btn" onclick={nostrLogin}>
         <img src="/images/nostr.png" class="w-8" />
-        <div class="my-auto">{$t("user.settings.nostr")}</div>
+        <div class="my-auto">{$t("login.nostr")}</div>
       </button>
     {/if}
 
