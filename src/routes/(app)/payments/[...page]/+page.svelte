@@ -201,7 +201,7 @@
       {/if}
     </div>
 
-    <Payments {payments} locale={locale} />
+    <Payments {payments} locale={locale} {user} />
 
     <div class="grid grid-cols-3 w-full text-center text-lg">
       {#each Object.keys(incoming) as c}

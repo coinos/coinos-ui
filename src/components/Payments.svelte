@@ -5,7 +5,7 @@
   import { format } from "date-fns";
   import { t } from "$lib/translations";
   import locales from "$lib/locales";
-  const { fund, locale, payments } = $props();
+  const { fund, locale, user, payments } = $props();
 </script>
 
 <div class="text-base">

@@ -89,7 +89,7 @@
           {$t("payments.lnurlw")}
         </a>
       </div>
-      <Payments {payments} fund={true} {locale} />
+      <Payments {payments} fund={true} {locale} {user} />
     </div>
   </div>
 </div>
