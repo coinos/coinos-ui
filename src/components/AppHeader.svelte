@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { banner, theme, newPayment } from "$lib/store";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
@@ -45,11 +43,11 @@
       icon: "ph:paper-plane-right-bold",
       label: "Send",
     },
-    {
-      href: `/logout`,
-      icon: "ph:sign-out-bold",
-      label: "Logout",
-    },
+    // {
+    //   href: `/logout`,
+    //   icon: "ph:sign-out-bold",
+    //   label: "Logout",
+    // },
   ]);
 
   let opacity = $derived((href) =>
