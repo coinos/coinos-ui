@@ -1,6 +1,4 @@
 <script>
-  import { setContext } from "svelte";
-
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
@@ -10,13 +8,12 @@
   import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
   import { loading, t } from "$lib/translations";
-  import { fail, auth, post, sleep, warning, success } from "$lib/utils";
+  import { fd, fail, auth, post, sleep, warning, success } from "$lib/utils";
   import { avatar, banner, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
   import { sign, send, reEncryptEntropy, setNsec } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
-  import { PUBLIC_COINOS_URL } from "$env/static/public";
 
   let { children, data, form } = $props();
 
@@ -50,6 +47,11 @@
     try {
       submitting = true;
       let data = new FormData(formElement);
+      let user = await fd({
+        formData() {
+          return data;
+        },
+      });
 
       if (data.get("newNsec")) {
         await setNsec(user, data.get("newNsec"));
@@ -75,12 +77,10 @@
             await upload($avatar.file, $avatar.type, $avatar.progress, token),
           );
 
-          data.set("profile", hash);
+          let url = `${$page.url.origin}/api/public/${hash}.webp`;
+          data.set("picture", url);
 
-          await fetch(`/api/public/${hash}.webp`, {
-            cache: "reload",
-            mode: "no-cors",
-          });
+          await fetch(url, { cache: "reload", mode: "no-cors" });
         } catch (e) {
           console.log("problem upsubmitting avatar", e);
         }
@@ -92,18 +92,19 @@
             await upload($banner.file, $banner.type, $banner.progress, token),
           );
 
-          data.set("banner", hash);
-
-          await fetch(`/api/public/${hash}.webp`, {
-            cache: "reload",
-            mode: "no-cors",
-          });
+          let url = `${$page.url.origin}/api/public/${hash}.webp`;
+          data.set("banner", url);
+          await fetch(url, { cache: "reload", mode: "no-cors" });
         } catch (e) {
-          console.log("problem upsubmitting banner", e);
+          console.log("problem uploading banner", e);
         }
       }
 
-      if (["username", "about", "profile"].some((a) => user[a] !== prev[a])) {
+      if (
+        ["username", "about", "picture"].some(
+          (a) => user[a] && user[a] !== prev[a],
+        )
+      ) {
         let event = {
           pubkey: user.pubkey,
           created_at: Math.floor(Date.now() / 1000),
@@ -111,7 +112,7 @@
           content: JSON.stringify({
             name: user.username,
             about: user.about,
-            picture: `${$page.url.origin}/public/${user.profile}.webp`,
+            picture: user.picture,
           }),
           tags: [],
         };
@@ -176,7 +177,7 @@
   });
 </script>
 
-{#if user.haspin && $pin?.length !== 6}
+{#if user?.haspin && $pin?.length !== 6}
   <Pin />
 {/if}
 

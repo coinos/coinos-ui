@@ -45,6 +45,11 @@
       icon: "ph:paper-plane-right-bold",
       label: "Send",
     },
+    {
+      href: `/logout`,
+      icon: "ph:sign-out-bold",
+      label: "Logout",
+    },
   ]);
 
   let opacity = $derived((href) =>
