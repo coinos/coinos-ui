@@ -11,12 +11,9 @@
   let cancel = () => ($passwordPrompt = false);
 
   let submit = async (e) => {
-    console.log("submitting");
     e.preventDefault();
     try {
-      console.log("res?");
       let res = await post("/password", { password });
-      console.log(res);
       $passwordPrompt = false;
       $pw = password;
     } catch (e) {
