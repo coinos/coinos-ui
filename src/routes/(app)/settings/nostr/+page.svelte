@@ -14,11 +14,11 @@
   let { id, npub } = $derived(user);
 
   let importing = $state(),
-    nwc = $state(),
     newNsec = $state(),
     nsec = $state(),
     pin = $state(""),
-    revealNsec = $state();
+    revealNsec = $state(),
+    revealNwc = $state();
 
   let toggleImporting = () => {
     revealNsec = false;
@@ -36,10 +36,12 @@
   };
 
   let lud16 = $derived(`${user.username}@${$page.url.host}`);
-  let revealNwc = () =>
-    (nwc = `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
+  let nwc = $derived(
+    `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
       relay,
-    )}&secret=${user.nwc}&lud16=${lud16}`);
+    )}&secret=${user.nwc}&lud16=${lud16}`,
+  );
+  let toggleNwc = () => (revealNwc = !revealNwc);
 </script>
 
 <div>
@@ -55,16 +57,17 @@
       <div class="my-auto">{$t("user.settings.connectNostr")}</div>
     </a>
 
-    {#if !nwc}
-    <button onclick={revealNwc} type="button" class="btn grow">
-      <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
-      <div class="my-auto">{$t("accounts.revealNwc")}</div></button
-    >
+    {#if !revealNwc}
+      <button onclick={toggleNwc} type="button" class="btn grow">
+        <iconify-icon noobserver icon="ph:warning-bold" width="32"
+        ></iconify-icon>
+        <div class="my-auto">{$t("accounts.revealNwc")}</div></button
+      >
     {/if}
   </div>
 </div>
 
-{#if nwc}
+{#if revealNwc}
   <div class="break-all grow">
     {nwc}
   </div>
@@ -88,10 +91,12 @@
     </div>
     <div class="flex my-auto gap-1">
       <button type="button" class="my-auto" onclick={() => copy(npub)}
-        ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
+        ><iconify-icon noobserver icon="ph:copy-bold" width="32"
+        ></iconify-icon></button
       >
       <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+        ></iconify-icon>
       </a>
     </div>
   </div>
@@ -112,16 +117,19 @@
       class="btn !w-auto flex-grow"
       onclick={toggleImporting}
     >
-      <iconify-icon noobserver icon="ph:arrow-down-left-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:arrow-down-left-bold" width="32"
+      ></iconify-icon>
       {$t("user.settings.import")}
     </button>
 
     <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
       {#if revealNsec}
-        <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"
+        ></iconify-icon>
         {$t("user.settings.hideNsec")}
       {:else}
-        <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:warning-bold" width="32"
+        ></iconify-icon>
         {$t("user.settings.revealNsec")}
       {/if}
     </button>
