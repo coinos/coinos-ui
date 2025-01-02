@@ -63,7 +63,7 @@
         try {
           data.set(
             "cipher",
-            await reEncryptEntropy(user, data.get("password")),
+            await reEncryptEntropy(prev, data.get("password")),
           );
         } catch (e) {
           console.log("Failed to encrypt keys with new password");
