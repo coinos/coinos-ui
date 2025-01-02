@@ -16,9 +16,9 @@ export const actions = {
 		const ip = request.headers.get("cf-connecting-ip");
 
 		const form = await fd(request);
-		let { profile, username, password, cipher, salt, pubkey, loginRedirect } =
+		let { picture, username, password, cipher, salt, pubkey, loginRedirect } =
 			form;
-		const user = { profile, username, password, cipher, salt, pubkey };
+		const user = { picture, username, password, cipher, salt, pubkey };
 		let error;
 
 		if (loginRedirect === "undefined") loginRedirect = undefined;

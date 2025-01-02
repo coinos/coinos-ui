@@ -25,7 +25,7 @@
     animals,
   } from "unique-names-generator";
 
-  let { form = $bindable(), data } = $props();
+  let { form, data } = $props();
   let nostr = $state();
   let { id } = $derived(data);
 
@@ -97,22 +97,23 @@
       data.set(k, user[k]);
     }
 
-    data.set("profile", punks[index]);
+    data.set("picture", punks[index]);
     if ($avatar) {
       try {
         let { hash } = JSON.parse(
           await upload($avatar.file, $avatar.type, $avatar.progress, token),
         );
 
-        data.set("profile", hash);
-        await fetch(`/api/public/${hash}.webp`, {
+        let url = `${$page.url.origin}/api/public/${hash}.webp`;
+        data.set("picture", url);
+        await fetch(url, {
           cache: "reload",
           mode: "no-cors",
         });
       } catch (e) {
         console.log("problem uploading avatar", e);
       }
-    }
+    } 
 
     const response = await fetch("/register", {
       method: "POST",
@@ -136,7 +137,7 @@
 
   let progress;
   let handleFile = async ({ target }) => {
-    let type = "profile";
+    let type = "picture";
     let file = target.files[0];
     if (!file) return;
 
@@ -212,7 +213,7 @@
     type="file"
     class="hidden"
     bind:this={avatarInput}
-    onchange={(e) => handleFile(e, "profile")}
+    onchange={(e) => handleFile(e, "picture")}
   />
 
   <div class="relative">
@@ -298,7 +299,12 @@
       bind:show={revealPassword}
     />
 
-    <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
+    <button
+      type="submit"
+      class="btn btn-accent"
+      disabled={loading}
+      bind:this={btn}
+    >
       {#if loading}
         <Spinner />
       {:else}
