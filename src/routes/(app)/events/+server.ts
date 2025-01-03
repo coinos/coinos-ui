@@ -1,5 +1,11 @@
 import { auth, post } from "$lib/utils";
-import { json, error } from "@sveltejs/kit";
+import { error, json } from "@sveltejs/kit";
+
+export async function GET({ url }) {
+	console.log(url.searchParams.get("event"));
+	console.log(url.searchParams.get("uid"));
+	return json({});
+}
 
 export async function POST({ cookies, request }) {
 	const body = await request.json();

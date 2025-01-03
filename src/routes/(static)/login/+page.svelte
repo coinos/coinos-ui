@@ -3,21 +3,22 @@
   import handler from "$lib/handler";
 
   import { onMount } from "svelte";
-  import { applyAction, deserialize } from "$app/forms";
+  import { deserialize } from "$app/forms";
   import { tick } from "svelte";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
+  import Nostr from "$comp/Nostr.svelte";
   import Pinpad from "$comp/Pinpad.svelte";
   import PasswordInput from "$comp/PasswordInput.svelte";
-  import { focus, fail } from "$lib/utils";
+  import { wait, copy, focus, fail } from "$lib/utils";
   import { password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
   import { invalidateAll } from "$app/navigation";
 
-  let nostr = $state();
+  let { data, form } = $props();
+
   onMount(() => {
-    if (browser && window.nostr) nostr = true;
     $pin = undefined;
     localStorage.clear();
     sessionStorage.clear();
@@ -26,11 +27,10 @@
     if (lang) document.cookie = `lang=${lang} ;`;
   });
 
-  let { data, form } = $props();
   let { id } = $derived(data);
+  let nostrSignin = $state();
 
   let token = $state("");
-  let code = [];
 
   $password = undefined;
 
@@ -77,43 +77,6 @@
         btn.click();
       });
   });
-
-  let nostrLogin = async () => {
-    let pubkey = await window.nostr.getPublicKey();
-    const formData = new FormData();
-
-    let ev = {
-      kind: 1,
-      pubkey,
-      created_at: Date.now(),
-      content: id,
-      tags: [],
-    };
-
-    try {
-      let signedEvent = await window.nostr.signEvent(ev);
-
-      formData.append("loginRedirect", redirect);
-      formData.append("token", token);
-      formData.append("event", JSON.stringify(signedEvent));
-      formData.append("id", id);
-
-      let response = await fetch("?/nostr", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = deserialize(await response.text());
-
-      if (result.type === "success") {
-        await invalidateAll();
-      }
-
-      applyAction(result);
-    } catch (e) {
-      fail(e.message);
-    }
-  };
 
   let redirect = $derived(
     $loginRedirect || $page.url.searchParams.get("redirect"),
@@ -163,13 +126,10 @@
       {$t("login.signIn")}
     </button>
 
-    {#if nostr}
-      <button type="button" class="btn" onclick={nostrLogin}>
-        <img src="/images/nostr.png" class="w-8" />
-        <div class="my-auto">{$t("login.nostr")}</div>
-      </button>
-    {/if}
-
+    <button type="button" class="btn" onclick={() => (nostrSignin = true)}>
+      <img src="/images/nostr.png" class="w-8" />
+      <div class="my-auto">{$t("login.nostr")}</div>
+    </button>
     <p class="text-secondary text-center font-medium">
       {$t("login.noAccount")}
       <a
@@ -203,3 +163,5 @@
     </div>
   </div>
 {/if}
+
+<Nostr {id} {nostrSignin} {redirect} {token} />

@@ -8,6 +8,7 @@
   import { t } from "$lib/translations";
   import { installPrompt } from "$lib/store";
   import { afterNavigate, preloadData } from "$app/navigation";
+  import { page } from "$app/stores";
 
   let { data } = $props();
 
@@ -24,7 +25,9 @@
     $installPrompt = null;
   };
 
+  let pubkey = $state();
   if (user) user.savings = 0;
+  let { host } = $derived($page.url);
 </script>
 
 <div class="space-y-2">
@@ -37,14 +40,16 @@
 
     <a href={`/account/savings`} class="contents">
       <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-        <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"
+        ></iconify-icon>
         {$t("accounts.addAccount")}
       </button>
     </a>
 
     {#if $installPrompt}
       <button class="btn btn-accent lg:hidden" onclick={install}>
-        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"
+        ></iconify-icon>
         {$t("user.install")}
       </button>
     {/if}
@@ -62,7 +67,10 @@
       <button
         class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto"
       >
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300"
         ></iconify-icon>
         <div>
           {$t("user.pay")}
@@ -72,3 +80,4 @@
     </a>
   {/if}
 </div>
+

@@ -7,12 +7,10 @@ export async function load({ params, parent }) {
 	if (!user) redirect(307, "/register");
 	const rates = await getRates();
 
-	console.log("YO");
 	let data;
 	try {
 		const { lnurl } = params;
 		data = await get(`/decode?text=${lnurl}`);
-		console.log("DATA", data);
 	} catch (e) {
 		const { message } = e as Error;
 		error(500, message);
