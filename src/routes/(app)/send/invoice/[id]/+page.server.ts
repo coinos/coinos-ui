@@ -8,7 +8,7 @@ export async function load({ cookies, params: { id }, parent }) {
 
 	const invoice = await get(`/invoice/${id}`);
 
-	if (invoice.prompt && invoice.tip === null)
+	if (invoice.amount && invoice.prompt && invoice.tip === null)
 		redirect(307, `/invoice/${id}/tip`);
 
 	if (invoice.memoPrompt && invoice.memo === null)
@@ -17,7 +17,7 @@ export async function load({ cookies, params: { id }, parent }) {
 	if (user && invoice.aid === aid)
 		error(500, { message: "Cannot send to self" });
 	else if (user && ![types.lightning, types.bolt12].includes(invoice.type))
-		redirect(307, `/send/${invoice.type}/${invoice.hash}`);
+		redirect(307, `/send/${invoice.type === types.ecash ? "ecash" : "bitcoin"}/${invoice.hash}`);
 
 	if (!user) redirect(307, `/invoice/${id}`);
 

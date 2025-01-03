@@ -1,6 +1,6 @@
+import { PUBLIC_COINOS_URL } from "$env/static/public";
 import { fd, get, login } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
-import { PUBLIC_COINOS_URL } from "$env/static/public";
 
 export const load = async ({ parent }) => {
 	const { user } = await parent();

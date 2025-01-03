@@ -45,10 +45,7 @@ export const actions = {
 	default: async ({ cookies, request }) => {
 		let id;
 		const body = await fd(request);
-		console.log("BODY", body);
 		const { amount, rate, prompt, type, username } = body;
-
-		console.log("AMT", amount);
 
 		try {
 			({ id } = await post(
@@ -69,7 +66,8 @@ export const actions = {
 			return fail(400, { message });
 		}
 
-		if (prompt) redirect(307, `/invoice/${id}/tip`);
+    if (parseInt(amount) > 0 && prompt) redirect(307, `/invoice/${id}/tip`);
+    else if (parseInt(amount) <= 0 ) redirect(307, `/${username}/receive`);
 		redirect(307, `/invoice/${id}`);
 	},
 };
