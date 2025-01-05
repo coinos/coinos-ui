@@ -3,14 +3,14 @@
   import handler from "$lib/handler";
 
   import { onMount } from "svelte";
-  import { deserialize } from "$app/forms";
+  import { applyAction, deserialize } from "$app/forms";
   import { tick } from "svelte";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
   import Nostr from "$comp/Nostr.svelte";
   import Pinpad from "$comp/Pinpad.svelte";
   import PasswordInput from "$comp/PasswordInput.svelte";
-  import { wait, copy, focus, fail } from "$lib/utils";
+  import { focus, fail } from "$lib/utils";
   import { password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";

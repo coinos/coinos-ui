@@ -53,7 +53,6 @@
   let update = (a, f) => {
     if ($fiat) {
       amount = f ? Math.round(strip(f) / (rate / sats)) : 0;
-      console.log("settung amount", amount, f);
     } else {
       amountFiat = a ? ((a * rate) / sats).toFixed(2) : 0;
     }
