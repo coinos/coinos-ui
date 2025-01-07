@@ -3,7 +3,7 @@ import { redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent }) {
 	const { user } = await parent();
-	const aid = cookies.get("aid");
+	const aid = cookies.get("aid") || user.id;
 	const { address, amount } = params;
 	const { balance } = await get(`/account/${aid}`, auth(cookies));
 
