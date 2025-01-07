@@ -8,6 +8,7 @@
   import { encrypt, decrypt, getConversationKey } from "nostr-tools/nip44";
   import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
   import {
+    nip04,
     nip19,
     getEventHash,
     finalizeEvent,
@@ -16,22 +17,29 @@
   } from "nostr-tools";
   import { AmberClipboardSigner } from "applesauce-signer";
 
-  import { focus, fail, post } from "$lib/utils";
+  import { copy, focus, fail, post } from "$lib/utils";
   import { password as pw, passwordPrompt } from "$lib/store";
+  // import { PUBLIC_COINOS_RELAY as relayUrl } from "$env/static/public";
+  const relayUrl = "wss://relay.nsec.app";
 
-  let { id, redirect, token, nostrSignin } = $props();
+  let { id, redirect, token, nostrSignin = $bindable() } = $props();
   let extension = $state();
 
   onMount(() => {
     if (browser && window.nostr) extension = true;
   });
 
-  let cancel = () => (nostrSignin = false);
+  let cancel = () => {
+    nostrSignin = false;
+    showNsec = false;
+    pubkey = undefined;
+    connectUrl = undefined;
+  };
 
   let sk = $state();
   let ck = $state();
   let pk = $state();
-  let relay = $state();
+  let pubkey = $state();
 
   let signer = $derived(
     browser &&
@@ -41,137 +49,65 @@
   );
 
   let connectUrl = $state();
-  // let bunkerConnect = async () => {
-  //   sk = generateSecretKey();
-  //   console.log("SK", bytesToHex(sk));
-  //   let pubkey = getPublicKey(sk);
-  //   console.log("PUBKEY", pubkey);
-  //
-  //   const url = new URL(bunker);
-  //   const secret = url.searchParams.get("secret");
-  //   console.log("URL", url);
-  //   pk = url.host || url.pathname.replace("//", "");
-  //   console.log("PK", pk);
-  //   const relayUrl = url.searchParams.get("relay");
-  //   relay = await Relay.connect(relayUrl);
-  //   console.log("connecting to", relayUrl);
-  //
-  //   ck = getConversationKey(sk, pk);
-  //
-  //   console.log("PK", pk);
-  //   console.log("CK", bytesToHex(ck));
-  //
-  //   let connect = {
-  //     id: crypto.randomUUID(),
-  //     method: "connect",
-  //     params: [pk, secret, "get_public_key,sign_event"],
-  //   };
-  //
-  //   let event = {
-  //     created_at: Math.round(Date.now() / 1000),
-  //     kind: 24133,
-  //     pubkey,
-  //     content: encrypt(JSON.stringify(connect), ck),
-  //     tags: [["p", pk]],
-  //   };
-  //
-  //   let signedEvent = finalizeEvent(event, sk);
-  //   console.log("publishing connection event", signedEvent);
-  //   await relay.publish(signedEvent);
-  //
-  //   const sub = relay.subscribe([{ kinds: [24133], "#p": [pubkey] }], {
-  //     async onevent(ev) {
-  //       console.log("got event:", ev);
-  //       try {
-  //         console.log(decrypt(ev.content, ck));
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //     },
-  //   });
-  // };
-
-  let getPubkey = async () => {
-    let pubkey = getPublicKey(sk);
-    let getPubkey = {
-      id: crypto.randomUUID(),
-      method: "get_public_key",
-      params: [],
-    };
-
-    let testEvent = {
-      created_at: Math.round(Date.now() / 1000),
-      kind: 1,
-      content: "hi mom",
-      tags: [],
-    };
-
-    let signEvent = {
-      id: crypto.randomUUID(),
-      method: "sign_event",
-      params: [JSON.stringify(testEvent)],
-    };
-
-    let event = {
-      created_at: Math.round(Date.now() / 1000),
-      kind: 24133,
-      pubkey,
-      content: encrypt(JSON.stringify(signEvent), ck),
-      tags: [["p", pk]],
-    };
-
-    let signedEvent = finalizeEvent(event, sk);
-    await relay.publish(signedEvent);
-  };
-
   let nostrConnect = async () => {
     let secret = crypto.randomUUID();
-    let sk = generateSecretKey();
-    console.log("SK", bytesToHex(sk));
-    let pubkey = getPublicKey(sk);
-    console.log("PUBKEY", pubkey);
-    connectUrl = `nostrconnect://${pubkey}?relay=wss%3A%2F%2Frelay.coinos.io&perms=nip44_encrypt%2Cnip44_decrypt%2Csign_event%3A13%2Csign_event%3A14%2Csign_event%3A1059&name=Coinos&secret=${secret}`;
 
-    const relay = await Relay.connect("wss://relay.coinos.io");
-    console.log(`connected to ${relay.url}`);
-    let finished, remoteSignerPubkey;
+    sk = generateSecretKey();
+    pubkey = getPublicKey(sk);
+
+    connectUrl = `nostrconnect://${pubkey}?relay=${encodeURIComponent(relayUrl)}&perms=sign_event%3A1&name=Coinos&secret=${secret}`;
+
+    let relay = await Relay.connect(relayUrl);
+
+    let signatureRequested;
     const sub = relay.subscribe([{ kinds: [24133], "#p": [pubkey] }], {
       async onevent(event) {
-        console.log("got event:", event);
-        remoteSignerPubkey = event.pubkey;
-        // console.log("decrypted", decrypt(event.content, sk));
-        if (!finished) {
-          finished = true;
-          let event = {
-            created_at: Math.round(Date.now() / 1000),
-            kind: 24133,
-            pubkey,
-            content: encrypt(
-              JSON.stringify({
-                id: "1234",
-                method: "get_public_key",
-                params: [],
-              }),
-              sk,
-              hexToBytes(remoteSignerPubkey),
-            ),
-            tags: [["p", remoteSignerPubkey]],
+        pk = event.pubkey;
+        ck = getConversationKey(sk, pk);
+        let decrypted;
+        console.log("EVENT", event);
+        try {
+          decrypted = JSON.parse(decrypt(event.content, ck));
+        } catch (e) {
+          try {
+            decrypted = JSON.parse(await nip04.decrypt(sk, pk, event.content));
+          } catch (e) {
+            console.log("ERROR", e);
+          }
+        }
+
+        if (decrypted?.result?.includes("sig")) {
+          await nostrLogin(JSON.parse(decrypted.result));
+        } else if (!signatureRequested) {
+          signatureRequested = true;
+          let signEvent = {
+            id: crypto.randomUUID(),
+            method: "sign_event",
+            params: [JSON.stringify({ ...ev, pubkey })],
           };
 
-          console.log("asking for public key", event);
-          console.log("DECRYPTED", decrypt(event.content, sk));
-          let signedEvent = finalizeEvent(event, sk);
-          console.log("sleeping");
-          await new Promise((r) => setTimeout(r, 5000));
-          console.log("sending");
-          await relay.publish(signedEvent);
+          // let content = encrypt(JSON.stringify(signEvent), ck);
+          let content = await nip04.encrypt(sk, pk, JSON.stringify(signEvent));
+          console.log("CONTENT", content);
+          let signedSignEvent = finalizeEvent(
+            {
+              created_at: Math.round(Date.now() / 1000),
+              kind: 24133,
+              pubkey,
+              content,
+              tags: [["p", pk]],
+            },
+            sk,
+          );
+
+          await new Promise((r) => setTimeout(r, 1000));
+          console.log("PUBLISHING", signedSignEvent);
+          relay.publish(signedSignEvent);
         }
       },
     });
-    console.log("subbed");
   };
 
-  let pubkey = $state();
   let ev = $derived({
     kind: 1,
     created_at: Date.now(),
@@ -200,14 +136,9 @@
     ev.pubkey = pubkey;
     console.log("PUBKEY", ev.pubkey);
   };
-  //
-  // let signerSign = async () => {
-  //   const signer = new AmberClipboardSigner();
-  //   ev.sig = await signer.signEvent(ev);
-  //   nostrLogin(await signer.signEvent(ev));
-  // };
-  //
+  let signerSigning;
   let signerSign = async () => {
+    signerSigning = true;
     document.addEventListener("focus", signerSigned, true);
   };
 
@@ -222,8 +153,6 @@
   let nostrLogin = async (signedEvent) => {
     // let pubkey = await window.nostr.getPublicKey();
     const formData = new FormData();
-
-    console.log("SIGNED", signedEvent);
 
     try {
       formData.append("loginRedirect", redirect);
@@ -249,6 +178,8 @@
   };
 </script>
 
+hi
+{nostrSignin}
 {#if nostrSignin}
   <div
     class="fixed inset-0 bg-base-100 bg-opacity-90 overflow-y-auto h-full w-full z-50"
@@ -260,10 +191,25 @@
         {$t("login.nostr")}
       </h1>
 
-      <!-- <div class="break-all"> -->
-      <!--   {JSON.stringify(ev)} -->
-      <!-- </div> -->
-      {#if pubkey}
+      {#if showNsec}
+        <input bind:value={nsec} placeholder="nsec..." />
+        <button type="button" class="btn" onclick={nsecSign}>
+          <iconify-icon icon="ph:key-bold" width="32"></iconify-icon>
+          <div class="my-auto">Login</div>
+        </button>
+      {:else if connectUrl}
+        <a href={connectUrl}>
+          <img
+            src={`/qr/${encodeURIComponent(connectUrl)}/raw`}
+            class="z-10 border-4 border-white"
+            alt="QR"
+          />
+          <div class="break-all">
+            {connectUrl}
+          </div>
+        </a>
+        <button class="btn" onclick={() => copy(connectUrl)}>Copy</button>
+      {:else if signerSigning && pubkey}
         <a
           href={`nostrsigner:${encodeURIComponent(JSON.stringify(ev))}?compressionType=none&returnType=signature&type=sign_event&appName=Coinos`}
           type="button"
@@ -288,25 +234,10 @@
             <div class="my-auto">NIP-10 Extension</div>
           </button>
         {/if}
-        <!-- {#if connectUrl} -->
-        <!--   <a href={connectUrl}> -->
-        <!--     connect -->
-        <!--     <img -->
-        <!--       src={`/qr/${encodeURIComponent(connectUrl)}/raw`} -->
-        <!--       class="z-10 border-4 border-white" -->
-        <!--       alt="QR" -->
-        <!--     /> -->
-        <!--     <div class="break-all"> -->
-        <!--       {connectUrl} -->
-        <!--     </div> -->
-        <!--   </a> -->
-        <!--   <button class="btn" onclick={() => copy(connectUrl)}>Copy</button> -->
-        <!-- {:else} -->
-        <!--   <button type="button" class="btn" onclick={nostrConnect}> -->
-        <!--     <img src="/images/nostr.png" class="w-8" /> -->
-        <!--     <div class="my-auto">NIP-46 Connect</div> -->
-        <!--   </button> -->
-        <!-- {/if} -->
+        <button type="button" class="btn" onclick={nostrConnect}>
+          <img src="/images/nostr.png" class="w-8" />
+          <div class="my-auto">NIP-46 Connect</div>
+        </button>
         {#if signer}
           <a type="button" class="btn" onclick={signerGetPubkey}>
             <iconify-icon
@@ -318,19 +249,16 @@
           </a>
         {/if}
 
-        {#if showNsec}
-          <input bind:value={nsec} placeholder="nsec..." />
-          <button type="button" class="btn" onclick={nsecSign}>
-            <iconify-icon icon="ph:key-bold" width="32"></iconify-icon>
-            <div class="my-auto">Nsec login</div>
-          </button>
-        {:else}
-          <button type="button" class="btn" onclick={toggleNsec}>
-            <iconify-icon icon="ph:key-bold" width="32"></iconify-icon>
-            <div class="my-auto">Nsec login</div>
-          </button>
-        {/if}
+        <button type="button" class="btn" onclick={toggleNsec}>
+          <iconify-icon icon="ph:key-bold" width="32"></iconify-icon>
+          <div class="my-auto">Nsec Login</div>
+        </button>
       {/if}
+
+      <button type="button" class="btn" onclick={cancel}>
+        <iconify-icon icon="ph:x-bold" width="32"></iconify-icon>
+        <div class="my-auto">Cancel</div>
+      </button>
     </div>
   </div>
 {/if}

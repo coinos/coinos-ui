@@ -54,6 +54,7 @@ export const mnemonic = persistSession("mnemonic");
 export const newPayment = persistLocal("newPayment");
 export const password = writable<string | undefined>();
 export const passwordPrompt = writable();
+export const signaturePrompt = writable();
 export const pin = persistLocal("pin");
 export const rate = writable();
 export const request = writable();

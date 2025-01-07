@@ -1,6 +1,5 @@
 <script>
   import { browser } from "$app/environment";
-  import { onMount } from "svelte";
   import punks from "$lib/punks";
   import { upload } from "$lib/upload";
   import { afterNavigate, invalidateAll } from "$app/navigation";
@@ -9,6 +8,7 @@
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
 
+  import Nostr from "$comp/Nostr.svelte";
   import Pin from "$comp/Pin.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import PasswordInput from "$comp/PasswordInput.svelte";
@@ -26,12 +26,9 @@
   } from "unique-names-generator";
 
   let { form, data } = $props();
-  let nostr = $state();
   let { id } = $derived(data);
 
-  onMount(() => {
-    if (browser && window.nostr) nostr = true;
-  });
+  let nostrSignin = $state();
 
   let username = $state();
   let { index } = $state(data);
@@ -113,7 +110,7 @@
       } catch (e) {
         console.log("problem uploading avatar", e);
       }
-    } 
+    }
 
     const response = await fetch("/register", {
       method: "POST",
@@ -312,12 +309,10 @@
       {/if}
     </button>
 
-    {#if nostr}
-      <button type="button" class="btn" onclick={nostrLogin}>
-        <img src="/images/nostr.png" class="w-8" />
-        <div class="my-auto">{$t("login.nostr")}</div>
-      </button>
-    {/if}
+    <button type="button" class="btn" onclick={() => (nostrSignin = true)}>
+      <img src="/images/nostr.png" class="w-8" />
+      <div class="my-auto">{$t("login.nostr")}</div>
+    </button>
 
     <p class="text-secondary text-center font-medium">
       {$t("login.haveAccount")}
@@ -330,3 +325,5 @@
     </p>
   </form>
 </div>
+
+<Nostr {id} {nostrSignin} {redirect} {token} />

@@ -12,7 +12,7 @@
   import { avatar, banner, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
-  import { sign, send, reEncryptEntropy, setNsec } from "$lib/nostr";
+  import { sign, send, setNsec } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
 
   let { children, data, form } = $props();
@@ -57,18 +57,6 @@
         await setNsec(user, data.get("newNsec"));
         data.set("nsec", user.nsec);
         data.set("pubkey", user.pubkey);
-      }
-
-      if (data.get("password")) {
-        try {
-          data.set(
-            "cipher",
-            await reEncryptEntropy(prev, data.get("password")),
-          );
-        } catch (e) {
-          console.log("Failed to encrypt keys with new password");
-          throw e;
-        }
       }
 
       if ($avatar) {

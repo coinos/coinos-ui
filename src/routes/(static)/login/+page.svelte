@@ -164,4 +164,4 @@
   </div>
 {/if}
 
-<Nostr {id} {nostrSignin} {redirect} {token} />
+<Nostr {id} bind:nostrSignin {redirect} {token} />

@@ -8,6 +8,7 @@
     request,
     ndef,
     passwordPrompt,
+    signaturePrompt,
     password,
     pin,
     theme as themeStore,
@@ -16,6 +17,7 @@
   import { browser } from "$app/environment";
   import LoadingSplash from "$comp/LoadingSplash.svelte";
   import AppHeader from "$comp/AppHeader.svelte";
+  import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
   import { getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
@@ -87,6 +89,10 @@
 
 {#if browser && user && $passwordPrompt}
   <Password {user} />
+{/if}
+
+{#if browser && $signaturePrompt}
+  <Nostr event={$signaturePrompt} />
 {/if}
 
 <svelte:head>
