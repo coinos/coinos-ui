@@ -1,6 +1,5 @@
 <script>
   import { getContext } from "svelte";
-  import { getMnemonic } from "$lib/nostr";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
@@ -19,7 +18,6 @@
   let confirming2fa = $state(),
     disabling2fa = $state(),
     importing = $state(),
-    mnemonic = $state(),
     newNsec = $state(),
     nsec = $state(),
     otp = $state(),
@@ -50,7 +48,6 @@
 
   let toggleSeed = async () => {
     try {
-      mnemonic = await getMnemonic(user);
       revealSeed = !revealSeed;
     } catch (e) {
       console.log(e);

@@ -1,7 +1,12 @@
 import { Buffer } from "buffer";
 import { browser } from "$app/environment";
-import { decrypted, password as pw, passwordPrompt, pin } from "$lib/store";
-import { post, stretch, wait } from "$lib/utils";
+import {
+	decrypted,
+	password as pw,
+	passwordPrompt,
+	signaturePrompt,
+} from "$lib/store";
+import { post, wait } from "$lib/utils";
 import {
 	type EventTemplate,
 	finalizeEvent,
@@ -16,11 +21,7 @@ import {
 	encrypt as nip49encrypt,
 } from "nostr-tools/nip49";
 
-import { bech32m, hex } from "@scure/base";
-import { entropyToMnemonic } from "@scure/bip39";
-import { wordlist } from "@scure/bip39/wordlists/english";
-
-import { privateKeyFromSeedWords } from "nostr-tools/nip06";
+import { bech32m } from "@scure/base";
 
 type User = {
 	[key: string]: any;
@@ -31,8 +32,6 @@ type EncryptParams = {
 	recipient: string;
 	user: User;
 };
-
-const { encode, decode, toWords, fromWords } = bech32m;
 
 export const encrypt = async ({ message, recipient, user }: EncryptParams) => {
 	const sk = await getPrivateKey(user);
@@ -74,23 +73,12 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 
 	if (nsec) {
 		k = nip49decrypt(nsec, await getPassword());
-	} else k = privateKeyFromSeedWords(await getMnemonic(user));
+	} else {
+		throw new Error("nsec not available");
+	}
 
 	localStorage.setItem("nsec", nip19.nsecEncode(k));
 	return k;
-};
-
-export const getMnemonic = async (user: User) => {
-	const { cipher, salt } = user;
-	const entropy = new Uint8Array(
-		await crypto.subtle.decrypt(
-			{ name: "AES-GCM", iv: new Uint8Array(16) },
-			await stretch(await getPassword(), Buffer.from(salt, "hex")),
-			Uint8Array.from(fromWords(decode(cipher, 180).words)),
-		),
-	);
-
-	return entropyToMnemonic(entropy, wordlist);
 };
 
 const decodeNsec = (nsec: string): Uint8Array => {
@@ -119,8 +107,13 @@ type SignParams = {
 };
 
 export const sign = async ({ event, user }: SignParams) => {
-	const sk = await getPrivateKey(user);
-	event = finalizeEvent(event, sk);
+	let sk;
+	if (user.nsec) {
+		sk = await getPrivateKey(user);
+		event = finalizeEvent(event, sk);
+	} else {
+		signaturePrompt.set(event);
+	}
 };
 
 export const send = (event: EventTemplate) => {
@@ -131,24 +124,4 @@ const getPassword = async (): Promise<string> => {
 	if (!get(pw)) passwordPrompt.set(true);
 	await wait(() => !!get(pw));
 	return get(pw) || "";
-};
-
-export const reEncryptEntropy = async (user: User, newPassword: string) => {
-	const { cipher, salt } = user;
-
-	const entropy = await crypto.subtle.decrypt(
-		{ name: "AES-GCM", iv: new Uint8Array(16) },
-		await stretch(await getPassword(), hex.decode(salt)),
-		Uint8Array.from(fromWords(decode(cipher, 180).words)),
-	);
-
-	const bytes = new Uint8Array(
-		await crypto.subtle.encrypt(
-			{ name: "AES-GCM", iv: new Uint8Array(16) },
-			await stretch(newPassword, hex.decode(salt)),
-			entropy,
-		),
-	);
-
-	return encode("en", toWords(bytes), 180);
 };

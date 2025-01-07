@@ -1,4 +1,4 @@
-import { get, fd, login, post } from "$lib/utils";
+import { fd, get, login, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent }) => {
@@ -16,9 +16,8 @@ export const actions = {
 		const ip = request.headers.get("cf-connecting-ip");
 
 		const form = await fd(request);
-		let { picture, username, password, cipher, salt, pubkey, loginRedirect } =
-			form;
-		const user = { picture, username, password, cipher, salt, pubkey };
+		let { picture, username, password, pubkey, loginRedirect } = form;
+		const user = { picture, username, password, pubkey };
 		let error;
 
 		if (loginRedirect === "undefined") loginRedirect = undefined;
