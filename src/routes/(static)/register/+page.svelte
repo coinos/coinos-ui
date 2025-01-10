@@ -13,7 +13,7 @@
   import PasswordInput from "$comp/PasswordInput.svelte";
 
   import { focus, fail } from "$lib/utils";
-  import { avatar, signer, password, loginRedirect } from "$lib/store";
+  import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
   import {

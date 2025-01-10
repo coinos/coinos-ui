@@ -31,13 +31,12 @@
 </script>
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">
+  {#if form?.message}
+    <div class="text-red-600 text-center">
+      {$t(form.message)}
+    </div>
+  {/if}
   {#if amount}
-    {#if form?.message}
-      <div class="text-red-600 text-center">
-        {$t(form.message)}
-      </div>
-    {/if}
-
     <div>
       <h1 class="text-lg text-secondary">
         {$t("payments.send")}
@@ -126,7 +125,13 @@
       <input type="hidden" value={a} name="amount" />
       <input name="rate" value={$rate} type="hidden" />
 
-      <Numpad bind:amount={a} {currency} {locale} bind:rate={$rate} submit={next} />
+      <Numpad
+        bind:amount={a}
+        {currency}
+        {locale}
+        bind:rate={$rate}
+        submit={next}
+      />
       <button type="submit" class="btn" bind:this={next}
         >{$t("payments.next")}</button
       >
