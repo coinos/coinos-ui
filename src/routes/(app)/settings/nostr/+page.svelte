@@ -13,6 +13,7 @@
   let { data } = $props();
   let { challenge, user } = $derived(data);
   let { npub } = $state(user);
+  let extensionAvailable = $derived(browser && window.nostr);
 
   let newNsec = $state(),
     nsec = $state(),
@@ -103,11 +104,13 @@
     </div>
   </div>
 
-  <button class="btn" type="button" onclick={getPubkey}>
-    <iconify-icon icon="lucide-lab:bee" width="32" class="text-yellow-400"
-    ></iconify-icon>
-    {$t("user.settings.syncWithExtension")}</button
-  >
+  {#if extensionAvailable}
+    <button class="btn" type="button" onclick={getPubkey}>
+      <iconify-icon icon="lucide-lab:bee" width="32" class="text-yellow-400"
+      ></iconify-icon>
+      {$t("user.settings.syncWithExtension")}</button
+    >
+  {/if}
 </div>
 
 {#if user.nsec}
