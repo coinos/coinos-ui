@@ -99,6 +99,7 @@
 
     let data = new FormData(this);
     let user = Object.fromEntries(data);
+    user.username = user.username.replace(/\s*/g, "");
 
     for (let k in user) {
       data.set(k, user[k]);
