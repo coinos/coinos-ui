@@ -9,7 +9,7 @@
   import Pin from "$comp/Pin.svelte";
   import { loading, t } from "$lib/translations";
   import { fd, fail, auth, post, sleep, warning, success } from "$lib/utils";
-  import { avatar, banner, password, pin, save } from "$lib/store";
+  import { avatar, banner, signer, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
   import { sign, send, setNsec } from "$lib/nostr";
@@ -53,10 +53,21 @@
         },
       });
 
-      if (data.get("newNsec")) {
-        await setNsec(user, data.get("newNsec"));
-        data.set("nsec", user.nsec);
-        data.set("pubkey", user.pubkey);
+      if (!user.pubkey || user.pubkey === prev.pubkey) {
+        data.delete("pubkey");
+      } else {
+        signer.set(
+          user.extension ? { method: "extension", ready: true } : null,
+        );
+        let event = {
+          kind: 1,
+          created_at: Date.now(),
+          content: user.challenge,
+          tags: [],
+        };
+
+        let signedEvent = await sign(event);
+        data.set("event", JSON.stringify(signedEvent));
       }
 
       if ($avatar) {
@@ -89,7 +100,7 @@
       }
 
       if (
-        ["username", "about", "picture"].some(
+        ["username", "about", "picture", "display", "banner"].some(
           (a) => user[a] && user[a] !== prev[a],
         )
       ) {
@@ -101,14 +112,17 @@
             name: user.username,
             about: user.about,
             picture: user.picture,
+            banner: user.banner,
+            displayName: user.display,
           }),
           tags: [],
         };
 
         try {
-          await sign({ event, user });
+          await sign(event);
           await send(event);
         } catch (e) {
+          console.log(e);
           warning("Nostr profile could not be updated");
         }
       }

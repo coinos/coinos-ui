@@ -6,9 +6,9 @@ export const load = async ({ parent }) => {
 	if (user) redirect(307, `/${user.username}`);
 
 	const index = Math.floor(Math.random() * 64) + 1;
-	const { id } = await get("/challenge");
+	const { challenge } = await get("/challenge");
 
-	return { index, id };
+	return { index, challenge };
 };
 
 export const actions = {

@@ -1,38 +1,41 @@
 <script>
   import { browser } from "$app/environment";
   import handler from "$lib/handler";
-
-  import { onMount } from "svelte";
   import { applyAction, deserialize } from "$app/forms";
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
-  import Nostr from "$comp/Nostr.svelte";
   import Pinpad from "$comp/Pinpad.svelte";
   import PasswordInput from "$comp/PasswordInput.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { focus, fail } from "$lib/utils";
-  import { password, pin, loginRedirect } from "$lib/store";
+  import { password, signer, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
+  import { sign } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
 
   let { data, form } = $props();
 
-  onMount(() => {
-    $pin = undefined;
-    localStorage.clear();
-    sessionStorage.clear();
+  page.subscribe(async () => {
+    if (browser) {
+      setTimeout(() => {
+        password.set(undefined);
+        pin?.set(undefined);
+        signer.set(undefined);
+        localStorage.clear();
+        sessionStorage.clear();
+      }, 500);
+    }
+  });
 
+  onMount(() => {
     let lang = $page.url.searchParams.get("lang");
     if (lang) document.cookie = `lang=${lang} ;`;
   });
 
-  let { id } = $derived(data);
-  let nostrSignin = $state();
-
+  let { challenge } = $derived(data);
   let token = $state("");
-
-  $password = undefined;
 
   let cancel = () => (need2fa = false);
 
@@ -81,13 +84,43 @@
   let redirect = $derived(
     $loginRedirect || $page.url.searchParams.get("redirect"),
   );
+
+  let nostrLogin = async () => {
+    let event = {
+      kind: 1,
+      created_at: Date.now(),
+      content: challenge,
+      tags: [],
+    };
+
+    let signedEvent = await sign(event);
+
+    const formData = new FormData();
+
+    try {
+      formData.append("loginRedirect", redirect);
+      formData.append("token", token);
+      formData.append("event", JSON.stringify(signedEvent));
+      formData.append("challenge", challenge);
+
+      let response = await fetch("/login?/nostr", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = deserialize(await response.text());
+
+      applyAction(result);
+    } catch (e) {
+      fail(e.message);
+    }
+  };
 </script>
 
 <div
   class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20"
 >
   <h1 class="text-2xl font-bold text-center">{$t("login.signIn")}</h1>
-
   {#if form?.error && !form?.message.includes("2fa")}
     <div class="text-red-600 text-center" in:fly>
       {form.error}
@@ -126,10 +159,17 @@
       {$t("login.signIn")}
     </button>
 
-    <button type="button" class="btn" onclick={() => (nostrSignin = true)}>
-      <img src="/images/nostr.png" class="w-8" />
+    <button type="button" class="btn" onclick={nostrLogin}>
+      {#if $signer?.ready}
+        <div class="shrink">
+          <Spinner />
+        </div>
+      {:else}
+        <img src="/images/nostr.png" class="w-8" />
+      {/if}
       <div class="my-auto">{$t("login.nostr")}</div>
     </button>
+
     <p class="text-secondary text-center font-medium">
       {$t("login.noAccount")}
       <a
@@ -163,5 +203,3 @@
     </div>
   </div>
 {/if}
-
-<Nostr {id} bind:nostrSignin {redirect} {token} />

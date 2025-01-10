@@ -5,8 +5,8 @@ import { fail, redirect } from "@sveltejs/kit";
 export const load = async ({ parent }) => {
 	const { user } = await parent();
 	if (user?.pubkey) redirect(307, `/${user.username}`);
-	const { id } = await get("/challenge");
-	return { id };
+	const { challenge } = await get("/challenge");
+	return { challenge };
 };
 
 export const actions = {
@@ -29,7 +29,7 @@ export const actions = {
 
 	nostr: async ({ cookies, fetch, request }) => {
 		const form = await fd(request);
-		let { id, event, loginRedirect } = form;
+		let { challenge, event, loginRedirect } = form;
 		if (loginRedirect === "null") loginRedirect = undefined;
 		event = JSON.parse(event);
 
@@ -37,7 +37,7 @@ export const actions = {
 
 		const res = await fetch(`${PUBLIC_COINOS_URL}/nostrLogin`, {
 			method: "POST",
-			body: JSON.stringify({ id, event }),
+			body: JSON.stringify({ challenge, event }),
 			headers: {
 				"content-type": "application/json",
 				accept: "application/json",

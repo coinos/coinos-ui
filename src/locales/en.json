@@ -253,6 +253,7 @@
 		},
 		"settings": {
 			"integrations": "Integrations",
+      "syncWithExtension": "Sync with extension",
 			"connectNostr": "Nostr Wallet Connect",
 			"pleaseEnterYourPassword": "Please enter your password",
 			"memoPrompt": "Checkout instructions",

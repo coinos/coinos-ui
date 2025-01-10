@@ -77,7 +77,7 @@
     };
 
     try {
-      await sign({ event, user });
+      await sign(event);
       await send(event);
     } catch (e) {
       console.log(e);
@@ -205,7 +205,8 @@
                 )}`}
                 class="my-auto"
               >
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+                ></iconify-icon>
               </a>
             </div>
           </div>
@@ -222,7 +223,8 @@
                 ></iconify-icon></button
               >
               <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+                ></iconify-icon>
               </a>
             </div>
           </div>
@@ -234,12 +236,14 @@
       {#if user && user.username !== subject.username && subject.pubkey}
         {#if following}
           <button class="btn" onclick={unfollow}>
-            <iconify-icon noobserver icon="ph:user-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:user-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("user.unfollow")}</div>
           </button>
         {:else}
           <button class="btn" onclick={follow}>
-            <iconify-icon noobserver icon="ph:user-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:user-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("user.follow")}</div>
           </button>
         {/if}
@@ -266,7 +270,8 @@
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60"
           >
             <div class="mx-auto flex">
-              <iconify-icon noobserver icon="ph:clock" width="32"></iconify-icon>
+              <iconify-icon noobserver icon="ph:clock" width="32"
+              ></iconify-icon>
             </div>
           </button>
         </form>
@@ -296,7 +301,10 @@
     </div>
     <div class="text-secondary flex ml-auto">
       <div class="flex items-center">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300"
         ></iconify-icon>
         {s((1 * sats) / rate)} =
         {f(1, currency, locale, 0, 0)}

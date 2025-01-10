@@ -8,7 +8,7 @@
     request,
     ndef,
     passwordPrompt,
-    signaturePrompt,
+    selectSigner,
     password,
     pin,
     theme as themeStore,
@@ -91,8 +91,8 @@
   <Password {user} />
 {/if}
 
-{#if browser && $signaturePrompt}
-  <Nostr event={$signaturePrompt} />
+{#if browser}
+  <Nostr />
 {/if}
 
 <svelte:head>
