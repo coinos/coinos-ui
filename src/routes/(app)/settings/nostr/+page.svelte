@@ -1,4 +1,5 @@
 <script>
+  import { browser } from "$app/environment";
   import { getNsec } from "$lib/nostr";
   import { page } from "$app/stores";
   import { tick } from "svelte";
