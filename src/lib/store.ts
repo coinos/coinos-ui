@@ -28,7 +28,13 @@ const persistLocal = (key, defaultValue: any = undefined) => {
 
 	s.subscribe((v) => {
 		try {
-			browser && localStorage.setItem(key, JSON.stringify(v));
+			if (browser) {
+				if (v) {
+					localStorage.setItem(key, JSON.stringify(v));
+				} else {
+					localStorage.removeItem(key);
+				}
+			}
 		} catch (e) {
 			console.log("problem setting key", v);
 			console.log(e);
@@ -54,7 +60,10 @@ export const mnemonic = persistSession("mnemonic");
 export const newPayment = persistLocal("newPayment");
 export const password = writable<string | undefined>();
 export const passwordPrompt = writable();
-export const signaturePrompt = writable();
+export const eventToSign = writable();
+export const pubkey = persistLocal("pubkey");
+export const signer = persistLocal("signer");
+export const selectSigner = writable();
 export const pin = persistLocal("pin");
 export const rate = writable();
 export const request = writable();

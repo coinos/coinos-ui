@@ -1,4 +1,4 @@
-import { auth, fd, get, post } from "$lib/utils";
+import { auth, fd, post } from "$lib/utils";
 import { fail } from "@sveltejs/kit";
 
 type Error = {
@@ -16,16 +16,14 @@ export default async ({ cookies, request }) => {
 		form.autowithdraw = form.autowithdraw === "on";
 	}
 
-	let user = { ...(await get("/me", auth(cookies))), ...form };
-
 	try {
-		({ user } = await post("/user", user, auth(cookies)));
+		const { user } = await post("/user", form, auth(cookies));
+
+		if (user.language) cookies.set("lang", user.language, { path: "/" });
+
+		return { user, success: true };
 	} catch (e) {
 		const { message } = e as Error;
 		return fail(400, { message });
 	}
-
-	if (user.language) cookies.set("lang", user.language, { path: "/" });
-
-	return { user, success: true };
 };

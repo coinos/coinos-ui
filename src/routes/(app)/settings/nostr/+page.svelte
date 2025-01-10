@@ -3,35 +3,29 @@
   import { page } from "$app/stores";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
-  import { copy } from "$lib/utils";
+  import { copy, fail } from "$lib/utils";
   import {
     PUBLIC_COINOS_PUBKEY as pk,
     PUBLIC_COINOS_RELAY as relay,
   } from "$env/static/public";
+  import { signer, save } from "$lib/store";
 
   let { data } = $props();
-  let { user } = $derived(data);
-  let { id, npub } = $derived(user);
+  let { challenge, user } = $derived(data);
+  let { npub } = $state(user);
 
-  let importing = $state(),
-    newNsec = $state(),
+  let newNsec = $state(),
     nsec = $state(),
     pin = $state(""),
     revealNsec = $state(),
     revealNwc = $state();
 
-  let toggleImporting = () => {
-    revealNsec = false;
-    importing = !importing;
-  };
-
   let toggleNsec = async () => {
     try {
       nsec = await getNsec(user);
       revealNsec = !revealNsec;
-      importing = false;
     } catch (e) {
-      console.log(e);
+      fail("Failed to decrypt nsec");
     }
   };
 
@@ -42,9 +36,19 @@
     )}&secret=${user.nwc}&lud16=${lud16}`,
   );
   let toggleNwc = () => (revealNwc = !revealNwc);
+
+  let extension = $state();
+  let getPubkey = async () => {
+    extension = true;
+    npub = await window.nostr.getPublicKey();
+    await tick();
+    $save.click();
+  };
 </script>
 
 <div>
+  <input type="hidden" name="challenge" value={challenge} />
+  <input type="hidden" name="extension" value={extension} />
   <label for="nwc" class="font-bold">{$t("user.settings.nwc")}</label>
 
   <p class="text-secondary mb-1">
@@ -83,12 +87,10 @@
   </div>
 {/if}
 
-<div>
+<div class="space-y-2">
   <div class="font-bold">{$t("user.nostrPubkey")}</div>
   <div class="flex gap-4">
-    <div class="break-all grow">
-      {npub}
-    </div>
+    <textarea name="pubkey" bind:value={npub}> </textarea>
     <div class="flex my-auto gap-1">
       <button type="button" class="my-auto" onclick={() => copy(npub)}
         ><iconify-icon noobserver icon="ph:copy-bold" width="32"
@@ -100,54 +102,48 @@
       </a>
     </div>
   </div>
-</div>
 
-<div class="space-y-2">
-  <label for="seedphrase" class="font-bold"
-    >{$t("user.settings.nostrKeys")}</label
+  <button class="btn" type="button" onclick={getPubkey}>
+    <iconify-icon icon="lucide-lab:bee" width="32" class="text-yellow-400"
+    ></iconify-icon>
+    {$t("user.settings.syncWithExtension")}</button
   >
-
-  <p class="text-secondary mb-1">
-    {$t("user.settings.nostrDescription")}
-  </p>
-
-  <div class="flex flex-wrap sm:flex-nowrap gap-2">
-    <button
-      type="button"
-      class="btn !w-auto flex-grow"
-      onclick={toggleImporting}
-    >
-      <iconify-icon noobserver icon="ph:arrow-down-left-bold" width="32"
-      ></iconify-icon>
-      {$t("user.settings.import")}
-    </button>
-
-    <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
-      {#if revealNsec}
-        <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"
-        ></iconify-icon>
-        {$t("user.settings.hideNsec")}
-      {:else}
-        <iconify-icon noobserver icon="ph:warning-bold" width="32"
-        ></iconify-icon>
-        {$t("user.settings.revealNsec")}
-      {/if}
-    </button>
-  </div>
-
-  {#if importing}
-    <input name="newNsec" bind:value={newNsec} placeholder="nsec..." />
-  {/if}
-
-  {#if revealNsec}
-    <button
-      type="button"
-      class="btn break-all !h-auto font-normal leading-normal flex-nowrap"
-      onclick={() => copy(nsec)}
-    >
-      <div>{nsec}</div>
-
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-    </button>
-  {/if}
 </div>
+
+{#if user.nsec}
+  <div class="space-y-2">
+    <label for="seedphrase" class="font-bold"
+      >{$t("user.settings.nostrKeys")}</label
+    >
+
+    <p class="text-secondary mb-1">
+      {$t("user.settings.nostrDescription")}
+    </p>
+
+    <div class="flex flex-wrap sm:flex-nowrap gap-2">
+      <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
+        {#if revealNsec}
+          <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"
+          ></iconify-icon>
+          {$t("user.settings.hideNsec")}
+        {:else}
+          <iconify-icon noobserver icon="ph:warning-bold" width="32"
+          ></iconify-icon>
+          {$t("user.settings.revealNsec")}
+        {/if}
+      </button>
+    </div>
+
+    {#if revealNsec}
+      <button
+        type="button"
+        class="btn break-all !h-auto font-normal leading-normal flex-nowrap"
+        onclick={() => copy(nsec)}
+      >
+        <div>{nsec}</div>
+
+        <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+      </button>
+    {/if}
+  </div>
+{/if}

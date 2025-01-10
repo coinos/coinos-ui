@@ -8,13 +8,12 @@
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
 
-  import Nostr from "$comp/Nostr.svelte";
   import Pin from "$comp/Pin.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import PasswordInput from "$comp/PasswordInput.svelte";
 
   import { focus, fail } from "$lib/utils";
-  import { avatar, password, loginRedirect } from "$lib/store";
+  import { avatar, signer, password, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
   import {
@@ -24,11 +23,22 @@
     adjectives,
     animals,
   } from "unique-names-generator";
+  import { sign } from "$lib/nostr";
 
   let { form, data } = $props();
-  let { id } = $derived(data);
+  let { challenge } = $derived(data);
 
-  let nostrSignin = $state();
+  page.subscribe(async () => {
+    if (browser) {
+      setTimeout(() => {
+        password.set(undefined);
+        pin.set(undefined);
+        signer.set(undefined);
+        localStorage.clear();
+        sessionStorage.clear();
+      }, 500);
+    }
+  });
 
   let username = $state();
   let { index } = $state(data);
@@ -161,24 +171,22 @@
   });
 
   let nostrLogin = async () => {
-    let pubkey = await window.nostr.getPublicKey();
-    const formData = new FormData();
-
-    let ev = {
+    let event = {
       kind: 1,
-      pubkey,
       created_at: Date.now(),
-      content: id,
+      content: challenge,
       tags: [],
     };
 
-    try {
-      let signedEvent = await window.nostr.signEvent(ev);
+    let signedEvent = await sign(event);
 
+    const formData = new FormData();
+
+    try {
       formData.append("loginRedirect", redirect);
       formData.append("token", token);
       formData.append("event", JSON.stringify(signedEvent));
-      formData.append("id", id);
+      formData.append("challenge", challenge);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
@@ -309,8 +317,14 @@
       {/if}
     </button>
 
-    <button type="button" class="btn" onclick={() => (nostrSignin = true)}>
-      <img src="/images/nostr.png" class="w-8" />
+    <button type="button" class="btn" onclick={nostrLogin}>
+      {#if $signer?.ready}
+        <div class="shrink">
+          <Spinner />
+        </div>
+      {:else}
+        <img src="/images/nostr.png" class="w-8" />
+      {/if}
       <div class="my-auto">{$t("login.nostr")}</div>
     </button>
 
@@ -325,5 +339,3 @@
     </p>
   </form>
 </div>
-
-<Nostr {id} {nostrSignin} {redirect} {token} />

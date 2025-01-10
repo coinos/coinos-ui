@@ -91,7 +91,7 @@
         user,
       });
       event.id = getEventHash(event);
-      await sign({ event, user });
+      await sign(event);
       await send(event);
 
       sent = true;
