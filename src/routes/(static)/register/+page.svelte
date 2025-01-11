@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import punks from "$lib/punks";
   import { upload } from "$lib/upload";
@@ -28,7 +29,7 @@
   let { form, data } = $props();
   let { challenge } = $derived(data);
 
-  page.subscribe(async () => {
+  onMount(() => {
     if (browser) {
       setTimeout(() => {
         password.set(undefined);
@@ -36,7 +37,7 @@
         signer.set(undefined);
         localStorage.clear();
         sessionStorage.clear();
-      }, 500);
+      }, 50);
     }
   });
 

@@ -17,7 +17,7 @@
 
   let { data, form } = $props();
 
-  page.subscribe(async () => {
+  onMount(() => {
     if (browser) {
       setTimeout(() => {
         password.set(undefined);
@@ -25,7 +25,7 @@
         signer.set(undefined);
         localStorage.clear();
         sessionStorage.clear();
-      }, 500);
+      }, 50);
     }
   });
 
