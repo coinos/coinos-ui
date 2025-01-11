@@ -22,8 +22,9 @@ export const actions = {
 
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
+		let sk;
 		try {
-			await post("/register", { user }, { "cf-connecting-ip": ip });
+			({ sk } = await post("/register", { user }, { "cf-connecting-ip": ip }));
 		} catch (e) {
 			({ message: error } = e as Error);
 		}
@@ -35,6 +36,15 @@ export const actions = {
 			const { message } = e as Error;
 			error ||= message;
 		}
+
+		const expires = new Date();
+		expires.setSeconds(expires.getSeconds() + 21000000);
+		cookies.set("sk", sk, {
+			path: "/",
+			expires,
+			httpOnly: false,
+			sameSite: "lax",
+		});
 
 		if (error) return fail(400, { error });
 		redirect(303, loginRedirect || `/${user.username}`);
