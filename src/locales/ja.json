@@ -88,7 +88,9 @@
 		"invoice": "請求書",
 		"total": "合計",
 		"tip": "ヒント",
-		"addMemo": "メモを追加する"
+		"addMemo": "メモを追加する",
+		"setMemo": "メモを設定する",
+		"memo": "メモ"
 	},
 	"jobs": {
 		"header": "求人",
@@ -136,7 +138,12 @@
 		"signIn": "サインイン",
 		"failed": "ログインに失敗しました",
 		"createAccount": "アカウントを作成する",
-		"signUp": "サインアップ"
+		"signUp": "サインアップ",
+		"resetSent": "パスワードリセットリンクは、ファイルにインストールしている場合は、メールに送信されます.",
+		"continue": "お問い合わせ",
+		"resetDesc": "追加して確認したメールが届かない場合は、リセットリンクを送信できます",
+		"nostr": "Nostrでサインイン",
+		"nostrConnect": "ノスト接続"
 	},
 	"nav": {
 		"about": "About",
@@ -291,7 +298,14 @@
 			"seconds": "秒",
 			"pushNotifications": "プッシュ通知",
 			"pushNotificationsDesc": "デバイスの支払い通知を取得します",
-			"pushNotificationsDisabled": "通知権限をこのデバイスに拒否しました。 それをやりたくない場合は、ブラウザの設定を確認してください."
+			"pushNotificationsDisabled": "通知権限をこのデバイスに拒否しました。 それをやりたくない場合は、ブラウザの設定を確認してください.",
+			"integrations": "ソリューション",
+			"syncWithExtension": "拡張機能との同期",
+			"connectNostr": "Nostrウォレット接続",
+			"pleaseEnterYourPassword": "パスワードを入力してください",
+			"nostr": "ノストール",
+			"nwc": "Nostrウォレットは接続します",
+			"nwcDescription": "あなたのnostrアプリを有効にして、あなたのアカウントから支払いを送信"
 		},
 		"support": {
 			"header": "サポート",
@@ -305,7 +319,8 @@
 		"install": "アプリをインストールする",
 		"moreDetails": "リンクと詳細",
 		"url": "公開URL",
-		"nwc": "Nostrウォレットコネクト"
+		"nwc": "Nostrウォレットコネクト",
+		"loadMore": "もっと見る"
 	},
 	"payments": {
 		"networkFee": "ネットワーク料金",
@@ -405,7 +420,10 @@
 		"fundingAmount": "資金調達額",
 		"ecashDesc": "Ecashトークンは、ビットコインのいくらかの金額で入金されます。 それらは、coinosに戻り、他の財布にロードすることができます。 ビットコインをトークン文字列をテキスト化したり、URLを共有することで、ウォレットがまだ持っていない可能性がある人に与えるために使用してください。 詳しくはこちら",
 		"maxFeeDesc": "ネットワークルーティング料金の上限を設定します。 支払いが少なすぎると失敗する可能性があります。 設定して、もう一度お試しください。 支払いを試みながら全額を差し引くが、未使用部分をクレジットバック.",
-		"ecashToken": "Ecashトークン"
+		"ecashToken": "Ecashトークン",
+		"lnurlw": "ログイン",
+		"createFund": "ファンドを作成する",
+		"withdraw": "フィードバック"
 	},
 	"items": {
 		"add": "アイテムの追加",

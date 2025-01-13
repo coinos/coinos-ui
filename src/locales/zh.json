@@ -88,7 +88,9 @@
 		"invoice": "发票",
 		"total": "全部的",
 		"tip": "提示",
-		"addMemo": "添加备注"
+		"addMemo": "添加备注",
+		"setMemo": "设定备忘",
+		"memo": "备忘"
 	},
 	"jobs": {
 		"header": "工作",
@@ -136,7 +138,12 @@
 		"signIn": "登录",
 		"failed": "登录失败",
 		"createAccount": "创建账户",
-		"signUp": "注册"
+		"signUp": "注册",
+		"resetSent": "密码重置链接将发送到您的电子邮件中, 如果我们有它的文件 .",
+		"continue": "继续",
+		"resetDesc": "我们可以发送一个重设链接 如果你添加和校验您的电子邮件 否则请联系",
+		"nostr": "与鼻孔签名",
+		"nostrConnect": "鼻孔连接"
 	},
 	"nav": {
 		"about": "关于",
@@ -291,7 +298,14 @@
 			"seconds": "秒",
 			"pushNotifications": "推动通知",
 			"pushNotificationsDesc": "在您的设备上获取支付通知",
-			"pushNotificationsDisabled": "您已拒绝此设备的通知权限。如需重新启用，请检查浏览器设置。"
+			"pushNotificationsDisabled": "您已拒绝此设备的通知权限。如需重新启用，请检查浏览器设置。",
+			"integrations": "一体化",
+			"syncWithExtension": "与扩展名同步",
+			"connectNostr": "鼻孔钱包连接",
+			"pleaseEnterYourPassword": "请输入密码",
+			"nostr": "鼻头",
+			"nwc": "鼻孔钱包连接",
+			"nwcDescription": "启用您的鼻孔应用程序从您的账户发送付款"
 		},
 		"support": {
 			"header": "支持",
@@ -305,7 +319,8 @@
 		"install": "安装应用程序",
 		"moreDetails": "链接和详细信息",
 		"url": "公共 URL",
-		"nwc": "Nostr 钱包连接"
+		"nwc": "Nostr 钱包连接",
+		"loadMore": "装入更多"
 	},
 	"payments": {
 		"networkFee": "网络费",
@@ -405,7 +420,10 @@
 		"fundingAmount": "供资数额",
 		"ecashDesc": "Ecash代币得到一些比特币的资助. 它们可以被赎回为硬币或者装入其他钱包. 使用它们来给可能还没有钱包的人提供比特币,只要给他们发去信条字符串或者共享URL即可. 学习更多",
 		"maxFeeDesc": "设置网络路由费上限. 如果定得太低,付款可能失败。 你可以放高一点再试一次 在试图付款时,我们借记全额,但贷记任何未用部分.",
-		"ecashToken": "现金代号"
+		"ecashToken": "现金代号",
+		"lnurlw": "拉脱维亚",
+		"createFund": "创建基金",
+		"withdraw": "撤销"
 	},
 	"items": {
 		"add": "新增项目",

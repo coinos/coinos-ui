@@ -104,7 +104,9 @@
 		"invoice": "Fatura",
 		"total": "Total",
 		"tip": "Gorjeta",
-		"addMemo": "Adicionar memorando"
+		"addMemo": "Adicionar memorando",
+		"setMemo": "Definir memória",
+		"memo": "Memorando"
 	},
 	"jobs": {
 		"header": "Vagas de emprego",
@@ -152,7 +154,12 @@
 		"signIn": "Entrar",
 		"failed": "Falha no login",
 		"createAccount": "Criar uma conta",
-		"signUp": "Inscrever-se"
+		"signUp": "Inscrever-se",
+		"resetSent": "Um link de redefinição de senha será enviado para o seu e-mail se o tivermos no arquivo.",
+		"continue": "Continue",
+		"resetDesc": "Podemos enviar um link de reset se você adicionou e verificou seu e-mail caso contrário, por favor, acesse para",
+		"nostr": "Entrar com Nostr",
+		"nostrConnect": "Nostr conectar"
 	},
 	"nav": {
 		"about": "Sobre",
@@ -310,7 +317,14 @@
 			"seconds": "segundos",
 			"pushNotifications": "Notificações push",
 			"pushNotificationsDesc": "Obter notificações de pagamento no seu dispositivo",
-			"pushNotificationsDisabled": "Negou permissão de notificação neste dispositivo. Verifique as configurações do navegador se quiser desfazer isso."
+			"pushNotificationsDisabled": "Negou permissão de notificação neste dispositivo. Verifique as configurações do navegador se quiser desfazer isso.",
+			"integrations": "Integração",
+			"syncWithExtension": "Sincronizar com extensão",
+			"connectNostr": "Carteira Nostr Connect",
+			"pleaseEnterYourPassword": "Digite sua senha",
+			"nostr": "Não",
+			"nwc": "Nostr carteira conectar",
+			"nwcDescription": "Habilite seu aplicativo nostr para enviar pagamentos de sua conta"
 		},
 		"support": {
 			"header": "Suporte",
@@ -326,7 +340,8 @@
 		"install": "Instalar aplicativo",
 		"moreDetails": "Links e detalhes",
 		"url": "URL pública",
-		"nwc": "Nostr carteira conectar"
+		"nwc": "Nostr carteira conectar",
+		"loadMore": "Carregar mais"
 	},
 	"payments": {
 		"amount": "Quantidade",
@@ -427,7 +442,10 @@
 		"fundingAmount": "Montante de financiamento",
 		"ecashDesc": "Os tokens Ecash são financiados com alguma quantidade de bitcoin. Eles podem ser resgatados em coinos ou carregados em outras carteiras. Use-os para dar bitcoin a alguém que pode não ter uma carteira ainda, simplesmente enviando-lhes a string token ou compartilhando a URL. Saiba mais em",
 		"maxFeeDesc": "Define um limite superior na taxa de roteamento da rede. Se definido demasiado baixo o pagamento pode falhar. Você pode colocá-lo mais alto e tentar novamente. Nós debitamos o valor total ao tentar o pagamento, mas creditamos de volta qualquer parte não utilizada.",
-		"ecashToken": "Token de Ecash"
+		"ecashToken": "Token de Ecash",
+		"lnurlw": "LNURLW",
+		"createFund": "Criar um fundo",
+		"withdraw": "Retirar"
 	},
 	"items": {
 		"add": "Adicionar item",
