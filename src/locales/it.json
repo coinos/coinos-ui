@@ -127,9 +127,9 @@
 		"pitch3": "Se pensi di poter avere un impatto, ci piacerebbe sentire da te. Inviaci il tuo curriculum"
 	},
 	"landing": {
-		"header_before_icon": "The",
+		"header_before_icon": "Il modo",
 		"header_with_icon": "più facile",
-		"header_after_icon": "modo di iniziare con bitcoin.",
+		"header_after_icon": "per iniziare con bitcoin.",
 		"subheader": "Un portafoglio web gratuito e pagina di pagamento per tutti.",
 		"info1": {
 			"title": "Pagamenti istantanei tramite Lightning",
@@ -456,5 +456,26 @@
 		"price": "Prezzo",
 		"submit": "Inviare",
 		"image": "Immagine"
+	},
+	"lang": {
+		"en": "English",
+		"es": "Español",
+		"fr": "Français",
+		"de": "Deutsch",
+		"ja": "日本語",
+		"ru": "Русский",
+		"pt": "Português",
+		"zh": "中文",
+		"fa": "فارسی ",
+		"el": "Ελληνικά",
+		"ar": "العربية",
+		"hi": "हिन्दी",
+		"bn": "বাংলা",
+		"tr": "Türkçe",
+		"ko": "한국어",
+		"it": "Italiano",
+		"nl": "Nederlands",
+		"th": "ไทย",
+		"pl": "Polski"
 	}
 }

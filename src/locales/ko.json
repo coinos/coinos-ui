@@ -127,9 +127,9 @@
 		"pitch3": "당신은 충격을 만들 수 있다고 생각하면, 우리는 당신을 듣고 사랑합니다. 자주 묻는 질문"
 	},
 	"landing": {
-		"header_before_icon": "더 보기",
-		"header_with_icon": "인기있는",
-		"header_after_icon": "비트 코인으로 시작하는 방법.",
+    "header_before_icon": "가장",
+    "header_with_icon": "쉬운",
+    "header_after_icon": "방법, 비트코인으로 시작하기.",
 		"subheader": "모든 사람에게 무료 웹 지갑 및 지불 페이지.",
 		"info1": {
 			"title": "Lightning을 통해 즉시 지불",
@@ -456,5 +456,26 @@
 		"price": "가격대비",
 		"submit": "제출하기",
 		"image": "(주)"
+	},
+	"lang": {
+		"en": "English",
+		"es": "Español",
+		"fr": "Français",
+		"de": "Deutsch",
+		"ja": "日本語",
+		"ru": "Русский",
+		"pt": "Português",
+		"zh": "中文",
+		"fa": "فارسی ",
+		"el": "Ελληνικά",
+		"ar": "العربية",
+		"hi": "हिन्दी",
+		"bn": "বাংলা",
+		"tr": "Türkçe",
+		"ko": "한국어",
+		"it": "Italiano",
+		"nl": "Nederlands",
+		"th": "ไทย",
+		"pl": "Polski"
 	}
 }

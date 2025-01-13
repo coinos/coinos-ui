@@ -127,9 +127,9 @@
 		"pitch3": "यदि आपको लगता है कि आप एक प्रभाव बना सकते हैं, तो हम आपसे सुनना पसंद करेंगे। हमसे संपर्क करें"
 	},
 	"landing": {
-		"header_before_icon": "The",
-		"header_with_icon": "आसान",
-		"header_after_icon": "बिटकॉइन के साथ शुरू करने का तरीका.",
+    "header_before_icon": "सबसे",
+    "header_with_icon": "आसान",
+    "header_after_icon": "तरीका बिटकॉइन के साथ शुरू करने का.",
 		"subheader": "सभी के लिए एक मुफ्त वेब वॉलेट और भुगतान पृष्ठ।.",
 		"info1": {
 			"title": "बिजली के माध्यम से तत्काल भुगतान",
@@ -456,5 +456,26 @@
 		"price": "मूल्य",
 		"submit": "जमा करना",
 		"image": "छवि"
+	},
+	"lang": {
+		"en": "English",
+		"es": "Español",
+		"fr": "Français",
+		"de": "Deutsch",
+		"ja": "日本語",
+		"ru": "Русский",
+		"pt": "Português",
+		"zh": "中文",
+		"fa": "فارسی ",
+		"el": "Ελληνικά",
+		"ar": "العربية",
+		"hi": "हिन्दी",
+		"bn": "বাংলা",
+		"tr": "Türkçe",
+		"ko": "한국어",
+		"it": "Italiano",
+		"nl": "Nederlands",
+		"th": "ไทย",
+		"pl": "Polski"
 	}
 }

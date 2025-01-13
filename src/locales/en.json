@@ -168,8 +168,8 @@
 		"signIn": "Sign In",
 		"signUp": "Sign Up",
 		"failed": "Login failed",
-    "nostr": "Sign in with Nostr",
-    "nostrConnect": "Nostr connect"
+		"nostr": "Sign in with Nostr",
+		"nostrConnect": "Nostr connect"
 	},
 	"nav": {
 		"dark": "Dark",
@@ -253,7 +253,7 @@
 		},
 		"settings": {
 			"integrations": "Integrations",
-      "syncWithExtension": "Sync with extension",
+			"syncWithExtension": "Sync with extension",
 			"connectNostr": "Nostr Wallet Connect",
 			"pleaseEnterYourPassword": "Please enter your password",
 			"memoPrompt": "Checkout instructions",
@@ -373,7 +373,7 @@
 		"fastest": "Fastest",
 		"fundingAmount": "Funding amount",
 		"createFund": "Create a fund",
-    "withdraw": "Withdraw",
+		"withdraw": "Withdraw",
 		"fast": "Fast",
 		"ecashDesc": "Ecash tokens are funded with bitcoin. They may be redeemed in exchange for a lightning payment equal to their value or loaded back into a coinos account at any time. They can also be transferred to other ecash wallets either wholly or partially. You might use them to give bitcoin to someone who doesn't have a wallet by texting the token to them or sharing a link to it. Learn more at",
 		"ecashToken": "Ecash token",
@@ -467,6 +467,15 @@
 		"pt": "Português",
 		"zh": "中文",
 		"fa": "فارسی ",
-		"el": "Ελληνικά"
+		"el": "Ελληνικά",
+		"ar": "العربية",
+		"hi": "हिन्दी",
+		"bn": "বাংলা",
+		"tr": "Türkçe",
+		"ko": "한국어",
+		"it": "Italiano",
+		"nl": "Nederlands",
+		"th": "ไทย",
+		"pl": "Polski"
 	}
 }
