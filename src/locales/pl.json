@@ -127,9 +127,9 @@
 		"pitch3": "Jeśli myślisz, że możesz coś zrobić, chętnie się odezwiemy. Wyślij nam swoje CV do"
 	},
 	"landing": {
-		"header_before_icon": "W",
-		"header_with_icon": "najłatwiej",
-		"header_after_icon": "sposób na rozpoczęcie z bitcoin.",
+    "header_before_icon": "W",
+    "header_with_icon": "najłatwiejszy",
+    "header_after_icon": "sposób na rozpoczęcie z bitcoinem.",
 		"subheader": "Darmowy portfel internetowy i strona płatności dla wszystkich.",
 		"info1": {
 			"title": "Szybkie płatności za pośrednictwem błyskawicy",
@@ -456,5 +456,26 @@
 		"price": "Cena",
 		"submit": "Prześlij",
 		"image": "Obraz"
+	},
+	"lang": {
+		"en": "English",
+		"es": "Español",
+		"fr": "Français",
+		"de": "Deutsch",
+		"ja": "日本語",
+		"ru": "Русский",
+		"pt": "Português",
+		"zh": "中文",
+		"fa": "فارسی ",
+		"el": "Ελληνικά",
+		"ar": "العربية",
+		"hi": "हिन्दी",
+		"bn": "বাংলা",
+		"tr": "Türkçe",
+		"ko": "한국어",
+		"it": "Italiano",
+		"nl": "Nederlands",
+		"th": "ไทย",
+		"pl": "Polski"
 	}
 }
