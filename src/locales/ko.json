@@ -127,9 +127,9 @@
 		"pitch3": "당신은 충격을 만들 수 있다고 생각하면, 우리는 당신을 듣고 사랑합니다. 자주 묻는 질문"
 	},
 	"landing": {
-    "header_before_icon": "가장",
-    "header_with_icon": "쉬운",
-    "header_after_icon": "방법, 비트코인으로 시작하기.",
+		"header_before_icon": "가장",
+		"header_with_icon": "쉬운",
+		"header_after_icon": "방법, 비트코인으로 시작하기.",
 		"subheader": "모든 사람에게 무료 웹 지갑 및 지불 페이지.",
 		"info1": {
 			"title": "Lightning을 통해 즉시 지불",
