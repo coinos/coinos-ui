@@ -105,7 +105,9 @@
 		"invoice": "Rechnung",
 		"total": "Gesamtbetrag",
 		"tip": "Trinkgeld",
-		"addMemo": "Memo hinzufügen"
+		"addMemo": "Memo hinzufügen",
+		"setMemo": "Memo setzen",
+		"memo": "Memo"
 	},
 	"jobs": {
 		"header": "Jobs",
@@ -153,7 +155,12 @@
 		"submit": "Einreichen",
 		"newPassword": "Neues Kennwort",
 		"createAccount": "Benutzerkonto erstellen",
-		"signUp": "Melden Sie sich an"
+		"signUp": "Melden Sie sich an",
+		"resetSent": "Ein Passwort-Reset-Link wird an Ihre E-Mail gesendet, wenn wir ihn in Datei haben.",
+		"continue": "Weiter",
+		"resetDesc": "Wir können einen Reset Link senden, wenn Sie Ihre E-Mail hinzugefügt und verifiziert haben",
+		"nostr": "Einloggen mit Nostr",
+		"nostrConnect": "Nostr-Verbindung"
 	},
 	"nav": {
 		"profile": "Profil",
@@ -302,7 +309,14 @@
 			"seconds": "Sekunden",
 			"pushNotifications": "Push-Benachrichtigungen",
 			"pushNotificationsDesc": "Erhalten Sie Zahlungsinformationen auf Ihrem Gerät",
-			"pushNotificationsDisabled": "Sie haben die Benachrichtigungsberechtigung auf diesem Gerät verweigert. Überprüfen Sie Ihre Browser-Einstellungen, wenn Sie das rückgängig machen möchten."
+			"pushNotificationsDisabled": "Sie haben die Benachrichtigungsberechtigung auf diesem Gerät verweigert. Überprüfen Sie Ihre Browser-Einstellungen, wenn Sie das rückgängig machen möchten.",
+			"integrations": "Integrationen",
+			"syncWithExtension": "Synchronisieren mit Erweiterung",
+			"connectNostr": "Nostr Wallet Connect",
+			"pleaseEnterYourPassword": "Bitte geben Sie Ihr Passwort ein",
+			"nostr": "Nostr",
+			"nwc": "Nostr Brieftasche verbinden",
+			"nwcDescription": "Aktivieren Sie Ihre nostr App, um Zahlungen von Ihrem Konto zu senden"
 		},
 		"support": {
 			"header": "Support",
@@ -328,7 +342,8 @@
 		"install": "App installieren",
 		"moreDetails": "Links und Details",
 		"url": "Öffentliche URL",
-		"nwc": "Nostr-Wallet verbinden"
+		"nwc": "Nostr-Wallet verbinden",
+		"loadMore": "Mehr laden"
 	},
 	"payments": {
 		"header": "Transaktionen",
@@ -432,7 +447,10 @@
 		"fundingAmount": "Förderbetrag",
 		"ecashDesc": "Ecash-Tokens werden mit etwas Bitcoin finanziert. Sie können wieder in Münzen eingelöst oder in andere Brieftaschen geladen werden. Verwenden Sie sie, um Bitcoin an jemanden zu geben, der möglicherweise noch keine Brieftasche hat, indem Sie sie einfach die Zeichenkette texten oder die URL teilen. Mehr erfahren",
 		"maxFeeDesc": "Setzt eine Obergrenze der Netzleitgebühr. Wenn zu niedrig gesetzt, kann die Zahlung scheitern. Sie können es höher setzen und versuchen wieder. Wir debitieren den vollen Betrag, während wir versuchen, die Zahlung, aber Gutschrift zurück jeden ungenutzten Teil.",
-		"ecashToken": "Ecash token"
+		"ecashToken": "Ecash token",
+		"lnurlw": "LNURLW",
+		"createFund": "Einen Fonds erstellen",
+		"withdraw": "Zurückziehen"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

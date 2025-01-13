@@ -55,6 +55,51 @@ const config = {
       key: "",
       loader: async () => (await import("../../locales/el.json")).default,
     },
+    {
+      locale: "ar",
+      key: "",
+      loader: async () => (await import("../../locales/ar.json")).default,
+    },
+    {
+      locale: "hi",
+      key: "",
+      loader: async () => (await import("../../locales/hi.json")).default,
+    },
+    {
+      locale: "bn",
+      key: "",
+      loader: async () => (await import("../../locales/bn.json")).default,
+    },
+    {
+      locale: "tr",
+      key: "",
+      loader: async () => (await import("../../locales/tr.json")).default,
+    },
+    {
+      locale: "ko",
+      key: "",
+      loader: async () => (await import("../../locales/ko.json")).default,
+    },
+    {
+      locale: "it",
+      key: "",
+      loader: async () => (await import("../../locales/it.json")).default,
+    },
+    {
+      locale: "nl",
+      key: "",
+      loader: async () => (await import("../../locales/nl.json")).default,
+    },
+    {
+      locale: "th",
+      key: "",
+      loader: async () => (await import("../../locales/th.json")).default,
+    },
+    {
+      locale: "pl",
+      key: "",
+      loader: async () => (await import("../../locales/pl.json")).default,
+    },
   ],
 };
 

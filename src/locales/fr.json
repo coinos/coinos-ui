@@ -118,7 +118,12 @@
 		"submit": "Soumettre",
 		"newPassword": "Nouveau mot de passe",
 		"createAccount": "Créer un compte",
-		"signUp": "S'inscrire"
+		"signUp": "S'inscrire",
+		"resetSent": "Un lien de réinitialisation du mot de passe sera envoyé à votre e-mail si nous l'avons dans le fichier.",
+		"continue": "Continuer",
+		"resetDesc": "Nous pouvons envoyer un lien de réinitialisation si vous avez ajouté et vérifié votre e-mail sinon veuillez contacter",
+		"nostr": "Connexion avec nostra",
+		"nostrConnect": "Connecter nostra"
 	},
 	"nav": {
 		"startInSeconds": "Commencer en quelques secondes",
@@ -147,7 +152,9 @@
 		"invoice": "Facture",
 		"total": "Total",
 		"tip": "Pourboire",
-		"addMemo": "Ajouter un mémo"
+		"addMemo": "Ajouter un mémo",
+		"setMemo": "Définir le mémo",
+		"memo": "Mémoire"
 	},
 	"jobs": {
 		"header": "Emplois",
@@ -260,7 +267,14 @@
 			"seconds": "secondes",
 			"pushNotifications": "Notifications push",
 			"pushNotificationsDesc": "Obtenez des notifications de paiement sur votre appareil",
-			"pushNotificationsDisabled": "L'autorisation de notification est désactiver sur cet appareil. Vérifiez les paramètres de votre navigateur ou appareil pour changer cela."
+			"pushNotificationsDisabled": "L'autorisation de notification est désactiver sur cet appareil. Vérifiez les paramètres de votre navigateur ou appareil pour changer cela.",
+			"integrations": "Intégrations",
+			"syncWithExtension": "Synchroniser avec l'extension",
+			"connectNostr": "Nost Wallet Connect",
+			"pleaseEnterYourPassword": "Veuillez saisir votre mot de passe",
+			"nostr": "Numéro",
+			"nwc": "Le portefeuille Nost se connecte",
+			"nwcDescription": "Activez votre app nost pour envoyer des paiements depuis votre compte"
 		},
 		"support": {
 			"header": "Assistance",
@@ -301,7 +315,8 @@
 		"install": "Installer l'application",
 		"moreDetails": "Liens et détails",
 		"url": "URL publique",
-		"nwc": "Connexion au portefeuille Nostr"
+		"nwc": "Connexion au portefeuille Nostr",
+		"loadMore": "Charger plus"
 	},
 	"news": {
 		"header": "Nouvelles",
@@ -405,7 +420,10 @@
 		"fundingAmount": "Montant du financement",
 		"ecashDesc": "Obtenir des jetons ecash financé avec une certaine quantité de Bitcoin. Ils peuvent être rachetés en monnaie ou envoyer dans d'autres portefeuilles. Utilisez-les pour donner du Bitcoin à quelqu'un simplement en partageant l'URL ecash ou le QR code. En savoir plus à",
 		"maxFeeDesc": "Définit une limite supérieure pour les frais de transaction réseau. Si le montant est trop bas, il peut échouer. Vous pouvez augmenter et essayer à nouveau. Nous débitons le montant total tout en tentant le paiement, mais créditons toute partie inutilisée.",
-		"ecashToken": "Jeton Ecash"
+		"ecashToken": "Jeton Ecash",
+		"lnurlw": "LNURLw",
+		"createFund": "Créer un fonds",
+		"withdraw": "Retrait"
 	},
 	"items": {
 		"add": "Ajouter un article",
