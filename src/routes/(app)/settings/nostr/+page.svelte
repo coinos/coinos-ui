@@ -41,6 +41,7 @@
 
   let extension = $state();
   let getPubkey = async () => {
+    $signer = { method: "extension", ready: true };
     extension = true;
     npub = await window.nostr.getPublicKey();
     await tick();

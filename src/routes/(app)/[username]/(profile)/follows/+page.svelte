@@ -1,6 +1,4 @@
 <script>
-  import { run } from 'svelte/legacy';
-
   import { onMount } from "svelte";
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";
@@ -9,11 +7,7 @@
   import { invalidate } from "$app/navigation";
 
   let { data } = $props();
-  let { follows } = $state(data);
-  let refresh = (data) => ({ follows } = data);
-  run(() => {
-    refresh(data);
-  });
+  let { follows } = $derived(data);
 </script>
 
 <div class="px-3 md:px-0 w-full md:w-[400px] mx-auto">
@@ -26,9 +20,9 @@
   {:then follows}
     {#if follows.length}
       {#if browser}
-        <VirtualScroll data={follows} key="pubkey"  pageMode={true}>
+        <VirtualScroll data={follows} key="pubkey" pageMode={true}>
           {#snippet children({ data })}
-                    <a
+            <a
               href={`/${data.pubkey}`}
               data-sveltekit-preload-data="tap"
               rel="nofollow"
@@ -45,14 +39,14 @@
 
                 <div class="w-full flex pb-1 text-black my-auto">
                   <div>
-                    <div>{data.display_name || ""}</div>
-                    <div class="text-secondary text-base">@{data.name}</div>
+                    <div>{data.display || ""}</div>
+                    <div class="text-secondary text-base">@{data.username}</div>
                   </div>
                 </div>
               </div>
             </a>
-                            {/snippet}
-                </VirtualScroll>
+          {/snippet}
+        </VirtualScroll>
       {/if}
     {:else}
       <div>No follows</div>

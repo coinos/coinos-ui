@@ -12,7 +12,7 @@
   import { avatar, banner, signer, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
-  import { sign, send, setNsec } from "$lib/nostr";
+  import { sign, send } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
 
   let { children, data, form } = $props();
@@ -119,7 +119,7 @@
         };
 
         try {
-          await sign(event);
+          event = await sign(event);
           await send(event);
         } catch (e) {
           console.log(e);

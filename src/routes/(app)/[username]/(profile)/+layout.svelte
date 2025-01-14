@@ -41,12 +41,11 @@
   let list = $state([]);
   let follow = async () => {
     list = [...list, subject.pubkey];
-    let tags = await get(
+    let pubkeys = await get(
       `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`,
     );
-    tags.push(["p", subject.pubkey]);
-    await update(tags);
-    invalidate("app:user");
+    pubkeys.push(subject.pubkey);
+    await update(pubkeys);
   };
 
   let unfollow = async () => {
@@ -55,17 +54,14 @@
       1,
     );
     list = list;
-    let tags = await get(
+    let pubkeys = await get(
       `/api/${user.pubkey}/follows?pubkeysOnly=true&nocache=true`,
     );
-    tags.splice(
-      tags.findIndex((t) => t[1] === subject.pubkey),
-      1,
-    );
-    await update(tags);
+    pubkeys.splice(pubkeys.indexOf(subject.pubkey), 1);
+    await update(pubkeys);
   };
 
-  let update = async (tags) => {
+  let update = async (pubkeys) => {
     if (!browser) return;
 
     let event = {
@@ -73,12 +69,13 @@
       created_at: Math.floor(Date.now() / 1000),
       kind: 3,
       content: "",
-      tags,
+      tags: pubkeys.map((p) => ["p", p]),
     };
 
     try {
-      await sign(event);
-      await send(event);
+      let signed = await sign(event);
+      send(signed);
+      invalidate("app:user");
     } catch (e) {
       console.log(e);
     }
@@ -203,6 +200,27 @@
                 href={`/qr/${encodeURIComponent(
                   `${$page.url.protocol}//${profile}`,
                 )}`}
+                class="my-auto"
+              >
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+                ></iconify-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="text-secondary">{$t("user.nostrPubkey")}</div>
+          <div class="flex gap-4">
+            <div class="break-all grow text-xl">
+              {subject.pubkey}
+            </div>
+            <div class="flex my-auto gap-1">
+              <button class="my-auto" onclick={() => copy(subject.pubkey)}
+                ><iconify-icon noobserver icon="ph:copy-bold" width="32"
+                ></iconify-icon></button
+              >
+              <a
+                href={`/qr/${encodeURIComponent(subject.pubkey)}`}
                 class="my-auto"
               >
                 <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
