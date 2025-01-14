@@ -5,7 +5,7 @@
   import VirtualScroll from "svelte-virtual-scroll-list";
 
   let { data } = $props();
-  let { followers } = data;
+  let { followers } = $derived(data);
 </script>
 
 <div class="px-3 md:px-0 w-full md:w-[400px] mx-auto space-y-5">
@@ -17,9 +17,9 @@
     <div>Loading followers...</div>
   {:then followers}
     {#if followers.length}
-      <VirtualScroll data={followers} key="pubkey"  pageMode={true}>
+      <VirtualScroll data={followers} key="pubkey" pageMode={true}>
         {#snippet children({ data })}
-                <a
+          <a
             href={`/${data.pubkey}`}
             data-sveltekit-preload-data="tap"
             rel="nofollow"
@@ -39,14 +39,14 @@
 
               <div class="w-full flex pb-1 text-black my-auto">
                 <div>
-                  <div>{data.display_name || ""}</div>
-                  <div class="text-secondary text-lg">@{data.name}</div>
+                  <div>{data.display || ""}</div>
+                  <div class="text-secondary text-lg">@{data.username}</div>
                 </div>
               </div>
             </div>
           </a>
-                      {/snippet}
-            </VirtualScroll>
+        {/snippet}
+      </VirtualScroll>
     {:else}
       <div>No followers</div>
     {/if}
