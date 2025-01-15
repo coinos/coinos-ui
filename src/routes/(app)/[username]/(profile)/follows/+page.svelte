@@ -39,8 +39,8 @@
 
                 <div class="w-full flex pb-1 text-black my-auto">
                   <div>
-                    <div>{data.display || ""}</div>
-                    <div class="text-secondary text-base">@{data.username}</div>
+                    <div>{data.display || data.display_name || ""}</div>
+                    <div class="text-secondary text-base">@{data.username || data.name}</div>
                   </div>
                 </div>
               </div>
