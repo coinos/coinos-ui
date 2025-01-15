@@ -22,6 +22,7 @@
   import InvoiceTypes from "$comp/InvoiceTypes.svelte";
   import SetAmount from "$comp/SetAmount.svelte";
   import SetMemo from "$comp/SetMemo.svelte";
+  import SetType from "$comp/SetType.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
@@ -68,20 +69,24 @@
     }
   };
 
+  let settingType = $state();
+  let toggleType = () => (settingType = !settingType);
   let setType = async (type, address_type) => {
     $showQr = true;
-    if (type === types.lightning && !amount)
+    if (type === types.lightning && !amount && typeof newAmount === "undefined")
       goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
     else {
+      if (typeof newAmount !== "undefined") invoice.amount = newAmount;
       invoice.address_type = address_type;
       invoice.type = type;
       await update();
     }
+    settingType = false;
   };
 
   let setAmount = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e?.preventDefault();
+    e?.stopPropagation();
 
     settingAmount = false;
 
@@ -142,6 +147,10 @@
   />
 
   <InvoiceActions
+    bind:newAmount
+    {setAmount}
+    {toggleType}
+    {setType}
     {toggleAmount}
     {toggleMemo}
     {user}
@@ -153,8 +162,6 @@
     {txt}
     t={$t}
   />
-
-  <InvoiceTypes {aid} {invoice} {user} {type} {setType} t={$t} />
 </div>
 
 <SetAmount
@@ -170,3 +177,16 @@
 />
 
 <SetMemo bind:memo {settingMemo} {setMemo} {toggleMemo} t={$t} />
+
+<SetType
+  {aid}
+  {invoice}
+  {user}
+  {type}
+  {settingType}
+  {setType}
+  {toggleType}
+  t={$t}
+  bind:newAmount
+  {setAmount}
+/>
