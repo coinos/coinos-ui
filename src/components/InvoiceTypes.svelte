@@ -1,6 +1,7 @@
 <script>
   import { types } from "$lib/utils";
   import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   let { aid, invoice, user, type, t, setType } = $props();
 </script>
 
@@ -16,7 +17,8 @@
         class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
       >
         <div class="m-auto">
-          <iconify-icon noobserver
+          <iconify-icon
+            noobserver
             icon="ph:lightning-fill"
             class="text-yellow-300 text-2xl"
           ></iconify-icon>
@@ -61,7 +63,8 @@
     </button>
 
     <button class="btn flex-nowrap" onclick={() => goto("/receive")}>
-      <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"
+      ></iconify-icon>
       <div class="my-auto text-lg">{t("user.send.paste")}</div>
     </button>
   </div>
@@ -74,7 +77,10 @@
   >
     <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
       <div class="m-auto">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300 text-2xl"
         ></iconify-icon>
       </div>
     </div>

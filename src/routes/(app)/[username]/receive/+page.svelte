@@ -24,6 +24,7 @@
   import SetMemo from "$comp/SetMemo.svelte";
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
+  import { page } from "$app/stores";
 
   let { data } = $props();
 
@@ -67,11 +68,12 @@
     }
   };
 
-  let setType = async (type) => {
+  let setType = async (type, address_type) => {
     $showQr = true;
     if (type === types.lightning && !amount)
       goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
     else {
+      invoice.address_type = address_type;
       invoice.type = type;
       await update();
     }
@@ -118,6 +120,8 @@
 
   onMount(() => {
     if ($amountPrompt && !amount) toggleAmount();
+    let address_type = $page.url.searchParams.get("address_type");
+    if (address_type) setType(types.bitcoin, address_type);
   });
 </script>
 
