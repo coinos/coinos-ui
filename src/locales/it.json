@@ -12,7 +12,7 @@
 		"regenerate": "Rigenerare",
 		"deleteAccount": "Cancella account",
 		"addAccount": "Aggiungi account",
-		"create": "Creare",
+		"create": "Crea",
 		"import": "Importa",
 		"accountSetup": "Configurazione account",
 		"enterSeed": "Inserisci una frase di seme",
@@ -21,7 +21,7 @@
 		"accountPassword": "Password account",
 		"importSeed": "Inserisci una frase di seme esistente",
 		"passwordWarning": "Se perdi questa password non sarai in grado di ritirare fondi dal conto o ripristinare la tua frase di seme. Non possiamo recuperarlo per te.",
-		"savings": "Risparmio",
+		"savings": "Salvataggio",
 		"password": "Password",
 		"confirmPassword": "Conferma la password"
 	},
@@ -41,7 +41,7 @@
 			"cole": {
 				"name": "Cole",
 				"position": "Sviluppo Aziendale",
-				"bio": "Cole è un individuo guidato dalla passione per la libertà, affascinato dal Bitcoin dal 2015. La sua missione è diffondere l'adozione di Bitcoin e della Lightning Network in diverse comunità a livello globale."
+				"bio": "Cole è una persona guidata dalla passione per la libertà, affascinato dal Bitcoin dal 2015. La sua missione è diffondere l'adozione di Bitcoin e della Lightning Network in diverse comunità a livello globale."
 			}
 		},
 		"locations": {
@@ -60,7 +60,7 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "Quanto costa?",
-			"answer": "La ricezione di pagamenti sul tuo account è gratuita. I prelievi su portafogli esterni comportano una piccola commissione che varia a seconda delle condizioni della rete."
+			"answer": "La ricezione dei pagamenti sul tuo account è gratuita. I prelievi su portafogli esterni comportano una piccola commissione che varia a seconda delle condizioni della rete."
 		},
 		"compatibility": {
 			"question": "Ho bisogno di qualche dispositivo o software speciale?",
@@ -76,7 +76,7 @@
 		},
 		"bitcoin": {
 			"question": "Cosa posso fare con Bitcoin?",
-			"answer": "Spendeteli presso altri commercianti o pagate le vostre spese con questi soldi, convincendo il vostro personale, i fornitori e il padrone di casa a prenderli."
+			"answer": "Spendili presso altri commercianti o paga le tue spese con questi soldi, convincendo il vostro personale, i fornitori e il padrone di casa ad accettarli."
 		}
 	},
 	"footer": {
@@ -129,20 +129,20 @@
 	"landing": {
 		"header_before_icon": "Il modo",
 		"header_with_icon": "più semplice",
-		"header_after_icon": "per iniziare a utilizzare il bitcoin.",
-		"subheader": "Un portafoglio web e una pagina di pagamento gratuiti per tutti.",
+		"header_after_icon": "per iniziare ad utilizzare bitcoin.",
+		"subheader": "Un portafoglio web ed una pagina di pagamento, sempre gratis, per tutti.",
 		"info1": {
 			"title": "Pagamenti istantanei tramite Lightning",
-			"description": "Per gli esercenti è facile ricevere pagamenti al dettaglio. Niente attese per i pagamenti bancari o preoccupazioni per i riaddebiti. Pagamento istantaneo, in pochi secondi. Dite addio al 3% di commissioni sulle carte."
+			"description": "Per gli esercenti è facile ricevere pagamenti al dettaglio. Niente attese per i pagamenti bancari o preoccupazioni per i riaddebiti. Pagamento istantaneo, in pochi secondi. Dite addio alle commissioni sulle carte di pagamento."
 		},
 		"info2": {
 			"title": "Facile da usare",
 			"description1": "Inserisci un importo nella tua valuta locale, condividi il codice QR e hai finito.",
-			"description2": "Noi ci occupiamo di tutto il lavoro difficile, in modo che voi possiate concentrarvi sulla vostra attività.",
+			"description2": "Noi ci occupiamo di tutto il lavoro complicato, in modo che voi possiate concentrarvi sulla vostra attività.",
 			"description3": "Avete sempre la possibilità di prendere in custodia i vostri fondi ritirandoli istantaneamente in qualsiasi momento."
 		},
 		"info3": {
-			"title": "Marchiatelo a modo vostro!",
+			"title": "Caratterizzatelo a modo vostro!",
 			"description": "Personalizzate l'aspetto della vostra pagina profilo o mantenetela predefinita: la scelta è vostra."
 		}
 	},
