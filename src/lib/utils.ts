@@ -2,7 +2,9 @@ import { browser } from "$app/environment";
 import { goto } from "$app/navigation";
 import { page } from "$app/stores";
 import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
+import { bytesToHex } from "@noble/hashes/utils";
 import { toast } from "@zerodevx/svelte-toast";
+import { decrypt } from "nostr-tools/nip49";
 import { get as getStore } from "svelte/store";
 
 export function scroll(section: any) {
@@ -169,6 +171,13 @@ export const login = async (
 	if (u.language) cookies.set("lang", u.language, opts);
 	cookies.set("username", user.username, opts);
 	cookies.set("token", token, opts);
+	if (u.nsec) {
+		cookies.set("sk", bytesToHex(decrypt(u.nsec, user.password)), {
+			...opts,
+			httpOnly: false,
+			sameSite: "lax",
+		});
+	}
 };
 
 export const auth = (cookies) => ({
