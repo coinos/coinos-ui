@@ -12,7 +12,7 @@
   $effect(() => (subject = subject || user));
 
   let bg = $derived(
-    $banner?.id && $banner.id === subject.id
+    $banner?.id && $banner.id === subject?.id
       ? `url(${$banner.src})`
       : subject?.banner
         ? subject.banner.includes(":")
