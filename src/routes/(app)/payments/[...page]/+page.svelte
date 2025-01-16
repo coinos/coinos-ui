@@ -81,8 +81,9 @@
 
     payments = payments.map((p) => ({
       ...p,
+      tip: p.amount > 0 ? p.tip : -p.tip,
       created: new Date(p.created),
-      total: p.amount + (p.tip || 0),
+      total: p.amount + ((p.amount > 0 ? p.tip : -p.tip) || 0),
       platform_fee: p.ourfee,
       amount_fiat: f((p.amount * p.rate) / sats, p.currency),
       fee_fiat: p.fee ? f((p.fee * p.rate) / sats, p.currency) : null,
@@ -90,7 +91,10 @@
         ? f((p.ourfee * p.rate) / sats, p.currency)
         : null,
       tip_fiat: p.tip ? f((p.tip * p.rate) / sats, p.currency) : null,
-      total_fiat: f(((p.amount + (p.tip || 0)) * p.rate) / sats, p.currency),
+      total_fiat: f(
+        ((p.amount + ((p.amount > 0 ? p.tip : -p.tip) || 0)) * p.rate) / sats,
+        p.currency,
+      ),
     }));
 
     let keys = [
@@ -201,7 +205,7 @@
       {/if}
     </div>
 
-    <Payments {payments} locale={locale} {user} />
+    <Payments {payments} {locale} {user} />
 
     <div class="grid grid-cols-3 w-full text-center text-lg">
       {#each Object.keys(incoming) as c}
