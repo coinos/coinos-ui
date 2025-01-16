@@ -106,7 +106,7 @@
       data.set(k, user[k]);
     }
 
-    data.set("picture", punks[index]);
+    data.set("picture", `${$page.url.origin}/api/public/${punks[index]}.webp`);
     if ($avatar) {
       try {
         let { hash } = JSON.parse(
