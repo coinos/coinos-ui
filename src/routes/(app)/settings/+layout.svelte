@@ -120,7 +120,7 @@
 
         try {
           event = await sign(event);
-          await send(event);
+          send(event);
         } catch (e) {
           console.log(e);
           warning("Nostr profile could not be updated");
