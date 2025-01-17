@@ -172,11 +172,13 @@ export const login = async (
 	cookies.set("username", user.username, opts);
 	cookies.set("token", token, opts);
 	if (u.nsec) {
-		cookies.set("sk", bytesToHex(decrypt(u.nsec, user.password)), {
-			...opts,
-			httpOnly: false,
-			sameSite: "lax",
-		});
+		try {
+			cookies.set("sk", bytesToHex(decrypt(u.nsec, user.password)), {
+				...opts,
+				httpOnly: false,
+				sameSite: "lax",
+			});
+		} catch (e) {}
 	}
 };
 
