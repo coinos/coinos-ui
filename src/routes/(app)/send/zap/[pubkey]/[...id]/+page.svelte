@@ -24,8 +24,9 @@
     if (form) {
       loading = false;
       event = await sign(request);
-      let { pr } = await post("/post/zap", { event });
-      goto(`/send/lightning/${pr}`);
+      let { pr: payreq } = await post("/post/zap", { event });
+      await post("/post/payments", { amount, payreq, pin: $pin });
+      goto(`/e/${id}`);
     }
   });
 
@@ -46,54 +47,19 @@
       {$t(form.message)}
     </div>
   {/if}
-  {#if amount}
-    <div>
-      <h1 class="text-lg text-secondary">
-        {$t("payments.send")}
-      </h1>
+  <form method="POST" action="?/setAmount" class="space-y-2" use:enhance>
+    <input type="hidden" value={a} name="amount" />
+    <input name="rate" value={$rate} type="hidden" />
 
-      <Amount {amount} rate={$rate} {currency} {locale} />
-    </div>
-
-    <form
-      method="POST"
-      use:enhance
-      onsubmit={submit}
-      action="?/send"
-      class="space-y-2"
+    <Numpad
+      bind:amount={a}
+      {currency}
+      {locale}
+      bind:rate={$rate}
+      submit={next}
+    />
+    <button type="submit" class="btn" bind:this={next}
+      >{$t("payments.next")}</button
     >
-      <input name="event" value={event} type="hidden" />
-      <input name="amount" value={amount} type="hidden" />
-      <input name="pin" value={$pin} type="hidden" />
-
-      <button
-        type="submit"
-        class="btn btn-primary"
-        disabled={loading}
-        use:focus
-      >
-        {#if loading}
-          <Spinner />
-        {:else}
-          {$t("payments.send")}
-        {/if}
-      </button>
-    </form>
-  {:else}
-    <form method="POST" action="?/setAmount" class="space-y-2" use:enhance>
-      <input type="hidden" value={a} name="amount" />
-      <input name="rate" value={$rate} type="hidden" />
-
-      <Numpad
-        bind:amount={a}
-        {currency}
-        {locale}
-        bind:rate={$rate}
-        submit={next}
-      />
-      <button type="submit" class="btn" bind:this={next}
-        >{$t("payments.next")}</button
-      >
-    </form>
-  {/if}
+  </form>
 </div>
