@@ -12,7 +12,7 @@
   </h1>
   <div class="flex items-center gap-2 text-2xl">
     <Avatar user={author} size={16} />
-    <div>{event.content}</div>
+    <div class="break-words overflow-wrap">{event.content}</div>
   </div>
   <a href={`/send/zap/${event.pubkey}/${event.id}`} class="btn btn-accent">
     <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
