@@ -144,24 +144,24 @@
       </div>
     {/if}
 
-    <div>
-      <div class="flex justify-center gap-2">
-        <a
-          href={`/${subject.pubkey}/follows`}
-          data-sveltekit-preload-data="tap"
-          rel="nofollow"
-          ><b>{si(follows, 0, 0)}</b>
-          <span class="text-secondary">{$t("user.following")}</span></a
-        >
-        <a
-          href={`/${subject.pubkey}/followers`}
-          data-sveltekit-preload-data="tap"
-          rel="nofollow"
-          ><b>{si(followers, 0, 0)}</b>
-          <span class="text-secondary">{$t("user.followers")}</span></a
-        >
-      </div>
-    </div>
+    <!-- <div> -->
+    <!--   <div class="flex justify-center gap-2"> -->
+    <!--     <a -->
+    <!--       href={`/${subject.pubkey}/follows`} -->
+    <!--       data-sveltekit-preload-data="tap" -->
+    <!--       rel="nofollow" -->
+    <!--       ><b>{si(follows, 0, 0)}</b> -->
+    <!--       <span class="text-secondary">{$t("user.following")}</span></a -->
+    <!--     > -->
+    <!--     <a -->
+    <!--       href={`/${subject.pubkey}/followers`} -->
+    <!--       data-sveltekit-preload-data="tap" -->
+    <!--       rel="nofollow" -->
+    <!--       ><b>{si(followers, 0, 0)}</b> -->
+    <!--       <span class="text-secondary">{$t("user.followers")}</span></a -->
+    <!--     > -->
+    <!--   </div> -->
+    <!-- </div> -->
 
     {#if showDetails}
       <div class="space-y-5 pb-20">
@@ -251,21 +251,21 @@
     {/if}
 
     <div class="flex flex-wrap gap-2 w-full text-lg">
-      {#if user && user.username !== subject.username && subject.pubkey}
-        {#if following}
-          <button class="btn" onclick={unfollow}>
-            <iconify-icon noobserver icon="ph:user-bold" width="32"
-            ></iconify-icon>
-            <div class="my-auto">{$t("user.unfollow")}</div>
-          </button>
-        {:else}
-          <button class="btn" onclick={follow}>
-            <iconify-icon noobserver icon="ph:user-bold" width="32"
-            ></iconify-icon>
-            <div class="my-auto">{$t("user.follow")}</div>
-          </button>
-        {/if}
-      {/if}
+      <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
+      <!--   {#if following} -->
+      <!--     <button class="btn" onclick={unfollow}> -->
+      <!--       <iconify-icon noobserver icon="ph:user-bold" width="32" -->
+      <!--       ></iconify-icon> -->
+      <!--       <div class="my-auto">{$t("user.unfollow")}</div> -->
+      <!--     </button> -->
+      <!--   {:else} -->
+      <!--     <button class="btn" onclick={follow}> -->
+      <!--       <iconify-icon noobserver icon="ph:user-bold" width="32" -->
+      <!--       ></iconify-icon> -->
+      <!--       <div class="my-auto">{$t("user.follow")}</div> -->
+      <!--     </button> -->
+      <!--   {/if} -->
+      <!-- {/if} -->
 
       <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
       <!--   <a href={`/messages/${subject.username}`} class="contents"> -->
