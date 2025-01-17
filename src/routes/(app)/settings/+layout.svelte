@@ -114,6 +114,7 @@
             picture: user.picture,
             banner: user.banner,
             displayName: user.display,
+            lud16: `${user.username}@${$page.url.hostname}`,
           }),
           tags: [],
         };
