@@ -1,18 +1,31 @@
 <script>
   import Avatar from "$comp/Avatar.svelte";
+  import Media from "$comp/Media.svelte";
+
   let { data } = $props();
-  let { author, event, zaps } = $derived(data);
+  let { author, event, names, parts, zaps } = $derived(data);
 
   let zap = () => {};
 </script>
 
-<div class="container px-4 max-w-xl mx-auto space-y-5 break-words">
+<div class="container px-4 max-w-xl mx-auto space-y-5">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     Event
   </h1>
-  <div class="flex items-center gap-2 text-2xl">
+  <div class="flex gap-2 text-2xl">
     <Avatar user={author} size={16} />
-    <div class="break-words overflow-wrap">{event.content}</div>
+
+    <div class="space-y-5">
+      {#each parts as { type, value }, i}
+        {#if type === "text"}
+          {value}
+        {:else if type === "link"}
+          <Media {value} />
+        {:else if type.match(/^nostr:np(rofile|ub)$/)}
+          <a href={`/${value.pubkey}`} class="font-bold">@{names[value.pubkey]}</a>
+        {/if}
+      {/each}
+    </div>
   </div>
   <a href={`/send/zap/${event.pubkey}/${event.id}`} class="btn btn-accent">
     <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
