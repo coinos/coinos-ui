@@ -7,7 +7,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { loc, back, post, toFiat, f, s, focus } from "$lib/utils";
+  import { loc, back, fail, post, toFiat, f, s, focus } from "$lib/utils";
   import { sign, send } from "$lib/nostr";
   import { rate, pin } from "$lib/store";
 
@@ -22,11 +22,15 @@
   $effect(() => ($rate ||= data.rate));
   $effect(async () => {
     if (form) {
-      loading = false;
-      event = await sign(request);
-      let { pr: payreq } = await post("/post/zap", { event });
-      await post("/post/payments", { amount, payreq, pin: $pin });
-      goto(`/e/${id}`);
+      try {
+        loading = false;
+        event = await sign(request);
+        let { pr: payreq } = await post("/post/zap", { event });
+        await post("/post/payments", { amount, payreq, pin: $pin });
+        goto(`/e/${id}`);
+      } catch (e) {
+        fail(e.message);
+      }
     }
   });
 

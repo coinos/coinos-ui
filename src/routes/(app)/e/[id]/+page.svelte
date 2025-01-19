@@ -12,17 +12,35 @@
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
     Event
   </h1>
-  <div class="flex gap-2 text-2xl">
-    <Avatar user={author} size={16} />
 
-    <div class="space-y-5">
+  <div class="space-y-5">
+    <div class="flex gap-2 items-center">
+      <Avatar user={author} size={16} />
+      <a href={`/${author.pubkey}`} class="contents">
+        <div>
+          <div class="font-bold">{author.display} &mdash; {author.username}</div>
+          <div class="flex items-center">
+            <iconify-icon
+              noobserver
+              icon="ph:lightning-fill"
+              class="text-yellow-300"
+            ></iconify-icon>
+            {author.lud16}
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="text-2xl space-y-5">
       {#each parts as { type, value }, i}
         {#if type === "text"}
           {value}
         {:else if type === "link"}
           <Media {value} />
         {:else if type.match(/^nostr:np(rofile|ub)$/)}
-          <a href={`/${value.pubkey}`} class="font-bold">@{names[value.pubkey]}</a>
+          <a href={`/${value.pubkey}`} class="font-bold"
+            >@{names[value.pubkey]}</a
+          >
         {/if}
       {/each}
     </div>
