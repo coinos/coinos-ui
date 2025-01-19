@@ -18,7 +18,9 @@
       <Avatar user={author} size={16} />
       <a href={`/${author.pubkey}`} class="contents">
         <div>
-          <div class="font-bold">{author.display} &mdash; {author.username}</div>
+          <div class="font-bold">
+            {author.display} &mdash; {author.username}
+          </div>
           <div class="flex items-center">
             <iconify-icon
               noobserver
@@ -31,7 +33,7 @@
       </a>
     </div>
 
-    <div class="text-2xl space-y-5">
+    <div class="text-2xl space-y-5 break-words">
       {#each parts as { type, value }, i}
         {#if type === "text"}
           {value}
