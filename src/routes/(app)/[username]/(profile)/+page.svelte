@@ -31,7 +31,7 @@
 </script>
 
 <div class="space-y-2">
-  {#if user?.id === subject.id}
+  {#if user?.id && user.id === subject.id}
     <div class="space-y-5" data-sveltekit-preload-data="false">
       {#each accounts as account, i}
         <Account {user} {rate} {account} last={i === accounts.length - 1} />
@@ -80,4 +80,3 @@
     </a>
   {/if}
 </div>
-
