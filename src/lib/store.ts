@@ -56,6 +56,7 @@ export const invoice = writable();
 export const last = writable();
 export const loginRedirect = writable();
 export const decrypted = persistLocal("decrypted", {});
+export const ignore = persistLocal("ignore", []);
 export const mnemonic = persistSession("mnemonic");
 export const newPayment = persistLocal("newPayment");
 export const password = writable<string | undefined>();

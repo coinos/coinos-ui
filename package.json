@@ -66,5 +66,8 @@
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
 }

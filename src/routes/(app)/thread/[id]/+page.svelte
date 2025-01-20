@@ -2,15 +2,15 @@
   import Event from "$comp/Event.svelte";
 
   let { data } = $props();
-  let { event } = $derived(data);
-
-  let zap = () => {};
+  let { thread } = $derived(data);
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    Event
+    Thread
   </h1>
 
-  <Event {event} />
+  {#each thread as event}
+    <Event {event} />
+  {/each}
 </div>
