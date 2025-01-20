@@ -5,8 +5,8 @@
 
   let { event, minimal } = $props();
   let { author, parts, zaps, names } = $derived(event);
-  let go = () => goto(`/e/${event.id}`);
-  console.log(event.tags);
+  let go = () => goto(`/thread/${event.id}`);
+  console.log("AUTHOR", event.author);
 </script>
 
 <div class="space-y-5">
