@@ -104,9 +104,9 @@
 		"invoice": "Fatura",
 		"total": "Total",
 		"tip": "Gorjeta",
-		"addMemo": "Adicionar memorando",
-		"setMemo": "Definir memória",
-		"memo": "Memorando"
+		"addMemo": "Adicionar nota",
+		"setMemo": "Adicionar nota",
+		"memo": "Nota"
 	},
 	"jobs": {
 		"header": "Vagas de emprego",
