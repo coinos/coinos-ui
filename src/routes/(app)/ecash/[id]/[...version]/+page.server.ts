@@ -5,7 +5,7 @@ import { fail, redirect } from "@sveltejs/kit";
 export async function load({ parent }) {
 	const { user } = await parent();
 	const rates = await getRates();
-	return { rate: rates[user.currency] };
+	return { rate: rates[user?.currency || "USD"] };
 }
 
 export const actions = {
