@@ -17,7 +17,7 @@
     preloadData("/send");
   });
 
-  let { accounts, subject, rate, user } = $state(data);
+  let { accounts, subject, rate, user } = $derived(data);
 
   let install = async () => {
     if (!$installPrompt) return;
