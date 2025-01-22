@@ -10,6 +10,9 @@ const config = {
 			$comp: path.resolve("src/components"),
 		},
 	},
+	preview: {
+		allowedHosts: ["coinos.io"],
+	},
 	server: {
 		proxy:
 			process.env.NODE_ENV === "development"
