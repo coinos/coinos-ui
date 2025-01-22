@@ -118,11 +118,16 @@
   >
     <button
       type="button"
-      onclick={toggleDetails}
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
     >
-      <div class="my-auto break-words">{display || username}</div>
-      <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+      <div class="flex gap-1" onclick={toggleDetails}>
+        <div class="my-auto break-words">{display || username}</div>
+        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+        ></iconify-icon>
+      </div>
+      <a href={`/${n}/notes`}>
+        <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon>
+      </a>
     </button>
 
     {#if subject.about}

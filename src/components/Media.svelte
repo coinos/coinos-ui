@@ -6,20 +6,22 @@
   export const isAudio = (url: string) => url?.match(/^.*\.(ogg|mp3|wav)/gi);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export let value: any;
+  let { value, minimal } = $props();
 </script>
 
-{#if !!isImage(value.url)}
-  <img src={value.url} alt={""} />
-{:else if isVideo(value.url)}
-  <!-- svelte-ignore a11y-media-has-caption -->
-  <video src={value.url} controls />
-{:else if isAudio(value.url)}
-  <audio src={value.url} controls>
-    <a href={value.url}>{value.url.replace(/https?:\/\/(www\.)?/, "")}</a>
-  </audio>
-{:else}
-  <a href={value.url}>
-    {value.url.replace(/https?:\/\/(www\.)?/, "")}
-  </a>
-{/if}
+<div class="pt-2">
+  {#if !!isImage(value.url)}
+    <img src={value.url} alt={""} class:w-48={minimal} />
+  {:else if isVideo(value.url)}
+    <!-- svelte-ignore a11y-media-has-caption -->
+    <video src={value.url} controls />
+  {:else if isAudio(value.url)}
+    <audio src={value.url} controls>
+      <a href={value.url}>{value.url.replace(/https?:\/\/(www\.)?/, "")}</a>
+    </audio>
+  {:else}
+    <a href={value.url}>
+      {value.url.replace(/https?:\/\/(www\.)?/, "")}
+    </a>
+  {/if}
+</div>

@@ -1,39 +1,24 @@
 <script lang="ts">
+  import { t } from "$lib/translations";
   import Event from "$comp/Event.svelte";
   import { get, post } from "$lib/utils";
   import { onMount } from "svelte";
-  import { Relay } from "nostr-tools/relay";
   import { ignore } from "$lib/store";
 
   let { data } = $props();
-  let { subject } = $derived(data);
-  let events = $state([]);
-  onMount(async () => {
-    const relay = await Relay.connect("wss://relay.primal.net");
-    const subscription = relay.subscribe(
-      [{ kinds: [1], authors: [subject.pubkey], limit: 20 }],
-      {
-        async onevent(event) {
-          // console.log(event);
-          const { parts, names } = await post("/post/parseEvent", { event });
-          event.author = await get(`/api/users/${event.pubkey}`);
-          event.parts = parts;
-          event.names = names;
-          let { content, pubkey } = event;
-          events.push(event);
-          if (events.length > 20) events.shift();
-        },
-      },
-    );
-  });
+  let { events, subject, user } = $derived(data);
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    Events
-  </h1>
-
+  {#if user?.id === subject.id}
+    <a href={`/${user.username}/notes/new`} class="btn">
+      <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon>
+      <div>Post a note</div>
+    </a>
+  {/if}
   {#each events as event}
     <Event {event} minimal={true} />
+  {:else}
+    <div class="text-2xl">{$t("notes.notFound")}</div>
   {/each}
 </div>
