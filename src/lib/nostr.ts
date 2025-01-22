@@ -8,6 +8,7 @@ import {
 	signer as $signer,
 } from "$lib/store";
 import { post, wait } from "$lib/utils";
+import { bytesToHex } from "@noble/hashes/utils";
 import {
 	type EventTemplate,
 	finalizeEvent,
@@ -102,7 +103,17 @@ export const encryptNsec = async (nsec: string) => {
 	return nip49encrypt(d, await getPassword());
 };
 
-export const sign = async (event) => {
+export const sign = async (event, user) => {
+	if (user?.nsec && !get($signer)?.ready) {
+		const sk = await getPrivateKey(user);
+
+		$signer.set({
+			method: "nsec",
+			ready: true,
+			params: { sk: bytesToHex(sk), pk: getPublicKey(sk) },
+		});
+	}
+
 	eventToSign.set(event);
 	let unsubscribe;
 	const { method, params } = await new Promise((r) => {

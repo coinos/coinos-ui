@@ -10,6 +10,10 @@
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5">
+  {#if !events.length}
+    <div class="text-2xl text-center">{$t("notes.notFound")}</div>
+  {/if}
+
   {#if user?.id === subject.id}
     <a href={`/${user.username}/notes/new`} class="btn">
       <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon>
@@ -18,7 +22,5 @@
   {/if}
   {#each events as event, i}
     <Event {event} minimal={true} last={i === events.length - 1} {user} />
-  {:else}
-    <div class="text-2xl">{$t("notes.notFound")}</div>
   {/each}
 </div>
