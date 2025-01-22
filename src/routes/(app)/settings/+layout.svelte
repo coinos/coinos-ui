@@ -119,19 +119,7 @@
         };
 
         try {
-          if (data?.user?.nsec && !$signer?.ready) {
-            let sk = await getPrivateKey(data.user);
-
-            signer.set({
-              method: "nsec",
-              ready: true,
-              params: { sk: bytesToHex(sk), pk: getPublicKey(sk) },
-            });
-
-            await tick();
-          }
-
-          event = await sign(event);
+          event = await sign(event, data.user);
           send(event);
         } catch (e) {
           console.log(e);

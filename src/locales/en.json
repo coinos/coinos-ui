@@ -1,7 +1,7 @@
 {
 	"notes": {
 		"contents": "Note contents",
-		"notFound": "We didn't find any notes"
+		"notFound": "No notes found"
 	},
 	"accounts": {
 		"showQR": "Show QR",

@@ -20,7 +20,7 @@
         tags: [],
       };
 
-      event = await sign(event);
+      event = await sign(event, user);
       await send(event);
 
       goto(`/${user.username}/notes`);
