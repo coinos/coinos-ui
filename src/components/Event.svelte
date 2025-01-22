@@ -8,7 +8,7 @@
   import { pin } from "$lib/store";
 
   let amount = 21;
-  let { event, minimal, heading = true } = $props();
+  let { event, minimal, last } = $props();
   let { author, parts, zaps, names, created_at } = $derived(event);
   let { id } = event;
 
@@ -29,33 +29,31 @@
   };
 </script>
 
-<div class="space-y-2 border-b-8 dark:border-primary py-8">
-  {#if heading}
-    <div class="flex">
-      <a href={`/${author.pubkey}/notes`} class="contents">
-        <div class="flex gap-2 items-center">
-          <Avatar user={author} size={16} disabled={true} />
+<div class="space-y-2 dark:border-primary py-8" class:border-b-8={!last}>
+  <div class="flex">
+    <a href={`/${author.pubkey}/notes`} class="contents">
+      <div class="flex gap-2 items-center">
+        <Avatar user={author} size={16} disabled={true} />
+        <div>
           <div>
-            <div>
-              <span class="font-bold">{author.display}</span>
-              <span class="text-secondary">@{author.username}</span>
-              <span class="text-secondary">&#x2022; {ago(created_at)}</span>
-            </div>
-            {#if author.lud16}
-              <div class="flex items-center">
-                <iconify-icon
-                  noobserver
-                  icon="ph:lightning-fill"
-                  class="text-yellow-300"
-                ></iconify-icon>
-                {author.lud16}
-              </div>
-            {/if}
+            <span class="font-bold">{author.display}</span>
+            <span class="text-secondary">@{author.username}</span>
+            <span class="text-secondary">&#x2022; {ago(created_at)}</span>
           </div>
+          {#if author.lud16}
+            <div class="flex items-center">
+              <iconify-icon
+                noobserver
+                icon="ph:lightning-fill"
+                class="text-yellow-300"
+              ></iconify-icon>
+              {author.lud16}
+            </div>
+          {/if}
         </div>
-      </a>
-    </div>
-  {/if}
+      </div>
+    </a>
+  </div>
 
   <a href={`/e/${id}`} class="contents">
     <div class="text-2xl space-y-2 break-words">
