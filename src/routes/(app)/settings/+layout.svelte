@@ -12,8 +12,10 @@
   import { avatar, banner, signer, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
   import { page } from "$app/stores";
-  import { sign, send } from "$lib/nostr";
+  import { sign, send, getPrivateKey } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
+  import { getPublicKey } from "nostr-tools";
+  import { bytesToHex } from "@noble/hashes/utils";
 
   let { children, data, form } = $props();
 
@@ -46,19 +48,16 @@
     e.preventDefault();
     try {
       submitting = true;
-      let data = new FormData(formElement);
+      let body = new FormData(formElement);
       let user = await fd({
         formData() {
-          return data;
+          return body;
         },
       });
 
       if (!user.pubkey || user.pubkey === prev.pubkey) {
-        data.delete("pubkey");
+        body.delete("pubkey");
       } else {
-        signer.set(
-          user.extension ? { method: "extension", ready: true } : null,
-        );
         let event = {
           kind: 1,
           created_at: Date.now(),
@@ -67,7 +66,7 @@
         };
 
         let signedEvent = await sign(event);
-        data.set("event", JSON.stringify(signedEvent));
+        body.set("event", JSON.stringify(signedEvent));
       }
 
       if ($avatar) {
@@ -77,7 +76,7 @@
           );
 
           let url = `${$page.url.origin}/api/public/${hash}.webp`;
-          data.set("picture", url);
+          body.set("picture", url);
 
           await fetch(url, { cache: "reload", mode: "no-cors" });
         } catch (e) {
@@ -92,7 +91,7 @@
           );
 
           let url = `${$page.url.origin}/api/public/${hash}.webp`;
-          data.set("banner", url);
+          body.set("banner", url);
           await fetch(url, { cache: "reload", mode: "no-cors" });
         } catch (e) {
           console.log("problem uploading banner", e);
@@ -120,6 +119,18 @@
         };
 
         try {
+          if (data?.user?.nsec && !$signer?.ready) {
+            let sk = await getPrivateKey(data.user);
+
+            signer.set({
+              method: "nsec",
+              ready: true,
+              params: { sk: bytesToHex(sk), pk: getPublicKey(sk) },
+            });
+
+            await tick();
+          }
+
           event = await sign(event);
           send(event);
         } catch (e) {
@@ -128,7 +139,7 @@
         }
       }
 
-      let email = data.get("email");
+      let email = body.get("email");
       if (email && email !== prev.email) {
         try {
           cookies.get = function (n) {
@@ -148,14 +159,14 @@
 
       const response = await fetch(formElement.action, {
         method: "POST",
-        body: data,
+        body,
       });
 
       const result = deserialize(await response.text());
 
       if (result.type === "success") {
         await invalidateAll();
-        if (data.get("password")) $password = data.get("password");
+        if (body.get("password")) $password = body.get("password");
       }
 
       applyAction(result);
