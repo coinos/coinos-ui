@@ -1,4 +1,5 @@
 <script>
+  import { tick } from "svelte";
   import { goto } from "$app/navigation";
   import { untrack } from "svelte";
   import { t } from "$lib/translations";
@@ -14,14 +15,14 @@
   let { data, form } = $props();
 
   let { id, request, user } = $derived({ ...data, ...form });
-  let a = $state();
+  let a = $state(data.amount);
   let { currency } = $derived(user);
   let locale = loc(user);
   let event = $state();
 
   $effect(() => ($rate ||= data.rate));
   $effect(async () => {
-    if (form) {
+    if (form || request) {
       try {
         loading = false;
         event = await sign(request);
@@ -29,6 +30,7 @@
         await post("/post/payments", { amount, payreq, pin: $pin });
         goto(`/e/${id}`);
       } catch (e) {
+        console.log(e);
         fail(e.message);
       }
     }

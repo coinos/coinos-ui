@@ -18,7 +18,7 @@
     user?.profile ? `${base}/${user.profile}.webp` : user?.picture,
   );
   let fallback = $derived(
-    `${base}/punks/` + punk(user.pubkey || user?.id || "aa"),
+    `${base}/punks/` + punk(user?.pubkey || user?.id || "aa"),
   );
   let tmp = $derived($avatar?.id && $avatar.id === user?.id && $avatar.src);
   let src = $derived(tmp || profile || fallback);
@@ -31,7 +31,7 @@
     <img
       {src}
       class="w-full h-full object-cover object-center overflow-hidden"
-      alt={user.username}
+      alt={user?.username}
     />
   </div>
 {/snippet}

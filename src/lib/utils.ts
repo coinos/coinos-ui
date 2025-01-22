@@ -4,6 +4,12 @@ import { page } from "$app/stores";
 import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
 import { bytesToHex } from "@noble/hashes/utils";
 import { toast } from "@zerodevx/svelte-toast";
+import {
+	differenceInDays,
+	differenceInHours,
+	differenceInMinutes,
+	differenceInSeconds,
+} from "date-fns";
 import { decrypt } from "nostr-tools/nip49";
 import { get as getStore } from "svelte/store";
 
@@ -434,3 +440,19 @@ export const versions = {
 }[PUBLIC_COINOS_NETWORK];
 
 export const str = (s) => s.toString();
+
+export const ago = (t) => {
+	const now = new Date();
+	const date = new Date(t * 1000);
+	const seconds = differenceInSeconds(now, date);
+	if (seconds < 60) return `${seconds}s`;
+
+	const minutes = differenceInMinutes(now, date);
+	if (minutes < 60) return `${minutes}m`;
+
+	const hours = differenceInHours(now, date);
+	if (hours < 24) return `${hours}h`;
+
+	const days = differenceInDays(now, date);
+	return `${days}d`;
+};

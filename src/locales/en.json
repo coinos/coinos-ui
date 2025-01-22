@@ -1,4 +1,8 @@
 {
+	"notes": {
+		"contents": "Note contents",
+		"notFound": "We didn't find any notes"
+	},
 	"accounts": {
 		"showQR": "Show QR",
 		"revealNwc": "Reveal connection string",
