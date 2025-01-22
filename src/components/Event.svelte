@@ -8,8 +8,8 @@
   import { pin } from "$lib/store";
 
   let amount = 21;
-  let { event, minimal, last = true } = $props();
-  let { author, parts, zaps, names, created_at } = $derived(event);
+  let { event, minimal, last = true, user } = $props();
+  let { author, parts, zaps, names, created_at, pubkey } = $derived(event);
   let { id } = event;
 
   let zapping = $state();
@@ -31,7 +31,7 @@
 
 <div class="space-y-2 dark:border-primary py-8" class:border-b-8={!last}>
   <div class="flex">
-    <a href={`/${author.pubkey}/notes`} class="contents">
+    <a href={`/${pubkey}/notes`} class="contents">
       <div class="flex gap-2 items-center">
         <Avatar user={author} size={16} disabled={true} />
         <div>
@@ -85,7 +85,7 @@
   </div>
 {/if}
 
-{#if !minimal}
+{#if !(minimal || user?.pubkey === pubkey)}
   <div class="justify-center flex">
     <btn onclick={zap} class="btn btn-accent items-center">
       <div class="flex gap-1 items-center">

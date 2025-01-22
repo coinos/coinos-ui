@@ -17,7 +17,7 @@
     </a>
   {/if}
   {#each events as event, i}
-    <Event {event} minimal={true} last={i === events.length - 1} />
+    <Event {event} minimal={true} last={i === events.length - 1} {user} />
   {:else}
     <div class="text-2xl">{$t("notes.notFound")}</div>
   {/each}
