@@ -8,7 +8,7 @@
   import { pin } from "$lib/store";
 
   let amount = 21;
-  let { event, minimal, last } = $props();
+  let { event, minimal, last = true } = $props();
   let { author, parts, zaps, names, created_at } = $derived(event);
   let { id } = event;
 

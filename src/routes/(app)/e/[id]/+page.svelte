@@ -12,5 +12,5 @@
     Event
   </h1>
 
-  <Event {event} />
+  <Event {event} last={true} />
 </div>
