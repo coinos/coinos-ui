@@ -423,7 +423,8 @@
 		"ecashToken": "Jeton Ecash",
 		"lnurlw": "LNURLw",
 		"createFund": "Créer un fonds",
-		"withdraw": "Retrait"
+		"withdraw": "Retrait",
+		"other": "Autres"
 	},
 	"items": {
 		"add": "Ajouter un article",
@@ -458,5 +459,9 @@
 		"finish": "Terminer",
 		"showQR": "Afficher le QR code",
 		"revealNwc": "Révéler le NWC"
+	},
+	"notes": {
+		"contents": "Table des matières",
+		"notFound": "Aucune note trouvée"
 	}
 }

@@ -30,7 +30,8 @@
         {invoice}
         {user}
         {setType}
-        t={$t}
+        {toggleType}
+        {t}
       />
     </div>
   </div>

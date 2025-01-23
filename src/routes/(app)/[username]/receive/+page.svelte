@@ -19,7 +19,6 @@
   import Avatar from "$comp/Avatar.svelte";
   import InvoiceData from "$comp/InvoiceData.svelte";
   import InvoiceActions from "$comp/InvoiceActions.svelte";
-  import InvoiceTypes from "$comp/InvoiceTypes.svelte";
   import SetAmount from "$comp/SetAmount.svelte";
   import SetMemo from "$comp/SetMemo.svelte";
   import SetType from "$comp/SetType.svelte";

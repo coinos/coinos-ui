@@ -423,7 +423,8 @@
 		"ecashToken": "توکن Ecash",
 		"lnurlw": "LNURLw",
 		"createFund": "ایجاد یک صندوق",
-		"withdraw": "برگرفته از:"
+		"withdraw": "برگرفته از:",
+		"other": "دیگر"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",
@@ -458,5 +459,9 @@
 		"finish": "پایان",
 		"showQR": "نمایش QR",
 		"revealNwc": "NWC را آشکار کنید"
+	},
+	"notes": {
+		"contents": "مطالب توجه",
+		"notFound": "هیچ یادداشتی پیدا نشد"
 	}
 }

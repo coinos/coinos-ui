@@ -441,7 +441,8 @@
 		"ecashToken": "Ένδειξη Ecash",
 		"lnurlw": "LNURLW",
 		"createFund": "Δημιουργία ενός ταμείου",
-		"withdraw": "Αποσυρθείτε"
+		"withdraw": "Αποσυρθείτε",
+		"other": "Άλλα"
 	},
 	"items": {
 		"add": "Πρόσθεσε είδος",
@@ -476,5 +477,9 @@
 		"finish": "Φινίρισμα",
 		"showQR": "Εμφάνιση QR",
 		"revealNwc": "Αποκαλύψτε το NWC"
+	},
+	"notes": {
+		"contents": "Περιεχόμενα σημείωσης",
+		"notFound": "Δε βρέθηκαν σημειώσεις"
 	}
 }

@@ -447,7 +447,8 @@
 		"fundsClaimed": "Fonlar iddia etti!",
 		"print": "Baskı",
 		"onlyLbtc": "Sadece destek veriyoruz",
-		"dontDeposit": "Lütfen diğer Sıvı varlıklardan depozito almayın"
+		"dontDeposit": "Lütfen diğer Sıvı varlıklardan depozito almayın",
+		"other": "Diğer"
 	},
 	"items": {
 		"add": "Ekle item",
@@ -477,5 +478,9 @@
 		"nl": "Nederlands",
 		"th": "ไทย",
 		"pl": "Polski"
+	},
+	"notes": {
+		"contents": "Not Content",
+		"notFound": "Hiçbir not bulunamadı"
 	}
 }

@@ -423,7 +423,8 @@
 		"ecashToken": "Ecashトークン",
 		"lnurlw": "ログイン",
 		"createFund": "ファンドを作成する",
-		"withdraw": "フィードバック"
+		"withdraw": "フィードバック",
+		"other": "その他"
 	},
 	"items": {
 		"add": "アイテムの追加",
@@ -458,5 +459,9 @@
 		"finish": "仕上げる",
 		"showQR": "QRコードを表示",
 		"revealNwc": "NWCを公開"
+	},
+	"notes": {
+		"contents": "コンテンツ",
+		"notFound": "ノートが見つかりません"
 	}
 }

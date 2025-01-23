@@ -447,7 +447,8 @@
 		"fundsClaimed": "Pieniądze!",
 		"print": "Drukuj",
 		"onlyLbtc": "My tylko popieramy",
-		"dontDeposit": "Proszę nie deponować innych aktywów płynnych"
+		"dontDeposit": "Proszę nie deponować innych aktywów płynnych",
+		"other": "Inne"
 	},
 	"items": {
 		"add": "Dodaj element",
@@ -477,5 +478,9 @@
 		"nl": "Nederlands",
 		"th": "ไทย",
 		"pl": "Polski"
+	},
+	"notes": {
+		"contents": "Zawartość notatki",
+		"notFound": "Nie znaleziono notatek"
 	}
 }
