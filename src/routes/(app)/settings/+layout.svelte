@@ -23,8 +23,8 @@
 
   let { token, cookies, subscriptions } = $derived(data);
   let { tab } = $derived(data);
-  let { user } = $derived(form || data);
-  let prev = $derived({ ...user });
+  let user = $derived({ ...data?.user, ...form?.user });
+  let prev = $derived({ ...data.user });
 
   let justUpdated;
   let throttledSuccess = () => {
@@ -49,11 +49,13 @@
     try {
       submitting = true;
       let body = new FormData(formElement);
-      let user = await fd({
-        formData() {
-          return body;
-        },
-      });
+      form = {
+        user: await fd({
+          formData() {
+            return body;
+          },
+        }),
+      };
 
       if (!user.pubkey || user.pubkey === prev.pubkey) {
         body.delete("pubkey");
@@ -119,7 +121,7 @@
         };
 
         try {
-          event = await sign(event, data.user);
+          event = await sign(event, user);
           send(event);
         } catch (e) {
           console.log(e);
