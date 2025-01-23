@@ -127,9 +127,9 @@
 		"pitch3": "إذا كنت تعتقد أنك يمكن أن تجعل أثرا، نود أن نسمع منك. أرسل لنا سيرتك الذاتية"
 	},
 	"landing": {
-    "header_before_icon": "أبسط",
-    "header_with_icon": "وأسرع",
-    "header_after_icon": "طريقة للبدء باستخدام البيتكوين.",
+		"header_before_icon": "أبسط",
+		"header_with_icon": "وأسرع",
+		"header_after_icon": "طريقة للبدء باستخدام البيتكوين.",
 		"subheader": "محفظة شبكية مجانية وصفحة دفع للجميع.",
 		"info1": {
 			"title": "مدفوعات محدودة عن طريق البرق",
@@ -447,7 +447,8 @@
 		"fundsClaimed": "الأموال المطالب بها!",
 		"print": "الطباعة",
 		"onlyLbtc": "نحن فقط ندعم",
-		"dontDeposit": "من فضلك لا تودع أصول سائلة أخرى"
+		"dontDeposit": "من فضلك لا تودع أصول سائلة أخرى",
+		"other": "أخرى"
 	},
 	"items": {
 		"add": "البند",
@@ -456,5 +457,9 @@
 		"price": "السعر",
 		"submit": "Submit",
 		"image": "الصورة"
+	},
+	"notes": {
+		"contents": "المحتويات",
+		"notFound": "No notes found"
 	}
 }

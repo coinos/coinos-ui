@@ -160,6 +160,7 @@
   <InvoiceActions
     bind:newAmount
     {setAmount}
+    {setType}
     {toggleType}
     {toggleAmount}
     {toggleMemo}

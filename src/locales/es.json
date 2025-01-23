@@ -423,7 +423,8 @@
 		"ecashToken": "Ecash token",
 		"lnurlw": "LNURLw",
 		"createFund": "Crear un fondo",
-		"withdraw": "Retirada"
+		"withdraw": "Retirada",
+		"other": "Otros"
 	},
 	"items": {
 		"add": "Añadir artículo",
@@ -458,5 +459,9 @@
 		"finish": "Finalizar",
 		"showQR": "Mostrar código QR",
 		"revealNwc": "Revelar NWC"
+	},
+	"notes": {
+		"contents": "Contenido de la nota",
+		"notFound": "No hay notas encontradas"
 	}
 }

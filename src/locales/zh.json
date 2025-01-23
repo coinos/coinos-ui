@@ -423,7 +423,8 @@
 		"ecashToken": "现金代号",
 		"lnurlw": "拉脱维亚",
 		"createFund": "创建基金",
-		"withdraw": "撤销"
+		"withdraw": "撤销",
+		"other": "其它"
 	},
 	"items": {
 		"add": "新增项目",
@@ -458,5 +459,9 @@
 		"finish": "结束",
 		"showQR": "显示二维码",
 		"revealNwc": "显示 NWC"
+	},
+	"notes": {
+		"contents": "说明内容",
+		"notFound": "未找到笔记"
 	}
 }

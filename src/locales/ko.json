@@ -447,7 +447,8 @@
 		"fundsClaimed": "자금 청구!",
 		"print": "제품정보",
 		"onlyLbtc": "우리는 단지 지원",
-		"dontDeposit": "다른 액체 자산을 입금하지 마십시오"
+		"dontDeposit": "다른 액체 자산을 입금하지 마십시오",
+		"other": "이름 *"
 	},
 	"items": {
 		"add": "더 보기",
@@ -477,5 +478,9 @@
 		"nl": "Nederlands",
 		"th": "ไทย",
 		"pl": "Polski"
+	},
+	"notes": {
+		"contents": "공지사항",
+		"notFound": "발견 된 노트"
 	}
 }

@@ -152,7 +152,7 @@
 		"continue": "Doorgaan",
 		"reset": "Wachtwoord resetten",
 		"resetDesc": "We kunnen een reset link sturen als je jouw e-mail hebt toegevoegd en geverifieerd. Anders kun je contact opnemen met",
-			"optional": "Facultatief",
+		"optional": "Facultatief",
 		"submit": "Verzenden",
 		"token": "2FA Token",
 		"username": "Gebruikersnaam",
@@ -447,7 +447,8 @@
 		"fundsClaimed": "Geld geclaimd!",
 		"print": "Afdrukken",
 		"onlyLbtc": "Wij ondersteunen alleen",
-		"dontDeposit": "Gelieve geen andere soorten te sturen"
+		"dontDeposit": "Gelieve geen andere soorten te sturen",
+		"other": "Andere"
 	},
 	"items": {
 		"add": "Item toevoegen",
@@ -477,5 +478,9 @@
 		"nl": "Nederlands",
 		"th": "ไทย",
 		"pl": "Polski"
+	},
+	"notes": {
+		"contents": "Inhoud notitie",
+		"notFound": "Geen notities gevonden"
 	}
 }

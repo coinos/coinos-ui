@@ -447,7 +447,8 @@
 		"fundsClaimed": "Fondi richiesti!",
 		"print": "Stampa",
 		"onlyLbtc": "Supportiamo solo",
-		"dontDeposit": "Non depositare altri beni Liquid"
+		"dontDeposit": "Non depositare altri beni Liquid",
+		"other": "Altri"
 	},
 	"items": {
 		"add": "Aggiungi articolo",
@@ -477,5 +478,9 @@
 		"nl": "Olandese",
 		"th": "Thailandese",
 		"pl": "Polacco"
+	},
+	"notes": {
+		"contents": "Contenuto della nota",
+		"notFound": "Nessun commento trovato"
 	}
 }
