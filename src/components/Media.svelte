@@ -20,8 +20,8 @@
       <a href={value.url}>{value.url.replace(/https?:\/\/(www\.)?/, "")}</a>
     </audio>
   {:else}
-    <a href={value.url}>
-      {value.url.replace(/https?:\/\/(www\.)?/, "")}
+    <a href={value.url} class="underline">
+      link
     </a>
   {/if}
 </div>

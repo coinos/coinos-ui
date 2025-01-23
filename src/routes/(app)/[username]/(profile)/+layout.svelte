@@ -125,7 +125,7 @@
         <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
         ></iconify-icon>
       </div>
-      <a href={`/${n}/notes`}>
+      <a href={`/${subject.pubkey}/notes`}>
         <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon>
       </a>
     </button>
@@ -149,24 +149,24 @@
       </div>
     {/if}
 
-    <!-- <div> -->
-    <!--   <div class="flex justify-center gap-2"> -->
-    <!--     <a -->
-    <!--       href={`/${subject.pubkey}/follows`} -->
-    <!--       data-sveltekit-preload-data="tap" -->
-    <!--       rel="nofollow" -->
-    <!--       ><b>{si(follows, 0, 0)}</b> -->
-    <!--       <span class="text-secondary">{$t("user.following")}</span></a -->
-    <!--     > -->
-    <!--     <a -->
-    <!--       href={`/${subject.pubkey}/followers`} -->
-    <!--       data-sveltekit-preload-data="tap" -->
-    <!--       rel="nofollow" -->
-    <!--       ><b>{si(followers, 0, 0)}</b> -->
-    <!--       <span class="text-secondary">{$t("user.followers")}</span></a -->
-    <!--     > -->
-    <!--   </div> -->
-    <!-- </div> -->
+    <div>
+      <div class="flex justify-center gap-2">
+        <a
+          href={`/${subject.pubkey}/follows`}
+          data-sveltekit-preload-data="tap"
+          rel="nofollow"
+          ><b>{si(follows, 0, 0)}</b>
+          <span class="text-secondary">{$t("user.following")}</span></a
+        >
+        <a
+          href={`/${subject.pubkey}/followers`}
+          data-sveltekit-preload-data="tap"
+          rel="nofollow"
+          ><b>{si(followers, 0, 0)}</b>
+          <span class="text-secondary">{$t("user.followers")}</span></a
+        >
+      </div>
+    </div>
 
     {#if showDetails}
       <div class="space-y-5 pb-20">
