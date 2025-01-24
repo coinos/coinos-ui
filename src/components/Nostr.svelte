@@ -181,17 +181,6 @@
               <div class="my-auto">Nostr connect</div>
             </button>
 
-            {#if signerAvailable}
-              <button type="button" class="btn" onclick={signerGetPubkey}>
-                <iconify-icon
-                  icon="material-symbols:diamond-rounded"
-                  width="32"
-                  class="text-orange-400"
-                ></iconify-icon>
-                <div class="my-auto">NIP-55 Signer</div>
-              </button>
-            {/if}
-
             <button type="button" class="btn" onclick={toggleNsec}>
               <iconify-icon icon="ph:key-bold" width="32"></iconify-icon>
               <div class="my-auto">Secret key</div>
