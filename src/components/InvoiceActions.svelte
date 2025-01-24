@@ -111,7 +111,7 @@
     {:else}
       <a href={link} class="block">
         <button class="btn grow !w-auto">
-          <iconify-icon noobserver icon="ph:wallet-bold" width="32"
+          <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"
           ></iconify-icon>
           <div class="my-auto">{t("payments.openLink")}</div>
         </button>
