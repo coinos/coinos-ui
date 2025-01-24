@@ -14,8 +14,5 @@ export async function load({ depends, parent }) {
 			() => [],
 		);
 
-	// const follows = [];
-	// const followers = [];
-
 	return { follows, followers, followList, rate: rates[subject.currency] };
 }
