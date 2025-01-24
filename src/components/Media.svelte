@@ -9,19 +9,17 @@
   let { value, minimal } = $props();
 </script>
 
-<div class="pt-2">
-  {#if !!isImage(value.url)}
-    <img src={value.url} alt={""} class:w-48={minimal} />
-  {:else if isVideo(value.url)}
-    <!-- svelte-ignore a11y-media-has-caption -->
-    <video src={value.url} controls />
-  {:else if isAudio(value.url)}
-    <audio src={value.url} controls>
-      <a href={value.url}>{value.url.replace(/https?:\/\/(www\.)?/, "")}</a>
-    </audio>
-  {:else}
-    <a href={value.url} class="underline">
-      link
-    </a>
-  {/if}
-</div>
+{#if !!isImage(value.url)}
+  <img src={value.url} alt={""} class="py-4" />
+{:else if isVideo(value.url)}
+  <!-- svelte-ignore a11y-media-has-caption -->
+  <video src={value.url} controls class="py-4" />
+{:else if isAudio(value.url)}
+  <audio src={value.url} controls>
+    <a href={value.url}>{value.url.replace(/https?:\/\/(www\.)?/, "")}</a>
+  </audio>
+{:else}
+  <a href={value.url} class="underline">
+    {value.url.substr(0, 24)}{value.url.length > 24 ? "..." : ""}
+  </a>
+{/if}

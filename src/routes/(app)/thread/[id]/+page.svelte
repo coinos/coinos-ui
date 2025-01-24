@@ -3,7 +3,6 @@
 
   let { data } = $props();
   let { thread } = $derived(data);
-  console.log(thread);
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5">
