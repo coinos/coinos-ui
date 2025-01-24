@@ -143,17 +143,31 @@
         <Success />
       {:else}
         {#if connectUrl}
-          <a href={connectUrl}>
-            <img
-              src={`/qr/${encodeURIComponent(connectUrl)}/raw`}
-              class="z-10 border-4 border-white"
-              alt="QR"
-            />
-            <div class="break-all">
-              {connectUrl}
-            </div>
-          </a>
-          <button class="btn" onclick={() => copy(connectUrl)}>Copy</button>
+          <div class="space-y-2">
+            <a href={connectUrl} class="block space-y-2">
+              <img
+                src={`/qr/${encodeURIComponent(connectUrl)}/raw`}
+                class="z-10 border-4 border-white"
+                alt="QR"
+              />
+              <div class="break-all">
+                {connectUrl}
+              </div>
+            </a>
+            <a href={connectUrl} class="btn">
+              <iconify-icon
+                noobserver
+                icon="ph:arrow-square-out-bold"
+                width="32"
+              ></iconify-icon>
+              {$t("payments.openLink")}</a
+            >
+            <button class="btn" onclick={() => copy(connectUrl)}>
+              <iconify-icon noobserver icon="ph:copy-bold" width="32"
+              ></iconify-icon>
+              {$t("payments.copy")}</button
+            >
+          </div>
         {:else}
           {#if $signer?.method === "nsec"}
             <input bind:value={nsec} placeholder="nsec..." />
