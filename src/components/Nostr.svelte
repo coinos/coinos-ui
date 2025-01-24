@@ -12,6 +12,7 @@
     generateSecretKey,
     getPublicKey,
   } from "nostr-tools";
+  import { getConversationKey, decrypt } from "nostr-tools/nip44";
   import { AmberClipboardSigner } from "applesauce-signer";
 
   import { copy, focus, fail, post } from "$lib/utils";
@@ -52,10 +53,17 @@
       async onevent(event) {
         let pk = event.pubkey;
         try {
-          let { result } = JSON.parse(
-            await nip04.decrypt(sk, pk, event.content),
-          );
-          if (result === connectionSecret) {
+          let result;
+          try {
+            ({ result } = JSON.parse(
+              await nip04.decrypt(sk, pk, event.content),
+            ));
+          } catch (e) {
+            let ck = await getConversationKey(sk, pk);
+            ({ result } = JSON.parse(await decrypt(event.content, ck)));
+          }
+
+          if (result === connectionSecret || result === "ack") {
             $signer = {
               method: "connect",
               params: {
@@ -154,17 +162,6 @@
               ></iconify-icon>
               <div class="my-auto">Submit</div>
             </button>
-          {/if}
-
-          {#if $signer?.method === "signer"}
-            <a href={signUrl} type="button" class="btn" onclick={signerSign}>
-              <iconify-icon
-                icon="material-symbols:diamond-rounded"
-                width="32"
-                class="text-orange-400"
-              ></iconify-icon>
-              <div class="my-auto">NIP-55 Signer</div>
-            </a>
           {/if}
 
           {#if !$signer}

@@ -17,6 +17,7 @@ import {
 	nip04,
 	nip19,
 } from "nostr-tools";
+import { decrypt as nip44decrypt, getConversationKey } from "nostr-tools/nip44";
 import { Relay } from "nostr-tools/relay";
 import { get } from "svelte/store";
 
@@ -168,9 +169,13 @@ const signingMethods = {
 				async onevent(event) {
 					pk = event.pubkey;
 					try {
-						const response = JSON.parse(
-							await nip04.decrypt(sk, pk, event.content),
-						);
+						let response;
+						try {
+							response = JSON.parse(await nip04.decrypt(sk, pk, event.content));
+						} catch (e) {
+							const ck = await getConversationKey(sk, pk);
+							response = JSON.parse(await nip44decrypt(event.content, ck));
+						}
 
 						if (response.id === id) resolve(JSON.parse(response.result));
 					} catch (e) {
