@@ -43,7 +43,7 @@ export const actions = {
 
 		const { pr } = await fetch(url).then((r) => r.json());
 		let path = `/send/lightning/${pr}`;
-		if (comment) path += `/${comment}`;
+		if (comment) path += `/${encodeURIComponent(comment)}`;
 		redirect(307, path);
 	},
 
