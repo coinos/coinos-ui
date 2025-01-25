@@ -424,7 +424,11 @@
 		"lnurlw": "LNURLw",
 		"createFund": "ایجاد یک صندوق",
 		"withdraw": "برگرفته از:",
-		"other": "دیگر"
+		"other": "دیگر",
+		"viewFund": "View Fund",
+		"zappedEvent": "دانلود بازی Zapped",
+		"accountSettings": "تنظیمات Account settings",
+		"advancedSettings": "تنظیمات پیشرفته"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",

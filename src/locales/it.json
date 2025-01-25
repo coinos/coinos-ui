@@ -448,7 +448,11 @@
 		"print": "Stampa",
 		"onlyLbtc": "Supportiamo solo",
 		"dontDeposit": "Non depositare altri beni Liquid",
-		"other": "Altri"
+		"other": "Altri",
+		"viewFund": "Visualizza fondo",
+		"zappedEvent": "Evento Zapped",
+		"accountSettings": "Impostazioni account",
+		"advancedSettings": "Impostazioni avanzate"
 	},
 	"items": {
 		"add": "Aggiungi articolo",

@@ -448,7 +448,11 @@
 		"print": "الطباعة",
 		"onlyLbtc": "نحن فقط ندعم",
 		"dontDeposit": "من فضلك لا تودع أصول سائلة أخرى",
-		"other": "أخرى"
+		"other": "أخرى",
+		"viewFund": "صندوق الرؤية",
+		"zappedEvent": "حدث مزروع",
+		"accountSettings": "الحسابات",
+		"advancedSettings": "البيئات المتقدمة"
 	},
 	"items": {
 		"add": "البند",

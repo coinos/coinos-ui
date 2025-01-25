@@ -448,7 +448,11 @@
 		"print": "छाप",
 		"onlyLbtc": "हम केवल समर्थन करते हैं",
 		"dontDeposit": "कृपया अन्य तरल परिसंपत्तियों को जमा न करें",
-		"other": "अन्य"
+		"other": "अन्य",
+		"viewFund": "फंड देखें",
+		"zappedEvent": "Zapped घटना",
+		"accountSettings": "खाता सेटिंग्स",
+		"advancedSettings": "उन्नत सेटिंग्स"
 	},
 	"items": {
 		"add": "आइटम जोड़ें",

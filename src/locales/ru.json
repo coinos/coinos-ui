@@ -424,7 +424,11 @@
 		"lnurlw": "Нюрлу",
 		"createFund": "Создать фонд",
 		"withdraw": "Отозвать",
-		"other": "Другой"
+		"other": "Другой",
+		"viewFund": "Посмотреть фонд",
+		"zappedEvent": "Закрытое мероприятие",
+		"accountSettings": "Параметры счета",
+		"advancedSettings": "Расширенные настройки"
 	},
 	"items": {
 		"add": "Добавить элемент",

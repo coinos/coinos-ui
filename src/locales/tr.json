@@ -448,7 +448,11 @@
 		"print": "Baskı",
 		"onlyLbtc": "Sadece destek veriyoruz",
 		"dontDeposit": "Lütfen diğer Sıvı varlıklardan depozito almayın",
-		"other": "Diğer"
+		"other": "Diğer",
+		"viewFund": "View Fund",
+		"zappedEvent": "Zapped event",
+		"accountSettings": "Hesap ayarları",
+		"advancedSettings": "Gelişmiş ayarlar"
 	},
 	"items": {
 		"add": "Ekle item",

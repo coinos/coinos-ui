@@ -448,7 +448,11 @@
 		"print": "Drukuj",
 		"onlyLbtc": "My tylko popieramy",
 		"dontDeposit": "Proszę nie deponować innych aktywów płynnych",
-		"other": "Inne"
+		"other": "Inne",
+		"viewFund": "Pokaż fundusz",
+		"zappedEvent": "Zdarzenie zacofane",
+		"accountSettings": "Ustawienia konta",
+		"advancedSettings": "Ustawienia zaawansowane"
 	},
 	"items": {
 		"add": "Dodaj element",
