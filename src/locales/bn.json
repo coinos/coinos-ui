@@ -395,7 +395,7 @@
 		"shareLink": "যৌথ ব্যবহার",
 		"copyLink": "লিংক দ্বারা চিহ্নিত ঠিকানা কপি করুন",
 		"copyText": "টেক্সট কপি করুন",
-    "openLink": "খুলুন",
+		"openLink": "খুলুন",
 		"setAmount": "পরিমাণ নির্ধারণ করুন",
 		"moreOptions": "অতিরিক্ত বিকল্প",
 		"redeemVoucher": "সেল",
@@ -448,7 +448,11 @@
 		"print": "প্রিন্ট করুন",
 		"onlyLbtc": "আমরা শুধু সমর্থন করি",
 		"dontDeposit": "অনুগ্রহ করে অন্য তরল সম্পদ জমা করবেন না",
-		"other": "অন্যান্য"
+		"other": "অন্যান্য",
+		"viewFund": "ফান্ড প্রদর্শন",
+		"zappedEvent": "Zpped ইভেন্ট",
+		"accountSettings": "অ্যাকাউন্ট",
+		"advancedSettings": "উন্নত সেটিংসমূহ"
 	},
 	"items": {
 		"add": "বস্তু যোগ করুন",

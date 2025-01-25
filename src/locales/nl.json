@@ -448,7 +448,11 @@
 		"print": "Afdrukken",
 		"onlyLbtc": "Wij ondersteunen alleen",
 		"dontDeposit": "Gelieve geen andere soorten te sturen",
-		"other": "Andere"
+		"other": "Andere",
+		"viewFund": "Bekijk fonds",
+		"zappedEvent": "Afgelopen gebeurtenis",
+		"accountSettings": "Accountinstellingen",
+		"advancedSettings": "Geavanceerde instellingen"
 	},
 	"items": {
 		"add": "Item toevoegen",

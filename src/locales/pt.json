@@ -446,7 +446,11 @@
 		"lnurlw": "LNURLW",
 		"createFund": "Criar um fundo",
 		"withdraw": "Retirar",
-		"other": "Outros"
+		"other": "Outros",
+		"viewFund": "Ver fundo",
+		"zappedEvent": "Evento Zapped",
+		"accountSettings": "Definições da conta",
+		"advancedSettings": "Definições avançadas"
 	},
 	"items": {
 		"add": "Adicionar item",

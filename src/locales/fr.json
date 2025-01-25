@@ -424,7 +424,11 @@
 		"lnurlw": "LNURLw",
 		"createFund": "Créer un fonds",
 		"withdraw": "Retrait",
-		"other": "Autres"
+		"other": "Autres",
+		"viewFund": "Voir le fonds",
+		"zappedEvent": "Événement Zappé",
+		"accountSettings": "Paramètres du compte",
+		"advancedSettings": "Paramètres avancés"
 	},
 	"items": {
 		"add": "Ajouter un article",

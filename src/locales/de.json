@@ -451,7 +451,11 @@
 		"lnurlw": "LNURLW",
 		"createFund": "Einen Fonds erstellen",
 		"withdraw": "Zurückziehen",
-		"other": "Sonstige"
+		"other": "Sonstige",
+		"viewFund": "Ansichtsfonds",
+		"zappedEvent": "Zapped Ereignis",
+		"accountSettings": "Kontoeinstellungen",
+		"advancedSettings": "Erweiterte Einstellungen"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

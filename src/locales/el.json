@@ -442,7 +442,11 @@
 		"lnurlw": "LNURLW",
 		"createFund": "Δημιουργία ενός ταμείου",
 		"withdraw": "Αποσυρθείτε",
-		"other": "Άλλα"
+		"other": "Άλλα",
+		"viewFund": "Προβολή κεφαλαίων",
+		"zappedEvent": "Γεγονός zapped",
+		"accountSettings": "Settings λογαριασμού",
+		"advancedSettings": "Προχωρημένες ρυθμίσεις"
 	},
 	"items": {
 		"add": "Πρόσθεσε είδος",
