@@ -48,7 +48,9 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">Account settings</h1>
+  <h1 class="text-center text-3xl font-semibold">
+    {$t("payments.accountSettings")}
+  </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <form class="space-y-5" method="POST">
@@ -57,12 +59,14 @@
           <Mnemonic {mnemonic} />
 
           <button onclick={() => copy(mnemonic)} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:copy-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
           <button onclick={toggle} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:eye-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:eye-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
           >
         {:else if nwc}
@@ -70,25 +74,29 @@
             {nwc}
           </div>
           <button onclick={() => copy(nwc)} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:copy-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
           <a href={`/qr/${encodeURIComponent(nwc)}`} class="my-auto block">
             <button onclick={() => copy(nwc)} type="button" class="btn">
-              <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+              <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+              ></iconify-icon>
               <div class="my-auto">{$t("user.receive.showQR")}</div></button
             >
           </a>
         {:else}
           <button onclick={revealNwc} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:eye-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:eye-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("accounts.revealNwc")}</div></button
           >
         {/if}
 
         {#if seed}
           <button onclick={del} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:trash-bold" width="32"></iconify-icon>
+            <iconify-icon noobserver icon="ph:trash-bold" width="32"
+            ></iconify-icon>
             <div class="my-auto">{$t("accounts.deleteAccount")}</div></button
           >
         {/if}

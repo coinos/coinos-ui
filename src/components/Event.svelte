@@ -6,6 +6,7 @@
   import { sign } from "$lib/nostr";
   import Pin from "$comp/Pin.svelte";
   import { pin } from "$lib/store";
+  import { page } from "$app/stores";
 
   let amount = 21;
   let { event, minimal, last = true, user } = $props();
@@ -18,12 +19,14 @@
     try {
       const body = new FormData();
 
+      if (!user) return goto(`/register?redirect=${$page.url.pathname}`);
       let request = await post("/post/zapRequest", { amount, id });
       let { pr: payreq } = await post("/post/zap", {
         event: await sign(request),
       });
       await post("/post/payments", { amount, payreq });
     } catch (e) {
+      console.log(e);
       fail(e.message);
     }
   };

@@ -352,6 +352,10 @@
 		}
 	},
 	"payments": {
+    "viewFund": "View fund",
+    "zappedEvent": "Zapped event",
+		"accountSettings": "Account settings",
+		"advancedSettings": "Advanced settings",
 		"moreOptions": "More options...",
 		"other": "Other",
 		"ok": "Ok",
