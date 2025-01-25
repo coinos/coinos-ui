@@ -11,7 +11,7 @@
 
   let { data, form } = $props();
 
-  let { alias, payreq, ourfee, user } = $derived({ ...data, ...form });
+  let { alias, memo, payreq, ourfee, user } = $derived({ ...data, ...form });
   let a = $state();
   let { currency } = $derived(user);
   let locale = loc(user);
@@ -75,6 +75,7 @@
       <input name="payreq" value={payreq} type="hidden" />
       <input name="amount" value={amount} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />
+      <input name="memo" type="hidden" value={memo} />
 
       {#if form?.message || showMax}
         <div class="mx-auto space-y-2">
