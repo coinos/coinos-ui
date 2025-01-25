@@ -38,8 +38,10 @@ export const actions = {
 			const body = await fd(request);
 
 			p = await post("/payments", body, auth(cookies));
-		} catch (_) {
-			return fail(400, { message: "payments.failedToRoute" });
+		} catch (e) {
+			let { message } = e as Error;
+			if (!message.includes("Insufficient")) message = "payments.failedToRoute";
+			return fail(400, { message });
 		}
 
 		redirect(307, `/sent/${p.id}`);
