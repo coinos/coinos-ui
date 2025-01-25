@@ -80,7 +80,10 @@
     <span class="text-lg text-secondary">{$t(title)}</span>
     <div class="flex gap-2 items-end">
       <div class="flex items-center">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300"
         ></iconify-icon>{s(amount, userLocale)}
       </div>
       <span class="text-secondary text-lg">
@@ -106,23 +109,6 @@
       </div>
     </a>
   {/if}
-  {#if p.type === types.fund}
-    <div>
-      <span class="text-lg text-secondary my-auto mr-2">{direction}</span>
-      <a href={`/fund/${p.memo}`}>
-        <div class="flex">
-          <div class="my-auto">
-            <iconify-icon noobserver
-              icon="ph:lightning-fill"
-              width="24"
-              class="text-yellow-300"
-            ></iconify-icon>
-          </div>
-          <div class="my-auto ml-1">{p.memo}</div>
-        </div>
-      </a>
-    </div>
-  {/if}
 
   {@render field("payments.amount", a)}
 
@@ -146,16 +132,32 @@
   </div>
 
   {#if type === types.ecash && amount < 0}
-    <a href={`/ecash/${memo}`} class="block">
-      <button class="btn">
-        <img src="/images/cash.png" class="w-8" alt="Cash" />
-        <div>{$t("payments.ecashToken")}</div>
-      </button>
+    <a href={`/ecash/${memo}`} class="btn">
+      <img src="/images/cash.png" class="w-8" alt="Cash" />
+      <div>{$t("payments.ecashToken")}</div>
+    </a>
+  {:else if type === types.fund}
+    <a href={`/fund/${memo}`} class="btn btn-accent">
+      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+      ></iconify-icon>{$t("payments.viewFund")}
+    </a>
+  {:else if memo?.includes("9734")}
+    {@const eid = JSON.parse(memo).tags.find((t) => t[0] === "e")[1]}
+    <a href={`/e/${eid}`} class="btn btn-accent">
+      <img src="/images/nostr.png" class="w-8" />
+      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+      ></iconify-icon>{$t("payments.zappedEvent")}
     </a>
   {:else if memo}
     <div>
       <span class="text-lg text-secondary">{$t("payments.memo")}</span>
-      <div>{memo}</div>
+      <div>
+        {#if memo.includes("text/plain")}
+          {JSON.parse(memo)[0][1]}
+        {:else}
+          {memo}
+        {/if}
+      </div>
     </div>
   {/if}
 

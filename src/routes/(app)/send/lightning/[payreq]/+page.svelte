@@ -115,7 +115,7 @@
 
       {#if !(form?.message || showMax)}
         <button type="button" class="btn" onclick={() => (showMax = !showMax)}
-          >Advanced settings</button
+          >{$t("payments.advancedSettings")}</button
         >
         <input name="maxfee" type="hidden" bind:value={maxfee} />
       {/if}

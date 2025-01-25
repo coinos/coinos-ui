@@ -3,8 +3,6 @@
 
   let { data } = $props();
   let { event, user } = $derived(data);
-
-  let zap = () => {};
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5">
