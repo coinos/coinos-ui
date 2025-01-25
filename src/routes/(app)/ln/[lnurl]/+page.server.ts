@@ -42,7 +42,9 @@ export const actions = {
 		if (comment) url += `&comment=${comment}`;
 
 		const { pr } = await fetch(url).then((r) => r.json());
-		redirect(307, `/send/lightning/${pr}`);
+		let path = `/send/lightning/${pr}`;
+		if (comment) path += `/${comment}`;
+		redirect(307, path);
 	},
 
 	withdraw: async ({ cookies, fetch, request }) => {
