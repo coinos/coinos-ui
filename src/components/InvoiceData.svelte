@@ -1,7 +1,7 @@
 <script>
   import Amount from "$comp/Amount.svelte";
 
-  import { btc, f, sat, s, sats, types } from "$lib/utils";
+  import { btc, copy, f, sat, s, sats, types } from "$lib/utils";
   let {
     showQr,
     link,
@@ -37,7 +37,11 @@
 
 {#if invoice.type === types.liquid}
   <div class="flex justify-center p-4 shadow items-center gap-2">
-    <iconify-icon noobserver icon="ph:warning-bold" width="48" class="text-warning"
+    <iconify-icon
+      noobserver
+      icon="ph:warning-bold"
+      width="48"
+      class="text-warning"
     ></iconify-icon>
     <div>
       <div class="my-auto text-xl text-center text-secondary">
@@ -50,8 +54,14 @@
 {/if}
 
 {#if !showQr || txt.length <= 120}
-  <div class="break-all text-center text-secondary text-xl">
+  <div
+    class="break-all text-center text-secondary text-xl flex gap-1 items-center justify-center"
+  >
     {txt}
+
+    <button onclick={() => copy(txt)}>
+      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+    </button>
   </div>
 {/if}
 
