@@ -428,7 +428,8 @@
 		"viewFund": "Посмотреть фонд",
 		"zappedEvent": "Закрытое мероприятие",
 		"accountSettings": "Параметры счета",
-		"advancedSettings": "Расширенные настройки"
+		"advancedSettings": "Расширенные настройки",
+		"exchangeRate": "Обменный курс"
 	},
 	"items": {
 		"add": "Добавить элемент",

@@ -452,7 +452,8 @@
 		"viewFund": "Pokaż fundusz",
 		"zappedEvent": "Zdarzenie zacofane",
 		"accountSettings": "Ustawienia konta",
-		"advancedSettings": "Ustawienia zaawansowane"
+		"advancedSettings": "Ustawienia zaawansowane",
+		"exchangeRate": "Kurs wymiany"
 	},
 	"items": {
 		"add": "Dodaj element",

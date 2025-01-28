@@ -452,7 +452,8 @@
 		"viewFund": "การปรับแต่งมุมมอง",
 		"zappedEvent": "เหตุการณ์ต่าง ๆ ที่ถูกย่อหาย",
 		"accountSettings": "ตั้งค่าบัญชีผู้ใช้",
-		"advancedSettings": "ตั้งค่าขั้นสูง"
+		"advancedSettings": "ตั้งค่าขั้นสูง",
+		"exchangeRate": "อัตราแลกเปลี่ยน"
 	},
 	"items": {
 		"add": "เพิ่มรายการ",

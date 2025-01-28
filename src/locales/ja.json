@@ -428,7 +428,8 @@
 		"viewFund": "ファンドを見る",
 		"zappedEvent": "Zappedイベント",
 		"accountSettings": "アカウント設定",
-		"advancedSettings": "高度な設定"
+		"advancedSettings": "高度な設定",
+		"exchangeRate": "為替レート"
 	},
 	"items": {
 		"add": "アイテムの追加",

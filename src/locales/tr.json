@@ -452,7 +452,8 @@
 		"viewFund": "View Fund",
 		"zappedEvent": "Zapped event",
 		"accountSettings": "Hesap ayarları",
-		"advancedSettings": "Gelişmiş ayarlar"
+		"advancedSettings": "Gelişmiş ayarlar",
+		"exchangeRate": "Değişim oranı"
 	},
 	"items": {
 		"add": "Ekle item",

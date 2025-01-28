@@ -428,7 +428,8 @@
 		"viewFund": "查看基金",
 		"zappedEvent": "突袭事件",
 		"accountSettings": "账户设置",
-		"advancedSettings": "高级设置"
+		"advancedSettings": "高级设置",
+		"exchangeRate": "汇率"
 	},
 	"items": {
 		"add": "新增项目",

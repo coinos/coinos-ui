@@ -452,7 +452,8 @@
 		"viewFund": "Bekijk fonds",
 		"zappedEvent": "Afgelopen gebeurtenis",
 		"accountSettings": "Accountinstellingen",
-		"advancedSettings": "Geavanceerde instellingen"
+		"advancedSettings": "Geavanceerde instellingen",
+		"exchangeRate": "Wisselkoers"
 	},
 	"items": {
 		"add": "Item toevoegen",

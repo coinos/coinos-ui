@@ -452,7 +452,8 @@
 		"viewFund": "Visualizza fondo",
 		"zappedEvent": "Evento Zapped",
 		"accountSettings": "Impostazioni account",
-		"advancedSettings": "Impostazioni avanzate"
+		"advancedSettings": "Impostazioni avanzate",
+		"exchangeRate": "Tasso di cambio"
 	},
 	"items": {
 		"add": "Aggiungi articolo",

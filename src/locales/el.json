@@ -446,7 +446,8 @@
 		"viewFund": "Προβολή κεφαλαίων",
 		"zappedEvent": "Γεγονός zapped",
 		"accountSettings": "Settings λογαριασμού",
-		"advancedSettings": "Προχωρημένες ρυθμίσεις"
+		"advancedSettings": "Προχωρημένες ρυθμίσεις",
+		"exchangeRate": "Συναλλαγματική ισοτιμία"
 	},
 	"items": {
 		"add": "Πρόσθεσε είδος",

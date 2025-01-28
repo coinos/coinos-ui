@@ -450,7 +450,8 @@
 		"viewFund": "Ver fundo",
 		"zappedEvent": "Evento Zapped",
 		"accountSettings": "Definições da conta",
-		"advancedSettings": "Definições avançadas"
+		"advancedSettings": "Definições avançadas",
+		"exchangeRate": "Taxa de câmbio"
 	},
 	"items": {
 		"add": "Adicionar item",

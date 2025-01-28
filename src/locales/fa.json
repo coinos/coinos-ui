@@ -428,7 +428,8 @@
 		"viewFund": "View Fund",
 		"zappedEvent": "دانلود بازی Zapped",
 		"accountSettings": "تنظیمات Account settings",
-		"advancedSettings": "تنظیمات پیشرفته"
+		"advancedSettings": "تنظیمات پیشرفته",
+		"exchangeRate": "نرخ تبادل"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",
