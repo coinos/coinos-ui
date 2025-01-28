@@ -455,7 +455,8 @@
 		"viewFund": "Ansichtsfonds",
 		"zappedEvent": "Zapped Ereignis",
 		"accountSettings": "Kontoeinstellungen",
-		"advancedSettings": "Erweiterte Einstellungen"
+		"advancedSettings": "Erweiterte Einstellungen",
+		"exchangeRate": "Wechselkurs"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

@@ -352,6 +352,7 @@
 		}
 	},
 	"payments": {
+    "exchangeRate": "Exchange rate",
     "viewFund": "View fund",
     "zappedEvent": "Zapped event",
 		"accountSettings": "Account settings",

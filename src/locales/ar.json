@@ -452,7 +452,8 @@
 		"viewFund": "صندوق الرؤية",
 		"zappedEvent": "حدث مزروع",
 		"accountSettings": "الحسابات",
-		"advancedSettings": "البيئات المتقدمة"
+		"advancedSettings": "البيئات المتقدمة",
+		"exchangeRate": "سعر الصرف"
 	},
 	"items": {
 		"add": "البند",

@@ -452,7 +452,8 @@
 		"viewFund": "फंड देखें",
 		"zappedEvent": "Zapped घटना",
 		"accountSettings": "खाता सेटिंग्स",
-		"advancedSettings": "उन्नत सेटिंग्स"
+		"advancedSettings": "उन्नत सेटिंग्स",
+		"exchangeRate": "विनिमय दर"
 	},
 	"items": {
 		"add": "आइटम जोड़ें",

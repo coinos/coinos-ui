@@ -452,7 +452,8 @@
 		"viewFund": "ফান্ড প্রদর্শন",
 		"zappedEvent": "Zpped ইভেন্ট",
 		"accountSettings": "অ্যাকাউন্ট",
-		"advancedSettings": "উন্নত সেটিংসমূহ"
+		"advancedSettings": "উন্নত সেটিংসমূহ",
+		"exchangeRate": "Exchangeের মাত্রা"
 	},
 	"items": {
 		"add": "বস্তু যোগ করুন",
