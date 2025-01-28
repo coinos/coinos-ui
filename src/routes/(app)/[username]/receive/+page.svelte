@@ -30,7 +30,8 @@
 
   let showOptions;
 
-  let { id, rate, subject, user, text } = $state(data);
+  let id = $state();
+  let { rate, subject, user, text } = $derived(data);
   let locale = loc(user);
 
   let { currency, username } = subject;
@@ -43,6 +44,7 @@
     aid,
     type: types.lightning,
     items: [],
+    rate,
     text,
     uid: subject.id,
     user: subject,
