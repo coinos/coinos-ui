@@ -99,6 +99,7 @@
 
     let keys = [
       "type",
+      "ref",
       "id",
       "created",
       "rate",
