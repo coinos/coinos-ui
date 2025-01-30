@@ -9,14 +9,14 @@
       name: "adam",
       socials: [
         {
-          type: "twitter",
-          url: "https://twitter.com/adamsoltys",
-          color: "bg-[#1D9BF0]",
+          alt: "Nostr",
+          src: "/images/nostr.svg",
+          url: "https://coinos.io/566c166f3adab0c8fba5da015b0b3bcc8eb3696b455f2a1d43bfbd97059646a8",
         },
         {
-          type: "github",
+          alt: "Github",
+          src: "/images/github.svg",
           url: "https://github.com/asoltys",
-          color: "bg-gray-800",
         },
       ],
     },
@@ -58,13 +58,11 @@
               </div>
 
               <div class="mt-2 flex justify-center items-center space-x-5">
-                {#each member.socials as social}
+                {#each member.socials as { alt, src, url }}
                   <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    class={`rounded-full p-2 ${social.color} hover:opacity-80`}
-                    ><Icon icon={social.type} style="w-6" /></a
+                    href={url}
+                    class={`rounded-full p-2 hover:opacity-80`}
+                    ><img {src} {alt} class="w-8" /></a
                   >
                 {/each}
               </div>
