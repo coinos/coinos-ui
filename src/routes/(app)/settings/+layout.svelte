@@ -138,7 +138,7 @@
 
           user.verified = false;
 
-          await post("/email", { id: user.id, email });
+          await post("/email", { email });
 
           warning($t("user.settings.verifying"), false);
         } catch (e) {
