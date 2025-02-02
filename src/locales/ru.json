@@ -87,13 +87,13 @@
 		"company": "Компания",
 		"followUs": "Подписывайтесь на нас",
 		"github": "GitHub",
-		"linktree": "Линктри",
+		"linktree": "Linktree",
 		"jobs": "Вакансии",
-		"support": "Поддерживать",
-		"telegram": "Телеграмма",
-		"twitter": "Твиттер",
+		"support": "Поддержать",
+		"telegram": "Telegram",
+		"twitter": "X(twitter)",
 		"documentation": "Документация",
-		"nostr": "Ностр"
+		"nostr": "Nostr"
 	},
 	"howItWorks": {
 		"header": "Как это работает",
