@@ -14,6 +14,8 @@
   import { page } from "$app/stores";
   import { sign } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
+  import { sha256 } from "@noble/hashes/sha256";
+  import { bytesToHex } from "@noble/hashes/utils";
 
   let { data, form } = $props();
 
@@ -87,10 +89,14 @@
 
   let nostrLogin = async () => {
     let event = {
-      kind: 1,
+      kind: 27235,
       created_at: Date.now(),
-      content: challenge,
-      tags: [],
+      content: "",
+      tags: [
+        ["u", `${$page.url.origin}/api/nostrLogin`],
+        ["method", "POST"],
+        ["challenge", challenge],
+      ],
     };
 
     let signedEvent = await sign(event);
