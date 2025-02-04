@@ -19,9 +19,11 @@ export function decode(uri, allowedSchemes = ["bitcoin", "liquidnetwork"]) {
 	const query = queryStart === -1 ? "" : uri.slice(queryStart + 1);
 	const options = Object.fromEntries(new URLSearchParams(query));
 
-	const n = Number(options?.amount);
-	if (!Number.isFinite(n)) throw new Error("Invalid amount");
-	if (n < 0) throw new Error("Invalid amount");
+	if (options.amount) {
+		const n = Number(options.amount);
+		if (!Number.isFinite(n)) throw new Error("Invalid amount");
+		if (n < 0) throw new Error("Invalid amount");
+	}
 
 	return { scheme: urnScheme, address, options };
 }
