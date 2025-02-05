@@ -92,7 +92,7 @@
           >
             <input
               id="maxfee"
-              name="maxfee"
+              name="fee"
               bind:value={maxfee}
               class="clean !grow"
             />
