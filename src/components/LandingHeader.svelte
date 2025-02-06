@@ -45,7 +45,7 @@
         <button
           class="btn !w-auto !rounded-full"
           onclick={() => goto(`/${user.username}`)}
-          >Home
+          >{$t("nav.home")}
         </button>
         <button
           class="btn !w-auto !rounded-full"
@@ -73,7 +73,8 @@
       class="block lg:hidden absolute top-[34.5px] right-10 z"
       onclick={() => (showMobileMenu = !showMobileMenu)}
     >
-      <iconify-icon noobserver
+      <iconify-icon
+        noobserver
         icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"}
         width="32"
       ></iconify-icon>
