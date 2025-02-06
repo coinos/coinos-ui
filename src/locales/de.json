@@ -179,7 +179,8 @@
 		"merch": "Beute",
 		"dark": "Dunkel",
 		"light": "Licht",
-		"register": "Register"
+		"register": "Register",
+		"home": "Zum Anfang"
 	},
 	"newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Coinos-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {

@@ -188,7 +188,8 @@
 		"signOut": "Afmelden",
 		"dashboard": "Dashboard",
 		"settings": "Instellingen",
-		"support": "Ondersteuning"
+		"support": "Ondersteuning",
+		"home": "Begin"
 	},
 	"news": {
 		"header": "Nieuws",

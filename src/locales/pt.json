@@ -178,7 +178,8 @@
 		"support": "Suporte",
 		"dark": "Escuto",
 		"light": "Luz",
-		"register": "Registo"
+		"register": "Registo",
+		"home": "Home"
 	},
 	"newSiteHeader": "Join us at our <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">launch party</a> in Vancouver on October 26! Looking for the old coinos? Visit <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
 	"news": {

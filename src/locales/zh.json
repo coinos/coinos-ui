@@ -162,7 +162,8 @@
 		"support": "支持",
 		"dark": "深色",
 		"light": "浅色",
-		"register": "注册"
+		"register": "注册",
+		"home": "内容"
 	},
 	"news": {
 		"header": "消息",

@@ -162,7 +162,8 @@
 		"support": "Soporte",
 		"dark": "Oscuro",
 		"light": "Luz",
-		"register": "Registro"
+		"register": "Registro",
+		"home": "Home"
 	},
 	"news": {
 		"header": "Noticias",

@@ -188,7 +188,8 @@
 		"signOut": "이름 *",
 		"dashboard": "대시보드",
 		"settings": "계정 설정",
-		"support": "지원하다"
+		"support": "지원하다",
+		"home": "(주)"
 	},
 	"news": {
 		"header": "(주)",

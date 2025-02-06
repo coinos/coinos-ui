@@ -142,7 +142,8 @@
 		"funds": "Fonds",
 		"dark": "Sombre",
 		"light": "Clair",
-		"register": "S'enregistrer"
+		"register": "S'enregistrer",
+		"home": "Sommaire"
 	},
 	"invoice": {
 		"addTip": "Ajouter un pourboire",
