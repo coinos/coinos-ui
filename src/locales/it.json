@@ -188,7 +188,8 @@
 		"signOut": "Disconnetti",
 		"dashboard": "Pannello",
 		"settings": "Impostazioni",
-		"support": "Supporto"
+		"support": "Supporto",
+		"home": "Home"
 	},
 	"news": {
 		"header": "Notizie",

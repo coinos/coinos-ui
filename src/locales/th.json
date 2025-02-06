@@ -188,7 +188,8 @@
 		"signOut": "เซ็น",
 		"dashboard": "แดชบอร์ด",
 		"settings": "ตั้งค่า",
-		"support": "สนับสนุน"
+		"support": "สนับสนุน",
+		"home": "บ้าน"
 	},
 	"news": {
 		"header": "ข่าว",

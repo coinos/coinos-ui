@@ -176,6 +176,7 @@
 		"nostrConnect": "Nostr connect"
 	},
 	"nav": {
+    "home": "Home",
 		"dark": "Dark",
 		"light": "Light",
 		"about": "About",
