@@ -1,3 +1,4 @@
 export async function load({ params }) {
-	return params;
+	const { text } = params;
+	return { text };
 }

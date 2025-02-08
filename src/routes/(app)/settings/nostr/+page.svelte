@@ -1,10 +1,11 @@
 <script>
+  import { untrack } from "svelte";
   import { browser } from "$app/environment";
   import { getNsec } from "$lib/nostr";
   import { page } from "$app/stores";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
-  import { copy, fail } from "$lib/utils";
+  import { s, copy, fail } from "$lib/utils";
   import {
     PUBLIC_COINOS_PUBKEY as pk,
     PUBLIC_COINOS_RELAY as relay,
@@ -12,9 +13,10 @@
   import { signer, save } from "$lib/store";
 
   let { data } = $props();
-  let { challenge, user } = $derived(data);
-  let { npub } = $state(user);
+  let { apps, challenge, user } = $derived(data);
+  let npub = $state(untrack(() => user.npub));
   let extensionAvailable = $derived(browser && window.nostr);
+  let { locale } = $derived(user);
 
   let newNsec = $state(),
     nsec = $state(),
@@ -31,14 +33,6 @@
     }
   };
 
-  let lud16 = $derived(`${user.username}@${$page.url.host}`);
-  let nwc = $derived(
-    `nostr+walletconnect://${pk}?relay=${encodeURIComponent(
-      relay,
-    )}&secret=${user.nwc}&lud16=${lud16}`,
-  );
-  let toggleNwc = () => (revealNwc = !revealNwc);
-
   let extension = $state();
   let getPubkey = async () => {
     $signer = { method: "extension", ready: true };
@@ -47,30 +41,114 @@
     await tick();
     $save.click();
   };
+
+  let units = (r) =>
+    ({
+      daily: $t("accounts.day"),
+      weekly: $t("accounts.week"),
+      monthly: $t("accounts.month"),
+      yearly: $t("accounts.year"),
+    })[r];
 </script>
 
-<div>
-  <input type="hidden" name="challenge" value={challenge} />
-  <input type="hidden" name="extension" value={extension} />
-  <label for="nwc" class="font-bold">{$t("user.settings.nwc")}</label>
+<input type="hidden" name="challenge" value={challenge} />
+<input type="hidden" name="extension" value={extension} />
 
-  <p class="text-secondary mb-1">
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-2">
+    {$t("user.settings.nwc")}
+  </h2>
+  <p class="text-secondary mb-4">
     {$t("user.settings.nwcDescription")}
   </p>
 
-  <div class="flex flex-wrap justify-center gap-2">
-    <a href={nwc} class="btn grow">
-      <img src="/images/nostr.png" class="w-8" />
-      <div class="my-auto">{$t("user.settings.connectNostr")}</div>
-    </a>
+  <div class="space-y-2">
+    {#each apps as connection, i}
+      {@const last = i === apps.length - 1}
+      <div class="p-4" class:border-b-8={!last}>
+        <div class="flex justify-center gap-2 items-center p-4">
+          <div class="grow text-xl break-words min-w-0">{connection.name}</div>
+          {#if connection.max_amount > 0}
+            <div class="flex text-xl gap-1">
+              <div class="flex items-center font-bold">
+                <iconify-icon
+                  noobserver
+                  icon="ph:lightning-fill"
+                  class="text-yellow-300"
+                ></iconify-icon>
+                {s(connection.max_amount, locale)}
+              </div>
 
-    {#if !revealNwc}
-      <button onclick={toggleNwc} type="button" class="btn grow">
-        <iconify-icon noobserver icon="ph:warning-bold" width="32"
-        ></iconify-icon>
-        <div class="my-auto">{$t("accounts.revealNwc")}</div></button
-      >
-    {/if}
+              {#if connection.budget_renewal !== "never"}
+                <div>
+                  {connection.budget_renewal}
+                </div>
+              {/if}
+            </div>
+          {/if}
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-1">
+          <a
+            href={connection.nwc}
+            class="btn bg-gradient-to-tr from-purple-500 to-pink-500 !w-auto shrink text-white grow whitespace-nowrap"
+            class:btn-disabled={!connection.secret}
+            aria-label="Open nostr"
+          >
+            <iconify-icon icon="ph:arrow-square-out-bold" width="32"
+            ></iconify-icon>
+            <div>Connect</div>
+          </a>
+
+          <div class="flex gap-1 w-full">
+            <a
+              href={`/apps/${connection.pubkey}`}
+              class="btn !w-auto grow"
+              aria-label="Edit"
+            >
+              <iconify-icon icon="ph:pencil-bold" width="32"></iconify-icon>
+            </a>
+
+            <a
+              href={`/apps/${connection.pubkey}/payments`}
+              aria-label="Payments"
+              class="btn !w-auto grow"
+              class:btn-disabled={!connection.secret}
+              title={$t("accounts.copy")}
+            >
+              <iconify-icon icon="ph:clock-bold" width="32"></iconify-icon>
+            </a>
+
+            <button
+              aria-label="Copy"
+              type="button !w-auto grow"
+              onclick={() => copy(connection.nwc)}
+              class="btn !w-auto grow"
+              class:btn-disabled={!connection.secret}
+              title={$t("accounts.copy")}
+            >
+              <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+            </button>
+
+            <a
+              aria-label="QR"
+              href={`/qr/${encodeURIComponent(connection.nwc)}`}
+              class="btn !w-auto grow"
+              class:btn-disabled={!connection.secret}
+              title={$t("user.receive.showQR")}
+              disabled={!connection.secret}
+            >
+              <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    {/each}
+
+    <a href="/apps/new" class="btn">
+      <iconify-icon icon="ph:plus-bold" width="32"></iconify-icon>
+      {$t("accounts.newConection")}
+    </a>
   </div>
 </div>
 
@@ -93,13 +171,21 @@
 <div class="space-y-2">
   <div class="font-bold">{$t("user.nostrPubkey")}</div>
   <div class="flex gap-4">
-    <textarea name="pubkey" bind:value={npub}> </textarea>
+    <textarea name="pubkey" bind:value={npub} rows={3}> </textarea>
     <div class="flex my-auto gap-1">
-      <button type="button" class="my-auto" onclick={() => copy(npub)}
+      <button
+        type="button"
+        class="my-auto btn btn-circle"
+        onclick={() => copy(npub)}
+        aria-label="Copy"
         ><iconify-icon noobserver icon="ph:copy-bold" width="32"
         ></iconify-icon></button
       >
-      <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
+      <a
+        href={`/qr/${encodeURIComponent(npub)}`}
+        class="my-auto btn btn-circle"
+        aria-label="QR"
+      >
         <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
         ></iconify-icon>
       </a>
@@ -108,8 +194,7 @@
 
   {#if extensionAvailable}
     <button class="btn" type="button" onclick={getPubkey}>
-      <iconify-icon icon="lucide-lab:bee" width="32" class="text-yellow-400"
-      ></iconify-icon>
+      <img src="/images/alby.svg" width="32" />
       {$t("user.settings.syncWithExtension")}</button
     >
   {/if}
