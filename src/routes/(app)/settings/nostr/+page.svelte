@@ -63,12 +63,12 @@
   </p>
 
   <div class="space-y-2">
-    {#each apps as connection, i}
+    {#each apps as app, i}
       {@const last = i === apps.length - 1}
       <div class="p-4" class:border-b-8={!last}>
         <div class="flex justify-center gap-2 items-center p-4">
-          <div class="grow text-xl break-words min-w-0">{connection.name}</div>
-          {#if connection.max_amount > 0}
+          <div class="grow text-xl break-words min-w-0">{app.name}</div>
+          {#if app.max_amount > 0}
             <div class="flex text-xl gap-1">
               <div class="flex items-center font-bold">
                 <iconify-icon
@@ -76,12 +76,13 @@
                   icon="ph:lightning-fill"
                   class="text-yellow-300"
                 ></iconify-icon>
-                {s(connection.max_amount, locale)}
+                {s(app.spent, locale)} /
+                {s(app.max_amount, locale)}
               </div>
 
-              {#if connection.budget_renewal !== "never"}
+              {#if app.budget_renewal !== "never"}
                 <div>
-                  {connection.budget_renewal}
+                  {app.budget_renewal}
                 </div>
               {/if}
             </div>
@@ -90,9 +91,9 @@
 
         <div class="flex flex-wrap justify-center gap-1">
           <a
-            href={connection.nwc}
+            href={app.nwc}
             class="btn bg-gradient-to-tr from-purple-500 to-pink-500 !w-auto shrink text-white grow whitespace-nowrap"
-            class:btn-disabled={!connection.secret}
+            class:btn-disabled={!app.secret}
             aria-label="Open nostr"
           >
             <iconify-icon icon="ph:arrow-square-out-bold" width="32"
@@ -102,7 +103,7 @@
 
           <div class="flex gap-1 w-full">
             <a
-              href={`/apps/${connection.pubkey}`}
+              href={`/apps/${app.pubkey}`}
               class="btn !w-auto grow"
               aria-label="Edit"
             >
@@ -110,10 +111,10 @@
             </a>
 
             <a
-              href={`/apps/${connection.pubkey}/payments`}
+              href={`/apps/${app.pubkey}/payments`}
               aria-label="Payments"
               class="btn !w-auto grow"
-              class:btn-disabled={!connection.secret}
+              class:btn-disabled={!app.secret}
               title={$t("accounts.copy")}
             >
               <iconify-icon icon="ph:clock-bold" width="32"></iconify-icon>
@@ -122,9 +123,9 @@
             <button
               aria-label="Copy"
               type="button !w-auto grow"
-              onclick={() => copy(connection.nwc)}
+              onclick={() => copy(app.nwc)}
               class="btn !w-auto grow"
-              class:btn-disabled={!connection.secret}
+              class:btn-disabled={!app.secret}
               title={$t("accounts.copy")}
             >
               <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
@@ -132,11 +133,11 @@
 
             <a
               aria-label="QR"
-              href={`/qr/${encodeURIComponent(connection.nwc)}`}
+              href={`/qr/${encodeURIComponent(app.nwc)}`}
               class="btn !w-auto grow"
-              class:btn-disabled={!connection.secret}
+              class:btn-disabled={!app.secret}
               title={$t("user.receive.showQR")}
-              disabled={!connection.secret}
+              disabled={!app.secret}
             >
               <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
             </a>
