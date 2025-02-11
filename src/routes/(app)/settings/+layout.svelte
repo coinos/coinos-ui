@@ -57,14 +57,22 @@
         }),
       };
 
+      await tick();
+
       if (!user.pubkey || user.pubkey === prev.pubkey) {
         body.delete("pubkey");
       } else {
+        $signer = null;
+
         let event = {
-          kind: 1,
+          kind: 27235,
           created_at: Date.now(),
-          content: user.challenge,
-          tags: [],
+          content: "",
+          tags: [
+            ["u", `${$page.url.origin}/api/nostrAuth`],
+            ["method", "POST"],
+            ["challenge", user.challenge],
+          ],
         };
 
         let signedEvent = await sign(event);

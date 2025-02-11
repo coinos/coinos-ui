@@ -35,7 +35,7 @@ export const actions = {
 
 		const maxAge = 380 * 24 * 60 * 60;
 
-		const res = await fetch(`${PUBLIC_COINOS_URL}/nostrLogin`, {
+		const res = await fetch(`${PUBLIC_COINOS_URL}/nostrAuth`, {
 			method: "POST",
 			body: JSON.stringify({ challenge, event }),
 			headers: {
