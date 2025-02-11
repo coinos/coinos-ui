@@ -122,7 +122,7 @@
 
             <button
               aria-label="Copy"
-              type="button !w-auto grow"
+              type="button"
               onclick={() => copy(app.nwc)}
               class="btn !w-auto grow"
               class:btn-disabled={!app.secret}
