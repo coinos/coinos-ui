@@ -93,7 +93,7 @@
       created_at: Date.now(),
       content: "",
       tags: [
-        ["u", `${$page.url.origin}/api/nostrLogin`],
+        ["u", `${$page.url.origin}/api/nostrAuth`],
         ["method", "POST"],
         ["challenge", challenge],
       ],
