@@ -23,7 +23,26 @@
 		"passwordWarning": "Jeśli stracisz to hasło, nie będziesz w stanie wypłacić środków z konta ani przywrócić hasła. Nie możemy jej odzyskać.",
 		"savings": "Oszczędności",
 		"password": "Hasło",
-		"confirmPassword": "Potwierdź hasło"
+		"confirmPassword": "Potwierdź hasło",
+		"per": "na",
+		"none": "Brak",
+		"day": "dzień",
+		"week": "tydzień",
+		"month": "miesiąc",
+		"year": "rok",
+		"daily": "Codziennie",
+		"weekly": "Tygodniowo",
+		"monthly": "Miesięcznie",
+		"yearly": "Rok",
+		"never": "Nigdy",
+		"newConection": "Nowe połączenie",
+		"name": "Nazwa",
+		"pubkey": "Pubkey",
+		"secret": "Tajemnica",
+		"connection": "Połączenie",
+		"budget": "Budżet",
+		"delete": "Usuń",
+		"renewal": "Okres przedłużenia"
 	},
 	"404": {
 		"404": "404",
@@ -338,14 +357,19 @@
 			"disablePIN": "Wyłącz PIN",
 			"publishNip5": "Publikuj tożsamość nostr",
 			"nip5a": "Stosowanie",
-			"nip5b": "jako publicznie zweryfikowany adres nostr"
+			"nip5b": "jako publicznie zweryfikowany adres nostr",
+			"name": "Nazwa"
 		},
 		"support": {
 			"header": "Wsparcie",
 			"email": "E-mail",
 			"accountName": "Nazwa konta",
 			"message": "Wiadomość",
-			"send": "Wyślij"
+			"send": "Wyślij",
+			"fillForm": "Wypełnij ten formularz lub napisz do nas bezpośrednio na",
+			"doOurBest": "i zrobimy co w naszej mocy, by wrócić do ciebie w odpowiednim czasie.",
+			"thankYou": "Dziękuję!",
+			"beInTouch": "Ktoś wkrótce będzie w kontakcie."
 		}
 	},
 	"payments": {

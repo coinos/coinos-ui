@@ -306,14 +306,19 @@
 			"pleaseEnterYourPassword": "パスワードを入力してください",
 			"nostr": "ノストール",
 			"nwc": "Nostrウォレットは接続します",
-			"nwcDescription": "あなたのnostrアプリを有効にして、あなたのアカウントから支払いを送信"
+			"nwcDescription": "あなたのnostrアプリを有効にして、あなたのアカウントから支払いを送信",
+			"name": "お名前 (必須)"
 		},
 		"support": {
 			"header": "サポート",
 			"email": "Eメール",
 			"accountName": "アカウント名",
 			"message": "メッセージ",
-			"send": "送信"
+			"send": "送信",
+			"fillForm": "このフォームに必要事項を記入するか、直接お問い合わせください",
+			"doOurBest": "そして、私達はあなたにタイムリーな方法で戻すために全力を尽くします.",
+			"thankYou": "お問い合わせ!",
+			"beInTouch": "誰かがすぐに触れるようになります."
 		},
 		"details": "詳細",
 		"noMessages": "まだメッセージを送信または受信していません",
@@ -464,7 +469,26 @@
 		"confirmPassword": "パスワードを認証する",
 		"finish": "仕上げる",
 		"showQR": "QRコードを表示",
-		"revealNwc": "NWCを公開"
+		"revealNwc": "NWCを公開",
+		"per": "パーカー",
+		"none": "なし",
+		"day": "日",
+		"week": "週1日",
+		"month": "月 日",
+		"year": "年間行事",
+		"daily": "デイリー",
+		"weekly": "ウィークリー",
+		"monthly": "月別アーカイブ",
+		"yearly": "デイリー",
+		"never": "決して",
+		"newConection": "新しい接続",
+		"name": "お名前 (必須)",
+		"pubkey": "パブキー",
+		"secret": "シークレット",
+		"connection": "コネクション",
+		"budget": "予算",
+		"delete": "削除",
+		"renewal": "更新期間"
 	},
 	"notes": {
 		"contents": "コンテンツ",

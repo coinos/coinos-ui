@@ -306,14 +306,19 @@
 			"pleaseEnterYourPassword": "لطفا رمز عبور خود را وارد کنید",
 			"nostr": "Nostr",
 			"nwc": "کیف پول Nostr اتصال",
-			"nwcDescription": "اجازه دهید برنامه nostr خود را برای ارسال پرداخت از حساب شما"
+			"nwcDescription": "اجازه دهید برنامه nostr خود را برای ارسال پرداخت از حساب شما",
+			"name": "نام"
 		},
 		"support": {
 			"header": "حمایت کردن",
 			"email": "پست الکترونیک",
 			"accountName": "نام کاربری",
 			"message": "پیام",
-			"send": "ارسال"
+			"send": "ارسال",
+			"fillForm": "این فرم را پر کنید یا مستقیماً به ما ایمیل بزنید",
+			"doOurBest": "و ما بهترین تلاش خود را برای بازگشت به شما به موقع انجام خواهیم داد.",
+			"thankYou": "ممنون!",
+			"beInTouch": "کسی به زودی در تماس خواهد بود."
 		},
 		"details": "جزئیات",
 		"noMessages": "شما هنوز هیچ پیامی ارسال یا دریافت نکرده اید",
@@ -464,7 +469,26 @@
 		"confirmPassword": "رمز عبور را تایید کنید",
 		"finish": "پایان",
 		"showQR": "نمایش QR",
-		"revealNwc": "NWC را آشکار کنید"
+		"revealNwc": "NWC را آشکار کنید",
+		"per": "در هر",
+		"none": "هیچ",
+		"day": "روز",
+		"week": "هفته",
+		"month": "ماه",
+		"year": "سال",
+		"daily": "روزانه",
+		"weekly": "Weekly",
+		"monthly": "ماهانه",
+		"yearly": "سال",
+		"never": "هرگز",
+		"newConection": "اتصال جدید",
+		"name": "نام",
+		"pubkey": "Pubkey",
+		"secret": "راز",
+		"connection": "اتصال",
+		"budget": "بودجه",
+		"delete": "حذف",
+		"renewal": "دوره بازسازی"
 	},
 	"notes": {
 		"contents": "مطالب توجه",
