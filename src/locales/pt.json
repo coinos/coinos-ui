@@ -325,14 +325,19 @@
 			"pleaseEnterYourPassword": "Digite sua senha",
 			"nostr": "Não",
 			"nwc": "Nostr carteira conectar",
-			"nwcDescription": "Habilite seu aplicativo nostr para enviar pagamentos de sua conta"
+			"nwcDescription": "Habilite seu aplicativo nostr para enviar pagamentos de sua conta",
+			"name": "Nome"
 		},
 		"support": {
 			"header": "Suporte",
 			"email": "Email",
 			"accountName": "Usuário",
 			"message": "Mensagem",
-			"send": "Enviar"
+			"send": "Enviar",
+			"fillForm": "Preencha este formulário ou envie-nos diretamente em",
+			"doOurBest": "e faremos o nosso melhor para voltarmos para ti em tempo hábil.",
+			"thankYou": "Obrigado!",
+			"beInTouch": "Alguém entrará em contacto em breve."
 		},
 		"profilePage": "Página de perfil",
 		"nostrPubkey": "Nostr pubkey",
@@ -486,7 +491,26 @@
 		"confirmPassword": "Confirme sua senha",
 		"finish": "Terminar",
 		"showQR": "Mostrar QR",
-		"revealNwc": "Revelar NWC"
+		"revealNwc": "Revelar NWC",
+		"per": "por",
+		"none": "Nenhuma",
+		"day": "dia",
+		"week": "semana",
+		"month": "mês",
+		"year": "ano",
+		"daily": "Diariamente",
+		"weekly": "Semanal",
+		"monthly": "Mensal",
+		"yearly": "Anualmente",
+		"never": "Nunca",
+		"newConection": "Nova conexão",
+		"name": "Nome",
+		"pubkey": "Pubkey",
+		"secret": "Segredos",
+		"connection": "Conexão",
+		"budget": "Orçamento",
+		"delete": "Excluir",
+		"renewal": "Período de renovação"
 	},
 	"notes": {
 		"contents": "Conteúdo de nota",

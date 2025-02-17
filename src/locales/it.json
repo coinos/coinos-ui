@@ -23,7 +23,26 @@
 		"passwordWarning": "Se perdi questa password non sarai in grado di ritirare fondi dal conto o ripristinare la tua frase di seme. Non possiamo recuperarlo per te.",
 		"savings": "Salvataggio",
 		"password": "Password",
-		"confirmPassword": "Conferma la password"
+		"confirmPassword": "Conferma la password",
+		"per": "per",
+		"none": "Nessuno",
+		"day": "giorno",
+		"week": "settimana",
+		"month": "mese",
+		"year": "anno",
+		"daily": "Quotidiano",
+		"weekly": "Settimanale",
+		"monthly": "Mensile",
+		"yearly": "Anno",
+		"never": "Mai",
+		"newConection": "Nuova connessione",
+		"name": "Nome",
+		"pubkey": "Pubkey",
+		"secret": "Segreto",
+		"connection": "Connessione",
+		"budget": "Bilancio",
+		"delete": "Cancella",
+		"renewal": "Periodo di rinnovo"
 	},
 	"404": {
 		"404": " Errore: 404",
@@ -338,14 +357,19 @@
 			"disablePIN": "Disattiva PIN",
 			"publishNip5": "Pubblica identità Nostr",
 			"nip5a": "Usa",
-			"nip5b": "come indirizzo nostr pubblicamente verificato"
+			"nip5b": "come indirizzo nostr pubblicamente verificato",
+			"name": "Nome"
 		},
 		"support": {
 			"header": "Supporto",
 			"email": "E-Mail",
 			"accountName": "Nome Account",
 			"message": "Messaggio",
-			"send": "Invia"
+			"send": "Invia",
+			"fillForm": "Compila questo modulo o inviaci un'email direttamente a",
+			"doOurBest": "e faremo del nostro meglio per tornare a te in modo tempestivo.",
+			"thankYou": "Grazie!",
+			"beInTouch": "Qualcuno sarà in contatto tra poco."
 		}
 	},
 	"payments": {

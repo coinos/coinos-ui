@@ -275,14 +275,19 @@
 			"pleaseEnterYourPassword": "Veuillez saisir votre mot de passe",
 			"nostr": "Numéro",
 			"nwc": "Le portefeuille Nost se connecte",
-			"nwcDescription": "Activez votre app nost pour envoyer des paiements depuis votre compte"
+			"nwcDescription": "Activez votre app nost pour envoyer des paiements depuis votre compte",
+			"name": "Nom"
 		},
 		"support": {
 			"header": "Assistance",
 			"email": "email",
 			"accountName": "Nom d'utilisateur",
 			"message": "Message",
-			"send": "Envoie"
+			"send": "Envoie",
+			"fillForm": "Remplissez ce formulaire ou envoyez-nous un courriel directement à",
+			"doOurBest": "et nous ferons de notre mieux pour vous revenir en temps opportun.",
+			"thankYou": "Je vous remercie !",
+			"beInTouch": "Quelqu'un sera bientôt en contact."
 		},
 		"bitcoin": "Bitcoin",
 		"lightning": "Lightning",
@@ -464,7 +469,26 @@
 		"confirmPassword": "Confirmez le mot de passe",
 		"finish": "Terminer",
 		"showQR": "Afficher le QR code",
-		"revealNwc": "Révéler le NWC"
+		"revealNwc": "Révéler le NWC",
+		"per": "par",
+		"none": "Aucune",
+		"day": "jour",
+		"week": "semaine",
+		"month": "mois",
+		"year": "année",
+		"daily": "Tous les jours",
+		"weekly": "Semaine",
+		"monthly": "Mensuel",
+		"yearly": "Année",
+		"never": "Jamais",
+		"newConection": "Nouvelle connexion",
+		"name": "Nom",
+		"pubkey": "Pubkey",
+		"secret": "Secret",
+		"connection": "Connexion",
+		"budget": "Budget",
+		"delete": "Supprimer",
+		"renewal": "Période de renouvellement"
 	},
 	"notes": {
 		"contents": "Table des matières",

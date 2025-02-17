@@ -23,7 +23,26 @@
 		"passwordWarning": "Bu şifreyi kaybederseniz, hesaptan para çekebilir veya tohum cümlenizi geri yükleyebilirsiniz. Bunu sizin için kurtaramayız.",
 		"savings": "Tasarruf Tasarrufları",
 		"password": "Şifre",
-		"confirmPassword": "Şifreyi Onaylayın"
+		"confirmPassword": "Şifreyi Onaylayın",
+		"per": "yüzde başına",
+		"none": "Hiçbir şey yok",
+		"day": "gün",
+		"week": "hafta",
+		"month": "ay",
+		"year": "yıl",
+		"daily": "Daily",
+		"weekly": "Weekly",
+		"monthly": "Aylık",
+		"yearly": "Yıl",
+		"never": "Never",
+		"newConection": "Yeni bağlantı",
+		"name": "Name",
+		"pubkey": "Pubkey",
+		"secret": "Gizli",
+		"connection": "Bağlantı Bağlantısı",
+		"budget": "Bütçe",
+		"delete": "Delete",
+		"renewal": "Yenileme dönemi"
 	},
 	"404": {
 		"404": "404",
@@ -338,14 +357,19 @@
 			"disablePIN": "Başarısız PIN",
 			"publishNip5": "Kaslish nostr kimlik",
 			"nip5a": "Use",
-			"nip5b": "sizin kamuya açık olarak doğrulanmamış nostr adresi"
+			"nip5b": "sizin kamuya açık olarak doğrulanmamış nostr adresi",
+			"name": "Name"
 		},
 		"support": {
 			"header": "Destek Desteği Destek Desteği",
 			"email": "E-posta e-posta e-posta",
 			"accountName": "Hesap Adı",
 			"message": "Mesaj",
-			"send": "Send Send Send Gönder"
+			"send": "Send Send Send Gönder",
+			"fillForm": "Bu formu veya e-postayı doğrudan doldurunuz",
+			"doOurBest": "ve size zamanında geri dönmek için elimizden geleni yapacağız.",
+			"thankYou": "Teşekkür ederim!",
+			"beInTouch": "Birisi kısa bir süre içinde dokunacaktır."
 		}
 	},
 	"payments": {

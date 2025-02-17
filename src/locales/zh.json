@@ -306,14 +306,19 @@
 			"pleaseEnterYourPassword": "请输入密码",
 			"nostr": "鼻头",
 			"nwc": "鼻孔钱包连接",
-			"nwcDescription": "启用您的鼻孔应用程序从您的账户发送付款"
+			"nwcDescription": "启用您的鼻孔应用程序从您的账户发送付款",
+			"name": "名称"
 		},
 		"support": {
 			"header": "支持",
 			"email": "电子邮件",
 			"accountName": "帐户名称",
 			"message": "信息",
-			"send": "发送"
+			"send": "发送",
+			"fillForm": "填表或直接发电子邮件到",
+			"doOurBest": "我们会尽力及时回复你.",
+			"thankYou": "谢谢!",
+			"beInTouch": "很快会有人联系."
 		},
 		"details": "细节",
 		"noMessages": "您尚未发送或接收任何消息",
@@ -464,7 +469,26 @@
 		"confirmPassword": "确认密码",
 		"finish": "结束",
 		"showQR": "显示二维码",
-		"revealNwc": "显示 NWC"
+		"revealNwc": "显示 NWC",
+		"per": "百分比",
+		"none": "无",
+		"day": "日数",
+		"week": "星期内",
+		"month": "月份",
+		"year": "年份",
+		"daily": "日报",
+		"weekly": "每周活动",
+		"monthly": "每月",
+		"yearly": "每年",
+		"never": "从不",
+		"newConection": "新连接",
+		"name": "名称",
+		"pubkey": "纸",
+		"secret": "秘诀",
+		"connection": "连接",
+		"budget": "预算",
+		"delete": "删除",
+		"renewal": "延长期"
 	},
 	"notes": {
 		"contents": "说明内容",

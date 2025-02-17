@@ -317,14 +317,19 @@
 			"pleaseEnterYourPassword": "Bitte geben Sie Ihr Passwort ein",
 			"nostr": "Nostr",
 			"nwc": "Nostr Brieftasche verbinden",
-			"nwcDescription": "Aktivieren Sie Ihre nostr App, um Zahlungen von Ihrem Konto zu senden"
+			"nwcDescription": "Aktivieren Sie Ihre nostr App, um Zahlungen von Ihrem Konto zu senden",
+			"name": "Bezeichnung"
 		},
 		"support": {
 			"header": "Support",
 			"email": "E-Mail",
 			"accountName": "Kontoname",
 			"message": "Nachricht",
-			"send": "Senden"
+			"send": "Senden",
+			"fillForm": "Dieses Formular ausfüllen oder uns direkt per E-Mail unter",
+			"doOurBest": "und wir werden unser bestes geben, um rechtzeitig zu ihnen zurückzukehren.",
+			"thankYou": "Danke!",
+			"beInTouch": "In Kürze wird jemand in Kontakt sein."
 		},
 		"profilePage": "Profilseite",
 		"nostrPubkey": "Nostr Pubkey",
@@ -491,7 +496,26 @@
 		"confirmPassword": "Passwort bestätigen",
 		"finish": "Beenden",
 		"showQR": "QR anzeigen",
-		"revealNwc": "NWC enthüllen"
+		"revealNwc": "NWC enthüllen",
+		"per": "je",
+		"none": "Keine",
+		"day": "tag",
+		"week": "woche",
+		"month": "monat",
+		"year": "jahr",
+		"daily": "Täglich",
+		"weekly": "Wöchentlich",
+		"monthly": "Monatlich",
+		"yearly": "Jahr",
+		"never": "Nie",
+		"newConection": "Neue Verbindung",
+		"name": "Bezeichnung",
+		"pubkey": "Pubkey",
+		"secret": "Geheimnis",
+		"connection": "Verbindung",
+		"budget": "Haushaltsplan",
+		"delete": "Löschen",
+		"renewal": "Verlängerungszeitraum"
 	},
 	"notes": {
 		"contents": "Inhalt",

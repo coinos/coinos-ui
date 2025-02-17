@@ -306,14 +306,19 @@
 			"pleaseEnterYourPassword": "Por favor, introduzca su contraseña",
 			"nostr": "Nostr",
 			"nwc": "Cartera de Nostr",
-			"nwcDescription": "Permite que su aplicación de la nariz envíe pagos de su cuenta"
+			"nwcDescription": "Permite que su aplicación de la nariz envíe pagos de su cuenta",
+			"name": "Nombre"
 		},
 		"support": {
 			"header": "Soporte",
 			"email": "Correo Electrónico",
 			"accountName": "Nombre de la Cuenta",
 			"message": "Mensaje",
-			"send": "Enviar"
+			"send": "Enviar",
+			"fillForm": "Rellene este formulario o envíenos un correo electrónico directamente en",
+			"doOurBest": "y haremos todo lo posible para volver a usted de manera oportuna.",
+			"thankYou": "¡Gracias!",
+			"beInTouch": "Alguien estará en contacto en breve."
 		},
 		"details": "Detalles",
 		"noMessages": "Aún no has enviado ni recibido ningún mensaje",
@@ -464,7 +469,26 @@
 		"confirmPassword": "Confirmar Contraseña",
 		"finish": "Finalizar",
 		"showQR": "Mostrar código QR",
-		"revealNwc": "Revelar NWC"
+		"revealNwc": "Revelar NWC",
+		"per": "per",
+		"none": "Ninguno",
+		"day": "día",
+		"week": "semana",
+		"month": "mes",
+		"year": "año",
+		"daily": "Diario",
+		"weekly": "Semanal",
+		"monthly": "Mensual",
+		"yearly": "Año",
+		"never": "Nunca",
+		"newConection": "Nueva conexión",
+		"name": "Nombre",
+		"pubkey": "Pubkey",
+		"secret": "Secret",
+		"connection": "Conexión",
+		"budget": "Presupuesto",
+		"delete": "Suprimir",
+		"renewal": "Período de renovación"
 	},
 	"notes": {
 		"contents": "Contenido de la nota",

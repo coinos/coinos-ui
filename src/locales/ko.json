@@ -23,7 +23,26 @@
 		"passwordWarning": "이 암호를 잃으면 계정에서 자금을 인출하거나 씨앗 구문을 복원 할 수 없습니다. 우리는 당신을 위해 그것을 재기할 수 없습니다.",
 		"savings": "제품정보",
 		"password": "비밀번호",
-		"confirmPassword": "비밀번호"
+		"confirmPassword": "비밀번호",
+		"per": "으로",
+		"none": "이름 *",
+		"day": "일 시",
+		"week": "주 메뉴",
+		"month": "1 개월",
+		"year": "1 년",
+		"daily": "- 한국어",
+		"weekly": "지원하다",
+		"monthly": "월~금",
+		"yearly": "1 년",
+		"never": "이름 *",
+		"newConection": "새로운 연결",
+		"name": "이름 *",
+		"pubkey": "스낵 바",
+		"secret": "계정 정보",
+		"connection": "관련 기사",
+		"budget": "한국어",
+		"delete": "기타 제품",
+		"renewal": "갱신 기간"
 	},
 	"404": {
 		"404": "404명",
@@ -338,14 +357,19 @@
 			"disablePIN": "사용 가능한 PIN",
 			"publishNip5": "Nostr 정체성",
 			"nip5a": "제품 정보",
-			"nip5b": "공개적으로 검증된 nostr 주소"
+			"nip5b": "공개적으로 검증된 nostr 주소",
+			"name": "이름 *"
 		},
 		"support": {
 			"header": "지원하다",
 			"email": "이름 *",
 			"accountName": "계정 이름",
 			"message": "이름 *",
-			"send": "지원하다"
+			"send": "지원하다",
+			"fillForm": "이 양식을 작성하거나 직접 이메일을 보내주십시오",
+			"doOurBest": "그리고 우리는 적시에 당신에게 다시 얻을 수있는 최선을 다할 것입니다.",
+			"thankYou": "감사합니다!",
+			"beInTouch": "누군가가 곧 연락 할 것입니다."
 		}
 	},
 	"payments": {

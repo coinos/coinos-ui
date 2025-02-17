@@ -23,7 +23,26 @@
 		"passwordWarning": "Als je dit wachtwoord verliest, kun je geen geld van het account opnemen of jouw herstelzin herstellen. Wij kunnen dit niet voor je herstellen.",
 		"savings": "Besparingen",
 		"password": "Wachtwoord",
-		"confirmPassword": "Wachtwoord bevestigen"
+		"confirmPassword": "Wachtwoord bevestigen",
+		"per": "per",
+		"none": "Geen",
+		"day": "dag",
+		"week": "week",
+		"month": "maand",
+		"year": "jaar",
+		"daily": "Dagelijks",
+		"weekly": "Wekelijks",
+		"monthly": "Maandelijks",
+		"yearly": "Jaarlijks",
+		"never": "Nooit",
+		"newConection": "Nieuwe verbinding",
+		"name": "Naam",
+		"pubkey": "Pubkey",
+		"secret": "Geheim",
+		"connection": "Verbinding",
+		"budget": "Begroting",
+		"delete": "Verwijderen",
+		"renewal": "Verlengingsperiode"
 	},
 	"404": {
 		"404": "404",
@@ -338,14 +357,19 @@
 			"disablePIN": "PIN uitschakelen",
 			"publishNip5": "Nostr-identiteit publiceren",
 			"nip5a": "Gebruik",
-			"nip5b": "als jouw publiekelijk geverifieerd nostr adres"
+			"nip5b": "als jouw publiekelijk geverifieerd nostr adres",
+			"name": "Naam"
 		},
 		"support": {
 			"header": "Ondersteuning",
 			"email": "E-mail",
 			"accountName": "Accountnaam",
 			"message": "Bericht",
-			"send": "Verzenden"
+			"send": "Verzenden",
+			"fillForm": "Vul dit formulier of e-mail ons direct bij",
+			"doOurBest": "en we zullen ons best doen om tijdig bij je terug te komen.",
+			"thankYou": "Dank je!",
+			"beInTouch": "Er neemt zo iemand contact op."
 		}
 	},
 	"payments": {
