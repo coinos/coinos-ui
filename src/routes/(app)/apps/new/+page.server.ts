@@ -3,6 +3,14 @@ import { auth, fd, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent, url }) => {
+	const { user } = await parent();
+
+	if (!user)
+		redirect(
+			307,
+			`/register?redirect=${encodeURIComponent(url.pathname + url.search)}`,
+		);
+
 	const app = {
 		name: url.searchParams.get("name"),
 		pubkey: url.searchParams.get("pubkey"),
@@ -10,7 +18,6 @@ export const load = async ({ parent, url }) => {
 		budget_renewal: url.searchParams.get("budget_renewal"),
 	};
 
-	const { user } = await parent();
 	const rates = await getRates();
 	const rate = rates[user.currency];
 	return { app, rate };
