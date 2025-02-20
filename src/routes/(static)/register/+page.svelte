@@ -333,7 +333,7 @@
     <p class="text-secondary text-center font-medium">
       {$t("login.haveAccount")}
       <a
-        href={"/login"}
+        href={"/login" + $page.url.search}
         class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
       >
         {$t("login.signIn")}
