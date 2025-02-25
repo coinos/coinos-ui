@@ -174,10 +174,14 @@
 
   let nostrLogin = async () => {
     let event = {
-      kind: 1,
+      kind: 27235,
       created_at: Date.now(),
-      content: challenge,
-      tags: [],
+      content: "",
+      tags: [
+        ["u", `${$page.url.origin}/api/nostrAuth`],
+        ["method", "POST"],
+        ["challenge", challenge],
+      ],
     };
 
     let signedEvent = await sign(event);
