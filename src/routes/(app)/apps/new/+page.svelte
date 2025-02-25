@@ -18,8 +18,6 @@
     if (browser) {
       if (window.opener) {
         window.opener.postMessage({ relayUrl, lud16, walletPubkey }, "*");
-      } else {
-        console.warn("No window.opener found.");
       }
     }
   });
