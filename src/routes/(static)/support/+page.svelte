@@ -26,7 +26,7 @@
     e.preventDefault();
     grecaptcha.ready(() => {
       grecaptcha.execute(recaptchaSiteKey, { action: "submit" }).then((token) =>
-        post("/support", { username: user?.username, email, message, token })
+        post("/post/email", { username: user?.username, email, message, token })
           .then(() => (sent = true))
           .catch(() => fail("problem submitting")),
       );
@@ -85,12 +85,12 @@
 
     <form onsubmit={submit}>
       <div class="mb-4">
-        <label for="account" class="font-semibold"
+        <label for="username" class="font-semibold"
           >{$t("user.support.accountName")}</label
         >
         <input
           type="text"
-          name="account"
+          name="username"
           required
           value={user?.username || ""}
         />
