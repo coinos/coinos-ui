@@ -8,7 +8,7 @@ export const load = async ({ parent, url }) => {
 	if (!user)
 		redirect(
 			307,
-			`/register?redirect=${encodeURIComponent(url.pathname + url.search)}`,
+			`/login?redirect=${encodeURIComponent(url.pathname + url.search)}`,
 		);
 
 	const app = {

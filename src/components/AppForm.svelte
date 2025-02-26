@@ -1,4 +1,7 @@
 <script>
+  import { browser } from "$app/environment";
+  import { applyAction, deserialize } from "$app/forms";
+  import { page } from "$app/stores";
   import Numpad from "$comp/Numpad.svelte";
   import { getPublicKey } from "nostr-tools";
   import { onMount, tick } from "svelte";
@@ -7,6 +10,11 @@
   import { copy, focus, fail, post } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
+  import {
+    PUBLIC_COINOS_PUBKEY as walletPubkey,
+    PUBLIC_COINOS_RELAY as relayUrl,
+  } from "$env/static/public";
+
   let { rate, user, name, max_amount, budget_renewal, pubkey, secret } =
     $props();
   let { currency } = $derived(user);
@@ -19,6 +27,27 @@
   let generate = () => {
     secret = bytesToHex(randomBytes(32));
     pubkey = getPublicKey(secret);
+  };
+
+  let lud16 = $derived(`${user.username}@${$page.url.host}`);
+
+  let el = $state();
+  let submit = async (e) => {
+    e.preventDefault();
+    let body = new FormData(el);
+    let params = { method: "POST", body };
+    let url = $page.url.pathname;
+
+    const response = await fetch(url, params);
+    const result = deserialize(await response.text());
+
+    if (result.type === "redirect") {
+      let type = "nwc:success";
+      let msg = { relayUrl, lud16, walletPubkey, type };
+      if (browser && window.opener) window.opener.postMessage(msg, "*");
+    }
+
+    applyAction(result);
   };
 
   let del = async () => {
@@ -43,7 +72,7 @@
   let numpad = $state();
 </script>
 
-<form use:enhance method="POST" class="space-y-5">
+<form method="POST" class="space-y-5" onsubmit={submit} bind:this={el}>
   <div>
     <label for="name" class="font-bold mb-1 block">{$t("accounts.name")}</label>
     <input type="text" name="name" bind:value={name} use:focus />
