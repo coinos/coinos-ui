@@ -1,4 +1,5 @@
 <script>
+  import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
@@ -8,17 +9,18 @@
   import Avatar from "$comp/Avatar.svelte";
   import Icon from "$comp/Icon.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { back, get, fail, focus } from "$lib/utils";
+  import { back, get, post, fail, focus } from "$lib/utils";
 
   let { data = $bindable(), form } = $props();
   data.subject = data.user;
 
-  let { contacts } = $state(data);
+  let { contacts } = $derived(data);
 
+  let all = $state();
   let loaded = $state();
   let loadMore = async () => {
     loaded = true;
-    contacts = await get("/contacts");
+    all = await get("/contacts");
   };
 
   let el = $state(),
@@ -33,6 +35,20 @@
     text = await navigator.clipboard.readText();
     await tick();
     pasted = true;
+  };
+
+  let pin = async (e, { id, pinned }) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (pinned) {
+      await post("/post/pins/delete", { id });
+    } else {
+      await post("/post/pins", { id });
+    }
+
+    if (all) all = await get("/contacts");
+    else invalidate("contacts");
   };
 
   $effect(() => {
@@ -116,13 +132,19 @@
         {$t("user.send.contacts")}
       </h1>
       <div>
-        {#each contacts as c, i}
+        {#each all || contacts as c, i}
           <a href={`/pay/${c.username}`} class="contents">
             <div class="flex hover:bg-base-200 p-2">
               <Avatar user={c} size={20} disabled={true} />
               <div class="my-auto text-left">
                 <p class="ml-1 text-lg break-words">{c.username}</p>
               </div>
+              <button class="ml-auto" onclick={(e) => pin(e, c)}>
+                <iconify-icon
+                  icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"}
+                  width={32}
+                ></iconify-icon>
+              </button>
             </div>
           </a>
         {/each}
