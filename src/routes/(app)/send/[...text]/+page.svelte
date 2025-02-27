@@ -48,7 +48,7 @@
     }
 
     if (all) all = await get("/contacts");
-    else invalidate("contacts");
+    invalidate("app:contacts");
   };
 
   $effect(() => {
