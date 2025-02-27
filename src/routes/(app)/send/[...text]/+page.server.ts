@@ -4,7 +4,7 @@ import { fail, redirect } from "@sveltejs/kit";
 
 const limit = 10;
 export async function load({ cookies, depends, params, parent, url }) {
-  depends("contacts");
+  depends("app:contacts");
 	const { user } = await parent();
 	if (!user) redirect(307, "/login");
 	const { text } = params;
