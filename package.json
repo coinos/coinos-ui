@@ -68,6 +68,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@capacitor/assets": "^3.0.5",
     "ws": "^8.18.0"
   }
 }

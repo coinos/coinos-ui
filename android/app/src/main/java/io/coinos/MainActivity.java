@@ -46,7 +46,7 @@ public class MainActivity extends BridgeActivity {
               Bridge bridge = getBridge();
               if (bridge != null) {
                   String encodedUrl = Uri.encode(url);
-                  String destinationUrl = "https://dev.coinos.io/send/" + encodedUrl;
+                  String destinationUrl = "https://coinos.io/send/" + encodedUrl;
 
                   bridge.getWebView().post(() -> {
                       bridge.getWebView().loadUrl(destinationUrl);
