@@ -1,7 +1,8 @@
 {
-  "name": "my-app",
-  "version": "0.0.1",
+  "name": "coinos",
+  "version": "1.0.4",
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/android": "^6.2.0",
     "@capacitor/cli": "^6.2.0",
     "@capacitor/core": "^6.2.0",
@@ -54,7 +55,8 @@
     "uint8array-extras": "^1.0.0",
     "unique-names-generator": "^4.7.1",
     "uuid": "^9.0.0",
-    "vite": "^5.4.4"
+    "vite": "^5.4.4",
+    "ws": "^8.18.0"
   },
   "scripts": {
     "dev": "vite dev",
@@ -67,8 +69,4 @@
     "format": "prettier --write ."
   },
   "type": "module",
-  "dependencies": {
-    "@capacitor/assets": "^3.0.5",
-    "ws": "^8.18.0"
-  }
 }
