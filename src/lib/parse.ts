@@ -10,8 +10,6 @@ export default async (s, host) => {
 	let amount;
 	let user;
 
-	console.log("T", t);
-
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
@@ -22,8 +20,6 @@ export default async (s, host) => {
 			t = await get(`/encode?address=${t}`);
 		} catch (e) {}
 	}
-
-	console.log("T", t);
 
 	// bitcoin
 	if (
