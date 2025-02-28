@@ -21,6 +21,13 @@ export default async (s, host) => {
 		} catch (e) {}
 	}
 
+	if (t.toLowerCase().startsWith("nostr:")) {
+		t = t.split(":")[1];
+	}
+
+	if (["note", "nevent"].some((p) => t.startsWith(p))) redirect(307, `/e/${t}`);
+	if (["nprofile", "npub"].some((p) => t.startsWith(p))) redirect(307, `/${t}`);
+
 	// bitcoin
 	if (
 		t.toLowerCase().startsWith("bitcoin:") ||
