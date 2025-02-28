@@ -4,7 +4,6 @@ node_modules
 /.svelte-kit
 /package
 .env
-android
 ios
 .history/
 db
