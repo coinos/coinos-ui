@@ -1,0 +1,5 @@
+coinos:
+  android:
+    repository: https://github.com/coinos/coinos-ui
+    artifacts:
+      - coinos-v%v.apk
