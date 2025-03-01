@@ -1,8 +1,13 @@
 {
-  "appId": "io.coinos",
-  "appName": "Coinos",
-  "server": {
-    "hostname": "coinos.io",
-    "url": "https://coinos.io"
-  }
+	"appId": "io.coinos",
+	"appName": "Coinos",
+	"server": {
+		"hostname": "coinos.io",
+		"url": "https://coinos.io"
+	},
+	"android": {
+		"webContentsDebuggingEnabled": true,
+		"allowMixedContent": true,
+		"useBrowserHistory": true
+	}
 }
