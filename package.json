@@ -2,10 +2,10 @@
   "name": "coinos",
   "version": "1.0.4",
   "devDependencies": {
-    "@capacitor/assets": "^3.0.5",
     "@capacitor/android": "^6.2.0",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^6.2.0",
-    "@capacitor/core": "^6.2.0",
+    "@capacitor/core": "^7.0.1",
     "@capacitor/ios": "^6.1.2",
     "@cashu/cashu-ts": "^2.0.0-rc4",
     "@iconify/iconify": "^3.1.1",
@@ -68,5 +68,5 @@
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },
-  "type": "module",
+  "type": "module"
 }
