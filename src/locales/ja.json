@@ -488,7 +488,9 @@
 		"connection": "コネクション",
 		"budget": "予算",
 		"delete": "削除",
-		"renewal": "更新期間"
+		"renewal": "更新期間",
+		"maxfee": "最高料金",
+		"maxfeeDesc": "シートの固定量へのキャップルーティング手数料。 設定されていない場合、お支払い金額の1%を上限とします."
 	},
 	"notes": {
 		"contents": "コンテンツ",

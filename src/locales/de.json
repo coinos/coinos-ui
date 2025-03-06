@@ -515,7 +515,9 @@
 		"connection": "Verbindung",
 		"budget": "Haushaltsplan",
 		"delete": "Löschen",
-		"renewal": "Verlängerungszeitraum"
+		"renewal": "Verlängerungszeitraum",
+		"maxfee": "Maximale Gebühr",
+		"maxfeeDesc": "Caps Routing-Gebühren zu einem festen Betrag von Sats. Wenn nicht gesetzt, werden wir 1% des Zahlungsbetrages übersteigen."
 	},
 	"notes": {
 		"contents": "Inhalt",
