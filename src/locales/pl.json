@@ -42,7 +42,9 @@
 		"connection": "Połączenie",
 		"budget": "Budżet",
 		"delete": "Usuń",
-		"renewal": "Okres przedłużenia"
+		"renewal": "Okres przedłużenia",
+		"maxfee": "Maksymalna opłata",
+		"maxfeeDesc": "Kapsułki opłat routingu do stałej ilości sat. Jeśli nie jest ustawiony, ograniczamy do 1% kwoty płatności."
 	},
 	"404": {
 		"404": "404",

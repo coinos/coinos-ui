@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import { applyAction, deserialize } from "$app/forms";
   import { page } from "$app/stores";
+  import AmountField from "$comp/AmountField.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import { getPublicKey } from "nostr-tools";
   import { onMount, tick } from "svelte";
@@ -15,8 +16,16 @@
     PUBLIC_COINOS_RELAY as relayUrl,
   } from "$env/static/public";
 
-  let { rate, user, name, max_amount, budget_renewal, pubkey, secret } =
-    $props();
+  let {
+    rate,
+    user,
+    name,
+    max_fee,
+    max_amount,
+    budget_renewal,
+    pubkey,
+    secret,
+  } = $props();
   let { currency } = $derived(user);
 
   onMount(() => {
@@ -58,18 +67,6 @@
       fail(e.message);
     }
   };
-
-  let settingBudget = $state();
-  let setBudget = () => {
-    settingBudget = false;
-  };
-  let done = $state();
-  let startSetting = async () => {
-    settingBudget = true;
-    await tick();
-    numpad.focus();
-  };
-  let numpad = $state();
 </script>
 
 <form method="POST" class="space-y-5" onsubmit={submit} bind:this={el}>
@@ -78,27 +75,22 @@
     <input type="text" name="name" bind:value={name} use:focus />
   </div>
 
-  <div>
-    <label for="name" class="font-bold mb-1 block"
-      >{$t("accounts.budget")}</label
-    >
+  <AmountField
+    {currency}
+    {rate}
+    bind:amount={max_amount}
+    name={"max_amount"}
+    label={$t("accounts.budget")}
+  />
 
-    <button type="button" class="flex w-full" onclick={startSetting}>
-      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-        ></iconify-icon>
-      </div>
-      <div
-        class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
-      >
-        {max_amount || $t("accounts.none")}
-      </div>
-      <input type="hidden" name="max_amount" bind:value={max_amount} />
-    </button>
-  </div>
+  <AmountField
+    desc={$t("accounts.maxfeeDesc")}
+    {currency}
+    {rate}
+    bind:amount={max_fee}
+    name={"max_fee"}
+    label={$t("accounts.maxfee")}
+  />
 
   <div>
     <label for="name" class="font-bold mb-1 block"
@@ -167,26 +159,3 @@
     {/if}
   </div>
 </form>
-
-{#if settingBudget}
-  <div
-    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto"
-  >
-    <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
-      <h1 class="text-center text-2xl font-semibold">
-        {$t("accounts.budget")}
-      </h1>
-      <Numpad
-        bind:amount={max_amount}
-        {currency}
-        {rate}
-        bind:submit={done}
-        bind:element={numpad}
-      />
-
-      <button bind:this={done} type="button" onclick={setBudget} class="btn"
-        >Ok</button
-      >
-    </div>
-  </div>
-{/if}

@@ -488,7 +488,9 @@
 		"connection": "连接",
 		"budget": "预算",
 		"delete": "删除",
-		"renewal": "延长期"
+		"renewal": "延长期",
+		"maxfee": "最大费用",
+		"maxfeeDesc": "盖子路由费为固定的座标. 如果不设定, 我们上限为支付金额的1% ."
 	},
 	"notes": {
 		"contents": "说明内容",

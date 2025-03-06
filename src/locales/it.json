@@ -42,7 +42,9 @@
 		"connection": "Connessione",
 		"budget": "Bilancio",
 		"delete": "Cancella",
-		"renewal": "Periodo di rinnovo"
+		"renewal": "Periodo di rinnovo",
+		"maxfee": "Tassa massima",
+		"maxfeeDesc": "Caps routing tasse a una quantità fissa di sati. Se non impostato, copriamo all'1% dell'importo del pagamento."
 	},
 	"404": {
 		"404": " Errore: 404",

@@ -42,7 +42,9 @@
 		"connection": "Verbinding",
 		"budget": "Begroting",
 		"delete": "Verwijderen",
-		"renewal": "Verlengingsperiode"
+		"renewal": "Verlengingsperiode",
+		"maxfee": "Max. vergoeding",
+		"maxfeeDesc": "Caps routing kosten naar een vast bedrag van sats. Indien niet ingesteld, beperken we ons tot 1% van het betalingsbedrag."
 	},
 	"404": {
 		"404": "404",

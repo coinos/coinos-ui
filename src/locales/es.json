@@ -488,7 +488,9 @@
 		"connection": "Conexión",
 		"budget": "Presupuesto",
 		"delete": "Suprimir",
-		"renewal": "Período de renovación"
+		"renewal": "Período de renovación",
+		"maxfee": "Tasa máxima",
+		"maxfeeDesc": "Cápsulas de pago a una cantidad fija de sats. Si no se establece, caemos al 1% de la cantidad de pago."
 	},
 	"notes": {
 		"contents": "Contenido de la nota",
