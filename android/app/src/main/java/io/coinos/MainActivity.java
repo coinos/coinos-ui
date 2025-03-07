@@ -8,11 +8,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.CookieManager;
+import android.webkit.WebView;
 
 public class MainActivity extends BridgeActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+
+      WebView webView = bridge.getWebView();
+      CookieManager cookieManager = CookieManager.getInstance();
+      cookieManager.setAcceptCookie(true);
+      webView.getSettings().setJavaScriptEnabled(true);
+      webView.getSettings().setDomStorageEnabled(true);
 
       Intent intent = getIntent();
       if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
@@ -60,5 +67,15 @@ public class MainActivity extends BridgeActivity {
   public void onPause() {
     super.onPause();
     CookieManager.getInstance().flush();
+  }
+
+  @Override
+  public void onBackPressed() {
+      WebView webView = getBridge().getWebView();
+      if (webView.canGoBack()) {
+          webView.goBack();
+      } else {
+          super.onBackPressed(); // Default behavior, which minimizes the app
+      }
   }
 }

@@ -46,5 +46,6 @@ export async function load({ cookies, request, url, params }) {
 	}
 
 	const theme = cookies.get("theme") || "light";
+
 	return { user, token, subject, theme };
 }
