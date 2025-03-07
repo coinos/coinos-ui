@@ -32,6 +32,7 @@
   $effect(() => (theme = $themeStore));
 
   afterNavigate(() => {
+    document.cookie = `pathname=${$page.url.pathname}; path=/; max-age=86400`;
     if (user) {
       preloadData(`/${user.username}`);
       preloadData(`/${user.username}/receive`);

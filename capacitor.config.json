@@ -3,7 +3,7 @@
 	"appName": "Coinos",
 	"server": {
 		"hostname": "coinos.io",
-		"url": "https://coinos.io"
+		"url": "https://coinos.io/start"
 	},
 	"android": {
 		"webContentsDebuggingEnabled": true,

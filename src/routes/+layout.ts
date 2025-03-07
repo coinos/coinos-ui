@@ -5,6 +5,9 @@ import { addIcon } from "iconify-icon";
 import cookies from "js-cookie";
 
 export const ssr = false;
+const expires = new Date();
+expires.setSeconds(expires.getSeconds() + 21000000);
+const opts = { path: "/", expires };
 
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {
@@ -24,10 +27,8 @@ export const load = async ({ data }) => {
 				? "dark"
 				: "light";
 
-			const expires = new Date();
-			expires.setSeconds(expires.getSeconds() + 21000000);
+			cookies.set("theme", theme, opts);
 
-			cookies.set("theme", theme, { path: "/", expires });
 			if (theme === "dark") setTimeout(() => themeStore.set(theme), 100);
 		}
 	}
