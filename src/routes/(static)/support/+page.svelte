@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { browser } from "$app/environment";
   import { onDestroy } from "svelte";
   import { fail, success, post } from "$lib/utils";
@@ -8,15 +6,10 @@
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
-  let { data = $bindable() } = $props();
-
+  let { data } = $props();
   let { user } = data;
-  run(() => {
-    if (user) {
-      data.subject = { ...user };
-    }
-  });
 
+  let username = $state(user?.username);
   let email = $state();
   let message = $state();
   let sent = $state();
@@ -26,7 +19,12 @@
     e.preventDefault();
     grecaptcha.ready(() => {
       grecaptcha.execute(recaptchaSiteKey, { action: "submit" }).then((token) =>
-        post("/post/email", { username: user?.username, email, message, token })
+        post("/post/email", {
+          username: user?.username || `${username} (unverified)`,
+          email,
+          message,
+          token,
+        })
           .then(() => (sent = true))
           .catch(() => fail("problem submitting")),
       );
@@ -88,12 +86,7 @@
         <label for="username" class="font-semibold"
           >{$t("user.support.accountName")}</label
         >
-        <input
-          type="text"
-          name="username"
-          required
-          value={user?.username || ""}
-        />
+        <input type="text" name="username" required bind:value={username} />
       </div>
 
       <div class="mb-4">
