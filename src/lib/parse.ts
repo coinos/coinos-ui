@@ -70,6 +70,27 @@ export default async (s, host) => {
 		}
 	}
 
+	if (t.match(/^🥜([\uFE00-\uFE0F]|[\uE0100-\uE01EF]+)$/)) {
+		t = Array.from(t)
+			.slice(1)
+			.map((char) => {
+				const codePoint = char.codePointAt(0);
+
+				// Handle Variation Selectors (VS1-VS16): U+FE00 to U+FE0F
+				if (codePoint >= 0xfe00 && codePoint <= 0xfe0f) {
+					const byteValue = codePoint - 0xfe00; // Maps FE00->0, FE01->1, ..., FE0F->15
+					return String.fromCharCode(byteValue);
+				}
+
+				// Handle Variation Selectors Supplement (VS17-VS256): U+E0100 to U+E01EF
+				if (codePoint >= 0xe0100 && codePoint <= 0xe01ef) {
+					const byteValue = codePoint - 0xe0100 + 16; // Maps E0100->16, E0101->17, ..., E01EF->255
+					return String.fromCharCode(byteValue);
+				}
+			})
+			.join("");
+	}
+
 	if (t.startsWith("cashu")) {
 		const { id } = await post("/cash", { token: t });
 		redirect(307, `/ecash/${id}`);
