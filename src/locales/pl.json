@@ -44,7 +44,10 @@
 		"delete": "Usuń",
 		"renewal": "Okres przedłużenia",
 		"maxfee": "Maksymalna opłata",
-		"maxfeeDesc": "Kapsułki opłat routingu do stałej ilości sat. Jeśli nie jest ustawiony, ograniczamy do 1% kwoty płatności."
+		"maxfeeDesc": "Kapsułki opłat routingu do stałej ilości sat. Jeśli nie jest ustawiony, ograniczamy do 1% kwoty płatności.",
+		"notifications": "Powiadomienia",
+		"on": "On",
+		"off": "Wyłącz"
 	},
 	"404": {
 		"404": "404",

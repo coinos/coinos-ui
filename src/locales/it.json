@@ -44,7 +44,10 @@
 		"delete": "Cancella",
 		"renewal": "Periodo di rinnovo",
 		"maxfee": "Tassa massima",
-		"maxfeeDesc": "Caps routing tasse a una quantità fissa di sati. Se non impostato, copriamo all'1% dell'importo del pagamento."
+		"maxfeeDesc": "Caps routing tasse a una quantità fissa di sati. Se non impostato, copriamo all'1% dell'importo del pagamento.",
+		"notifications": "Notifica",
+		"on": "Su",
+		"off": "Fuori"
 	},
 	"404": {
 		"404": " Errore: 404",

@@ -4,6 +4,7 @@
   import { page } from "$app/stores";
   import AmountField from "$comp/AmountField.svelte";
   import Numpad from "$comp/Numpad.svelte";
+  import Toggle from "$comp/Toggle.svelte";
   import { getPublicKey } from "nostr-tools";
   import { onMount, tick } from "svelte";
   import { bytesToHex, randomBytes } from "@noble/hashes/utils";
@@ -25,6 +26,7 @@
     budget_renewal,
     pubkey,
     secret,
+    notify,
   } = $props();
   let { currency } = $derived(user);
 
@@ -84,7 +86,7 @@
   />
 
   <AmountField
-    desc={$t("accounts.maxfeeDesc")}
+    none="1%"
     {currency}
     {rate}
     bind:amount={max_fee}
@@ -102,6 +104,16 @@
       <option value="weekly">{$t("accounts.weekly")}</option>
       <option value="monthly">{$t("accounts.monthly")}</option>
       <option value="yearly">{$t("accounts.yearly")}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="notify" class="font-bold mb-1 block"
+      >{$t("accounts.notifications")}</label
+    >
+    <select name="notify" bind:value={notify}>
+      <option value={false} selected>{$t("accounts.off")}</option>
+      <option value={true}>{$t("accounts.on")}</option>
     </select>
   </div>
 

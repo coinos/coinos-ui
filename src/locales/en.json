@@ -4,8 +4,11 @@
 		"notFound": "No notes found"
 	},
 	"accounts": {
-    "maxfee": "Max fee",
-    "maxfeeDesc": "Caps routing fees to a fixed amount of sats. If not set, we cap at 1% of the payment amount.",
+    "notifications": "Notifications",
+    "on": "On",
+    "off": "Off",
+    "maxfee": "Max routing fee",
+    "maxfeeDesc": "The default is 1% of the payment value if this is not set",
 		"per": "per",
 		"none": "None",
 		"day": "day",

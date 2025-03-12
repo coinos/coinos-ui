@@ -514,7 +514,10 @@
 		"delete": "Excluir",
 		"renewal": "Período de renovação",
 		"maxfee": "Taxa máxima",
-		"maxfeeDesc": "Caps taxas de roteamento para uma quantidade fixa de sats. Se não estiver definido, nós captamos 1% do valor do pagamento."
+		"maxfeeDesc": "Caps taxas de roteamento para uma quantidade fixa de sats. Se não estiver definido, nós captamos 1% do valor do pagamento.",
+		"notifications": "Notificações",
+		"on": "Em",
+		"off": "Fora"
 	},
 	"notes": {
 		"contents": "Conteúdo de nota",

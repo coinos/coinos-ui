@@ -519,7 +519,10 @@
 		"delete": "Löschen",
 		"renewal": "Verlängerungszeitraum",
 		"maxfee": "Maximale Gebühr",
-		"maxfeeDesc": "Caps Routing-Gebühren zu einem festen Betrag von Sats. Wenn nicht gesetzt, werden wir 1% des Zahlungsbetrages übersteigen."
+		"maxfeeDesc": "Caps Routing-Gebühren zu einem festen Betrag von Sats. Wenn nicht gesetzt, werden wir 1% des Zahlungsbetrages übersteigen.",
+		"notifications": "Mitteilungen",
+		"on": "Auf",
+		"off": "Aus"
 	},
 	"notes": {
 		"contents": "Inhalt",

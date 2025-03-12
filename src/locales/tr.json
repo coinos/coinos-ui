@@ -44,7 +44,10 @@
 		"delete": "Delete",
 		"renewal": "Yenileme dönemi",
 		"maxfee": "Max ücret",
-		"maxfeeDesc": "Caps, sabit bir miktarda oturma ücretine gider. Eğer ayarlanmamışsa, ödeme miktarının% 1'inde kapıyoruz."
+		"maxfeeDesc": "Caps, sabit bir miktarda oturma ücretine gider. Eğer ayarlanmamışsa, ödeme miktarının% 1'inde kapıyoruz.",
+		"notifications": "Bildirimler",
+		"on": "Onda",
+		"off": "Off"
 	},
 	"404": {
 		"404": "404",
