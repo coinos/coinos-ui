@@ -480,7 +480,9 @@
 		"zappedEvent": "Afgelopen gebeurtenis",
 		"accountSettings": "Accountinstellingen",
 		"advancedSettings": "Geavanceerde instellingen",
-		"exchangeRate": "Wisselkoers"
+		"exchangeRate": "Wisselkoers",
+		"pending": "In afwachting",
+		"minted": "Mint"
 	},
 	"items": {
 		"add": "Item toevoegen",

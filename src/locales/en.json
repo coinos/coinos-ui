@@ -379,6 +379,9 @@
 		}
 	},
 	"payments": {
+    "pending": "Pending",
+    "minted": "Minted",
+    "redeemed": "Redeemed",
 		"exchangeRate": "Exchange rate",
 		"viewFund": "View fund",
 		"zappedEvent": "Zapped event",

@@ -480,7 +480,9 @@
 		"zappedEvent": "Zapped 이벤트",
 		"accountSettings": "계정 설정",
 		"advancedSettings": "고급 설정",
-		"exchangeRate": "환율"
+		"exchangeRate": "환율",
+		"pending": "관련 기사",
+		"minted": "이름 *"
 	},
 	"items": {
 		"add": "더 보기",

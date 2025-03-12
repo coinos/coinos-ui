@@ -480,7 +480,9 @@
 		"zappedEvent": "Zapped घटना",
 		"accountSettings": "खाता सेटिंग्स",
 		"advancedSettings": "उन्नत सेटिंग्स",
-		"exchangeRate": "विनिमय दर"
+		"exchangeRate": "विनिमय दर",
+		"pending": "लंबित",
+		"minted": "मिंट"
 	},
 	"items": {
 		"add": "आइटम जोड़ें",

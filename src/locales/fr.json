@@ -435,7 +435,9 @@
 		"zappedEvent": "Événement Zappé",
 		"accountSettings": "Paramètres du compte",
 		"advancedSettings": "Paramètres avancés",
-		"exchangeRate": "Taux de change"
+		"exchangeRate": "Taux de change",
+		"pending": "En attente",
+		"minted": "Mentionné"
 	},
 	"items": {
 		"add": "Ajouter un article",

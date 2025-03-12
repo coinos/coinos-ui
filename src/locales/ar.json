@@ -480,7 +480,9 @@
 		"zappedEvent": "حدث مزروع",
 		"accountSettings": "الحسابات",
 		"advancedSettings": "البيئات المتقدمة",
-		"exchangeRate": "سعر الصرف"
+		"exchangeRate": "سعر الصرف",
+		"pending": "معلقة",
+		"minted": "Minted"
 	},
 	"items": {
 		"add": "البند",

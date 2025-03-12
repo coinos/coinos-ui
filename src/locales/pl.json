@@ -480,7 +480,9 @@
 		"zappedEvent": "Zdarzenie zacofane",
 		"accountSettings": "Ustawienia konta",
 		"advancedSettings": "Ustawienia zaawansowane",
-		"exchangeRate": "Kurs wymiany"
+		"exchangeRate": "Kurs wymiany",
+		"pending": "Oczekiwanie",
+		"minted": "Puste"
 	},
 	"items": {
 		"add": "Dodaj element",

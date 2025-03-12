@@ -462,7 +462,9 @@
 		"zappedEvent": "Zapped Ereignis",
 		"accountSettings": "Kontoeinstellungen",
 		"advancedSettings": "Erweiterte Einstellungen",
-		"exchangeRate": "Wechselkurs"
+		"exchangeRate": "Wechselkurs",
+		"pending": "Andauernd",
+		"minted": "Minted"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

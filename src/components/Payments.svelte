@@ -103,7 +103,11 @@
             {/if}
 
             <div class="my-auto">
-              {amount > 0 ? (p.confirmed ? "Received" : "Pending") : "Sent"}
+              {#if p.type === types.ecash}
+                {amount > 0 ? $t("payments.redeemed") : $t("payments.minted")}
+              {:else}
+                {amount > 0 ? (p.confirmed ? $t("payments.received") : $t("payments.pending")) : $t("payments.sent")}
+              {/if}
             </div>
           </div>
         {/if}

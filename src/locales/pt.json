@@ -457,7 +457,9 @@
 		"zappedEvent": "Evento Zapped",
 		"accountSettings": "Definições da conta",
 		"advancedSettings": "Definições avançadas",
-		"exchangeRate": "Taxa de câmbio"
+		"exchangeRate": "Taxa de câmbio",
+		"pending": "Pendente",
+		"minted": "Minado"
 	},
 	"items": {
 		"add": "Adicionar item",
