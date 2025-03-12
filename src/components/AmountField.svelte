@@ -3,7 +3,15 @@
   import { tick } from "svelte";
   import Numpad from "$comp/Numpad.svelte";
 
-  let { amount = $bindable(), desc, currency, rate, label, name } = $props();
+  let {
+    amount = $bindable(),
+    none = $t("accounts.none"),
+    desc,
+    currency,
+    rate,
+    label,
+    name,
+  } = $props();
 
   let setting = $state();
   let set = () => {
@@ -34,7 +42,7 @@
     <div
       class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
     >
-      {amount || $t("accounts.none")}
+      {amount || none}
     </div>
     <input type="hidden" {name} bind:value={amount} />
   </button>

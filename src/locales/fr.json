@@ -492,7 +492,10 @@
 		"delete": "Supprimer",
 		"renewal": "Période de renouvellement",
 		"maxfee": "Taxe maximale",
-		"maxfeeDesc": "Limite les frais de routage à un montant fixe de sats. Si ce n'est pas fixé, nous plafonnons à 1 % du montant du paiement."
+		"maxfeeDesc": "Limite les frais de routage à un montant fixe de sats. Si ce n'est pas fixé, nous plafonnons à 1 % du montant du paiement.",
+		"notifications": "Notifications",
+		"on": "À",
+		"off": "Arrêt"
 	},
 	"notes": {
 		"contents": "Table des matières",
