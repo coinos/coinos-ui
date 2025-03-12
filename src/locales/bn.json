@@ -480,7 +480,9 @@
 		"zappedEvent": "Zpped ইভেন্ট",
 		"accountSettings": "অ্যাকাউন্ট",
 		"advancedSettings": "উন্নত সেটিংসমূহ",
-		"exchangeRate": "Exchangeের মাত্রা"
+		"exchangeRate": "Exchangeের মাত্রা",
+		"pending": "অসমাপ্ত",
+		"minted": "মিনট"
 	},
 	"items": {
 		"add": "বস্তু যোগ করুন",

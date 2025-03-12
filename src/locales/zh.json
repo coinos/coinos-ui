@@ -435,7 +435,9 @@
 		"zappedEvent": "突袭事件",
 		"accountSettings": "账户设置",
 		"advancedSettings": "高级设置",
-		"exchangeRate": "汇率"
+		"exchangeRate": "汇率",
+		"pending": "待决",
+		"minted": "已剪切"
 	},
 	"items": {
 		"add": "新增项目",

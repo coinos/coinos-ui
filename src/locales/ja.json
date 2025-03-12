@@ -435,7 +435,9 @@
 		"zappedEvent": "Zappedイベント",
 		"accountSettings": "アカウント設定",
 		"advancedSettings": "高度な設定",
-		"exchangeRate": "為替レート"
+		"exchangeRate": "為替レート",
+		"pending": "ペンディング",
+		"minted": "ログイン"
 	},
 	"items": {
 		"add": "アイテムの追加",

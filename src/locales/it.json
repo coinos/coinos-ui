@@ -480,7 +480,9 @@
 		"zappedEvent": "Evento Zapped",
 		"accountSettings": "Impostazioni account",
 		"advancedSettings": "Impostazioni avanzate",
-		"exchangeRate": "Tasso di cambio"
+		"exchangeRate": "Tasso di cambio",
+		"pending": "Finanziamenti",
+		"minted": "Minted"
 	},
 	"items": {
 		"add": "Aggiungi articolo",

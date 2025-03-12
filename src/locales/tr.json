@@ -480,7 +480,9 @@
 		"zappedEvent": "Zapped event",
 		"accountSettings": "Hesap ayarları",
 		"advancedSettings": "Gelişmiş ayarlar",
-		"exchangeRate": "Değişim oranı"
+		"exchangeRate": "Değişim oranı",
+		"pending": "Pending",
+		"minted": "Minted"
 	},
 	"items": {
 		"add": "Ekle item",

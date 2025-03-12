@@ -435,7 +435,9 @@
 		"zappedEvent": "دانلود بازی Zapped",
 		"accountSettings": "تنظیمات Account settings",
 		"advancedSettings": "تنظیمات پیشرفته",
-		"exchangeRate": "نرخ تبادل"
+		"exchangeRate": "نرخ تبادل",
+		"pending": "بازگشت",
+		"minted": "Minted"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",

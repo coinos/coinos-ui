@@ -435,7 +435,9 @@
 		"zappedEvent": "Событие Zapped",
 		"accountSettings": "Параметры учетной записи",
 		"advancedSettings": "Расширенные параметры",
-		"exchangeRate": "Обменный курс"
+		"exchangeRate": "Обменный курс",
+		"pending": "В ожидании",
+		"minted": "Отчеканенный"
 	},
 	"items": {
 		"add": "Добавить элемент",

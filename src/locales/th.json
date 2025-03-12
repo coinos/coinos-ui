@@ -480,7 +480,9 @@
 		"zappedEvent": "เหตุการณ์ต่าง ๆ ที่ถูกย่อหาย",
 		"accountSettings": "ตั้งค่าบัญชีผู้ใช้",
 		"advancedSettings": "ตั้งค่าขั้นสูง",
-		"exchangeRate": "อัตราแลกเปลี่ยน"
+		"exchangeRate": "อัตราแลกเปลี่ยน",
+		"pending": "จํานวนครั้งที่เล่น",
+		"minted": "ย่อหาย"
 	},
 	"items": {
 		"add": "เพิ่มรายการ",

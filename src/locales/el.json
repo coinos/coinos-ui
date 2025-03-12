@@ -453,7 +453,9 @@
 		"zappedEvent": "Γεγονός zapped",
 		"accountSettings": "Settings λογαριασμού",
 		"advancedSettings": "Προχωρημένες ρυθμίσεις",
-		"exchangeRate": "Συναλλαγματική ισοτιμία"
+		"exchangeRate": "Συναλλαγματική ισοτιμία",
+		"pending": "Σε αναμονή",
+		"minted": "Λεπτό"
 	},
 	"items": {
 		"add": "Πρόσθεσε είδος",
