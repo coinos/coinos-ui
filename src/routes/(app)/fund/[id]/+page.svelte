@@ -49,6 +49,10 @@
       <div class="flex justify-center gap-4">
         <Amount {amount} {currency} {rate} {locale} />
       </div>
+      <div class="flex">
+        <div>Access: <span class="font-bold">Anyone with the link</span></div>
+        <div class="ml-auto underline text-secondary"><a href={`/fund/${id}/access`}>Manage</a></div>
+      </div>
       <div class="flex gap-2" data-sveltekit-prefetch="off">
         <div class="grow">
           <a href={`/send/fund/${id}`}>
