@@ -64,6 +64,7 @@ export const passwordPrompt = writable();
 export const eventToSign = writable();
 export const pubkey = persistLocal("pubkey");
 export const signer = persistLocal("signer");
+export const camera = persistLocal("camera");
 export const selectSigner = writable();
 export const pin = persistLocal("pin");
 export const rate = writable();
