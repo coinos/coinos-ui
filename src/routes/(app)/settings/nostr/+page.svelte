@@ -57,7 +57,7 @@
   <div class="space-y-2">
     {#each apps as app, i}
       {@const last = i === apps.length - 1}
-      <div class:border-b-8={!last}>
+      <div class:border-b-8={!last} class="pb-4">
         <div class="flex justify-center gap-2 p-4">
           <div class="grow text-xl break-words min-w-0">
             <div>{app.name}</div>
