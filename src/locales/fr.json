@@ -495,7 +495,12 @@
 		"maxfeeDesc": "Limite les frais de routage à un montant fixe de sats. Si ce n'est pas fixé, nous plafonnons à 1 % du montant du paiement.",
 		"notifications": "Notifications",
 		"on": "À",
-		"off": "Arrêt"
+		"off": "Arrêt",
+		"qr": "QR",
+		"edit": "Modifier",
+		"payments": "Paiements",
+		"connect": "Connexion",
+		"copyNwc": "Copier NWC"
 	},
 	"notes": {
 		"contents": "Table des matières",

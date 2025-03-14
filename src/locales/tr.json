@@ -47,7 +47,12 @@
 		"maxfeeDesc": "Caps, sabit bir miktarda oturma ücretine gider. Eğer ayarlanmamışsa, ödeme miktarının% 1'inde kapıyoruz.",
 		"notifications": "Bildirimler",
 		"on": "Onda",
-		"off": "Off"
+		"off": "Off",
+		"qr": "QR",
+		"edit": "Edit",
+		"payments": "Ödemeler",
+		"connect": "Connect",
+		"copyNwc": "Kopya NWC"
 	},
 	"404": {
 		"404": "404",

@@ -41,20 +41,12 @@
     await tick();
     $save.click();
   };
-
-  let units = (r) =>
-    ({
-      daily: $t("accounts.day"),
-      weekly: $t("accounts.week"),
-      monthly: $t("accounts.month"),
-      yearly: $t("accounts.year"),
-    })[r];
 </script>
 
 <input type="hidden" name="challenge" value={challenge} />
 <input type="hidden" name="extension" value={extension} />
 
-<div class="p-4">
+<div>
   <h2 class="text-2xl font-bold mb-2">
     {$t("user.settings.nwc")}
   </h2>
@@ -65,83 +57,83 @@
   <div class="space-y-2">
     {#each apps as app, i}
       {@const last = i === apps.length - 1}
-      <div class="p-4" class:border-b-8={!last}>
-        <div class="flex justify-center gap-2 items-center p-4">
-          <div class="grow text-xl break-words min-w-0">{app.name}</div>
-          {#if app.max_amount > 0}
-            <div class="flex text-xl gap-1">
-              <div class="flex items-center font-bold">
-                <iconify-icon
-                  noobserver
-                  icon="ph:lightning-fill"
-                  class="text-yellow-300"
-                ></iconify-icon>
-                {s(app.spent, locale)} /
-                {s(app.max_amount, locale)}
-              </div>
-
-              {#if app.budget_renewal !== "never"}
-                <div>
-                  {app.budget_renewal}
+      <div class:border-b-8={!last}>
+        <div class="flex justify-center gap-2 p-4">
+          <div class="grow text-xl break-words min-w-0">
+            <div>{app.name}</div>
+            {#if app.max_amount > 0}
+              <div class="flex gap-1 text-base">
+                <div class="flex items-center">
+                  <iconify-icon
+                    noobserver
+                    icon="ph:lightning-fill"
+                    class="text-yellow-300"
+                  ></iconify-icon>
+                  {s(app.spent, locale)} /
+                  {s(app.max_amount, locale)}
                 </div>
-              {/if}
-            </div>
-          {/if}
+
+                {#if app.budget_renewal !== "never"}
+                  <div>
+                    {app.budget_renewal}
+                  </div>
+                {/if}
+              </div>
+            {/if}
+          </div>
+
+          <a
+            href={`/apps/${app.pubkey}`}
+            aria-label={$t("accounts.edit")}
+            title={$t("accounts.edit")}
+          >
+            <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+          </a>
+
+          <a
+            href={`/apps/${app.pubkey}/payments`}
+            aria-label={$t("accounts.payments")}
+            class:btn-disabled={!app.secret}
+            title={$t("accounts.payments")}
+          >
+            <iconify-icon icon="ph:clock-bold" width="32"></iconify-icon>
+          </a>
+
+          <a
+            aria-label="QR"
+            href={`/qr/${encodeURIComponent(app.nwc)}`}
+            class:btn-disabled={!app.secret}
+            title={$t("user.receive.showQR")}
+            disabled={!app.secret}
+          >
+            <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+          </a>
         </div>
 
+        <div class="flex gap-1 w-full"></div>
+
         <div class="flex flex-wrap justify-center gap-1">
+          <button
+            aria-label="Copy"
+            type="button"
+            onclick={() => copy(app.nwc)}
+            class="btn !w-auto grow"
+            class:btn-disabled={!app.secret}
+            title={$t("accounts.copy")}
+          >
+            <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+            <div>{$t("accounts.copyNwc")}</div>
+          </button>
           <a
             href={app.nwc}
-            class="btn bg-gradient-to-tr from-purple-500 to-pink-500 !w-auto shrink text-white grow whitespace-nowrap"
+            class="btn bg-gradient-to-tr from-purple-500 to-pink-500 !w-auto text-white grow whitespace-nowrap"
             class:btn-disabled={!app.secret}
             aria-label="Open nostr"
           >
             <iconify-icon icon="ph:arrow-square-out-bold" width="32"
             ></iconify-icon>
-            <div>Connect</div>
+            <div>{$t("accounts.connect")}</div>
           </a>
-
-          <div class="flex gap-1 w-full">
-            <a
-              href={`/apps/${app.pubkey}`}
-              class="btn !w-auto grow"
-              aria-label="Edit"
-            >
-              <iconify-icon icon="ph:pencil-bold" width="32"></iconify-icon>
-            </a>
-
-            <a
-              href={`/apps/${app.pubkey}/payments`}
-              aria-label="Payments"
-              class="btn !w-auto grow"
-              class:btn-disabled={!app.secret}
-              title={$t("accounts.copy")}
-            >
-              <iconify-icon icon="ph:clock-bold" width="32"></iconify-icon>
-            </a>
-
-            <button
-              aria-label="Copy"
-              type="button"
-              onclick={() => copy(app.nwc)}
-              class="btn !w-auto grow"
-              class:btn-disabled={!app.secret}
-              title={$t("accounts.copy")}
-            >
-              <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
-            </button>
-
-            <a
-              aria-label="QR"
-              href={`/qr/${encodeURIComponent(app.nwc)}`}
-              class="btn !w-auto grow"
-              class:btn-disabled={!app.secret}
-              title={$t("user.receive.showQR")}
-              disabled={!app.secret}
-            >
-              <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
-            </a>
-          </div>
         </div>
       </div>
     {/each}

@@ -522,7 +522,12 @@
 		"maxfeeDesc": "Caps Routing-Gebühren zu einem festen Betrag von Sats. Wenn nicht gesetzt, werden wir 1% des Zahlungsbetrages übersteigen.",
 		"notifications": "Mitteilungen",
 		"on": "Auf",
-		"off": "Aus"
+		"off": "Aus",
+		"qr": "QR",
+		"edit": "Bearbeiten",
+		"payments": "Zahlungen",
+		"connect": "Verbinden",
+		"copyNwc": "NWC kopieren"
 	},
 	"notes": {
 		"contents": "Inhalt",

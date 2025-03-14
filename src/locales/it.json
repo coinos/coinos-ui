@@ -47,7 +47,12 @@
 		"maxfeeDesc": "Caps routing tasse a una quantità fissa di sati. Se non impostato, copriamo all'1% dell'importo del pagamento.",
 		"notifications": "Notifica",
 		"on": "Su",
-		"off": "Fuori"
+		"off": "Fuori",
+		"qr": "DESIGNO DEL QR",
+		"edit": "Modifica",
+		"payments": "Pagamenti",
+		"connect": "Collegamento",
+		"copyNwc": "Copiare NWC"
 	},
 	"404": {
 		"404": " Errore: 404",

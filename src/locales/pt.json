@@ -517,7 +517,12 @@
 		"maxfeeDesc": "Caps taxas de roteamento para uma quantidade fixa de sats. Se não estiver definido, nós captamos 1% do valor do pagamento.",
 		"notifications": "Notificações",
 		"on": "Em",
-		"off": "Fora"
+		"off": "Fora",
+		"qr": "QR",
+		"edit": "Editar",
+		"payments": "Pagamentos",
+		"connect": "Conecte-se",
+		"copyNwc": "Copiar NWC"
 	},
 	"notes": {
 		"contents": "Conteúdo de nota",
