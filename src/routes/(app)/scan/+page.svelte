@@ -17,41 +17,25 @@
   let cameras = [];
   let detectionResult = null; // will hold the detected QR code value
 
+  // New variables to handle iOS behavior.
+  let isIOS = false;
+  let scanningStarted = false;
+
   // Enumerate available video input devices
   async function getCameraDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices();
       cameras = devices.filter((device) => device.kind === "videoinput");
 
-      // Check if we're on an iOS device
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
+      // Simply choose the first camera if none is selected.
       if (!$camera && cameras.length > 0) {
-        if (isIOS) {
-          // Prefer a camera labeled "back camera" (without additional qualifiers)
-          const backCamera = cameras.find(
-            (camera) =>
-              camera.label.toLowerCase().includes("back") &&
-              !camera.label.toLowerCase().includes("dual") &&
-              !camera.label.toLowerCase().includes("wide"),
-          );
-          $camera = backCamera
-            ? backCamera.deviceId
-            : cameras[0].deviceId;
-        } else {
-          // For non-iOS, default to a camera with the environment facing mode
-          const envCamera = cameras.find(
-            (camera) =>
-              camera.label.toLowerCase().includes("back") ||
-              camera.label.toLowerCase().includes("env"),
-          );
-          $camera = envCamera ? envCamera.deviceId : cameras[0].deviceId;
-        }
+        $camera = cameras[0].deviceId;
       }
     } catch (err) {
       console.error("Error enumerating devices:", err);
     }
   }
+
   // Start the camera stream for a given deviceId
   async function startCamera(deviceId) {
     stopCameraStream();
@@ -142,16 +126,34 @@
     });
   }
 
-  let initialize = async () => {
-    barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
-    await getCameraDevices();
+  // Function triggered by the "Start Scanning" button on iOS
+  async function startScanning() {
+    scanningStarted = true;
     await startCamera($camera);
     videoEl.addEventListener("loadeddata", () => {
       canvasEl.width = videoEl.videoWidth;
       canvasEl.height = videoEl.videoHeight;
       scanLoop();
     });
+  }
+
+  let initialize = async () => {
+    // Detect if we're on an iOS device
+    isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
+    await getCameraDevices();
+
+    // Auto-start scanning only if not on iOS.
+    if (!isIOS) {
+      await startCamera($camera);
+      videoEl.addEventListener("loadeddata", () => {
+        canvasEl.width = videoEl.videoWidth;
+        canvasEl.height = videoEl.videoHeight;
+        scanLoop();
+      });
+    }
   };
+
   onMount(initialize);
 
   onDestroy(() => {
@@ -170,6 +172,7 @@
     <div class="flex justify-center">
       <button class="btn !w-auto" onclick={back}>Cancel</button>
     </div>
+    <!-- Only display the camera selection if there are multiple cameras -->
     <div>
       <select
         id="cameraSelect"
@@ -183,6 +186,14 @@
         {/each}
       </select>
     </div>
+    <!-- For iOS users, show a "Start Scanning" button if scanning hasn't begun -->
+    {#if isIOS && !scanningStarted}
+      <div class="flex justify-center">
+        <button class="btn !w-auto" onclick={startScanning}>
+          Start Scanning
+        </button>
+      </div>
+    {/if}
   </div>
 </div>
 
