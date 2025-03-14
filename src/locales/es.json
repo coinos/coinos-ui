@@ -495,7 +495,12 @@
 		"maxfeeDesc": "Cápsulas de pago a una cantidad fija de sats. Si no se establece, caemos al 1% de la cantidad de pago.",
 		"notifications": "Notificaciones",
 		"on": "On",
-		"off": "Fuera"
+		"off": "Fuera",
+		"qr": "QR",
+		"edit": "Editar",
+		"payments": "Pagos",
+		"connect": "Conectar",
+		"copyNwc": "Copiado NWC"
 	},
 	"notes": {
 		"contents": "Contenido de la nota",

@@ -495,7 +495,12 @@
 		"maxfeeDesc": "盖子路由费为固定的座标. 如果不设定, 我们上限为支付金额的1% .",
 		"notifications": "通知",
 		"on": "打开",
-		"off": "关闭"
+		"off": "关闭",
+		"qr": "质询",
+		"edit": "编辑",
+		"payments": "付款",
+		"connect": "连接",
+		"copyNwc": "复制 NWC"
 	},
 	"notes": {
 		"contents": "说明内容",

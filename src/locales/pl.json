@@ -47,7 +47,12 @@
 		"maxfeeDesc": "Kapsułki opłat routingu do stałej ilości sat. Jeśli nie jest ustawiony, ograniczamy do 1% kwoty płatności.",
 		"notifications": "Powiadomienia",
 		"on": "On",
-		"off": "Wyłącz"
+		"off": "Wyłącz",
+		"qr": "QR",
+		"edit": "Edycja",
+		"payments": "Płatności",
+		"connect": "Połącz",
+		"copyNwc": "Kopiuj NWC"
 	},
 	"404": {
 		"404": "404",

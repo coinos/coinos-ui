@@ -47,7 +47,12 @@
 		"maxfeeDesc": "Caps routing kosten naar een vast bedrag van sats. Indien niet ingesteld, beperken we ons tot 1% van het betalingsbedrag.",
 		"notifications": "Kennisgevingen",
 		"on": "Aan",
-		"off": "Uit"
+		"off": "Uit",
+		"qr": "QR",
+		"edit": "Bewerken",
+		"payments": "Betalingen",
+		"connect": "Verbinden",
+		"copyNwc": "NWC kopiëren"
 	},
 	"404": {
 		"404": "404",
