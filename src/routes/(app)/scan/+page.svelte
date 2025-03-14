@@ -27,7 +27,7 @@
       const devices = await navigator.mediaDevices.enumerateDevices();
       cameras = devices.filter((device) => device.kind === "videoinput");
 
-      // Simply choose the first camera if none is selected.
+      // Simply choose the first available camera.
       if (!$camera && cameras.length > 0) {
         $camera = cameras[0].deviceId;
       }
@@ -36,7 +36,7 @@
     }
   }
 
-  // Start the camera stream for a given deviceId
+  // Start the camera stream for a given deviceId (used for non-iOS or programmatic restarts)
   async function startCamera(deviceId) {
     stopCameraStream();
     detectionResult = null; // reset detection on restart
@@ -115,7 +115,7 @@
     });
   }
 
-  // Provide a way to restart scanning
+  // Provide a way to restart scanning (non-iOS)
   async function restart() {
     detectionResult = null;
     await startCamera($camera);
@@ -126,15 +126,28 @@
     });
   }
 
-  // Function triggered by the "Start Scanning" button on iOS
-  async function startScanning() {
+  // For iOS: Use a direct promise chain to call getUserMedia as part of the user gesture.
+  function startScanning() {
     scanningStarted = true;
-    await startCamera($camera);
-    videoEl.addEventListener("loadeddata", () => {
-      canvasEl.width = videoEl.videoWidth;
-      canvasEl.height = videoEl.videoHeight;
-      scanLoop();
-    });
+    stopCameraStream();
+    detectionResult = null;
+    const constraints = $camera
+      ? { video: { deviceId: { exact: $camera } } }
+      : { video: { facingMode: "environment" } };
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then((stream) => {
+        videoEl.srcObject = stream;
+        return videoEl.play();
+      })
+      .then(() => {
+        // When video is ready, start scanning.
+        canvasEl.width = videoEl.videoWidth;
+        canvasEl.height = videoEl.videoHeight;
+        scanLoop();
+      })
+      .catch((err) => {
+        console.error("Error accessing camera:", err);
+      });
   }
 
   let initialize = async () => {
@@ -143,7 +156,7 @@
     barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
     await getCameraDevices();
 
-    // Auto-start scanning only if not on iOS.
+    // For non-iOS devices, auto-start scanning.
     if (!isIOS) {
       await startCamera($camera);
       videoEl.addEventListener("loadeddata", () => {
