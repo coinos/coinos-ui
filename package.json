@@ -19,6 +19,7 @@
     "@zerodevx/svelte-toast": "^0.9.5",
     "applesauce-signer": "^0.10.0",
     "autoprefixer": "^10.4.13",
+    "barcode-detector": "^3.0.1",
     "bech32": "^2.0.0",
     "bip21": "^2.0.3",
     "bitcoin-address-validation": "^2.2.1",
