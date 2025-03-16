@@ -1,17 +1,25 @@
 {
+	"funds": {
+		"anyone": "Anyone with the link",
+		"addManager": "Add manager",
+		"manage": "Manage",
+		"withdrawAccess": "Withdraw access",
+		"username": "Username",
+    "returnToFund": "Back to fund"
+	},
 	"notes": {
 		"contents": "Note contents",
 		"notFound": "No notes found"
 	},
 	"accounts": {
-    "qr": "QR",
-    "edit": "Edit",
-    "payments": "Payments",
-    "notifications": "Notifications",
-    "on": "On",
-    "off": "Off",
-    "maxfee": "Max routing fee",
-    "maxfeeDesc": "The default is 1% of the payment value if this is not set",
+		"qr": "QR",
+		"edit": "Edit",
+		"payments": "Payments",
+		"notifications": "Notifications",
+		"on": "On",
+		"off": "Off",
+		"maxfee": "Max routing fee",
+		"maxfeeDesc": "The default is 1% of the payment value if this is not set",
 		"per": "per",
 		"none": "None",
 		"day": "day",
@@ -24,7 +32,7 @@
 		"yearly": "Yearly",
 		"never": "Never",
 		"newConection": "New connection",
-    "connect": "Connect",
+		"connect": "Connect",
 		"name": "Name",
 		"pubkey": "Pubkey",
 		"secret": "Secret",
@@ -387,9 +395,9 @@
 		}
 	},
 	"payments": {
-    "pending": "Pending",
-    "minted": "Minted",
-    "redeemed": "Redeemed",
+		"pending": "Pending",
+		"minted": "Minted",
+		"redeemed": "Redeemed",
 		"exchangeRate": "Exchange rate",
 		"viewFund": "View fund",
 		"zappedEvent": "Zapped event",
