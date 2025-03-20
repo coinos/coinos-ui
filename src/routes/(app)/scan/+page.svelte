@@ -5,6 +5,7 @@
   import { BarcodeDetector } from "barcode-detector/ponyfill";
   import { camera } from "$lib/store";
 
+  let resizing = $state();
   let resize = () => {
     if (resizing) clearTimeout(resizing);
     resizing = setTimeout(initialize, 1000);
@@ -15,19 +16,16 @@
   let barcodeDetector;
   let scanningFrameId;
   let cameras = [];
-  let detectionResult = null; // will hold the detected QR code value
+  let detectionResult = null;
 
-  // New variables to handle iOS behavior.
-  let isIOS = false;
-  let scanningStarted = false;
+  let isIOS = $state();
+  let scanningStarted = $state();
 
-  // Enumerate available video input devices
   async function getCameraDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices();
       cameras = devices.filter((device) => device.kind === "videoinput");
 
-      // Simply choose the first available camera.
       if (!$camera && cameras.length > 0) {
         $camera = cameras[0].deviceId;
       }
@@ -36,10 +34,9 @@
     }
   }
 
-  // Start the camera stream for a given deviceId (used for non-iOS or programmatic restarts)
   async function startCamera(deviceId) {
     stopCameraStream();
-    detectionResult = null; // reset detection on restart
+    detectionResult = null;
     try {
       const constraints = deviceId
         ? { video: { deviceId: { exact: deviceId } } }
@@ -52,7 +49,6 @@
     }
   }
 
-  // Stop any active video stream and cancel the scanning loop
   function stopCameraStream() {
     if (videoEl && videoEl.srcObject) {
       const stream = videoEl.srcObject;
@@ -71,7 +67,6 @@
     goto(`/send/${encodeURIComponent(detectionResult)}`);
   }
 
-  // The scanning loop: draw the video frame onto a hidden canvas and detect QR codes.
   function scanLoop() {
     if (!videoEl.videoWidth || !videoEl.videoHeight) {
       scanningFrameId = requestAnimationFrame(scanLoop);
@@ -81,7 +76,6 @@
     const context = canvasEl.getContext("2d");
     if (!context) return;
 
-    // Ensure canvas dimensions match the video
     canvasEl.width = videoEl.videoWidth;
     canvasEl.height = videoEl.videoHeight;
     context.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
@@ -91,20 +85,18 @@
       .then((barcodes) => {
         if (barcodes.length > 0) {
           handleDetection(barcodes[0]);
-          return; // Stop scanning on detection.
+          return;
         }
       })
       .catch((err) => {
         console.error("Detection error:", err);
       });
 
-    // Continue scanning if no detection has occurred.
     if (!detectionResult) {
       scanningFrameId = requestAnimationFrame(scanLoop);
     }
   }
 
-  // Handle change of camera selection
   async function onCameraChange(event) {
     $camera = event.target.value;
     await startCamera($camera);
@@ -115,7 +107,6 @@
     });
   }
 
-  // Provide a way to restart scanning (non-iOS)
   async function restart() {
     detectionResult = null;
     await startCamera($camera);
@@ -126,13 +117,12 @@
     });
   }
 
-  // For iOS: Use a direct promise chain to call getUserMedia as part of the user gesture.
   function startScanning() {
     scanningStarted = true;
     stopCameraStream();
     detectionResult = null;
     const constraints = $camera
-      ? { video: { deviceId: { exact: $camera } } }
+      ? { video: { deviceId: { ideal: $camera } } }
       : { video: { facingMode: "environment" } };
     navigator.mediaDevices
       .getUserMedia(constraints)
@@ -141,7 +131,6 @@
         return videoEl.play();
       })
       .then(() => {
-        // When video is ready, start scanning.
         canvasEl.width = videoEl.videoWidth;
         canvasEl.height = videoEl.videoHeight;
         scanLoop();
@@ -152,10 +141,10 @@
   }
 
   let initialize = async () => {
-    // Detect if we're on an iOS device
     isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
     await getCameraDevices();
+    if (!isIOS) startScanning();
   };
 
   onMount(initialize);
@@ -193,6 +182,7 @@
       </div>
     {/if}
 
+    {scanningStarted}
     {#if !scanningStarted}
       <div class="flex justify-center">
         <button class="btn !w-auto" onclick={startScanning}>
