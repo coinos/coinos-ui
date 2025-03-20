@@ -155,16 +155,6 @@
     isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
     await getCameraDevices();
-
-    // For non-iOS devices, auto-start scanning.
-    if (!isIOS) {
-      await startCamera($camera);
-      videoEl.addEventListener("loadeddata", () => {
-        canvasEl.width = videoEl.videoWidth;
-        canvasEl.height = videoEl.videoHeight;
-        scanLoop();
-      });
-    }
   };
 
   onMount(initialize);
@@ -200,7 +190,7 @@
       </select>
     </div>
     <!-- For iOS users, show a "Start Scanning" button if scanning hasn't begun -->
-    {#if isIOS && !scanningStarted}
+    {#if !scanningStarted}
       <div class="flex justify-center">
         <button class="btn !w-auto" onclick={startScanning}>
           Start Scanning
