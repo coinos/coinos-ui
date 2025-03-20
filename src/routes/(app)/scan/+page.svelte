@@ -134,7 +134,8 @@
     const constraints = $camera
       ? { video: { deviceId: { exact: $camera } } }
       : { video: { facingMode: "environment" } };
-    navigator.mediaDevices.getUserMedia(constraints)
+    navigator.mediaDevices
+      .getUserMedia(constraints)
       .then((stream) => {
         videoEl.srcObject = stream;
         return videoEl.play();
@@ -175,21 +176,23 @@
     <div class="flex justify-center">
       <button class="btn !w-auto" onclick={back}>Cancel</button>
     </div>
-    <!-- Only display the camera selection if there are multiple cameras -->
-    <div>
-      <select
-        id="cameraSelect"
-        bind:value={$camera}
-        onchange={onCameraChange}
-      >
-        {#each cameras as camera}
-          <option value={camera.deviceId}>
-            {camera.label || `Camera ${camera.deviceId}`}
-          </option>
-        {/each}
-      </select>
-    </div>
-    <!-- For iOS users, show a "Start Scanning" button if scanning hasn't begun -->
+
+    {#if cameras.length > 1}
+      <div>
+        <select
+          id="cameraSelect"
+          bind:value={$camera}
+          onchange={onCameraChange}
+        >
+          {#each cameras as camera}
+            <option value={camera.deviceId}>
+              {camera.label || `Camera ${camera.deviceId}`}
+            </option>
+          {/each}
+        </select>
+      </div>
+    {/if}
+
     {#if !scanningStarted}
       <div class="flex justify-center">
         <button class="btn !w-auto" onclick={startScanning}>
