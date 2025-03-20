@@ -11,15 +11,15 @@
     resizing = setTimeout(initialize, 1000);
   };
 
-  let videoEl;
-  let canvasEl;
-  let barcodeDetector;
-  let scanningFrameId;
-  let cameras = [];
-  let detectionResult = null;
-
+  let videoEl = $state();
+  let canvasEl = $state();
+  let cameras = $state([]);
   let isIOS = $state();
   let scanningStarted = $state();
+
+  let barcodeDetector;
+  let scanningFrameId;
+  let detectionResult = null;
 
   async function getCameraDevices() {
     try {
@@ -182,7 +182,6 @@
       </div>
     {/if}
 
-    {scanningStarted}
     {#if !scanningStarted}
       <div class="flex justify-center">
         <button class="btn !w-auto" onclick={startScanning}>
