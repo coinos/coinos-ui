@@ -137,14 +137,7 @@
       <div class="text-center">
         <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
 
-        <div class="flex flex-wrap gap-4 justify-center">
-          <div class="my-auto">
-            <h2 class="text-xl">
-              {f(toFiat(ourfee, $rate), currency)}
-            </h2>
-            <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
-          </div>
-        </div>
+        <Amount amount={ourfee} rate={$rate} {currency} />
       </div>
     {/if}
 
