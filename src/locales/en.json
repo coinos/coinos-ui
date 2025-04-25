@@ -52,7 +52,7 @@
 		"revealMnemonic": "Reveal seed phrase",
 		"regenerate": "Regenerate",
 		"deleteAccount": "Delete account",
-		"addAccount": "Add account",
+		"addAccount": "Create a non-custodial account",
 		"create": "Create",
 		"import": "Import",
 		"accountSetup": "Account setup",
