@@ -215,7 +215,7 @@
         <!--   >{$t("payments.subtotal")}</span -->
         <!-- > -->
         <span class="text-base text-secondary">
-          {#if tipsIn || tipsOut}{$t("payments.tips")}{/if}
+          {#if tipsIn > 0 || tipsOut > 0}{$t("payments.tips")}{/if}
         </span>
         <span class="text-base text-secondary text-right"
           >{$t("payments.total")}</span
@@ -229,32 +229,38 @@
         {@const tipsOut = outgoing[c]?.fiatTips || 0}
         {@const subtotalOut = totalOut - tipsOut}
 
-        <span class="text-left text-base text-secondary"
-          >{$t("payments.income")}</span
-        >
-        <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
-        <span><b>{tipsIn > 0 ? f(tipsIn, c, locale) : "-"}</b></span>
-        <span class="text-right"
-          ><b>{totalIn > 0 ? f(totalIn, c, locale) : "-"}</b></span
-        >
+        {#if totalIn > 0}
+          <span class="text-left text-base text-secondary"
+            >{$t("payments.income")}</span
+          >
+          <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
+          <span><b>{tipsIn > 0 ? f(tipsIn, c, locale) : ""}</b></span>
+          <span class="text-right"
+            ><b>{totalIn > 0 ? f(totalIn, c, locale) : "-"}</b></span
+          >
+        {/if}
 
-        <span class="text-left text-base text-secondary"
-          >{$t("payments.expenditure")}</span
-        >
-        <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
-        <span><b>{tipsOut > 0 ? f(tipsOut, c, locale) : "-"}</b></span>
-        <span class="text-right"
-          ><b>{totalOut > 0 ? f(totalOut, c, locale) : "-"}</b></span
-        >
+        {#if totalOut > 0}
+          <span class="text-left text-base text-secondary"
+            >{$t("payments.expenditure")}</span
+          >
+          <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
+          <span><b>{tipsOut > 0 ? f(tipsOut, c, locale) : "-"}</b></span>
+          <span class="text-right"
+            ><b>{totalOut > 0 ? f(totalOut, c, locale) : "-"}</b></span
+          >
+        {/if}
       {/each}
     </div>
   </div>
 
-  <div class="flex justify-center">
-    <button class="btn !w-auto" onclick={csv}>
-      <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"
-      ></iconify-icon>
-      <div class="my-auto">{$t("payments.export")}</div>
-    </button>
-  </div>
+  {#if payments.length}
+    <div class="flex justify-center">
+      <button class="btn !w-auto" onclick={csv}>
+        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"
+        ></iconify-icon>
+        <div class="my-auto">{$t("payments.export")}</div>
+      </button>
+    </div>
+  {/if}
 </div>
