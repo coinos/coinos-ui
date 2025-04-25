@@ -38,14 +38,6 @@
       {/each}
     </div>
 
-    <a href={`/account/savings`} class="contents">
-      <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-        <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"
-        ></iconify-icon>
-        {$t("accounts.addAccount")}
-      </button>
-    </a>
-
     {#if $installPrompt}
       <button class="btn btn-accent lg:hidden" onclick={install}>
         <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"
