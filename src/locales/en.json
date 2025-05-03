@@ -294,6 +294,7 @@
 			"placeholder": "Enter an address, invoice or username"
 		},
 		"settings": {
+      "nostr": "Nostr",
 			"name": "Name",
 			"integrations": "Integrations",
 			"syncWithExtension": "Sync with extension",
@@ -325,7 +326,7 @@
 			"nwc": "Nostr wallet connect (NWC)",
 			"nwcDescription": "Enable nostr apps to send payments from your account",
 			"seedDescription": "This 12 word seed phrase is used to derive your nostr private key and your self-custodial wallet keys which determine your auto-withdrawal addresses. Back it up and don't let anyone see it.",
-			"emailDescription": "For password resets and payment notifications only",
+			"emailDescription": "For password resets and payment notifications",
 			"hideNsec": "Hide nostr secret key",
 			"saved": "Settings saved!",
 			"verifying": "Verification email sent",
@@ -340,7 +341,8 @@
 			"accountId": "Account Secret",
 			"header": "Settings",
 			"ACCOUNT": "PROFILE",
-			"POINT_OF_SALE": "SETTINGS",
+			"POINT_OF_SALE": "ACCOUNT",
+      "NOSTR": "NOSTR",
 			"SECURITY": "SECURITY",
 			"locale": "Language",
 			"username": "Username",

@@ -1,58 +1,98 @@
 <script>
-  import { tick } from "svelte";
-  import { avatar, banner as bannerStore } from "$lib/store";
-  import { t } from "$lib/translations";
+  import { run } from "svelte/legacy";
+
+  import { onMount, tick } from "svelte";
+  import { browser } from "$app/environment";
+  import Numpad from "$comp/Numpad.svelte";
+  import LocaleSelector from "$comp/LocaleSelector.svelte";
+  import Toggle from "$comp/Toggle.svelte";
+  import { locale, t } from "$lib/translations";
+  import { post, success, fail } from "$lib/utils";
   import { page } from "$app/stores";
+  import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
   let { data } = $props();
-  let { user } = $derived(data);
-  let { id } = user;
-  let { about, banner, picture, display, email, username, verified } =
-    $state(user);
+  let { user } = $state(data);
+  let { rates, subscriptions } = data;
+  let { currency, email, verified } = $state(user);
+  let rate = rates[currency];
 
-  let avatarFile,
-    avatarInput = $state(),
-    bannerFile,
-    bannerInput = $state();
+  let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
+  let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
-  let selectAvatar = () => avatarInput.click();
-  let selectBanner = () => bannerInput.click();
-
-  let percent;
-  let progress = async (event) => {
-    percent = Math.round((event.loaded / event.total) * 100);
+  let editingReserve = $state(),
+    editingThreshold = $state(),
+    doneReserve = $state(),
+    doneThreshold;
+  let doneEditing = () => {
+    editingReserve = false;
+    editingThreshold = false;
   };
 
-  let tooLarge = $state({});
+  let editReserve = async () => {
+    editingReserve = true;
+    await tick();
+    reserveEl.focus();
+  };
 
-  let handleFile = async ({ target }, type) => {
-    tooLarge[type] = false;
-    let file = target.files[0];
-    if (!file) return;
+  let editThreshold = async () => {
+    editingThreshold = true;
+    await tick();
+    thresholdEl.focus();
+  };
 
-    if (file.size > 10000000) return (tooLarge[type] = true);
+  if (!user.threshold) user.threshold = 1000000;
+  if (!user.reserve) user.reserve = 100000;
+  let reserveEl = $state(),
+    thresholdEl = $state();
 
-    if (type === "picture") {
-      $avatar = { id, file, type, progress };
-    } else if (type === "banner") {
-      $bannerStore = { id, file, type, progress };
+  let push = $state(),
+    pm,
+    subscription;
+
+  onMount(async () => {
+    if (!browser) return;
+
+    pm =
+      navigator?.serviceWorker &&
+      (await navigator.serviceWorker.getRegistration()).pushManager;
+
+    permission = await pm.permissionState({
+      userVisibleOnly: true,
+      applicationServerKey: PUBLIC_VAPID_PUBKEY,
+    });
+
+    if (permission === "granted") {
+      subscription = await pm.getSubscription();
+      if (subscriptions.includes(JSON.stringify(subscription))) push = true;
+    }
+  });
+
+  let permission = $state();
+  let updateNotifications = async (push) => {
+    if (!browser || !pm) return (push = false);
+
+    if (subscription && !push) {
+      return post("/subscription/delete", { subscription });
     }
 
-    var reader = new FileReader();
-    reader.onload = async (e) => {
-      if (type === "picture") {
-        $avatar.src = e.target.result;
-      } else if (type === "banner") {
-        $bannerStore.src = e.target.result;
-      }
-    };
+    if (push && permission !== "denied") {
+      subscription = await pm.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: PUBLIC_VAPID_PUBKEY,
+      });
+    }
 
-    reader.readAsDataURL(file);
+    if (subscription) {
+      await post("/subscription", { subscription });
+    }
   };
-
-  let url = $derived(`${$page.url.host}/${username}`);
-  let full = $derived(`${$page.url.protocol}//${url}`);
-  let addr = $derived(`${username}@${$page.url.host}`);
+  run(() => {
+    user.language = $locale;
+  });
+  run(() => {
+    updateNotifications(push);
+  });
 
   $effect(() => {
     if (email !== user.email) verified = false;
@@ -60,19 +100,21 @@
 </script>
 
 <div>
-  <label for="username" class="font-bold mb-1 block"
-    >{$t("user.settings.username")}</label
+  <label for="language" class="font-bold block mb-1"
+    >{$t("user.settings.locale")}</label
   >
-  <div class="flex mb-2">
-    <input type="text" name="username" bind:value={username} />
-  </div>
+  <LocaleSelector style="select-styles block py-3 w-full" />
 </div>
 
 <div>
-  <label for="display" class="font-bold mb-1 block"
-    >{$t("user.settings.displayName")}</label
+  <label for="currency" class="font-bold block mb-1"
+    >{$t("user.settings.localCurrency")}</label
   >
-  <input type="text" name="display" bind:value={display} />
+  <select name="currency" value={currency}>
+    {#each fiats as fiat}
+      <option value={fiat}>{fiat}</option>
+    {/each}
+  </select>
 </div>
 
 <div class="space-y-1 relative">
@@ -86,108 +128,181 @@
   >
     <input type="text" name="email" class="clean" bind:value={email} />
     {#if verified}
-      <iconify-icon noobserver icon="ph:check-bold" class="text-success ml-auto" width="32"
+      <iconify-icon
+        noobserver
+        icon="ph:check-bold"
+        class="text-success ml-auto"
+        width="32"
       ></iconify-icon>
     {:else if email}
-      <iconify-icon noobserver icon="ph:clock-bold" class="text-warning ml-auto" width="32"
+      <iconify-icon
+        noobserver
+        icon="ph:clock-bold"
+        class="text-warning ml-auto"
+        width="32"
       ></iconify-icon>
     {/if}
   </label>
 </div>
 
-<div class="space-y-2">
-  <span class="font-bold">{$t("user.settings.profileImage")}</span>
-
-  <div class="flex">
-    {#if $avatar || picture}
-      <div
-        class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
-        onclick={selectAvatar}
-        onkeydown={selectAvatar}
-      >
-        <img
-          src={$avatar?.src || picture}
-          class="absolute w-full h-full object-cover object-center visible overflow-hidden"
-          alt={username}
-        />
-      </div>
-    {:else}
-      <div
-        class="rounded-full border-4 border-base-100 p-4 bg-base-200 w-24 h-24 my-auto hover:opacity-80 cursor-pointer"
-        onclick={selectAvatar}
-        onkeydown={selectAvatar}
-      ></div>
-    {/if}
-    <div class="ml-2 p-2">
-      <!-- found missing translation -->
-      <button
-        type="button"
-        class="btn"
-        onclick={selectAvatar}
-        onkeydown={selectAvatar}>{$t("user.settings.select")}</button
-      >
-      <input
-        type="file"
-        class="hidden"
-        bind:this={avatarInput}
-        onchange={(e) => handleFile(e, "picture")}
-      />
-    </div>
-  </div>
-
-  {#if tooLarge["avatar"]}
-    <div class="text-red-600">Max file size 10MB</div>
-  {/if}
-</div>
-
-<div class="space-y-2">
+<div>
   <div class="flex justify-between items-center">
-    <span class="font-bold">{$t("user.settings.bannerImage")}</span>
+    <span class="font-bold">{$t("user.settings.notifications")}</span>
+    <Toggle id="notify" bind:value={user.notify} />
   </div>
-
-  {#if $bannerStore || banner}
-    <img
-      src={$bannerStore ? $bannerStore.src : banner}
-      class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
-      onclick={selectBanner}
-      onkeydown={selectBanner}
-      alt="Banner"
-    />
-  {:else}
-    <div
-      class="bg-base-200 w-full h-48 mb-4 cursor-pointer hover:opacity-80"
-      onclick={selectBanner}
-      onkeydown={selectBanner}
-      alt="Banner"
-    ></div>
-  {/if}
-
-  <button
-    type="button"
-    class="btn !w-auto"
-    onclick={selectBanner}
-    onkeydown={selectBanner}>{$t("user.settings.select")}</button
-  >
-  <input
-    type="file"
-    class="hidden"
-    bind:this={bannerInput}
-    onchange={(e) => handleFile(e, "banner")}
-  />
-
-  {#if tooLarge["banner"]}
-    <div class="text-red-600">Max file size 10MB</div>
-  {/if}
+  <p class="text-secondary mt-1 w-9/12">
+    {$t("user.settings.notificationsDesc")}
+  </p>
 </div>
 
 <div>
-  <label for="about" class="font-bold mb-1 block"
-    >{$t("user.settings.about")}</label
-  >
-  <textarea
-    type="text"
-    name="about"
-    bind:value={about}
-    placeholder={$t("user.settings.aboutPlaceholder")}
-  ></textarea>
+  <div class="flex justify-between items-center">
+    <span class="font-bold">{$t("user.settings.pushNotifications")}</span>
+    {#if permission !== "denied"}
+      <Toggle id="push" bind:value={push} />
+    {/if}
+  </div>
+  <p class="text-secondary mt-1 w-9/12">
+    {#if permission === "denied"}
+      {$t("user.settings.pushNotificationsDisabled")}
+    {:else}
+      {$t("user.settings.pushNotificationsDesc")}
+    {/if}
+  </p>
 </div>
+
+<div>
+  <div class="flex justify-between items-center">
+    <span class="font-bold">{$t("user.settings.tipPrompt")}</span>
+    <Toggle id="prompt" bind:value={user.prompt} />
+  </div>
+  <p class="text-secondary mt-1 w-9/12">
+    {$t("user.settings.tipPromptDescription")}
+  </p>
+</div>
+
+<div>
+  <div class="flex justify-between items-center">
+    <span class="font-bold">{$t("user.settings.autoWithdraw")}</span>
+    <Toggle id="autowithdraw" bind:value={user.autowithdraw} />
+  </div>
+  <p class="text-secondary mt-1 w-9/12">
+    {$t("user.settings.autoWithdrawDescription")}
+  </p>
+</div>
+
+{#if user.autowithdraw}
+  <div class="mb-2">
+    <label for="display" class="font-bold mb-1 block"
+      >{$t("user.settings.destination")}</label
+    >
+    <textarea
+      name="destination"
+      placeholder={$t("user.settings.destinationPlaceholder")}
+      onkeypress={keypress}
+      class="w-full p-4 border rounded-xl h-48"
+      bind:value={user.destination}
+    ></textarea>
+  </div>
+
+  <div>
+    <label for="display" class="font-bold mb-1 block"
+      >{$t("user.settings.threshold")}</label
+    >
+    <button type="button" class="flex w-full" onclick={editThreshold}>
+      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300"
+        ></iconify-icon>
+      </div>
+      <div
+        class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
+      >
+        {user.threshold}
+      </div>
+      <input type="hidden" name="threshold" bind:value={user.threshold} />
+    </button>
+    <p class="text-secondary mt-1">
+      {$t("user.settings.thresholdDesc")}
+    </p>
+  </div>
+
+  <div>
+    <label for="display" class="font-bold mb-1 block"
+      >{$t("user.settings.reserve")}</label
+    >
+    <button type="button" class="flex w-full" onclick={editReserve}>
+      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300"
+        ></iconify-icon>
+      </div>
+      <div
+        class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
+      >
+        {user.reserve}
+      </div>
+      <input type="hidden" name="reserve" bind:value={user.reserve} />
+    </button>
+    <p class="text-secondary mt-1">
+      {$t("user.settings.reserveDesc")}
+    </p>
+  </div>
+{/if}
+
+{#if editingThreshold}
+  <div
+    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto"
+  >
+    <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
+      <h1 class="text-center text-2xl font-semibold">
+        {$t("user.settings.threshold")}
+      </h1>
+      <Numpad
+        bind:amount={user.threshold}
+        {currency}
+        bind:rate
+        bind:submit={doneReserve}
+        bind:element={thresholdEl}
+      />
+
+      <button
+        bind:this={doneReserve}
+        type="button"
+        onclick={doneEditing}
+        class="btn">Ok</button
+      >
+    </div>
+  </div>
+{/if}
+
+{#if editingReserve}
+  <div
+    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg"
+  >
+    <div
+      class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center"
+    >
+      <h1 class="text-2xl font-semibold">
+        {$t("user.settings.reserve")}
+      </h1>
+      <Numpad
+        bind:amount={user.reserve}
+        bind:currency
+        bind:rate
+        bind:submit={doneReserve}
+        bind:element={reserveEl}
+      />
+      <button
+        bind:this={doneReserve}
+        type="button"
+        onclick={doneEditing}
+        class="btn">Ok</button
+      >
+    </div>
+  </div>
+{/if}

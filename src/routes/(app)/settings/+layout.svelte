@@ -36,8 +36,9 @@
   };
 
   let tabs = [
-    { name: "account", key: "ACCOUNT" },
-    { name: "preferences", key: "POINT_OF_SALE" },
+    { name: "profile", key: "ACCOUNT" },
+    { name: "account", key: "POINT_OF_SALE" },
+    { name: "nostr", key: "NOSTR" },
     { name: "security", key: "SECURITY" },
   ];
 
@@ -208,16 +209,16 @@
         {$t("user.settings.header")}
       </h1>
 
-      <div class="flex justify-around items-center border-b pb-3">
-        {#each tabs.filter((t) => t.name !== "shopify") as { name, key }}
-          <a href={`/settings/${name}`}>
-            <button
-              type="button"
-              class="hover:opacity-80"
-              class:font-bold={tab === name ||
-                (name === "preferences" && ["nostr", "shopify"].includes(tab))}
-              >{$t(`user.settings.${key}`)}</button
-            >
+      <div
+        class="flex flex-wrap justify-around items-center border-b pb-3"
+      >
+        {#each tabs as { name, key }}
+          <a
+            href={`/settings/${name}`}
+            class="px-4 py-2 w-1/2 sm:w-1/4 flex-shrink-0 hover:opacity-80 transition-opacity duration-150 text-center"
+            class:font-bold={name === tab}
+          >
+            {$t(`user.settings.${key}`)}
           </a>
         {/each}
       </div>
