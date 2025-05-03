@@ -1,5 +1,5 @@
 <script>
-  import { fail, post } from "$lib/utils";
+  import { focus, fail, post } from "$lib/utils";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";
@@ -42,6 +42,7 @@
       <form method="post" use:enhance class="space-y-2">
         <input type="hidden" name="id" value={id} />
         <input
+          use:focus
           name="username"
           bind:value={username}
           placeholder={$t("funds.username")}
