@@ -174,7 +174,7 @@
 			"accountBalance": "Solde",
 			"conversionFeeWarning": "Il y a des frais de 1% pour convertir entre bitcoin, Liquid et Lightning.",
 			"fetchingRate": "recherche du taux de change...",
-			"send": "Envoie",
+			"send": "Envoyer",
 			"withdraw": "Retrait",
 			"go": "Allez",
 			"receive": "Recevoir",
