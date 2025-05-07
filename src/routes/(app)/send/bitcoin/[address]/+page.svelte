@@ -1,4 +1,5 @@
 <script>
+  import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Icon from "$comp/Icon.svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -13,13 +14,18 @@
   let { currency, username } = user;
 
   let amount = $state(0);
-  let submit = $state(), fiat = $state();
+  let a = $state(0);
+  let submit = $state(),
+    fiat = $state();
   $effect(() => ($rate = data.rate));
+  $effect(() => (amount = a));
 
-  let setMax = (e) => {
+  let setMax = async (e) => {
     e.preventDefault();
     fiat = false;
     amount = balance;
+    await tick();
+    submit.click();
   };
 </script>
 
@@ -28,7 +34,8 @@
 
   <div class="text-xl text-secondary break-all">{address}</div>
 
-  <Numpad bind:amount bind:fiat {currency} {submit} bind:rate={$rate} />
+  <div>{amount}</div>
+  <Numpad bind:amount={a} bind:fiat {currency} {submit} bind:rate={$rate} />
 
   <div class="flex justify-center gap-2">
     <button
@@ -39,7 +46,12 @@
     >
 
     <form action={`/send/bitcoin/${address}/${amount}`} class="contents">
-      <button use:focus bind:this={submit} type="submit" class="btn !w-auto grow btn-accent">
+      <button
+        use:focus
+        bind:this={submit}
+        type="submit"
+        class="btn !w-auto grow btn-accent"
+      >
         {$t("payments.next")}
       </button>
     </form>
