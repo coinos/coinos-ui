@@ -11,8 +11,10 @@ export async function load({
 	const { user } = await parent();
 	const aid = cookies.get("aid") || user.id;
 
+	console.log("YO", amount, address, feeRate);
+
 	try {
-		const { fee, fees, inputs, ourfee, hex } = await post(
+		const { fee, fees, inputs, ourfee, hex, subtract } = await post(
 			"/bitcoin/fee",
 			{ address, amount, feeRate, aid },
 			auth(cookies),
@@ -29,6 +31,7 @@ export async function load({
 			feeRate,
 			rate: rates[user.currency],
 			ourfee,
+			subtract,
 			hex,
 			inputs,
 		};

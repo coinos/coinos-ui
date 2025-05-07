@@ -71,7 +71,7 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let { account, amount, address, message, fee, fees, ourfee, hex, inputs } =
+  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs } =
     $derived(data);
 
   let { feeRate } = $state(data);
@@ -116,7 +116,7 @@
   {:else}
     <div class="text-xl text-secondary break-all">{address}</div>
 
-    <Amount {amount} rate={$rate} {currency} />
+    <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} />
 
     <div class="text-center">
       <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
