@@ -11,6 +11,20 @@ export async function load({ params, parent }) {
 	try {
 		const { lnurl } = params;
 		data = await get(`/decode?text=${lnurl}`);
+		let { callback, minSendable, maxSendable, comment, tag } = data;
+		if (tag === "payRequest" && minSendable === maxSendable) {
+			minSendable = Math.round(minSendable / 1000);
+			maxSendable = Math.round(maxSendable / 1000);
+			const amount = minSendable;
+
+			let url = `${callback}?amount=${amount * 1000}`;
+			if (comment) url += `&comment=${comment}`;
+
+			const { pr } = await fetch(url).then((r) => r.json());
+			let path = `/send/lightning/${pr}`;
+			if (comment) path += `/${encodeURIComponent(comment)}`;
+			redirect(307, path);
+		}
 	} catch (e) {
 		const { message } = e as Error;
 		error(500, message);
