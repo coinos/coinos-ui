@@ -1,7 +1,17 @@
 <script>
   import { copy, s, f, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
-  const { align, amount, locale, tip, rate, currency } = $props();
+  const {
+    align,
+    amount,
+    locale,
+    tip,
+    rate,
+    currency,
+    locked = false,
+  } = $props();
+
+  const icon = $derived(locked ? "ph:lock-fill" : "ph:lightning-fill");
 </script>
 
 {#if typeof amount !== "undefined"}
@@ -11,14 +21,14 @@
       class:justify-center={align !== "left"}
     >
       <div class="flex items-center" onclick={() => copy(amount)}>
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+        <iconify-icon noobserver {icon} class="text-yellow-300"
         ></iconify-icon>{s(amount, locale)}
       </div>
 
       {#if tip}
         <div class="flex items-center text-lg ml-2">
           <div>+</div>
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+          <iconify-icon noobserver {icon} class="text-yellow-300"
           ></iconify-icon>
           <div>{s(tip, locale)}</div>
         </div>
