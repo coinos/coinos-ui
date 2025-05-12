@@ -39,8 +39,7 @@ export const actions = {
 
 			p = await post("/payments", body, auth(cookies));
 		} catch (e) {
-			let { message } = e as Error;
-			if (!message.includes("Insufficient")) message = "payments.failedToRoute";
+			const { message } = e as Error;
 			return fail(400, { message });
 		}
 

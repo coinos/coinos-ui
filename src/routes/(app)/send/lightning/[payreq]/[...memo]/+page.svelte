@@ -13,7 +13,7 @@
 
   let { alias, memo, payreq, ourfee, user } = $derived({ ...data, ...form });
   let a = $state();
-  let { currency } = $derived(user);
+  let { currency, locked } = $derived(user);
   let locale = loc(user);
 
   $effect(() => ($rate ||= data.rate));
@@ -36,7 +36,12 @@
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">
   {#if form?.message}
     <div class="text-red-600 text-center">
-      {$t(form.message)}
+      {#if form.message.includes($t("payments.insufficientFunds"))}
+        <div>{form.message}</div>
+        <div>{$t("payments.lockedBalance")}: {locked}</div>        
+      {:else}
+        {$t("payments.failedToRoute")}
+      {/if}
     </div>
   {/if}
   {#if amount}

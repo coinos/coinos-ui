@@ -7,7 +7,7 @@
 
   let show = $state();
   let { user, rate, balance } = $props();
-  let { currency } = $derived(user);
+  let { currency, locked } = $derived(user);
   let locale = loc(user);
   let toggleShow = (e) => {
     e.preventDefault();
@@ -23,11 +23,32 @@
 <div>
   {#if user.haspin && !$pin}
     <button onclick={toggleShow} class="flex gap-2 text-xl">
-      <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"
+      ></iconify-icon>
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
   {:else if !isNaN(rate)}
-    <Amount amount={balance} {rate} {currency} {locale} align="left" />
+    <div class="flex gap-4">
+      <Amount
+        amount={balance - (locked || 0)}
+        {rate}
+        {currency}
+        {locale}
+        align="left"
+      />
+      {#if locked}
+        <div class="text-red-600">
+          <Amount
+            amount={locked}
+            {rate}
+            {currency}
+            {locale}
+            align="left"
+            locked={true}
+          />
+        </div>
+      {/if}
+    </div>
   {:else}
     <div class="text-gray-200">&mdash;</div>
   {/if}
