@@ -1,4 +1,5 @@
 {
+  "incident": "Funds deposited before May 10 are locked pending recovery from a data loss incident. Follow us on Nostr for updates.",
   "funds": {
     "anyone": "Anyone with the link",
     "addManager": "Add manager",
