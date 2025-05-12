@@ -18,6 +18,7 @@
   });
 
   let { accounts, subject, rate, user } = $derived(data);
+  let { locked } = $derived(user);
 
   let install = async () => {
     if (!$installPrompt) return;
@@ -37,6 +38,12 @@
         <Account {user} {rate} {account} last={i === accounts.length - 1} />
       {/each}
     </div>
+
+    {#if locked}
+      <div class="text-sm text-gray-400 font-bold">
+        {$t("incident")}
+      </div>
+    {/if}
 
     {#if $installPrompt}
       <button class="btn btn-accent lg:hidden" onclick={install}>
