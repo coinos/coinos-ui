@@ -40,7 +40,7 @@
     </div>
 
     {#if locked}
-      <div class="text-sm text-gray-400 font-bold">
+      <div class="text-sm">
         {$t("incident")}
       </div>
     {/if}
