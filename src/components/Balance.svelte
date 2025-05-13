@@ -6,7 +6,7 @@
   import { t } from "$lib/translations";
 
   let show = $state();
-  let { user, rate, balance } = $props();
+  let { id, user, rate, balance } = $props();
   let { currency, locked } = $derived(user);
   let locale = loc(user);
   let toggleShow = (e) => {
@@ -36,7 +36,7 @@
         {locale}
         align="left"
       />
-      {#if locked}
+      {#if locked && user.id === id}
         <div class="text-red-600">
           <Amount
             amount={locked}

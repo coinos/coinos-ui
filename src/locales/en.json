@@ -1,5 +1,5 @@
 {
-  "incident": "Funds deposited before May 10 are locked pending recovery from a data loss incident. Follow us on Nostr for updates.",
+  "incident": "NOTICE: Funds deposited before May 10 are temporarily locked while we attempt to recover from a data loss incident. We had to restore our database from a day-old backup so we need to ensure that balances and payment history are corrected to account for all activity that occurred during that period before we can release funds. We don't have an ETA at this time but we are working diligently to resolve the issue. We are sincerely sorry for the inconvenience.",
   "funds": {
     "anyone": "Anyone with the link",
     "addManager": "Add manager",

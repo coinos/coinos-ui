@@ -23,7 +23,7 @@
   aria-label="Payments"
 >
   <div class="flex">
-    <Balance {balance} {user} {rate} />
+    <Balance {balance} {user} {rate} {id} />
   </div>
 
   <div class="flex justify-center w-full text-xl gap-2">
