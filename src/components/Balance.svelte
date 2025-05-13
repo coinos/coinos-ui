@@ -30,13 +30,13 @@
   {:else if !isNaN(rate)}
     <div class="flex gap-4">
       <Amount
-        amount={balance - (locked || 0)}
+        amount={balance - (id === user.id ? (locked || 0) : 0)}
         {rate}
         {currency}
         {locale}
         align="left"
       />
-      {#if locked && user.id === id}
+      {#if locked && id === user.id}
         <div class="text-red-600">
           <Amount
             amount={locked}
