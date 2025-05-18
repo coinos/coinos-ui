@@ -30,7 +30,7 @@
   {:else if !isNaN(rate)}
     <div class="flex gap-4">
       <Amount
-        amount={balance - (id === user.id ? (locked || 0) : 0)}
+        amount={Math.min(balance - (id === user.id ? (locked || 0) : 0), 0)}
         {rate}
         {currency}
         {locale}
