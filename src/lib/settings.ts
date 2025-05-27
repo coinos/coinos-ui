@@ -8,7 +8,7 @@ type Error = {
 export default async ({ cookies, request }) => {
 	const form = await fd(request);
 
-	if (form.tab === "preferences") {
+	if (form.tab === "account") {
 		form.notify = form.notify === "on";
 		form.push = form.push === "on";
 		form.nip5 = form.nip5 === "on";
