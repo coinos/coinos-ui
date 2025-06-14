@@ -5,7 +5,7 @@
 
   const followLinks = [
     {
-      url: "nostr:nprofile1qqst4qyeqenw7zm0fwjsty68h6cnys5jre2xd8ngqpjv5a2j26s78fspz4mhxue69uhhyetvv9ujucm0d9hx7uewd9hsgwx239",
+      url: "nostr:nprofile1qy28wue69uhnzv3h9cczuvpwxyargwpk8yhszxrhwvaz7tmhda6zucnjd9nksarzdak8gtnwv46z7qpqw27mc4aa6m0ufe3xs5z3m6qyr52gc0rglept7vqlwx4xeaf72tasv5xyqv",
       titleID: "nostr",
     },
     { url: "https://t.me/coinoswallet", titleID: "telegram" },
