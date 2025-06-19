@@ -113,6 +113,7 @@
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
+<div class="p-4 bg-red-400 text-white text-center font-bold"><a href="/notice">Coinos will be shutting down in the Fall</div>
 <main class="pb-4 min-h-dvh" data-theme={theme}>
   <AppHeader {user} {subject} />
   {#if !$loading}
