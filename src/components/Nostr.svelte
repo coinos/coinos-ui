@@ -13,7 +13,6 @@
     getPublicKey,
   } from "nostr-tools";
   import { getConversationKey, decrypt } from "nostr-tools/nip44";
-  import { AmberClipboardSigner } from "applesauce-signer";
 
   import { copy, focus, fail, post } from "$lib/utils";
   import { eventToSign, signer } from "$lib/store";
@@ -103,14 +102,6 @@
 
   let extensionSign = async () => {
     $signer = { method: "extension", ready: true };
-  };
-
-  let signerGetPubkey = async () => {
-    const pubkey = await new AmberClipboardSigner().getPublicKey();
-    $signer = {
-      method: "signer",
-      params: { pubkey },
-    };
   };
 
   let signerSign = async () => {
