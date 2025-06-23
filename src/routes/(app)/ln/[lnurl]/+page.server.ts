@@ -1,6 +1,9 @@
+import { PUBLIC_DOMAIN } from "$env/static/public";
 import getRates from "$lib/rates";
-import { auth, fd, get, post } from "$lib/utils";
+import { auth, fd, get, post, types } from "$lib/utils";
+import { bech32 } from "@scure/base";
 import { error, fail, redirect } from "@sveltejs/kit";
+const { decode, fromWords } = bech32;
 
 export async function load({ params, parent }) {
 	const { user } = await parent();
@@ -8,26 +11,42 @@ export async function load({ params, parent }) {
 	const rates = await getRates();
 
 	let data;
+	const { lnurl } = params;
+
+	const url = Buffer.from(fromWords(decode(lnurl, 20000).words)).toString();
+
 	try {
-		const { lnurl } = params;
 		data = await get(`/decode?text=${lnurl}`);
-		let { callback, minSendable, maxSendable, comment, tag } = data;
-		if (tag === "payRequest" && minSendable === maxSendable) {
-			minSendable = Math.round(minSendable / 1000);
-			maxSendable = Math.round(maxSendable / 1000);
-			const amount = minSendable;
-
-			let url = `${callback}?amount=${amount * 1000}`;
-			if (comment) url += `&comment=${comment}`;
-
-			const { pr } = await fetch(url).then((r) => r.json());
-			let path = `/send/lightning/${pr}`;
-			if (comment) path += `/${encodeURIComponent(comment)}`;
-			redirect(307, path);
-		}
 	} catch (e) {
 		const { message } = e as Error;
 		error(500, message);
+	}
+
+	let { callback, minSendable, maxSendable, comment, tag } = data;
+	if (callback.includes(PUBLIC_DOMAIN)) {
+		const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
+		// const inv = await post("/invoice", {
+		// 	invoice: { type: types.lightning, amount: minSendable / 1000 },
+		// 	user: { username },
+		// });
+		// const { id: iid } = inv;
+		let redir = `/pay/${username}`;
+		if (minSendable === maxSendable && minSendable > 0) redir += `/${minSendable / 1000}`;
+		redirect(307, redir);
+	}
+	if (tag === "payRequest" && minSendable === maxSendable) {
+		minSendable = Math.round(minSendable / 1000);
+		maxSendable = Math.round(maxSendable / 1000);
+		const amount = minSendable;
+
+		let url = `${callback}?amount=${amount * 1000}`;
+		if (comment) url += `&comment=${comment}`;
+
+		const { pr } = await fetch(url).then((r) => (r as Response).json());
+		console.log("PR", pr);
+		let path = `/send/lightning/${pr}`;
+		if (comment) path += `/${encodeURIComponent(comment)}`;
+		redirect(307, path);
 	}
 
 	if (!["payRequest", "withdrawRequest"].includes(data.tag))
