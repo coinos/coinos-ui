@@ -60,7 +60,7 @@
     "ws": "^8.18.0"
   },
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite dev --host 0.0.0.0",
     "build": "vite build",
     "builddev": "vite build --mode development",
     "buildstaging": "vite build --mode staging",

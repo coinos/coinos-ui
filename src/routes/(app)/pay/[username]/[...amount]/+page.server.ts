@@ -13,7 +13,7 @@ export async function load({ cookies, params, parent }) {
 	let [amount, currency] = params.amount.split("/");
 
 	const rate = rates[currency ? currency.toUpperCase() : subject.currency];
-	if (!rate) error(500, "Invalid currency symbol");
+	if (currency && !rate) error(500, "Invalid currency symbol");
 
 	if (amount) {
 		if (currency) amount = (amount * sats) / rate;
@@ -32,8 +32,6 @@ export async function load({ cookies, params, parent }) {
 			},
 			auth(cookies),
 		);
-
-		const { balance } = await get(`/account/${user.id}`, auth(cookies));
 
 		redirect(307, `/invoice/${id}`);
 	}
@@ -66,8 +64,8 @@ export const actions = {
 			return fail(400, { message });
 		}
 
-    if (parseInt(amount) > 0 && prompt) redirect(307, `/invoice/${id}/tip`);
-    else if (parseInt(amount) <= 0 ) redirect(307, `/${username}/receive`);
+		if (parseInt(amount) > 0 && prompt) redirect(307, `/invoice/${id}/tip`);
+		else if (parseInt(amount) <= 0) redirect(307, `/${username}/receive`);
 		redirect(307, `/invoice/${id}`);
 	},
 };

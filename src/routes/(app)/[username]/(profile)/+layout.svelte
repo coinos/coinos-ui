@@ -16,12 +16,13 @@
   } from "$lib/utils";
   import { t } from "$lib/translations";
   import { sign, send } from "$lib/nostr";
-  import { bech32m } from "@scure/base";
+  import { bech32 } from "@scure/base";
   import { page } from "$app/stores";
+  import { PUBLIC_DOMAIN } from "$env/static/public";
 
   let { data, children } = $props();
 
-  let { encode, toWords } = bech32m;
+  let { encode, toWords } = bech32;
 
   let {
     events,
@@ -107,6 +108,17 @@
       : `${stripped}@${$page.url.host}`,
   );
   let profile = $derived(`${$page.url.host}/${subject.anon ? npub : stripped}`);
+  let lnurl = $derived(
+    encode(
+      "lnurl",
+      toWords(
+        new TextEncoder().encode(
+          `https://${PUBLIC_DOMAIN}/p/${subject.anon ? npub : stripped}`,
+        ),
+      ),
+      20000,
+    ),
+  );
   $effect(() => followList.then((l) => (list = l)));
   let following = $derived(list.some((t) => t.includes(subject.pubkey)));
 </script>
@@ -214,18 +226,20 @@
           </div>
         </div>
         <div>
-          <div class="text-secondary">{$t("user.nostrPubkey")}</div>
+          <div class="text-secondary">{$t("user.lnurl")}</div>
           <div class="flex gap-4">
             <div class="break-all grow text-xl">
-              {subject.pubkey}
+              {lnurl}
             </div>
-            <div class="flex my-auto gap-1">
-              <button class="my-auto" onclick={() => copy(subject.pubkey)}
+            <div class="flex mb-auto gap-1">
+              <button class="my-auto" onclick={() => copy(lnurl)}
                 ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                 ></iconify-icon></button
               >
               <a
-                href={`/qr/${encodeURIComponent(subject.pubkey)}`}
+                href={`/qr/${encodeURIComponent(
+                  `${$page.url.protocol}//${lnurl}`,
+                )}`}
                 class="my-auto"
               >
                 <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
