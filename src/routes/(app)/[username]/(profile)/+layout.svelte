@@ -238,7 +238,7 @@
               >
               <a
                 href={`/qr/${encodeURIComponent(
-                  `${$page.url.protocol}//${lnurl}`,
+                  `lightning:${lnurl}`,
                 )}`}
                 class="my-auto"
               >
