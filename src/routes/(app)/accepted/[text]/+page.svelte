@@ -22,7 +22,7 @@
 <!-- </div> -->
 <!--  -->
 
-<div class="border-8 border-black p-2 mx-auto mt-20 space-y-5 mx-2">
+<div class="border-8 border-black p-2 max-w-[710px] mx-auto mt-20 space-y-5 mx-2">
   <div class="flex gap-2 mx-auto justify-center">
     <img src="/images/bitcoin.png" class="w-16 h-16 my-auto" />
     <h3 class="text-4xl font-bold text-center my-auto">Bitcoin Accepted</h3>
