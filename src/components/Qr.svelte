@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="w-80 mx-auto cursor-pointer"
+  class="w-72 sm:w-80 mx-auto cursor-pointer"
   bind:this={qr}
   onclick={() => screenfull.toggle(qr)}
   onkeydown={() => screenfull.toggle(qr)}
