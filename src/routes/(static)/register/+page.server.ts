@@ -21,6 +21,5 @@ export const actions = {
 
 		const user = { picture, username, password };
 		await register(user, ip, cookies, loginRedirect);
-		redirect(303, loginRedirect || `/${user.username}`);
 	},
 };

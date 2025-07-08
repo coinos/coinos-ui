@@ -1,13 +1,14 @@
 {
-	"appId": "io.coinos",
-	"appName": "Coinos",
-	"server": {
-		"hostname": "coinos.io",
-		"url": "https://coinos.io/start"
-	},
-	"android": {
-		"webContentsDebuggingEnabled": true,
-		"allowMixedContent": true,
-		"useBrowserHistory": true
-	}
+  "appId": "io.coinos",
+  "appName": "Coinos",
+  "server": {
+    "hostname": "coinos.io",
+    "url": "https://coinos.io/start"
+  },
+  "android": {
+    "webContentsDebuggingEnabled": true,
+    "allowMixedContent": true,
+    "useBrowserHistory": true,
+    "immersive": false
+  }
 }
