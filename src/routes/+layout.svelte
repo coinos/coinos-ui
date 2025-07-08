@@ -1,6 +1,5 @@
 <script>
   import { run } from "svelte/legacy";
-
   import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
@@ -17,12 +16,31 @@
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
 
+  function getSafeInsetTop() {
+    const div = document.createElement("div");
+    div.style.cssText = "position:absolute;top:0;padding-top:env(safe-area-inset-top);";
+    document.body.appendChild(div);
+    const computed = getComputedStyle(div).paddingTop;
+    document.body.removeChild(div);
+    const px = parseInt(computed, 10);
+    return isNaN(px) ? 24 : px;
+  }
+
   onMount(() => {
     if (!browser) return;
+
+    // Handle install prompt
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       $installPrompt = event;
     });
+
+    // Fix: Apply top padding manually for Android WebView
+    const insetTop = getSafeInsetTop();
+    const main = document.querySelector("main");
+    if (main && insetTop > 0) {
+      main.style.paddingTop = `${insetTop}px`;
+    }
   });
 </script>
 
@@ -32,16 +50,13 @@
   <meta name="twitter:title" content="coinos" />
 
   <meta property="og:image" content={`${host}/images/logo.webp`} />
-
   <meta property="og:type" content="website" />
   <meta property="og:description" content="An easy to use bitcoin web wallet" />
   <meta name="description" content="An easy to use bitcoin web wallet" />
 
   <meta name="keywords" content="coinos easy bitcoin web wallet" />
-
   <meta name="twitter:image" content={`${host}/images/logo.webp`} />
   <meta name="twitter:card" content="summary_large_image" />
-
   <meta property="og:url" content={host + pathname} />
   <meta name="twitter:site" content="@coinoswallet" />
   <meta name="twitter:creator" content="@coinoswallet" />
@@ -63,8 +78,7 @@
   }
 
   main {
-    padding-top: constant(safe-area-inset-top);
-    padding-top: env(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top, 24px);
   }
 
   @supports not (padding-top: env(safe-area-inset-top)) {
