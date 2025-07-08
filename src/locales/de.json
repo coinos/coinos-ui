@@ -350,7 +350,8 @@
 		"moreDetails": "Links und Details",
 		"url": "Öffentliche URL",
 		"nwc": "Nostr-Wallet verbinden",
-		"loadMore": "Mehr laden"
+		"loadMore": "Mehr laden",
+		"lnurl": "Wiederverwendbarer Zahlungscode"
 	},
 	"payments": {
 		"header": "Transaktionen",
@@ -467,7 +468,8 @@
 		"pending": "Andauernd",
 		"minted": "Minted",
 		"insufficientFunds": "Unzureichende Mittel",
-		"lockedBalance": "Gesperrter Saldo"
+		"lockedBalance": "Gesperrter Saldo",
+		"sweep": "Sweep Link"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

@@ -381,7 +381,8 @@
 			"doOurBest": "i zrobimy co w naszej mocy, by wrócić do ciebie w odpowiednim czasie.",
 			"thankYou": "Dziękuję!",
 			"beInTouch": "Ktoś wkrótce będzie w kontakcie."
-		}
+		},
+		"lnurl": "Kod płatności wielokrotnego użytku"
 	},
 	"payments": {
 		"ok": "Ok",
@@ -493,7 +494,8 @@
 		"pending": "Oczekiwanie",
 		"minted": "Puste",
 		"insufficientFunds": "Niewystarczające fundusze",
-		"lockedBalance": "Saldo zablokowane"
+		"lockedBalance": "Saldo zablokowane",
+		"sweep": "Połączenie zamiatające"
 	},
 	"items": {
 		"add": "Dodaj element",

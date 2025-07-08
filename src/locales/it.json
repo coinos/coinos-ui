@@ -381,7 +381,8 @@
 			"doOurBest": "e faremo del nostro meglio per tornare a te in modo tempestivo.",
 			"thankYou": "Grazie!",
 			"beInTouch": "Qualcuno sarà in contatto tra poco."
-		}
+		},
+		"lnurl": "Codice di pagamento riutilizzabile"
 	},
 	"payments": {
 		"ok": "Ok",
@@ -493,7 +494,8 @@
 		"pending": "Finanziamenti",
 		"minted": "Minted",
 		"insufficientFunds": "Fondi insufficienti",
-		"lockedBalance": "Bilancia chiusa"
+		"lockedBalance": "Bilancia chiusa",
+		"sweep": "Collegamento di nuoto"
 	},
 	"items": {
 		"add": "Aggiungi articolo",

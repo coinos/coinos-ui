@@ -323,7 +323,8 @@
 		"moreDetails": "Liens et détails",
 		"url": "URL publique",
 		"nwc": "Connexion au portefeuille Nostr",
-		"loadMore": "Charger plus"
+		"loadMore": "Charger plus",
+		"lnurl": "Code de paiement réutilisable"
 	},
 	"news": {
 		"header": "Nouvelles",
@@ -440,7 +441,8 @@
 		"pending": "En attente",
 		"minted": "Mentionné",
 		"insufficientFunds": "Insuffisance des fonds",
-		"lockedBalance": "Solde verrouillé"
+		"lockedBalance": "Solde verrouillé",
+		"sweep": "Lien de balayage"
 	},
 	"items": {
 		"add": "Ajouter un article",

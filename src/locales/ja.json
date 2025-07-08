@@ -327,7 +327,8 @@
 		"moreDetails": "リンクと詳細",
 		"url": "公開URL",
 		"nwc": "Nostrウォレットコネクト",
-		"loadMore": "もっと見る"
+		"loadMore": "もっと見る",
+		"lnurl": "再利用可能な決済コード"
 	},
 	"payments": {
 		"networkFee": "ネットワーク料金",
@@ -440,7 +441,8 @@
 		"pending": "ペンディング",
 		"minted": "ログイン",
 		"insufficientFunds": "十分な資金",
-		"lockedBalance": "ロックバランス"
+		"lockedBalance": "ロックバランス",
+		"sweep": "スイープリンク"
 	},
 	"items": {
 		"add": "アイテムの追加",

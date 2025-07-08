@@ -381,7 +381,8 @@
 			"doOurBest": "وسنبذل قصارى جهدنا للعودة إليك في الوقت المناسب.",
 			"thankYou": "شكراً لك!",
 			"beInTouch": "شخص ما سيكون على اتصال قريبا."
-		}
+		},
+		"lnurl": "رمز المدفوعات المستحقة"
 	},
 	"payments": {
 		"ok": "حسناً",
@@ -493,7 +494,8 @@
 		"pending": "معلقة",
 		"minted": "Minted",
 		"insufficientFunds": "عدم كفاية الأموال",
-		"lockedBalance": "الرصيد الجاهز"
+		"lockedBalance": "الرصيد الجاهز",
+		"sweep": "وصلة Sweep"
 	},
 	"items": {
 		"add": "البند",

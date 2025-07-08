@@ -327,7 +327,8 @@
 		"moreDetails": "لینک ها و جزئیات",
 		"url": "URL عمومی",
 		"nwc": "اتصال کیف پول Nostr",
-		"loadMore": "بار بیشتر"
+		"loadMore": "بار بیشتر",
+		"lnurl": "کد پرداخت مناسب"
 	},
 	"payments": {
 		"networkFee": "هزینه شبکه",
@@ -440,7 +441,8 @@
 		"pending": "بازگشت",
 		"minted": "Minted",
 		"insufficientFunds": "صندوق های بی کفایت",
-		"lockedBalance": "تعادل قفل شده"
+		"lockedBalance": "تعادل قفل شده",
+		"sweep": "پیوند"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",

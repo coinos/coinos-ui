@@ -381,7 +381,8 @@
 			"doOurBest": "en we zullen ons best doen om tijdig bij je terug te komen.",
 			"thankYou": "Dank je!",
 			"beInTouch": "Er neemt zo iemand contact op."
-		}
+		},
+		"lnurl": "Herbruikbare betalingscode"
 	},
 	"payments": {
 		"ok": "Ok",
@@ -493,7 +494,8 @@
 		"pending": "In afwachting",
 		"minted": "Mint",
 		"insufficientFunds": "Onvoldoende middelen",
-		"lockedBalance": "Gesloten balans"
+		"lockedBalance": "Gesloten balans",
+		"sweep": "Veegverbinding"
 	},
 	"items": {
 		"add": "Item toevoegen",
