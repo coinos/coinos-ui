@@ -11,11 +11,11 @@
     { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
     { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
     { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
-    {
-      key: "nav.merch",
-      icon: "ph:storefront-bold",
-      href: `https://coinosmerch.com`,
-    },
+    // {
+    //   key: "nav.merch",
+    //   icon: "ph:storefront-bold",
+    //   href: `https://coinosmerch.com`,
+    // },
     { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
     { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
   ];
