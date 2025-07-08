@@ -319,7 +319,9 @@
 			"nwc": "Nostr Brieftasche verbinden",
 			"nwcDescription": "Aktivieren Sie Ihre nostr App, um Zahlungen von Ihrem Konto zu senden",
 			"name": "Bezeichnung",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "Standardtipp",
+			"tipDesc": "Standard-Tip-Prozentsatz bei automatischer Bezahlung vertrauenswürdiger Benutzer"
 		},
 		"support": {
 			"header": "Support",
@@ -469,7 +471,8 @@
 		"minted": "Minted",
 		"insufficientFunds": "Unzureichende Mittel",
 		"lockedBalance": "Gesperrter Saldo",
-		"sweep": "Sweep Link"
+		"sweep": "Sweep Link",
+		"trustUser": "Senden und aktivieren Auto-Pay"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",

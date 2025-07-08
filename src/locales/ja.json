@@ -308,7 +308,9 @@
 			"nwc": "Nostrウォレットは接続します",
 			"nwcDescription": "あなたのnostrアプリを有効にして、あなたのアカウントから支払いを送信",
 			"name": "お名前 (必須)",
-			"NOSTR": "ログイン"
+			"NOSTR": "ログイン",
+			"tip": "デフォルトチップ",
+			"tipDesc": "信頼できるユーザーを自動支払するときのデフォルトのヒントパーセンテージ"
 		},
 		"support": {
 			"header": "サポート",
@@ -442,7 +444,8 @@
 		"minted": "ログイン",
 		"insufficientFunds": "十分な資金",
 		"lockedBalance": "ロックバランス",
-		"sweep": "スイープリンク"
+		"sweep": "スイープリンク",
+		"trustUser": "オートペイの送信と有効化"
 	},
 	"items": {
 		"add": "アイテムの追加",

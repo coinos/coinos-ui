@@ -369,7 +369,9 @@
 			"nip5a": "제품 정보",
 			"nip5b": "공개적으로 검증된 nostr 주소",
 			"name": "이름 *",
-			"NOSTR": "사이트맵"
+			"NOSTR": "사이트맵",
+			"tip": "기본 팁",
+			"tipDesc": "자동 결제가 가능한 경우 기본 팁 비율"
 		},
 		"support": {
 			"header": "지원하다",
@@ -495,7 +497,8 @@
 		"minted": "이름 *",
 		"insufficientFunds": "충분한 자금",
 		"lockedBalance": "Locked 균형",
-		"sweep": "Sweep 링크"
+		"sweep": "Sweep 링크",
+		"trustUser": "자동 결제 가능"
 	},
 	"items": {
 		"add": "더 보기",

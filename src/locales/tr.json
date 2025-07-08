@@ -369,7 +369,9 @@
 			"nip5a": "Use",
 			"nip5b": "sizin kamuya açık olarak doğrulanmamış nostr adresi",
 			"name": "Name",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "Varsayılan ipucu",
+			"tipDesc": "Otomatik ücretli güvenilen kullanıcıların ortalama yüzdesi"
 		},
 		"support": {
 			"header": "Destek Desteği Destek Desteği",
@@ -495,7 +497,8 @@
 		"minted": "Minted",
 		"insufficientFunds": "Yetersiz fonlarda",
 		"lockedBalance": "Locked bakiye",
-		"sweep": "Sweep link"
+		"sweep": "Sweep link",
+		"trustUser": "Gönder ve otomatik ödeme sağlar"
 	},
 	"items": {
 		"add": "Ekle item",

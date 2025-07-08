@@ -327,7 +327,9 @@
 			"nwc": "Nostr carteira conectar",
 			"nwcDescription": "Habilite seu aplicativo nostr para enviar pagamentos de sua conta",
 			"name": "Nome",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "Dica padrão",
+			"tipDesc": "Percentagem de dica padrão ao pagar automaticamente usuários confiáveis"
 		},
 		"support": {
 			"header": "Suporte",
@@ -464,7 +466,8 @@
 		"minted": "Minado",
 		"insufficientFunds": "Fundos insuficientes",
 		"lockedBalance": "Saldo bloqueado",
-		"sweep": "Varrer a ligação"
+		"sweep": "Varrer a ligação",
+		"trustUser": "Enviar e ativar o pagamento automático"
 	},
 	"items": {
 		"add": "Adicionar item",
