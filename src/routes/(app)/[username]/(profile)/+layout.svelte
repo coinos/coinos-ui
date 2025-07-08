@@ -236,7 +236,7 @@
               {lnurl}
             </div>
             <div class="flex mb-auto gap-1">
-              <button class="my-auto" onclick={() => copy(lnurl)}
+              <button class="my-auto" onclick={() => copy(`lightning:${lnurl}`)}
                 ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                 ></iconify-icon></button
               >
