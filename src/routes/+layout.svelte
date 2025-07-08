@@ -37,6 +37,18 @@
           console.error("Failed to get notch inset:", err);
         },
       );
+
+      window.AndroidNotch.getInsetBottom(
+        (px) => {
+          document.documentElement.style.setProperty(
+            "--safe-area-inset-bottom",
+            px + "px",
+          );
+        },
+        (err) => {
+          console.error("Failed to get bottom inset:", err);
+        },
+      );
     }
   });
 </script>
@@ -74,9 +86,11 @@
     --toastBackground: #292929;
 
     --safe-area-inset-top: 24px;
+    --safe-area-inset-bottom: 0px;
   }
 
   main {
     padding-top: var(--safe-area-inset-top);
+    padding-bottom: var(--safe-area-inset-bottom);
   }
 </style>
