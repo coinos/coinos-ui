@@ -348,7 +348,8 @@
 		"moreDetails": "Links e detalhes",
 		"url": "URL pública",
 		"nwc": "Nostr carteira conectar",
-		"loadMore": "Carregar mais"
+		"loadMore": "Carregar mais",
+		"lnurl": "Código de pagamento reutilizável"
 	},
 	"payments": {
 		"amount": "Quantidade",
@@ -462,7 +463,8 @@
 		"pending": "Pendente",
 		"minted": "Minado",
 		"insufficientFunds": "Fundos insuficientes",
-		"lockedBalance": "Saldo bloqueado"
+		"lockedBalance": "Saldo bloqueado",
+		"sweep": "Varrer a ligação"
 	},
 	"items": {
 		"add": "Adicionar item",

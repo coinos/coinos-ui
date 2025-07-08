@@ -327,7 +327,8 @@
 		"moreDetails": "链接和详细信息",
 		"url": "公共 URL",
 		"nwc": "Nostr 钱包连接",
-		"loadMore": "装入更多"
+		"loadMore": "装入更多",
+		"lnurl": "可重复使用的付款代码"
 	},
 	"payments": {
 		"networkFee": "网络费",
@@ -440,7 +441,8 @@
 		"pending": "待决",
 		"minted": "已剪切",
 		"insufficientFunds": "资金不足",
-		"lockedBalance": "锁定余额"
+		"lockedBalance": "锁定余额",
+		"sweep": "扫描链接"
 	},
 	"items": {
 		"add": "新增项目",

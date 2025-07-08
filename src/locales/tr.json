@@ -381,7 +381,8 @@
 			"doOurBest": "ve size zamanında geri dönmek için elimizden geleni yapacağız.",
 			"thankYou": "Teşekkür ederim!",
 			"beInTouch": "Birisi kısa bir süre içinde dokunacaktır."
-		}
+		},
+		"lnurl": "Reusable ödeme kodu"
 	},
 	"payments": {
 		"ok": "Tamam",
@@ -493,7 +494,8 @@
 		"pending": "Pending",
 		"minted": "Minted",
 		"insufficientFunds": "Yetersiz fonlarda",
-		"lockedBalance": "Locked bakiye"
+		"lockedBalance": "Locked bakiye",
+		"sweep": "Sweep link"
 	},
 	"items": {
 		"add": "Ekle item",

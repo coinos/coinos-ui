@@ -381,7 +381,8 @@
 			"doOurBest": "그리고 우리는 적시에 당신에게 다시 얻을 수있는 최선을 다할 것입니다.",
 			"thankYou": "감사합니다!",
 			"beInTouch": "누군가가 곧 연락 할 것입니다."
-		}
+		},
+		"lnurl": "Reusable 지불 부호"
 	},
 	"payments": {
 		"ok": "·",
@@ -493,7 +494,8 @@
 		"pending": "관련 기사",
 		"minted": "이름 *",
 		"insufficientFunds": "충분한 자금",
-		"lockedBalance": "Locked 균형"
+		"lockedBalance": "Locked 균형",
+		"sweep": "Sweep 링크"
 	},
 	"items": {
 		"add": "더 보기",

@@ -327,7 +327,8 @@
 		"moreDetails": "Enlaces y detalles",
 		"url": "URL pública",
 		"nwc": "Conexión de billetera Nostr",
-		"loadMore": "Cargar más"
+		"loadMore": "Cargar más",
+		"lnurl": "Código de pago reutilizable"
 	},
 	"payments": {
 		"insufficientFunds": "Fondos insuficientes",
@@ -440,7 +441,8 @@
 		"exchangeRate": "Tipo de cambio",
 		"pending": "Pendiente",
 		"minted": "Minted",
-		"lockedBalance": "Saldo bloqueado"
+		"lockedBalance": "Saldo bloqueado",
+		"sweep": "Sweep link"
 	},
 	"items": {
 		"add": "Añadir artículo",
