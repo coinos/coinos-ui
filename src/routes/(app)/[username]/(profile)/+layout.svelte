@@ -128,19 +128,22 @@
   <div
     class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto"
   >
-    <button
-      type="button"
-      class="flex text-3xl font-bold text-center mx-auto justify-center gap-2"
+    <div
+      class="flex text-3xl font-bold text-center mx-auto justify-center gap-1 items-center"
     >
-      <div class="flex gap-1" onclick={toggleDetails}>
-        <div class="my-auto break-words">{display || username}</div>
-        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+      <div class="flex gap-1 items-center" onclick={toggleDetails}>
+        <div class="break-words">{display || username}</div>
+        <iconify-icon noobserver icon="ph:list-bold" width="32"
         ></iconify-icon>
       </div>
+      <a href="/settings/profile" class="btn contents">
+        <iconify-icon noobserver icon="ph:pencil-bold" width="32"
+        ></iconify-icon>
+      </a>
       <!-- <a href={`/${subject.pubkey}/notes`}> -->
       <!--   <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon> -->
       <!-- </a> -->
-    </button>
+    </div>
 
     {#if subject.about}
       <div
@@ -181,7 +184,7 @@
     <!-- </div> -->
 
     {#if showDetails}
-      <div class="space-y-5 pb-20">
+      <div class="space-y-5">
         {#if lnaddr}
           <div>
             <div class="text-secondary">{$t("user.lightningAddress")}</div>
@@ -237,9 +240,7 @@
                 ></iconify-icon></button
               >
               <a
-                href={`/accepted/${encodeURIComponent(
-                  `lightning:${lnurl}`,
-                )}`}
+                href={`/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
                 class="my-auto"
               >
                 <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
@@ -248,24 +249,24 @@
             </div>
           </div>
         </div>
-        <div>
-          <div class="text-secondary">{$t("user.nostrPubkey")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-xl">
-              {npub}
-            </div>
-            <div class="flex my-auto gap-1">
-              <button class="my-auto" onclick={() => copy(npub)}
-                ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-                ></iconify-icon></button
-              >
-              <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto">
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-                ></iconify-icon>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- <div> -->
+        <!--   <div class="text-secondary">{$t("user.nostrPubkey")}</div> -->
+        <!--   <div class="flex gap-4"> -->
+        <!--     <div class="break-all grow text-xl"> -->
+        <!--       {npub} -->
+        <!--     </div> -->
+        <!--     <div class="flex my-auto gap-1"> -->
+        <!--       <button class="my-auto" onclick={() => copy(npub)} -->
+        <!--         ><iconify-icon noobserver icon="ph:copy-bold" width="32" -->
+        <!--         ></iconify-icon></button -->
+        <!--       > -->
+        <!--       <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto"> -->
+        <!--         <iconify-icon noobserver icon="ph:qr-code-bold" width="32" -->
+        <!--         ></iconify-icon> -->
+        <!--       </a> -->
+        <!--     </div> -->
+        <!--   </div> -->
+        <!-- </div> -->
       </div>
     {/if}
 
