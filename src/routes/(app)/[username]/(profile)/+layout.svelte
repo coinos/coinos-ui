@@ -131,10 +131,10 @@
     <div
       class="flex text-3xl font-bold text-center mx-auto justify-center gap-1 items-center"
     >
-      <div class="flex gap-1 items-center" onclick={toggleDetails}>
+      <button class="flex gap-1 items-center" onclick={toggleDetails}>
         <div class="break-words">{display || username}</div>
         <iconify-icon noobserver icon="ph:list-bold" width="32"></iconify-icon>
-      </div>
+      </button>
       {#if subject.id === user?.id}
         <a href="/settings/profile" class="btn contents">
           <iconify-icon noobserver icon="ph:pencil-bold" width="32"
