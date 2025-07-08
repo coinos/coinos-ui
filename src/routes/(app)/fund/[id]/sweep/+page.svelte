@@ -1,35 +1,33 @@
 <script>
+  import Amount from "$comp/Amount.svelte";
+  import Success from "$comp/Success.svelte";
   import { scale } from "svelte/transition";
   import { toFiat, f, s } from "$lib/utils";
   import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
+  import { loc } from "$lib/utils";
 
   let { data } = $props();
 
-  let { amount, id, user, rates } = data;
+  let { amount, id, user, rate, rates } = data;
   let { currency } = user;
-  let rate = $derived(rates[currency]);
+  let locale = $derived(loc(user));
 </script>
 
-<div class="container px-4 max-w-xl mx-auto mt-10 space-y-5 text-center">
-  <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
-    <Icon icon="check" style="mx-auto" />
-  </div>
-  <h1 class="text-3xl md:text-4xl font-bold mb-6">
-    {$t("payments.fundsClaimed")}
-  </h1>
-  <h2 class="text-2xl md:text-3xl font-semibold">
-    {f(toFiat(amount, rate), currency)}
-  </h2>
-  <h3 class="text-secondary md:text-lg mb-6 mt-1">
-    ⚡️{s(amount)}
-  </h3>
+<div class="container px-4 text-center mx-auto">
+  <Success
+    {amount}
+    {rate}
+    {currency}
+    {locale}
+    title={$t("payments.received")}
+  />
 </div>
 
-<a href={`/${user.username}`}>
-  <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
+<a href={`/${user.username}`} aria-label="Continue">
+  <div class="opacity-0 w-screen h-screen fixed top-24 left-0 z-50"></div>
 </a>
 
-<div class="flex justify-center">
+<div class="flex justify-center mt-4">
   {$t("payments.tapAnywhere")}
 </div>
