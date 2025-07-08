@@ -73,18 +73,7 @@
         </div>
       </div>
     {/if}
-
-    <textarea
-      use:focus
-      name="text"
-      placeholder={$t("user.send.placeholder")}
-      onkeypress={keypress}
-      class="w-full p-4 border rounded-xl h-32 text-xl"
-      bind:value={text}
-      onpaste={() => (pasted = true)}
-      autocapitalize="none"
-    ></textarea>
-
+    
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
@@ -100,6 +89,18 @@
         {$t("user.send.paste")}
       </button>
     </div>
+
+    <textarea
+      use:focus
+      name="text"
+      placeholder={$t("user.send.placeholder")}
+      onkeypress={keypress}
+      class="w-full p-4 border rounded-xl h-32 text-xl"
+      bind:value={text}
+      onpaste={() => (pasted = true)}
+      autocapitalize="none"
+    ></textarea>
+
 
     <button bind:this={el} type="submit" class="btn btn-accent">
       <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
@@ -152,7 +153,7 @@
     </div>
   {/if}
 
-  {#if !loaded}
+  {#if !loaded && contacts.length > 0}
     <button onclick={loadMore} type="button" class="btn"
       >{$t("user.loadMore")}</button
     >

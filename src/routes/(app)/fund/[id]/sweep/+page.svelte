@@ -12,12 +12,6 @@
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5 text-center">
-  <div class="w-full flex">
-    <a href="/" class="mx-auto">
-      <Icon icon="logo" />
-    </a>
-  </div>
-
   <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
     <Icon icon="check" style="mx-auto" />
   </div>
@@ -32,7 +26,7 @@
   </h3>
 </div>
 
-<a href={`/payments`}>
+<a href={`/${user.username}`}>
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 

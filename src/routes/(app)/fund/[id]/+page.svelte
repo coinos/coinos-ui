@@ -111,6 +111,14 @@
           ></iconify-icon>
           <div class="my-auto">{$t("payments.shareLink")}</div>
         </a>
+        <button
+          on:click={() => copy(`${$page.url.href}/sweep`)}
+          class="btn !w-auto grow"
+        >
+          <iconify-icon noobserver icon="ph:copy-bold" width="32"
+          ></iconify-icon>
+          <div class="my-auto">{$t("payments.sweep")}</div>
+        </button>
         <!-- <a href={`/qr/${lnurlw}`} class="btn !w-auto grow"> -->
         <!--   <iconify-icon -->
         <!--     noobserver -->

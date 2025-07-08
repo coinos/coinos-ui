@@ -398,6 +398,7 @@
 		}
 	},
 	"payments": {
+    "sweep": "Sweep link",
 		"lockedBalance": "Locked balance",
 		"insufficientFunds": "Insufficient funds",
 		"pending": "Pending",
