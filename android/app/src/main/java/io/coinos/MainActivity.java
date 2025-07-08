@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Bridge;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,24 +26,30 @@ import java.util.Arrays;
 public class MainActivity extends BridgeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // ✅ Let Capacitor inflate its layout and wire everything
         super.onCreate(savedInstanceState);
 
-        // Ensure the WebView doesn't overlap the system status bar
+        WebView webView = bridge.getWebView(); // This works *after* super.onCreate()
+
+        // ✅ Ensure layout respects system bars
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
 
-        WebView webView = bridge.getWebView();
+        // ✅ Apply top inset padding if needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            webView.setOnApplyWindowInsetsListener((v, insets) -> {
+                v.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+                return insets.consumeSystemWindowInsets();
+            });
+        }
+
+        // Other app setup
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
-
-        // Ensure layout respects system window insets
-        ViewCompat.setOnApplyWindowInsetsListener(webView, (v, insets) -> {
-            v.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
-            return insets;
-        });
 
         handleIntent(getIntent());
     }
