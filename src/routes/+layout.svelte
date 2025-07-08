@@ -16,16 +16,6 @@
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
 
-  function getSafeInsetTop() {
-    const div = document.createElement("div");
-    div.style.cssText = "position:absolute;top:0;padding-top:env(safe-area-inset-top);";
-    document.body.appendChild(div);
-    const computed = getComputedStyle(div).paddingTop;
-    document.body.removeChild(div);
-    const px = parseInt(computed, 10);
-    return isNaN(px) ? 24 : px;
-  }
-
   onMount(() => {
     if (!browser) return;
 
@@ -35,11 +25,18 @@
       $installPrompt = event;
     });
 
-    // Fix: Apply top padding manually for Android WebView
-    const insetTop = getSafeInsetTop();
-    const main = document.querySelector("main");
-    if (main && insetTop > 0) {
-      main.style.paddingTop = `${insetTop}px`;
+    if (typeof window.AndroidNotch !== "undefined") {
+      window.AndroidNotch.getInsetTop(
+        (px) => {
+          document.documentElement.style.setProperty(
+            "--safe-area-inset-top",
+            px + "px",
+          );
+        },
+        (err) => {
+          console.error("Failed to get notch inset:", err);
+        },
+      );
     }
   });
 </script>
@@ -75,15 +72,11 @@
     --toastContainerBottom: 8rem;
     --toastContainerLeft: calc(50vw - 8rem);
     --toastBackground: #292929;
+
+    --safe-area-inset-top: 24px;
   }
 
   main {
-    padding-top: env(safe-area-inset-top, 24px);
-  }
-
-  @supports not (padding-top: env(safe-area-inset-top)) {
-    main {
-      padding-top: 24px;
-    }
+    padding-top: var(--safe-area-inset-top);
   }
 </style>
