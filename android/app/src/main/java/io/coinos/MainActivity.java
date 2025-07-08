@@ -1,5 +1,11 @@
 package io.coinos;
 
+import android.os.Build;
+import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import androidx.core.view.ViewCompat;
+
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Bridge;
 import android.content.Intent;
@@ -21,11 +27,22 @@ public class MainActivity extends BridgeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Ensure the WebView doesn't overlap the system status bar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
         WebView webView = bridge.getWebView();
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+
+        // Ensure layout respects system window insets
+        ViewCompat.setOnApplyWindowInsetsListener(webView, (v, insets) -> {
+            v.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+            return insets;
+        });
 
         handleIntent(getIntent());
     }

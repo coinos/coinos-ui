@@ -61,4 +61,15 @@
     --toastContainerLeft: calc(50vw - 8rem);
     --toastBackground: #292929;
   }
+
+  main {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+  }
+
+  @supports not (padding-top: env(safe-area-inset-top)) {
+    main {
+      padding-top: 24px;
+    }
+  }
 </style>
