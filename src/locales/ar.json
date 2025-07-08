@@ -369,7 +369,9 @@
 			"nip5a": "الاستخدام",
 			"nip5b": "\"عنوان \"نوستر",
 			"name": "الاسم",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "النص الأصلي",
+			"tipDesc": "النسبة المئوية للمستخدمين الموثوقين الذين يدفعون بالسيارة"
 		},
 		"support": {
 			"header": "الدعم",
@@ -495,7 +497,8 @@
 		"minted": "Minted",
 		"insufficientFunds": "عدم كفاية الأموال",
 		"lockedBalance": "الرصيد الجاهز",
-		"sweep": "وصلة Sweep"
+		"sweep": "وصلة Sweep",
+		"trustUser": "إرسال وإتاحة دفع رسوم السيارات"
 	},
 	"items": {
 		"add": "البند",

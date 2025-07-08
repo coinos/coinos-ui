@@ -369,7 +369,9 @@
 			"nip5a": "Gebruik",
 			"nip5b": "als jouw publiekelijk geverifieerd nostr adres",
 			"name": "Naam",
-			"NOSTR": "NOST"
+			"NOSTR": "NOST",
+			"tip": "Standaard tip",
+			"tipDesc": "Standaard tippercentage bij het automatisch betalen van vertrouwde gebruikers"
 		},
 		"support": {
 			"header": "Ondersteuning",
@@ -495,7 +497,8 @@
 		"minted": "Mint",
 		"insufficientFunds": "Onvoldoende middelen",
 		"lockedBalance": "Gesloten balans",
-		"sweep": "Veegverbinding"
+		"sweep": "Veegverbinding",
+		"trustUser": "Automatisch betalen verzenden en inschakelen"
 	},
 	"items": {
 		"add": "Item toevoegen",

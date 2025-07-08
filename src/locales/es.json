@@ -308,7 +308,9 @@
 			"nwc": "Cartera de Nostr",
 			"nwcDescription": "Permite que su aplicación de la nariz envíe pagos de su cuenta",
 			"name": "Nombre",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "Consejo predeterminado",
+			"tipDesc": "Porcentaje de punta predeterminada cuando los usuarios de confianza pagan auto"
 		},
 		"support": {
 			"header": "Soporte",
@@ -442,7 +444,8 @@
 		"pending": "Pendiente",
 		"minted": "Minted",
 		"lockedBalance": "Saldo bloqueado",
-		"sweep": "Sweep link"
+		"sweep": "Sweep link",
+		"trustUser": "Enviar y activar el pago automático"
 	},
 	"items": {
 		"add": "Añadir artículo",

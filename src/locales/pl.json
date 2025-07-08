@@ -369,7 +369,9 @@
 			"nip5a": "Stosowanie",
 			"nip5b": "jako publicznie zweryfikowany adres nostr",
 			"name": "Nazwa",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "Domyślny napiwek",
+			"tipDesc": "Domyślny procent napiwku przy autopłatnych zaufanych użytkowników"
 		},
 		"support": {
 			"header": "Wsparcie",
@@ -495,7 +497,8 @@
 		"minted": "Puste",
 		"insufficientFunds": "Niewystarczające fundusze",
 		"lockedBalance": "Saldo zablokowane",
-		"sweep": "Połączenie zamiatające"
+		"sweep": "Połączenie zamiatające",
+		"trustUser": "Wysyłanie i włączanie auto- pay"
 	},
 	"items": {
 		"add": "Dodaj element",

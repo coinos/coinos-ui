@@ -277,7 +277,9 @@
 			"nwc": "Le portefeuille Nost se connecte",
 			"nwcDescription": "Activez votre app nost pour envoyer des paiements depuis votre compte",
 			"name": "Nom",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "Conseil par défaut",
+			"tipDesc": "Pourcentage de pointe par défaut lors du paiement automatique d'utilisateurs de confiance"
 		},
 		"support": {
 			"header": "Assistance",
@@ -442,7 +444,8 @@
 		"minted": "Mentionné",
 		"insufficientFunds": "Insuffisance des fonds",
 		"lockedBalance": "Solde verrouillé",
-		"sweep": "Lien de balayage"
+		"sweep": "Lien de balayage",
+		"trustUser": "Envoyer et activer auto-payer"
 	},
 	"items": {
 		"add": "Ajouter un article",

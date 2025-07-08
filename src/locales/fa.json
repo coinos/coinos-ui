@@ -308,7 +308,9 @@
 			"nwc": "کیف پول Nostr اتصال",
 			"nwcDescription": "اجازه دهید برنامه nostr خود را برای ارسال پرداخت از حساب شما",
 			"name": "نام",
-			"NOSTR": "NOSTR"
+			"NOSTR": "NOSTR",
+			"tip": "شکست",
+			"tipDesc": "درصد نهایی زمانی که کاربران قابل اعتماد به پول نقد"
 		},
 		"support": {
 			"header": "حمایت کردن",
@@ -442,7 +444,8 @@
 		"minted": "Minted",
 		"insufficientFunds": "صندوق های بی کفایت",
 		"lockedBalance": "تعادل قفل شده",
-		"sweep": "پیوند"
+		"sweep": "پیوند",
+		"trustUser": "ارسال و فعال کردن خودکار پرداخت"
 	},
 	"items": {
 		"add": "این مورد را اضافه کنید",

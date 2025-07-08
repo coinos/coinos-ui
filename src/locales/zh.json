@@ -308,7 +308,9 @@
 			"nwc": "鼻孔钱包连接",
 			"nwcDescription": "启用您的鼻孔应用程序从您的账户发送付款",
 			"name": "名称",
-			"NOSTR": "无"
+			"NOSTR": "无",
+			"tip": "默认提示",
+			"tipDesc": "自动付费信任用户时默认提示百分比"
 		},
 		"support": {
 			"header": "支持",
@@ -442,7 +444,8 @@
 		"minted": "已剪切",
 		"insufficientFunds": "资金不足",
 		"lockedBalance": "锁定余额",
-		"sweep": "扫描链接"
+		"sweep": "扫描链接",
+		"trustUser": "发送和启用自动支付"
 	},
 	"items": {
 		"add": "新增项目",

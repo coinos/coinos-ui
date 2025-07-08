@@ -369,7 +369,9 @@
 			"nip5a": "Usa",
 			"nip5b": "come indirizzo nostr pubblicamente verificato",
 			"name": "Nome",
-			"NOSTR": "NO"
+			"NOSTR": "NO",
+			"tip": "Punta predefinita",
+			"tipDesc": "Percentuale di punta predefinito quando gli utenti fidati di pagamento automatico"
 		},
 		"support": {
 			"header": "Supporto",
@@ -495,7 +497,8 @@
 		"minted": "Minted",
 		"insufficientFunds": "Fondi insufficienti",
 		"lockedBalance": "Bilancia chiusa",
-		"sweep": "Collegamento di nuoto"
+		"sweep": "Collegamento di nuoto",
+		"trustUser": "Inviare e abilitare il pagamento automatico"
 	},
 	"items": {
 		"add": "Aggiungi articolo",
