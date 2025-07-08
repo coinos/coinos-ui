@@ -1,4 +1,5 @@
 <script>
+  import { invalidate } from "$app/navigation";
   import { untrack } from "svelte";
   import handler from "$lib/handler";
   import { onDestroy, onMount } from "svelte";
@@ -26,7 +27,7 @@
   } from "$lib/utils";
   let { data, form } = $props();
 
-  let { balance, invoice, user } = $state(data);
+  let { trusted, balance, invoice, user } = $state(data);
   let { address, hash, payreq, user: recipient, tip } = $state(invoice);
   let { currency } = $derived(user);
   let locale = $derived(loc(user));
@@ -62,6 +63,19 @@
     goto(`/invoice/${id}?options=true`, {
       invalidateAll: true,
     });
+  };
+
+  let toggleTrust = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (trusted) {
+      await post("/post/trust/delete", { id: recipient.id });
+    } else {
+      await post("/post/trust", { id: recipient.id });
+    }
+
+    invalidate("app:trust");
   };
 
   $effect(() => {
@@ -192,6 +206,11 @@
     </div>
     <button type="button" class="btn" onclick={external}
       >{$t("payments.moreOptions")}</button
+    >
+    <button type="button" class="btn" onclick={toggleTrust}>
+      <iconify-icon icon={trusted ? "ph:star-fill" : "ph:star-bold"} width={32}
+      ></iconify-icon>
+      {$t("payments.trustUser")}</button
     >
   </form>
 </div>

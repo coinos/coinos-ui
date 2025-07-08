@@ -296,6 +296,8 @@
 			"placeholder": "Enter an address, invoice or username"
 		},
 		"settings": {
+      "tip": "Default tip",
+      "tipDesc": "Default tip percentage when auto-paying trusted users",
 			"nostr": "Nostr",
 			"name": "Name",
 			"integrations": "Integrations",
@@ -398,6 +400,7 @@
 		}
 	},
 	"payments": {
+    "trustUser": "Send and enable auto-pay",
     "sweep": "Sweep link",
 		"lockedBalance": "Locked balance",
 		"insufficientFunds": "Insufficient funds",

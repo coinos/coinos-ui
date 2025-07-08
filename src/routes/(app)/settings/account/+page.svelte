@@ -14,7 +14,7 @@
   let { data } = $props();
   let { user } = $state(data);
   let { rates, subscriptions } = data;
-  let { currency, email, verified } = $state(user);
+  let { currency, email, tip, verified } = $state(user);
   let rate = rates[currency];
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
@@ -179,6 +179,19 @@
   <p class="text-secondary mt-1 w-9/12">
     {$t("user.settings.tipPromptDescription")}
   </p>
+</div>
+
+<div class="space-y-1 relative">
+  <label for="tip" class="font-bold block">{$t("user.settings.tip")}</label>
+  <p class="text-secondary">
+    {$t("user.settings.tipDesc")}
+  </p>
+
+  <label
+    class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
+  >
+    <input type="text" name="tip" class="clean" bind:value={tip} />
+  </label>
 </div>
 
 <div>
