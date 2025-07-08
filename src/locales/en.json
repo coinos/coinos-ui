@@ -240,7 +240,7 @@
 	"user": {
 		"loadMore": "Load more",
 		"url": "Public URL",
-		"lnurl": "Reusable payment code",
+		"lnurl": "Payment code",
 		"install": "Install app",
 		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages",
