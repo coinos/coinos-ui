@@ -133,13 +133,14 @@
     >
       <div class="flex gap-1 items-center" onclick={toggleDetails}>
         <div class="break-words">{display || username}</div>
-        <iconify-icon noobserver icon="ph:list-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:list-bold" width="32"></iconify-icon>
       </div>
-      <a href="/settings/profile" class="btn contents">
-        <iconify-icon noobserver icon="ph:pencil-bold" width="32"
-        ></iconify-icon>
-      </a>
+      {#if subject.id === user?.id}
+        <a href="/settings/profile" class="btn contents">
+          <iconify-icon noobserver icon="ph:pencil-bold" width="32"
+          ></iconify-icon>
+        </a>
+      {/if}
       <!-- <a href={`/${subject.pubkey}/notes`}> -->
       <!--   <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon> -->
       <!-- </a> -->
