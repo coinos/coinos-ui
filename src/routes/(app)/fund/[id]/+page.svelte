@@ -112,7 +112,7 @@
           <div class="my-auto">{$t("payments.shareLink")}</div>
         </a>
         <button
-          on:click={() => copy(`${$page.url.href}/sweep`)}
+          onclick={() => copy(`${$page.url.href}/sweep`)}
           class="btn !w-auto grow"
         >
           <iconify-icon noobserver icon="ph:copy-bold" width="32"

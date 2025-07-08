@@ -2,11 +2,19 @@ import getRates from "$lib/rates";
 import { auth, fd, get, post, types } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, params: { id }, parent }) {
+export async function load({ cookies, depends, params: { id }, parent }) {
+	depends("app:trust");
 	const { user } = await parent();
 	const aid = cookies.get("aid") || user.id;
 
-	const invoice = await get(`/invoice/${id}`);
+	let invoice = await get(`/invoice/${id}`);
+
+	const trust = await get("/trust", auth(cookies));
+	const trusted = trust.includes(invoice.uid);
+	if (trusted) {
+		const p = await post("/payments", invoice, auth(cookies));
+		redirect(307, `/sent/${p.id}`);
+	}
 
 	if (invoice.amount && invoice.prompt && invoice.tip === null)
 		redirect(307, `/invoice/${id}/tip`);
@@ -31,7 +39,7 @@ export async function load({ cookies, params: { id }, parent }) {
 	const invoiceRate = rates[invoice.currency];
 
 	const { balance } = await get(`/account/${aid}`, auth(cookies));
-	return { balance, invoice, user, rate, invoiceRate };
+	return { balance, invoice, user, rate, invoiceRate, trusted };
 }
 
 export const actions = {

@@ -51,6 +51,20 @@
     invalidate("app:contacts");
   };
 
+  let trust = async (e, { id, trusted }) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (trusted) {
+      await post("/post/trust/delete", { id });
+    } else {
+      await post("/post/trust", { id });
+    }
+
+    if (all) all = await get("/contacts");
+    invalidate("app:contacts");
+  };
+
   $effect(() => {
     if (browser && pasted && text) el.click() && (pasted = false);
   });
@@ -73,7 +87,7 @@
         </div>
       </div>
     {/if}
-    
+
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
@@ -100,7 +114,6 @@
       onpaste={() => (pasted = true)}
       autocapitalize="none"
     ></textarea>
-
 
     <button bind:this={el} type="submit" class="btn btn-accent">
       <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
@@ -140,12 +153,20 @@
               <div class="my-auto text-left">
                 <p class="ml-1 text-lg break-words">{c.username}</p>
               </div>
-              <button class="ml-auto" onclick={(e) => pin(e, c)}>
-                <iconify-icon
-                  icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"}
-                  width={32}
-                ></iconify-icon>
-              </button>
+              <div class="flex ml-auto gap-1">
+                <button onclick={(e) => pin(e, c)}>
+                  <iconify-icon
+                    icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"}
+                    width={32}
+                  ></iconify-icon>
+                </button>
+                <button class="ml-auto" onclick={(e) => trust(e, c)}>
+                  <iconify-icon
+                    icon={c.trusted ? "ph:star-fill" : "ph:star-bold"}
+                    width={32}
+                  ></iconify-icon>
+                </button>
+              </div>
             </div>
           </a>
         {/each}
