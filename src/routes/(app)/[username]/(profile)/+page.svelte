@@ -6,7 +6,7 @@
   import Account from "$comp/Account.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
-  import { installPrompt } from "$lib/store";
+  import { installPrompt, password } from "$lib/store";
   import { afterNavigate, preloadData } from "$app/navigation";
   import { page } from "$app/stores";
 
@@ -32,6 +32,24 @@
 </script>
 
 <div class="space-y-2">
+  {#if user?.fresh}
+    <div class="rounded-2xl space-y-2 p-4 shadow-lg">
+      <h1 class="text-3xl font-bold">{$t("user.settings.welcome")}</h1>
+      <div>
+        {$t("user.settings.yourUsername")} <b>{user?.username}</b>
+        {#if $password} 
+          {$t("user.settings.yourPassword")}
+          <b>{$password}</b>{/if}
+      </div>
+
+      <div>{$t("user.settings.clickBelow")}</div>
+
+      <a href="/settings/profile" class="btn">
+        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+        Settings</a
+      >
+    </div>
+  {/if}
   {#if user?.id && user.id === subject.id}
     <div class="space-y-5" data-sveltekit-preload-data="false">
       {#each accounts as account, i}
@@ -54,6 +72,8 @@
     {/if}
   {/if}
 </div>
+
+<!-- <a href="/funder" class="btn">Funder</a> -->
 
 <div class="fixed inset-x-0 mx-auto flex bottom-16 px-4">
   {#if user?.username !== subject.username && (!subject.anon || subject.lud16)}

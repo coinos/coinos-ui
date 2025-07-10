@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+  import { password } from "$lib/store";
   import Amount from "$comp/Amount.svelte";
   import Success from "$comp/Success.svelte";
   import { scale } from "svelte/transition";
@@ -9,9 +11,11 @@
 
   let { data } = $props();
 
-  let { amount, id, user, rate, rates } = data;
+  let { amount, id, user, rate, rates, password: pw } = data;
   let { currency } = user;
   let locale = $derived(loc(user));
+
+  onMount(() => ($password = pw));
 </script>
 
 <div class="container px-4 text-center mx-auto">

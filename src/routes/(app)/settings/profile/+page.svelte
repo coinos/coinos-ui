@@ -3,16 +3,18 @@
   import { avatar, banner as bannerStore } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
+  import PasswordInput from "$comp/PasswordInput.svelte";
 
   let { data } = $props();
   let { user } = $derived(data);
   let { id } = user;
-  let { about, banner, picture, display, username } =
-    $state(user);
+  let { about, banner, picture, display, username } = $state(user);
 
   let avatarFile,
     avatarInput = $state(),
     bannerFile,
+    password = $state(),
+    revealPassword = $state(),
     bannerInput = $state();
 
   let selectAvatar = () => avatarInput.click();
@@ -62,6 +64,16 @@
   <div class="flex mb-2">
     <input type="text" name="username" bind:value={username} />
   </div>
+</div>
+
+<input type="hidden" name="confirm" bind:value={password} />
+
+<div>
+  <label for="password" class="block font-bold block mb-1"
+    >{$t("user.settings.newPassword")}</label
+  >
+
+  <PasswordInput bind:value={password} placeholder="(Leave blank to keep unchanged)" />
 </div>
 
 <div>
