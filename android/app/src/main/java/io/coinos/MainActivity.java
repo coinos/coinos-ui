@@ -23,11 +23,16 @@ import android.nfc.NfcAdapter;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import io.coinos.nfcwriter.NfcWriterPlugin;
+
 public class MainActivity extends BridgeActivity {
+    private NfcAdapter nfcAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // ✅ Let Capacitor inflate its layout and wire everything
         super.onCreate(savedInstanceState);
+        registerPlugin(NfcWriterPlugin.class);
 
         WebView webView = bridge.getWebView(); // This works *after* super.onCreate()
 

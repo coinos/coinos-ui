@@ -2,13 +2,16 @@
   "appId": "io.coinos",
   "appName": "Coinos",
   "server": {
-    "hostname": "coinos.io",
-    "url": "https://coinos.io/start"
+    "hostname": "dev.coinos.io",
+    "url": "https://dev.coinos.io/start"
   },
   "android": {
     "webContentsDebuggingEnabled": true,
     "allowMixedContent": true,
     "useBrowserHistory": true,
     "immersive": false
+  },
+  "plugins": {
+    "NfcWriter": {}
   }
 }
