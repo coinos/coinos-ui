@@ -241,7 +241,7 @@
                 ></iconify-icon></button
               >
               <a
-                href={`/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
+                href={`/${n}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
                 class="my-auto"
               >
                 <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
