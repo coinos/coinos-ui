@@ -7,13 +7,20 @@ export async function load({ cookies, depends, params: { id }, parent }) {
 	const { user } = await parent();
 	const aid = cookies.get("aid") || user.id;
 
-	let invoice = await get(`/invoice/${id}`);
+	const invoice = await get(`/invoice/${id}`);
 
 	const trust = await get("/trust", auth(cookies));
 	const trusted = trust.includes(invoice.uid);
 	if (trusted) {
-		const p = await post("/payments", invoice, auth(cookies));
-		redirect(307, `/sent/${p.id}`);
+		let p;
+		try {
+			p = await post("/payments", invoice, auth(cookies));
+		} catch (e) {
+			const { message } = e as Error;
+			console.log("payment failed", id, e);
+			error(500, message);
+		}
+		if (p) redirect(307, `/sent/${p.id}`);
 	}
 
 	if (invoice.amount && invoice.prompt && invoice.tip === null)
