@@ -204,7 +204,7 @@
   </p>
 </div>
 
-{#if user.autowithdraw}
+<div class:hidden={!user.autowithdraw}>
   <div class="mb-2">
     <label for="display" class="font-bold mb-1 block"
       >{$t("user.settings.destination")}</label
@@ -265,7 +265,7 @@
       {$t("user.settings.reserveDesc")}
     </p>
   </div>
-{/if}
+</div>
 
 {#if editingThreshold}
   <div
