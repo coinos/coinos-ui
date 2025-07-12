@@ -32,12 +32,27 @@
 </script>
 
 <div class="space-y-2">
+  {#if user?.destination && !user?.autowithdraw}
+    <div class="rounded-2xl space-y-2 p-4 shadow-lg">
+      <h1 class="text-3xl font-bold">
+        {$t("user.settings.confirmAutoWithdrawal")}
+      </h1>
+      <div>
+        {$t("user.settings.confirmAutoWithdrawalDesc")}
+      </div>
+
+      <a href="/settings/account" class="btn">
+        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+        Settings</a
+      >
+    </div>
+  {/if}
   {#if user?.fresh}
     <div class="rounded-2xl space-y-2 p-4 shadow-lg">
       <h1 class="text-3xl font-bold">{$t("user.settings.welcome")}</h1>
       <div>
         {$t("user.settings.yourUsername")} <b>{user?.username}</b>
-        {#if $password} 
+        {#if $password}
           {$t("user.settings.yourPassword")}
           <b>{$password}</b>{/if}
       </div>
