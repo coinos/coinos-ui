@@ -23,14 +23,14 @@
     <p>{$t("payments.giftDesc2")}</p>
   </div>
 
-  <div class="flex gap-1">
+  <div class="flex gap-1 min-w-0 items-center">
     <button
       type="button"
-      class="btn break-all !h-auto flex-nowrap p-4 font-normal leading-normal !w-auto grow"
+      class="btn break-all !h-auto flex-nowrap p-4 font-normal shrink !w-auto max-w-full"
       onclick={() => copy(text)}
     >
       <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-      <div class="my-auto">{text}</div>
+      <div class="my-auto break-all min-w-0 !w-auto max-w-full">{text}</div>
     </button>
 
     <a href={`/qr/${encodeURIComponent(text)}`} class="btn !w-auto">
