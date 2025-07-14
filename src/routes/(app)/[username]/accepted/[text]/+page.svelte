@@ -9,15 +9,16 @@
 </script>
 
 <div class="px-2">
-  <div class="border-8 border-black p-8 max-w-[710px] mx-auto mt-20 space-y-5">
+  <div class="border-8 border-black p-8 max-w-[580px] mx-auto mt-20 space-y-2 rounded-3xl">
     <div class="flex gap-2 mx-auto justify-center">
-      <img src="/images/bitcoin.png" class="w-16 h-16 my-auto" />
-      <h3 class="text-5xl font-bold text-center my-auto">
-        Bitcoin Accepted Here
-      </h3>
+      <!-- <img src="/images/bitcoin.png" class="w-16 h-16 my-auto" /> -->
+      <img src="/images/bitcoin-logo.png" class="my-auto w-[400px]" />
+      <!-- <h3 class="text-5xl font-bold text-center my-auto"> -->
+      <!--   bitcoin -->
+      <!-- </h3> -->
     </div>
-    <Qr {text} />
-    <div class="text-center text-4xl font-bold">
+    <Qr {text} icon="nfc.png" />
+    <div class="text-center text-4xl font-bold break-all">
       coinos.io/{username.toLowerCase()}
     </div>
     {#if nfc}
