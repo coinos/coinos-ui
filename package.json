@@ -70,6 +70,8 @@
   },
   "type": "module",
   "dependencies": {
-    "cordova-plugin-android-notch": "^1.0.3"
+    "canvas": "^3.1.2",
+    "cordova-plugin-android-notch": "^1.0.3",
+    "qrcode": "^1.5.4"
   }
 }

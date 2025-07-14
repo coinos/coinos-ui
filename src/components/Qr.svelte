@@ -1,7 +1,11 @@
 <script>
   import screenfull from "screenfull";
-  let { text } = $props();
+  let { icon, text } = $props();
   let qr = $state();
+
+  let src = `/qr/${encodeURIComponent(text)}`;
+  if (icon) src += `/${icon}`;
+  else src += "/raw";
 </script>
 
 <div
@@ -10,9 +14,5 @@
   onclick={() => screenfull.toggle(qr)}
   onkeydown={() => screenfull.toggle(qr)}
 >
-  <img
-    src={`/qr/${encodeURIComponent(text)}/raw`}
-    class="mx-auto"
-    alt="QR Code"
-  />
+  <img {src} class="mx-auto" alt="QR Code" />
 </div>
