@@ -121,13 +121,6 @@
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 
-    <a href="/send/ecash" class="block">
-      <button type="button" class="btn">
-        <img src="/images/cash.png" class="w-8" />
-        <div class="my-auto">{$t("payments.createEcash")}</div>
-      </button>
-    </a>
-
     <a href="/send/fund" class="block">
       <button type="button" class="btn">
         <iconify-icon
