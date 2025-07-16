@@ -127,7 +127,10 @@
 
         <div class="ml-auto text-lg flex gap-2">
           <div class="flex items-center">
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+            <iconify-icon
+              noobserver
+              icon="ph:lightning-fill"
+              class="text-yellow-300"
             ></iconify-icon>
             <div>{s(amount, locale)}</div>
           </div>
@@ -170,12 +173,15 @@
         {/if}
       </div>
 
-      <div>
+      <div class="space-y-2">
         <button
           type="button"
           class="btn"
-          onclick={() => (showCustomAmount = true)}>Custom</button
+          onclick={() => (showCustomAmount = true)}
+          >{$t("payments.custom")}</button
         >
+
+        <a href={`/invoice/${id}`} class="btn">{$t("payments.cancel")}</a>
       </div>
     {/if}
 

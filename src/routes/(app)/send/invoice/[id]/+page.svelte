@@ -207,10 +207,12 @@
     <button type="button" class="btn" onclick={external}
       >{$t("payments.moreOptions")}</button
     >
-    <button type="button" class="btn" onclick={toggleTrust}>
-      <iconify-icon icon={trusted ? "ph:star-fill" : "ph:star-bold"} width={32}
-      ></iconify-icon>
-      {$t("payments.trustUser")}</button
-    >
+
+    {#if !trusted}
+      <button type="button" class="btn" onclick={toggleTrust}>
+        <iconify-icon icon="ph:star-fill" width={32}></iconify-icon>
+        {$t("payments.trustUser")}</button
+      >
+    {/if}
   </form>
 </div>
