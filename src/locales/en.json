@@ -407,6 +407,7 @@
 		}
 	},
 	"payments": {
+    "custom": "Custom",
 		"trustUser": "Send and enable auto-pay",
 		"gift": "Gift all funds",
 		"giftLink": "Gift link",

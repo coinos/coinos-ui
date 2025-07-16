@@ -1,24 +1,32 @@
 import getRates from "$lib/rates";
 import { auth, fd, get, post, types } from "$lib/utils";
-import { error, redirect } from "@sveltejs/kit";
+import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, depends, params: { id }, parent }) {
 	depends("app:trust");
-	const { user } = await parent();
+	const { subject, user } = await parent();
 	const aid = cookies.get("aid") || user.id;
+	const pin = cookies.get("pin");
 
-	const invoice = await get(`/invoice/${id}`);
+	let invoice = await get(`/invoice/${id}`);
 
 	const trust = await get("/trust", auth(cookies));
 	const trusted = trust.includes(invoice.uid);
-	if (trusted) {
+	if (trusted && (pin || !user.haspin)) {
 		let p;
 		try {
-			p = await post("/payments", invoice, auth(cookies));
+			if (!invoice.tip && invoice.user.prompt && user.tip > 0) {
+				invoice.tip = Math.round(invoice.amount * (user.tip / 100));
+				invoice = await post(
+					"/invoice",
+					{ invoice, user: subject },
+					auth(cookies),
+				);
+			}
+			p = await post("/payments", { ...invoice, pin }, auth(cookies));
 		} catch (e) {
 			const { message } = e as Error;
-			console.log("payment failed", id, e);
-			error(500, message);
+			fail(400, { message });
 		}
 		if (p) redirect(307, `/sent/${p.id}`);
 	}
@@ -60,7 +68,7 @@ export const actions = {
 		} catch (e) {
 			const { message } = e as Error;
 			console.log("payment failed", id, e);
-			error(500, message);
+			error(500, { message });
 		}
 
 		redirect(307, `/sent/${p.id}`);
