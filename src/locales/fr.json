@@ -279,7 +279,16 @@
 			"name": "Nom",
 			"NOSTR": "NOSTR",
 			"tip": "Conseil par défaut",
-			"tipDesc": "Pourcentage de pointe par défaut lors du paiement automatique d'utilisateurs de confiance"
+			"tipDesc": "Pourcentage de pointe par défaut lors du paiement automatique d'utilisateurs de confiance",
+			"connectSquare": "Se connecter à Square",
+			"revokeSquare": "Renverser la connexion carrée",
+			"confirmAutoWithdrawal": "Confirmer les paramètres de retrait automatique",
+			"confirmAutoWithdrawalDesc": "Vos retraits automatiques ont été désactivés. Veuillez vérifier à nouveau votre adresse de destination avant de les renflouer ou supprimer l'adresse pour rejeter ce message.",
+			"newPasswordDesc": "(Laisser blanc pour garder inchangé)",
+			"yourUsername": "Votre nom d'utilisateur",
+			"yourPassword": "et votre mot de passe est",
+			"welcome": "Bienvenue !",
+			"clickBelow": "Cliquez ci-dessous pour terminer la configuration de votre compte"
 		},
 		"support": {
 			"header": "Assistance",
@@ -445,7 +454,12 @@
 		"insufficientFunds": "Insuffisance des fonds",
 		"lockedBalance": "Solde verrouillé",
 		"sweep": "Lien de balayage",
-		"trustUser": "Envoyer et activer auto-payer"
+		"trustUser": "Envoyer et activer auto-payer",
+		"custom": "Personnalisé",
+		"gift": "Donner tous les fonds",
+		"giftLink": "Lien cadeau",
+		"giftDesc1": "Quiconque ouvre le lien ci-dessous recevra tous les fonds disponibles.",
+		"giftDesc2": "S'ils sont connectés, les fonds vont à leur compte, sinon un nouveau compte sera généré."
 	},
 	"items": {
 		"add": "Ajouter un article",

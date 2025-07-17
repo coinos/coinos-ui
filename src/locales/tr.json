@@ -371,7 +371,16 @@
 			"name": "Name",
 			"NOSTR": "NOSTR",
 			"tip": "Varsayılan ipucu",
-			"tipDesc": "Otomatik ücretli güvenilen kullanıcıların ortalama yüzdesi"
+			"tipDesc": "Otomatik ücretli güvenilen kullanıcıların ortalama yüzdesi",
+			"connectSquare": "Square",
+			"revokeSquare": "Revoke Square Connection",
+			"confirmAutoWithdrawal": "Otomatik geri çekilme ayarlarını onaylayın",
+			"confirmAutoWithdrawalDesc": "Otomatik geri çekilmeleriniz devre dışı bırakıldı. Lütfen hedef adresinizi yeniden etkinleştirin veya bu mesajı reddetme adresi ortadan kaldırın.",
+			"newPasswordDesc": "(Değişmemek için boş tut)",
+			"yourUsername": "Kullanıcınız Kullanıcınızdır",
+			"yourPassword": "ve şifreniziz",
+			"welcome": "Hoşgeldiniz!",
+			"clickBelow": "Hesabınızı kurmak için aşağıda tıklayın"
 		},
 		"support": {
 			"header": "Destek Desteği Destek Desteği",
@@ -498,7 +507,12 @@
 		"insufficientFunds": "Yetersiz fonlarda",
 		"lockedBalance": "Locked bakiye",
 		"sweep": "Sweep link",
-		"trustUser": "Gönder ve otomatik ödeme sağlar"
+		"trustUser": "Gönder ve otomatik ödeme sağlar",
+		"custom": "Özel",
+		"gift": "Hediye tüm fonlar",
+		"giftLink": "Hediye linki",
+		"giftDesc1": "Aşağıdaki bağlantıyı açan herkes mevcut tüm fonları alacak.",
+		"giftDesc2": "Eğer giriş yapılırsa, fonlar hesabına gidecek, aksi takdirde yeni bir hesap oluşturulacaktır."
 	},
 	"items": {
 		"add": "Ekle item",
