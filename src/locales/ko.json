@@ -371,7 +371,16 @@
 			"name": "이름 *",
 			"NOSTR": "사이트맵",
 			"tip": "기본 팁",
-			"tipDesc": "자동 결제가 가능한 경우 기본 팁 비율"
+			"tipDesc": "자동 결제가 가능한 경우 기본 팁 비율",
+			"connectSquare": "Square에 연결",
+			"revokeSquare": "Revoke 광장 연결",
+			"confirmAutoWithdrawal": "자동 인출 설정 확인",
+			"confirmAutoWithdrawalDesc": "자동 인출이 비활성화되었습니다. 해당 이용 후기에 달린 코멘트가 없습니다.",
+			"newPasswordDesc": "(변경되지 않도록 공백을 사용하십시오)",
+			"yourUsername": "사용자 이름",
+			"yourPassword": "비밀번호",
+			"welcome": "제품 정보!",
+			"clickBelow": "계정 설정하기"
 		},
 		"support": {
 			"header": "지원하다",
@@ -498,7 +507,12 @@
 		"insufficientFunds": "충분한 자금",
 		"lockedBalance": "Locked 균형",
 		"sweep": "Sweep 링크",
-		"trustUser": "자동 결제 가능"
+		"trustUser": "자동 결제 가능",
+		"custom": "제품 정보",
+		"gift": "모든 자금",
+		"giftLink": "선물 링크",
+		"giftDesc1": "아래 링크를 열면 모든 가능한 자금을 받게됩니다.",
+		"giftDesc2": "그들이 로그인한 경우, 자금은 계정으로 갈 것입니다. 그렇지 않으면 새로운 계정이 생성됩니다."
 	},
 	"items": {
 		"add": "더 보기",

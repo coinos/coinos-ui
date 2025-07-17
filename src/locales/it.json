@@ -371,7 +371,16 @@
 			"name": "Nome",
 			"NOSTR": "NO",
 			"tip": "Punta predefinita",
-			"tipDesc": "Percentuale di punta predefinito quando gli utenti fidati di pagamento automatico"
+			"tipDesc": "Percentuale di punta predefinito quando gli utenti fidati di pagamento automatico",
+			"connectSquare": "Collegamento a Piazza",
+			"revokeSquare": "Connessione quadrata",
+			"confirmAutoWithdrawal": "Confermare le impostazioni di prelievo automatico",
+			"confirmAutoWithdrawalDesc": "I vostri prelievi auto sono stati disabilitati. Si prega di controllare doppio l'indirizzo di destinazione prima di riabilitare o rimuovere l'indirizzo per annullare questo messaggio.",
+			"newPasswordDesc": "(Lasciare vuoto per mantenere invariato)",
+			"yourUsername": "Il tuo nome utente è",
+			"yourPassword": "e la tua password è",
+			"welcome": "Benvenuto!",
+			"clickBelow": "Clicca qui sotto per completare l'impostazione del tuo account"
 		},
 		"support": {
 			"header": "Supporto",
@@ -498,7 +507,12 @@
 		"insufficientFunds": "Fondi insufficienti",
 		"lockedBalance": "Bilancia chiusa",
 		"sweep": "Collegamento di nuoto",
-		"trustUser": "Inviare e abilitare il pagamento automatico"
+		"trustUser": "Inviare e abilitare il pagamento automatico",
+		"custom": "Personale",
+		"gift": "Regalare tutti i fondi",
+		"giftLink": "Link regalo",
+		"giftDesc1": "Chi apre il link qui sotto riceverà tutti i fondi disponibili.",
+		"giftDesc2": "Se sono connessi, i fondi andranno al loro account, altrimenti verrà generato un nuovo account."
 	},
 	"items": {
 		"add": "Aggiungi articolo",

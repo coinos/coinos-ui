@@ -310,7 +310,16 @@
 			"name": "Nombre",
 			"NOSTR": "NOSTR",
 			"tip": "Consejo predeterminado",
-			"tipDesc": "Porcentaje de punta predeterminada cuando los usuarios de confianza pagan auto"
+			"tipDesc": "Porcentaje de punta predeterminada cuando los usuarios de confianza pagan auto",
+			"connectSquare": "Conectarse a la Plaza",
+			"revokeSquare": "Revoke Square Connection",
+			"confirmAutoWithdrawal": "Confirme la configuración de retiro automático",
+			"confirmAutoWithdrawalDesc": "Sus retiros de automóviles han sido desactivados. Por favor, compruebe su dirección de destino antes de volver a habilitarlas o retirar la dirección para desestimar este mensaje.",
+			"newPasswordDesc": "(Leave blank to keep unchanged)",
+			"yourUsername": "Tu nombre de usuario es",
+			"yourPassword": "y su contraseña es",
+			"welcome": "¡Bienvenido!",
+			"clickBelow": "Haga clic a continuación para terminar de configurar su cuenta"
 		},
 		"support": {
 			"header": "Soporte",
@@ -445,7 +454,12 @@
 		"minted": "Minted",
 		"lockedBalance": "Saldo bloqueado",
 		"sweep": "Sweep link",
-		"trustUser": "Enviar y activar el pago automático"
+		"trustUser": "Enviar y activar el pago automático",
+		"custom": "Aduanas",
+		"gift": "Donar todos los fondos",
+		"giftLink": "Enlace de regalo",
+		"giftDesc1": "Quien abra el enlace de abajo recibirá todos los fondos disponibles.",
+		"giftDesc2": "Si se registran, los fondos irán a su cuenta, de lo contrario se generará una nueva cuenta."
 	},
 	"items": {
 		"add": "Añadir artículo",

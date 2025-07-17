@@ -371,7 +371,16 @@
 			"name": "Naam",
 			"NOSTR": "NOST",
 			"tip": "Standaard tip",
-			"tipDesc": "Standaard tippercentage bij het automatisch betalen van vertrouwde gebruikers"
+			"tipDesc": "Standaard tippercentage bij het automatisch betalen van vertrouwde gebruikers",
+			"connectSquare": "Verbinden met vierkant",
+			"revokeSquare": "Vierkante verbinding ongedaan maken",
+			"confirmAutoWithdrawal": "Auto-opnameinstellingen bevestigen",
+			"confirmAutoWithdrawalDesc": "Je auto opnames zijn uitgeschakeld. Controleer uw bestemmingsadres voordat u ze opnieuw opent of verwijder het adres om dit bericht te verwerpen.",
+			"newPasswordDesc": "(Laat leeg om ongewijzigd te blijven)",
+			"yourUsername": "Uw gebruikersnaam is",
+			"yourPassword": "en uw wachtwoord is",
+			"welcome": "Welkom!",
+			"clickBelow": "Klik hieronder om uw account in te stellen"
 		},
 		"support": {
 			"header": "Ondersteuning",
@@ -498,7 +507,12 @@
 		"insufficientFunds": "Onvoldoende middelen",
 		"lockedBalance": "Gesloten balans",
 		"sweep": "Veegverbinding",
-		"trustUser": "Automatisch betalen verzenden en inschakelen"
+		"trustUser": "Automatisch betalen verzenden en inschakelen",
+		"custom": "Aangepast",
+		"gift": "Alle fondsen cadeau",
+		"giftLink": "Kadokoppeling",
+		"giftDesc1": "Wie de onderstaande link opent, ontvangt alle beschikbare fondsen.",
+		"giftDesc2": "Als ze ingelogd zijn, gaan de fondsen naar hun account, anders wordt er een nieuwe account gegenereerd."
 	},
 	"items": {
 		"add": "Item toevoegen",

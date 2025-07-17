@@ -329,7 +329,16 @@
 			"name": "Nome",
 			"NOSTR": "NOSTR",
 			"tip": "Dica padrão",
-			"tipDesc": "Percentagem de dica padrão ao pagar automaticamente usuários confiáveis"
+			"tipDesc": "Percentagem de dica padrão ao pagar automaticamente usuários confiáveis",
+			"connectSquare": "Ligar ao Quadrado",
+			"revokeSquare": "Revogar a Ligação Quadrada",
+			"confirmAutoWithdrawal": "Confirmar as configurações de retirada automática",
+			"confirmAutoWithdrawalDesc": "As suas retiradas automáticas foram desactivadas. Por favor, verifique o seu endereço de destino antes de voltar a acedê-los ou remova o endereço para descartar esta mensagem.",
+			"newPasswordDesc": "(Deixe em branco para manter inalterada)",
+			"yourUsername": "Seu nome de usuário é",
+			"yourPassword": "e sua senha é",
+			"welcome": "Bem-vindos!",
+			"clickBelow": "Clique abaixo para terminar de configurar sua conta"
 		},
 		"support": {
 			"header": "Suporte",
@@ -467,7 +476,12 @@
 		"insufficientFunds": "Fundos insuficientes",
 		"lockedBalance": "Saldo bloqueado",
 		"sweep": "Varrer a ligação",
-		"trustUser": "Enviar e ativar o pagamento automático"
+		"trustUser": "Enviar e ativar o pagamento automático",
+		"custom": "Personalizado",
+		"gift": "Dar todos os fundos",
+		"giftLink": "Ligação do presente",
+		"giftDesc1": "Quem abrir o link abaixo receberá todos os fundos disponíveis.",
+		"giftDesc2": "Se eles estiverem conectados, os fundos irão para sua conta, caso contrário uma nova conta será gerada."
 	},
 	"items": {
 		"add": "Adicionar item",

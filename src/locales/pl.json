@@ -371,7 +371,16 @@
 			"name": "Nazwa",
 			"NOSTR": "NOSTR",
 			"tip": "Domyślny napiwek",
-			"tipDesc": "Domyślny procent napiwku przy autopłatnych zaufanych użytkowników"
+			"tipDesc": "Domyślny procent napiwku przy autopłatnych zaufanych użytkowników",
+			"connectSquare": "Połącz z kwadratem",
+			"revokeSquare": "Połączenie kwadratowe Revoke",
+			"confirmAutoWithdrawal": "Potwierdź ustawienia automatycznego wycofania",
+			"confirmAutoWithdrawalDesc": "Wypłaty samochodów zostały wyłączone. Proszę sprawdzić adres docelowy przed ponownym włączeniem lub usunięciem adresu do odrzucenia tej wiadomości.",
+			"newPasswordDesc": "(Pozostawić puste, aby pozostać niezmienione)",
+			"yourUsername": "Twoja nazwa użytkownika jest",
+			"yourPassword": "twoje hasło jest",
+			"welcome": "Witamy!",
+			"clickBelow": "Kliknij poniżej, aby skonfigurować konto"
 		},
 		"support": {
 			"header": "Wsparcie",
@@ -498,7 +507,12 @@
 		"insufficientFunds": "Niewystarczające fundusze",
 		"lockedBalance": "Saldo zablokowane",
 		"sweep": "Połączenie zamiatające",
-		"trustUser": "Wysyłanie i włączanie auto- pay"
+		"trustUser": "Wysyłanie i włączanie auto- pay",
+		"custom": "Własny",
+		"gift": "Dawać wszystkie fundusze",
+		"giftLink": "Link prezent",
+		"giftDesc1": "Ktokolwiek otworzy poniższy link otrzyma wszystkie dostępne fundusze.",
+		"giftDesc2": "Jeśli są one zalogowane, fundusze trafią na ich konto, w przeciwnym razie powstanie nowe konto."
 	},
 	"items": {
 		"add": "Dodaj element",

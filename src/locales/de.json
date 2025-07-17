@@ -321,7 +321,16 @@
 			"name": "Bezeichnung",
 			"NOSTR": "NOSTR",
 			"tip": "Standardtipp",
-			"tipDesc": "Standard-Tip-Prozentsatz bei automatischer Bezahlung vertrauenswürdiger Benutzer"
+			"tipDesc": "Standard-Tip-Prozentsatz bei automatischer Bezahlung vertrauenswürdiger Benutzer",
+			"connectSquare": "Verbindung zum Quadrat",
+			"revokeSquare": "Wiederherstellung Quadratische Verbindung",
+			"confirmAutoWithdrawal": "Auto-Entzugseinstellungen bestätigen",
+			"confirmAutoWithdrawalDesc": "Ihre Autoentnahmen wurden deaktiviert. Bitte überprüfen Sie Ihre Zieladresse, bevor Sie sie erneut aktivieren oder entfernen Sie die Adresse, um diese Nachricht zu entlassen.",
+			"newPasswordDesc": "(Leave blank to keep unverändert)",
+			"yourUsername": "Ihr Benutzername ist",
+			"yourPassword": "und ihr passwort ist",
+			"welcome": "Willkommen!",
+			"clickBelow": "Klicken Sie unten, um die Einrichtung Ihres Kontos abzuschließen"
 		},
 		"support": {
 			"header": "Support",
@@ -472,7 +481,12 @@
 		"insufficientFunds": "Unzureichende Mittel",
 		"lockedBalance": "Gesperrter Saldo",
 		"sweep": "Sweep Link",
-		"trustUser": "Senden und aktivieren Auto-Pay"
+		"trustUser": "Senden und aktivieren Auto-Pay",
+		"custom": "Benutzerdefiniert",
+		"gift": "Alle Fonds einschenken",
+		"giftLink": "Giftlink",
+		"giftDesc1": "Wer den Link unten öffnet, erhält alle verfügbaren Mittel.",
+		"giftDesc2": "Wenn sie eingeloggt sind, gehen die Fonds auf ihr Konto, ansonsten wird ein neues Konto generiert."
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
