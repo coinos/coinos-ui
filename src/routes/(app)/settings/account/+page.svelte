@@ -13,7 +13,7 @@
 
   let { data } = $props();
   let { user } = $state(data);
-  let { rates, subscriptions } = data;
+  let { connect, rates, subscriptions } = data;
   let { currency, email, tip, verified } = $state(user);
   let rate = rates[currency];
 
@@ -97,6 +97,8 @@
   $effect(() => {
     if (email !== user.email) verified = false;
   });
+
+  let revoke = () => {};
 </script>
 
 <div>
@@ -318,4 +320,16 @@
       >
     </div>
   </div>
+{/if}
+
+{#if connect !== "connected"}
+  <a href={connect} class="btn flex">
+    <img src="/images/square.svg" class="w-12" />
+    <div>{$t("user.settings.connectSquare")}</div></a
+  >
+{:else}
+  <button type="button" onclick={revoke} class="btn">
+    <img src="/images/square.svg" class="w-12" />
+    <div>{$t("user.settings.revokeSquare")}</div>
+  </button>
 {/if}
