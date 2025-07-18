@@ -1,5 +1,6 @@
 <script>
   import { run } from "svelte/legacy";
+  import { theme } from "$lib/store";
 
   import { onMount, tick } from "svelte";
   import { browser } from "$app/environment";
@@ -329,7 +330,11 @@
   >
 {:else}
   <button type="button" onclick={revoke} class="btn">
-    <img src="/images/square.svg" class="w-12" />
+    <img
+      src="/images/square.svg"
+      class="w-12"
+      class:invert={$theme === "dark"}
+    />
     <div>{$t("user.settings.revokeSquare")}</div>
   </button>
 {/if}
