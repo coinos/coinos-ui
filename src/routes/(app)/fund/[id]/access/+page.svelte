@@ -6,10 +6,14 @@
 
   let { data } = $props();
   let { id, managers } = $derived(data);
+  let m = $state(data.managers);
   let username = $state();
-  let del = async ({ id }) => {
+  let del = async (e, user) => {
+    e.preventDefault();
     try {
-      await post("/post/fund/access/delete", { id });
+      m = await post(`/post/fund/${id}/managers/delete`, {
+        id: user.id,
+      });
     } catch (e) {
       fail(e.message);
     }
@@ -25,14 +29,14 @@
         Fund managers
       </h1>
 
-      {#each managers as c}
+      {#each m as c}
         <a href={`/${c.username}`} class="contents">
           <div class="flex hover:bg-base-200 p-2 items-center">
             <Avatar user={c} size={20} disabled={true} />
             <div class="my-auto text-left">
               <p class="ml-1 text-lg break-words">{c.username}</p>
             </div>
-            <button onclick={() => del(c)} class="ml-auto">
+            <button onclick={(e) => del(e, c)} class="ml-auto">
               <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
             </button>
           </div>
