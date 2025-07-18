@@ -1,14 +1,23 @@
 import { randomName, randomPassword } from "$lib/random";
 import getRates from "$lib/rates";
-import { auth, get, post, register } from "$lib/utils";
-import { redirect } from "@sveltejs/kit";
+import { auth, get, post, register, sats } from "$lib/utils";
+import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, request, params, parent }) {
 	let { user } = await parent();
 	const { id } = params;
-	const { amount } = await get(`/fund/${id}`);
+	let [amount, currency] = params.amount.split("/");
+
 	const rates = await getRates();
 	const rate = rates[user?.currency || "USD"];
+	if (currency && !rate) error(500, "Invalid currency symbol");
+
+	if (!amount) {
+		const balance = await get(`/fund/${id}`);
+		amount = balance.amount;
+	} else if (currency) {
+		amount = (amount * sats) / rate;
+	}
 
 	const username = randomName();
 	const password = randomPassword();
