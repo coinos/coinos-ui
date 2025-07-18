@@ -25,12 +25,13 @@
       $installPrompt = event;
     });
 
-    if (typeof window.AndroidNotch !== "undefined") {
+    let hasNotch = typeof window.AndroidNotch !== "undefined";
+    if (hasNotch) {
       window.AndroidNotch.getInsetTop(
         (px) => {
           document.documentElement.style.setProperty(
             "--safe-area-inset-top",
-            px + "px",
+            Math.round(px) + "px",
           );
         },
         (err) => {
@@ -42,7 +43,7 @@
         (px) => {
           document.documentElement.style.setProperty(
             "--safe-area-inset-bottom",
-            px + "px",
+            24 + "px",
           );
         },
         (err) => {
@@ -85,7 +86,7 @@
     --toastContainerLeft: calc(50vw - 8rem);
     --toastBackground: #292929;
 
-    --safe-area-inset-top: 24px;
+    --safe-area-inset-top: 0px;
     --safe-area-inset-bottom: 0px;
   }
 
