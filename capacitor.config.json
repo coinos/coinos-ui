@@ -12,6 +12,11 @@
     "immersive": false
   },
   "plugins": {
-    "NfcWriter": {}
+    "NfcWriter": {},
+    "StatusBar": {
+      "overlaysWebView": false,
+      "style": "DARK",
+      "backgroundColor": "#ffffffff"
+    }
   }
 }
