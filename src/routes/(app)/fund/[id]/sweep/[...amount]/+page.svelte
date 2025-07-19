@@ -11,8 +11,7 @@
 
   let { data } = $props();
 
-  let { amount, id, user, rate, rates, password: pw } = data;
-  let { currency } = user;
+  let { amount, currency, id, user, rate, rates, password: pw } = data;
   let locale = $derived(loc(user));
 
   onMount(() => ($password = pw));
