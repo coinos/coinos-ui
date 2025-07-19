@@ -23,17 +23,17 @@ export async function load({ params, parent }) {
 	}
 
 	let { callback, minSendable, maxSendable, comment, tag } = data;
-	if (callback.includes(PUBLIC_DOMAIN)) {
-		const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
-		// const inv = await post("/invoice", {
-		// 	invoice: { type: types.lightning, amount: minSendable / 1000 },
-		// 	user: { username },
-		// });
-		// const { id: iid } = inv;
-		let redir = `/pay/${username}`;
-		if (minSendable === maxSendable && minSendable > 0) redir += `/${minSendable / 1000}`;
-		redirect(307, redir);
-	}
+	// if (callback.includes(PUBLIC_DOMAIN)) {
+	// 	const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
+	// 	// const inv = await post("/invoice", {
+	// 	// 	invoice: { type: types.lightning, amount: minSendable / 1000 },
+	// 	// 	user: { username },
+	// 	// });
+	// 	// const { id: iid } = inv;
+	// 	let redir = `/pay/${username}`;
+	// 	if (minSendable === maxSendable && minSendable > 0) redir += `/${minSendable / 1000}`;
+	// 	redirect(307, redir);
+	// }
 	if (tag === "payRequest" && minSendable === maxSendable) {
 		minSendable = Math.round(minSendable / 1000);
 		maxSendable = Math.round(maxSendable / 1000);
@@ -43,7 +43,10 @@ export async function load({ params, parent }) {
 		if (comment) url += `&comment=${comment}`;
 
 		const { pr } = await fetch(url).then((r) => (r as Response).json());
-		console.log("PR", pr);
+
+		const invoice = await get(`/invoice/${pr}`);
+		if (invoice) redirect(307, `/invoice/${invoice.id}`);
+
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
 		redirect(307, path);
@@ -75,6 +78,7 @@ export const actions = {
 		if (comment) url += `&comment=${comment}`;
 
 		const { pr } = await fetch(url).then((r) => r.json());
+
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
 		redirect(307, path);

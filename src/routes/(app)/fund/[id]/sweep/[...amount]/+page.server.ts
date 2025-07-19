@@ -8,8 +8,9 @@ export async function load({ cookies, request, params, parent }) {
 	const { id } = params;
 	let [amount, currency] = params.amount.split("/");
 
+	if (!currency) currency = user?.currency;
 	const rates = await getRates();
-	const rate = rates[user?.currency || "USD"];
+	const rate = rates[currency?.toUpperCase() || "USD"];
 	if (currency && !rate) error(500, "Invalid currency symbol");
 
 	if (!amount) {
@@ -35,6 +36,10 @@ export async function load({ cookies, request, params, parent }) {
 		await register(user, ip, cookies, `/fund/${id}/sweep`);
 	}
 
-	await post("/take", { amount, id }, auth(cookies));
-	return { amount, id, rate, rates, password };
+	try {
+		await post("/take", { amount, id }, auth(cookies));
+	} catch (e) {
+		redirect(307, `/fund/${id}`);
+	}
+	return { amount, currency, id, rate, rates, password };
 }
