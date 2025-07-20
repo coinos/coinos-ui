@@ -15,17 +15,22 @@ export async function load({ cookies, depends, params: { id }, parent }) {
 	if (trusted && (pin || !user.haspin)) {
 		let p;
 		try {
-			if (!invoice.tip && invoice.user.prompt && user.tip > 0) {
-				invoice.tip = Math.round(invoice.amount * (user.tip / 100));
-				invoice = await post(
-					"/invoice",
-					{ invoice, user: subject },
-					auth(cookies),
-				);
+			if (!invoice.tip && invoice.user.prompt) {
+				if (user.tip > 0) {
+					invoice.tip = Math.round(invoice.amount * (user.tip / 100));
+					invoice = await post(
+						"/invoice",
+						{ invoice, user: subject },
+						auth(cookies),
+					);
+				} else {
+					throw new Error("tip");
+				}
 			}
 			p = await post("/payments", { ...invoice, pin }, auth(cookies));
 		} catch (e) {
 			const { message } = e as Error;
+			if (message === "tip") redirect(307, `/invoice/${id}/tip`);
 			fail(400, { message });
 		}
 		if (p) redirect(307, `/sent/${p.id}`);

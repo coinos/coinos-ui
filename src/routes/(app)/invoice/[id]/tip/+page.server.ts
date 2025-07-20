@@ -5,23 +5,14 @@ import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, parent }) {
 	const rates = await getRates();
-	let { invoice, subject, user } = await parent();
+	const { invoice, subject, user } = await parent();
 	if (!invoice.amount) redirect(307, `/invoice/${invoice.id}`);
 	const pin = cookies.get("pin");
 
 	if (user) {
 		const trust = await get("/trust", auth(cookies));
 		const trusted = trust.includes(invoice.uid);
-		if (trusted && (pin || !user.haspin)) {
-			if (!invoice.prompt && invoice.user.prompt && user.tip > 0) {
-				invoice.tip = Math.round(invoice.amount * (user.tip / 100));
-				invoice = await post(
-					"/invoice",
-					{ invoice, user: subject },
-					auth(cookies),
-				);
-			}
-
+		if (trusted && (pin || !user.haspin) && user.tip > 0) {
 			let p;
 			try {
 				p = await post("/payments", { ...invoice, pin }, auth(cookies));

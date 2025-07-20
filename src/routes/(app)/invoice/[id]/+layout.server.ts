@@ -12,6 +12,19 @@ export async function load({ cookies, depends, params, url, parent }) {
 	if (id) {
 		invoice = await get(`/invoice/${id}`);
 		const options = !!url.searchParams.get("options");
+		let { amount, pending, received } = invoice;
+		amount = parseInt(amount);
+
+		const paid =
+			(!amount && (pending || received)) ||
+			(amount > 0 && (pending >= amount || received >= amount));
+		if (paid && !url.pathname.endsWith("paid")) {
+			if (invoice.uid === user.id)
+				redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
+			else redirect(307, `/pay/${subject.username}/${invoice.amount}`);
+		}
+
+		subject = invoice.user;
 
 		if (
 			user &&
@@ -19,18 +32,9 @@ export async function load({ cookies, depends, params, url, parent }) {
 			!(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
 			!options
 		) {
-			redirect(307, `/send/invoice/${id}`);
-		}
-
-		let { amount, pending, received } = invoice;
-		amount = parseInt(amount);
-		subject = invoice.user;
-
-		const paid =
-			(!amount && (pending || received)) ||
-			(amount > 0 && (pending >= amount || received >= amount));
-		if (paid && !url.pathname.endsWith("paid")) {
-			redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
+			if (invoice.prompt && invoice.tip === null)
+				redirect(307, `/invoice/${id}/tip`);
+			else redirect(307, `/send/invoice/${id}`);
 		}
 	}
 
