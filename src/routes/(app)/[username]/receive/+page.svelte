@@ -94,7 +94,7 @@
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     amount = newAmount;
     invoice.amount = newAmount;
-    invoice.tip = 0;
+    invoice.tip = null;
 
     await update();
   };

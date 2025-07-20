@@ -15,7 +15,7 @@ export default async ({ cookies, request }) => {
 		items: JSON.parse(form.get("items")),
 		memo: form.get("memo"),
 		memoPrompt: form.get("memoPrompt"),
-		tip: parseInt(form.get("tip")) || 0,
+		tip: form.get("tip") ?? null,
 		type: form.get("type"),
 		prompt: form.get("prompt") === "true",
 		rate: parseFloat(form.get("rate")) || rates[form.get("currency")],
