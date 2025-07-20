@@ -57,10 +57,11 @@ export default async (s, host) => {
 		t = params.get("lightning");
 	}
 
+	let invoice;
 	if (t.toLowerCase().startsWith("ln")) {
 		try {
-			const inv = await get(`/invoice/${t}`);
-			if (inv.user.username === "mint") throw new Error("mint payment");
+			invoice = await get(`/invoice/${t}`);
+			if (invoice.user.username === "mint") throw new Error("mint payment");
 		} catch (e) {
 			if (t.toLowerCase().startsWith("lno")) {
 				const { offer_amount_msat: a } = await get(`/decode/${t}`);
@@ -115,11 +116,9 @@ export default async (s, host) => {
 
 	if (fund) redirect(307, `/send/fund/${t}`);
 
-	// invoice
-	let invoice;
 	try {
-		invoice = await get(`/invoice/${t}`);
+		invoice ||= await get(`/invoice/${t}`);
 	} catch (e) {}
 
-	if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
+	if (invoice) redirect(307, `/invoice/${invoice.id}`);
 };
