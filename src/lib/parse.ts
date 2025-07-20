@@ -8,6 +8,7 @@ export default async (s, host) => {
 	if (!s) return;
 	let t = s.trim();
 	let amount;
+	let invoice;
 	let user;
 
 	if (t.startsWith("http")) redirect(307, t);
@@ -57,7 +58,6 @@ export default async (s, host) => {
 		t = params.get("lightning");
 	}
 
-	let invoice;
 	if (t.toLowerCase().startsWith("ln")) {
 		try {
 			invoice = await get(`/invoice/${t}`);
@@ -70,6 +70,8 @@ export default async (s, host) => {
 			redirect(307, `/send/lightning/${t}`);
 		}
 	}
+
+	if (invoice) redirect(307, `/invoice/${invoice.id}`);
 
 	if (t.match(/^🥜([\uFE00-\uFE0F]|[\uE0100-\uE01EF]+)$/)) {
 		t = Array.from(t)

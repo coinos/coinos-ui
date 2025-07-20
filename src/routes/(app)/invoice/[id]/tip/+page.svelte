@@ -102,7 +102,7 @@
     <input type="hidden" name="tip" value={tip} />
     <input type="hidden" name="username" value={username} />
     <input type="hidden" name="rate" value={invoice.rate} />
-    <input type="hidden" name="prompt" value="false" />
+    <input type="hidden" name="prompt" value={invoice.prompt} />
     <input type="hidden" name="type" value={type} />
     <input type="hidden" name="hash" value={hash} />
     <input type="hidden" name="items" value={JSON.stringify(items)} />
@@ -180,7 +180,6 @@
           onclick={() => (showCustomAmount = true)}
           >{$t("payments.custom")}</button
         >
-
         <a href={`/invoice/${id}`} class="btn">{$t("payments.cancel")}</a>
       </div>
     {/if}

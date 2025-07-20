@@ -1,6 +1,6 @@
 import { PUBLIC_DOMAIN } from "$env/static/public";
 import getRates from "$lib/rates";
-import { auth, fd, get, post, types } from "$lib/utils";
+import { auth, fd, get, post } from "$lib/utils";
 import { bech32 } from "@scure/base";
 import { error, fail, redirect } from "@sveltejs/kit";
 const { decode, fromWords } = bech32;
@@ -23,17 +23,6 @@ export async function load({ params, parent }) {
 	}
 
 	let { callback, minSendable, maxSendable, comment, tag } = data;
-	// if (callback.includes(PUBLIC_DOMAIN)) {
-	// 	const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
-	// 	// const inv = await post("/invoice", {
-	// 	// 	invoice: { type: types.lightning, amount: minSendable / 1000 },
-	// 	// 	user: { username },
-	// 	// });
-	// 	// const { id: iid } = inv;
-	// 	let redir = `/pay/${username}`;
-	// 	if (minSendable === maxSendable && minSendable > 0) redir += `/${minSendable / 1000}`;
-	// 	redirect(307, redir);
-	// }
 	if (tag === "payRequest" && minSendable === maxSendable) {
 		minSendable = Math.round(minSendable / 1000);
 		maxSendable = Math.round(maxSendable / 1000);
@@ -50,6 +39,9 @@ export async function load({ params, parent }) {
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
 		redirect(307, path);
+	} else if (callback.includes(PUBLIC_DOMAIN)) {
+		const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
+		redirect(307, `/pay/${username}`);
 	}
 
 	if (!["payRequest", "withdrawRequest"].includes(data.tag))
