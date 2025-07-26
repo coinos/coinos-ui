@@ -36,10 +36,13 @@ export async function load({ cookies, request, params, parent }) {
 		await register(user, ip, cookies, `/fund/${id}/sweep`);
 	}
 
+	let r;
 	try {
-		await post("/take", { amount, id }, auth(cookies));
+		r = await post("/take", { amount, id }, auth(cookies));
 	} catch (e) {
 		redirect(307, `/fund/${id}`);
 	}
+
+	if (r) redirect(307, `/${user.username}`);
 	return { amount, currency, id, rate, rates, password };
 }
