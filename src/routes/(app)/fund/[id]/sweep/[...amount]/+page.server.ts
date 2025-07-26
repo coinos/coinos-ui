@@ -33,7 +33,11 @@ export async function load({ cookies, request, params, parent }) {
 			fresh: true,
 		};
 
-		await register(user, ip, cookies, `/fund/${id}/sweep`);
+		let redirectUrl = `/fund/${id}/sweep`;
+		if (amount) redirectUrl += `/${amount}`;
+		if (currency) redirectUrl += `/${currency}`;
+
+		await register(user, ip, cookies, redirectUrl);
 	}
 
 	let r;
