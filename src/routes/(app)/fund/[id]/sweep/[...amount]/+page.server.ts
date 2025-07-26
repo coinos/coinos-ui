@@ -20,7 +20,7 @@ export async function load({ cookies, request, params, parent }) {
 		amount = (amount * sats) / rate;
 	}
 
-	const username = randomName();
+	const username = randomName() + Math.floor(Math.random() * 99) + 1;
 	const password = randomPassword();
 
 	if (!amount) redirect(307, `/fund/${id}`);
@@ -34,19 +34,17 @@ export async function load({ cookies, request, params, parent }) {
 		};
 
 		let redirectUrl = `/fund/${id}/sweep`;
-		if (amount) redirectUrl += `/${amount}`;
-		if (currency) redirectUrl += `/${currency}`;
+		if (params.amount && !params.currency) redirectUrl += `/${params.amount}`;
+		if (params.currency) redirectUrl += `/${params.amount}/params.currency}`;
 
 		await register(user, ip, cookies, redirectUrl);
 	}
 
-	let r;
 	try {
-		r = await post("/take", { amount, id }, auth(cookies));
+		({ amount } = await post("/take", { amount, id }, auth(cookies)));
 	} catch (e) {
 		redirect(307, `/fund/${id}`);
 	}
 
-	if (r) redirect(307, `/${user.username}`);
 	return { amount, currency, id, rate, rates, password };
 }
