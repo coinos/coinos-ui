@@ -20,7 +20,7 @@
       <!-- </h3> -->
     </div>
     {#if nfc}
-      <img src="/images/tap.png" class="w-24 absolute top-40 left-4" />
+      <img src="/images/tap.png" class="w-24 absolute top-40 left-4 rotate-[-10deg]" />
       <img src="/images/arrow.png" class="w-24 scale-x-[-1] rotate-[105deg] absolute top-52 left-32 w-16 h-52" />
     {/if}
     <Qr {text} />
