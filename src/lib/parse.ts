@@ -14,6 +14,12 @@ export default async (s, host) => {
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
+	if (t.includes("lightning=")) {
+		const url = new URL(t);
+		const params = new URLSearchParams(url.search);
+		t = params.get("lightning");
+	}
+
 	if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
 	if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split("@")[0];
 	if (t.includes("@") && t.includes(".")) {
@@ -51,12 +57,6 @@ export default async (s, host) => {
 		t = t.toLowerCase().replace("lightning:", "");
 	if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
 	if (t.includes(":")) t = t.split(":")[1];
-
-	if (t.includes("lightning=")) {
-		const url = new URL(t);
-		const params = new URLSearchParams(url.search);
-		t = params.get("lightning");
-	}
 
 	if (t.toLowerCase().startsWith("ln")) {
 		try {
