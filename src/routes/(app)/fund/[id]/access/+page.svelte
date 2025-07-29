@@ -7,6 +7,7 @@
   let { data } = $props();
   let { id, managers } = $derived(data);
   let m = $state(data.managers);
+  $effect(() => (m = data.managers));
   let username = $state();
   let del = async (e, user) => {
     e.preventDefault();

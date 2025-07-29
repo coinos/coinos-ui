@@ -67,7 +67,9 @@
 
   let direction = $state("");
   onMount(() => {
-    direction = amount > 0 ? $t("payments.from") : $t("payments.to");
+    let a = amount;
+    if (type === types.fund) a = 0 - a;
+    direction = a > 0 ? $t("payments.from") : $t("payments.to");
 
     if (direction)
       direction =
