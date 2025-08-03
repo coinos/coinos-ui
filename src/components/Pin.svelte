@@ -20,7 +20,7 @@
   let loaded;
   onMount(() => setTimeout(() => (loaded = true), 500));
 
-  let locktime = 30 * 60;
+  let locktime = 5 * 60;
 
   $: loaded && checkPin(p);
   let checkPin = async (p) => {
@@ -34,7 +34,10 @@
 
     if (result) {
       if (notify) success("Pin confirmed");
-      if (locktime) setCookie("pin", p, locktime);
+      if (locktime) {
+        setCookie("pin", p, locktime);
+        setTimeout(() => ($pin = undefined), locktime * 1000);
+      }
       $pin = p;
     } else {
       fail("Invalid pin");
@@ -63,7 +66,6 @@
         <select name="locktime" bind:value={locktime}>
           <option value={30}>30 {$t("user.settings.seconds")}</option>
           <option value={5 * 60}>5 {$t("user.settings.minutes")}</option>
-          <option value={10 * 60}>10 {$t("user.settings.minutes")}</option>
           <option value={30 * 60}>30 {$t("user.settings.minutes")}</option>
           <option value={60 * 60}>1 {$t("user.settings.hour")}</option>
           <option value={8 * 60 * 60}>8 {$t("user.settings.hours")}</option>
