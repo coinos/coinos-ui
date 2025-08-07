@@ -28,8 +28,12 @@ export async function load({ params, parent }) {
 		maxSendable = Math.round(maxSendable / 1000);
 		const amount = minSendable;
 
-		let url = `${callback}?amount=${amount * 1000}`;
-		if (comment) url += `&comment=${comment}`;
+		const urlObj = new URL(callback);
+		urlObj.searchParams.set("amount", (amount * 1000).toString());
+		if (comment) {
+			urlObj.searchParams.set("comment", comment);
+		}
+		const url = urlObj.toString();
 
 		const { pr } = await fetch(url).then((r) => (r as Response).json());
 
