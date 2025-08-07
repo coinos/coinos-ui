@@ -33,14 +33,19 @@ export async function load({ params, parent }) {
 
 		const { pr } = await fetch(url).then((r) => (r as Response).json());
 
+    console.log("PR", pr);
 		const invoice = await get(`/invoice/${pr}`);
+    console.log("INV", invoice);
 		if (invoice) redirect(307, `/invoice/${invoice.id}`);
 
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
+    console.log("PATH", path)
 		redirect(307, path);
 	} else if (callback.includes(PUBLIC_DOMAIN)) {
+    console.log("CALLBACK", callback);
 		const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
+    console.log("UN", username);
 		redirect(307, `/pay/${username}`);
 	}
 
