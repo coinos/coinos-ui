@@ -9,15 +9,16 @@ export async function load({ cookies, request, params, parent }) {
 	let [amount, currency] = params.amount.split("/");
 
 	if (!currency) currency = user?.currency;
+	if (currency) currency = currency.toUpperCase();
 	const rates = await getRates();
-	const rate = rates[currency?.toUpperCase() || "USD"];
+	const rate = rates[currency || "USD"];
 	if (currency && !rate) error(500, "Invalid currency symbol");
 
 	if (!amount) {
 		const balance = await get(`/fund/${id}`);
-		amount = balance.amount;
+		amount = balance.authorization || balance.amount;
 	} else if (currency) {
-		amount = (amount * sats) / rate;
+		amount = Math.round((amount * sats) / rate);
 	}
 
 	const username = randomName() + Math.floor(Math.random() * 99) + 1;
