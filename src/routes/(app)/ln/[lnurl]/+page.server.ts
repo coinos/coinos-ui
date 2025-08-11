@@ -7,7 +7,6 @@ const { decode, fromWords } = bech32;
 
 export async function load({ params, parent }) {
 	const { user } = await parent();
-	if (!user) redirect(307, "/register");
 	const rates = await getRates();
 
 	let data;
@@ -53,7 +52,7 @@ export async function load({ params, parent }) {
 	if (!["payRequest", "withdrawRequest"].includes(data.tag))
 		error(500, "We only support LNURLp and LNURLw at this time");
 
-	data.rate = rates[user.currency];
+	data.rate = rates[user?.currency || "USD"];
 	return data;
 }
 
