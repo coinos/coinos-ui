@@ -228,17 +228,18 @@
   </div>
 
   <div
-    class="z-10 fixed bottom-0 bg-base-100 shadow border-t border-t-8 border-accent w-full flex justify-center items-center py-3"
+    class="z-10 fixed bottom-0 bg-base-100 shadow border-accent w-full flex justify-center items-center py-3"
   >
     <button
       bind:this={$save}
       type="submit"
-      class="btn !w-auto"
+      class="btn btn-accent !w-auto"
       class:bg-base-200={submitting}
     >
       {#if submitting}
         <Spinner />
       {:else}
+        <iconify-icon icon="ph:floppy-disk-bold" width={32}></iconify-icon>
         <div class="my-auto">{$t("user.settings.saveSettings")}</div>
       {/if}
     </button>
