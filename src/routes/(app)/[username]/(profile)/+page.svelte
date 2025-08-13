@@ -48,22 +48,18 @@
     </div>
   {/if}
   {#if user?.fresh}
-    <div class="rounded-2xl space-y-2 p-4 shadow-lg">
-      <h1 class="text-3xl font-bold">{$t("user.settings.welcome")}</h1>
-      <div>
-        {$t("user.settings.yourUsername")} <b>{user?.username}</b>
-        {#if $password}
-          {$t("user.settings.yourPassword")}
-          <b>{$password}</b>{/if}
-      </div>
-
-      <div>{$t("user.settings.clickBelow")}</div>
-
-      <a href="/settings/profile" class="btn">
-        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
-        Settings</a
-      >
+    <div>
+      {$t("user.settings.yourUsername")} <b>{user?.username}</b>
+      {#if $password}
+        <br />
+        {$t("user.settings.yourPassword")}
+        <b>{$password}</b>{/if}
     </div>
+
+    <a href="/settings/profile" class="btn">
+      <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+      {$t("user.settings.continueSettingUp")}</a
+    >
   {/if}
   {#if user?.id && user.id === subject.id}
     <div class="space-y-5" data-sveltekit-preload-data="false">
