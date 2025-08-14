@@ -56,10 +56,10 @@
           <div>
             <div class="flex items-center gap-2 min-w-0">
               <h3
-                class="whitespace-wrap text-base font-semibold truncate max-w-[200px]"
+                class="whitespace-wrap text-base font-semibold max-w-[150px] truncate sm:max-w-full"
                 title={merchant.display || merchant.username}
               >
-                {merchant.display || merchant.username}
+              <a href={`/${merchant.username}`}>{merchant.display || merchant.username}</a>
               </h3>
 
               <span
@@ -148,9 +148,3 @@
 
   <p>Thanks for participating and helping to orange pill Vancouver!</p>
 </div>
-
-<style>
-  a {
-    @apply text-blue-400;
-  }
-</style>
