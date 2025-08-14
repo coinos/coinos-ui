@@ -2,7 +2,7 @@ import { get } from "$lib/utils";
 export const load = async () => {
 	const users = [
 		{ username: "fustler", merchant: "rrdrive", type: "Bakery" },
-		{ username: "laluna", merchant: "butchersguild", type: "Butcher" },
+		{ username: "laluna", merchant: "butchersguild", type: "Butcher Shop" },
 		{ username: "ica547", merchant: "vanlove", type: "Sushi Restaurant" },
 		{ username: "reverendhodl", merchant: "laughingbean", type: "Cafe" },
 	];
