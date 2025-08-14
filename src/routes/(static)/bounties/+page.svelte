@@ -1,96 +1,144 @@
-<div class="space-y-5">
-  <h1 class="text-3xl mb-6 pt-28 md:pt-12">Bounties</h1>
+<script>
+  import Avatar from "$comp/Avatar.svelte";
+  import { s } from "$lib/utils";
+  import Amount from "$comp/Amount.svelte";
 
-  <p>
-    We're offering ⚡️1,000,000 to the first 10 people that help us onboard
-    these businesses in Vancouver to take bitcoin payments.
-  </p>
+  let { data } = $props();
+  let { users } = data;
 
-  <ul class="text-center text-lg space-y-3">
-    <li>Grocery / Produce Store</li>
-    <li class="leading-3">
-      <span class="line-through">Cafe</span><br />
-      <span class="text-xs"
-        ><a href="/reverendhodl">ReverendHodl</a> for
-        <a href="/laughingbean">Laughing Bean Coffee Co.</a></span
+  let bounties = [
+    "Clothing Store",
+    "Hardware Store",
+    "Gas Station",
+    "Shoe Repair",
+    "Dollar Store",
+    "Book Store",
+    "Gift Shop",
+    "Game or Toy Store",
+    "Pet Store",
+    "Pharmacy",
+  ];
+</script>
+
+<div class="space-y-5 pb-20">
+  <h1 class="text-3xl mb-6 pt-28 md:pt-12 font-bold">Coinos Bounties</h1>
+
+  <p>Earn sats by referring us to local businesses in Vancouver!</p>
+
+  <h2 class="text-2xl font-bold">Currently Available</h2>
+
+  <div class="space-y-0 max-w-2xl">
+    {#each bounties as b}
+      <div class="flex">
+        <div>{b}</div>
+
+        <iconify-icon
+          noobserver
+          icon="ph:lightning-fill"
+          class="text-yellow-300 ml-auto"
+        ></iconify-icon>{s(10000, "en-CA")}
+      </div>
+    {/each}
+  </div>
+
+  <h2 class="text-2xl font-bold">Previously Awarded</h2>
+
+  <div class="flex flex-col gap-4 w-full max-w-full overflow-x-hidden">
+    {#each users as { user, merchant, type }}
+      <article
+        class="rounded-2xl border border-neutral-200 bg-white/70 p-4 shadow-sm transition hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/60 max-w-2xl"
       >
-    </li>
-    <li>Bakery</li>
-    <li class="leading-3">
-      <span class="line-through">Butcher Shop</span><br />
-      <span class="text-xs"
-        ><a href="/danielle">danielle</a> for
-        <a href="/butchersguild">All Natural &amp; Exotic Meats</a></span
-      >
-    </li>
-    <li>Laundromat / Dry Cleaner</li>
-    <li>Dollar Store / Book Store / Gift Shop</li>
-    <li class="leading-3">
-      <span class="line-through">Sushi Restaurant</span><br />
-      <span class="text-xs"
-        ><a href="/ica547">ica547</a> for
-        <a href="/metallmash">VanLove Sushi</a></span
-      >
-    </li>
-    <li>Pizza by the Slice</li>
-    <li>Liquor Store / Gas Station</li>
-    <li>Bubble Tea / Ice Cream Parlour</li>
-  </ul>
+        <div class="flex items-start gap-3 min-w-0">
+          <div class="shrink-0">
+            <Avatar user={merchant} size={12} />
+          </div>
 
-  <p>Eligible businesses:</p>
+          <div>
+            <div class="flex items-center gap-2 min-w-0">
+              <h3
+                class="whitespace-wrap text-base font-semibold truncate max-w-[200px]"
+                title={merchant.display || merchant.username}
+              >
+                {merchant.display || merchant.username}
+              </h3>
 
-  <ul class="text-sm ml-4 space-y-2">
-    <li>
-      Have a physical location in Vancouver, North Vancouver, West Vancouver,
-      Burnaby, New Westminster, or Richmond
-    </li>
-    <li>Take walk-in customers</li>
-    <li>Have regular hours and a website with contact info</li>
-    <li>Have a 3 star or better rating on Google</li>
-    <li>
-      Accept bitcoin during their posted hours without needing to make any
-      special arrangements
-    </li>
-    <li>Use Coinos</li>
-  </ul>
+              <span
+                class="shrink-0 rounded-full border border-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:border-neutral-700 dark:text-neutral-300"
+              >
+                {type}
+              </span>
+            </div>
 
-  <p>Each business category can be claimed only once</p>
+            <div
+              class="mt-2 flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 min-w-0"
+            >
+              <Avatar {user} size={8} class="shrink-0" />
+              <span class="truncate max-w-full"
+                >Referred by @{user.username}</span
+              >
+            </div>
+          </div>
+
+          <div class="ml-auto flex shrink-0 items-center gap-1 whitespace">
+            <iconify-icon
+              noobserver
+              icon="ph:lightning-fill"
+              class="text-yellow-300"
+            />
+            <span class="text-sm font-semibold tabular-nums">
+              {s(1000000, "en-CA")}
+            </span>
+          </div>
+        </div>
+      </article>
+    {/each}
+  </div>
+
+  <h2 class="text-2xl font-bold">Terms and Conditions</h2>
+
   <p>One bounty per person</p>
 
+  <div>Eligible business should:</div>
+
+  <ul class="ml-4 space-y-0 list-disc">
+    <li>Have a physical location in Greater Vancouver</li>
+    <li>Take walk-ins</li>
+    <li>Have regular hours and a website with contact info</li>
+    <li>Have at least a 3-star rating on Google</li>
+  </ul>
+
+  <div>They will be expected to:</div>
+
+  <ul class="ml-4 space-y-0 list-disc">
+    <li>Display a Bitcoin Accepted window sticker and payment QR</li>
+    <li>Train staff on Bitcoin procedures</li>
+    <li>
+      Accept Bitcoin during all posted hours
+    </li>
+  </ul>
+
   <p>
-    The businesses can expect free ongoing support and promotion from us and our
-    community.
+    25% of the bounty will be awarded once the business has met with us and is
+    ready to take payments and has been announced by us
   </p>
 
-  <p>The prize money will be offered to the person who makes the referral.</p>
-
   <p>
-    <b>⚡️250,000</b> will be awarded once the business has met with us and is ready
-    to take payments
-  </p>
-  <p>
-    <b>⚡️750,000</b> will be awarded once the merchant has accepted bitcoin for
-    6 months. We'll be sending
-    <a
-      href="https://btcmap.org/leaderboard"
-      class="text-black hover:underline"
-      target="_blank"
-      rel="noreferrer">shadowy supertaggers</a
-    > to check up on them periodically.
+    The rest will be awarded once they've been continuously
+    accepting Bitcoin for 6 months
   </p>
 
   <p>
-    Bounties will be awarded solely at our discretion and we reserve the right
-    to refuse any applicants without cause
+    Bounties will be awarded solely at our discretion. We reserve the right
+    to refuse applicants and change these terms without cause
   </p>
 
-  <h2 class="text-xl">Ready to begin!?</h2>
+  <h2 class="text-2xl font-bold">Get Started!</h2>
 
   <p>
-    To make a referral, reach out on one of our socials or email us at <a
+    Reach out to <a
       href="mailto:bounties@coinos.io"
       class="text-black hover:underline">bounties@coinos.io</a
-    > and we'll set up an appointment with you and the business owner to get started.
+    > and let us know who we should contact
   </p>
 
   <p>
