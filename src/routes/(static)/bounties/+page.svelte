@@ -32,7 +32,7 @@
 </script>
 
 <div class="space-y-5 pb-20">
-  <h1 class="text-3xl mb-6 pt-28 md:pt-12 font-bold">Coinos Bounties</h1>
+  <h1 class="text-3xl mb-6 md:pt-12 font-bold">Coinos Bounties</h1>
 
   <p>Earn sats by referring us to local businesses in Vancouver!</p>
 
@@ -131,17 +131,17 @@
 
   <ul class="ml-4 space-y-0 list-disc">
     <li>Have a physical location in Greater Vancouver</li>
-    <li>Take walk-ins</li>
-    <li>Have regular hours and a website with contact info</li>
+    <li>Take walk-ins without appointments</li>
+    <li>Have a website with contact info</li>
     <li>Have at least a 3-star rating on Google</li>
   </ul>
 
   <div>They will be expected to:</div>
 
   <ul class="ml-4 space-y-0 list-disc">
-    <li>Display a Bitcoin Accepted window sticker and payment QR</li>
+    <li>Display a "Bitcoin Accepted" window sticker and payment QR</li>
     <li>Train staff on Bitcoin procedures</li>
-    <li>Accept Bitcoin during all posted hours</li>
+    <li>Accept Bitcoin during posted business hours</li>
   </ul>
 
   <p>
