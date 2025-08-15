@@ -75,27 +75,29 @@
       <article
         class="rounded-2xl border border-neutral-200 bg-white/70 p-4 shadow-sm transition hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/60 sm:max-w-xl"
       >
-        <div class="flex items-start gap-3 min-w-0 flex-wrap">
-          <div class="shrink-0">
-            <Avatar user={merchant} size={12} />
-          </div>
-
+        <div class="flex items-start gap-3 min-w-0 flex-wrap sm:flex-nowrap">
           <div>
-            <div class="flex items-center gap-2 min-w-0">
-              <h3
-                class="whitespace-wrap text-base font-semibold max-w-[150px] truncate sm:max-w-full"
-                title={merchant.display || merchant.username}
-              >
-                <a href={`/${merchant.username}`}
-                  >{merchant.display || merchant.username}</a
-                >
-              </h3>
+            <div class="flex">
+              <div class="shrink-0">
+                <Avatar user={merchant} size={12} />
+              </div>
 
-              <span
-                class="shrink-0 rounded-full border border-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:border-neutral-700 dark:text-neutral-300"
-              >
-                {type}
-              </span>
+              <div class="flex items-center gap-2 min-w-0">
+                <h3
+                  class="whitespace-wrap text-base font-semibold max-w-[150px] truncate sm:max-w-full"
+                  title={merchant.display || merchant.username}
+                >
+                  <a href={`/${merchant.username}`}
+                    >{merchant.display || merchant.username}</a
+                  >
+                </h3>
+
+                <span
+                  class="shrink-0 rounded-full border border-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:border-neutral-700 dark:text-neutral-300"
+                >
+                  {type}
+                </span>
+              </div>
             </div>
 
             <div
@@ -175,8 +177,8 @@
   </p>
 
   <p>
-    Have a lead or idea for something that's not on the list? Reach out! We offer
-    sats for all sorts of referrals!
+    Have a lead or idea for something that's not on the list? Reach out! We
+    offer sats for all sorts of referrals!
   </p>
 
   <p>Thanks for participating and helping to orange pill Vancouver!</p>
