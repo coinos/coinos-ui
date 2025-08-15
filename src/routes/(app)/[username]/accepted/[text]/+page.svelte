@@ -37,14 +37,14 @@
     {#if nfc}
       <img
         src="/images/tap.png"
-        class="w-24 absolute top-44 left-4 rotate-[-10deg]"
+        class="w-24 absolute top-52 left-4 rotate-[-10deg]"
       />
       <img
         src="/images/arrow.png"
-        class="w-24 scale-x-[-1] rotate-[120deg] absolute top-44 left-40 w-20 h-52"
+        class="w-24 scale-x-[-1] rotate-[120deg] absolute top-52 left-32 w-20 h-52"
       />
     {/if}
-    <Qr {text} />
+    <Qr {text} icon="icon.png" />
     <div class="text-center text-4xl font-bold break-all">
       coinos.io/{username.toLowerCase()}
     </div>
