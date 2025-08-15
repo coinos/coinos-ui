@@ -139,7 +139,7 @@
   <div>They will be expected to:</div>
 
   <ul class="ml-4 space-y-0 list-disc">
-    <li>Display a "Bitcoin Accepted" window sticker and payment QR</li>
+    <li>Display a window sticker and QR</li>
     <li>Train staff on Bitcoin procedures</li>
     <li>Accept Bitcoin during posted business hours</li>
   </ul>
