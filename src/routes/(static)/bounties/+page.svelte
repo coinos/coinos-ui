@@ -22,12 +22,12 @@
   let small = [
     {
       type: "Restaurant",
-      amount: 5000,
+      amount: 50000,
     },
-    { type: "Cafe", amount: 3000 },
-    { type: "Tradesperson or Professional", amount: 2500 },
-    { type: "Food Truck", amount: 2000 },
-    { type: "Farmer's Market Vendor", amount: 2000 },
+    { type: "Cafe", amount: 30000 },
+    { type: "Tradesperson or Professional", amount: 25000 },
+    { type: "Food Truck", amount: 20000 },
+    { type: "Farmer's Market Vendor", amount: 20000 },
   ];
 </script>
 
@@ -47,7 +47,7 @@
           noobserver
           icon="ph:lightning-fill"
           class="text-yellow-300 ml-auto"
-        ></iconify-icon>{s(10000, "en-CA")}
+        ></iconify-icon>{s(100000, "en-CA")}
       </div>
     {/each}
   </div>
