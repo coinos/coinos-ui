@@ -36,10 +36,12 @@ export async function load({ params, parent }) {
 
 		const { pr } = await fetch(url).then((r) => (r as Response).json());
 
+		let invoice;
 		try {
-			const invoice = await get(`/invoice/${pr}`);
-			if (invoice) redirect(307, `/invoice/${invoice.id}`);
+			invoice = await get(`/invoice/${pr}`);
 		} catch (e) {}
+
+		if (invoice) redirect(307, `/invoice/${invoice.id}`);
 
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
