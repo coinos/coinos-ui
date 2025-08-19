@@ -16,6 +16,11 @@
     ? `http://${PUBLIC_DOMAIN}`
     : `https://${PUBLIC_DOMAIN}`;
 
+  function clearBadge() {
+    if ("clearAppBadge" in navigator) {
+      navigator.clearAppBadge().catch(() => {});
+    }
+  }
   onMount(() => {
     if (!browser) return;
 
@@ -23,6 +28,11 @@
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       $installPrompt = event;
+    });
+
+    clearBadge(); // first load
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") clearBadge();
     });
 
     let hasNotch = typeof window.AndroidNotch !== "undefined";
