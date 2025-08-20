@@ -290,8 +290,15 @@
           aria-multiline="false"
           contenteditable
           bind:innerHTML={html}
+          inputmode={fiat ? "decimal" : "numeric"}
+          enterkeyhint="done"
+          autocapitalize="off"
+          autocorrect="off"
+          spellcheck="false"
           onpaste={pasted}
-          onfocus={select}
+          onfocus={(e) => {
+            select(e);
+          }}
           onblur={blur}
           oninput={input}
           onkeydown={keydown}
