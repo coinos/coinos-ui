@@ -3,14 +3,15 @@
   import Left from "$comp/Left.svelte";
   import { f, s, focus, warning, sat, sats } from "$lib/utils";
   import { t } from "$lib/translations";
+  import { fiat as fiatStore } from "$lib/store";
 
   // ---- Props (Svelte 5 runes) ----
   let {
-    amount = $bindable(0),
+    amount = $bindable(),
     currency = "USD",
-    fiat = $bindable(true),
+    fiat = $bindable(),
     element,
-    rate,
+    rate = $bindable(),
     locale,
     submit = undefined,
     amountFiat = 0,
@@ -217,12 +218,28 @@
       sel.removeAllRanges();
       sel.addRange(range);
     });
+
+    $fiatStore = fiat;
   };
 
   const arrow = "<";
-  const numPad = ["1","2","3","4","5","6","7","8","9","00","0",arrow];
+  const numPad = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "00",
+    "0",
+    arrow,
+  ];
 
   onMount(() => {
+    fiat = $fiatStore;
     if (fiat) {
       const cents = Math.round((parseFloat(amountFiat || "0") || 0) * 100);
       fiatDigits = Math.max(0, cents).toString();
@@ -237,12 +254,18 @@
 <div class="flex justify-center items-center">
   <div class="space-y-5 w-full">
     <div class="text-center">
-      <div class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center">
+      <div
+        class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
+      >
         <div class="my-auto" class:text-5xl={!fiat}>
           {#if fiat}
             {#if position === "before"}{symbol}{/if}
           {:else}
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+            <iconify-icon
+              noobserver
+              icon="ph:lightning-fill"
+              class="text-yellow-300"
+            ></iconify-icon>
           {/if}
         </div>
 
@@ -279,7 +302,11 @@
         }}
       >
         {#if fiat}
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <iconify-icon
+            noobserver
+            icon="ph:lightning-fill"
+            class="text-yellow-300"
+          ></iconify-icon>
           {s(amount, locale)}
         {:else}
           {f(amountFiat, currency, locale)}
@@ -290,15 +317,29 @@
     <div class="grid grid-cols-3 gap-2 w-full mx-auto">
       {#each numPad as value}
         {#if value === arrow}
-          <button type="button" class="btn" aria-label="Backspace" onclick={(e) => {
-            e.preventDefault(); e.stopPropagation(); handleInput(value);
-          }}>
+          <button
+            type="button"
+            class="btn"
+            aria-label="Backspace"
+            onclick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleInput(value);
+            }}
+          >
             <Left />
           </button>
         {:else}
-          <button type="button" class="btn" aria-label={`Key ${value}`} onclick={(e) => {
-            e.preventDefault(); e.stopPropagation(); handleInput(value);
-          }}>
+          <button
+            type="button"
+            class="btn"
+            aria-label={`Key ${value}`}
+            onclick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleInput(value);
+            }}
+          >
             {value}
           </button>
         {/if}

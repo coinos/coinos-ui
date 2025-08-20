@@ -99,7 +99,7 @@
     await update();
   };
 
-  let newAmount = $state();
+  let newAmount = $state(0);
   let settingAmount = $state();
   let fiat = $state(true);
   let toggleAmount = () => (settingAmount = !settingAmount);

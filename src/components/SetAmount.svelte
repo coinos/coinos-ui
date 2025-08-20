@@ -6,13 +6,13 @@
   let submit = $state();
 
   let {
-    currency = $bindable(),
-    fiat = $bindable(),
-    locale = $bindable(),
-    rate = $bindable(),
+    currency = $bindable("USD"),
+    fiat = $bindable(true),
+    locale = $bindable("en-US"),
+    rate = $bindable(0),
     settingAmount,
     setAmount,
-    newAmount = $bindable(),
+    newAmount = $bindable(0),
     toggleAmount,
     t,
   } = $props();
