@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -71,8 +69,18 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs } =
-    $derived(data);
+  let {
+    account,
+    amount,
+    address,
+    message,
+    fee,
+    fees,
+    subtract,
+    ourfee,
+    hex,
+    inputs,
+  } = $derived(data);
 
   let { feeRate } = $state(data);
 
@@ -116,7 +124,11 @@
   {:else}
     <div class="text-xl text-secondary break-all">{address}</div>
 
-    <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} />
+    <Amount
+      amount={subtract ? amount - fee - ourfee : amount}
+      rate={$rate}
+      {currency}
+    />
 
     <div class="text-center">
       <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>

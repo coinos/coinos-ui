@@ -6,15 +6,17 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { s } from "$lib/utils";
+  import { loc, s } from "$lib/utils";
   import { fiat, pin } from "$lib/store";
 
   let { data, form } = $props();
 
-  let { currency } = $derived(data.user);
+  let { user } = $derived(data);
+  let { currency } = $derived(user);
   let loading = $state();
   let { id, balance, rate } = $derived(data);
   let { amount } = $state(data);
+  let locale = loc(user);
 
   let submit = $state();
   let submitting = $state();
@@ -39,7 +41,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-  <Numpad bind:amount {currency} {fiat} {rate} {submit} />
+  <Numpad bind:amount {currency} {fiat} {rate} {submit} {locale} />
 
   <form use:enhance={handler(toggle)} method="POST" class="space-y-5">
     <input name="id" value={id} type="hidden" />

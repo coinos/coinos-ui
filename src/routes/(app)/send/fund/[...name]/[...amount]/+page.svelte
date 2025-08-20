@@ -6,7 +6,7 @@
   import { page } from "$app/stores";
   import { pin } from "$lib/store";
   import handler from "$lib/handler";
-  import { s } from "$lib/utils";
+  import { loc, s } from "$lib/utils";
   import { applyAction, deserialize } from "$app/forms";
 
   let { data, form } = $props();
@@ -15,6 +15,7 @@
   let { name, rate } = $derived(data);
   let loading = $state();
   let fiat = $state();
+  let locale = loc(user);
 
   let submit = $state();
   let submitting = $state();
@@ -49,7 +50,7 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-  <Numpad bind:amount {currency} {rate} {fiat} {submit} />
+  <Numpad bind:amount {currency} {rate} {fiat} {submit} {locale} />
 
   <form
     use:enhance={handler(toggle)}

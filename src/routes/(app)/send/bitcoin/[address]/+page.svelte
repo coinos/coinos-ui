@@ -5,13 +5,14 @@
   import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
-  import { fail, s } from "$lib/utils";
+  import { loc, fail, s } from "$lib/utils";
 
   let { data } = $props();
 
   let { balance, user } = data;
   let { address } = $page.params;
   let { currency, username } = user;
+  let locale = loc(user);
 
   let amount = $state(0);
   let a = $state(0);
@@ -34,7 +35,7 @@
 
   <div class="text-xl text-secondary break-all">{address}</div>
 
-  <Numpad bind:amount={a} bind:fiat {currency} {submit} bind:rate={$rate} />
+  <Numpad bind:amount={a} bind:fiat {currency} {submit} bind:rate={$rate} {locale} />
 
   <div class="flex justify-center gap-2">
     <button
