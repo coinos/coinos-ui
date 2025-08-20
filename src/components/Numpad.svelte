@@ -63,6 +63,13 @@
     return `${whole}${dec}${cents}`;
   }
 
+  // --- NEW: normalize sats to remove leading zeros but keep single "0"
+  function normalizeSats(str) {
+    const digits = (str ?? "").replace(/[^\d]/g, "");
+    const noLead = digits.replace(/^0+(?=\d)/, "");
+    return noLead || "0";
+  }
+
   const updateByMode = () => {
     if (fiat) {
       const numericFiat =
@@ -70,7 +77,7 @@
       amountFiat = isFinite(numericFiat) ? numericFiat.toFixed(2) : "0.00";
       amount = numericFiat ? Math.round((numericFiat * sats) / rate) : 0;
     } else {
-      // CHANGED: sats side is integer-only
+      // integer-only sats, already normalized
       const a = parseInt((html || "0").replace(/[^\d]/g, "")) || 0;
       amount = a || 0;
       const fval = amount ? (amount * rate) / sats : 0;
@@ -86,10 +93,11 @@
       const val = parseFloat(normalized);
       const cents = isFinite(val) ? Math.round(val * 100) : 0;
       fiatDigits = Math.max(0, cents).toString();
-      html = formatFiatFromDigits(fiatDigits, decimalChar); // CHANGED: keep html in sync immediately
+      html = formatFiatFromDigits(fiatDigits, decimalChar);
     } else {
-      const clean = txt.replace(/[^\d]/g, ""); // CHANGED: integer-only for sats
-      html = clean || "0";
+      const clean = normalizeSats(txt);
+      html = clean;
+      element && (element.innerHTML = html);
     }
     input(null, true);
   };
@@ -119,14 +127,15 @@
       }
       html = formatFiatFromDigits(fiatDigits, decimalChar);
     } else {
-      // CHANGED: sats input only digits (no decimals)
-      let clean = (element?.textContent ?? "").replace(/[^\d]/g, "") || "0";
+      // integer-only sats, normalize leading zeros
+      let clean = normalizeSats(element?.textContent ?? "");
       const maybe = parseInt(clean) || 0;
       if (maybe > sats && clean.length > prevHtml.length) {
-        clean = clean.slice(0, -1) || "0";
+        clean = normalizeSats(clean.slice(0, -1));
         warning($t("user.receive.lessThan1BTCWarning"));
       }
       html = clean;
+      element && (element.innerHTML = html);
     }
 
     updateByMode();
@@ -162,12 +171,14 @@
       if (value === arrow) {
         html = html.length > 1 ? html.slice(0, -1) : "0";
       } else if (value === "00") {
-        html = (html === "0" ? "" : html) + "00";
-        if (!html) html = "0";
+        // If current is "0", keep it "0"; otherwise append two zeros
+        html = html === "0" ? "0" : html + "00";
       } else {
-        html = (html === "0" ? "" : html) + value;
+        // If current is "0", replace with the digit; else append
+        html = html === "0" ? value : html + value;
       }
-      // CHANGED: no decimals in sats, so no trimming needed
+      // normalize away any accidental leading zeros
+      html = normalizeSats(html);
       element && (element.innerHTML = html);
     }
     input(null, true);
@@ -193,7 +204,7 @@
     if (fiat) {
       // going -> sats
       fiat = false;
-      html = (amount || 0).toString();
+      html = normalizeSats((amount || 0).toString());
       element && (element.innerHTML = html);
     } else {
       // going -> fiat
@@ -243,10 +254,11 @@
     if (fiat) {
       const cents = Math.round((parseFloat(amountFiat || "0") || 0) * 100);
       fiatDigits = Math.max(0, cents).toString();
-      html = formatFiatFromDigits(fiatDigits, decimalChar); // CHANGED: ensure html matches fiat display on mount
+      html = formatFiatFromDigits(fiatDigits, decimalChar); // keep html in sync on mount
     } else {
-      html = (amount || 0).toString();
+      html = normalizeSats((amount || 0).toString());
     }
+    element && (element.innerHTML = html);
     updateByMode();
   });
 </script>
