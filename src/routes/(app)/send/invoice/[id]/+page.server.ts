@@ -18,11 +18,7 @@ export async function load({ cookies, depends, params: { id }, parent }) {
 			if (!invoice.tip && invoice.user.prompt) {
 				if (user.tip > 0) {
 					invoice.tip = Math.round(invoice.amount * (user.tip / 100));
-					invoice = await post(
-						"/invoice",
-						{ invoice, user: subject },
-						auth(cookies),
-					);
+					invoice = await post(`/invoice/${id}`, { invoice }, auth(cookies));
 				} else {
 					throw new Error("tip");
 				}

@@ -1,6 +1,5 @@
-import invoice from "$lib/invoice";
 import getRates from "$lib/rates";
-import { auth, get, post } from "$lib/utils";
+import { auth, fd, get, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent }) {
@@ -15,17 +14,11 @@ export async function load({ cookies, params, parent }) {
 		const trusted = trust.includes(invoice.uid);
 		if (trusted && (pin || !user.haspin)) {
 			let p;
-			console.log("YE");
 			try {
 				if (invoice.tip === null && invoice.user.prompt) {
-					console.log("OHH");
 					if (user.tip > 0) {
 						invoice.tip = Math.round(invoice.amount * (user.tip / 100));
-						invoice = await post(
-							"/invoice",
-							{ invoice, user: subject },
-							auth(cookies),
-						);
+						invoice = await post(`/invoice/${id}`, { invoice }, auth(cookies));
 					} else {
 						throw new Error("tip");
 					}
@@ -33,7 +26,6 @@ export async function load({ cookies, params, parent }) {
 				p = await post("/payments", { ...invoice, pin }, auth(cookies));
 			} catch (e) {
 				const { message } = e as Error;
-				console.log("MSG", message);
 				if (message === "tip") redirect(307, `/invoice/${id}/tip`);
 				fail(400, { message });
 			}
@@ -47,5 +39,18 @@ export async function load({ cookies, params, parent }) {
 }
 
 export const actions = {
-	default: invoice,
+	default: async ({ cookies, request }) => {
+		const form = await fd(request);
+		const invoice = {
+			tip: form.tip ?? null,
+		};
+
+		const { id } = await post(
+			`/invoice/${form.id}`,
+			{ invoice },
+			auth(cookies),
+		);
+
+		redirect(307, `/invoice/${id}`);
+	},
 };
