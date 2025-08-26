@@ -1,8 +1,23 @@
 <script lang="ts">
  import Icon from "$comp/Icon.svelte";
+ import { hexToBytes } from '@noble/hashes/utils';
+ import * as nip17 from 'nostr-tools/nip17';
 
  let { data } = $props();
  const { recipient } = data;
+
+ let senderSK, text;
+
+ const btnCreateMessage = () => {
+   try {
+     const skBytes = hexToBytes(senderSK);
+     const recipientData = { publicKey: recipient.pubkey };
+     const event = nip17.wrapEvent(skBytes, recipientData, text);
+     console.log(JSON.stringify(event));
+   } catch (error) {
+     console.log(error);
+   }
+ }
 </script>
 
 <div class="container">
@@ -20,8 +35,12 @@
         >Direct Messages</h1>
         <p><em>Testing Message:</em> You are sending nostr messages to {recipient.username}.  Their pubkey is <code>{recipient.pubkey}</code>.</p>
 
-      <textarea id="message-contents"></textarea>
+        <label for="senderSKInput">(Temp) Sender Secret Key:</label>
+        <input id="senderSKInput" bind:value={senderSK}>
 
-      <input type="button" class="btn" value="Send Message">
-  </div>
+        <label for="message-contents">Message Contents:</label>
+        <textarea id="message-contents" bind:value={text}></textarea>
+
+        <input type="button" class="btn" value="Send Message" on:click={btnCreateMessage}>
+    </div>
 </div>
