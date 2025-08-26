@@ -140,6 +140,11 @@
           <iconify-icon noobserver icon="ph:pencil-bold" width="32"
           ></iconify-icon>
         </a>
+      {:else}
+        <a href="/dm/{subject.username}" class="btn contents">
+          <iconify-icon noobserver icon="ph:chat-bold" width="32"
+          ></iconify-icon>
+        </a>
       {/if}
       <!-- <a href={`/${subject.pubkey}/notes`}> -->
       <!--   <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon> -->
