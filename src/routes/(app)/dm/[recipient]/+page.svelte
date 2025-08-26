@@ -13,8 +13,10 @@
   </a>
 
   <div class="space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
-      <h1>Nostr Direct Messages</h1>
-      <p>You are sending messages to {data.recipient}.</p>
+      <h1
+        class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
+      >Direct Messages</h1>
+      <p>You are sending nostr messages to {data.recipient}.</p>
 
       <textarea id="message-contents"></textarea>
 
