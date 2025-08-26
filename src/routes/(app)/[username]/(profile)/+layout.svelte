@@ -141,7 +141,11 @@
           ></iconify-icon>
         </a>
       {:else}
-        <a href="/dm/{subject.username}" class="btn contents">
+        <a
+          href="/dm/{subject.username}"
+          class="btn contents"
+          aria-label="Direct Message"
+        >
           <iconify-icon noobserver icon="ph:chat-bold" width="32"
           ></iconify-icon>
         </a>
