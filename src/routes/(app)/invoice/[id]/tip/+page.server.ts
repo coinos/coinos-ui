@@ -19,14 +19,13 @@ export async function load({ cookies, params, parent }) {
 					if (user.tip > 0) {
 						invoice.tip = Math.round(invoice.amount * (user.tip / 100));
 						invoice = await post(`/invoice/${id}`, { invoice }, auth(cookies));
-					} else {
-						throw new Error("tip");
+						p = await post("/payments", { ...invoice, pin }, auth(cookies));
 					}
+				} else {
+					p = await post("/payments", { ...invoice, pin }, auth(cookies));
 				}
-				p = await post("/payments", { ...invoice, pin }, auth(cookies));
 			} catch (e) {
 				const { message } = e as Error;
-				if (message === "tip") redirect(307, `/invoice/${id}/tip`);
 				fail(400, { message });
 			}
 			if (p) redirect(307, `/sent/${p.id}`);
