@@ -2,6 +2,7 @@
  import Icon from "$comp/Icon.svelte";
  import { hexToBytes } from '@noble/hashes/utils';
  import * as nip17 from 'nostr-tools/nip17';
+ import { createNIP17Message } from '$lib/nip17';
 
  let { data } = $props();
  const { recipient } = data;
@@ -11,8 +12,7 @@
  const btnCreateMessage = () => {
    try {
      const skBytes = hexToBytes(senderSK);
-     const recipientData = { publicKey: recipient.pubkey };
-     const event = nip17.wrapEvent(skBytes, recipientData, text);
+     const event = createNIP17Message(text, skBytes, recipient.pubkey);
      console.log(JSON.stringify(event));
    } catch (error) {
      console.log(error);
