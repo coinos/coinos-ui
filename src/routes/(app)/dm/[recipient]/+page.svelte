@@ -7,12 +7,13 @@
  let { data } = $props();
  const { recipient } = data;
 
- let senderSK, text;
+ let senderSK, overridePK, text;
 
  const btnCreateMessage = () => {
    try {
+     const recipientPK = overridePK || recipient.pubkey;
      const skBytes = hexToBytes(senderSK);
-     const event = createNIP17Message(text, skBytes, recipient.pubkey);
+     const event = createNIP17Message(text, skBytes, recipientPK);
      console.log(JSON.stringify(event));
    } catch (error) {
      console.log(error);
@@ -37,6 +38,9 @@
 
         <label for="senderSKInput">(Temp) Sender Secret Key:</label>
         <input id="senderSKInput" bind:value={senderSK}>
+
+        <label for="overridePKInput">(Temp) Override Receiver Public Key:</label>
+        <input id="overridePKInput" bind:value={overridePK}>
 
         <label for="message-contents">Message Contents:</label>
         <textarea id="message-contents" bind:value={text}></textarea>
