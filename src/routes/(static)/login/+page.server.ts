@@ -11,6 +11,7 @@ export const load = async ({ parent }) => {
 
 export const actions = {
 	login: async ({ cookies, request }) => {
+    console.log(request.headers.get('referer'));
 		const form = await fd(request);
 		let { username, password, token, loginRedirect } = form;
 		const user = { username, password, token };
