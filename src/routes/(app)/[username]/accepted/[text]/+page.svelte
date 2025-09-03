@@ -50,10 +50,8 @@
     </div>
   </div>
 
-  {#if nfc}
-    <button onclick={() => copy(lnurl)} class="flex gap-1 m-auto my-8">
-      <iconify-icon icon="ph:copy-bold" width={32}></iconify-icon>
-      LNURL</button
-    >
-  {/if}
+  <button onclick={() => copy(lnurl)} class="flex gap-1 m-auto my-8">
+    <iconify-icon icon="ph:copy-bold" width={32}></iconify-icon>
+    LNURL</button
+  >
 </div>
