@@ -6,7 +6,7 @@
  import { sign, getPrivateKey } from '$lib/nostr';
 
  let { data } = $props();
- const { recipient } = data;
+ const { user, recipient } = data;
 
  // console.log(sign({kind: 13, created_at: 0, tags: [], pubkey: recipient.pubkey, content: "Test"}, recipient));
 
@@ -14,7 +14,7 @@
  let overridePK = $state("");
  let text = $state("");
 
- getPrivateKey(recipient)
+ getPrivateKey(user)
    .then(key => senderSK = bytesToHex(key))
    .catch(console.log);
 
