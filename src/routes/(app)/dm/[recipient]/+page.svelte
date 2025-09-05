@@ -8,8 +8,6 @@
  let { data } = $props();
  const { user, recipient } = data;
 
- // console.log(sign({kind: 13, created_at: 0, tags: [], pubkey: recipient.pubkey, content: "Test"}, recipient));
-
  let senderSK = $state("");
  let overridePK = $state("");
  let text = $state("");
@@ -23,10 +21,14 @@
      const recipientPK = overridePK || recipient.pubkey;
      const skBytes = hexToBytes(senderSK);
      const event = createNIP17Message(text, skBytes, recipientPK);
-     console.log(JSON.stringify(event));
+     event.then(displayEvent);
    } catch (error) {
      console.log(error);
    }
+ }
+
+ const displayEvent = (event: object) => {
+   console.log(JSON.stringify(event));
  }
 </script>
 

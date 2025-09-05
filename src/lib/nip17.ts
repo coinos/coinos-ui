@@ -6,9 +6,14 @@ const TWO_DAYS = 2 * 24 * 60 * 60;
 const randomTimestamp = () => Math.floor(
     Date.now() / 1000 - Math.random() * TWO_DAYS);
 
-export const createNIP17Message = (text: string, senderSK: Uint8Array, receiverPK: string) => {
+export const createNIP17Message = async (text: string, senderSK: Uint8Array, receiverPK: string) => {
     const rumour = createRumour(text, senderSK, receiverPK);
-    const sealed = sealRumour(rumour, senderSK, receiverPK);
+    let sealed;
+    if (window.nostr) {
+        sealed = await sealRumourNip07(rumour, receiverPK);
+    } else {
+        sealed = sealRumour(rumour, senderSK, receiverPK);
+    }
     const wrapped = giftWrap(sealed, receiverPK);
     return wrapped;
 }
@@ -39,6 +44,20 @@ const sealRumour = (rumour: object, senderSK: Uint8Array, receiverPK: string) =>
     }
 
     return finalizeEvent(sealEvent, senderSK);
+}
+
+const sealRumourNip07 = async (rumour: object, receiverPK: string) => {
+    const encryptedRumour = await window.nostr.nip44.encrypt(
+        receiverPK, JSON.stringify(rumour));
+
+    const sealEvent = {
+        kind: 13, // seal
+        created_at: randomTimestamp(),
+        tags: [],
+        content: encryptedRumour
+    }
+
+    return window.nostr.signEvent(sealEvent);
 }
 
 const giftWrap = (event: object, receiverPK: string) => {
