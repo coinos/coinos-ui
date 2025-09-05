@@ -1,13 +1,20 @@
 <script lang="ts">
  import Icon from "$comp/Icon.svelte";
- import { hexToBytes } from '@noble/hashes/utils';
+ import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
  import * as nip17 from 'nostr-tools/nip17';
  import { createNIP17Message } from '$lib/nip17';
+ import { sign, getPrivateKey } from '$lib/nostr';
 
  let { data } = $props();
  const { recipient } = data;
 
+ // console.log(sign({kind: 13, created_at: 0, tags: [], pubkey: recipient.pubkey, content: "Test"}, recipient));
+
  let senderSK, overridePK, text;
+
+ getPrivateKey(recipient)
+   .then(key => senderSK = bytesToHex(key))
+   .catch(console.log);
 
  const btnCreateMessage = () => {
    try {
