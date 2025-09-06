@@ -6,31 +6,33 @@ const TWO_DAYS = 2 * 24 * 60 * 60;
 const randomTimestamp = () => Math.floor(
     Date.now() / 1000 - Math.random() * TWO_DAYS);
 
-export const createNIP17Message = async (text: string, senderSK: Uint8Array, receiverPK: string) => {
-    const rumour = createRumour(text, senderSK, receiverPK);
-    let sealed;
-    if (window.nostr) {
-        sealed = await sealRumourNip07(rumour, receiverPK);
-    } else {
-        sealed = sealRumour(rumour, senderSK, receiverPK);
-    }
-    const wrapped = giftWrap(sealed, receiverPK);
-    return wrapped;
+// Create a NIP-17 message using a provided sender secret key.
+export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receiverPK: string) => {
+    const rumour = createRumour(text, getPublicKey(senderSK), receiverPK);
+    const sealed = sealRumourSK(rumour, senderSK, receiverPK);
+    return giftWrap(sealed, receiverPK);
 }
 
-const createRumour = (text: string, senderSK: Uint8Array, receiverPK: string) => {
+// Create a NIP-17 message using NIP-07, requiring no sender secret key.
+export const createNIP17MessageNIP07 = async (text: string, senderPK: string, receiverPK: string) => {
+    const rumour = createRumour(text, senderPK, receiverPK);
+    const sealed = await sealRumourNip07(rumour, receiverPK);
+    return giftWrap(sealed, receiverPK);
+}
+
+const createRumour = (text: string, senderPK: string, receiverPK: string) => {
     const rumour = {
         kind: 14, // rumour
         created_at: Math.floor(Date.now() / 1000),
         tags: [["p", receiverPK]],
-        pubkey: getPublicKey(senderSK),
+        pubkey: senderPK,
         content: text
     };
-    rumour.id = getEventHash(rumour);
+    rumour.id = getEventHash(rumour); // do NOT sign rumours!
     return rumour;
 }
 
-const sealRumour = (rumour: object, senderSK: Uint8Array, receiverPK: string) => {
+const sealRumourSK = (rumour: object, senderSK: Uint8Array, receiverPK: string) => {
     const senderSKString = bytesToHex(senderSK);
     const conversationKey = u.getConversationKey(senderSKString, receiverPK);
     const encryptedRumour = encrypt(JSON.stringify(rumour), conversationKey);
