@@ -20,6 +20,6 @@ export const actions = {
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
 		const user = { picture, username, password };
-		await register(user, ip, cookies, loginRedirect);
+		return register(user, ip, cookies, loginRedirect);
 	},
 };

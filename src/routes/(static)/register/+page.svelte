@@ -263,9 +263,10 @@
     </button>
   </div>
 
-  {#if form?.error}
+  {#if form?.error || form?.message}
     <div class="text-red-600 text-center" in:fly>
-      {form.error}
+      {form?.message}
+      {form?.error}
     </div>
   {/if}
 
