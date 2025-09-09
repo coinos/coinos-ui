@@ -19,7 +19,7 @@ export async function load({ cookies, depends, params, url, parent }) {
 			(!amount && (pending || received)) ||
 			(amount > 0 && (pending >= amount || received >= amount));
 		if (paid && !url.pathname.endsWith("paid")) {
-			if (invoice.uid === user.id)
+			if (invoice.uid === user?.id)
 				redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
 			else redirect(307, `/pay/${subject.username}/${invoice.amount}`);
 		}
@@ -28,7 +28,7 @@ export async function load({ cookies, depends, params, url, parent }) {
 
 		if (
 			user &&
-			invoice.uid !== user.id &&
+			invoice.uid !== user?.id &&
 			!(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
 			!options
 		) {

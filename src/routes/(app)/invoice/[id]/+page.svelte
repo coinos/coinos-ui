@@ -56,16 +56,18 @@
 
   let subbed = false;
 
-  onMount(async () => {
-    if (browser) {
-      last.subscribe((v) => {
-        if (!v || subbed) return;
-        subbed = true;
-        send("subscribe", invoice);
-      });
+  $effect(() => {
+    if (!browser) return;
+    last.subscribe((v) => {
+      if (!v || subbed) return;
+      subbed = true;
+      send("subscribe", invoice);
+    });
+  });
 
-      if ($amountPrompt && !amount) toggleAmount();
-    }
+  onMount(async () => {
+    if (!browser) return;
+    if ($amountPrompt && !amount) toggleAmount();
   });
 
   let update = async () => {
