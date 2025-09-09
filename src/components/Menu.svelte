@@ -25,7 +25,7 @@
 </script>
 
 <div>
-  <OutClick on:outclick={hideMenu}>
+  <OutClick onOutClick={hideMenu}>
     <button class="btn-menu {opacity('/support')}" onclick={toggleMenu}
       ><iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}
       ></iconify-icon>
