@@ -1,50 +1,59 @@
+/* 1) Load Tailwind first */
 @import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* 2) Register DaisyUI themes */
+@plugin "daisyui" {
+  themes: lofi --default, black --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "lofi";
+  default: true;
+  --gradient: #C3CFE2;
+  --color-error: #b91c1c;
+}
+
+@plugin "daisyui/theme" {
+  name: "black";
+  prefersdark: true;
+  --gradient: #C3CFE2;
+  --color-secondary: #CCC;
+  --color-error: #f87171;
+}
+
+/* 3) Tell Tailwind which layers we’ll @apply from */
+@reference utilities;
+@reference components;
+
+/* 4) Now your custom CSS that uses @apply */
+.btn-menu {
+  @apply flex justify-center items-center bg-base-100 p-2 rounded-full
+         w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl;
+}
 
 @font-face {
   font-family: "PublicSans";
-  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf")
-    format("truetype");
+  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf") format("truetype");
 }
 
-html {
-  font-family: PublicSans, sans-serif;
-}
+html { font-family: PublicSans, sans-serif; }
 
-::selection {
-  color: black;
-  background: #eaf2ff;
-}
+::selection { color: black; background: #eaf2ff; }
+:fullscreen { background-color: white; }
 
-:fullscreen {
-  background-color: white;
-}
+/* Note: @apply-ing DaisyUI component classes requires components reference */
+.input { @apply input-lg input-primary h-16 px-4; }
 
-input:not([type="range"]) {
-  @apply input
-}
-
-.input {
-  @apply input-lg input-primary;
-}
-
-textarea {
-  @apply textarea textarea-lg textarea-primary;
-}
-
-select {
-  @apply select select-lg select-primary;
-}
+/* If you want to *turn* native inputs into DaisyUI inputs via @apply: */
+input:not([type="range"]) { @apply input input-lg input-primary h-16 px-4; }
+textarea { @apply textarea textarea-lg textarea-primary py-4; }
+select { @apply select select-lg select-primary h-16 px-4; }
 
 input:not([type="range"]), textarea, select, .input  {
-  @apply w-full rounded-2xl;
-}
-
-textarea:focus, textarea:focus-within, .input:focus, .input:focus-within {
-  @apply outline-offset-0;
+  @apply rounded-2xl w-full;
 }
 
 input.clean, textarea.clean {
@@ -56,33 +65,11 @@ input.clean, textarea.clean {
   box-shadow: none !important;
 }
 
-.btn {
-  @apply rounded-2xl btn-lg btn-block outline-none
-}
+button { cursor: pointer !important; }
+.btn { @apply rounded-2xl btn-lg btn-block outline-none h-16 cursor-pointer; }
 
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
-}
-
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-
-  --gradient: #C3CFE2;
-  --color-error: #b91c1c; 
-  --color-primary: #000;
-  --color-secondary: #111;
-}
-
-@plugin "daisyui/theme" {
-  name: "dark";
-  prefersdark: true;
-
-  --gradient: #C3CFE2;
-  --color-primary: #FFF;
-  --color-secondary: #CCC;
-  --color-error: #f87171;
-}
-
-:root, [data-theme="dark"] {
+@layer components {
+  :where(input, textarea, select, .input, .textarea, .select) {
+    outline-offset: 0 !important;
+  }
 }
