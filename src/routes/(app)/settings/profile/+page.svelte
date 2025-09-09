@@ -116,7 +116,7 @@
       >
       <input
         type="file"
-        class="hidden"
+        class="hidden!"
         bind:this={avatarInput}
         onchange={(e) => handleFile(e, "picture")}
       />
@@ -158,7 +158,7 @@
   >
   <input
     type="file"
-    class="hidden"
+    class="hidden!"
     bind:this={bannerInput}
     onchange={(e) => handleFile(e, "banner")}
   />
