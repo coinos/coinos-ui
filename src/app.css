@@ -48,7 +48,15 @@ html { font-family: PublicSans, sans-serif; }
 .input { @apply input-lg input-primary h-16 px-4; }
 
 /* If you want to *turn* native inputs into DaisyUI inputs via @apply: */
-input:not([type="range"]) { @apply input input-lg input-primary h-16 px-4; }
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="tel"] {
+  @apply input input-lg input-primary h-16 px-4;
+}
 textarea { @apply textarea textarea-lg textarea-primary py-4; }
 select { @apply select select-lg select-primary h-16 px-4; }
 
