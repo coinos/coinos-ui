@@ -57,8 +57,7 @@ export const messages = (data) => ({
 				pathname.includes("/receive") ||
 				pathname.includes("/invoice")
 			) {
-				await wait(() => !get(navigating));
-				await goto(`/invoice/${iid}`);
+				if (!get(navigating)) goto(`/invoice/${iid}`);
 			} else success(`${confirmed ? "Received" : "Detected"} ⚡️${s(amount)}!`);
 		}
 	},
