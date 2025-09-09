@@ -6,9 +6,6 @@ const config = {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapter(),
-    csrf: {
-      trustedOrigins: [],
-    },
     prerender: {
       crawl: false,
       entries: [],
