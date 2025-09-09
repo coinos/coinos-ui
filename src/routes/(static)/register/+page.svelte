@@ -222,7 +222,7 @@
   <h1 class="text-2xl font-bold text-center">{$t("login.createAccount")}</h1>
   <input
     type="file"
-    class="hidden"
+    class="hidden!"
     bind:this={avatarInput}
     onchange={(e) => handleFile(e, "picture")}
   />

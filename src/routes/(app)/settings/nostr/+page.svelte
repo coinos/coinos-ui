@@ -163,25 +163,25 @@
 
 <div class="space-y-2">
   <div class="font-bold">{$t("user.nostrPubkey")}</div>
-  <div class="flex gap-4">
-    <textarea name="pubkey" bind:value={npub} rows={3}> </textarea>
-    <div class="flex my-auto gap-1">
-      <button
-        type="button"
-        class="my-auto btn btn-circle"
-        onclick={() => copy(npub)}
-        aria-label="Copy"
-        ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-        ></iconify-icon></button
-      >
-      <a
-        href={`/qr/${encodeURIComponent(npub)}`}
-        class="my-auto btn btn-circle"
-        aria-label="QR"
-      >
-        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-        ></iconify-icon>
-      </a>
+  <textarea name="pubkey" bind:value={npub} rows={3}></textarea>
+  <div>
+  <div class="flex my-auto gap-1">
+    <button
+      type="button"
+      class="my-auto btn btn-circle !w-auto grow"
+      onclick={() => copy(npub)}
+      aria-label="Copy"
+      ><iconify-icon noobserver icon="ph:copy-bold" width="32"
+      ></iconify-icon></button
+    >
+
+    <a
+      href={`/qr/${encodeURIComponent(npub)}`}
+      class="my-auto btn btn-circle !w-auto grow"
+      aria-label="QR"
+    >
+      <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+    </a>
     </div>
   </div>
 
