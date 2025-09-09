@@ -63,7 +63,6 @@
     return `${whole}${dec}${cents}`;
   }
 
-  // --- NEW: normalize sats to remove leading zeros but keep single "0"
   function normalizeSats(str) {
     const digits = (str ?? "").replace(/[^\d]/g, "");
     const noLead = digits.replace(/^0+(?=\d)/, "");
