@@ -7,7 +7,7 @@ const config = {
   kit: {
     adapter: adapter(),
     csrf: {
-      checkOrigin: false,
+      trustedOrigins: [],
     },
     prerender: {
       crawl: false,
