@@ -7,13 +7,21 @@
   import { onMount } from "svelte";
   import { installPrompt, theme as themeStore } from "$lib/store";
 
+
+const map = { light: 'lofi', dark: 'black', system: 'system' };
+
   let { data, children } = $props();
   let { pathname, theme } = $state(data);
   $effect(() => ($themeStore = data.theme));
   $effect(() => (theme = $themeStore));
-  $effect(() => {
-      document.documentElement.setAttribute("data-theme", theme);
-  });
+$effect(() => {
+  const v = map[theme] ?? theme;
+  if (!v || v === 'system') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', v);
+  }
+});
 
   let host = PUBLIC_DOMAIN.includes("localhost")
     ? `http://${PUBLIC_DOMAIN}`

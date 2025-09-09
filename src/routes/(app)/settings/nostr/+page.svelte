@@ -172,7 +172,7 @@
       onclick={() => copy(npub)}
       aria-label="Copy"
       ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-      ></iconify-icon></button
+      ></iconify-icon> {$t("accounts.copy")}</button
     >
 
     <a
@@ -181,6 +181,7 @@
       aria-label="QR"
     >
       <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+{$t("accounts.qr")}
     </a>
     </div>
   </div>
