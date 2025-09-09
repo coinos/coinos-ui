@@ -13,7 +13,6 @@
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
-  import { hash160 } from "@scure/btc-signer/utils";
   import { decrypt } from "nostr-tools/nip49";
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
