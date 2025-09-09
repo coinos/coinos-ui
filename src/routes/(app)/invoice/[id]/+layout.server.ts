@@ -19,9 +19,7 @@ export async function load({ cookies, depends, params, url, parent }) {
 			(!amount && (pending || received)) ||
 			(amount > 0 && (pending >= amount || received >= amount));
 		if (paid && !url.pathname.endsWith("paid")) {
-			if (invoice.uid === user?.id)
-				redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
-			else redirect(307, `/pay/${subject.username}/${invoice.amount}`);
+			redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
 		}
 
 		subject = invoice.user;
@@ -34,7 +32,9 @@ export async function load({ cookies, depends, params, url, parent }) {
 		) {
 			if (invoice.prompt && invoice.tip === null)
 				redirect(307, `/invoice/${id}/tip`);
-			else redirect(307, `/send/invoice/${id}`);
+			else {
+				redirect(307, `/send/invoice/${id}`);
+			}
 		}
 	}
 
