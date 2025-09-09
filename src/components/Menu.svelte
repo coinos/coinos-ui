@@ -1,7 +1,7 @@
 <script>
   import { theme } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
-  import OutClick from "svelte-outclick";
+  import { OutClick } from "svelte-outclick";
   let { t, user, w, opacity } = $props();
 
   let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
