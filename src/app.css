@@ -1,6 +1,8 @@
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @font-face {
   font-family: "PublicSans";
@@ -26,15 +28,15 @@ input:not([type="range"]) {
 }
 
 .input {
-  @apply input-bordered input-lg input-primary;
+  @apply input-lg input-primary;
 }
 
 textarea {
-  @apply textarea textarea-bordered textarea-lg textarea-primary;
+  @apply textarea textarea-lg textarea-primary;
 }
 
 select {
-  @apply select select-bordered select-lg select-primary;
+  @apply select select-lg select-primary;
 }
 
 input:not([type="range"]), textarea, select, .input  {
@@ -56,4 +58,31 @@ input.clean, textarea.clean {
 
 .btn {
   @apply rounded-2xl btn-lg btn-block outline-none
+}
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  --gradient: #C3CFE2;
+  --color-error: #b91c1c; 
+  --color-primary: #000;
+  --color-secondary: #111;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  prefersdark: true;
+
+  --gradient: #C3CFE2;
+  --color-primary: #FFF;
+  --color-secondary: #CCC;
+  --color-error: #f87171;
+}
+
+:root, [data-theme="dark"] {
 }

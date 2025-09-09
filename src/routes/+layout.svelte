@@ -11,6 +11,9 @@
   let { pathname, theme } = $state(data);
   $effect(() => ($themeStore = data.theme));
   $effect(() => (theme = $themeStore));
+  $effect(() => {
+      document.documentElement.setAttribute("data-theme", theme);
+  });
 
   let host = PUBLIC_DOMAIN.includes("localhost")
     ? `http://${PUBLIC_DOMAIN}`
@@ -21,6 +24,7 @@
       navigator.clearAppBadge().catch(() => {});
     }
   }
+
   onMount(() => {
     if (!browser) return;
 
@@ -83,7 +87,7 @@
 </svelte:head>
 
 {#if !$loading}
-  <main data-theme={theme}>
+  <main>
     {@render children?.()}
   </main>
 {/if}
