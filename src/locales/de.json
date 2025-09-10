@@ -318,7 +318,19 @@
 			"nostr": "Nostr",
 			"nwc": "Nostr Brieftasche verbinden",
 			"nwcDescription": "Aktivieren Sie Ihre nostr App, um Zahlungen von Ihrem Konto zu senden",
-			"name": "Bezeichnung"
+			"name": "Bezeichnung",
+			"NOSTR": "NOSTR",
+			"tip": "Standardtipp",
+			"tipDesc": "Standard-Tip-Prozentsatz bei automatischer Bezahlung vertrauenswürdiger Benutzer",
+			"connectSquare": "Verbindung zum Quadrat",
+			"revokeSquare": "Wiederherstellung Quadratische Verbindung",
+			"confirmAutoWithdrawal": "Auto-Entzugseinstellungen bestätigen",
+			"confirmAutoWithdrawalDesc": "Ihre Autoentnahmen wurden deaktiviert. Bitte überprüfen Sie Ihre Zieladresse, bevor Sie sie erneut aktivieren oder entfernen Sie die Adresse, um diese Nachricht zu entlassen.",
+			"newPasswordDesc": "(Leave blank to keep unverändert)",
+			"yourUsername": "Ihr Benutzername ist",
+			"yourPassword": "und ihr passwort ist",
+			"welcome": "Willkommen!",
+			"clickBelow": "Klicken Sie unten, um die Einrichtung Ihres Kontos abzuschließen"
 		},
 		"support": {
 			"header": "Support",
@@ -349,7 +361,8 @@
 		"moreDetails": "Links und Details",
 		"url": "Öffentliche URL",
 		"nwc": "Nostr-Wallet verbinden",
-		"loadMore": "Mehr laden"
+		"loadMore": "Mehr laden",
+		"lnurl": "Wiederverwendbarer Zahlungscode"
 	},
 	"payments": {
 		"header": "Transaktionen",
@@ -464,7 +477,16 @@
 		"advancedSettings": "Erweiterte Einstellungen",
 		"exchangeRate": "Wechselkurs",
 		"pending": "Andauernd",
-		"minted": "Minted"
+		"minted": "Minted",
+		"insufficientFunds": "Unzureichende Mittel",
+		"lockedBalance": "Gesperrter Saldo",
+		"sweep": "Sweep Link",
+		"trustUser": "Senden und aktivieren Auto-Pay",
+		"custom": "Benutzerdefiniert",
+		"gift": "Alle Fonds einschenken",
+		"giftLink": "Giftlink",
+		"giftDesc1": "Wer den Link unten öffnet, erhält alle verfügbaren Mittel.",
+		"giftDesc2": "Wenn sie eingeloggt sind, gehen die Fonds auf ihr Konto, ansonsten wird ein neues Konto generiert."
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
@@ -532,5 +554,14 @@
 	"notes": {
 		"contents": "Inhalt",
 		"notFound": "Keine Notizen gefunden"
+	},
+	"incident": "Die vor dem 10. Mai hinterlegten Mittel sind bis zur Wiederherstellung von Datenverlusten gesperrt. Folgen Sie uns auf Nostr für Updates.",
+	"funds": {
+		"anyone": "Jeder mit dem Link",
+		"addManager": "Manager hinzufügen",
+		"manage": "Verwaltung",
+		"withdrawAccess": "Zugriff aufheben",
+		"username": "Benutzername",
+		"returnToFund": "Zurück zum Fonds"
 	}
 }

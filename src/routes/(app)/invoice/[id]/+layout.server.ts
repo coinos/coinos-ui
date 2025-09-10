@@ -12,25 +12,29 @@ export async function load({ cookies, depends, params, url, parent }) {
 	if (id) {
 		invoice = await get(`/invoice/${id}`);
 		const options = !!url.searchParams.get("options");
-
-		if (
-			user &&
-			invoice.uid !== user.id &&
-			!(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
-			!options
-		) {
-			redirect(307, `/send/invoice/${id}`);
-		}
-
 		let { amount, pending, received } = invoice;
 		amount = parseInt(amount);
-		subject = invoice.user;
 
 		const paid =
 			(!amount && (pending || received)) ||
 			(amount > 0 && (pending >= amount || received >= amount));
 		if (paid && !url.pathname.endsWith("paid")) {
 			redirect(307, `/invoice/${id}/paid` + (options ? "?options=true" : ""));
+		}
+
+		subject = invoice.user;
+
+		if (
+			user &&
+			invoice.uid !== user?.id &&
+			!(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
+			!options
+		) {
+			if (invoice.prompt && invoice.tip === null)
+				redirect(307, `/invoice/${id}/tip`);
+			else {
+				redirect(307, `/send/invoice/${id}`);
+			}
 		}
 	}
 

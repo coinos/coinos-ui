@@ -23,36 +23,23 @@
   aria-label="Payments"
 >
   <div class="flex">
-    <Balance {balance} {user} {rate} />
-    <a
-      href={`/payments`}
-      class="contents"
-      onclick={setAccount}
-      aria-label="Payments"
-    >
-      <button class="ml-auto flex gap-1 mb-auto pb-4 pl-4">
-        <iconify-icon
-          noobserver
-          icon="ph:clock-bold"
-          width="32"
-          aria-label="Payments"
-        ></iconify-icon>
-      </button>
-    </a>
-    <a
-      href={id === user.id ? "/settings/nostr" : `/account/${id}`}
-      class="contents"
-      aria-label="Settings"
-    >
-      <button class="flex gap-1 mb-auto pb-4 pl-4">
-        <iconify-icon
-          noobserver
-          icon="ph:gear-bold"
-          width="32"
-          aria-label="Settings"
-        ></iconify-icon>
-      </button>
-    </a>
+    <Balance {balance} {user} {rate} {id} />
+    {#if id !== user.id}
+      <a
+        href={id === user.id ? "/settings/nostr" : `/account/${id}`}
+        class="contents"
+        aria-label="Settings"
+      >
+        <button class="flex gap-1 mb-auto pb-4 pl-4 ml-auto">
+          <iconify-icon
+            noobserver
+            icon="ph:gear-bold"
+            width="32"
+            aria-label="Settings"
+          ></iconify-icon>
+        </button>
+      </a>
+    {/if}
   </div>
 
   <div class="flex justify-center w-full text-xl gap-2">

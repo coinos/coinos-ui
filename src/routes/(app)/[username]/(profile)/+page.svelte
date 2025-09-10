@@ -6,7 +6,7 @@
   import Account from "$comp/Account.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
-  import { installPrompt } from "$lib/store";
+  import { installPrompt, password } from "$lib/store";
   import { afterNavigate, preloadData } from "$app/navigation";
   import { page } from "$app/stores";
 
@@ -18,6 +18,7 @@
   });
 
   let { accounts, subject, rate, user } = $derived(data);
+  let { locked } = $derived(user);
 
   let install = async () => {
     if (!$installPrompt) return;
@@ -31,6 +32,35 @@
 </script>
 
 <div class="space-y-2">
+  {#if user?.destination && !user?.autowithdraw}
+    <div class="rounded-2xl space-y-2 p-4 shadow-lg">
+      <h1 class="text-3xl font-bold">
+        {$t("user.settings.confirmAutoWithdrawal")}
+      </h1>
+      <div>
+        {$t("user.settings.confirmAutoWithdrawalDesc")}
+      </div>
+
+      <a href="/settings/account" class="btn">
+        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+        Settings</a
+      >
+    </div>
+  {/if}
+  {#if user?.fresh}
+    <div>
+      {$t("user.settings.yourUsername")} <b>{user?.username}</b>
+      {#if $password}
+        <br />
+        {$t("user.settings.yourPassword")}
+        <b>{$password}</b>{/if}
+    </div>
+
+    <a href="/settings/profile" class="btn">
+      <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+      {$t("user.settings.continueSettingUp")}</a
+    >
+  {/if}
   {#if user?.id && user.id === subject.id}
     <div class="space-y-5" data-sveltekit-preload-data="false">
       {#each accounts as account, i}
@@ -38,13 +68,11 @@
       {/each}
     </div>
 
-    <a href={`/account/savings`} class="contents">
-      <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-        <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"
-        ></iconify-icon>
-        {$t("accounts.addAccount")}
-      </button>
-    </a>
+    {#if locked}
+      <div class="text-sm">
+        {$t("incident")}
+      </div>
+    {/if}
 
     {#if $installPrompt}
       <button class="btn btn-accent lg:hidden" onclick={install}>
@@ -55,6 +83,8 @@
     {/if}
   {/if}
 </div>
+
+<!-- <a href="/funder" class="btn">Funder</a> -->
 
 <div class="fixed inset-x-0 mx-auto flex bottom-16 px-4">
   {#if user?.username !== subject.username && (!subject.anon || subject.lud16)}

@@ -326,7 +326,19 @@
 			"nostr": "Não",
 			"nwc": "Nostr carteira conectar",
 			"nwcDescription": "Habilite seu aplicativo nostr para enviar pagamentos de sua conta",
-			"name": "Nome"
+			"name": "Nome",
+			"NOSTR": "NOSTR",
+			"tip": "Dica padrão",
+			"tipDesc": "Percentagem de dica padrão ao pagar automaticamente usuários confiáveis",
+			"connectSquare": "Ligar ao Quadrado",
+			"revokeSquare": "Revogar a Ligação Quadrada",
+			"confirmAutoWithdrawal": "Confirmar as configurações de retirada automática",
+			"confirmAutoWithdrawalDesc": "As suas retiradas automáticas foram desactivadas. Por favor, verifique o seu endereço de destino antes de voltar a acedê-los ou remova o endereço para descartar esta mensagem.",
+			"newPasswordDesc": "(Deixe em branco para manter inalterada)",
+			"yourUsername": "Seu nome de usuário é",
+			"yourPassword": "e sua senha é",
+			"welcome": "Bem-vindos!",
+			"clickBelow": "Clique abaixo para terminar de configurar sua conta"
 		},
 		"support": {
 			"header": "Suporte",
@@ -347,7 +359,8 @@
 		"moreDetails": "Links e detalhes",
 		"url": "URL pública",
 		"nwc": "Nostr carteira conectar",
-		"loadMore": "Carregar mais"
+		"loadMore": "Carregar mais",
+		"lnurl": "Código de pagamento reutilizável"
 	},
 	"payments": {
 		"amount": "Quantidade",
@@ -459,7 +472,16 @@
 		"advancedSettings": "Definições avançadas",
 		"exchangeRate": "Taxa de câmbio",
 		"pending": "Pendente",
-		"minted": "Minado"
+		"minted": "Minado",
+		"insufficientFunds": "Fundos insuficientes",
+		"lockedBalance": "Saldo bloqueado",
+		"sweep": "Varrer a ligação",
+		"trustUser": "Enviar e ativar o pagamento automático",
+		"custom": "Personalizado",
+		"gift": "Dar todos os fundos",
+		"giftLink": "Ligação do presente",
+		"giftDesc1": "Quem abrir o link abaixo receberá todos os fundos disponíveis.",
+		"giftDesc2": "Se eles estiverem conectados, os fundos irão para sua conta, caso contrário uma nova conta será gerada."
 	},
 	"items": {
 		"add": "Adicionar item",
@@ -527,5 +549,14 @@
 	"notes": {
 		"contents": "Conteúdo de nota",
 		"notFound": "Nenhuma nota encontrada"
+	},
+	"incident": "Os fundos depositados antes de 10 de maio estão bloqueados até a recuperação de um incidente de perda de dados. Siga-nos no Nostr para atualizações.",
+	"funds": {
+		"anyone": "Qualquer pessoa com o link",
+		"addManager": "Adicionar gerenciador",
+		"manage": "Gerenciar",
+		"withdrawAccess": "Retirar o acesso",
+		"username": "Utilizador",
+		"returnToFund": "Voltar ao fundo"
 	}
 }

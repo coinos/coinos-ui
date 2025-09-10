@@ -368,7 +368,19 @@
 			"publishNip5": "Publikuj tożsamość nostr",
 			"nip5a": "Stosowanie",
 			"nip5b": "jako publicznie zweryfikowany adres nostr",
-			"name": "Nazwa"
+			"name": "Nazwa",
+			"NOSTR": "NOSTR",
+			"tip": "Domyślny napiwek",
+			"tipDesc": "Domyślny procent napiwku przy autopłatnych zaufanych użytkowników",
+			"connectSquare": "Połącz z kwadratem",
+			"revokeSquare": "Połączenie kwadratowe Revoke",
+			"confirmAutoWithdrawal": "Potwierdź ustawienia automatycznego wycofania",
+			"confirmAutoWithdrawalDesc": "Wypłaty samochodów zostały wyłączone. Proszę sprawdzić adres docelowy przed ponownym włączeniem lub usunięciem adresu do odrzucenia tej wiadomości.",
+			"newPasswordDesc": "(Pozostawić puste, aby pozostać niezmienione)",
+			"yourUsername": "Twoja nazwa użytkownika jest",
+			"yourPassword": "twoje hasło jest",
+			"welcome": "Witamy!",
+			"clickBelow": "Kliknij poniżej, aby skonfigurować konto"
 		},
 		"support": {
 			"header": "Wsparcie",
@@ -380,7 +392,8 @@
 			"doOurBest": "i zrobimy co w naszej mocy, by wrócić do ciebie w odpowiednim czasie.",
 			"thankYou": "Dziękuję!",
 			"beInTouch": "Ktoś wkrótce będzie w kontakcie."
-		}
+		},
+		"lnurl": "Kod płatności wielokrotnego użytku"
 	},
 	"payments": {
 		"ok": "Ok",
@@ -490,7 +503,16 @@
 		"advancedSettings": "Ustawienia zaawansowane",
 		"exchangeRate": "Kurs wymiany",
 		"pending": "Oczekiwanie",
-		"minted": "Puste"
+		"minted": "Puste",
+		"insufficientFunds": "Niewystarczające fundusze",
+		"lockedBalance": "Saldo zablokowane",
+		"sweep": "Połączenie zamiatające",
+		"trustUser": "Wysyłanie i włączanie auto- pay",
+		"custom": "Własny",
+		"gift": "Dawać wszystkie fundusze",
+		"giftLink": "Link prezent",
+		"giftDesc1": "Ktokolwiek otworzy poniższy link otrzyma wszystkie dostępne fundusze.",
+		"giftDesc2": "Jeśli są one zalogowane, fundusze trafią na ich konto, w przeciwnym razie powstanie nowe konto."
 	},
 	"items": {
 		"add": "Dodaj element",
@@ -524,5 +546,14 @@
 	"notes": {
 		"contents": "Zawartość notatki",
 		"notFound": "Nie znaleziono notatek"
+	},
+	"incident": "Fundusze zdeponowane przed 10 maja są zablokowane do czasu odzyskania z incydentu utraty danych. Podążaj za nami na Nostr po aktualizacje.",
+	"funds": {
+		"anyone": "Każdy z linkiem",
+		"addManager": "Dodaj menedżera",
+		"manage": "Zarządzanie",
+		"withdrawAccess": "Wycofanie dostępu",
+		"username": "Nazwa użytkownika",
+		"returnToFund": "Powrót do funduszu"
 	}
 }

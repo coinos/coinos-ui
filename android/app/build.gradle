@@ -11,8 +11,8 @@ android {
         applicationId "io.coinos"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.0.6"
+        versionCode 9
+        versionName "1.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         aaptOptions {
@@ -24,9 +24,9 @@ android {
     signingConfigs {
         release {
             keyAlias = System.getenv("KEY_ALIAS") ?: "coinos"
-            keyPassword = System.getenv("KEY_PASSWORD") ?: "default-password"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "MPJzfq97"
             storeFile = file(System.getenv("STORE_FILE") ?: "coinos.keystore")
-            storePassword = System.getenv("STORE_PASSWORD") ?: "default-password"
+            storePassword = System.getenv("STORE_PASSWORD") ?: "MPJzfq97"
         }
     }
 

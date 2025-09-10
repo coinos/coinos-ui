@@ -36,8 +36,9 @@
   };
 
   let tabs = [
-    { name: "account", key: "ACCOUNT" },
-    { name: "preferences", key: "POINT_OF_SALE" },
+    { name: "profile", key: "ACCOUNT" },
+    { name: "account", key: "POINT_OF_SALE" },
+    { name: "nostr", key: "NOSTR" },
     { name: "security", key: "SECURITY" },
   ];
 
@@ -208,16 +209,16 @@
         {$t("user.settings.header")}
       </h1>
 
-      <div class="flex justify-around items-center border-b pb-3">
-        {#each tabs.filter((t) => t.name !== "shopify") as { name, key }}
-          <a href={`/settings/${name}`}>
-            <button
-              type="button"
-              class="hover:opacity-80"
-              class:font-bold={tab === name ||
-                (name === "preferences" && ["nostr", "shopify"].includes(tab))}
-              >{$t(`user.settings.${key}`)}</button
-            >
+      <div
+        class="flex flex-wrap justify-around items-center border-b pb-3"
+      >
+        {#each tabs as { name, key }}
+          <a
+            href={`/settings/${name}`}
+            class="px-4 py-2 w-1/2 sm:w-1/4 flex-shrink-0 hover:opacity-80 transition-opacity duration-150 text-center"
+            class:font-bold={name === tab}
+          >
+            {$t(`user.settings.${key}`)}
           </a>
         {/each}
       </div>
@@ -227,17 +228,18 @@
   </div>
 
   <div
-    class="z-10 fixed bottom-0 bg-base-100 shadow border-t border-t-8 border-accent w-full flex justify-center items-center py-3"
+    class="z-10 fixed bottom-0 bg-base-100 shadow border-accent w-full flex justify-center items-center py-3"
   >
     <button
       bind:this={$save}
       type="submit"
-      class="btn !w-auto"
+      class="btn btn-accent !w-auto"
       class:bg-base-200={submitting}
     >
       {#if submitting}
         <Spinner />
       {:else}
+        <iconify-icon icon="ph:floppy-disk-bold" width={32}></iconify-icon>
         <div class="my-auto">{$t("user.settings.saveSettings")}</div>
       {/if}
     </button>

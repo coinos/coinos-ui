@@ -4,7 +4,6 @@
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
   import Qr from "$comp/Qr.svelte";
-  import PasswordInput from "$comp/PasswordInput.svelte";
   import { copy, post, success, fail } from "$lib/utils";
   import { save, pin as current } from "$lib/store";
   import { invalidate } from "$app/navigation";
@@ -21,9 +20,7 @@
     newNsec = $state(),
     nsec = $state(),
     otp = $state(),
-    password = $state(),
     pin = $state(""),
-    revealPassword = $state(),
     revealSeed,
     revealNsec = $state(),
     token = $state(""),
@@ -157,15 +154,6 @@
 </script>
 
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
-<input type="hidden" name="confirm" bind:value={password} />
-
-<div>
-  <label for="password" class="block font-bold block mb-1"
-    >{$t("user.settings.newPassword")}</label
-  >
-
-  <PasswordInput bind:value={password} />
-</div>
 
 <div>
   <span class="font-bold mb-1"
@@ -187,7 +175,8 @@
     />
   {:else}
     <button type="button" class="btn" onclick={togglePin}>
-      <iconify-icon noobserver
+      <iconify-icon
+        noobserver
         icon={haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
       ></iconify-icon>
@@ -220,12 +209,14 @@
     </button>
   {:else if user.twofa}
     <button type="button" class="btn" onclick={startDisabling2fa}>
-      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"
+      ></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
     <button type="button" class="btn" onclick={startEnabling2fa}>
-      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
+      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"
+      ></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}
@@ -239,4 +230,14 @@
       notify={false}
     />
   {/if}
+</div>
+
+<div>
+  <a href={`/account/savings`} class="contents">
+    <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
+      <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"
+      ></iconify-icon>
+      {$t("accounts.addAccount")}
+    </button>
+  </a>
 </div>

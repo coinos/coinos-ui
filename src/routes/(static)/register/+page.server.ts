@@ -1,5 +1,5 @@
-import { fd, get, login, post } from "$lib/utils";
-import { fail, redirect } from "@sveltejs/kit";
+import { fd, get, register } from "$lib/utils";
+import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent }) => {
 	const { user } = await parent();
@@ -14,39 +14,12 @@ export const load = async ({ parent }) => {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const ip = request.headers.get("cf-connecting-ip");
-
 		const form = await fd(request);
-		let { picture, username, password, pubkey, loginRedirect } = form;
-		const user = { picture, username, password, pubkey };
-		let error;
-
+		const { picture, username, password } = form;
+		let { loginRedirect } = form;
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
-		let sk;
-		try {
-			({ sk } = await post("/register", { user }, { "cf-connecting-ip": ip }));
-		} catch (e) {
-			({ message: error } = e as Error);
-		}
-
-		try {
-			await login(user, cookies, ip);
-			error = null;
-		} catch (e) {
-			const { message } = e as Error;
-			error ||= message;
-		}
-
-		const expires = new Date();
-		expires.setSeconds(expires.getSeconds() + 21000000);
-		cookies.set("sk", sk, {
-			path: "/",
-			expires,
-			httpOnly: false,
-			sameSite: "lax",
-		});
-
-		if (error) return fail(400, { error });
-		redirect(303, loginRedirect || `/${user.username}`);
+		const user = { picture, username, password };
+		return register(user, ip, cookies, loginRedirect);
 	},
 };

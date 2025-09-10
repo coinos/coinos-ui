@@ -368,7 +368,19 @@
 			"publishNip5": "Nostr 정체성",
 			"nip5a": "제품 정보",
 			"nip5b": "공개적으로 검증된 nostr 주소",
-			"name": "이름 *"
+			"name": "이름 *",
+			"NOSTR": "사이트맵",
+			"tip": "기본 팁",
+			"tipDesc": "자동 결제가 가능한 경우 기본 팁 비율",
+			"connectSquare": "Square에 연결",
+			"revokeSquare": "Revoke 광장 연결",
+			"confirmAutoWithdrawal": "자동 인출 설정 확인",
+			"confirmAutoWithdrawalDesc": "자동 인출이 비활성화되었습니다. 해당 이용 후기에 달린 코멘트가 없습니다.",
+			"newPasswordDesc": "(변경되지 않도록 공백을 사용하십시오)",
+			"yourUsername": "사용자 이름",
+			"yourPassword": "비밀번호",
+			"welcome": "제품 정보!",
+			"clickBelow": "계정 설정하기"
 		},
 		"support": {
 			"header": "지원하다",
@@ -380,7 +392,8 @@
 			"doOurBest": "그리고 우리는 적시에 당신에게 다시 얻을 수있는 최선을 다할 것입니다.",
 			"thankYou": "감사합니다!",
 			"beInTouch": "누군가가 곧 연락 할 것입니다."
-		}
+		},
+		"lnurl": "Reusable 지불 부호"
 	},
 	"payments": {
 		"ok": "·",
@@ -490,7 +503,16 @@
 		"advancedSettings": "고급 설정",
 		"exchangeRate": "환율",
 		"pending": "관련 기사",
-		"minted": "이름 *"
+		"minted": "이름 *",
+		"insufficientFunds": "충분한 자금",
+		"lockedBalance": "Locked 균형",
+		"sweep": "Sweep 링크",
+		"trustUser": "자동 결제 가능",
+		"custom": "제품 정보",
+		"gift": "모든 자금",
+		"giftLink": "선물 링크",
+		"giftDesc1": "아래 링크를 열면 모든 가능한 자금을 받게됩니다.",
+		"giftDesc2": "그들이 로그인한 경우, 자금은 계정으로 갈 것입니다. 그렇지 않으면 새로운 계정이 생성됩니다."
 	},
 	"items": {
 		"add": "더 보기",
@@ -524,5 +546,14 @@
 	"notes": {
 		"contents": "공지사항",
 		"notFound": "발견 된 노트"
+	},
+	"incident": "5월 10일 이전에 입금된 기금은 데이터 손실 사건에서 폐기된 회복입니다. Nostr에서 업데이트를 받으십시오.",
+	"funds": {
+		"anyone": "링크를 가진 누구나",
+		"addManager": "회사 소개",
+		"manage": "계정 관리",
+		"withdrawAccess": "비밀번호",
+		"username": "사용자 이름",
+		"returnToFund": "자금 지원"
 	}
 }

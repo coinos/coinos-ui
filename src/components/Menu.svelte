@@ -1,7 +1,7 @@
 <script>
   import { theme } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
-  import OutClick from "svelte-outclick";
+  import { OutClick } from "svelte-outclick";
   let { t, user, w, opacity } = $props();
 
   let dark = () => ($theme = $theme === "dark" ? "light" : "dark");
@@ -11,11 +11,11 @@
     { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
     { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
     { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
-    {
-      key: "nav.merch",
-      icon: "ph:storefront-bold",
-      href: `https://coinosmerch.com`,
-    },
+    // {
+    //   key: "nav.merch",
+    //   icon: "ph:storefront-bold",
+    //   href: `https://coinosmerch.com`,
+    // },
     { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
     { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
   ];
@@ -25,7 +25,7 @@
 </script>
 
 <div>
-  <OutClick on:outclick={hideMenu}>
+  <OutClick onOutClick={hideMenu}>
     <button class="btn-menu {opacity('/support')}" onclick={toggleMenu}
       ><iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}
       ></iconify-icon>

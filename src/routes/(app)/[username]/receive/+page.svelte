@@ -94,12 +94,12 @@
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     amount = newAmount;
     invoice.amount = newAmount;
-    invoice.tip = 0;
+    invoice.tip = null;
 
     await update();
   };
 
-  let newAmount = $state();
+  let newAmount = $state(0);
   let settingAmount = $state();
   let fiat = $state(true);
   let toggleAmount = () => (settingAmount = !settingAmount);

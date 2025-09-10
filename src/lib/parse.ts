@@ -8,10 +8,17 @@ export default async (s, host) => {
 	if (!s) return;
 	let t = s.trim();
 	let amount;
+	let invoice;
 	let user;
 
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
+
+	if (t.includes("lightning=")) {
+		const url = new URL(t);
+		const params = new URLSearchParams(url.search);
+		t = params.get("lightning");
+	}
 
 	if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
 	if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split("@")[0];
@@ -51,16 +58,10 @@ export default async (s, host) => {
 	if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
 	if (t.includes(":")) t = t.split(":")[1];
 
-	if (t.includes("lightning=")) {
-		const url = new URL(t);
-		const params = new URLSearchParams(url.search);
-		t = params.get("lightning");
-	}
-
 	if (t.toLowerCase().startsWith("ln")) {
 		try {
-			const inv = await get(`/invoice/${t}`);
-			if (inv.user.username === "mint") throw new Error("mint payment");
+			invoice = await get(`/invoice/${t}`);
+			if (invoice.user.username === "mint") throw new Error("mint payment");
 		} catch (e) {
 			if (t.toLowerCase().startsWith("lno")) {
 				const { offer_amount_msat: a } = await get(`/decode/${t}`);
@@ -69,6 +70,8 @@ export default async (s, host) => {
 			redirect(307, `/send/lightning/${t}`);
 		}
 	}
+
+	if (invoice) redirect(307, `/invoice/${invoice.id}`);
 
 	if (t.match(/^🥜([\uFE00-\uFE0F]|[\uE0100-\uE01EF]+)$/)) {
 		t = Array.from(t)
@@ -115,11 +118,9 @@ export default async (s, host) => {
 
 	if (fund) redirect(307, `/send/fund/${t}`);
 
-	// invoice
-	let invoice;
 	try {
-		invoice = await get(`/invoice/${t}`);
+		invoice ||= await get(`/invoice/${t}`);
 	} catch (e) {}
 
-	if (invoice) redirect(307, `/send/invoice/${invoice.id}`);
+	if (invoice) redirect(307, `/invoice/${invoice.id}`);
 };

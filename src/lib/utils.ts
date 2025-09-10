@@ -3,6 +3,7 @@ import { goto } from "$app/navigation";
 import { page } from "$app/stores";
 import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
 import { bytesToHex } from "@noble/hashes/utils";
+import { fail as svelteFail, redirect } from "@sveltejs/kit";
 import { toast } from "@zerodevx/svelte-toast";
 import {
 	differenceInDays,
@@ -455,4 +456,35 @@ export const ago = (t) => {
 
 	const days = differenceInDays(now, date);
 	return `${days}d`;
+};
+
+export const register = async (user, ip, cookies, loginRedirect) => {
+	let error;
+
+	let sk;
+	try {
+		({ sk } = await post("/register", { user }, { "cf-connecting-ip": ip }));
+	} catch (e) {
+		({ message: error } = e as Error);
+	}
+
+	try {
+		await login(user, cookies, ip);
+		error = null;
+	} catch (e) {
+		const { message } = e as Error;
+		error ||= message;
+	}
+
+	const expires = new Date();
+	expires.setSeconds(expires.getSeconds() + 21000000);
+	cookies.set("sk", sk, {
+		path: "/",
+		expires,
+		httpOnly: false,
+		sameSite: "lax",
+	});
+
+	if (error) return svelteFail(400, { error });
+	redirect(303, loginRedirect || `/${user.username}`);
 };

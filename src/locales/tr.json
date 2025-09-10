@@ -368,7 +368,19 @@
 			"publishNip5": "Kaslish nostr kimlik",
 			"nip5a": "Use",
 			"nip5b": "sizin kamuya açık olarak doğrulanmamış nostr adresi",
-			"name": "Name"
+			"name": "Name",
+			"NOSTR": "NOSTR",
+			"tip": "Varsayılan ipucu",
+			"tipDesc": "Otomatik ücretli güvenilen kullanıcıların ortalama yüzdesi",
+			"connectSquare": "Square",
+			"revokeSquare": "Revoke Square Connection",
+			"confirmAutoWithdrawal": "Otomatik geri çekilme ayarlarını onaylayın",
+			"confirmAutoWithdrawalDesc": "Otomatik geri çekilmeleriniz devre dışı bırakıldı. Lütfen hedef adresinizi yeniden etkinleştirin veya bu mesajı reddetme adresi ortadan kaldırın.",
+			"newPasswordDesc": "(Değişmemek için boş tut)",
+			"yourUsername": "Kullanıcınız Kullanıcınızdır",
+			"yourPassword": "ve şifreniziz",
+			"welcome": "Hoşgeldiniz!",
+			"clickBelow": "Hesabınızı kurmak için aşağıda tıklayın"
 		},
 		"support": {
 			"header": "Destek Desteği Destek Desteği",
@@ -380,7 +392,8 @@
 			"doOurBest": "ve size zamanında geri dönmek için elimizden geleni yapacağız.",
 			"thankYou": "Teşekkür ederim!",
 			"beInTouch": "Birisi kısa bir süre içinde dokunacaktır."
-		}
+		},
+		"lnurl": "Reusable ödeme kodu"
 	},
 	"payments": {
 		"ok": "Tamam",
@@ -490,7 +503,16 @@
 		"advancedSettings": "Gelişmiş ayarlar",
 		"exchangeRate": "Değişim oranı",
 		"pending": "Pending",
-		"minted": "Minted"
+		"minted": "Minted",
+		"insufficientFunds": "Yetersiz fonlarda",
+		"lockedBalance": "Locked bakiye",
+		"sweep": "Sweep link",
+		"trustUser": "Gönder ve otomatik ödeme sağlar",
+		"custom": "Özel",
+		"gift": "Hediye tüm fonlar",
+		"giftLink": "Hediye linki",
+		"giftDesc1": "Aşağıdaki bağlantıyı açan herkes mevcut tüm fonları alacak.",
+		"giftDesc2": "Eğer giriş yapılırsa, fonlar hesabına gidecek, aksi takdirde yeni bir hesap oluşturulacaktır."
 	},
 	"items": {
 		"add": "Ekle item",
@@ -524,5 +546,14 @@
 	"notes": {
 		"contents": "Not Content",
 		"notFound": "Hiçbir not bulunamadı"
+	},
+	"incident": "10 Mayıs'tan önce yapılan fonlar bir veri kaybı olayından kurtarma için kilitlenir. Güncellemeler için Nostr'de bizi takip edin.",
+	"funds": {
+		"anyone": "Bağlantı ile herkes",
+		"addManager": "Ekle yönetici ekle",
+		"manage": "Yönetin Yöneti Yönetimi",
+		"withdrawAccess": "Withdraw access",
+		"username": "Username",
+		"returnToFund": "Geri finanse etmek için"
 	}
 }

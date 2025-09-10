@@ -368,7 +368,19 @@
 			"publishNip5": "Nostr-identiteit publiceren",
 			"nip5a": "Gebruik",
 			"nip5b": "als jouw publiekelijk geverifieerd nostr adres",
-			"name": "Naam"
+			"name": "Naam",
+			"NOSTR": "NOST",
+			"tip": "Standaard tip",
+			"tipDesc": "Standaard tippercentage bij het automatisch betalen van vertrouwde gebruikers",
+			"connectSquare": "Verbinden met vierkant",
+			"revokeSquare": "Vierkante verbinding ongedaan maken",
+			"confirmAutoWithdrawal": "Auto-opnameinstellingen bevestigen",
+			"confirmAutoWithdrawalDesc": "Je auto opnames zijn uitgeschakeld. Controleer uw bestemmingsadres voordat u ze opnieuw opent of verwijder het adres om dit bericht te verwerpen.",
+			"newPasswordDesc": "(Laat leeg om ongewijzigd te blijven)",
+			"yourUsername": "Uw gebruikersnaam is",
+			"yourPassword": "en uw wachtwoord is",
+			"welcome": "Welkom!",
+			"clickBelow": "Klik hieronder om uw account in te stellen"
 		},
 		"support": {
 			"header": "Ondersteuning",
@@ -380,7 +392,8 @@
 			"doOurBest": "en we zullen ons best doen om tijdig bij je terug te komen",
 			"thankYou": "Dank je!",
 			"beInTouch": "Er neemt zo iemand contact op."
-		}
+		},
+		"lnurl": "Herbruikbare betalingscode"
 	},
 	"payments": {
 		"ok": "Ok",
@@ -490,7 +503,16 @@
 		"advancedSettings": "Geavanceerde instellingen",
 		"exchangeRate": "Wisselkoers",
 		"pending": "In afwachting",
-		"minted": "Mint"
+		"minted": "Mint",
+		"insufficientFunds": "Onvoldoende middelen",
+		"lockedBalance": "Gesloten balans",
+		"sweep": "Veegverbinding",
+		"trustUser": "Automatisch betalen verzenden en inschakelen",
+		"custom": "Aangepast",
+		"gift": "Alle fondsen cadeau",
+		"giftLink": "Kadokoppeling",
+		"giftDesc1": "Wie de onderstaande link opent, ontvangt alle beschikbare fondsen.",
+		"giftDesc2": "Als ze ingelogd zijn, gaan de fondsen naar hun account, anders wordt er een nieuwe account gegenereerd."
 	},
 	"items": {
 		"add": "Item toevoegen",
@@ -524,5 +546,14 @@
 	"notes": {
 		"contents": "Inhoud notitie",
 		"notFound": "Geen notities gevonden"
+	},
+	"incident": "Geld gestort vóór 10 mei zijn vergrendeld in afwachting van herstel van een gegevensverlies incident. Volg ons op Nostr voor updates.",
+	"funds": {
+		"anyone": "Iedereen met de link",
+		"addManager": "Manager toevoegen",
+		"manage": "Beheer",
+		"withdrawAccess": "Toegang intrekken",
+		"username": "Gebruikersnaam",
+		"returnToFund": "Terug naar financiering"
 	}
 }

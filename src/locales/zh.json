@@ -307,7 +307,19 @@
 			"nostr": "鼻头",
 			"nwc": "鼻孔钱包连接",
 			"nwcDescription": "启用您的鼻孔应用程序从您的账户发送付款",
-			"name": "名称"
+			"name": "名称",
+			"NOSTR": "无",
+			"tip": "默认提示",
+			"tipDesc": "自动付费信任用户时默认提示百分比",
+			"connectSquare": "连接到平方",
+			"revokeSquare": "撤销正方形连接",
+			"confirmAutoWithdrawal": "确认自动退出设置",
+			"confirmAutoWithdrawalDesc": "您的自动取款被禁用 。 在重新启用之前, 请重复检查您的地址, 或是删除地址以删除此信件 .",
+			"newPasswordDesc": "(空出以不变)",
+			"yourUsername": "您的用户名是",
+			"yourPassword": "而您的密码是",
+			"welcome": "欢迎光临!",
+			"clickBelow": "点击下面完成您的账户设置"
 		},
 		"support": {
 			"header": "支持",
@@ -326,7 +338,8 @@
 		"moreDetails": "链接和详细信息",
 		"url": "公共 URL",
 		"nwc": "Nostr 钱包连接",
-		"loadMore": "装入更多"
+		"loadMore": "装入更多",
+		"lnurl": "可重复使用的付款代码"
 	},
 	"payments": {
 		"networkFee": "网络费",
@@ -437,7 +450,16 @@
 		"advancedSettings": "高级设置",
 		"exchangeRate": "汇率",
 		"pending": "待决",
-		"minted": "已剪切"
+		"minted": "已剪切",
+		"insufficientFunds": "资金不足",
+		"lockedBalance": "锁定余额",
+		"sweep": "扫描链接",
+		"trustUser": "发送和启用自动支付",
+		"custom": "自定义",
+		"gift": "赠与所有基金",
+		"giftLink": "礼品链接",
+		"giftDesc1": "任何人打开以下链接,都将获得所有可用资金.",
+		"giftDesc2": "如果登录,资金将存入其账户,否则将产生一个新的账户."
 	},
 	"items": {
 		"add": "新增项目",
@@ -505,5 +527,14 @@
 	"notes": {
 		"contents": "说明内容",
 		"notFound": "未找到笔记"
+	},
+	"incident": "5月10日之前存入的资金被锁定,等待从数据损失事件中追回。 跟着我们了解最新消息.",
+	"funds": {
+		"anyone": "有联系的人",
+		"addManager": "添加管理器",
+		"manage": "管理",
+		"withdrawAccess": "撤销访问",
+		"username": "用户名",
+		"returnToFund": "回到资金"
 	}
 }
