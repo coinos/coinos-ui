@@ -179,4 +179,9 @@
   <br/>
   <br/>
   <br/>
+  <a href="web+bitcoin://lnurl1dp68gurn8ghj7cm0d9hx7uewd9hj7up0v9kxjcm9lgkapg">Bitcoin link 3</a>
+  <br/>
+  <br/>
+  <br/>
+  <a href="web+bitcoin:lnurl1dp68gurn8ghj7cm0d9hx7uewd9hj7up0v9kxjcm9lgkapg">Bitcoin link 4</a>
 </div>
