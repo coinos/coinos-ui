@@ -102,23 +102,19 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "Receiving payments into your account is free. Withdrawals to external wallets incur a small fee that varies depending on network conditions."
+			"answer": "Receiving payments is free. Sending to other Coinos accounts is free. Withdrawals to external wallets are free if you use the same network you received on, otherwise there's a 0.4% fee for Bitcoin or 0.1% for Lightning or Liquid."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No, Coinos works anywhere that has Internet. Merchants might use it on a tablet or put up a QR code for customers to scan with their phone."
-		},
-		"safety": {
-			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet within seconds. On-chain deposits take 5-10 minutes to confirm on average."
+			"answer": "Coinos works on any device that has Internet and a web browser. You can receive payment notifications within the app, via email or push notification. We do have PoS terminals and receipt printers available for those who prefer physical notifications."
 		},
 		"pos": {
 			"question": "Can Coinos integrate with my existing PoS?",
-			"answer": "We recommend entering sales into your existing PoS as cash transactions."
+			"answer": "We can log sales into Square. If you're using something else, you can record Bitcoin sales as \"cash\"."
 		},
 		"bitcoin": {
 			"question": "What can I do with Bitcoin?",
-			"answer": "Spend it at other merchants or pay your expenses with it by getting your staff, suppliers and landlord to take it."
+			"answer": "Spend it at other merchants, convince your staff, landlord or suppliers to let you pay your expenses with it, or hold it as an investment."
 		}
 	},
 	"footer": {
@@ -145,7 +141,7 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Spend your coin immediately or watch it grow in value."
+			"description": "Easy, right? Tell us when you're ready for us to promote your business to the Bitcoin community!"
 		}
 	},
 	"invoice": {
