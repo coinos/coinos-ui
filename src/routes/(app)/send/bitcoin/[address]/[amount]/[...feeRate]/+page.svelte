@@ -1,6 +1,4 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -15,7 +13,6 @@
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
-  import { hash160 } from "@scure/btc-signer/utils";
   import { decrypt } from "nostr-tools/nip49";
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
@@ -71,8 +68,18 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let { account, amount, address, message, fee, fees, ourfee, hex, inputs } =
-    $derived(data);
+  let {
+    account,
+    amount,
+    address,
+    message,
+    fee,
+    fees,
+    subtract,
+    ourfee,
+    hex,
+    inputs,
+  } = $derived(data);
 
   let { feeRate } = $state(data);
 
@@ -116,7 +123,11 @@
   {:else}
     <div class="text-xl text-secondary break-all">{address}</div>
 
-    <Amount {amount} rate={$rate} {currency} />
+    <Amount
+      amount={subtract ? amount - fee - ourfee : amount}
+      rate={$rate}
+      {currency}
+    />
 
     <div class="text-center">
       <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
@@ -137,14 +148,7 @@
       <div class="text-center">
         <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
 
-        <div class="flex flex-wrap gap-4 justify-center">
-          <div class="my-auto">
-            <h2 class="text-xl">
-              {f(toFiat(ourfee, $rate), currency)}
-            </h2>
-            <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
-          </div>
-        </div>
+        <Amount amount={ourfee} rate={$rate} {currency} />
       </div>
     {/if}
 

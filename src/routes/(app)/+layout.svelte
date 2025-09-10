@@ -46,22 +46,35 @@
       checkSocket();
       $pin = getCookie("pin");
 
-      if (window.NDEFReader && user.nfc) {
-        try {
-          $ndef = new NDEFReader();
-          await $ndef.scan();
-
-          $ndef.addEventListener("readingerror", (e) => {
-            console.log("nfc error", e);
-          });
-
-          $ndef.addEventListener("reading", ({ message, serialNumber }) => {
-            goto(`/send/${message}`);
-          });
-        } catch (error) {
-          console.log("Argh! " + error);
-        }
-      }
+      // if (window.NDEFReader) {
+      //   try {
+      //     $ndef = new NDEFReader();
+      //     await $ndef.scan();
+      //
+      //     $ndef.addEventListener("readingerror", (e) => {
+      //       console.log("nfc error", e);
+      //     });
+      //
+      //     $ndef.addEventListener("reading", ({ message, serialNumber }) => {
+      //       console.log("MESSAGE", message);
+      //
+      //       const record = message.records[0];
+      //
+      //       if (record.recordType === "url") {
+      //         const textDecoder = new TextDecoder();
+      //         const url = textDecoder.decode(record.data);
+      //         console.log("URL:", url);
+      //
+      //         // Navigate to the URL or use it however you want
+      //         goto(`/send/${encodeURIComponent(url)}`);
+      //       } else {
+      //         console.error("Unsupported record type:", record.recordType);
+      //       }
+      //     });
+      //   } catch (error) {
+      //     console.log("Argh! " + error);
+      //   }
+      // }
     }
   });
 

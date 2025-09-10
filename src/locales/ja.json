@@ -307,7 +307,19 @@
 			"nostr": "ノストール",
 			"nwc": "Nostrウォレットは接続します",
 			"nwcDescription": "あなたのnostrアプリを有効にして、あなたのアカウントから支払いを送信",
-			"name": "お名前 (必須)"
+			"name": "お名前 (必須)",
+			"NOSTR": "ログイン",
+			"tip": "デフォルトチップ",
+			"tipDesc": "信頼できるユーザーを自動支払するときのデフォルトのヒントパーセンテージ",
+			"connectSquare": "スクエアに接続する",
+			"revokeSquare": "Revokeスクエア接続",
+			"confirmAutoWithdrawal": "自動出金設定の確認",
+			"confirmAutoWithdrawalDesc": "自動出金が無効になっています。 アドレスを再エナブルするか、このメッセージを却下するアドレスを削除する前に、宛先アドレスをダブルクリックしてください.",
+			"newPasswordDesc": "(変更されないままにブランクを残す)",
+			"yourUsername": "あなたのユーザー名は",
+			"yourPassword": "パスワードは",
+			"welcome": "お問い合わせ!",
+			"clickBelow": "アカウントの設定を完了するには、下記をクリックしてください"
 		},
 		"support": {
 			"header": "サポート",
@@ -326,7 +338,8 @@
 		"moreDetails": "リンクと詳細",
 		"url": "公開URL",
 		"nwc": "Nostrウォレットコネクト",
-		"loadMore": "もっと見る"
+		"loadMore": "もっと見る",
+		"lnurl": "再利用可能な決済コード"
 	},
 	"payments": {
 		"networkFee": "ネットワーク料金",
@@ -437,7 +450,16 @@
 		"advancedSettings": "高度な設定",
 		"exchangeRate": "為替レート",
 		"pending": "ペンディング",
-		"minted": "ログイン"
+		"minted": "ログイン",
+		"insufficientFunds": "十分な資金",
+		"lockedBalance": "ロックバランス",
+		"sweep": "スイープリンク",
+		"trustUser": "オートペイの送信と有効化",
+		"custom": "カスタム",
+		"gift": "すべての資金をギフト",
+		"giftLink": "ギフトリンク",
+		"giftDesc1": "下記のリンクを開いたら、利用可能なすべての資金を受け取ることになります.",
+		"giftDesc2": "彼らがログインしている場合, 資金は、自分のアカウントに行きます, それ以外の場合は、新しいアカウントが生成されます."
 	},
 	"items": {
 		"add": "アイテムの追加",
@@ -505,5 +527,14 @@
 	"notes": {
 		"contents": "コンテンツ",
 		"notFound": "ノートが見つかりません"
+	},
+	"incident": "5月10日以前に入金された資金は、データ損失事件から保留中の回復をロックされています。 最新情報は、Nostr をご覧ください.",
+	"funds": {
+		"anyone": "リンクのある方",
+		"addManager": "マネージャーの追加",
+		"manage": "マネージング",
+		"withdrawAccess": "アクセスを撤退",
+		"username": "ユーザ名",
+		"returnToFund": "資金を調達する"
 	}
 }

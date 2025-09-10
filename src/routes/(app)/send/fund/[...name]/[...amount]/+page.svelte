@@ -6,14 +6,16 @@
   import { page } from "$app/stores";
   import { pin } from "$lib/store";
   import handler from "$lib/handler";
-  import { s } from "$lib/utils";
+  import { loc, s } from "$lib/utils";
+  import { applyAction, deserialize } from "$app/forms";
 
   let { data, form } = $props();
-  let { amount } = $state(data);
-  let { balance, currency } = data.user;
+  let { amount, user } = $state(data);
+  let { balance, currency } = $derived(user);
   let { name, rate } = $derived(data);
   let loading = $state();
   let fiat = $state();
+  let locale = loc(user);
 
   let submit = $state();
   let submitting = $state();
@@ -22,11 +24,22 @@
     if (form?.message?.includes("pin")) $pin = undefined;
     loading = false;
   });
+  let formElement = $state();
 
-  let setMax = (e) => {
+  let setMax = async (e) => {
     e.preventDefault();
-    fiat = false;
-    amount = balance;
+    let body = new FormData(formElement);
+    body.set("fiat", false);
+    body.set("amount", user.balance);
+
+    const response = await fetch(formElement.action, {
+      method: "POST",
+      body,
+    });
+
+    const result = deserialize(await response.text());
+    if (result.type === "success") await invalidateAll();
+    applyAction(result);
   };
 </script>
 
@@ -37,9 +50,14 @@
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
-  <Numpad bind:amount {currency} {rate} {fiat} {submit} />
+  <Numpad bind:amount {currency} {rate} {fiat} {submit} {locale} />
 
-  <form use:enhance={handler(toggle)} method="POST" class="space-y-5">
+  <form
+    use:enhance={handler(toggle)}
+    method="POST"
+    class="space-y-5"
+    bind:this={formElement}
+  >
     <input name="fund" value={name} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />

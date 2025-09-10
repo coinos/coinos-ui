@@ -174,10 +174,10 @@
 			"accountBalance": "Solde",
 			"conversionFeeWarning": "Il y a des frais de 1% pour convertir entre bitcoin, Liquid et Lightning.",
 			"fetchingRate": "recherche du taux de change...",
-			"send": "Envoie",
+			"send": "Envoyer",
 			"withdraw": "Retrait",
 			"go": "Allez",
-			"receive": "Recevoir un Paiement",
+			"receive": "Recevoir",
 			"deposit": "Déposer",
 			"voucher": "Code promo",
 			"checkout": "Encaisser",
@@ -276,7 +276,19 @@
 			"nostr": "Numéro",
 			"nwc": "Le portefeuille Nost se connecte",
 			"nwcDescription": "Activez votre app nost pour envoyer des paiements depuis votre compte",
-			"name": "Nom"
+			"name": "Nom",
+			"NOSTR": "NOSTR",
+			"tip": "Conseil par défaut",
+			"tipDesc": "Pourcentage de pointe par défaut lors du paiement automatique d'utilisateurs de confiance",
+			"connectSquare": "Se connecter à Square",
+			"revokeSquare": "Renverser la connexion carrée",
+			"confirmAutoWithdrawal": "Confirmer les paramètres de retrait automatique",
+			"confirmAutoWithdrawalDesc": "Vos retraits automatiques ont été désactivés. Veuillez vérifier à nouveau votre adresse de destination avant de les renflouer ou supprimer l'adresse pour rejeter ce message.",
+			"newPasswordDesc": "(Laisser blanc pour garder inchangé)",
+			"yourUsername": "Votre nom d'utilisateur",
+			"yourPassword": "et votre mot de passe est",
+			"welcome": "Bienvenue !",
+			"clickBelow": "Cliquez ci-dessous pour terminer la configuration de votre compte"
 		},
 		"support": {
 			"header": "Assistance",
@@ -322,7 +334,8 @@
 		"moreDetails": "Liens et détails",
 		"url": "URL publique",
 		"nwc": "Connexion au portefeuille Nostr",
-		"loadMore": "Charger plus"
+		"loadMore": "Charger plus",
+		"lnurl": "Code de paiement réutilisable"
 	},
 	"news": {
 		"header": "Nouvelles",
@@ -437,7 +450,16 @@
 		"advancedSettings": "Paramètres avancés",
 		"exchangeRate": "Taux de change",
 		"pending": "En attente",
-		"minted": "Mentionné"
+		"minted": "Mentionné",
+		"insufficientFunds": "Insuffisance des fonds",
+		"lockedBalance": "Solde verrouillé",
+		"sweep": "Lien de balayage",
+		"trustUser": "Envoyer et activer auto-payer",
+		"custom": "Personnalisé",
+		"gift": "Donner tous les fonds",
+		"giftLink": "Lien cadeau",
+		"giftDesc1": "Quiconque ouvre le lien ci-dessous recevra tous les fonds disponibles.",
+		"giftDesc2": "S'ils sont connectés, les fonds vont à leur compte, sinon un nouveau compte sera généré."
 	},
 	"items": {
 		"add": "Ajouter un article",
@@ -505,5 +527,14 @@
 	"notes": {
 		"contents": "Table des matières",
 		"notFound": "Aucune note trouvée"
+	},
+	"incident": "Les fonds déposés avant le 10 mai sont verrouillés en attendant la récupération d'un incident de perte de données. Suivez-nous sur Nostra pour les mises à jour.",
+	"funds": {
+		"anyone": "N'importe qui avec le lien",
+		"addManager": "Ajouter un gestionnaire",
+		"manage": "Gérer",
+		"withdrawAccess": "Retrait de l'accès",
+		"username": "Nom d'utilisateur",
+		"returnToFund": "Retour au fonds"
 	}
 }

@@ -1,25 +1,60 @@
+import { PUBLIC_DOMAIN } from "$env/static/public";
 import getRates from "$lib/rates";
 import { auth, fd, get, post } from "$lib/utils";
+import { bech32 } from "@scure/base";
 import { error, fail, redirect } from "@sveltejs/kit";
+const { decode, fromWords } = bech32;
 
 export async function load({ params, parent }) {
 	const { user } = await parent();
-	if (!user) redirect(307, "/register");
 	const rates = await getRates();
 
 	let data;
+	const { lnurl } = params;
+
+	const url = Buffer.from(fromWords(decode(lnurl, 20000).words)).toString();
+
 	try {
-		const { lnurl } = params;
 		data = await get(`/decode?text=${lnurl}`);
 	} catch (e) {
 		const { message } = e as Error;
 		error(500, message);
 	}
 
+	let { callback, minSendable, maxSendable, comment, tag } = data;
+	if (tag === "payRequest" && minSendable === maxSendable) {
+		minSendable = Math.round(minSendable / 1000);
+		maxSendable = Math.round(maxSendable / 1000);
+		const amount = minSendable;
+
+		const urlObj = new URL(callback);
+		urlObj.searchParams.set("amount", (amount * 1000).toString());
+		if (comment) {
+			urlObj.searchParams.set("comment", comment);
+		}
+		const url = urlObj.toString();
+
+		const { pr } = await fetch(url).then((r) => (r as Response).json());
+
+		let invoice;
+		try {
+			invoice = await get(`/invoice/${pr}`);
+		} catch (e) {}
+
+		if (invoice) redirect(307, `/invoice/${invoice.id}`);
+
+		let path = `/send/lightning/${pr}`;
+		if (comment) path += `/${encodeURIComponent(comment)}`;
+		redirect(307, path);
+	} else if (callback.includes(PUBLIC_DOMAIN)) {
+		const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
+		redirect(307, `/pay/${username}`);
+	}
+
 	if (!["payRequest", "withdrawRequest"].includes(data.tag))
 		error(500, "We only support LNURLp and LNURLw at this time");
 
-	data.rate = rates[user.currency];
+	data.rate = rates[user?.currency || "USD"];
 	return data;
 }
 
@@ -42,6 +77,7 @@ export const actions = {
 		if (comment) url += `&comment=${comment}`;
 
 		const { pr } = await fetch(url).then((r) => r.json());
+
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
 		redirect(307, path);

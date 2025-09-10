@@ -105,16 +105,18 @@
   <div class="text-secondary">
     <div>Request params</div>
     <div class="grid grid-cols-3 ml-2">
-      <div class="font-bold">type</div>
+      <div class="font-bold">type (string, default: lightning)</div>
       <div class="col-span-2">bitcoin or lightning</div>
-      <div class="font-bold">amount</div>
-      <div class="col-span-2">amount in satoshis</div>
-      <div class="font-bold">webhook</div>
+      <div class="font-bold">fiat (boolean, default: false)</div>
+      <div class="col-span-2">whether the amount is denominated in satoshis or local currency</div>
+      <div class="font-bold">amount (numeric)</div>
+      <div class="col-span-2">amount to be paid</div>
+      <div class="font-bold">webhook (string, optional)</div>
       <div class="col-span-2">
-        (optional) endpoint to hit when the invoice is paid
+        remote endpoint to call when the invoice is paid
       </div>
-      <div class="font-bold">secret</div>
-      <div class="col-span-2">a secret for the webhook to check</div>
+      <div class="font-bold">secret (string, optional)</div>
+      <div class="col-span-2">a secret value passed to the webhook to authenticate the request</div>
     </div>
   </div>
 

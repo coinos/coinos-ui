@@ -69,13 +69,15 @@
           {/if}
         </div>
 
-        <a
-          href={`/fund/${id}/access`}
-          class="btn !w-auto ml-auto text-secondary grow"
-        >
-          <iconify-icon icon="ph:gear-bold" width={32}></iconify-icon>
-          {$t("funds.manage")}
-        </a>
+        {#if (user && !managers.length) || managers.some((m) => m.id === user?.id)}
+          <a
+            href={`/fund/${id}/access`}
+            class="btn !w-auto ml-auto text-secondary grow"
+          >
+            <iconify-icon icon="ph:gear-bold" width={32}></iconify-icon>
+            {$t("funds.manage")}
+          </a>
+        {/if}
       </div>
       <div class="flex flex-wrap gap-2" data-sveltekit-prefetch="off">
         <div class="grow">
@@ -87,7 +89,7 @@
             </button>
           </a>
         </div>
-        {#if !managers.length || managers.some((m) => m.id === user.id)}
+        {#if !managers.length || managers.some((m) => m.id === user?.id)}
           <div class="grow">
             <a href={`/fund/${id}/withdraw`}>
               <button class="btn">
@@ -108,6 +110,11 @@
           <iconify-icon noobserver icon="ph:link-bold" width="32"
           ></iconify-icon>
           <div class="my-auto">{$t("payments.shareLink")}</div>
+        </a>
+        <a href={`${$page.url.pathname}/gift`} class="btn !w-auto grow">
+          <iconify-icon noobserver icon="ph:gift-bold" width="32"
+          ></iconify-icon>
+          <div class="my-auto">{$t("payments.giftLink")}</div>
         </a>
         <!-- <a href={`/qr/${lnurlw}`} class="btn !w-auto grow"> -->
         <!--   <iconify-icon -->

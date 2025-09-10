@@ -1,11 +1,12 @@
 {
+	"incident": "NOTICE: Funds deposited before May 10 are temporarily locked while we attempt to recover from a data loss incident. We had to restore our database from a day-old backup so we need to ensure that balances and payment history are corrected to account for all activity that occurred during that period before we can release funds. We don't have an ETA at this time but we are working diligently to resolve the issue. We are sincerely sorry for the inconvenience.",
 	"funds": {
 		"anyone": "Anyone with the link",
 		"addManager": "Add manager",
 		"manage": "Manage",
 		"withdrawAccess": "Withdraw access",
 		"username": "Username",
-    "returnToFund": "Back to fund"
+		"returnToFund": "Back to fund"
 	},
 	"notes": {
 		"contents": "Note contents",
@@ -52,7 +53,7 @@
 		"revealMnemonic": "Reveal seed phrase",
 		"regenerate": "Regenerate",
 		"deleteAccount": "Delete account",
-		"addAccount": "Add account",
+		"addAccount": "Create a non-custodial account",
 		"create": "Create",
 		"import": "Import",
 		"accountSetup": "Account setup",
@@ -101,23 +102,19 @@
 		"header": "FAQ",
 		"cost": {
 			"question": "What does it cost?",
-			"answer": "Receiving payments into your account is free. Withdrawals to external wallets incur a small fee that varies depending on network conditions."
+			"answer": "Receiving payments is free. Sending to other Coinos accounts is free. Withdrawals to external wallets are free if you use the same network you received on, otherwise there's a 0.4% fee for Bitcoin or 0.1% for Lightning or Liquid."
 		},
 		"compatibility": {
 			"question": "Do I need any special device or software?",
-			"answer": "No, Coinos works anywhere that has Internet. Merchants might use it on a tablet or put up a QR code for customers to scan with their phone."
-		},
-		"safety": {
-			"question": "When do my funds settle?",
-			"answer": "Lightning payments are settled instantly. You can withdraw your balance to another wallet within seconds. On-chain deposits take 5-10 minutes to confirm on average."
+			"answer": "Coinos works on any device that has Internet and a web browser. You can receive payment notifications within the app, via email or push notification. We do have PoS terminals and receipt printers available for those who prefer physical notifications."
 		},
 		"pos": {
 			"question": "Can Coinos integrate with my existing PoS?",
-			"answer": "We recommend entering sales into your existing PoS as cash transactions."
+			"answer": "We can log sales into Square automatically. On other systems you might choose to record Bitcoin sales under \"cash\"."
 		},
 		"bitcoin": {
 			"question": "What can I do with Bitcoin?",
-			"answer": "Spend it at other merchants or pay your expenses with it by getting your staff, suppliers and landlord to take it."
+			"answer": "Spend it at other merchants, convince your staff, landlord or suppliers to let you pay your expenses with it, or hold it as an investment."
 		}
 	},
 	"footer": {
@@ -144,14 +141,14 @@
 		},
 		"step3": {
 			"header": "3. That's all!",
-			"description": "Spend your coin immediately or watch it grow in value."
+			"description": "Easy, right? Tell us when you're ready for us to promote your business to the Bitcoin community!"
 		}
 	},
 	"invoice": {
 		"addTip": "Add a tip",
 		"addTipq": "Add a tip?",
 		"addMemo": "Add memo",
-		"setMemo": "Set memo",
+		"setMemo": "Add a note",
 		"memo": "Memo",
 		"done": "Done",
 		"paymentSuccessful": "Payment received!",
@@ -239,6 +236,7 @@
 	"user": {
 		"loadMore": "Load more",
 		"url": "Public URL",
+		"lnurl": "Payment code",
 		"install": "Install app",
 		"moreDetails": "Profile details",
 		"noMessages": "You have not sent or received any messages",
@@ -294,6 +292,13 @@
 			"placeholder": "Enter an address, invoice or username"
 		},
 		"settings": {
+      "connectSquare": "Connect to Square",
+      "revokeSquare": "Revoke Square Connection",
+      "confirmAutoWithdrawal": "Confirm auto withdrawal settings",
+      "confirmAutoWithdrawalDesc": "Your auto withdrawals have been disabled. Please double check your destination address before re-enabling them or remove the address to dismiss this message.",
+			"tip": "Default tip",
+			"tipDesc": "Default tip percentage when auto-paying trusted users",
+			"nostr": "Nostr",
 			"name": "Name",
 			"integrations": "Integrations",
 			"syncWithExtension": "Sync with extension",
@@ -303,16 +308,15 @@
 			"memoPromptPlaceholder": "e.g. Please enter your name for the order",
 			"rememberFor": "Remember for",
 			"import": "Import secret key",
-			"destination": "Autowithdrawal address",
+			"destination": "Auto withdrawal address",
 			"destinationDesc": "The address that withdrawals will be sent to",
 			"destinationPlaceholder": "Enter a Bitcoin, Liquid or Lightning address",
 			"reserve": "Reserve amount",
 			"reserveDesc": "The amount to be left in your account after the withdrawal is complete",
-			"nostr": "Nostr",
 			"shopify": "Shopify",
-			"threshold": "Autowithdrawal threshold",
+			"threshold": "Auto withdrawal threshold",
 			"thresholdDesc": "When your balance exceeds this amount, a withdrawal will be triggered",
-			"autoWithdraw": "Autowithdrawal",
+			"autoWithdraw": "Auto withdrawal",
 			"autoWithdrawDescription": "Enable withdrawals to an external address when your balance reaches a given threshold",
 			"notifications": "Email notifications",
 			"pushNotifications": "Push notifications",
@@ -325,7 +329,7 @@
 			"nwc": "Nostr wallet connect (NWC)",
 			"nwcDescription": "Enable nostr apps to send payments from your account",
 			"seedDescription": "This 12 word seed phrase is used to derive your nostr private key and your self-custodial wallet keys which determine your auto-withdrawal addresses. Back it up and don't let anyone see it.",
-			"emailDescription": "For password resets and payment notifications only",
+			"emailDescription": "For password resets and payment notifications",
 			"hideNsec": "Hide nostr secret key",
 			"saved": "Settings saved!",
 			"verifying": "Verification email sent",
@@ -333,19 +337,26 @@
 			"revealNsec": "Reveal secret key",
 			"hideSeed": "Hide seed phrase",
 			"revealSeed": "Reveal seed phrase",
-			"saveSettings": "Save Settings",
+			"saveSettings": "Save settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",
 			"oneTimeCode": "Enter one-time code",
 			"accountId": "Account Secret",
 			"header": "Settings",
 			"ACCOUNT": "PROFILE",
-			"POINT_OF_SALE": "SETTINGS",
+			"POINT_OF_SALE": "ACCOUNT",
+			"NOSTR": "NOSTR",
 			"SECURITY": "SECURITY",
 			"locale": "Language",
 			"username": "Username",
 			"email": "Email",
-			"newPassword": "Change Password",
+			"newPassword": "New Password",
+			"newPasswordDesc": "(Leave blank to keep unchanged)",
+			"yourUsername": "Your username is:",
+			"yourPassword": "Your password is:",
+			"welcome": "Welcome!",
+      "continueSettingUp": "Account setup",
+			"clickBelow": "Click below to finish setting up your account",
 			"about": "About",
 			"aboutPlaceholder": "A little something about you or your business address and hours",
 			"emailNotifications": "Email Notifications",
@@ -395,6 +406,15 @@
 		}
 	},
 	"payments": {
+    "custom": "Custom",
+		"trustUser": "Send and enable auto-pay",
+		"gift": "Gift all funds",
+		"giftLink": "Gift link",
+		"giftDesc1": "Whoever opens the link below will receive all the available funds.",
+		"giftDesc2": "If they are logged in, the funds will go to their account, otherwise a new account will be generated.",
+		"sweep": "Sweep link",
+		"lockedBalance": "Locked balance",
+		"insufficientFunds": "Insufficient funds",
 		"pending": "Pending",
 		"minted": "Minted",
 		"redeemed": "Redeemed",
@@ -403,7 +423,7 @@
 		"zappedEvent": "Zapped event",
 		"accountSettings": "Account settings",
 		"advancedSettings": "Advanced settings",
-		"moreOptions": "More options...",
+		"moreOptions": "More options",
 		"other": "Other",
 		"ok": "Ok",
 		"cancel": "Cancel",
@@ -448,13 +468,12 @@
 		"voucher": "Payment code",
 		"qr": "QR",
 		"copy": "Copy",
-		"amountPrompt": "Prompt for amount",
+		"amountPrompt": "Always prompt for amount",
 		"shareLink": "Share",
 		"copyLink": "Copy link",
 		"copyText": "Copy text",
 		"openLink": "Open",
 		"setAmount": "Set amount",
-		"moreOptions": "More options",
 		"redeemVoucher": "Ecash",
 		"total": "Total",
 		"gainLoss": "Gain/Loss",
@@ -498,7 +517,6 @@
 		"from": "from",
 		"redeem": "Redeem",
 		"swap": "Swap",
-		"redeemed": "Redeemed",
 		"redeemedBy": "Redeemed by",
 		"sendMessage": "Write a message...",
 		"fundsClaimed": "Funds claimed!",

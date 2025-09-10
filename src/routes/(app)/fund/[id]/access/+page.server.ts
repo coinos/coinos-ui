@@ -11,10 +11,7 @@ export const actions = {
 		const form = await fd(request);
 
 		try {
-			console.log("SUBMITTING", form);
 			const managers = await post("/fund/managers", form, auth(cookies));
-
-			console.log(managers);
 
 			return { managers };
 		} catch (e) {

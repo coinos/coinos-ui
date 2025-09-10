@@ -124,7 +124,7 @@
 </script>
 
 <div
-  class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20"
+  class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20 space-y-5"
 >
   <h1 class="text-2xl font-bold text-center">{$t("login.signIn")}</h1>
   {#if form?.error && !form?.message.includes("2fa")}

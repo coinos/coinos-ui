@@ -6,6 +6,7 @@
   import { t } from "$lib/translations";
   import locales from "$lib/locales";
   const { fund, locale, user, payments } = $props();
+  const language = $derived(user?.language || "en");
 </script>
 
 <div class="text-base">
@@ -106,7 +107,11 @@
               {#if p.type === types.ecash}
                 {amount > 0 ? $t("payments.redeemed") : $t("payments.minted")}
               {:else}
-                {amount > 0 ? (p.confirmed ? $t("payments.received") : $t("payments.pending")) : $t("payments.sent")}
+                {amount > 0
+                  ? p.confirmed
+                    ? $t("payments.received")
+                    : $t("payments.pending")
+                  : $t("payments.sent")}
               {/if}
             </div>
           </div>
@@ -116,12 +121,12 @@
       <div class="text-secondary text-right text-sm my-auto col-span-3">
         <div>
           {format(new Date(p.created), "h:mm aaa", {
-            locale: locales[user.language],
+            locale: locales[language],
           })}
         </div>
         <div>
           {format(new Date(p.created), "MMM d, yy", {
-            locale: locales[user.language],
+            locale: locales[language],
           })}
         </div>
       </div>
