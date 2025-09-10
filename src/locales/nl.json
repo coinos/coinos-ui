@@ -89,7 +89,7 @@
 		"header": "Veelgestelde vragen",
 		"cost": {
 			"question": "Wat kost het?",
-			"answer": "Het ontvangen van betalingen op jouw rekening is gratis. Verzendingen naar externe portemonnees krijgen een vergoeding die afhankelijk zijn van het Bitcoin (lightning) netwerk."
+			"answer": "Het ontvangen van betalingen op jouw rekening is gratis. Verzenden naar andere Coinos is gratis. Verzendingen naar externe portemonnees zijn gratis als je hetzelfde netwerk gebruikt waar je van ontvangen hebt. In andere gevallen is er een vergoeding van 0,4% voor Bitcoin en 0,1 voor Lightning of Liquid."			
 		},
 		"compatibility": {
 			"question": "Heb ik een speciaal apparaat of software nodig?",
@@ -97,15 +97,15 @@
 		},
 		"safety": {
 			"question": "Wanneer is mijn transactie geregeld?",
-			"answer": "Bitcoin Lightning betalingen worden onmiddellijk verrekend. Je kunt jouw ontvangen transacties binnen enkele seconden besteden. Bitcoin On-chain stortingen duren gemiddeld 10 minuten voordat deze bevestigd zijn. In uitzonderlijke gevallen kan dit langer duren."
+			"answer": "Coinos werkt op elk apparaat met Internet en een webbrowser. Je ontvangt notificaties van binnenkomende betalingen in de app, via e-mail en push notificaties. We hebben een PoS terminal en bonnen printer beschikbaar voor diegenen die een fysieke notificatie willen ontvangen."
 		},
 		"pos": {
 			"question": "Kan ik Coinos combineren met mijn bestaande kassasysteem?",
-			"answer": "Wij raden aan om de verkoop in jouw bestaande kassasysteem als cash transacties aan te slaan."
+			"answer": "We kunnen verkopen automatisch in Square vastleggen. Als je een ander kassasysteem gebruikt, raden we aan Bitcoin als cash in jouw bestaande kassasysteem aan te slaan."
 		},
 		"bitcoin": {
 			"question": "Wat kan ik doen met Bitcoin?",
-			"answer": "Geef het door aan andere handelaren of betaal je kosten ermee door je personeel, leveranciers en verhuurder te vragen Bitcoin aan te nemen."
+			"answer": "Geef het door aan andere handelaren of betaal je kosten ermee door je personeel, leveranciers en verhuurder te vragen Bitcoin aan te nemen. Of spaar het voor de lange termijn."
 		}
 	},
 	"footer": {
@@ -132,7 +132,7 @@
 		},
 		"step3": {
 			"header": "3. Dat is alles!",
-			"description": "Besteed jouw Bitcoin sats makkelijk uit of spaar een deel op."
+			"description": "Makkelijk toch?! Laat het ons weten wanneer je er klaar voor bent jouw bedrijf te promoten bij de Bitcoin community."
 		}
 	},
 	"invoice": {
@@ -372,15 +372,15 @@
 			"NOSTR": "NOST",
 			"tip": "Standaard tip",
 			"tipDesc": "Standaard tippercentage bij het automatisch betalen van vertrouwde gebruikers",
-			"connectSquare": "Verbinden met vierkant",
-			"revokeSquare": "Vierkante verbinding ongedaan maken",
+			"connectSquare": "Verbinden met Square",
+			"revokeSquare": "Square verbinding ongedaan maken",
 			"confirmAutoWithdrawal": "Auto-opnameinstellingen bevestigen",
-			"confirmAutoWithdrawalDesc": "Je auto opnames zijn uitgeschakeld. Controleer uw bestemmingsadres voordat u ze opnieuw opent of verwijder het adres om dit bericht te verwerpen.",
+			"confirmAutoWithdrawalDesc": "Je auto opnames zijn uitgeschakeld. Controleer uw bestemmingsadres voordat u deze opnieuw toevoegd of verwijder het adres om dit bericht te verwijderen.",
 			"newPasswordDesc": "(Laat leeg om ongewijzigd te blijven)",
-			"yourUsername": "Uw gebruikersnaam is",
-			"yourPassword": "en uw wachtwoord is",
+			"yourUsername": "Uw gebruikersnaam is:",
+			"yourPassword": "Uw wachtwoord is:",
 			"welcome": "Welkom!",
-			"clickBelow": "Klik hieronder om uw account in te stellen"
+			"clickBelow": "Klik hieronder om het aanmaken van uw account af te ronden"
 		},
 		"support": {
 			"header": "Ondersteuning",
@@ -388,12 +388,12 @@
 			"accountName": "Accountnaam",
 			"message": "Bericht",
 			"send": "Verzenden",
-			"fillForm": "Vul dit formulier of e-mail ons direct bij",
-			"doOurBest": "en we zullen ons best doen om tijdig bij je terug te komen.",
+			"fillForm": "Vul dit formulier in of stuur een e-mail naar",
+			"doOurBest": "en we zullen ons best doen om tijdig bij je terug te komen",
 			"thankYou": "Dank je!",
 			"beInTouch": "Er neemt zo iemand contact op."
 		},
-		"lnurl": "Herbruikbare betalingscode"
+		"lnurl": "Betalingscode"
 	},
 	"payments": {
 		"ok": "Ok",
@@ -405,12 +405,12 @@
 		"newVersion": "Nieuwe versie",
 		"income": "Ontvangen",
 		"subtotal": "Subtotaal",
-		"expenditure": "Gewenst",
+		"expenditure": "Uitgegeven",
 		"spent": "Reeds uitgegeven",
 		"mint": "Munt",
 		"ecash": "Ecash",
 		"memo": "Notities",
-		"voucherText": "Vul een ecash token of Inurlw-code in",
+		"voucherText": "Vul een Ecash token of LNURLw-code in",
 		"createEcash": "Mint ecash",
 		"lnurlw": "LNURLw",
 		"tips": "Fooien",
@@ -426,7 +426,7 @@
 		"ecashDesc": "Ecash tokens worden gefinancierd met Bitcoin. Ze kunnen worden ingewisseld in ruil voor een lightning betaling gelijk aan hun waarde of elk moment worden teruggehaald in een coinos rekening. Ze kunnen ook geheel of gedeeltelijk worden overgedragen naar andere ecash portemonnees. Je zou ze kunnen gebruiken om Bitcoin te geven aan iemand die geen portemonnee heeft door de token naar hen te sms'en of een link te delen. Meer informatie op",
 		"ecashToken": "Ecash token",
 		"medium": "Middel",
-		"maxFeeDesc": "Stel een bovengrens in voor de de kosten van de netwerkroutering. Indien deze te laag is ingesteld kan de betaling mislukken. Je kunt het hoger zetten en het opnieuw proberen. We debiteren het volledige bedrag tijdens het proberen van de betaling, maar crediteren elk ongebruikte deel.",
+		"maxFeeDesc": "Stel een bovengrens in voor de kosten van de netwerkroutering. Als deze te laag is ingesteld kan de betaling mislukken. Je kunt het hoger instellen en het opnieuw proberen. We debiteren het volledige bedrag tijdens de betalingpoging, maar crediteren het ongebruikte deel.",
 		"slow": "Langzaam",
 		"create": "Aanmaken",
 		"fund": "Fonds",
@@ -439,7 +439,7 @@
 		"voucher": "Betalingscode",
 		"qr": "QR",
 		"copy": "Kopiëren",
-		"amountPrompt": "Waarschuwing voor bedrag",
+		"amountPrompt": "Vraag om bedrag",
 		"shareLink": "Delen",
 		"copyLink": "Verwijzing kopiëren",
 		"copyText": "Tekst kopiëren",
@@ -456,7 +456,7 @@
 		"details": "Transactiedetails",
 		"header": "Betalingen",
 		"preimage": "Lightning afbeelding",
-		"maxfee": "Maximale routingvergoeding",
+		"maxfee": "Maximale routeringvergoeding",
 		"type": "Type",
 		"time": "Tijd",
 		"sent": "Verzonden",
