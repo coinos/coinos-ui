@@ -110,7 +110,7 @@
 		},
 		"pos": {
 			"question": "Can Coinos integrate with my existing PoS?",
-			"answer": "We can log sales into Square. If you're using something else, you can record Bitcoin sales as \"cash\"."
+			"answer": "We can log sales into Square automatically. On other systems you might choose to record Bitcoin sales under \"cash\"."
 		},
 		"bitcoin": {
 			"question": "What can I do with Bitcoin?",
