@@ -7,10 +7,8 @@
   let { users } = data;
 
   let bounties = [
-    "Clothing Store",
     "Hardware Store",
     "Gas Station",
-    "Shoe Repair",
     "Dollar Store",
     "Book Store",
     "Gift Shop",
@@ -71,7 +69,7 @@
   <h2 class="text-2xl font-bold">Previously Awarded</h2>
 
   <div class="flex flex-col gap-4">
-    {#each users as { user, merchant, type }}
+    {#each users as { user, merchant, type, amount }}
       <article
         class="rounded-2xl border border-neutral-200 bg-white/70 p-4 shadow-sm transition hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/60 sm:max-w-xl"
       >
@@ -117,7 +115,7 @@
               class="text-yellow-300"
             />
             <span class="text-sm font-semibold tabular-nums">
-              {s(1000000, "en-CA")}
+              {s(amount, "en-CA")}
             </span>
           </div>
         </div>
