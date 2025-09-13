@@ -78,3 +78,14 @@ const giftWrap = (event: object, receiverPK: string) => {
 
     return finalizeEvent(giftWrapEvent, secretKey);
 }
+
+export const decryptNIP17MessageNIP07 = async (text: string): string => {
+    const wrapped = JSON.parse(text);
+    const sealedText = await window.nostr.nip44.decrypt(
+        wrapped.pubkey, wrapped.content);
+    const sealed = JSON.parse(sealedText);
+    const rumourText = await window.nostr.nip44.decrypt(
+        sealed.pubkey, sealed.content);
+    const rumour = JSON.parse(rumourText);
+    return rumour.content;
+}

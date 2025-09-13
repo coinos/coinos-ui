@@ -1,8 +1,8 @@
 <script lang="ts">
  import Icon from "$comp/Icon.svelte";
  import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
- import * as nip17 from 'nostr-tools/nip17';
- import { createNIP17MessageSK, createNIP17MessageNIP07 } from '$lib/nip17';
+ import * as toolsnip17 from 'nostr-tools/nip17';
+ import * as libnip17 from '$lib/nip17';
  import { sign, getPrivateKey } from '$lib/nostr';
 
  let { data } = $props();
@@ -13,15 +13,27 @@
  const btnCreateMessage = async () => {
    let event;
    if (window.nostr) {
-     event = await createNIP17MessageNIP07(
+     event = await libnip17.createNIP17MessageNIP07(
        text, user.pubkey, recipient.pubkey);
    } else {
      const sk = await getPrivateKey(user);
-     event = createNIP17MessageSK(text, sk, recipient.pubkey);
+     event = libnip17.createNIP17MessageSK(text, sk, recipient.pubkey);
    }
 
    // TODO send event to relays instead of displaying it
    text = JSON.stringify(event);
+ }
+
+ const btnDecryptMessage = async () => {
+   if (window.nostr) {
+     text = await libnip17.decryptNIP17MessageNIP07(text);
+   } else {
+     // TODO get events from relays instead of the text box
+     const wrapped = JSON.parse(text);
+     const sk = await getPrivateKey(user);
+     const rumour = toolsnip17.unwrapEvent(wrapped, sk);
+     text = rumour.content;
+   }
  }
 </script>
 
@@ -43,5 +55,6 @@
         <textarea id="message-contents" bind:value={text}></textarea>
 
         <input type="button" class="btn" value="Generate Message" on:click={btnCreateMessage}>
+        <input type="button" class="btn" value="Decrypt Message" on:click={btnDecryptMessage}>
     </div>
 </div>
