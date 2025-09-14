@@ -15,7 +15,8 @@
     return binaryString;
   }
 
-  let { form } = $props();
+  let { data, form } = $props();
+  let { token } = $state(data);
 
   const address = 0x3d0000;
   const baudrate = 921600;
@@ -23,12 +24,10 @@
   let file = $state();
   let ssid = $state();
   let key = $state();
-  let token = $state();
   let esploader = $state();
-  let data = $derived(form ? hex.decode(form.data) : undefined);
+  let bytes = $derived(form ? hex.decode(form.bytes) : undefined);
 
   let chip, transport;
-  // let data = $state();
   let connect = async () => {
     try {
       let device = await navigator.serial.requestPort({});
@@ -47,7 +46,7 @@
 
   let progress = $state();
   let flash = async () => {
-    let fileArray = [{ data: bs(data), address }];
+    let fileArray = [{ data: bs(bytes), address }];
 
     const flashOptions = {
       fileArray,
@@ -69,11 +68,11 @@
   </h1>
 
   {#if esploader}
-    {#if data}
+    {#if bytes}
       {#if progress}
         <div class="text-center text-2xl">Done!</div>
       {:else}
-        <div>Generated config file (<b>{data.length * 2} bytes</b>)</div>
+        <div>Generated config file (<b>{bytes.length * 2} bytes</b>)</div>
         <button class="btn" onclick={flash}>Flash</button>
       {/if}
     {:else}
