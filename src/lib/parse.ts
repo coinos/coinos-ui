@@ -58,7 +58,10 @@ export default async (s, host) => {
 	if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
 	if (t.includes(":")) t = t.split(":")[1];
 
-	if (t.toLowerCase().startsWith("ln")) {
+	if (t.toLowerCase().startsWith("lnr")) {
+		const { iid } = await post("/sendinvoice", { invstring: t });
+		invoice = { id: iid };
+	} else if (t.toLowerCase().startsWith("ln")) {
 		try {
 			invoice = await get(`/invoice/${t}`);
 			if (invoice.user.username === "mint") throw new Error("mint payment");
