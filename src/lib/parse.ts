@@ -1,10 +1,10 @@
 import { PUBLIC_DOMAIN } from "$env/static/public";
 import { decode } from "$lib/bip21";
-import { get, isLiquid, post, sats } from "$lib/utils";
+import { auth, get, isLiquid, post, sats } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 import { validate } from "bitcoin-address-validation";
 
-export default async (s, host) => {
+export default async (s, host, cookies) => {
 	if (!s) return;
 	let t = s.trim();
 	let amount;
@@ -59,7 +59,7 @@ export default async (s, host) => {
 	if (t.includes(":")) t = t.split(":")[1];
 
 	if (t.toLowerCase().startsWith("lnr")) {
-		const { iid } = await post("/sendinvoice", { invstring: t });
+		const { iid } = await post("/sendinvoice", { invreq: t }, auth(cookies));
 		invoice = { id: iid };
 	} else if (t.toLowerCase().startsWith("ln")) {
 		try {
