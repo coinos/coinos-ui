@@ -9,16 +9,16 @@ export async function load({ cookies, depends, params, parent, url }) {
 	if (!user) redirect(307, "/login");
 	const { text } = params;
 
-	await parse(text, url.host);
+	await parse(text, url.host, cookies);
 	const contacts = await get(`/contacts/${limit}`, auth(cookies));
 
 	return { contacts };
 }
 
 export const actions = {
-	default: async ({ request, url }) => {
+	default: async ({ cookies, request, url }) => {
 		const { text } = await fd(request);
-		await parse(text, url.host);
+		await parse(text, url.host, cookies);
 		return fail(400, { error: "default" });
 	},
 };
