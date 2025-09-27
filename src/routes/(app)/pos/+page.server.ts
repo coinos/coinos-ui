@@ -3,7 +3,12 @@ import { auth, fd, get } from "$lib/utils";
 import { hex } from "@scure/base";
 
 export async function load({ cookies }) {
-	const token = await get("/ro", auth(cookies));
+	let token;
+
+	try {
+		token = await get("/ro", auth(cookies));
+	} catch (e) {}
+
 	return { token };
 }
 
