@@ -488,3 +488,5 @@ export const register = async (user, ip, cookies, loginRedirect) => {
 	if (error) return svelteFail(400, { error });
 	redirect(303, loginRedirect || `/${user.username}`);
 };
+
+export const captchas = new Set();
