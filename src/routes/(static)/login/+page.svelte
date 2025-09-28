@@ -36,7 +36,7 @@
     if (lang) document.cookie = `lang=${lang} ;`;
   });
 
-  let { challenge } = $derived(data);
+  let { challenge, captcha } = $derived(data);
   let token = $state("");
 
   let cancel = () => (need2fa = false);
@@ -142,6 +142,7 @@
   >
     <input type="hidden" name="loginRedirect" value={redirect} />
     <input type="hidden" name="token" value={token} />
+    <input type="hidden" name="captcha" value={captcha} />
 
     <input
       name="username"
