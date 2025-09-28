@@ -2,11 +2,16 @@
  import Icon from "$comp/Icon.svelte";
  import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
  import * as toolsnip17 from 'nostr-tools/nip17';
+ import { SimplePool } from 'nostr-tools/pool';
  import * as libnip17 from '$lib/nip17';
  import { sign, getPrivateKey } from '$lib/nostr';
 
  let { data } = $props();
  const { user, recipient } = data;
+
+ const pool = new SimplePool();
+ import { PUBLIC_DM_RELAYS } from '$env/static/public';
+ const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
 
  let text = $state("");
 
@@ -20,8 +25,7 @@
      event = libnip17.createNIP17MessageSK(text, sk, recipient.pubkey);
    }
 
-   // TODO send event to relays instead of displaying it
-   text = JSON.stringify(event);
+   await Promise.any(pool.publish(DM_RELAYS_LIST, event));
  }
 
  const btnDecryptMessage = async () => {
