@@ -1,4 +1,5 @@
-import { fd, get, register } from "$lib/utils";
+import { randomUUID } from "crypto";
+import { fd, get, captchas, register } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent }) => {
@@ -7,6 +8,10 @@ export const load = async ({ parent }) => {
 
 	const index = Math.floor(Math.random() * 64) + 1;
 	const { challenge } = await get("/challenge");
+
+	const captcha = randomUUID();
+	captchas.add(captcha);
+	setTimeout(() => captchas.delete(captcha), 120000);
 
 	return { index, challenge };
 };
