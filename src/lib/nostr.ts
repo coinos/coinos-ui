@@ -117,8 +117,14 @@ export const sign = async (event, user) => {
 
 	eventToSign.set(event);
 	let unsubscribe;
-	const { method, params } = await new Promise((r) => {
-		unsubscribe = $signer.subscribe((v) => v?.ready && r(v));
+	const { method, params } = await new Promise((r, j) => {
+		unsubscribe = $signer.subscribe((v) => {
+			if (v === "cancel") {
+				j("cancelled");
+				$signer.set(undefined);
+			}
+			v?.ready && r(v);
+		});
 	});
 	await unsubscribe();
 	const signedEvent = await signingMethods[method](event, params);

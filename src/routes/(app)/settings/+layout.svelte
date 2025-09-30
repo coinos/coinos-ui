@@ -133,8 +133,7 @@
           event = await sign(event, user);
           send(event);
         } catch (e) {
-          console.log(e);
-          warning("Nostr profile could not be updated");
+          warning("Nostr profile not updated");
         }
       }
 
@@ -209,9 +208,7 @@
         {$t("user.settings.header")}
       </h1>
 
-      <div
-        class="flex flex-wrap justify-around items-center border-b pb-3"
-      >
+      <div class="flex flex-wrap justify-around items-center border-b pb-3">
         {#each tabs as { name, key }}
           <a
             href={`/settings/${name}`}
