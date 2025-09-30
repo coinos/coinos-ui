@@ -25,8 +25,8 @@
   let cancel = () => {
     eventToSign.set();
     showNsec = false;
-    pubkey = undefined;
     connectUrl = undefined;
+    $signer = "cancel";
   };
 
   let signerAvailable = $derived(
