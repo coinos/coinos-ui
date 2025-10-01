@@ -36,7 +36,7 @@
     if (lang) document.cookie = `lang=${lang} ;`;
   });
 
-  let { challenge, captcha } = $derived(data);
+  let { challenge } = $derived(data);
   let token = $state("");
 
   let cancel = () => (need2fa = false);
@@ -107,7 +107,6 @@
       formData.append("loginRedirect", redirect);
       formData.append("token", token);
       formData.append("event", JSON.stringify(signedEvent));
-      formData.append("challenge", challenge);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
@@ -142,7 +141,7 @@
   >
     <input type="hidden" name="loginRedirect" value={redirect} />
     <input type="hidden" name="token" value={token} />
-    <input type="hidden" name="captcha" value={captcha} />
+    <input type="hidden" name="challenge" value={challenge} />
 
     <input
       name="username"
