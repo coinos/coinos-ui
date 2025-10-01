@@ -1,5 +1,4 @@
-import { randomUUID } from "crypto";
-import { fd, get, captchas, register } from "$lib/utils";
+import { fd, get, register } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent }) => {
@@ -9,10 +8,6 @@ export const load = async ({ parent }) => {
 	const index = Math.floor(Math.random() * 64) + 1;
 	const { challenge } = await get("/challenge");
 
-	const captcha = randomUUID();
-	captchas.add(captcha);
-	setTimeout(() => captchas.delete(captcha), 120000);
-
 	return { index, challenge };
 };
 
@@ -20,11 +15,11 @@ export const actions = {
 	default: async ({ cookies, request }) => {
 		const ip = request.headers.get("cf-connecting-ip");
 		const form = await fd(request);
-		const { picture, username, password } = form;
+		const { picture, username, password, challenge } = form;
 		let { loginRedirect } = form;
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
-		const user = { picture, username, password };
+		const user = { picture, username, password, challenge };
 		return register(user, ip, cookies, loginRedirect);
 	},
 };
