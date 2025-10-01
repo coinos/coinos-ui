@@ -64,7 +64,9 @@
         <p>Received Messages:</p>
         <ul>
             {#each events as evt}
-                <li>{new Date(evt.created_at * 1000)}: &quot;{evt.content}&quot;</li>
+                {#if evt.pubkey === recipient.pubkey || evt.pubkey === user.pubkey}
+                    <li>{new Date(evt.created_at * 1000)}: &quot;{evt.content}&quot;</li>
+                {/if}
             {/each}
         </ul>
 
