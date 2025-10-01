@@ -44,6 +44,16 @@
      return toolsnip17.unwrapEvent(event, sk);
    }
  }
+
+ const dmName = (pubkey: string): string => {
+   if (pubkey === user.pubkey) {
+     return user.username;
+   } else if (pubkey === recipient.pubkey) {
+     return recipient.username;
+   } else {
+     return pubkey;
+   }
+ }
 </script>
 
 <div class="container">
@@ -61,11 +71,11 @@
         >Direct Messages</h1>
         <p>You are sending nostr messages to {recipient.username}.</p>
 
-        <p>Received Messages:</p>
+        <p>Past Messages:</p>
         <ul>
             {#each events as evt}
                 {#if evt.pubkey === recipient.pubkey || evt.pubkey === user.pubkey}
-                    <li>{new Date(evt.created_at * 1000)}: &quot;{evt.content}&quot;</li>
+                    <li>[{new Date(evt.created_at * 1000).toISOString()}] {dmName(evt.pubkey)}: &quot;{evt.content}&quot;</li>
                 {/if}
             {/each}
         </ul>
