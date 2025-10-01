@@ -12,8 +12,16 @@
  const pool = new SimplePool();
  import { PUBLIC_DM_RELAYS } from '$env/static/public';
  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+ const DM_FETCH_LIMIT = 256;
 
  let text = $state("");
+ let events = $state([]);
+
+ pool.querySync(DM_RELAYS_LIST,
+                { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT })
+     .then(wrapped =>
+       Promise.all(wrapped.map(decryptMessage))
+              .then(rumours => events = rumours));
 
  const btnCreateMessage = async () => {
    let event;
@@ -28,15 +36,12 @@
    await Promise.any(pool.publish(DM_RELAYS_LIST, event));
  }
 
- const btnDecryptMessage = async () => {
+ const decryptMessage = async (event: object): object => {
    if (window.nostr) {
-     text = await libnip17.decryptNIP17MessageNIP07(text);
+     return await libnip17.decryptNIP17MessageNIP07(event);
    } else {
-     // TODO get events from relays instead of the text box
-     const wrapped = JSON.parse(text);
      const sk = await getPrivateKey(user);
-     const rumour = toolsnip17.unwrapEvent(wrapped, sk);
-     text = rumour.content;
+     return toolsnip17.unwrapEvent(event, sk);
    }
  }
 </script>
@@ -56,9 +61,15 @@
         >Direct Messages</h1>
         <p>You are sending nostr messages to {recipient.username}.</p>
 
+        <p>Received Messages:</p>
+        <ul>
+            {#each events as evt}
+                <li>{new Date(evt.created_at * 1000)}: &quot;{evt.content}&quot;</li>
+            {/each}
+        </ul>
+
         <textarea id="message-contents" bind:value={text}></textarea>
 
-        <input type="button" class="btn" value="Generate Message" on:click={btnCreateMessage}>
-        <input type="button" class="btn" value="Decrypt Message" on:click={btnDecryptMessage}>
+        <input type="button" class="btn" value="Send Message" on:click={btnCreateMessage}>
     </div>
 </div>
