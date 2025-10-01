@@ -14,17 +14,8 @@ export const actions = {
 		const form = await fd(request);
 		let { username, password, token, loginRedirect, challenge } = form;
 
-		try {
-			await post("/challenge/verify", { challenge });
-		} catch (e) {
-			return fail(400, {
-				error: "Login form expired",
-				message: "Login form expired",
-				...form,
-			});
-		}
-
 		const user = {
+      challenge,
 			username,
 			password,
 			token,
