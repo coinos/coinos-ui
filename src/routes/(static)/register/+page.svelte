@@ -277,6 +277,7 @@
       value={$loginRedirect || $page.url.searchParams.get("redirect")}
     />
     <input type="hidden" name="token" value={token} />
+    <input type="hidden" name="challenge" value={challenge} />
 
     <label
       for="username"

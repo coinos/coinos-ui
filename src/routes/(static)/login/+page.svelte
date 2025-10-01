@@ -107,6 +107,7 @@
       formData.append("loginRedirect", redirect);
       formData.append("token", token);
       formData.append("event", JSON.stringify(signedEvent));
+      formData.append("challenge", challenge);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
