@@ -73,7 +73,7 @@
     <a
       class="hover:opacity-80"
       data-sveltekit-preload-data="false"
-      href="/{data.recipient}"
+      href="/{data.recipient.username}"
     >
         <Icon icon="arrow-left" style="w-10" />
     </a>
