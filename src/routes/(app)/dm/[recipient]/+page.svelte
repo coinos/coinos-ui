@@ -17,14 +17,17 @@
  let text = $state("");
  let events = $state([]);
 
- pool.querySync(DM_RELAYS_LIST,
-                { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT })
-     .then(wrapped =>
-       Promise.all(wrapped.map(decryptMessage))
-              .then(rumours => {
-                events = rumours;
-                events.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
-     }));
+ const loadEvents = () => {
+   const filter = { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT };
+   pool.querySync(DM_RELAYS_LIST, filter).then(wrapped =>
+     Promise.all(wrapped.map(decryptMessage))
+            .then(rumours => {
+              events = rumours;
+              events.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
+   }));
+ }
+
+ loadEvents();
 
  const btnCreateMessage = async () => {
    let event1, event2;
@@ -43,6 +46,7 @@
    const p1 = Promise.any(pool.publish(DM_RELAYS_LIST, event1));
    const p2 = Promise.any(pool.publish(DM_RELAYS_LIST, event2));
    await Promise.all([p1, p2]);
+   loadEvents();
  }
 
  const decryptMessage = async (event: object): object => {
