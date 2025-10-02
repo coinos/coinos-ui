@@ -21,7 +21,10 @@
                 { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT })
      .then(wrapped =>
        Promise.all(wrapped.map(decryptMessage))
-              .then(rumours => events = rumours));
+              .then(rumours => {
+                events = rumours;
+                events.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
+     }));
 
  const btnCreateMessage = async () => {
    let event;
