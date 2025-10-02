@@ -84,7 +84,7 @@
         <ul>
             {#each events as evt}
                 {#if evt.pubkey === recipient.pubkey || evt.pubkey === user.pubkey}
-                    <li>[{new Date(evt.created_at * 1000).toISOString()}] {dmName(evt.pubkey)}: &quot;{evt.content}&quot;</li>
+                    <li>[{new Date(evt.created_at * 1000).toISOString()}] {dmName(evt.pubkey)}: {evt.content}</li>
                 {/if}
             {/each}
         </ul>
