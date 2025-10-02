@@ -7,17 +7,23 @@ const randomTimestamp = () => Math.floor(
     Date.now() / 1000 - Math.random() * TWO_DAYS);
 
 // Create a NIP-17 message using a provided sender secret key.
-export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receiverPK: string) => {
+// If wrapPK is specified and different than receiverPK,
+// the message will be gift-wrapped to wrapPK
+// but the rumour will be sent to receiverPK.
+export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receiverPK: string, wrapPK: string = null) => {
     const rumour = createRumour(text, getPublicKey(senderSK), receiverPK);
-    const sealed = sealRumourSK(rumour, senderSK, receiverPK);
-    return giftWrap(sealed, receiverPK);
+    const sealed = sealRumourSK(rumour, senderSK, wrapPK || receiverPK);
+    return giftWrap(sealed, wrapPK || receiverPK);
 }
 
 // Create a NIP-17 message using NIP-07, requiring no sender secret key.
-export const createNIP17MessageNIP07 = async (text: string, senderPK: string, receiverPK: string) => {
+// If wrapPK is specified and different than receiverPK,
+// the message will be gift-wrapped to wrapPK
+// but the rumour will be sent to receiverPK.
+export const createNIP17MessageNIP07 = async (text: string, senderPK: string, receiverPK: string, wrapPK: string = null) => {
     const rumour = createRumour(text, senderPK, receiverPK);
-    const sealed = await sealRumourNip07(rumour, receiverPK);
-    return giftWrap(sealed, receiverPK);
+    const sealed = await sealRumourNip07(rumour, wrapPK || receiverPK);
+    return giftWrap(sealed, wrapPK || receiverPK);
 }
 
 const createRumour = (text: string, senderPK: string, receiverPK: string) => {

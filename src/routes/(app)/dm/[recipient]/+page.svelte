@@ -27,16 +27,22 @@
      }));
 
  const btnCreateMessage = async () => {
-   let event;
+   let event1, event2;
    if (window.nostr) {
-     event = await libnip17.createNIP17MessageNIP07(
+     event1 = await libnip17.createNIP17MessageNIP07(
        text, user.pubkey, recipient.pubkey);
+     event2 = await libnip17.createNIP17MessageNIP07(
+       text, user.pubkey, recipient.pubkey, user.pubkey);
    } else {
      const sk = await getPrivateKey(user);
-     event = libnip17.createNIP17MessageSK(text, sk, recipient.pubkey);
+     event1 = libnip17.createNIP17MessageSK(text, sk, recipient.pubkey);
+     event2 = libnip17.createNIP17MessageSK(
+       text, sk, recipient.pubkey, user.pubkey);
    }
 
-   await Promise.any(pool.publish(DM_RELAYS_LIST, event));
+   const p1 = Promise.any(pool.publish(DM_RELAYS_LIST, event1));
+   const p2 = Promise.any(pool.publish(DM_RELAYS_LIST, event2));
+   await Promise.all([p1, p2]);
  }
 
  const decryptMessage = async (event: object): object => {
