@@ -15,32 +15,39 @@
  const DM_FETCH_LIMIT = 256;
 
  let text = $state("");
- let events = $state([]);
+ let messageRumours = $state([]);
 
- const loadEvents = () => {
-   const filter = { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT };
-   pool.querySync(DM_RELAYS_LIST, filter).then(wrapped =>
-     Promise.all(wrapped.map(decryptMessage))
-            .then(rumours => {
-              events = rumours;
-              events.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
-   }));
+ const loadEvents = async () => {
+   const wrapped = await pool.querySync(
+     DM_RELAYS_LIST,
+     { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
+   );
+
+   // intentionally decrypting sequentially to avoid having a bunch of popups
+   let decryptedRumours = [];
+   for (event of wrapped) {
+     const rumour = await decryptMessage(event);
+     decryptedRumours.push(rumour);
+   }
+   decryptedRumours.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
+
+   messageRumours = decryptedRumours;
  }
 
  loadEvents();
 
- const btnCreateMessage = async () => {
+ const sendMessage = async (message: string) => {
    let event1, event2;
-   if (window.nostr) {
+   if (await window.nostr.getPublicKey() === user.pubkey) {
      event1 = await libnip17.createNIP17MessageNIP07(
-       text, user.pubkey, recipient.pubkey);
+       message, user.pubkey, recipient.pubkey);
      event2 = await libnip17.createNIP17MessageNIP07(
-       text, user.pubkey, recipient.pubkey, user.pubkey);
+       message, user.pubkey, recipient.pubkey, user.pubkey);
    } else {
      const sk = await getPrivateKey(user);
-     event1 = libnip17.createNIP17MessageSK(text, sk, recipient.pubkey);
+     event1 = libnip17.createNIP17MessageSK(message, sk, recipient.pubkey);
      event2 = libnip17.createNIP17MessageSK(
-       text, sk, recipient.pubkey, user.pubkey);
+       message, sk, recipient.pubkey, user.pubkey);
    }
 
    const p1 = Promise.any(pool.publish(DM_RELAYS_LIST, event1));
@@ -50,8 +57,8 @@
  }
 
  const decryptMessage = async (event: object): object => {
-   if (window.nostr) {
-     return await libnip17.decryptNIP17MessageNIP07(event);
+   if (await window.nostr.getPublicKey() === user.pubkey) {
+     return libnip17.decryptNIP17MessageNIP07(event);
    } else {
      const sk = await getPrivateKey(user);
      return toolsnip17.unwrapEvent(event, sk);
@@ -86,7 +93,7 @@
 
         <p>Past Messages:</p>
         <ul>
-            {#each events as evt}
+            {#each messageRumours as evt}
                 {#if evt.pubkey === recipient.pubkey || evt.pubkey === user.pubkey}
                     <li>[{new Date(evt.created_at * 1000).toISOString()}] {dmName(evt.pubkey)}: {evt.content}</li>
                 {/if}
@@ -95,6 +102,6 @@
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
-        <input type="button" class="btn" value="Send Message" on:click={btnCreateMessage}>
+        <input type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
     </div>
 </div>
