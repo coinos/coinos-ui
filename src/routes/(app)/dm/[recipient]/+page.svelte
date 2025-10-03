@@ -16,6 +16,26 @@
 
  let text = $state("");
  let messageRumours = $state([]);
+ let dates = $state([]);
+
+ const appendMultimap = (map: Map, key: string, value: object) => {
+   if (map.has(key)) {
+     map.get(key).push(value);
+   } else {
+     map.set(key, [value]);
+   }
+ }
+
+ const zeroPad = (num: number): string => {
+   return num < 10 ? '0' + num.toString() : num.toString();
+ }
+
+ const timeString = (date: Date): string => {
+   const hour = zeroPad(date.getHours());
+   const minute = zeroPad(date.getMinutes());
+   const second = zeroPad(date.getSeconds());
+   return `${hour}:${minute}:${second}`;
+ }
 
  const loadEvents = async () => {
    const wrapped = await pool.querySync(
@@ -24,14 +44,20 @@
    );
 
    // intentionally decrypting sequentially to avoid having a bunch of popups
-   let decryptedRumours = [];
+   let decryptedRumours = new Map();
    for (event of wrapped) {
      const rumour = await decryptMessage(event);
-     decryptedRumours.push(rumour);
+     const created = Math.floor(rumour.created_at / 86400);
+     appendMultimap(decryptedRumours, created, rumour);
    }
-   decryptedRumours.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
+   for (const [date, event] of decryptedRumours) {
+     event.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
+   }
 
    messageRumours = decryptedRumours;
+
+   dates = Array.from(messageRumours.keys());
+   dates.sort((d1, d2) => d1 - d2);
  }
 
  loadEvents();
@@ -91,14 +117,16 @@
         >Direct Messages</h1>
         <p>You are sending nostr messages to {recipient.username}.</p>
 
-        <p>Past Messages:</p>
-        <ul>
-            {#each messageRumours as evt}
-                {#if evt.pubkey === recipient.pubkey || evt.pubkey === user.pubkey}
-                    <li>[{new Date(evt.created_at * 1000).toISOString()}] {dmName(evt.pubkey)}: {evt.content}</li>
-                {/if}
-            {/each}
-        </ul>
+        {#each dates as day}
+            <p>[{new Date(day * 86400 * 1000).toDateString()}]</p>
+            <ul>
+                {#each messageRumours.get(day) as rumour}
+                    {#if rumour.pubkey === recipient.pubkey || rumour.pubkey === user.pubkey}
+                        <li>{timeString(new Date(rumour.created_at * 1000))} {dmName(rumour.pubkey)}: {rumour.content}</li>
+                    {/if}
+                {/each}
+            </ul>
+        {/each}
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
