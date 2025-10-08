@@ -11,7 +11,7 @@
         {
           alt: "Nostr",
           src: "/images/nostr.svg",
-          url: "https://coinos.io/566c166f3adab0c8fba5da015b0b3bcc8eb3696b455f2a1d43bfbd97059646a8",
+          url: "https://coinos.io/98ae4da926c471c23fd12d1ebdd5839ba82917baa618e184e0c9916d93dcf4f7",
         },
         {
           alt: "Github",
