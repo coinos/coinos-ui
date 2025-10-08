@@ -7,7 +7,7 @@
 
   let { data } = $props();
 
-  let { user, token } = data;
+  let { user, ro, token } = data;
 
   let api = PUBLIC_DOMAIN.includes("localhost")
     ? `${PUBLIC_COINOS_URL}`
@@ -16,6 +16,8 @@
   let tokenSample = token
     ? `export token="${token}"`
     : `export token=<your auth token>`;
+
+  let roSample = `export token="${ro}"`;
 </script>
 
 {#snippet cp(something)}
@@ -59,7 +61,7 @@
       or get one from the /login endpoint.
     {/if}
 
-    Save it in a variable called <b>$token</b> to run the examples.
+    Save it in a variable called <b>$token</b> to run the examples. It gives full access to your account so keep it safe.
   </p>
 
   <div
@@ -68,6 +70,19 @@
     <div class="w-full break-all">{tokenSample}</div>
     {@render cp(tokenSample)}
   </div>
+
+  {#if ro}
+    <p class="text-secondary">
+      This read-only token has permission to create invoices and fetch
+      payments but can't be used to make withdrawals
+    </p>
+    <div
+      class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center"
+    >
+      <div class="w-full break-all">{roSample}</div>
+      {@render cp(roSample)}
+    </div>
+  {/if}
 
   <h2 class="text-2xl">POST /register</h2>
   <p class="text-secondary">
@@ -92,9 +107,13 @@
     <div class="font-bold">display</div>
     <div class="col-span-2">string - spaces allowed</div>
     <div class="font-bold">currency</div>
-    <div class="col-span-2">string - three-letter ISO currency code e.g. CAD or USD</div>
+    <div class="col-span-2">
+      string - three-letter ISO currency code e.g. CAD or USD
+    </div>
     <div class="font-bold">language</div>
-    <div class="col-span-2">string - two-letter language code e.g. en, fr, es</div>
+    <div class="col-span-2">
+      string - two-letter language code e.g. en, fr, es
+    </div>
   </div>
 
   <Code sample="update" />
@@ -108,7 +127,9 @@
       <div class="font-bold">type (string, default: lightning)</div>
       <div class="col-span-2">bitcoin or lightning</div>
       <div class="font-bold">fiat (boolean, default: false)</div>
-      <div class="col-span-2">whether the amount is denominated in satoshis or local currency</div>
+      <div class="col-span-2">
+        whether the amount is denominated in satoshis or local currency
+      </div>
       <div class="font-bold">amount (numeric)</div>
       <div class="col-span-2">amount to be paid</div>
       <div class="font-bold">webhook (string, optional)</div>
@@ -116,7 +137,9 @@
         remote endpoint to call when the invoice is paid
       </div>
       <div class="font-bold">secret (string, optional)</div>
-      <div class="col-span-2">a secret value passed to the webhook to authenticate the request</div>
+      <div class="col-span-2">
+        a secret value passed to the webhook to authenticate the request
+      </div>
     </div>
   </div>
 
