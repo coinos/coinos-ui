@@ -37,6 +37,23 @@
    return `${hour}:${minute}:${second}`;
  }
 
+ const getPreferredRelays = async (pubkey: string): string[] => {
+   const events = await pool.querySync(
+     DM_RELAYS_LIST, { kinds: [10050], limit: 1, authors: [pubkey] }
+   );
+
+   let relays = [];
+   for (const event of events) {
+     for (const tag of event.tags) {
+       if (tag.length >= 2 && tag[0] == "relay") {
+         relays.push(tag[1]);
+       }
+     }
+   }
+
+   return relays;
+ }
+
  const loadEvents = async () => {
    const wrapped = await pool.querySync(
      DM_RELAYS_LIST,
