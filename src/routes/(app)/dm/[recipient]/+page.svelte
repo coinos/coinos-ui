@@ -54,10 +54,9 @@
    return relays;
  }
 
- const loadEvents = async () => {
+ const loadEvents = async (relays: string[]) => {
    const wrapped = await pool.querySync(
-     DM_RELAYS_LIST,
-     { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
+     relays, { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
    );
 
    // intentionally decrypting sequentially to avoid having a bunch of popups
@@ -77,7 +76,7 @@
    dates.sort((d1, d2) => d1 - d2);
  }
 
- loadEvents();
+ getPreferredRelays(user.pubkey).then(loadEvents);
 
  const sendMessage = async (message: string) => {
    let event1, event2;
@@ -93,10 +92,12 @@
        message, sk, recipient.pubkey, user.pubkey);
    }
 
-   const p1 = Promise.any(pool.publish(DM_RELAYS_LIST, event1));
-   const p2 = Promise.any(pool.publish(DM_RELAYS_LIST, event2));
+   const recipientRelays = await getPreferredRelays(recipient.pubkey);
+   const p1 = Promise.any(pool.publish(recipientRelays, event1));
+   const senderRelays = await getPreferredRelays(user.pubkey);
+   const p2 = Promise.any(pool.publish(senderRelays, event2));
    await Promise.all([p1, p2]);
-   loadEvents();
+   getPreferredRelays(user.pubkey).then(loadEvents);
  }
 
  const decryptMessage = async (event: object): object => {
