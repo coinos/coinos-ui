@@ -14,6 +14,8 @@
  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
  const DM_FETCH_LIMIT = 256;
 
+ let relayLists = new Map();
+
  let text = $state("");
  let messageRumours = $state([]);
  let dates = $state([]);
@@ -38,6 +40,9 @@
  }
 
  const getPreferredRelays = async (pubkey: string): string[] => {
+   if (relayLists.has(pubkey))
+     return relayLists.get(pubkey);
+
    const events = await pool.querySync(
      DM_RELAYS_LIST, { kinds: [10050], limit: 1, authors: [pubkey] }
    );
@@ -51,6 +56,9 @@
      }
    }
 
+   console.log("found", pubkey, relays);
+
+   relayLists.set(pubkey, relays);
    return relays;
  }
 
