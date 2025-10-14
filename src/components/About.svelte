@@ -22,15 +22,6 @@
     },
     { name: "cole", socials: [] },
   ];
-
-  let locations = $state();
-  onMount(async () => {
-    try {
-      ({ locations } = await fetch("/locations").then((r) => r.json()));
-    } catch (e) {
-      console.log(e);
-    }
-  });
 </script>
 
 <div class="flex justify-center">
@@ -59,9 +50,7 @@
 
               <div class="mt-2 flex justify-center items-center space-x-5">
                 {#each member.socials as { alt, src, url }}
-                  <a
-                    href={url}
-                    class={`rounded-full p-2 hover:opacity-80`}
+                  <a href={url} class={`rounded-full p-2 hover:opacity-80`}
                     ><img {src} {alt} class="w-8" /></a
                   >
                 {/each}
@@ -77,29 +66,27 @@
   </div>
 </div>
 
-{#if locations?.length}
-  <div>
-    <h3 class="text-5xl font-medium mb-5 text-center">
-      {$t("about.locations.header")}
-    </h3>
-    <p
-      class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10"
-    >
-      {@html $t("about.locations.description")}
-    </p>
+<div>
+  <h3 class="text-5xl font-medium mb-5 text-center">
+    {$t("about.locations.header")}
+  </h3>
+  <p
+    class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10"
+  >
+    {@html $t("about.locations.description")}
+  </p>
 
-    <div class="relative">
-      <a href="/map" class="contents">
-        <img src="/map.png" class="mx-auto" alt="Map" />
-      </a>
+  <div class="relative">
+    <a href="/map" class="contents">
+      <img src="/map.png" class="mx-auto" alt="Map" />
+    </a>
 
-      <a href="/map" class="contents">
-        <button
-          class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
-        >
-          {$t("about.locations.viewMap")}
-        </button>
-      </a>
-    </div>
+    <a href="/map" class="contents">
+      <button
+        class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
+      >
+        {$t("about.locations.viewMap")}
+      </button>
+    </a>
   </div>
-{/if}
+</div>
