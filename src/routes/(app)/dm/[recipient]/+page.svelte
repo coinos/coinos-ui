@@ -19,6 +19,7 @@
  let text = $state("");
  let messageRumours = $state([]);
  let dates = $state([]);
+ let warning = $state(undefined);
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -82,7 +83,13 @@
    dates.sort((d1, d2) => d1 - d2);
  }
 
- getPreferredRelays(user.pubkey).then(loadEvents);
+ getPreferredRelays(user.pubkey).then((relays) => {
+   if (!relays || relays.length == 0) {
+     warning.innerText = "WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.";
+     return;
+   }
+   loadEvents(relays);
+ });
  getPreferredRelays(recipient.pubkey).then((relays) => {
    let sendButton = document.getElementById("send-message");
    if (!relays || relays.length == 0) {
@@ -133,6 +140,12 @@
  }
 </script>
 
+<style>
+ .warning {
+     color: #ff7f00;
+ }
+</style>
+
 <div class="container">
     <a
       class="hover:opacity-80"
@@ -162,5 +175,6 @@
         <textarea id="message-contents" bind:value={text}></textarea>
 
         <input id="send-message" type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
+        <em><p class="warning" bind:this={warning}></p></em>
     </div>
 </div>
