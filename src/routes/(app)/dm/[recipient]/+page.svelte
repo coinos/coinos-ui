@@ -56,8 +56,6 @@
      }
    }
 
-   console.log("found", pubkey, relays);
-
    relayLists.set(pubkey, relays);
    return relays;
  }
@@ -85,6 +83,13 @@
  }
 
  getPreferredRelays(user.pubkey).then(loadEvents);
+ getPreferredRelays(recipient.pubkey).then((relays) => {
+   let sendButton = document.getElementById("send-message");
+   if (!relays || relays.length == 0) {
+     sendButton.disabled = true;
+     sendButton.value = `Could not find ${recipient.username}'s DM relays.`;
+   }
+ });
 
  const sendMessage = async (message: string) => {
    let event1, event2;
@@ -156,6 +161,6 @@
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
-        <input type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
+        <input id="send-message" type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
     </div>
 </div>
