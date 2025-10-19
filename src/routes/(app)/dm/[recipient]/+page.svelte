@@ -20,6 +20,8 @@
  let messageRumours = $state([]);
  let dates = $state([]);
  let warning = $state(undefined);
+ let expiryEnabled = $state(false);
+ let expiryDays = $state(7);
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -110,18 +112,19 @@
  });
 
  const sendMessage = async (message: string) => {
+   const expiry = expiryEnabled ? expiryDays : null;
    let event1, event2;
    if (await window.nostr.getPublicKey() === user.pubkey) {
      event1 = await libnip17.createNIP17MessageNIP07(
-       message, user.pubkey, recipient.pubkey);
+       message, user.pubkey, recipient.pubkey, recipient.pubkey, expiry);
      event2 = await libnip17.createNIP17MessageNIP07(
-       message, user.pubkey, recipient.pubkey, user.pubkey);
+       message, user.pubkey, recipient.pubkey, user.pubkey, expiry);
    } else {
      const sk = await getPrivateKey(user);
      event1 = libnip17.createNIP17MessageSK(
-       message, sk, recipient.pubkey);
+       message, sk, recipient.pubkey, recipient.pubkey, expiry);
      event2 = libnip17.createNIP17MessageSK(
-       message, sk, recipient.pubkey, user.pubkey);
+       message, sk, recipient.pubkey, user.pubkey, expiry);
    }
 
    console.log(Date.now() / 1000);
@@ -159,6 +162,19 @@
  .warning {
      color: #ff7f00;
  }
+
+ .inline {
+     white-space: nowrap;
+ }
+
+ .short {
+     width: 6em;
+     height: 2em;
+ }
+
+ .tiny {
+     width: 2em;
+ }
 </style>
 
 <div class="container">
@@ -189,6 +205,7 @@
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
+        <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>Enable message expiry in <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> days.
         <input id="send-message" type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
         <em><p class="warning" bind:this={warning}></p></em>
     </div>
