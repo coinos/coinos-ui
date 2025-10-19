@@ -10,20 +10,23 @@ const randomTimestamp = () => Math.floor(
 // If wrapPK is specified and different than receiverPK,
 // the message will be gift-wrapped to wrapPK
 // but the rumour will be sent to receiverPK.
-export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receiverPK: string, wrapPK: string = null) => {
+export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receiverPK: string, wrapPK: string = null, expiryDays: number = null) => {
     const rumour = createRumour(text, getPublicKey(senderSK), receiverPK);
     const sealed = sealRumourSK(rumour, senderSK, wrapPK || receiverPK);
-    return giftWrap(sealed, wrapPK || receiverPK);
+    return giftWrap(sealed, wrapPK || receiverPK, expiryDays);
 }
 
 // Create a NIP-17 message using NIP-07, requiring no sender secret key.
 // If wrapPK is specified and different than receiverPK,
 // the message will be gift-wrapped to wrapPK
 // but the rumour will be sent to receiverPK.
-export const createNIP17MessageNIP07 = async (text: string, senderPK: string, receiverPK: string, wrapPK: string = null) => {
+// If expiryDays is specified, the message will expire in that many days,
+// plus a random amount from 0 to 2 for security.
+// (expiration time = random creation time + expiryDays + 2 days)
+export const createNIP17MessageNIP07 = async (text: string, senderPK: string, receiverPK: string, wrapPK: string = null, expiryDays: number = null) => {
     const rumour = createRumour(text, senderPK, receiverPK);
     const sealed = await sealRumourNip07(rumour, wrapPK || receiverPK);
-    return giftWrap(sealed, wrapPK || receiverPK);
+    return giftWrap(sealed, wrapPK || receiverPK, expiryDays);
 }
 
 const createRumour = (text: string, senderPK: string, receiverPK: string) => {
@@ -68,16 +71,22 @@ const sealRumourNip07 = async (rumour: object, receiverPK: string) => {
     return window.nostr.signEvent(sealEvent);
 }
 
-const giftWrap = (event: object, receiverPK: string) => {
+const giftWrap = (event: object, receiverPK: string, expiryDays: number = null) => {
     const secretKey = generateSecretKey();
     const SKString = bytesToHex(secretKey);
     const conversationKey = u.getConversationKey(secretKey, receiverPK);
     const encryptedEvent = encrypt(JSON.stringify(event), conversationKey);
+    const created = randomTimestamp();
+    const tags = [["p", receiverPK]];
+    if (expiryDays != null) {
+        const expiration = created + (expiryDays + 2) * 86400;
+        tags.push(["expiration", expiration.toString()]);
+    }
 
     const giftWrapEvent = {
         kind: 1059, // gift wrap
-        created_at: randomTimestamp(),
-        tags: [["p", receiverPK]],
+        created_at: created,
+        tags: tags,
         pubkey: getPublicKey(secretKey),
         content: encryptedEvent
     }

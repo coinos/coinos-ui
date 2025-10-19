@@ -61,6 +61,15 @@
    return relays;
  }
 
+ const expired = (event: object) => {
+   for (const tag of event.tags) {
+     if (tag[0] == "expiration") {
+       return (Date.now() / 1000) >= Number(tag[1]);
+     }
+   }
+   return false;
+ }
+
  const loadEvents = async (relays: string[]) => {
    const wrapped = await pool.querySync(
      relays, { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
@@ -69,9 +78,11 @@
    // intentionally decrypting sequentially to avoid having a bunch of popups
    let decryptedRumours = new Map();
    for (event of wrapped) {
-     const rumour = await decryptMessage(event);
-     const created = Math.floor(rumour.created_at / 86400);
-     appendMultimap(decryptedRumours, created, rumour);
+     if (!expired(event)) {
+       const rumour = await decryptMessage(event);
+       const created = Math.floor(rumour.created_at / 86400);
+       appendMultimap(decryptedRumours, created, rumour);
+     } else console.log("relay contains expired event", event.id);
    }
    for (const [date, event] of decryptedRumours) {
      event.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
@@ -107,10 +118,14 @@
        message, user.pubkey, recipient.pubkey, user.pubkey);
    } else {
      const sk = await getPrivateKey(user);
-     event1 = libnip17.createNIP17MessageSK(message, sk, recipient.pubkey);
+     event1 = libnip17.createNIP17MessageSK(
+       message, sk, recipient.pubkey);
      event2 = libnip17.createNIP17MessageSK(
        message, sk, recipient.pubkey, user.pubkey);
    }
+
+   console.log(Date.now() / 1000);
+   console.log(event2.tags);
 
    const recipientRelays = await getPreferredRelays(recipient.pubkey);
    const p1 = Promise.any(pool.publish(recipientRelays, event1));
