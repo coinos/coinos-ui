@@ -17,6 +17,9 @@
   import { getPublicKey } from "nostr-tools";
   import { bytesToHex } from "@noble/hashes/utils";
 
+  import { SimplePool } from 'nostr-tools/pool';
+  import { finalizeEvent } from 'nostr-tools/pure';
+
   let { children, data, form } = $props();
 
   let formElement = $state();
@@ -45,7 +48,32 @@
   let { about, id, username } = $derived(user);
   let submitting = $state();
 
+  const pool = new SimplePool();
+  import { PUBLIC_DM_RELAYS } from '$env/static/public';
+  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+  let updateRelaysIfAvailable = async () => {
+    const relayEntry = document.getElementById('dmRelays');
+    if (!relayEntry) return;
+
+    const newRelays = relayEntry.value.split('\n');
+    const event = {
+      kind: 10050,
+      created_at: Math.floor(Date.now() / 1000),
+      tags: newRelays.map(r => ["relay", r]),
+      content: ""
+    };
+    let signed;
+    if (await window.nostr.getPublicKey() === user.pubkey) {
+      signed = await window.nostr.signEvent(event);
+    } else {
+      const sk = await getPrivateKey(user);
+      signed = finalizeEvent(event, sk);
+    }
+    await Promise.any(pool.publish(DM_RELAYS_LIST, signed));
+  }
+
   async function handleSubmit(e) {
+    updateRelaysIfAvailable();
     e.preventDefault();
     try {
       submitting = true;
