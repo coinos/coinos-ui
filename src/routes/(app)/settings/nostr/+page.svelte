@@ -18,6 +18,8 @@
   let extensionAvailable = $derived(browser && window.nostr);
   let { locale } = $derived(user);
 
+  import { SimplePool } from 'nostr-tools/pool';
+
   let newNsec = $state(),
     nsec = $state(),
     pin = $state(""),
@@ -41,6 +43,30 @@
     await tick();
     $save.click();
   };
+
+  import { PUBLIC_DM_RELAYS } from '$env/static/public';
+  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+  const pool = new SimplePool();
+  const getPreferredRelays = async (pubkey: string): string[] => {
+    const events = await pool.querySync(
+      DM_RELAYS_LIST, { kinds: [10050], limit: 1, authors: [pubkey] }
+    );
+
+    let relays = [];
+    for (const event of events) {
+      for (const tag of event.tags) {
+        if (tag.length >= 2 && tag[0] == "relay") {
+          relays.push(tag[1]);
+        }
+      }
+    }
+
+    return relays;
+  }
+  getPreferredRelays(user.pubkey).then(relays => {
+    const relayEntry = document.getElementById('dmRelays');
+    relayEntry.value = relays.join("\n");
+  });
 </script>
 
 <input type="hidden" name="challenge" value={challenge} />
