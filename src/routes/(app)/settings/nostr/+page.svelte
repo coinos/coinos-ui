@@ -18,6 +18,9 @@
   let extensionAvailable = $derived(browser && window.nostr);
   let { locale } = $derived(user);
 
+  import { SimplePool } from 'nostr-tools/pool';
+  import { finalizeEvent } from 'nostr-tools/pure';
+
   let newNsec = $state(),
     nsec = $state(),
     pin = $state(""),
@@ -41,6 +44,28 @@
     await tick();
     $save.click();
   };
+
+  const pool = new SimplePool();
+  import { PUBLIC_DM_RELAYS } from '$env/static/public';
+  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+  let dmRelaysText = $state('');
+  let updateRelays = async () => {
+    const newRelays = dmRelaysText.split('\n');
+    const event = {
+      kind: 10050,
+      created_at: Math.floor(Date.now() / 1000),
+      tags: newRelays.map(r => ["relay", r]),
+      content: ""
+    };
+    let signed;
+    if (await window.nostr.getPublicKey() === user.pubkey) {
+      signed = await window.nostr.signEvent(event);
+    } else {
+      const sk = await getPrivateKey(user);
+      signed = finalizeEvent(event, sk);
+    }
+    await Promise.any(pool.publish(DM_RELAYS_LIST, signed));
+  }
 </script>
 
 <input type="hidden" name="challenge" value={challenge} />
@@ -231,3 +256,11 @@
     {/if}
   </div>
 {/if}
+
+<p class="font-bold">
+    Preferred DM Relays
+</p>
+Direct Messages meant for you will be published to these relays.
+
+<textarea name="dmRelays" bind:value={dmRelaysText} rows={3}></textarea>
+<button onclick={updateRelays} class="btn">Update Preferred DM Relays</button>
