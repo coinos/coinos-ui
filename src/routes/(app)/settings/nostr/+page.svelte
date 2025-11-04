@@ -262,7 +262,7 @@
     Preferred DM Relays
 </span>
 <p class="text-secondary mb-1">
-    Direct Messages meant for you will be published to these relays.
+    Direct Messages meant for you will be published to these relays.  To get DMs on multiple relays, put each relay URL on its own line.
 </p>
 
 <textarea id="dmRelays" name="dmRelays" rows={3}></textarea>
