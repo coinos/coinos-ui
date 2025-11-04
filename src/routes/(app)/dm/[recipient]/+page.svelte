@@ -19,7 +19,7 @@
  let text = $state("");
  let messageRumours = $state([]);
  let dates = $state([]);
- let warning = $state(undefined);
+ let relayWarningShown = $state(false);
  let expiryEnabled = $state(false);
  let expiryDays = $state(7);
 
@@ -98,9 +98,10 @@
 
  getPreferredRelays(user.pubkey).then((relays) => {
    if (!relays || relays.length == 0) {
-     warning.innerText = "WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.";
+     relayWarningShown = true;
      return;
    }
+   relayWarningShown = false;
    loadEvents(relays);
  });
  getPreferredRelays(recipient.pubkey).then((relays) => {
@@ -163,6 +164,10 @@
      color: #ff7f00;
  }
 
+ .link {
+     text-decoration-line: underline;
+ }
+
  .inline {
      white-space: nowrap;
  }
@@ -207,6 +212,8 @@
 
         <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>Enable message expiry in <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> days.
         <input id="send-message" type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
-        <em><p class="warning" bind:this={warning}></p></em>
+        {#if relayWarningShown}
+            <p class="warning"><em>WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.  Go to <a class="link" href="/settings/nostr">your Nostr settings</a> to set your relays.</em></p>
+        {/if}
     </div>
 </div>
