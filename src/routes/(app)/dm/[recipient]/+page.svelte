@@ -194,6 +194,7 @@
         >{$t("dm.header")}</h1>
         <p>{$t("dm.recipientMsg").replace("[R]", recipient.username)}</p>
 
+        <div id="messages" style="overflow-y: scroll; max-height: 800px;">
         {#each dates as day}
             <p>[{new Date(day * 86400 * 1000).toDateString()}]</p>
             <ul>
@@ -204,6 +205,7 @@
                 {/each}
             </ul>
         {/each}
+        </div>
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
