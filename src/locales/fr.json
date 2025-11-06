@@ -24,6 +24,16 @@
 			}
 		}
 	},
+	"dm": {
+		"header": "Messages directs",
+		"recipientMsg": "Vous envoyez messages nostr à [R].",
+		"sendMessage": "Envoyez Message",
+		"expiry": "Expirez messages",
+		"days": "jours",
+		"relaysNotFound": "Ne pouvait pas trouvez les relais MD de [R].",
+		"noRelaysSet": "AVERTISSEMENT: Vous n’avez pas specifié vos relais préferés pour messages directs.  Vous ne pouvez pas reçevoir des messages ou voir les messages que vous avez envoyé.",
+		"nostrSettingsLink": "Spécifiez vos relais en vos préférences Nostr."
+	},
 	"error": {
 		"header": "Erreur",
 		"message": "S'il vous plait réessayez ou contactez l'assistance.",
@@ -236,6 +246,8 @@
 			"hours": "heures",
 			"hideSeed": "Cacher la phrase mnémotechnique",
 			"revealSeed": "Montrer la phrase mnémotechnique",
+			"preferredDM": "Relais MD Préferés",
+			"preferredDMDescription": "Messages directs destinés à vous seront publiés à ces relais.  Pour obtiendre des messages sur plusieurs relais, met chaque URL sur son propre ligne.",
 			"notifications": "Notifications de paiement",
 			"notificationsDesc": "Reçevez un email quand un paiement arrive à votre compte",
 			"seedPhrase": "Phrase mnémotechnique",
