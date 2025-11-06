@@ -92,6 +92,16 @@
 			"description": "Over 500 businesses worldwide are accepting bitcoin with Coinos. We hope that yours will be next!"
 		}
 	},
+	"dm": {
+		"header": "Direct Messages",
+		"recipientMsg": "You are sending nostr messages to [R].",
+		"sendMessage": "Send Message",
+		"expiry": "Enable message expiry",
+		"days": "days",
+		"relaysNotFound": "Could not find [R]’s DM relays.",
+		"noRelaysSet": "WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.",
+		"nostrSettingsLink": "Go to your Nostr settings to set your relays."
+	},
 	"error": {
 		"header": "Error",
 		"message": "Please try again or contact support.",
@@ -337,6 +347,8 @@
 			"revealNsec": "Reveal secret key",
 			"hideSeed": "Hide seed phrase",
 			"revealSeed": "Reveal seed phrase",
+			"preferredDM": "Preferred DM Relays",
+			"preferredDMDescription": "Direct Messages meant for you will be published to these relays.  To get DMs on multiple relays, put each relay URL on its own line.",
 			"saveSettings": "Save settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",

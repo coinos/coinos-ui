@@ -5,6 +5,7 @@
  import { SimplePool } from 'nostr-tools/pool';
  import * as libnip17 from '$lib/nip17';
  import { sign, getPrivateKey } from '$lib/nostr';
+ import { t } from "$lib/translations";
 
  let { data } = $props();
  const { user, recipient } = data;
@@ -22,6 +23,7 @@
  let relayWarningShown = $state(false);
  let expiryEnabled = $state(false);
  let expiryDays = $state(7);
+ let canSend = $state(false);
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -104,13 +106,8 @@
    relayWarningShown = false;
    loadEvents(relays);
  });
- getPreferredRelays(recipient.pubkey).then((relays) => {
-   let sendButton = document.getElementById("send-message");
-   if (!relays || relays.length == 0) {
-     sendButton.disabled = true;
-     sendButton.value = `Could not find ${recipient.username}'s DM relays.`;
-   }
- });
+ getPreferredRelays(recipient.pubkey)
+   .then((relays) => canSend = relays && relays.length > 0);
 
  const sendMessage = async (message: string) => {
    const expiry = expiryEnabled ? expiryDays : null;
@@ -194,8 +191,8 @@
     <div class="space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
         <h1
           class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
-        >Direct Messages</h1>
-        <p>You are sending nostr messages to {recipient.username}.</p>
+        >{$t("dm.header")}</h1>
+        <p>{$t("dm.recipientMsg").replace("[R]", recipient.username)}</p>
 
         {#each dates as day}
             <p>[{new Date(day * 86400 * 1000).toDateString()}]</p>
@@ -210,10 +207,10 @@
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
-        <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>Enable message expiry in <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> days.
-        <input id="send-message" type="button" class="btn" value="Send Message" on:click={async () => sendMessage(text)}>
+        <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>{$t("dm.expiry")}: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> {$t("dm.days")}.
+        <input id="send-message" type="button" class="btn" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", recipient.username)} on:click={async () => sendMessage(text)}>
         {#if relayWarningShown}
-            <p class="warning"><em>WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.  Go to <a class="link" href="/settings/nostr">your Nostr settings</a> to set your relays.</em></p>
+            <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr">{$t("dm.nostrSettingsLink")}</a></em></p>
         {/if}
     </div>
 </div>
