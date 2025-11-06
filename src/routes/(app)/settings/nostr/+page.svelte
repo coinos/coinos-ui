@@ -259,10 +259,10 @@
 {/if}
 
 <span class="font-bold">
-    Preferred DM Relays
+    {$t("user.settings.preferredDM")}
 </span>
 <p class="text-secondary mb-1">
-    Direct Messages meant for you will be published to these relays.  To get DMs on multiple relays, put each relay URL on its own line.
+    {$t("user.settings.preferredDMDescription")}
 </p>
 
 <textarea id="dmRelays" name="dmRelays" rows={3}></textarea>
