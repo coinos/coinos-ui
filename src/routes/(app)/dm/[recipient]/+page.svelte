@@ -75,6 +75,10 @@
    return false;
  }
 
+ const expirationClose = (expiration: number) => {
+   return expiration <= (Date.now() / 1000 + 2 * 86400);
+ }
+
  const loadEvents = async (relays: string[]) => {
    const wrapped = await pool.querySync(
      relays, { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
@@ -86,6 +90,11 @@
      if (!expired(event)) {
        const rumour = await decryptMessage(event);
        const created = Math.floor(rumour.created_at / 86400);
+       for (const tag of event.tags) {
+         if (tag[0] == "expiration") {
+           rumour.expiration = parseInt(tag[1]);
+         }
+       }
        appendMultimap(decryptedRumours, created, rumour);
      } else console.log("relay contains expired event", event.id);
    }
@@ -130,9 +139,6 @@
        message, sk, recipient.pubkey, user.pubkey, expiry);
    }
 
-   console.log(Date.now() / 1000);
-   console.log(event2.tags);
-
    const recipientRelays = await getPreferredRelays(recipient.pubkey);
    const p1 = Promise.any(pool.publish(recipientRelays, event1));
    const senderRelays = await getPreferredRelays(user.pubkey);
@@ -164,6 +170,10 @@
 <style>
  .warning {
      color: #ff7f00;
+ }
+
+ .expiring {
+     color: #7f7f7f;
  }
 
  .link {
@@ -205,7 +215,7 @@
             <ul>
                 {#each messageRumours.get(day) as rumour}
                     {#if rumour.pubkey === recipient.pubkey || rumour.pubkey === user.pubkey}
-                        <li>{timeString(new Date(rumour.created_at * 1000))} {dmName(rumour.pubkey)}: {rumour.content}</li>
+                        <li class={rumour.expiration && expirationClose(rumour.expiration) ? "expiring" : ""}>{timeString(new Date(rumour.created_at * 1000))} {dmName(rumour.pubkey)}: {rumour.content}</li>
                     {/if}
                 {/each}
             </ul>
@@ -215,6 +225,8 @@
         <textarea id="message-contents" bind:value={text}></textarea>
 
         <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>{$t("dm.expiry")}: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> {$t("dm.days")}.
+        <p class="expiring">{$t("dm.fadedWarning")}</p>
+
         <input id="send-message" type="button" class="btn" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", recipient.username)} on:click={async () => sendMessage(text)}>
         {#if relayWarningShown}
             <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
