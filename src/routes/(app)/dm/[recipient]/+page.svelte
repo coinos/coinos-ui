@@ -1,4 +1,5 @@
 <script lang="ts">
+ import { tick } from "svelte";
  import Icon from "$comp/Icon.svelte";
  import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
  import * as toolsnip17 from 'nostr-tools/nip17';
@@ -96,6 +97,10 @@
 
    dates = Array.from(messageRumours.keys());
    dates.sort((d1, d2) => d1 - d2);
+
+   await tick();
+   const messages = document.getElementById("messages");
+   messages.scrollTop = messages.scrollHeight;
  }
 
  getPreferredRelays(user.pubkey).then((relays) => {
@@ -194,7 +199,7 @@
         >{$t("dm.header")}</h1>
         <p>{$t("dm.recipientMsg").replace("[R]", recipient.username)}</p>
 
-        <div id="messages" style="overflow-y: scroll; max-height: 800px;">
+        <div id="messages" style="overflow-y: scroll; max-height: 400px;">
         {#each dates as day}
             <p>[{new Date(day * 86400 * 1000).toDateString()}]</p>
             <ul>
