@@ -97,6 +97,7 @@
 		"recipientMsg": "You are sending nostr messages to [R].",
 		"sendMessage": "Send Message",
 		"expiry": "Enable message expiry",
+		"fadedWarning": "To avoid metadata leaks, messages expire at a random time up to 2 days after you specify; each message has its own random expiry time.  Messages which appear faded are close to expiring; nearby messages may be missing.",
 		"days": "days",
 		"relaysNotFound": "Could not find [R]’s DM relays.",
 		"noRelaysSet": "WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.",
