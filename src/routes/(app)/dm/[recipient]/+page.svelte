@@ -212,7 +212,7 @@
         <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>{$t("dm.expiry")}: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> {$t("dm.days")}.
         <input id="send-message" type="button" class="btn" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", recipient.username)} on:click={async () => sendMessage(text)}>
         {#if relayWarningShown}
-            <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr">{$t("dm.nostrSettingsLink")}</a></em></p>
+            <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
         {/if}
     </div>
 </div>

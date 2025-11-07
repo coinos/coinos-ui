@@ -258,7 +258,7 @@
   </div>
 {/if}
 
-<span class="font-bold">
+<span class="font-bold" id="dm-relays">
     {$t("user.settings.preferredDM")}
 </span>
 <p class="text-secondary mb-1">
