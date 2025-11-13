@@ -10,9 +10,12 @@ const randomTimestamp = () => Math.floor(
 // If wrapPK is specified and different than receiverPK,
 // the message will be gift-wrapped to wrapPK
 // but the rumour will be sent to receiverPK.
+// If expiryDays is specified, the message will expire in that many days,
+// plus a random amount from 0 to 2 for security.
+// (expiration time = random creation time + expiryDays + 2 days)
 export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receiverPK: string, wrapPK: string = null, expiryDays: number = null) => {
     const rumour = createRumour(text, getPublicKey(senderSK), receiverPK);
-    const sealed = sealRumourSK(rumour, senderSK, wrapPK || receiverPK);
+    const sealed = sealRumourSK(rumour, senderSK, wrapPK || receiverPK, expiryDays);
     return giftWrap(sealed, wrapPK || receiverPK, expiryDays);
 }
 
@@ -25,7 +28,7 @@ export const createNIP17MessageSK = (text: string, senderSK: Uint8Array, receive
 // (expiration time = random creation time + expiryDays + 2 days)
 export const createNIP17MessageNIP07 = async (text: string, senderPK: string, receiverPK: string, wrapPK: string = null, expiryDays: number = null) => {
     const rumour = createRumour(text, senderPK, receiverPK);
-    const sealed = await sealRumourNip07(rumour, wrapPK || receiverPK);
+    const sealed = await sealRumourNip07(rumour, wrapPK || receiverPK, expiryDays);
     return giftWrap(sealed, wrapPK || receiverPK, expiryDays);
 }
 
@@ -41,31 +44,41 @@ const createRumour = (text: string, senderPK: string, receiverPK: string) => {
     return rumour;
 }
 
-const sealRumourSK = (rumour: object, senderSK: Uint8Array, receiverPK: string) => {
+const sealRumourSK = (rumour: object, senderSK: Uint8Array, receiverPK: string, expiryDays: number = null) => {
     const senderSKString = bytesToHex(senderSK);
     const conversationKey = u.getConversationKey(senderSKString, receiverPK);
     const encryptedRumour = encrypt(JSON.stringify(rumour), conversationKey);
 
+    const created = randomTimestamp();
     const sealEvent = {
         kind: 13, // seal
-        created_at: randomTimestamp(),
+        created_at: created,
         tags: [],
         pubkey: getPublicKey(senderSK),
         content: encryptedRumour
+    }
+    if (expiryDays != null) {
+        const expiration = created + (expiryDays + 2) * 86400;
+        sealEvent.tags.push(["expiration", expiration.toString()]);
     }
 
     return finalizeEvent(sealEvent, senderSK);
 }
 
-const sealRumourNip07 = async (rumour: object, receiverPK: string) => {
+const sealRumourNip07 = async (rumour: object, receiverPK: string, expiryDays: number = null) => {
     const encryptedRumour = await window.nostr.nip44.encrypt(
         receiverPK, JSON.stringify(rumour));
 
+    const created = randomTimestamp();
     const sealEvent = {
         kind: 13, // seal
-        created_at: randomTimestamp(),
+        created_at: created,
         tags: [],
         content: encryptedRumour
+    }
+    if (expiryDays != null) {
+        const expiration = created + (expiryDays + 2) * 86400;
+        sealEvent.tags.push(["expiration", expiration.toString()]);
     }
 
     return window.nostr.signEvent(sealEvent);
@@ -77,18 +90,17 @@ const giftWrap = (event: object, receiverPK: string, expiryDays: number = null) 
     const conversationKey = u.getConversationKey(secretKey, receiverPK);
     const encryptedEvent = encrypt(JSON.stringify(event), conversationKey);
     const created = randomTimestamp();
-    const tags = [["p", receiverPK]];
-    if (expiryDays != null) {
-        const expiration = created + (expiryDays + 2) * 86400;
-        tags.push(["expiration", expiration.toString()]);
-    }
 
     const giftWrapEvent = {
         kind: 1059, // gift wrap
         created_at: created,
-        tags: tags,
+        tags: [["p", receiverPK]],
         pubkey: getPublicKey(secretKey),
         content: encryptedEvent
+    }
+    if (expiryDays != null) {
+        const expiration = created + (expiryDays + 2) * 86400;
+        giftWrapEvent.tags.push(["expiration", expiration.toString()]);
     }
 
     return finalizeEvent(giftWrapEvent, secretKey);
