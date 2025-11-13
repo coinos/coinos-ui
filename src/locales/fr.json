@@ -29,6 +29,7 @@
 		"recipientMsg": "Vous envoyez messages nostr à [R].",
 		"sendMessage": "Envoyez Message",
 		"expiry": "Expirez messages",
+		"cantSendExpiring": "Aucun des relais de [R] expirent les messages expirants.  Vous ne pouvez pas leur envoyer des messages expirants.",
 		"fadedWarning": "Pour protéger vos métadonées, vos messages expirent à un temps randomée au maximum 2 jours après la date que vous spécifiez; chaque message a son propre temps d’expiration randomée.  Les messages qui semble faibles sont proche à expirer; les autres messages autours pouvait avoir déjà disparu.",
 		"days": "jours",
 		"relaysNotFound": "Ne pouvait pas trouvez les relais MD de [R].",
