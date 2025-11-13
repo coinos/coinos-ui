@@ -2,6 +2,7 @@
  import { tick } from "svelte";
  import Icon from "$comp/Icon.svelte";
  import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
+ import { fetchRelayInformation } from 'nostr-tools/nip11';
  import * as toolsnip17 from 'nostr-tools/nip17';
  import { SimplePool } from 'nostr-tools/pool';
  import * as libnip17 from '$lib/nip17';
@@ -25,6 +26,7 @@
  let expiryEnabled = $state(false);
  let expiryDays = $state(7);
  let canSend = $state(false);
+ let canSendExpiring = $state(false);
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -64,6 +66,20 @@
 
    relayLists.set(pubkey, relays);
    return relays;
+ }
+
+ // Accepts a list of relays, and returns a list of the relays that support all the provided NIPs.
+ const relaysSupporting = async (relays: string[], nips: number[]) => {
+   let supportingRelays = [];
+
+   for (const relay of relays) {
+     const relayInfo = await fetchRelayInformation(relay);
+     if (nips.every(relay => relayInfo.supported_nips.includes(relay))) {
+       supportingRelays.push(relay);
+     }
+   }
+
+   return supportingRelays;
  }
 
  const expired = (event: object) => {
@@ -120,8 +136,11 @@
    relayWarningShown = false;
    loadEvents(relays);
  });
- getPreferredRelays(recipient.pubkey)
-   .then((relays) => canSend = relays && relays.length > 0);
+ getPreferredRelays(recipient.pubkey).then((relays) => {
+   canSend = relays && relays.length > 0;
+   relaysSupporting(relays, [40])
+     .then((supporting) => canSendExpiring = supporting.length > 0);
+ });
 
  const sendMessage = async (message: string) => {
    const expiry = expiryEnabled ? expiryDays : null;
@@ -139,10 +158,18 @@
        message, sk, recipient.pubkey, user.pubkey, expiry);
    }
 
-   const recipientRelays = await getPreferredRelays(recipient.pubkey);
+   let recipientRelays = await getPreferredRelays(recipient.pubkey);
+   if (expiryEnabled) {
+     recipientRelays = relaysSupporting(recipientRelays, [40]);
+   }
    const p1 = Promise.any(pool.publish(recipientRelays, event1));
-   const senderRelays = await getPreferredRelays(user.pubkey);
+
+   let senderRelays = await getPreferredRelays(user.pubkey);
+   if (expiryEnabled) {
+     senderRelays = relaysSupporting(senderRelays, [40]);
+   }
    const p2 = Promise.any(pool.publish(senderRelays, event2));
+
    await Promise.all([p1, p2]);
    getPreferredRelays(user.pubkey).then(loadEvents);
  }
@@ -224,8 +251,11 @@
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
-        <input type="checkbox" class="tiny" bind:checked={expiryEnabled}>{$t("dm.expiry")}: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> {$t("dm.days")}.
+        <input type="checkbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>{$t("dm.expiry")}: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> {$t("dm.days")}.
         <p class="expiring">{$t("dm.fadedWarning")}</p>
+        {#if canSend && !canSendExpiring}
+            <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", recipient.username)}</em></p>
+        {/if}
 
         <input id="send-message" type="button" class="btn" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", recipient.username)} on:click={async () => sendMessage(text)}>
         {#if relayWarningShown}
