@@ -251,7 +251,8 @@
 
         <textarea id="message-contents" bind:value={text}></textarea>
 
-        <input type="checkbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>{$t("dm.expiry")}: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> {$t("dm.days")}.
+        <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
+        <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
         <p class="expiring">{$t("dm.fadedWarning")}</p>
         {#if canSend && !canSendExpiring}
             <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", recipient.username)}</em></p>
