@@ -55,7 +55,7 @@
     const relayEntry = document.getElementById('dmRelays');
     if (!relayEntry) return;
 
-    const newRelays = relayEntry.value.split('\n');
+    const newRelays = relayEntry.value.split(/[ \r\n\t]+/);
     const event = {
       kind: 10050,
       created_at: Math.floor(Date.now() / 1000),
