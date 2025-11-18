@@ -351,6 +351,7 @@
 			"revealSeed": "Reveal seed phrase",
 			"preferredDM": "Preferred DM Relays",
 			"preferredDMDescription": "Direct Messages meant for you will be published to these relays.  To get DMs on multiple relays, put each relay URL on its own line.",
+			"noDMURLsWarning": "You haven't set any valid relay URLs.  You will not be able to use DMs.",
 			"saveSettings": "Save settings",
 			"bannerImage": "Banner Image",
 			"profileImage": "Profile Image",

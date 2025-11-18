@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
@@ -51,11 +51,17 @@
   const pool = new SimplePool();
   import { PUBLIC_DM_RELAYS } from '$env/static/public';
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
-  let updateRelaysIfAvailable = async () => {
+  const updateRelaysIfAvailable = async () => {
     const relayEntry = document.getElementById('dmRelays');
-    if (!relayEntry) return;
+    if (!relayEntry || relayEntry.value.length === 0) return;
 
-    const newRelays = relayEntry.value.split(/[ \r\n\t]+/);
+    const newRelays = relayEntry.value.split(/[ \r\n\t]+/)
+                                .filter(isValidURL);
+    if (newRelays.length === 0) {
+      warning($t("user.settings.noDMURLsWarning"));
+      return;
+    }
+
     const event = {
       kind: 10050,
       created_at: Math.floor(Date.now() / 1000),
@@ -70,6 +76,15 @@
       signed = finalizeEvent(event, sk);
     }
     await Promise.any(pool.publish(DM_RELAYS_LIST, signed));
+  }
+
+  const isValidURL = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
   async function handleSubmit(e) {

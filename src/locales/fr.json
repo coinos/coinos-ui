@@ -250,6 +250,7 @@
 			"revealSeed": "Montrer la phrase mnémotechnique",
 			"preferredDM": "Relais MD Préferés",
 			"preferredDMDescription": "Messages directs destinés à vous seront publiés à ces relais.  Pour obtiendre des messages sur plusieurs relais, met chaque URL sur son propre ligne.",
+			"noDMURLsWarning": "Vous n'avez pas specifié aucun URL valide.  Vous ne pourrez pas utiliser les messages directs.",
 			"notifications": "Notifications de paiement",
 			"notificationsDesc": "Reçevez un email quand un paiement arrive à votre compte",
 			"seedPhrase": "Phrase mnémotechnique",
