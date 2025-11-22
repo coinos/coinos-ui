@@ -69,6 +69,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@arkade-os/sdk": "^0.3.7",
     "@capacitor/status-bar": "^7.0.3",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/vite": "^4.1.13",

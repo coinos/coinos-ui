@@ -78,7 +78,7 @@
 
   <div class="relative">
     <a href="/map" class="contents">
-      <img src="/map.png" class="mx-auto" alt="Map" />
+      <img src="/map.webp" class="mx-auto" alt="Map" />
     </a>
 
     <a href="/map" class="contents">
