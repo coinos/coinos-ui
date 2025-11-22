@@ -1,7 +1,7 @@
 import { browser } from "$app/environment";
 import { writable } from "svelte/store";
 
-const persistSession = (key, defaultValue = undefined) => {
+export const persistSession = (key, defaultValue = undefined) => {
 	const s = writable(
 		browser &&
 		sessionStorage.getItem(key) &&
@@ -17,7 +17,7 @@ const persistSession = (key, defaultValue = undefined) => {
 	return s;
 };
 
-const persistLocal = (key, defaultValue: any = undefined) => {
+export const persistLocal = (key, defaultValue: any = undefined) => {
 	const s = writable(
 		browser &&
 		localStorage.getItem(key) &&
