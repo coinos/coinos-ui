@@ -53,7 +53,7 @@
   </div>
 {/if}
 
-{#if !showQr || txt.length <= 120}
+{#if !showQr || txt?.length <= 120}
   <div
     class="break-all text-center text-secondary text-xl flex gap-1 items-center justify-center"
   >

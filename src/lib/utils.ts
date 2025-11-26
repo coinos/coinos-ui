@@ -398,6 +398,7 @@ export const wait = async (
 };
 
 export const types = {
+  ark: "ark",
 	bitcoin: "bitcoin",
 	liquid: "liquid",
 	lightning: "lightning",

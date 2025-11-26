@@ -91,7 +91,7 @@
     </button>
   </div>
 
-  {#if txt.length > 120}
+  {#if txt?.length > 120}
     <div class="w-full flex justify-center gap-2 flex-wrap">
       <button class="btn" onclick={() => (showQr = !showQr)}>
         {#if showQr}
@@ -109,29 +109,51 @@
   {/if}
 
   <div class="flex gap-2">
-    <button
-      class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.lightning}
-      class:text-secondary={type === types.lightning}
-      onclick={() => {
-        $amountPrompt = false;
-        newAmount = undefined;
-        setType(types.lightning);
-      }}
-    >
-      <div
-        class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
+    {#if aid === user.id}
+      <button
+        class="btn flex-nowrap !w-auto grow"
+        class:bg-base-300={type === types.lightning}
+        class:text-secondary={type === types.lightning}
+        onclick={() => {
+          $amountPrompt = false;
+          newAmount = undefined;
+          setType(types.lightning);
+        }}
       >
-        <div class="m-auto">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300 text-2xl"
-          ></iconify-icon>
+        <div
+          class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
+        >
+          <div class="m-auto">
+            <iconify-icon
+              noobserver
+              icon="ph:lightning-fill"
+              class="text-yellow-300 text-2xl"
+            ></iconify-icon>
+          </div>
         </div>
-      </div>
-      <div class="my-auto text-lg">Lightning</div>
-    </button>
+        <div class="my-auto text-lg">Lightning</div>
+      </button>
+    {:else}
+      <button
+        class="btn flex-nowrap !w-auto grow"
+        class:bg-base-300={type === types.ark}
+        class:text-secondary={type === types.ark}
+        onclick={() => {
+          $amountPrompt = false;
+          newAmount = undefined;
+          setType(types.ark);
+        }}
+      >
+        <div
+          class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
+        >
+          <div class="m-auto">
+            <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Bitcoin" />
+          </div>
+        </div>
+        <div class="my-auto text-lg">Ark</div>
+      </button>
+    {/if}
 
     <button
       class="btn flex-nowrap !w-auto grow"
@@ -144,10 +166,11 @@
     </button>
   </div>
 
-
-  <button type="button" class="btn" onclick={toggleType}>
-    <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
-    <img src="/images/cash.png" class="w-8 my-auto" />
-    <div class="my-auto">{t("payments.moreOptions")}</div>
-  </button>
+  {#if aid === user.id}
+    <button type="button" class="btn" onclick={toggleType}>
+      <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
+      <img src="/images/cash.png" class="w-8 my-auto" />
+      <div class="my-auto">{t("payments.moreOptions")}</div>
+    </button>
+  {/if}
 </div>
