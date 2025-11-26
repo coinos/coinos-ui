@@ -1,11 +1,7 @@
 <script>
-  import { SingleKey, Wallet } from "@arkade-os/sdk";
   import { onMount, tick } from "svelte";
   import { HDKey } from "@scure/bip32";
-
-  const identity = SingleKey.fromHex(
-    "ce66c68f8875c0c98a502c666303dc183a21600130013c06f9d1edf60207abf2",
-  );
+  import { wallet } from "$lib/ark";
 
   let loading = $state();
   let balance = $state();
@@ -18,12 +14,7 @@
     e?.preventDefault();
     loading = true;
 
-    const wallet = await Wallet.create({
-      identity,
-      arkServerUrl: "https://arkade.computer",
-    });
-
-    balance = await wallet.getBalance();
+    balance = await wallet().getBalance();
 
     loading = false;
   };

@@ -1,4 +1,5 @@
 <script>
+  import { getWallet } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -19,7 +20,7 @@
   import AppHeader from "$comp/AppHeader.svelte";
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
-  import { getCookie, warning } from "$lib/utils";
+  import { s, success, post, getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, afterNavigate, preloadData } from "$app/navigation";
 
@@ -41,10 +42,39 @@
     }
   });
 
+  let handleArkPayment = async (notification) => {
+    console.log("NOTIF", notification);
+    let amount = notification.newVtxos.reduce((a, b) => a + b.value, 0);
+    console.log("AMOUNT", amount);
+    success(`Received ⚡️${s(amount)}!`);
+    const wallet = await getWallet();
+    const address = await wallet.getAddress();
+
+    let invoice = await post(`/invoice`, {
+      invoice: { aid, type: "ark", amount },
+      user,
+    });
+
+    let p = await post(`/post/ark/receive`, {
+      amount: vtxo.value,
+      iid: invoice.id,
+    });
+
+    goto(`/invoice/${p.iid}`, {
+      invalidateAll: true,
+      noScroll: true,
+    });
+  };
+
   onMount(async () => {
     if (browser) {
       checkSocket();
       $pin = getCookie("pin");
+
+      if (user) {
+        const wallet = await getWallet();
+        wallet.notifyIncomingFunds(handleArkPayment);
+      }
 
       // if (window.NDEFReader) {
       //   try {

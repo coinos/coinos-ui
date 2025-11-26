@@ -1,4 +1,5 @@
 <script>
+  import { getWallet } from "$lib/ark";
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
   import {
@@ -8,6 +9,7 @@
     copy,
     f,
     fail,
+    success,
     get,
     types,
     sat,
@@ -97,6 +99,12 @@
       if (typeof newAmount !== "undefined") invoice.amount = newAmount;
       invoice.address_type = address_type;
       invoice.type = type;
+
+      if (type === "ark") {
+        const wallet = await getWallet();
+        invoice.hash = await wallet.getAddress();
+      }
+
       await update();
     }
     settingType = false;

@@ -11,6 +11,7 @@ export default async (s, host, cookies) => {
 	let invoice;
 	let user;
 
+  if (t.startsWith("ark")) redirect(307, `/send/ark/${t}`);
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
