@@ -1,5 +1,5 @@
 <script>
-  import { getWallet } from "$lib/ark";
+  import { getWallet, getAddress } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -43,27 +43,30 @@
   });
 
   let handleArkPayment = async (notification) => {
-    console.log("NOTIF", notification);
+    console.log("ARK payment notification:", notification);
     let amount = notification.newVtxos.reduce((a, b) => a + b.value, 0);
-    console.log("AMOUNT", amount);
+    if (!amount) return;
+
     success(`Received ⚡️${s(amount)}!`);
-    const wallet = await getWallet();
-    const address = await wallet.getAddress();
 
-    let invoice = await post(`/invoice`, {
-      invoice: { aid, type: "ark", amount },
-      user,
-    });
+    try {
+      let inv = await post(`/invoice`, {
+        invoice: { type: "ark", amount },
+        user,
+      });
 
-    let p = await post(`/post/ark/receive`, {
-      amount: vtxo.value,
-      iid: invoice.id,
-    });
+      await post(`/ark/receive`, {
+        amount,
+        iid: inv.id,
+      });
 
-    goto(`/invoice/${p.iid}`, {
-      invalidateAll: true,
-      noScroll: true,
-    });
+      goto(`/invoice/${inv.id}`, {
+        invalidateAll: true,
+        noScroll: true,
+      });
+    } catch (e) {
+      console.error("Failed to record ARK payment:", e);
+    }
   };
 
   onMount(async () => {
@@ -74,6 +77,18 @@
       if (user) {
         const wallet = await getWallet();
         wallet.notifyIncomingFunds(handleArkPayment);
+
+        // Sync ARK address with backend if changed
+        const arkAddress = await getAddress();
+        if (arkAddress !== user.arkAddress) {
+          try {
+            console.log("SYNCING", arkAddress);
+            await post("/post/user", { arkAddress });
+            user.arkAddress = arkAddress;
+          } catch (e) {
+            console.error("Failed to sync ARK address:", e);
+          }
+        }
       }
 
       // if (window.NDEFReader) {
