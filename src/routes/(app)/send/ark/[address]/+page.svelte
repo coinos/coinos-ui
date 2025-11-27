@@ -6,6 +6,7 @@
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
   import { loc, fail, s } from "$lib/utils";
+  import { getWallet } from "$lib/ark";
 
   let { data } = $props();
 
@@ -31,6 +32,8 @@
   };
 
   let send = async () => {
+    console.log("SENDING", a);
+    let wallet = await getWallet();
     const txid = await wallet.sendBitcoin({
       address,
       amount,

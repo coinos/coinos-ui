@@ -1,37 +1,40 @@
 <script>
   import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
 </script>
 
 <div class="space-y-5">
   <h1 class="text-center text-3xl font-semibold">
-    {$t("accounts.accountSetup")}
+    Choose wallet type
   </h1>
 
-  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
-    <div class="space-y-5">
-      <a href="/account/seed" class="block">
-        <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200">
-          <figure class="w-20">
-            <iconify-icon noobserver icon="ph:file-plus-bold" width="64"></iconify-icon>
-          </figure>
-          <div>
-            <div class="text-xl">{$t("accounts.create")}</div>
-            <div class="text-secondary">{$t("accounts.generateSeed")}</div>
+  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
+    <a href="/account/bitcoin" class="block">
+      <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200">
+        <figure class="w-20 flex items-center justify-center">
+          <iconify-icon noobserver icon="ph:coins-bold" width="64"></iconify-icon>
+        </figure>
+        <div>
+          <div class="text-xl">Bitcoin (On-chain)</div>
+          <div class="text-secondary">
+            Standard Bitcoin wallet secured by a 12-word seed phrase.
+            Full control over your UTXOs.
           </div>
         </div>
-      </a>
-      <a href="/account/import" class="block">
-        <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200">
-          <figure class="w-20">
-            <iconify-icon noobserver icon="ph:folder-open-bold" width="64"></iconify-icon>
-          </figure>
-          <div>
-            <div class="text-xl">{$t("accounts.import")}</div>
-            <div class="text-secondary">{$t("accounts.importSeed")}</div>
+      </div>
+    </a>
+    <a href="/account/ark" class="block">
+      <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200">
+        <figure class="w-20 flex items-center justify-center">
+          <iconify-icon noobserver icon="ph:vault-bold" width="64"></iconify-icon>
+        </figure>
+        <div>
+          <div class="text-xl">Ark (Off-chain)</div>
+          <div class="text-secondary">
+            Fast, private transactions using virtual UTXOs.
+            Lower fees with instant settlement.
           </div>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
   </div>
 </div>

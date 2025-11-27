@@ -76,19 +76,7 @@
 
       if (user) {
         const wallet = await getWallet();
-        wallet.notifyIncomingFunds(handleArkPayment);
-
-        // Sync ARK address with backend if changed
-        const arkAddress = await getAddress();
-        if (arkAddress !== user.arkAddress) {
-          try {
-            console.log("SYNCING", arkAddress);
-            await post("/post/user", { arkAddress });
-            user.arkAddress = arkAddress;
-          } catch (e) {
-            console.error("Failed to sync ARK address:", e);
-          }
-        }
+        if (wallet) wallet.notifyIncomingFunds(handleArkPayment);
       }
 
       // if (window.NDEFReader) {
