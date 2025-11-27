@@ -11,7 +11,6 @@ export async function load({ cookies, depends, params, url, parent }) {
 
 	if (id) {
 		invoice = await get(`/invoice/${id}`);
-		console.log("INV", invoice);
 		const options = !!url.searchParams.get("options");
 		let { amount, pending, received } = invoice;
 		amount = parseInt(amount);

@@ -19,7 +19,7 @@
     toggleMemo,
   } = $props();
 
-  let { aid, address_type, type } = $derived(invoice);
+  let { aid, account, address_type, type } = $derived(invoice);
 </script>
 
 <div class="text-secondary space-y-2 text-xl pt-2">
@@ -133,7 +133,9 @@
         </div>
         <div class="my-auto text-lg">Lightning</div>
       </button>
-    {:else}
+    {/if}
+
+    {#if account?.type === types.ark}
       <button
         class="btn flex-nowrap !w-auto grow"
         class:bg-base-300={type === types.ark}
@@ -148,22 +150,26 @@
           class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
         >
           <div class="m-auto">
-            <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Bitcoin" />
+            <img
+              src="/images/ark.png"
+              class="w-8 h-8 rounded-full object-cover"
+              alt="Bitcoin"
+            />
           </div>
         </div>
         <div class="my-auto text-lg">Ark</div>
       </button>
+    {:else}
+      <button
+        class="btn flex-nowrap !w-auto grow"
+        class:bg-base-300={type === types.bitcoin}
+        class:text-secondary={type === types.bitcoin}
+        onclick={() => setType(types.bitcoin)}
+      >
+        <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
+        <div class="my-auto text-lg">Bitcoin</div>
+      </button>
     {/if}
-
-    <button
-      class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.bitcoin}
-      class:text-secondary={type === types.bitcoin}
-      onclick={() => setType(types.bitcoin)}
-    >
-      <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
-      <div class="my-auto text-lg">Bitcoin</div>
-    </button>
   </div>
 
   {#if aid === user.id}

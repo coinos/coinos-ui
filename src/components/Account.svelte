@@ -1,20 +1,61 @@
 <script>
+  import { hex } from "@scure/base";
+  import WalletPass from "$comp/WalletPass.svelte";
   import { run } from "svelte/legacy";
-
+  import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
+  import { decrypt } from "nostr-tools/nip49";
+  import { arkkey } from "$lib/ark";
 
   let { user, rate, account, last } = $props();
-  let { name, seed, balance, id } = $derived(account);
+  let {
+    name,
+    seed,
+    balance,
+    id,
+    type: accountType,
+    arkAddress,
+  } = $derived(account);
 
-  let setAccount = () => (document.cookie = `aid=${id}; path=/; max-age=86400`);
-  let go = () => {
-    setAccount();
-    goto("/payments");
+  let arkBalance = $state(0);
+  let arkLoading = $state(false);
+  let passwordPrompt = $state(false);
+  let password = $state();
+  let pendingUrl = $state();
+  let cancel = $state(() => {
+    passwordPrompt = false;
+    pendingUrl = undefined;
+  });
+
+  let setAccount = (event, url) => {
+    event.preventDefault();
+    document.cookie = `aid=${id}; path=/; max-age=86400`;
+    if (isArk) {
+      pendingUrl = url;
+      if ($arkkey) goto(pendingUrl);
+      else passwordPrompt = true;
+    } else {
+      $arkkey = undefined;
+      goto(url);
+    }
   };
-  let type = $derived(seed ? "Savings" : "Cash");
+
+  let submitPassword = () => {
+    $arkkey = hex.encode(decrypt(seed, password));
+    passwordPrompt = false;
+    if (pendingUrl) {
+      goto(pendingUrl);
+      pendingUrl = undefined;
+    }
+  };
+
+  let displayType = $derived(
+    accountType === "ark" ? "Ark" : seed ? "Savings" : "Cash",
+  );
+  let isArk = $derived(accountType === "ark");
 </script>
 
 <div
@@ -43,7 +84,11 @@
   </div>
 
   <div class="flex justify-center w-full text-xl gap-2">
-    <a href={"/invoice"} class="contents" onclick={setAccount}>
+    <a
+      href={"/invoice"}
+      class="contents"
+      onclick={(e) => setAccount(e, "/invoice")}
+    >
       <button class="btn !w-auto flex-grow">
         <iconify-icon
           noobserver
@@ -55,7 +100,26 @@
       </button>
     </a>
 
-    <a href={`/send`} class="contents grow" onclick={setAccount}>
+    <a
+      href={"/payments"}
+      class="contents"
+      onclick={(e) => setAccount(e, "/payments")}
+    >
+      <button class="btn !w-auto flex-grow">
+        <iconify-icon
+          noobserver
+          icon="ph:clock-bold"
+          width="32"
+          flip="horizontal"
+        ></iconify-icon>
+      </button>
+    </a>
+
+    <a
+      href={`/send`}
+      class="contents grow"
+      onclick={(e) => setAccount(e, "/send")}
+    >
       <button type="button" class="btn !w-auto flex-grow">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
         ></iconify-icon>
@@ -64,3 +128,7 @@
     </a>
   </div>
 </div>
+
+{#if passwordPrompt}
+  <WalletPass bind:password bind:cancel submit={submitPassword} />
+{/if}
