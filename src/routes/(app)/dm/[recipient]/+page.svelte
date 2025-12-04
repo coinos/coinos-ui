@@ -160,13 +160,13 @@
 
    let recipientRelays = await getPreferredRelays(recipient.pubkey);
    if (expiryEnabled) {
-     recipientRelays = relaysSupporting(recipientRelays, [40]);
+     recipientRelays = await relaysSupporting(recipientRelays, [40]);
    }
    const p1 = Promise.any(pool.publish(recipientRelays, event1));
 
    let senderRelays = await getPreferredRelays(user.pubkey);
    if (expiryEnabled) {
-     senderRelays = relaysSupporting(senderRelays, [40]);
+     senderRelays = await relaysSupporting(senderRelays, [40]);
    }
    const p2 = Promise.any(pool.publish(senderRelays, event2));
 
