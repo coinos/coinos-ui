@@ -2,9 +2,9 @@
  import { tick } from "svelte";
  import Icon from "$comp/Icon.svelte";
  import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
- import { fetchRelayInformation } from 'nostr-tools/nip11';
  import * as toolsnip17 from 'nostr-tools/nip17';
  import { SimplePool } from 'nostr-tools/pool';
+ import { relaysSupporting } from '$lib/nip11';
  import * as libnip17 from '$lib/nip17';
  import { sign, getPrivateKey } from '$lib/nostr';
  import { t } from "$lib/translations";
@@ -13,11 +13,6 @@
  const { user, recipient } = data;
 
  const pool = new SimplePool();
- import { PUBLIC_DM_RELAYS } from '$env/static/public';
- const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
- const DM_FETCH_LIMIT = 256;
-
- let relayLists = new Map();
 
  let text = $state("");
  let messageRumours = $state([]);
@@ -36,6 +31,30 @@
    }
  }
 
+ const dateMap = (events: object[]): Map<number, object> => {
+   let eventsMap = new Map();
+   for (const event of events) {
+     const created = Math.floor(event.created_at / 86400);
+     appendMultimap(eventsMap, created, event);
+   }
+   for (const [date, dateEvents] of eventsMap) {
+     dateEvents.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
+   }
+   return eventsMap;
+ }
+
+ const loadEvents = async () => {
+   const rumours = await libnip17.getMessageRumours(user);
+   messageRumours = dateMap(rumours);
+
+   dates = Array.from(messageRumours.keys());
+   dates.sort((d1, d2) => d1 - d2);
+
+   await tick();
+   const messages = document.getElementById("messages");
+   messages.scrollTop = messages.scrollHeight;
+ }
+
  const zeroPad = (num: number): string => {
    return num < 10 ? '0' + num.toString() : num.toString();
  }
@@ -47,140 +66,14 @@
    return `${hour}:${minute}:${second}`;
  }
 
- const getPreferredRelays = async (pubkey: string): string[] => {
-   if (relayLists.has(pubkey))
-     return relayLists.get(pubkey);
-
-   const events = await pool.querySync(
-     DM_RELAYS_LIST, { kinds: [10050], limit: 1, authors: [pubkey] }
-   );
-
-   let relays = [];
-   for (const event of events) {
-     for (const tag of event.tags) {
-       if (tag.length >= 2 && tag[0] == "relay") {
-         relays.push(tag[1]);
-       }
-     }
-   }
-
-   relayLists.set(pubkey, relays);
-   return relays;
- }
-
- // Accepts a list of relays, and returns a list of the relays that support all the provided NIPs.
- const relaysSupporting = async (relays: string[], nips: number[]) => {
-   let supportingRelays = [];
-
-   for (const relay of relays) {
-     const relayInfo = await fetchRelayInformation(relay);
-     if (nips.every(relay => relayInfo.supported_nips.includes(relay))) {
-       supportingRelays.push(relay);
-     }
-   }
-
-   return supportingRelays;
- }
-
- const expired = (event: object) => {
-   for (const tag of event.tags) {
-     if (tag[0] == "expiration") {
-       return (Date.now() / 1000) >= Number(tag[1]);
-     }
-   }
-   return false;
- }
-
  const expirationClose = (expiration: number) => {
    return expiration <= (Date.now() / 1000 + 2 * 86400);
  }
 
- const loadEvents = async (relays: string[]) => {
-   const wrapped = await pool.querySync(
-     relays, { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
-   );
-
-   // intentionally decrypting sequentially to avoid having a bunch of popups
-   let decryptedRumours = new Map();
-   for (event of wrapped) {
-     if (!expired(event)) {
-       const rumour = await decryptMessage(event);
-       const created = Math.floor(rumour.created_at / 86400);
-       for (const tag of event.tags) {
-         if (tag[0] == "expiration") {
-           rumour.expiration = parseInt(tag[1]);
-         }
-       }
-       appendMultimap(decryptedRumours, created, rumour);
-     } else console.log("relay contains expired event", event.id);
-   }
-   for (const [date, event] of decryptedRumours) {
-     event.sort((ev1, ev2) => ev1.created_at - ev2.created_at);
-   }
-
-   messageRumours = decryptedRumours;
-
-   dates = Array.from(messageRumours.keys());
-   dates.sort((d1, d2) => d1 - d2);
-
-   await tick();
-   const messages = document.getElementById("messages");
-   messages.scrollTop = messages.scrollHeight;
- }
-
- getPreferredRelays(user.pubkey).then((relays) => {
-   if (!relays || relays.length == 0) {
-     relayWarningShown = true;
-     return;
-   }
-   relayWarningShown = false;
-   loadEvents(relays);
- });
- getPreferredRelays(recipient.pubkey).then((relays) => {
-   canSend = relays && relays.length > 0;
-   relaysSupporting(relays, [40])
-     .then((supporting) => canSendExpiring = supporting.length > 0);
- });
-
  const sendMessage = async (message: string) => {
    const expiry = expiryEnabled ? expiryDays : null;
-   let event1, event2;
-   if (await window.nostr.getPublicKey() === user.pubkey) {
-     event1 = await libnip17.createNIP17MessageNIP07(
-       message, user.pubkey, recipient.pubkey, recipient.pubkey, expiry);
-     event2 = await libnip17.createNIP17MessageNIP07(
-       message, user.pubkey, recipient.pubkey, user.pubkey, expiry);
-   } else {
-     const sk = await getPrivateKey(user);
-     event1 = libnip17.createNIP17MessageSK(
-       message, sk, recipient.pubkey, recipient.pubkey, expiry);
-     event2 = libnip17.createNIP17MessageSK(
-       message, sk, recipient.pubkey, user.pubkey, expiry);
-   }
-
-   let recipientRelays = await getPreferredRelays(recipient.pubkey);
-   if (expiryEnabled) {
-     recipientRelays = await relaysSupporting(recipientRelays, [40]);
-   }
-   const p1 = Promise.any(pool.publish(recipientRelays, event1));
-
-   let senderRelays = await getPreferredRelays(user.pubkey);
-   if (expiryEnabled) {
-     senderRelays = await relaysSupporting(senderRelays, [40]);
-   }
-   const p2 = Promise.any(pool.publish(senderRelays, event2));
-
-   await Promise.all([p1, p2]);
-   getPreferredRelays(user.pubkey).then(loadEvents);
- }
-
- const decryptMessage = async (event: object): object => {
-   if (await window.nostr.getPublicKey() === user.pubkey) {
-     return libnip17.decryptNIP17MessageNIP07(event);
-   } else {
-     const sk = await getPrivateKey(user);
-     return toolsnip17.unwrapEvent(event, sk);
-   }
+   await libnip17.send(message, user, recipient, expiry);
+   loadEvents();
  }
 
  const dmName = (pubkey: string): string => {
@@ -192,6 +85,21 @@
      return pubkey;
    }
  }
+
+ libnip17.getPreferredRelays(user.pubkey).then((relays) => {
+   if (!relays || relays.length == 0) {
+     relayWarningShown = true;
+     return;
+   }
+   relayWarningShown = false;
+   loadEvents();
+ });
+
+ libnip17.getPreferredRelays(recipient.pubkey).then((relays) => {
+   canSend = relays && relays.length > 0;
+   relaysSupporting(relays, [40])
+     .then((supporting) => canSendExpiring = supporting.length > 0);
+ });
 </script>
 
 <style>

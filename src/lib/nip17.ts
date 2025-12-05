@@ -1,10 +1,23 @@
 import { bytesToHex } from '@noble/hashes/utils';
+
 import { finalizeEvent, getEventHash, generateSecretKey, getPublicKey } from 'nostr-tools/pure';
+import { SimplePool } from 'nostr-tools/pool';
+import { unwrapEvent } from 'nostr-tools/nip17';
+
+import { sign, getPrivateKey } from '$lib/nostr';
+import { relaysSupporting } from '$lib/nip11';
+import { expired, expiration } from '$lib/nip40';
 import { encrypt, u } from '$lib/nip44';
 
 const TWO_DAYS = 2 * 24 * 60 * 60;
 const randomTimestamp = () => Math.floor(
     Date.now() / 1000 - Math.random() * TWO_DAYS);
+const pool = new SimplePool();
+let relayListCache = new Map();
+
+import { PUBLIC_DM_RELAYS } from '$env/static/public';
+const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+const DM_FETCH_LIMIT = 256;
 
 // Create a NIP-17 message using a provided sender secret key.
 // If wrapPK is specified and different than receiverPK,
@@ -113,4 +126,96 @@ export const decryptNIP17MessageNIP07 = async (wrapped: object): object => {
     const rumourText = await window.nostr.nip44.decrypt(
         sealed.pubkey, sealed.content);
     return JSON.parse(rumourText);
+}
+
+// Decrypts the provided message, addressed to the user.
+// If NIP-07 is available, it uses that, otherwise it uses getPrivateKey().
+export const decrypt = async (wrapped: object, user: object): object => {
+   if (await window.nostr.getPublicKey() === user.pubkey) {
+     return decryptNIP17MessageNIP07(wrapped);
+   } else {
+     const sk = await getPrivateKey(user);
+     return unwrapEvent(wrapped, sk);
+   }
+ }
+
+// Returns the rumours of the messages the provided user has sent or received.
+// If the events have an expiration timestamp,
+// that timestamp is added to its rumour object as the property `expiration`.
+export const getMessageRumours = async (user: object): object[] => {
+    const relays = await getPreferredRelays(user.pubkey);
+    const wrapped = await pool.querySync(
+        relays, { kinds: [1059], "#p": [user.pubkey], limit: DM_FETCH_LIMIT }
+    );
+
+    let rumours = [];
+    // intentionally decrypting sequentially to avoid having a bunch of popups
+    for (event of wrapped) {
+        if (expired(event)) {
+            console.log("relay(s) contain expired event", event.id);
+            continue;
+        }
+
+        const rumour = await decrypt(event, user);
+
+        const expires = expiration(event);
+        if (expires) {
+            rumour.expiration = expires;
+        }
+
+        rumours.push(rumour);
+    }
+
+    return rumours;
+}
+
+export const getPreferredRelays = async (pubkey: string): string[] => {
+    if (relayListCache.has(pubkey))
+        return relayListCache.get(pubkey);
+
+    const events = await pool.querySync(
+        DM_RELAYS_LIST, { kinds: [10050], limit: 1, authors: [pubkey] }
+    );
+
+    let relays = [];
+    for (const event of events) {
+        for (const tag of event.tags) {
+            if (tag.length >= 2 && tag[0] == "relay") {
+                relays.push(tag[1]);
+            }
+        }
+    }
+
+    relayListCache.set(pubkey, relays);
+    return relays;
+}
+
+const publishToPreferred = async (event: object, pubkey: string, expiryEnabled: boolean): Promise<string> => {
+    let preferredRelays = await getPreferredRelays(pubkey);
+    if (expiryEnabled) {
+        preferredRelays = await relaysSupporting(preferredRelays, [40]);
+    }
+    return Promise.any(pool.publish(preferredRelays, event));
+}
+
+// Sends a NIP-17 message from `user` to `recipient`.
+// If expiryDays is set, messages will expire after that many days.
+export const send = async (message: string, user: object, recipient: object, expiryDays?: number) => {
+    let event1, event2;
+    if (await window.nostr.getPublicKey() === user.pubkey) {
+        event1 = await createNIP17MessageNIP07(
+            message, user.pubkey, recipient.pubkey, recipient.pubkey, expiryDays);
+        event2 = await createNIP17MessageNIP07(
+            message, user.pubkey, recipient.pubkey, user.pubkey, expiryDays);
+    } else {
+        const sk = await getPrivateKey(user);
+        event1 = createNIP17MessageSK(
+            message, sk, recipient.pubkey, recipient.pubkey, expiryDays);
+        event2 = createNIP17MessageSK(
+            message, sk, recipient.pubkey, user.pubkey, expiryDays);
+    }
+
+    const p1 = publishToPreferred(event1, recipient.pubkey, expiryDays != null);
+    const p2 = publishToPreferred(event2, user.pubkey, expiryDays != null);
+    return Promise.all([p1, p2]);
 }
