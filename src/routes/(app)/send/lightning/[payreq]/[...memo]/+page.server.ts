@@ -37,6 +37,8 @@ export const actions = {
 		try {
 			const body = await fd(request);
 
+			console.log("BODY", body);
+
 			p = await post("/payments", body, auth(cookies));
 		} catch (e) {
 			const { message } = e as Error;

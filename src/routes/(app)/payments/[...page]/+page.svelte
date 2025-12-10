@@ -9,6 +9,7 @@
   import { page } from "$app/stores";
   import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
+
   let { data } = $props();
   let {
     start,
