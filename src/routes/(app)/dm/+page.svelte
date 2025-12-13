@@ -1,19 +1,29 @@
 <script lang="ts">
+ import { isValid } from "nostr-tools/nip05";
  import { t } from "$lib/translations";
  import { pTagKeys } from '$lib/nostr';
+ import { getNip05 } from '$lib/nip05';
  import { getMessageRumours } from '$lib/nip17';
 
  let { data } = $props();
  const { user } = data;
 
- const updateSendersRecipients = (rumours: object[]) => {
+ const userInfo = async (pubkey: string) => {
+   const nip05Info = await getNip05(pubkey);
+   const valid = await isValid(pubkey, nip05Info.nip05);
+   return { name: nip05Info.name, nip05: nip05Info.nip05, valid };
+ }
+
+ const updateSendersRecipients = async (rumours: object[]) => {
    const senders = new Set<string>();
    const recipients = new Set<string>();
    for (const rumour of rumours) {
      if (rumour.pubkey !== user.pubkey) {
-       senders.add(rumour.pubkey);
+       senders.add(await userInfo(rumour.pubkey));
      } else {
-       pTagKeys(rumour).forEach(r => recipients.add(r));
+       for (const pubkey of pTagKeys(rumour)) {
+         recipients.add(await userInfo(pubkey));
+       }
      }
    }
    messageSenders = Array.from(senders);
@@ -25,6 +35,12 @@
  getMessageRumours(user).then(updateSendersRecipients);
 </script>
 
+<style>
+ .invalid {
+     text-decoration: line-through;
+ }
+</style>
+
 <div class="container">
     <div class="space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
         <h1
@@ -35,14 +51,14 @@
         <p>The following people have sent messages to you:</p>
         <ul>
             {#each messageSenders as sender}
-                <li>{sender}</li>
+                <li class={sender.valid ? "" : "invalid"}>{sender.name}{#if sender.valid} &#x2713;{/if}</li>
             {/each}
         </ul>
 
         <p>The following people have received messages from you:</p>
         <ul>
             {#each messageRecipients as recipient}
-                <li>{recipient}</li>
+                <li class={recipient.valid ? "" : "invalid"}>{recipient.name}{#if recipient.valid} &#x2713;{/if}</li>
             {/each}
         </ul>
     </div>
