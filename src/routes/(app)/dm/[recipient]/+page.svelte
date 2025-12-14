@@ -1,13 +1,18 @@
 <script lang="ts">
  import { tick } from "svelte";
  import Icon from "$comp/Icon.svelte";
+
  import { hexToBytes, bytesToHex } from '@noble/hashes/utils';
- import * as toolsnip17 from 'nostr-tools/nip17';
  import { SimplePool } from 'nostr-tools/pool';
+ import { isValid } from "nostr-tools/nip05";
+ import * as toolsnip17 from 'nostr-tools/nip17';
+
+ import { getNip05 } from '$lib/nip05';
  import { relaysSupporting } from '$lib/nip11';
  import * as libnip17 from '$lib/nip17';
  import { sign, getPrivateKey } from '$lib/nostr';
  import { t } from "$lib/translations";
+ import { theme } from "$lib/store";
 
  let { data } = $props();
  const { user, recipient } = data;
@@ -22,6 +27,14 @@
  let expiryDays = $state(7);
  let canSend = $state(false);
  let canSendExpiring = $state(false);
+ let nip05info = $state({});
+
+ const userInfo = async (pubkey: string) => {
+   const nip05Info = await getNip05(pubkey);
+   const valid = await isValid(pubkey, nip05Info.nip05);
+   return { name: nip05Info.name, nip05: nip05Info.nip05, valid };
+ }
+ userInfo(recipient.pubkey).then(info => nip05info = info);
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -55,15 +68,19 @@
    messages.scrollTop = messages.scrollHeight;
  }
 
- const zeroPad = (num: number): string => {
-   return num < 10 ? '0' + num.toString() : num.toString();
- }
-
- const timeString = (date: Date): string => {
-   const hour = zeroPad(date.getHours());
-   const minute = zeroPad(date.getMinutes());
-   const second = zeroPad(date.getSeconds());
-   return `${hour}:${minute}:${second}`;
+ const TIME = new Intl.DateTimeFormat(
+   undefined, { hour: "numeric", hour12: false, minute: "numeric" });
+ const NEAR_DATE = new Intl.DateTimeFormat(
+   undefined, { month: "short", day: "numeric", weekday: "short" });
+ const FAR_DATE = new Intl.DateTimeFormat(
+   undefined, { year: "numeric", month: "short", day: "numeric", weekday: "short" });
+ const NEAR_DISTANCE = 182 * 24 * 60 * 60 * 1000; // around 6 months
+ const formatDate = (date: Date): string => {
+   if (date.getTime() >= Date.now() - NEAR_DISTANCE) {
+     return NEAR_DATE.format(date);
+   } else {
+     return FAR_DATE.format(date);
+   }
  }
 
  const expirationClose = (expiration: number) => {
@@ -74,16 +91,6 @@
    const expiry = expiryEnabled ? expiryDays : null;
    await libnip17.send(message, user, recipient, expiry);
    loadEvents();
- }
-
- const dmName = (pubkey: string): string => {
-   if (pubkey === user.pubkey) {
-     return user.username;
-   } else if (pubkey === recipient.pubkey) {
-     return recipient.username;
-   } else {
-     return pubkey;
-   }
  }
 
  libnip17.getPreferredRelays(user.pubkey).then((relays) => {
@@ -107,7 +114,7 @@
      color: #ff7f00;
  }
 
- .expiring {
+ .secondary {
      color: #7f7f7f;
  }
 
@@ -121,36 +128,72 @@
 
  .short {
      width: 6em;
-     height: 2em;
+     height: 1.5em;
  }
 
  .tiny {
      width: 2em;
  }
+
+ .invalid {
+     text-decoration-line: line-through;
+ }
+
+ .date-header {
+     text-align: center;
+     margin: 1.5em 0em;
+ }
+
+ .timestamp {
+     margin-left: 0.5em;
+     text-align: right;
+ }
+
+ .message {
+     padding: 0.25em 0.75em;
+     width: fit-content;
+     max-width: 75%;
+     border-radius: 10px;
+ }
+
+ .light-message {
+     background-color: #DDD;
+ }
+
+ .dark-message {
+     background-color: #222;
+ }
+
+ .by-user {
+     margin: 3px 0px 3px auto;
+ }
+
+ .by-other {
+     margin: 3px auto 3px 0px;
+ }
+
+ .vcenter {
+     margin: auto 0px;
+ }
 </style>
 
 <div class="container">
-    <a
-      class="hover:opacity-80"
-      data-sveltekit-preload-data="false"
-      href="/{data.recipient.username}"
-    >
-        <Icon icon="arrow-left" style="w-10" />
-    </a>
-
     <div class="space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
-        <h1
-          class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
-        >{$t("dm.header")}</h1>
-        <p>{$t("dm.recipientMsg").replace("[R]", recipient.username)}</p>
+        <h1><a class="text-3xl" href="/{recipient.username}">{recipient.username}</a>
+            {#if nip05info.nip05}
+                <span class={"secondary timestamp text-small" + (nip05info.valid ? "" : " invalid")} title="Pubkey: {recipient.pubkey}">{nip05info.nip05}</span>
+            {/if}
+        </h1>
 
-        <div id="messages" style="overflow-y: scroll; max-height: 400px;">
-        {#each dates as day}
-            <p>[{new Date(day * 86400 * 1000).toDateString()}]</p>
+        <div id="messages" style="overflow-y: scroll; max-height: 600px;">
+            {#each dates as day}
+                <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
             <ul>
                 {#each messageRumours.get(day) as rumour}
-                    {#if rumour.pubkey === recipient.pubkey || rumour.pubkey === user.pubkey}
-                        <li class={rumour.expiration && expirationClose(rumour.expiration) ? "expiring" : ""}>{timeString(new Date(rumour.created_at * 1000))} {dmName(rumour.pubkey)}: {rumour.content}</li>
+                    {#if rumour.pubkey === user.pubkey}
+                        <li class={(rumour.expiration && expirationClose(rumour.expiration) ? "secondary " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message by-user"}>{rumour.content} <span class="timestamp secondary text-xs">{TIME.format(new Date(rumour.created_at * 1000))}</span></li>
+                    {:else if rumour.pubkey === recipient.pubkey}
+                        <li class={(rumour.expiration && expirationClose(rumour.expiration) ? "secondary " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message by-other"}>{rumour.content} <span class="timestamp secondary text-xs">{TIME.format(new Date(rumour.created_at * 1000))}</span></li>
                     {/if}
                 {/each}
             </ul>
@@ -158,17 +201,16 @@
         </div>
 
         <textarea id="message-contents" bind:value={text}></textarea>
-
-        <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
-        <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
-        <p class="expiring">{$t("dm.fadedWarning")}</p>
-        {#if canSend && !canSendExpiring}
-            <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", recipient.username)}</em></p>
-        {/if}
-
-        <input id="send-message" type="button" class="btn" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", recipient.username)} on:click={async () => sendMessage(text)}>
+        <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", recipient.username)} on:click={async () => sendMessage(text)}>
         {#if relayWarningShown}
             <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
+        {/if}
+
+        <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
+        <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
+        <p class="secondary">{$t("dm.fadedWarning")}</p>
+        {#if canSend && !canSendExpiring}
+            <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", recipient.username)}</em></p>
         {/if}
     </div>
 </div>
