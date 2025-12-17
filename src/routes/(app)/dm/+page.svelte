@@ -2,16 +2,27 @@
  import { isValid } from "nostr-tools/nip05";
  import { t } from "$lib/translations";
  import { pTagKeys } from '$lib/nostr';
- import { getNip05 } from '$lib/nip05';
+ import { getNostrUserInfo } from '$lib/nip01';
  import { getMessageRumours } from '$lib/nip17';
 
  let { data } = $props();
  const { user } = data;
 
+ const usernameFromPubkey = async (pubkey: string): string => {
+   const response = await fetch(`/api/users/${pubkey}`);
+   if (response.ok) {
+     const userInfo = await response.json();
+     return userInfo.username;
+   } else {
+     return null;
+   }
+ }
+
  const userInfo = async (pubkey: string) => {
-   const nip05Info = await getNip05(pubkey);
-   const valid = await isValid(pubkey, nip05Info.nip05);
-   return { name: nip05Info.name, nip05: nip05Info.nip05, valid };
+   const nostrUserInfo = await getNostrUserInfo(pubkey);
+   const valid = await isValid(pubkey, nostrUserInfo.nip05);
+   const username = await usernameFromPubkey(pubkey);
+   return { name: username || nostrUserInfo.name, nip05: nostrUserInfo.nip05, valid };
  }
 
  const updateSendersRecipients = async (rumours: object[]) => {
@@ -51,14 +62,14 @@
         <p>The following people have sent messages to you:</p>
         <ul>
             {#each messageSenders as sender}
-                <li class={sender.valid ? "" : "invalid"}>{sender.name}{#if sender.valid} &#x2713;{/if}</li>
+                <li>{sender.name} (<span class={sender.valid ? "" : "invalid"}>{sender.nip05}</span>{#if sender.valid} &#x2713;{/if})</li>
             {/each}
         </ul>
 
         <p>The following people have received messages from you:</p>
         <ul>
             {#each messageRecipients as recipient}
-                <li class={recipient.valid ? "" : "invalid"}>{recipient.name}{#if recipient.valid} &#x2713;{/if}</li>
+                <li>{recipient.name} (<span class={recipient.valid ? "" : "invalid"}>{recipient.nip05}</span>{#if recipient.valid} &#x2713;{/if})</li>
             {/each}
         </ul>
     </div>
