@@ -7,7 +7,7 @@
  import { isValid } from "nostr-tools/nip05";
  import * as toolsnip17 from 'nostr-tools/nip17';
 
- import { getNip05 } from '$lib/nip05';
+ import { getNostrUserInfo } from '$lib/nip01';
  import { relaysSupporting } from '$lib/nip11';
  import * as libnip17 from '$lib/nip17';
  import { sign, getPrivateKey } from '$lib/nostr';
@@ -27,14 +27,14 @@
  let expiryDays = $state(7);
  let canSend = $state(false);
  let canSendExpiring = $state(false);
- let nip05info = $state({});
+ let nostrUserInfo = $state({});
 
  const userInfo = async (pubkey: string) => {
-   const nip05Info = await getNip05(pubkey);
-   const valid = await isValid(pubkey, nip05Info.nip05);
-   return { name: nip05Info.name, nip05: nip05Info.nip05, valid };
+   const nostrUserInfo = await getNostrUserInfo(pubkey);
+   const valid = await isValid(pubkey, nostrUserInfo.nip05);
+   return { name: nostrUserInfo.name, nip05: nostrUserInfo.nip05, valid };
  }
- userInfo(recipient.pubkey).then(info => nip05info = info);
+ userInfo(recipient.pubkey).then(info => nostrUserInfo = info);
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -179,9 +179,9 @@
 
 <div class="container">
     <div class="space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
-        <h1><a class="text-3xl" href="/{recipient.username}">{recipient.username}</a>
-            {#if nip05info.nip05}
-                <span class={"secondary timestamp text-small" + (nip05info.valid ? "" : " invalid")} title="Pubkey: {recipient.pubkey}">{nip05info.nip05}</span>
+        <h1><a class="text-3xl" href="/{recipient.username}">{recipient.username || nostrUserInfo.name}</a>
+            {#if nostrUserInfo.nip05}
+                <span class={"secondary timestamp text-small" + (nostrUserInfo.valid ? "" : " invalid")} title="Pubkey: {recipient.pubkey}">{nostrUserInfo.nip05}</span>
             {/if}
         </h1>
 
