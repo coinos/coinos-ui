@@ -4,6 +4,7 @@
  import { pTagKeys } from '$lib/nostr';
  import { getNostrUserInfo } from '$lib/nip01';
  import { getMessageRumours } from '$lib/nip17';
+ import { theme } from "$lib/store";
 
  let { data } = $props();
  const { user } = data;
@@ -12,7 +13,7 @@
    const response = await fetch(`/api/users/${pubkey}`);
    if (response.ok) {
      const userInfo = await response.json();
-     return userInfo.username;
+     return userInfo.anon ? null : userInfo.username;
    } else {
      return null;
    }
@@ -20,9 +21,35 @@
 
  const userInfo = async (pubkey: string) => {
    const nostrUserInfo = await getNostrUserInfo(pubkey);
-   const valid = await isValid(pubkey, nostrUserInfo.nip05);
+   const valid = 'nip05' in nostrUserInfo && await isValid(pubkey, nostrUserInfo.nip05);
    const username = await usernameFromPubkey(pubkey);
-   return { name: username || nostrUserInfo.name, nip05: nostrUserInfo.nip05, valid, pubkey };
+   return {
+     name: username || nostrUserInfo?.name,
+     nip05: nostrUserInfo ? nostrUserInfo.nip05 : null,
+     valid, pubkey };
+ }
+
+ const rumourInvolves = (rumour: object, pubkey: string) => {
+   if (rumour.pubkey === pubkey) {
+     return true;
+   } else {
+     for (const tagPK of pTagKeys(rumour)) {
+       if (tagPK === pubkey) {
+         return true;
+       }
+     }
+     return false;
+   }
+ }
+
+ const mostRecentCommunication = (rumours: object[], pubkey: string) => {
+   let mostRecentTime = null;
+   for (const rumour of rumours.filter((r) => rumourInvolves(r, pubkey))) {
+     if (!mostRecentTime || rumour.created_at > mostRecentTime) {
+       mostRecentTime = rumour.created_at;
+     }
+   }
+   return mostRecentTime;
  }
 
  const updateSendersRecipients = async (rumours: object[]) => {
@@ -48,11 +75,13 @@
      chatMap.set(recipient.pubkey, recipient);
    }
    chats = Array.from(chatMap.values());
+   chats.sort((a, b) => mostRecentCommunication(rumours, b.pubkey) - mostRecentCommunication(rumours, a.pubkey));
  };
 
  let messageSenders = $state([]);
  let messageRecipients = $state([]);
  let chats = $state([]);
+ $inspect(chats);
  getMessageRumours(user).then(updateSendersRecipients);
 
  let selectedChat = $state(null);
@@ -69,18 +98,50 @@
 
  .sidebar {
      max-width: 300px;
-     margin: 0px 10px;
+     padding: 0px 10px 5px;
+     margin: 0px 5px;
+     height: 100%;
+     border-radius: 10px;
+ }
+
+ .light-sidebar {
+     background-color: #eeeeee;
+ }
+
+ .dark-sidebar {
+     background-color: #222222;
  }
 
  .chat-btn {
-     min-height: 100px;
-     border: 1px solid;
-     padding: 10px;
+     min-height: 3em;
+     margin: 2px 0px;
+     width: 100%;
+     border-radius: 10px;
+ }
+
+ .chat-header {
+     margin: 1em 15px 0.5em;
+ }
+
+ .light-chat-btn:hover {
+     background-color: #dddddd;
+ }
+
+ .dark-chat-btn:hover {
+     background-color: #333333;
+ }
+
+ .light-selected {
+     background-color: #dddddd;
+ }
+
+ .dark-selected {
+     background-color: #333333;
  }
 
  .main {
      padding-left: 0px;
-     margin-left: auto;
+     margin-left: 30px;
  }
 
  .secondary {
@@ -89,10 +150,11 @@
 </style>
 
 <div class="super-container">
-    <div class="sidebar">
+    <div class={"sidebar " + ($theme === "light" ? "light-sidebar" : "dark-sidebar")}>
+        <h2 class="text-xl chat-header">Chats</h2>
         {#each chats as c}
-         <button class="chat-btn" on:click={() => selectedChat = c.name}>
-             <span class="text-xl">{c.name}</span> <span class={(c.valid ? "" : "invalid ") + "secondary"}>{c.nip05}</span>{#if c.valid} &#x2713;{/if}
+         <button class={"chat-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat == c.name ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectedChat = c.name}>
+             <span class="text-xl">{c.name}</span> <span class={(!c.nip05 || c.valid ? "" : "invalid ") + "secondary text-xs"}>{c.nip05 || c.pubkey.substring(0, 16)}</span>{#if c.valid} &#x2713;{/if}
          </button>
         {/each}
     </div>
@@ -101,13 +163,6 @@
           class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
         >{$t("dm.header")}</h1>
 
-        <p>You are talking to {selectedChat}.</p>
-
-        {#if selectedChat}
-            <iframe src="./dm/{selectedChat}"
-            width="100%"
-            height="100%">
-            </iframe>
-        {/if}
+        <p>You are talking to <a href="/dm/{selectedChat}">{selectedChat}</a>.</p>
     </div>
 </div>
