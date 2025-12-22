@@ -22,12 +22,12 @@
    const nostrUserInfo = await getNostrUserInfo(pubkey);
    const valid = await isValid(pubkey, nostrUserInfo.nip05);
    const username = await usernameFromPubkey(pubkey);
-   return { name: username || nostrUserInfo.name, nip05: nostrUserInfo.nip05, valid };
+   return { name: username || nostrUserInfo.name, nip05: nostrUserInfo.nip05, valid, pubkey };
  }
 
  const updateSendersRecipients = async (rumours: object[]) => {
-   const senders = new Set<string>();
-   const recipients = new Set<string>();
+   const senders = new Set<object>();
+   const recipients = new Set<object>();
    for (const rumour of rumours) {
      if (rumour.pubkey !== user.pubkey) {
        senders.add(await userInfo(rumour.pubkey));
@@ -39,38 +39,75 @@
    }
    messageSenders = Array.from(senders);
    messageRecipients = Array.from(recipients);
+
+   const chatMap = new Map<string, object>();
+   for (const sender of senders) {
+     chatMap.set(sender.pubkey, sender);
+   }
+   for (const recipient of recipients) {
+     chatMap.set(recipient.pubkey, recipient);
+   }
+   chats = Array.from(chatMap.values());
  };
 
  let messageSenders = $state([]);
  let messageRecipients = $state([]);
+ let chats = $state([]);
  getMessageRumours(user).then(updateSendersRecipients);
+
+ let selectedChat = $state(null);
 </script>
 
 <style>
  .invalid {
      text-decoration: line-through;
  }
+
+ .super-container {
+     display: flex;
+ }
+
+ .sidebar {
+     max-width: 300px;
+     margin: 0px 10px;
+ }
+
+ .chat-btn {
+     min-height: 100px;
+     border: 1px solid;
+     padding: 10px;
+ }
+
+ .main {
+     padding-left: 0px;
+     margin-left: auto;
+ }
+
+ .secondary {
+     color: #7f7f7f;
+ }
 </style>
 
-<div class="container">
-    <div class="space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
+<div class="super-container">
+    <div class="sidebar">
+        {#each chats as c}
+         <button class="chat-btn" on:click={() => selectedChat = c.name}>
+             <span class="text-xl">{c.name}</span> <span class={(c.valid ? "" : "invalid ") + "secondary"}>{c.nip05}</span>{#if c.valid} &#x2713;{/if}
+         </button>
+        {/each}
+    </div>
+    <div class="main container space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
         <h1
           class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
         >{$t("dm.header")}</h1>
-        <p>Welcome to the DM homepage!</p>
 
-        <p>The following people have sent messages to you:</p>
-        <ul>
-            {#each messageSenders as sender}
-                <li>{sender.name} (<span class={sender.valid ? "" : "invalid"}>{sender.nip05}</span>{#if sender.valid} &#x2713;{/if})</li>
-            {/each}
-        </ul>
+        <p>You are talking to {selectedChat}.</p>
 
-        <p>The following people have received messages from you:</p>
-        <ul>
-            {#each messageRecipients as recipient}
-                <li>{recipient.name} (<span class={recipient.valid ? "" : "invalid"}>{recipient.nip05}</span>{#if recipient.valid} &#x2713;{/if})</li>
-            {/each}
-        </ul>
+        {#if selectedChat}
+            <iframe src="./dm/{selectedChat}"
+            width="100%"
+            height="100%">
+            </iframe>
+        {/if}
     </div>
 </div>
