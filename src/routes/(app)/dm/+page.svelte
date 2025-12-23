@@ -153,9 +153,9 @@
     <div class={"sidebar " + ($theme === "light" ? "light-sidebar" : "dark-sidebar")}>
         <h2 class="text-xl chat-header">Chats</h2>
         {#each chats as c}
-         <button class={"chat-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat == c.name ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectedChat = c.name}>
-             <span class="text-xl">{c.name}</span> <span class={(!c.nip05 || c.valid ? "" : "invalid ") + "secondary text-xs"}>{c.nip05 || c.pubkey.substring(0, 16)}</span>{#if c.valid} &#x2713;{/if}
-         </button>
+            <button class={"chat-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectedChat = c}>
+                <span class="text-xl">{c.name}</span> <span class={(!c.nip05 || c.valid ? "" : "invalid ") + "secondary text-xs"}>{c.nip05 || c.pubkey.substring(0, 16)}</span>{#if c.valid} &#x2713;{/if}
+            </button>
         {/each}
     </div>
     <div class="main container space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
@@ -163,6 +163,8 @@
           class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
         >{$t("dm.header")}</h1>
 
-        <p>You are talking to <a href="/dm/{selectedChat}">{selectedChat}</a>.</p>
+        {#if selectedChat}
+            <p>You are talking to <a href="/dm/{selectedChat.name}">{selectedChat.name}</a>.</p>
+        {/if}
     </div>
 </div>
