@@ -137,8 +137,8 @@
    return eventsMap;
  }
 
- libnip17.getMessageRumours(user).then((rumours) => allRumours = rumours);
  const updateEvents = async () => {
+   allRumours = await libnip17.getMessageRumours(user);
    const rumours = allRumours.filter((r) =>
      (r.pubkey === user.pubkey && pTagKeys(r).includes(selectedChat.pubkey)) ||
      (r.pubkey === selectedChat.pubkey && pTagKeys(r).includes(user.pubkey)));
