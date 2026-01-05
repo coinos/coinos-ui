@@ -2,13 +2,14 @@
  import { tick } from "svelte";
  import Icon from "$comp/Icon.svelte";
 
- import { isValid } from "nostr-tools/nip05";
+ import { isValid, queryProfile } from "nostr-tools/nip05";
  import * as toolsnip17 from 'nostr-tools/nip17';
 
  import { getNostrUserInfo } from '$lib/nip01';
  import { relaysSupporting } from '$lib/nip11';
  import { getMessageRumours } from '$lib/nip17';
  import * as libnip17 from '$lib/nip17';
+ import { decode } from 'nostr-tools/nip19';
  import { sign, getPrivateKey, pTagKeys } from '$lib/nostr';
  import { t } from "$lib/translations";
  import { theme } from "$lib/store";
@@ -28,7 +29,11 @@
  }
 
  const userInfo = async (pubkey: string) => {
-   const nostrUserInfo = await getNostrUserInfo(pubkey);
+   if (pubkey.slice(0, 4) === "npub") {
+     return userInfo(decode(pubkey).data);
+   }
+
+   const nostrUserInfo = await getNostrUserInfo(pubkey) || {};
    const valid = 'nip05' in nostrUserInfo && await isValid(pubkey, nostrUserInfo.nip05);
    const username = await usernameFromPubkey(pubkey);
    return {
@@ -89,10 +94,11 @@
  let messageSenders = $state([]);
  let messageRecipients = $state([]);
  let chats = $state([]);
- $inspect(chats);
  getMessageRumours(user).then(updateSendersRecipients);
 
  let selectedChat = $state(null);
+ let creatingNewChat = $state(false);
+ let searchQuery = $state("");
 
  /// individual chat
  let text = $state("");
@@ -108,6 +114,9 @@
 
  const selectChat = (c: object) => {
    selectedChat = c;
+   if (!chats.includes(c)) {
+     chats.unshift(c);
+   }
    userInfo(selectedChat.pubkey).then(info => nostrUserInfo = info);
    libnip17.getPreferredRelays(selectedChat.pubkey).then((relays) => {
      canSend = relays && relays.length > 0;
@@ -115,6 +124,30 @@
        .then((supporting) => canSendExpiring = supporting.length > 0);
    });
    updateEvents();
+ }
+
+ const newChatUsername = async (username: string) => {
+   const response = await fetch(`/api/users/${username}`);
+   if (!response.ok) {
+     alert("Invalid username");
+     return;
+   }
+   const coinosUserInfo = await response.json();
+   newChatPubkey(coinosUserInfo.pubkey);
+ }
+
+ const newChatNip05 = async (nip05: string) => {
+   const response = await queryProfile(nip05);
+   if (response == null) {
+     alert("Invalid nip-05");
+     return;
+   }
+   newChatPubkey(response.pubkey);
+ }
+
+ const newChatPubkey = async (pubkey: string) => {
+   selectChat(await userInfo(pubkey));
+   creatingNewChat = false;
  }
 
  const appendMultimap = (map: Map, key: string, value: object) => {
@@ -206,8 +239,12 @@
  }
 
  .short {
-     width: 6em;
      height: 1.5em;
+     margin-bottom: 10px;
+ }
+
+ .small-width {
+     width: 6em;
  }
 
  .tiny {
@@ -239,10 +276,20 @@
  }
 
  .chat-btn {
-     min-height: 3em;
      margin: 2px 0px;
-     width: 100%;
+     padding: 0 25px;
      border-radius: 10px;
+     min-width: 30px;
+     text-align: left;
+ }
+
+ .tall-btn {
+     min-height: 3em;
+     width: 100%;
+ }
+
+ .push-right {
+     margin-left: auto;
  }
 
  .chat-header {
@@ -310,12 +357,31 @@
 
 <div class="super-container">
     <div class={"sidebar " + ($theme === "light" ? "light-sidebar" : "dark-sidebar")}>
-        <h2 class="text-xl chat-header">Chats</h2>
-        {#each chats as c}
-            <button class={"chat-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
-                <span class="text-xl">{c.name}</span> <span class={(!c.nip05 || c.valid ? "" : "invalid ") + "secondary text-xs"}>{c.nip05 || c.pubkey.substring(0, 16)}</span>{#if c.valid} &#x2713;{/if}
+        <h2 class="text-xl chat-header">{creatingNewChat ? "New Chat" : "Chats"}<button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectedChat = null}}>+</button></h2>
+        {#if creatingNewChat}
+            <input type="text" class="short" bind:value={searchQuery} placeholder="username, nip-05 or pubkey">
+        {/if}
+        {#if !creatingNewChat}
+            {#each chats as c}
+                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
+                    <span class="text-xl">{c.name || "Anonymous"}</span> <span class={(!c.nip05 || c.valid ? "" : "invalid ") + "secondary text-xs"}>{c.nip05 || c.pubkey.substring(0, 16)}</span>
+                </button>
+            {/each}
+        {:else if searchQuery !== ""}
+            <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => newChatUsername(searchQuery)}>
+                <span class="text-xl">Find by username</span>
             </button>
-        {/each}
+            {#if searchQuery.includes(".")}
+                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => newChatNip05(searchQuery)}>
+                    <span class="text-xl">Find by NIP-05</span>
+                </button>
+            {/if}
+            {#if searchQuery.length === 64 || searchQuery.slice(0, 4) === "npub"}
+                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => newChatPubkey(searchQuery)}>
+                    <span class="text-xl">Find by pubkey</span>
+                </button>
+            {/if}
+        {/if}
     </div>
     <div class="main container space-y-2 mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
         <h1
@@ -323,7 +389,7 @@
         >{$t("dm.header")}</h1>
 
         {#if selectedChat}
-            <h1><a class="text-3xl" href="/{selectedChat.username}">{selectedChat.username || nostrUserInfo.name}</a>
+            <h1><a class="text-3xl" href="/{selectedChat.username}">{selectedChat.username || nostrUserInfo.name || "Anonymous"}</a>
                 <span class={"secondary timestamp text-small" + ((!nostrUserInfo.nip05 || nostrUserInfo.valid) ? "" : " invalid")} title="Pubkey: {selectedChat.pubkey}">{nostrUserInfo.nip05 || selectedChat.pubkey.substring(0, 16)}</span>
             </h1>
 
@@ -343,16 +409,16 @@
             </div>
 
             <textarea id="message-contents" bind:value={text}></textarea>
-            <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", selectedChat.username)} on:click={async () => sendMessage(text)}>
+            <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", selectedChat.username || selectedChat.name)} on:click={async () => sendMessage(text)}>
             {#if relayWarningShown}
                 <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
             {/if}
 
             <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
-            <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
+            <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short small-width vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
             <p class="secondary">{$t("dm.fadedWarning")}</p>
             {#if canSend && !canSendExpiring}
-                <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", selectedChat.username)}</em></p>
+                <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", selectedChat.username || selectedChat.name)}</em></p>
             {/if}
         {/if}
     </div>
