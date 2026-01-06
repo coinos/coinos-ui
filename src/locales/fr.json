@@ -25,7 +25,13 @@
 		}
 	},
 	"dm": {
+		"chatHeader": "Discussions",
+		"newChatHeader": "Nouveau Discussion",
 		"header": "Messages directs",
+		"searchPrompt": "nom, nip-05 ou clé",
+		"findByUsername": "Trouvez par nom d'utilisateur",
+		"findByNIP05": "Trouvez par NIP-05",
+		"findByPubkey": "Trouvez par clé",
 		"recipientMsg": "Vous envoyez messages nostr à [R].",
 		"sendMessage": "Envoyez Message",
 		"expiry": "Expirez messages",

@@ -385,9 +385,12 @@
 
 <div class="super-container">
     <div class={"sidebar " + ($theme === "light" ? "light-sidebar" : "dark-sidebar")}>
-        <h2 class="text-xl chat-header">{creatingNewChat ? "New Chat" : "Chats"}<button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectedChat = null}}>+</button></h2>
+        <h2 class="text-xl chat-header">
+            {creatingNewChat ? $t("dm.newChatHeader") : $t("dm.chatHeader")}
+            <button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectedChat = null}}>+</button>
+        </h2>
         {#if creatingNewChat}
-            <input type="text" class="short" bind:value={searchQuery} placeholder="username, nip-05 or pubkey">
+            <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
         {/if}
         {#if !creatingNewChat}
             {#each chats as c}
@@ -397,16 +400,16 @@
             {/each}
         {:else if searchQuery !== ""}
             <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatUsername(searchQuery)}>
-                <span class="text-xl">Find by username</span>
+                <span class="text-xl">{$t("dm.findByUsername")}</span>
             </button>
             {#if searchQuery.includes(".")}
                 <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatNip05(searchQuery)}>
-                    <span class="text-xl">Find by NIP-05</span>
+                    <span class="text-xl">{$t("dm.findByNIP05")}</span>
                 </button>
             {/if}
             {#if searchQuery.length === 64 || searchQuery.slice(0, 4) === "npub"}
                 <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatPubkey(searchQuery)}>
-                    <span class="text-xl">Find by pubkey</span>
+                    <span class="text-xl">{$t("dm.findByPubkey")}</span>
                 </button>
             {/if}
         {/if}
