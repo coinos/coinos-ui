@@ -76,9 +76,7 @@
 
       if (user) {
         const wallet = await getWallet();
-        console.log("WALL", wallet);
         if (wallet) wallet.notifyIncomingFunds(handleArkPayment);
-        console.log("YEAH");
       }
 
       // if (window.NDEFReader) {
