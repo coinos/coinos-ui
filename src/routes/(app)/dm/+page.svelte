@@ -1,5 +1,5 @@
 <script lang="ts">
- import { tick } from "svelte";
+ import { tick, onMount } from "svelte";
  import Icon from "$comp/Icon.svelte";
 
  import { isValid, queryProfile } from "nostr-tools/nip05";
@@ -143,29 +143,40 @@
    updateEvents();
  }
 
- const newChatUsername = async (username: string) => {
+ const selectChatUsername = async (username: string) => {
    const response = await fetch(`/api/users/${username}`);
    if (!response.ok) {
      alert("Invalid username");
      return;
    }
    const coinosUserInfo = await response.json();
-   newChatPubkey(coinosUserInfo.pubkey);
+   selectChatPubkey(coinosUserInfo.pubkey);
  }
 
- const newChatNip05 = async (nip05: string) => {
+ const selectChatNip05 = async (nip05: string) => {
    const response = await queryProfile(nip05);
    if (response == null) {
      alert("Invalid nip-05");
      return;
    }
-   newChatPubkey(response.pubkey);
+   selectChatPubkey(response.pubkey);
  }
 
- const newChatPubkey = async (pubkey: string) => {
+ const selectChatPubkey = async (pubkey: string) => {
    selectChat(await userInfo(pubkey));
    creatingNewChat = false;
  }
+
+ onMount(() => {
+   const urlParams = new URLSearchParams(window.location.search);
+   if (urlParams.get('username')) {
+     selectChatUsername(urlParams.get('username'));
+   } else if (urlParams.get('nip05')) {
+     selectChatNip05(urlParams.get('nip05'));
+   } else if (urlParams.get('pubkey')) {
+     selectChatPubkey(urlParams.get('pubkey'));
+   }
+ });
 
  const appendMultimap = (map: Map, key: string, value: object) => {
    if (map.has(key)) {
@@ -385,16 +396,16 @@
                 </button>
             {/each}
         {:else if searchQuery !== ""}
-            <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => newChatUsername(searchQuery)}>
+            <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatUsername(searchQuery)}>
                 <span class="text-xl">Find by username</span>
             </button>
             {#if searchQuery.includes(".")}
-                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => newChatNip05(searchQuery)}>
+                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatNip05(searchQuery)}>
                     <span class="text-xl">Find by NIP-05</span>
                 </button>
             {/if}
             {#if searchQuery.length === 64 || searchQuery.slice(0, 4) === "npub"}
-                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => newChatPubkey(searchQuery)}>
+                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatPubkey(searchQuery)}>
                     <span class="text-xl">Find by pubkey</span>
                 </button>
             {/if}
@@ -406,7 +417,12 @@
         >{$t("dm.header")}</h1>
 
         {#if selectedChat}
-            <h1><a class="text-3xl" href="/{selectedChat.username}">{name(selectedChat)}</a>
+            <h1>
+                {#if selectedChat.coinosUsername}
+                    <a class="text-3xl" href="/{selectedChat.coinosUsername}">{name(selectedChat)}</a>
+                {:else}
+                    <span class="text-3xl">{name(selectedChat)}</span>
+                {/if}
                 <span class={"secondary timestamp text-small" + (idValid(selectedChat) ? "" : " invalid")} title="{npubEncode(selectedChat.pubkey)}">{id(selectedChat)}</span>
             </h1>
 

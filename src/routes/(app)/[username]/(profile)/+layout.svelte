@@ -142,7 +142,7 @@
         </a>
       {:else}
         <a
-          href="/dm/{subject.username}"
+          href="/dm?username={subject.username}"
           class="btn contents"
           aria-label="Direct Message"
         >

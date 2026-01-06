@@ -227,6 +227,7 @@
 		"light": "Light",
 		"about": "About",
 		"docs": "Docs",
+		"dm": "Nostr Messages",
 		"messages": "Messages",
 		"funds": "Funds",
 		"map": "Map",
