@@ -93,7 +93,13 @@
 		}
 	},
 	"dm": {
+		"chatHeader": "Chats",
+		"newChatHeader": "New Chat",
 		"header": "Direct Messages",
+		"searchPrompt": "username, nip-05 or pubkey",
+		"findByUsername": "Find by username",
+		"findByNIP05": "Find by NIP-05",
+		"findByPubkey": "Find by pubkey",
 		"recipientMsg": "You are sending nostr messages to [R].",
 		"sendMessage": "Send Message",
 		"expiry": "Enable message expiry",
