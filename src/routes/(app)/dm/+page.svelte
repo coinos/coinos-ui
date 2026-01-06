@@ -9,7 +9,7 @@
  import { relaysSupporting } from '$lib/nip11';
  import { getMessageRumours } from '$lib/nip17';
  import * as libnip17 from '$lib/nip17';
- import { decode } from 'nostr-tools/nip19';
+ import { npubEncode, decode } from 'nostr-tools/nip19';
  import { sign, getPrivateKey, pTagKeys } from '$lib/nostr';
  import { t } from "$lib/translations";
  import { theme } from "$lib/store";
@@ -37,9 +37,26 @@
    const valid = 'nip05' in nostrUserInfo && await isValid(pubkey, nostrUserInfo.nip05);
    const username = await usernameFromPubkey(pubkey);
    return {
-     name: username || nostrUserInfo?.name,
-     nip05: nostrUserInfo ? nostrUserInfo.nip05 : null,
-     valid, pubkey };
+     coinosUsername: username,
+     nostrName: nostrUserInfo?.name,
+     nip05: nostrUserInfo?.nip05,
+     nip05Valid: valid, pubkey };
+ }
+
+ const name = (userInfo: object): string => {
+   return userInfo.coinosUsername || userInfo.nostrName || "Anonymous";
+ }
+
+ const id = (userInfo: object): string => {
+   if (userInfo.nip05 && userInfo.nip05.slice(0, 2) == "_@") {
+     return userInfo.nip05.slice(2);
+   }
+
+   return userInfo.nip05 || (npubEncode(userInfo.pubkey).slice(0, 16) + "...");
+ }
+
+ const idValid = (userInfo: object): string => {
+   return !userInfo.nip05 || userInfo.nip05Valid;
  }
 
  const rumourInvolves = (rumour: object, pubkey: string) => {
@@ -364,7 +381,7 @@
         {#if !creatingNewChat}
             {#each chats as c}
                 <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
-                    <span class="text-xl">{c.name || "Anonymous"}</span> <span class={(!c.nip05 || c.valid ? "" : "invalid ") + "secondary text-xs"}>{c.nip05 || c.pubkey.substring(0, 16)}</span>
+                    <span class="text-xl">{name(c)}</span> <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
                 </button>
             {/each}
         {:else if searchQuery !== ""}
@@ -389,8 +406,8 @@
         >{$t("dm.header")}</h1>
 
         {#if selectedChat}
-            <h1><a class="text-3xl" href="/{selectedChat.username}">{selectedChat.username || nostrUserInfo.name || "Anonymous"}</a>
-                <span class={"secondary timestamp text-small" + ((!nostrUserInfo.nip05 || nostrUserInfo.valid) ? "" : " invalid")} title="Pubkey: {selectedChat.pubkey}">{nostrUserInfo.nip05 || selectedChat.pubkey.substring(0, 16)}</span>
+            <h1><a class="text-3xl" href="/{selectedChat.username}">{name(selectedChat)}</a>
+                <span class={"secondary timestamp text-small" + (idValid(selectedChat) ? "" : " invalid")} title="{npubEncode(selectedChat.pubkey)}">{id(selectedChat)}</span>
             </h1>
 
             <div id="messages" style="overflow-y: scroll; max-height: 600px;">
@@ -409,7 +426,7 @@
             </div>
 
             <textarea id="message-contents" bind:value={text}></textarea>
-            <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", selectedChat.username || selectedChat.name)} on:click={async () => sendMessage(text)}>
+            <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", name(selectedChat))} on:click={async () => sendMessage(text)}>
             {#if relayWarningShown}
                 <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
             {/if}
@@ -418,7 +435,7 @@
             <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short small-width vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
             <p class="secondary">{$t("dm.fadedWarning")}</p>
             {#if canSend && !canSendExpiring}
-                <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", selectedChat.username || selectedChat.name)}</em></p>
+                <p class="warning"><em>{name(selectedChat)}</em></p>
             {/if}
         {/if}
     </div>
