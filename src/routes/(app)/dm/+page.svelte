@@ -265,7 +265,7 @@
    if (muted && muted.has(pubkey)) {
      await unmute(user, pubkey);
    } else {
-     await mute(user, pubkey, false);
+     await mute(user, pubkey, true);
    }
    muted = await mutedAccounts(user);
  }
