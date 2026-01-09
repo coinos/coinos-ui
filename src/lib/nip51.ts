@@ -8,29 +8,26 @@ const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
 
 export const mute = async (user: object, pubkey: string, hide: bool) => {
     let { shown, hidden } = await getMuteLists(user);
-    if (hide) {
-        hidden.push(pubkey);
-    } else {
-        shown.push(pubkey);
-    }
+    shown.push(["p", pubkey]);
     await publishMuteList(user, shown, hidden);
 }
 
+const tagMatches = (tag: string[], pubkey: string): bool =>
+    tag.length >= 2 && tag[0] === "p" && tag[1] === pubkey;
+
 export const unmute = async (user: object, pubkey: string) => {
     let { shown, hidden } = await getMuteLists(user);
-    shown = shown.filter(p => p !== pubkey);
-    hidden = hidden.filter(p => p !== pubkey);
+    shown = shown.filter(tag => !tagMatches(tag, pubkey));
     await publishMuteList(user, shown, hidden);
 }
 
 export const mutedAccounts = async (user: object): Set<string> => {
-    const { shown, hidden } = await getMuteLists(user);
+    const { shown } = await getMuteLists(user);
     let muted = new Set<string>();
-    for (const pubkey of shown) {
-        muted.add(pubkey);
-    }
-    for (const pubkey of hidden) {
-        muted.add(pubkey);
+    for (const tag of shown) {
+        if (tag.length >= 2 && tag[0] === "p") {
+            muted.add(tag[1]);
+        }
     }
     return muted;
 }
@@ -40,25 +37,18 @@ const getMuteLists = async (user: object): object => {
         DM_RELAYS_LIST, { kinds: [10000], "authors": [user.pubkey], limit: 1 }
     );
     if (listEvents.length == 0) {
-        return { shown: [], hidden: [] };
+        return { shown: [], hidden: "" };
     }
 
-    let shown = [];
-    for (const tag of listEvents[0].tags) {
-        if (tag.length >= 2 && tag[0] == "p") {
-            shown.push(tag[1]);
-        }
-    }
-
-    return { shown, hidden: [] };
+    return { shown: listEvents[0].tags, hidden: listEvents[0].content };
 }
 
-const publishMuteList = async (user: object, shown: Array<string>, hidden: Array<string>) => {
+const publishMuteList = async (user: object, shown: Array<string>, hidden: string) => {
     const event = await signEvent({
         kind: 10000,
         created_at: Math.floor(Date.now() / 1000),
-        tags: shown.map(p => ["p", p]),
-        content: ''
+        tags: shown,
+        content: hidden
     }, user);
     return Promise.any(pool.publish(DM_RELAYS_LIST, event));
 }
