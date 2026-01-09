@@ -10,12 +10,16 @@
  import { getMessageRumours } from '$lib/nip17';
  import * as libnip17 from '$lib/nip17';
  import { npubEncode, decode } from 'nostr-tools/nip19';
+ import { mutedAccounts } from '$lib/nip51';
  import { sign, getPrivateKey, pTagKeys } from '$lib/nostr';
  import { t } from "$lib/translations";
  import { theme } from "$lib/store";
 
  let { data } = $props();
  const { user } = data;
+
+ let muted = $state(new Set<string>());
+ mutedAccounts(user).then((m) => muted = m);
 
  /// chat selection
  const usernameFromPubkey = async (pubkey: string): string => {
@@ -129,9 +133,18 @@
  let canSendExpiring = $state(false);
  let nostrUserInfo = $state({});
 
+ const includesPubkey = (chats: object[], pubkey: string) => {
+   for (const c of chats) {
+     if (c.pubkey === pubkey) {
+       return true;
+     }
+   }
+   return false;
+ }
+
  const selectChat = (c: object) => {
    selectedChat = c;
-   if (!chats.includes(c)) {
+   if (!includesPubkey(chats, c.pubkey)) {
      chats.unshift(c);
    }
    userInfo(selectedChat.pubkey).then(info => nostrUserInfo = info);
@@ -394,9 +407,11 @@
         {/if}
         {#if !creatingNewChat}
             {#each chats as c}
-                <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
-                    <span class="text-xl">{name(c)}</span> <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
-                </button>
+                {#if (selectedChat && selectedChat.pubkey === c.pubkey) || !(muted && muted.has(c.pubkey))}
+                    <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
+                        <span class="{"text-xl" + (muted && muted.has(c.pubkey) ? " secondary" : "")}">{name(c)}</span> <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
+                    </button>
+                {/if}
             {/each}
         {:else if searchQuery !== ""}
             <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => selectChatUsername(searchQuery)}>
@@ -427,6 +442,7 @@
                     <span class="text-3xl">{name(selectedChat)}</span>
                 {/if}
                 <span class={"secondary timestamp text-small" + (idValid(selectedChat) ? "" : " invalid")} title="{npubEncode(selectedChat.pubkey)}">{id(selectedChat)}</span>
+                <!-- <button class="push-right">{$t(muted && muted.has(selectedChat.pubkey) ? "dm.unmute" : "dm.mute")}</button> -->
             </h1>
 
             <div id="messages" style="overflow-y: scroll; max-height: 600px;">
