@@ -1,16 +1,27 @@
 import { SimplePool } from 'nostr-tools/pool';
+import { verifyEvent } from 'nostr-tools/pure';
+import { signEvent } from '$lib/nip07';
 const pool = new SimplePool();
 
 import { PUBLIC_DM_RELAYS } from '$env/static/public';
 const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
 
-// export const mute = async (pubkey: string, hidden: bool) => {
-    
-// }
+export const mute = async (user: object, pubkey: string, hide: bool) => {
+    let { shown, hidden } = await getMuteLists(user);
+    if (hide) {
+        hidden.push(pubkey);
+    } else {
+        shown.push(pubkey);
+    }
+    await publishMuteList(user, shown, hidden);
+}
 
-// export const unmute = async (pubkey: string) => {
-    
-// }
+export const unmute = async (user: object, pubkey: string) => {
+    let { shown, hidden } = await getMuteLists(user);
+    shown = shown.filter(p => p !== pubkey);
+    hidden = hidden.filter(p => p !== pubkey);
+    await publishMuteList(user, shown, hidden);
+}
 
 export const mutedAccounts = async (user: object): Set<string> => {
     const { shown, hidden } = await getMuteLists(user);
@@ -42,6 +53,12 @@ const getMuteLists = async (user: object): object => {
     return { shown, hidden: [] };
 }
 
-// const publishMuteList = async (shown: Array<string>, hidden: Array<string>) => {
-    
-// }
+const publishMuteList = async (user: object, shown: Array<string>, hidden: Array<string>) => {
+    const event = await signEvent({
+        kind: 10000,
+        created_at: Math.floor(Date.now() / 1000),
+        tags: shown.map(p => ["p", p]),
+        content: ''
+    }, user);
+    return Promise.any(pool.publish(DM_RELAYS_LIST, event));
+}

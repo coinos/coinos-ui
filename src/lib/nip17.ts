@@ -4,7 +4,7 @@ import { finalizeEvent, getEventHash, generateSecretKey, getPublicKey } from 'no
 import { SimplePool } from 'nostr-tools/pool';
 import { unwrapEvent } from 'nostr-tools/nip17';
 
-import { sign, getPrivateKey } from '$lib/nostr';
+import { getPrivateKey } from '$lib/nostr';
 import { relaysSupporting } from '$lib/nip11';
 import { expired, expiration } from '$lib/nip40';
 import { encrypt, u } from '$lib/nip44';

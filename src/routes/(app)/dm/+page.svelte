@@ -10,16 +10,13 @@
  import { getMessageRumours } from '$lib/nip17';
  import * as libnip17 from '$lib/nip17';
  import { npubEncode, decode } from 'nostr-tools/nip19';
- import { mutedAccounts } from '$lib/nip51';
+ import { mute, unmute, mutedAccounts } from '$lib/nip51';
  import { sign, getPrivateKey, pTagKeys } from '$lib/nostr';
  import { t } from "$lib/translations";
  import { theme } from "$lib/store";
 
  let { data } = $props();
  const { user } = data;
-
- let muted = $state(new Set<string>());
- mutedAccounts(user).then((m) => muted = m);
 
  /// chat selection
  const usernameFromPubkey = async (pubkey: string): string => {
@@ -260,6 +257,18 @@
    }
    relayWarningShown = false;
  });
+
+ let muted = $state(new Set<string>());
+ mutedAccounts(user).then((m) => muted = m);
+
+ const toggleMute = async (pubkey: string) => {
+   if (muted && muted.has(pubkey)) {
+     await unmute(user, pubkey);
+   } else {
+     await mute(user, pubkey, false);
+   }
+   muted = await mutedAccounts(user);
+ }
 </script>
 
 <style>
@@ -329,12 +338,26 @@
      width: 100%;
  }
 
+ .small-btn {
+     padding: 0 15px;
+     border-radius: 5px;
+     text-align: left;
+ }
+
  .push-right {
      margin-left: auto;
  }
 
  .chat-header {
      margin: 1em 15px 0.5em;
+ }
+
+ .light-chat-btn {
+     background-color: #eeeeee;
+ }
+
+ .dark-chat-btn {
+     background-color: #222222;
  }
 
  .light-chat-btn:hover {
@@ -442,35 +465,39 @@
                     <span class="text-3xl">{name(selectedChat)}</span>
                 {/if}
                 <span class={"secondary timestamp text-small" + (idValid(selectedChat) ? "" : " invalid")} title="{npubEncode(selectedChat.pubkey)}">{id(selectedChat)}</span>
-                <!-- <button class="push-right">{$t(muted && muted.has(selectedChat.pubkey) ? "dm.unmute" : "dm.mute")}</button> -->
+                <button class={"small-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")} on:click={() => toggleMute(selectedChat.pubkey)}>{$t(muted && muted.has(selectedChat.pubkey) ? "dm.unmute" : "dm.mute")}</button>
             </h1>
 
-            <div id="messages" style="overflow-y: scroll; max-height: 600px;">
-                {#each dates as day}
-                    <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
-                    <ul>
-                        {#each messageRumours.get(day) as rumour}
-                            {#if rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(selectedChat.pubkey)}
-                                <li class={(rumour.expiration && expirationClose(rumour.expiration) ? "secondary " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message by-user"}>{rumour.content} <span class="timestamp secondary text-xs">{TIME.format(new Date(rumour.created_at * 1000))}</span></li>
-                            {:else if rumour.pubkey === selectedChat.pubkey && pTagKeys(rumour).includes(user.pubkey)}
-                                <li class={(rumour.expiration && expirationClose(rumour.expiration) ? "secondary " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message by-other"}>{rumour.content} <span class="timestamp secondary text-xs">{TIME.format(new Date(rumour.created_at * 1000))}</span></li>
-                            {/if}
-                        {/each}
-                    </ul>
-                {/each}
-            </div>
+            {#if !(muted && muted.has(selectedChat.pubkey))}
+                <div id="messages" style="overflow-y: scroll; max-height: 600px;">
+                    {#each dates as day}
+                        <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
+                        <ul>
+                            {#each messageRumours.get(day) as rumour}
+                                {#if rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(selectedChat.pubkey)}
+                                    <li class={(rumour.expiration && expirationClose(rumour.expiration) ? "secondary " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message by-user"}>{rumour.content} <span class="timestamp secondary text-xs">{TIME.format(new Date(rumour.created_at * 1000))}</span></li>
+                                {:else if rumour.pubkey === selectedChat.pubkey && pTagKeys(rumour).includes(user.pubkey)}
+                                    <li class={(rumour.expiration && expirationClose(rumour.expiration) ? "secondary " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message by-other"}>{rumour.content} <span class="timestamp secondary text-xs">{TIME.format(new Date(rumour.created_at * 1000))}</span></li>
+                                {/if}
+                            {/each}
+                        </ul>
+                    {/each}
+                </div>
 
-            <textarea id="message-contents" bind:value={text}></textarea>
-            <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", name(selectedChat))} on:click={async () => sendMessage(text)}>
+                <textarea id="message-contents" bind:value={text}></textarea>
+                <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", name(selectedChat))} on:click={async () => sendMessage(text)}>
+            {/if}
             {#if relayWarningShown}
                 <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
             {/if}
 
-            <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
-            <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short small-width vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
-            <p class="secondary">{$t("dm.fadedWarning")}</p>
-            {#if canSend && !canSendExpiring}
-                <p class="warning"><em>{name(selectedChat)}</em></p>
+            {#if !(muted && muted.has(selectedChat.pubkey))}
+                <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
+                <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short small-width vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
+                <p class="secondary">{$t("dm.fadedWarning")}</p>
+                {#if canSend && !canSendExpiring}
+                    <p class="warning"><em>{name(selectedChat)}</em></p>
+                {/if}
             {/if}
         {/if}
     </div>
