@@ -66,36 +66,24 @@
       });
     });
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    let data = new FormData(this);
-    let user = Object.fromEntries(data);
-
-    for (let k in user) {
-      data.set(k, user[k]);
-    }
-
+  const enhanceLogin = async ({ formData, cancel }) => {
     try {
       const recaptcha = await getRecaptchaToken();
-      data.set("recaptcha", recaptcha);
+      formData.set("recaptcha", recaptcha);
     } catch (err) {
       fail(err.message || "captcha failed");
+      cancel();
       return;
     }
 
-    const response = await fetch("?/login", {
-      method: "POST",
-      body: data,
-    });
+    return async ({ result }) => {
+      if (result.type === "success") {
+        await invalidateAll();
+      }
 
-    const result = deserialize(await response.text());
-
-    if (result.type === "success") {
-      await invalidateAll();
-    }
-
-    applyAction(result);
-  }
+      applyAction(result);
+    };
+  };
 
   $effect(() => {
     token?.length === 6 &&
@@ -180,9 +168,8 @@
   {/if}
 
   <form
-    use:enhance
+    use:enhance={enhanceLogin}
     class="space-y-5"
-    onsubmit={handleSubmit}
     method="POST"
     action="?/login"
   >
