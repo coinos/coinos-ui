@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
   import { onDestroy } from "svelte";
   import { fail, success, post } from "$lib/utils";
@@ -13,7 +14,7 @@
   let email = $state();
   let message = $state();
   let sent = $state();
-  let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
+  let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
 
   let submit = (e) => {
     e.preventDefault();
@@ -51,7 +52,7 @@
 
 <svelte:head
   ><script
-    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
+    src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
 

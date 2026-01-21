@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
   import { onDestroy, tick } from "svelte";
   import { t } from "$lib/translations";
@@ -13,7 +14,7 @@
   let email;
   let loading;
   let recaptchaToken = "";
-  let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
+  let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
 
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
@@ -59,7 +60,7 @@
 
 <svelte:head
   ><script
-    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
+    src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
 
