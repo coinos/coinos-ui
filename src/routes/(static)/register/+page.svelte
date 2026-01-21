@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
   import punks from "$lib/punks";
@@ -28,7 +29,7 @@
 
   let { form, data } = $props();
   let { challenge } = $derived(data);
-  let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
+  let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
 
   onMount(() => {
     if (browser) {
@@ -254,7 +255,7 @@
 
 <svelte:head
   ><script
-    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
+    src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
 

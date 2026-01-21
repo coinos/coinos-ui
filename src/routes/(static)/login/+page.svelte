@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
   import handler from "$lib/handler";
   import { applyAction, deserialize } from "$app/forms";
@@ -37,7 +38,7 @@
   });
 
   let { challenge } = $derived(data);
-  let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
+  let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
   let token = $state("");
 
   let cancel = () => (need2fa = false);
@@ -164,7 +165,7 @@
 
 <svelte:head
   ><script
-    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
+    src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
 
