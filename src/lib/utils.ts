@@ -199,6 +199,20 @@ export const auth = (cookies) => ({
 	authorization: `Bearer ${cookies.get("token")}`,
 });
 
+export const isInvalidTokenError = (e: unknown) => {
+	const message = (e as Error)?.message || "";
+	if (!message) return false;
+	const normalized = message.toLowerCase();
+	return (
+		normalized.includes("jwt") ||
+		normalized.includes("invalid token") ||
+		normalized.includes("token expired") ||
+		normalized.includes("expired token") ||
+		normalized.includes("unauthorized") ||
+		normalized.includes("not authorized")
+	);
+};
+
 export const btc = (fiat: number, rate: number): number =>
 	Math.round((fiat * sats) / rate);
 

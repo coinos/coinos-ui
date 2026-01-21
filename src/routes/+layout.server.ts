@@ -3,7 +3,8 @@ import {
 	loadTranslations,
 	locales,
 } from "$lib/translations/index";
-import { auth, get, sleep } from "$lib/utils";
+import { auth, get, isInvalidTokenError, sleep } from "$lib/utils";
+import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, request, url }) => {
 	const { host, pathname } = url;
@@ -13,8 +14,22 @@ export const load = async ({ cookies, request, url }) => {
 		try {
 			user = await get("/me", auth(cookies));
 		} catch (e) {
-			if (e.message.startsWith("Rate")) await sleep(3000);
-			user = await get("/me", auth(cookies));
+			const { message } = e as Error;
+			if (message.startsWith("Rate")) {
+				await sleep(3000);
+				try {
+					user = await get("/me", auth(cookies));
+				} catch (retryError) {
+					if (isInvalidTokenError(retryError) && pathname !== "/logout") {
+						redirect(307, "/logout");
+					}
+					throw retryError;
+				}
+			} else if (isInvalidTokenError(e) && pathname !== "/logout") {
+				redirect(307, "/logout");
+			} else {
+				throw e;
+			}
 		}
 	}
 
