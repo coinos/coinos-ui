@@ -189,7 +189,7 @@
 		"resetSent": "A password reset link will be sent to your email if we have it on file.",
 		"continue": "Continue",
 		"reset": "Password reset",
-		"resetDesc": "We can send a reset link if you added and verified your email otherwise please reach out to",
+		"resetDesc": "Please send an email with your username and any other details you can recall to",
 		"optional": "Optional",
 		"submit": "Submit",
 		"token": "2FA Token",
