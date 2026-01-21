@@ -12,11 +12,9 @@ export const load = async ({ parent }) => {
 export const actions = {
 	login: async ({ cookies, request }) => {
 		const form = await fd(request);
-		let { username, password, token, loginRedirect, challenge, recaptcha } =
-			form;
+		let { username, password, token, loginRedirect, recaptcha } = form;
 
 		const user = {
-			challenge,
 			username,
 			password,
 			token,
