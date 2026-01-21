@@ -15,11 +15,11 @@ export const actions = {
 	default: async ({ cookies, request }) => {
 		const ip = request.headers.get("cf-connecting-ip");
 		const form = await fd(request);
-		const { picture, username, password, challenge } = form;
+		const { picture, username, password, challenge, recaptcha } = form;
 		let { loginRedirect } = form;
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
-		const user = { picture, username, password, challenge };
+		const user = { picture, username, password, challenge, recaptcha };
 		return register(user, ip, cookies, loginRedirect);
 	},
 };

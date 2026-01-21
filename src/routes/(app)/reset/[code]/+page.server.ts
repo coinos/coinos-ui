@@ -7,11 +7,12 @@ export const actions = {
 		let error;
 
 		const { code } = params;
-		const { password } = await fd(request);
+		const { password, recaptcha } = await fd(request);
 
 		try {
 			const user = await post("/reset", { code, password });
 			user.password = password;
+			user.recaptcha = recaptcha;
 
 			try {
 				await login(user, cookies, ip);
