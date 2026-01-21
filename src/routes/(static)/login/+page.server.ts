@@ -12,13 +12,15 @@ export const load = async ({ parent }) => {
 export const actions = {
 	login: async ({ cookies, request }) => {
 		const form = await fd(request);
-		let { username, password, token, loginRedirect, challenge } = form;
+		let { username, password, token, loginRedirect, challenge, recaptcha } =
+			form;
 
 		const user = {
-      challenge,
+			challenge,
 			username,
 			password,
 			token,
+			recaptcha,
 		};
 
 		if (loginRedirect === "undefined") loginRedirect = undefined;
@@ -35,7 +37,7 @@ export const actions = {
 
 	nostr: async ({ cookies, fetch, request }) => {
 		const form = await fd(request);
-		let { challenge, event, loginRedirect } = form;
+		let { challenge, event, loginRedirect, recaptcha } = form;
 		if (loginRedirect === "null") loginRedirect = undefined;
 		event = JSON.parse(event);
 
@@ -43,7 +45,7 @@ export const actions = {
 
 		const res = await fetch(`${PUBLIC_COINOS_URL}/nostrAuth`, {
 			method: "POST",
-			body: JSON.stringify({ challenge, event }),
+			body: JSON.stringify({ challenge, event, recaptcha }),
 			headers: {
 				"content-type": "application/json",
 				accept: "application/json",

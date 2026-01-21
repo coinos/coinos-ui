@@ -148,7 +148,13 @@ export const info = (m: string) => {
 };
 
 export const login = async (
-	user: { username: string; password: string },
+	user: {
+		username: string;
+		password: string;
+		token?: string;
+		challenge?: string;
+		recaptcha?: string;
+	},
 	cookies,
 	ip: string,
 ) => {

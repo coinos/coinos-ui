@@ -2,7 +2,7 @@
   import { browser } from "$app/environment";
   import handler from "$lib/handler";
   import { applyAction, deserialize } from "$app/forms";
-  import { onMount, tick } from "svelte";
+  import { onDestroy, onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
   import Pinpad from "$comp/Pinpad.svelte";
@@ -37,6 +37,7 @@
   });
 
   let { challenge } = $derived(data);
+  let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
   let token = $state("");
 
   let cancel = () => (need2fa = false);
@@ -53,6 +54,17 @@
 
   let revealPassword = $state(false);
 
+  const getRecaptchaToken = () =>
+    new Promise((resolve, reject) => {
+      if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
+      grecaptcha.ready(() => {
+        grecaptcha
+          .execute(recaptchaSiteKey, { action: "login" })
+          .then(resolve)
+          .catch(reject);
+      });
+    });
+
   async function handleSubmit(e) {
     e.preventDefault();
     let data = new FormData(this);
@@ -60,6 +72,14 @@
 
     for (let k in user) {
       data.set(k, user[k]);
+    }
+
+    try {
+      const recaptcha = await getRecaptchaToken();
+      data.set("recaptcha", recaptcha);
+    } catch (err) {
+      fail(err.message || "captcha failed");
+      return;
     }
 
     const response = await fetch("?/login", {
@@ -104,10 +124,12 @@
     const formData = new FormData();
 
     try {
+      const recaptcha = await getRecaptchaToken();
       formData.append("loginRedirect", redirect);
       formData.append("token", token);
       formData.append("event", JSON.stringify(signedEvent));
       formData.append("challenge", challenge);
+      formData.append("recaptcha", recaptcha);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
@@ -121,7 +143,30 @@
       fail(e.message);
     }
   };
+
+  onDestroy(() => {
+    if (!browser) return;
+    const nodeBadge = document.querySelector(".grecaptcha-badge");
+    if (nodeBadge) {
+      document.body.removeChild(nodeBadge.parentNode);
+    }
+
+    const scriptSelector =
+      "script[src='https://www.google.com/recaptcha/api.js?render=" +
+      recaptchaSiteKey +
+      "']";
+    const script = document.querySelector(scriptSelector);
+    if (script) {
+      script.remove();
+    }
+  });
 </script>
+
+<svelte:head
+  ><script
+    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
+  ></script></svelte:head
+>
 
 <div
   class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20 space-y-5"

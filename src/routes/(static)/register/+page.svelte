@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
   import punks from "$lib/punks";
   import { upload } from "$lib/upload";
@@ -28,6 +28,7 @@
 
   let { form, data } = $props();
   let { challenge } = $derived(data);
+  let recaptchaSiteKey = "6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM";
 
   onMount(() => {
     if (browser) {
@@ -93,6 +94,17 @@
     btn = $state();
 
   let loading = $state();
+  const getRecaptchaToken = () =>
+    new Promise((resolve, reject) => {
+      if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
+      grecaptcha.ready(() => {
+        grecaptcha
+          .execute(recaptchaSiteKey, { action: "register" })
+          .then(resolve)
+          .catch(reject);
+      });
+    });
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -104,6 +116,15 @@
 
     for (let k in user) {
       data.set(k, user[k]);
+    }
+
+    try {
+      const recaptcha = await getRecaptchaToken();
+      data.set("recaptcha", recaptcha);
+    } catch (err) {
+      fail(err.message || "captcha failed");
+      loading = false;
+      return;
     }
 
     data.set("picture", `${$page.url.origin}/api/public/${punks[index]}.webp`);
@@ -189,10 +210,12 @@
     const formData = new FormData();
 
     try {
+      const recaptcha = await getRecaptchaToken();
       formData.append("loginRedirect", redirect);
       formData.append("token", token);
       formData.append("event", JSON.stringify(signedEvent));
       formData.append("challenge", challenge);
+      formData.append("recaptcha", recaptcha);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
@@ -210,7 +233,30 @@
       fail(e.message);
     }
   };
+
+  onDestroy(() => {
+    if (!browser) return;
+    const nodeBadge = document.querySelector(".grecaptcha-badge");
+    if (nodeBadge) {
+      document.body.removeChild(nodeBadge.parentNode);
+    }
+
+    const scriptSelector =
+      "script[src='https://www.google.com/recaptcha/api.js?render=" +
+      recaptchaSiteKey +
+      "']";
+    const script = document.querySelector(scriptSelector);
+    if (script) {
+      script.remove();
+    }
+  });
 </script>
+
+<svelte:head
+  ><script
+    src="https://www.google.com/recaptcha/api.js?render=6LfCd8YkAAAAANmVJgzN3SQY3n3fv1RhiS5PgMYM"
+  ></script></svelte:head
+>
 
 {#if need2fa}
   <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
