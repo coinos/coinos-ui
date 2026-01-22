@@ -36,13 +36,16 @@
 		"selectChat": "Chossisez un discussion de la liste à la gauche.",
 		"recipientMsg": "Vous envoyez messages nostr à [R].",
 		"sendMessage": "Envoyez Message",
+		"mute": "Silencez",
+		"unmute": "Réactivez",
 		"expiry": "Expirez messages",
 		"cantSendExpiring": "Aucun des relais de [R] expirent les messages expirants.  Vous ne pouvez pas leur envoyer des messages expirants.",
 		"fadedWarning": "Pour protéger vos métadonées, vos messages expirent à un temps randomée au maximum 2 jours après la date que vous spécifiez; chaque message a son propre temps d’expiration randomée.  Les messages qui semble faibles sont proche à expirer; les autres messages autours pouvait avoir déjà disparu.",
 		"days": "jours",
 		"relaysNotFound": "Ne pouvait pas trouvez les relais MD de [R].",
 		"noRelaysSet": "AVERTISSEMENT: Vous n’avez pas specifié vos relais préferés pour messages directs.  Vous ne pouvez pas reçevoir des messages ou voir les messages que vous avez envoyé.",
-		"nostrSettingsLink": "Spécifiez vos relais en vos préférences Nostr."
+		"nostrSettingsLink": "Spécifiez vos relais en vos préférences Nostr.",
+		"anonymous": "Anonyme"
 	},
 	"error": {
 		"header": "Erreur",

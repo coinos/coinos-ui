@@ -45,7 +45,7 @@
  }
 
  const name = (userInfo: object): string => {
-   return userInfo.coinosUsername || userInfo.nostrName || "Anonymous";
+   return userInfo.coinosUsername || userInfo.nostrName || $t("dm.anonymous");
  }
 
  const id = (userInfo: object): string => {
