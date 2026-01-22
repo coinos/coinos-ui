@@ -496,8 +496,10 @@
                     <p class="warning"><em>{name(selectedChat)}</em></p>
                 {/if}
             {/if}
+        {:else if chats.length == 0}
+            <p>{$t("dm.noChats")}</p>
         {:else}
-            <p>{$t("dm.noMessages")}</p>
+            <p>{$t("dm.selectChat")}</p>
         {/if}
         {#if relayWarningShown}
             <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
