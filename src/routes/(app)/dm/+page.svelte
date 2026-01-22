@@ -487,9 +487,6 @@
                 <textarea id="message-contents" bind:value={text}></textarea>
                 <input id="send-message" type="button" class="btn btn-accent" disabled={!canSend} value={canSend ? $t("dm.sendMessage") : $t("dm.relaysNotFound").replace("[R]", name(selectedChat))} on:click={async () => sendMessage(text)}>
             {/if}
-            {#if relayWarningShown}
-                <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
-            {/if}
 
             {#if !(muted && muted.has(selectedChat.pubkey))}
                 <input type="checkbox" id="expiryCheckbox" class="tiny" bind:checked={expiryEnabled} disabled={!canSendExpiring}>
@@ -499,6 +496,11 @@
                     <p class="warning"><em>{name(selectedChat)}</em></p>
                 {/if}
             {/if}
+        {:else}
+            <p>{$t("dm.noMessages")}</p>
+        {/if}
+        {#if relayWarningShown}
+            <p class="warning"><em>{$t("dm.noRelaysSet")} <a class="link" href="/settings/nostr#dm-relays">{$t("dm.nostrSettingsLink")}</a></em></p>
         {/if}
     </div>
 </div>
