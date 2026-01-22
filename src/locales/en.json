@@ -112,7 +112,8 @@
 		"days": "days",
 		"relaysNotFound": "Could not find [R]’s DM relays.",
 		"noRelaysSet": "WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.",
-		"nostrSettingsLink": "Go to your Nostr settings to set your relays."
+		"nostrSettingsLink": "Go to your Nostr settings to set your relays.",
+		"anonymous": "Anonymous"
 	},
 	"error": {
 		"header": "Error",
