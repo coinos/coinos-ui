@@ -89,6 +89,10 @@
   ],
   "protocol_handlers": [
     {
+      "protocol": "web+bitcoin",
+      "url": "/send/%s"
+    },
+    {
       "protocol": "bitcoin",
       "url": "/send/%s"
     }
