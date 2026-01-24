@@ -11,6 +11,7 @@
     PUBLIC_COINOS_RELAY as relay,
   } from "$env/static/public";
   import { signer, save } from "$lib/store";
+  import { getPreferredRelays } from "$lib/nip17";
 
   let { data } = $props();
   let { apps, challenge, user } = $derived(data);
@@ -47,22 +48,6 @@
   import { PUBLIC_DM_RELAYS } from '$env/static/public';
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
   const pool = new SimplePool();
-  const getPreferredRelays = async (pubkey: string): string[] => {
-    const events = await pool.querySync(
-      DM_RELAYS_LIST, { kinds: [10050], limit: 1, authors: [pubkey] }
-    );
-
-    let relays = [];
-    for (const event of events) {
-      for (const tag of event.tags) {
-        if (tag.length >= 2 && tag[0] == "relay") {
-          relays.push(tag[1]);
-        }
-      }
-    }
-
-    return relays;
-  }
   getPreferredRelays(user.pubkey).then(relays => {
     const relayEntry = document.getElementById('dmRelays');
     relayEntry.value = relays.join("\n");
