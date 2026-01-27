@@ -15,9 +15,11 @@
   let loading;
   let recaptchaToken = "";
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
+  let isTor = $derived(browser && location.hostname.endsWith(".onion"));
 
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
+      if (isTor) return resolve("");
       if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
         grecaptcha
@@ -58,11 +60,13 @@
   });
 </script>
 
+{#if !isTor}
 <svelte:head
   ><script
     src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
+{/if}
 
 <div class="pt-10">
   <div class="w-[243px] mx-auto mb-10">

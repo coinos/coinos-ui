@@ -15,9 +15,21 @@
   let message = $state();
   let sent = $state();
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
+  let isTor = $derived(browser && location.hostname.endsWith(".onion"));
 
   let submit = (e) => {
     e.preventDefault();
+    if (isTor) {
+      post("/post/email", {
+        username: user?.username || `${username} (unverified)`,
+        email,
+        message,
+        token: "",
+      })
+        .then(() => (sent = true))
+        .catch(() => fail("problem submitting"));
+      return;
+    }
     grecaptcha.ready(() => {
       grecaptcha.execute(recaptchaSiteKey, { action: "submit" }).then((token) =>
         post("/post/email", {
@@ -50,11 +62,13 @@
   });
 </script>
 
+{#if !isTor}
 <svelte:head
   ><script
     src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
+{/if}
 
 <div class="container max-w-lg mx-auto space-y-8 p-4 pb-20">
   {#if sent}

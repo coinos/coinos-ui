@@ -30,6 +30,7 @@
   let { form, data } = $props();
   let { challenge } = $derived(data);
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
+  let isTor = $derived(browser && location.hostname.endsWith(".onion"));
 
   onMount(() => {
     if (browser) {
@@ -97,6 +98,7 @@
   let loading = $state();
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
+      if (isTor) return resolve("");
       if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
         grecaptcha
@@ -253,11 +255,13 @@
   });
 </script>
 
+{#if !isTor}
 <svelte:head
   ><script
     src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
   ></script></svelte:head
 >
+{/if}
 
 {#if need2fa}
   <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
