@@ -21,15 +21,14 @@ export function scroll(section: any) {
 
 const base = browser ? "" : PUBLIC_COINOS_URL;
 
-let ipStore: any;
-if (!browser) {
-	import("$lib/server/ip").then((m) => {
-		ipStore = m.ipStore;
-	});
-}
+let getIp: (() => string | undefined) | undefined;
+
+export const setIpGetter = (fn: () => string | undefined) => {
+	getIp = fn;
+};
 
 const ipHeaders = (): Record<string, string> => {
-	const ip = ipStore?.getStore();
+	const ip = getIp?.();
 	return ip ? { "cf-connecting-ip": ip } : {};
 };
 
