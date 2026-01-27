@@ -1,5 +1,8 @@
 import { ipStore } from "$lib/server/ip";
+import { setIpGetter } from "$lib/utils";
 import type { Handle } from "@sveltejs/kit";
+
+setIpGetter(() => ipStore.getStore());
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const ip =
