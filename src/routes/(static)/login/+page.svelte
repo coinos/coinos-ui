@@ -39,8 +39,16 @@
 
   let { challenge } = $derived(data);
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
-  let isTor = $derived(browser && location.hostname.endsWith(".onion"));
+  let isTor = browser && location.hostname.endsWith(".onion");
   let token = $state("");
+
+  onMount(() => {
+    if (!isTor && recaptchaSiteKey) {
+      let s = document.createElement("script");
+      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      document.head.appendChild(s);
+    }
+  });
 
   let cancel = () => (need2fa = false);
 
@@ -152,14 +160,6 @@
     }
   });
 </script>
-
-{#if !isTor}
-<svelte:head
-  ><script
-    src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
-  ></script></svelte:head
->
-{/if}
 
 <div
   class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20 space-y-5"
