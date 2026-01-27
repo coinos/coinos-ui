@@ -1,7 +1,7 @@
 <script>
   import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
-  import { onDestroy, tick } from "svelte";
+  import { onDestroy, onMount, tick } from "svelte";
   import { t } from "$lib/translations";
   import PasswordInput from "$comp/PasswordInput.svelte";
   import Icon from "$comp/Icon.svelte";
@@ -15,7 +15,15 @@
   let loading;
   let recaptchaToken = "";
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
-  let isTor = $derived(browser && location.hostname.endsWith(".onion"));
+  let isTor = browser && location.hostname.endsWith(".onion");
+
+  onMount(() => {
+    if (!isTor && recaptchaSiteKey) {
+      let s = document.createElement("script");
+      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      document.head.appendChild(s);
+    }
+  });
 
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
@@ -59,14 +67,6 @@
     }
   });
 </script>
-
-{#if !isTor}
-<svelte:head
-  ><script
-    src={"https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey}
-  ></script></svelte:head
->
-{/if}
 
 <div class="pt-10">
   <div class="w-[243px] mx-auto mb-10">
