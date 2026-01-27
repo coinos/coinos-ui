@@ -21,11 +21,23 @@ export function scroll(section: any) {
 
 const base = browser ? "" : PUBLIC_COINOS_URL;
 
+let ipStore: any;
+if (!browser) {
+	import("$lib/server/ip").then((m) => {
+		ipStore = m.ipStore;
+	});
+}
+
+const ipHeaders = (): Record<string, string> => {
+	const ip = ipStore?.getStore();
+	return ip ? { "cf-connecting-ip": ip } : {};
+};
+
 export const punk = (k: string) =>
 	`${Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1}.webp`;
 
 export const g = (url: string, fetch: any, headers: object) =>
-	fetch(base + url, { headers })
+	fetch(base + url, { headers: { ...ipHeaders(), ...headers } })
 		.then((r: Response) => r.text())
 		.then((body: string) => {
 			try {
@@ -36,7 +48,7 @@ export const g = (url: string, fetch: any, headers: object) =>
 		});
 
 export const get = (url: string, headers = {}) => {
-	return fetch(base + url, { headers })
+	return fetch(base + url, { headers: { ...ipHeaders(), ...headers } })
 		.then(async (r) => {
 			if (r.ok) return r.text();
 			throw new Error(await r.text());
@@ -58,6 +70,7 @@ export const post = async (
 	headers = {
 		"content-type": "application/json",
 		accept: "application/json",
+		...ipHeaders(),
 		...headers,
 	};
 
