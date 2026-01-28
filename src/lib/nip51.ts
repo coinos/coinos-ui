@@ -6,6 +6,7 @@ const pool = new SimplePool();
 import { PUBLIC_DM_RELAYS } from '$env/static/public';
 const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
 
+// Mute the provided pubkey, as the provided user.
 export const mute = async (user: object, pubkey: string, hide: bool) => {
     let { shown, hidden } = await getMuteLists(user);
     if (hide) {
@@ -19,6 +20,7 @@ export const mute = async (user: object, pubkey: string, hide: bool) => {
 const tagMatches = (tag: string[], pubkey: string): bool =>
     tag.length >= 2 && tag[0] === "p" && tag[1] === pubkey;
 
+// Unmute the provided pubkey, as the provided user.
 export const unmute = async (user: object, pubkey: string) => {
     let { shown, hidden } = await getMuteLists(user);
     shown = shown.filter(tag => !tagMatches(tag, pubkey));
@@ -26,6 +28,7 @@ export const unmute = async (user: object, pubkey: string) => {
     await publishMuteList(user, shown, hidden);
 }
 
+// Returns a set of the provided user's muted accounts.
 export const mutedAccounts = async (user: object): Set<string> => {
     const { shown, hidden } = await getMuteLists(user);
     let muted = new Set<string>();
