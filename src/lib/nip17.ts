@@ -169,6 +169,8 @@ export const getMessageRumours = async (user: object): object[] => {
     return rumours;
 }
 
+// Returns the preferred relays of the user with the provided pubkey,
+// according to their kind-10050 event.
 export const getPreferredRelays = async (pubkey: string): string[] => {
     if (relayListCache.has(pubkey))
         return relayListCache.get(pubkey);

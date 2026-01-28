@@ -5,6 +5,7 @@ import { getPrivateKey } from '$lib/nostr';
 import * as libnip44 from '$lib/nip44';
 import { u } from '$lib/nip44';
 
+// Signs an event using NIP-07 if available, otherwise getPrivateKey()
 export const signEvent = async (event: object, user: object): object => {
     if (await window.nostr.getPublicKey() === user.pubkey) {
         return window.nostr.signEvent(event);
