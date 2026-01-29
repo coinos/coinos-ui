@@ -13,6 +13,7 @@ export const actions = {
 	login: async ({ cookies, request }) => {
 		const form = await fd(request);
 		let { username, password, token, loginRedirect, recaptcha } = form;
+    username = username.split("@")[0];
 
 		const user = {
 			username,
