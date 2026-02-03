@@ -22,7 +22,6 @@
     NumberDictionary,
     uniqueNamesGenerator,
     colors,
-    adjectives,
     animals,
   } from "unique-names-generator";
   import { sign } from "$lib/nostr";
@@ -382,7 +381,7 @@
           <Spinner />
         </div>
       {:else}
-        <img src="/images/nostr.png" class="w-8" />
+        <img src="/images/nostr.png" class="w-8" alt="Nostr" />
       {/if}
       <div class="my-auto">{$t("login.nostr")}</div>
     </button>

@@ -13,7 +13,7 @@
   let { balance, user } = data;
   let { address } = $page.params;
   let { currency, username } = user;
-  let locale = loc(user);
+  let locale = $derived(() => loc(user));
 
   let amount = $state(0);
   let a = $state(0);

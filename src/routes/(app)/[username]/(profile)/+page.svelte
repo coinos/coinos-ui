@@ -27,7 +27,9 @@
   };
 
   let pubkey = $state();
-  if (user) user.savings = 0;
+  $effect(() => {
+    if (user) user.savings = 0;
+  });
   let { host } = $derived($page.url);
 </script>
 

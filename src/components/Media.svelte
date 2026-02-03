@@ -12,8 +12,8 @@
 {#if !!isImage(value.url)}
   <img src={value.url} alt={""} class="py-4" />
 {:else if isVideo(value.url)}
-  <!-- svelte-ignore a11y-media-has-caption -->
-  <video src={value.url} controls class="py-4" />
+  <!-- svelte-ignore a11y_media_has_caption -->
+  <video src={value.url} controls class="py-4"></video>
 {:else if isAudio(value.url)}
   <audio src={value.url} controls>
     <a href={value.url}>{value.url.replace(/https?:\/\/(www\.)?/, "")}</a>

@@ -97,12 +97,14 @@
 
         {#if showNsec}
           <div class="space-y-2">
-            <div
-              class="break-all p-4 rounded-lg cursor-pointer border"
+            <button
+              type="button"
+              class="break-all p-4 rounded-lg cursor-pointer border text-left w-full"
               onclick={() => copy(nsec)}
+              aria-label="Copy backup key"
             >
               {nsec}
-            </div>
+            </button>
           </div>
 
           <div class="flex gap-2">
@@ -151,13 +153,18 @@
             />
           {/if}
 
-          <iconify-icon
-            noobserver
-            class="cursor-pointer ml-auto"
+          <button
+            type="button"
+            class="ml-auto"
+            aria-label="Toggle password visibility"
             onclick={() => (revealPassword = !revealPassword)}
-            icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-            width="32"
-          ></iconify-icon>
+          >
+            <iconify-icon
+              noobserver
+              icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+              width="32"
+            ></iconify-icon>
+          </button>
         </label>
 
         <label
@@ -184,13 +191,18 @@
               class="clean"
             />
           {/if}
-          <iconify-icon
-            noobserver
-            class="cursor-pointer ml-auto"
+          <button
+            type="button"
+            class="ml-auto"
+            aria-label="Toggle confirmation visibility"
             onclick={() => (revealConfirm = !revealConfirm)}
-            icon={revealConfirm ? "ph:eye-bold" : "ph:eye-slash-bold"}
-            width="32"
-          ></iconify-icon>
+          >
+            <iconify-icon
+              noobserver
+              icon={revealConfirm ? "ph:eye-bold" : "ph:eye-slash-bold"}
+              width="32"
+            ></iconify-icon>
+          </button>
         </label>
 
         <div class="flex gap-2">

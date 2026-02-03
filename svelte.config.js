@@ -7,7 +7,10 @@ const config = {
   kit: {
     adapter: adapter(),
     csrf: {
-      checkOrigin: false,
+      trustedOrigins: ["*"],
+    },
+    alias: {
+      $comp: "src/components",
     },
     prerender: {
       crawl: false,

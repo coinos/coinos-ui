@@ -208,7 +208,7 @@
           <Spinner />
         </div>
       {:else}
-        <img src="/images/nostr.png" class="w-8" />
+        <img src="/images/nostr.png" class="w-8" alt="Nostr" />
       {/if}
       <div class="my-auto">{$t("login.nostr")}</div>
     </button>
@@ -229,8 +229,10 @@
   <div
     class="fixed bg-base-100/90 inset-0 h-full w-full z-50 cursor-default"
     onclick={(e) => e.stopPropagation()}
+    onkeydown={(e) => e.stopPropagation()}
     role="dialog"
     aria-labelledby="title"
+    tabindex="-1"
   >
     <div
       class="mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 max-w-lg"

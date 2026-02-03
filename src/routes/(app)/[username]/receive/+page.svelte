@@ -32,14 +32,14 @@
 
   let id = $state();
   let { rate, subject, user, text } = $derived(data);
-  let locale = loc(user);
+  let locale = $derived(() => loc(user));
 
-  let { currency, username } = subject;
+  let { currency, username } = $derived(subject);
   let type = types.lightning;
   let hash = "";
   let qr;
 
-  let aid = subject.id;
+  let aid = $derived(subject.id);
   let invoice = $derived({
     aid,
     type: types.lightning,

@@ -51,7 +51,9 @@
     role="dialog"
     class="fixed bg-base-100/90 inset-0 h-full w-full z-50 cursor-default"
     on:click|preventDefault
+    on:keydown|preventDefault
     aria-labelledby="title"
+    tabindex="-1"
   >
     <div
       class="mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 max-w-lg"

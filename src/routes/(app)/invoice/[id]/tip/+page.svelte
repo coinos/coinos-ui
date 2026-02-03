@@ -76,10 +76,10 @@
     tip,
     user: { username },
   } = $state(invoice);
-  let locale = $derived(loc(user));
+  let locale = $derived(() => loc(user));
 
   let qr;
-  let tipPercent = $state((tip / amount) * 100);
+  let tipPercent = $state();
 
   let fullscreen;
 
@@ -87,6 +87,7 @@
   let rate = invoice.rate * (data.rate / data.invoiceRate);
 
   $effect(() => {
+    if (typeof tipPercent === "undefined") tipPercent = (tip / amount) * 100;
     tip = Math.round((amount / 100) * untrack(() => tipPercent));
   });
 
@@ -173,7 +174,11 @@
       </div>
     {/if}
 
-    <button type="submit" bind:this={submit}></button>
+    <button
+      type="submit"
+      bind:this={submit}
+      aria-label="Submit tip"
+    ></button>
   </form>
 
   {#if showCustomAmount}

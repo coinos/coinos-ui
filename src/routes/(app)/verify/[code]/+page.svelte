@@ -26,7 +26,7 @@
   {/if}
 </div>
 
-<a href={`/${user.username}`}>
+<a href={`/${user.username}`} aria-label="Go to profile">
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>
 

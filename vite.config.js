@@ -3,14 +3,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 import { defineConfig } from "vite";
 
-import path from "path";
-
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit()],
-	resolve: {
-		alias: {
-			$comp: path.resolve("src/components"),
-		},
+	plugins: [tailwindcss({ optimize: false }), sveltekit()],
+	css: {
+		transformer: "postcss",
 	},
 	preview: {
 		allowedHosts: [
@@ -30,5 +26,21 @@ export default defineConfig({
 				  }
 				: undefined,
 	},
+	build: {
+		cssMinify: "esbuild",
+		chunkSizeWarningLimit: 1000,
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					if (id.includes("node_modules")) {
+						const parts = id.split("node_modules/")[1].split("/");
+						const pkg = parts[0].startsWith("@")
+							? `${parts[0]}/${parts[1]}`
+							: parts[0];
+						return `vendor-${pkg}`;
+					}
+				},
+			},
+		},
+	},
 });
-

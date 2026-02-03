@@ -83,6 +83,6 @@
   {/if}
 </div>
 
-<a href={`/payment/${id}`}>
+<a href={`/payment/${id}`} aria-label="View payment details">
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>

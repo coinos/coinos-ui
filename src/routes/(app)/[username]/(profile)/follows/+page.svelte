@@ -27,7 +27,7 @@
               data-sveltekit-preload-data="tap"
               rel="nofollow"
             >
-              <div class="flex py-4 text-lg text-secondary" :key={data.pubkey}>
+              <div class="flex py-4 text-lg text-secondary">
                 <div class="mb-auto mr-2">
                   <div class="md:hidden">
                     <Avatar size={12} user={data} disabled={true} />

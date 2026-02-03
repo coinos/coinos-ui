@@ -59,7 +59,7 @@
   >
     {txt}
 
-    <button onclick={() => copy(txt)}>
+    <button type="button" onclick={() => copy(txt)} aria-label="Copy invoice">
       <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
     </button>
   </div>

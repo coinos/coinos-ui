@@ -37,7 +37,12 @@
             <div class="my-auto text-left">
               <p class="ml-1 text-lg break-words">{c.username}</p>
             </div>
-            <button onclick={(e) => del(e, c)} class="ml-auto">
+            <button
+              type="button"
+              onclick={(e) => del(e, c)}
+              class="ml-auto"
+              aria-label={`Remove ${c.username}`}
+            >
               <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
             </button>
           </div>

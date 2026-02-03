@@ -10,7 +10,7 @@
     <div class="space-y-5">
       <a href="/account/cash" class="block">
         <div class="shadow p-8 rounded-xl flex gap-4 hover:bg-primary">
-          <img src="/icons/logo-symbol.svg" class="w-20" />
+          <img src="/icons/logo-symbol.svg" class="w-20" alt="Coinos" />
           <div>
             <div class="text-xl">Coinos</div>
             <div class="text-secondary">https://mint.coinos.io</div>
@@ -19,7 +19,7 @@
       </a>
       <a href="/account/cash" class="block">
         <div class="shadow p-8 rounded-xl flex gap-4 hover:bg-primary">
-          <img src="/images/minibits.png" class="w-20" />
+          <img src="/images/minibits.png" class="w-20" alt="Minibits" />
           <div>
             <div class="text-xl">Minibits</div>
             <div class="text-secondary">https://mint.minibits.cash/bitcoin</div>

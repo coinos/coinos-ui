@@ -12,13 +12,18 @@
 
   let { subject, rate, user } = $state(data);
   let currency = subject?.currency || "USD";
-  let locale = $derived(loc(subject));
+  let locale = $derived(() => loc(subject));
   let next = $state();
 
   let initialAmount = $derived(form?.amount || data.amount);
-  let amount = $state(initialAmount);
-  let fiat = $state(!initialAmount);
+  let amount = $state();
+  let fiat = $state();
   let formElement = $state();
+
+  $effect(() => {
+    if (typeof amount === "undefined") amount = initialAmount;
+    if (typeof fiat === "undefined") fiat = !initialAmount;
+  });
 
   let setMax = async (e) => {
     e.preventDefault();

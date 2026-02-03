@@ -97,7 +97,7 @@
 
 {#if !(minimal || user?.pubkey === pubkey)}
   <div class="justify-center flex">
-    <btn onclick={zap} class="btn btn-accent items-center">
+    <button type="button" onclick={zap} class="btn btn-accent items-center">
       <div class="flex gap-1 items-center">
         <iconify-icon
           noobserver
@@ -107,6 +107,6 @@
         ></iconify-icon>
         <div>Zap</div>
       </div>
-    </btn>
+    </button>
   </div>
 {/if}

@@ -30,7 +30,7 @@
     class:hidden={type !== types.ecash}
     onclick={setType(types.ecash)}
   >
-    <img src="/images/cash.png" class="w-8 my-auto" />
+    <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
     <div class="my-auto text-lg">Ecash</div>
   </button>
 
@@ -175,7 +175,7 @@
   {#if aid === user.id}
     <button type="button" class="btn" onclick={toggleType}>
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
-      <img src="/images/cash.png" class="w-8 my-auto" />
+      <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
       <div class="my-auto">{t("payments.moreOptions")}</div>
     </button>
   {/if}

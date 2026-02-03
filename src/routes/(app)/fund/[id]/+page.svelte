@@ -16,7 +16,7 @@
 
   let { amount, payments, managers, rate, user } = data;
   let { id } = $page.params;
-  let locale = loc(user);
+  let locale = $derived(() => loc(user));
 
   let currency = user ? user.currency : "CAD";
 

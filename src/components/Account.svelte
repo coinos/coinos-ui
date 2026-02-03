@@ -71,7 +71,7 @@
         class="contents"
         aria-label="Settings"
       >
-        <button class="flex gap-1 mb-auto pb-4 pl-4 ml-auto">
+        <button class="flex gap-1 mb-auto pb-4 pl-4 ml-auto" aria-label="Settings">
           <iconify-icon
             noobserver
             icon="ph:gear-bold"

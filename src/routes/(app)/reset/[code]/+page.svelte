@@ -12,8 +12,8 @@
 
   let { form } = $props();
   let email;
-  let loading;
-  let recaptchaToken = "";
+  let loading = $state(false);
+  let recaptchaToken = $state("");
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
   let isTor = browser && location.hostname.endsWith(".onion");
 
