@@ -26,16 +26,10 @@
     {$t("accounts.seedPhrase")}
   </h1>
 
-  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
+  <div class="container w-full mx-auto px-4 max-w-xl space-y-2">
     {#if $mnemonic}
       <Mnemonic mnemonic={$mnemonic} />
     {/if}
-
-    <button type="button" class="btn" onclick={generate}>
-      <iconify-icon noobserver icon="ph:dice-three-bold" width="32"
-      ></iconify-icon>
-      <div class="my-auto">{$t("accounts.regenerate")}</div>
-    </button>
 
     <button type="button" class="btn" onclick={() => copy($mnemonic)}>
       <iconify-icon noobserver icon="ph:copy-bold" width="32"

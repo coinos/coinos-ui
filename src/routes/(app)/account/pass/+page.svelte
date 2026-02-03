@@ -77,7 +77,7 @@
     onsubmit={preventDefault(submit)}
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
-    <p class="text-secondary mb-1">
+    <p class="text-secondary p-4 bg-warning/80 rounded-2xl border-warning border-2">
       {$t("accounts.passwordWarning")}
     </p>
 
