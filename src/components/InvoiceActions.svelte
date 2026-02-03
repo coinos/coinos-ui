@@ -135,31 +135,7 @@
       </button>
     {/if}
 
-    {#if account?.type === types.ark}
-      <button
-        class="btn flex-nowrap !w-auto grow"
-        class:bg-base-300={type === types.ark}
-        class:text-secondary={type === types.ark}
-        onclick={() => {
-          $amountPrompt = false;
-          newAmount = undefined;
-          setType(types.ark);
-        }}
-      >
-        <div
-          class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
-        >
-          <div class="m-auto">
-            <img
-              src="/images/ark.png"
-              class="w-8 h-8 rounded-full object-cover"
-              alt="Bitcoin"
-            />
-          </div>
-        </div>
-        <div class="my-auto text-lg">Ark</div>
-      </button>
-    {:else}
+    {#if !account?.seed}
       <button
         class="btn flex-nowrap !w-auto grow"
         class:bg-base-300={type === types.bitcoin}
