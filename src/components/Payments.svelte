@@ -101,6 +101,9 @@
                   alt="Liquid"
                 />
               </div>
+            {:else if p.type === types.ark}
+              <iconify-icon noobserver icon="ph:vault-bold" width="32"
+              ></iconify-icon>
             {/if}
 
             <div class="my-auto">
