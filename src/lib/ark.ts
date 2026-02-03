@@ -44,7 +44,7 @@ export const syncTransactions = async (aid: string) => {
 		createdAt: tx.createdAt,
 	}));
 
-	return post("/ark/sync", { transactions, aid });
+	return post("/post/ark/sync", { transactions, aid });
 };
 
 export const sendArk = async (address: string, amount: number) => {
