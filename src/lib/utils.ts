@@ -11,7 +11,6 @@ import {
 	differenceInMinutes,
 	differenceInSeconds,
 } from "date-fns";
-import { decrypt } from "nostr-tools/nip49";
 import { get as getStore } from "svelte/store";
 
 export function scroll(section: any) {
@@ -207,6 +206,7 @@ export const login = async (
 	cookies.set("token", token, opts);
 	if (u.nsec) {
 		try {
+			const { decrypt } = await import("nostr-tools/nip49");
 			cookies.set("sk", bytesToHex(decrypt(u.nsec, user.password)), {
 				...opts,
 				httpOnly: false,

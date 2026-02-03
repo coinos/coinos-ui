@@ -42,13 +42,25 @@
   };
 
   let signTx = async () => {
+    const { decrypt } = await import("nostr-tools/nip49");
+    const [
+      { Transaction },
+      { HDKey },
+      { entropyToMnemonic, mnemonicToSeed },
+      { wordlist },
+    ] = await Promise.all([
+      import("@scure/btc-signer"),
+      import("@scure/bip32"),
+      import("@scure/bip39"),
+      import("@scure/bip39/wordlists/english"),
+    ]);
     let entropy = await decrypt(account.seed, password);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
     let seed = await mnemonicToSeed(mnemonic, password);
     let master = HDKey.fromMasterSeed(seed, network);
     let child = master.derive("m/84'/0'/0'");
 
-    let tx = btc.Transaction.fromRaw(decode(hex));
+    let tx = Transaction.fromRaw(decode(hex));
 
     for (let [i, input] of tx.inputs.entries()) {
       let { witnessUtxo, path } = inputs[i];

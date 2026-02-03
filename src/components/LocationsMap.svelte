@@ -4,8 +4,6 @@
   import Popup from "$comp/Popup.svelte";
   import { back } from "$lib/utils";
 
-  import "maplibre-gl/dist/maplibre-gl.css";
-
   let { locations } = $props();
   let map;
   let mapContainer = $state(),
@@ -172,10 +170,46 @@
   let locationMarkers = {};
   let popups = {};
   let counter = 0;
+  let maplibrePromise;
 
-  onMount(() => {
+  const loadMaplibre = async () => {
+    if (window.maplibregl) return window.maplibregl;
+    if (maplibrePromise) return maplibrePromise;
+
+    maplibrePromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector("script[data-maplibre]");
+      if (existing) {
+        if (window.maplibregl) return resolve(window.maplibregl);
+        existing.addEventListener("load", () => resolve(window.maplibregl));
+        existing.addEventListener("error", reject);
+        return;
+      }
+
+      const css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href =
+        "https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css";
+      document.head.appendChild(css);
+
+      const script = document.createElement("script");
+      script.src =
+        "https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js";
+      script.async = true;
+      script.defer = true;
+      script.dataset.maplibre = "true";
+      script.onload = () => resolve(window.maplibregl);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    return maplibrePromise;
+  };
+
+  onMount(async () => {
     if (browser) {
-      import("maplibre-gl").then(({ default: maplibre }) => {
+      await tick();
+      if (!mapContainer) return;
+      loadMaplibre().then((maplibre) => {
         map = new maplibre.Map({
           container: mapContainer,
           style: "https://tiles.stadiamaps.com/styles/stamen_toner.json",

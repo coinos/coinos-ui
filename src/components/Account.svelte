@@ -7,7 +7,6 @@
   import Icon from "$comp/Icon.svelte";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
-  import { decrypt } from "nostr-tools/nip49";
   import { arkkey } from "$lib/ark";
 
   let { user, rate, account, last } = $props();
@@ -43,7 +42,8 @@
     }
   };
 
-  let submitPassword = () => {
+  let submitPassword = async () => {
+    const { decrypt } = await import("nostr-tools/nip49");
     $arkkey = hex.encode(decrypt(seed, password));
     passwordPrompt = false;
     if (pendingUrl) {

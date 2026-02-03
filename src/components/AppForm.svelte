@@ -5,7 +5,6 @@
   import AmountField from "$comp/AmountField.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import Toggle from "$comp/Toggle.svelte";
-  import { getPublicKey } from "nostr-tools";
   import { onMount, tick } from "svelte";
   import { bytesToHex, randomBytes } from "@noble/hashes/utils.js";
   import { goto } from "$app/navigation";
@@ -35,8 +34,9 @@
     if (!budget_renewal) budget_renewal = "never";
   });
 
-  let generate = () => {
+  let generate = async () => {
     secret = bytesToHex(randomBytes(32));
+    const { getPublicKey } = await import("nostr-tools");
     pubkey = getPublicKey(secret);
   };
 

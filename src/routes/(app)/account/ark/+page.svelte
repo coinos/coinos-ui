@@ -3,13 +3,10 @@
   import { tick, onMount } from "svelte";
   import { t } from "$lib/translations";
   import Spinner from "$comp/Spinner.svelte";
-  import { encrypt } from "nostr-tools/nip49";
   import { bytesToHex, randomBytes } from "@noble/hashes/utils";
-  import { nip19 } from "nostr-tools";
   import { hex } from "@scure/base";
   import { focus, fail, post, copy } from "$lib/utils";
   import { goto } from "$app/navigation";
-  import { SingleKey, Wallet } from "@arkade-os/sdk";
   import { arkServerUrl } from "$lib/ark";
 
   let { data } = $props();
@@ -35,6 +32,8 @@
   });
 
   let generateKey = async () => {
+    const { nip19 } = await import("nostr-tools");
+    const { SingleKey, Wallet } = await import("@arkade-os/sdk");
     privateKey = bytesToHex(randomBytes(32));
     nsec = nip19.nsecEncode(hex.decode(privateKey));
     showNsec = false;
@@ -70,6 +69,7 @@
 
     try {
       // Encrypt the private key using NIP-49
+      const { encrypt } = await import("nostr-tools/nip49");
       let seed = await encrypt(hex.decode(privateKey), password);
 
       await post("/account", { name, seed, type, arkAddress });

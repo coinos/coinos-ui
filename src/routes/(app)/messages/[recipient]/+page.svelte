@@ -13,7 +13,6 @@
   import { sign, send, encrypt, decrypt } from "$lib/nostr";
   import { event as e, password } from "$lib/store";
   import { tick, onMount } from "svelte";
-  import { getEventHash } from "nostr-tools";
 
   let { data } = $props();
 
@@ -90,6 +89,7 @@
         recipient: recipient.pubkey,
         user,
       });
+      const { getEventHash } = await import("nostr-tools");
       event.id = getEventHash(event);
       await sign(event);
       await send(event);

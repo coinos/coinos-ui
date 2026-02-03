@@ -1,15 +1,15 @@
 <script>
   import { tick } from "svelte";
   import Icon from "$comp/Icon.svelte";
-  import QrScanner from "qr-scanner";
   import { onMount, onDestroy } from "svelte";
   import { back } from "$lib/utils";
   import { goto } from "$app/navigation";
-  import { BarcodeDetector } from "barcode-detector/ponyfill";
 
   let scanner,
     vid = $state(),
     resizing;
+  let QrScanner;
+  let BarcodeDetector;
 
   let resize = () => {
     if (resizing) clearTimeout(resizing);
@@ -17,6 +17,12 @@
   };
 
   let initialize = async () => {
+    if (!QrScanner) {
+      ({ default: QrScanner } = await import("qr-scanner"));
+    }
+    if (!BarcodeDetector) {
+      ({ BarcodeDetector } = await import("barcode-detector/ponyfill"));
+    }
     if (scanner) {
       scanner.stop();
       await new Promise((r) => setTimeout(r, 1000));
