@@ -1,5 +1,5 @@
 <script>
-  import { getWallet, getAddress } from "$lib/ark";
+  import { getWallet, getAddress, syncTransactions, settle } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -22,7 +22,7 @@
   import Password from "$comp/Password.svelte";
   import { s, success, post, getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
-  import { goto, afterNavigate, preloadData } from "$app/navigation";
+  import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
 
   let { data, children } = $props();
 
@@ -64,6 +64,8 @@
         invalidateAll: true,
         noScroll: true,
       });
+
+      settle().catch((e) => console.error("Ark settle failed:", e));
     } catch (e) {
       console.error("Failed to record ARK payment:", e);
     }
@@ -76,7 +78,16 @@
 
       if (user) {
         const wallet = await getWallet();
-        if (wallet) wallet.notifyIncomingFunds(handleArkPayment);
+        if (wallet) {
+          wallet.notifyIncomingFunds(handleArkPayment);
+
+          const aid = getCookie("aid") || user.id;
+          syncTransactions(aid).then((result) => {
+            if (result?.synced) invalidate("app:payments");
+          }).catch((e) => console.error("Ark sync failed:", e));
+
+          settle().catch((e) => console.error("Ark settle failed:", e));
+        }
       }
 
       // if (window.NDEFReader) {
