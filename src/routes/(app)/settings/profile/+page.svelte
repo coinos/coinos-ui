@@ -7,8 +7,12 @@
 
   let { data } = $props();
   let { user } = $derived(data);
-  let { id } = user;
-  let { about, banner, picture, display, username } = $state(user);
+  let { id } = $derived(user);
+  let about = $state();
+  let banner = $state();
+  let picture = $state();
+  let display = $state();
+  let username = $state();
 
   let avatarFile,
     avatarInput = $state(),
@@ -55,6 +59,15 @@
   let url = $derived(`${$page.url.host}/${username}`);
   let full = $derived(`${$page.url.protocol}//${url}`);
   let addr = $derived(`${username}@${$page.url.host}`);
+
+  $effect(() => {
+    if (!user) return;
+    if (typeof about === "undefined") about = user.about;
+    if (typeof banner === "undefined") banner = user.banner;
+    if (typeof picture === "undefined") picture = user.picture;
+    if (typeof display === "undefined") display = user.display;
+    if (typeof username === "undefined") username = user.username;
+  });
 </script>
 
 <div>
@@ -91,7 +104,9 @@
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
-        onkeydown={selectAvatar}
+        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectAvatar()}
+        role="button"
+        tabindex="0"
       >
         <img
           src={$avatar?.src || picture}
@@ -103,7 +118,9 @@
       <div
         class="rounded-full border-4 border-base-100 p-4 bg-base-200 w-24 h-24 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
-        onkeydown={selectAvatar}
+        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectAvatar()}
+        role="button"
+        tabindex="0"
       ></div>
     {/if}
     <div class="ml-2 p-2">
@@ -134,19 +151,25 @@
   </div>
 
   {#if $bannerStore || banner}
-    <img
-      src={$bannerStore ? $bannerStore.src : banner}
-      class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
+    <button
+      type="button"
+      class="w-full"
       onclick={selectBanner}
-      onkeydown={selectBanner}
-      alt="Banner"
-    />
+      aria-label="Select banner"
+    >
+      <img
+        src={$bannerStore ? $bannerStore.src : banner}
+        class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
+        alt="Banner"
+      />
+    </button>
   {:else}
     <div
       class="bg-base-200 w-full h-48 mb-4 cursor-pointer hover:opacity-80"
       onclick={selectBanner}
-      onkeydown={selectBanner}
-      alt="Banner"
+      onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectBanner()}
+      role="button"
+      tabindex="0"
     ></div>
   {/if}
 

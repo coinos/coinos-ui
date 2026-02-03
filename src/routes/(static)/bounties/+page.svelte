@@ -113,7 +113,7 @@
               noobserver
               icon="ph:lightning-fill"
               class="text-yellow-300"
-            />
+            ></iconify-icon>
             <span class="text-sm font-semibold tabular-nums">
               {s(amount, "en-CA")}
             </span>

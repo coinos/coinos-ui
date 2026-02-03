@@ -17,6 +17,10 @@
       class:border-b-0={i === payments.length - 1}
       class:text-error={amount < 0}
       onclick={() => goto(`/payment/${p.id}`)}
+      onkeydown={(e) =>
+        (e.key === "Enter" || e.key === " ") && goto(`/payment/${p.id}`)}
+      role="button"
+      tabindex="0"
     >
       <div class="whitespace-nowrap my-auto col-span-3">
         <div class="font-bold flex items-center">
@@ -86,7 +90,7 @@
                 class="text-yellow-300 text-3xl"
               ></iconify-icon>
             {:else if p.type === types.ecash}
-              <img src="/images/cash.png" class="w-12" />
+              <img src="/images/cash.png" class="w-12" alt="Ecash" />
             {:else if p.type === types.reconcile}
               <iconify-icon noobserver icon="ph:scales-bold" width="32"
               ></iconify-icon>

@@ -152,7 +152,7 @@
       class:hidden={activeOnly && type !== types.ecash}
       onclick={() => (activeOnly ? toggleType() : setType(types.ecash))}
     >
-      <img src="/images/cash.png" class="w-8 my-auto" />
+      <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
       <div class="my-auto text-lg">Ecash</div>
     </button>
 

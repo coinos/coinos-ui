@@ -11,7 +11,7 @@
 
   let { data } = $props();
   let { user } = $derived(data);
-  let { id } = user;
+  let { id } = $derived(user);
   let { haspin } = $derived(user);
 
   let confirming2fa = $state(),

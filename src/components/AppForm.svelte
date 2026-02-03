@@ -128,11 +128,12 @@
         bind:value={pubkey}
         class="grow"
         readonly={secret}
-      />
+      ></textarea>
       <button
         type="button"
         onclick={() => copy(pubkey)}
         class="btn !w-auto shrink"
+        aria-label="Copy public key"
       >
         <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
       </button>
@@ -145,14 +146,29 @@
         >{$t("accounts.secret")}</label
       >
       <div class="flex gap-1 items-center">
-        <textarea rows={3} name="secret" bind:value={secret} lcass="grow" />
+        <textarea
+          rows={3}
+          name="secret"
+          bind:value={secret}
+          class="grow"
+        ></textarea>
 
         <div class="space-y-2 w-24">
-          <button type="button" onclick={generate} class="btn">
+          <button
+            type="button"
+            onclick={generate}
+            class="btn"
+            aria-label="Generate secret"
+          >
             <iconify-icon noobserver icon="ph:dice-three-bold" width="32"
             ></iconify-icon>
           </button>
-          <button type="button" onclick={() => copy(secret)} class="btn">
+          <button
+            type="button"
+            onclick={() => copy(secret)}
+            class="btn"
+            aria-label="Copy secret"
+          >
             <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
           </button>
         </div>

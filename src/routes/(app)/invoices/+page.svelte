@@ -15,13 +15,15 @@
         {#if show[i.id]}
           <div class="md:col-span-8">{i.hash}</div>
         {:else}
-          <div
-            class="cursor-pointer grow md:col-span-6"
+          <button
+            type="button"
+            class="cursor-pointer grow md:col-span-6 text-left"
             onclick={() => display(i.id)}
+            aria-label="Show full invoice hash"
           >
             {i.hash.substr(0, 12)}
             {#if !show[i.id]}...{/if}
-          </div>
+          </button>
         {/if}
         <div class="md:col-span-2 whitespace-nowrap">
           {i.received} / {i.amount}

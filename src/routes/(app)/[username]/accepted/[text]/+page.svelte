@@ -10,7 +10,7 @@
   let { data } = $props();
   let { nfc, text } = $derived(data);
   let { username } = $derived(data.subject);
-  let url = `https://coinos.io/p/${username.toLowerCase()}`;
+  let url = $derived(() => `https://coinos.io/p/${username.toLowerCase()}`);
 
   let lnurl = $derived(
     `https://${PUBLIC_DOMAIN}/ln/${encode(
@@ -29,7 +29,11 @@
   >
     <div class="flex gap-2 mx-auto justify-center">
       <!-- <img src="/images/bitcoin.png" class="w-16 h-16 my-auto" /> -->
-      <img src="/images/bitcoin-logo.png" class="my-auto w-[400px]" />
+      <img
+        src="/images/bitcoin-logo.png"
+        class="my-auto w-[400px]"
+        alt="Bitcoin"
+      />
       <!-- <h3 class="text-5xl font-bold text-center my-auto"> -->
       <!--   bitcoin -->
       <!-- </h3> -->
@@ -38,10 +42,12 @@
       <img
         src="/images/tap.png"
         class="w-24 absolute top-52 left-4 rotate-[-10deg]"
+        alt="Tap"
       />
       <img
         src="/images/arrow.png"
         class="w-24 scale-x-[-1] rotate-[120deg] absolute top-52 left-32 w-20 h-52"
+        alt="Arrow"
       />
     {/if}
     <Qr {text} icon="icon.png" />

@@ -24,7 +24,7 @@
   let { data } = $props();
   let { user, payment: p } = $state(data);
   let locale = user ? locales[user.language] : locales["en"];
-  let userLocale = loc(user);
+  let userLocale = $derived(() => loc(user));
 
   let {
     id,
@@ -170,7 +170,7 @@
   {:else if memo?.includes("9734")}
     {@const eid = JSON.parse(memo).tags.find((t) => t[0] === "e")[1]}
     <a href={`/e/${eid}`} class="btn btn-accent">
-      <img src="/images/nostr.png" class="w-8" />
+      <img src="/images/nostr.png" class="w-8" alt="Nostr" />
       <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
       ></iconify-icon>{$t("payments.zappedEvent")}
     </a>

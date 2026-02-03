@@ -188,7 +188,7 @@
 
   {#if extensionAvailable}
     <button class="btn" type="button" onclick={getPubkey}>
-      <img src="/images/alby.svg" width="32" />
+      <img src="/images/alby.svg" width="32" alt="Alby" />
       {$t("user.settings.syncWithExtension")}</button
     >
   {/if}

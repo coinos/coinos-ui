@@ -167,8 +167,15 @@
           <div class="text-center text-2xl">Config written ✔</div>
         {:else}
           <div>Generated config file (<b>{bytes.length} bytes</b>)</div>
-          <label class="label mt-2">LittleFS address (hex)</label>
-            <input class="input" bind:value={littlefsAddress} onchange={(e) => (littlefsAddress = Number(e.target.value))} />
+          <label class="label mt-2" for="littlefs-address"
+            >LittleFS address (hex)</label
+          >
+          <input
+            id="littlefs-address"
+            class="input"
+            bind:value={littlefsAddress}
+            onchange={(e) => (littlefsAddress = Number(e.target.value))}
+          />
           <div class="mt-3">
             <button class="btn" onclick={flashConfig}>Flash config</button>
           </div>
@@ -185,11 +192,26 @@
     {:else}
       <!-- NEW FIRMWARE FLOW -->
       <div class="space-y-3">
-        <label class="label">Select .ino.bin (firmware)</label>
-        <input type="file" accept=".bin,application/octet-stream" class="input" onchange={onPickFw} />
+        <label class="label" for="firmware-file"
+          >Select .ino.bin (firmware)</label
+        >
+        <input
+          id="firmware-file"
+          type="file"
+          accept=".bin,application/octet-stream"
+          class="input"
+          onchange={onPickFw}
+        />
 
-        <label class="label">Firmware address (hex, default 0x10000)</label>
-        <input class="input" bind:value={fwAddress} onchange={(e) => (fwAddress = Number(e.target.value))} />
+        <label class="label" for="firmware-address"
+          >Firmware address (hex, default 0x10000)</label
+        >
+        <input
+          id="firmware-address"
+          class="input"
+          bind:value={fwAddress}
+          onchange={(e) => (fwAddress = Number(e.target.value))}
+        />
 
         <label class="flex items-center gap-2 mt-2">
           <input type="checkbox" bind:checked={fwEraseAll} />

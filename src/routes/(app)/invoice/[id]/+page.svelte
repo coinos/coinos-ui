@@ -42,11 +42,15 @@
   let { id, subject, user } = $state(data);
   let { invoice, src } = $derived(data);
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
-  let { memo } = $state(invoice);
+  let memo = $state();
   let { username, currency } = $derived(invoice.user);
-  let locale = loc(user);
+  let locale = $derived(() => loc(user));
 
   let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
+
+  $effect(() => {
+    if (typeof memo === "undefined") memo = invoice.memo;
+  });
 
   // if (browser && !subbed[id])
   //   send("subscribe", invoice)

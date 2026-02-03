@@ -1,7 +1,6 @@
 <script>
   import { invalidate } from "$app/navigation";
   import { browser } from "$app/environment";
-  import { hexToUint8Array } from "uint8array-extras";
   import {
     copy,
     f,
@@ -37,7 +36,7 @@
   } = $derived(data);
 
   let { currency, npub, username: n, display } = $derived(subject);
-  let locale = loc(user);
+  let locale = $derived(() => loc(user));
 
   let list = $state([]);
   let follow = async () => {
@@ -136,7 +135,7 @@
         <iconify-icon noobserver icon="ph:list-bold" width="32"></iconify-icon>
       </button>
       {#if subject.id === user?.id}
-        <a href="/settings/profile" class="btn contents">
+        <a href="/settings/profile" class="btn contents" aria-label="Edit profile">
           <iconify-icon noobserver icon="ph:pencil-bold" width="32"
           ></iconify-icon>
         </a>
@@ -151,7 +150,9 @@
         class="text-secondary mx-auto text-center lg:mx-0 break-words space-y-1"
         class:line-clamp-2={!showBio}
         onclick={toggleBio}
-        onkeydown={toggleBio}
+        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && toggleBio()}
+        role="button"
+        tabindex="0"
       >
         <div>
           {subject.about}
@@ -194,11 +195,20 @@
                 {lnaddr}
               </div>
               <div class="flex mb-auto gap-1">
-                <button class="my-auto" onclick={() => copy(lnaddr)}
+                <button
+                  type="button"
+                  class="my-auto"
+                  aria-label="Copy lightning address"
+                  onclick={() => copy(lnaddr)}
+                >
                   ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                   ></iconify-icon></button
                 >
-                <a href={`/qr/${encodeURIComponent(lnaddr)}`} class="my-auto">
+                <a
+                  href={`/qr/${encodeURIComponent(lnaddr)}`}
+                  class="my-auto"
+                  aria-label="Show lightning address QR"
+                >
                   <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
                   ></iconify-icon>
                 </a>
@@ -213,7 +223,12 @@
               {profile}
             </div>
             <div class="flex mb-auto gap-1">
-              <button class="my-auto" onclick={() => copy(profile)}
+              <button
+                type="button"
+                class="my-auto"
+                aria-label="Copy profile URL"
+                onclick={() => copy(profile)}
+              >
                 ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                 ></iconify-icon></button
               >
@@ -222,6 +237,7 @@
                   `${$page.url.protocol}//${profile}`,
                 )}`}
                 class="my-auto"
+                aria-label="Show profile URL QR"
               >
                 <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
                 ></iconify-icon>
@@ -236,13 +252,19 @@
               {lnurl}
             </div>
             <div class="flex mb-auto gap-1">
-              <button class="my-auto" onclick={() => copy(`lightning:${lnurl}`)}
+              <button
+                type="button"
+                class="my-auto"
+                aria-label="Copy LNURL"
+                onclick={() => copy(`lightning:${lnurl}`)}
+              >
                 ><iconify-icon noobserver icon="ph:copy-bold" width="32"
                 ></iconify-icon></button
               >
               <a
                 href={`/${n}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
                 class="my-auto"
+                aria-label="Show LNURL QR"
               >
                 <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
                 ></iconify-icon>
@@ -307,6 +329,7 @@
           <button
             type="submit"
             class="rounded-2xl border py-5 px-6 font-bold hover:opacity-80 flex w-60"
+            aria-label="Reset password"
           >
             <div class="mx-auto flex">
               <iconify-icon noobserver icon="ph:clock" width="32"

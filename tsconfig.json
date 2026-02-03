@@ -12,9 +12,6 @@
     "moduleResolution": "bundler",
     "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "paths": {
-      "$lib/*": ["./src/lib/*.ts"]
-    }
+    "noUnusedParameters": true
   }
 }

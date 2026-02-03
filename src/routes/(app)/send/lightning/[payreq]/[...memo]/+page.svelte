@@ -14,7 +14,7 @@
   let { alias, memo, payreq, ourfee, user } = $derived({ ...data, ...form });
   let a = $state();
   let { currency, locked } = $derived(user);
-  let locale = loc(user);
+  let locale = $derived(() => loc(user));
 
   $effect(() => ($rate ||= data.rate));
   $effect(() => form && (loading = false));

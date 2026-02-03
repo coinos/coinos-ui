@@ -304,12 +304,14 @@
       <button
         class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
         onclick={toggleList}
+        aria-label="Toggle location list"
       >
         <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
       </button>
       <button
         class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
         onclick={toggle}
+        aria-label={timeout ? "Resume map" : "Pause map"}
       >
         {#if timeout}
           <iconify-icon noobserver icon="ph:pause-bold" width="24"></iconify-icon>

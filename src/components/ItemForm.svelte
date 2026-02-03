@@ -101,28 +101,38 @@
     <div class="grid sm:grid-cols-2 gap-4">
       <div class="h-64 rounded-2xl overflow-hidden">
         {#if src}
-          <img
-            {src}
-            alt={item.name}
-            class="object-cover w-full h-full"
+          <button
+            type="button"
+            class="block w-full h-full"
             onclick={select}
-            onkeydown={select}
-          />
+            aria-label="Select image"
+          >
+            <img
+              {src}
+              alt={item.name}
+              class="object-cover w-full h-full"
+            />
+          </button>
         {:else if item.image}
-          <img
-            src={`/api/public/${item.image}.webp`}
-            alt={item.name}
-            class="object-cover w-full h-full"
+          <button
+            type="button"
+            class="block w-full h-full"
             onclick={select}
-            onkeydown={select}
-          />
+            aria-label="Select image"
+          >
+            <img
+              src={`/api/public/${item.image}.webp`}
+              alt={item.name}
+              class="object-cover w-full h-full"
+            />
+          </button>
         {:else}
-          <div
+          <button
+            type="button"
             class="bg-gradient-to-r from-primary to-gradient mb-4 cursor-pointer hover:opacity-80 w-full h-full"
             onclick={select}
-            onkeydown={select}
-            alt="Banner"
-></div>
+            aria-label="Select image"
+          ></button>
         {/if}
       </div>
     </div>

@@ -147,7 +147,6 @@
             class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
             class:ours
             class:theirs
-            :key={id}
           >
             {message}
           </div>
@@ -177,7 +176,11 @@
       class="grow break-all py-4 outline-none mt-0 pl-4"
       bind:innerHTML={message}
       onkeydown={keydown}
-></div>
+      role="textbox"
+      aria-multiline="true"
+      aria-label="Message"
+      tabindex="0"
+    ></div>
     <button type="submit" class="my-auto shrink-0">
       <Icon icon="send" style="w-8" />
     </button>
