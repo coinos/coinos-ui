@@ -85,7 +85,6 @@
 
 <div class="space-y-5">
   <div class="flex items-center justify-center gap-2">
-    <iconify-icon noobserver icon="ph:vault-bold" width="32"></iconify-icon>
     <h1 class="text-3xl font-semibold">Create Ark Wallet</h1>
   </div>
 
@@ -93,28 +92,20 @@
     {#if !confirmed}
       <div class="space-y-4">
         <p class="text-secondary">
-          Your Ark wallet is secured by a private key. Back it up now - you won't be able to see it again without your password.
+          Your Ark wallet is secured by a private key. Please copy it down somewhere safe.
         </p>
 
         {#if showNsec}
           <div class="space-y-2">
-            <div class="text-sm text-secondary">Your backup key (nsec)</div>
             <div
-              class="text-sm break-all bg-warning/20 p-4 rounded-lg cursor-pointer border border-warning font-mono"
+              class="break-all p-4 rounded-lg cursor-pointer border"
               onclick={() => copy(nsec)}
             >
               {nsec}
             </div>
-            <div class="text-sm text-warning">
-              Click to copy. Store this somewhere safe - anyone with this key can spend your funds.
-            </div>
           </div>
 
           <div class="flex gap-2">
-            <button type="button" class="btn flex-grow" onclick={generateKey}>
-              <iconify-icon noobserver icon="ph:dice-three-bold" width="24"></iconify-icon>
-              Regenerate
-            </button>
             <button type="button" class="btn btn-accent flex-grow" onclick={confirmBackup}>
               <iconify-icon noobserver icon="ph:check-bold" width="24"></iconify-icon>
               I've backed it up

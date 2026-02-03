@@ -49,7 +49,7 @@
 {#if loaded}
   <div
     role="dialog"
-    class="fixed bg-base-100 bg-opacity-90 inset-0 h-full w-full z-50 cursor-default"
+    class="fixed bg-base-100/90 inset-0 h-full w-full z-50 cursor-default"
     on:click|preventDefault
     aria-labelledby="title"
   >

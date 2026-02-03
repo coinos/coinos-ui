@@ -264,7 +264,7 @@
   <div class="absolute flex top-2 left-2 gap-2">
     <button
        aria-label="Back"
-      class="rounded-full border-2 border-black bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
+      class="rounded-full border-2 border-black bg-base-100/80 w-16 h-16 flex items-center justify-center"
       onclick={back}
     >
       <iconify-icon noobserver icon="ph:arrow-left-bold" width="24"></iconify-icon>
@@ -273,7 +273,7 @@
   <div class="relative">
     {#if !showList}
       <div
-        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-opacity-90 bg-base-100 absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
+        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-base-100/90 absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
       >
         <div class="relative mb-4 sticky top-0 bg-base-100 z-10">
           <input bind:value={search} class="w-full" />
@@ -302,13 +302,13 @@
     {/if}
     <div class="absolute flex top-2 right-2 gap-2">
       <button
-        class="rounded-full border-2 border-primary bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
+        class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
         onclick={toggleList}
       >
         <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
       </button>
       <button
-        class="rounded-full border-2 border-primary bg-base-100 w-16 h-16 flex items-center justify-center bg-opacity-80"
+        class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
         onclick={toggle}
       >
         {#if timeout}
