@@ -15,8 +15,7 @@
   {min}
   {max}
   bind:value
-  class="range"
+  class="range w-full"
   oninput={handle}
 />
-
 

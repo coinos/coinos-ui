@@ -6,7 +6,6 @@
   import { copy, fail, focus, post } from "$lib/utils";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
-  import { decrypt } from "nostr-tools/nip49";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
   import {
@@ -27,6 +26,7 @@
 
   let submit = $state(async () => {
     toggle();
+    const { decrypt } = await import("nostr-tools/nip49");
     let entropy = await decrypt(seed, password);
     mnemonic = entropyToMnemonic(entropy, wordlist);
   });

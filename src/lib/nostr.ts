@@ -21,10 +21,18 @@ import { decrypt as nip44decrypt, getConversationKey } from "nostr-tools/nip44";
 import { Relay } from "nostr-tools/relay";
 import { get } from "svelte/store";
 
-import {
-	decrypt as nip49decrypt,
-	encrypt as nip49encrypt,
-} from "nostr-tools/nip49";
+let nostrToolsPromise:
+	| Promise<typeof import("nostr-tools")>
+	| undefined;
+let nip44Promise: Promise<typeof import("nostr-tools/nip44")> | undefined;
+let relayPromise: Promise<typeof import("nostr-tools/relay")> | undefined;
+let nip49Promise: Promise<typeof import("nostr-tools/nip49")> | undefined;
+
+const loadNostrTools = () =>
+	(nostrToolsPromise ||= import("nostr-tools"));
+const loadNip44 = () => (nip44Promise ||= import("nostr-tools/nip44"));
+const loadRelay = () => (relayPromise ||= import("nostr-tools/relay"));
+const loadNip49 = () => (nip49Promise ||= import("nostr-tools/nip49"));
 
 type User = {
 	[key: string]: any;
@@ -38,6 +46,7 @@ type EncryptParams = {
 
 export const encrypt = async ({ message, recipient, user }: EncryptParams) => {
 	const sk = await getPrivateKey(user);
+	const { nip04 } = await loadNostrTools();
 	return nip04.encrypt(sk, recipient, message);
 };
 
@@ -48,6 +57,7 @@ export const decrypt = async ({ event, user }) => {
 		if (cache[id]) return cache[id];
 		if (pubkey === user.pubkey) pubkey = event.tags[0][1];
 
+		const { nip04 } = await loadNostrTools();
 		const message = await nip04.decrypt(
 			await getPrivateKey(user),
 			pubkey,
@@ -68,6 +78,7 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 	if (browser) {
 		k = localStorage.getItem("nsec");
 		if (k) {
+			const { nip19 } = await loadNostrTools();
 			return nip19.decode(k).data as Uint8Array;
 		}
 	}
@@ -75,38 +86,45 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
 	const { nsec } = user;
 
 	if (nsec) {
+		const { decrypt: nip49decrypt } = await loadNip49();
 		k = nip49decrypt(nsec, await getPassword());
 	} else {
 		throw new Error("nsec not available");
 	}
 
+	const { nip19 } = await loadNostrTools();
 	localStorage.setItem("nsec", nip19.nsecEncode(k));
 	return k;
 };
 
-const decodeNsec = (nsec: string): Uint8Array => {
+const decodeNsec = async (nsec: string): Promise<Uint8Array> => {
+	const { nip19 } = await loadNostrTools();
 	const { type, data } = nip19.decode(nsec);
 	if (type === "nsec" && data instanceof Uint8Array) return data;
 	throw new Error("invalid nsec");
 };
 
 export const getNsec = async (user: User) => {
+	const { nip19 } = await loadNostrTools();
 	return nip19.nsecEncode(await getPrivateKey(user));
 };
 
 export const setNsec = async (user: User, nsec: string) => {
-	user.pubkey = getPublicKey(decodeNsec(nsec));
+	const { getPublicKey } = await loadNostrTools();
+	user.pubkey = getPublicKey(await decodeNsec(nsec));
 	user.nsec = await encryptNsec(nsec);
 };
 
 export const encryptNsec = async (nsec: string) => {
-	const d = decodeNsec(nsec);
+	const { encrypt: nip49encrypt } = await loadNip49();
+	const d = await decodeNsec(nsec);
 	return nip49encrypt(d, await getPassword());
 };
 
 export const sign = async (event, user) => {
 	if (user?.nsec && !get($signer)?.ready) {
 		const sk = await getPrivateKey(user);
+		const { getPublicKey } = await loadNostrTools();
 
 		$signer.set({
 			method: "nsec",
@@ -154,6 +172,7 @@ const signingMethods = {
 			params: [JSON.stringify(event)],
 		};
 
+		const { nip04, finalizeEvent } = await loadNostrTools();
 		const content = await nip04.encrypt(sk, pk, JSON.stringify(signEvent));
 
 		const signedSignEvent = finalizeEvent(
@@ -167,6 +186,7 @@ const signingMethods = {
 			sk,
 		);
 
+		const { Relay } = await loadRelay();
 		const relay = await Relay.connect(nostrConnectRelay);
 		relay.publish(signedSignEvent);
 
@@ -177,8 +197,11 @@ const signingMethods = {
 					try {
 						let response;
 						try {
+							const { nip04 } = await loadNostrTools();
 							response = JSON.parse(await nip04.decrypt(sk, pk, event.content));
 						} catch (e) {
+							const { getConversationKey, decrypt: nip44decrypt } =
+								await loadNip44();
 							const ck = await getConversationKey(sk, pk);
 							response = JSON.parse(await nip44decrypt(event.content, ck));
 						}
@@ -193,6 +216,7 @@ const signingMethods = {
 	},
 
 	async nsec(event, { sk }) {
+		const { finalizeEvent } = await loadNostrTools();
 		return finalizeEvent(event, sk);
 	},
 
@@ -202,6 +226,7 @@ const signingMethods = {
 
 	async signer(event, { pubkey, sig }) {
 		event.pubkey = pubkey;
+		const { getEventHash } = await loadNostrTools();
 		const signedEvent = {
 			...event,
 			id: getEventHash(event),

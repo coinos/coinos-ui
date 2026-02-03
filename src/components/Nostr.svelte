@@ -40,6 +40,11 @@
 
   let connectUrl = $state();
   let nostrConnect = async () => {
+    const { Relay } = await import("nostr-tools/relay");
+    const { nip04, generateSecretKey, getPublicKey } = await import(
+      "nostr-tools"
+    );
+    const { getConversationKey, decrypt } = await import("nostr-tools/nip44");
     let connectionSecret = crypto.randomUUID();
 
     let sk = generateSecretKey();
@@ -89,6 +94,7 @@
   };
 
   let nsecSign = async () => {
+    const { nip19, getPublicKey } = await import("nostr-tools");
     let sk;
     if (nsec.startsWith("nsec")) sk = nip19.decode(nsec).data as Uint8Array;
     else sk = hexToBytes(nsec);

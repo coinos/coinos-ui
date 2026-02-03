@@ -1,6 +1,5 @@
 <script>
   import { enhance } from "$app/forms";
-  import { ESPLoader, Transport } from "esptool-js";
   import { hex } from "@scure/base";
 
   function bs(uint8Array) {
@@ -29,9 +28,14 @@
   let data = $derived(form ? hex.decode(form.data) : undefined);
 
   let chip, transport;
+  let ESPLoader;
+  let Transport;
   // let data = $state();
   let connect = async () => {
     try {
+      if (!ESPLoader || !Transport) {
+        ({ ESPLoader, Transport } = await import("esptool-js"));
+      }
       let device = await navigator.serial.requestPort({});
       transport = new Transport(device, true);
 

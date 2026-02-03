@@ -1,6 +1,5 @@
 <script>
   import { enhance } from "$app/forms";
-  import { ESPLoader, Transport } from "esptool-js";
   import { hex } from "@scure/base";
 
   // Convert Uint8Array → JS "binary string" in safe chunks
@@ -28,6 +27,8 @@
   let chip, transport;
   let connected = $state(false);
   let portInfo = $state("");
+  let ESPLoader;
+  let Transport;
 
   // --- Existing config path (generated server-side to hex in form.bytes) ---
   let bytes = $derived(form ? hex.decode(form.bytes) : undefined);
@@ -49,6 +50,9 @@
 
   let connect = async () => {
     try {
+      if (!ESPLoader || !Transport) {
+        ({ ESPLoader, Transport } = await import("esptool-js"));
+      }
       const device = await navigator.serial.requestPort({});
       transport = new Transport(device, true);
       esploader = new ESPLoader({

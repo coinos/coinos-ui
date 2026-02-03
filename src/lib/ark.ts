@@ -1,14 +1,17 @@
 import { persistLocal } from "$lib/store";
 import { post } from "$lib/utils";
-import { SingleKey, Wallet } from "@arkade-os/sdk";
 import { get } from "svelte/store";
 
 export const arkServerUrl = "http://localhost:7070";
 export const arkkey = persistLocal("arkkey", "");
 
+let arkSdkPromise: Promise<typeof import("@arkade-os/sdk")> | undefined;
+const loadArkSdk = () => (arkSdkPromise ||= import("@arkade-os/sdk"));
+
 export const getWallet = async () => {
 	const key = get(arkkey);
 	if (!key) return;
+	const { SingleKey, Wallet } = await loadArkSdk();
 	const identity = SingleKey.fromHex(key);
 
 	return Wallet.create({

@@ -2,7 +2,12 @@ import { PUBLIC_DOMAIN } from "$env/static/public";
 import { decode } from "$lib/bip21";
 import { auth, get, isLiquid, post, sats } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
-import { validate } from "bitcoin-address-validation";
+
+let validatePromise:
+	| Promise<typeof import("bitcoin-address-validation")>
+	| undefined;
+const loadValidate = () =>
+	(validatePromise ||= import("bitcoin-address-validation"));
 
 export default async (s, host, cookies) => {
 	if (!s) return;
@@ -49,6 +54,7 @@ export default async (s, host, cookies) => {
 		} = decode(t));
 	}
 
+	const { validate } = await loadValidate();
 	if (validate(t) || isLiquid(t)) {
 		let r = `/send/bitcoin/${t}`;
 		if (amount) r += `/${Math.round(amount * sats)}`;

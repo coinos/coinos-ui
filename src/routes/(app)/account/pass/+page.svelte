@@ -5,7 +5,6 @@
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
   import Spinner from "$comp/Spinner.svelte";
-  import { encrypt } from "nostr-tools/nip49";
   import {
     mnemonicToSeed,
     mnemonicToEntropy,
@@ -41,6 +40,7 @@
     }
 
     try {
+      const { encrypt } = await import("nostr-tools/nip49");
       let seed = await encrypt(
         mnemonicToEntropy($mnemonic, wordlist),
         password,

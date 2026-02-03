@@ -2,7 +2,6 @@
   import Event from "$comp/Event.svelte";
   import { get, post } from "$lib/utils";
   import { onMount } from "svelte";
-  import { Relay } from "nostr-tools/relay";
   import { ignore } from "$lib/store";
 
   let events = $state([]);
@@ -19,6 +18,7 @@
   };
 
   onMount(async () => {
+    const { Relay } = await import("nostr-tools/relay");
     const relay = await Relay.connect("wss://relay.primal.net");
     const subscription = relay.subscribe([{ kinds: [1], limit: 20 }], {
       async onevent(event) {
