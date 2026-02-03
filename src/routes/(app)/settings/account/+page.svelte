@@ -272,7 +272,7 @@
 
 {#if editingThreshold}
   <div
-    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto"
+    class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto"
   >
     <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
       <h1 class="text-center text-2xl font-semibold">
@@ -298,7 +298,7 @@
 
 {#if editingReserve}
   <div
-    class="fixed bg-base-100 bg-opacity-90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg"
+    class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg"
   >
     <div
       class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center"

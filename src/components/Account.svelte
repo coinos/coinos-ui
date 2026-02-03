@@ -100,20 +100,20 @@
       </button>
     </a>
 
-    <a
-      href={"/payments"}
-      class="contents"
-      onclick={(e) => setAccount(e, "/payments")}
-    >
-      <button class="btn !w-auto flex-grow">
-        <iconify-icon
-          noobserver
-          icon="ph:clock-bold"
-          width="32"
-          flip="horizontal"
-        ></iconify-icon>
-      </button>
-    </a>
+    <!-- <a -->
+    <!--   href={"/payments"} -->
+    <!--   class="contents" -->
+    <!--   onclick={(e) => setAccount(e, "/payments")} -->
+    <!-- > -->
+    <!--   <button class="btn !w-auto flex-grow"> -->
+    <!--     <iconify-icon -->
+    <!--       noobserver -->
+    <!--       icon="ph:clock-bold" -->
+    <!--       width="32" -->
+    <!--       flip="horizontal" -->
+    <!--     ></iconify-icon> -->
+    <!--   </button> -->
+    <!-- </a> -->
 
     <a
       href={`/send`}

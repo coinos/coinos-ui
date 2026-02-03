@@ -102,8 +102,7 @@
                 />
               </div>
             {:else if p.type === types.ark}
-              <iconify-icon noobserver icon="ph:vault-bold" width="32"
-              ></iconify-icon>
+              <img src="/images/ark.png" class="w-10 h-10 rounded-full object-cover" alt="Ark" />
             {/if}
 
             <div class="my-auto">

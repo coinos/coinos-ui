@@ -227,7 +227,7 @@
 
 {#if need2fa && token.length < 6}
   <div
-    class="fixed bg-base-100 bg-opacity-90 inset-0 h-full w-full z-50 cursor-default"
+    class="fixed bg-base-100/90 inset-0 h-full w-full z-50 cursor-default"
     onclick={(e) => e.stopPropagation()}
     role="dialog"
     aria-labelledby="title"

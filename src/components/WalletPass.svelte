@@ -9,7 +9,7 @@
 </script>
 
 <div
-  class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
+  class="fixed inset-0 bg-gray-600/50 overflow-y-auto h-full w-full z-20"
 >
   <div
     class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5"

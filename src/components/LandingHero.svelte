@@ -31,7 +31,7 @@
       <a href="/register">
         <button
           use:focus
-          class="btn !rounded-full bg-primary text-primary-content hover:bg-primary hover:bg-opacity-80"
+          class="btn !rounded-full bg-primary text-primary-content hover:bg-primary/80"
         >
           {$t("nav.startInSeconds")}
         </button>

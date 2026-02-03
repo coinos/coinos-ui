@@ -329,7 +329,7 @@
 
 {#if currency}
   <div
-    class="flex fixed w-full px-4 bg-base-100 py-2 pb-3 bottom-0 bg-opacity-90 tabular-nums"
+    class="flex fixed w-full px-4 bg-base-100/90 py-2 pb-3 bottom-0 tabular-nums"
     style="bottom: calc(var(--safe-area-inset-bottom) + 8px);"
   >
     <div class="text-secondary flex mr-auto">
