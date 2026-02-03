@@ -28,7 +28,7 @@ export const actions = {
 		let p;
 		try {
 			const body = await fd(request);
-			p = await post("/ark/send", body, auth(cookies));
+			p = await post("/ark/send", { ...body, address, amount: parseInt(amount) }, auth(cookies));
 		} catch (e) {
 			console.log("problem sending bitcoin", e);
 			const { message } = e as Error;

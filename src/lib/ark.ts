@@ -44,6 +44,13 @@ export const syncTransactions = async (aid: string) => {
 	return post("/ark/sync", { transactions, aid });
 };
 
+export const sendArk = async (address: string, amount: number) => {
+	const wallet = await getWallet();
+	if (!wallet) throw new Error("Ark wallet not available");
+
+	return wallet.sendBitcoin({ address, amount });
+};
+
 export const settle = async () => {
 	const wallet = await getWallet();
 	if (!wallet) return;
