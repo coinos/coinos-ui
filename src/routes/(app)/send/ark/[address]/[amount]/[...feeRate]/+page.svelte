@@ -20,8 +20,10 @@
     error = "";
 
     try {
-      const txid = await sendArk(address, amount);
-      console.log("ARK tx:", txid);
+      if (account.type === "ark") {
+        const txid = await sendArk(address, amount);
+        console.log("ARK tx:", txid);
+      }
 
       return async ({ result }) => {
         submitting = false;
