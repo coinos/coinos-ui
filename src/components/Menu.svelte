@@ -31,7 +31,7 @@
       onclick={toggleMenu}
       aria-label="Open menu"
     >
-      ><iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}
+      <iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}
       ></iconify-icon>
     </button>
 
