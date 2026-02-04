@@ -9,6 +9,7 @@
     rate,
     currency,
     locked = false,
+    showFiat = true,
   } = $props();
 
   const icon = $derived(locked ? "ph:lock-fill" : "ph:lightning-fill");
@@ -39,23 +40,25 @@
         </div>
       {/if}
     </h2>
-    <h3
-      class="flex text-secondary md:text-lg cursor-copy items-center gap-1"
-      class:justify-center={align !== "left"}
-    >
-      <button
-        type="button"
-        class="flex items-center gap-1"
-        onclick={() => copy(toFiat(amount, rate).toFixed(2))}
-        aria-label="Copy fiat amount"
+    {#if showFiat}
+      <h3
+        class="flex text-secondary md:text-lg cursor-copy items-center gap-1"
+        class:justify-center={align !== "left"}
       >
-        {f(toFiat(amount, rate), currency, locale)}
-        {#if tip}
-          <span class="text-base">
-            +{f(toFiat(tip, rate), currency, locale)}
-          </span>
-        {/if}
-      </button>
-    </h3>
+        <button
+          type="button"
+          class="flex items-center gap-1"
+          onclick={() => copy(toFiat(amount, rate).toFixed(2))}
+          aria-label="Copy fiat amount"
+        >
+          {f(toFiat(amount, rate), currency, locale)}
+          {#if tip}
+            <span class="text-base">
+              +{f(toFiat(tip, rate), currency, locale)}
+            </span>
+          {/if}
+        </button>
+      </h3>
+    {/if}
   </div>
 {/if}

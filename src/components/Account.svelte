@@ -58,7 +58,7 @@
   let isArk = $derived(accountType === "ark");
 </script>
 
-<div class="rounded-2xl bg-base-200 p-5 shadow space-y-4" aria-label="Payments">
+<div class="shadow-lg space-y-4 p-4" aria-label="Payments">
   <div class="flex items-center gap-3">
     {#if isArk}
       <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
@@ -98,7 +98,7 @@
           width="32"
           flip="horizontal"
         ></iconify-icon>
-        <div class="my-auto">{$t("user.dashboard.receive")}</div>
+        <div class="my-auto hidden sm:block">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
@@ -113,7 +113,7 @@
           icon="ph:clock-bold"
           width="32"
         ></iconify-icon>
-        <div class="my-auto">{$t("user.dashboard.history")}</div>
+        <div class="my-auto hidden sm:block">{$t("user.dashboard.history")}</div>
       </button>
     </a>
 
@@ -125,7 +125,7 @@
       <button type="button" class="btn !w-auto flex-1">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
         ></iconify-icon>
-        <div class="my-auto">{$t("user.dashboard.send")}</div>
+        <div class="my-auto hidden sm:block">{$t("user.dashboard.send")}</div>
       </button>
     </a>
   </div>
