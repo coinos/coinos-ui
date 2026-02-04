@@ -92,9 +92,6 @@
               ></iconify-icon>
             {:else if p.type === types.ecash}
               <img src="/images/cash.png" class="w-12" alt="Ecash" />
-            {:else if p.type === types.reconcile}
-              <iconify-icon noobserver icon="ph:scales-bold" width="32"
-              ></iconify-icon>
             {:else if p.type === types.bitcoin}
               <iconify-icon noobserver icon="logos:bitcoin" class="text-3xl"
               ></iconify-icon>

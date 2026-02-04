@@ -414,7 +414,6 @@ export const types = {
 	internal: "internal",
 	fund: "fund",
 	ecash: "ecash",
-	reconcile: "reconcile",
 	bolt12: "bolt12",
 };
 

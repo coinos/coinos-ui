@@ -51,7 +51,7 @@
   </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
-    <form class="space-y-5" method="POST">
+    <form class="space-y-5" method="POST" use:enhance>
       <div class="space-y-1">
         <label for="name" class="font-bold block">{$t("accounts.name")}</label>
         <label

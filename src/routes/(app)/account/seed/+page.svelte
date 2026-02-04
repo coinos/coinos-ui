@@ -40,7 +40,7 @@
     </button>
 
     <div class="flex gap-2">
-      <a href={`/account/savings`} class="contents">
+      <a href={`/account/bitcoin`} class="contents">
         <button type="button" class="btn !w-auto grow">
           {$t("accounts.back")}
         </button>
