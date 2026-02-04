@@ -17,7 +17,7 @@
         </div>
       </div>
     </a>
-    <a href="/account/savings" class="block">
+    <a href="/account/new" class="block">
       <div class="shadow p-8 rounded-xl flex gap-4 hover:bg-primary">
         <img src="/images/keys.png" class="w-20 my-auto" alt="Savings account" />
         <div>

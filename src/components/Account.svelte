@@ -65,6 +65,13 @@
     e.preventDefault();
     setAccount(e, "/payments");
   };
+
+  let goSettings = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    document.cookie = `aid=${id}; path=/; max-age=86400`;
+    goto(`/account/${id}`);
+  };
 </script>
 
 <div
@@ -81,7 +88,7 @@
       href={`/account/${id}`}
       class="font-bold text-lg opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2 shrink-0"
       aria-label="Account settings"
-      onclick={(e) => e.stopPropagation()}
+      onclick={goSettings}
     >
       {#if isArk}
         <img

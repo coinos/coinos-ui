@@ -3,7 +3,7 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">Choose wallet type</h1>
+  <h1 class="text-center text-3xl font-semibold">Choose account type</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
     <a href="/account/bitcoin" class="block">
@@ -12,8 +12,7 @@
         <div>
           <div class="text-xl">Bitcoin (On-chain)</div>
           <div class="text-secondary">
-            Standard Bitcoin wallet secured by a 12-word seed phrase. Full
-            control over your UTXOs.
+            Self-custodial Bitcoin wallet secured by a 12-word seed phrase
           </div>
         </div>
       </div>
@@ -28,8 +27,7 @@
         <div>
           <div class="text-xl">Ark (Off-chain)</div>
           <div class="text-secondary">
-            Fast, private transactions using virtual UTXOs. Lower fees with
-            instant settlement.
+            Experimental layer 2 wallet offering low fees and fast settlement
           </div>
         </div>
       </div>

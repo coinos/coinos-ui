@@ -28,7 +28,7 @@
   let name = $t("accounts.savings");
 
   onMount(() => {
-    if (!$mnemonic) goto("/account/savings");
+    if (!$mnemonic) goto("/account/new");
   });
 
   let submit = async () => {

@@ -233,7 +233,7 @@
 </div>
 
 <div>
-  <a href={`/account/savings`} class="contents">
+  <a href={`/account/new`} class="contents">
     <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
       <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"
       ></iconify-icon>

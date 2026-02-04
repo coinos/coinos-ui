@@ -68,6 +68,18 @@
       {#each accounts as account}
         <Account {user} {rate} {account} />
       {/each}
+      <div class="flex justify-end">
+        <a href="/account/new" class="contents">
+          <button
+            class="btn btn-circle btn-accent !w-14 !h-14 !rounded-full"
+            aria-label={$t("accounts.addAccount")}
+            title={$t("accounts.addAccount")}
+          >
+            <iconify-icon noobserver icon="ph:plus-bold" width="28"
+            ></iconify-icon>
+          </button>
+        </a>
+      </div>
     </div>
 
     {#if locked}
