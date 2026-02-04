@@ -14,6 +14,13 @@
     success,
     types,
   } from "$lib/utils";
+  import { fiat } from "$lib/store";
+
+  const toggleFiat = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    $fiat = !$fiat;
+  };
   import Avatar from "$comp/Avatar.svelte";
   import { format } from "date-fns";
   import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
@@ -79,18 +86,27 @@
 {#snippet field(title, amount)}
   <div>
     <span class="text-lg text-secondary">{$t(title)}</span>
-    <div class="flex gap-2 items-end">
-      <div class="flex items-center">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-        ></iconify-icon>{s(amount, userLocale)}
-      </div>
-      <span class="text-secondary text-lg">
-        {f(toFiat(amount, rate), currency, userLocale)}
-      </span>
-    </div>
+    <button
+      type="button"
+      class="flex gap-2 items-end"
+      onclick={toggleFiat}
+      aria-label="Toggle currency display"
+    >
+      {#if $fiat}
+        <div class="flex items-center gap-1">
+          {f(toFiat(amount, rate), currency, userLocale)}
+        </div>
+      {:else}
+        <div class="flex items-center gap-1">
+          <iconify-icon
+            noobserver
+            icon="ph:lightning-fill"
+            class="text-yellow-300"
+          ></iconify-icon>
+          {s(amount, userLocale)}
+        </div>
+      {/if}
+    </button>
   </div>
 {/snippet}
 

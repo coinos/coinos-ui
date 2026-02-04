@@ -14,6 +14,7 @@
     success,
     types,
   } from "$lib/utils";
+  import { fiat } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";  import { format } from "date-fns";
   import { PUBLIC_EXPLORER as expl } from "$env/static/public";
 
@@ -40,7 +41,11 @@
   <div>
     <span class="text-lg text-secondary">Amount</span>
     <div>
-      {f(toFiat(a, rate), currency)}
+      {#if $fiat}
+        {f(toFiat(a, rate), currency)}
+      {:else}
+        {s(a)}
+      {/if}
     </div>
   </div>
 
@@ -48,7 +53,11 @@
     <div>
       <span class="text-lg text-secondary">Tip</span>
       <div>
-        {f(toFiat(tip, rate), currency)}
+        {#if $fiat}
+          {f(toFiat(tip, rate), currency)}
+        {:else}
+          {s(tip)}
+        {/if}
         ({Math.round((tip * 100) / Math.abs(a))}%)
       </div>
     </div>
@@ -56,7 +65,11 @@
     <div>
       <span class="text-lg text-secondary">Total</span>
       <div>
-        {f(toFiat(a + (tip || 0), rate), currency)}
+        {#if $fiat}
+          {f(toFiat(a + (tip || 0), rate), currency)}
+        {:else}
+          {s(a + (tip || 0))}
+        {/if}
       </div>
     </div>
   {/if}

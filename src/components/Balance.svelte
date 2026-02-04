@@ -34,7 +34,6 @@
         {rate}
         {currency}
         {locale}
-        showFiat={false}
         align="left"
       />
       {#if locked && id === user.id}

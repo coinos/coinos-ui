@@ -1,6 +1,8 @@
 <script>
   import { copy, sats, f, s } from "$lib/utils";
-  import { t } from "$lib/translations";  let { data, children } = $props();
+  import { t } from "$lib/translations";
+  import { fiat } from "$lib/store";
+  let { data, children } = $props();
 
   let { id, user, token, total, spent, external, mint, rate } = data;
   let currency = user?.currency || "USD";
@@ -18,14 +20,15 @@
 
   {#if amount > 0}
     <div class="text-center font-bold text-2xl">
-      <div>
-        {f(amountFiat, currency)}
-      </div>
-      <div>
-        <span class="text-secondary font-normal text-xl"
-          >⚡️{`${s(amount)}`}</span
-        >
-      </div>
+      {#if $fiat}
+        <div>{f(amountFiat, currency)}</div>
+      {:else}
+        <div>
+          <span class="text-secondary font-normal text-xl"
+            >⚡️{`${s(amount)}`}</span
+          >
+        </div>
+      {/if}
     </div>
   {/if}
 
@@ -36,15 +39,19 @@
 
   {#if spent > 0}
     <div class="text-center font-bold text-2xl">
-      <div>
-        {f(spentFiat, currency)}
-        <span class=" text-red-600">{$t("payments.spent")}</span>
-      </div>
-      <div>
-        <span class="text-secondary font-normal text-xl"
-          >⚡️{`${s(spent)}`}</span
-        >
-      </div>
+      {#if $fiat}
+        <div>
+          {f(spentFiat, currency)}
+          <span class=" text-red-600">{$t("payments.spent")}</span>
+        </div>
+      {:else}
+        <div>
+          <span class="text-secondary font-normal text-xl"
+            >⚡️{`${s(spent)}`}</span
+          >
+          <span class=" text-red-600">{$t("payments.spent")}</span>
+        </div>
+      {/if}
     </div>
   {/if}
 

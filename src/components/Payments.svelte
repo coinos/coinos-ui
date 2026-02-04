@@ -5,6 +5,7 @@
   import { format } from "date-fns";
   import { t } from "$lib/translations";
   import locales from "$lib/locales";
+  import { fiat } from "$lib/store";
   const { fund, locale, user, payments } = $props();
   const language = $derived(user?.language || "en");
 </script>
@@ -24,26 +25,26 @@
     >
       <div class="whitespace-nowrap my-auto col-span-3">
         <div class="font-bold flex items-center">
-          <div class="flex items-center">
-            <iconify-icon
-              noobserver
-              icon="ph:lightning-fill"
-              width="24"
-              class="text-yellow-300"
-            ></iconify-icon>
-            <div>{s(Math.abs(amount), locale)}</div>
+          <div class="flex items-center gap-1">
+            {#if $fiat}
+              <div>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
+            {:else}
+              <iconify-icon
+                noobserver
+                icon="ph:lightning-fill"
+                width="24"
+                class="text-yellow-300"
+              ></iconify-icon>
+              <div>{s(Math.abs(amount), locale)}</div>
+            {/if}
           </div>
         </div>
 
-        <div class="text-secondary flex items-center text-base">
-          {f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}
-
-          {#if p.tip}
-            <span class="text-sm text-secondary">
-              &nbsp;+{Math.round((p.tip / Math.abs(amount)) * 100)}%
-            </span>
-          {/if}
-        </div>
+        {#if p.tip}
+          <div class="text-secondary flex items-center text-sm">
+            +{Math.round((p.tip / Math.abs(amount)) * 100)}%
+          </div>
+        {/if}
       </div>
 
       <div

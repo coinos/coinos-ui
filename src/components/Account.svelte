@@ -29,6 +29,7 @@
 
   let setAccount = (event, url) => {
     event.preventDefault();
+    event.stopPropagation();
     document.cookie = `aid=${id}; path=/; max-age=86400`;
     if (isArk) {
       pendingUrl = url;
@@ -51,37 +52,55 @@
   };
 
   let displayType = $derived(
-    accountType === "ark" ? "Ark" : seed ? "Bitcoin" : "Custodial",
+    accountType === "ark"
+      ? $t("accounts.ark")
+      : seed
+        ? $t("accounts.bitcoin")
+        : $t("accounts.custodial"),
   );
+  let displayName = $derived(name || displayType);
   let isArk = $derived(accountType === "ark");
+
+  let goPayments = (e) => {
+    e.preventDefault();
+    setAccount(e, "/payments");
+  };
 </script>
 
-<div class="shadow-lg space-y-4 p-4" aria-label="Payments">
-  <div class="flex items-center gap-3">
-    {#if isArk}
-      <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
-    {:else if seed}
-      <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
-    {:else}
-      <img src="/images/icon.png" class="w-8 h-8" />
-    {/if}
-    <span class="font-bold text-lg">{displayType}</span>
-    {#if id !== user.id}
-      <a
-        href={`/account/${id}`}
-        class="ml-auto opacity-40 hover:opacity-100 transition-opacity"
-        aria-label="Settings"
-      >
+<div
+  class="shadow-lg space-y-4 p-4 cursor-pointer hover:bg-base-200"
+  aria-label="Payments"
+  role="button"
+  tabindex="0"
+  onclick={goPayments}
+  onkeydown={(e) => (e.key === "Enter" || e.key === " ") && goPayments(e)}
+>
+  <div class="flex items-start justify-between gap-4">
+    <Balance {balance} {user} {rate} {id} />
+    <a
+      href={`/account/${id}`}
+      class="font-bold text-lg opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2 shrink-0"
+      aria-label="Account settings"
+      onclick={(e) => e.stopPropagation()}
+    >
+      {#if isArk}
+        <img
+          src="/images/ark.png"
+          class="w-8 h-8 rounded-full object-cover"
+          alt="Ark"
+        />
+      {:else if seed}
         <iconify-icon
           noobserver
-          icon="ph:gear-bold"
-          width="24"
+          icon="cryptocurrency-color:btc"
+          width="32"
         ></iconify-icon>
-      </a>
-    {/if}
+      {:else}
+        <img src="/images/icon.png" class="w-8 h-8" />
+      {/if}
+      {displayName}
+    </a>
   </div>
-
-  <Balance {balance} {user} {rate} {id} />
 
   <div class="flex w-full text-xl gap-2">
     <a
@@ -89,7 +108,7 @@
       class="contents"
       onclick={(e) => setAccount(e, "/invoice")}
     >
-      <button class="btn !w-auto flex-1">
+      <button class="btn !w-auto flex-1 !bg-base-300">
         <iconify-icon
           noobserver
           icon="ph:hand-coins-bold"
@@ -101,26 +120,11 @@
     </a>
 
     <a
-      href={"/payments"}
-      class="contents"
-      onclick={(e) => setAccount(e, "/payments")}
-    >
-      <button class="btn !w-auto flex-1">
-        <iconify-icon
-          noobserver
-          icon="ph:clock-bold"
-          width="32"
-        ></iconify-icon>
-        <div class="my-auto hidden sm:block">{$t("user.dashboard.history")}</div>
-      </button>
-    </a>
-
-    <a
       href={`/send`}
       class="contents"
       onclick={(e) => setAccount(e, "/send")}
     >
-      <button type="button" class="btn !w-auto flex-1">
+      <button type="button" class="btn !w-auto flex-1 !bg-base-300">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
         ></iconify-icon>
         <div class="my-auto hidden sm:block">{$t("user.dashboard.send")}</div>

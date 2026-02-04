@@ -5,12 +5,12 @@
   import { page } from "$app/stores";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
-  import { s, copy, fail } from "$lib/utils";
+  import { s, f, sats, copy, fail } from "$lib/utils";
   import {
     PUBLIC_COINOS_PUBKEY as pk,
     PUBLIC_COINOS_RELAY as relay,
   } from "$env/static/public";
-  import { signer, save } from "$lib/store";
+  import { fiat, rate, signer, save } from "$lib/store";
 
   let { data } = $props();
   let { apps, challenge, user } = $derived(data);
@@ -69,8 +69,13 @@
                     icon="ph:lightning-fill"
                     class="text-yellow-300"
                   ></iconify-icon>
-                  {s(app.spent, locale)} /
-                  {s(app.max_amount, locale)}
+                  {#if $fiat && $rate}
+                    {f((app.spent * $rate) / sats, user.currency, locale)} /
+                    {f((app.max_amount * $rate) / sats, user.currency, locale)}
+                  {:else}
+                    {s(app.spent, locale)} /
+                    {s(app.max_amount, locale)}
+                  {/if}
                 </div>
 
                 {#if app.budget_renewal !== "never"}

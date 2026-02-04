@@ -5,10 +5,11 @@
   import { onDestroy, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { goto, invalidateAll } from "$app/navigation";
-  import { pin } from "$lib/store";
+  import { fiat as fiatStore, pin } from "$lib/store";
   import { enhance } from "$app/forms";
   import Amount from "$comp/Amount.svelte";
-  import Avatar from "$comp/Avatar.svelte";  import Numpad from "$comp/Numpad.svelte";
+  import Avatar from "$comp/Avatar.svelte";
+  import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import {
@@ -143,12 +144,15 @@
             <span class="mr-2">{i.quantity}</span>
             {i.name}
           </div>
-          <div class="font-semibold text-right">
-            {f(i.price * i.quantity, invoice.currency)}
-          </div>
-          <div class="text-secondary text-right text-lg my-auto">
-            {sat(btc(i.price * i.quantity, invoice.rate))}
-          </div>
+          {#if $fiatStore}
+            <div class="font-semibold text-right col-span-2">
+              {f(i.price * i.quantity, invoice.currency)}
+            </div>
+          {:else}
+            <div class="text-secondary text-right text-lg my-auto col-span-2">
+              {sat(btc(i.price * i.quantity, invoice.rate))}
+            </div>
+          {/if}
         </div>
       {/each}
     {/if}
@@ -189,7 +193,12 @@
           type="button"
           class="btn !w-auto grow"
           onclick={setMax}
-          onkeydown={setMax}>Max ⚡️{s(balance)}</button
+          onkeydown={setMax}
+          >{#if $fiatStore}
+            Max {f((balance * rate) / sats, currency, locale)}
+          {:else}
+            Max ⚡️{s(balance)}
+          {/if}</button
         >
 
         <button

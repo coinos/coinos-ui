@@ -6,7 +6,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { loc, s } from "$lib/utils";
+  import { loc, s, f, sats } from "$lib/utils";
   import { fiat, pin } from "$lib/store";
 
   let { data, form } = $props();
@@ -54,7 +54,12 @@
         class="btn !w-auto grow"
         onclick={setMax}
         disabled={submitting}
-        onkeydown={setMax}>Max ⚡️{s(balance)}</button
+        onkeydown={setMax}
+        >{#if $fiat}
+          Max {f((balance * rate) / sats, currency, locale)}
+        {:else}
+          Max ⚡️{s(balance)}
+        {/if}</button
       >
 
       <button
