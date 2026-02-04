@@ -64,9 +64,9 @@
     >
   {/if}
   {#if user?.id && user.id === subject.id}
-    <div class="space-y-5" data-sveltekit-preload-data="false">
-      {#each accounts as account, i}
-        <Account {user} {rate} {account} last={i === accounts.length - 1} />
+    <div class="space-y-4 pb-8" data-sveltekit-preload-data="false">
+      {#each accounts as account}
+        <Account {user} {rate} {account} />
       {/each}
     </div>
 

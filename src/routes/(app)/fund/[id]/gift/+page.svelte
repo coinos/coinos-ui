@@ -10,7 +10,7 @@
   let { id, user, amount, rate } = $derived(data);
   let text = $page.url.href.replace("gift", "sweep");
   let currency = $derived(() => (user ? user.currency : "CAD"));
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 </script>
 
 <div class="container px-4 max-w-4xl mx-auto space-y-5 pb-10">

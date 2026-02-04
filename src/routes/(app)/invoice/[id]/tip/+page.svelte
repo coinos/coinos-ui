@@ -76,7 +76,7 @@
     tip,
     user: { username },
   } = $state(invoice);
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
   let qr;
   let tipPercent = $state();

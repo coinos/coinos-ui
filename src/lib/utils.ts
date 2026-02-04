@@ -334,16 +334,25 @@ export const f = (
 	locale = "en-US",
 	minimumFractionDigits = 2,
 	maximumFractionDigits = 2,
-) =>
-	new Intl.NumberFormat(locale, {
+) => {
+	const l = typeof locale === "function" ? locale() : locale || "en-US";
+	const cur = currency || "USD";
+	const region = l.length >= 2 ? l.slice(-2) : "";
+	const currencyDisplay =
+		region && cur.startsWith(region) ? "narrowSymbol" : "symbol";
+	return new Intl.NumberFormat(l, {
 		style: "currency",
-		currency: currency || "USD",
+		currency: cur,
+		currencyDisplay,
 		minimumFractionDigits,
 		maximumFractionDigits,
 	}).format(s);
+};
 
-export const s = (s: number, locale = "en-US"): string =>
-	new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(s);
+export const s = (s: number, locale = "en-US"): string => {
+	const l = typeof locale === "function" ? locale() : locale || "en-US";
+	return new Intl.NumberFormat(l, { maximumFractionDigits: 0 }).format(s);
+};
 
 export const sat = (s: number): string => `${si(Math.abs(s)).toString()}`;
 

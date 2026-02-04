@@ -14,7 +14,7 @@
   let rate = $derived(data.rate);
   let user = $derived(data.user);
   let currency = $derived(subject?.currency || "USD");
-  let locale = $derived(() => loc(subject));
+  let locale = $derived(loc(subject));
   let next = $state();
 
   let initialAmount = $derived(form?.amount || data.amount);

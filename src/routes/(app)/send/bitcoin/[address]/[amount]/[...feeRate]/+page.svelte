@@ -52,7 +52,7 @@
       import("@scure/btc-signer"),
       import("@scure/bip32"),
       import("@scure/bip39"),
-      import("@scure/bip39/wordlists/english"),
+      import("@scure/bip39/wordlists/english.js"),
     ]);
     let entropy = await decrypt(account.seed, password);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
@@ -60,14 +60,18 @@
     let master = HDKey.fromMasterSeed(seed, network);
     let child = master.derive("m/84'/0'/0'");
 
-    let tx = Transaction.fromRaw(decode(hex));
+    let raw = decode(hex);
+    let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
+    let tx = isPSBT ? Transaction.fromPSBT(raw) : Transaction.fromRaw(raw);
 
     for (let [i, input] of tx.inputs.entries()) {
       let { witnessUtxo, path } = inputs[i];
-      witnessUtxo.amount = BigInt(witnessUtxo.amount);
-      witnessUtxo.script = decode(witnessUtxo.script);
+      if (!isPSBT) {
+        witnessUtxo.amount = BigInt(witnessUtxo.amount);
+        witnessUtxo.script = decode(witnessUtxo.script);
+        tx.updateInput(i, { witnessUtxo });
+      }
       let key = child.derive(path);
-      tx.updateInput(i, { witnessUtxo });
       tx.signIdx(key.privateKey, i);
     }
 

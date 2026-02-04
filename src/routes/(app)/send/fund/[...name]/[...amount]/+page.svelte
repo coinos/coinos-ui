@@ -15,7 +15,7 @@
   let { name, rate } = $derived(data);
   let loading = $state();
   let fiat = $state();
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
   let submit = $state();
   let submitting = $state();

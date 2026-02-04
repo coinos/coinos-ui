@@ -24,7 +24,7 @@
   let { data } = $props();
   let { user, payment: p } = $state(data);
   let locale = user ? locales[user.language] : locales["en"];
-  let userLocale = $derived(() => loc(user));
+  let userLocale = $derived(loc(user));
 
   let {
     id,
