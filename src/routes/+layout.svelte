@@ -11,8 +11,9 @@
 const map = { light: 'lofi', dark: 'black', system: 'system' };
 
   let { data, children } = $props();
-  let { pathname, theme } = $state(data);
-  $effect(() => ($themeStore = data.theme));
+  let pathname = $derived(data.pathname);
+  let theme = $derived(data.theme);
+  $effect(() => ($themeStore = theme));
   $effect(() => (theme = $themeStore));
 $effect(() => {
   const v = map[theme] ?? theme;
