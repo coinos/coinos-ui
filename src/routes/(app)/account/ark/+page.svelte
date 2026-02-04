@@ -3,7 +3,7 @@
   import { tick, onMount } from "svelte";
   import { t } from "$lib/translations";
   import Spinner from "$comp/Spinner.svelte";
-  import { bytesToHex, randomBytes } from "@noble/hashes/utils";
+  import { bytesToHex, randomBytes } from "@noble/hashes/utils.js";
   import { hex } from "@scure/base";
   import { focus, fail, post, copy } from "$lib/utils";
   import { goto } from "$app/navigation";
