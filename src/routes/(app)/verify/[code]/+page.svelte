@@ -1,6 +1,5 @@
 <script>
   import { scale } from "svelte/transition";
-  import Icon from "$comp/Icon.svelte";
   import { t } from "$lib/translations";
 
   let { data } = $props();
@@ -17,7 +16,11 @@
       class="flex w-full py-5 max-w-[200px] mx-auto"
       in:scale={{ start: 0.5 }}
     >
-      <Icon icon="check" style="mx-auto" />
+      <iconify-icon
+        noobserver
+        icon="ph:check-bold"
+        class="mx-auto w-full text-[#7ACC8F]"
+      ></iconify-icon>
     </div>
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">

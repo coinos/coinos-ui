@@ -15,7 +15,6 @@
     types,
   } from "$lib/utils";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
   import { format } from "date-fns";
   import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
   import locales from "$lib/locales";
@@ -209,7 +208,6 @@
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
           onclick={() => copy(txid)}
         >
-          <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
       </div>
     </div>
@@ -224,7 +222,6 @@
           class="flex font-bold hover:opacity-80 mb-auto my-auto"
           onclick={() => copy(path)}
         >
-          <Icon icon="copy" style="ml-2 w-12 my-auto" />
         </button>
       </div>
     </div>

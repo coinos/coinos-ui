@@ -8,7 +8,6 @@
   import { scale, fade, fly } from "svelte/transition";
   import { enhance } from "$app/forms";
   import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
   import { back, fail, focus } from "$lib/utils";
   import { sign, send, encrypt, decrypt } from "$lib/nostr";
   import { event as e, password } from "$lib/store";
@@ -122,7 +121,7 @@
     data-sveltekit-preload-data="false"
     onclick={back}
   >
-    <Icon icon="arrow-left" style="w-10" />
+    <iconify-icon noobserver icon="ph:arrow-left-bold" width="40"></iconify-icon>
   </button>
 
   <div
@@ -182,7 +181,8 @@
       tabindex="0"
     ></div>
     <button type="submit" class="my-auto shrink-0">
-      <Icon icon="send" style="w-8" />
+      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
+      ></iconify-icon>
     </button>
   </form>
 </div>

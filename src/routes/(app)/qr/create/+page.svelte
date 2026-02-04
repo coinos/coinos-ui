@@ -4,7 +4,6 @@
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
   let el = $state(), text = $state(), pasted = $state();
 
   let keypress = (e) =>
@@ -47,7 +46,12 @@
         class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
         onclick={paste}
       >
-        <Icon icon="paste" style="w-8 my-auto" />
+        <iconify-icon
+          noobserver
+          icon="ph:clipboard-text-bold"
+          width="32"
+          class="my-auto"
+        ></iconify-icon>
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
 
@@ -56,7 +60,12 @@
         type="submit"
         class="flex bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center"
       >
-        <Icon icon="send" style="w-8 my-auto invert" />
+        <iconify-icon
+          noobserver
+          icon="ph:paper-plane-right-bold"
+          width="32"
+          class="my-auto invert"
+        ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.go")}</div>
       </button>
     </div>

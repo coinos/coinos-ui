@@ -1,8 +1,6 @@
 <script>
   import { tick } from "svelte";
-  import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
-  import Numpad from "$comp/Numpad.svelte";
+  import { t } from "$lib/translations";  import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { rate } from "$lib/store";
   import { loc, fail, s } from "$lib/utils";

@@ -1,9 +1,6 @@
 <script>
   import { copy, sats, f, s } from "$lib/utils";
-  import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
-
-  let { data, children } = $props();
+  import { t } from "$lib/translations";  let { data, children } = $props();
 
   let { id, user, token, total, spent, external, mint, rate } = data;
   let currency = user?.currency || "USD";

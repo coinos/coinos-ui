@@ -1,7 +1,5 @@
 <script>
-  import { onMount } from "svelte";
-  import Icon from "$comp/Icon.svelte";
-  import Image from "$comp/Image.svelte";
+  import { onMount } from "svelte";  import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";
 
   let team = [

@@ -3,7 +3,6 @@
 
   import { focus } from "$lib/utils";
   import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
   let { cancel, password = $bindable(), submit } = $props();
   let revealPassword = $state();
 </script>
@@ -43,7 +42,11 @@
           onclick={() => (revealPassword = !revealPassword)}
           class="absolute right-5 top-1/2"
         >
-          <Icon icon={revealPassword ? "eye" : "eye-off"} />
+          <iconify-icon
+            noobserver
+            icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
+            width="32"
+          ></iconify-icon>
         </button>
       </div>
       <div class="w-full flex justify-center gap-2">
