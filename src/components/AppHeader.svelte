@@ -22,27 +22,27 @@
   );
 
   const links = $derived([
-    {
-      href: `/${user?.username}`,
-      icon: "ph:house-bold",
-      label: "Home",
-    },
-    {
-      href: `/${user?.username}/receive`,
-      icon: "ph:hand-coins-bold",
-      flip: "horizontal",
-      label: "Receive",
-    },
-    {
-      href: `/payments`,
-      icon: "ph:clock-bold",
-      label: "Payments",
-    },
-    {
-      href: `/send`,
-      icon: "ph:paper-plane-right-bold",
-      label: "Send",
-    },
+    // {
+    //   href: `/${user?.username}`,
+    //   icon: "ph:house-bold",
+    //   label: "Home",
+    // },
+    // {
+    //   href: `/${user?.username}/receive`,
+    //   icon: "ph:hand-coins-bold",
+    //   flip: "horizontal",
+    //   label: "Receive",
+    // },
+    // {
+    //   href: `/payments`,
+    //   icon: "ph:clock-bold",
+    //   label: "Payments",
+    // },
+    // {
+    //   href: `/send`,
+    //   icon: "ph:paper-plane-right-bold",
+    //   label: "Send",
+    // },
     // {
     //   href: `/logout`,
     //   icon: "ph:sign-out-bold",

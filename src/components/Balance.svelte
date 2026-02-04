@@ -30,10 +30,11 @@
   {:else if !isNaN(rate)}
     <div class="flex gap-4">
       <Amount
-        amount={Math.max(balance - (id === user.id ? (locked || 0) : 0), 0)}
+        amount={Math.max(balance - (id === user.id ? locked || 0 : 0), 0)}
         {rate}
         {currency}
         {locale}
+        showFiat={false}
         align="left"
       />
       {#if locked && id === user.id}

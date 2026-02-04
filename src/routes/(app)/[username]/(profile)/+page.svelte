@@ -64,7 +64,7 @@
     >
   {/if}
   {#if user?.id && user.id === subject.id}
-    <div class="space-y-4 pb-8" data-sveltekit-preload-data="false">
+    <div class="space-y-10 pb-8" data-sveltekit-preload-data="false">
       {#each accounts as account}
         <Account {user} {rate} {account} />
       {/each}
