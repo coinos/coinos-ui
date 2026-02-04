@@ -9,7 +9,7 @@
   import { t } from "$lib/translations";
   import { arkkey } from "$lib/ark";
 
-  let { user, rate, account, last } = $props();
+  let { user, rate, account } = $props();
   let {
     name,
     seed,
@@ -53,43 +53,45 @@
   };
 
   let displayType = $derived(
-    accountType === "ark" ? "Ark" : seed ? "Savings" : "Cash",
+    accountType === "ark" ? "Ark" : seed ? "Bitcoin" : "Custodial",
   );
   let isArk = $derived(accountType === "ark");
 </script>
 
-<div
-  class="block space-y-2 border-primary py-4"
-  class:border-b-8={!last}
-  aria-label="Payments"
->
-  <div class="flex">
-    <Balance {balance} {user} {rate} {id} />
+<div class="rounded-2xl bg-base-200 p-5 shadow space-y-4" aria-label="Payments">
+  <div class="flex items-center gap-3">
+    {#if isArk}
+      <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
+    {:else if seed}
+      <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+    {:else}
+      <img src="/images/icon.png" class="w-8 h-8" />
+    {/if}
+    <span class="font-bold text-lg">{displayType}</span>
     {#if id !== user.id}
       <a
-        href={id === user.id ? "/settings/nostr" : `/account/${id}`}
-        class="contents"
+        href={`/account/${id}`}
+        class="ml-auto opacity-40 hover:opacity-100 transition-opacity"
         aria-label="Settings"
       >
-        <button class="flex gap-1 mb-auto pb-4 pl-4 ml-auto" aria-label="Settings">
-          <iconify-icon
-            noobserver
-            icon="ph:gear-bold"
-            width="32"
-            aria-label="Settings"
-          ></iconify-icon>
-        </button>
+        <iconify-icon
+          noobserver
+          icon="ph:gear-bold"
+          width="24"
+        ></iconify-icon>
       </a>
     {/if}
   </div>
 
-  <div class="flex justify-center w-full text-xl gap-2">
+  <Balance {balance} {user} {rate} {id} />
+
+  <div class="flex w-full text-xl gap-2">
     <a
       href={"/invoice"}
       class="contents"
       onclick={(e) => setAccount(e, "/invoice")}
     >
-      <button class="btn !w-auto flex-grow">
+      <button class="btn !w-auto flex-1">
         <iconify-icon
           noobserver
           icon="ph:hand-coins-bold"
@@ -100,27 +102,27 @@
       </button>
     </a>
 
-    <!-- <a -->
-    <!--   href={"/payments"} -->
-    <!--   class="contents" -->
-    <!--   onclick={(e) => setAccount(e, "/payments")} -->
-    <!-- > -->
-    <!--   <button class="btn !w-auto flex-grow"> -->
-    <!--     <iconify-icon -->
-    <!--       noobserver -->
-    <!--       icon="ph:clock-bold" -->
-    <!--       width="32" -->
-    <!--       flip="horizontal" -->
-    <!--     ></iconify-icon> -->
-    <!--   </button> -->
-    <!-- </a> -->
+    <a
+      href={"/payments"}
+      class="contents"
+      onclick={(e) => setAccount(e, "/payments")}
+    >
+      <button class="btn !w-auto flex-1">
+        <iconify-icon
+          noobserver
+          icon="ph:clock-bold"
+          width="32"
+        ></iconify-icon>
+        <div class="my-auto">{$t("user.dashboard.history")}</div>
+      </button>
+    </a>
 
     <a
       href={`/send`}
-      class="contents grow"
+      class="contents"
       onclick={(e) => setAccount(e, "/send")}
     >
-      <button type="button" class="btn !w-auto flex-grow">
+      <button type="button" class="btn !w-auto flex-1">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
         ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.send")}</div>

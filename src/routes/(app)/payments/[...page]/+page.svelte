@@ -22,7 +22,7 @@
     page: p,
   } = $derived(data);
 
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
   let change = ({ target: { value } }) => goto(value);
   let link = (p) => {

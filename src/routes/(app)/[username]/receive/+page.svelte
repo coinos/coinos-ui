@@ -32,7 +32,7 @@
 
   let id = $state();
   let { rate, subject, user, text } = $derived(data);
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
   let { currency, username } = $derived(subject);
   let type = types.lightning;

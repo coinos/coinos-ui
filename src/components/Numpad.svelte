@@ -27,10 +27,14 @@
   let position = $state("before");
 
   function getCurrencyInfo(locale = "en-US", currency) {
-    const formatter = new Intl.NumberFormat(locale, {
+    const l = typeof locale === "function" ? locale() : locale || "en-US";
+    const region = l.length >= 2 ? l.slice(-2) : "";
+    const currencyDisplay =
+      region && currency.startsWith(region) ? "narrowSymbol" : "symbol";
+    const formatter = new Intl.NumberFormat(l, {
       style: "currency",
       currency,
-      currencyDisplay: "symbol",
+      currencyDisplay,
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });

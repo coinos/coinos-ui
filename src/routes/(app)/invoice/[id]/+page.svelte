@@ -47,7 +47,7 @@
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
   let memo = $state();
   let { username, currency } = $derived(invoice.user);
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
   let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
 

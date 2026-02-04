@@ -21,7 +21,7 @@
   let { events, rate, user, subject, src, text } = $derived(data);
 
   let { currency, npub, username: n, display } = $derived(subject);
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
 
   let showBio = $state();
@@ -275,7 +275,7 @@
 {#if currency}
   <div
     class="flex fixed w-full px-4 bg-base-100/90 py-2 pb-3 bottom-0 tabular-nums"
-    style="bottom: calc(var(--safe-area-inset-bottom) + 8px);"
+    style="bottom: var(--safe-area-inset-bottom);"
   >
     <div class="text-secondary flex mr-auto">
       <div class="flex mr-1">

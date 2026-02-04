@@ -5,7 +5,7 @@
 
   let { data } = $props();
   let { app, user } = $derived(data);
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
   let { payments } = $derived(app);
 </script>
 

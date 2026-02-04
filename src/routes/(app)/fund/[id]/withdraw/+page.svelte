@@ -16,7 +16,7 @@
   let loading = $state();
   let { id, balance, rate } = $derived(data);
   let { amount } = $state(data);
-  let locale = $derived(() => loc(user));
+  let locale = $derived(loc(user));
 
   let submit = $state();
   let submitting = $state();
