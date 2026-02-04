@@ -1,9 +1,10 @@
 <script>
   import { tick } from "svelte";
-  import { t } from "$lib/translations";  import Numpad from "$comp/Numpad.svelte";
+  import { t } from "$lib/translations";
+  import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
-  import { rate } from "$lib/store";
-  import { loc, fail, s } from "$lib/utils";
+  import { fiat as fiatStore, rate } from "$lib/store";
+  import { loc, fail, s, f, sats } from "$lib/utils";
   import { getWallet } from "$lib/ark";
 
   let { data } = $props();
@@ -60,7 +61,12 @@
       type="button"
       class="btn !w-auto grow"
       onclick={setMax}
-      onkeydown={setMax}>Max ⚡️{s(balance)}</button
+      onkeydown={setMax}
+      >{#if $fiatStore}
+        Max {f((balance * $rate) / sats, currency, locale)}
+      {:else}
+        Max ⚡️{s(balance)}
+      {/if}</button
     >
 
     <form

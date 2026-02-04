@@ -6,6 +6,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { f, loc, fail, post, s, sat, sats } from "$lib/utils";
+  import { fiat as fiatStore } from "$lib/store";
   import { applyAction, deserialize } from "$app/forms";
 
   let { data, form } = $props();
@@ -69,7 +70,12 @@
         type="button"
         class="btn !w-auto grow"
         onclick={setMax}
-        onkeydown={setMax}>Max ⚡️{s(user.balance)}</button
+        onkeydown={setMax}
+        >{#if $fiatStore}
+          Max {f((user.balance * rate) / sats, currency, locale)}
+        {:else}
+          Max ⚡️{s(user.balance)}
+        {/if}</button
       >
     {/if}
 

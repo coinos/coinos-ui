@@ -1,14 +1,6 @@
 <script>
-  import {
-    copy,
-    f,
-    loc,
-    post,
-    s,
-    sats,
-    success,
-    fail,
-  } from "$lib/utils";
+  import { copy, f, loc, post, s, sats, success, fail } from "$lib/utils";
+  import { fiat } from "$lib/store";
   import { t } from "$lib/translations";
   import { bech32 } from "@scure/base";
   import { page } from "$app/stores";
@@ -17,12 +9,12 @@
   let { data, children } = $props();
 
   let { encode, toWords } = bech32;
+  let satsPerCurrency = $derived((1 * sats) / rate);
 
   let { events, rate, user, subject, src, text } = $derived(data);
 
   let { currency, npub, username: n, display } = $derived(subject);
   let locale = $derived(loc(user));
-
 
   let showBio = $state();
   let toggleBio = () => (showBio = !showBio);
@@ -76,7 +68,11 @@
         <iconify-icon noobserver icon="ph:list-bold" width="32"></iconify-icon>
       </button>
       {#if subject.id === user?.id}
-        <a href="/settings/profile" class="btn contents" aria-label="Edit profile">
+        <a
+          href="/settings/profile"
+          class="btn contents"
+          aria-label="Edit profile"
+        >
           <iconify-icon noobserver icon="ph:pencil-bold" width="32"
           ></iconify-icon>
         </a>
@@ -284,16 +280,28 @@
       </div>
       <div>&#61; {f(rate, currency, locale, 0, 0)}</div>
     </div>
-    <div class="text-secondary flex ml-auto">
-      <div class="flex items-center">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-        ></iconify-icon>
-        {s((1 * sats) / rate)} =
-        {f(1, currency, locale, 0, 0)}
-      </div>
+    <div class="text-secondary flex ml-auto items-center gap-1">
+      {#if satsPerCurrency >= 1}
+        <div>{f(1, currency, locale)} &#61; </div>
+        <div class="flex items-center">
+          <iconify-icon
+            noobserver
+            icon="ph:lightning-fill"
+            class="text-yellow-300"
+          ></iconify-icon>
+          {s(satsPerCurrency)}
+        </div>
+      {:else}
+        <div class="flex items-center">
+          <iconify-icon
+            noobserver
+            icon="ph:lightning-fill"
+            class="text-yellow-300"
+          ></iconify-icon>
+          1
+        </div>
+        <div>&#61; {f(1 / satsPerCurrency, currency, locale)}</div>
+      {/if}
     </div>
   </div>
 {/if}

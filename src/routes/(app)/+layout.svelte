@@ -13,6 +13,8 @@
     password,
     pin,
     theme as themeStore,
+    fiat,
+    rate as rateStore,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
@@ -20,7 +22,7 @@
   import AppHeader from "$comp/AppHeader.svelte";
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
-  import { s, success, post, getCookie, warning } from "$lib/utils";
+  import { s, f, toFiat, success, post, getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
 
@@ -49,7 +51,11 @@
     let amount = notification.newVtxos.reduce((a, b) => a + b.value, 0);
     if (!amount) return;
 
-    success(`Received ⚡️${s(amount)}!`);
+    if ($fiat && $rateStore && user?.currency) {
+      success(`Received ${f(toFiat(amount, $rateStore), user.currency)}!`);
+    } else {
+      success(`Received ⚡️${s(amount)}!`);
+    }
 
     try {
       let inv = await post(`/invoice`, {

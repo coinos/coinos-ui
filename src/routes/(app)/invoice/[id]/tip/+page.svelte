@@ -2,8 +2,9 @@
   import { untrack } from "svelte";
 
   import { browser } from "$app/environment";
-  import { invoice as inv, request } from "$lib/store";
-  import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";  import Slider from "$comp/Slider.svelte";
+  import { fiat, invoice as inv, request } from "$lib/store";
+  import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";
+  import Slider from "$comp/Slider.svelte";
   import { goto } from "$app/navigation";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -106,29 +107,33 @@
       <Slider handle={handleSlide} bind:value={tipPercent} />
 
       <div class="flex mb-8 text-lg">
-        <div>
-          <span class="mr-1">
-            {f(amountFiat, currency, locale)}
-            <span class="font-semibold">+{f(tipAmount, currency, locale)}</span>
-          </span>
-        </div>
-
-        <div class="ml-auto text-lg flex gap-2">
-          <div class="flex items-center">
-            <iconify-icon
-              noobserver
-              icon="ph:lightning-fill"
-              class="text-yellow-300"
-            ></iconify-icon>
-            <div>{s(amount, locale)}</div>
+        {#if $fiat}
+          <div>
+            <span class="mr-1">
+              {f(amountFiat, currency, locale)}
+              <span class="font-semibold"
+                >+{f(tipAmount, currency, locale)}</span
+              >
+            </span>
           </div>
+        {:else}
+          <div class="ml-auto text-lg flex gap-2">
+            <div class="flex items-center">
+              <iconify-icon
+                noobserver
+                icon="ph:lightning-fill"
+                class="text-yellow-300"
+              ></iconify-icon>
+              <div>{s(amount, locale)}</div>
+            </div>
 
-          <div class="flex items-center">
-            <div class="font-semibold">
-              +{s(tip, locale)}
+            <div class="flex items-center">
+              <div class="font-semibold">
+                +{s(tip, locale)}
+              </div>
             </div>
           </div>
-        </div>
+        {/if}
       </div>
 
       <div class="space-y-2">

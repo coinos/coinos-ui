@@ -7,7 +7,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import { loc, back, toFiat, f, s, focus } from "$lib/utils";
-  import { rate, pin } from "$lib/store";
+  import { fiat, rate, pin } from "$lib/store";
 
   let { data, form } = $props();
 
@@ -64,10 +64,13 @@
 
         <div class="flex flex-wrap gap-4 justify-center">
           <div class="my-auto">
-            <h2 class="text-xl">
-              {f(toFiat(ourfee, $rate), currency)}
-            </h2>
-            <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
+            {#if $fiat}
+              <h2 class="text-xl">
+                {f(toFiat(ourfee, $rate), currency)}
+              </h2>
+            {:else}
+              <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
+            {/if}
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 <script>
   import Amount from "$comp/Amount.svelte";
 
-  import { btc, copy, f, sat, s, sats, types } from "$lib/utils";
+  import { btc, copy, f, sat, sats, types } from "$lib/utils";
+  import { fiat } from "$lib/store";
   let {
     showQr,
     link,
@@ -66,17 +67,21 @@
 {/if}
 
 {#each invoice.items as i}
+  {@const itemTotal = i.price * i.quantity}
   <div class="grid grid-cols-12 text-xl">
     <div class="col-span-1 my-auto">{i.quantity}</div>
     <div class="mr-auto grow col-span-7 my-auto">
       {i.name}
     </div>
-    <div class="col-span-2 font-semibold text-right my-auto">
-      {f(i.price * i.quantity, currency)}
-    </div>
-    <div class="col-span-2 text-secondary text-right text-lg my-auto">
-      {sat(btc(i.price * i.quantity, rate))}
-    </div>
+    {#if $fiat}
+      <div class="col-span-4 font-semibold text-right my-auto">
+        {f(itemTotal, currency)}
+      </div>
+    {:else}
+      <div class="col-span-4 font-semibold text-right my-auto">
+        {sat(btc(itemTotal, rate))}
+      </div>
+    {/if}
   </div>
 {/each}
 

@@ -65,7 +65,11 @@
     "passwordWarning": "If you lose this password you won't be able to withdraw funds from the account or restore your seed phrase. We can't recover it for you.",
     "savings": "Savings",
     "password": "Password",
-    "confirmPassword": "Confirm password"
+    "confirmPassword": "Confirm password",
+    "ark": "Ark",
+    "bitcoin": "Bitcoin",
+    "custodial": "Custodial",
+    "submit": "Submit"
   },
   "404": {
     "404": "404",
@@ -175,7 +179,7 @@
     },
     "info2": {
       "title": "Simple to use",
-      "description1": "Just enter an amount in your local currency, share the QR code and you\u2019re done.",
+      "description1": "Just enter an amount in your local currency, share the QR code and you’re done.",
       "description2": "We do all the heavy lifting so you can focus on your business.",
       "description3": "You always have the option of taking custody of your funds by withdrawing instantly at any time."
     },
@@ -533,23 +537,23 @@
   },
   "lang": {
     "en": "English",
-    "es": "Espa\u00f1ol",
-    "fr": "Fran\u00e7ais",
+    "es": "Español",
+    "fr": "Français",
     "de": "Deutsch",
-    "ja": "\u65e5\u672c\u8a9e",
-    "ru": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439",
-    "pt": "Portugu\u00eas",
-    "zh": "\u4e2d\u6587",
-    "fa": "\u0641\u0627\u0631\u0633\u06cc ",
-    "el": "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac",
-    "ar": "\u0627\u0644\u0639\u0631\u0628\u064a\u0629",
-    "hi": "\u0939\u093f\u0928\u094d\u0926\u0940",
-    "bn": "\u09ac\u09be\u0982\u09b2\u09be",
-    "tr": "T\u00fcrk\u00e7e",
-    "ko": "\ud55c\uad6d\uc5b4",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "bn": "বাংলা",
+    "tr": "Türkçe",
+    "ko": "한국어",
     "it": "Italiano",
     "nl": "Nederlands",
-    "th": "\u0e44\u0e17\u0e22",
+    "th": "ไทย",
     "pl": "Polski"
   }
 }
