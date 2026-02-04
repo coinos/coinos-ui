@@ -3,7 +3,7 @@
   import LocationsMap from "$comp/LocationsMap.svelte";
   let { data } = $props();
 
-  let { locations } = data;
+  let locations = $derived(data.locations);
 </script>
 
 <div class="h-screen w-screen">

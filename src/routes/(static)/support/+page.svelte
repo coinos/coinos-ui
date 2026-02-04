@@ -8,14 +8,18 @@
   import { t } from "$lib/translations";
 
   let { data } = $props();
-  let { user } = data;
+  let user = $derived(data.user);
 
-  let username = $state(user?.username);
+  let username = $state();
   let email = $state();
   let message = $state();
   let sent = $state();
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
   let isTor = browser && location.hostname.endsWith(".onion");
+
+  $effect(() => {
+    if (typeof username === "undefined") username = user?.username;
+  });
 
   onMount(() => {
     if (!isTor && recaptchaSiteKey) {

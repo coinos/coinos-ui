@@ -4,9 +4,8 @@
   import { page } from "$app/stores";
 
   let { data } = $props();
-  let { user } = data;
-
-  let link = user ? `/${user.username}` : "/";
+  let user = $derived(data.user);
+  let link = $derived(user ? `/${user.username}` : "/");
 </script>
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">

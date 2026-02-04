@@ -1,6 +1,4 @@
 <script>
-  import { run } from 'svelte/legacy';
-
   import Nostr from "$comp/Nostr.svelte";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import Footer from "$comp/Footer.svelte";
@@ -8,9 +6,9 @@
   import { theme as themeStore } from "$lib/store";
 
   let { data, children } = $props();
-  let { theme } = $state(data);
-  let { user } = $derived(data);
-  run(() => {
+  let user = $derived(data.user);
+  let theme = $state();
+  $effect(() => {
     theme = $themeStore;
   });
 </script>

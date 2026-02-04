@@ -10,8 +10,10 @@
 
   let { data, form } = $props();
 
-  let { subject, rate, user } = $state(data);
-  let currency = subject?.currency || "USD";
+  let subject = $derived(data.subject);
+  let rate = $derived(data.rate);
+  let user = $derived(data.user);
+  let currency = $derived(subject?.currency || "USD");
   let locale = $derived(() => loc(subject));
   let next = $state();
 

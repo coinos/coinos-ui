@@ -39,8 +39,11 @@
 
   let readingerror = (e) => console.log("nfc error", e);
 
-  let { id, subject, user } = $state(data);
-  let { invoice, src } = $derived(data);
+  let id = $derived(data.id);
+  let subject = $derived(data.subject);
+  let user = $derived(data.user);
+  let invoice = $derived(data.invoice);
+  let src = $derived(data.src);
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
   let memo = $state();
   let { username, currency } = $derived(invoice.user);
