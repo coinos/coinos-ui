@@ -1,9 +1,7 @@
 <script>
   import { focus } from "$lib/utils";
   import { enhance } from "$app/forms";
-  import { t } from "$lib/translations";
-  import Icon from "$comp/Icon.svelte";
-  import Spinner from "$comp/Spinner.svelte";
+  import { t } from "$lib/translations";  import Spinner from "$comp/Spinner.svelte";
   import { fly } from "svelte/transition";
 
   let loading;

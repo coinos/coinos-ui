@@ -3,9 +3,7 @@
   import WalletPass from "$comp/WalletPass.svelte";
   import { run } from "svelte/legacy";
   import { onMount } from "svelte";
-  import { goto } from "$app/navigation";
-  import Icon from "$comp/Icon.svelte";
-  import Balance from "$comp/Balance.svelte";
+  import { goto } from "$app/navigation";  import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
   import { arkkey } from "$lib/ark";
 

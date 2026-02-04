@@ -22,11 +22,11 @@
   );
 
   const links = $derived([
-    // {
-    //   href: `/${user?.username}`,
-    //   icon: "ph:house-bold",
-    //   label: "Home",
-    // },
+    {
+      href: `/${user?.username}`,
+      icon: "ph:house-bold",
+      label: "Home",
+    },
     // {
     //   href: `/${user?.username}/receive`,
     //   icon: "ph:hand-coins-bold",

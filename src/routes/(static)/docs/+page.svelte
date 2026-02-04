@@ -2,10 +2,7 @@
   import { copyNoNewlines as copy } from "$lib/utils";
   import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
 
-  import Code from "$comp/Code.svelte";
-  import Icon from "$comp/Icon.svelte";
-
-  let { data } = $props();
+  import Code from "$comp/Code.svelte";  let { data } = $props();
 
   let { user, ro, token } = data;
 

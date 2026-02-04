@@ -2,10 +2,7 @@
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
-  import { applyAction, deserialize } from "$app/forms";
-
-  import Icon from "$comp/Icon.svelte";
-  import Spinner from "$comp/Spinner.svelte";
+  import { applyAction, deserialize } from "$app/forms";  import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
   import { loading, t } from "$lib/translations";
   import { fd, fail, auth, post, sleep, warning, success } from "$lib/utils";

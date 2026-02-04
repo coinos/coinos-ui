@@ -4,9 +4,7 @@
   import Amount from "$comp/Amount.svelte";
   import Success from "$comp/Success.svelte";
   import { scale } from "svelte/transition";
-  import { toFiat, f, s } from "$lib/utils";
-  import Icon from "$comp/Icon.svelte";
-  import { t } from "$lib/translations";
+  import { toFiat, f, s } from "$lib/utils";  import { t } from "$lib/translations";
   import { loc } from "$lib/utils";
 
   let { data } = $props();

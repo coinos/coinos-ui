@@ -1,7 +1,5 @@
 <script>
-  import { tick } from "svelte";
-  import Icon from "$comp/Icon.svelte";
-  import { onMount, onDestroy } from "svelte";
+  import { tick } from "svelte";  import { onMount, onDestroy } from "svelte";
   import { back } from "$lib/utils";
   import { goto } from "$app/navigation";
 

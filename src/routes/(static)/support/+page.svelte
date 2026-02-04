@@ -3,9 +3,7 @@
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
   import { fail, success, post } from "$lib/utils";
-  import { scale } from "svelte/transition";
-  import Icon from "$comp/Icon.svelte";
-  import { t } from "$lib/translations";
+  import { scale } from "svelte/transition";  import { t } from "$lib/translations";
 
   let { data } = $props();
   let user = $derived(data.user);

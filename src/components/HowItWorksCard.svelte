@@ -1,6 +1,4 @@
-<script>
-  import Icon from "./Icon.svelte";
-  import { t } from "$lib/translations";
+<script>  import { t } from "$lib/translations";
   let { image, stepID } = $props();
 </script>
 

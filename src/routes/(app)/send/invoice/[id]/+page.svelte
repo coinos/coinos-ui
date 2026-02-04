@@ -8,9 +8,7 @@
   import { pin } from "$lib/store";
   import { enhance } from "$app/forms";
   import Amount from "$comp/Amount.svelte";
-  import Avatar from "$comp/Avatar.svelte";
-  import Icon from "$comp/Icon.svelte";
-  import Numpad from "$comp/Numpad.svelte";
+  import Avatar from "$comp/Avatar.svelte";  import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
   import {

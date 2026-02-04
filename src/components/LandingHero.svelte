@@ -1,8 +1,6 @@
 <script>
   import { focus } from "$lib/utils";
-  import { goto } from "$app/navigation";
-  import Icon from "$comp/Icon.svelte";
-  import Image from "$comp/Image.svelte";
+  import { goto } from "$app/navigation";  import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";
 </script>
 

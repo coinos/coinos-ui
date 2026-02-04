@@ -6,7 +6,6 @@
   import { fail, focus, versions } from "$lib/utils";
   import { t } from "$lib/translations";
   import { browser } from "$app/environment";
-  import Icon from "$comp/Icon.svelte";
   import { validateMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
 
@@ -51,7 +50,12 @@
         type="submit"
         class="flex bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center"
       >
-        <Icon icon="send" style="w-8 my-auto invert" />
+        <iconify-icon
+          noobserver
+          icon="ph:paper-plane-right-bold"
+          width="32"
+          class="my-auto invert"
+        ></iconify-icon>
         <div class="my-auto">{$t("user.send.next")}</div>
       </button>
     </form>

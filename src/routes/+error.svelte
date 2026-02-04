@@ -1,5 +1,4 @@
 <script>
-  import Icon from "$comp/Icon.svelte";
   import { page } from "$app/stores";
 
   let { data } = $props();
@@ -10,7 +9,7 @@
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
   <div class="w-full flex">
     <a href="/" class="mx-auto">
-      <Icon icon="logo" />
+      <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
     </a>
   </div>
 

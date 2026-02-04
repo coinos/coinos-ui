@@ -1,6 +1,4 @@
-<script>
-  import Icon from "$comp/Icon.svelte";
-  import LocationsMap from "$comp/LocationsMap.svelte";
+<script>  import LocationsMap from "$comp/LocationsMap.svelte";
   let { data } = $props();
 
   let locations = $derived(data.locations);

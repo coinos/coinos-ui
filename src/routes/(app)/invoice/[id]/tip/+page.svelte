@@ -3,9 +3,7 @@
 
   import { browser } from "$app/environment";
   import { invoice as inv, request } from "$lib/store";
-  import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";
-  import Icon from "$comp/Icon.svelte";
-  import Slider from "$comp/Slider.svelte";
+  import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";  import Slider from "$comp/Slider.svelte";
   import { goto } from "$app/navigation";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";

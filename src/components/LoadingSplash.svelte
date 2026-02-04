@@ -1,7 +1,4 @@
-<script>
-  import Icon from "$comp/Icon.svelte";
-</script>
-
 <div class="flex justify-center items-center">
-  <Icon icon="logo" style="mt-[calc(50vh-72px)]" />
+  <iconify-icon noobserver icon="coinos:logo" width="224" class="mt-[calc(50vh-72px)]"
+  ></iconify-icon>
 </div>

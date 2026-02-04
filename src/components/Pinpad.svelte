@@ -1,7 +1,5 @@
 <script>
-  import Left from "$comp/Left.svelte";
-  import Icon from "$comp/Icon.svelte";
-  import { focus, post, warning } from "$lib/utils";
+  import Left from "$comp/Left.svelte";  import { focus, post, warning } from "$lib/utils";
   import { t } from "$lib/translations";
 
   let { v = $bindable(), cancel } = $props();
