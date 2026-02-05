@@ -6,6 +6,10 @@
   import { goto } from "$app/navigation";  import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
   import { arkkey } from "$lib/ark";
+  import {
+    getRememberedWalletPassword,
+    forgetWalletPassword,
+  } from "$lib/passwordCache";
 
   let { user, rate, account } = $props();
   let {
@@ -27,14 +31,32 @@
     pendingUrl = undefined;
   });
 
-  let setAccount = (event, url) => {
+  let tryUnlockArk = async () => {
+    const cached = getRememberedWalletPassword();
+    if (!cached) return false;
+    try {
+      const { decrypt } = await import("nostr-tools/nip49");
+      $arkkey = hex.encode(decrypt(seed, cached));
+      return true;
+    } catch (e) {
+      forgetWalletPassword();
+      return false;
+    }
+  };
+
+  let setAccount = async (event, url) => {
     event.preventDefault();
     event.stopPropagation();
     document.cookie = `aid=${id}; path=/; max-age=86400`;
     if (isArk) {
       pendingUrl = url;
-      if ($arkkey) goto(pendingUrl);
-      else passwordPrompt = true;
+      if ($arkkey) {
+        goto(pendingUrl);
+      } else if (await tryUnlockArk()) {
+        goto(pendingUrl);
+      } else {
+        passwordPrompt = true;
+      }
     } else {
       $arkkey = undefined;
       goto(url);

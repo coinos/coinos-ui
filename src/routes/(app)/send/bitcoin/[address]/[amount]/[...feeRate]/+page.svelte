@@ -17,6 +17,10 @@
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
+  import {
+    getRememberedWalletPassword,
+    forgetWalletPassword,
+  } from "$lib/passwordCache";
 
   import Amount from "$comp/Amount.svelte";
 
@@ -28,9 +32,29 @@
   let cancel = $state(() => (passwordPrompt = false));
   let signed = $state();
 
-  let togglePassword = () => (passwordPrompt = !passwordPrompt);
+  let trySignWithCachedPassword = async () => {
+    const cached = getRememberedWalletPassword();
+    if (!cached) return false;
+    try {
+      password = cached;
+      await signTx();
+      return true;
+    } catch (e) {
+      forgetWalletPassword();
+      return false;
+    }
+  };
+
+  let togglePassword = async () => {
+    if (passwordPrompt) {
+      passwordPrompt = false;
+      return;
+    }
+    if (await trySignWithCachedPassword()) return;
+    passwordPrompt = true;
+  };
   let handler = ({ cancel }) => {
-    if (account.seed && !signed) cancel(), togglePassword();
+    if (account.seed && !signed) cancel(), void togglePassword();
     return async ({ result }) => {
       if (result.type === "redirect") {
         goto(result.location);

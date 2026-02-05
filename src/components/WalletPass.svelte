@@ -3,8 +3,24 @@
 
   import { focus } from "$lib/utils";
   import { t } from "$lib/translations";
+  import {
+    rememberForOptions,
+    defaultRememberForMs,
+    rememberWalletPassword,
+    forgetWalletPassword,
+  } from "$lib/passwordCache";
   let { cancel, password = $bindable(), submit } = $props();
   let revealPassword = $state();
+  let rememberForMs = $state(defaultRememberForMs);
+
+  let handleSubmit = async () => {
+    if (rememberForMs) {
+      rememberWalletPassword(password, rememberForMs);
+    } else {
+      forgetWalletPassword();
+    }
+    await submit();
+  };
 </script>
 
 <div
@@ -16,7 +32,7 @@
     <h1 class="text-center text-2xl font-semibold">
       {$t("payments.enterWalletPass")}
     </h1>
-    <form onsubmit={preventDefault(submit)}>
+    <form onsubmit={preventDefault(handleSubmit)}>
       <div class="relative mb-5">
         {#if revealPassword}
           <input
@@ -48,6 +64,21 @@
             width="32"
           ></iconify-icon>
         </button>
+      </div>
+      <div class="mb-5 space-y-2">
+        <label for="rememberFor" class="text-sm text-gray-500">
+          Remember for
+        </label>
+        <select
+          id="rememberFor"
+          class="w-full"
+          value={rememberForMs}
+          onchange={(e) => (rememberForMs = Number(e.target.value))}
+        >
+          {#each rememberForOptions as option}
+            <option value={option.ms}>{option.label}</option>
+          {/each}
+        </select>
       </div>
       <div class="w-full flex justify-center gap-2">
         <button
