@@ -493,7 +493,7 @@
                 <label for="expiryCheckbox">{$t("dm.expiry")}</label>: <input type="number" class="short small-width vcenter" bind:value={expiryDays} disabled={!expiryEnabled} min="1" step="1" max="99999"> <label for="expiryCheckbox">{$t("dm.days")}</label>.
                 <p class="secondary">{$t("dm.fadedWarning")}</p>
                 {#if canSend && !canSendExpiring}
-                    <p class="warning"><em>{name(selectedChat)}</em></p>
+                    <p class="warning"><em>{$t("dm.cantSendExpiring").replace("[R]", name(selectedChat))}</em></p>
                 {/if}
             {/if}
         {:else if chats.length == 0}
