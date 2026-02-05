@@ -44,13 +44,40 @@ export const persistLocal = (key, defaultValue: any = undefined) => {
 	return s;
 };
 
+export const persistLocalValue = (key, defaultValue: any = undefined) => {
+	const s = writable(
+		browser &&
+		localStorage.getItem(key) &&
+		localStorage.getItem(key) !== "undefined"
+			? JSON.parse(localStorage.getItem(key) || "")
+			: defaultValue,
+	);
+
+	s.subscribe((v) => {
+		try {
+			if (browser) {
+				if (v === undefined) {
+					localStorage.removeItem(key);
+				} else {
+					localStorage.setItem(key, JSON.stringify(v));
+				}
+			}
+		} catch (e) {
+			console.log("problem setting key", v);
+			console.log(e);
+		}
+	});
+
+	return s;
+};
+
 export const account = writable();
 export const amountPrompt = persistLocal("amountPrompt");
 export const avatar = writable();
 export const banner = writable();
 export const event = writable();
 export const events = writable({});
-export const fiat = persistLocal("fiat", true);
+export const fiat = persistLocalValue("fiat", true);
 export const installPrompt = writable();
 export const invoice = writable();
 export const last = writable();
