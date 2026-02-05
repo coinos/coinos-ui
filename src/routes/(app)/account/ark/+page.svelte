@@ -8,6 +8,12 @@
   import { focus, fail, post, copy } from "$lib/utils";
   import { goto } from "$app/navigation";
   import { arkServerUrl } from "$lib/ark";
+  import {
+    rememberForOptions,
+    defaultRememberForMs,
+    rememberWalletPassword,
+    forgetWalletPassword,
+  } from "$lib/passwordCache";
 
   let { data } = $props();
   let { user } = data;
@@ -23,6 +29,7 @@
   let confirm = $state("");
   let revealPassword = $state(false);
   let revealConfirm = $state(false);
+  let rememberForMs = $state(defaultRememberForMs);
 
   let name = "Ark Vault";
   let type = "ark";
@@ -73,6 +80,11 @@
       let seed = await encrypt(hex.decode(privateKey), password);
 
       await post("/account", { name, seed, type, arkAddress });
+      if (rememberForMs) {
+        rememberWalletPassword(password, rememberForMs);
+      } else {
+        forgetWalletPassword();
+      }
       goto(`/${user.username}`);
     } catch (e) {
       console.log(e);
@@ -204,6 +216,22 @@
             ></iconify-icon>
           </button>
         </label>
+
+        <div class="space-y-2">
+          <label for="rememberFor" class="text-sm text-secondary">
+            Remember for
+          </label>
+          <select
+            id="rememberFor"
+            class="w-full"
+            value={rememberForMs}
+            onchange={(e) => (rememberForMs = Number(e.target.value))}
+          >
+            {#each rememberForOptions as option}
+              <option value={option.ms}>{option.label}</option>
+            {/each}
+          </select>
+        </div>
 
         <div class="flex gap-2">
           <button

@@ -14,6 +14,12 @@
   import { focus, versions, fail, post } from "$lib/utils";
   import { goto } from "$app/navigation";
   import { HDKey } from "@scure/bip32";
+  import {
+    rememberForOptions,
+    defaultRememberForMs,
+    rememberWalletPassword,
+    forgetWalletPassword,
+  } from "$lib/passwordCache";
 
   let { data } = $props();
 
@@ -24,6 +30,7 @@
     password = $state(),
     revealPassword = $state(),
     revealConfirm = $state();
+  let rememberForMs = $state(defaultRememberForMs);
   let type = "bitcoin";
   let name = $t("accounts.savings");
 
@@ -55,6 +62,11 @@
       let pubkey = child.publicExtendedKey;
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
       await post("/account", { fingerprint, pubkey, name, seed, type });
+      if (rememberForMs) {
+        rememberWalletPassword(password, rememberForMs);
+      } else {
+        forgetWalletPassword();
+      }
       $mnemonic = "";
       goto(`/${user.username}`);
     } catch (e) {
@@ -158,6 +170,22 @@
         ></iconify-icon>
       </button>
     </label>
+
+    <div class="space-y-2">
+      <label for="rememberFor" class="text-sm text-secondary">
+        Remember for
+      </label>
+      <select
+        id="rememberFor"
+        class="w-full"
+        value={rememberForMs}
+        onchange={(e) => (rememberForMs = Number(e.target.value))}
+      >
+        {#each rememberForOptions as option}
+          <option value={option.ms}>{option.label}</option>
+        {/each}
+      </select>
+    </div>
 
     <div class="flex gap-2">
       <a href={`/account/seed`} class="contents">

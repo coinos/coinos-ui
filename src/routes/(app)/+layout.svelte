@@ -46,10 +46,30 @@
     }
   });
 
+  // Track last known Ark balance to compute incoming amount
+  let getLastArkBalance = () => {
+    return parseInt(localStorage.getItem("lastArkBalance") || "0");
+  };
+
+  let setLastArkBalance = (bal) => {
+    localStorage.setItem("lastArkBalance", bal.toString());
+  };
+
   let handleArkPayment = async (notification) => {
     console.log("ARK payment notification:", notification);
-    let amount = notification.newVtxos.reduce((a, b) => a + b.value, 0);
-    if (!amount) return;
+
+    // Calculate current total from newVtxos
+    let currentTotal = notification.newVtxos.reduce((a, b) => a + b.value, 0);
+    let lastBalance = getLastArkBalance();
+
+    // Compute delta (incoming amount)
+    let amount = currentTotal - lastBalance;
+
+    // Update tracked balance
+    setLastArkBalance(currentTotal);
+
+    // Only process positive incoming amounts
+    if (amount <= 0) return;
 
     if ($fiat && $rateStore && user?.currency) {
       success(`Received ${f(toFiat(amount, $rateStore), user.currency)}!`);
@@ -58,12 +78,12 @@
     }
 
     try {
-      let inv = await post(`/invoice`, {
+      let inv = await post(`/post/invoice`, {
         invoice: { type: "ark", amount },
         user,
       });
 
-      await post(`/ark/receive`, {
+      await post(`/post/ark/receive`, {
         amount,
         iid: inv.id,
       });

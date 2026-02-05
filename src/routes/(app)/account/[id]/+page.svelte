@@ -8,6 +8,10 @@
   import { t } from "$lib/translations";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
+  import {
+    getRememberedWalletPassword,
+    forgetWalletPassword,
+  } from "$lib/passwordCache";
 
   let { data } = $props();
   let { account, user } = data;
@@ -26,12 +30,36 @@
   let cancel = $state(() => (passwordPrompt = false));
   let toggle = () => (passwordPrompt = !passwordPrompt);
 
+  let revealWithCachedPassword = async () => {
+    const cached = getRememberedWalletPassword();
+    if (!cached) return false;
+    try {
+      const { decrypt } = await import("nostr-tools/nip49");
+      let entropy = await decrypt(seed, cached);
+      mnemonic = entropyToMnemonic(entropy, wordlist);
+      password = cached;
+      return true;
+    } catch (e) {
+      forgetWalletPassword();
+      return false;
+    }
+  };
+
+  let requestMnemonic = async () => {
+    if (await revealWithCachedPassword()) return;
+    toggle();
+  };
 
   let submit = $state(async () => {
-    toggle();
-    const { decrypt } = await import("nostr-tools/nip49");
-    let entropy = await decrypt(seed, password);
-    mnemonic = entropyToMnemonic(entropy, wordlist);
+    passwordPrompt = false;
+    try {
+      const { decrypt } = await import("nostr-tools/nip49");
+      let entropy = await decrypt(seed, password);
+      mnemonic = entropyToMnemonic(entropy, wordlist);
+    } catch (e) {
+      fail("Invalid password, try again");
+      passwordPrompt = true;
+    }
   });
 
   let del = async () => {
@@ -71,7 +99,7 @@
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
-          <button onclick={toggle} type="button" class="btn">
+          <button onclick={requestMnemonic} type="button" class="btn">
             <iconify-icon noobserver icon="ph:eye-bold" width="32"
             ></iconify-icon>
             <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
