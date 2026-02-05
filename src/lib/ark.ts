@@ -30,6 +30,12 @@ export const getBalance = async (): Promise<{ available: number }> => {
 	return wallet.getBalance();
 };
 
+export const getVtxos = async () => {
+	const wallet = await getWallet();
+	if (!wallet) return [];
+	return wallet.getVtxos({ spendableOnly: false });
+};
+
 export const syncTransactions = async (aid: string) => {
 	const wallet = await getWallet();
 	if (!wallet) return;

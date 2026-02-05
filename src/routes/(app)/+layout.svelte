@@ -1,5 +1,5 @@
 <script>
-  import { getWallet, getAddress, syncTransactions, settle } from "$lib/ark";
+  import { getWallet, getAddress, getVtxos, syncTransactions, settle } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -46,30 +46,56 @@
     }
   });
 
-  // Track last known Ark balance to compute incoming amount
-  let getLastArkBalance = () => {
-    return parseInt(localStorage.getItem("lastArkBalance") || "0");
+  // Get unique VTXO key (txid:vout like arkade-wallet uses)
+  let vtxoKey = (v) => `${v.txid}:${v.vout}`;
+
+  // Track processed VTXO keys to avoid duplicates
+  let getProcessedVtxos = () => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem("processedArkVtxos") || "[]"));
+    } catch {
+      return new Set();
+    }
   };
 
-  let setLastArkBalance = (bal) => {
-    localStorage.setItem("lastArkBalance", bal.toString());
+  let addProcessedVtxos = (keys) => {
+    let processed = getProcessedVtxos();
+    keys.forEach((k) => processed.add(k));
+    // Keep only last 200 to avoid unbounded growth
+    let arr = [...processed].slice(-200);
+    localStorage.setItem("processedArkVtxos", JSON.stringify(arr));
   };
+
+  // Prevent concurrent processing of Ark notifications
+  let arkProcessing = false;
 
   let handleArkPayment = async (notification) => {
+    // Skip if already processing (prevents race conditions from rapid SDK callbacks)
+    if (arkProcessing) return;
+    arkProcessing = true;
+
     console.log("ARK payment notification:", notification);
 
-    // Calculate current total from newVtxos
-    let currentTotal = notification.newVtxos.reduce((a, b) => a + b.value, 0);
-    let lastBalance = getLastArkBalance();
+    // Filter out already-processed VTXOs using txid:vout composite key
+    let processed = getProcessedVtxos();
+    let newVtxos = notification.newVtxos.filter((v) => !processed.has(vtxoKey(v)));
 
-    // Compute delta (incoming amount)
-    let amount = currentTotal - lastBalance;
+    if (newVtxos.length === 0) {
+      arkProcessing = false;
+      return;
+    }
 
-    // Update tracked balance
-    setLastArkBalance(currentTotal);
+    // Sum only truly new VTXOs
+    let amount = newVtxos.reduce((a, b) => a + b.value, 0);
+
+    // Mark these VTXOs as processed immediately
+    addProcessedVtxos(newVtxos.map(vtxoKey));
 
     // Only process positive incoming amounts
-    if (amount <= 0) return;
+    if (amount <= 0) {
+      arkProcessing = false;
+      return;
+    }
 
     if ($fiat && $rateStore && user?.currency) {
       success(`Received ${f(toFiat(amount, $rateStore), user.currency)}!`);
@@ -78,13 +104,18 @@
     }
 
     try {
+      let aid = getCookie("aid") || user.id;
+
       let inv = await post(`/post/invoice`, {
-        invoice: { type: "ark", amount },
+        invoice: { type: "ark", amount, aid },
         user,
       });
 
+      let hash = newVtxos[0]?.txid;
+
       await post(`/post/ark/receive`, {
         amount,
+        hash,
         iid: inv.id,
       });
 
@@ -93,9 +124,10 @@
         noScroll: true,
       });
 
-      settle().catch((e) => console.error("Ark settle failed:", e));
     } catch (e) {
       console.error("Failed to record ARK payment:", e);
+    } finally {
+      arkProcessing = false;
     }
   };
 
@@ -107,6 +139,13 @@
       if (user) {
         const wallet = await getWallet();
         if (wallet) {
+          // Pre-populate processed VTXOs with existing ones before listening
+          const existingVtxos = await getVtxos();
+          if (existingVtxos?.length) {
+            addProcessedVtxos(existingVtxos.map(vtxoKey));
+            console.log("Pre-populated", existingVtxos.length, "existing VTXOs");
+          }
+
           wallet.notifyIncomingFunds(handleArkPayment);
 
           const aid = getCookie("aid") || user.id;
