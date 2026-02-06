@@ -25,7 +25,7 @@ export const actions = {
 		if (loginRedirect === "undefined") loginRedirect = undefined;
 
 		try {
-			await login(user, cookies, request.headers.get("cf-connecting-ip"));
+			await login(user, cookies, request.headers.get("cf-connecting-ip"), request.headers.get("host"));
 		} catch (e) {
 			const { message } = e as Error;
 			return fail(400, { error: "Login failed", message, ...form });
@@ -49,15 +49,18 @@ export const actions = {
 				"content-type": "application/json",
 				accept: "application/json",
 				"cf-connecting-ip": request.headers.get("cf-connecting-ip"),
+				host: request.headers.get("host"),
 			},
 		});
 
+		const text = await res.text();
+
 		if (res.status === 401) {
-			const text = await res.text();
 			if (text.startsWith("2fa")) throw new Error("2fa");
+			throw new Error(text);
 		}
 
-		const { user, token } = await res.json();
+		const { user, token } = JSON.parse(text);
 		if (!token) throw new Error("Login failed");
 		const { username, language } = user;
 
