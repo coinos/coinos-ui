@@ -1,5 +1,5 @@
 import getRates from "$lib/rates";
-import { auth, fd, post } from "$lib/utils";
+import { auth, fd, get, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent }) {
@@ -11,6 +11,16 @@ export async function load({ cookies, params, parent }) {
 	}
 
 	data.rate = rates[user.currency];
+
+	const aid = cookies.get("aid") || user.id;
+	if (aid !== user.id) {
+		const account = await get(`/account/${aid}`, auth(cookies));
+		if (account.type === "ark") {
+			data.account = account;
+			data.serverArkAddress = await get("/ark/address");
+		}
+	}
+
 	return data;
 }
 
@@ -36,6 +46,7 @@ export const actions = {
 		let p;
 		try {
 			const body = await fd(request);
+			body.aid = cookies.get("aid");
 
 			console.log("BODY", body);
 

@@ -64,6 +64,7 @@ export const actions = {
 		try {
 			const body = await fd(request);
 			body.hash = id;
+			body.aid = cookies.get("aid");
 
 			p = await post("/payments", body, auth(cookies));
 		} catch (e) {

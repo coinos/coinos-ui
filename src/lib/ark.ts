@@ -53,11 +53,38 @@ export const syncTransactions = async (aid: string) => {
 	return post("/post/ark/sync", { transactions, aid });
 };
 
+export const vtxoKey = (v: { txid: string; vout: number }) =>
+	`${v.txid}:${v.vout}`;
+
+export const getProcessedVtxos = (): Set<string> => {
+	try {
+		return new Set(
+			JSON.parse(localStorage.getItem("processedArkVtxos") || "[]"),
+		);
+	} catch {
+		return new Set();
+	}
+};
+
+export const addProcessedVtxos = (keys: string[]) => {
+	const processed = getProcessedVtxos();
+	for (const k of keys) processed.add(k);
+	const arr = [...processed].slice(-200);
+	localStorage.setItem("processedArkVtxos", JSON.stringify(arr));
+};
+
 export const sendArk = async (address: string, amount: number) => {
 	const wallet = await getWallet();
 	if (!wallet) throw new Error("Ark wallet not available");
 
-	return wallet.sendBitcoin({ address, amount });
+	const txid = await wallet.sendBitcoin({ address, amount });
+
+	// Mark post-send VTXOs as processed so notifyIncomingFunds
+	// ignores change VTXOs from this send
+	const vtxos = await wallet.getVtxos({ spendableOnly: false });
+	if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+
+	return txid;
 };
 
 export const settle = async () => {

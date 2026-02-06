@@ -24,9 +24,10 @@ export async function load({ cookies, depends, params, url, parent }) {
 
 		subject = invoice.user;
 
+		const aid = cookies.get("aid") || user?.id;
 		if (
 			user &&
-			invoice.uid !== user?.id &&
+			(invoice.uid !== user?.id || aid !== invoice.aid) &&
 			!(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
 			!options
 		) {

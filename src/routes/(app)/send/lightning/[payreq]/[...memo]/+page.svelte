@@ -2,12 +2,14 @@
   import { untrack } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
+  import { goto } from "$app/navigation";
   import Amount from "$comp/Amount.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { loc, back, toFiat, f, s, focus } from "$lib/utils";
+  import { loc, back, toFiat, f, s, post, focus } from "$lib/utils";
   import { fiat, rate, pin } from "$lib/store";
+  import { sendArk } from "$lib/ark";
 
   let { data, form } = $props();
 
@@ -20,9 +22,9 @@
   $effect(() => form && (loading = false));
 
   let showMax = $state();
+  let error = $state("");
 
   let loading = $state();
-  let submit = () => (loading = true);
 
   let next = $state();
   let toggle = () => (show = !show);
@@ -31,16 +33,49 @@
     Math.max(5, Math.round(untrack(() => amount) * 0.02 || 0)),
   );
   $effect(() => (maxfee = Math.max(5, Math.round(amount * 0.02) || 0)));
+
+  let handler = ({ cancel }) => {
+    loading = true;
+    error = "";
+
+    if (data.account?.type === "ark") {
+      cancel();
+
+      (async () => {
+        try {
+          const txid = await sendArk(data.serverArkAddress, parseInt(amount));
+
+          const inv = await post("/post/invoice", {
+            invoice: { type: "ark", amount: parseInt(amount), forward: payreq, aid: data.account.id },
+            user,
+          });
+
+          const p = await post("/post/ark/receive", {
+            amount: parseInt(amount),
+            hash: txid,
+            iid: inv.id,
+          });
+
+          goto(`/sent/${p.id}`, { invalidateAll: true });
+        } catch (e) {
+          loading = false;
+          error = e.message || "Failed to send";
+        }
+      })();
+
+      return;
+    }
+  };
 </script>
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">
-  {#if form?.message}
+  {#if form?.message || error}
     <div class="text-red-600 text-center">
-      {#if form.message.includes($t("payments.insufficientFunds"))}
-        <div>{form.message}</div>
-        <div>{$t("payments.lockedBalance")}: {locked}</div>        
+      {#if (form?.message || error).includes($t("payments.insufficientFunds"))}
+        <div>{form?.message || error}</div>
+        <div>{$t("payments.lockedBalance")}: {locked}</div>
       {:else}
-        {$t("payments.failedToRoute")}
+        {form?.message || error}
       {/if}
     </div>
   {/if}
@@ -78,8 +113,7 @@
 
     <form
       method="POST"
-      use:enhance
-      onsubmit={submit}
+      use:enhance={handler}
       action="?/send"
       class="space-y-2"
     >

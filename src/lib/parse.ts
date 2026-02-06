@@ -72,8 +72,10 @@ export default async (s, host, cookies) => {
 		invoice = { id: iid };
 	} else if (t.toLowerCase().startsWith("ln")) {
 		try {
+			const aid = cookies.get("aid");
 			invoice = await get(`/invoice/${t}`);
 			if (invoice.user.username === "mint") throw new Error("mint payment");
+			if (aid && aid !== invoice.aid) throw new Error("cross-account");
 		} catch (e) {
 			if (t.toLowerCase().startsWith("lno")) {
 				const { offer_amount_msat: a } = await get(`/decode/${t}`);
