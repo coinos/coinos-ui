@@ -169,24 +169,31 @@ export const login = async (
 	},
 	cookies,
 	ip: string,
+	host?: string,
 ) => {
 	const maxAge = 380 * 24 * 60 * 60;
+
+	const headers: Record<string, string> = {
+		"content-type": "application/json",
+		accept: "application/json",
+		"cf-connecting-ip": ip,
+	};
+	if (host) headers["host"] = host;
 
 	const res = await fetch(`${base}/login`, {
 		method: "POST",
 		body: JSON.stringify(user),
-		headers: {
-			"content-type": "application/json",
-			accept: "application/json",
-			"cf-connecting-ip": ip,
-		},
+		headers,
 	});
+
+	const text = await res.text();
+
 	if (res.status === 401) {
-		const text = await res.text();
 		if (text.startsWith("2fa")) throw new Error("2fa");
+		throw new Error(text);
 	}
 
-	const { user: u, token } = await res.json();
+	const { user: u, token } = JSON.parse(text);
 	if (!token) throw new Error("Login failed");
 
 	const expires = new Date();
@@ -490,7 +497,7 @@ export const ago = (t) => {
 	return `${days}d`;
 };
 
-export const register = async (user, ip, cookies, loginRedirect) => {
+export const register = async (user, ip, cookies, loginRedirect, host?) => {
 	let error;
 
 	let sk;
@@ -501,7 +508,7 @@ export const register = async (user, ip, cookies, loginRedirect) => {
 	}
 
 	try {
-		await login(user, cookies, ip);
+		await login(user, cookies, ip, host);
 		error = null;
 	} catch (e) {
 		const { message } = e as Error;
