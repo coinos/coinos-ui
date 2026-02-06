@@ -65,6 +65,26 @@
 
       return;
     }
+
+    if (data.account?.seed) {
+      cancel();
+
+      (async () => {
+        try {
+          const inv = await post("/post/invoice", {
+            invoice: { type: "bitcoin", amount: parseInt(amount), forward: payreq },
+            user,
+          });
+
+          goto(`/send/bitcoin/${inv.hash}/${amount}`);
+        } catch (e) {
+          loading = false;
+          error = e.message || "Failed to send";
+        }
+      })();
+
+      return;
+    }
   };
 </script>
 

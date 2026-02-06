@@ -18,6 +18,8 @@ export async function load({ cookies, params, parent }) {
 		if (account.type === "ark") {
 			data.account = account;
 			data.serverArkAddress = await get("/ark/address");
+		} else if (account.seed) {
+			data.account = account;
 		}
 	}
 
