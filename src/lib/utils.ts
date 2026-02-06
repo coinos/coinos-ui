@@ -178,7 +178,7 @@ export const login = async (
 		accept: "application/json",
 		"cf-connecting-ip": ip,
 	};
-	if (host) headers["host"] = host;
+	if (host) headers["x-forwarded-host"] = host;
 
 	const res = await fetch(`${base}/login`, {
 		method: "POST",
