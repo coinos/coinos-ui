@@ -87,7 +87,7 @@
       return;
     }
 
-    if (account.seed && !signed) cancel(), void togglePassword();
+    if ((account.seed || data.user.seed) && !signed) cancel(), void togglePassword();
     return async ({ result }) => {
       if (result.type === "redirect") {
         goto(result.location);
@@ -111,11 +111,11 @@
       import("@scure/bip39"),
       import("@scure/bip39/wordlists/english.js"),
     ]);
-    let entropy = await decrypt(account.seed, password);
+    let entropy = await decrypt(account.seed || data.user.seed, password);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
     let seed = await mnemonicToSeed(mnemonic, password);
     let master = HDKey.fromMasterSeed(seed, network);
-    let child = master.derive("m/84'/0'/0'");
+    let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
 
     let raw = decode(hex);
     let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
