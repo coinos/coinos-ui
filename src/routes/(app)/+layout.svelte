@@ -1,5 +1,5 @@
 <script>
-  import { getWallet, getAddress, getVtxos, syncTransactions, settle } from "$lib/ark";
+  import { getWallet, getAddress, getVtxos, syncTransactions, settle, vtxoKey, getProcessedVtxos, addProcessedVtxos } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -45,26 +45,6 @@
       preloadData("/send");
     }
   });
-
-  // Get unique VTXO key (txid:vout like arkade-wallet uses)
-  let vtxoKey = (v) => `${v.txid}:${v.vout}`;
-
-  // Track processed VTXO keys to avoid duplicates
-  let getProcessedVtxos = () => {
-    try {
-      return new Set(JSON.parse(localStorage.getItem("processedArkVtxos") || "[]"));
-    } catch {
-      return new Set();
-    }
-  };
-
-  let addProcessedVtxos = (keys) => {
-    let processed = getProcessedVtxos();
-    keys.forEach((k) => processed.add(k));
-    // Keep only last 200 to avoid unbounded growth
-    let arr = [...processed].slice(-200);
-    localStorage.setItem("processedArkVtxos", JSON.stringify(arr));
-  };
 
   // Prevent concurrent processing of Ark notifications
   let arkProcessing = false;
