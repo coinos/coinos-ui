@@ -6,7 +6,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
-  import { toFiat, f, focus, s, sat, closest, network } from "$lib/utils";
+  import { toFiat, f, focus, s, sat, closest, network, post } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -21,6 +21,7 @@
     getRememberedWalletPassword,
     forgetWalletPassword,
   } from "$lib/passwordCache";
+  import { sendArk } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
 
@@ -31,6 +32,8 @@
   let password = $state();
   let cancel = $state(() => (passwordPrompt = false));
   let signed = $state();
+  let loading = $state(false);
+  let error = $state("");
 
   let trySignWithCachedPassword = async () => {
     const cached = getRememberedWalletPassword();
@@ -54,6 +57,36 @@
     passwordPrompt = true;
   };
   let handler = ({ cancel }) => {
+    if (account.type === "ark") {
+      cancel();
+
+      (async () => {
+        loading = true;
+        error = "";
+        try {
+          const txid = await sendArk(data.serverArkAddress, parseInt(amount));
+
+          const inv = await post("/post/invoice", {
+            invoice: { type: "ark", amount: parseInt(amount), forward: address, aid: account.id },
+            user: data.user,
+          });
+
+          const p = await post("/post/ark/receive", {
+            amount: parseInt(amount),
+            hash: txid,
+            iid: inv.id,
+          });
+
+          goto(`/sent/${p.id}`, { invalidateAll: true });
+        } catch (e) {
+          loading = false;
+          error = e.message || "Failed to send";
+        }
+      })();
+
+      return;
+    }
+
     if (account.seed && !signed) cancel(), void togglePassword();
     return async ({ result }) => {
       if (result.type === "redirect") {
@@ -124,10 +157,12 @@
   let { feeRate } = $state(data);
 
   $effect(() => {
-    delete fees.minimumFee;
-    feeRate = feeRate
-      ? closest(Object.values(fees), feeRate)
-      : fees.halfHourFee;
+    if (fees) {
+      delete fees.minimumFee;
+      feeRate = feeRate
+        ? closest(Object.values(fees), feeRate)
+        : fees.halfHourFee;
+    }
   });
 
   $effect(() => {
@@ -156,9 +191,9 @@
 >
   <h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t("payments.send")}</h1>
 
-  {#if form?.message || message}
+  {#if form?.message || message || error}
     <div class="mb-5">
-      <div class="text-red-600">{form?.message || message}</div>
+      <div class="text-red-600">{form?.message || message || error}</div>
     </div>
   {:else}
     <div class="text-xl text-secondary break-all">{address}</div>
@@ -169,27 +204,29 @@
       {currency}
     />
 
-    <div class="text-center">
-      <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
-
-      <div class="flex flex-wrap gap-4 justify-center">
-        <select bind:value={feeRate} onchange={setFee}>
-          {#each Object.keys(feeNames) as feeName}
-            <option value={fees[feeName]}
-              >{feeNames[feeName]} &mdash; {fees[feeName]} sats/vb</option
-            >
-          {/each}
-        </select>
-        <Amount amount={fee} rate={$rate} {currency} />
-      </div>
-    </div>
-
-    {#if ourfee}
+    {#if fees}
       <div class="text-center">
-        <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
+        <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
 
-        <Amount amount={ourfee} rate={$rate} {currency} />
+        <div class="flex flex-wrap gap-4 justify-center">
+          <select bind:value={feeRate} onchange={setFee}>
+            {#each Object.keys(feeNames) as feeName}
+              <option value={fees[feeName]}
+                >{feeNames[feeName]} &mdash; {fees[feeName]} sats/vb</option
+              >
+            {/each}
+          </select>
+          <Amount amount={fee} rate={$rate} {currency} />
+        </div>
       </div>
+
+      {#if ourfee}
+        <div class="text-center">
+          <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
+
+          <Amount amount={ourfee} rate={$rate} {currency} />
+        </div>
+      {/if}
     {/if}
 
     <form method="POST" use:enhance={handler}>
@@ -205,9 +242,9 @@
           bind:this={submit}
           type="submit"
           class="btn btn-accent"
-          disabled={submitting}
+          disabled={submitting || loading}
         >
-          {#if submitting}
+          {#if submitting || loading}
             <Spinner />
           {:else}
             {$t("payments.send")}

@@ -8,8 +8,17 @@ export async function load({ params: { address, amount }, cookies, parent }) {
 	const aid = cookies.get("aid") || user.id;
 
 	const account = await get(`/account/${aid}`, auth(cookies));
+
+	if (account.seed) {
+		const inv = await post(
+			"/invoice",
+			{ invoice: { type: "bitcoin", amount: parseInt(amount), forward: address }, user },
+			auth(cookies),
+		);
+		redirect(307, `/send/bitcoin/${inv.hash}/${amount}`);
+	}
+
 	const rate = rates[user.currency];
-	console.log("rate", rate);
 
 	return {
 		account,
