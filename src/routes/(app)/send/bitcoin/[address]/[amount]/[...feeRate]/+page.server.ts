@@ -10,6 +10,18 @@ export async function load({
 	const rates = await getRates();
 	const { user } = await parent();
 	const aid = cookies.get("aid") || user.id;
+	const account = await get(`/account/${aid}`, auth(cookies));
+
+	if (account.type === "ark") {
+		const serverArkAddress = await get("/ark/address");
+		return {
+			account,
+			amount,
+			address,
+			rate: rates[user.currency],
+			serverArkAddress,
+		};
+	}
 
 	try {
 		const { fee, fees, inputs, ourfee, hex, subtract } = await post(
@@ -17,8 +29,6 @@ export async function load({
 			{ address, amount, feeRate, aid },
 			auth(cookies),
 		);
-
-		const account = await get(`/account/${aid}`, auth(cookies));
 
 		return {
 			account,
