@@ -15,7 +15,8 @@
 
   let { data } = $props();
   let { account, user } = data;
-  let { id, seed } = account;
+  let { id } = account;
+  let seed = $derived(account.seed || user.seed);
   let displayType = $derived(
     account.type === "ark"
       ? $t("accounts.ark")

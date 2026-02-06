@@ -9,7 +9,7 @@ export async function load({ params: { address, amount }, cookies, parent }) {
 
 	const account = await get(`/account/${aid}`, auth(cookies));
 
-	if (account.seed) {
+	if (account.type === "bitcoin") {
 		const inv = await post(
 			"/invoice",
 			{ invoice: { type: "bitcoin", amount: parseInt(amount), forward: address }, user },

@@ -31,8 +31,6 @@
     revealPassword = $state(),
     revealConfirm = $state();
   let rememberForMs = $state(defaultRememberForMs);
-  let type = "bitcoin";
-  let name = $t("accounts.savings");
 
   onMount(() => {
     if (!$mnemonic) goto("/account/new");
@@ -53,15 +51,26 @@
         password,
       );
 
+      // Save master seed on user
+      await post("/post/user", { seed });
+
       let master = HDKey.fromMasterSeed(
         await mnemonicToSeed($mnemonic, password),
         versions,
       );
 
+      // Bitcoin account at m/84'/0'/0'
       let child = master.derive("m/84'/0'/0'");
       let pubkey = child.publicExtendedKey;
       let fingerprint = child.fingerprint.toString(16).padStart(8, "0");
-      await post("/account", { fingerprint, pubkey, name, seed, type });
+      await post("/account", {
+        fingerprint,
+        pubkey,
+        name: $t("accounts.savings"),
+        type: "bitcoin",
+        accountIndex: 0,
+      });
+
       if (rememberForMs) {
         rememberWalletPassword(password, rememberForMs);
       } else {

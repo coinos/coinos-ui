@@ -1,10 +1,12 @@
 <script>
   import { hex } from "@scure/base";
+  import { bytesToHex } from "@noble/hashes/utils.js";
   import WalletPass from "$comp/WalletPass.svelte";
   import { run } from "svelte/legacy";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";  import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
+  import { versions } from "$lib/utils";
   import { arkkey } from "$lib/ark";
   import {
     getRememberedWalletPassword,
@@ -36,7 +38,29 @@
     if (!cached) return false;
     try {
       const { decrypt } = await import("nostr-tools/nip49");
-      $arkkey = hex.encode(decrypt(seed, cached));
+      if (seed) {
+        // Legacy: per-account seed is raw hex key
+        $arkkey = hex.encode(decrypt(seed, cached));
+      } else if (user.seed) {
+        // Master seed: derive m/86'/0'/0'/0/0
+        const [
+          { HDKey },
+          { entropyToMnemonic, mnemonicToSeed },
+          { wordlist },
+        ] = await Promise.all([
+          import("@scure/bip32"),
+          import("@scure/bip39"),
+          import("@scure/bip39/wordlists/english.js"),
+        ]);
+        let entropy = await decrypt(user.seed, cached);
+        let mnemonic = entropyToMnemonic(entropy, wordlist);
+        let s = await mnemonicToSeed(mnemonic, cached);
+        let master = HDKey.fromMasterSeed(s, versions);
+        let arkChild = master.derive("m/86'/0'/0'/0/0");
+        $arkkey = bytesToHex(arkChild.privateKey);
+      } else {
+        return false;
+      }
       return true;
     } catch (e) {
       forgetWalletPassword();
@@ -65,7 +89,25 @@
 
   let submitPassword = async () => {
     const { decrypt } = await import("nostr-tools/nip49");
-    $arkkey = hex.encode(decrypt(seed, password));
+    if (seed) {
+      $arkkey = hex.encode(decrypt(seed, password));
+    } else if (user.seed) {
+      const [
+        { HDKey },
+        { entropyToMnemonic, mnemonicToSeed },
+        { wordlist },
+      ] = await Promise.all([
+        import("@scure/bip32"),
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
+      let entropy = await decrypt(user.seed, password);
+      let mnemonic = entropyToMnemonic(entropy, wordlist);
+      let s = await mnemonicToSeed(mnemonic, password);
+      let master = HDKey.fromMasterSeed(s, versions);
+      let arkChild = master.derive("m/86'/0'/0'/0/0");
+      $arkkey = bytesToHex(arkChild.privateKey);
+    }
     passwordPrompt = false;
     if (pendingUrl) {
       goto(pendingUrl);
@@ -76,7 +118,7 @@
   let displayType = $derived(
     accountType === "ark"
       ? $t("accounts.ark")
-      : seed
+      : seed || (user.seed && accountType === "bitcoin")
         ? $t("accounts.bitcoin")
         : $t("accounts.custodial"),
   );
@@ -118,7 +160,7 @@
           class="w-8 h-8 rounded-full object-cover"
           alt="Ark"
         />
-      {:else if seed}
+      {:else if seed || (user.seed && accountType === "bitcoin")}
         <iconify-icon
           noobserver
           icon="cryptocurrency-color:btc"
