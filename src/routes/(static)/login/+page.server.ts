@@ -49,7 +49,7 @@ export const actions = {
 				"content-type": "application/json",
 				accept: "application/json",
 				"cf-connecting-ip": request.headers.get("cf-connecting-ip"),
-				host: request.headers.get("host"),
+				"x-forwarded-host": request.headers.get("host"),
 			},
 		});
 
