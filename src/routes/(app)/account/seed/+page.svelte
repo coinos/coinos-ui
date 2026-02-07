@@ -6,7 +6,7 @@
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
   import { generateMnemonic } from "@scure/bip39";
-  import { wordlist } from "@scure/bip39/wordlists/english";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
 
   let { data } = $props();
   let { user } = data;

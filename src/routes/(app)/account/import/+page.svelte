@@ -8,7 +8,7 @@
   import { browser } from "$app/environment";
   import Icon from "$comp/Icon.svelte";
   import { validateMnemonic } from "@scure/bip39";
-  import { wordlist } from "@scure/bip39/wordlists/english";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
 
   let el = $state(), pasted = $state(), text = $state();
 

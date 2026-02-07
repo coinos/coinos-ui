@@ -2,7 +2,7 @@ import { browser } from "$app/environment";
 import { goto } from "$app/navigation";
 import { page } from "$app/stores";
 import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
-import { bytesToHex } from "@noble/hashes/utils";
+import { bytesToHex } from "@noble/hashes/utils.js";
 import { fail as svelteFail, redirect } from "@sveltejs/kit";
 import { toast } from "@zerodevx/svelte-toast";
 import {

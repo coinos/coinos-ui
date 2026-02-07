@@ -7,7 +7,7 @@
   import Toggle from "$comp/Toggle.svelte";
   import { getPublicKey } from "nostr-tools";
   import { onMount, tick } from "svelte";
-  import { bytesToHex, randomBytes } from "@noble/hashes/utils";
+  import { bytesToHex, randomBytes } from "@noble/hashes/utils.js";
   import { goto } from "$app/navigation";
   import { copy, focus, fail, post } from "$lib/utils";
   import { t } from "$lib/translations";

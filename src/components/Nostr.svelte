@@ -4,7 +4,7 @@
   import { t } from "$lib/translations";
   import PasswordInput from "$comp/PasswordInput.svelte";
   import { Relay } from "nostr-tools/relay";
-  import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
+  import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
   import {
     nip04,
     nip19,

@@ -185,6 +185,8 @@
 </div>
 
 <style>
+  @reference "../../../../app.css";
+
   .ours {
     @apply bg-gradient-to-r from-[#F2F6FC] to-[#E1E3FF] text-black rounded-br-none ml-auto;
   }

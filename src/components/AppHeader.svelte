@@ -92,6 +92,8 @@
 {/if}
 
 <style>
+  @reference "../app.css";
+
   .btn-menu {
     @apply flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 drop-shadow-xl;
   }

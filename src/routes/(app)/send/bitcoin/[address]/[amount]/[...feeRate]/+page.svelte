@@ -16,7 +16,7 @@
   import { decrypt } from "nostr-tools/nip49";
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
-  import { wordlist } from "@scure/bip39/wordlists/english";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
 
   import Amount from "$comp/Amount.svelte";
 
