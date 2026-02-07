@@ -91,6 +91,8 @@
 </div>
 
 <style>
+  @reference "../../../../app.css";
+
   .active {
     @apply text-blue-500;
   }

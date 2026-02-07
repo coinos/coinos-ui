@@ -15,8 +15,8 @@
   import { page } from "$app/stores";
   import { sign } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
-  import { sha256 } from "@noble/hashes/sha256";
-  import { bytesToHex } from "@noble/hashes/utils";
+  import { sha256 } from "@noble/hashes/sha2.js";
+  import { bytesToHex } from "@noble/hashes/utils.js";
 
   let { data, form } = $props();
 

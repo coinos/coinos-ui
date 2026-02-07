@@ -215,6 +215,8 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
+
   .btn { @apply px-4 py-2 rounded-2xl shadow; }
   .btn-neutral { @apply bg-gray-200; }
   .input { @apply w-full px-3 py-2 border rounded-xl; }

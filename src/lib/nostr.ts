@@ -8,7 +8,7 @@ import {
 	signer as $signer,
 } from "$lib/store";
 import { post, wait } from "$lib/utils";
-import { bytesToHex } from "@noble/hashes/utils";
+import { bytesToHex } from "@noble/hashes/utils.js";
 import {
 	type EventTemplate,
 	finalizeEvent,

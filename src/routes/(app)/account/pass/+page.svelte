@@ -11,7 +11,7 @@
     mnemonicToEntropy,
     entropyToMnemonic,
   } from "@scure/bip39";
-  import { wordlist } from "@scure/bip39/wordlists/english";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
   import { focus, versions, fail, post } from "$lib/utils";
   import { goto } from "$app/navigation";
   import { HDKey } from "@scure/bip32";

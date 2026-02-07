@@ -8,7 +8,7 @@
   import { t } from "$lib/translations";
   import { decrypt } from "nostr-tools/nip49";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
-  import { wordlist } from "@scure/bip39/wordlists/english";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
   import {
     PUBLIC_COINOS_PUBKEY as pk,
     PUBLIC_COINOS_RELAY as relay,
