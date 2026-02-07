@@ -1,9 +1,8 @@
-FROM node:21
+FROM oven/bun
 
 ARG NODE_ENV=production
-ENV NODE_ENV $NODE_ENV
+ENV NODE_ENV=$NODE_ENV
 
-RUN npm i -g bun
 WORKDIR /app
 
 ADD package.json .
