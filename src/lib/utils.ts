@@ -170,6 +170,7 @@ export const login = async (
 	cookies,
 	ip: string,
 	host?: string,
+	extraHeaders?: Record<string, string>,
 ) => {
 	const maxAge = 380 * 24 * 60 * 60;
 
@@ -177,6 +178,7 @@ export const login = async (
 		"content-type": "application/json",
 		accept: "application/json",
 		"cf-connecting-ip": ip,
+		...extraHeaders,
 	};
 	if (host) headers["x-forwarded-host"] = host;
 
@@ -497,18 +499,23 @@ export const ago = (t) => {
 	return `${days}d`;
 };
 
-export const register = async (user, ip, cookies, loginRedirect, host?) => {
+export const register = async (user, ip, cookies, loginRedirect, host?, extraHeaders?: Record<string, string>) => {
 	let error;
+
+	const headers: Record<string, string> = {
+		...extraHeaders,
+	};
+	if (ip) headers["cf-connecting-ip"] = ip;
 
 	let sk;
 	try {
-		({ sk } = await post("/register", { user }, { "cf-connecting-ip": ip }));
+		({ sk } = await post("/register", { user }, headers));
 	} catch (e) {
 		({ message: error } = e as Error);
 	}
 
 	try {
-		await login(user, cookies, ip, host);
+		await login(user, cookies, ip, host, extraHeaders);
 		error = null;
 	} catch (e) {
 		const { message } = e as Error;
