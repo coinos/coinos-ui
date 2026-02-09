@@ -1,5 +1,5 @@
 <script>
-  import { getWallet, getAddress, getVtxos, syncTransactions, settle, vtxoKey, getProcessedVtxos, addProcessedVtxos } from "$lib/ark";
+  import { getWallet, syncTransactions, settle } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -22,7 +22,7 @@
   import AppHeader from "$comp/AppHeader.svelte";
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
-  import { s, f, toFiat, success, post, getCookie, warning } from "$lib/utils";
+  import { s, f, toFiat, success, getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
 
@@ -46,68 +46,29 @@
     }
   });
 
-  // Prevent concurrent processing of Ark notifications
-  let arkProcessing = false;
+  let arkSyncing = false;
 
-  let handleArkPayment = async (notification) => {
-    // Skip if already processing (prevents race conditions from rapid SDK callbacks)
-    if (arkProcessing) return;
-    arkProcessing = true;
-
-    console.log("ARK payment notification:", notification);
-
-    // Filter out already-processed VTXOs using txid:vout composite key
-    let processed = getProcessedVtxos();
-    let newVtxos = notification.newVtxos.filter((v) => !processed.has(vtxoKey(v)));
-
-    if (newVtxos.length === 0) {
-      arkProcessing = false;
-      return;
-    }
-
-    // Sum only truly new VTXOs
-    let amount = newVtxos.reduce((a, b) => a + b.value, 0);
-
-    // Mark these VTXOs as processed immediately
-    addProcessedVtxos(newVtxos.map(vtxoKey));
-
-    // Only process positive incoming amounts
-    if (amount <= 0) {
-      arkProcessing = false;
-      return;
-    }
-
-    if ($fiat && $rateStore && user?.currency) {
-      success(`Received ${f(toFiat(amount, $rateStore), user.currency)}!`);
-    } else {
-      success(`Received ⚡️${s(amount)}!`);
-    }
+  let arkSync = async () => {
+    if (arkSyncing) return;
+    arkSyncing = true;
 
     try {
-      let aid = getCookie("aid") || user.id;
+      const aid = getCookie("aid") || user.id;
+      const result = await syncTransactions(aid);
 
-      let inv = await post(`/post/invoice`, {
-        invoice: { type: "ark", amount, aid },
-        user,
-      });
+      if (result?.received > 0) {
+        if ($fiat && $rateStore && user?.currency) {
+          success(`Received ${f(toFiat(result.received, $rateStore), user.currency)}!`);
+        } else {
+          success(`Received ⚡️${s(result.received)}!`);
+        }
+      }
 
-      let hash = newVtxos[0]?.txid;
-
-      await post(`/post/ark/receive`, {
-        amount,
-        hash,
-        iid: inv.id,
-      });
-
-      goto(`/invoice/${inv.id}`, {
-        invalidateAll: true,
-        noScroll: true,
-      });
-
+      if (result?.synced) invalidate("app:payments");
     } catch (e) {
-      console.error("Failed to record ARK payment:", e);
+      console.error("Ark sync failed:", e);
     } finally {
-      arkProcessing = false;
+      arkSyncing = false;
     }
   };
 
@@ -119,19 +80,9 @@
       if (user) {
         const wallet = await getWallet();
         if (wallet) {
-          // Pre-populate processed VTXOs with existing ones before listening
-          const existingVtxos = await getVtxos();
-          if (existingVtxos?.length) {
-            addProcessedVtxos(existingVtxos.map(vtxoKey));
-            console.log("Pre-populated", existingVtxos.length, "existing VTXOs");
-          }
+          wallet.notifyIncomingFunds(arkSync);
 
-          wallet.notifyIncomingFunds(handleArkPayment);
-
-          const aid = getCookie("aid") || user.id;
-          syncTransactions(aid).then((result) => {
-            if (result?.synced) invalidate("app:payments");
-          }).catch((e) => console.error("Ark sync failed:", e));
+          arkSync();
 
           settle().catch((e) => console.error("Ark settle failed:", e));
         }

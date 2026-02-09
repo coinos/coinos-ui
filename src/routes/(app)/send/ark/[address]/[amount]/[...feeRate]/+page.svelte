@@ -2,7 +2,7 @@
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Spinner from "$comp/Spinner.svelte";
-  import { focus, s } from "$lib/utils";
+  import { focus, s, post } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -15,30 +15,44 @@
 
   let error = $state("");
 
-  let handler = async ({ cancel }) => {
+  let handler = ({ cancel }) => {
+    if (account.type === "ark") {
+      cancel();
+
+      (async () => {
+        submitting = true;
+        error = "";
+        try {
+          const txid = await sendArk(address, parseInt(amount));
+
+          const p = await post("/post/ark/vault-send", {
+            hash: txid,
+            amount: parseInt(amount),
+            aid: account.id,
+          });
+
+          goto(`/sent/${p.id}`, { invalidateAll: true });
+        } catch (e) {
+          submitting = false;
+          error = e.message || "Failed to send";
+        }
+      })();
+
+      return;
+    }
+
     submitting = true;
     error = "";
 
-    try {
-      if (account.type === "ark") {
-        const txid = await sendArk(address, amount);
-        console.log("ARK tx:", txid);
-      }
-
-      return async ({ result }) => {
-        submitting = false;
-        if (result.type === "redirect") {
-          goto(result.location);
-        } else {
-          await applyAction(result);
-          invalidate("app:payments");
-        }
-      };
-    } catch (e) {
+    return async ({ result }) => {
       submitting = false;
-      error = e.message || "Failed to send";
-      cancel();
-    }
+      if (result.type === "redirect") {
+        goto(result.location);
+      } else {
+        await applyAction(result);
+        invalidate("app:payments");
+      }
+    };
   };
 
   let { account, amount, address, message } = $derived(data);
