@@ -5,8 +5,6 @@
   import { page } from "$app/stores";
   import { fiat as fiatStore, rate } from "$lib/store";
   import { loc, fail, s, f, sats } from "$lib/utils";
-  import { getWallet } from "$lib/ark";
-
   let { data } = $props();
 
   let { balance, user } = data;
@@ -30,16 +28,6 @@
     submit.click();
   };
 
-  let send = async () => {
-    console.log("SENDING", a);
-    let wallet = await getWallet();
-    const txid = await wallet.sendBitcoin({
-      address,
-      amount,
-    });
-
-    console.log(txid);
-  };
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
@@ -72,10 +60,8 @@
     <form
       action={`/send/ark/${address}/${amount}`}
       class="contents"
-      onsubmit={send}
     >
       <button
-        use:focus
         bind:this={submit}
         type="submit"
         class="btn !w-auto grow btn-accent"

@@ -8,16 +8,27 @@ export const arkkey = persistLocal("arkkey", "");
 let arkSdkPromise: Promise<typeof import("@arkade-os/sdk")> | undefined;
 const loadArkSdk = () => (arkSdkPromise ||= import("@arkade-os/sdk"));
 
+let walletInstance: any;
+let walletKey: string | undefined;
+
 export const getWallet = async () => {
 	const key = get(arkkey);
-	if (!key) return;
+	if (!key) {
+		walletInstance = undefined;
+		walletKey = undefined;
+		return;
+	}
+	if (walletInstance && walletKey === key) return walletInstance;
+
 	const { SingleKey, Wallet } = await loadArkSdk();
 	const identity = SingleKey.fromHex(key);
 
-	return Wallet.create({
+	walletInstance = await Wallet.create({
 		identity,
 		arkServerUrl,
 	});
+	walletKey = key;
+	return walletInstance;
 };
 
 export const getAddress = async (): Promise<string> => {
@@ -44,7 +55,8 @@ export const syncTransactions = async (aid: string) => {
 	if (!history.length) return;
 
 	const transactions = history.map((tx) => ({
-		hash: tx.key.arkTxid || tx.key.commitmentTxid,
+		arkTxid: tx.key.arkTxid || null,
+		commitmentTxid: tx.key.commitmentTxid || null,
 		amount: tx.type === "RECEIVED" ? tx.amount : -tx.amount,
 		settled: tx.settled,
 		createdAt: tx.createdAt,
@@ -73,18 +85,29 @@ export const addProcessedVtxos = (keys: string[]) => {
 	localStorage.setItem("processedArkVtxos", JSON.stringify(arr));
 };
 
+// Flag to suppress notifyIncomingFunds during sends
+export let arkSending = false;
+
 export const sendArk = async (address: string, amount: number) => {
 	const wallet = await getWallet();
 	if (!wallet) throw new Error("Ark wallet not available");
 
-	const txid = await wallet.sendBitcoin({ address, amount });
+	// Suppress incoming notifications during send to prevent
+	// change VTXOs from being credited as incoming payments
+	arkSending = true;
 
-	// Mark post-send VTXOs as processed so notifyIncomingFunds
-	// ignores change VTXOs from this send
-	const vtxos = await wallet.getVtxos({ spendableOnly: false });
-	if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+	try {
+		const txid = await wallet.sendBitcoin({ address, amount });
 
-	return txid;
+		// Mark post-send VTXOs as processed so notifyIncomingFunds
+		// ignores change VTXOs from this send
+		const vtxos = await wallet.getVtxos({ spendableOnly: false });
+		if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+
+		return txid;
+	} finally {
+		arkSending = false;
+	}
 };
 
 export const settle = async () => {
@@ -94,5 +117,10 @@ export const settle = async () => {
 	const balance = await wallet.getBalance();
 	if (!balance.preconfirmed) return;
 
-	return wallet.settle();
+	await wallet.settle();
+
+	// Mark post-settle VTXOs as processed so notifyIncomingFunds
+	// ignores renewed VTXOs (they get new txids after an Ark round)
+	const vtxos = await wallet.getVtxos({ spendableOnly: false });
+	if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
 };
