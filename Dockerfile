@@ -9,7 +9,9 @@ ADD package.json .
 RUN NODE_ENV=development bun i
 
 COPY . .
-RUN bun run build
+
+ARG BUILD_MODE=build
+RUN bun run $BUILD_MODE
 
 # CMD ["node", "build"]
 CMD ["bun", "run", "preview", "--host", "--port", "3000"]
