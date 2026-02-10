@@ -9,7 +9,7 @@
   import { page } from "$app/stores";
   import { loc, back, toFiat, f, s, post, focus } from "$lib/utils";
   import { fiat, rate, pin } from "$lib/store";
-  import { sendArk } from "$lib/ark";
+  import { sendArkViaForward } from "$lib/ark";
 
   let { data, form } = $props();
 
@@ -43,19 +43,13 @@
 
       (async () => {
         try {
-          const txid = await sendArk(data.serverArkAddress, parseInt(amount));
-
-          const inv = await post("/post/invoice", {
-            invoice: { type: "ark", amount: parseInt(amount), forward: payreq, aid: data.account.id },
+          const p = await sendArkViaForward({
+            serverArkAddress: data.serverArkAddress,
+            amount: parseInt(amount),
+            aid: data.account.id,
+            forward: payreq,
             user,
           });
-
-          const p = await post("/post/ark/receive", {
-            amount: parseInt(amount),
-            hash: txid,
-            iid: inv.id,
-          });
-
           goto(`/sent/${p.id}`, { invalidateAll: true });
         } catch (e) {
           loading = false;
