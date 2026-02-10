@@ -39,6 +39,76 @@
   src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf") format("truetype");
 }
 
+:root {
+  --toastContainerTop: auto;
+  --toastContainerRight: auto;
+  --toastContainerBottom: 8rem;
+  --toastContainerLeft: calc(50vw - 8rem);
+  --toastBackground: #292929;
+}
+
+/* svelte-toast styles - component scoped CSS doesn't survive Svelte 5 compilation */
+._toastContainer {
+  top: var(--toastContainerTop, 1.5rem);
+  right: var(--toastContainerRight, 2rem);
+  bottom: var(--toastContainerBottom, auto);
+  left: var(--toastContainerLeft, auto);
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  pointer-events: none;
+  z-index: var(--toastContainerZIndex, 9999);
+}
+._toastItem {
+  width: var(--toastWidth, 16rem);
+  height: var(--toastHeight, auto);
+  min-height: var(--toastMinHeight, 3.5rem);
+  margin: var(--toastMargin, 0 0 0.5rem 0);
+  padding: var(--toastPadding, 0);
+  background: var(--toastBackground, rgba(66, 66, 66, 0.9));
+  color: var(--toastColor, #fff);
+  box-shadow: var(--toastBoxShadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+  border: var(--toastBorder, none);
+  border-radius: var(--toastBorderRadius, 0.125rem);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  will-change: transform, opacity;
+  -webkit-tap-highlight-color: transparent;
+}
+._toastMsg {
+  padding: var(--toastMsgPadding, 0.75rem 0.5rem);
+  flex: 1 1 0%;
+}
+._toastBar {
+  top: var(--toastBarTop, auto);
+  right: var(--toastBarRight, auto);
+  bottom: var(--toastBarBottom, 0);
+  left: var(--toastBarLeft, 0);
+  height: var(--toastBarHeight, 6px);
+  width: var(--toastBarWidth, 100%);
+  position: absolute;
+  display: block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: transparent;
+  pointer-events: none;
+}
+._toastBar::-webkit-progress-bar {
+  background: transparent;
+}
+._toastBar::-webkit-progress-value {
+  background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
+}
+._toastBar::-moz-progress-bar {
+  background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
+}
+
 html { font-family: PublicSans, sans-serif; }
 
 ::selection { color: black; background: #eaf2ff; }
