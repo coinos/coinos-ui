@@ -14,7 +14,7 @@ export default defineConfig({
 	},
 	preview: {
 		allowedHosts: [
-			"staging.coinos.io",
+			"coinos.io",
 			"6un2jrlcumn5vduhbq6i3i2wrwiydamwjwop472obg6cy2bfo6ua3oad.onion",
 			"vm7h454g5hiy2nt3u5o7evtz3vigtypo2mkyausakvdkbmd7wpyhx5qd.onion",
 		],
