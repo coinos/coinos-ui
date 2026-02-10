@@ -6,7 +6,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
-  import { toFiat, f, focus, s, sat, closest, network, post } from "$lib/utils";
+  import { toFiat, f, focus, s, sat, closest, network } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -21,7 +21,7 @@
     getRememberedWalletPassword,
     forgetWalletPassword,
   } from "$lib/passwordCache";
-  import { sendArk } from "$lib/ark";
+  import { sendArkViaForward } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
 
@@ -64,19 +64,13 @@
         loading = true;
         error = "";
         try {
-          const txid = await sendArk(data.serverArkAddress, parseInt(amount));
-
-          const inv = await post("/post/invoice", {
-            invoice: { type: "ark", amount: parseInt(amount), forward: address, aid: account.id },
+          const p = await sendArkViaForward({
+            serverArkAddress: data.serverArkAddress,
+            amount: parseInt(amount),
+            aid: account.id,
+            forward: address,
             user: data.user,
           });
-
-          const p = await post("/post/ark/receive", {
-            amount: parseInt(amount),
-            hash: txid,
-            iid: inv.id,
-          });
-
           goto(`/sent/${p.id}`, { invalidateAll: true });
         } catch (e) {
           loading = false;

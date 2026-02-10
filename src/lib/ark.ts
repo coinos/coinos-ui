@@ -110,6 +110,31 @@ export const sendArk = async (address: string, amount: number) => {
 	}
 };
 
+export const sendArkViaForward = async ({
+	serverArkAddress,
+	amount,
+	aid,
+	forward,
+	user,
+}: {
+	serverArkAddress: string;
+	amount: number;
+	aid: string;
+	forward: string;
+	user: any;
+}) => {
+	const txid = await sendArk(serverArkAddress, amount);
+
+	await post("/post/ark/vault-send", { hash: txid, amount, aid });
+
+	const inv = await post("/post/invoice", {
+		invoice: { type: "ark", amount, forward, aid },
+		user,
+	});
+
+	return post("/post/ark/receive", { amount, hash: txid, iid: inv.id });
+};
+
 export const settle = async () => {
 	const wallet = await getWallet();
 	if (!wallet) return;
