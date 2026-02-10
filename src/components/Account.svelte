@@ -17,6 +17,7 @@
   let {
     name,
     seed,
+    fingerprint,
     balance,
     id,
     type: accountType,
@@ -118,7 +119,7 @@
   let displayType = $derived(
     accountType === "ark"
       ? $t("accounts.ark")
-      : seed || (user.seed && accountType === "bitcoin")
+      : seed || (user.seed && fingerprint)
         ? $t("accounts.bitcoin")
         : $t("accounts.custodial"),
   );
@@ -160,7 +161,7 @@
           class="w-8 h-8 rounded-full object-cover"
           alt="Ark"
         />
-      {:else if seed || (user.seed && accountType === "bitcoin")}
+      {:else if seed || (user.seed && fingerprint)}
         <iconify-icon
           noobserver
           icon="cryptocurrency-color:btc"
