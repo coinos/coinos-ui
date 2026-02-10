@@ -27,10 +27,10 @@
   let { data, form } = $props();
 
   let { trusted, balance, invoice, user } = $state(data);
-  let { address, hash, payreq, user: recipient, tip } = $state(invoice);
+  let { address, hash, payreq, user: recipient, tip } = $state(data.invoice);
   let { currency } = $derived(user);
   let locale = $derived(loc(user));
-  let { amount } = $state(form || invoice);
+  let amount = $state(form?.amount ?? data.invoice.amount);
 
   let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
 
