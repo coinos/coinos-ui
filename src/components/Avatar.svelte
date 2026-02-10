@@ -11,7 +11,9 @@
   let { user, size = 32, disabled = false }: Props = $props();
 
   let s = $derived(size.toString());
-  let link = $derived(user?.anon ? `/${user.pubkey}` : `/${user.username}`);
+  let link = $derived(
+    user ? (user.anon ? `/${user.pubkey}` : `/${user.username}`) : undefined,
+  );
 
   let base = "/api/public";
   let profile = $derived(
@@ -38,8 +40,10 @@
 
 {#if disabled}
   {@render body()}
-{:else}
+{:else if link}
   <a href={link} class:pointer-events-none={disabled}>
     {@render body()}
   </a>
+{:else}
+  {@render body()}
 {/if}
