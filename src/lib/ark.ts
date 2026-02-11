@@ -1,8 +1,12 @@
+import { PUBLIC_COINOS_NETWORK } from "$env/static/public";
 import { persistLocal } from "$lib/store";
 import { post } from "$lib/utils";
 import { get } from "svelte/store";
 
-export const arkServerUrl = "http://localhost:7070";
+export const arkServerUrl = {
+	bitcoin: "https://arkade.computer",
+	regtest: "http://localhost:7070",
+}[PUBLIC_COINOS_NETWORK || "regtest"];
 export const arkkey = persistLocal("arkkey", "");
 
 let arkSdkPromise: Promise<typeof import("@arkade-os/sdk")> | undefined;
@@ -51,16 +55,42 @@ export const syncTransactions = async (aid: string) => {
 	const wallet = await getWallet();
 	if (!wallet) return;
 
-	const history = await wallet.getTransactionHistory();
-	if (!history.length) return;
+	const transactions: any[] = [];
 
-	const transactions = history.map((tx) => ({
-		arkTxid: tx.key.arkTxid || null,
-		commitmentTxid: tx.key.commitmentTxid || null,
-		amount: tx.type === "RECEIVED" ? tx.amount : -tx.amount,
-		settled: tx.settled,
-		createdAt: tx.createdAt,
-	}));
+	const history = await wallet.getTransactionHistory();
+	const historyTxids = new Set<string>();
+	console.log("arkSync: history", history.length, history);
+
+	for (const tx of history) {
+		if (tx.key.arkTxid) historyTxids.add(tx.key.arkTxid);
+		if (tx.key.commitmentTxid) historyTxids.add(tx.key.commitmentTxid);
+		transactions.push({
+			arkTxid: tx.key.arkTxid || null,
+			commitmentTxid: tx.key.commitmentTxid || null,
+			amount: tx.type === "RECEIVED" ? tx.amount : -tx.amount,
+			settled: tx.settled,
+			createdAt: tx.createdAt,
+		});
+	}
+
+	// Include preconfirmed VTXOs not yet in transaction history
+	const vtxos = await wallet.getVtxos({ spendableOnly: false });
+	console.log("arkSync: vtxos", vtxos.length, vtxos);
+	for (const v of vtxos) {
+		if (v.virtualStatus?.state !== "preconfirmed") continue;
+		const id = v.arkTxId || v.txid;
+		if (!id || historyTxids.has(id)) continue;
+		historyTxids.add(id);
+		transactions.push({
+			arkTxid: v.arkTxId || null,
+			commitmentTxid: v.txid || null,
+			amount: Number(v.value),
+			settled: false,
+			createdAt: v.createdAt ? new Date(v.createdAt).getTime() : Date.now(),
+		});
+	}
+
+	if (!transactions.length) return;
 
 	return post("/post/ark/sync", { transactions, aid });
 };
