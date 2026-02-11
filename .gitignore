@@ -9,3 +9,5 @@ ios
 .history/
 db
 .claude/
+test-results/
+playwright-report/
