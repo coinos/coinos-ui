@@ -142,6 +142,8 @@
 <div
   class="shadow-lg space-y-4 p-4 cursor-pointer hover:bg-base-200"
   aria-label="Payments"
+  data-testid="account-card"
+  data-account-type={accountType}
   role="button"
   tabindex="0"
   onclick={goPayments}
@@ -180,7 +182,7 @@
       class="contents"
       onclick={(e) => setAccount(e, "/invoice")}
     >
-      <button class="btn !w-auto flex-1 !bg-base-300">
+      <button class="btn !w-auto flex-1 !bg-base-300" data-testid="account-receive">
         <iconify-icon
           noobserver
           icon="ph:hand-coins-bold"

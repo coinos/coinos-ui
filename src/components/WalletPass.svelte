@@ -37,6 +37,7 @@
         {#if revealPassword}
           <input
             name="password"
+            data-testid="walletpass-input"
             type="text"
             required
             bind:value={password}
@@ -46,6 +47,7 @@
         {:else}
           <input
             name="password"
+            data-testid="walletpass-input"
             type="password"
             required
             bind:value={password}
@@ -83,6 +85,7 @@
       <div class="w-full flex justify-center gap-2">
         <button
           type="button"
+          data-testid="walletpass-cancel"
           class="border rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
           onclick={cancel}
           onkeydown={cancel}
@@ -91,6 +94,7 @@
         </button>
         <button
           type="submit"
+          data-testid="walletpass-submit"
           class="border rounded-2xl font-semibold mx-auto py-5 px-6 hover:opacity-80 mx-auto grow"
         >
           <div class="my-auto">Submit</div>
