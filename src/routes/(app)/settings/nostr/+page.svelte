@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { untrack } from "svelte";
   import { browser } from "$app/environment";
   import { getNsec } from "$lib/nostr";
@@ -11,12 +11,15 @@
     PUBLIC_COINOS_RELAY as relay,
   } from "$env/static/public";
   import { fiat, rate, signer, save } from "$lib/store";
+  import { getPreferredRelays } from "$lib/nip17";
 
   let { data } = $props();
   let { apps, challenge, user } = $derived(data);
   let npub = $state(untrack(() => user.npub));
   let extensionAvailable = $derived(browser && window.nostr);
   let { locale } = $derived(user);
+
+  import { SimplePool } from 'nostr-tools/pool';
 
   let newNsec = $state(),
     nsec = $state(),
@@ -41,6 +44,14 @@
     await tick();
     $save.click();
   };
+
+  import { PUBLIC_DM_RELAYS } from '$env/static/public';
+  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+  const pool = new SimplePool();
+  getPreferredRelays(user.pubkey).then(relays => {
+    const relayEntry = document.getElementById('dmRelays');
+    relayEntry.value = relays.join("\n");
+  });
 </script>
 
 <input type="hidden" name="challenge" value={challenge} />
@@ -236,3 +247,12 @@
     {/if}
   </div>
 {/if}
+
+<span class="font-bold" id="dm-relays">
+    {$t("user.settings.preferredDM")}
+</span>
+<p class="text-secondary mb-1">
+    {$t("user.settings.preferredDMDescription")}
+</p>
+
+<textarea id="dmRelays" name="dmRelays" rows={3}></textarea>

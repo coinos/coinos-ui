@@ -76,6 +76,15 @@
           <iconify-icon noobserver icon="ph:pencil-bold" width="32"
           ></iconify-icon>
         </a>
+      {:else}
+        <a
+          href="/dm?username={subject.username}"
+          class="btn contents"
+          aria-label="Direct Message"
+        >
+          <iconify-icon noobserver icon="ph:chat-bold" width="32"
+          ></iconify-icon>
+        </a>
       {/if}
       <!-- <a href={`/${subject.pubkey}/notes`}> -->
       <!--   <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon> -->
