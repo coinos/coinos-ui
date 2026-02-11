@@ -16,6 +16,7 @@
     //   icon: "ph:storefront-bold",
     //   href: `https://coinosmerch.com`,
     // },
+    { key: "nav.dm", icon: "ph:chat-bold", href: `/dm` },
     { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
     { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
   ];

@@ -235,3 +235,14 @@ const signingMethods = {
 		return signedEvent;
 	},
 };
+
+// Returns all the keys mentioned in the provided event's 'p' tags.
+export const pTagKeys = (event: object): string[] => {
+	let keys = [];
+	for (const tag of event.tags) {
+		if (tag[0] === "p") {
+			keys.push(tag[1]);
+		}
+	}
+	return keys;
+}
