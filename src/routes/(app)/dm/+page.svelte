@@ -18,6 +18,10 @@
  let { data } = $props();
  const { user } = data;
 
+ if (!user) {
+   window.location.replace("/login");
+ }
+
  /// chat selection
  const usernameFromPubkey = async (pubkey: string): string => {
    const response = await fetch(`/api/users/${pubkey}`);
