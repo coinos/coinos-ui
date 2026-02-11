@@ -2,6 +2,7 @@
   "name": "coinos",
   "version": "1.0.9",
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@capacitor/android": "^8.0.2",
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.0.2",
@@ -57,6 +58,7 @@
     "buildstaging": "vite build --mode staging",
     "docker": "docker build . -t coinos-ui",
     "preview": "vite preview",
+    "test:e2e": "playwright test",
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },

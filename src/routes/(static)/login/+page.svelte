@@ -66,7 +66,7 @@
 
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
-      if (isTor) return resolve("");
+      if (isTor || !recaptchaSiteKey) return resolve("");
       if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
         grecaptcha
@@ -182,6 +182,7 @@
 
     <input
       name="username"
+      data-testid="login-username"
       type="text"
       required
       bind:value={username}
@@ -198,7 +199,12 @@
       >
     </div>
 
-    <button type="submit" class="btn btn-accent" bind:this={btn}>
+    <button
+      type="submit"
+      class="btn btn-accent"
+      bind:this={btn}
+      data-testid="login-submit"
+    >
       {$t("login.signIn")}
     </button>
 
