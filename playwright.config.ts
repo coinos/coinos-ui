@@ -3,6 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 const port = Number(process.env.E2E_PORT || 4173);
 const host = process.env.E2E_HOST || "127.0.0.1";
 const baseURL = process.env.E2E_BASE_URL || `http://${host}:${port}`;
+const slowMo = Number(process.env.E2E_SLOWMO || 0);
 
 export default defineConfig({
 	testDir: "./test/e2e",
@@ -18,6 +19,7 @@ export default defineConfig({
 	use: {
 		baseURL,
 		trace: "on-first-retry",
+		launchOptions: slowMo > 0 ? { slowMo } : undefined,
 	},
 	projects: [
 		{

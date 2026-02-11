@@ -56,6 +56,7 @@
 
 {#if !showQr || txt?.length <= 120}
   <div
+    data-testid="invoice-text"
     class="break-all text-center text-secondary text-xl flex gap-1 items-center justify-center"
   >
     {txt}
