@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { tick } from "svelte";  import { onMount, onDestroy } from "svelte";
+  import { tick } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { back } from "$lib/utils";
   import { goto } from "$app/navigation";
 

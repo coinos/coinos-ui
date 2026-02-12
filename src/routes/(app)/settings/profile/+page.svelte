@@ -86,7 +86,10 @@
     >{$t("user.settings.newPassword")}</label
   >
 
-  <PasswordInput bind:value={password} placeholder="(Leave blank to keep unchanged)" />
+  <PasswordInput
+    bind:value={password}
+    placeholder="(Leave blank to keep unchanged)"
+  />
 </div>
 
 <div>
@@ -104,7 +107,8 @@
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
-        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectAvatar()}
+        onkeydown={(e) =>
+          (e.key === "Enter" || e.key === " ") && selectAvatar()}
         role="button"
         tabindex="0"
       >
@@ -118,7 +122,8 @@
       <div
         class="rounded-full border-4 border-base-100 p-4 bg-base-200 w-24 h-24 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
-        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectAvatar()}
+        onkeydown={(e) =>
+          (e.key === "Enter" || e.key === " ") && selectAvatar()}
         role="button"
         tabindex="0"
       ></div>

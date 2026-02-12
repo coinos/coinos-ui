@@ -18,8 +18,12 @@
   let { currency, locked } = $derived(user);
   let locale = $derived(loc(user));
 
-  $effect(() => { $rate ||= data.rate; });
-  $effect(() => { if (form) loading = false; });
+  $effect(() => {
+    $rate ||= data.rate;
+  });
+  $effect(() => {
+    if (form) loading = false;
+  });
 
   let showMax = $state();
   let error = $state("");
@@ -33,7 +37,9 @@
   let maxfee = $state(
     Math.max(5, Math.round(untrack(() => amount) * 0.02 || 0)),
   );
-  $effect(() => { maxfee = Math.max(5, Math.round(amount * 0.02) || 0); });
+  $effect(() => {
+    maxfee = Math.max(5, Math.round(amount * 0.02) || 0);
+  });
 
   let handler = ({ cancel }) => {
     loading = true;
@@ -67,7 +73,11 @@
       (async () => {
         try {
           const inv = await post("/post/invoice", {
-            invoice: { type: "bitcoin", amount: parseInt(amount), forward: payreq },
+            invoice: {
+              type: "bitcoin",
+              amount: parseInt(amount),
+              forward: payreq,
+            },
             user,
           });
 
@@ -126,12 +136,7 @@
       </div>
     {/if}
 
-    <form
-      method="POST"
-      use:enhance={handler}
-      action="?/send"
-      class="space-y-2"
-    >
+    <form method="POST" use:enhance={handler} action="?/send" class="space-y-2">
       <input name="payreq" value={payreq} type="hidden" />
       <input name="amount" value={amount} type="hidden" />
       <input name="pin" value={$pin} type="hidden" />

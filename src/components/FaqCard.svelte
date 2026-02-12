@@ -3,7 +3,7 @@
 
   // this ID will be used to get the strings from the locale
   // question is at faq.[questionID].question
-  
+
   interface Props {
     // answer is at faq.[questionID].answer
     questionID: any;

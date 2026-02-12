@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "warn"
+  },
+  "rules": {
+    "no-self-assign": "off",
+    "no-unused-expressions": "off",
+    "no-unassigned-vars": "off",
+    "@typescript-eslint/no-this-alias": "off"
+  },
+  "env": {
+    "browser": true
+  },
+  "globals": {},
+  "ignorePatterns": ["node_modules", "build", ".svelte-kit", "package"]
+}

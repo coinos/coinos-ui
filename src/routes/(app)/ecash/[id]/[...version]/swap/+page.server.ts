@@ -1,3 +1,3 @@
 export async function load() {
-	return { test: 123 };
+  return { test: 123 };
 }

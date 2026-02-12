@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { preventDefault } from 'svelte/legacy';
+  import { preventDefault } from "svelte/legacy";
 
   import { focus } from "$lib/utils";
   import { t } from "$lib/translations";
@@ -23,9 +23,7 @@
   };
 </script>
 
-<div
-  class="fixed inset-0 bg-gray-600/50 overflow-y-auto h-full w-full z-20"
->
+<div class="fixed inset-0 bg-gray-600/50 overflow-y-auto h-full w-full z-20">
   <div
     class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5"
   >
@@ -75,7 +73,8 @@
           id="rememberFor"
           class="w-full"
           value={rememberForMs}
-          onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+          onchange={(e) =>
+            (rememberForMs = Number((e.target as HTMLSelectElement).value))}
         >
           {#each rememberForOptions as option}
             <option value={option.ms}>{option.label}</option>

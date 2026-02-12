@@ -2,7 +2,8 @@
   import { copyNoNewlines as copy } from "$lib/utils";
   import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
 
-  import Code from "$comp/Code.svelte";  let { data } = $props();
+  import Code from "$comp/Code.svelte";
+  let { data } = $props();
 
   let { user, ro, token } = data;
 
@@ -63,7 +64,8 @@
       or get one from the /login endpoint.
     {/if}
 
-    Save it in a variable called <b>$token</b> to run the examples. It gives full access to your account so keep it safe.
+    Save it in a variable called <b>$token</b> to run the examples. It gives full
+    access to your account so keep it safe.
   </p>
 
   <div
@@ -75,8 +77,8 @@
 
   {#if ro}
     <p class="text-secondary">
-      This read-only token has permission to create invoices and fetch
-      payments but can't be used to make withdrawals
+      This read-only token has permission to create invoices and fetch payments
+      but can't be used to make withdrawals
     </p>
     <div
       class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center"

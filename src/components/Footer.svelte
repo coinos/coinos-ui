@@ -73,5 +73,10 @@
     </ul>
   </div>
 
-  <iconify-icon noobserver icon="coinos:shield" class="flex justify-center" width="96"></iconify-icon>
+  <iconify-icon
+    noobserver
+    icon="coinos:shield"
+    class="flex justify-center"
+    width="96"
+  ></iconify-icon>
 </footer>

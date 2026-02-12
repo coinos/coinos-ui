@@ -66,7 +66,8 @@
       </ul>
       <hr class="my-4" />
       <a href="/?stay=true" aria-label="Coinos home"
-        ><iconify-icon noobserver icon="coinos:logo" width="160"></iconify-icon></a
+        ><iconify-icon noobserver icon="coinos:logo" width="160"
+        ></iconify-icon></a
       >
     </div>
   </OutClick>

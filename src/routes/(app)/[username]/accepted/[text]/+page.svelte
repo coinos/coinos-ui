@@ -1,4 +1,5 @@
-<script>  import Qr from "$comp/Qr.svelte";
+<script>
+  import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
   import { bech32 } from "@scure/base";
   import { page } from "$app/stores";

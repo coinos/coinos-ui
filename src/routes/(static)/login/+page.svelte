@@ -45,18 +45,23 @@
   onMount(() => {
     if (!isTor && recaptchaSiteKey) {
       let s = document.createElement("script");
-      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      s.src =
+        "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
       document.head.appendChild(s);
     }
   });
 
-  let cancel: any = () => { need2fa = false; };
+  let cancel: any = () => {
+    need2fa = false;
+  };
 
   let username: string | undefined = $state(),
     email: any,
     btn: HTMLButtonElement = $state() as any;
 
-  $effect(() => { if (form) ({ username, password: $password } = form); });
+  $effect(() => {
+    if (form) ({ username, password: $password } = form);
+  });
   let need2fa = $derived(form?.message === "2fa");
   $effect(() => {
     if (need2fa && form?.token === token) token = "";
@@ -67,7 +72,8 @@
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
       if (isTor || !recaptchaSiteKey) return resolve("");
-      if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
+      if (!browser || !grecaptcha)
+        return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
         grecaptcha
           .execute(recaptchaSiteKey, { action: "login" })

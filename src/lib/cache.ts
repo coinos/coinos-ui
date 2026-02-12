@@ -1,10 +1,9 @@
-
 // src/lib/server/cache.ts
 let cachedData: any = null;
 
 async function fetchData() {
   // Fetch data from your API
-  const response = await fetch('https://api.example.com/data');
+  const response = await fetch("https://api.example.com/data");
   cachedData = await response.json();
 }
 

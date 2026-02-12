@@ -21,7 +21,9 @@
   let currency = user ? user.currency : "CAD";
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
-  $effect(() => { $loginRedirect = $page.url.pathname; });
+  $effect(() => {
+    $loginRedirect = $page.url.pathname;
+  });
 
   let show = $state();
   let toggle = () => (show = !show);

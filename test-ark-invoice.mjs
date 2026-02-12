@@ -9,22 +9,44 @@ const API_KEY = "test-playwright-key";
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await context.newPage();
 
-  page.on("console", (msg) => console.log(`[browser:${msg.type()}]`, msg.text()));
+  page.on("console", (msg) =>
+    console.log(`[browser:${msg.type()}]`, msg.text()),
+  );
   page.on("pageerror", (err) => console.log("[page error]", err.message));
 
   // Monitor relevant requests
   page.on("request", (req) => {
     const u = req.url();
-    if (u.includes("ark") || u.includes("sync") || u.includes("invoice") || u.includes("ws")) {
-      if (!u.includes("__data") && !u.includes(".png") && !u.includes(".js") && !u.includes(".css")) {
+    if (
+      u.includes("ark") ||
+      u.includes("sync") ||
+      u.includes("invoice") ||
+      u.includes("ws")
+    ) {
+      if (
+        !u.includes("__data") &&
+        !u.includes(".png") &&
+        !u.includes(".js") &&
+        !u.includes(".css")
+      ) {
         console.log(`[req] ${req.method()} ${u.substring(0, 120)}`);
       }
     }
   });
   page.on("response", (resp) => {
     const u = resp.url();
-    if (u.includes("ark/sync") || (u.includes("invoice") && !u.includes("__data"))) {
-      resp.text().then((t) => console.log(`[resp] ${resp.status()} ${u.substring(0, 80)} -> ${t.substring(0, 300)}`)).catch(() => {});
+    if (
+      u.includes("ark/sync") ||
+      (u.includes("invoice") && !u.includes("__data"))
+    ) {
+      resp
+        .text()
+        .then((t) =>
+          console.log(
+            `[resp] ${resp.status()} ${u.substring(0, 80)} -> ${t.substring(0, 300)}`,
+          ),
+        )
+        .catch(() => {});
     }
   });
 
@@ -40,7 +62,12 @@ const API_KEY = "test-playwright-key";
       const m = h.value.match(/token=([^;]+)/);
       if (m) {
         await context.addCookies([
-          { name: "token", value: m[1], domain: "staging.coinos.io", path: "/" },
+          {
+            name: "token",
+            value: m[1],
+            domain: "staging.coinos.io",
+            path: "/",
+          },
         ]);
       }
     }
@@ -48,14 +75,23 @@ const API_KEY = "test-playwright-key";
 
   // Set the ark account cookie so invoice page recognizes us as the owner
   await context.addCookies([
-    { name: "aid", value: "6eb11dd0-e591-4331-a9a7-93e69804b28b", domain: "staging.coinos.io", path: "/" },
+    {
+      name: "aid",
+      value: "6eb11dd0-e591-4331-a9a7-93e69804b28b",
+      domain: "staging.coinos.io",
+      path: "/",
+    },
   ]);
 
   // 2. Create an ark invoice for 1000 sats (matches existing VTXO)
   console.log("\n--- Creating ark invoice for 1000 sats ---");
   const invResp = await page.request.post(`${API}/invoice`, {
     data: {
-      invoice: { type: "ark", amount: 1000, aid: "6eb11dd0-e591-4331-a9a7-93e69804b28b" },
+      invoice: {
+        type: "ark",
+        amount: 1000,
+        aid: "6eb11dd0-e591-4331-a9a7-93e69804b28b",
+      },
       user: { username: "bob" },
     },
     headers: { "content-type": "application/json", "x-api-key": API_KEY },

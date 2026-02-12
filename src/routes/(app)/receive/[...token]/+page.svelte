@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
@@ -16,7 +16,10 @@
   let { token } = data;
   data.subject = data.user;
 
-  let el = $state(), text = $state(), pasted = $state(), w = $state();
+  let el = $state(),
+    text = $state(),
+    pasted = $state(),
+    w = $state();
 
   let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
 
@@ -57,19 +60,21 @@
         bind:value={text}
         onpaste={() => (pasted = true)}
         autocapitalize="none"
-></textarea>
+      ></textarea>
     </div>
 
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
+          <iconify-icon noobserver icon="ph:camera-bold" width="32"
+          ></iconify-icon>
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"
+        ></iconify-icon>
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>

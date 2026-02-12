@@ -19,7 +19,6 @@
     e.stopPropagation();
     $fiat = !$fiat;
   };
-
 </script>
 
 {#if typeof amount !== "undefined"}
@@ -35,10 +34,7 @@
         aria-label="Toggle currency display"
       >
         {#if !canShowFiat}
-          <iconify-icon
-            noobserver
-            icon={icon}
-            class="text-yellow-300"
+          <iconify-icon noobserver {icon} class="text-yellow-300"
           ></iconify-icon>
         {/if}
         {#if canShowFiat}

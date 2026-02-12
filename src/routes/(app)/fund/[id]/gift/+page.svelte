@@ -1,7 +1,8 @@
 <script lang="ts">
   import Amount from "$comp/Amount.svelte";
   import { t } from "$lib/translations";
-  import { page } from "$app/stores";  import Qr from "$comp/Qr.svelte";
+  import { page } from "$app/stores";
+  import Qr from "$comp/Qr.svelte";
   import { loc, copy } from "$lib/utils";
 
   let { data } = $props();

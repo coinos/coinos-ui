@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { run, preventDefault } from 'svelte/legacy';
+  import { run, preventDefault } from "svelte/legacy";
 
   import { cubicInOut } from "svelte/easing";
   import { browser } from "$app/environment";
@@ -36,7 +36,8 @@
   }
 
   let { messages, recipient, user }: any = $state(data);
-  let input: any, pane: any = $state();
+  let input: any,
+    pane: any = $state();
 
   let initialize = async (p: any) => {
     await Promise.all(
@@ -59,7 +60,9 @@
     }
   });
 
-  let sent: any, submitting: any, message: any = $state();
+  let sent: any,
+    submitting: any,
+    message: any = $state();
   let submit = async () => {
     submitting = true;
 
@@ -120,7 +123,8 @@
     data-sveltekit-preload-data="false"
     onclick={back}
   >
-    <iconify-icon noobserver icon="ph:arrow-left-bold" width="40"></iconify-icon>
+    <iconify-icon noobserver icon="ph:arrow-left-bold" width="40"
+    ></iconify-icon>
   </button>
 
   <div

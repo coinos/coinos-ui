@@ -98,7 +98,9 @@
     onsubmit={preventDefault(submit)}
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
-    <p class="text-secondary p-4 bg-warning/80 rounded-2xl border-warning border-2">
+    <p
+      class="text-secondary p-4 bg-warning/80 rounded-2xl border-warning border-2"
+    >
       {$t("accounts.passwordWarning")}
     </p>
 
@@ -188,7 +190,8 @@
         id="rememberFor"
         class="w-full"
         value={rememberForMs}
-        onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+        onchange={(e) =>
+          (rememberForMs = Number((e.target as HTMLSelectElement).value))}
       >
         {#each rememberForOptions as option}
           <option value={option.ms}>{option.label}</option>

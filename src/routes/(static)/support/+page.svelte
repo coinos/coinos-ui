@@ -3,7 +3,8 @@
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
   import { fail, success, post } from "$lib/utils";
-  import { scale } from "svelte/transition";  import { t } from "$lib/translations";
+  import { scale } from "svelte/transition";
+  import { t } from "$lib/translations";
 
   let { data } = $props();
   let user = $derived(data.user);
@@ -22,7 +23,8 @@
   onMount(() => {
     if (!isTor && recaptchaSiteKey) {
       let s = document.createElement("script");
-      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      s.src =
+        "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
       document.head.appendChild(s);
     }
   });
@@ -117,11 +119,7 @@
         <label for="message" class="font-semibold"
           >{$t("user.support.message")}</label
         >
-        <textarea
-          rows={5}
-          name="message"
-          bind:value={message}
-          required
+        <textarea rows={5} name="message" bind:value={message} required
         ></textarea>
       </div>
 

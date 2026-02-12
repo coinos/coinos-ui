@@ -27,7 +27,6 @@
     await tick();
     submit.click();
   };
-
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center">
@@ -57,10 +56,7 @@
       {/if}</button
     >
 
-    <form
-      action={`/send/ark/${address}/${amount}`}
-      class="contents"
-    >
+    <form action={`/send/ark/${address}/${amount}`} class="contents">
       <button
         bind:this={submit}
         type="submit"

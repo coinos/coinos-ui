@@ -20,7 +20,9 @@
   let locale = $derived(loc(user));
   let event = $state();
 
-  $effect(() => { $rate ||= data.rate; });
+  $effect(() => {
+    $rate ||= data.rate;
+  });
   $effect(() => {
     if (form || request) {
       (async () => {

@@ -7,7 +7,12 @@
   import DarkToggle from "$comp/DarkToggle.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
 
-  let { howItWorks = undefined, faq = undefined, about = undefined, user = undefined }: any = $props();
+  let {
+    howItWorks = undefined,
+    faq = undefined,
+    about = undefined,
+    user = undefined,
+  }: any = $props();
 
   let showMobileMenu = $state(false);
   let header = $state();

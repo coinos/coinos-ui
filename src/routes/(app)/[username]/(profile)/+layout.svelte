@@ -291,7 +291,7 @@
     </div>
     <div class="text-secondary flex ml-auto items-center gap-1">
       {#if satsPerCurrency >= 1}
-        <div>{f(1, currency, locale)} &#61; </div>
+        <div>{f(1, currency, locale)} &#61;</div>
         <div class="flex items-center">
           <iconify-icon
             noobserver

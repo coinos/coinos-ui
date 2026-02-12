@@ -77,14 +77,16 @@
     if (fiat) {
       const numericFiat =
         parseFloat((fiatDigits || "0").replace(/\D/g, "")) / 100;
-      amountFiat = isFinite(numericFiat) ? numericFiat.toFixed(2) : "0.00" as any;
+      amountFiat = isFinite(numericFiat)
+        ? numericFiat.toFixed(2)
+        : ("0.00" as any);
       amount = numericFiat ? Math.round((numericFiat * sats) / rate) : 0;
     } else {
       // integer-only sats, already normalized
       const a = parseInt((html || "0").replace(/[^\d]/g, "")) || 0;
       amount = a || 0;
       const fval = amount ? (amount * rate) / sats : 0;
-      amountFiat = fval ? fval.toFixed(2) : "0.00" as any;
+      amountFiat = fval ? fval.toFixed(2) : ("0.00" as any);
     }
   };
 
@@ -211,7 +213,9 @@
       element && (element.innerHTML = html);
     } else {
       // going -> fiat
-      const cents = Math.round((parseFloat(String(amountFiat) || "0") || 0) * 100);
+      const cents = Math.round(
+        (parseFloat(String(amountFiat) || "0") || 0) * 100,
+      );
       fiatDigits = Math.max(0, cents).toString();
       fiat = true;
       html = formatFiatFromDigits(fiatDigits, decimalChar);
@@ -255,7 +259,9 @@
   onMount(() => {
     fiat = $fiatStore;
     if (fiat) {
-      const cents = Math.round((parseFloat(String(amountFiat) || "0") || 0) * 100);
+      const cents = Math.round(
+        (parseFloat(String(amountFiat) || "0") || 0) * 100,
+      );
       fiatDigits = Math.max(0, cents).toString();
       html = formatFiatFromDigits(fiatDigits, decimalChar); // keep html in sync on mount
     } else {

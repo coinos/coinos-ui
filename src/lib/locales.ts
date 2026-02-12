@@ -37,5 +37,5 @@ export default {
   it,
   nl,
   th,
-  pl
+  pl,
 };

@@ -20,7 +20,8 @@
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
   let el: any;
-  let keypress = (e: any) => e.key === "Enter" && (e.preventDefault() || el.click());
+  let keypress = (e: any) =>
+    e.key === "Enter" && (e.preventDefault() || el.click());
 
   let editingReserve = $state(),
     editingThreshold = $state(),

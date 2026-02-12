@@ -1,7 +1,8 @@
 import { chromium } from "playwright";
 
 const BASE = "http://172.18.0.9:3000";
-const ARK_KEY = "1fed5c62c46ea3f72757e0baf1b83573ffd125eaba69a61c0f847c0d26d7b924";
+const ARK_KEY =
+  "1fed5c62c46ea3f72757e0baf1b83573ffd125eaba69a61c0f847c0d26d7b924";
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -28,8 +29,10 @@ const ARK_KEY = "1fed5c62c46ea3f72757e0baf1b83573ffd125eaba69a61c0f847c0d26d7b92
         address,
         balance,
         vtxoCount: vtxos.length,
-        vtxos: vtxos.map(v => ({
-          txid: v.txid, value: Number(v.value), state: v.virtualStatus?.state,
+        vtxos: vtxos.map((v) => ({
+          txid: v.txid,
+          value: Number(v.value),
+          state: v.virtualStatus?.state,
         })),
         historyCount: history.length,
       };
