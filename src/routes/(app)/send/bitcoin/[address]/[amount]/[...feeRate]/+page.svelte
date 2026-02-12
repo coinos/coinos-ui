@@ -13,7 +13,6 @@
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
-  import { decrypt } from "nostr-tools/nip49";
   import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
   import { sendArkViaForward } from "$lib/ark";
 
