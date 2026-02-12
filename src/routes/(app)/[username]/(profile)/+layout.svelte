@@ -36,9 +36,7 @@
 
   let stripped = $derived(n.replace(/\s/g, ""));
   let username = $derived(n.length > 60 ? n.substr(0, 6) : display || stripped);
-  let lnaddr = $derived(
-    subject?.anon ? subject.lud16 || undefined : `${stripped}@${$page.url.host}`,
-  );
+  let lnaddr = $derived(subject?.anon ? subject.lud16 || undefined : `${stripped}@${$page.url.host}`);
   let profile = $derived(`${$page.url.host}/${subject.anon ? npub : stripped}`);
   let lnurl = $derived(
     encode(
@@ -82,9 +80,7 @@
         role="button"
         tabindex="0"
       >
-        <div>
-          {subject.about}
-        </div>
+        <div>{subject.about}</div>
 
         {#if subject.website}
           <div>
@@ -100,9 +96,7 @@
           <div>
             <div class="text-secondary">{$t("user.lightningAddress")}</div>
             <div class="flex gap-4">
-              <div class="break-all grow text-xl">
-                {lnaddr}
-              </div>
+              <div class="break-all grow text-xl">{lnaddr}</div>
               <div class="flex mb-auto gap-1">
                 <button
                   type="button"
@@ -110,8 +104,9 @@
                   aria-label="Copy lightning address"
                   onclick={() => copy(lnaddr)}
                 >
-                  ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
-                >
+                  >
+                  <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+                </button>
                 <a
                   href={`/qr/${encodeURIComponent(lnaddr)}`}
                   class="my-auto"
@@ -126,9 +121,7 @@
         <div>
           <div class="text-secondary">{$t("user.url")}</div>
           <div class="flex gap-4">
-            <div class="break-all grow text-xl">
-              {profile}
-            </div>
+            <div class="break-all grow text-xl">{profile}</div>
             <div class="flex mb-auto gap-1">
               <button
                 type="button"
@@ -136,8 +129,9 @@
                 aria-label="Copy profile URL"
                 onclick={() => copy(profile)}
               >
-                ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
-              >
+                >
+                <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+              </button>
               <a
                 href={`/qr/${encodeURIComponent(`${$page.url.protocol}//${profile}`)}`}
                 class="my-auto"
@@ -151,9 +145,7 @@
         <div>
           <div class="text-secondary">{$t("user.lnurl")}</div>
           <div class="flex gap-4">
-            <div class="break-all grow text-xl">
-              {lnurl}
-            </div>
+            <div class="break-all grow text-xl">{lnurl}</div>
             <div class="flex mb-auto gap-1">
               <button
                 type="button"
@@ -161,8 +153,9 @@
                 aria-label="Copy LNURL"
                 onclick={() => copy(`lightning:${lnurl}`)}
               >
-                ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
-              >
+                >
+                <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+              </button>
               <a
                 href={`/${n}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
                 class="my-auto"

@@ -158,12 +158,12 @@
   {#if connected}
     <!-- Tabs -->
     <div class="flex gap-2 justify-center">
-      <button class="btn" class:btn-neutral={tab === "config"} onclick={() => (tab = "config")}
-        >Flash config</button
-      >
-      <button class="btn" class:btn-neutral={tab === "firmware"} onclick={() => (tab = "firmware")}
-        >Flash firmware</button
-      >
+      <button class="btn" class:btn-neutral={tab === "config"} onclick={() => (tab = "config")}>
+        Flash config
+      </button>
+      <button class="btn" class:btn-neutral={tab === "firmware"} onclick={() => (tab = "firmware")}>
+        Flash firmware
+      </button>
     </div>
 
     {#if tab === "config"}
@@ -172,7 +172,11 @@
         {#if configDone}
           <div class="text-center text-2xl">Config written ✔</div>
         {:else}
-          <div>Generated config file (<b>{bytes.length} bytes</b>)</div>
+          <div>
+            Generated config file (
+            <b>{bytes.length} bytes</b>
+            )
+          </div>
           <label class="label mt-2" for="littlefs-address">LittleFS address (hex)</label>
           <input
             id="littlefs-address"
@@ -183,9 +187,9 @@
           <div class="mt-3">
             <button class="btn" onclick={flashConfig}>Flash config</button>
           </div>
-          {#if configProgress > 0}<div class="mt-2">
-              Progress: {configProgress}%
-            </div>{/if}
+          {#if configProgress > 0}
+            <div class="mt-2">Progress: {configProgress}%</div>
+          {/if}
         {/if}
       {:else}
         <form method="POST" use:enhance class="space-y-2">

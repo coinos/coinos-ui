@@ -10,9 +10,7 @@
   <h2 class="text-2xl font-bold mb-2">{$t("accounts.connection")}</h2>
 
   {#if form?.error}
-    <div class="text-red-600 text-center">
-      {form.error}
-    </div>
+    <div class="text-red-600 text-center">{form.error}</div>
   {/if}
 
   <AppForm {...app} {rate} {user} />

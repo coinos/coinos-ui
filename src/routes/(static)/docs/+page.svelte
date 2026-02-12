@@ -26,18 +26,13 @@
   <h1 class="text-4xl">Documentation</h1>
 
   <p class="text-secondary">
-    Coinos is free and open source software. The code is available at <a
-      href="https://github.com/coinos"
-      class="text-secondary underline">github.com/coinos</a
-    >
+    Coinos is free and open source software. The code is available at
+    <a href="https://github.com/coinos" class="text-secondary underline">github.com/coinos</a>
   </p>
 
   <p class="text-secondary">
-    Coinos has a REST API that can be used to register accounts and make payments. The following
-    examples show how you can call the API with <a
-      href="https://curl.se/"
-      class="text-secondary underline">curl</a
-    >
+    Coinos has a REST API that can be used to register accounts and make payments. The following examples show how you can call the API with
+    <a href="https://curl.se/" class="text-secondary underline">curl</a>
   </p>
 
   <h2 class="text-2xl">API Base URL</h2>
@@ -49,14 +44,16 @@
   <h2 class="text-2xl">Auth Token</h2>
   <p class="text-secondary">
     {#if user && token}
-      This token authorizes you to use the API as <b>{user.username}</b>.
+      This token authorizes you to use the API as
+      <b>{user.username}</b>
+      .
     {:else}
-      <a href="/login" class="font-bold">Sign in</a> to view your auth token here, or get one from the
-      /login endpoint.
+      <a href="/login" class="font-bold">Sign in</a>
+      to view your auth token here, or get one from the /login endpoint.
     {/if}
-
-    Save it in a variable called <b>$token</b> to run the examples. It gives full access to your account
-    so keep it safe.
+    Save it in a variable called
+    <b>$token</b>
+    to run the examples. It gives full access to your account so keep it safe.
   </p>
 
   <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center">
@@ -66,8 +63,7 @@
 
   {#if ro}
     <p class="text-secondary">
-      This read-only token has permission to create invoices and fetch payments but can't be used to
-      make withdrawals
+      This read-only token has permission to create invoices and fetch payments but can't be used to make withdrawals
     </p>
     <div class="bg-primary text-primary-content rounded-lg p-4 flex gap-4 items-center">
       <div class="w-full break-all">{roSample}</div>
@@ -130,7 +126,11 @@
 
   <p>Sample response</p>
   <Code sample="invoiceResponse" />
-  <p>You can check the <b>received</b> field to see how much has been paid</p>
+  <p>
+    You can check the
+    <b>received</b>
+    field to see how much has been paid
+  </p>
 
   <p>Specify a webhook to be called when an invoice is paid</p>
   <Code sample="webhook" />

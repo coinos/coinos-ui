@@ -51,10 +51,7 @@
     if (hasNotch) {
       window.AndroidNotch.getInsetTop(
         (px) => {
-          document.documentElement.style.setProperty(
-            "--safe-area-inset-top",
-            Math.round(px) + "px",
-          );
+          document.documentElement.style.setProperty("--safe-area-inset-top", Math.round(px) + "px");
         },
         (err) => {
           console.error("Failed to get notch inset:", err);

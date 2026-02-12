@@ -34,32 +34,30 @@
 <div class="space-y-2">
   {#if user?.destination && !user?.autowithdraw}
     <div class="rounded-2xl space-y-2 p-4 shadow-lg">
-      <h1 class="text-3xl font-bold">
-        {$t("user.settings.confirmAutoWithdrawal")}
-      </h1>
-      <div>
-        {$t("user.settings.confirmAutoWithdrawalDesc")}
-      </div>
+      <h1 class="text-3xl font-bold">{$t("user.settings.confirmAutoWithdrawal")}</h1>
+      <div>{$t("user.settings.confirmAutoWithdrawalDesc")}</div>
 
       <a href="/settings/account" class="btn">
         <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
-        Settings</a
-      >
+        Settings
+      </a>
     </div>
   {/if}
   {#if user?.fresh}
     <div>
-      {$t("user.settings.yourUsername")} <b>{user?.username}</b>
+      {$t("user.settings.yourUsername")}
+      <b>{user?.username}</b>
       {#if $password}
         <br />
         {$t("user.settings.yourPassword")}
-        <b>{$password}</b>{/if}
+        <b>{$password}</b>
+      {/if}
     </div>
 
     <a href="/settings/profile" class="btn">
       <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
-      {$t("user.settings.continueSettingUp")}</a
-    >
+      {$t("user.settings.continueSettingUp")}
+    </a>
   {/if}
   {#if user?.id && user.id === subject.id}
     <div class="space-y-10 pb-8" data-sveltekit-preload-data="false">
@@ -80,9 +78,7 @@
     </div>
 
     {#if locked}
-      <div class="text-sm">
-        {$t("incident")}
-      </div>
+      <div class="text-sm">{$t("incident")}</div>
     {/if}
 
     {#if $installPrompt}
@@ -100,16 +96,13 @@
   {#if user?.username !== subject.username && (!subject.anon || subject.lud16)}
     <a
       href={subject.anon
-        ? `/send/${encodeURIComponent(subject.lud16)}`
-        : `/pay/${subject.username}`}
+      ? `/send/${encodeURIComponent(subject.lud16)}`
+      : `/pay/${subject.username}`}
       class="contents"
     >
       <button class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto">
         <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-        <div>
-          {$t("user.pay")}
-          {subject.username}
-        </div>
+        <div>{$t("user.pay")}{subject.username}</div>
       </button>
     </a>
   {/if}

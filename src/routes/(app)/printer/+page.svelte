@@ -76,7 +76,11 @@
       {#if progress}
         <div class="text-center text-2xl">Done!</div>
       {:else}
-        <div>Generated config file (<b>{data.length * 2} bytes</b>)</div>
+        <div>
+          Generated config file (
+          <b>{data.length * 2} bytes</b>
+          )
+        </div>
         <button class="btn" onclick={flash}>Flash</button>
       {/if}
     {:else}

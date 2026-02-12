@@ -119,9 +119,9 @@
     {/if}
     <div class="ml-2 p-2">
       <!-- found missing translation -->
-      <button type="button" class="btn" onclick={selectAvatar} onkeydown={selectAvatar}
-        >{$t("user.settings.select")}</button
-      >
+      <button type="button" class="btn" onclick={selectAvatar} onkeydown={selectAvatar}>
+        {$t("user.settings.select")}
+      </button>
       <input
         type="file"
         class="hidden!"
@@ -159,9 +159,9 @@
     ></div>
   {/if}
 
-  <button type="button" class="btn !w-auto" onclick={selectBanner} onkeydown={selectBanner}
-    >{$t("user.settings.select")}</button
-  >
+  <button type="button" class="btn !w-auto" onclick={selectBanner} onkeydown={selectBanner}>
+    {$t("user.settings.select")}
+  </button>
   <input
     type="file"
     class="hidden!"

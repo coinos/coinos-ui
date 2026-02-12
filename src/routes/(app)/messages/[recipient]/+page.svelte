@@ -143,8 +143,7 @@
           </div>
         </div>
         <div class="text-sm text-gray-400 mb-6" class:text-right={ours}>
-          {format(new Date(created_at * 1000), "MMM d")},
-          {format(new Date(created_at * 1000), "h:mm aa")}
+          {format(new Date(created_at * 1000), "MMM d")}, {format(new Date(created_at * 1000), "h:mm aa")}
         </div>
       {/if}
     {/each}

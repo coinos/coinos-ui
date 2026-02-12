@@ -46,9 +46,7 @@
 </script>
 
 {#if form?.message}
-  <div class="text-red-600 text-center">
-    {form.message}
-  </div>
+  <div class="text-red-600 text-center">{form.message}</div>
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
@@ -61,17 +59,17 @@
     <input name="prompt" value={subject.prompt} type="hidden" />
 
     {#if user?.balance}
-      <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}
-        >{#if $fiatStore}
+      <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}>
+        {#if $fiatStore}
           Max {f((user.balance * rate) / sats, currency, locale)}
         {:else}
           Max ⚡️{s(user.balance)}
-        {/if}</button
-      >
+        {/if}
+      </button>
     {/if}
 
     <button type="submit" bind:this={next} class="btn btn-accent !w-auto grow">
-      {$t("payments.next")}</button
-    >
+      {$t("payments.next")}
+    </button>
   </form>
 </div>

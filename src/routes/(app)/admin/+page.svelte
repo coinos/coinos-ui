@@ -11,12 +11,16 @@
     <div>{username}</div>
     <div>{balance}</div>
     <div>{expected}</div>
-    <div><input bind:value={password} /></div>
+    <div>
+      <input bind:value={password} />
+    </div>
     <div>
       <button
         class="text-sm md:text-lg rounded-full border py-2 px-4 hover:opacity-80 min-w-[72px] bg-black text-white"
-        onclick={() => reset(username)}>Reset</button
+        onclick={() => reset(username)}
       >
+        Reset
+      </button>
     </div>
   </div>
 {/each}

@@ -130,18 +130,16 @@
                 class="z-10 border-4 border-white"
                 alt="QR"
               />
-              <div class="break-all">
-                {connectUrl}
-              </div>
+              <div class="break-all">{connectUrl}</div>
             </a>
             <a href={connectUrl} class="btn">
               <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
-              {$t("payments.openLink")}</a
-            >
+              {$t("payments.openLink")}
+            </a>
             <button class="btn" onclick={() => copy(connectUrl!)}>
               <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-              {$t("payments.copy")}</button
-            >
+              {$t("payments.copy")}
+            </button>
           </div>
         {:else}
           {#if $signer?.method === "nsec"}

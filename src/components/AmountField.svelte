@@ -51,9 +51,7 @@
 {#if setting}
   <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto">
     <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
-      <h1 class="text-center text-2xl font-semibold">
-        {label}
-      </h1>
+      <h1 class="text-center text-2xl font-semibold">{label}</h1>
       <Numpad bind:amount {currency} {rate} bind:submit={done} bind:element={numpad} />
 
       <button bind:this={done} type="button" onclick={set} class="btn">Ok</button>

@@ -163,12 +163,10 @@
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
 
 <div>
-  <span class="font-bold mb-1"
-    >{verifying ? $t("user.settings.verifyPIN") : $t("user.settings.securityPIN")}</span
-  >
-  <p class="text-secondary mb-1">
-    {$t("user.settings.securityPINDescription")}
-  </p>
+  <span class="font-bold mb-1">
+    {verifying ? $t("user.settings.verifyPIN") : $t("user.settings.securityPIN")}
+  </span>
+  <p class="text-secondary mb-1">{$t("user.settings.securityPINDescription")}</p>
   {#if verifying}
     <Pin bind:value={verify} {cancel} notify={false} />
   {:else if settingPin}
@@ -180,16 +178,14 @@
         icon={haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
       ></iconify-icon>
-      {haspin ? $t("user.settings.disablePIN") : $t("user.settings.enablePIN")}</button
-    >
+      {haspin ? $t("user.settings.disablePIN") : $t("user.settings.enablePIN")}
+    </button>
   {/if}
 </div>
 
 <div>
   <span class="font-bold mb-1">{$t("user.settings.twofa")}</span>
-  <p class="text-secondary mb-4">
-    {$t("user.settings.twofaDescription")}
-  </p>
+  <p class="text-secondary mb-4">{$t("user.settings.twofaDescription")}</p>
 
   {#if setting2fa}
     <a href={otp.uri}>
@@ -197,7 +193,8 @@
     </a>
 
     <div class="text-center my-4">
-      {$t("user.settings.accountId")}<br />
+      {$t("user.settings.accountId")}
+      <br />
       <b>{otp.secret}</b>
     </div>
 

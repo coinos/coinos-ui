@@ -60,7 +60,7 @@
       class:bg-base-300={type === types.lightning && $page.url.pathname.includes("/receive")}
       class:text-secondary={type === types.lightning && $page.url.pathname.includes("/receive")}
       class:hidden={activeOnly &&
-        (type !== types.lightning || !$page.url.pathname.includes("/receive"))}
+      (type !== types.lightning || !$page.url.pathname.includes("/receive"))}
       onclick={() => {
         if (activeOnly) toggleType();
         else {
@@ -99,7 +99,7 @@
       class:bg-base-300={type === types.lightning && !$page.url.pathname.includes("/receive")}
       class:text-secondary={type === types.lightning && !$page.url.pathname.includes("/receive")}
       class:hidden={activeOnly &&
-        (type !== types.lightning || $page.url.pathname.includes("/receive"))}
+      (type !== types.lightning || $page.url.pathname.includes("/receive"))}
       onclick={() => {
         if (activeOnly) toggleType();
         else {
@@ -147,8 +147,6 @@
   <div></div>
   <button type="button" class="btn" onclick={toggleType}>
     <iconify-icon noobserver icon="ph:x-bold" width="32"></iconify-icon>
-    <div class="my-auto">
-      {t("payments.cancel")}
-    </div>
+    <div class="my-auto">{t("payments.cancel")}</div>
   </button>
 {/if}

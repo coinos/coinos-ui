@@ -71,9 +71,7 @@
 <svelte:window bind:innerWidth={w} />
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    {$t("payments.send")}
-  </h1>
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">{$t("payments.send")}</h1>
 
   <form method="POST" use:enhance class="space-y-2 text-xl">
     {#if form?.error}
@@ -125,9 +123,7 @@
 
   {#if contacts.length}
     <div class="space-y-5">
-      <h1 class="px-3 md:px-0 text-2xl font-semibold mt-10">
-        {$t("user.send.contacts")}
-      </h1>
+      <h1 class="px-3 md:px-0 text-2xl font-semibold mt-10">{$t("user.send.contacts")}</h1>
       <div>
         {#each all || contacts as c, i}
           <a href={`/pay/${c.username}`} class="contents">
@@ -142,7 +138,9 @@
                   onclick={(e) => pin(e, c)}
                   aria-label={c.pinned ? "Unpin contact" : "Pin contact"}
                 >
-                  <iconify-icon icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"} width={32}
+                  <iconify-icon
+                    icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"}
+                    width={32}
                   ></iconify-icon>
                 </button>
                 <button

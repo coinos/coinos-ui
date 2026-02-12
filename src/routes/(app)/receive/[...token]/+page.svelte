@@ -75,8 +75,6 @@
       </button>
     </div>
 
-    <button bind:this={el} type="submit" class="btn">
-      {$t("user.send.next")}
-    </button>
+    <button bind:this={el} type="submit" class="btn">{$t("user.send.next")}</button>
   </form>
 </div>

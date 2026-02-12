@@ -281,9 +281,7 @@
 
   onDestroy(() => map && map.remove());
   let list = $derived(
-    search
-      ? markers.filter((m) => m.tags.name.toLowerCase().includes(search.toLowerCase()))
-      : inview,
+    search ? markers.filter((m) => m.tags.name.toLowerCase().includes(search.toLowerCase())) : inview,
   );
 </script>
 

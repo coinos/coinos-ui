@@ -28,9 +28,7 @@
     <div class="flex gap-2 justify-center sm:hidden">
       <div>
         <a href="/register">
-          <button class="btn">
-            {$t("nav.startInSeconds")}
-          </button>
+          <button class="btn">{$t("nav.startInSeconds")}</button>
         </a>
       </div>
     </div>
@@ -45,9 +43,9 @@
     <ul class="mt-5 text-secondary space-y-3 font-medium">
       {#each followLinks as link}
         <li>
-          <a href={link.url} target="_blank" rel="noreferrer" class="hover:opacity-80"
-            >{$t("footer." + link.titleID)}</a
-          >
+          <a href={link.url} target="_blank" rel="noreferrer" class="hover:opacity-80">
+            {$t("footer." + link.titleID)}
+          </a>
         </li>
       {/each}
     </ul>

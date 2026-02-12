@@ -117,9 +117,7 @@
 
 <div class="space-y-1 relative">
   <label for="email" class="font-bold block">{$t("user.settings.email")}</label>
-  <p class="text-secondary">
-    {$t("user.settings.emailDescription")}
-  </p>
+  <p class="text-secondary">{$t("user.settings.emailDescription")}</p>
 
   <label class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2">
     <input type="text" name="email" class="clean" bind:value={email} />
@@ -138,9 +136,7 @@
     <span class="font-bold">{$t("user.settings.notifications")}</span>
     <Toggle id="notify" bind:value={user.notify} />
   </div>
-  <p class="text-secondary mt-1 w-9/12">
-    {$t("user.settings.notificationsDesc")}
-  </p>
+  <p class="text-secondary mt-1 w-9/12">{$t("user.settings.notificationsDesc")}</p>
 </div>
 
 <div>
@@ -164,16 +160,12 @@
     <span class="font-bold">{$t("user.settings.tipPrompt")}</span>
     <Toggle id="prompt" bind:value={user.prompt} />
   </div>
-  <p class="text-secondary mt-1 w-9/12">
-    {$t("user.settings.tipPromptDescription")}
-  </p>
+  <p class="text-secondary mt-1 w-9/12">{$t("user.settings.tipPromptDescription")}</p>
 </div>
 
 <div class="space-y-1 relative">
   <label for="tip" class="font-bold block">{$t("user.settings.tip")}</label>
-  <p class="text-secondary">
-    {$t("user.settings.tipDesc")}
-  </p>
+  <p class="text-secondary">{$t("user.settings.tipDesc")}</p>
 
   <label class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2">
     <input type="text" name="tip" class="clean" bind:value={tip} />
@@ -185,9 +177,7 @@
     <span class="font-bold">{$t("user.settings.autoWithdraw")}</span>
     <Toggle id="autowithdraw" bind:value={user.autowithdraw} />
   </div>
-  <p class="text-secondary mt-1 w-9/12">
-    {$t("user.settings.autoWithdrawDescription")}
-  </p>
+  <p class="text-secondary mt-1 w-9/12">{$t("user.settings.autoWithdrawDescription")}</p>
 </div>
 
 <div class:hidden={!user.autowithdraw}>
@@ -213,9 +203,7 @@
       </div>
       <input type="hidden" name="threshold" bind:value={user.threshold} />
     </button>
-    <p class="text-secondary mt-1">
-      {$t("user.settings.thresholdDesc")}
-    </p>
+    <p class="text-secondary mt-1">{$t("user.settings.thresholdDesc")}</p>
   </div>
 
   <div>
@@ -229,18 +217,14 @@
       </div>
       <input type="hidden" name="reserve" bind:value={user.reserve} />
     </button>
-    <p class="text-secondary mt-1">
-      {$t("user.settings.reserveDesc")}
-    </p>
+    <p class="text-secondary mt-1">{$t("user.settings.reserveDesc")}</p>
   </div>
 </div>
 
 {#if editingThreshold}
   <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto">
     <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
-      <h1 class="text-center text-2xl font-semibold">
-        {$t("user.settings.threshold")}
-      </h1>
+      <h1 class="text-center text-2xl font-semibold">{$t("user.settings.threshold")}</h1>
       <Numpad
         bind:amount={user.threshold}
         {currency}
@@ -257,9 +241,7 @@
 {#if editingReserve}
   <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg">
     <div class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center">
-      <h1 class="text-2xl font-semibold">
-        {$t("user.settings.reserve")}
-      </h1>
+      <h1 class="text-2xl font-semibold">{$t("user.settings.reserve")}</h1>
       <Numpad
         bind:amount={user.reserve}
         {currency}
@@ -275,8 +257,8 @@
 {#if connect !== "connected"}
   <a href={connect} class="btn flex">
     <img src="/images/square.svg" class="w-12" alt="Square" />
-    <div>{$t("user.settings.connectSquare")}</div></a
-  >
+    <div>{$t("user.settings.connectSquare")}</div>
+  </a>
 {:else}
   <button type="button" onclick={revoke} class="btn">
     <img src="/images/square.svg" class="w-12" class:invert={$theme === "dark"} alt="Square" />

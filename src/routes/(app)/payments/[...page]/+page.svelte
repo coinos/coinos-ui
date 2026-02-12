@@ -148,9 +148,7 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl md:text-4xl font-semibold">
-    {$t("payments.header")}
-  </h1>
+  <h1 class="text-center text-3xl md:text-4xl font-semibold">{$t("payments.header")}</h1>
 
   <div class="container w-full mx-auto text-lg px-2 max-w-xl space-y-2">
     <div class="mx-auto flex justify-center w-full gap-1">
@@ -205,15 +203,23 @@
         {#if totalIn > 0}
           <span class="text-left text-base text-secondary">{$t("payments.income")}</span>
           <!-- <span><b>{subtotalIn ? f(subtotalIn, c) : "-"}</b></span> -->
-          <span><b>{tipsIn > 0 ? f(tipsIn, c, locale) : ""}</b></span>
-          <span class="text-right"><b>{totalIn > 0 ? f(totalIn, c, locale) : "-"}</b></span>
+          <span>
+            <b>{tipsIn > 0 ? f(tipsIn, c, locale) : ""}</b>
+          </span>
+          <span class="text-right">
+            <b>{totalIn > 0 ? f(totalIn, c, locale) : "-"}</b>
+          </span>
         {/if}
 
         {#if totalOut > 0}
           <span class="text-left text-base text-secondary">{$t("payments.expenditure")}</span>
           <!-- <span><b>{subtotalOut ? f(subtotalOut, c) : "-"}</b></span> -->
-          <span><b>{tipsOut > 0 ? f(tipsOut, c, locale) : "-"}</b></span>
-          <span class="text-right"><b>{totalOut > 0 ? f(totalOut, c, locale) : "-"}</b></span>
+          <span>
+            <b>{tipsOut > 0 ? f(tipsOut, c, locale) : "-"}</b>
+          </span>
+          <span class="text-right">
+            <b>{totalOut > 0 ? f(totalOut, c, locale) : "-"}</b>
+          </span>
         {/if}
       {/each}
     </div>

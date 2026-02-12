@@ -49,9 +49,7 @@
       ></textarea>
       <div class="flex gap-2">
         <a href={`/account/bitcoin`} class="contents">
-          <button type="button" class="btn !w-auto grow">
-            {$t("accounts.back")}
-          </button>
+          <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
         </a>
         <button bind:this={el} type="submit" class="btn btn-accent !w-auto grow">
           <div class="my-auto">{$t("accounts.next")}</div>

@@ -68,8 +68,8 @@
     aria-label={hide ? "Show PIN" : "Hide PIN"}
   >
     <iconify-icon noobserver icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
-    ></iconify-icon></button
-  >
+    ></iconify-icon>
+  </button>
 </label>
 
 <div class="grid grid-cols-3 gap-2 w-[300px] mx-auto grayscale">

@@ -22,9 +22,7 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">
-    {$t("accounts.seedPhrase")}
-  </h1>
+  <h1 class="text-center text-3xl font-semibold">{$t("accounts.seedPhrase")}</h1>
 
   <div class="container w-full mx-auto px-4 max-w-xl space-y-2">
     {#if $mnemonic}
@@ -33,21 +31,15 @@
 
     <button type="button" class="btn" onclick={() => copy($mnemonic)}>
       <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-      <div class="my-auto">
-        {$t("payments.copy")}
-      </div>
+      <div class="my-auto">{$t("payments.copy")}</div>
     </button>
 
     <div class="flex gap-2">
       <a href={`/account/bitcoin`} class="contents">
-        <button type="button" class="btn !w-auto grow">
-          {$t("accounts.back")}
-        </button>
+        <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
       </a>
       <a href={`/account/pass`} class="contents">
-        <button type="button" class="btn btn-accent !w-auto grow">
-          {$t("accounts.next")}
-        </button>
+        <button type="button" class="btn btn-accent !w-auto grow">{$t("accounts.next")}</button>
       </a>
     </div>
   </div>

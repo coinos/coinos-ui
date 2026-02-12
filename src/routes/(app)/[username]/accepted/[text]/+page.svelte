@@ -38,13 +38,11 @@
       />
     {/if}
     <Qr {text} icon="icon.png" />
-    <div class="text-center text-4xl font-bold break-all">
-      coinos.io/{username.toLowerCase()}
-    </div>
+    <div class="text-center text-4xl font-bold break-all">coinos.io/{username.toLowerCase()}</div>
   </div>
 
   <button onclick={() => copy(lnurl)} class="flex gap-1 m-auto my-8">
     <iconify-icon icon="ph:copy-bold" width={32}></iconify-icon>
-    LNURL</button
-  >
+    LNURL
+  </button>
 </div>

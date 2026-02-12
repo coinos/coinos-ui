@@ -104,9 +104,7 @@
   {/if}
   {#if amount}
     <div>
-      <h1 class="text-lg text-secondary">
-        {$t("payments.send")}
-      </h1>
+      <h1 class="text-lg text-secondary">{$t("payments.send")}</h1>
 
       <Amount {amount} rate={$rate} {currency} {locale} />
     </div>
@@ -123,9 +121,7 @@
         <div class="flex flex-wrap gap-4 justify-center">
           <div class="my-auto">
             {#if $fiat}
-              <h2 class="text-xl">
-                {f(toFiat(ourfee as number, $rate as number), currency)}
-              </h2>
+              <h2 class="text-xl">{f(toFiat(ourfee as number, $rate as number), currency)}</h2>
             {:else}
               <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
             {/if}
@@ -144,9 +140,7 @@
         <div class="mx-auto space-y-2">
           <label for="maxfee" class="text-lg text-secondary">{$t("payments.maxfee")}</label>
 
-          <div class="text-secondary">
-            {$t("payments.maxFeeDesc")}
-          </div>
+          <div class="text-secondary">{$t("payments.maxFeeDesc")}</div>
 
           <label
             class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2 text-left"
@@ -166,9 +160,9 @@
       </button>
 
       {#if !(form?.message || showMax)}
-        <button type="button" class="btn" onclick={() => (showMax = !showMax)}
-          >{$t("payments.advancedSettings")}</button
-        >
+        <button type="button" class="btn" onclick={() => (showMax = !showMax)}>
+          {$t("payments.advancedSettings")}
+        </button>
         <input name="maxfee" type="hidden" bind:value={maxfee} />
       {/if}
     </form>

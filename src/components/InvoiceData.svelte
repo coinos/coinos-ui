@@ -43,8 +43,8 @@
     <div>
       <div class="my-auto text-xl text-center text-secondary">
         {t("payments.onlyLbtc")}
-        <span class="text-teal-500 font-bold">L-BTC</span> &mdash;
-        {t("payments.dontDeposit")}
+        <span class="text-teal-500 font-bold">L-BTC</span>
+        &mdash; {t("payments.dontDeposit")}
       </div>
     </div>
   </div>
@@ -67,17 +67,11 @@
   {@const itemTotal = i.price * i.quantity}
   <div class="grid grid-cols-12 text-xl">
     <div class="col-span-1 my-auto">{i.quantity}</div>
-    <div class="mr-auto grow col-span-7 my-auto">
-      {i.name}
-    </div>
+    <div class="mr-auto grow col-span-7 my-auto">{i.name}</div>
     {#if $fiat}
-      <div class="col-span-4 font-semibold text-right my-auto">
-        {f(itemTotal, currency)}
-      </div>
+      <div class="col-span-4 font-semibold text-right my-auto">{f(itemTotal, currency)}</div>
     {:else}
-      <div class="col-span-4 font-semibold text-right my-auto">
-        {sat(btc(itemTotal, rate))}
-      </div>
+      <div class="col-span-4 font-semibold text-right my-auto">{sat(btc(itemTotal, rate))}</div>
     {/if}
   </div>
 {/each}

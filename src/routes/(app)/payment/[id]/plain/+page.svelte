@@ -67,19 +67,14 @@
 
   <div>
     <span class="text-lg text-secondary">Date</span>
-    <div>
-      {format(new Date(created), "MMMM d")},
-      {format(new Date(created), "h:mm aaa")}
-    </div>
+    <div>{format(new Date(created), "MMMM d")}, {format(new Date(created), "h:mm aaa")}</div>
   </div>
 
   {#if type === "bitcoin"}
     <div>
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
-        <div>
-          {id}
-        </div>
+        <div>{id}</div>
       </div>
     </div>
   {/if}

@@ -142,8 +142,8 @@
     {#if pubkey}
       <button type="button" class="btn" onclick={del}>
         <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
-        {$t("accounts.delete")}</button
-      >
+        {$t("accounts.delete")}
+      </button>
     {/if}
   </div>
 </form>

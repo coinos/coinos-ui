@@ -155,9 +155,7 @@
       <button class="btn !w-auto flex-1 !bg-base-300" data-testid="account-receive">
         <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
         ></iconify-icon>
-        <div class="my-auto hidden sm:block">
-          {$t("user.dashboard.receive")}
-        </div>
+        <div class="my-auto hidden sm:block">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 

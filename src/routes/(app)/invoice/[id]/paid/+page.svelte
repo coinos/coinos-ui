@@ -34,6 +34,4 @@
   <div class="opacity-0 w-screen h-screen fixed top-24 left-0 z-50"></div>
 </a>
 
-<div class="flex justify-center mt-4">
-  {$t("payments.tapAnywhere")}
-</div>
+<div class="flex justify-center mt-4">{$t("payments.tapAnywhere")}</div>

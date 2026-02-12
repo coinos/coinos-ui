@@ -56,8 +56,8 @@
 
       <a href={`/fund/${id}`} class="btn">
         <iconify-icon icon="ph:arrow-left-bold" width={32}></iconify-icon>
-        {$t("funds.returnToFund")}</a
-      >
+        {$t("funds.returnToFund")}
+      </a>
     </div>
   </div>
 </div>

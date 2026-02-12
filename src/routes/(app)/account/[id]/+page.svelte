@@ -71,9 +71,7 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">
-    {$t("payments.accountSettings")}
-  </h1>
+  <h1 class="text-center text-3xl font-semibold">{$t("payments.accountSettings")}</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <form class="space-y-5" method="POST" use:enhance>
@@ -92,20 +90,20 @@
 
           <button onclick={() => copy(mnemonic)} type="button" class="btn">
             <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-            <div class="my-auto">{$t("accounts.copy")}</div></button
-          >
+            <div class="my-auto">{$t("accounts.copy")}</div>
+          </button>
         {:else if seed}
           <button onclick={requestMnemonic} type="button" class="btn">
             <iconify-icon noobserver icon="ph:eye-bold" width="32"></iconify-icon>
-            <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
-          >
+            <div class="my-auto">{$t("accounts.revealMnemonic")}</div>
+          </button>
         {/if}
 
         {#if seed}
           <button onclick={del} type="button" class="btn">
             <iconify-icon noobserver icon="ph:trash-bold" width="32"></iconify-icon>
-            <div class="my-auto">{$t("accounts.deleteAccount")}</div></button
-          >
+            <div class="my-auto">{$t("accounts.deleteAccount")}</div>
+          </button>
         {/if}
       </div>
 

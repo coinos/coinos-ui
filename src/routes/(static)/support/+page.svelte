@@ -80,14 +80,13 @@
       <a href={user ? `/${user.username}` : "/"}>
         <button
           class="rounded-full border py-2 px-5 font-bold hover:opacity-80 w-full bg-black text-white"
-          >Ok</button
         >
+          Ok
+        </button>
       </a>
     </div>
   {:else}
-    <h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">
-      {$t("user.support.header")}
-    </h1>
+    <h1 class="text-center text-3xl md:text-4xl font-semibold mb-8">{$t("user.support.header")}</h1>
 
     <p class="text-secondary text-lg">
       {$t("user.support.fillForm")}
@@ -115,8 +114,9 @@
         type="submit"
         disabled={!email || !message}
         class="g-recaptcha bg-black text-white font-bold rounded-xl py-3 w-full mx-auto hover:opacity-80"
-        >{$t("user.support.send")}</button
       >
+        {$t("user.support.send")}
+      </button>
     </form>
   {/if}
 </div>
