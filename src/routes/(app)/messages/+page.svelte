@@ -76,9 +76,7 @@
             </div>
             <div class="my-auto truncate">
               <div class="my-auto ml-1 text-lg font-bold">{u.username}</div>
-              <div class="my-auto ml-1 text-secondary text-lg truncate">
-                {content}
-              </div>
+              <div class="my-auto ml-1 text-secondary text-lg truncate">{content}</div>
             </div>
           </div>
         </a>

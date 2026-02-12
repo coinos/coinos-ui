@@ -23,9 +23,7 @@
             {#if !show[i.id]}...{/if}
           </button>
         {/if}
-        <div class="md:col-span-2 whitespace-nowrap">
-          {i.received} / {i.amount}
-        </div>
+        <div class="md:col-span-2 whitespace-nowrap">{i.received} / {i.amount}</div>
         <div class="whitespace-nowrap">
           {i.memo?.startsWith("[") ? JSON.parse(i.memo)[0][1] : i.memo}
         </div>

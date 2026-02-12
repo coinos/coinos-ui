@@ -31,16 +31,12 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto">
   <div class="text-center mb-8">
     <div>
-      <h1 class="text-3xl md:text-4xl font-semibold mb-2">
-        {defaultDescription}
-      </h1>
+      <h1 class="text-3xl md:text-4xl font-semibold mb-2">{defaultDescription}</h1>
     </div>
   </div>
 
   {#if form?.error}
-    <div class="text-red-600 text-center mb-5">
-      {form.error}
-    </div>
+    <div class="text-red-600 text-center mb-5">{form.error}</div>
   {/if}
 
   {#if minWithdrawable === maxWithdrawable}
@@ -74,12 +70,13 @@
           onclick={setMax}
           disabled={submitting}
           onkeydown={setMax}
-          >{#if $fiat}
+        >
+          {#if $fiat}
             Max {f((Math.floor(maxWithdrawable / 1000) * rate) / sats, currency)}
           {:else}
             Max ⚡️{s(Math.floor(maxWithdrawable / 1000))}
-          {/if}</button
-        >
+          {/if}
+        </button>
       {/if}
 
       <button use:focus bind:this={submit} type="submit" class="btn btn-accent !w-auto grow">

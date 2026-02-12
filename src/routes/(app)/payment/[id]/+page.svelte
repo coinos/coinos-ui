@@ -80,9 +80,7 @@
       aria-label="Toggle currency display"
     >
       {#if $fiat}
-        <div class="flex items-center gap-1">
-          {f(toFiat(amount, rate), currency, userLocale)}
-        </div>
+        <div class="flex items-center gap-1">{f(toFiat(amount, rate), currency, userLocale)}</div>
       {:else}
         <div class="flex items-center gap-1">
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
@@ -136,8 +134,7 @@
       <div class="text-secondary flex">
         <div class="flex items-center">
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-          {s((1 * sats) / rate)} =
-          {f(1, currency, userLocale, 0, 0)}
+          {s((1 * sats) / rate)} = {f(1, currency, userLocale, 0, 0)}
         </div>
       </div>
     </div>
@@ -146,8 +143,7 @@
   <div>
     <span class="text-lg text-secondary">{$t("payments.date")}</span>
     <div>
-      {format(new Date(created), "h:mmaaa", { locale })}
-      {format(new Date(created), "MMM d, yyyy", { locale })}
+      {format(new Date(created), "h:mmaaa", { locale })}{format(new Date(created), "MMM d, yyyy", { locale })}
     </div>
   </div>
 
@@ -158,7 +154,8 @@
     </a>
   {:else if type === types.fund}
     <a href={`/fund/${memo}`} class="btn btn-accent">
-      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>{$t(
+      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+      {$t(
         "payments.viewFund",
       )}
     </a>
@@ -166,7 +163,8 @@
     {@const eid = JSON.parse(memo).tags.find((t) => t[0] === "e")[1]}
     <a href={`/e/${eid}`} class="btn btn-accent">
       <img src="/images/nostr.png" class="w-8" alt="Nostr" />
-      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>{$t(
+      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+      {$t(
         "payments.zappedEvent",
       )}
     </a>
@@ -198,11 +196,13 @@
           <a
             href={`${expl}/tx/${txid}${vout ? "#vout=" + vout : ""}`}
             target="_blank"
-            rel="noreferrer">{txid}</a
+            rel="noreferrer"
           >
+            {txid}
+          </a>
         </div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(txid)}>
-        </button>
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(txid)}
+        ></button>
       </div>
     </div>
   {/if}
@@ -212,8 +212,8 @@
       <span class="text-lg text-secondary">Path</span>
       <div class="flex">
         <div>{path}</div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(path)}>
-        </button>
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(path)}
+        ></button>
       </div>
     </div>
   {/if}

@@ -25,9 +25,7 @@
 
 <div class="flex justify-center">
   <div class="container space-y-10">
-    <h3 class="text-5xl font-medium text-center">
-      {$t("about.team.header")}
-    </h3>
+    <h3 class="text-5xl font-medium text-center">{$t("about.team.header")}</h3>
     <div class="space-y-10 2xl:space-y-0 2xl:grid gap-y-10 grid-cols-2">
       {#each team as member}
         <div class="flex w-full">
@@ -36,19 +34,19 @@
               <Image image={member.name} style="rounded-full mx-auto w-40 h-40 mb-5 object-cover" />
 
               <div class="space-y-2">
-                <span class="text-2xl text-center font-semibold block"
-                  >{$t(`about.team.${member.name}.name`)}</span
-                >
-                <span class="text-xl text-center text-secondary block"
-                  >{$t(`about.team.${member.name}.position`)}</span
-                >
+                <span class="text-2xl text-center font-semibold block">
+                  {$t(`about.team.${member.name}.name`)}
+                </span>
+                <span class="text-xl text-center text-secondary block">
+                  {$t(`about.team.${member.name}.position`)}
+                </span>
               </div>
 
               <div class="mt-2 flex justify-center items-center space-x-5">
                 {#each member.socials as { alt, src, url }}
-                  <a href={url} class={`rounded-full p-2 hover:opacity-80`}
-                    ><img {src} {alt} class="w-8" /></a
-                  >
+                  <a href={url} class={`rounded-full p-2 hover:opacity-80`}>
+                    <img {src} {alt} class="w-8" />
+                  </a>
                 {/each}
               </div>
             </div>
@@ -63,9 +61,7 @@
 </div>
 
 <div>
-  <h3 class="text-5xl font-medium mb-5 text-center">
-    {$t("about.locations.header")}
-  </h3>
+  <h3 class="text-5xl font-medium mb-5 text-center">{$t("about.locations.header")}</h3>
   <p class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10">
     {@html $t("about.locations.description")}
   </p>

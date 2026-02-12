@@ -298,10 +298,7 @@
   </div>
 
   {#if form?.error || form?.message}
-    <div class="text-red-600 text-center" in:fly>
-      {form?.message}
-      {form?.error}
-    </div>
+    <div class="text-red-600 text-center" in:fly>{form?.message}{form?.error}</div>
   {/if}
 
   <form class="space-y-5" onsubmit={handleSubmit} method="POST">
@@ -326,8 +323,8 @@
         placeholder={$t("login.username")}
       />
       <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
-        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon></button
-      >
+        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
+      </button>
     </label>
 
     <PasswordInput

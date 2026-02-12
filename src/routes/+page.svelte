@@ -36,9 +36,11 @@
 
   <LandingInfoCard image="phone-checkout" title={$t("landing.info2.title")} order="reverse">
     {$t("landing.info2.description1")}
-    <br /><br />
+    <br />
+    <br />
     {$t("landing.info2.description2")}
-    <br /><br />
+    <br />
+    <br />
     {@html $t("landing.info2.description3")}
   </LandingInfoCard>
 
@@ -53,9 +55,7 @@
   </div>
 
   <div>
-    <h3 class="text-5xl font-medium mb-10 text-center">
-      {$t("howItWorks.header")}
-    </h3>
+    <h3 class="text-5xl font-medium mb-10 text-center">{$t("howItWorks.header")}</h3>
     <div class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center">
       {#each howItWorksSteps as step}
         <HowItWorksCard image={step.image} stepID={step.stepID} />
@@ -66,9 +66,7 @@
 
   <div>
     <div class="space-y-10">
-      <h3 class="text-5xl font-medium text-center pt-40 -mt-40" id="faq">
-        {$t("faq.header")}
-      </h3>
+      <h3 class="text-5xl font-medium text-center pt-40 -mt-40" id="faq">{$t("faq.header")}</h3>
       {#each faqs as f}
         <FaqCard questionID={f} />
       {/each}

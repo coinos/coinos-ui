@@ -54,9 +54,7 @@
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-2">
   {#if form?.message}
-    <div class="text-red-600 text-center">
-      {$t(form.message)}
-    </div>
+    <div class="text-red-600 text-center">{$t(form.message)}</div>
   {/if}
   <form method="POST" action="?/setAmount" class="space-y-2" use:enhance>
     <input type="hidden" value={a} name="amount" />

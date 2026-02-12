@@ -119,9 +119,7 @@
             </div>
 
             <div class="flex items-center">
-              <div class="font-semibold">
-                +{s(tip, locale)}
-              </div>
+              <div class="font-semibold">+{s(tip, locale)}</div>
             </div>
           </div>
         {/if}
@@ -139,24 +137,28 @@
                 type="button"
                 class="btn"
                 class:active={active(amount)}
-                onclick={() => handleTipButtonClick(amount)}>{amount}</button
+                onclick={() => handleTipButtonClick(amount)}
               >
+                {amount}
+              </button>
             {:else}
               <button
                 type="button"
                 class="btn"
                 class:active={active(amount)}
-                onclick={() => handleTipButtonClick(amount)}>{amount}</button
+                onclick={() => handleTipButtonClick(amount)}
               >
+                {amount}
+              </button>
             {/if}
           {/each}
         {/if}
       </div>
 
       <div class="space-y-2">
-        <button type="button" class="btn" onclick={() => (showCustomAmount = true)}
-          >{$t("payments.custom")}</button
-        >
+        <button type="button" class="btn" onclick={() => (showCustomAmount = true)}>
+          {$t("payments.custom")}
+        </button>
         <a href={`/invoice/${id}`} class="btn">{$t("payments.cancel")}</a>
       </div>
     {/if}

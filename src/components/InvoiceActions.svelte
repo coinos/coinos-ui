@@ -62,18 +62,14 @@
 
     <button class="btn grow !w-auto" onclick={toggleMemo}>
       <iconify-icon noobserver icon="ph:chat-centered-text-bold" width="32"></iconify-icon>
-      <div class="my-auto">
-        {t("invoice.setMemo")}
-      </div>
+      <div class="my-auto">{t("invoice.setMemo")}</div>
     </button>
   </div>
 
   <div class="flex flex-wrap gap-2 justify-around text-secondary w-full">
     <button type="button" class="btn !w-auto grow" onclick={() => copy(txt)}>
       <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-      <div class="my-auto">
-        {t("payments.copy")}
-      </div>
+      <div class="my-auto">{t("payments.copy")}</div>
     </button>
 
     <button class="btn grow !w-auto" onclick={() => goto("/receive")}>
@@ -95,10 +91,8 @@
         {:else}
           <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
         {/if}
-        <div class="my-auto">
-          {showQr ? t("payments.showText") : t("payments.showQr")}
-        </div></button
-      >
+        <div class="my-auto">{showQr ? t("payments.showText") : t("payments.showQr")}</div>
+      </button>
     </div>
   {/if}
 

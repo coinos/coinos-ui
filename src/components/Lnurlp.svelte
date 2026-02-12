@@ -31,9 +31,7 @@
   </div>
 
   {#if form?.error}
-    <div class="text-red-600 text-center mb-5">
-      {form.error}
-    </div>
+    <div class="text-red-600 text-center mb-5">{form.error}</div>
   {/if}
 
   <Numpad bind:amount {rate} {currency} bind:submit={send} />

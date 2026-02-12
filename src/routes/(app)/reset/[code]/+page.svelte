@@ -74,9 +74,7 @@
       <h1 class="text-2xl font-bold text-center">{$t("login.reset")}</h1>
 
       {#if form?.error}
-        <div class="text-red-600 text-center" in:fly>
-          {form.error}
-        </div>
+        <div class="text-red-600 text-center" in:fly>{form.error}</div>
       {/if}
 
       <form class="space-y-5" method="POST" onsubmit={handleSubmit}>
@@ -84,8 +82,7 @@
         <PasswordInput bind:value={$password} placeholder={$t("login.password")} />
 
         <div class="text-secondary">
-          A new seed phrase will be generated for your account. You'll need to import your old seed
-          phrase if you want to use the same nostr profile and savings account as before.
+          A new seed phrase will be generated for your account. You'll need to import your old seed phrase if you want to use the same nostr profile and savings account as before.
         </div>
 
         <button

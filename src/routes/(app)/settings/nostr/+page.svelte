@@ -55,12 +55,8 @@
 <input type="hidden" name="extension" value={extension} />
 
 <div>
-  <h2 class="text-2xl font-bold mb-2">
-    {$t("user.settings.nwc")}
-  </h2>
-  <p class="text-secondary mb-4">
-    {$t("user.settings.nwcDescription")}
-  </p>
+  <h2 class="text-2xl font-bold mb-2">{$t("user.settings.nwc")}</h2>
+  <p class="text-secondary mb-4">{$t("user.settings.nwcDescription")}</p>
 
   <div class="space-y-2">
     {#each apps as app, i}
@@ -75,18 +71,14 @@
                   <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
                   ></iconify-icon>
                   {#if $fiat && $rate}
-                    {f((app.spent * ($rate as number)) / sats, user.currency, locale)} /
-                    {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}
+                    {f((app.spent * ($rate as number)) / sats, user.currency, locale)} / {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}
                   {:else}
-                    {s(app.spent, locale)} /
-                    {s(app.max_amount, locale)}
+                    {s(app.spent, locale)} / {s(app.max_amount, locale)}
                   {/if}
                 </div>
 
                 {#if app.budget_renewal !== "never"}
-                  <div>
-                    {app.budget_renewal}
-                  </div>
+                  <div>{app.budget_renewal}</div>
                 {/if}
               </div>
             {/if}
@@ -154,14 +146,12 @@
 </div>
 
 {#if revealNwc}
-  <div class="break-all grow">
-    {nwc}
-  </div>
+  <div class="break-all grow">{nwc}</div>
   <div class="flex flex-wrap gap-2">
     <button onclick={() => copy(nwc)} type="button" class="btn grow">
       <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-      <div class="my-auto">{$t("accounts.copy")}</div></button
-    >
+      <div class="my-auto">{$t("accounts.copy")}</div>
+    </button>
     <a href={`/qr/${encodeURIComponent(nwc)}`} class="btn grow">
       <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.receive.showQR")}</div>
@@ -179,9 +169,10 @@
         class="my-auto btn btn-circle !w-auto grow"
         onclick={() => copy(npub)}
         aria-label="Copy"
-        ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-        {$t("accounts.copy")}</button
       >
+        <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        {$t("accounts.copy")}
+      </button>
 
       <a
         href={`/qr/${encodeURIComponent(npub)}`}
@@ -197,8 +188,8 @@
   {#if extensionAvailable}
     <button class="btn" type="button" onclick={getPubkey}>
       <img src="/images/alby.svg" width="32" alt="Alby" />
-      {$t("user.settings.syncWithExtension")}</button
-    >
+      {$t("user.settings.syncWithExtension")}
+    </button>
   {/if}
 </div>
 
@@ -206,9 +197,7 @@
   <div class="space-y-2">
     <label for="seedphrase" class="font-bold">{$t("user.settings.nostrKeys")}</label>
 
-    <p class="text-secondary mb-1">
-      {$t("user.settings.nostrDescription")}
-    </p>
+    <p class="text-secondary mb-1">{$t("user.settings.nostrDescription")}</p>
 
     <div class="flex flex-wrap sm:flex-nowrap gap-2">
       <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
@@ -236,11 +225,7 @@
   </div>
 {/if}
 
-<span class="font-bold" id="dm-relays">
-  {$t("user.settings.preferredDM")}
-</span>
-<p class="text-secondary mb-1">
-  {$t("user.settings.preferredDMDescription")}
-</p>
+<span class="font-bold" id="dm-relays">{$t("user.settings.preferredDM")}</span>
+<p class="text-secondary mb-1">{$t("user.settings.preferredDMDescription")}</p>
 
 <textarea id="dmRelays" name="dmRelays" rows={3}></textarea>

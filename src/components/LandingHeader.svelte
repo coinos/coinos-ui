@@ -33,22 +33,22 @@
     <!-- desktop nav -->
     <div class="hidden space-x-5 lg:flex justify-center items-center font-bold">
       {#if $page.url.pathname === "/"}
-        <button class="hover:opacity-80" onclick={() => scroll(howItWorks)}
-          >{$t("howItWorks.header")}</button
-        >
+        <button class="hover:opacity-80" onclick={() => scroll(howItWorks)}>
+          {$t("howItWorks.header")}
+        </button>
         <button class="hover:opacity-80" onclick={() => scroll(faq)}>{$t("faq.header")}</button>
         <button class="hover:opacity-80" onclick={() => scroll(about)}>{$t("about.header")}</button>
       {/if}
       {#if user}
-        <button class="btn !w-auto !rounded-full" onclick={() => goto(`/${user.username}`)}
-          >{$t("nav.home")}
+        <button class="btn !w-auto !rounded-full" onclick={() => goto(`/${user.username}`)}>
+          {$t("nav.home")}
         </button>
         <button class="btn !w-auto !rounded-full" onclick={() => goto("/logout")}>
           {$t("nav.signOut")}
         </button>
       {:else}
-        <button class="btn btn-accent !w-auto !rounded-full" onclick={() => goto("/register")}
-          >{$t("nav.register")}
+        <button class="btn btn-accent !w-auto !rounded-full" onclick={() => goto("/register")}>
+          {$t("nav.register")}
         </button>
         <button class="btn !w-auto !rounded-full" onclick={() => goto("/login")}>
           {$t("nav.signIn")}
@@ -67,31 +67,30 @@
 
     <div
       class="container w-full p-10 lg:hidden absolute top-0 {showMobileMenu
-        ? 'right-0'
-        : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-base-100"
+      ? 'right-0'
+      : 'right-[-100%]'} transition-all ease-in-out duration-300 h-[100vh] w-full bg-base-100"
     >
       <div class="space-y-5 mt-24 font-bold text-xl">
         <LocaleSelector />
         <DarkToggle />
-        <button onclick={() => mobileMenuButtonClick(howItWorks)} class="block"
-          >{$t("howItWorks.header")}</button
-        >
+        <button onclick={() => mobileMenuButtonClick(howItWorks)} class="block">
+          {$t("howItWorks.header")}
+        </button>
         <button onclick={() => mobileMenuButtonClick(faq)} class="block">{$t("faq.header")}</button>
-        <button onclick={() => mobileMenuButtonClick(about)} class="block"
-          >{$t("about.header")}</button
-        >
+        <button onclick={() => mobileMenuButtonClick(about)} class="block">
+          {$t("about.header")}
+        </button>
         {#if !user}
-          <button class="btn btn-accent" onclick={() => goto("/register")}
-            >{$t("nav.register")}
+          <button class="btn btn-accent" onclick={() => goto("/register")}>
+            {$t("nav.register")}
           </button>
-          <button class="btn" onclick={() => goto("/login")}>
-            {$t("nav.signIn")}
-          </button>
+          <button class="btn" onclick={() => goto("/login")}>{$t("nav.signIn")}</button>
         {:else}
           <button
             class="border rounded-full px-6 py-2 font-bold block"
             onclick={() => goto(`/${user.username}`)}
-            >{$t("nav.account")}
+          >
+            {$t("nav.account")}
           </button>
           <button
             class="bg-primary text-white border rounded-full px-6 py-2 font-bold block"

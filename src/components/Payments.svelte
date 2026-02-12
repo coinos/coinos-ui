@@ -26,9 +26,7 @@
         <div class="font-bold flex items-center">
           <div class="flex items-center gap-1">
             {#if $fiat}
-              <div>
-                {f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}
-              </div>
+              <div>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
             {:else}
               <iconify-icon noobserver icon="ph:lightning-fill" width="24" class="text-yellow-300"
               ></iconify-icon>
@@ -51,9 +49,7 @@
               <div class="my-auto">
                 <Avatar user={p.user} size={12} disabled={true} />
               </div>
-              <div class="my-auto ml-1 text-secondary">
-                {p.user.username}
-              </div>
+              <div class="my-auto ml-1 text-secondary">{p.user.username}</div>
             </div>
           {:else}
             <a href={`/fund/${p.memo}`}>
@@ -70,9 +66,7 @@
             <div class="my-auto">
               <Avatar user={p.with} size={12} disabled={true} />
             </div>
-            <div class="my-auto ml-1 text-secondary">
-              {p.with.username}
-            </div>
+            <div class="my-auto ml-1 text-secondary">{p.with.username}</div>
           </div>
         {:else}
           <div class="text-secondary flex items-center gap-1">
@@ -100,10 +94,10 @@
                 {amount > 0 ? $t("payments.redeemed") : $t("payments.minted")}
               {:else}
                 {amount > 0
-                  ? p.confirmed
-                    ? $t("payments.received")
-                    : $t("payments.pending")
-                  : $t("payments.sent")}
+                ? p.confirmed
+                  ? $t("payments.received")
+                  : $t("payments.pending")
+                : $t("payments.sent")}
               {/if}
             </div>
           </div>

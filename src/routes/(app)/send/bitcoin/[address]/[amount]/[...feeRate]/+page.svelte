@@ -177,9 +177,9 @@
         <div class="flex flex-wrap gap-4 justify-center">
           <select bind:value={feeRate} onchange={setFee}>
             {#each Object.keys(feeNames) as feeName}
-              <option value={fees[feeName]}
-                >{feeNames[feeName]} &mdash; {fees[feeName]} sats/vb</option
-              >
+              <option value={fees[feeName]}>
+                {feeNames[feeName]} &mdash; {fees[feeName]} sats/vb
+              </option>
             {/each}
           </select>
           <Amount amount={fee} rate={$rate} {currency} />

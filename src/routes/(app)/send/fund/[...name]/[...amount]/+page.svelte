@@ -44,9 +44,7 @@
 </script>
 
 {#if form?.message}
-  <div class="text-red-600 text-center">
-    {form.message}
-  </div>
+  <div class="text-red-600 text-center">{form.message}</div>
 {/if}
 
 <div class="container px-4 mt-20 max-w-xl mx-auto">
@@ -64,12 +62,13 @@
         onclick={setMax}
         disabled={submitting}
         onkeydown={setMax}
-        >{#if $fiatStore}
+      >
+        {#if $fiatStore}
           Max {f((balance * rate) / sats, currency, locale)}
         {:else}
           Max ⚡️{s(balance)}
-        {/if}</button
-      >
+        {/if}
+      </button>
 
       <button use:focus bind:this={submit} type="submit" class="btn btn-accent !w-auto grow">
         {#if submitting}

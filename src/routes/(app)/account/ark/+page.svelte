@@ -165,8 +165,7 @@
     {#if hasMasterSeed}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Your Ark wallet will be derived from your master seed. Enter your wallet password to
-          continue.
+          Your Ark wallet will be derived from your master seed. Enter your wallet password to continue.
         </p>
 
         <label for="password" class="input flex items-center justify-center gap-2 w-full">
@@ -208,7 +207,7 @@
         </label>
 
         <div class="space-y-2">
-          <label for="rememberFor" class="text-sm text-secondary"> Remember for </label>
+          <label for="rememberFor" class="text-sm text-secondary">Remember for</label>
           <select
             id="rememberFor"
             class="w-full"
@@ -223,7 +222,7 @@
 
         <div class="flex gap-2">
           <a href={`/${user.username}`} class="contents">
-            <button type="button" class="btn !w-auto grow"> Back </button>
+            <button type="button" class="btn !w-auto grow">Back</button>
           </a>
           <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
             {#if submitting}
@@ -345,7 +344,7 @@
         </label>
 
         <div class="space-y-2">
-          <label for="rememberFor" class="text-sm text-secondary"> Remember for </label>
+          <label for="rememberFor" class="text-sm text-secondary">Remember for</label>
           <select
             id="rememberFor"
             class="w-full"

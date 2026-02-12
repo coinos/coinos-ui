@@ -42,7 +42,8 @@
         <div>First {b}</div>
 
         <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 ml-auto"
-        ></iconify-icon>{s(100000, "en-CA")}
+        ></iconify-icon>
+        {s(100000, "en-CA")}
       </div>
     {/each}
   </div>
@@ -55,7 +56,8 @@
         <div>{b.type}</div>
 
         <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 ml-auto"
-        ></iconify-icon>{s(b.amount, "en-CA")}
+        ></iconify-icon>
+        {s(b.amount, "en-CA")}
       </div>
     {/each}
   </div>
@@ -101,9 +103,7 @@
           <div class="ml-auto flex shrink-0 items-center gap-1 whitespace">
             <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
             ></iconify-icon>
-            <span class="text-sm font-semibold tabular-nums">
-              {s(amount, "en-CA")}
-            </span>
+            <span class="text-sm font-semibold tabular-nums">{s(amount, "en-CA")}</span>
           </div>
         </div>
       </article>
@@ -132,8 +132,7 @@
   </ul>
 
   <p>
-    25% of the bounty will be awarded once the business is ready to take payments and has been
-    announced
+    25% of the bounty will be awarded once the business is ready to take payments and has been announced
   </p>
 
   <p>The rest will be awarded once they've been accepting Bitcoin for 6 months</p>
@@ -145,19 +144,17 @@
   <h2 class="text-2xl font-bold">Get Started!</h2>
 
   <p>
-    Reach out to <a href="mailto:bounties@coinos.io" class="text-blue-600 hover:underline"
-      >bounties@coinos.io</a
-    > and let us know who we should contact
+    Reach out to
+    <a href="mailto:bounties@coinos.io" class="text-blue-600 hover:underline">bounties@coinos.io</a>
+    and let us know who we should contact
   </p>
 
   <p>
-    We'll update this page as the bounties are claimed so you'll be able to see which ones are still
-    available.
+    We'll update this page as the bounties are claimed so you'll be able to see which ones are still available.
   </p>
 
   <p>
-    Have a lead or idea for something that's not on the list? Reach out! We offer sats for all sorts
-    of referrals!
+    Have a lead or idea for something that's not on the list? Reach out! We offer sats for all sorts of referrals!
   </p>
 
   <p>Thanks for participating and helping to orange pill Vancouver!</p>

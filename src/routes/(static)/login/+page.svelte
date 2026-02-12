@@ -161,9 +161,7 @@
 <div class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 mb-20 space-y-5">
   <h1 class="text-2xl font-bold text-center">{$t("login.signIn")}</h1>
   {#if form?.error && !form?.message.includes("2fa")}
-    <div class="text-red-600 text-center" in:fly>
-      {form.error}
-    </div>
+    <div class="text-red-600 text-center" in:fly>{form.error}</div>
   {/if}
 
   <form use:enhance={enhanceLogin} class="space-y-5" method="POST" action="?/login">
@@ -184,9 +182,9 @@
     <PasswordInput bind:value={$password} placeholder={$t("login.password")} />
 
     <div class="flex justify-end items-center">
-      <a href="/forgot" class="underline underline-offset-4 text-secondary"
-        >{$t("login.forgotUserOrPassword")}</a
-      >
+      <a href="/forgot" class="underline underline-offset-4 text-secondary">
+        {$t("login.forgotUserOrPassword")}
+      </a>
     </div>
 
     <button type="submit" class="btn btn-accent" bind:this={btn} data-testid="login-submit">

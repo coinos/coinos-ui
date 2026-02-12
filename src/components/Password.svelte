@@ -31,9 +31,9 @@
     <form onsubmit={submit} class="space-y-2">
       <PasswordInput bind:value={password} {focus} />
       <div class="w-full flex gap-2">
-        <button type="button" class="btn !w-auto grow" onclick={cancel} onkeydown={cancel}
-          >{$t("payments.cancel")}</button
-        >
+        <button type="button" class="btn !w-auto grow" onclick={cancel} onkeydown={cancel}>
+          {$t("payments.cancel")}
+        </button>
         <button type="submit" class="btn btn-accent !w-auto grow">{$t("payments.submit")}</button>
       </div>
     </form>

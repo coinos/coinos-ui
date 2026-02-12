@@ -82,9 +82,7 @@
 
 <div class="space-y-5">
   <div>
-    <h1 class="text-center text-3xl font-semibold">
-      {$t("accounts.accountPassword")}
-    </h1>
+    <h1 class="text-center text-3xl font-semibold">{$t("accounts.accountPassword")}</h1>
   </div>
 
   <form
@@ -168,7 +166,7 @@
     </label>
 
     <div class="space-y-2">
-      <label for="rememberFor" class="text-sm text-secondary"> Remember for </label>
+      <label for="rememberFor" class="text-sm text-secondary">Remember for</label>
       <select
         id="rememberFor"
         class="w-full"
@@ -183,9 +181,7 @@
 
     <div class="flex gap-2">
       <a href={`/account/seed`} class="contents">
-        <button type="button" class="btn !w-auto grow">
-          {$t("accounts.back")}
-        </button>
+        <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
       </a>
       <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
         {#if submitting}

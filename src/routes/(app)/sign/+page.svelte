@@ -18,8 +18,8 @@
 
     <button onclick={() => copy(signature)} type="button" class="btn grow">
       <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-      <div class="my-auto">Copy</div></button
-    >
+      <div class="my-auto">Copy</div>
+    </button>
   {:else}
     <div class="text-2xl break-all">{address}</div>
     <form use:enhance method="POST" class="space-y-5">

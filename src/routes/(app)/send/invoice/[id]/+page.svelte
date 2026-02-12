@@ -97,34 +97,24 @@
 </script>
 
 {#if form?.message}
-  <div class="text-red-600 text-center">
-    {form.message}
-  </div>
+  <div class="text-red-600 text-center">{form.message}</div>
 {/if}
 
 <div class="container px-4 max-w-xl mx-auto text-center space-y-5">
   {#if amount}
-    <h1 class="text-4xl font-bold">
-      {$t("payments.send")}
-    </h1>
+    <h1 class="text-4xl font-bold">{$t("payments.send")}</h1>
 
     <Amount {amount} {tip} {rate} {currency} {locale} />
 
-    <h1 class="text-xl text-secondary">
-      {$t("payments.to")}
-    </h1>
+    <h1 class="text-xl text-secondary">{$t("payments.to")}</h1>
 
     <div class="flex p-1 gap-2 justify-center">
       <Avatar user={recipient} size={20} />
-      <p class="text-4xl break-words my-auto">
-        {recipient.username}
-      </p>
+      <p class="text-4xl break-words my-auto">{recipient.username}</p>
     </div>
 
     {#if invoice.items.length}
-      <h1 class="text-xl md:text-2xl text-secondary">
-        {$t("payments.for")}
-      </h1>
+      <h1 class="text-xl md:text-2xl text-secondary">{$t("payments.for")}</h1>
 
       {#each invoice.items as i}
         <div class="grid grid-cols-4 text-xl">
@@ -165,13 +155,13 @@
           {/if}
         </button>
       {:else}
-        <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}
-          >{#if $fiatStore}
+        <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}>
+          {#if $fiatStore}
             Max {f((balance * rate) / sats, currency, locale)}
           {:else}
             Max ⚡️{s(balance)}
-          {/if}</button
-        >
+          {/if}
+        </button>
 
         <button
           bind:this={submit}
@@ -188,8 +178,8 @@
     {#if !trusted}
       <button type="button" class="btn" onclick={toggleTrust}>
         <iconify-icon icon="ph:star-fill" width={32}></iconify-icon>
-        {$t("payments.trustUser")}</button
-      >
+        {$t("payments.trustUser")}
+      </button>
     {/if}
   </form>
 </div>
