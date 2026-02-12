@@ -10,7 +10,8 @@
   run(() => {
     form?.message && fail(form.message);
   });
-  let { item, user } = data;
+  let item = $derived(data.item);
+  let user = $derived(data.user);
 </script>
 
 <div class="container max-w-xl mx-auto px-4">

@@ -1,6 +1,12 @@
 import { get } from "$lib/utils";
 export const load = async () => {
-  const users = [
+  const users: {
+    username: string;
+    merchant: any;
+    type: string;
+    amount: number;
+    user?: any;
+  }[] = [
     {
       username: "fustler",
       merchant: "rrdrive",

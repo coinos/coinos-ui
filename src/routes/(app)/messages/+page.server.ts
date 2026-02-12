@@ -10,10 +10,11 @@ interface Note {
   seen: number;
 }
 
-export async function load({ params, parent }) {
+export async function load({ parent, url }) {
   const { user } = await parent();
-  if (user.username !== params.username) redirect(307, `/${params.username}`);
-  const { since = 0 } = params;
+  const username = url.searchParams.get("username");
+  if (user.username !== username) redirect(307, `/${username}`);
+  const since = url.searchParams.get("since") || 0;
 
   let messages = [];
   let notes = [];

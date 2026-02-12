@@ -7,9 +7,9 @@
   let NfcWriter: any;
 
   async function write() {
-    NfcWriter = window.Capacitor?.Plugins?.NfcWriter;
+    NfcWriter = (window as any).Capacitor?.Plugins?.NfcWriter;
     ready = true;
-    console.log(window.Capacitor);
+    console.log((window as any).Capacitor);
     if (!NfcWriter) return;
     here = true;
 
@@ -22,20 +22,17 @@
       ready = true;
 
       const ndef = new NDEFReader();
-      await ndef.write(
-        {
-          records: [
-            {
-              recordType: "url",
-              data: "https://coinos.io",
-            },
-          ],
-        },
-        { signal: controller.signal },
-      );
+      await ndef.write({
+        records: [
+          {
+            recordType: "url",
+            data: "https://coinos.io",
+          },
+        ],
+      });
 
       success = true;
-    } catch (err) {
+    } catch (err: any) {
       if (err.name === "AbortError") {
         console.warn("Previous write aborted");
       } else {

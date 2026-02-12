@@ -1,5 +1,7 @@
 <script lang="ts">
-  let { data, children, fixed } = $props();
+  import type { Snippet } from "svelte";
+
+  let { data, children, fixed }: { data: any; children: Snippet; fixed?: Snippet } = $props();
 </script>
 
 <div class="content">

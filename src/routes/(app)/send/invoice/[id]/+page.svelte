@@ -14,9 +14,16 @@
   import { btc, sat, post, back, f, toFiat, s, sats, focus, loc } from "$lib/utils";
   let { data, form }: any = $props();
 
-  let { trusted, balance, invoice, user } = $state(data);
-  let { address, hash, payreq, user: recipient, tip } = $state(data.invoice);
-  let { currency } = $derived(user);
+  let trusted = $derived(data.trusted);
+  let balance = $derived(data.balance);
+  let invoice = $derived(data.invoice);
+  let user = $derived(data.user);
+  let address = $derived(data.invoice.address);
+  let hash = $derived(data.invoice.hash);
+  let payreq = $derived(data.invoice.payreq);
+  let recipient = $derived(data.invoice.user);
+  let tip = $derived(data.invoice.tip);
+  let currency = $derived(user.currency);
   let locale = $derived(loc(user));
   let amount = $state(form?.amount ?? data.invoice.amount);
 

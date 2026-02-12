@@ -4,7 +4,7 @@
 
 <div class="flex justify-center items-center mt-20">
   <div class="space-y-5 text-center">
-    <a href="/">
+    <a href="/" aria-label="Go to homepage">
       <iconify-icon noobserver icon="coinos:logo" width="224" class="mx-auto"></iconify-icon>
     </a>
 

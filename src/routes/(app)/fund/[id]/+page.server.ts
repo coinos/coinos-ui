@@ -3,7 +3,7 @@ import { redirect } from "@sveltejs/kit";
 
 export const actions = {
   default: async ({ cookies, locals, params }) => {
-    const { user } = locals;
+    const { user } = locals as any;
 
     if (user) {
       await post("/redeem", params, auth(cookies));

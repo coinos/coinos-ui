@@ -4,9 +4,12 @@
   import Success from "$comp/Success.svelte";
 
   let { data } = $props();
-  let { rate, tip, user } = $state(data);
-  let { currency, username } = $derived(user);
-  let amount = $state(Math.abs(data.amount));
+  let rate = $derived(data.rate);
+  let tip = $derived(data.tip);
+  let user = $derived(data.user);
+  let currency = $derived(user.currency);
+  let username = $derived(user.username);
+  let amount = $derived(Math.abs(data.amount));
   let locale = $derived(loc(user));
 </script>
 

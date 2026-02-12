@@ -37,7 +37,7 @@
 <div class="container px-4 max-w-xl mx-auto space-y-5">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Events</h1>
 
-  <div onpointerenter={pause} onpointerleave={unpause}>
+  <div onpointerenter={pause} onpointerleave={unpause} role="feed">
     {#each events as event}
       <Event {event} minimal={true} />
     {/each}

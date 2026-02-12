@@ -10,22 +10,30 @@
   import { PUBLIC_EXPLORER as expl } from "$env/static/public";
 
   let { data } = $props();
-  let { user, payment: p } = data;
+  let user = $derived(data.user);
+  let p = $derived(data.payment);
 
-  let { username } = user;
-  let { id, amount, created, rate, type, ref, tip, ourfee, fee, currency } = p;
-  let a = Math.abs(amount);
+  let username = $derived(user.username);
+  let id = $derived(p.id);
+  let amount = $derived(p.amount);
+  let created = $derived(p.created);
+  let rate = $derived(p.rate);
+  let type = $derived(p.type);
+  let ref = $derived(p.ref);
+  let tip = $derived(p.tip);
+  let ourfee = $derived(p.ourfee);
+  let fee = $derived(p.fee || 0);
+  let currency = $derived(p.currency);
+  let a = $derived(Math.abs(amount));
 
   onMount(() => {
     if (browser) {
       let main = document.querySelector("main");
-      main.style.paddingBottom = "0";
+      if (main) main.style.paddingBottom = "0";
       window.onfocus = () => goto(`/payment/${id}`);
       window.print();
     }
   });
-
-  fee = fee || 0;
 </script>
 
 <div class="space-y-5">

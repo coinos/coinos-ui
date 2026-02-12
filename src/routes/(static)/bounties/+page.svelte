@@ -4,7 +4,7 @@
   import Amount from "$comp/Amount.svelte";
 
   let { data }: any = $props();
-  let { users } = data;
+  let users = $derived(data.users);
 
   let bounties = [
     "Hardware Store",

@@ -37,10 +37,10 @@
     e.preventDefault();
     loading = true;
     try {
-      recaptchaToken = await getRecaptchaToken();
+      recaptchaToken = (await getRecaptchaToken()) as string;
       await tick();
       e.currentTarget.submit();
-    } catch (err) {
+    } catch (err: any) {
       fail(err.message || "captcha failed");
       loading = false;
     }
@@ -50,7 +50,7 @@
     if (!browser) return;
     const nodeBadge = document.querySelector(".grecaptcha-badge");
     if (nodeBadge) {
-      document.body.removeChild(nodeBadge.parentNode);
+      document.body.removeChild(nodeBadge.parentNode!);
     }
 
     const scriptSelector =
@@ -64,7 +64,7 @@
 
 <div class="pt-10">
   <div class="w-[243px] mx-auto mb-10">
-    <a href="/">
+    <a href="/" aria-label="Go to homepage">
       <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
     </a>
   </div>

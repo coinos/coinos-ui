@@ -18,7 +18,7 @@ export async function GET({ params }) {
   ctx.drawImage(logo, (size - logoSize) / 2, (size - logoSize) / 2, logoSize, logoSize);
 
   const buffer = canvas.toBuffer("image/png");
-  return new Response(buffer, {
+  return new Response(new Uint8Array(buffer), {
     headers: {
       "Content-Type": "image/png",
       "Cache-Control": "public, max-age=31536000, immutable",

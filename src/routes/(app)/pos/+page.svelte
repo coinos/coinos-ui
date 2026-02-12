@@ -14,7 +14,7 @@
   }
 
   let { data, form }: any = $props();
-  let { token } = $state(data);
+  let token = $state(data.token);
 
   // --- Defaults ---
   const LITTLEFS_ADDRESS_DEFAULT = 0x3d0000; // your existing LittleFS offset

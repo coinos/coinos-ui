@@ -36,7 +36,7 @@
       if (!ESPLoader || !Transport) {
         ({ ESPLoader, Transport } = await import("esptool-js"));
       }
-      let device = await navigator.serial.requestPort({});
+      let device = await (navigator as any).serial.requestPort({});
       transport = new Transport(device, true);
 
       esploader = new ESPLoader({
@@ -44,7 +44,7 @@
         baudrate,
       });
 
-      chip = await esploader.main();
+      chip = await (esploader as any).main();
     } catch (e) {
       console.log(e);
     }
@@ -60,11 +60,11 @@
       eraseAll: false,
       compress: true,
       reportProgress: (fileIndex, written, total) => {
-        progress = parseInt((written / total) * 100);
+        progress = parseInt(String((written / total) * 100));
       },
     };
 
-    await esploader.writeFlash(flashOptions);
+    await (esploader as any).writeFlash(flashOptions);
   };
 </script>
 

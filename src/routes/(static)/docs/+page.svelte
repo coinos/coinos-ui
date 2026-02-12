@@ -5,15 +5,17 @@
   import Code from "$comp/Code.svelte";
   let { data } = $props();
 
-  let { user, ro, token } = data;
+  let user = $derived(data.user);
+  let ro = $derived(data.ro);
+  let token = $derived(data.token);
 
   let api = PUBLIC_DOMAIN.includes("localhost")
     ? `${PUBLIC_COINOS_URL}`
     : `https://${PUBLIC_DOMAIN}/api`;
 
-  let tokenSample = token ? `export token="${token}"` : `export token=<your auth token>`;
+  let tokenSample = $derived(token ? `export token="${token}"` : `export token=<your auth token>`);
 
-  let roSample = `export token="${ro}"`;
+  let roSample = $derived(`export token="${ro}"`);
 </script>
 
 {#snippet cp(something)}

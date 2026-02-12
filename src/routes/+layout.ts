@@ -11,7 +11,7 @@ const opts = { path: "/", expires };
 
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {
-  const { i18n, translations } = data;
+  const { i18n, translations } = data as any;
   const { locale, route } = i18n;
 
   addTranslations(translations);

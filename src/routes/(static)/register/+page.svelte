@@ -47,7 +47,7 @@
   });
 
   let username: string | undefined = $state();
-  let { index } = $state(data);
+  let index = $state(data.index);
   let revealPassword = $state(false);
 
   let cleared;

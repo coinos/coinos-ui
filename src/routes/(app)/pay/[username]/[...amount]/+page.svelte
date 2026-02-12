@@ -18,10 +18,10 @@
   let locale = $derived(loc(subject));
   let next = $state();
 
-  let initialAmount = $derived(form?.amount || data.amount);
+  let initialAmount = $derived((form as any)?.amount || data.amount);
   let amount = $state();
   let fiat = $state();
-  let formElement = $state();
+  let formElement: HTMLFormElement | undefined = $state();
 
   $effect(() => {
     if (typeof amount === "undefined") amount = initialAmount;
@@ -31,10 +31,10 @@
   let setMax = async (e) => {
     e.preventDefault();
     let body = new FormData(formElement);
-    body.set("fiat", false);
+    body.set("fiat", String(false));
     body.set("amount", user.balance);
 
-    const response = await fetch(formElement.action, {
+    const response = await fetch(formElement!.action, {
       method: "POST",
       body,
     });

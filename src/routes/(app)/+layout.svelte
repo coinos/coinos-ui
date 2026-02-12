@@ -33,8 +33,12 @@
   let token = $derived(data.token);
   let theme = $derived(data.theme);
 
-  $effect(() => ($themeStore = theme));
-  $effect(() => (theme = $themeStore));
+  $effect(() => {
+    $themeStore = theme;
+  });
+  $effect(() => {
+    theme = $themeStore;
+  });
 
   afterNavigate(() => {
     document.cookie = `pathname=${$page.url.pathname}; path=/; max-age=86400`;
@@ -58,7 +62,7 @@
 
       if (result?.received > 0) {
         if ($fiat && $rateStore && user?.currency) {
-          success(`Received ${f(toFiat(result.received, $rateStore), user.currency)}!`);
+          success(`Received ${f(toFiat(result.received, $rateStore as number), user.currency)}!`);
         } else {
           success(`Received ⚡️${s(result.received)}!`);
         }
@@ -125,7 +129,7 @@
 
   let checkSocket = () => {
     counter++;
-    let lost = socket?.readyState !== 1 || !$last || Date.now() - $last > 30000;
+    let lost = socket?.readyState !== 1 || !$last || Date.now() - ($last as number) > 30000;
     if (lost) connect(token);
     if (counter > 5) {
       send("heartbeat", token);

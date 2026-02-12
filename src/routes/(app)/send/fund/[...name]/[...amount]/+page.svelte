@@ -6,19 +6,23 @@
   import { page } from "$app/stores";
   import { fiat as fiatStore, pin } from "$lib/store";
   import handler from "$lib/handler";
-  import { loc, s, f, sats } from "$lib/utils";
+  import { loc, focus, s, f, sats } from "$lib/utils";
   import { applyAction, deserialize } from "$app/forms";
+  import { invalidateAll } from "$app/navigation";
 
   let { data, form } = $props();
-  let { amount, user } = $state(data);
-  let { balance, currency } = $derived(user);
-  let { name, rate } = $derived(data);
+  let amount = $state(data.amount);
+  let user = $derived(data.user);
+  let balance = $derived(user.balance);
+  let currency = $derived(user.currency);
+  let name = $derived(data.name);
+  let rate = $derived(data.rate);
   let loading = $state();
   let fiat = $state();
   let locale = $derived(loc(user));
 
   let submit = $state();
-  let submitting = $state();
+  let submitting: boolean = $state(false);
   let toggle = () => (submitting = !submitting);
   $effect(() => {
     if (form?.message?.includes("pin")) $pin = undefined;
@@ -28,11 +32,11 @@
 
   let setMax = async (e) => {
     e.preventDefault();
-    let body = new FormData(formElement);
-    body.set("fiat", false);
+    let body = new FormData(formElement as HTMLFormElement);
+    body.set("fiat", String(false));
     body.set("amount", user.balance);
 
-    const response = await fetch(formElement.action, {
+    const response = await fetch((formElement as HTMLFormElement).action, {
       method: "POST",
       body,
     });

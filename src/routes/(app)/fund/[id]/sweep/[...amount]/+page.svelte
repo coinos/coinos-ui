@@ -8,7 +8,13 @@
 
   let { data } = $props();
 
-  let { amount, currency, id, user, rate, rates, password: pw } = data;
+  let amount = $derived(data.amount);
+  let currency = $derived(data.currency);
+  let id = $derived(data.id);
+  let user = $derived(data.user);
+  let rate = $derived(data.rate);
+  let rates = $derived(data.rates);
+  let pw = $derived(data.password);
   let locale = $derived(loc(user));
 
   onMount(() => ($password = pw));

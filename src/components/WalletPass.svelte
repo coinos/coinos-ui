@@ -53,6 +53,7 @@
           type="button"
           onclick={() => (revealPassword = !revealPassword)}
           class="absolute right-5 top-1/2"
+          aria-label={revealPassword ? "Hide password" : "Show password"}
         >
           <iconify-icon
             noobserver

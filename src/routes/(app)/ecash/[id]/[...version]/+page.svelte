@@ -7,12 +7,12 @@
   let { data, form } = $props();
 
   let link = $page.url.href;
-  let { id, total, token, external, spent } = $state(data);
+  let { id, total, token, external, spent } = $derived(data);
 
   let peanut = $derived(
     "🥜" +
-      Array.from(token)
-        .map((char) => {
+      Array.from(token as string)
+        .map((char: string) => {
           const byteValue = char.charCodeAt(0);
           // For byte values 0-15, use Variation Selectors (VS1-VS16): U+FE00 to U+FE0F
           if (byteValue >= 0 && byteValue <= 15) {
@@ -58,7 +58,7 @@
       </a>
     {:else}
       <form method="POST" use:enhance class="w-full">
-        <input type="hidden" name="token" bind:value={token} />
+        <input type="hidden" name="token" value={token} />
         <button type="submit" class="btn">
           <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
           ></iconify-icon>

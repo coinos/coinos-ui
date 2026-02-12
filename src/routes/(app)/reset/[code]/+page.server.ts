@@ -15,7 +15,7 @@ export const actions = {
       user.recaptcha = recaptcha;
 
       try {
-        await login(user, cookies, ip);
+        await login(user, cookies, ip ?? "");
         error = null;
       } catch (e: any) {
         error ||= e.message;

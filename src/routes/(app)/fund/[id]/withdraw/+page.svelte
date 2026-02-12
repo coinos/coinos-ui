@@ -6,20 +6,22 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { loc, s, f, sats } from "$lib/utils";
+  import { focus, loc, s, f, sats } from "$lib/utils";
   import { fiat, pin } from "$lib/store";
 
   let { data, form } = $props();
 
-  let { user } = $derived(data);
-  let { currency } = $derived(user);
+  let user = $derived(data.user);
+  let currency = $derived(user.currency);
   let loading = $state();
-  let { id, balance, rate } = $derived(data);
-  let { amount } = $state(data);
+  let id = $derived(data.id);
+  let balance = $derived(data.balance);
+  let rate = $derived(data.rate);
+  let amount = $state(data.amount);
   let locale = $derived(loc(user));
 
   let submit = $state();
-  let submitting = $state();
+  let submitting = $state(false);
   let toggle = () => (submitting = !submitting);
   $effect(() => {
     if (form?.message.includes("pin")) $pin = undefined;

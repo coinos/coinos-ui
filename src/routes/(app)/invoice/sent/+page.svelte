@@ -5,9 +5,9 @@
 
 Invoice sent to
 <div class="flex">
-  <Avatar user={$request.requester} size={12} />
+  <Avatar user={($request as any).requester} size={12} />
   <h1 class="my-auto">
-    <b>{$request.requester.username}</b>
+    <b>{($request as any).requester.username}</b>
     is ready to pay
   </h1>
 </div>

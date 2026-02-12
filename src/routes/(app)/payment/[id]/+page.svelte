@@ -17,8 +17,9 @@
   import { goto } from "$app/navigation";
 
   let { data } = $props();
-  let { user, payment: p } = $state(data);
-  let locale = user ? locales[user.language] : locales["en"];
+  let user = $derived(data.user);
+  let p = $derived(data.payment);
+  let locale = $derived(user ? locales[user.language] : locales["en"]);
   let userLocale = $derived(loc(user));
 
   let {
@@ -201,7 +202,7 @@
             {txid}
           </a>
         </div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(txid)}
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(txid)} aria-label="Copy transaction ID"
         ></button>
       </div>
     </div>
@@ -212,7 +213,7 @@
       <span class="text-lg text-secondary">Path</span>
       <div class="flex">
         <div>{path}</div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(path)}
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(path)} aria-label="Copy path"
         ></button>
       </div>
     </div>

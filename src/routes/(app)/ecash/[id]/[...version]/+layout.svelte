@@ -4,10 +4,17 @@
   import { fiat } from "$lib/store";
   let { data, children } = $props();
 
-  let { id, user, token, total, spent, external, mint, rate } = data;
-  let currency = user?.currency || "USD";
+  let id = $derived(data.id);
+  let user = $derived(data.user);
+  let token = $derived(data.token);
+  let total = $derived(data.total);
+  let spent = $derived(data.spent);
+  let external = $derived(data.external);
+  let mint = $derived(data.mint);
+  let rate = $derived(data.rate);
+  let currency = $derived(user?.currency || "USD");
 
-  let amount = total - spent;
+  let amount = $derived(total - spent);
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   let spentFiat = $derived(parseFloat(((spent * rate) / sats).toFixed(2)));

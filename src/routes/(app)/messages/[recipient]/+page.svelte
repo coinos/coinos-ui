@@ -33,7 +33,9 @@
     };
   }
 
-  let { messages, recipient, user }: any = $state(data);
+  let messages: any = $state(data.messages);
+  let recipient: any = $state(data.recipient);
+  let user: any = $state(data.user);
   let input: any,
     pane: any = $state();
 
@@ -113,7 +115,7 @@
 </script>
 
 <div class="container max-w-xl mx-auto px-4 space-y-5">
-  <button type="button" class="hover:opacity-80" data-sveltekit-preload-data="false" onclick={back}>
+  <button type="button" class="hover:opacity-80" data-sveltekit-preload-data="false" onclick={back} aria-label="Go back">
     <iconify-icon noobserver icon="ph:arrow-left-bold" width="40"></iconify-icon>
   </button>
 
@@ -168,7 +170,7 @@
       aria-label="Message"
       tabindex="0"
     ></div>
-    <button type="submit" class="my-auto shrink-0">
+    <button type="submit" class="my-auto shrink-0" aria-label="Send message">
       <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
     </button>
   </form>

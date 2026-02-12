@@ -13,8 +13,10 @@
   import { PUBLIC_VAPID_PUBKEY } from "$env/static/public";
 
   let { data } = $props();
-  let { user } = $state(data);
-  let { connect, rates, subscriptions } = data;
+  let user = $state(data.user);
+  let connect = $derived(data.connect);
+  let rates = $derived(data.rates);
+  let subscriptions = $derived(data.subscriptions);
   let { currency, email, tip, verified } = $state(user);
   let rate = $derived(() => rates[currency]);
 

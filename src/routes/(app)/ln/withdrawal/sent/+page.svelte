@@ -4,7 +4,7 @@
   import { t } from "$lib/translations";
 
   let { data } = $props();
-  let { user } = data;
+  let user = $derived(data.user);
   toast.pop(0);
 </script>
 
