@@ -1,4 +1,4 @@
-import { bytesToHex } from '@noble/hashes/utils';
+import { bytesToHex } from '@noble/hashes/utils.js';
 import { finalizeEvent } from 'nostr-tools/pure';
 import { unwrapEvent } from 'nostr-tools/nip17';
 import { getPrivateKey } from '$lib/nostr';

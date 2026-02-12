@@ -1,6 +1,6 @@
 <script lang="ts">
  import { tick, onMount } from "svelte";
- import Icon from "$comp/Icon.svelte";
+
 
  import { isValid, queryProfile } from "nostr-tools/nip05";
  import * as toolsnip17 from 'nostr-tools/nip17';

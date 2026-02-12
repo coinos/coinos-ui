@@ -2,13 +2,13 @@
 // https://github.com/paulmillr/nip44/blob/main/javascript/index.ts
 // Modified slightly to deal with a dependency issue
 
-import { chacha20 } from '@noble/ciphers/chacha';
-import { equalBytes } from '@noble/ciphers/utils';
-import { secp256k1 } from '@noble/curves/secp256k1';
-import { extract as hkdf_extract, expand as hkdf_expand } from '@noble/hashes/hkdf';
-import { hmac } from '@noble/hashes/hmac';
-import { sha256 } from '@noble/hashes/sha256';
-import { concatBytes, randomBytes, utf8ToBytes } from '@noble/hashes/utils';
+import { chacha20 } from '@noble/ciphers/chacha.js';
+import { equalBytes } from '@noble/ciphers/utils.js';
+import { secp256k1 } from '@noble/curves/secp256k1.js';
+import { extract as hkdf_extract, expand as hkdf_expand } from '@noble/hashes/hkdf.js';
+import { hmac } from '@noble/hashes/hmac.js';
+import { sha256 } from '@noble/hashes/sha256.js';
+import { concatBytes, randomBytes, utf8ToBytes } from '@noble/hashes/utils.js';
 import { base64 } from '@scure/base';
 
 declare const TextDecoder: any;

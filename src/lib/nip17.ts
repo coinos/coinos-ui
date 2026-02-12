@@ -1,4 +1,4 @@
-import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 
 import { finalizeEvent, getEventHash, generateSecretKey, getPublicKey } from 'nostr-tools/pure';
 import { SimplePool } from 'nostr-tools/pool';
