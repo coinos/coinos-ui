@@ -17,9 +17,9 @@
   import { SimplePool } from 'nostr-tools/pool';
   import { finalizeEvent } from 'nostr-tools/pure';
 
-  let { children, data, form } = $props();
+  let { children, data, form }: any = $props();
 
-  let formElement = $state();
+  let formElement: HTMLFormElement | undefined = $state();
 
   let { token, cookies, subscriptions } = $derived(data);
   let { tab } = $derived(data);
@@ -48,7 +48,7 @@
   import { PUBLIC_DM_RELAYS } from '$env/static/public';
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
   const updateRelaysIfAvailable = async () => {
-    const relayEntry = document.getElementById('dmRelays');
+    const relayEntry = document.getElementById('dmRelays') as HTMLTextAreaElement | null;
     if (!relayEntry || relayEntry.value.length === 0) return;
 
     const newRelays = relayEntry.value.split(/[ \r\n\t]+/)
@@ -65,8 +65,8 @@
       content: ""
     };
     let signed;
-    if (await window.nostr.getPublicKey() === user.pubkey) {
-      signed = await window.nostr.signEvent(event);
+    if (await window.nostr!.getPublicKey() === user.pubkey) {
+      signed = await window.nostr!.signEvent(event);
     } else {
       const sk = await getPrivateKey(user);
       signed = finalizeEvent(event, sk);
@@ -78,23 +78,23 @@
     try {
       new URL(url);
       return true;
-    } catch (err) {
+    } catch (err: any) {
       return false;
     }
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     updateRelaysIfAvailable();
     e.preventDefault();
     try {
       submitting = true;
-      let body = new FormData(formElement);
+      let body = new FormData(formElement!);
       form = {
         user: await fd({
           formData() {
             return body;
           },
-        }),
+        } as any),
       };
 
       await tick();
@@ -122,14 +122,14 @@
       if ($avatar) {
         try {
           let { hash } = JSON.parse(
-            await upload($avatar.file, $avatar.type, $avatar.progress, token),
+            await upload(($avatar as any).file, ($avatar as any).type, ($avatar as any).progress) as string,
           );
 
           let url = `${$page.url.origin}/api/public/${hash}.webp`;
           body.set("picture", url);
 
           await fetch(url, { cache: "reload", mode: "no-cors" });
-        } catch (e) {
+        } catch (e: any) {
           console.log("problem upsubmitting avatar", e);
         }
       }
@@ -137,13 +137,13 @@
       if ($banner) {
         try {
           let { hash } = JSON.parse(
-            await upload($banner.file, $banner.type, $banner.progress, token),
+            await upload(($banner as any).file, ($banner as any).type, ($banner as any).progress) as string,
           );
 
           let url = `${$page.url.origin}/api/public/${hash}.webp`;
           body.set("banner", url);
           await fetch(url, { cache: "reload", mode: "no-cors" });
-        } catch (e) {
+        } catch (e: any) {
           console.log("problem uploading banner", e);
         }
       }
@@ -171,7 +171,7 @@
         try {
           event = await sign(event, user);
           send(event);
-        } catch (e) {
+        } catch (e: any) {
           warning("Nostr profile not updated");
         }
       }
@@ -179,8 +179,8 @@
       let email = body.get("email");
       if (email && email !== prev.email) {
         try {
-          cookies.get = function (n) {
-            return this.find((c) => c.name === n).value;
+          (cookies as any).get = function (n: string) {
+            return (this as any).find((c: any) => c.name === n)?.value;
           };
 
           user.verified = false;
@@ -188,13 +188,13 @@
           await post("/email", { email });
 
           warning($t("user.settings.verifying"), false);
-        } catch (e) {
+        } catch (e: any) {
           fail(e.message);
           console.log(e);
         }
       }
 
-      const response = await fetch(formElement.action, {
+      const response = await fetch(formElement!.action, {
         method: "POST",
         body,
       });
@@ -203,11 +203,11 @@
 
       if (result.type === "success") {
         await invalidateAll();
-        if (body.get("password")) $password = body.get("password");
+        if (body.get("password")) $password = body.get("password") as string;
       }
 
       applyAction(result);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       fail("Something went wrong");
     }

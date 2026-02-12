@@ -11,8 +11,9 @@
     setAmount,
     setType,
     toggleType,
+    activeOnly = false,
     t,
-  } = $props();
+  }: any = $props();
 
 </script>
 

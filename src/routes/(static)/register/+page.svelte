@@ -26,7 +26,7 @@
   } from "unique-names-generator";
   import { sign } from "$lib/nostr";
 
-  let { form, data } = $props();
+  let { form, data }: any = $props();
   let { challenge } = $derived(data);
   let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
   let isTor = browser && location.hostname.endsWith(".onion");
@@ -51,7 +51,7 @@
     }
   });
 
-  let username = $state();
+  let username: string | undefined = $state();
   let { index } = $state(data);
   let revealPassword = $state(false);
 
@@ -65,7 +65,7 @@
     }
   };
 
-  let refresh = async (e) => {
+  let refresh = async (e: any) => {
     e.preventDefault();
     cleared = false;
 
@@ -92,17 +92,17 @@
     }
   });
 
-  let token = $state(),
-    formElement;
-  let code = [];
-  let redirect;
+  let token: string = $state(""),
+    formElement: any;
+  let code: any[] = [];
+  let redirect: any;
 
-  let cancel = () => (need2fa = false);
+  let cancel: any = () => { need2fa = false; };
 
-  let email,
-    btn = $state();
+  let email: any,
+    btn: HTMLButtonElement = $state() as any;
 
-  let loading = $state();
+  let loading = $state(false);
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
       if (isTor) return resolve("");
@@ -115,14 +115,14 @@
       });
     });
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
 
     loading = true;
 
-    let data = new FormData(this);
-    let user = Object.fromEntries(data);
-    user.username = user.username.replace(/\s*/g, "");
+    let data = new FormData(e.target as HTMLFormElement);
+    let user: Record<string, any> = Object.fromEntries(data);
+    user.username = (user.username as string).replace(/\s*/g, "");
 
     for (let k in user) {
       data.set(k, user[k]);
@@ -130,8 +130,8 @@
 
     try {
       const recaptcha = await getRecaptchaToken();
-      data.set("recaptcha", recaptcha);
-    } catch (err) {
+      data.set("recaptcha", recaptcha as string);
+    } catch (err: any) {
       fail(err.message || "captcha failed");
       loading = false;
       return;
@@ -141,7 +141,7 @@
     if ($avatar) {
       try {
         let { hash } = JSON.parse(
-          await upload($avatar.file, $avatar.type, $avatar.progress, token),
+          await upload(($avatar as any).file, ($avatar as any).type, ($avatar as any).progress) as string,
         );
 
         let url = `${$page.url.origin}/api/public/${hash}.webp`;
@@ -170,37 +170,37 @@
     loading = false;
   }
 
-  let avatarInput = $state();
+  let avatarInput: HTMLInputElement = $state() as any;
   let decr = () => (index = index <= 0 ? 63 : index - 1);
   let incr = () => (index = index >= 63 ? 0 : index + 1);
   let selectAvatar = () => avatarInput.click();
 
   let progress;
-  let handleFile = async ({ target }) => {
+  let handleFile = async ({ target }: { target: HTMLInputElement }) => {
     let type = "picture";
-    let file = target.files[0];
+    let file = target.files![0];
     if (!file) return;
 
-    if (file.size > 10000000) form.error = "File too large";
+    if (file.size > 10000000) form!.error = "File too large";
     $avatar = { file, type, progress };
 
     var reader = new FileReader();
-    reader.onload = async (e) => {
+    reader.onload = async (e: any) => {
       src = e.target.result;
     };
 
     reader.readAsDataURL(file);
   };
 
-  let need2fa = $derived(form?.message === "2fa");
-  let src = $derived(`/api/public/${punks[index]}.webp`);
+  let need2fa: any = $derived(form?.message === "2fa");
+  let src: string = $derived(`/api/public/${punks[index]}.webp`);
 
   $effect(() => {
-    if (need2fa && form.token === token) token = "";
+    if (need2fa && form?.token === token) token = "";
   });
 
   $effect(() => {
-    token && token?.length === 6 && tick().then(() => btn.click());
+    token && token.length === 6 && tick().then(() => btn.click());
   });
 
   let nostrLogin = async () => {
@@ -221,11 +221,11 @@
 
     try {
       const recaptcha = await getRecaptchaToken();
-      formData.append("loginRedirect", redirect);
-      formData.append("token", token);
+      formData.append("loginRedirect", redirect ?? "");
+      formData.append("token", token ?? "");
       formData.append("event", JSON.stringify(signedEvent));
       formData.append("challenge", challenge);
-      formData.append("recaptcha", recaptcha);
+      formData.append("recaptcha", recaptcha as string);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
@@ -239,7 +239,7 @@
       }
 
       applyAction(result);
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };
@@ -248,7 +248,7 @@
     if (!browser) return;
     const nodeBadge = document.querySelector(".grecaptcha-badge");
     if (nodeBadge) {
-      document.body.removeChild(nodeBadge.parentNode);
+      document.body.removeChild(nodeBadge.parentNode!);
     }
 
     const scriptSelector =
@@ -274,7 +274,7 @@
     type="file"
     class="hidden!"
     bind:this={avatarInput}
-    onchange={(e) => handleFile(e, "picture")}
+    onchange={(e: any) => handleFile(e)}
   />
 
   <div class="relative">

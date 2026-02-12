@@ -2,7 +2,7 @@
   import { run } from "svelte/legacy";
 
   import { t, locale, locales } from "$lib/translations";
-  let { style } = $props();
+  let { style = "" }: any = $props();
   let l = $state($locale);
 
   const handleChange = ({ currentTarget }) => {

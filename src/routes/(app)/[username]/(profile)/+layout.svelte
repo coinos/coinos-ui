@@ -29,7 +29,7 @@
     try {
       await post(`/reset`, { username: n, password });
       success("Password reset");
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };

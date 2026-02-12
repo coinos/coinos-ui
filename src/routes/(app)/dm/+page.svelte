@@ -23,7 +23,7 @@
  }
 
  /// chat selection
- const usernameFromPubkey = async (pubkey: string): string => {
+ const usernameFromPubkey = async (pubkey: string): Promise<string | null> => {
    const response = await fetch(`/api/users/${pubkey}`);
    if (response.ok) {
      const userInfo = await response.json();
@@ -35,7 +35,7 @@
 
  const userInfo = async (pubkey: string) => {
    if (pubkey.slice(0, 4) === "npub") {
-     return userInfo(decode(pubkey).data);
+     return userInfo(decode(pubkey).data as string);
    }
 
    const nostrUserInfo = await getNostrUserInfo(pubkey) || {};
@@ -48,11 +48,11 @@
      nip05Valid: valid, pubkey };
  }
 
- const name = (userInfo: object): string => {
+ const name = (userInfo: any): string => {
    return userInfo.coinosUsername || userInfo.nostrName || $t("dm.anonymous");
  }
 
- const id = (userInfo: object): string => {
+ const id = (userInfo: any): string => {
    if (userInfo.nip05 && userInfo.nip05.slice(0, 2) == "_@") {
      return userInfo.nip05.slice(2);
    }
@@ -60,11 +60,11 @@
    return userInfo.nip05 || (npubEncode(userInfo.pubkey).slice(0, 16) + "...");
  }
 
- const idValid = (userInfo: object): string => {
+ const idValid = (userInfo: any): boolean => {
    return !userInfo.nip05 || userInfo.nip05Valid;
  }
 
- const rumourInvolves = (rumour: object, pubkey: string) => {
+ const rumourInvolves = (rumour: any, pubkey: string) => {
    if (rumour.pubkey === pubkey) {
      return true;
    } else {
@@ -77,7 +77,7 @@
    }
  }
 
- const mostRecentCommunication = (rumours: object[], pubkey: string) => {
+ const mostRecentCommunication = (rumours: any[], pubkey: string) => {
    let mostRecentTime = null;
    for (const rumour of rumours.filter((r) => rumourInvolves(r, pubkey))) {
      if (!mostRecentTime || rumour.created_at > mostRecentTime) {
@@ -87,9 +87,9 @@
    return mostRecentTime;
  }
 
- const updateSendersRecipients = async (rumours: object[]) => {
-   const senders = new Set<object>();
-   const recipients = new Set<object>();
+ const updateSendersRecipients = async (rumours: any[]) => {
+   const senders = new Set<any>();
+   const recipients = new Set<any>();
    for (const rumour of rumours) {
      if (rumour.pubkey !== user.pubkey) {
        senders.add(await userInfo(rumour.pubkey));
@@ -102,7 +102,7 @@
    messageSenders = Array.from(senders);
    messageRecipients = Array.from(recipients);
 
-   const chatMap = new Map<string, object>();
+   const chatMap = new Map<string, any>();
    for (const sender of senders) {
      chatMap.set(sender.pubkey, sender);
    }
@@ -110,31 +110,31 @@
      chatMap.set(recipient.pubkey, recipient);
    }
    chats = Array.from(chatMap.values());
-   chats.sort((a, b) => mostRecentCommunication(rumours, b.pubkey) - mostRecentCommunication(rumours, a.pubkey));
+   chats.sort((a, b) => (mostRecentCommunication(rumours, b.pubkey) ?? 0) - (mostRecentCommunication(rumours, a.pubkey) ?? 0));
  };
 
- let messageSenders = $state([]);
- let messageRecipients = $state([]);
- let chats = $state([]);
+ let messageSenders: any[] = $state([]);
+ let messageRecipients: any[] = $state([]);
+ let chats: any[] = $state([]);
  getMessageRumours(user).then(updateSendersRecipients);
 
- let selectedChat = $state(null);
+ let selectedChat: any = $state(null);
  let creatingNewChat = $state(false);
  let searchQuery = $state("");
 
  /// individual chat
  let text = $state("");
- let allRumours = $state([]);
- let messageRumours = $state([]);
- let dates = $state([]);
+ let allRumours: any[] = $state([]);
+ let messageRumours: any = $state([]);
+ let dates: any[] = $state([]);
  let relayWarningShown = $state(false);
  let expiryEnabled = $state(false);
  let expiryDays = $state(7);
  let canSend = $state(false);
  let canSendExpiring = $state(false);
- let nostrUserInfo = $state({});
+ let nostrUserInfo: any = $state({});
 
- const includesPubkey = (chats: object[], pubkey: string) => {
+ const includesPubkey = (chats: any[], pubkey: string) => {
    for (const c of chats) {
      if (c.pubkey === pubkey) {
        return true;
@@ -143,7 +143,7 @@
    return false;
  }
 
- const selectChat = (c: object) => {
+ const selectChat = (c: any) => {
    selectedChat = c;
    if (!includesPubkey(chats, c.pubkey)) {
      chats.unshift(c);
@@ -184,23 +184,23 @@
  onMount(() => {
    const urlParams = new URLSearchParams(window.location.search);
    if (urlParams.get('username')) {
-     selectChatUsername(urlParams.get('username'));
+     selectChatUsername(urlParams.get('username')!);
    } else if (urlParams.get('nip05')) {
-     selectChatNip05(urlParams.get('nip05'));
+     selectChatNip05(urlParams.get('nip05')!);
    } else if (urlParams.get('pubkey')) {
-     selectChatPubkey(urlParams.get('pubkey'));
+     selectChatPubkey(urlParams.get('pubkey')!);
    }
  });
 
- const appendMultimap = (map: Map, key: string, value: object) => {
+ const appendMultimap = (map: Map<any, any>, key: any, value: any) => {
    if (map.has(key)) {
-     map.get(key).push(value);
+     map.get(key)!.push(value);
    } else {
      map.set(key, [value]);
    }
  }
 
- const dateMap = (events: object[]): Map<number, object> => {
+ const dateMap = (events: any[]): Map<any, any> => {
    let eventsMap = new Map();
    for (const event of events) {
      const created = Math.floor(event.created_at / 86400);
@@ -249,7 +249,7 @@
  }
 
  const sendMessage = async (message: string) => {
-   const expiry = expiryEnabled ? expiryDays : null;
+   const expiry = expiryEnabled ? expiryDays : undefined;
    await libnip17.send(message, user, selectedChat, expiry);
    updateEvents();
  }

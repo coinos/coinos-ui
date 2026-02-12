@@ -23,7 +23,7 @@
     focus,
     loc,
   } from "$lib/utils";
-  let { data, form } = $props();
+  let { data, form }: any = $props();
 
   let { trusted, balance, invoice, user } = $state(data);
   let { address, hash, payreq, user: recipient, tip } = $state(data.invoice);
@@ -33,8 +33,8 @@
 
   let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
 
-  let a = $state(),
-    af = $state(),
+  let a: any = $state(),
+    af: any = $state(),
     fiat = $state(untrack(() => !amount));
 
   let amountFiat = $state((untrack(() => amount) * untrack(() => rate)) / sats);
@@ -63,7 +63,7 @@
     });
   };
 
-  let toggleTrust = async (e) => {
+  let toggleTrust = async (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -100,7 +100,7 @@
   // 	}
   // });
 
-  let setMax = (e) => {
+  let setMax = (e: Event) => {
     e.preventDefault();
     fiat = false;
     amount = balance;
@@ -126,7 +126,7 @@
     </h1>
 
     <div class="flex p-1 gap-2 justify-center">
-      <Avatar user={recipient} size={"20"} />
+      <Avatar user={recipient} size={20} />
       <p class="text-4xl break-words my-auto">
         {recipient.username}
       </p>

@@ -42,7 +42,7 @@
 
   let lud16 = $derived(`${user.username}@${$page.url.host}`);
 
-  let el = $state();
+  let el: HTMLFormElement | undefined = $state();
   let submit = async (e) => {
     e.preventDefault();
     let body = new FormData(el);
@@ -65,7 +65,7 @@
     try {
       await post(`/post/apps/delete`, { pubkey });
       goto("/settings/nostr");
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };

@@ -4,7 +4,7 @@ import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent }) {
 	const { user } = await parent();
-	let data = { ...params };
+	let data: any = { ...params };
 	const rates = await getRates();
 	if (!params.payreq.startsWith("lno")) {
 		data = { ...data, ...(await post("/parse", params, auth(cookies))) };

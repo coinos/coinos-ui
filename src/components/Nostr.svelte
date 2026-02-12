@@ -10,11 +10,11 @@
   import { nostrConnectRelay } from "$lib/nostr";
   import Success from "$comp/Success.svelte";
 
-  let { id } = $props();
+  let { id = undefined }: any = $props();
   let extensionAvailable = $derived(browser && window.nostr);
 
   let cancel = () => {
-    eventToSign.set();
+    eventToSign.set(undefined);
     showNsec = false;
     connectUrl = undefined;
     $signer = "cancel";
@@ -29,7 +29,7 @@
 
   let hadSigner = $state(!!$signer);
 
-  let connectUrl = $state();
+  let connectUrl: string | undefined = $state();
   let nostrConnect = async () => {
     const { Relay } = await import("nostr-tools/relay");
     const { nip04, generateSecretKey, getPublicKey } = await import(
@@ -76,7 +76,7 @@
     });
   };
 
-  let nsec = $state();
+  let nsec: string = $state("");
   let showNsec = $state();
   let toggleNsec = () => {
     $signer = {
@@ -86,7 +86,7 @@
 
   let nsecSign = async () => {
     const { nip19, getPublicKey } = await import("nostr-tools");
-    let sk;
+    let sk: Uint8Array;
     if (nsec.startsWith("nsec")) sk = nip19.decode(nsec).data as Uint8Array;
     else sk = hexToBytes(nsec);
 
@@ -108,13 +108,13 @@
   const signerSigned = async () => {
     await new Promise((r) => setTimeout(r, 100));
     let sig = await navigator.clipboard.readText();
-    $signer.params.sig = sig;
-    $signer.ready = true;
+    ($signer as any).params.sig = sig;
+    ($signer as any).ready = true;
     $signer = $signer;
   };
 
   let signUrl = $derived(
-    `nostrsigner:${encodeURIComponent(JSON.stringify($eventToSign))}?compressionType=none&returnType=signature&type=sign_event&appName=Coinos`,
+    `nostrsigner:${encodeURIComponent(JSON.stringify($eventToSign))}?compressionType=none&returnType=signature&type=sign_event&appName=Coinos` as string,
   );
 </script>
 
@@ -127,7 +127,7 @@
     >
       <h1 class="text-center text-2xl font-semibold">Nostr sign</h1>
 
-      {#if $eventToSign.sig && !hadSigner}
+      {#if ($eventToSign as any).sig && !hadSigner}
         <Success />
       {:else}
         {#if connectUrl}
@@ -150,7 +150,7 @@
               ></iconify-icon>
               {$t("payments.openLink")}</a
             >
-            <button class="btn" onclick={() => copy(connectUrl)}>
+            <button class="btn" onclick={() => copy(connectUrl!)}>
               <iconify-icon noobserver icon="ph:copy-bold" width="32"
               ></iconify-icon>
               {$t("payments.copy")}</button

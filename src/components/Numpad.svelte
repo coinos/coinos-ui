@@ -10,11 +10,11 @@
     amount = $bindable(),
     currency = "USD",
     fiat = $bindable(),
-    element,
+    element = $bindable(),
     rate = $bindable(),
-    locale,
-    submit = undefined,
-    amountFiat = 0,
+    locale = undefined,
+    submit = $bindable(undefined),
+    amountFiat = $bindable(0),
   } = $props();
 
   // ---- Local state ----
@@ -26,7 +26,7 @@
   let symbol = $state("");
   let position = $state("before");
 
-  function getCurrencyInfo(locale = "en-US", currency) {
+  function getCurrencyInfo(locale: any = "en-US", currency: string) {
     const l = typeof locale === "function" ? locale() : locale || "en-US";
     const region = l.length >= 2 ? l.slice(-2) : "";
     const currencyDisplay =
@@ -39,7 +39,7 @@
       maximumFractionDigits: 2,
     });
     const parts = formatter.formatToParts(123456.78);
-    const { value: decimal } = parts.find((p) => p.type === "decimal");
+    const { value: decimal } = parts.find((p) => p.type === "decimal")!;
     const currencyPart = parts.find((p) => p.type === "currency");
     const sym = currencyPart ? currencyPart.value : "";
     const firstNumberIndex = parts.findIndex((p) => p.type === "integer");
@@ -77,14 +77,14 @@
     if (fiat) {
       const numericFiat =
         parseFloat((fiatDigits || "0").replace(/\D/g, "")) / 100;
-      amountFiat = isFinite(numericFiat) ? numericFiat.toFixed(2) : "0.00";
+      amountFiat = isFinite(numericFiat) ? numericFiat.toFixed(2) : "0.00" as any;
       amount = numericFiat ? Math.round((numericFiat * sats) / rate) : 0;
     } else {
       // integer-only sats, already normalized
       const a = parseInt((html || "0").replace(/[^\d]/g, "")) || 0;
       amount = a || 0;
       const fval = amount ? (amount * rate) / sats : 0;
-      amountFiat = fval ? fval.toFixed(2) : "0.00";
+      amountFiat = fval ? fval.toFixed(2) : "0.00" as any;
     }
   };
 
@@ -149,17 +149,17 @@
         if (!node) return;
         const range = document.createRange();
         const sel = getSelection();
-        const L = node.length ?? node.textContent?.length ?? 0;
+        const L = (node as any).length ?? node.textContent?.length ?? 0;
         range.setStart(node, L);
         range.setEnd(node, L);
-        sel.removeAllRanges();
-        sel.addRange(range);
+        sel?.removeAllRanges();
+        sel?.addRange(range);
       });
     }
     prevHtml = html.toString();
   };
 
-  const handleInput = (value) => {
+  const handleInput = (value: string) => {
     if (fiat) {
       if (value === arrow) {
         fiatDigits = fiatDigits.length > 1 ? fiatDigits.slice(0, -1) : "0";
@@ -187,12 +187,12 @@
     input(null, true);
   };
 
-  const select = (e) => {
+  const select = (e: any) => {
     const range = document.createRange();
     range.selectNodeContents(e.target);
     const sel = getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
+    sel?.removeAllRanges();
+    sel?.addRange(range);
   };
 
   const blur = () => {
@@ -211,7 +211,7 @@
       element && (element.innerHTML = html);
     } else {
       // going -> fiat
-      const cents = Math.round((parseFloat(amountFiat || "0") || 0) * 100);
+      const cents = Math.round((parseFloat(String(amountFiat) || "0") || 0) * 100);
       fiatDigits = Math.max(0, cents).toString();
       fiat = true;
       html = formatFiatFromDigits(fiatDigits, decimalChar);
@@ -226,11 +226,11 @@
       if (!node) return;
       const range = document.createRange();
       const sel = getSelection();
-      const L = node.length ?? node.textContent?.length ?? 0;
+      const L = (node as any).length ?? node.textContent?.length ?? 0;
       range.setStart(node, L);
       range.setEnd(node, L);
-      sel.removeAllRanges();
-      sel.addRange(range);
+      sel?.removeAllRanges();
+      sel?.addRange(range);
     });
 
     $fiatStore = fiat;
@@ -255,7 +255,7 @@
   onMount(() => {
     fiat = $fiatStore;
     if (fiat) {
-      const cents = Math.round((parseFloat(amountFiat || "0") || 0) * 100);
+      const cents = Math.round((parseFloat(String(amountFiat) || "0") || 0) * 100);
       fiatDigits = Math.max(0, cents).toString();
       html = formatFiatFromDigits(fiatDigits, decimalChar); // keep html in sync on mount
     } else {

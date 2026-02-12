@@ -2,9 +2,9 @@
   import { browser } from "$app/environment";
   import { scale } from "svelte/transition";
   import Amount from "$comp/Amount.svelte";
-  const { amount, tip, rate, currency, locale, title } = $props();
+  const { amount, tip = undefined, rate, currency, locale, title = "" }: any = $props();
 
-  let ConfettiComp = $state(null);
+  let ConfettiComp: any = $state(null);
   let loaded = $state(false);
   $effect(() => {
     if (browser)
@@ -13,10 +13,12 @@
       });
   });
 
-  $effect(async () => {
+  $effect(() => {
     if (!browser || !loaded || ConfettiComp) return;
-    const mod = await import("svelte-confetti");
-    ConfettiComp = mod.Confetti;
+    (async () => {
+      const mod = await import("svelte-confetti");
+      ConfettiComp = mod.Confetti;
+    })();
   });
 </script>
 

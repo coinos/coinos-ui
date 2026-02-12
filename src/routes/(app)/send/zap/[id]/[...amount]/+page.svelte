@@ -12,7 +12,7 @@
   import { sign, send } from "$lib/nostr";
   import { rate, pin } from "$lib/store";
 
-  let { data, form } = $props();
+  let { data, form }: any = $props();
 
   let { id, request, user } = $derived({ ...data, ...form });
   let a = $state(data.amount);
@@ -20,19 +20,21 @@
   let locale = $derived(loc(user));
   let event = $state();
 
-  $effect(() => ($rate ||= data.rate));
-  $effect(async () => {
+  $effect(() => { $rate ||= data.rate; });
+  $effect(() => {
     if (form || request) {
-      try {
-        loading = false;
-        event = await sign(request);
-        let { pr: payreq } = await post("/post/zap", { event });
-        await post("/post/payments", { amount, payreq, pin: $pin });
-        goto(`/e/${id}`);
-      } catch (e) {
-        console.log(e);
-        fail(e.message);
-      }
+      (async () => {
+        try {
+          loading = false;
+          event = await sign(request);
+          let { pr: payreq } = await post("/post/zap", { event });
+          await post("/post/payments", { amount, payreq, pin: $pin });
+          goto(`/e/${id}`);
+        } catch (e: any) {
+          console.log(e);
+          fail(e.message);
+        }
+      })();
     }
   });
 
@@ -42,6 +44,7 @@
   let submit = () => (loading = true);
 
   let next = $state();
+  let show = $state(false);
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.amount);
   let maxfee = $state(Math.max(5, Math.round(untrack(() => amount) * 0.005)));
@@ -63,6 +66,7 @@
       {locale}
       bind:rate={$rate}
       submit={next}
+      element={undefined}
     />
     <button type="submit" class="btn" bind:this={next}
       >{$t("payments.next")}</button

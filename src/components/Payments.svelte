@@ -6,7 +6,7 @@
   import { t } from "$lib/translations";
   import locales from "$lib/locales";
   import { fiat } from "$lib/store";
-  const { fund, locale, user, payments } = $props();
+  const { fund = undefined, locale, user, payments }: any = $props();
   const language = $derived(user?.language || "en");
 </script>
 

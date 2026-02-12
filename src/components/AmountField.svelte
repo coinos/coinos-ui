@@ -6,12 +6,15 @@
   let {
     amount = $bindable(),
     none = $t("accounts.none"),
-    desc,
+    desc = "",
     currency,
     rate,
-    label,
-    name,
-  } = $props();
+    label = "",
+    name = "",
+    locale = undefined,
+    submit = undefined,
+    element = undefined,
+  }: any = $props();
 
   let setting = $state();
   let set = () => {

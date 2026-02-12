@@ -14,8 +14,9 @@
     locale,
     tip,
     rate,
+    align = "",
     t,
-  } = $props();
+  }: any = $props();
 
   let loaded = $state(false);
   let { memo } = $derived(invoice);

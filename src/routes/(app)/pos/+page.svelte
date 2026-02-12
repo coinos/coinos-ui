@@ -3,7 +3,7 @@
   import { hex } from "@scure/base";
 
   // Convert Uint8Array → JS "binary string" in safe chunks
-  function bs(uint8Array) {
+  function bs(uint8Array: Uint8Array) {
     let binaryString = "";
     const chunkSize = 0x8000;
     for (let i = 0; i < uint8Array.length; i += chunkSize) {
@@ -13,7 +13,7 @@
     return binaryString;
   }
 
-  let { data, form } = $props();
+  let { data, form }: any = $props();
   let { token } = $state(data);
 
   // --- Defaults ---
@@ -23,12 +23,12 @@
   const WORK_BAUD = 921600;                  // fast flashing
 
   // --- Shared state ---
-  let esploader = $state();
-  let chip, transport;
+  let esploader: any = $state();
+  let chip: any, transport: any;
   let connected = $state(false);
   let portInfo = $state("");
-  let ESPLoader;
-  let Transport;
+  let ESPLoader: any;
+  let Transport: any;
 
   // --- Existing config path (generated server-side to hex in form.bytes) ---
   let bytes = $derived(form ? hex.decode(form.bytes) : undefined);
@@ -37,8 +37,8 @@
   let configDone = $state(false);
 
   // --- New firmware flashing path ---
-  let fwFile = $state(null);
-  let fwBytes = $state();             // Uint8Array
+  let fwFile: any = $state(null);
+  let fwBytes: Uint8Array | undefined = $state();             // Uint8Array
   let fwAddress = $state(FW_ADDRESS_DEFAULT);
   let fwEraseAll = $state(false);
   let fwProgress = $state(0);
@@ -53,7 +53,7 @@
       if (!ESPLoader || !Transport) {
         ({ ESPLoader, Transport } = await import("esptool-js"));
       }
-      const device = await navigator.serial.requestPort({});
+      const device = await (navigator as any).serial.requestPort({});
       transport = new Transport(device, true);
       esploader = new ESPLoader({
         transport,
@@ -90,10 +90,10 @@
     configDone = true;
   };
 
-  function onPickFw(e) {
+  function onPickFw(e: Event) {
     fwError = "";
     fwDone = false;
-    const f = e.target.files?.[0];
+    const f = (e.target as HTMLInputElement).files?.[0];
     fwFile = f || null;
     if (!fwFile) {
       fwBytes = undefined;
@@ -101,7 +101,7 @@
     }
     const reader = new FileReader();
     reader.onload = () => {
-      const buf = new Uint8Array(reader.result);
+      const buf = new Uint8Array(reader.result as ArrayBuffer);
       fwBytes = buf;
     };
     reader.onerror = () => {
@@ -138,7 +138,7 @@
       });
 
       fwDone = true;
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       fwError = e?.message || "Flash failed.";
     }
@@ -178,7 +178,7 @@
             id="littlefs-address"
             class="input"
             bind:value={littlefsAddress}
-            onchange={(e) => (littlefsAddress = Number(e.target.value))}
+            onchange={(e) => (littlefsAddress = Number((e.target as HTMLInputElement).value))}
           />
           <div class="mt-3">
             <button class="btn" onclick={flashConfig}>Flash config</button>
@@ -214,7 +214,7 @@
           id="firmware-address"
           class="input"
           bind:value={fwAddress}
-          onchange={(e) => (fwAddress = Number(e.target.value))}
+          onchange={(e) => (fwAddress = Number((e.target as HTMLInputElement).value))}
         />
 
         <label class="flex items-center gap-2 mt-2">

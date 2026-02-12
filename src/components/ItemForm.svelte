@@ -8,21 +8,21 @@
   import Spinner from "$comp/Spinner.svelte";
   let { item = $bindable(), user } = $props();
 
-  let fileInput = $state(), formElement = $state(), file, submitting = $state(), progress;
-  let select = () => fileInput.click();
-  let src = $state();
+  let fileInput: HTMLInputElement | undefined = $state(), formElement: HTMLFormElement | undefined = $state(), file: File, submitting = $state(), progress: any;
+  let select = () => fileInput!.click();
+  let src: string | undefined = $state();
 
-  let tooLarge = {};
-  let handleFile = async ({ target }, type) => {
+  let tooLarge: Record<string, boolean> = {};
+  let handleFile = async ({ target }: { target: EventTarget | null }, type: string) => {
     tooLarge[type] = false;
-    file = target.files[0];
+    file = (target as HTMLInputElement).files![0];
     if (!file) return;
 
     if (file.size > 10000000) return (tooLarge[type] = true);
 
     var reader = new FileReader();
     reader.onload = async (e) => {
-      src = e.target.result;
+      src = (e.target as FileReader).result as string;
     };
 
     reader.readAsDataURL(file);
@@ -31,11 +31,11 @@
   async function handleSubmit() {
     try {
       submitting = true;
-      let data = new FormData(formElement);
+      let data = new FormData(formElement!);
 
       if (src) {
         try {
-          let { hash } = JSON.parse(await upload(file, "item", progress));
+          let { hash } = JSON.parse(await upload(file, "item", progress) as string);
 
           data.set("image", hash);
 
@@ -48,7 +48,7 @@
         }
       }
 
-      const response = await fetch(formElement.action, {
+      const response = await fetch(formElement!.action, {
         method: "POST",
         body: data,
       });

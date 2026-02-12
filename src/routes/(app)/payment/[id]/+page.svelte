@@ -66,7 +66,7 @@
   let bump = async () => {
     try {
       await post(`/payment/${id}/bump`, { id });
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };

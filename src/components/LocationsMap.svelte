@@ -5,15 +5,15 @@
   import { back } from "$lib/utils";
 
   let { locations } = $props();
-  let map;
-  let mapContainer = $state(),
-    mapWrapper = $state();
-  let markers = [];
-  let search = $state();
-  let clearSearch = (e) => (search = "");
+  let map: any;
+  let mapContainer: any = $state(),
+    mapWrapper: any = $state();
+  let markers: any[] = [];
+  let search: string = $state("");
+  let clearSearch = (e: any) => (search = "");
 
   let currentIndex = -1;
-  let timeout = $state();
+  let timeout: any = $state();
 
   let full = () => {
     if (!document.fullscreenElement) {
@@ -32,17 +32,18 @@
 
       map.resize();
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) {
+      let doc = document as any;
+      if (doc.exitFullscreen) {
+        doc.exitFullscreen();
+      } else if (doc.mozCancelFullScreen) {
         /* Firefox */
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
+        doc.mozCancelFullScreen();
+      } else if (doc.webkitExitFullscreen) {
         /* Chrome, Safari and Opera */
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
+        doc.webkitExitFullscreen();
+      } else if (doc.msExitFullscreen) {
         /* IE/Edge */
-        document.msExitFullscreen();
+        doc.msExitFullscreen();
       }
     }
   };
@@ -58,7 +59,7 @@
   };
 
   let selected = $state();
-  function select(m) {
+  function select(m: any) {
     selected = m;
     stopFlying();
     currentIndex = inview.indexOf(m);
@@ -114,11 +115,11 @@
     timeout = setTimeout(startFlying, 4000);
   }
 
-  function debounce(func, delay) {
-    let timeout;
+  function debounce(func: any, delay: any) {
+    let timeout: any;
     let immediate = true;
 
-    return function (...args) {
+    return function (this: any, ...args: any[]) {
       const context = this;
 
       if (immediate) {
@@ -137,7 +138,8 @@
   function stopFlying() {
     updateLabelVisibility();
     if (!timeout) return;
-    timeout = clearTimeout(timeout);
+    clearTimeout(timeout);
+    timeout = undefined;
 
     if (currentPopup) {
       currentPopup.remove();
@@ -147,7 +149,7 @@
     map.off("moveend");
   }
 
-  let inview = $state([]);
+  let inview: any[] = $state([]);
 
   let updateLabelVisibility = debounce(() => {
     inview = [];
@@ -167,20 +169,20 @@
     inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
   }, 200);
 
-  let locationMarkers = {};
-  let popups = {};
+  let locationMarkers: any = {};
+  let popups: any = {};
   let counter = 0;
-  let maplibrePromise;
+  let maplibrePromise: any;
 
   const loadMaplibre = async () => {
-    if (window.maplibregl) return window.maplibregl;
+    if ((window as any).maplibregl) return (window as any).maplibregl;
     if (maplibrePromise) return maplibrePromise;
 
     maplibrePromise = new Promise((resolve, reject) => {
       const existing = document.querySelector("script[data-maplibre]");
       if (existing) {
-        if (window.maplibregl) return resolve(window.maplibregl);
-        existing.addEventListener("load", () => resolve(window.maplibregl));
+        if ((window as any).maplibregl) return resolve((window as any).maplibregl);
+        existing.addEventListener("load", () => resolve((window as any).maplibregl));
         existing.addEventListener("error", reject);
         return;
       }
@@ -197,7 +199,7 @@
       script.async = true;
       script.defer = true;
       script.dataset.maplibre = "true";
-      script.onload = () => resolve(window.maplibregl);
+      script.onload = () => resolve((window as any).maplibregl);
       script.onerror = reject;
       document.head.appendChild(script);
     });
