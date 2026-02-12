@@ -12,7 +12,6 @@
   import { page } from "$app/stores";
   import { sign, send, getPrivateKey } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
-  import { getPublicKey } from "nostr-tools";
   import { bytesToHex } from "@noble/hashes/utils.js";
 
   import { SimplePool } from "nostr-tools/pool";
