@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { copyNoNewlines as copy } from "$lib/utils";
   import samples from "$lib/samples";
   let { sample } = $props();

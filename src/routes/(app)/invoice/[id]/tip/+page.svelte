@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { fiat, invoice as inv, request } from "$lib/store";
   import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";
   import Slider from "$comp/Slider.svelte";

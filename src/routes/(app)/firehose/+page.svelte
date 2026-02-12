@@ -27,7 +27,6 @@
         event.author = await get(`/api/users/${event.pubkey}`);
         event.parts = parts;
         event.names = names;
-        let { content, pubkey } = event;
         events.push(event);
         if (events.length > 20) events.shift();
       },

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tick } from "svelte";
   import handler from "$lib/handler";
   import { sats, f, s } from "$lib/utils";

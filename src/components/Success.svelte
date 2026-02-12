@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { browser } from "$app/environment";
   import { scale } from "svelte/transition";
   import Amount from "$comp/Amount.svelte";

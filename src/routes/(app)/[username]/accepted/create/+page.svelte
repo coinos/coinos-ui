@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { run, preventDefault } from 'svelte/legacy';
 
   import { goto } from "$app/navigation";

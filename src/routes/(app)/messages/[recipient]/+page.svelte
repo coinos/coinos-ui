@@ -1,11 +1,10 @@
-<script>
+<script lang="ts">
   import { run, preventDefault } from 'svelte/legacy';
 
   import { cubicInOut } from "svelte/easing";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
   import { format } from "date-fns";
-  import { scale, fade, fly } from "svelte/transition";
   import { enhance } from "$app/forms";
   import Avatar from "$comp/Avatar.svelte";
   import { back, fail, focus } from "$lib/utils";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { t } from "$lib/translations";
   import { theme } from "$lib/store";
   let dark = () => {

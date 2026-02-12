@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { amountPrompt } from "$lib/store";
   import { types } from "$lib/utils";
   import { page } from "$app/stores";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import LandingHeader from "$comp/LandingHeader.svelte";
   let { data, children } = $props();
   let { user } = data;

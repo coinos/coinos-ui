@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { untrack } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";

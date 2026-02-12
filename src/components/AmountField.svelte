@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { t } from "$lib/translations";
   import { tick } from "svelte";
   import Numpad from "$comp/Numpad.svelte";

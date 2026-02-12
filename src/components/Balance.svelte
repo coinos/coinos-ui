@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Amount from "$comp/Amount.svelte";
   import Pin from "$comp/Pin.svelte";
   import { loc, f, toFiat, s, si, sat, sats } from "$lib/utils";

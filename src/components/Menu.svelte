@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { theme } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
   import { OutClick } from "svelte-outclick";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { copy, focus } from "$lib/utils";
   import { enhance } from "$app/forms";
 

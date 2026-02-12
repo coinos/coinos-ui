@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { goto } from "$app/navigation";
   import { send, sign } from "$lib/nostr";
   import { t } from "$lib/translations";

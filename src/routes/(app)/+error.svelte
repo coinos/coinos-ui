@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { back } from "$lib/utils";
   import { page } from "$app/stores";
 

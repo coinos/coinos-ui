@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Avatar from "$comp/Avatar.svelte";
   import { s } from "$lib/utils";
   import Amount from "$comp/Amount.svelte";

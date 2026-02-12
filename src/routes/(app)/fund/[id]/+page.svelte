@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Amount from "$comp/Amount.svelte";
   import Payments from "$comp/Payments.svelte";
   import { format } from "date-fns";

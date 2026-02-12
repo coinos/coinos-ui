@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Nostr from "$comp/Nostr.svelte";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import Footer from "$comp/Footer.svelte";

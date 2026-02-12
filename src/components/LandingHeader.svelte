@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { goto } from "$app/navigation";
   import { scroll } from "$lib/utils";
   import { t } from "$lib/translations";

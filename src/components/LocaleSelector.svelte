@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { run } from "svelte/legacy";
 
   import { t, locale, locales } from "$lib/translations";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
   import Left from "$comp/Left.svelte";
   import { f, s, focus, warning, sat, sats } from "$lib/utils";

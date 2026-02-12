@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { goto } from "$app/navigation";
   import Pin from "$comp/Pin.svelte";
   import { pin } from "$lib/store";

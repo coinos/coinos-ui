@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getContext } from "svelte";
   import { tick } from "svelte";
   import { t } from "$lib/translations";

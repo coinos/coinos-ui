@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { loc, focus } from "$lib/utils";
   import { t } from "$lib/translations";
   import Success from "$comp/Success.svelte";

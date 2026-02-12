@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { hex } from "@scure/base";
   import { bytesToHex } from "@noble/hashes/utils.js";
   import WalletPass from "$comp/WalletPass.svelte";

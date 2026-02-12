@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { enhance } from "$app/forms";
   import { copy, sats, f, s } from "$lib/utils";
   import { t } from "$lib/translations";
