@@ -149,9 +149,15 @@
   };
   let verifying = $derived(pin?.length > 5);
 
-  $effect(() => { if (verify) checkPin(pin as any); });
-  $effect(() => { if (setting2fa) enable2fa(token as any); });
-  $effect(() => { if (disabling2fa) disable2fa(token as any); });
+  $effect(() => {
+    if (verify) checkPin(pin as any);
+  });
+  $effect(() => {
+    if (setting2fa) enable2fa(token as any);
+  });
+  $effect(() => {
+    if (disabling2fa) disable2fa(token as any);
+  });
 </script>
 
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
@@ -223,12 +229,7 @@
   {/if}
 
   {#if confirming2fa || disabling2fa}
-    <Pin
-      bind:value={token}
-      title="Enter 2FA Code"
-      {cancel}
-      notify={false}
-    />
+    <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
   {/if}
 </div>
 

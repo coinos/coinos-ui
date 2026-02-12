@@ -24,7 +24,12 @@
   import Password from "$comp/Password.svelte";
   import { s, f, toFiat, success, getCookie, warning } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
-  import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
+  import {
+    goto,
+    invalidate,
+    afterNavigate,
+    preloadData,
+  } from "$app/navigation";
 
   let { data, children } = $props();
 
@@ -58,7 +63,9 @@
 
       if (result?.received > 0) {
         if ($fiat && $rateStore && user?.currency) {
-          success(`Received ${f(toFiat(result.received, $rateStore), user.currency)}!`);
+          success(
+            `Received ${f(toFiat(result.received, $rateStore), user.currency)}!`,
+          );
         } else {
           success(`Received ⚡️${s(result.received)}!`);
         }

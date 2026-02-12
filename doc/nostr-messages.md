@@ -2,11 +2,11 @@
 
 Last Updated: 2026-01-28
 
-CoinOS uses [Nostr](https://github.com/nostr-protocol/nostr)'s [NIP-17](https://github.com/nostr-protocol/nips/blob/master/17.md) for its direct message system.  A CoinOS account is not necessary to send or receive messages using this system, and CoinOS users can interact with non-CoinOS users.
+CoinOS uses [Nostr](https://github.com/nostr-protocol/nostr)'s [NIP-17](https://github.com/nostr-protocol/nips/blob/master/17.md) for its direct message system. A CoinOS account is not necessary to send or receive messages using this system, and CoinOS users can interact with non-CoinOS users.
 
 ## Relay Usage
 
-CoinOS will search the relays in the environment variable `PUBLIC_DM_RELAYS` for kind-10050 events.  `PUBLIC_DM_RELAYS` is a comma-separated list of URLs.  Any message sent to a user will go to the relays in their kind-10050 event, as per NIP-17.
+CoinOS will search the relays in the environment variable `PUBLIC_DM_RELAYS` for kind-10050 events. `PUBLIC_DM_RELAYS` is a comma-separated list of URLs. Any message sent to a user will go to the relays in their kind-10050 event, as per NIP-17.
 
 ## Features
 

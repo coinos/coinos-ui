@@ -1,6 +1,7 @@
 <script lang="ts">
   import { focus } from "$lib/utils";
-  import { goto } from "$app/navigation";  import Image from "$comp/Image.svelte";
+  import { goto } from "$app/navigation";
+  import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";
 </script>
 
@@ -12,10 +13,11 @@
       {$t("landing.header_before_icon")}
       <span class="relative">
         {$t("landing.header_with_icon")}
-        <iconify-icon noobserver
+        <iconify-icon
+          noobserver
           icon="coinos:rays"
           class="absolute -top-16 left-5 md:left-8 lg:left-14 2xl:left-24"
-></iconify-icon>
+        ></iconify-icon>
       </span>
       {$t("landing.header_after_icon")}
     </h1>

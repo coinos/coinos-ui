@@ -27,7 +27,9 @@
         <div class="font-bold flex items-center">
           <div class="flex items-center gap-1">
             {#if $fiat}
-              <div>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
+              <div>
+                {f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}
+              </div>
             {:else}
               <iconify-icon
                 noobserver
@@ -104,7 +106,11 @@
                 />
               </div>
             {:else if p.type === types.ark}
-              <img src="/images/ark.png" class="w-10 h-10 rounded-full object-cover" alt="Ark" />
+              <img
+                src="/images/ark.png"
+                class="w-10 h-10 rounded-full object-cover"
+                alt="Ark"
+              />
             {/if}
 
             <div class="my-auto">

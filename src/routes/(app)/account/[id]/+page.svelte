@@ -71,7 +71,6 @@
       fail(e.message);
     }
   };
-
 </script>
 
 <div class="space-y-5">

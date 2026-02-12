@@ -2,7 +2,8 @@
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
-  import { applyAction, deserialize } from "$app/forms";  import Spinner from "$comp/Spinner.svelte";
+  import { applyAction, deserialize } from "$app/forms";
+  import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
   import { loading, t } from "$lib/translations";
   import { fd, fail, auth, post, sleep, warning, success } from "$lib/utils";
@@ -14,8 +15,8 @@
   import { getPublicKey } from "nostr-tools";
   import { bytesToHex } from "@noble/hashes/utils.js";
 
-  import { SimplePool } from 'nostr-tools/pool';
-  import { finalizeEvent } from 'nostr-tools/pure';
+  import { SimplePool } from "nostr-tools/pool";
+  import { finalizeEvent } from "nostr-tools/pure";
 
   let { children, data, form }: any = $props();
 
@@ -45,14 +46,15 @@
   let submitting = $state();
 
   const pool = new SimplePool();
-  import { PUBLIC_DM_RELAYS } from '$env/static/public';
-  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+  import { PUBLIC_DM_RELAYS } from "$env/static/public";
+  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(",");
   const updateRelaysIfAvailable = async () => {
-    const relayEntry = document.getElementById('dmRelays') as HTMLTextAreaElement | null;
+    const relayEntry = document.getElementById(
+      "dmRelays",
+    ) as HTMLTextAreaElement | null;
     if (!relayEntry || relayEntry.value.length === 0) return;
 
-    const newRelays = relayEntry.value.split(/[ \r\n\t]+/)
-                                .filter(isValidURL);
+    const newRelays = relayEntry.value.split(/[ \r\n\t]+/).filter(isValidURL);
     if (newRelays.length === 0) {
       warning($t("user.settings.noDMURLsWarning"));
       return;
@@ -61,18 +63,18 @@
     const event = {
       kind: 10050,
       created_at: Math.floor(Date.now() / 1000),
-      tags: newRelays.map(r => ["relay", r]),
-      content: ""
+      tags: newRelays.map((r) => ["relay", r]),
+      content: "",
     };
     let signed;
-    if (await window.nostr!.getPublicKey() === user.pubkey) {
+    if ((await window.nostr!.getPublicKey()) === user.pubkey) {
       signed = await window.nostr!.signEvent(event);
     } else {
       const sk = await getPrivateKey(user);
       signed = finalizeEvent(event, sk);
     }
     await Promise.any(pool.publish(DM_RELAYS_LIST, signed));
-  }
+  };
 
   const isValidURL = (url: string) => {
     try {
@@ -81,7 +83,7 @@
     } catch (err: any) {
       return false;
     }
-  }
+  };
 
   async function handleSubmit(e: any) {
     updateRelaysIfAvailable();
@@ -122,7 +124,11 @@
       if ($avatar) {
         try {
           let { hash } = JSON.parse(
-            await upload(($avatar as any).file, ($avatar as any).type, ($avatar as any).progress) as string,
+            (await upload(
+              ($avatar as any).file,
+              ($avatar as any).type,
+              ($avatar as any).progress,
+            )) as string,
           );
 
           let url = `${$page.url.origin}/api/public/${hash}.webp`;
@@ -137,7 +143,11 @@
       if ($banner) {
         try {
           let { hash } = JSON.parse(
-            await upload(($banner as any).file, ($banner as any).type, ($banner as any).progress) as string,
+            (await upload(
+              ($banner as any).file,
+              ($banner as any).type,
+              ($banner as any).progress,
+            )) as string,
           );
 
           let url = `${$page.url.origin}/api/public/${hash}.webp`;

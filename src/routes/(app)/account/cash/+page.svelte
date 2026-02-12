@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { t } from "$lib/translations";</script>
+  import { t } from "$lib/translations";
+</script>
 
 <div class="space-y-5">
   <h1 class="text-center text-3xl font-semibold">Choose your custodian</h1>

@@ -6,21 +6,23 @@
 
 /* 2) Register DaisyUI themes */
 @plugin "daisyui" {
-  themes: lofi --default, black --prefersdark;
+  themes:
+    lofi --default,
+    black --prefersdark;
 }
 
 @plugin "daisyui/theme" {
   name: "lofi";
   default: true;
-  --gradient: #C3CFE2;
+  --gradient: #c3cfe2;
   --color-error: #b91c1c;
 }
 
 @plugin "daisyui/theme" {
   name: "black";
   prefersdark: true;
-  --gradient: #C3CFE2;
-  --color-secondary: #CCC;
+  --gradient: #c3cfe2;
+  --color-secondary: #ccc;
   --color-error: #f87171;
 }
 
@@ -36,7 +38,8 @@
 
 @font-face {
   font-family: "PublicSans";
-  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf") format("truetype");
+  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf")
+    format("truetype");
 }
 
 :root {
@@ -47,13 +50,22 @@
   --toastBackground: #292929;
 }
 
-html { font-family: PublicSans, sans-serif; }
+html {
+  font-family: PublicSans, sans-serif;
+}
 
-::selection { color: black; background: #eaf2ff; }
-:fullscreen { background-color: white; }
+::selection {
+  color: black;
+  background: #eaf2ff;
+}
+:fullscreen {
+  background-color: white;
+}
 
 /* Note: @apply-ing DaisyUI component classes requires components reference */
-.input { @apply input-lg input-primary h-16 px-4; }
+.input {
+  @apply input-lg input-primary h-16 px-4;
+}
 
 /* If you want to *turn* native inputs into DaisyUI inputs via @apply: */
 input[type="text"],
@@ -65,14 +77,22 @@ input[type="url"],
 input[type="tel"] {
   @apply input input-lg input-primary h-16 px-4;
 }
-textarea { @apply textarea textarea-lg textarea-primary py-4; }
-select { @apply select select-lg select-primary h-16 px-4; }
+textarea {
+  @apply textarea textarea-lg textarea-primary py-4;
+}
+select {
+  @apply select select-lg select-primary h-16 px-4;
+}
 
-input:not([type="range"]), textarea, select, .input  {
+input:not([type="range"]),
+textarea,
+select,
+.input {
   @apply rounded-2xl w-full;
 }
 
-input.clean, textarea.clean {
+input.clean,
+textarea.clean {
   border: none !important;
   outline: none !important;
   padding: 0 !important;
@@ -81,8 +101,12 @@ input.clean, textarea.clean {
   box-shadow: none !important;
 }
 
-button { cursor: pointer !important; }
-.btn { @apply rounded-2xl btn-lg btn-block outline-none h-16 cursor-pointer; }
+button {
+  cursor: pointer !important;
+}
+.btn {
+  @apply rounded-2xl btn-lg btn-block outline-none h-16 cursor-pointer;
+}
 
 @layer components {
   :where(input, textarea, select, .input, .textarea, .select) {

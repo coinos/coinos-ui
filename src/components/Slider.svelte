@@ -18,4 +18,3 @@
   class="range w-full"
   oninput={handle}
 />
-

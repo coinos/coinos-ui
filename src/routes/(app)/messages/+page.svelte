@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";

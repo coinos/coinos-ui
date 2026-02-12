@@ -15,7 +15,7 @@
   let extensionAvailable = $derived(browser && (window as any).nostr);
   let { locale } = $derived(user);
 
-  import { SimplePool } from 'nostr-tools/pool';
+  import { SimplePool } from "nostr-tools/pool";
 
   let newNsec = $state(),
     nsec: any = $state(),
@@ -42,11 +42,13 @@
     ($save as any).click();
   };
 
-  import { PUBLIC_DM_RELAYS } from '$env/static/public';
-  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+  import { PUBLIC_DM_RELAYS } from "$env/static/public";
+  const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(",");
   const pool = new SimplePool();
-  getPreferredRelays(user.pubkey).then(relays => {
-    const relayEntry = document.getElementById('dmRelays') as HTMLTextAreaElement | null;
+  getPreferredRelays(user.pubkey).then((relays) => {
+    const relayEntry = document.getElementById(
+      "dmRelays",
+    ) as HTMLTextAreaElement | null;
     if (relayEntry) relayEntry.value = relays.join("\n");
   });
 </script>
@@ -78,8 +80,16 @@
                     class="text-yellow-300"
                   ></iconify-icon>
                   {#if $fiat && $rate}
-                    {f((app.spent * ($rate as number)) / sats, user.currency, locale)} /
-                    {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}
+                    {f(
+                      (app.spent * ($rate as number)) / sats,
+                      user.currency,
+                      locale,
+                    )} /
+                    {f(
+                      (app.max_amount * ($rate as number)) / sats,
+                      user.currency,
+                      locale,
+                    )}
                   {:else}
                     {s(app.spent, locale)} /
                     {s(app.max_amount, locale)}
@@ -177,24 +187,25 @@
   <div class="font-bold">{$t("user.nostrPubkey")}</div>
   <textarea name="pubkey" bind:value={npub} rows={3}></textarea>
   <div>
-  <div class="flex my-auto gap-1">
-    <button
-      type="button"
-      class="my-auto btn btn-circle !w-auto grow"
-      onclick={() => copy(npub)}
-      aria-label="Copy"
-      ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-      ></iconify-icon> {$t("accounts.copy")}</button
-    >
+    <div class="flex my-auto gap-1">
+      <button
+        type="button"
+        class="my-auto btn btn-circle !w-auto grow"
+        onclick={() => copy(npub)}
+        aria-label="Copy"
+        ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        {$t("accounts.copy")}</button
+      >
 
-    <a
-      href={`/qr/${encodeURIComponent(npub)}`}
-      class="my-auto btn btn-circle !w-auto grow"
-      aria-label="QR"
-    >
-      <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
-{$t("accounts.qr")}
-    </a>
+      <a
+        href={`/qr/${encodeURIComponent(npub)}`}
+        class="my-auto btn btn-circle !w-auto grow"
+        aria-label="QR"
+      >
+        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+        ></iconify-icon>
+        {$t("accounts.qr")}
+      </a>
     </div>
   </div>
 
@@ -245,10 +256,10 @@
 {/if}
 
 <span class="font-bold" id="dm-relays">
-    {$t("user.settings.preferredDM")}
+  {$t("user.settings.preferredDM")}
 </span>
 <p class="text-secondary mb-1">
-    {$t("user.settings.preferredDMDescription")}
+  {$t("user.settings.preferredDMDescription")}
 </p>
 
 <textarea id="dmRelays" name="dmRelays" rows={3}></textarea>

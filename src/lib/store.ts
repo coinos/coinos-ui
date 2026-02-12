@@ -2,73 +2,73 @@ import { browser } from "$app/environment";
 import { writable } from "svelte/store";
 
 export const persistSession = (key, defaultValue = undefined) => {
-	const s = writable(
-		browser &&
-		sessionStorage.getItem(key) &&
-		sessionStorage.getItem(key) !== "undefined"
-			? JSON.parse(sessionStorage.getItem(key) || "")
-			: defaultValue,
-	);
+  const s = writable(
+    browser &&
+      sessionStorage.getItem(key) &&
+      sessionStorage.getItem(key) !== "undefined"
+      ? JSON.parse(sessionStorage.getItem(key) || "")
+      : defaultValue,
+  );
 
-	s.subscribe((v) => {
-		browser && sessionStorage.setItem(key, JSON.stringify(v));
-	});
+  s.subscribe((v) => {
+    browser && sessionStorage.setItem(key, JSON.stringify(v));
+  });
 
-	return s;
+  return s;
 };
 
 export const persistLocal = (key, defaultValue: any = undefined) => {
-	const s = writable(
-		browser &&
-		localStorage.getItem(key) &&
-		localStorage.getItem(key) !== "undefined"
-			? JSON.parse(localStorage.getItem(key) || "")
-			: defaultValue,
-	);
+  const s = writable(
+    browser &&
+      localStorage.getItem(key) &&
+      localStorage.getItem(key) !== "undefined"
+      ? JSON.parse(localStorage.getItem(key) || "")
+      : defaultValue,
+  );
 
-	s.subscribe((v) => {
-		try {
-			if (browser) {
-				if (v) {
-					localStorage.setItem(key, JSON.stringify(v));
-				} else {
-					localStorage.removeItem(key);
-				}
-			}
-		} catch (e) {
-			console.log("problem setting key", v);
-			console.log(e);
-		}
-	});
+  s.subscribe((v) => {
+    try {
+      if (browser) {
+        if (v) {
+          localStorage.setItem(key, JSON.stringify(v));
+        } else {
+          localStorage.removeItem(key);
+        }
+      }
+    } catch (e) {
+      console.log("problem setting key", v);
+      console.log(e);
+    }
+  });
 
-	return s;
+  return s;
 };
 
 export const persistLocalValue = (key, defaultValue: any = undefined) => {
-	const s = writable(
-		browser &&
-		localStorage.getItem(key) &&
-		localStorage.getItem(key) !== "undefined"
-			? JSON.parse(localStorage.getItem(key) || "")
-			: defaultValue,
-	);
+  const s = writable(
+    browser &&
+      localStorage.getItem(key) &&
+      localStorage.getItem(key) !== "undefined"
+      ? JSON.parse(localStorage.getItem(key) || "")
+      : defaultValue,
+  );
 
-	s.subscribe((v) => {
-		try {
-			if (browser) {
-				if (v === undefined) {
-					localStorage.removeItem(key);
-				} else {
-					localStorage.setItem(key, JSON.stringify(v));
-				}
-			}
-		} catch (e) {
-			console.log("problem setting key", v);
-			console.log(e);
-		}
-	});
+  s.subscribe((v) => {
+    try {
+      if (browser) {
+        if (v === undefined) {
+          localStorage.removeItem(key);
+        } else {
+          localStorage.setItem(key, JSON.stringify(v));
+        }
+      }
+    } catch (e) {
+      console.log("problem setting key", v);
+      console.log(e);
+    }
+  });
 
-	return s;
+  return s;
 };
 
 export const account = writable();

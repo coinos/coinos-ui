@@ -6,7 +6,8 @@
   import { tick } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import Avatar from "$comp/Avatar.svelte";  import Spinner from "$comp/Spinner.svelte";
+  import Avatar from "$comp/Avatar.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { back, get, post, fail, focus } from "$lib/utils";
 
   let { data = $bindable(), form } = $props();

@@ -23,9 +23,7 @@
   };
 </script>
 
-<div
-  class="fixed inset-0 bg-base-100/90 overflow-y-auto h-full w-full z-50"
->
+<div class="fixed inset-0 bg-base-100/90 overflow-y-auto h-full w-full z-50">
   <div
     class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5"
   >

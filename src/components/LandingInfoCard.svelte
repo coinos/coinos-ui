@@ -6,7 +6,7 @@
     title,
     description = undefined,
     order = undefined,
-    children
+    children,
   } = $props();
 </script>
 

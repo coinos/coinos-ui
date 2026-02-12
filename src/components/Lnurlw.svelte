@@ -89,7 +89,10 @@
           disabled={submitting}
           onkeydown={setMax}
           >{#if $fiat}
-            Max {f((Math.floor(maxWithdrawable / 1000) * rate) / sats, currency)}
+            Max {f(
+              (Math.floor(maxWithdrawable / 1000) * rate) / sats,
+              currency,
+            )}
           {:else}
             Max ⚡️{s(Math.floor(maxWithdrawable / 1000))}
           {/if}</button

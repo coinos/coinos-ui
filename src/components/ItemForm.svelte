@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { preventDefault } from 'svelte/legacy';
+  import { preventDefault } from "svelte/legacy";
 
   import { t } from "$lib/translations";
   import { upload } from "$lib/upload";
@@ -8,12 +8,19 @@
   import Spinner from "$comp/Spinner.svelte";
   let { item = $bindable(), user } = $props();
 
-  let fileInput: HTMLInputElement | undefined = $state(), formElement: HTMLFormElement | undefined = $state(), file: File, submitting = $state(), progress: any;
+  let fileInput: HTMLInputElement | undefined = $state(),
+    formElement: HTMLFormElement | undefined = $state(),
+    file: File,
+    submitting = $state(),
+    progress: any;
   let select = () => fileInput!.click();
   let src: string | undefined = $state();
 
   let tooLarge: Record<string, boolean> = {};
-  let handleFile = async ({ target }: { target: EventTarget | null }, type: string) => {
+  let handleFile = async (
+    { target }: { target: EventTarget | null },
+    type: string,
+  ) => {
     tooLarge[type] = false;
     file = (target as HTMLInputElement).files![0];
     if (!file) return;
@@ -35,7 +42,9 @@
 
       if (src) {
         try {
-          let { hash } = JSON.parse(await upload(file, "item", progress) as string);
+          let { hash } = JSON.parse(
+            (await upload(file, "item", progress)) as string,
+          );
 
           data.set("image", hash);
 
@@ -107,11 +116,7 @@
             onclick={select}
             aria-label="Select image"
           >
-            <img
-              {src}
-              alt={item.name}
-              class="object-cover w-full h-full"
-            />
+            <img {src} alt={item.name} class="object-cover w-full h-full" />
           </button>
         {:else if item.image}
           <button

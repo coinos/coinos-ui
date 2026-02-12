@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Left from "$comp/Left.svelte";  import { focus, post, warning } from "$lib/utils";
+  import Left from "$comp/Left.svelte";
+  import { focus, post, warning } from "$lib/utils";
   import { t } from "$lib/translations";
 
   let { v = $bindable(), cancel } = $props();
@@ -72,7 +73,10 @@
     onclick={toggle}
     aria-label={hide ? "Show PIN" : "Hide PIN"}
   >
-    <iconify-icon noobserver icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
+    <iconify-icon
+      noobserver
+      icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"}
+      width="32"
     ></iconify-icon></button
   >
 </label>

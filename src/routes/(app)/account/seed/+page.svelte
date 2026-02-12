@@ -32,8 +32,7 @@
     {/if}
 
     <button type="button" class="btn" onclick={() => copy($mnemonic)}>
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
       <div class="my-auto">
         {$t("payments.copy")}
       </div>

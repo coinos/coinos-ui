@@ -9,7 +9,12 @@
     class?: string;
   }
 
-  let { user, size = 32, disabled = false, class: className = "" }: Props = $props();
+  let {
+    user,
+    size = 32,
+    disabled = false,
+    class: className = "",
+  }: Props = $props();
 
   let s = $derived(size.toString());
   let link = $derived(
@@ -23,7 +28,11 @@
   let fallback = $derived(
     `${base}/punks/` + punk(user?.pubkey || user?.id || "aa"),
   );
-  let tmp = $derived(($avatar as any)?.id && ($avatar as any).id === user?.id && ($avatar as any).src);
+  let tmp = $derived(
+    ($avatar as any)?.id &&
+      ($avatar as any).id === user?.id &&
+      ($avatar as any).src,
+  );
   let src = $derived(tmp || profile || fallback);
 </script>
 

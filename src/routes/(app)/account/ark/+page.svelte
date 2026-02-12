@@ -9,10 +9,7 @@
   import { goto } from "$app/navigation";
   import { arkServerUrl } from "$lib/ark";
   import { HDKey } from "@scure/bip32";
-  import {
-    entropyToMnemonic,
-    mnemonicToSeed,
-  } from "@scure/bip39";
+  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
   import {
     rememberForOptions,
@@ -168,7 +165,8 @@
     {#if hasMasterSeed}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Your Ark wallet will be derived from your master seed. Enter your wallet password to continue.
+          Your Ark wallet will be derived from your master seed. Enter your
+          wallet password to continue.
         </p>
 
         <label
@@ -220,7 +218,8 @@
             id="rememberFor"
             class="w-full"
             value={rememberForMs}
-            onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+            onchange={(e) =>
+              (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
               <option value={option.ms}>{option.label}</option>
@@ -230,9 +229,7 @@
 
         <div class="flex gap-2">
           <a href={`/${user.username}`} class="contents">
-            <button type="button" class="btn !w-auto grow">
-              Back
-            </button>
+            <button type="button" class="btn !w-auto grow"> Back </button>
           </a>
           <button
             disabled={submitting}
@@ -250,7 +247,8 @@
     {:else if !confirmed}
       <div class="space-y-4">
         <p class="text-secondary">
-          Your Ark wallet is secured by a private key. Please copy it down somewhere safe.
+          Your Ark wallet is secured by a private key. Please copy it down
+          somewhere safe.
         </p>
 
         {#if showNsec}
@@ -266,14 +264,24 @@
           </div>
 
           <div class="flex gap-2">
-            <button type="button" class="btn btn-accent flex-grow" onclick={confirmBackup}>
-              <iconify-icon noobserver icon="ph:check-bold" width="24"></iconify-icon>
+            <button
+              type="button"
+              class="btn btn-accent flex-grow"
+              onclick={confirmBackup}
+            >
+              <iconify-icon noobserver icon="ph:check-bold" width="24"
+              ></iconify-icon>
               I've backed it up
             </button>
           </div>
         {:else}
-          <button type="button" class="btn btn-warning w-full" onclick={revealNsec}>
-            <iconify-icon noobserver icon="ph:eye-bold" width="24"></iconify-icon>
+          <button
+            type="button"
+            class="btn btn-warning w-full"
+            onclick={revealNsec}
+          >
+            <iconify-icon noobserver icon="ph:eye-bold" width="24"
+            ></iconify-icon>
             Reveal backup key
           </button>
         {/if}
@@ -281,7 +289,8 @@
     {:else}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Set a password to encrypt your key. You'll need this password to send funds.
+          Set a password to encrypt your key. You'll need this password to send
+          funds.
         </p>
 
         <label
@@ -371,7 +380,8 @@
             id="rememberFor"
             class="w-full"
             value={rememberForMs}
-            onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+            onchange={(e) =>
+              (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
               <option value={option.ms}>{option.label}</option>

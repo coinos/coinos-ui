@@ -173,11 +173,7 @@
       </div>
     {/if}
 
-    <button
-      type="submit"
-      bind:this={submit}
-      aria-label="Submit tip"
-    ></button>
+    <button type="submit" bind:this={submit} aria-label="Submit tip"></button>
   </form>
 
   {#if showCustomAmount}

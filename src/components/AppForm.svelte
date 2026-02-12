@@ -146,11 +146,7 @@
         >{$t("accounts.secret")}</label
       >
       <div class="flex gap-1 items-center">
-        <textarea
-          rows={3}
-          name="secret"
-          bind:value={secret}
-          class="grow"
+        <textarea rows={3} name="secret" bind:value={secret} class="grow"
         ></textarea>
 
         <div class="space-y-2 w-24">

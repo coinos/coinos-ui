@@ -10,7 +10,14 @@
   let locale = $derived(loc(user));
 </script>
 
-<Success {amount} {rate} {tip} {currency} {locale} title={`${$t("payments.sent")}!`} />
+<Success
+  {amount}
+  {rate}
+  {tip}
+  {currency}
+  {locale}
+  title={`${$t("payments.sent")}!`}
+/>
 <a href={`/${username}`} use:focus aria-label="Continue">
   <div class="opacity-0 w-screen h-screen fixed top-0 left-0 z-50"></div>
 </a>

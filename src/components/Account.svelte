@@ -4,7 +4,8 @@
   import WalletPass from "$comp/WalletPass.svelte";
   import { run } from "svelte/legacy";
   import { onMount } from "svelte";
-  import { goto } from "$app/navigation";  import Balance from "$comp/Balance.svelte";
+  import { goto } from "$app/navigation";
+  import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
   import { versions } from "$lib/utils";
   import { arkkey } from "$lib/ark";
@@ -44,15 +45,12 @@
         $arkkey = hex.encode(decrypt(seed, cached) as Uint8Array);
       } else if (user.seed) {
         // Master seed: derive m/86'/0'/0'/0/0
-        const [
-          { HDKey },
-          { entropyToMnemonic, mnemonicToSeed },
-          { wordlist },
-        ] = await Promise.all([
-          import("@scure/bip32"),
-          import("@scure/bip39"),
-          import("@scure/bip39/wordlists/english.js"),
-        ]);
+        const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
+          await Promise.all([
+            import("@scure/bip32"),
+            import("@scure/bip39"),
+            import("@scure/bip39/wordlists/english.js"),
+          ]);
         let entropy = await decrypt(user.seed, cached);
         let mnemonic = entropyToMnemonic(entropy, wordlist);
         let s = await mnemonicToSeed(mnemonic, cached);
@@ -93,15 +91,12 @@
     if (seed) {
       $arkkey = hex.encode(decrypt(seed, password!) as Uint8Array);
     } else if (user.seed) {
-      const [
-        { HDKey },
-        { entropyToMnemonic, mnemonicToSeed },
-        { wordlist },
-      ] = await Promise.all([
-        import("@scure/bip32"),
-        import("@scure/bip39"),
-        import("@scure/bip39/wordlists/english.js"),
-      ]);
+      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
+        await Promise.all([
+          import("@scure/bip32"),
+          import("@scure/bip39"),
+          import("@scure/bip39/wordlists/english.js"),
+        ]);
       let entropy = await decrypt(user.seed, password!);
       let mnemonic = entropyToMnemonic(entropy, wordlist);
       let s = await mnemonicToSeed(mnemonic, password!);
@@ -164,10 +159,7 @@
           alt="Ark"
         />
       {:else if seed || (user.seed && fingerprint)}
-        <iconify-icon
-          noobserver
-          icon="cryptocurrency-color:btc"
-          width="32"
+        <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"
         ></iconify-icon>
       {:else}
         <img src="/images/icon.png" class="w-8 h-8" />
@@ -182,22 +174,23 @@
       class="contents"
       onclick={(e) => setAccount(e, "/invoice")}
     >
-      <button class="btn !w-auto flex-1 !bg-base-300" data-testid="account-receive">
+      <button
+        class="btn !w-auto flex-1 !bg-base-300"
+        data-testid="account-receive"
+      >
         <iconify-icon
           noobserver
           icon="ph:hand-coins-bold"
           width="32"
           flip="horizontal"
         ></iconify-icon>
-        <div class="my-auto hidden sm:block">{$t("user.dashboard.receive")}</div>
+        <div class="my-auto hidden sm:block">
+          {$t("user.dashboard.receive")}
+        </div>
       </button>
     </a>
 
-    <a
-      href={`/send`}
-      class="contents"
-      onclick={(e) => setAccount(e, "/send")}
-    >
+    <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
       <button type="button" class="btn !w-auto flex-1 !bg-base-300">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
         ></iconify-icon>

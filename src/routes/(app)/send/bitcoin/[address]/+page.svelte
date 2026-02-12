@@ -34,7 +34,14 @@
 
   <div class="text-xl text-secondary break-all">{address}</div>
 
-  <Numpad bind:amount={a} bind:fiat {currency} {submit} bind:rate={$rate} {locale} />
+  <Numpad
+    bind:amount={a}
+    bind:fiat
+    {currency}
+    {submit}
+    bind:rate={$rate}
+    {locale}
+  />
 
   <div class="flex justify-center gap-2">
     <button

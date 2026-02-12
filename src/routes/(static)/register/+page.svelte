@@ -34,7 +34,8 @@
   onMount(() => {
     if (!isTor && recaptchaSiteKey) {
       let s = document.createElement("script");
-      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      s.src =
+        "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
       document.head.appendChild(s);
     }
   });
@@ -97,7 +98,9 @@
   let code: any[] = [];
   let redirect: any;
 
-  let cancel: any = () => { need2fa = false; };
+  let cancel: any = () => {
+    need2fa = false;
+  };
 
   let email: any,
     btn: HTMLButtonElement = $state() as any;
@@ -106,7 +109,8 @@
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
       if (isTor) return resolve("");
-      if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
+      if (!browser || !grecaptcha)
+        return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
         grecaptcha
           .execute(recaptchaSiteKey, { action: "register" })
@@ -141,7 +145,11 @@
     if ($avatar) {
       try {
         let { hash } = JSON.parse(
-          await upload(($avatar as any).file, ($avatar as any).type, ($avatar as any).progress) as string,
+          (await upload(
+            ($avatar as any).file,
+            ($avatar as any).type,
+            ($avatar as any).progress,
+          )) as string,
         );
 
         let url = `${$page.url.origin}/api/public/${hash}.webp`;

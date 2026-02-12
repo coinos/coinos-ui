@@ -2,7 +2,14 @@
   import { browser } from "$app/environment";
   import { scale } from "svelte/transition";
   import Amount from "$comp/Amount.svelte";
-  const { amount, tip = undefined, rate, currency, locale, title = "" }: any = $props();
+  const {
+    amount,
+    tip = undefined,
+    rate,
+    currency,
+    locale,
+    title = "",
+  }: any = $props();
 
   let ConfettiComp: any = $state(null);
   let loaded = $state(false);
@@ -57,7 +64,8 @@
       </div>
     </div>
 
-    <iconify-icon noobserver
+    <iconify-icon
+      noobserver
       icon="ph:check-fat-fill"
       class="text-green-400"
       width="160"
