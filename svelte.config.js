@@ -18,7 +18,7 @@ const config = {
     },
   },
   onwarn: (warning, handler) => {
-    if (warning.code.includes("caption") || warning.filename.includes("Toast")) return;
+    if (warning.code.includes("caption") || warning.filename.includes("Toast") || warning.code === "css_unknown_at_rule" || warning.code === "state_referenced_locally") return;
     handler(warning);
   },
 };
