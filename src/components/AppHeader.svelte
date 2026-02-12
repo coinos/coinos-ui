@@ -8,12 +8,12 @@
 
   let { user, subject = $bindable() } = $props();
 
-  let w = $state();
+  let w: number | undefined = $state();
   $effect(() => (subject = subject || user));
 
   let bg = $derived(
-    $banner?.id && $banner.id === subject?.id
-      ? `url(${$banner.src})`
+    ($banner as any)?.id && ($banner as any).id === subject?.id
+      ? `url(${($banner as any).src})`
       : subject?.banner
         ? subject.banner.includes(":")
           ? `url(${subject.banner})`
@@ -71,10 +71,10 @@
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
-        {#each links as { href, icon, flip, label }}
+        {#each links as { href, icon, label }}
           <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
             <button class="btn-menu {opacity(href)}" aria-label={label}>
-              <iconify-icon noobserver {icon} width={w > 640 ? 32 : 24} {flip}
+              <iconify-icon noobserver {icon} width={(w ?? 0) > 640 ? 32 : 24}
               ></iconify-icon>
             </button>
           </a>

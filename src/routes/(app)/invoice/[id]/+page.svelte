@@ -28,7 +28,7 @@
   import { t } from "$lib/translations";
   import { goto, invalidate } from "$app/navigation";
 
-  let { data } = $props();
+  let { data }: any = $props();
 
   let showOptions;
 
@@ -91,7 +91,7 @@
       else url += "?options=true";
 
       goto(url, { invalidateAll: true, noScroll: true });
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };
@@ -185,7 +185,6 @@
     {invoice}
     {copy}
     {link}
-    {type}
     {txt}
     t={$t}
     bind:showQr={$showQr}

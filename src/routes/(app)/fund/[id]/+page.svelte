@@ -12,7 +12,7 @@
   import { bech32 } from "@scure/base";
   const encoder = new TextEncoder();
 
-  let { data } = $props();
+  let { data }: any = $props();
 
   let { amount, payments, managers, rate, user } = data;
   let { id } = $page.params;
@@ -21,7 +21,7 @@
   let currency = user ? user.currency : "CAD";
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
-  $effect(() => ($loginRedirect = $page.url.pathname));
+  $effect(() => { $loginRedirect = $page.url.pathname; });
 
   let show = $state();
   let toggle = () => (show = !show);

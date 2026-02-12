@@ -21,13 +21,13 @@
     forgetWalletPassword,
   } from "$lib/passwordCache";
 
-  let { data } = $props();
+  let { data }: any = $props();
 
   let { user } = data;
-  let submitting = $state();
+  let submitting = $state(false);
 
-  let confirm = $state(),
-    password = $state(),
+  let confirm: string = $state(""),
+    password: string = $state(""),
     revealPassword = $state(),
     revealConfirm = $state();
   let rememberForMs = $state(defaultRememberForMs);
@@ -47,7 +47,7 @@
     try {
       const { encrypt } = await import("nostr-tools/nip49");
       let seed = await encrypt(
-        mnemonicToEntropy($mnemonic, wordlist),
+        mnemonicToEntropy($mnemonic as string, wordlist),
         password,
       );
 
@@ -55,7 +55,7 @@
       await post("/post/user", { seed });
 
       let master = HDKey.fromMasterSeed(
-        await mnemonicToSeed($mnemonic, password),
+        await mnemonicToSeed($mnemonic as string, password),
         versions,
       );
 
@@ -78,7 +78,7 @@
       }
       $mnemonic = "";
       goto(`/${user.username}`);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       fail(e.message);
     }
@@ -188,7 +188,7 @@
         id="rememberFor"
         class="w-full"
         value={rememberForMs}
-        onchange={(e) => (rememberForMs = Number(e.target.value))}
+        onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
       >
         {#each rememberForOptions as option}
           <option value={option.ms}>{option.label}</option>

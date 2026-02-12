@@ -9,24 +9,24 @@
 
   let { data } = $props();
 
-  let { messages, notes, invoices, sent, received, subject, user } =
+  let { messages, notes, invoices, sent, received, subject, user }: any =
     $state(data);
-  let refresh = (d) =>
+  let refresh = (d: any) =>
     ({ messages, notes, invoices, sent, received, subject, user } = d);
 
   let keys = new Set();
-  let latest = $state([]);
-  let ready;
+  let latest: any[] = $state([]);
+  let ready: any;
 
-  e.subscribe(async (event) => {
+  e.subscribe(async (event: any) => {
     if (!(browser && event && ready)) return;
     if (
       event.recipient?.id === user.id &&
-      !~latest.findIndex((m) => m.id === event.id)
+      !~latest.findIndex((m: any) => m.id === event.id)
     ) {
       event.content = await decrypt({ event, user });
 
-      let i = latest.findIndex((m) => m.pubkey === event.pubkey);
+      let i = latest.findIndex((m: any) => m.pubkey === event.pubkey);
       let popped;
       if (~i) popped = latest.splice(i, 1);
       else popped = latest.pop();
@@ -36,7 +36,7 @@
     }
   });
 
-  let initialize = async (p) => {
+  let initialize = async (p: any) => {
     let i = 0;
     ready = false;
     if (!(browser && user)) return;
@@ -80,7 +80,7 @@
         <a href={`/messages/${u.username}`}>
           <div class="flex hover:bg-gray-100 p-4 rounded-2xl">
             <div class="my-auto">
-              <Avatar user={u} size={"20"} disabled={true} />
+              <Avatar user={u} size={20} disabled={true} />
             </div>
             <div class="my-auto truncate">
               <div class="my-auto ml-1 text-lg font-bold">{u.username}</div>

@@ -2,14 +2,14 @@
   import { copy, s, f, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
   const {
-    align,
+    align = "",
     amount,
-    locale,
-    tip,
+    locale = undefined,
+    tip = undefined,
     rate,
     currency,
     locked = false,
-  } = $props();
+  }: any = $props();
 
   const icon = $derived(locked ? "ph:lock-fill" : "ph:lightning-fill");
   const canShowFiat = $derived($fiat && rate && currency);

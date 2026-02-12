@@ -18,7 +18,7 @@
   import { sha256 } from "@noble/hashes/sha2.js";
   import { bytesToHex } from "@noble/hashes/utils.js";
 
-  let { data, form } = $props();
+  let { data, form }: any = $props();
 
   onMount(() => {
     if (browser) {
@@ -50,16 +50,16 @@
     }
   });
 
-  let cancel = () => (need2fa = false);
+  let cancel: any = () => { need2fa = false; };
 
-  let username = $state(),
-    email,
-    btn = $state();
+  let username: string | undefined = $state(),
+    email: any,
+    btn: HTMLButtonElement = $state() as any;
 
-  $effect(() => form && ({ username, password: $password } = form));
+  $effect(() => { if (form) ({ username, password: $password } = form); });
   let need2fa = $derived(form?.message === "2fa");
   $effect(() => {
-    if (need2fa && form.token === token) token = "";
+    if (need2fa && form?.token === token) token = "";
   });
 
   let revealPassword = $state(false);
@@ -76,17 +76,17 @@
       });
     });
 
-  const enhanceLogin = async ({ formData, cancel }) => {
+  const enhanceLogin = async ({ formData, cancel }: any) => {
     try {
       const recaptcha = await getRecaptchaToken();
-      formData.set("recaptcha", recaptcha);
-    } catch (err) {
+      formData.set("recaptcha", recaptcha as string);
+    } catch (err: any) {
       fail(err.message || "captcha failed");
       cancel();
       return;
     }
 
-    return async ({ result }) => {
+    return async ({ result }: any) => {
       if (result.type === "success") {
         await invalidateAll();
       }
@@ -124,11 +124,11 @@
 
     try {
       const recaptcha = await getRecaptchaToken();
-      formData.append("loginRedirect", redirect);
-      formData.append("token", token);
+      formData.append("loginRedirect", (redirect ?? "") as string);
+      formData.append("token", token ?? "");
       formData.append("event", JSON.stringify(signedEvent));
       formData.append("challenge", challenge);
-      formData.append("recaptcha", recaptcha);
+      formData.append("recaptcha", recaptcha as string);
 
       let response = await fetch("/login?/nostr", {
         method: "POST",
@@ -138,7 +138,7 @@
       const result = deserialize(await response.text());
 
       applyAction(result);
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };
@@ -147,7 +147,7 @@
     if (!browser) return;
     const nodeBadge = document.querySelector(".grecaptcha-badge");
     if (nodeBadge) {
-      document.body.removeChild(nodeBadge.parentNode);
+      document.body.removeChild(nodeBadge.parentNode!);
     }
 
     const scriptSelector =

@@ -32,7 +32,7 @@
           });
 
           goto(`/sent/${p.id}`, { invalidateAll: true });
-        } catch (e) {
+        } catch (e: any) {
           submitting = false;
           error = e.message || "Failed to send";
         }

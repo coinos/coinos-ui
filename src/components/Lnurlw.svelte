@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from "svelte";
   import handler from "$lib/handler";
-  import { sats, f, s } from "$lib/utils";
+  import { sats, f, s, focus } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Numpad from "$comp/Numpad.svelte";
@@ -23,8 +23,8 @@
   let amount = $state(Math.round(minWithdrawable / 1000));
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
 
-  let submit = $state();
-  let submitting = $state();
+  let submit: HTMLButtonElement | undefined = $state();
+  let submitting: boolean = $state(false);
   let toggle = () => (submitting = !submitting);
 
   let setMax = async (e) => {
@@ -70,7 +70,6 @@
     use:enhance={handler(toggle)}
     action="?/withdraw"
     method="POST"
-    onsubmit={submit}
     class="space-y-5"
   >
     <input name="amount" value={amount} type="hidden" />

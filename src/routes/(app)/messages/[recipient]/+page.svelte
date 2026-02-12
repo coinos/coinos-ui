@@ -15,12 +15,12 @@
   let { data } = $props();
 
   function fadeScale(
-    node,
-    { delay = 0, duration = 200, easing = (x) => x, baseScale = 0 },
+    node: any,
+    { delay = 0, duration = 200, easing = (x: number) => x, baseScale = 0 },
   ) {
     const o = +getComputedStyle(node).opacity;
     const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);
-    const s = m ? m[1] : 1;
+    const s: any = m ? m[1] : 1;
     const is = 1 - baseScale;
 
     return {
@@ -35,10 +35,10 @@
     };
   }
 
-  let { messages, recipient, user } = $state(data);
-  let input, pane = $state();
+  let { messages, recipient, user }: any = $state(data);
+  let input: any, pane: any = $state();
 
-  let initialize = async (p) => {
+  let initialize = async (p: any) => {
     await Promise.all(
       messages.map(
         async (event) => (event.message = await decrypt({ event, user })),
@@ -49,8 +49,8 @@
     tick().then(() => pane && (pane.scrollTop = pane.scrollHeight));
   };
 
-  e.subscribe(async (event) => {
-    let found = ~messages.findIndex((m) => m.id === event?.id);
+  e.subscribe(async (event: any) => {
+    let found = ~messages.findIndex((m: any) => m.id === event?.id);
     if (event?.recipient.id === user.id && !found) {
       event.message = await decrypt({ event, user });
       messages.push(event);
@@ -59,11 +59,11 @@
     }
   });
 
-  let sent, submitting, message = $state();
+  let sent: any, submitting: any, message: any = $state();
   let submit = async () => {
     submitting = true;
 
-    let event = {
+    let event: any = {
       pubkey: user.pubkey,
       created_at: Math.floor(Date.now() / 1000),
       kind: 4,
@@ -93,8 +93,8 @@
       await send(event);
 
       sent = true;
-    } catch (e) {
-      console.log(e);
+    } catch (err: any) {
+      console.log(err);
       fail("Failed to send message");
     }
 
@@ -102,7 +102,7 @@
     submitting = false;
   };
 
-  let keydown = (e) => {
+  let keydown = (e: any) => {
     if (e.key === "Enter") {
       e.preventDefault();
       submit();
@@ -149,7 +149,7 @@
             {message}
           </div>
           <div class="mt-auto">
-            <Avatar user={author} size={"12"} />
+            <Avatar user={author} size={12} />
           </div>
         </div>
         <div class="text-sm text-gray-400 mb-6" class:text-right={ours}>

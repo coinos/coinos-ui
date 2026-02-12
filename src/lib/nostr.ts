@@ -9,15 +9,7 @@ import {
 } from "$lib/store";
 import { post, wait } from "$lib/utils";
 import { bytesToHex } from "@noble/hashes/utils.js";
-import {
-	type EventTemplate,
-	finalizeEvent,
-	getEventHash,
-	getPublicKey,
-	nip04,
-	nip19,
-} from "nostr-tools";
-import { Relay } from "nostr-tools/relay";
+import type { EventTemplate } from "nostr-tools";
 import { get } from "svelte/store";
 
 let nostrToolsPromise:
@@ -49,7 +41,7 @@ export const encrypt = async ({ message, recipient, user }: EncryptParams) => {
 	return nip04.encrypt(sk, recipient, message);
 };
 
-export const decrypt = async ({ event, user }) => {
+export const decrypt = async ({ event, user }: { event: any; user: any }) => {
 	const cache = get(decrypted);
 	try {
 		let { content, pubkey, id } = event;
@@ -120,7 +112,7 @@ export const encryptNsec = async (nsec: string) => {
 	return nip49encrypt(d, await getPassword());
 };
 
-export const sign = async (event, user) => {
+export const sign = async (event: any, user?: any) => {
 	if (user?.nsec && !get($signer)?.ready) {
 		const sk = await getPrivateKey(user);
 		const { getPublicKey } = await loadNostrTools();
@@ -162,8 +154,8 @@ const getPassword = async (): Promise<string> => {
 
 export const nostrConnectRelay = "wss://relay.nsec.app";
 
-const signingMethods = {
-	async connect(event, { sk, pk, pubkey }) {
+const signingMethods: Record<string, (event: any, params: any) => Promise<any>> = {
+	async connect(event: any, { sk, pk, pubkey }: any) {
 		const id = crypto.randomUUID();
 		const signEvent = {
 			id,
@@ -214,16 +206,16 @@ const signingMethods = {
 		});
 	},
 
-	async nsec(event, { sk }) {
+	async nsec(event: any, { sk }: any) {
 		const { finalizeEvent } = await loadNostrTools();
 		return finalizeEvent(event, sk);
 	},
 
-	async extension(event) {
-		return window.nostr.signEvent(event);
+	async extension(event: any) {
+		return window.nostr!.signEvent(event);
 	},
 
-	async signer(event, { pubkey, sig }) {
+	async signer(event: any, { pubkey, sig }: any) {
 		event.pubkey = pubkey;
 		const { getEventHash } = await loadNostrTools();
 		const signedEvent = {
@@ -236,8 +228,8 @@ const signingMethods = {
 };
 
 // Returns all the keys mentioned in the provided event's 'p' tags.
-export const pTagKeys = (event: object): string[] => {
-	let keys = [];
+export const pTagKeys = (event: any): string[] => {
+	let keys: string[] = [];
 	for (const tag of event.tags) {
 		if (tag[0] === "p") {
 			keys.push(tag[1]);

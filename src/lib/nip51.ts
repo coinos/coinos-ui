@@ -1,5 +1,4 @@
 import { SimplePool } from 'nostr-tools/pool';
-import { verifyEvent } from 'nostr-tools/pure';
 import { signEvent, encrypt, decrypt } from '$lib/nip07';
 const pool = new SimplePool();
 
@@ -7,7 +6,7 @@ import { PUBLIC_DM_RELAYS } from '$env/static/public';
 const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
 
 // Mute the provided pubkey, as the provided user.
-export const mute = async (user: object, pubkey: string, hide: bool) => {
+export const mute = async (user: any, pubkey: string, hide: boolean) => {
     let { shown, hidden } = await getMuteLists(user);
     if (hide) {
         hidden.push(["p", pubkey]);
@@ -17,19 +16,19 @@ export const mute = async (user: object, pubkey: string, hide: bool) => {
     await publishMuteList(user, shown, hidden);
 }
 
-const tagMatches = (tag: string[], pubkey: string): bool =>
+const tagMatches = (tag: string[], pubkey: string): boolean =>
     tag.length >= 2 && tag[0] === "p" && tag[1] === pubkey;
 
 // Unmute the provided pubkey, as the provided user.
-export const unmute = async (user: object, pubkey: string) => {
+export const unmute = async (user: any, pubkey: string) => {
     let { shown, hidden } = await getMuteLists(user);
-    shown = shown.filter(tag => !tagMatches(tag, pubkey));
-    hidden = hidden.filter(tag => !tagMatches(tag, pubkey));
+    shown = shown.filter((tag: string[]) => !tagMatches(tag, pubkey));
+    hidden = hidden.filter((tag: string[]) => !tagMatches(tag, pubkey));
     await publishMuteList(user, shown, hidden);
 }
 
 // Returns a set of the provided user's muted accounts.
-export const mutedAccounts = async (user: object): Set<string> => {
+export const mutedAccounts = async (user: any): Promise<Set<string>> => {
     const { shown, hidden } = await getMuteLists(user);
     let muted = new Set<string>();
     for (const tag of shown) {
@@ -45,7 +44,7 @@ export const mutedAccounts = async (user: object): Set<string> => {
     return muted;
 }
 
-const getMuteLists = async (user: object): object => {
+const getMuteLists = async (user: any): Promise<any> => {
     const listEvents = await pool.querySync(
         DM_RELAYS_LIST, { kinds: [10000], "authors": [user.pubkey], limit: 1 }
     );
@@ -60,7 +59,7 @@ const getMuteLists = async (user: object): object => {
     };
 }
 
-const publishMuteList = async (user: object, shown: string[], hidden: string[]) => {
+const publishMuteList = async (user: any, shown: string[], hidden: string[]) => {
     const event = await signEvent({
         kind: 10000,
         created_at: Math.floor(Date.now() / 1000),

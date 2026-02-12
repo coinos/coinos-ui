@@ -9,7 +9,7 @@
   import { page } from "$app/stores";
 
   let amount = 21;
-  let { event, minimal, last = true, user } = $props();
+  let { event, minimal = false, last = true, user = undefined }: any = $props();
   let { author, parts, zaps, names, created_at, pubkey } = $derived(event);
   let { id } = event;
 
@@ -25,7 +25,7 @@
         event: await sign(request),
       });
       await post("/post/payments", { amount, payreq });
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       fail(e.message);
     }

@@ -66,12 +66,12 @@
       let seed = await mnemonicToSeed(mnemonic, pw);
       let master = HDKey.fromMasterSeed(seed, versions);
       let arkChild = master.derive("m/86'/0'/0'/0/0");
-      let arkHex = bytesToHex(arkChild.privateKey);
+      let arkHex = bytesToHex(arkChild.privateKey!);
       const identity = SingleKey.fromHex(arkHex);
       const wallet = await Wallet.create({ identity, arkServerUrl });
       arkAddress = await wallet.getAddress();
       confirmed = true;
-    } catch (e) {
+    } catch (e: any) {
       console.log("master seed derivation failed", e);
       fail("Invalid password");
     }
@@ -117,7 +117,7 @@
           forgetWalletPassword();
         }
         goto(`/${user.username}`);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e);
         fail(e.message);
       }
@@ -150,7 +150,7 @@
         forgetWalletPassword();
       }
       goto(`/${user.username}`);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       fail(e.message);
     }
@@ -220,7 +220,7 @@
             id="rememberFor"
             class="w-full"
             value={rememberForMs}
-            onchange={(e) => (rememberForMs = Number(e.target.value))}
+            onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
               <option value={option.ms}>{option.label}</option>
@@ -371,7 +371,7 @@
             id="rememberFor"
             class="w-full"
             value={rememberForMs}
-            onchange={(e) => (rememberForMs = Number(e.target.value))}
+            onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
               <option value={option.ms}>{option.label}</option>

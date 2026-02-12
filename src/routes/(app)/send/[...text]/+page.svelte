@@ -21,10 +21,10 @@
     all = await get("/contacts");
   };
 
-  let el = $state(),
+  let el: any = $state(),
     text = $state(),
     pasted = $state(),
-    w = $state();
+    w: number | undefined = $state();
 
   let keypress = (e) =>
     e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);

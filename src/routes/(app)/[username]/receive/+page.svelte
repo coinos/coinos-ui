@@ -26,7 +26,7 @@
   import { goto, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
-  let { data } = $props();
+  let { data }: any = $props();
 
   let showOptions;
 
@@ -40,7 +40,7 @@
   let qr;
 
   let aid = $derived(subject.id);
-  let invoice = $derived({
+  let invoice: any = $derived({
     aid,
     type: types.lightning,
     items: [],
@@ -65,7 +65,7 @@
       else url += "?options=true";
 
       goto(url, { invalidateAll: true, noScroll: true });
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };
@@ -158,7 +158,6 @@
     {invoice}
     {copy}
     {link}
-    {type}
     {showQr}
     {txt}
     t={$t}

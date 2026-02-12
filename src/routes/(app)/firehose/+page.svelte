@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import { ignore } from "$lib/store";
 
-  let events = $state([]);
+  let events: any[] = $state([]);
   let paused = $state();
   let pause = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@
     const { Relay } = await import("nostr-tools/relay");
     const relay = await Relay.connect("wss://relay.primal.net");
     const subscription = relay.subscribe([{ kinds: [1], limit: 20 }], {
-      async onevent(event) {
+      async onevent(event: any) {
         if (paused) return;
         const { parts, names } = await post("/post/parseEvent", { event });
         event.author = await get(`/api/users/${event.pubkey}`);

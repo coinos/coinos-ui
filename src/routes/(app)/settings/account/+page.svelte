@@ -19,7 +19,8 @@
   let rate = $derived(() => rates[currency]);
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
-  let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
+  let el: any;
+  let keypress = (e: any) => e.key === "Enter" && (e.preventDefault() || el.click());
 
   let editingReserve = $state(),
     editingThreshold = $state(),
@@ -44,19 +45,19 @@
 
   if (!user.threshold) user.threshold = 1000000;
   if (!user.reserve) user.reserve = 100000;
-  let reserveEl = $state(),
-    thresholdEl = $state();
+  let reserveEl: any = $state(),
+    thresholdEl: any = $state();
 
   let push = $state(),
-    pm,
-    subscription;
+    pm: any,
+    subscription: any;
 
   onMount(async () => {
     if (!browser) return;
 
     pm =
       navigator?.serviceWorker &&
-      (await navigator.serviceWorker.getRegistration()).pushManager;
+      (await navigator.serviceWorker.getRegistration())?.pushManager;
 
     permission = await pm.permissionState({
       userVisibleOnly: true,
@@ -308,7 +309,7 @@
       </h1>
       <Numpad
         bind:amount={user.reserve}
-        bind:currency
+        {currency}
         bind:rate
         bind:submit={doneReserve}
         bind:element={reserveEl}

@@ -15,7 +15,7 @@
       m = await post(`/post/fund/${id}/managers/delete`, {
         id: user.id,
       });
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };

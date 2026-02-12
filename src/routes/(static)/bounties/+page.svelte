@@ -3,7 +3,7 @@
   import { s } from "$lib/utils";
   import Amount from "$comp/Amount.svelte";
 
-  let { data } = $props();
+  let { data }: any = $props();
   let { users } = data;
 
   let bounties = [

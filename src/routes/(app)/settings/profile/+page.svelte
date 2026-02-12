@@ -15,11 +15,11 @@
   let username = $state();
 
   let avatarFile,
-    avatarInput = $state(),
+    avatarInput: any = $state(),
     bannerFile,
     password = $state(),
     revealPassword = $state(),
-    bannerInput = $state();
+    bannerInput: any = $state();
 
   let selectAvatar = () => avatarInput.click();
   let selectBanner = () => bannerInput.click();
@@ -31,7 +31,7 @@
 
   let tooLarge = $state({});
 
-  let handleFile = async ({ target }, type) => {
+  let handleFile = async ({ target }: any, type: string) => {
     tooLarge[type] = false;
     let file = target.files[0];
     if (!file) return;
@@ -45,11 +45,11 @@
     }
 
     var reader = new FileReader();
-    reader.onload = async (e) => {
+    reader.onload = async (e: any) => {
       if (type === "picture") {
-        $avatar.src = e.target.result;
+        ($avatar as any).src = e.target.result;
       } else if (type === "banner") {
-        $bannerStore.src = e.target.result;
+        ($bannerStore as any).src = e.target.result;
       }
     };
 
@@ -109,9 +109,9 @@
         tabindex="0"
       >
         <img
-          src={$avatar?.src || picture}
+          src={($avatar as any)?.src || picture}
           class="absolute w-full h-full object-cover object-center visible overflow-hidden"
-          alt={username}
+          alt={username as any}
         />
       </div>
     {:else}
@@ -158,7 +158,7 @@
       aria-label="Select banner"
     >
       <img
-        src={$bannerStore ? $bannerStore.src : banner}
+        src={$bannerStore ? ($bannerStore as any).src : banner}
         class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
         alt="Banner"
       />
@@ -196,7 +196,6 @@
     >{$t("user.settings.about")}</label
   >
   <textarea
-    type="text"
     name="about"
     bind:value={about}
     placeholder={$t("user.settings.aboutPlaceholder")}

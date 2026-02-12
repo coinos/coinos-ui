@@ -13,7 +13,7 @@
     forgetWalletPassword,
   } from "$lib/passwordCache";
 
-  let { user, rate, account } = $props();
+  let { user, rate, account }: any = $props();
   let {
     name,
     seed,
@@ -27,8 +27,8 @@
   let arkBalance = $state(0);
   let arkLoading = $state(false);
   let passwordPrompt = $state(false);
-  let password = $state();
-  let pendingUrl = $state();
+  let password: string | undefined = $state();
+  let pendingUrl: string | undefined = $state();
   let cancel = $state(() => {
     passwordPrompt = false;
     pendingUrl = undefined;
@@ -41,7 +41,7 @@
       const { decrypt } = await import("nostr-tools/nip49");
       if (seed) {
         // Legacy: per-account seed is raw hex key
-        $arkkey = hex.encode(decrypt(seed, cached));
+        $arkkey = hex.encode(decrypt(seed, cached) as Uint8Array);
       } else if (user.seed) {
         // Master seed: derive m/86'/0'/0'/0/0
         const [
@@ -58,7 +58,7 @@
         let s = await mnemonicToSeed(mnemonic, cached);
         let master = HDKey.fromMasterSeed(s, versions);
         let arkChild = master.derive("m/86'/0'/0'/0/0");
-        $arkkey = bytesToHex(arkChild.privateKey);
+        $arkkey = bytesToHex(arkChild.privateKey!);
       } else {
         return false;
       }
@@ -76,9 +76,9 @@
     if (isArk) {
       pendingUrl = url;
       if ($arkkey) {
-        goto(pendingUrl);
+        goto(pendingUrl!);
       } else if (await tryUnlockArk()) {
-        goto(pendingUrl);
+        goto(pendingUrl!);
       } else {
         passwordPrompt = true;
       }
@@ -91,7 +91,7 @@
   let submitPassword = async () => {
     const { decrypt } = await import("nostr-tools/nip49");
     if (seed) {
-      $arkkey = hex.encode(decrypt(seed, password));
+      $arkkey = hex.encode(decrypt(seed, password!) as Uint8Array);
     } else if (user.seed) {
       const [
         { HDKey },
@@ -102,12 +102,12 @@
         import("@scure/bip39"),
         import("@scure/bip39/wordlists/english.js"),
       ]);
-      let entropy = await decrypt(user.seed, password);
+      let entropy = await decrypt(user.seed, password!);
       let mnemonic = entropyToMnemonic(entropy, wordlist);
-      let s = await mnemonicToSeed(mnemonic, password);
+      let s = await mnemonicToSeed(mnemonic, password!);
       let master = HDKey.fromMasterSeed(s, versions);
       let arkChild = master.derive("m/86'/0'/0'/0/0");
-      $arkkey = bytesToHex(arkChild.privateKey);
+      $arkkey = bytesToHex(arkChild.privateKey!);
     }
     passwordPrompt = false;
     if (pendingUrl) {

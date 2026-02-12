@@ -6,6 +6,7 @@
   import Qr from "$comp/Qr.svelte";
   import { copy, post, success, fail } from "$lib/utils";
   import { save, pin as current } from "$lib/store";
+  import { getNsec } from "$lib/nostr";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
@@ -19,11 +20,11 @@
     importing = $state(),
     newNsec = $state(),
     nsec = $state(),
-    otp = $state(),
-    pin = $state(""),
+    otp: any = $state(),
+    pin: any = $state(""),
     revealSeed,
     revealNsec = $state(),
-    token = $state(""),
+    token: any = $state(""),
     setting2fa = $state(),
     settingPin = $state(),
     verify = $state("");
@@ -51,13 +52,13 @@
     }
   };
 
-  let checkPin = async () => {
+  let checkPin = async (_?: any) => {
     try {
-      if (pin.length > 5 && pin === verify) {
+      if (pin && pin.length > 5 && pin === verify) {
         $current = pin;
         pin = "";
         verify = "";
-        $save.click();
+        ($save as any).click();
         settingPin = false;
         verifying = false;
       } else {
@@ -85,7 +86,7 @@
       try {
         disablingPin = true;
         await tick();
-        $save.click();
+        ($save as any).click();
       } catch (e) {
         console.log(e);
         fail("Failed to disable pin");
@@ -109,7 +110,7 @@
 
   let startDisabling2fa = () => (disabling2fa = true);
   let startConfirming2fa = () => (confirming2fa = true);
-  let cancel = () => {
+  let cancel: any = () => {
     pin = null;
     token = null;
     verifying = false;
@@ -119,9 +120,9 @@
     disabling2fa = false;
   };
 
-  let enable2fa = async (twoFa) => {
+  let enable2fa = async (twoFa?: any) => {
     try {
-      if (setting2fa && token.length === 6) {
+      if (setting2fa && token && token.length === 6) {
         await post("/enable2fa", { token });
         success("2FA enabled");
         user.twofa = 1;
@@ -133,9 +134,9 @@
     }
   };
 
-  let disable2fa = async () => {
+  let disable2fa = async (_?: any) => {
     try {
-      if (disabling2fa && token.length === 6) {
+      if (disabling2fa && token && token.length === 6) {
         await post("/disable2fa", { token });
         success("2FA disabled");
         delete user.twofa;
@@ -148,9 +149,9 @@
   };
   let verifying = $derived(pin?.length > 5);
 
-  $effect(() => verify && checkPin(pin));
-  $effect(() => setting2fa && enable2fa(token));
-  $effect(() => disabling2fa && disable2fa(token));
+  $effect(() => { if (verify) checkPin(pin as any); });
+  $effect(() => { if (setting2fa) enable2fa(token as any); });
+  $effect(() => { if (disabling2fa) disable2fa(token as any); });
 </script>
 
 <input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
@@ -195,7 +196,7 @@
 
   {#if setting2fa}
     <a href={otp.uri}>
-      <Qr text={otp.uri} />
+      <Qr text={otp.uri} icon="" />
     </a>
 
     <div class="text-center my-4">
@@ -226,7 +227,6 @@
       bind:value={token}
       title="Enter 2FA Code"
       {cancel}
-      persist={false}
       notify={false}
     />
   {/if}

@@ -12,13 +12,14 @@
   let { data } = $props();
   let { apps, challenge, user } = $derived(data);
   let npub = $state(untrack(() => user.npub));
-  let extensionAvailable = $derived(browser && window.nostr);
+  let extensionAvailable = $derived(browser && (window as any).nostr);
   let { locale } = $derived(user);
 
   import { SimplePool } from 'nostr-tools/pool';
 
   let newNsec = $state(),
-    nsec = $state(),
+    nsec: any = $state(),
+    nwc: string = $state(""),
     pin = $state(""),
     revealNsec = $state(),
     revealNwc = $state();
@@ -36,17 +37,17 @@
   let getPubkey = async () => {
     $signer = { method: "extension", ready: true };
     extension = true;
-    npub = await window.nostr.getPublicKey();
+    npub = await window.nostr!.getPublicKey();
     await tick();
-    $save.click();
+    ($save as any).click();
   };
 
   import { PUBLIC_DM_RELAYS } from '$env/static/public';
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
   const pool = new SimplePool();
   getPreferredRelays(user.pubkey).then(relays => {
-    const relayEntry = document.getElementById('dmRelays');
-    relayEntry.value = relays.join("\n");
+    const relayEntry = document.getElementById('dmRelays') as HTMLTextAreaElement | null;
+    if (relayEntry) relayEntry.value = relays.join("\n");
   });
 </script>
 
@@ -77,8 +78,8 @@
                     class="text-yellow-300"
                   ></iconify-icon>
                   {#if $fiat && $rate}
-                    {f((app.spent * $rate) / sats, user.currency, locale)} /
-                    {f((app.max_amount * $rate) / sats, user.currency, locale)}
+                    {f((app.spent * ($rate as number)) / sats, user.currency, locale)} /
+                    {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}
                   {:else}
                     {s(app.spent, locale)} /
                     {s(app.max_amount, locale)}
@@ -116,7 +117,6 @@
             href={`/qr/${encodeURIComponent(app.nwc)}`}
             class:btn-disabled={!app.secret}
             title={$t("user.receive.showQR")}
-            disabled={!app.secret}
           >
             <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
           </a>

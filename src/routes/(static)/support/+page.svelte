@@ -27,7 +27,7 @@
     }
   });
 
-  let submit = (e) => {
+  let submit = (e: any) => {
     e.preventDefault();
     if (isTor) {
       post("/post/email", {
@@ -58,7 +58,7 @@
     if (!browser) return;
     const nodeBadge = document.querySelector(".grecaptcha-badge");
     if (nodeBadge) {
-      document.body.removeChild(nodeBadge.parentNode);
+      document.body.removeChild(nodeBadge.parentNode!);
     }
 
     const scriptSelector =
@@ -119,7 +119,6 @@
         >
         <textarea
           rows={5}
-          type="text"
           name="message"
           bind:value={message}
           required

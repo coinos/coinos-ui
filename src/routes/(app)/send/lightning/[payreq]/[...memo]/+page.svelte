@@ -11,15 +11,15 @@
   import { fiat, rate, pin } from "$lib/store";
   import { sendArkViaForward } from "$lib/ark";
 
-  let { data, form } = $props();
+  let { data, form }: any = $props();
 
   let { alias, memo, payreq, ourfee, user } = $derived({ ...data, ...form });
   let a = $state();
   let { currency, locked } = $derived(user);
   let locale = $derived(loc(user));
 
-  $effect(() => ($rate ||= data.rate));
-  $effect(() => form && (loading = false));
+  $effect(() => { $rate ||= data.rate; });
+  $effect(() => { if (form) loading = false; });
 
   let showMax = $state();
   let error = $state("");
@@ -27,12 +27,13 @@
   let loading = $state();
 
   let next = $state();
+  let show = $state(false);
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.amount);
   let maxfee = $state(
     Math.max(5, Math.round(untrack(() => amount) * 0.02 || 0)),
   );
-  $effect(() => (maxfee = Math.max(5, Math.round(amount * 0.02) || 0)));
+  $effect(() => { maxfee = Math.max(5, Math.round(amount * 0.02) || 0); });
 
   let handler = ({ cancel }) => {
     loading = true;
@@ -51,7 +52,7 @@
             user,
           });
           goto(`/sent/${p.id}`, { invalidateAll: true });
-        } catch (e) {
+        } catch (e: any) {
           loading = false;
           error = e.message || "Failed to send";
         }
@@ -71,7 +72,7 @@
           });
 
           goto(`/send/bitcoin/${inv.hash}/${amount}`);
-        } catch (e) {
+        } catch (e: any) {
           loading = false;
           error = e.message || "Failed to send";
         }
@@ -115,7 +116,7 @@
           <div class="my-auto">
             {#if $fiat}
               <h2 class="text-xl">
-                {f(toFiat(ourfee, $rate), currency)}
+                {f(toFiat(ourfee as number, $rate as number), currency)}
               </h2>
             {:else}
               <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
@@ -191,6 +192,7 @@
         {locale}
         bind:rate={$rate}
         submit={next}
+        element={undefined}
       />
       <button type="submit" class="btn" bind:this={next}
         >{$t("payments.next")}</button

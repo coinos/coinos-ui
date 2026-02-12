@@ -17,7 +17,7 @@
 </script>
 
 {#if show && user.haspin && $pin?.length !== 6}
-  <Pin cancel={() => (show = false)} />
+  <Pin cancel={() => { show = false; return ""; }} />
 {/if}
 
 <div>

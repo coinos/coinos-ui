@@ -22,11 +22,11 @@
 
   import Amount from "$comp/Amount.svelte";
 
-  let { data, form } = $props();
+  let { data, form }: any = $props();
 
   let { encode, decode } = hexUtil;
   let passwordPrompt = $state();
-  let password = $state();
+  let password: any = $state();
   let cancel = $state(() => (passwordPrompt = false));
   let signed = $state();
   let loading = $state(false);
@@ -39,7 +39,7 @@
       password = cached;
       await signTx();
       return true;
-    } catch (e) {
+    } catch (e: any) {
       forgetWalletPassword();
       return false;
     }
@@ -69,7 +69,7 @@
             user: data.user,
           });
           goto(`/sent/${p.id}`, { invalidateAll: true });
-        } catch (e) {
+        } catch (e: any) {
           loading = false;
           error = e.message || "Failed to send";
         }
@@ -102,15 +102,15 @@
       import("@scure/bip39"),
       import("@scure/bip39/wordlists/english.js"),
     ]);
-    let entropy = await decrypt(account.seed || data.user.seed, password);
+    let entropy = await decrypt(account.seed || data.user.seed, password as string);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
-    let seed = await mnemonicToSeed(mnemonic, password);
-    let master = HDKey.fromMasterSeed(seed, network);
+    let seed = await mnemonicToSeed(mnemonic, password as string);
+    let master = HDKey.fromMasterSeed(seed, network as any);
     let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
 
     let raw = decode(hex);
     let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
-    let tx = isPSBT ? Transaction.fromPSBT(raw) : Transaction.fromRaw(raw);
+    let tx: any = isPSBT ? Transaction.fromPSBT(raw) : Transaction.fromRaw(raw);
 
     for (let [i, input] of tx.inputs.entries()) {
       let { witnessUtxo, path } = inputs[i];
@@ -120,14 +120,14 @@
         tx.updateInput(i, { witnessUtxo });
       }
       let key = child.derive(path);
-      tx.signIdx(key.privateKey, i);
+      tx.signIdx(key.privateKey!, i);
     }
 
     tx.finalize();
     hex = tx.hex;
     signed = true;
     await tick();
-    submit.click();
+    (submit as any).click();
   };
 
   let toggle = () => (submitting = !submitting);
@@ -145,7 +145,7 @@
     inputs,
   } = $derived(data);
 
-  let { feeRate } = $state(data);
+  let { feeRate }: any = $state(data);
 
   $effect(() => {
     if (fees) {
@@ -162,8 +162,8 @@
 
   let { balance, currency } = data.user;
   let submitting = $state(),
-    submit = $state(),
-    showSettings;
+    submit: any = $state(),
+    showSettings = $state();
 
   let feeNames = {
     fastestFee: $t("payments.fastest"),
@@ -247,7 +247,7 @@
 </div>
 
 {#if passwordPrompt}
-  <WalletPass bind:password bind:cancel submit={signTx} />
+  <WalletPass bind:password {cancel} submit={signTx} />
 {/if}
 
 <style>

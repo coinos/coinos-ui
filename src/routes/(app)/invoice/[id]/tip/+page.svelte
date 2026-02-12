@@ -10,10 +10,10 @@
   const tipAmounts = ["No", "10%", "15%", "20%"];
   let showCustomAmount = $state();
 
-  let customInput = $state();
-  let customTipAmount = $state();
+  let customInput: HTMLInputElement = $state() as any;
+  let customTipAmount: number = $state(0);
 
-  let apply = async (e) => {
+  let apply = async (e: Event) => {
     e.preventDefault();
 
     if (customTipAmount > 0) {
@@ -25,24 +25,24 @@
   let active = (amount) =>
     !customTipAmount && Math.round(tipPercent) === parseInt(amount.slice(0, 2));
 
-  const handleCustomTipAmount = (e) => {
-    customTipAmount = e.target.value;
+  const handleCustomTipAmount = (e: Event) => {
+    customTipAmount = Number((e.target as HTMLInputElement).value);
     tipPercent = (customTipAmount / amountFiat) * 100;
     tip = Math.round((amount / 100) * tipPercent);
   };
 
   let timeout;
-  const handleSlide = (e) => {
-    customTipAmount = "";
+  const handleSlide = (e: Event) => {
+    customTipAmount = 0;
     if (customInput) {
       customInput.value = "";
     }
-    tipPercent = e.target.value;
+    tipPercent = Number((e.target as HTMLInputElement).value);
     tip = Math.round((amount / 100) * tipPercent);
   };
 
   let submitting = $state();
-  const handleTipButtonClick = async (v) => {
+  const handleTipButtonClick = async (v: string) => {
     submitting = true;
     if (v === "No") {
       tipPercent = 0;
@@ -56,9 +56,9 @@
     submit.click();
   };
 
-  let submit = $state();
+  let submit: HTMLButtonElement = $state() as any;
 
-  let { data } = $props();
+  let { data }: any = $props();
   let { invoice, id, user } = $state(data);
   let {
     aid,
@@ -87,7 +87,7 @@
   });
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
-  let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
+  let tipAmount = $derived(parseFloat(((tip * rate) / sats).toFixed(2)));
   let invoiceAmountFiatFormatted = $derived(f(amountFiat, currency));
 </script>
 
@@ -147,14 +147,14 @@
                 use:focus
                 type="button"
                 class="btn"
-                class:active={active(amount, tipPercent)}
+                class:active={active(amount)}
                 onclick={() => handleTipButtonClick(amount)}>{amount}</button
               >
             {:else}
               <button
                 type="button"
                 class="btn"
-                class:active={active(amount, tipPercent)}
+                class:active={active(amount)}
                 onclick={() => handleTipButtonClick(amount)}>{amount}</button
               >
             {/if}

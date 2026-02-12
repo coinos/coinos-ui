@@ -14,8 +14,9 @@
     setAmount,
     newAmount = $bindable(0),
     toggleAmount,
+    element = undefined,
     t,
-  } = $props();
+  }: any = $props();
 </script>
 
 {#if settingAmount}

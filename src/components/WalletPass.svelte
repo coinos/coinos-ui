@@ -9,7 +9,7 @@
     rememberWalletPassword,
     forgetWalletPassword,
   } from "$lib/passwordCache";
-  let { cancel, password = $bindable(), submit } = $props();
+  let { cancel = $bindable(), password = $bindable(), submit } = $props();
   let revealPassword = $state();
   let rememberForMs = $state(defaultRememberForMs);
 
@@ -75,7 +75,7 @@
           id="rememberFor"
           class="w-full"
           value={rememberForMs}
-          onchange={(e) => (rememberForMs = Number(e.target.value))}
+          onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
         >
           {#each rememberForOptions as option}
             <option value={option.ms}>{option.label}</option>

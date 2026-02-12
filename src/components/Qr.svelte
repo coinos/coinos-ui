@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
-  let { icon, text } = $props();
+  let { icon = "", text }: any = $props();
   let qr = $state();
   let screenfull;
 

@@ -40,7 +40,7 @@
       mnemonic = entropyToMnemonic(entropy, wordlist);
       password = cached;
       return true;
-    } catch (e) {
+    } catch (e: any) {
       forgetWalletPassword();
       return false;
     }
@@ -57,7 +57,7 @@
       const { decrypt } = await import("nostr-tools/nip49");
       let entropy = await decrypt(seed, password);
       mnemonic = entropyToMnemonic(entropy, wordlist);
-    } catch (e) {
+    } catch (e: any) {
       fail("Invalid password, try again");
       passwordPrompt = true;
     }
@@ -67,7 +67,7 @@
     try {
       await post("/api/account/delete", { id });
       goto(`/${user.username}`);
-    } catch (e) {
+    } catch (e: any) {
       fail(e.message);
     }
   };
