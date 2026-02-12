@@ -80,10 +80,10 @@ export default async (s, host, cookies) => {
   if (invoice) redirect(307, `/invoice/${invoice.id}`);
 
   if (t.match(/^🥜([\uFE00-\uFE0F]|[\uE0100-\uE01EF]+)$/)) {
-    t = Array.from(t)
+    t = (Array.from(t) as string[])
       .slice(1)
-      .map((char) => {
-        const codePoint = char.codePointAt(0);
+      .map((char: string) => {
+        const codePoint = char.codePointAt(0)!;
 
         // Handle Variation Selectors (VS1-VS16): U+FE00 to U+FE0F
         if (codePoint >= 0xfe00 && codePoint <= 0xfe0f) {

@@ -7,8 +7,8 @@ export const load = async ({ parent, url }) => {
 
   if (!user) redirect(307, `/login?redirect=${encodeURIComponent(url.pathname + url.search)}`);
 
-  let max_amount = url.searchParams.get("max_amount");
-  max_amount = max_amount ? Math.round(Number(max_amount) / 1000) : undefined;
+  const max_amount_param = url.searchParams.get("max_amount");
+  const max_amount = max_amount_param ? String(Math.round(Number(max_amount_param) / 1000)) : null;
 
   const app = {
     name: url.searchParams.get("name"),

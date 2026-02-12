@@ -55,15 +55,16 @@
     };
   };
 
-  let { account, amount, address, message } = $derived(data);
+  let { account, amount, address, message } = $derived(data as any);
 
-  let { feeRate } = $state(data);
+  let feeRate = $state((data as any).feeRate);
 
   $effect(() => {
     if (!$rate) $rate = data.rate;
   });
 
-  let { balance, currency } = data.user;
+  let balance = $derived(data.user.balance);
+  let currency = $derived(data.user.currency);
   let submitting = $state(false),
     submit = $state();
 </script>

@@ -8,8 +8,13 @@
   import { pin } from "$lib/store";
 
   let { data, form, send = $bindable(), comment = $bindable() } = $props();
-  let { currency } = data.user;
-  let { minSendable, maxSendable, commentAllowed, callback, metadata, rate } = data;
+  let currency = $derived(data.user.currency);
+  let minSendable = $derived(data.minSendable);
+  let maxSendable = $derived(data.maxSendable);
+  let commentAllowed = $derived(data.commentAllowed);
+  let callback = $derived(data.callback);
+  let metadata = $derived(data.metadata);
+  let rate = $derived(data.rate);
 
   let amount = $state(Math.round(minSendable / 1000)),
     loading = $state();

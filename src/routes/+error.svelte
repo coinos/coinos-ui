@@ -8,7 +8,7 @@
 
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
   <div class="w-full flex">
-    <a href="/" class="mx-auto">
+    <a href="/" class="mx-auto" aria-label="Go to homepage">
       <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
     </a>
   </div>
@@ -19,7 +19,7 @@
         <h1 class="text-2xl md:text-3xl font-semibold text-center">Error</h1>
       </div>
       <p class="text-secondary text-center">Something went wrong</p>
-      <p class="text-secondary text-center">{$page.error.message}</p>
+      <p class="text-secondary text-center">{$page.error?.message}</p>
 
       <div class="flex justify-center py-24">
         <a href={link}>

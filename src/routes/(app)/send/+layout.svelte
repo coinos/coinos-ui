@@ -6,7 +6,7 @@
   let { data, children } = $props();
 
   let user = $derived(data.user);
-  let cancel = () => goto(`/${user.username}`);
+  let cancel: any = () => goto(`/${user.username}`);
 </script>
 
 {#if user?.haspin && (!$pin || $pin?.length !== 6)}

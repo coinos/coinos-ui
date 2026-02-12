@@ -8,7 +8,7 @@ import { secp256k1 } from "@noble/curves/secp256k1.js";
 import { extract as hkdf_extract, expand as hkdf_expand } from "@noble/hashes/hkdf.js";
 import { hmac } from "@noble/hashes/hmac.js";
 import { sha256 } from "@noble/hashes/sha2.js";
-import { concatBytes, randomBytes, utf8ToBytes } from "@noble/hashes/utils.js";
+import { concatBytes, hexToBytes, randomBytes, utf8ToBytes } from "@noble/hashes/utils.js";
 import { base64 } from "@scure/base";
 
 declare const TextDecoder: any;
@@ -24,8 +24,8 @@ export const u = {
   },
 
   getConversationKey(privkeyA: string, pubkeyB: string): Uint8Array {
-    const sharedX = secp256k1.getSharedSecret(privkeyA, "02" + pubkeyB).subarray(1, 33);
-    return hkdf_extract(sha256, sharedX, "nip44-v2");
+    const sharedX = secp256k1.getSharedSecret(hexToBytes(privkeyA), hexToBytes("02" + pubkeyB)).subarray(1, 33);
+    return hkdf_extract(sha256, sharedX, utf8ToBytes("nip44-v2"));
   },
 
   getMessageKeys(conversationKey: Uint8Array, nonce: Uint8Array) {

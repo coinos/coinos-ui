@@ -63,7 +63,7 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
     k = localStorage.getItem("nsec");
     if (k) {
       const { nip19 } = await loadNostrTools();
-      return nip19.decode(k).data as Uint8Array;
+      return nip19.decode(k).data as unknown as Uint8Array;
     }
   }
 
@@ -118,8 +118,8 @@ export const sign = async (event: any, user?: any) => {
   }
 
   eventToSign.set(event);
-  let unsubscribe;
-  const { method, params } = await new Promise((r, j) => {
+  let unsubscribe: (() => void) | undefined;
+  const { method, params } = await new Promise<{ method: string; params: any }>((r, j) => {
     unsubscribe = $signer.subscribe((v) => {
       if (v === "cancel") {
         j("cancelled");
@@ -128,7 +128,7 @@ export const sign = async (event: any, user?: any) => {
       v?.ready && r(v);
     });
   });
-  await unsubscribe();
+  await unsubscribe?.();
   const signedEvent = await signingMethods[method](event, params);
   eventToSign.set(signedEvent);
   setTimeout(() => eventToSign.set(null), 1000);
@@ -163,10 +163,9 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
       {
         created_at: Math.round(Date.now() / 1000),
         kind: 24133,
-        pubkey,
         content,
         tags: [["p", pk]],
-      },
+      } as EventTemplate,
       sk,
     );
 

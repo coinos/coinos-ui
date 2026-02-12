@@ -1,7 +1,8 @@
 <script lang="ts">
   import Image from "./Image.svelte";
 
-  let { image, title, description = undefined, order = undefined, children } = $props();
+  import type { Snippet } from "svelte";
+  let { image, title, description = undefined, order = undefined, children = undefined }: { image: string; title: string; description?: string; order?: string; children?: Snippet } = $props();
 </script>
 
 <div class="block lg:flex justify-center lg:space-x-20 items-center">

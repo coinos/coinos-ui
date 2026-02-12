@@ -26,7 +26,7 @@
     await tick();
     numpad.focus();
   };
-  let numpad = $state();
+  let numpad: HTMLDivElement = $state() as HTMLDivElement;
 </script>
 
 <div>

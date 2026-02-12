@@ -28,8 +28,8 @@ export const actions = {
       await login(
         user,
         cookies,
-        request.headers.get("cf-connecting-ip"),
-        request.headers.get("host"),
+        request.headers.get("cf-connecting-ip") ?? "",
+        request.headers.get("host") ?? "",
       );
     } catch (e) {
       const { message } = e as Error;
@@ -53,8 +53,8 @@ export const actions = {
       headers: {
         "content-type": "application/json",
         accept: "application/json",
-        "cf-connecting-ip": request.headers.get("cf-connecting-ip"),
-        "x-forwarded-host": request.headers.get("host"),
+        "cf-connecting-ip": request.headers.get("cf-connecting-ip") ?? "",
+        "x-forwarded-host": request.headers.get("host") ?? "",
       },
     });
 

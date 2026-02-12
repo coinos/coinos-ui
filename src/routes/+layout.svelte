@@ -9,11 +9,15 @@
 
   const map = { light: "lofi", dark: "black", system: "system" };
 
-  let { data, children } = $props();
+  let { data, children } = $props<any>();
   let pathname = $derived(data.pathname);
   let theme = $derived(data.theme);
-  $effect(() => ($themeStore = theme));
-  $effect(() => (theme = $themeStore));
+  $effect(() => {
+    $themeStore = theme;
+  });
+  $effect(() => {
+    theme = $themeStore;
+  });
   $effect(() => {
     const v = map[theme] ?? theme;
     if (!v || v === "system") {
@@ -47,8 +51,7 @@
       if (document.visibilityState === "visible") clearBadge();
     });
 
-    let hasNotch = typeof window.AndroidNotch !== "undefined";
-    if (hasNotch) {
+    if (window.AndroidNotch) {
       window.AndroidNotch.getInsetTop(
         (px) => {
           document.documentElement.style.setProperty("--safe-area-inset-top", Math.round(px) + "px");

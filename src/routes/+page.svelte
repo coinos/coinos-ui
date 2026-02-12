@@ -11,7 +11,7 @@
   import { t } from "$lib/translations";
 
   let { data } = $props();
-  let { faqs, locations, user } = $derived(data);
+  let { faqs, locations, user } = $derived(data as any);
 
   let howItWorks = $state();
   let faq = $state();

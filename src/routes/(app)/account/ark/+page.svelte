@@ -20,7 +20,7 @@
   } from "$lib/passwordCache";
 
   let { data } = $props();
-  let { user } = data;
+  let user = $derived(data.user);
 
   let hasMasterSeed = $derived(!!user.seed);
 

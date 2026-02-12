@@ -11,7 +11,7 @@ export const load = async ({ cookies, parent }) => {
   if (aid === user.id) redirect(307, `/${user.username}/receive`);
 
   let invoice: Invoice = {
-    aid,
+    aid: aid || "",
     rate: rates[user?.currency || subject?.currency],
   };
 

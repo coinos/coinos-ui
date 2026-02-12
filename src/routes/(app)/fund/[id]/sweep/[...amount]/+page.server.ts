@@ -19,7 +19,7 @@ export async function load({ cookies, request, params, parent }) {
     const balance = await get(`/fund/${id}`);
     amount = balance.authorization || balance.amount;
   } else if (currency) {
-    amount = Math.round((amount * sats) / rate);
+    amount = String(Math.round((Number(amount) * sats) / rate));
   }
 
   const username = randomName() + Math.floor(Math.random() * 99) + 1;
@@ -36,8 +36,7 @@ export async function load({ cookies, request, params, parent }) {
     };
 
     let redirectUrl = `/fund/${id}/sweep`;
-    if (params.amount && !params.currency) redirectUrl += `/${params.amount}`;
-    if (params.currency) redirectUrl += `/${params.amount}/params.currency}`;
+    if (params.amount) redirectUrl += `/${params.amount}`;
 
     const extraHeaders: Record<string, string> = {};
     if (env.INTERNAL_API_KEY) extraHeaders["x-api-key"] = env.INTERNAL_API_KEY;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import LandingHeader from "$comp/LandingHeader.svelte";
   let { data, children } = $props();
-  let { user } = data;
+  let user = $derived(data.user);
 </script>
 
 <LandingHeader {user} />

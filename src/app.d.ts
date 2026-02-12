@@ -23,4 +23,10 @@ interface Window {
     };
   };
   maplibregl?: any;
+  AndroidNotch?: {
+    getInsetTop(success: (px: number) => void, error: (err: any) => void): void;
+    getInsetBottom(success: (px: number) => void, error: (err: any) => void): void;
+    getInsetRight(success: (px: number) => void, error: (err: any) => void): void;
+    getInsetLeft(success: (px: number) => void, error: (err: any) => void): void;
+  };
 }

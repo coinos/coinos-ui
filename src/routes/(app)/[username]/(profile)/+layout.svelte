@@ -9,9 +9,10 @@
   let { data, children } = $props();
 
   let { encode, toWords } = bech32;
-  let satsPerCurrency = $derived((1 * sats) / rate);
 
-  let { events, rate, user, subject, src, text } = $derived(data);
+  let { rate, user, subject } = $derived(data);
+  let { events, src, text } = $derived(data as any);
+  let satsPerCurrency = $derived((1 * sats) / rate);
 
   let { currency, npub, username: n, display } = $derived(subject);
   let locale = $derived(loc(user));

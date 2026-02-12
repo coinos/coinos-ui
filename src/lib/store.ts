@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
 export const persistSession = (key, defaultValue = undefined) => {
   const s = writable(
@@ -72,7 +72,7 @@ export const banner = writable();
 export const event = writable();
 export const events = writable({});
 export const fiat = persistLocalValue("fiat", true);
-export const installPrompt = writable();
+export const installPrompt: Writable<any> = writable();
 export const invoice = writable();
 export const last = writable();
 export const loginRedirect = writable();

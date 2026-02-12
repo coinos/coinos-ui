@@ -9,7 +9,7 @@
   import { wordlist } from "@scure/bip39/wordlists/english.js";
 
   let { data } = $props();
-  let { user } = data;
+  let user = $derived(data.user);
 
   onMount(async () => {
     if (!browser) return;

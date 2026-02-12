@@ -11,8 +11,9 @@
   import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
 
   let { data } = $props();
-  let { account, user } = data;
-  let { id } = account;
+  let account = $derived(data.account);
+  let user = $derived(data.user);
+  let id = $derived(account.id);
   let seed = $derived(account.seed || (account.fingerprint && user.seed));
   let displayType = $derived(
     account.type === "ark"
@@ -21,9 +22,9 @@
         ? $t("accounts.bitcoin")
         : $t("accounts.custodial"),
   );
-  let name = $state(account.name || displayType);
-  let mnemonic = $state(),
-    password = $state();
+  let name = $state(data.account.name || displayType);
+  let mnemonic: string | undefined = $state(),
+    password: string | undefined = $state();
   let passwordPrompt = $state();
   let cancel = $state(() => (passwordPrompt = false));
   let toggle = () => (passwordPrompt = !passwordPrompt);
@@ -52,7 +53,7 @@
     passwordPrompt = false;
     try {
       const { decrypt } = await import("nostr-tools/nip49");
-      let entropy = await decrypt(seed, password);
+      let entropy = await decrypt(seed, password as string);
       mnemonic = entropyToMnemonic(entropy, wordlist);
     } catch (e: any) {
       fail("Invalid password, try again");
@@ -88,7 +89,7 @@
         {#if mnemonic}
           <Mnemonic {mnemonic} />
 
-          <button onclick={() => copy(mnemonic)} type="button" class="btn">
+          <button onclick={() => copy(mnemonic as string)} type="button" class="btn">
             <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div>
           </button>
@@ -115,5 +116,5 @@
 </div>
 
 {#if passwordPrompt}
-  <WalletPass bind:password bind:cancel bind:submit />
+  <WalletPass bind:password bind:cancel {submit} />
 {/if}

@@ -128,7 +128,7 @@
   let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs } =
     $derived(data);
 
-  let { feeRate }: any = $state(data);
+  let feeRate: any = $state(data.feeRate);
 
   $effect(() => {
     if (fees) {
@@ -141,7 +141,8 @@
     if (!$rate) $rate = data.rate;
   });
 
-  let { balance, currency } = data.user;
+  let balance = $derived(data.user.balance);
+  let currency = $derived(data.user.currency);
   let submitting = $state(),
     submit: any = $state(),
     showSettings = $state();

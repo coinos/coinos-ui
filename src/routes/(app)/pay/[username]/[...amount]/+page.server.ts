@@ -16,7 +16,7 @@ export async function load({ cookies, params, parent }) {
   if (currency && !rate) error(500, "Invalid currency symbol");
 
   if (amount) {
-    if (currency) amount = (amount * sats) / rate;
+    if (currency) amount = String((Number(amount) * sats) / rate);
 
     const { id } = await post(
       "/invoice",

@@ -13,5 +13,5 @@
     <div class="text-red-600 text-center">{form.error}</div>
   {/if}
 
-  <AppForm {...app} {rate} {user} />
+  <AppForm {...app} {rate} {user} max_fee={undefined} secret={undefined} notify={false} />
 </div>

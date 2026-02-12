@@ -2,7 +2,7 @@
   import { post } from "$lib/utils";
   let { data } = $props();
   let reset = (username) => post(`/reset`, { password });
-  let { users } = data;
+  let users = $derived(data.users);
   let password = $state();
 </script>
 

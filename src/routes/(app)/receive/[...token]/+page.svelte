@@ -19,16 +19,16 @@
   let el = $state(),
     text = $state(),
     pasted = $state(),
-    w = $state();
+    w: number | undefined = $state();
 
-  let keypress = (e) => e.key === "Enter" && (e.preventDefault() || el.click());
+  let keypress = (e: KeyboardEvent) => { if (e.key === "Enter") { e.preventDefault(); (el as HTMLElement).click(); } };
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
   };
 
   run(() => {
-    if (browser && pasted && text) el.click() && (pasted = false);
+    if (browser && pasted && text) { (el as HTMLElement).click(); pasted = false; }
   });
 </script>
 

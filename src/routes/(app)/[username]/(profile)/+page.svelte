@@ -5,7 +5,7 @@
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
   import { installPrompt, password } from "$lib/store";
-  import { afterNavigate } from "$app/navigation";
+  import { afterNavigate, preloadData } from "$app/navigation";
   import { page } from "$app/stores";
 
   let { data } = $props();
@@ -15,7 +15,7 @@
     preloadData("/send");
   });
 
-  let { accounts, subject, rate, user } = $derived(data);
+  let { accounts, subject, rate, user } = $derived(data as any);
   let { locked } = $derived(user);
 
   let install = async () => {
@@ -65,7 +65,7 @@
         <Account {user} {rate} {account} />
       {/each}
       <div class="flex justify-end">
-        <a href="/account/new" class="contents">
+        <a href="/account/new" class="contents" aria-label={$t("accounts.addAccount")}>
           <button
             class="btn btn-circle btn-accent !w-14 !h-14 !rounded-full"
             aria-label={$t("accounts.addAccount")}

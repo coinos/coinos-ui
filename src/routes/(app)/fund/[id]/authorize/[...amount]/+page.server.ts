@@ -20,7 +20,7 @@ export async function load({ cookies, params, parent }) {
     amount = balance.amount;
   } else if (currency) {
     fiat = amount;
-    amount = Math.round((fiat * sats) / rate);
+    amount = String(Math.round((Number(fiat) * sats) / rate));
   }
 
   if (!amount) redirect(307, `/fund/${id}`);

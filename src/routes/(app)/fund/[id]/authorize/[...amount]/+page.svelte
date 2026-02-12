@@ -7,7 +7,12 @@
 
   let { data } = $props();
 
-  let { amount, currency, id, user, rate, rates } = data;
+  let amount = $derived(data.amount);
+  let currency = $derived(data.currency);
+  let id = $derived(data.id);
+  let user = $derived(data.user);
+  let rate = $derived(data.rate);
+  let rates = $derived(data.rates);
   let locale = $derived(loc(user));
 </script>
 

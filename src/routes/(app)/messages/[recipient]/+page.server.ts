@@ -1,9 +1,9 @@
 import { get } from "$lib/utils";
 import type { Message } from "$lib/types";
 
-export async function load({ params, parent }) {
+export async function load({ params, parent, url }) {
   const { user } = await parent();
-  const { since = 0 } = params;
+  const since = url.searchParams.get("since") || 0;
 
   let messages: Message[] = [];
   const recipient = await get(`/users/${params.recipient}`);

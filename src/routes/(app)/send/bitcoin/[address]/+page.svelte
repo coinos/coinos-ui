@@ -4,28 +4,30 @@
   import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { fiat as fiatStore, rate } from "$lib/store";
-  import { loc, fail, s, f, sats } from "$lib/utils";
+  import { loc, fail, focus, s, f, sats } from "$lib/utils";
 
   let { data } = $props();
 
-  let { balance, user } = data;
+  let balance = $derived(data.balance);
+  let user = $derived(data.user);
   let { address } = $page.params;
-  let { currency, username } = user;
+  let currency = $derived(user.currency);
+  let username = $derived(user.username);
   let locale = $derived(loc(user));
 
   let amount = $state(0);
   let a = $state(0);
-  let submit = $state(),
+  let submit: HTMLButtonElement | undefined = $state(),
     fiat = $state();
-  $effect(() => ($rate = data.rate));
-  $effect(() => (amount = a));
+  $effect(() => void ($rate = data.rate));
+  $effect(() => void (amount = a));
 
   let setMax = async (e) => {
     e.preventDefault();
     fiat = false;
     amount = balance;
     await tick();
-    submit.click();
+    submit?.click();
   };
 </script>
 
@@ -39,7 +41,7 @@
   <div class="flex justify-center gap-2">
     <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}>
       {#if $fiatStore}
-        Max {f((balance * $rate) / sats, currency, locale)}
+        Max {f((balance * ($rate as number)) / sats, currency, locale)}
       {:else}
         Max ⚡️{s(balance)}
       {/if}

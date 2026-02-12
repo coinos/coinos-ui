@@ -59,28 +59,28 @@
   let submit: HTMLButtonElement = $state() as any;
 
   let { data }: any = $props();
-  let { invoice, id, user } = $state(data);
-  let {
-    aid,
-    amount,
-    hash,
-    items,
-    type,
-    received,
-    prompt,
-    text,
-    tip,
-    user: { username },
-  } = $state(invoice);
+  let invoice = $derived(data.invoice);
+  let id = $derived(data.id);
+  let user = $derived(data.user);
+  let aid = $derived(invoice.aid);
+  let amount = $derived(invoice.amount);
+  let hash = $derived(invoice.hash);
+  let items = $derived(invoice.items);
+  let type = $derived(invoice.type);
+  let received = $derived(invoice.received);
+  let prompt = $derived(invoice.prompt);
+  let text = $derived(invoice.text);
+  let tip = $state(data.invoice.tip);
+  let username = $derived(invoice.user?.username);
   let locale = $derived(loc(user));
 
   let qr;
-  let tipPercent = $state(amount > 0 && tip > 0 ? (tip / amount) * 100 : 0);
+  let tipPercent = $state(data.invoice.amount > 0 && data.invoice.tip > 0 ? (data.invoice.tip / data.invoice.amount) * 100 : 0);
 
   let fullscreen;
 
-  let currency = user?.currency || invoice.currency;
-  let rate = invoice.rate * (data.rate / data.invoiceRate);
+  let currency = $derived(user?.currency || invoice.currency);
+  let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
 
   $effect(() => {
     tip = Math.round((amount / 100) * tipPercent);

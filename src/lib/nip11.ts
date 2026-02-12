@@ -2,7 +2,7 @@ import { fetchRelayInformation } from "nostr-tools/nip11";
 
 // Accepts a list of relays, and returns a list of the relays that support all the provided NIPs.
 export const relaysSupporting = async (relays: string[], nips: number[]) => {
-  let supportingRelays = [];
+  let supportingRelays: string[] = [];
 
   for (const relay of relays) {
     const relayInfo = await fetchRelayInformation(relay);

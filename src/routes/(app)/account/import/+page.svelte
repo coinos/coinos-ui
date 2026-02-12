@@ -9,9 +9,9 @@
   import { validateMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
 
-  let el = $state(),
+  let el: HTMLButtonElement | undefined = $state(),
     pasted = $state(),
-    text = $state();
+    text: string = $state("");
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
@@ -30,7 +30,7 @@
   };
 
   run(() => {
-    if (browser && pasted && text) form.submit() && (pasted = false);
+    if (browser && pasted && text) el?.click() && (pasted = false);
   });
 </script>
 

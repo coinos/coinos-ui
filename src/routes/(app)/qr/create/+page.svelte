@@ -4,21 +4,22 @@
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
+  import { focus } from "$lib/utils";
   let el = $state(),
     text = $state(),
     pasted = $state();
 
-  let keypress = (e) => (e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false));
+  let keypress = (e: KeyboardEvent) => { if (e.key === "Enter") { e.preventDefault(); (el as HTMLElement).click(); } else { pasted = false; } };
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
     pasted = true;
   };
 
-  let submit = () => goto(`/qr/${encodeURIComponent(text)}`);
+  let submit = () => goto(`/qr/${encodeURIComponent(text as string)}`);
 
   run(() => {
-    if (browser && pasted && text) el.click() && (pasted = false);
+    if (browser && pasted && text) { (el as HTMLElement).click(); pasted = false; }
   });
 </script>
 

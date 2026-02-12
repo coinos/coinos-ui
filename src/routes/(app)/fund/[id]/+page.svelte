@@ -14,11 +14,15 @@
 
   let { data }: any = $props();
 
-  let { amount, payments, managers, rate, user } = data;
+  let amount = $derived(data.amount);
+  let payments = $derived(data.payments);
+  let managers = $derived(data.managers);
+  let rate = $derived(data.rate);
+  let user = $derived(data.user);
   let { id } = $page.params;
   let locale = $derived(loc(user));
 
-  let currency = user ? user.currency : "CAD";
+  let currency = $derived(user ? user.currency : "CAD");
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   $effect(() => {

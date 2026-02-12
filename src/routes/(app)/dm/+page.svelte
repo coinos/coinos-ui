@@ -15,7 +15,7 @@
   import { theme } from "$lib/store";
 
   let { data } = $props();
-  const { user } = data;
+  const user = $derived(data.user);
 
   if (!user) {
     window.location.replace("/login");
@@ -299,7 +299,7 @@
         class={"chat-btn push-right " +
         ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") +
         (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")}
-        on:click={() => {
+        onclick={() => {
           creatingNewChat = !creatingNewChat;
           selectedChat = null;
         }}
@@ -326,7 +326,7 @@
                 ? " light-selected"
                 : " dark-selected"
               : "")}
-            on:click={() => selectChat(c)}
+            onclick={() => selectChat(c)}
           >
             <span class={"text-xl" + (muted && muted.has(c.pubkey) ? " secondary" : "")}>
               {name(c)}
@@ -338,14 +338,14 @@
     {:else if searchQuery !== ""}
       <button
         class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")}
-        on:click={() => selectChatUsername(searchQuery)}
+        onclick={() => selectChatUsername(searchQuery)}
       >
         <span class="text-xl">{$t("dm.findByUsername")}</span>
       </button>
       {#if searchQuery.includes(".")}
         <button
           class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")}
-          on:click={() => selectChatNip05(searchQuery)}
+          onclick={() => selectChatNip05(searchQuery)}
         >
           <span class="text-xl">{$t("dm.findByNIP05")}</span>
         </button>
@@ -353,7 +353,7 @@
       {#if searchQuery.length === 64 || searchQuery.slice(0, 4) === "npub"}
         <button
           class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")}
-          on:click={() => selectChatPubkey(searchQuery)}
+          onclick={() => selectChatPubkey(searchQuery)}
         >
           <span class="text-xl">{$t("dm.findByPubkey")}</span>
         </button>
@@ -383,7 +383,7 @@
         <button
           class={"small-btn push-right " +
           ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")}
-          on:click={() => toggleMute(selectedChat.pubkey)}
+          onclick={() => toggleMute(selectedChat.pubkey)}
         >
           {$t(muted && muted.has(selectedChat.pubkey) ? "dm.unmute" : "dm.mute")}
         </button>
@@ -436,7 +436,7 @@
           value={canSend
           ? $t("dm.sendMessage")
           : $t("dm.relaysNotFound").replace("[R]", name(selectedChat))}
-          on:click={async () => sendMessage(text)}
+          onclick={async () => sendMessage(text)}
         />
       {/if}
 

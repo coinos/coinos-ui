@@ -111,8 +111,8 @@
 
     let filename = "payments.csv";
     let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    if (navigator.msSaveBlob) {
-      navigator.msSaveBlob(blob, filename);
+    if ((navigator as any).msSaveBlob) {
+      (navigator as any).msSaveBlob(blob, filename);
     } else {
       let link = document.createElement("a");
       if (link.download !== undefined) {
@@ -183,6 +183,14 @@
 
     <div class="grid grid-cols-3 w-full text-center text-lg">
       {#each Object.keys(incoming) as c}
+        {@const totalIn = incoming[c]?.fiat || 0}
+        {@const tipsIn = incoming[c]?.fiatTips || 0}
+        {@const subtotalIn = totalIn - tipsIn}
+
+        {@const totalOut = -outgoing[c]?.fiat || 0}
+        {@const tipsOut = outgoing[c]?.fiatTips || 0}
+        {@const subtotalOut = totalOut - tipsOut}
+
         <span class="text-base text-secondary text-left"></span>
         <!-- <span class="text-base text-secondary" -->
         <!--   >{$t("payments.subtotal")}</span -->
@@ -191,14 +199,6 @@
           {#if tipsIn > 0 || tipsOut > 0}{$t("payments.tips")}{/if}
         </span>
         <span class="text-base text-secondary text-right">{$t("payments.total")}</span>
-
-        {@const totalIn = incoming[c]?.fiat || 0}
-        {@const tipsIn = incoming[c]?.fiatTips || 0}
-        {@const subtotalIn = totalIn - tipsIn}
-
-        {@const totalOut = -outgoing[c]?.fiat || 0}
-        {@const tipsOut = outgoing[c]?.fiatTips || 0}
-        {@const subtotalOut = totalOut - tipsOut}
 
         {#if totalIn > 0}
           <span class="text-left text-base text-secondary">{$t("payments.income")}</span>

@@ -11,7 +11,7 @@
   let amount = 21;
   let { event, minimal = false, last = true, user = undefined }: any = $props();
   let { author, parts, zaps, names, created_at, pubkey } = $derived(event);
-  let { id } = event;
+  let id = $derived(event.id);
 
   let zapping = $state();
   let zap = async () => {

@@ -10,7 +10,7 @@
     screenfull = (await import("screenfull")).default;
   });
 
-  let src = $derived(() => {
+  let src = $derived.by(() => {
     let url = `/qr/${encodeURIComponent(text)}`;
     if (icon) url += `/${icon}`;
     else url += "/raw";

@@ -144,7 +144,7 @@
       {:else if seed || (user.seed && fingerprint)}
         <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
       {:else}
-        <img src="/images/icon.png" class="w-8 h-8" />
+        <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
       {/if}
       {displayName}
     </a>
