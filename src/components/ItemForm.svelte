@@ -17,10 +17,7 @@
   let src: string | undefined = $state();
 
   let tooLarge: Record<string, boolean> = {};
-  let handleFile = async (
-    { target }: { target: EventTarget | null },
-    type: string,
-  ) => {
+  let handleFile = async ({ target }: { target: EventTarget | null }, type: string) => {
     tooLarge[type] = false;
     file = (target as HTMLInputElement).files![0];
     if (!file) return;
@@ -42,9 +39,7 @@
 
       if (src) {
         try {
-          let { hash } = JSON.parse(
-            (await upload(file, "item", progress)) as string,
-          );
+          let { hash } = JSON.parse((await upload(file, "item", progress)) as string);
 
           data.set("image", hash);
 
@@ -91,11 +86,7 @@
   <div>
     <label for="price" class="font-bold mb-1 block">{$t("items.price")}</label>
     <div class="flex">
-      <input
-        name="price"
-        bind:value={item.price}
-        class="border-r-none rounded-r-none"
-      />
+      <input name="price" bind:value={item.price} class="border-r-none rounded-r-none" />
       <div
         class="text-gray-600 rounded-r-2xl p-4 my-auto rounded-l-none rounded border bg-gray-100"
       >

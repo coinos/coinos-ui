@@ -15,13 +15,7 @@ export async function GET({ params }) {
 
   const logo = await loadImage(`static/images/${icon}`);
   const logoSize = size * 0.3;
-  ctx.drawImage(
-    logo,
-    (size - logoSize) / 2,
-    (size - logoSize) / 2,
-    logoSize,
-    logoSize,
-  );
+  ctx.drawImage(logo, (size - logoSize) / 2, (size - logoSize) / 2, logoSize, logoSize);
 
   const buffer = canvas.toBuffer("image/png");
   return new Response(buffer, {

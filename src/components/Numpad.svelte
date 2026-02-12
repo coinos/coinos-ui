@@ -29,8 +29,7 @@
   function getCurrencyInfo(locale: any = "en-US", currency: string) {
     const l = typeof locale === "function" ? locale() : locale || "en-US";
     const region = l.length >= 2 ? l.slice(-2) : "";
-    const currencyDisplay =
-      region && currency.startsWith(region) ? "narrowSymbol" : "symbol";
+    const currencyDisplay = region && currency.startsWith(region) ? "narrowSymbol" : "symbol";
     const formatter = new Intl.NumberFormat(l, {
       style: "currency",
       currency,
@@ -75,11 +74,8 @@
 
   const updateByMode = () => {
     if (fiat) {
-      const numericFiat =
-        parseFloat((fiatDigits || "0").replace(/\D/g, "")) / 100;
-      amountFiat = isFinite(numericFiat)
-        ? numericFiat.toFixed(2)
-        : ("0.00" as any);
+      const numericFiat = parseFloat((fiatDigits || "0").replace(/\D/g, "")) / 100;
+      amountFiat = isFinite(numericFiat) ? numericFiat.toFixed(2) : ("0.00" as any);
       amount = numericFiat ? Math.round((numericFiat * sats) / rate) : 0;
     } else {
       // integer-only sats, already normalized
@@ -201,8 +197,7 @@
     if (!html) html = fiat ? formatFiatFromDigits("0", decimalChar) : "0";
   };
 
-  const keydown = (e) =>
-    e.key === "Enter" && (e.preventDefault() || submit?.click?.());
+  const keydown = (e) => e.key === "Enter" && (e.preventDefault() || submit?.click?.());
 
   // CHANGED: make swap set html for the new mode immediately and keep DOM in sync
   const swap = () => {
@@ -213,9 +208,7 @@
       element && (element.innerHTML = html);
     } else {
       // going -> fiat
-      const cents = Math.round(
-        (parseFloat(String(amountFiat) || "0") || 0) * 100,
-      );
+      const cents = Math.round((parseFloat(String(amountFiat) || "0") || 0) * 100);
       fiatDigits = Math.max(0, cents).toString();
       fiat = true;
       html = formatFiatFromDigits(fiatDigits, decimalChar);
@@ -241,27 +234,12 @@
   };
 
   const arrow = "<";
-  const numPad = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "00",
-    "0",
-    arrow,
-  ];
+  const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "00", "0", arrow];
 
   onMount(() => {
     fiat = $fiatStore;
     if (fiat) {
-      const cents = Math.round(
-        (parseFloat(String(amountFiat) || "0") || 0) * 100,
-      );
+      const cents = Math.round((parseFloat(String(amountFiat) || "0") || 0) * 100);
       fiatDigits = Math.max(0, cents).toString();
       html = formatFiatFromDigits(fiatDigits, decimalChar); // keep html in sync on mount
     } else {
@@ -275,17 +253,12 @@
 <div class="flex justify-center items-center">
   <div class="space-y-5 w-full">
     <div class="text-center">
-      <div
-        class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center"
-      >
+      <div class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center">
         <div class="my-auto" class:text-5xl={!fiat}>
           {#if fiat}
             {#if position === "before"}{symbol}{/if}
           {:else}
-            <iconify-icon
-              noobserver
-              icon="ph:lightning-fill"
-              class="text-yellow-300"
+            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
             ></iconify-icon>
           {/if}
         </div>
@@ -330,11 +303,7 @@
         }}
       >
         {#if fiat}
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {s(amount, locale)}
         {:else}
           {f(amountFiat, currency, locale)}

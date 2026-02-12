@@ -28,9 +28,7 @@
       duration,
       css: (t) => {
         const eased = easing(t);
-        return `opacity: ${eased * o}; transform: scale(${
-          eased * s * is + baseScale
-        })`;
+        return `opacity: ${eased * o}; transform: scale(${eased * s * is + baseScale})`;
       },
     };
   }
@@ -41,9 +39,7 @@
 
   let initialize = async (p: any) => {
     await Promise.all(
-      messages.map(
-        async (event) => (event.message = await decrypt({ event, user })),
-      ),
+      messages.map(async (event) => (event.message = await decrypt({ event, user }))),
     );
 
     messages = messages;
@@ -117,14 +113,8 @@
 </script>
 
 <div class="container max-w-xl mx-auto px-4 space-y-5">
-  <button
-    type="button"
-    class="hover:opacity-80"
-    data-sveltekit-preload-data="false"
-    onclick={back}
-  >
-    <iconify-icon noobserver icon="ph:arrow-left-bold" width="40"
-    ></iconify-icon>
+  <button type="button" class="hover:opacity-80" data-sveltekit-preload-data="false" onclick={back}>
+    <iconify-icon noobserver icon="ph:arrow-left-bold" width="40"></iconify-icon>
   </button>
 
   <div
@@ -145,11 +135,7 @@
             baseScale: 0.5,
           }}
         >
-          <div
-            class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg"
-            class:ours
-            class:theirs
-          >
+          <div class="rounded-2xl px-4 py-2 max-w-[300px] mb-1 text-lg" class:ours class:theirs>
             {message}
           </div>
           <div class="mt-auto">
@@ -184,8 +170,7 @@
       tabindex="0"
     ></div>
     <button type="submit" class="my-auto shrink-0">
-      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
     </button>
   </form>
 </div>

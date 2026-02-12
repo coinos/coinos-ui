@@ -9,10 +9,8 @@
 
   let { data } = $props();
 
-  let { messages, notes, invoices, sent, received, subject, user }: any =
-    $state(data);
-  let refresh = (d: any) =>
-    ({ messages, notes, invoices, sent, received, subject, user } = d);
+  let { messages, notes, invoices, sent, received, subject, user }: any = $state(data);
+  let refresh = (d: any) => ({ messages, notes, invoices, sent, received, subject, user } = d);
 
   let keys = new Set();
   let latest: any[] = $state([]);
@@ -20,10 +18,7 @@
 
   e.subscribe(async (event: any) => {
     if (!(browser && event && ready)) return;
-    if (
-      event.recipient?.id === user.id &&
-      !~latest.findIndex((m: any) => m.id === event.id)
-    ) {
+    if (event.recipient?.id === user.id && !~latest.findIndex((m: any) => m.id === event.id)) {
       event.content = await decrypt({ event, user });
 
       let i = latest.findIndex((m: any) => m.pubkey === event.pubkey);
@@ -46,10 +41,7 @@
 
       if (!(event.author && event.recipient)) continue;
 
-      let k =
-        event.author.id === user.id
-          ? event.recipient?.pubkey
-          : event.author.pubkey;
+      let k = event.author.id === user.id ? event.recipient?.pubkey : event.author.pubkey;
 
       if (!keys.has(k)) {
         keys.add(k);

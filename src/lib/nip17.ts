@@ -1,11 +1,6 @@
 import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 
-import {
-  finalizeEvent,
-  getEventHash,
-  generateSecretKey,
-  getPublicKey,
-} from "nostr-tools/pure";
+import { finalizeEvent, getEventHash, generateSecretKey, getPublicKey } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { unwrapEvent } from "nostr-tools/nip17";
@@ -17,8 +12,7 @@ import { eventToSign, signer } from "$lib/store";
 import { get } from "svelte/store";
 
 const TWO_DAYS = 2 * 24 * 60 * 60;
-const randomTimestamp = () =>
-  Math.floor(Date.now() / 1000 - Math.random() * TWO_DAYS);
+const randomTimestamp = () => Math.floor(Date.now() / 1000 - Math.random() * TWO_DAYS);
 const pool = new SimplePool();
 let relayListCache = new Map();
 
@@ -43,11 +37,7 @@ const ensureSigner = async (userPubkey: string): Promise<Uint8Array | null> => {
 
   // Check if signer already has a valid sk (64 hex chars = 32 bytes)
   const currentSigner: any = get(signer);
-  if (
-    currentSigner?.ready &&
-    currentSigner?.params?.sk &&
-    currentSigner.params.sk.length === 64
-  ) {
+  if (currentSigner?.ready && currentSigner?.params?.sk && currentSigner.params.sk.length === 64) {
     return hexToBytes(currentSigner.params.sk);
   }
 
@@ -112,12 +102,7 @@ export const createNIP17MessageSK = (
   expiryDays: number | null = null,
 ) => {
   const rumour = createRumour(text, getPublicKey(senderSK), receiverPK);
-  const sealed = sealRumourSK(
-    rumour,
-    senderSK,
-    wrapPK || receiverPK,
-    expiryDays,
-  );
+  const sealed = sealRumourSK(rumour, senderSK, wrapPK || receiverPK, expiryDays);
   return giftWrap(sealed, wrapPK || receiverPK, expiryDays);
 };
 
@@ -136,11 +121,7 @@ export const createNIP17MessageNIP07 = async (
   expiryDays: number | null = null,
 ) => {
   const rumour = createRumour(text, senderPK, receiverPK);
-  const sealed = await sealRumourNip07(
-    rumour,
-    wrapPK || receiverPK,
-    expiryDays,
-  );
+  const sealed = await sealRumourNip07(rumour, wrapPK || receiverPK, expiryDays);
   return giftWrap(sealed, wrapPK || receiverPK, expiryDays);
 };
 
@@ -207,16 +188,9 @@ const sealRumourNip07 = async (
   return (window as any).nostr.signEvent(sealEvent);
 };
 
-const giftWrap = (
-  event: any,
-  receiverPK: string,
-  expiryDays: number | null = null,
-) => {
+const giftWrap = (event: any, receiverPK: string, expiryDays: number | null = null) => {
   const secretKey = generateSecretKey();
-  const conversationKey = u.getConversationKey(
-    bytesToHex(secretKey),
-    receiverPK,
-  );
+  const conversationKey = u.getConversationKey(bytesToHex(secretKey), receiverPK);
   const encryptedEvent = encrypt(JSON.stringify(event), conversationKey);
   const created = randomTimestamp();
 
@@ -236,15 +210,9 @@ const giftWrap = (
 };
 
 const decryptNIP17MessageNIP07 = async (wrapped: any): Promise<any> => {
-  const sealedText = await (window as any).nostr.nip44.decrypt(
-    wrapped.pubkey,
-    wrapped.content,
-  );
+  const sealedText = await (window as any).nostr.nip44.decrypt(wrapped.pubkey, wrapped.content);
   const sealed = JSON.parse(sealedText);
-  const rumourText = await (window as any).nostr.nip44.decrypt(
-    sealed.pubkey,
-    sealed.content,
-  );
+  const rumourText = await (window as any).nostr.nip44.decrypt(sealed.pubkey, sealed.content);
   return JSON.parse(rumourText);
 };
 
@@ -373,9 +341,7 @@ const publishToPreferred = async (
     throw new Error("No relays available to publish to");
   }
 
-  const promises = preferredRelays.map((url) =>
-    publishWithAuth(url, event, currentSk),
-  );
+  const promises = preferredRelays.map((url) => publishWithAuth(url, event, currentSk));
   try {
     return await (Promise as any).any(promises);
   } catch (e) {
@@ -387,12 +353,7 @@ const publishToPreferred = async (
 
 // Sends a NIP-17 message from `user` to `recipient`.
 // If expiryDays is set, messages will expire after that many days.
-export const send = async (
-  message: string,
-  user: any,
-  recipient: any,
-  expiryDays?: number,
-) => {
+export const send = async (message: string, user: any, recipient: any, expiryDays?: number) => {
   let event1, event2;
   const sk = await ensureSigner(user.pubkey);
 
@@ -416,20 +377,8 @@ export const send = async (
       expiryDays,
     );
   } else {
-    event1 = createNIP17MessageSK(
-      message,
-      sk,
-      recipient.pubkey,
-      recipient.pubkey,
-      expiryDays,
-    );
-    event2 = createNIP17MessageSK(
-      message,
-      sk,
-      recipient.pubkey,
-      user.pubkey,
-      expiryDays,
-    );
+    event1 = createNIP17MessageSK(message, sk, recipient.pubkey, recipient.pubkey, expiryDays);
+    event2 = createNIP17MessageSK(message, sk, recipient.pubkey, user.pubkey, expiryDays);
   }
 
   const p1 = publishToPreferred(event1, recipient.pubkey, expiryDays != null);

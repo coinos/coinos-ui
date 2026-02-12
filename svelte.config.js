@@ -18,8 +18,7 @@ const config = {
     },
   },
   onwarn: (warning, handler) => {
-    if (warning.code.includes("caption") || warning.filename.includes("Toast"))
-      return;
+    if (warning.code.includes("caption") || warning.filename.includes("Toast")) return;
     handler(warning);
   },
 };

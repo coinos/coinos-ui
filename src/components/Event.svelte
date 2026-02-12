@@ -43,11 +43,7 @@
       </div>
       {#if author.lud16}
         <div class="flex items-center">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {author.lud16}
         </div>
       {/if}
@@ -75,8 +71,7 @@
       {:else if type === "link"}
         <Media {value} {minimal} />
       {:else if type.match(/^nostr:np(rofile|ub)$/)}
-        <a href={`/${value.pubkey}`} class="font-bold">@{names[value.pubkey]}</a
-        >
+        <a href={`/${value.pubkey}`} class="font-bold">@{names[value.pubkey]}</a>
       {/if}
     {/each}
   </div>
@@ -99,11 +94,7 @@
   <div class="justify-center flex">
     <button type="button" onclick={zap} class="btn btn-accent items-center">
       <div class="flex gap-1 items-center">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-          width={32}
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300" width={32}
         ></iconify-icon>
         <div>Zap</div>
       </div>

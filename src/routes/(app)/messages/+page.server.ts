@@ -22,9 +22,7 @@ export async function load({ params, parent }) {
     const { pubkey } = user;
     try {
       messages = await get(`/${pubkey}/${since}/messages`);
-      messages = messages.sort(
-        (a: Message, b: Message) => b.created_at - a.created_at,
-      );
+      messages = messages.sort((a: Message, b: Message) => b.created_at - a.created_at);
     } catch (e) {
       console.log("failed to fetch nostr messages", e);
     }

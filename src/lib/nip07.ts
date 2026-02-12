@@ -15,16 +15,9 @@ export const signEvent = async (event: any, user: any): Promise<any> => {
 };
 
 // Encrypts an event in NIP-44 using NIP-07 if available, otherwise getPrivateKey()
-export const encrypt = async (
-  json: any,
-  user: any,
-  receiverPK: string,
-): Promise<string> => {
+export const encrypt = async (json: any, user: any, receiverPK: string): Promise<string> => {
   if ((await (window as any).nostr.getPublicKey()) === user.pubkey) {
-    return (window as any).nostr.nip44.encrypt(
-      receiverPK,
-      JSON.stringify(json),
-    );
+    return (window as any).nostr.nip44.encrypt(receiverPK, JSON.stringify(json));
   } else {
     const senderSK = await getPrivateKey(user);
     const senderSKString = bytesToHex(senderSK);
@@ -34,15 +27,9 @@ export const encrypt = async (
 };
 
 // Decrypts an event in NIP-44 using NIP-07 if available, otherwise getPrivateKey()
-export const decrypt = async (
-  encrypted: string,
-  user: any,
-  receiverPK: string,
-): Promise<any> => {
+export const decrypt = async (encrypted: string, user: any, receiverPK: string): Promise<any> => {
   if ((await (window as any).nostr.getPublicKey()) === user.pubkey) {
-    return JSON.parse(
-      await (window as any).nostr.nip44.decrypt(receiverPK, encrypted),
-    );
+    return JSON.parse(await (window as any).nostr.nip44.decrypt(receiverPK, encrypted));
   } else {
     const senderSK = await getPrivateKey(user);
     const senderSKString = bytesToHex(senderSK);

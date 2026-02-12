@@ -18,9 +18,7 @@
   ];
 </script>
 
-<footer
-  class="space-y-10 md:space-y-0 text-xl block md:flex justify-around pb-8 px-4"
->
+<footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around pb-8 px-4">
   <div class="space-y-5">
     <div class="text-center w-full">
       <a href="/" aria-label="Home">
@@ -36,9 +34,7 @@
         </a>
       </div>
     </div>
-    <div
-      class="w-full flex flex-wrap sm:flex-nowrap gap-2 justify-center items-center"
-    >
+    <div class="w-full flex flex-wrap sm:flex-nowrap gap-2 justify-center items-center">
       <DarkToggle />
       <LocaleSelector />
     </div>
@@ -49,11 +45,8 @@
     <ul class="mt-5 text-secondary space-y-3 font-medium">
       {#each followLinks as link}
         <li>
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noreferrer"
-            class="hover:opacity-80">{$t("footer." + link.titleID)}</a
+          <a href={link.url} target="_blank" rel="noreferrer" class="hover:opacity-80"
+            >{$t("footer." + link.titleID)}</a
           >
         </li>
       {/each}
@@ -65,18 +58,12 @@
     <ul class="mt-5 text-secondary space-y-3">
       {#each companyLinks as link}
         <li>
-          <a href={link.url} class="hover:opacity-80"
-            >{$t("footer." + link.titleID)}</a
-          >
+          <a href={link.url} class="hover:opacity-80">{$t("footer." + link.titleID)}</a>
         </li>
       {/each}
     </ul>
   </div>
 
-  <iconify-icon
-    noobserver
-    icon="coinos:shield"
-    class="flex justify-center"
-    width="96"
+  <iconify-icon noobserver icon="coinos:shield" class="flex justify-center" width="96"
   ></iconify-icon>
 </footer>

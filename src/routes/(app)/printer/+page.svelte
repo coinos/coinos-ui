@@ -69,9 +69,7 @@
 </script>
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    Printer
-  </h1>
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Printer</h1>
 
   {#if esploader}
     {#if data}
@@ -85,16 +83,8 @@
       <form method="POST" use:enhance class="space-y-2">
         <input name="ssid" bind:value={ssid} placeholder="wifi ssid" />
         <input name="key" bind:value={key} placeholder="wifi pass" />
-        <input
-          name="username"
-          bind:value={username}
-          placeholder="coinos username"
-        />
-        <input
-          name="password"
-          bind:value={password}
-          placeholder="coinos password"
-        />
+        <input name="username" bind:value={username} placeholder="coinos username" />
+        <input name="password" bind:value={password} placeholder="coinos password" />
         <button type="submit" class="btn">Generate Config</button>
       </form>
     {/if}

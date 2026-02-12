@@ -46,9 +46,7 @@
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(",");
   const pool = new SimplePool();
   getPreferredRelays(user.pubkey).then((relays) => {
-    const relayEntry = document.getElementById(
-      "dmRelays",
-    ) as HTMLTextAreaElement | null;
+    const relayEntry = document.getElementById("dmRelays") as HTMLTextAreaElement | null;
     if (relayEntry) relayEntry.value = relays.join("\n");
   });
 </script>
@@ -74,22 +72,11 @@
             {#if app.max_amount > 0}
               <div class="flex gap-1 text-base">
                 <div class="flex items-center">
-                  <iconify-icon
-                    noobserver
-                    icon="ph:lightning-fill"
-                    class="text-yellow-300"
+                  <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
                   ></iconify-icon>
                   {#if $fiat && $rate}
-                    {f(
-                      (app.spent * ($rate as number)) / sats,
-                      user.currency,
-                      locale,
-                    )} /
-                    {f(
-                      (app.max_amount * ($rate as number)) / sats,
-                      user.currency,
-                      locale,
-                    )}
+                    {f((app.spent * ($rate as number)) / sats, user.currency, locale)} /
+                    {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}
                   {:else}
                     {s(app.spent, locale)} /
                     {s(app.max_amount, locale)}
@@ -152,8 +139,7 @@
             class:btn-disabled={!app.secret}
             aria-label="Open nostr"
           >
-            <iconify-icon icon="ph:arrow-square-out-bold" width="32"
-            ></iconify-icon>
+            <iconify-icon icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
             <div>{$t("accounts.connect")}</div>
           </a>
         </div>
@@ -202,8 +188,7 @@
         class="my-auto btn btn-circle !w-auto grow"
         aria-label="QR"
       >
-        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
         {$t("accounts.qr")}
       </a>
     </div>
@@ -219,9 +204,7 @@
 
 {#if user.nsec}
   <div class="space-y-2">
-    <label for="seedphrase" class="font-bold"
-      >{$t("user.settings.nostrKeys")}</label
-    >
+    <label for="seedphrase" class="font-bold">{$t("user.settings.nostrKeys")}</label>
 
     <p class="text-secondary mb-1">
       {$t("user.settings.nostrDescription")}
@@ -230,12 +213,10 @@
     <div class="flex flex-wrap sm:flex-nowrap gap-2">
       <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
         {#if revealNsec}
-          <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
           {$t("user.settings.hideNsec")}
         {:else}
-          <iconify-icon noobserver icon="ph:warning-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
           {$t("user.settings.revealNsec")}
         {/if}
       </button>

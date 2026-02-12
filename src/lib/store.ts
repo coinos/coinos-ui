@@ -3,9 +3,7 @@ import { writable } from "svelte/store";
 
 export const persistSession = (key, defaultValue = undefined) => {
   const s = writable(
-    browser &&
-      sessionStorage.getItem(key) &&
-      sessionStorage.getItem(key) !== "undefined"
+    browser && sessionStorage.getItem(key) && sessionStorage.getItem(key) !== "undefined"
       ? JSON.parse(sessionStorage.getItem(key) || "")
       : defaultValue,
   );
@@ -19,9 +17,7 @@ export const persistSession = (key, defaultValue = undefined) => {
 
 export const persistLocal = (key, defaultValue: any = undefined) => {
   const s = writable(
-    browser &&
-      localStorage.getItem(key) &&
-      localStorage.getItem(key) !== "undefined"
+    browser && localStorage.getItem(key) && localStorage.getItem(key) !== "undefined"
       ? JSON.parse(localStorage.getItem(key) || "")
       : defaultValue,
   );
@@ -46,9 +42,7 @@ export const persistLocal = (key, defaultValue: any = undefined) => {
 
 export const persistLocalValue = (key, defaultValue: any = undefined) => {
   const s = writable(
-    browser &&
-      localStorage.getItem(key) &&
-      localStorage.getItem(key) !== "undefined"
+    browser && localStorage.getItem(key) && localStorage.getItem(key) !== "undefined"
       ? JSON.parse(localStorage.getItem(key) || "")
       : defaultValue,
   );

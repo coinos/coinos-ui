@@ -8,8 +8,7 @@ export async function load({ cookies, params, parent }) {
   const rates = await getRates();
 
   let request;
-  if (amount)
-    request = await post("/zapRequest", { amount, id }, auth(cookies));
+  if (amount) request = await post("/zapRequest", { amount, id }, auth(cookies));
 
   const rate = rates[user.currency];
   return { amount, id, rates, rate, request };

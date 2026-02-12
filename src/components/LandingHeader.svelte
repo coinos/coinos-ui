@@ -22,10 +22,7 @@
   };
 </script>
 
-<header
-  class="w-full lg:w-5/6 p-4 mx-auto fixed sticky z-10 top-0 bg-base-100"
-  bind:this={header}
->
+<header class="w-full lg:w-5/6 p-4 mx-auto fixed sticky z-10 top-0 bg-base-100" bind:this={header}>
   <nav class="block lg:flex justify-between items-center">
     <div class="flex justify-start lg:justify-center items-center lg:space-x-5">
       <a href="/" onclick={() => scroll(header)} aria-label="Home">
@@ -39,35 +36,21 @@
         <button class="hover:opacity-80" onclick={() => scroll(howItWorks)}
           >{$t("howItWorks.header")}</button
         >
-        <button class="hover:opacity-80" onclick={() => scroll(faq)}
-          >{$t("faq.header")}</button
-        >
-        <button class="hover:opacity-80" onclick={() => scroll(about)}
-          >{$t("about.header")}</button
-        >
+        <button class="hover:opacity-80" onclick={() => scroll(faq)}>{$t("faq.header")}</button>
+        <button class="hover:opacity-80" onclick={() => scroll(about)}>{$t("about.header")}</button>
       {/if}
       {#if user}
-        <button
-          class="btn !w-auto !rounded-full"
-          onclick={() => goto(`/${user.username}`)}
+        <button class="btn !w-auto !rounded-full" onclick={() => goto(`/${user.username}`)}
           >{$t("nav.home")}
         </button>
-        <button
-          class="btn !w-auto !rounded-full"
-          onclick={() => goto("/logout")}
-        >
+        <button class="btn !w-auto !rounded-full" onclick={() => goto("/logout")}>
           {$t("nav.signOut")}
         </button>
       {:else}
-        <button
-          class="btn btn-accent !w-auto !rounded-full"
-          onclick={() => goto("/register")}
+        <button class="btn btn-accent !w-auto !rounded-full" onclick={() => goto("/register")}
           >{$t("nav.register")}
         </button>
-        <button
-          class="btn !w-auto !rounded-full"
-          onclick={() => goto("/login")}
-        >
+        <button class="btn !w-auto !rounded-full" onclick={() => goto("/login")}>
           {$t("nav.signIn")}
         </button>
       {/if}
@@ -78,10 +61,7 @@
       class="block lg:hidden absolute top-[34.5px] right-10 z"
       onclick={() => (showMobileMenu = !showMobileMenu)}
     >
-      <iconify-icon
-        noobserver
-        icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"}
-        width="32"
+      <iconify-icon noobserver icon={!showMobileMenu ? "ph:list-bold" : "ph:x-bold"} width="32"
       ></iconify-icon>
     </button>
 
@@ -96,9 +76,7 @@
         <button onclick={() => mobileMenuButtonClick(howItWorks)} class="block"
           >{$t("howItWorks.header")}</button
         >
-        <button onclick={() => mobileMenuButtonClick(faq)} class="block"
-          >{$t("faq.header")}</button
-        >
+        <button onclick={() => mobileMenuButtonClick(faq)} class="block">{$t("faq.header")}</button>
         <button onclick={() => mobileMenuButtonClick(about)} class="block"
           >{$t("about.header")}</button
         >

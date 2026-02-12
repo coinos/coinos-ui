@@ -23,9 +23,7 @@ export const load = async ({ data }) => {
     let theme = cookies.get("theme");
 
     if (!theme) {
-      theme = matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
       cookies.set("theme", theme, opts);
 

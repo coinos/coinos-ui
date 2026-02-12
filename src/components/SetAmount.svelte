@@ -21,33 +21,14 @@
 
 {#if settingAmount}
   <div class="fixed inset-0 bg-base-100/90 overflow-y-auto h-full w-full z-50">
-    <div
-      class="relative mx-auto p-12 max-w-xl shadow-lg rounded-md bg-base-100 space-y-5"
-    >
+    <div class="relative mx-auto p-12 max-w-xl shadow-lg rounded-md bg-base-100 space-y-5">
       <form onsubmit={setAmount} class="space-y-5">
-        <Numpad
-          bind:amount={newAmount}
-          bind:fiat
-          {currency}
-          {rate}
-          {submit}
-          {locale}
-        />
+        <Numpad bind:amount={newAmount} bind:fiat {currency} {rate} {submit} {locale} />
         <div class="w-full flex flex-wrap gap-2">
-          <button
-            bind:this={submit}
-            type="submit"
-            onclick={setAmount}
-            class="btn btn-accent"
-          >
+          <button bind:this={submit} type="submit" onclick={setAmount} class="btn btn-accent">
             <div class="my-auto">{t("payments.ok")}</div>
           </button>
-          <button
-            type="button"
-            class="btn"
-            onclick={toggleAmount}
-            onkeydown={toggleAmount}
-          >
+          <button type="button" class="btn" onclick={toggleAmount} onkeydown={toggleAmount}>
             <div class="my-auto">{t("payments.cancel")}</div>
           </button>
         </div>

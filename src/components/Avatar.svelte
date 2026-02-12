@@ -9,29 +9,16 @@
     class?: string;
   }
 
-  let {
-    user,
-    size = 32,
-    disabled = false,
-    class: className = "",
-  }: Props = $props();
+  let { user, size = 32, disabled = false, class: className = "" }: Props = $props();
 
   let s = $derived(size.toString());
-  let link = $derived(
-    user ? (user.anon ? `/${user.pubkey}` : `/${user.username}`) : undefined,
-  );
+  let link = $derived(user ? (user.anon ? `/${user.pubkey}` : `/${user.username}`) : undefined);
 
   let base = "/api/public";
-  let profile = $derived(
-    user?.profile ? `${base}/${user.profile}.webp` : user?.picture,
-  );
-  let fallback = $derived(
-    `${base}/punks/` + punk(user?.pubkey || user?.id || "aa"),
-  );
+  let profile = $derived(user?.profile ? `${base}/${user.profile}.webp` : user?.picture);
+  let fallback = $derived(`${base}/punks/` + punk(user?.pubkey || user?.id || "aa"));
   let tmp = $derived(
-    ($avatar as any)?.id &&
-      ($avatar as any).id === user?.id &&
-      ($avatar as any).src,
+    ($avatar as any)?.id && ($avatar as any).id === user?.id && ($avatar as any).src,
   );
   let src = $derived(tmp || profile || fallback);
 </script>

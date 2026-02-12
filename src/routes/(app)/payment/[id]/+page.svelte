@@ -2,18 +2,7 @@
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";
-  import {
-    copy,
-    f,
-    s,
-    loc,
-    toFiat,
-    post,
-    sats,
-    fail,
-    success,
-    types,
-  } from "$lib/utils";
+  import { copy, f, s, loc, toFiat, post, sats, fail, success, types } from "$lib/utils";
   import { fiat } from "$lib/store";
 
   const toggleFiat = (e) => {
@@ -77,9 +66,7 @@
     if (type === types.fund) a = 0 - a;
     direction = a > 0 ? $t("payments.from") : $t("payments.to");
 
-    if (direction)
-      direction =
-        direction[0].toUpperCase() + direction.substr(1, direction.length);
+    if (direction) direction = direction[0].toUpperCase() + direction.substr(1, direction.length);
   });
 </script>
 
@@ -98,11 +85,7 @@
         </div>
       {:else}
         <div class="flex items-center gap-1">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {s(amount, userLocale)}
         </div>
       {/if}
@@ -152,11 +135,7 @@
       </div>
       <div class="text-secondary flex">
         <div class="flex items-center">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {s((1 * sats) / rate)} =
           {f(1, currency, userLocale, 0, 0)}
         </div>
@@ -179,15 +158,17 @@
     </a>
   {:else if type === types.fund}
     <a href={`/fund/${memo}`} class="btn btn-accent">
-      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-      ></iconify-icon>{$t("payments.viewFund")}
+      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>{$t(
+        "payments.viewFund",
+      )}
     </a>
   {:else if memo?.includes("9734")}
     {@const eid = JSON.parse(memo).tags.find((t) => t[0] === "e")[1]}
     <a href={`/e/${eid}`} class="btn btn-accent">
       <img src="/images/nostr.png" class="w-8" alt="Nostr" />
-      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-      ></iconify-icon>{$t("payments.zappedEvent")}
+      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>{$t(
+        "payments.zappedEvent",
+      )}
     </a>
   {:else if memo}
     <div>
@@ -220,10 +201,7 @@
             rel="noreferrer">{txid}</a
           >
         </div>
-        <button
-          class="flex font-bold hover:opacity-80 mb-auto my-auto"
-          onclick={() => copy(txid)}
-        >
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(txid)}>
         </button>
       </div>
     </div>
@@ -234,10 +212,7 @@
       <span class="text-lg text-secondary">Path</span>
       <div class="flex">
         <div>{path}</div>
-        <button
-          class="flex font-bold hover:opacity-80 mb-auto my-auto"
-          onclick={() => copy(path)}
-        >
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(path)}>
         </button>
       </div>
     </div>

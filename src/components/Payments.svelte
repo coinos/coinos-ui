@@ -18,8 +18,7 @@
       class:border-b-0={i === payments.length - 1}
       class:text-error={amount < 0}
       onclick={() => goto(`/payment/${p.id}`)}
-      onkeydown={(e) =>
-        (e.key === "Enter" || e.key === " ") && goto(`/payment/${p.id}`)}
+      onkeydown={(e) => (e.key === "Enter" || e.key === " ") && goto(`/payment/${p.id}`)}
       role="button"
       tabindex="0"
     >
@@ -31,11 +30,7 @@
                 {f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}
               </div>
             {:else}
-              <iconify-icon
-                noobserver
-                icon="ph:lightning-fill"
-                width="24"
-                class="text-yellow-300"
+              <iconify-icon noobserver icon="ph:lightning-fill" width="24" class="text-yellow-300"
               ></iconify-icon>
               <div>{s(Math.abs(amount), locale)}</div>
             {/if}
@@ -49,9 +44,7 @@
         {/if}
       </div>
 
-      <div
-        class="flex my-auto col-span-6 truncate text-ellipsis overflow-hidden mx-auto"
-      >
+      <div class="flex my-auto col-span-6 truncate text-ellipsis overflow-hidden mx-auto">
         {#if p.type === types.fund}
           {#if fund}
             <div class="flex">
@@ -65,10 +58,7 @@
           {:else}
             <a href={`/fund/${p.memo}`}>
               <div class="text-secondary flex">
-                <iconify-icon
-                  noobserver
-                  icon="ph:lightning-fill"
-                  class="text-yellow-300 text-3xl"
+                <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-3xl"
                 ></iconify-icon>
 
                 <div class="my-auto">{$t("payments.fund")}</div>
@@ -87,16 +77,12 @@
         {:else}
           <div class="text-secondary flex items-center gap-1">
             {#if p.type === types.lightning || p.type === types.bolt12}
-              <iconify-icon
-                noobserver
-                icon="ph:lightning-fill"
-                class="text-yellow-300 text-3xl"
+              <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-3xl"
               ></iconify-icon>
             {:else if p.type === types.ecash}
               <img src="/images/cash.png" class="w-12" alt="Ecash" />
             {:else if p.type === types.bitcoin}
-              <iconify-icon noobserver icon="logos:bitcoin" class="text-3xl"
-              ></iconify-icon>
+              <iconify-icon noobserver icon="logos:bitcoin" class="text-3xl"></iconify-icon>
             {:else if p.type === types.liquid}
               <div class="my-auto">
                 <img
@@ -106,11 +92,7 @@
                 />
               </div>
             {:else if p.type === types.ark}
-              <img
-                src="/images/ark.png"
-                class="w-10 h-10 rounded-full object-cover"
-                alt="Ark"
-              />
+              <img src="/images/ark.png" class="w-10 h-10 rounded-full object-cover" alt="Ark" />
             {/if}
 
             <div class="my-auto">

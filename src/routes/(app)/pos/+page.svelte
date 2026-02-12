@@ -63,9 +63,7 @@
       chip = await esploader.main();
 
       connected = true;
-      portInfo = (await device.getInfo?.())
-        ? JSON.stringify(await device.getInfo())
-        : "Connected";
+      portInfo = (await device.getInfo?.()) ? JSON.stringify(await device.getInfo()) : "Connected";
     } catch (e) {
       console.log(e);
       connected = false;
@@ -148,9 +146,7 @@
 </script>
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    ESP32-C3 Flasher
-  </h1>
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">ESP32-C3 Flasher</h1>
 
   {#if !connected}
     <div class="text-center">
@@ -162,15 +158,11 @@
   {#if connected}
     <!-- Tabs -->
     <div class="flex gap-2 justify-center">
-      <button
-        class="btn"
-        class:btn-neutral={tab === "config"}
-        onclick={() => (tab = "config")}>Flash config</button
+      <button class="btn" class:btn-neutral={tab === "config"} onclick={() => (tab = "config")}
+        >Flash config</button
       >
-      <button
-        class="btn"
-        class:btn-neutral={tab === "firmware"}
-        onclick={() => (tab = "firmware")}>Flash firmware</button
+      <button class="btn" class:btn-neutral={tab === "firmware"} onclick={() => (tab = "firmware")}
+        >Flash firmware</button
       >
     </div>
 
@@ -181,15 +173,12 @@
           <div class="text-center text-2xl">Config written ✔</div>
         {:else}
           <div>Generated config file (<b>{bytes.length} bytes</b>)</div>
-          <label class="label mt-2" for="littlefs-address"
-            >LittleFS address (hex)</label
-          >
+          <label class="label mt-2" for="littlefs-address">LittleFS address (hex)</label>
           <input
             id="littlefs-address"
             class="input"
             bind:value={littlefsAddress}
-            onchange={(e) =>
-              (littlefsAddress = Number((e.target as HTMLInputElement).value))}
+            onchange={(e) => (littlefsAddress = Number((e.target as HTMLInputElement).value))}
           />
           <div class="mt-3">
             <button class="btn" onclick={flashConfig}>Flash config</button>
@@ -202,21 +191,14 @@
         <form method="POST" use:enhance class="space-y-2">
           <input name="ssid" placeholder="Wifi SSID" class="input" />
           <input name="key" placeholder="Wifi password" class="input" />
-          <input
-            name="token"
-            bind:value={token}
-            placeholder="Coinos API token"
-            class="input"
-          />
+          <input name="token" bind:value={token} placeholder="Coinos API token" class="input" />
           <button type="submit" class="btn">Generate Config</button>
         </form>
       {/if}
     {:else}
       <!-- NEW FIRMWARE FLOW -->
       <div class="space-y-3">
-        <label class="label" for="firmware-file"
-          >Select .ino.bin (firmware)</label
-        >
+        <label class="label" for="firmware-file">Select .ino.bin (firmware)</label>
         <input
           id="firmware-file"
           type="file"
@@ -225,15 +207,12 @@
           onchange={onPickFw}
         />
 
-        <label class="label" for="firmware-address"
-          >Firmware address (hex, default 0x10000)</label
-        >
+        <label class="label" for="firmware-address">Firmware address (hex, default 0x10000)</label>
         <input
           id="firmware-address"
           class="input"
           bind:value={fwAddress}
-          onchange={(e) =>
-            (fwAddress = Number((e.target as HTMLInputElement).value))}
+          onchange={(e) => (fwAddress = Number((e.target as HTMLInputElement).value))}
         />
 
         <label class="flex items-center gap-2 mt-2">
@@ -242,9 +221,7 @@
         </label>
 
         <div class="mt-3">
-          <button class="btn" disabled={!fwBytes} onclick={flashFirmware}
-            >Flash firmware</button
-          >
+          <button class="btn" disabled={!fwBytes} onclick={flashFirmware}>Flash firmware</button>
         </div>
 
         {#if fwProgress > 0 && !fwDone}

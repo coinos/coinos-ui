@@ -9,14 +9,8 @@
 </script>
 
 <div class="text-center mt-20 md:mt-0">
-  <div
-    class="flex w-full max-w-[200px] mx-auto py-20"
-    in:scale={{ start: 0.5 }}
-  >
-    <iconify-icon
-      noobserver
-      icon="ph:check-bold"
-      class="mx-auto w-full text-[#7ACC8F]"
+  <div class="flex w-full max-w-[200px] mx-auto py-20" in:scale={{ start: 0.5 }}>
+    <iconify-icon noobserver icon="ph:check-bold" class="mx-auto w-full text-[#7ACC8F]"
     ></iconify-icon>
   </div>
   <h1 class="text-3xl md:text-4xl font-bold mb-6">Request Sent!</h1>

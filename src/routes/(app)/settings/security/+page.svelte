@@ -164,9 +164,7 @@
 
 <div>
   <span class="font-bold mb-1"
-    >{verifying
-      ? $t("user.settings.verifyPIN")
-      : $t("user.settings.securityPIN")}</span
+    >{verifying ? $t("user.settings.verifyPIN") : $t("user.settings.securityPIN")}</span
   >
   <p class="text-secondary mb-1">
     {$t("user.settings.securityPINDescription")}
@@ -174,12 +172,7 @@
   {#if verifying}
     <Pin bind:value={verify} {cancel} notify={false} />
   {:else if settingPin}
-    <Pin
-      bind:value={pin}
-      title={$t("user.settings.setPIN")}
-      {cancel}
-      notify={false}
-    />
+    <Pin bind:value={pin} title={$t("user.settings.setPIN")} {cancel} notify={false} />
   {:else}
     <button type="button" class="btn" onclick={togglePin}>
       <iconify-icon
@@ -187,9 +180,7 @@
         icon={haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
         width="32"
       ></iconify-icon>
-      {haspin
-        ? $t("user.settings.disablePIN")
-        : $t("user.settings.enablePIN")}</button
+      {haspin ? $t("user.settings.disablePIN") : $t("user.settings.enablePIN")}</button
     >
   {/if}
 </div>
@@ -216,14 +207,12 @@
     </button>
   {:else if user.twofa}
     <button type="button" class="btn" onclick={startDisabling2fa}>
-      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
     <button type="button" class="btn" onclick={startEnabling2fa}>
-      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}
@@ -236,8 +225,7 @@
 <div>
   <a href={`/account/new`} class="contents">
     <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-      <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"></iconify-icon>
       {$t("accounts.addAccount")}
     </button>
   </a>

@@ -20,8 +20,7 @@
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
   let el: any;
-  let keypress = (e: any) =>
-    e.key === "Enter" && (e.preventDefault() || el.click());
+  let keypress = (e: any) => e.key === "Enter" && (e.preventDefault() || el.click());
 
   let editingReserve = $state(),
     editingThreshold = $state(),
@@ -56,9 +55,7 @@
   onMount(async () => {
     if (!browser) return;
 
-    pm =
-      navigator?.serviceWorker &&
-      (await navigator.serviceWorker.getRegistration())?.pushManager;
+    pm = navigator?.serviceWorker && (await navigator.serviceWorker.getRegistration())?.pushManager;
 
     permission = await pm.permissionState({
       userVisibleOnly: true,
@@ -105,16 +102,12 @@
 </script>
 
 <div>
-  <label for="language" class="font-bold block mb-1"
-    >{$t("user.settings.locale")}</label
-  >
+  <label for="language" class="font-bold block mb-1">{$t("user.settings.locale")}</label>
   <LocaleSelector style="select-styles block py-3 w-full" />
 </div>
 
 <div>
-  <label for="currency" class="font-bold block mb-1"
-    >{$t("user.settings.localCurrency")}</label
-  >
+  <label for="currency" class="font-bold block mb-1">{$t("user.settings.localCurrency")}</label>
   <select name="currency" value={currency}>
     {#each fiats as fiat}
       <option value={fiat}>{fiat}</option>
@@ -128,23 +121,13 @@
     {$t("user.settings.emailDescription")}
   </p>
 
-  <label
-    class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
-  >
+  <label class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2">
     <input type="text" name="email" class="clean" bind:value={email} />
     {#if verified}
-      <iconify-icon
-        noobserver
-        icon="ph:check-bold"
-        class="text-success ml-auto"
-        width="32"
+      <iconify-icon noobserver icon="ph:check-bold" class="text-success ml-auto" width="32"
       ></iconify-icon>
     {:else if email}
-      <iconify-icon
-        noobserver
-        icon="ph:clock-bold"
-        class="text-warning ml-auto"
-        width="32"
+      <iconify-icon noobserver icon="ph:clock-bold" class="text-warning ml-auto" width="32"
       ></iconify-icon>
     {/if}
   </label>
@@ -192,9 +175,7 @@
     {$t("user.settings.tipDesc")}
   </p>
 
-  <label
-    class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
-  >
+  <label class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2">
     <input type="text" name="tip" class="clean" bind:value={tip} />
   </label>
 </div>
@@ -211,9 +192,7 @@
 
 <div class:hidden={!user.autowithdraw}>
   <div class="mb-2">
-    <label for="display" class="font-bold mb-1 block"
-      >{$t("user.settings.destination")}</label
-    >
+    <label for="display" class="font-bold mb-1 block">{$t("user.settings.destination")}</label>
     <textarea
       name="destination"
       placeholder={$t("user.settings.destinationPlaceholder")}
@@ -224,20 +203,12 @@
   </div>
 
   <div>
-    <label for="display" class="font-bold mb-1 block"
-      >{$t("user.settings.threshold")}</label
-    >
+    <label for="display" class="font-bold mb-1 block">{$t("user.settings.threshold")}</label>
     <button type="button" class="flex w-full" onclick={editThreshold}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
       </div>
-      <div
-        class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
-      >
+      <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">
         {user.threshold}
       </div>
       <input type="hidden" name="threshold" bind:value={user.threshold} />
@@ -248,20 +219,12 @@
   </div>
 
   <div>
-    <label for="display" class="font-bold mb-1 block"
-      >{$t("user.settings.reserve")}</label
-    >
+    <label for="display" class="font-bold mb-1 block">{$t("user.settings.reserve")}</label>
     <button type="button" class="flex w-full" onclick={editReserve}>
       <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
       </div>
-      <div
-        class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left"
-      >
+      <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">
         {user.reserve}
       </div>
       <input type="hidden" name="reserve" bind:value={user.reserve} />
@@ -273,9 +236,7 @@
 </div>
 
 {#if editingThreshold}
-  <div
-    class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto"
-  >
+  <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto">
     <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
       <h1 class="text-center text-2xl font-semibold">
         {$t("user.settings.threshold")}
@@ -288,23 +249,14 @@
         bind:element={thresholdEl}
       />
 
-      <button
-        bind:this={doneReserve}
-        type="button"
-        onclick={doneEditing}
-        class="btn">Ok</button
-      >
+      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">Ok</button>
     </div>
   </div>
 {/if}
 
 {#if editingReserve}
-  <div
-    class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg"
-  >
-    <div
-      class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center"
-    >
+  <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg">
+    <div class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center">
       <h1 class="text-2xl font-semibold">
         {$t("user.settings.reserve")}
       </h1>
@@ -315,12 +267,7 @@
         bind:submit={doneReserve}
         bind:element={reserveEl}
       />
-      <button
-        bind:this={doneReserve}
-        type="button"
-        onclick={doneEditing}
-        class="btn">Ok</button
-      >
+      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">Ok</button>
     </div>
   </div>
 {/if}
@@ -332,12 +279,7 @@
   >
 {:else}
   <button type="button" onclick={revoke} class="btn">
-    <img
-      src="/images/square.svg"
-      class="w-12"
-      class:invert={$theme === "dark"}
-      alt="Square"
-    />
+    <img src="/images/square.svg" class="w-12" class:invert={$theme === "dark"} alt="Square" />
     <div>{$t("user.settings.revokeSquare")}</div>
   </button>
 {/if}

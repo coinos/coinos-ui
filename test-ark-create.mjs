@@ -9,17 +9,13 @@ const API_KEY = "test-playwright-key";
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await context.newPage();
 
-  page.on("console", (msg) =>
-    console.log(`[browser:${msg.type()}]`, msg.text()),
-  );
+  page.on("console", (msg) => console.log(`[browser:${msg.type()}]`, msg.text()));
   page.on("pageerror", (err) => console.log("[page error]", err.message));
 
   page.on("request", (req) => {
     const u = req.url();
     if (u.includes("account") || u.includes("arkade.computer")) {
-      console.log(
-        `[req] ${req.method()} ${u} ${req.postData()?.substring(0, 500) || ""}`,
-      );
+      console.log(`[req] ${req.method()} ${u} ${req.postData()?.substring(0, 500) || ""}`);
     }
   });
   page.on("response", (resp) => {
@@ -27,9 +23,7 @@ const API_KEY = "test-playwright-key";
     if (u.includes("account") && !u.includes("__data")) {
       resp
         .text()
-        .then((t) =>
-          console.log(`[resp] ${resp.status()} ${u} -> ${t.substring(0, 500)}`),
-        )
+        .then((t) => console.log(`[resp] ${resp.status()} ${u} -> ${t.substring(0, 500)}`))
         .catch(() => {});
     }
   });
@@ -45,9 +39,7 @@ const API_KEY = "test-playwright-key";
     if (h.name.toLowerCase() === "set-cookie") {
       const m = h.value.match(/token=([^;]+)/);
       if (m)
-        await context.addCookies([
-          { name: "token", value: m[1], domain: "172.18.0.9", path: "/" },
-        ]);
+        await context.addCookies([{ name: "token", value: m[1], domain: "172.18.0.9", path: "/" }]);
     }
   }
 
@@ -106,9 +98,7 @@ const API_KEY = "test-playwright-key";
   console.log("\n--- Checking accounts ---");
   const acctResp = await page.request.get(`${API}/accounts`, {
     headers: {
-      cookie: (await context.cookies())
-        .map((c) => `${c.name}=${c.value}`)
-        .join("; "),
+      cookie: (await context.cookies()).map((c) => `${c.name}=${c.value}`).join("; "),
     },
   });
   const accounts = await acctResp.json();

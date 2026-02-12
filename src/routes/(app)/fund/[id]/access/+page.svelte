@@ -23,12 +23,8 @@
 
 <div class="container px-4 max-w-4xl mx-auto mt-10 space-y-5">
   <div class="flex justify-center items-center">
-    <div
-      class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5"
-    >
-      <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-        Fund managers
-      </h1>
+    <div class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5">
+      <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Fund managers</h1>
 
       {#each m as c}
         <a href={`/${c.username}`} class="contents">
@@ -51,12 +47,7 @@
 
       <form method="post" use:enhance class="space-y-2">
         <input type="hidden" name="id" value={id} />
-        <input
-          use:focus
-          name="username"
-          bind:value={username}
-          placeholder={$t("funds.username")}
-        />
+        <input use:focus name="username" bind:value={username} placeholder={$t("funds.username")} />
         <button type="submit" class="btn">
           <iconify-icon icon="ph:plus-bold" width="32"></iconify-icon>
           {$t("funds.addManager")}

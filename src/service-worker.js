@@ -19,17 +19,15 @@ self.addEventListener("notificationclick", (event) => {
   const url = event.notification.data.url || "/";
 
   event.waitUntil(
-    clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
-        for (const client of clientList) {
-          if (client.url === url && "focus" in client) {
-            return client.focus();
-          }
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === url && "focus" in client) {
+          return client.focus();
         }
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      }),
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    }),
   );
 });

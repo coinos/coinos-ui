@@ -27,13 +27,8 @@
 
 <div>
   <OutClick onOutClick={hideMenu}>
-    <button
-      class="btn-menu {opacity('/support')}"
-      onclick={toggleMenu}
-      aria-label="Open menu"
-    >
-      <iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}
-      ></iconify-icon>
+    <button class="btn-menu {opacity('/support')}" onclick={toggleMenu} aria-label="Open menu">
+      <iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}></iconify-icon>
     </button>
 
     <div
@@ -66,8 +61,7 @@
       </ul>
       <hr class="my-4" />
       <a href="/?stay=true" aria-label="Coinos home"
-        ><iconify-icon noobserver icon="coinos:logo" width="160"
-        ></iconify-icon></a
+        ><iconify-icon noobserver icon="coinos:logo" width="160"></iconify-icon></a
       >
     </div>
   </OutClick>

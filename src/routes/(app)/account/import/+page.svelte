@@ -53,11 +53,7 @@
             {$t("accounts.back")}
           </button>
         </a>
-        <button
-          bind:this={el}
-          type="submit"
-          class="btn btn-accent !w-auto grow"
-        >
+        <button bind:this={el} type="submit" class="btn btn-accent !w-auto grow">
           <div class="my-auto">{$t("accounts.next")}</div>
         </button>
       </div>

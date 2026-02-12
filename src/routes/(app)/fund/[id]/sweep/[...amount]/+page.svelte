@@ -15,13 +15,7 @@
 </script>
 
 <div class="container px-4 text-center mx-auto">
-  <Success
-    {amount}
-    {rate}
-    {currency}
-    {locale}
-    title={$t("payments.received")}
-  />
+  <Success {amount} {rate} {currency} {locale} title={$t("payments.received")} />
 </div>
 
 <a href={`/${user.username}`} aria-label="Continue">

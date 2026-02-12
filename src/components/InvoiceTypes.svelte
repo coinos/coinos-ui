@@ -22,8 +22,7 @@
     class="btn flex-nowrap !w-auto grow"
     class:bg-base-300={type === types.bitcoin && address_type === "bech32"}
     class:text-secondary={type === types.bitcoin && address_type === "bech32"}
-    class:hidden={activeOnly &&
-      (type !== types.bitcoin || address_type !== "bech32")}
+    class:hidden={activeOnly && (type !== types.bitcoin || address_type !== "bech32")}
     onclick={() => (activeOnly ? toggleType() : setType(types.bitcoin))}
   >
     <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
@@ -34,10 +33,8 @@
     class="btn flex-nowrap !w-auto grow"
     class:bg-base-300={type === types.bitcoin && address_type === "bech32m"}
     class:text-secondary={type === types.bitcoin && address_type === "bech32m"}
-    class:hidden={activeOnly &&
-      (type !== types.bitcoin || address_type !== "bech32m")}
-    onclick={() =>
-      activeOnly ? toggleType() : setType(types.bitcoin, "bech32m")}
+    class:hidden={activeOnly && (type !== types.bitcoin || address_type !== "bech32m")}
+    onclick={() => (activeOnly ? toggleType() : setType(types.bitcoin, "bech32m"))}
   >
     <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
     <div class="my-auto text-lg">Taproot</div>
@@ -47,10 +44,8 @@
     class="btn flex-nowrap !w-auto grow"
     class:bg-base-300={type === types.bitcoin && address_type === "legacy"}
     class:text-secondary={type === types.bitcoin && address_type === "legacy"}
-    class:hidden={activeOnly &&
-      (type !== types.bitcoin || address_type !== "legacy")}
-    onclick={() =>
-      activeOnly ? toggleType() : setType(types.bitcoin, "legacy")}
+    class:hidden={activeOnly && (type !== types.bitcoin || address_type !== "legacy")}
+    onclick={() => (activeOnly ? toggleType() : setType(types.bitcoin, "legacy"))}
   >
     <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
     <div class="my-auto text-lg">Legacy</div>
@@ -62,10 +57,8 @@
   <div class="flex flex-wrap gap-2">
     <button
       class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.lightning &&
-        $page.url.pathname.includes("/receive")}
-      class:text-secondary={type === types.lightning &&
-        $page.url.pathname.includes("/receive")}
+      class:bg-base-300={type === types.lightning && $page.url.pathname.includes("/receive")}
+      class:text-secondary={type === types.lightning && $page.url.pathname.includes("/receive")}
       class:hidden={activeOnly &&
         (type !== types.lightning || !$page.url.pathname.includes("/receive"))}
       onclick={() => {
@@ -77,14 +70,9 @@
         }
       }}
     >
-      <div
-        class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
-      >
+      <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300 text-2xl"
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
       </div>
@@ -97,14 +85,9 @@
       class:hidden={activeOnly && type !== types.bolt12}
       onclick={() => (activeOnly ? toggleType() : setType(types.bolt12))}
     >
-      <div
-        class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
-      >
+      <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300 text-2xl"
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
       </div>
@@ -113,10 +96,8 @@
 
     <button
       class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.lightning &&
-        !$page.url.pathname.includes("/receive")}
-      class:text-secondary={type === types.lightning &&
-        !$page.url.pathname.includes("/receive")}
+      class:bg-base-300={type === types.lightning && !$page.url.pathname.includes("/receive")}
+      class:text-secondary={type === types.lightning && !$page.url.pathname.includes("/receive")}
       class:hidden={activeOnly &&
         (type !== types.lightning || $page.url.pathname.includes("/receive"))}
       onclick={() => {
@@ -128,14 +109,9 @@
         }
       }}
     >
-      <div
-        class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
-      >
+      <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300 text-2xl"
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
       </div>

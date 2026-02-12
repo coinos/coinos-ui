@@ -49,9 +49,7 @@
   import { PUBLIC_DM_RELAYS } from "$env/static/public";
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(",");
   const updateRelaysIfAvailable = async () => {
-    const relayEntry = document.getElementById(
-      "dmRelays",
-    ) as HTMLTextAreaElement | null;
+    const relayEntry = document.getElementById("dmRelays") as HTMLTextAreaElement | null;
     if (!relayEntry || relayEntry.value.length === 0) return;
 
     const newRelays = relayEntry.value.split(/[ \r\n\t]+/).filter(isValidURL);
@@ -233,8 +231,7 @@
     }
   });
   $effect(() => {
-    if (!$loading && $page.url.searchParams.get("verified"))
-      success($t("user.settings.verified"));
+    if (!$loading && $page.url.searchParams.get("verified")) success($t("user.settings.verified"));
   });
 </script>
 
@@ -242,12 +239,7 @@
   <Pin />
 {/if}
 
-<form
-  method="POST"
-  class="mb-[154px] settings"
-  onsubmit={handleSubmit}
-  bind:this={formElement}
->
+<form method="POST" class="mb-[154px] settings" onsubmit={handleSubmit} bind:this={formElement}>
   <input type="hidden" name="pin" value={$pin} />
   <input type="hidden" name="tab" value={tab} />
 

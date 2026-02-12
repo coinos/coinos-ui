@@ -8,8 +8,7 @@
     text = $state(),
     pasted = $state();
 
-  let keypress = (e) =>
-    e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);
+  let keypress = (e) => (e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false));
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
@@ -24,9 +23,7 @@
 </script>
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">
-    Create QR
-  </h1>
+  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Create QR</h1>
 
   <form onsubmit={preventDefault(submit)} class="space-y-2 text-xl">
     <div class="mb-2">
@@ -48,11 +45,7 @@
         class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
         onclick={paste}
       >
-        <iconify-icon
-          noobserver
-          icon="ph:clipboard-text-bold"
-          width="32"
-          class="my-auto"
+        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32" class="my-auto"
         ></iconify-icon>
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
@@ -62,11 +55,7 @@
         type="submit"
         class="flex bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center"
       >
-        <iconify-icon
-          noobserver
-          icon="ph:paper-plane-right-bold"
-          width="32"
-          class="my-auto invert"
+        <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32" class="my-auto invert"
         ></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.go")}</div>
       </button>

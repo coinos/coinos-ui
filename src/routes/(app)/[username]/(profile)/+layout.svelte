@@ -37,18 +37,14 @@
   let stripped = $derived(n.replace(/\s/g, ""));
   let username = $derived(n.length > 60 ? n.substr(0, 6) : display || stripped);
   let lnaddr = $derived(
-    subject?.anon
-      ? subject.lud16 || undefined
-      : `${stripped}@${$page.url.host}`,
+    subject?.anon ? subject.lud16 || undefined : `${stripped}@${$page.url.host}`,
   );
   let profile = $derived(`${$page.url.host}/${subject.anon ? npub : stripped}`);
   let lnurl = $derived(
     encode(
       "lnurl",
       toWords(
-        new TextEncoder().encode(
-          `https://${PUBLIC_DOMAIN}/p/${subject.anon ? npub : stripped}`,
-        ),
+        new TextEncoder().encode(`https://${PUBLIC_DOMAIN}/p/${subject.anon ? npub : stripped}`),
       ),
       20000,
     ),
@@ -57,33 +53,19 @@
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
   <div class="hidden lg:block lg:w-[280px] xl:w-[360px]"></div>
-  <div
-    class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto"
-  >
-    <div
-      class="flex text-3xl font-bold text-center mx-auto justify-center gap-1 items-center"
-    >
+  <div class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto">
+    <div class="flex text-3xl font-bold text-center mx-auto justify-center gap-1 items-center">
       <button class="flex gap-1 items-center" onclick={toggleDetails}>
         <div class="break-words">{display || username}</div>
         <iconify-icon noobserver icon="ph:list-bold" width="32"></iconify-icon>
       </button>
       {#if subject.id === user?.id}
-        <a
-          href="/settings/profile"
-          class="btn contents"
-          aria-label="Edit profile"
-        >
-          <iconify-icon noobserver icon="ph:pencil-bold" width="32"
-          ></iconify-icon>
+        <a href="/settings/profile" class="btn contents" aria-label="Edit profile">
+          <iconify-icon noobserver icon="ph:pencil-bold" width="32"></iconify-icon>
         </a>
       {:else}
-        <a
-          href="/dm?username={subject.username}"
-          class="btn contents"
-          aria-label="Direct Message"
-        >
-          <iconify-icon noobserver icon="ph:chat-bold" width="32"
-          ></iconify-icon>
+        <a href="/dm?username={subject.username}" class="btn contents" aria-label="Direct Message">
+          <iconify-icon noobserver icon="ph:chat-bold" width="32"></iconify-icon>
         </a>
       {/if}
       <!-- <a href={`/${subject.pubkey}/notes`}> -->
@@ -128,16 +110,14 @@
                   aria-label="Copy lightning address"
                   onclick={() => copy(lnaddr)}
                 >
-                  ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-                  ></iconify-icon></button
+                  ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
                 >
                 <a
                   href={`/qr/${encodeURIComponent(lnaddr)}`}
                   class="my-auto"
                   aria-label="Show lightning address QR"
                 >
-                  <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-                  ></iconify-icon>
+                  <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
                 </a>
               </div>
             </div>
@@ -156,18 +136,14 @@
                 aria-label="Copy profile URL"
                 onclick={() => copy(profile)}
               >
-                ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-                ></iconify-icon></button
+                ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
               >
               <a
-                href={`/qr/${encodeURIComponent(
-                  `${$page.url.protocol}//${profile}`,
-                )}`}
+                href={`/qr/${encodeURIComponent(`${$page.url.protocol}//${profile}`)}`}
                 class="my-auto"
                 aria-label="Show profile URL QR"
               >
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-                ></iconify-icon>
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
               </a>
             </div>
           </div>
@@ -185,16 +161,14 @@
                 aria-label="Copy LNURL"
                 onclick={() => copy(`lightning:${lnurl}`)}
               >
-                ><iconify-icon noobserver icon="ph:copy-bold" width="32"
-                ></iconify-icon></button
+                ><iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon></button
               >
               <a
                 href={`/${n}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
                 class="my-auto"
                 aria-label="Show LNURL QR"
               >
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-                ></iconify-icon>
+                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
               </a>
             </div>
           </div>
@@ -259,8 +233,7 @@
             aria-label="Reset password"
           >
             <div class="mx-auto flex">
-              <iconify-icon noobserver icon="ph:clock" width="32"
-              ></iconify-icon>
+              <iconify-icon noobserver icon="ph:clock" width="32"></iconify-icon>
             </div>
           </button>
         </form>
@@ -269,9 +242,7 @@
   </div>
 
   <div class="w-full">
-    <div
-      class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0"
-    >
+    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
       {@render children?.()}
     </div>
   </div>
@@ -293,20 +264,12 @@
       {#if satsPerCurrency >= 1}
         <div>{f(1, currency, locale)} &#61;</div>
         <div class="flex items-center">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {s(satsPerCurrency)}
         </div>
       {:else}
         <div class="flex items-center">
-          <iconify-icon
-            noobserver
-            icon="ph:lightning-fill"
-            class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           1
         </div>
         <div>&#61; {f(1 / satsPerCurrency, currency, locale)}</div>

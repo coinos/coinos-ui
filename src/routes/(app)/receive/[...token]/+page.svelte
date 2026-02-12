@@ -43,9 +43,7 @@
     {#if form?.error}
       <div class="mb-5">
         <div class="text-red-600">
-          {form.error === "default"
-            ? $t("error.unrecognizedInput")
-            : form.error}
+          {form.error === "default" ? $t("error.unrecognizedInput") : form.error}
         </div>
       </div>
     {/if}
@@ -66,15 +64,13 @@
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon noobserver icon="ph:camera-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>

@@ -1,18 +1,6 @@
 <script lang="ts">
   import { run } from "svelte/legacy";
-  import {
-    btc,
-    loc,
-    post,
-    copy,
-    fail,
-    f,
-    get,
-    types,
-    sat,
-    s,
-    sats,
-  } from "$lib/utils";
+  import { btc, loc, post, copy, fail, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
@@ -117,12 +105,8 @@
   let settingMemo = $state();
   let toggleMemo = () => (settingMemo = !settingMemo);
 
-  let link = $derived(
-    [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`,
-  );
-  let txt = $derived(
-    [types.bitcoin, types.liquid].includes(type) ? hash : text,
-  );
+  let link = $derived([types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`);
+  let txt = $derived([types.bitcoin, types.liquid].includes(type) ? hash : text);
 
   onMount(() => {
     if ($amountPrompt && !amount) toggleAmount();

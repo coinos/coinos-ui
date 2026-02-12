@@ -32,8 +32,7 @@
       highlightCodeOutline: true,
       qrEngine: BarcodeDetector,
     };
-    let cb = ({ data }) =>
-      scanner.stop() || goto(`/send/${encodeURIComponent(data)}`);
+    let cb = ({ data }) => scanner.stop() || goto(`/send/${encodeURIComponent(data)}`);
     scanner = new QrScanner(vid, cb, options);
     await tick();
     scanner.start();
@@ -47,9 +46,7 @@
 
 <div class="flex w-full mb-4 p-4">
   <div class="mx-auto rounded-3xl">
-    <video
-      bind:this={vid}
-      class="border-4 rounded-3xl border-black max-h-[calc(100vh*0.7)]"
+    <video bind:this={vid} class="border-4 rounded-3xl border-black max-h-[calc(100vh*0.7)]"
     ></video>
   </div>
 </div>

@@ -5,9 +5,7 @@
   import { loc } from "$lib/utils";
 
   let { data } = $props();
-  let { amount, currency, rate, received, pending, tip, user, id } = $derived(
-    data.invoice,
-  );
+  let { amount, currency, rate, received, pending, tip, user, id } = $derived(data.invoice);
   let locale = $derived(loc(user));
 
   // toast.pop(0);
@@ -15,12 +13,7 @@
 
 <div class="container px-4 text-center mx-auto">
   {#if pending}
-    <iconify-icon
-      noobserver
-      icon="ph:clock-bold"
-      class="text-warning"
-      width="160"
-    ></iconify-icon>
+    <iconify-icon noobserver icon="ph:clock-bold" class="text-warning" width="160"></iconify-icon>
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
 

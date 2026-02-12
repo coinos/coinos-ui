@@ -49,9 +49,7 @@ export default defineConfig(({ mode }) => {
           manualChunks(id) {
             if (id.includes("node_modules")) {
               const parts = id.split("node_modules/")[1].split("/");
-              const pkg = parts[0].startsWith("@")
-                ? `${parts[0].slice(1)}-${parts[1]}`
-                : parts[0];
+              const pkg = parts[0].startsWith("@") ? `${parts[0].slice(1)}-${parts[1]}` : parts[0];
               return `vendor-${pkg}`;
             }
           },

@@ -62,15 +62,12 @@ export const actions = {
   pay: async ({ fetch, request }) => {
     let error;
 
-    let { callback, amount, minSendable, maxSendable, comment } =
-      await fd(request);
+    let { callback, amount, minSendable, maxSendable, comment } = await fd(request);
     minSendable = Math.round(minSendable / 1000);
     maxSendable = Math.round(maxSendable / 1000);
 
-    if (amount < minSendable)
-      error = `Amount must be at least ${minSendable} sats`;
-    if (amount > maxSendable)
-      error = `Amount must be at most ${maxSendable} sats`;
+    if (amount < minSendable) error = `Amount must be at least ${minSendable} sats`;
+    if (amount > maxSendable) error = `Amount must be at most ${maxSendable} sats`;
     if (error) return fail(400, { error });
 
     let url = `${callback}?amount=${amount * 1000}`;
@@ -86,33 +83,20 @@ export const actions = {
   withdraw: async ({ cookies, fetch, request }) => {
     let error;
 
-    let {
-      callback,
-      amount,
-      username,
-      currency,
-      minWithdrawable,
-      maxWithdrawable,
-      k1,
-    } = await fd(request);
+    let { callback, amount, username, currency, minWithdrawable, maxWithdrawable, k1 } =
+      await fd(request);
 
     minWithdrawable = Math.round(minWithdrawable / 1000);
     maxWithdrawable = Math.round(maxWithdrawable / 1000);
 
-    if (amount < minWithdrawable)
-      error = `Amount must be at least ${minWithdrawable} sats`;
-    if (amount > maxWithdrawable)
-      error = `Amount must be at most ${maxWithdrawable} sats`;
+    if (amount < minWithdrawable) error = `Amount must be at least ${minWithdrawable} sats`;
+    if (amount > maxWithdrawable) error = `Amount must be at most ${maxWithdrawable} sats`;
     if (error) return fail(400, { error });
 
     const invoice = { amount, type: "lightning" };
     const user = { username, currency };
 
-    const { text: pr } = await post(
-      "/invoice",
-      { invoice, user },
-      auth(cookies),
-    );
+    const { text: pr } = await post("/invoice", { invoice, user }, auth(cookies));
 
     const url = new URL(callback);
     url.searchParams.append("k1", k1);

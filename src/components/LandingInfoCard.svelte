@@ -1,13 +1,7 @@
 <script lang="ts">
   import Image from "./Image.svelte";
 
-  let {
-    image,
-    title,
-    description = undefined,
-    order = undefined,
-    children,
-  } = $props();
+  let { image, title, description = undefined, order = undefined, children } = $props();
 </script>
 
 <div class="block lg:flex justify-center lg:space-x-20 items-center">
@@ -17,14 +11,10 @@
       'reverse' && 'order-last'}"
   />
   <div class="w-full lg:w-1/2 max-w-3xl space-y-10 mx-auto lg:mx-0">
-    <h3
-      class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]"
-    >
+    <h3 class="text-5xl font-medium text-left w-full mx-auto lg:mx-0 md:w-[500px]">
       {title}
     </h3>
-    <p
-      class="text-secondary text-xl font-medium w-full md:w-[500px] mx-auto lg:mx-0"
-    >
+    <p class="text-secondary text-xl font-medium w-full md:w-[500px] mx-auto lg:mx-0">
       {#if description}
         {description}
       {:else}

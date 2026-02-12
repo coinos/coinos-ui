@@ -9,21 +9,10 @@
   import { t } from "$lib/translations";
   import { versions } from "$lib/utils";
   import { arkkey } from "$lib/ark";
-  import {
-    getRememberedWalletPassword,
-    forgetWalletPassword,
-  } from "$lib/passwordCache";
+  import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
 
   let { user, rate, account }: any = $props();
-  let {
-    name,
-    seed,
-    fingerprint,
-    balance,
-    id,
-    type: accountType,
-    arkAddress,
-  } = $derived(account);
+  let { name, seed, fingerprint, balance, id, type: accountType, arkAddress } = $derived(account);
 
   let arkBalance = $state(0);
   let arkLoading = $state(false);
@@ -45,12 +34,11 @@
         $arkkey = hex.encode(decrypt(seed, cached) as Uint8Array);
       } else if (user.seed) {
         // Master seed: derive m/86'/0'/0'/0/0
-        const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
-          await Promise.all([
-            import("@scure/bip32"),
-            import("@scure/bip39"),
-            import("@scure/bip39/wordlists/english.js"),
-          ]);
+        const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+          import("@scure/bip32"),
+          import("@scure/bip39"),
+          import("@scure/bip39/wordlists/english.js"),
+        ]);
         let entropy = await decrypt(user.seed, cached);
         let mnemonic = entropyToMnemonic(entropy, wordlist);
         let s = await mnemonicToSeed(mnemonic, cached);
@@ -91,12 +79,11 @@
     if (seed) {
       $arkkey = hex.encode(decrypt(seed, password!) as Uint8Array);
     } else if (user.seed) {
-      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
-        await Promise.all([
-          import("@scure/bip32"),
-          import("@scure/bip39"),
-          import("@scure/bip39/wordlists/english.js"),
-        ]);
+      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+        import("@scure/bip32"),
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
       let entropy = await decrypt(user.seed, password!);
       let mnemonic = entropyToMnemonic(entropy, wordlist);
       let s = await mnemonicToSeed(mnemonic, password!);
@@ -153,14 +140,9 @@
       onclick={goSettings}
     >
       {#if isArk}
-        <img
-          src="/images/ark.png"
-          class="w-8 h-8 rounded-full object-cover"
-          alt="Ark"
-        />
+        <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
       {:else if seed || (user.seed && fingerprint)}
-        <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
       {:else}
         <img src="/images/icon.png" class="w-8 h-8" />
       {/if}
@@ -169,20 +151,9 @@
   </div>
 
   <div class="flex w-full text-xl gap-2">
-    <a
-      href={"/invoice"}
-      class="contents"
-      onclick={(e) => setAccount(e, "/invoice")}
-    >
-      <button
-        class="btn !w-auto flex-1 !bg-base-300"
-        data-testid="account-receive"
-      >
-        <iconify-icon
-          noobserver
-          icon="ph:hand-coins-bold"
-          width="32"
-          flip="horizontal"
+    <a href={"/invoice"} class="contents" onclick={(e) => setAccount(e, "/invoice")}>
+      <button class="btn !w-auto flex-1 !bg-base-300" data-testid="account-receive">
+        <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
         ></iconify-icon>
         <div class="my-auto hidden sm:block">
           {$t("user.dashboard.receive")}
@@ -192,8 +163,7 @@
 
     <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
       <button type="button" class="btn !w-auto flex-1 !bg-base-300">
-        <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
         <div class="my-auto hidden sm:block">{$t("user.dashboard.send")}</div>
       </button>
     </a>

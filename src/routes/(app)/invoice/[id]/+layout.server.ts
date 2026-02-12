@@ -31,8 +31,7 @@ export async function load({ cookies, depends, params, url, parent }) {
       !(url.pathname.includes("tip") || url.pathname.includes("memo")) &&
       !options
     ) {
-      if (invoice.prompt && invoice.tip === null)
-        redirect(307, `/invoice/${id}/tip`);
+      if (invoice.prompt && invoice.tip === null) redirect(307, `/invoice/${id}/tip`);
       else {
         redirect(307, `/send/invoice/${id}`);
       }

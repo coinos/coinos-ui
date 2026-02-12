@@ -22,8 +22,7 @@
   class="w-72 sm:w-80 mx-auto cursor-pointer"
   bind:this={qr}
   onclick={() => screenfull?.toggle?.(qr)}
-  onkeydown={(e) =>
-    (e.key === "Enter" || e.key === " ") && screenfull?.toggle?.(qr)}
+  onkeydown={(e) => (e.key === "Enter" || e.key === " ") && screenfull?.toggle?.(qr)}
   role="button"
   tabindex="0"
   aria-label="Toggle fullscreen QR"

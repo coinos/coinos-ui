@@ -34,21 +34,10 @@
 
   <div class="text-xl text-secondary break-all">{address}</div>
 
-  <Numpad
-    bind:amount={a}
-    bind:fiat
-    {currency}
-    {submit}
-    bind:rate={$rate}
-    {locale}
-  />
+  <Numpad bind:amount={a} bind:fiat {currency} {submit} bind:rate={$rate} {locale} />
 
   <div class="flex justify-center gap-2">
-    <button
-      type="button"
-      class="btn !w-auto grow"
-      onclick={setMax}
-      onkeydown={setMax}
+    <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}
       >{#if $fiatStore}
         Max {f((balance * $rate) / sats, currency, locale)}
       {:else}
@@ -57,12 +46,7 @@
     >
 
     <form action={`/send/bitcoin/${address}/${amount}`} class="contents">
-      <button
-        use:focus
-        bind:this={submit}
-        type="submit"
-        class="btn !w-auto grow btn-accent"
-      >
+      <button use:focus bind:this={submit} type="submit" class="btn !w-auto grow btn-accent">
         {$t("payments.next")}
       </button>
     </form>

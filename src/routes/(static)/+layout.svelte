@@ -16,10 +16,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 <LandingHeader {user} />
 <Nostr />
-<main
-  class="container flex px-4 md:px-40 mx-auto min-h-[600px]"
-  data-theme={theme}
->
+<main class="container flex px-4 md:px-40 mx-auto min-h-[600px]" data-theme={theme}>
   {@render children?.()}
 </main>
 <Footer />

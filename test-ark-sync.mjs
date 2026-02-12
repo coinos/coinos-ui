@@ -3,26 +3,21 @@ import { chromium } from "playwright";
 const BASE = "http://172.18.0.9:3000";
 const API = "http://172.18.0.12:3119";
 const API_KEY = "test-playwright-key";
-const ARK_KEY =
-  "1fed5c62c46ea3f72757e0baf1b83573ffd125eaba69a61c0f847c0d26d7b924";
+const ARK_KEY = "1fed5c62c46ea3f72757e0baf1b83573ffd125eaba69a61c0f847c0d26d7b924";
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await context.newPage();
 
-  page.on("console", (msg) =>
-    console.log(`[browser:${msg.type()}]`, msg.text()),
-  );
+  page.on("console", (msg) => console.log(`[browser:${msg.type()}]`, msg.text()));
   page.on("pageerror", (err) => console.log("[page error]", err.message));
 
   // Monitor ALL arkade.computer requests
   page.on("request", (req) => {
     const u = req.url();
     if (u.includes("arkade.computer")) {
-      console.log(
-        `[req] ${req.method()} ${u} ${req.postData()?.substring(0, 300) || ""}`,
-      );
+      console.log(`[req] ${req.method()} ${u} ${req.postData()?.substring(0, 300) || ""}`);
     }
   });
   page.on("response", (resp) => {
@@ -30,9 +25,7 @@ const ARK_KEY =
     if (u.includes("arkade.computer") && !u.includes("subscription/")) {
       resp
         .text()
-        .then((t) =>
-          console.log(`[resp] ${resp.status()} ${u} -> ${t.substring(0, 500)}`),
-        );
+        .then((t) => console.log(`[resp] ${resp.status()} ${u} -> ${t.substring(0, 500)}`));
     }
   });
 
@@ -48,18 +41,13 @@ const ARK_KEY =
     if (h.name.toLowerCase() === "set-cookie") {
       const m = h.value.match(/token=([^;]+)/);
       if (m)
-        await context.addCookies([
-          { name: "token", value: m[1], domain: "172.18.0.9", path: "/" },
-        ]);
+        await context.addCookies([{ name: "token", value: m[1], domain: "172.18.0.9", path: "/" }]);
     }
   }
 
   // 2. Go to bob's page, set arkkey
   await page.goto(`${BASE}/bob`, { waitUntil: "domcontentloaded" });
-  await page.evaluate(
-    (key) => localStorage.setItem("arkkey", JSON.stringify(key)),
-    ARK_KEY,
-  );
+  await page.evaluate((key) => localStorage.setItem("arkkey", JSON.stringify(key)), ARK_KEY);
 
   // 3. Reload — don't wait for networkidle since SSE subscription stays open
   console.log("--- Reloading with arkkey ---");
@@ -74,9 +62,7 @@ const ARK_KEY =
   const accountsData = await page.request.get(`${API}/accounts`, {
     headers: {
       "x-api-key": API_KEY,
-      cookie: (await context.cookies())
-        .map((c) => `${c.name}=${c.value}`)
-        .join("; "),
+      cookie: (await context.cookies()).map((c) => `${c.name}=${c.value}`).join("; "),
     },
   });
   console.log("Accounts:", (await accountsData.text()).substring(0, 500));

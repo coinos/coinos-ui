@@ -7,9 +7,7 @@
 
 <div class="container w-full mx-auto text-lg px-2 space-y-2">
   <div class="mx-auto flex justify-center w-full gap-1">
-    <div
-      class="grid md:grid-cols-12 w-full text-center text-lg break-all gap-x-2"
-    >
+    <div class="grid md:grid-cols-12 w-full text-center text-lg break-all gap-x-2">
       {#each invoices as i}
         <div class="md:col-span-2 whitespace-nowrap mt-8 md:mt-0">{i.type}</div>
         {#if show[i.id]}

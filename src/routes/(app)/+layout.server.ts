@@ -50,11 +50,7 @@ export async function load({ cookies, request, url, params }) {
     redirect(307, "/migrate");
   }
 
-  if (
-    user &&
-    ["/login", "/register"].includes(pathname) &&
-    request.method === "GET"
-  ) {
+  if (user && ["/login", "/register"].includes(pathname) && request.method === "GET") {
     redirect(307, `/${user.username}`);
   }
 

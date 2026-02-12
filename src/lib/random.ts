@@ -1,9 +1,4 @@
-import {
-  NumberDictionary,
-  animals,
-  colors,
-  uniqueNamesGenerator,
-} from "unique-names-generator";
+import { NumberDictionary, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 
 export const randomName = () =>
   uniqueNamesGenerator({

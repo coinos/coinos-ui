@@ -27,13 +27,8 @@
 
 <div>
   {#if user.haspin && !$pin}
-    <button
-      onclick={toggleShow}
-      class="flex gap-2 text-xl"
-      data-testid="balance-show"
-    >
-      <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"
-      ></iconify-icon>
+    <button onclick={toggleShow} class="flex gap-2 text-xl" data-testid="balance-show">
+      <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
   {:else if !isNaN(rate)}
@@ -47,14 +42,7 @@
       />
       {#if locked && id === user.id}
         <div class="text-red-600">
-          <Amount
-            amount={locked}
-            {rate}
-            {currency}
-            {locale}
-            align="left"
-            locked={true}
-          />
+          <Amount amount={locked} {rate} {currency} {locale} align="left" locked={true} />
         </div>
       {/if}
     </div>

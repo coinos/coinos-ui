@@ -3,17 +3,7 @@
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import {
-    back,
-    copy,
-    f,
-    s,
-    toFiat,
-    post,
-    sats,
-    success,
-    types,
-  } from "$lib/utils";
+  import { back, copy, f, s, toFiat, post, sats, success, types } from "$lib/utils";
   import { fiat } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import { format } from "date-fns";
