@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getWallet } from "$lib/ark";
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { post } from "$lib/utils";
   let { data } = $props();
   let reset = (username) => post(`/reset`, { password });

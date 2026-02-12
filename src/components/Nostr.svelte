@@ -3,16 +3,7 @@
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
   import PasswordInput from "$comp/PasswordInput.svelte";
-  import { Relay } from "nostr-tools/relay";
   import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
-  import {
-    nip04,
-    nip19,
-    getEventHash,
-    generateSecretKey,
-    getPublicKey,
-  } from "nostr-tools";
-  import { getConversationKey, decrypt } from "nostr-tools/nip44";
 
   import { copy, focus, fail, post } from "$lib/utils";
   import { eventToSign, signer } from "$lib/store";

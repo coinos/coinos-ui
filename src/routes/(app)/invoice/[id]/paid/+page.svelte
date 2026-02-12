@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Amount from "$comp/Amount.svelte";
   import Success from "$comp/Success.svelte";
   import { t } from "$lib/translations";

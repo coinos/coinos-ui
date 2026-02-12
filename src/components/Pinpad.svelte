@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Left from "$comp/Left.svelte";  import { focus, post, warning } from "$lib/utils";
   import { t } from "$lib/translations";
 

@@ -1,8 +1,7 @@
-<script>
+<script lang="ts">
   import { invalidate } from "$app/navigation";
   import { untrack } from "svelte";
   import handler from "$lib/handler";
-  import { onDestroy, onMount } from "svelte";
   import { t } from "$lib/translations";
   import { goto, invalidateAll } from "$app/navigation";
   import { fiat as fiatStore, pin } from "$lib/store";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { browser } from "$app/environment";
   import { applyAction, deserialize } from "$app/forms";
   import { page } from "$app/stores";

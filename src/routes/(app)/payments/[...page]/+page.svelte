@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Avatar from "$comp/Avatar.svelte";
   import Payments from "$comp/Payments.svelte";
   import { onMount } from "svelte";

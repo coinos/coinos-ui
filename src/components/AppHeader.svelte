@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { banner, theme, newPayment } from "$lib/store";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";

@@ -6,10 +6,6 @@
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { s, f, sats, copy, fail } from "$lib/utils";
-  import {
-    PUBLIC_COINOS_PUBKEY as pk,
-    PUBLIC_COINOS_RELAY as relay,
-  } from "$env/static/public";
   import { fiat, rate, signer, save } from "$lib/store";
   import { getPreferredRelays } from "$lib/nip17";
 

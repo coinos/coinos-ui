@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import DarkToggle from "$comp/DarkToggle.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import { t } from "$lib/translations";

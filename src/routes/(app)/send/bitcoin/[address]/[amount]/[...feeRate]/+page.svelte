@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
@@ -14,9 +14,6 @@
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
   import { decrypt } from "nostr-tools/nip49";
-  import { HDKey } from "@scure/bip32";
-  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
-  import { wordlist } from "@scure/bip39/wordlists/english.js";
   import {
     getRememberedWalletPassword,
     forgetWalletPassword,

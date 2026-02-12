@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { copy, s, f, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
   const {

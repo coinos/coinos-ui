@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { preventDefault } from 'svelte/legacy';
 
   import { focus } from "$lib/utils";

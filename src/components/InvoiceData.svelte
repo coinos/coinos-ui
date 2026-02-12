@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Amount from "$comp/Amount.svelte";
 
   import { btc, copy, f, sat, sats, types } from "$lib/utils";

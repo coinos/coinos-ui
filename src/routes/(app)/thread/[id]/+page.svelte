@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Event from "$comp/Event.svelte";
 
   let { data } = $props();

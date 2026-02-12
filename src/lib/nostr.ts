@@ -17,7 +17,6 @@ import {
 	nip04,
 	nip19,
 } from "nostr-tools";
-import { decrypt as nip44decrypt, getConversationKey } from "nostr-tools/nip44";
 import { Relay } from "nostr-tools/relay";
 import { get } from "svelte/store";
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { t } from "$lib/translations";
   import { post, success, fail, focus, setCookie } from "$lib/utils";
   import Pinpad from "$comp/Pinpad.svelte";

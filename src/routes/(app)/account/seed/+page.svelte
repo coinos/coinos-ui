@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Mnemonic from "$comp/Mnemonic.svelte";
   import { browser } from "$app/environment";
   import { tick, onMount } from "svelte";

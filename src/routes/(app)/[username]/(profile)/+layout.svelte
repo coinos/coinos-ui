@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { copy, f, loc, post, s, sats, success, fail } from "$lib/utils";
   import { fiat } from "$lib/store";
   import { t } from "$lib/translations";

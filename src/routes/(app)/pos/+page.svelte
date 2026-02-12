@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { enhance } from "$app/forms";
   import { hex } from "@scure/base";
 

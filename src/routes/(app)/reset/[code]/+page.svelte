@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
   import { onDestroy, onMount, tick } from "svelte";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tick, onMount, onDestroy, mount } from "svelte";
   import { browser } from "$app/environment";
   import Popup from "$comp/Popup.svelte";

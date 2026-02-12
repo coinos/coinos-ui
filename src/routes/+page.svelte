@@ -8,8 +8,7 @@
   import Footer from "$comp/Footer.svelte";
   import About from "$comp/About.svelte";
 
-  import { locale, t } from "$lib/translations";
-  import { onDestroy, onMount, tick } from "svelte";
+  import { t } from "$lib/translations";
 
   let { data } = $props();
   let { faqs, locations, user } = $derived(data);

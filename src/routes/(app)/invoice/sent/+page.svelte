@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Avatar from "$comp/Avatar.svelte";  import { request } from "$lib/store";
 </script>
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { amountPrompt } from "$lib/store";
   import Numpad from "$comp/Numpad.svelte";
   import Toggle from "$comp/Toggle.svelte";

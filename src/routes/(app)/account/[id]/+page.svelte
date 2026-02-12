@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { page } from "$app/stores";
   import Mnemonic from "$comp/Mnemonic.svelte";
   import WalletPass from "$comp/WalletPass.svelte";

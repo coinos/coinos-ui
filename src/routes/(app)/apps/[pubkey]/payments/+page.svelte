@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { loc } from "$lib/utils";
   import Payments from "$comp/Payments.svelte";
   import { t } from "$lib/translations";

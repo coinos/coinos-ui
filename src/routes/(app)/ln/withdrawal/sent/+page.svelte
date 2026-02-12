@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { scale } from "svelte/transition";
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";

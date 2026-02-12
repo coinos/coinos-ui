@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { focus } from "$lib/utils";
   import { goto } from "$app/navigation";  import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";

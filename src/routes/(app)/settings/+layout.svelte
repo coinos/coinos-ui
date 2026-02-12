@@ -42,7 +42,6 @@
     { name: "security", key: "SECURITY" },
   ];
 
-  let { about, id, username } = $derived(user);
   let submitting = $state();
 
   const pool = new SimplePool();

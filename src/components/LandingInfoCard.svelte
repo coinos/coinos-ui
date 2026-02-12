@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Image from "./Image.svelte";
 
   let {

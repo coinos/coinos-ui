@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";

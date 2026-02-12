@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
   import { get, f, s, si, sat, loc, sats, types } from "$lib/utils";

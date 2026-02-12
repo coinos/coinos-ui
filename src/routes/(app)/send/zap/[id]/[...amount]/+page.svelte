@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tick } from "svelte";
   import { goto } from "$app/navigation";
   import { untrack } from "svelte";

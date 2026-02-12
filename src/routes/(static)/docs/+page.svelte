@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { copyNoNewlines as copy } from "$lib/utils";
   import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
 

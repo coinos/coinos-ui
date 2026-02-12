@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { focus, fail, post } from "$lib/utils";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";

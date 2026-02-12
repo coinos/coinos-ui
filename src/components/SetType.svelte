@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import InvoiceTypes from "$comp/InvoiceTypes.svelte";
   import { focus } from "$lib/utils";
 
@@ -14,7 +14,6 @@
     t,
   } = $props();
 
-  let { aid, type } = $derived(invoice);
 </script>
 
 {#if settingType}

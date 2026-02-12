@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Lnurlp from "$comp/Lnurlp.svelte";
   import Lnurlw from "$comp/Lnurlw.svelte";
   let { data } = $props();

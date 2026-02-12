@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";

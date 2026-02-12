@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getWallet, syncTransactions, settle } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";

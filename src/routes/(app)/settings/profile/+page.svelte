@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tick } from "svelte";
   import { avatar, banner as bannerStore } from "$lib/store";
   import { t } from "$lib/translations";

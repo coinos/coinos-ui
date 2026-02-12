@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   import { run } from "svelte/legacy";
 
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
-  import { invoice as inv, request } from "$lib/store";
+  import { invoice as inv } from "$lib/store";
   import { copy, select, f, sat, get, s, sats } from "$lib/utils";
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
