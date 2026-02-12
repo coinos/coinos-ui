@@ -18,8 +18,7 @@ export async function load({ cookies, params, parent }) {
     const recipient = await get(`/users/${invoice.uid}`);
     let r = `/pay/${recipient.username}`;
     if (amount) r += `/${amount}`;
-    if (recipient?.id !== user.id && recipient.id === invoice.aid)
-      redirect(307, r);
+    if (recipient?.id !== user.id && recipient.id === invoice.aid) redirect(307, r);
   }
 
   return { balance };

@@ -14,10 +14,7 @@
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
   import { decrypt } from "nostr-tools/nip49";
-  import {
-    getRememberedWalletPassword,
-    forgetWalletPassword,
-  } from "$lib/passwordCache";
+  import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
   import { sendArkViaForward } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
@@ -78,8 +75,7 @@
       return;
     }
 
-    if ((account.seed || data.user.seed) && !signed)
-      (cancel(), void togglePassword());
+    if ((account.seed || data.user.seed) && !signed) (cancel(), void togglePassword());
     return async ({ result }) => {
       if (result.type === "redirect") {
         goto(result.location);
@@ -92,29 +88,21 @@
 
   let signTx = async () => {
     const { decrypt } = await import("nostr-tools/nip49");
-    const [
-      { Transaction },
-      { HDKey },
-      { entropyToMnemonic, mnemonicToSeed },
-      { wordlist },
-    ] = await Promise.all([
-      import("@scure/btc-signer"),
-      import("@scure/bip32"),
-      import("@scure/bip39"),
-      import("@scure/bip39/wordlists/english.js"),
-    ]);
-    let entropy = await decrypt(
-      account.seed || data.user.seed,
-      password as string,
-    );
+    const [{ Transaction }, { HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
+      await Promise.all([
+        import("@scure/btc-signer"),
+        import("@scure/bip32"),
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
+    let entropy = await decrypt(account.seed || data.user.seed, password as string);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
     let seed = await mnemonicToSeed(mnemonic, password as string);
     let master = HDKey.fromMasterSeed(seed, network as any);
     let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
 
     let raw = decode(hex);
-    let isPSBT =
-      raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
+    let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
     let tx: any = isPSBT ? Transaction.fromPSBT(raw) : Transaction.fromRaw(raw);
 
     for (let [i, input] of tx.inputs.entries()) {
@@ -137,27 +125,15 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let {
-    account,
-    amount,
-    address,
-    message,
-    fee,
-    fees,
-    subtract,
-    ourfee,
-    hex,
-    inputs,
-  } = $derived(data);
+  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs } =
+    $derived(data);
 
   let { feeRate }: any = $state(data);
 
   $effect(() => {
     if (fees) {
       delete fees.minimumFee;
-      feeRate = feeRate
-        ? closest(Object.values(fees), feeRate)
-        : fees.halfHourFee;
+      feeRate = feeRate ? closest(Object.values(fees), feeRate) : fees.halfHourFee;
     }
   });
 
@@ -182,9 +158,7 @@
   let goBack = () => goto(`/send/bitcoin/${address}`);
 </script>
 
-<div
-  class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition"
->
+<div class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition">
   <h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t("payments.send")}</h1>
 
   {#if form?.message || message || error}
@@ -194,11 +168,7 @@
   {:else}
     <div class="text-xl text-secondary break-all">{address}</div>
 
-    <Amount
-      amount={subtract ? amount - fee - ourfee : amount}
-      rate={$rate}
-      {currency}
-    />
+    <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} />
 
     {#if fees}
       <div class="text-center">

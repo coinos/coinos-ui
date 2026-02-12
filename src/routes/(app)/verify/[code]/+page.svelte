@@ -8,24 +8,14 @@
 
 <div class="container px-4 text-center mx-auto">
   {#if error}
-    <h1 class="text-3xl md:text-4xl font-bold mb-6">
-      Email verification failed
-    </h1>
+    <h1 class="text-3xl md:text-4xl font-bold mb-6">Email verification failed</h1>
   {:else if user.verified}
-    <div
-      class="flex w-full py-5 max-w-[200px] mx-auto"
-      in:scale={{ start: 0.5 }}
-    >
-      <iconify-icon
-        noobserver
-        icon="ph:check-bold"
-        class="mx-auto w-full text-[#7ACC8F]"
+    <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
+      <iconify-icon noobserver icon="ph:check-bold" class="mx-auto w-full text-[#7ACC8F]"
       ></iconify-icon>
     </div>
 
-    <h1 class="text-3xl md:text-4xl font-bold mb-6">
-      Email verified successfully!
-    </h1>
+    <h1 class="text-3xl md:text-4xl font-bold mb-6">Email verified successfully!</h1>
   {/if}
 </div>
 

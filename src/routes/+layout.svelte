@@ -63,10 +63,7 @@
 
       window.AndroidNotch.getInsetBottom(
         (px) => {
-          document.documentElement.style.setProperty(
-            "--safe-area-inset-bottom",
-            24 + "px",
-          );
+          document.documentElement.style.setProperty("--safe-area-inset-bottom", 24 + "px");
         },
         (err) => {
           console.error("Failed to get bottom inset:", err);

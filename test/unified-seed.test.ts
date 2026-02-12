@@ -95,9 +95,7 @@ describe("unified master seed", () => {
     const btcChild = master.derive("m/84'/0'/0'");
     const arkChild = master.derive("m/86'/0'/0'/0/0");
 
-    expect(bytesToHex(btcChild.privateKey!)).not.toBe(
-      bytesToHex(arkChild.privateKey!),
-    );
+    expect(bytesToHex(btcChild.privateKey!)).not.toBe(bytesToHex(arkChild.privateKey!));
   });
 });
 
@@ -127,9 +125,7 @@ describe("full encrypt-derive-sign flow", () => {
     const recoveredChild = recoveredMaster.derive("m/84'/0'/0'");
 
     expect(recoveredChild.publicExtendedKey).toBe(pubkey);
-    expect(bytesToHex(recoveredChild.privateKey!)).toBe(
-      bytesToHex(btcChild.privateKey!),
-    );
+    expect(bytesToHex(recoveredChild.privateKey!)).toBe(bytesToHex(btcChild.privateKey!));
   });
 
   it("simulates Ark unlock from user.seed", async () => {
@@ -187,9 +183,7 @@ describe("full encrypt-derive-sign flow", () => {
 describe("backward compatibility", () => {
   it("legacy per-account seed (raw hex) decrypts differently than mnemonic entropy", async () => {
     // Legacy: encrypt raw 32-byte hex key
-    const rawKey = hexToBytes(
-      "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
-    );
+    const rawKey = hexToBytes("deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef");
     const legacySeed = await encrypt(rawKey, password);
 
     // Decrypt legacy seed — get raw bytes back

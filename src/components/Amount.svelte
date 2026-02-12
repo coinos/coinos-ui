@@ -34,8 +34,7 @@
         aria-label="Toggle currency display"
       >
         {#if !canShowFiat}
-          <iconify-icon noobserver {icon} class="text-yellow-300"
-          ></iconify-icon>
+          <iconify-icon noobserver {icon} class="text-yellow-300"></iconify-icon>
         {/if}
         {#if canShowFiat}
           {f(toFiat(amount, rate), currency, locale)}

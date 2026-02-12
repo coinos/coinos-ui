@@ -165,14 +165,11 @@
     {#if hasMasterSeed}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Your Ark wallet will be derived from your master seed. Enter your
-          wallet password to continue.
+          Your Ark wallet will be derived from your master seed. Enter your wallet password to
+          continue.
         </p>
 
-        <label
-          for="password"
-          class="input flex items-center justify-center gap-2 w-full"
-        >
+        <label for="password" class="input flex items-center justify-center gap-2 w-full">
           {#if revealPassword}
             <input
               name="password"
@@ -211,15 +208,12 @@
         </label>
 
         <div class="space-y-2">
-          <label for="rememberFor" class="text-sm text-secondary">
-            Remember for
-          </label>
+          <label for="rememberFor" class="text-sm text-secondary"> Remember for </label>
           <select
             id="rememberFor"
             class="w-full"
             value={rememberForMs}
-            onchange={(e) =>
-              (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+            onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
               <option value={option.ms}>{option.label}</option>
@@ -231,11 +225,7 @@
           <a href={`/${user.username}`} class="contents">
             <button type="button" class="btn !w-auto grow"> Back </button>
           </a>
-          <button
-            disabled={submitting}
-            type="submit"
-            class="btn btn-accent !w-auto grow"
-          >
+          <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
             {#if submitting}
               <Spinner />
             {:else}
@@ -247,8 +237,7 @@
     {:else if !confirmed}
       <div class="space-y-4">
         <p class="text-secondary">
-          Your Ark wallet is secured by a private key. Please copy it down
-          somewhere safe.
+          Your Ark wallet is secured by a private key. Please copy it down somewhere safe.
         </p>
 
         {#if showNsec}
@@ -264,24 +253,14 @@
           </div>
 
           <div class="flex gap-2">
-            <button
-              type="button"
-              class="btn btn-accent flex-grow"
-              onclick={confirmBackup}
-            >
-              <iconify-icon noobserver icon="ph:check-bold" width="24"
-              ></iconify-icon>
+            <button type="button" class="btn btn-accent flex-grow" onclick={confirmBackup}>
+              <iconify-icon noobserver icon="ph:check-bold" width="24"></iconify-icon>
               I've backed it up
             </button>
           </div>
         {:else}
-          <button
-            type="button"
-            class="btn btn-warning w-full"
-            onclick={revealNsec}
-          >
-            <iconify-icon noobserver icon="ph:eye-bold" width="24"
-            ></iconify-icon>
+          <button type="button" class="btn btn-warning w-full" onclick={revealNsec}>
+            <iconify-icon noobserver icon="ph:eye-bold" width="24"></iconify-icon>
             Reveal backup key
           </button>
         {/if}
@@ -289,14 +268,10 @@
     {:else}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Set a password to encrypt your key. You'll need this password to send
-          funds.
+          Set a password to encrypt your key. You'll need this password to send funds.
         </p>
 
-        <label
-          for="password"
-          class="input flex items-center justify-center gap-2 w-full"
-        >
+        <label for="password" class="input flex items-center justify-center gap-2 w-full">
           {#if revealPassword}
             <input
               name="password"
@@ -334,10 +309,7 @@
           </button>
         </label>
 
-        <label
-          for="confirm"
-          class="input flex items-center justify-center gap-2 w-full"
-        >
+        <label for="confirm" class="input flex items-center justify-center gap-2 w-full">
           {#if revealConfirm}
             <input
               name="confirm"
@@ -373,15 +345,12 @@
         </label>
 
         <div class="space-y-2">
-          <label for="rememberFor" class="text-sm text-secondary">
-            Remember for
-          </label>
+          <label for="rememberFor" class="text-sm text-secondary"> Remember for </label>
           <select
             id="rememberFor"
             class="w-full"
             value={rememberForMs}
-            onchange={(e) =>
-              (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+            onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
               <option value={option.ms}>{option.label}</option>
@@ -390,18 +359,10 @@
         </div>
 
         <div class="flex gap-2">
-          <button
-            type="button"
-            class="btn !w-auto grow"
-            onclick={() => (confirmed = false)}
-          >
+          <button type="button" class="btn !w-auto grow" onclick={() => (confirmed = false)}>
             Back
           </button>
-          <button
-            disabled={submitting}
-            type="submit"
-            class="btn btn-accent !w-auto grow"
-          >
+          <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
             {#if submitting}
               <Spinner />
             {:else}

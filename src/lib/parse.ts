@@ -3,11 +3,8 @@ import { decode } from "$lib/bip21";
 import { auth, get, isLiquid, post, sats } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-let validatePromise:
-  | Promise<typeof import("bitcoin-address-validation")>
-  | undefined;
-const loadValidate = () =>
-  (validatePromise ||= import("bitcoin-address-validation"));
+let validatePromise: Promise<typeof import("bitcoin-address-validation")> | undefined;
+const loadValidate = () => (validatePromise ||= import("bitcoin-address-validation"));
 
 export default async (s, host, cookies) => {
   if (!s) return;
@@ -16,8 +13,7 @@ export default async (s, host, cookies) => {
   let invoice;
   let user;
 
-  if (t.startsWith("ark") || t.startsWith("tark"))
-    redirect(307, `/send/ark/${t}`);
+  if (t.startsWith("ark") || t.startsWith("tark")) redirect(307, `/send/ark/${t}`);
 
   if (t.startsWith("http")) redirect(307, t);
   if (t.startsWith(host)) redirect(307, `http://${t}`);
@@ -44,10 +40,7 @@ export default async (s, host, cookies) => {
   if (["nprofile", "npub"].some((p) => t.startsWith(p))) redirect(307, `/${t}`);
 
   // bitcoin
-  if (
-    t.toLowerCase().startsWith("bitcoin:") ||
-    t.toLowerCase().startsWith("liquidnetwork:")
-  ) {
+  if (t.toLowerCase().startsWith("bitcoin:") || t.toLowerCase().startsWith("liquidnetwork:")) {
     ({
       address: t,
       options: { amount },
@@ -62,8 +55,7 @@ export default async (s, host, cookies) => {
   }
 
   // lightning
-  if (t.toLowerCase().startsWith("lightning:"))
-    t = t.toLowerCase().replace("lightning:", "");
+  if (t.toLowerCase().startsWith("lightning:")) t = t.toLowerCase().replace("lightning:", "");
   if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
   if (t.includes(":")) t = t.split(":")[1];
 

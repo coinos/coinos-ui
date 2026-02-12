@@ -24,11 +24,7 @@
   let validate = (e) => {
     let k = e.key || e.code;
     if (k === "Escape") cancel();
-    if (
-      e.key.length <= 1 &&
-      !(e.metaKey || e.ctrlKey || e.altKey) &&
-      !(k >= "0" && k <= "9")
-    ) {
+    if (e.key.length <= 1 && !(e.metaKey || e.ctrlKey || e.altKey) && !(k >= "0" && k <= "9")) {
       if (e.preventDefault) e.preventDefault();
       else e.returnValue = false;
     }
@@ -43,9 +39,7 @@
   };
 </script>
 
-<label
-  class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
->
+<label class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2">
   {#if hide}
     <input
       onkeydown={validate}
@@ -73,10 +67,7 @@
     onclick={toggle}
     aria-label={hide ? "Show PIN" : "Hide PIN"}
   >
-    <iconify-icon
-      noobserver
-      icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"}
-      width="32"
+    <iconify-icon noobserver icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
     ></iconify-icon></button
   >
 </label>
@@ -88,9 +79,7 @@
         <Left />
       </button>
     {:else}
-      <button type="button" class="btn" onclick={(e) => handleInput(e, value)}
-        >{value}</button
-      >
+      <button type="button" class="btn" onclick={(e) => handleInput(e, value)}>{value}</button>
     {/if}
   {/each}
 </div>

@@ -70,8 +70,6 @@
       submit={next}
       element={undefined}
     />
-    <button type="submit" class="btn" bind:this={next}
-      >{$t("payments.next")}</button
-    >
+    <button type="submit" class="btn" bind:this={next}>{$t("payments.next")}</button>
   </form>
 </div>

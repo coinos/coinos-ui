@@ -71,9 +71,7 @@
 </script>
 
 <div>
-  <label for="username" class="font-bold mb-1 block"
-    >{$t("user.settings.username")}</label
-  >
+  <label for="username" class="font-bold mb-1 block">{$t("user.settings.username")}</label>
   <div class="flex mb-2">
     <input type="text" name="username" bind:value={username} />
   </div>
@@ -82,20 +80,13 @@
 <input type="hidden" name="confirm" bind:value={password} />
 
 <div>
-  <label for="password" class="block font-bold block mb-1"
-    >{$t("user.settings.newPassword")}</label
-  >
+  <label for="password" class="block font-bold block mb-1">{$t("user.settings.newPassword")}</label>
 
-  <PasswordInput
-    bind:value={password}
-    placeholder="(Leave blank to keep unchanged)"
-  />
+  <PasswordInput bind:value={password} placeholder="(Leave blank to keep unchanged)" />
 </div>
 
 <div>
-  <label for="display" class="font-bold mb-1 block"
-    >{$t("user.settings.displayName")}</label
-  >
+  <label for="display" class="font-bold mb-1 block">{$t("user.settings.displayName")}</label>
   <input type="text" name="display" bind:value={display} />
 </div>
 
@@ -107,8 +98,7 @@
       <div
         class="relative rounded-full overflow-hidden text-center w-20 h-20 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
-        onkeydown={(e) =>
-          (e.key === "Enter" || e.key === " ") && selectAvatar()}
+        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectAvatar()}
         role="button"
         tabindex="0"
       >
@@ -122,19 +112,15 @@
       <div
         class="rounded-full border-4 border-base-100 p-4 bg-base-200 w-24 h-24 my-auto hover:opacity-80 cursor-pointer"
         onclick={selectAvatar}
-        onkeydown={(e) =>
-          (e.key === "Enter" || e.key === " ") && selectAvatar()}
+        onkeydown={(e) => (e.key === "Enter" || e.key === " ") && selectAvatar()}
         role="button"
         tabindex="0"
       ></div>
     {/if}
     <div class="ml-2 p-2">
       <!-- found missing translation -->
-      <button
-        type="button"
-        class="btn"
-        onclick={selectAvatar}
-        onkeydown={selectAvatar}>{$t("user.settings.select")}</button
+      <button type="button" class="btn" onclick={selectAvatar} onkeydown={selectAvatar}
+        >{$t("user.settings.select")}</button
       >
       <input
         type="file"
@@ -156,12 +142,7 @@
   </div>
 
   {#if $bannerStore || banner}
-    <button
-      type="button"
-      class="w-full"
-      onclick={selectBanner}
-      aria-label="Select banner"
-    >
+    <button type="button" class="w-full" onclick={selectBanner} aria-label="Select banner">
       <img
         src={$bannerStore ? ($bannerStore as any).src : banner}
         class="w-full object-cover object-center visible overflow-hidden h-48 mb-4 hover:opacity-80"
@@ -178,11 +159,8 @@
     ></div>
   {/if}
 
-  <button
-    type="button"
-    class="btn !w-auto"
-    onclick={selectBanner}
-    onkeydown={selectBanner}>{$t("user.settings.select")}</button
+  <button type="button" class="btn !w-auto" onclick={selectBanner} onkeydown={selectBanner}
+    >{$t("user.settings.select")}</button
   >
   <input
     type="file"
@@ -197,12 +175,7 @@
 </div>
 
 <div>
-  <label for="about" class="font-bold mb-1 block"
-    >{$t("user.settings.about")}</label
-  >
-  <textarea
-    name="about"
-    bind:value={about}
-    placeholder={$t("user.settings.aboutPlaceholder")}
+  <label for="about" class="font-bold mb-1 block">{$t("user.settings.about")}</label>
+  <textarea name="about" bind:value={about} placeholder={$t("user.settings.aboutPlaceholder")}
   ></textarea>
 </div>

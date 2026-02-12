@@ -31,8 +31,7 @@ const ipHeaders = (): Record<string, string> => {
   return ip ? { "cf-connecting-ip": ip } : {};
 };
 
-export const punk = (k: string) =>
-  `${Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1}.webp`;
+export const punk = (k: string) => `${Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1}.webp`;
 
 export const g = (url: string, fetch: any, headers: object) =>
   fetch(base + url, { headers: { ...ipHeaders(), ...headers } })
@@ -234,17 +233,14 @@ export const isInvalidTokenError = (e: unknown) => {
   );
 };
 
-export const btc = (fiat: number, rate: number): number =>
-  Math.round((fiat * sats) / rate);
+export const btc = (fiat: number, rate: number): number => Math.round((fiat * sats) / rate);
 
-export const toFiat = (amount: number, rate: number): number =>
-  (amount * rate) / sats;
+export const toFiat = (amount: number, rate: number): number => (amount * rate) / sats;
 
 export const fd = async (req: Request): Promise<any> => {
   const obj: Record<string, any> = Object.fromEntries(await req.formData());
   for (const k in obj)
-    (obj[k] === "undefined" && (obj[k] = undefined)) ||
-      (obj[k] === "false" && (obj[k] = false));
+    (obj[k] === "undefined" && (obj[k] = undefined)) || (obj[k] === "false" && (obj[k] = false));
   return obj;
 };
 
@@ -338,8 +334,7 @@ export const f = (
   const l = typeof locale === "function" ? locale() : locale || "en-US";
   const cur = currency || "USD";
   const region = l.length >= 2 ? l.slice(-2) : "";
-  const currencyDisplay =
-    region && cur.startsWith(region) ? "narrowSymbol" : "symbol";
+  const currencyDisplay = region && cur.startsWith(region) ? "narrowSymbol" : "symbol";
   return new Intl.NumberFormat(l, {
     style: "currency",
     currency: cur,
@@ -356,11 +351,7 @@ export const s = (s: number, locale = "en-US"): string => {
 
 export const sat = (s: number): string => `${si(Math.abs(s)).toString()}`;
 
-export const si = (
-  n: number,
-  minimumFractionDigits = 1,
-  maximumFractionDigits = 2,
-) => {
+export const si = (n: number, minimumFractionDigits = 1, maximumFractionDigits = 2) => {
   const units = ["", "K", "M", "G", "T", "P", "E", "Z"];
 
   let s = n;
@@ -380,8 +371,7 @@ export const si = (
 
 export const sats = 100000000;
 
-export const back = (): any =>
-  browser && (history.length ? history.go(-1) : goto("/"));
+export const back = (): any => browser && (history.length ? history.go(-1) : goto("/"));
 
 export const focus = (el: HTMLElement): any =>
   browser && screen.width > 1280 && setTimeout(() => el.focus(), 1);
@@ -389,8 +379,7 @@ export const focus = (el: HTMLElement): any =>
 export const select = (el: HTMLInputElement): any =>
   browser && screen.width > 1280 && setTimeout(() => el.select(), 1);
 
-export const sleep = (n: number): Promise<void> =>
-  new Promise((r) => setTimeout(r, n));
+export const sleep = (n: number): Promise<void> => new Promise((r) => setTimeout(r, n));
 
 export const wait = async (
   f: () => boolean | Promise<boolean>,
@@ -417,8 +406,7 @@ export const types = {
   bolt12: "bolt12",
 };
 
-export const ease = (t: number): number =>
-  t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
+export const ease = (t: number): number => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t);
 
 export function shuffleArray<T>(array: T[]): void {
   for (let i = array.length - 1; i > 0; i--) {
@@ -428,9 +416,7 @@ export function shuffleArray<T>(array: T[]): void {
 }
 
 export const closest = (a: number[], n: number): number =>
-  a.reduce((prev, curr) =>
-    Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev,
-  );
+  a.reduce((prev, curr) => (Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev));
 
 export const isLiquid = (text: string): boolean =>
   text.startsWith("Az") ||
@@ -439,8 +425,7 @@ export const isLiquid = (text: string): boolean =>
   text.startsWith("VT") ||
   text.startsWith("XR") ||
   text.startsWith("XC") ||
-  ((text.startsWith("H") || text.startsWith("G") || text.startsWith("Q")) &&
-    text.length === 34) ||
+  ((text.startsWith("H") || text.startsWith("G") || text.startsWith("Q")) && text.length === 34) ||
   (text.startsWith("ert1q") && text.length === 43) ||
   (text.startsWith("ex1q") && text.length === 42) ||
   text.startsWith("el1qq") ||

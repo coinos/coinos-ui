@@ -1,12 +1,7 @@
 import { get } from "$lib/utils";
 import { error } from "@sveltejs/kit";
 
-export const load = async ({
-  cookies,
-  depends,
-  params: { username },
-  parent,
-}) => {
+export const load = async ({ cookies, depends, params: { username }, parent }) => {
   depends("app:user");
 
   try {

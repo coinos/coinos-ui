@@ -68,9 +68,7 @@
     submit = $state();
 </script>
 
-<div
-  class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition"
->
+<div class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition">
   <h1 class="text-3xl md:text-4xl font-semibold mb-2">{$t("payments.send")}</h1>
 
   {#if form?.message || message || error}

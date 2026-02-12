@@ -38,8 +38,7 @@
 
 @font-face {
   font-family: "PublicSans";
-  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf")
-    format("truetype");
+  src: url("/fonts/Public_Sans/static/PublicSans-Regular.ttf") format("truetype");
 }
 
 :root {

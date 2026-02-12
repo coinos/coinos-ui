@@ -24,9 +24,7 @@
         <div>{f(amountFiat, currency)}</div>
       {:else}
         <div>
-          <span class="text-secondary font-normal text-xl"
-            >⚡️{`${s(amount)}`}</span
-          >
+          <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span>
         </div>
       {/if}
     </div>
@@ -46,9 +44,7 @@
         </div>
       {:else}
         <div>
-          <span class="text-secondary font-normal text-xl"
-            >⚡️{`${s(spent)}`}</span
-          >
+          <span class="text-secondary font-normal text-xl">⚡️{`${s(spent)}`}</span>
           <span class=" text-red-600">{$t("payments.spent")}</span>
         </div>
       {/if}

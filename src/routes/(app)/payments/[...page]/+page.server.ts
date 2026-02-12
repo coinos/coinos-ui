@@ -25,10 +25,7 @@ export async function load({ cookies, depends, params }) {
   if (start) q.set("start", str(start * 1000));
   if (end) q.set("end", str(end * 1000));
 
-  const { count, payments, incoming, outgoing } = await get(
-    `/payments?${str(q)}`,
-    auth(cookies),
-  );
+  const { count, payments, incoming, outgoing } = await get(`/payments?${str(q)}`, auth(cookies));
 
   const pages = Array.from({ length: Math.ceil(count / limit) });
 

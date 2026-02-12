@@ -48,23 +48,20 @@
   <div class="flex flex-wrap gap-2 justify-around text-secondary w-full">
     {#if user?.id === invoice?.user?.id}
       <button class="btn grow !w-auto" onclick={toggleAmount}>
-        <iconify-icon noobserver icon="ph:pencil-simple-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:pencil-simple-bold" width="32"></iconify-icon>
         <div class="my-auto">{t("payments.setAmount")}</div>
       </button>
     {:else}
       <a href={link} class="block">
         <button class="btn grow !w-auto">
-          <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
           <div class="my-auto">{t("payments.openLink")}</div>
         </button>
       </a>
     {/if}
 
     <button class="btn grow !w-auto" onclick={toggleMemo}>
-      <iconify-icon noobserver icon="ph:chat-centered-text-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:chat-centered-text-bold" width="32"></iconify-icon>
       <div class="my-auto">
         {t("invoice.setMemo")}
       </div>
@@ -80,8 +77,7 @@
     </button>
 
     <button class="btn grow !w-auto" onclick={() => goto("/receive")}>
-      <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
       <div class="my-auto text-lg">{t("user.send.paste")}</div>
     </button>
 
@@ -95,11 +91,9 @@
     <div class="w-full flex justify-center gap-2 flex-wrap">
       <button class="btn" onclick={() => (showQr = !showQr)}>
         {#if showQr}
-          <iconify-icon noobserver icon="ph:text-align-center-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:text-align-center-bold" width="32"></iconify-icon>
         {:else}
-          <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
         {/if}
         <div class="my-auto">
           {showQr ? t("payments.showText") : t("payments.showQr")}
@@ -120,14 +114,9 @@
           setType(types.lightning);
         }}
       >
-        <div
-          class="bg-black rounded-full w-8 h-8 items-center justify-center flex"
-        >
+        <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
           <div class="m-auto">
-            <iconify-icon
-              noobserver
-              icon="ph:lightning-fill"
-              class="text-yellow-300 text-2xl"
+            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
             ></iconify-icon>
           </div>
         </div>

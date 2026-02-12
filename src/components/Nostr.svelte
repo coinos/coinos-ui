@@ -32,8 +32,7 @@
   let connectUrl: string | undefined = $state();
   let nostrConnect = async () => {
     const { Relay } = await import("nostr-tools/relay");
-    const { nip04, generateSecretKey, getPublicKey } =
-      await import("nostr-tools");
+    const { nip04, generateSecretKey, getPublicKey } = await import("nostr-tools");
     const { getConversationKey, decrypt } = await import("nostr-tools/nip44");
     let connectionSecret = crypto.randomUUID();
 
@@ -49,9 +48,7 @@
         try {
           let result;
           try {
-            ({ result } = JSON.parse(
-              await nip04.decrypt(sk, pk, event.content),
-            ));
+            ({ result } = JSON.parse(await nip04.decrypt(sk, pk, event.content)));
           } catch (e) {
             let ck = await getConversationKey(sk, pk);
             ({ result } = JSON.parse(await decrypt(event.content, ck)));
@@ -119,9 +116,7 @@
 
 {#if $eventToSign && !$signer?.ready}
   <div class="fixed inset-0 bg-base-100/90 overflow-y-auto h-full w-full z-50">
-    <div
-      class="relative mx-auto mt-10 p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5"
-    >
+    <div class="relative mx-auto mt-10 p-5 border w-96 shadow-lg rounded-md bg-base-100 space-y-5">
       <h1 class="text-center text-2xl font-semibold">Nostr sign</h1>
 
       {#if ($eventToSign as any).sig && !hadSigner}
@@ -140,16 +135,11 @@
               </div>
             </a>
             <a href={connectUrl} class="btn">
-              <iconify-icon
-                noobserver
-                icon="ph:arrow-square-out-bold"
-                width="32"
-              ></iconify-icon>
+              <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
               {$t("payments.openLink")}</a
             >
             <button class="btn" onclick={() => copy(connectUrl!)}>
-              <iconify-icon noobserver icon="ph:copy-bold" width="32"
-              ></iconify-icon>
+              <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
               {$t("payments.copy")}</button
             >
           </div>
@@ -157,8 +147,7 @@
           {#if $signer?.method === "nsec"}
             <input bind:value={nsec} placeholder="nsec..." />
             <button type="button" class="btn btn-accent" onclick={nsecSign}>
-              <iconify-icon icon="ph:paper-plane-right-bold" width="32"
-              ></iconify-icon>
+              <iconify-icon icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
               <div class="my-auto">Submit</div>
             </button>
           {/if}
@@ -166,10 +155,7 @@
           {#if !$signer}
             {#if extensionAvailable}
               <button type="button" class="btn" onclick={extensionSign}>
-                <iconify-icon
-                  icon="lucide-lab:bee"
-                  width="32"
-                  class="text-yellow-400"
+                <iconify-icon icon="lucide-lab:bee" width="32" class="text-yellow-400"
                 ></iconify-icon>
                 <div class="my-auto">Browser extension</div>
               </button>

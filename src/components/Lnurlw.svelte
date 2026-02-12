@@ -11,14 +11,7 @@
   let { data, form } = $props();
 
   let { currency, username } = data.user;
-  let {
-    defaultDescription,
-    minWithdrawable,
-    maxWithdrawable,
-    k1,
-    callback,
-    rate,
-  } = data;
+  let { defaultDescription, minWithdrawable, maxWithdrawable, k1, callback, rate } = data;
 
   let amount = $state(Math.round(minWithdrawable / 1000));
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
@@ -56,9 +49,7 @@
         <div>{f(amountFiat, currency)}</div>
       {:else}
         <div>
-          <span class="text-secondary font-normal text-xl"
-            >⚡️{`${s(amount)}`}</span
-          >
+          <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span>
         </div>
       {/if}
     </div>
@@ -66,12 +57,7 @@
     <Numpad bind:amount {currency} {rate} />
   {/if}
 
-  <form
-    use:enhance={handler(toggle)}
-    action="?/withdraw"
-    method="POST"
-    class="space-y-5"
-  >
+  <form use:enhance={handler(toggle)} action="?/withdraw" method="POST" class="space-y-5">
     <input name="amount" value={amount} type="hidden" />
     <input name="username" value={username} type="hidden" />
     <input name="currency" value={currency} type="hidden" />
@@ -89,22 +75,14 @@
           disabled={submitting}
           onkeydown={setMax}
           >{#if $fiat}
-            Max {f(
-              (Math.floor(maxWithdrawable / 1000) * rate) / sats,
-              currency,
-            )}
+            Max {f((Math.floor(maxWithdrawable / 1000) * rate) / sats, currency)}
           {:else}
             Max ⚡️{s(Math.floor(maxWithdrawable / 1000))}
           {/if}</button
         >
       {/if}
 
-      <button
-        use:focus
-        bind:this={submit}
-        type="submit"
-        class="btn btn-accent !w-auto grow"
-      >
+      <button use:focus bind:this={submit} type="submit" class="btn btn-accent !w-auto grow">
         {#if submitting}
           <Spinner />
         {:else}

@@ -2,20 +2,7 @@
   import { getWallet } from "$lib/ark";
   import { enhance } from "$app/forms";
   import { send } from "$lib/socket";
-  import {
-    btc,
-    loc,
-    post,
-    copy,
-    f,
-    fail,
-    success,
-    get,
-    types,
-    sat,
-    s,
-    sats,
-  } from "$lib/utils";
+  import { btc, loc, post, copy, f, fail, success, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { last, showQr, amountPrompt } from "$lib/store";
@@ -149,13 +136,9 @@
   let fiat = $state(true);
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
-  let link = $derived(
-    [types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`,
-  );
+  let link = $derived([types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`);
 
-  let txt = $derived(
-    [types.bitcoin, types.liquid].includes(type) ? hash : text,
-  );
+  let txt = $derived([types.bitcoin, types.liquid].includes(type) ? hash : text);
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 space-y-2">

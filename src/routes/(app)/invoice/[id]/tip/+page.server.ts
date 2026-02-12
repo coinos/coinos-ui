@@ -44,11 +44,7 @@ export const actions = {
       tip: form.tip ?? null,
     };
 
-    const { id } = await post(
-      `/invoice/${form.id}`,
-      { invoice },
-      auth(cookies),
-    );
+    const { id } = await post(`/invoice/${form.id}`, { invoice }, auth(cookies));
 
     redirect(307, `/invoice/${id}`);
   },

@@ -27,8 +27,7 @@
     pasted = $state(),
     w: number | undefined = $state();
 
-  let keypress = (e) =>
-    e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false);
+  let keypress = (e) => (e.key === "Enter" ? e.preventDefault() || el.click() : (pasted = false));
 
   let paste = async () => {
     text = await navigator.clipboard.readText();
@@ -80,9 +79,7 @@
     {#if form?.error}
       <div class="mb-5">
         <div class="text-red-600">
-          {form.error === "default"
-            ? $t("error.unrecognizedInput")
-            : form.error}
+          {form.error === "default" ? $t("error.unrecognizedInput") : form.error}
         </div>
       </div>
     {/if}
@@ -90,15 +87,13 @@
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon noobserver icon="ph:camera-bold" width="32"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
           {$t("user.send.scan")}
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
         {$t("user.send.paste")}
       </button>
     </div>
@@ -115,17 +110,13 @@
     ></textarea>
 
     <button bind:this={el} type="submit" class="btn btn-accent">
-      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 
     <a href="/send/fund" class="block">
       <button type="button" class="btn">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300 text-2xl"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
         ></iconify-icon>
         <div class="my-auto">{$t("payments.createFund")}</div>
       </button>
@@ -151,9 +142,7 @@
                   onclick={(e) => pin(e, c)}
                   aria-label={c.pinned ? "Unpin contact" : "Pin contact"}
                 >
-                  <iconify-icon
-                    icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"}
-                    width={32}
+                  <iconify-icon icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"} width={32}
                   ></iconify-icon>
                 </button>
                 <button
@@ -162,9 +151,7 @@
                   onclick={(e) => trust(e, c)}
                   aria-label={c.trusted ? "Untrust contact" : "Trust contact"}
                 >
-                  <iconify-icon
-                    icon={c.trusted ? "ph:star-fill" : "ph:star-bold"}
-                    width={32}
+                  <iconify-icon icon={c.trusted ? "ph:star-fill" : "ph:star-bold"} width={32}
                   ></iconify-icon>
                 </button>
               </div>
@@ -176,8 +163,6 @@
   {/if}
 
   {#if !loaded && contacts.length > 0}
-    <button onclick={loadMore} type="button" class="btn"
-      >{$t("user.loadMore")}</button
-    >
+    <button onclick={loadMore} type="button" class="btn">{$t("user.loadMore")}</button>
   {/if}
 </div>

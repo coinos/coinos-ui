@@ -5,11 +5,7 @@
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
   import Spinner from "$comp/Spinner.svelte";
-  import {
-    mnemonicToSeed,
-    mnemonicToEntropy,
-    entropyToMnemonic,
-  } from "@scure/bip39";
+  import { mnemonicToSeed, mnemonicToEntropy, entropyToMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
   import { focus, versions, fail, post } from "$lib/utils";
   import { goto } from "$app/navigation";
@@ -46,10 +42,7 @@
 
     try {
       const { encrypt } = await import("nostr-tools/nip49");
-      let seed = await encrypt(
-        mnemonicToEntropy($mnemonic as string, wordlist),
-        password,
-      );
+      let seed = await encrypt(mnemonicToEntropy($mnemonic as string, wordlist), password);
 
       // Save master seed on user
       await post("/post/user", { seed });
@@ -98,16 +91,11 @@
     onsubmit={preventDefault(submit)}
     class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5"
   >
-    <p
-      class="text-secondary p-4 bg-warning/80 rounded-2xl border-warning border-2"
-    >
+    <p class="text-secondary p-4 bg-warning/80 rounded-2xl border-warning border-2">
       {$t("accounts.passwordWarning")}
     </p>
 
-    <label
-      for="password"
-      class="input flex items-center justify-center gap-2 w-full"
-    >
+    <label for="password" class="input flex items-center justify-center gap-2 w-full">
       {#if revealPassword}
         <input
           name="password"
@@ -144,10 +132,7 @@
       </button>
     </label>
 
-    <label
-      for="confirm"
-      class="input flex items-center justify-center gap-2 w-full"
-    >
+    <label for="confirm" class="input flex items-center justify-center gap-2 w-full">
       {#if revealConfirm}
         <input
           name="confirm"
@@ -183,15 +168,12 @@
     </label>
 
     <div class="space-y-2">
-      <label for="rememberFor" class="text-sm text-secondary">
-        Remember for
-      </label>
+      <label for="rememberFor" class="text-sm text-secondary"> Remember for </label>
       <select
         id="rememberFor"
         class="w-full"
         value={rememberForMs}
-        onchange={(e) =>
-          (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+        onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
       >
         {#each rememberForOptions as option}
           <option value={option.ms}>{option.label}</option>
@@ -205,11 +187,7 @@
           {$t("accounts.back")}
         </button>
       </a>
-      <button
-        disabled={submitting}
-        type="submit"
-        class="btn btn-accent !w-auto grow"
-      >
+      <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
         {#if submitting}
           <Spinner />
         {:else}

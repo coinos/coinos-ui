@@ -6,9 +6,7 @@ const testSecret = process.env.E2E_TEST_SECRET;
 const apiBaseUrl = process.env.E2E_API_BASE_URL || "http://localhost:3119";
 const pauseAtEnd = process.env.E2E_PAUSE_AT_END === "true";
 
-test("bob receives 1000 sats in ark vault after server wallet send", async ({
-  page,
-}) => {
+test("bob receives 1000 sats in ark vault after server wallet send", async ({ page }) => {
   test.setTimeout(90_000);
   test.skip(!testSecret, "E2E_TEST_SECRET is required for /test/ark/send");
 
@@ -19,9 +17,7 @@ test("bob receives 1000 sats in ark vault after server wallet send", async ({
 
   await expect(page).toHaveURL(new RegExp(`/${username}(?:[/?#]|$)`));
 
-  const arkAccountCard = page.locator(
-    '[data-testid="account-card"][data-account-type="ark"]',
-  );
+  const arkAccountCard = page.locator('[data-testid="account-card"][data-account-type="ark"]');
   const arkAccountCount = await arkAccountCard.count();
   expect(arkAccountCount).toBeGreaterThan(0);
 
@@ -32,10 +28,7 @@ test("bob receives 1000 sats in ark vault after server wallet send", async ({
   for (let i = 0; i < arkAccountCount; i++) {
     const card = arkAccountCard.nth(i);
     await card.scrollIntoViewIfNeeded();
-    const accountHref = await card
-      .locator('a[href^="/account/"]')
-      .first()
-      .getAttribute("href");
+    const accountHref = await card.locator('a[href^="/account/"]').first().getAttribute("href");
     const accountId = accountHref?.split("/account/")[1];
 
     await card.locator('a[href="/invoice"]').first().click();
@@ -84,9 +77,7 @@ test("bob receives 1000 sats in ark vault after server wallet send", async ({
   expect(invoiceOpened).toBeTruthy();
   await expect(page).toHaveURL(/\/invoice\/[^/?#]+/);
 
-  const invoiceText = (
-    await page.getByTestId("invoice-text").first().innerText()
-  ).trim();
+  const invoiceText = (await page.getByTestId("invoice-text").first().innerText()).trim();
   const addressMatch = invoiceText.match(/t?ark1[a-z0-9]+/i);
   expect(addressMatch).toBeTruthy();
   const address = addressMatch![0];
@@ -118,9 +109,7 @@ test("bob receives 1000 sats in ark vault after server wallet send", async ({
   let status: any;
 
   for (let i = 0; i < 30; i++) {
-    const statusResponse = await page.request.get(
-      `${apiBaseUrl}/invoice/${invoiceId}`,
-    );
+    const statusResponse = await page.request.get(`${apiBaseUrl}/invoice/${invoiceId}`);
     if (statusResponse.ok()) {
       status = await statusResponse.json();
       if ((status?.received || 0) >= 1000 || (status?.pending || 0) >= 1000) {

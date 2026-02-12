@@ -11,18 +11,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import {
-    btc,
-    sat,
-    post,
-    back,
-    f,
-    toFiat,
-    s,
-    sats,
-    focus,
-    loc,
-  } from "$lib/utils";
+  import { btc, sat, post, back, f, toFiat, s, sats, focus, loc } from "$lib/utils";
   let { data, form }: any = $props();
 
   let { trusted, balance, invoice, user } = $state(data);
@@ -156,14 +145,7 @@
       {/each}
     {/if}
   {:else}
-    <Numpad
-      bind:amount={a}
-      bind:amountFiat={af}
-      bind:fiat
-      {currency}
-      {rate}
-      {submit}
-    />
+    <Numpad bind:amount={a} bind:amountFiat={af} bind:fiat {currency} {rate} {submit} />
   {/if}
 
   <form method="POST" use:enhance={handler(toggle)} class="space-y-2">
@@ -175,12 +157,7 @@
 
     <div class="flex w-full text-xl">
       {#if amount}
-        <button
-          use:focus
-          type="submit"
-          class="btn btn-primary"
-          disabled={submitting}
-        >
+        <button use:focus type="submit" class="btn btn-primary" disabled={submitting}>
           {#if submitting}
             <Spinner />
           {:else}
@@ -188,11 +165,7 @@
           {/if}
         </button>
       {:else}
-        <button
-          type="button"
-          class="btn !w-auto grow"
-          onclick={setMax}
-          onkeydown={setMax}
+        <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}
           >{#if $fiatStore}
             Max {f((balance * rate) / sats, currency, locale)}
           {:else}
@@ -210,9 +183,7 @@
         </button>
       {/if}
     </div>
-    <button type="button" class="btn" onclick={external}
-      >{$t("payments.moreOptions")}</button
-    >
+    <button type="button" class="btn" onclick={external}>{$t("payments.moreOptions")}</button>
 
     {#if !trusted}
       <button type="button" class="btn" onclick={toggleTrust}>

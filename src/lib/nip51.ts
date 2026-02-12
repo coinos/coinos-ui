@@ -57,17 +57,11 @@ const getMuteLists = async (user: any): Promise<any> => {
   return {
     shown: listEvents[0].tags,
     hidden:
-      listEvents[0].content == ""
-        ? []
-        : await decrypt(listEvents[0].content, user, user.pubkey),
+      listEvents[0].content == "" ? [] : await decrypt(listEvents[0].content, user, user.pubkey),
   };
 };
 
-const publishMuteList = async (
-  user: any,
-  shown: string[],
-  hidden: string[],
-) => {
+const publishMuteList = async (user: any, shown: string[], hidden: string[]) => {
   const event = await signEvent(
     {
       kind: 10000,

@@ -1,8 +1,4 @@
-import {
-  defaultLocale,
-  loadTranslations,
-  locales,
-} from "$lib/translations/index";
+import { defaultLocale, loadTranslations, locales } from "$lib/translations/index";
 import { auth, get, isInvalidTokenError, sleep } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 

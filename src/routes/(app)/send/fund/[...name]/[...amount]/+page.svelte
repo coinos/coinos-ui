@@ -52,12 +52,7 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto">
   <Numpad bind:amount {currency} {rate} {fiat} {submit} {locale} />
 
-  <form
-    use:enhance={handler(toggle)}
-    method="POST"
-    class="space-y-5"
-    bind:this={formElement}
-  >
+  <form use:enhance={handler(toggle)} method="POST" class="space-y-5" bind:this={formElement}>
     <input name="fund" value={name} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
@@ -76,12 +71,7 @@
         {/if}</button
       >
 
-      <button
-        use:focus
-        bind:this={submit}
-        type="submit"
-        class="btn btn-accent !w-auto grow"
-      >
+      <button use:focus bind:this={submit} type="submit" class="btn btn-accent !w-auto grow">
         {#if submitting}
           <Spinner />
         {:else}

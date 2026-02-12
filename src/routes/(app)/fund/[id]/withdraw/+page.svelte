@@ -62,12 +62,7 @@
         {/if}</button
       >
 
-      <button
-        use:focus
-        bind:this={submit}
-        type="submit"
-        class="btn btn-accent !w-auto grow"
-      >
+      <button use:focus bind:this={submit} type="submit" class="btn btn-accent !w-auto grow">
         {#if submitting}
           <Spinner />
         {:else}

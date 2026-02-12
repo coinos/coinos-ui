@@ -56,9 +56,7 @@
   ]);
 
   let opacity = $derived((href) =>
-    $page.url.pathname === href
-      ? "opacity-100"
-      : "opacity-90 hover:opacity-none",
+    $page.url.pathname === href ? "opacity-100" : "opacity-90 hover:opacity-none",
   );
 </script>
 
@@ -74,8 +72,7 @@
         {#each links as { href, icon, label }}
           <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
             <button class="btn-menu {opacity(href)}" aria-label={label}>
-              <iconify-icon noobserver {icon} width={(w ?? 0) > 640 ? 32 : 24}
-              ></iconify-icon>
+              <iconify-icon noobserver {icon} width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
             </button>
           </a>
         {/each}

@@ -181,11 +181,8 @@
     maplibrePromise = new Promise((resolve, reject) => {
       const existing = document.querySelector("script[data-maplibre]");
       if (existing) {
-        if ((window as any).maplibregl)
-          return resolve((window as any).maplibregl);
-        existing.addEventListener("load", () =>
-          resolve((window as any).maplibregl),
-        );
+        if ((window as any).maplibregl) return resolve((window as any).maplibregl);
+        existing.addEventListener("load", () => resolve((window as any).maplibregl));
         existing.addEventListener("error", reject);
         return;
       }
@@ -285,27 +282,20 @@
   onDestroy(() => map && map.remove());
   let list = $derived(
     search
-      ? markers.filter((m) =>
-          m.tags.name.toLowerCase().includes(search.toLowerCase()),
-        )
+      ? markers.filter((m) => m.tags.name.toLowerCase().includes(search.toLowerCase()))
       : inview,
   );
 </script>
 
 <div class="w-screen h-dvh flex" id="map" bind:this={mapWrapper}>
-  <div
-    id="map-container"
-    class="mx-auto h-full w-full z-0"
-    bind:this={mapContainer}
-  ></div>
+  <div id="map-container" class="mx-auto h-full w-full z-0" bind:this={mapContainer}></div>
   <div class="absolute flex top-2 left-2 gap-2">
     <button
       aria-label="Back"
       class="rounded-full border-2 border-black bg-base-100/80 w-16 h-16 flex items-center justify-center"
       onclick={back}
     >
-      <iconify-icon noobserver icon="ph:arrow-left-bold" width="24"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:arrow-left-bold" width="24"></iconify-icon>
     </button>
   </div>
   <div class="relative">
@@ -318,12 +308,10 @@
           <div class="flex gap-1 absolute right-6 top-3">
             {#if search}
               <button type="button" onclick={clearSearch} aria-label="Clear">
-                <iconify-icon noobserver icon="ph:x-bold" width="32"
-                ></iconify-icon>
+                <iconify-icon noobserver icon="ph:x-bold" width="32"></iconify-icon>
               </button>
             {:else}
-              <iconify-icon noobserver icon="ph:search-bold" width="32"
-              ></iconify-icon>
+              <iconify-icon noobserver icon="ph:search-bold" width="32"></iconify-icon>
             {/if}
           </div>
         </div>
@@ -354,11 +342,9 @@
         aria-label={timeout ? "Resume map" : "Pause map"}
       >
         {#if timeout}
-          <iconify-icon noobserver icon="ph:pause-bold" width="24"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:pause-bold" width="24"></iconify-icon>
         {:else}
-          <iconify-icon noobserver icon="ph:play-bold" width="24"
-          ></iconify-icon>
+          <iconify-icon noobserver icon="ph:play-bold" width="24"></iconify-icon>
         {/if}
       </button>
     </div>

@@ -34,11 +34,7 @@
     description={$t("landing.info1.description")}
   />
 
-  <LandingInfoCard
-    image="phone-checkout"
-    title={$t("landing.info2.title")}
-    order="reverse"
-  >
+  <LandingInfoCard image="phone-checkout" title={$t("landing.info2.title")} order="reverse">
     {$t("landing.info2.description1")}
     <br /><br />
     {$t("landing.info2.description2")}

@@ -54,23 +54,14 @@
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
   <Numpad bind:amount bind:fiat {currency} {locale} {rate} submit={next} />
 
-  <form
-    method="POST"
-    use:enhance
-    class="flex gap-2 justify-center"
-    bind:this={formElement}
-  >
+  <form method="POST" use:enhance class="flex gap-2 justify-center" bind:this={formElement}>
     <input name="amount" bind:value={amount} type="hidden" />
     <input name="rate" value={rate} type="hidden" />
     <input name="username" value={subject.username} type="hidden" />
     <input name="prompt" value={subject.prompt} type="hidden" />
 
     {#if user?.balance}
-      <button
-        type="button"
-        class="btn !w-auto grow"
-        onclick={setMax}
-        onkeydown={setMax}
+      <button type="button" class="btn !w-auto grow" onclick={setMax} onkeydown={setMax}
         >{#if $fiatStore}
           Max {f((user.balance * rate) / sats, currency, locale)}
         {:else}

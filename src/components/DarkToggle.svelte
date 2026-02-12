@@ -7,10 +7,7 @@
   };
 </script>
 
-<button
-  class="flex justify-center items-center hover:opacity-80 gap-2 font-bold"
-  onclick={dark}
->
+<button class="flex justify-center items-center hover:opacity-80 gap-2 font-bold" onclick={dark}>
   <iconify-icon
     noobserver
     icon={$theme === "dark" ? "ph:sun-bold" : "ph:moon-stars-bold"}

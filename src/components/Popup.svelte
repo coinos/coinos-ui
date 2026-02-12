@@ -4,11 +4,7 @@
   let { tags } = $props();
 
   let addr = (tags) => {
-    let {
-      "addr:housenumber": house,
-      "addr:street": street,
-      "addr:city": city,
-    } = tags;
+    let { "addr:housenumber": house, "addr:street": street, "addr:city": city } = tags;
     if (house) return `${house} ${street}`;
     return "";
   };

@@ -34,9 +34,7 @@
   let show = $state(false);
   let toggle = () => (show = !show);
   let amount = $derived(form?.amount || data.amount);
-  let maxfee = $state(
-    Math.max(5, Math.round(untrack(() => amount) * 0.02 || 0)),
-  );
+  let maxfee = $state(Math.max(5, Math.round(untrack(() => amount) * 0.02 || 0)));
   $effect(() => {
     maxfee = Math.max(5, Math.round(amount * 0.02) || 0);
   });
@@ -144,9 +142,7 @@
 
       {#if form?.message || showMax}
         <div class="mx-auto space-y-2">
-          <label for="maxfee" class="text-lg text-secondary"
-            >{$t("payments.maxfee")}</label
-          >
+          <label for="maxfee" class="text-lg text-secondary">{$t("payments.maxfee")}</label>
 
           <div class="text-secondary">
             {$t("payments.maxFeeDesc")}
@@ -155,23 +151,13 @@
           <label
             class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2 text-left"
           >
-            <input
-              id="maxfee"
-              name="fee"
-              bind:value={maxfee}
-              class="clean !grow"
-            />
+            <input id="maxfee" name="fee" bind:value={maxfee} class="clean !grow" />
             <div class="ml-auto">⚡️</div>
           </label>
         </div>
       {/if}
 
-      <button
-        type="submit"
-        class="btn btn-primary"
-        disabled={loading}
-        use:focus
-      >
+      <button type="submit" class="btn btn-primary" disabled={loading} use:focus>
         {#if loading}
           <Spinner />
         {:else}
@@ -199,9 +185,7 @@
         submit={next}
         element={undefined}
       />
-      <button type="submit" class="btn" bind:this={next}
-        >{$t("payments.next")}</button
-      >
+      <button type="submit" class="btn" bind:this={next}>{$t("payments.next")}</button>
     </form>
   {/if}
 </div>

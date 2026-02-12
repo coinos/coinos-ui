@@ -23,8 +23,7 @@
   onMount(() => {
     if (!isTor && recaptchaSiteKey) {
       let s = document.createElement("script");
-      s.src =
-        "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
       document.head.appendChild(s);
     }
   });
@@ -64,9 +63,7 @@
     }
 
     const scriptSelector =
-      "script[src='https://www.google.com/recaptcha/api.js?render=" +
-      recaptchaSiteKey +
-      "']";
+      "script[src='https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey + "']";
     const script = document.querySelector(scriptSelector);
     if (script) {
       script.remove();
@@ -77,9 +74,7 @@
 <div class="container max-w-lg mx-auto space-y-8 p-4 pb-20">
   {#if sent}
     <h1 class="text-center text-3xl lg:text-4xl font-semibold">Thank you!</h1>
-    <div class="text-center text-lg text-secondary">
-      Someone will be in touch shortly.
-    </div>
+    <div class="text-center text-lg text-secondary">Someone will be in touch shortly.</div>
 
     <div>
       <a href={user ? `/${user.username}` : "/"}>
@@ -102,25 +97,18 @@
 
     <form onsubmit={submit}>
       <div class="mb-4">
-        <label for="username" class="font-semibold"
-          >{$t("user.support.accountName")}</label
-        >
+        <label for="username" class="font-semibold">{$t("user.support.accountName")}</label>
         <input type="text" name="username" required bind:value={username} />
       </div>
 
       <div class="mb-4">
-        <label for="email" class="font-semibold"
-          >{$t("user.support.email")}</label
-        >
+        <label for="email" class="font-semibold">{$t("user.support.email")}</label>
         <input type="email" name="email" bind:value={email} required />
       </div>
 
       <div class="mb-4">
-        <label for="message" class="font-semibold"
-          >{$t("user.support.message")}</label
-        >
-        <textarea rows={5} name="message" bind:value={message} required
-        ></textarea>
+        <label for="message" class="font-semibold">{$t("user.support.message")}</label>
+        <textarea rows={5} name="message" bind:value={message} required></textarea>
       </div>
 
       <button

@@ -73,8 +73,7 @@
             aria-label={$t("accounts.addAccount")}
             title={$t("accounts.addAccount")}
           >
-            <iconify-icon noobserver icon="ph:plus-bold" width="28"
-            ></iconify-icon>
+            <iconify-icon noobserver icon="ph:plus-bold" width="28"></iconify-icon>
           </button>
         </a>
       </div>
@@ -88,8 +87,7 @@
 
     {#if $installPrompt}
       <button class="btn btn-accent lg:hidden" onclick={install}>
-        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"
-        ></iconify-icon>
+        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
         {$t("user.install")}
       </button>
     {/if}
@@ -106,14 +104,8 @@
         : `/pay/${subject.username}`}
       class="contents"
     >
-      <button
-        class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto"
-      >
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300"
-        ></iconify-icon>
+      <button class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto">
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
         <div>
           {$t("user.pay")}
           {subject.username}

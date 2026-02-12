@@ -34,14 +34,9 @@ const loadStoredPassword = () => {
   return password;
 };
 
-export const walletPassword = writable<string | undefined>(
-  loadStoredPassword(),
-);
+export const walletPassword = writable<string | undefined>(loadStoredPassword());
 
-export const rememberWalletPassword = (
-  password: string,
-  durationMs: number,
-) => {
+export const rememberWalletPassword = (password: string, durationMs: number) => {
   if (!browser) return;
   if (!durationMs) {
     clearStoredPassword();

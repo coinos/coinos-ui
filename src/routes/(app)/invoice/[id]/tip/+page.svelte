@@ -107,18 +107,13 @@
           <div>
             <span class="mr-1">
               {f(amountFiat, currency, locale)}
-              <span class="font-semibold"
-                >+{f(tipAmount, currency, locale)}</span
-              >
+              <span class="font-semibold">+{f(tipAmount, currency, locale)}</span>
             </span>
           </div>
         {:else}
           <div class="ml-auto text-lg flex gap-2">
             <div class="flex items-center">
-              <iconify-icon
-                noobserver
-                icon="ph:lightning-fill"
-                class="text-yellow-300"
+              <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
               ></iconify-icon>
               <div>{s(amount, locale)}</div>
             </div>
@@ -134,12 +129,8 @@
 
       <div class="space-y-2">
         {#if tip}
-          <button type="button" class="btn" onclick={() => submit.click()}
-            >Next</button
-          >
-          <button type="button" class="btn" onclick={() => (tipPercent = 0)}
-            >Reset</button
-          >
+          <button type="button" class="btn" onclick={() => submit.click()}>Next</button>
+          <button type="button" class="btn" onclick={() => (tipPercent = 0)}>Reset</button>
         {:else}
           {#each tipAmounts as amount, i}
             {#if i === 0}
@@ -163,10 +154,7 @@
       </div>
 
       <div class="space-y-2">
-        <button
-          type="button"
-          class="btn"
-          onclick={() => (showCustomAmount = true)}
+        <button type="button" class="btn" onclick={() => (showCustomAmount = true)}
           >{$t("payments.custom")}</button
         >
         <a href={`/invoice/${id}`} class="btn">{$t("payments.cancel")}</a>
@@ -186,9 +174,7 @@
         placeholder={$t("payments.amount")}
         use:focus
       />
-      <button type="submit" class="btn" disabled={!customTipAmount}
-        >Apply</button
-      >
+      <button type="submit" class="btn" disabled={!customTipAmount}>Apply</button>
     </form>
   {/if}
 </div>

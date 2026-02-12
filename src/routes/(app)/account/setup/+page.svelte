@@ -19,16 +19,11 @@
     </a>
     <a href="/account/new" class="block">
       <div class="shadow p-8 rounded-xl flex gap-4 hover:bg-primary">
-        <img
-          src="/images/keys.png"
-          class="w-20 my-auto"
-          alt="Savings account"
-        />
+        <img src="/images/keys.png" class="w-20 my-auto" alt="Savings account" />
         <div>
           <div class="text-xl">Savings</div>
           <div class="text-secondary">
-            You hold the keys to the account and are responsible for
-            safeguarding them.
+            You hold the keys to the account and are responsible for safeguarding them.
           </div>
         </div>
       </div>

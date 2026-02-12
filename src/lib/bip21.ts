@@ -12,10 +12,7 @@ export function decode(uri, allowedSchemes = ["bitcoin", "liquidnetwork"]) {
 
   // Extract address and query string
   const queryStart = uri.indexOf("?");
-  const address = uri.slice(
-    split + 1,
-    queryStart === -1 ? undefined : queryStart,
-  );
+  const address = uri.slice(split + 1, queryStart === -1 ? undefined : queryStart);
   const query = queryStart === -1 ? "" : uri.slice(queryStart + 1);
   const options = Object.fromEntries(new URLSearchParams(query));
 
@@ -28,11 +25,7 @@ export function decode(uri, allowedSchemes = ["bitcoin", "liquidnetwork"]) {
   return { scheme: urnScheme, address, options };
 }
 
-export function encode(
-  address,
-  options = { amount: "" },
-  urnScheme = "bitcoin",
-) {
+export function encode(address, options = { amount: "" }, urnScheme = "bitcoin") {
   if (!address || typeof address !== "string") {
     throw new TypeError("Invalid address");
   }

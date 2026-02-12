@@ -51,11 +51,7 @@
     {#if external}
       <a href={`/ecash/${id}/swap`} class="contents">
         <button type="submit" class="btn">
-          <iconify-icon
-            noobserver
-            icon="ph:hand-coins-bold"
-            width="32"
-            flip="horizontal"
+          <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
           ></iconify-icon>
           <div class="my-auto">{$t("payments.swap")}</div>
         </button>
@@ -64,11 +60,7 @@
       <form method="POST" use:enhance class="w-full">
         <input type="hidden" name="token" bind:value={token} />
         <button type="submit" class="btn">
-          <iconify-icon
-            noobserver
-            icon="ph:hand-coins-bold"
-            width="32"
-            flip="horizontal"
+          <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
           ></iconify-icon>
           <div class="my-auto">{$t("payments.redeem")}</div>
         </button>
@@ -76,10 +68,7 @@
     {/if}
   {/if}
 
-  <button
-    class="btn break-all !h-auto py-5 font-normal leading-normal"
-    onclick={() => copy(token)}
-  >
+  <button class="btn break-all !h-auto py-5 font-normal leading-normal" onclick={() => copy(token)}>
     {token}
   </button>
 </div>

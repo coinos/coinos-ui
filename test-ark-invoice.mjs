@@ -9,20 +9,13 @@ const API_KEY = "test-playwright-key";
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await context.newPage();
 
-  page.on("console", (msg) =>
-    console.log(`[browser:${msg.type()}]`, msg.text()),
-  );
+  page.on("console", (msg) => console.log(`[browser:${msg.type()}]`, msg.text()));
   page.on("pageerror", (err) => console.log("[page error]", err.message));
 
   // Monitor relevant requests
   page.on("request", (req) => {
     const u = req.url();
-    if (
-      u.includes("ark") ||
-      u.includes("sync") ||
-      u.includes("invoice") ||
-      u.includes("ws")
-    ) {
+    if (u.includes("ark") || u.includes("sync") || u.includes("invoice") || u.includes("ws")) {
       if (
         !u.includes("__data") &&
         !u.includes(".png") &&
@@ -35,16 +28,11 @@ const API_KEY = "test-playwright-key";
   });
   page.on("response", (resp) => {
     const u = resp.url();
-    if (
-      u.includes("ark/sync") ||
-      (u.includes("invoice") && !u.includes("__data"))
-    ) {
+    if (u.includes("ark/sync") || (u.includes("invoice") && !u.includes("__data"))) {
       resp
         .text()
         .then((t) =>
-          console.log(
-            `[resp] ${resp.status()} ${u.substring(0, 80)} -> ${t.substring(0, 300)}`,
-          ),
+          console.log(`[resp] ${resp.status()} ${u.substring(0, 80)} -> ${t.substring(0, 300)}`),
         )
         .catch(() => {});
     }

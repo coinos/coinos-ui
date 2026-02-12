@@ -41,10 +41,7 @@
       <div class="flex max-w-xs sm:max-w-xl">
         <div>First {b}</div>
 
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300 ml-auto"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 ml-auto"
         ></iconify-icon>{s(100000, "en-CA")}
       </div>
     {/each}
@@ -57,10 +54,7 @@
       <div class="flex max-w-xs sm:max-w-xl">
         <div>{b.type}</div>
 
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300 ml-auto"
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 ml-auto"
         ></iconify-icon>{s(b.amount, "en-CA")}
       </div>
     {/each}
@@ -85,9 +79,7 @@
                   class="whitespace-wrap text-base font-semibold max-w-[150px] truncate sm:max-w-full"
                   title={merchant.display || merchant.username}
                 >
-                  <a href={`/${merchant.username}`}
-                    >{merchant.display || merchant.username}</a
-                  >
+                  <a href={`/${merchant.username}`}>{merchant.display || merchant.username}</a>
                 </h3>
 
                 <span
@@ -102,17 +94,12 @@
               class="mt-2 flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 min-w-0"
             >
               <Avatar {user} size={8} class="shrink-0" />
-              <span class="truncate max-w-full"
-                >Referred by @{user.username}</span
-              >
+              <span class="truncate max-w-full">Referred by @{user.username}</span>
             </div>
           </div>
 
           <div class="ml-auto flex shrink-0 items-center gap-1 whitespace">
-            <iconify-icon
-              noobserver
-              icon="ph:lightning-fill"
-              class="text-yellow-300"
+            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
             ></iconify-icon>
             <span class="text-sm font-semibold tabular-nums">
               {s(amount, "en-CA")}
@@ -145,38 +132,32 @@
   </ul>
 
   <p>
-    25% of the bounty will be awarded once the business is ready to take
-    payments and has been announced
+    25% of the bounty will be awarded once the business is ready to take payments and has been
+    announced
   </p>
 
-  <p>
-    The rest will be awarded once they've been accepting Bitcoin for 6 months
-  </p>
+  <p>The rest will be awarded once they've been accepting Bitcoin for 6 months</p>
 
   <p>Bounties will be awarded at our discretion</p>
 
-  <p>
-    We reserve the right to refuse applicants and change these terms without
-    cause or notice
-  </p>
+  <p>We reserve the right to refuse applicants and change these terms without cause or notice</p>
 
   <h2 class="text-2xl font-bold">Get Started!</h2>
 
   <p>
-    Reach out to <a
-      href="mailto:bounties@coinos.io"
-      class="text-blue-600 hover:underline">bounties@coinos.io</a
+    Reach out to <a href="mailto:bounties@coinos.io" class="text-blue-600 hover:underline"
+      >bounties@coinos.io</a
     > and let us know who we should contact
   </p>
 
   <p>
-    We'll update this page as the bounties are claimed so you'll be able to see
-    which ones are still available.
+    We'll update this page as the bounties are claimed so you'll be able to see which ones are still
+    available.
   </p>
 
   <p>
-    Have a lead or idea for something that's not on the list? Reach out! We
-    offer sats for all sorts of referrals!
+    Have a lead or idea for something that's not on the list? Reach out! We offer sats for all sorts
+    of referrals!
   </p>
 
   <p>Thanks for participating and helping to orange pill Vancouver!</p>

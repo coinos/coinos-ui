@@ -10,8 +10,7 @@ export async function load({ parent }) {
 
 export const actions = {
   default: async ({ cookies, request, url }) => {
-    if (!cookies.get("username"))
-      redirect(307, `/register?redirect=${url.pathname}`);
+    if (!cookies.get("username")) redirect(307, `/register?redirect=${url.pathname}`);
 
     const { token } = await fd(request);
     let claimed;

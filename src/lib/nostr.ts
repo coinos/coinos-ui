@@ -46,11 +46,7 @@ export const decrypt = async ({ event, user }: { event: any; user: any }) => {
     if (pubkey === user.pubkey) pubkey = event.tags[0][1];
 
     const { nip04 } = await loadNostrTools();
-    const message = await nip04.decrypt(
-      await getPrivateKey(user),
-      pubkey,
-      content,
-    );
+    const message = await nip04.decrypt(await getPrivateKey(user), pubkey, content);
 
     cache[id] = Buffer.from(message).toString("utf8");
     decrypted.set(cache);
@@ -151,10 +147,7 @@ const getPassword = async (): Promise<string> => {
 
 export const nostrConnectRelay = "wss://relay.nsec.app";
 
-const signingMethods: Record<
-  string,
-  (event: any, params: any) => Promise<any>
-> = {
+const signingMethods: Record<string, (event: any, params: any) => Promise<any>> = {
   async connect(event: any, { sk, pk, pubkey }: any) {
     const id = crypto.randomUUID();
     const signEvent = {
@@ -191,8 +184,7 @@ const signingMethods: Record<
               const { nip04 } = await loadNostrTools();
               response = JSON.parse(await nip04.decrypt(sk, pk, event.content));
             } catch {
-              const { getConversationKey, decrypt: nip44decrypt } =
-                await loadNip44();
+              const { getConversationKey, decrypt: nip44decrypt } = await loadNip44();
               const ck = await getConversationKey(sk, pk);
               response = JSON.parse(await nip44decrypt(event.content, ck));
             }

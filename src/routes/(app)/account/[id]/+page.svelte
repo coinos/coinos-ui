@@ -8,10 +8,7 @@
   import { t } from "$lib/translations";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
-  import {
-    getRememberedWalletPassword,
-    forgetWalletPassword,
-  } from "$lib/passwordCache";
+  import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
 
   let { data } = $props();
   let { account, user } = data;
@@ -94,22 +91,19 @@
           <Mnemonic {mnemonic} />
 
           <button onclick={() => copy(mnemonic)} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:copy-bold" width="32"
-            ></iconify-icon>
+            <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.copy")}</div></button
           >
         {:else if seed}
           <button onclick={requestMnemonic} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:eye-bold" width="32"
-            ></iconify-icon>
+            <iconify-icon noobserver icon="ph:eye-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.revealMnemonic")}</div></button
           >
         {/if}
 
         {#if seed}
           <button onclick={del} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:trash-bold" width="32"
-            ></iconify-icon>
+            <iconify-icon noobserver icon="ph:trash-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.deleteAccount")}</div></button
           >
         {/if}

@@ -18,12 +18,7 @@
   import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
-  import {
-    NumberDictionary,
-    uniqueNamesGenerator,
-    colors,
-    animals,
-  } from "unique-names-generator";
+  import { NumberDictionary, uniqueNamesGenerator, colors, animals } from "unique-names-generator";
   import { sign } from "$lib/nostr";
 
   let { form, data }: any = $props();
@@ -34,8 +29,7 @@
   onMount(() => {
     if (!isTor && recaptchaSiteKey) {
       let s = document.createElement("script");
-      s.src =
-        "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
+      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
       document.head.appendChild(s);
     }
   });
@@ -109,13 +103,9 @@
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
       if (isTor) return resolve("");
-      if (!browser || !grecaptcha)
-        return reject(new Error("captcha unavailable"));
+      if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
-        grecaptcha
-          .execute(recaptchaSiteKey, { action: "register" })
-          .then(resolve)
-          .catch(reject);
+        grecaptcha.execute(recaptchaSiteKey, { action: "register" }).then(resolve).catch(reject);
       });
     });
 
@@ -260,9 +250,7 @@
     }
 
     const scriptSelector =
-      "script[src='https://www.google.com/recaptcha/api.js?render=" +
-      recaptchaSiteKey +
-      "']";
+      "script[src='https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey + "']";
     const script = document.querySelector(scriptSelector);
     if (script) {
       script.remove();
@@ -274,16 +262,9 @@
   <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
 {/if}
 
-<div
-  class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 space-y-5 mb-20"
->
+<div class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 space-y-5 mb-20">
   <h1 class="text-2xl font-bold text-center">{$t("login.createAccount")}</h1>
-  <input
-    type="file"
-    class="hidden!"
-    bind:this={avatarInput}
-    onchange={(e: any) => handleFile(e)}
-  />
+  <input type="file" class="hidden!" bind:this={avatarInput} onchange={(e: any) => handleFile(e)} />
 
   <div class="relative">
     <button
@@ -291,8 +272,7 @@
       onclick={decr}
       aria-label="Previous"
     >
-      <iconify-icon noobserver icon="ph:caret-left-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:caret-left-bold" width="32"></iconify-icon>
     </button>
     <button class="block relative w-32 mx-auto" onclick={selectAvatar}>
       <div
@@ -304,11 +284,8 @@
           alt={username}
         />
       </div>
-      <div
-        class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12"
-      >
-        <iconify-icon noobserver icon="ph:upload-simple-bold" width="24"
-        ></iconify-icon>
+      <div class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12">
+        <iconify-icon noobserver icon="ph:upload-simple-bold" width="24"></iconify-icon>
       </div>
     </button>
     <button
@@ -316,8 +293,7 @@
       onclick={incr}
       aria-label="Next"
     >
-      <iconify-icon noobserver icon="ph:caret-right-bold" width="32"
-      ></iconify-icon>
+      <iconify-icon noobserver icon="ph:caret-right-bold" width="32"></iconify-icon>
     </button>
   </div>
 
@@ -337,10 +313,7 @@
     <input type="hidden" name="token" value={token} />
     <input type="hidden" name="challenge" value={challenge} />
 
-    <label
-      for="username"
-      class="input flex items-center justify-center gap-2 w-full"
-    >
+    <label for="username" class="input flex items-center justify-center gap-2 w-full">
       <input
         class="clean"
         use:focus
@@ -352,15 +325,8 @@
         autocapitalize="none"
         placeholder={$t("login.username")}
       />
-      <button
-        type="button"
-        tabindex="-1"
-        onclick={refresh}
-        aria-label="Randomize"
-        class="contents"
-      >
-        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"
-        ></iconify-icon></button
+      <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
+        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon></button
       >
     </label>
 
@@ -370,12 +336,7 @@
       bind:show={revealPassword}
     />
 
-    <button
-      type="submit"
-      class="btn btn-accent"
-      disabled={loading}
-      bind:this={btn}
-    >
+    <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
       {#if loading}
         <Spinner />
       {:else}

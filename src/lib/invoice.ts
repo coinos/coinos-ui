@@ -30,8 +30,7 @@ export default async ({ cookies, request }) => {
   invoice = await post("/invoice", { invoice, user }, auth(cookies));
   const { id } = invoice;
 
-  if (invoice.prompt && invoice.tip === null)
-    redirect(307, `/invoice/${id}/tip`);
+  if (invoice.prompt && invoice.tip === null) redirect(307, `/invoice/${id}/tip`);
 
   if (invoice.memoPrompt && !invoice.memo) {
     redirect(307, `/invoice/${id}/memo`);

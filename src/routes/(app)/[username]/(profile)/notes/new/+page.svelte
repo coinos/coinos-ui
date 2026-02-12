@@ -32,10 +32,7 @@
 
 <div class="container px-4 max-w-xl mx-auto space-y-5">
   <form method="POST" class="space-y-2 text-xl" onsubmit={submit}>
-    <textarea use:focus bind:value={content} placeholder={$t("notes.contents")}
-    ></textarea>
-    <button type="submit" class="btn btn-accent">
-      {$t("payments.submit")}</button
-    >
+    <textarea use:focus bind:value={content} placeholder={$t("notes.contents")}></textarea>
+    <button type="submit" class="btn btn-accent"> {$t("payments.submit")}</button>
   </form>
 </div>

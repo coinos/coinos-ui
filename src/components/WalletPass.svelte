@@ -24,9 +24,7 @@
 </script>
 
 <div class="fixed inset-0 bg-gray-600/50 overflow-y-auto h-full w-full z-20">
-  <div
-    class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5"
-  >
+  <div class="relative top-1/3 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white space-y-5">
     <h1 class="text-center text-2xl font-semibold">
       {$t("payments.enterWalletPass")}
     </h1>
@@ -66,15 +64,12 @@
         </button>
       </div>
       <div class="mb-5 space-y-2">
-        <label for="rememberFor" class="text-sm text-gray-500">
-          Remember for
-        </label>
+        <label for="rememberFor" class="text-sm text-gray-500"> Remember for </label>
         <select
           id="rememberFor"
           class="w-full"
           value={rememberForMs}
-          onchange={(e) =>
-            (rememberForMs = Number((e.target as HTMLSelectElement).value))}
+          onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
         >
           {#each rememberForOptions as option}
             <option value={option.ms}>{option.label}</option>

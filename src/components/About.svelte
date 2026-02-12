@@ -33,10 +33,7 @@
         <div class="flex w-full">
           <div class="md:flex 2xl:items-start md:max-w-2xl mx-auto">
             <div class="w-[220px] mx-auto">
-              <Image
-                image={member.name}
-                style="rounded-full mx-auto w-40 h-40 mb-5 object-cover"
-              />
+              <Image image={member.name} style="rounded-full mx-auto w-40 h-40 mb-5 object-cover" />
 
               <div class="space-y-2">
                 <span class="text-2xl text-center font-semibold block"
@@ -69,9 +66,7 @@
   <h3 class="text-5xl font-medium mb-5 text-center">
     {$t("about.locations.header")}
   </h3>
-  <p
-    class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10"
-  >
+  <p class="text-secondary text-xl w-full md:w-10/12 lg:w-2/3 2xl:w-[800px] mx-auto mb-10">
     {@html $t("about.locations.description")}
   </p>
 

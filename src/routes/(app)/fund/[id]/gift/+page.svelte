@@ -32,11 +32,7 @@
       <div class="my-auto break-all min-w-0 !w-auto max-w-full">{text}</div>
     </button>
 
-    <a
-      href={`/qr/${encodeURIComponent(text)}`}
-      class="btn !w-auto"
-      aria-label="Show gift QR"
-    >
+    <a href={`/qr/${encodeURIComponent(text)}`} class="btn !w-auto" aria-label="Show gift QR">
       <iconify-icon icon="ph:qr-code-bold" width={32}></iconify-icon>
     </a>
   </div>

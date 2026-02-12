@@ -95,14 +95,11 @@ export const syncTransactions = async (aid: string) => {
   return post("/post/ark/sync", { transactions, aid });
 };
 
-export const vtxoKey = (v: { txid: string; vout: number }) =>
-  `${v.txid}:${v.vout}`;
+export const vtxoKey = (v: { txid: string; vout: number }) => `${v.txid}:${v.vout}`;
 
 export const getProcessedVtxos = (): Set<string> => {
   try {
-    return new Set(
-      JSON.parse(localStorage.getItem("processedArkVtxos") || "[]"),
-    );
+    return new Set(JSON.parse(localStorage.getItem("processedArkVtxos") || "[]"));
   } catch {
     return new Set();
   }
