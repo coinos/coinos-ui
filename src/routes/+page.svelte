@@ -26,7 +26,7 @@
 
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
-<main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0">
+<main class="space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0 pt-20">
   <LandingHero />
   <LandingInfoCard
     image="lightning-qr"
