@@ -79,10 +79,22 @@
       <div class="space-y-1">
         <label for="name" class="font-bold block">{$t("accounts.name")}</label>
         <label
-          class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2"
+          class="input input-bordered border-primary input-lg flex items-center gap-2"
         >
           <input type="text" name="name" class="clean" bind:value={name} />
         </label>
+      </div>
+
+      <div class="flex items-center gap-2 text-lg">
+        <span class="font-bold">{$t("accounts.type")}:</span>
+        {#if account.type === "ark"}
+          <img src="/images/ark.png" class="w-6 h-6 rounded-full object-cover" alt="Ark" />
+        {:else if seed}
+          <iconify-icon noobserver icon="cryptocurrency-color:btc" width="24"></iconify-icon>
+        {:else}
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300" width="24"></iconify-icon>
+        {/if}
+        {displayType}
       </div>
 
       <div class="space-y-2">
