@@ -69,7 +69,8 @@
     "ark": "Ark",
     "bitcoin": "Bitcoin",
     "custodial": "Custodial",
-    "submit": "Submit"
+    "submit": "Submit",
+    "type": "Type"
   },
   "404": {
     "404": "404",

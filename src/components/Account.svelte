@@ -134,7 +134,7 @@
 >
   <div class="flex items-start justify-between gap-4">
     <div>
-      <div class="text-sm text-gray-500">{displayName}</div>
+      <div class="text-lg text-gray-400">{displayName}</div>
       <Balance {balance} {user} {rate} {id} />
       {#if pending}
         <div class="text-lg text-gray-600">
@@ -142,7 +142,16 @@
         </div>
       {/if}
     </div>
-    <div class="flex items-center gap-4 shrink-0 text-gray-600">
+    <div class="flex items-start gap-4 shrink-0 text-gray-600">
+      <div class="flex items-center justify-center w-8 h-8 leading-[0]">
+        {#if isArk}
+          <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
+        {:else if seed || (user.seed && fingerprint)}
+          <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+        {:else}
+          <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
+        {/if}
+      </div>
       <a
         href="/payments"
         class="hover:text-gray-800"
