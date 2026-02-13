@@ -7,12 +7,13 @@
   import { goto } from "$app/navigation";
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
-  import { versions } from "$lib/utils";
+  import { versions, s, f, loc, toFiat } from "$lib/utils";
+  import { fiat } from "$lib/store";
   import { arkkey } from "$lib/ark";
   import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
 
   let { user, rate, account }: any = $props();
-  let { name, seed, fingerprint, balance, id, type: accountType, arkAddress } = $derived(account);
+  let { name, seed, fingerprint, balance, pending, id, type: accountType, arkAddress } = $derived(account);
 
   let arkBalance = $state(0);
   let arkLoading = $state(false);
@@ -135,6 +136,11 @@
     <div>
       <div class="text-sm text-gray-500">{displayName}</div>
       <Balance {balance} {user} {rate} {id} />
+      {#if pending}
+        <div class="text-lg text-gray-600">
+          +{$fiat && rate ? f(toFiat(pending, rate), user.currency, loc(user)) : s(pending)} pending
+        </div>
+      {/if}
     </div>
     <div class="flex items-center gap-4 shrink-0 text-gray-600">
       <a
