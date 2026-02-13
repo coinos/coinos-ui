@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle } from "$lib/ark";
+  import { getWallet, syncTransactions, settle, arkkey } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -82,8 +82,15 @@
       $pin = getCookie("pin");
 
       if (user) {
+        const storedUid = localStorage.getItem("arkkey:uid");
+        if (storedUid && storedUid !== user.id) {
+          $arkkey = "";
+          localStorage.removeItem("arkkey:uid");
+        }
+
         const wallet = await getWallet();
         if (wallet) {
+          localStorage.setItem("arkkey:uid", user.id);
           wallet.notifyIncomingFunds(arkSync);
 
           arkSync();
