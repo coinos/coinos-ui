@@ -53,13 +53,10 @@
 {#if !showQr || txt?.length <= 120}
   <div
     data-testid="invoice-text"
+onclick={() => copy(txt)} aria-label="Copy invoice"
     class="break-all text-center text-secondary text-xl flex gap-1 items-center justify-center"
   >
     {txt}
-
-    <button type="button" onclick={() => copy(txt)} aria-label="Copy invoice">
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-    </button>
   </div>
 {/if}
 

@@ -122,7 +122,7 @@
 </script>
 
 <div
-  class="shadow-lg space-y-4 p-4 cursor-pointer hover:bg-base-200"
+  class="space-y-4 p-4 cursor-pointer hover:bg-base-200"
   aria-label="Payments"
   data-testid="account-card"
   data-account-type={accountType}
@@ -135,10 +135,11 @@
     <Balance {balance} {user} {rate} {id} />
     <a
       href={`/account/${id}`}
-      class="font-bold text-lg opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2 shrink-0"
+      class="text-lg flex items-center gap-2 shrink-0 text-gray-600"
       aria-label="Account settings"
       onclick={goSettings}
     >
+      {displayName}
       {#if isArk}
         <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
       {:else if seed || (user.seed && fingerprint)}
@@ -146,7 +147,6 @@
       {:else}
         <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
       {/if}
-      {displayName}
     </a>
   </div>
 
