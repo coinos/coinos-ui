@@ -66,23 +66,6 @@
     </button>
   </div>
 
-  <div class="flex flex-wrap gap-2 justify-around text-secondary w-full">
-    <button type="button" class="btn !w-auto grow" onclick={() => copy(txt)}>
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-      <div class="my-auto">{t("payments.copy")}</div>
-    </button>
-
-    <button class="btn grow !w-auto" onclick={() => goto("/receive")}>
-      <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
-      <div class="my-auto text-lg">{t("user.send.paste")}</div>
-    </button>
-
-    <button class="btn grow !w-auto" onclick={() => goto("/scan")}>
-      <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
-      <div class="my-auto text-lg">{t("user.send.scan")}</div>
-    </button>
-  </div>
-
   {#if txt?.length > 120}
     <div class="w-full flex justify-center gap-2 flex-wrap">
       <button class="btn" onclick={() => (showQr = !showQr)}>
@@ -118,7 +101,7 @@
       </button>
     {/if}
 
-    {#if !account?.seed}
+    {#if !account?.seed && !(account?.pubkey && account?.fingerprint)}
       <button
         class="btn flex-nowrap !w-auto grow"
         class:bg-base-300={type === types.bitcoin}
