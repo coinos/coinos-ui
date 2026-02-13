@@ -27,11 +27,11 @@
       icon: "ph:house-bold",
       label: "Home",
     },
-    {
-      href: `/scan`,
-      icon: "ph:camera-bold",
-      label: "Scan",
-    },
+    // {
+    //   href: `/scan`,
+    //   icon: "ph:camera-bold",
+    //   label: "Scan",
+    // },
     // {
     //   href: `/${user?.username}/receive`,
     //   icon: "ph:hand-coins-bold",

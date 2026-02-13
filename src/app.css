@@ -87,7 +87,7 @@ input:not([type="range"]),
 textarea,
 select,
 .input {
-  @apply rounded-2xl w-full;
+  @apply rounded-none w-full;
 }
 
 input.clean,

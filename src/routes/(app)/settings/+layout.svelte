@@ -238,11 +238,11 @@
   <Pin />
 {/if}
 
-<form method="POST" class="mb-[154px] settings" onsubmit={handleSubmit} bind:this={formElement}>
+<form method="POST" class="pb-4 settings" onsubmit={handleSubmit} bind:this={formElement}>
   <input type="hidden" name="pin" value={$pin} />
   <input type="hidden" name="tab" value={tab} />
 
-  <div class="mt-24 mb-20 px-3 md:px-0 w-full md:max-w-lg mx-auto space-y-8">
+  <div class="mt-24 mb-36 px-3 md:px-0 w-full md:max-w-lg mx-auto space-y-8">
     <div class="header">
       <h1 class="text-center text-3xl md:text-4xl font-semibold mb-10">
         {$t("user.settings.header")}

@@ -105,8 +105,7 @@
                   aria-label="Copy lightning address"
                   onclick={() => copy(lnaddr)}
                 >
-                  >
-                  <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+                    <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
                 </button>
                 <a
                   href={`/qr/${encodeURIComponent(lnaddr)}`}
@@ -130,7 +129,6 @@
                 aria-label="Copy profile URL"
                 onclick={() => copy(profile)}
               >
-                >
                 <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
               </button>
               <a
@@ -154,7 +152,6 @@
                 aria-label="Copy LNURL"
                 onclick={() => copy(`lightning:${lnurl}`)}
               >
-                >
                 <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
               </button>
               <a
