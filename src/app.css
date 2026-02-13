@@ -104,7 +104,7 @@ button {
   cursor: pointer !important;
 }
 .btn {
-  @apply rounded-2xl btn-lg btn-block outline-none h-16 cursor-pointer;
+  @apply rounded-none btn-lg btn-block outline-none h-16 cursor-pointer;
 }
 
 @layer components {

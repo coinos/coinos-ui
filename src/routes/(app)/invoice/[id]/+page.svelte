@@ -141,7 +141,7 @@
   let txt = $derived([types.bitcoin, types.liquid].includes(type) ? hash : text);
 </script>
 
-<div class="invoice container mx-auto max-w-xl px-4 space-y-2">
+<div class="invoice container mx-auto max-w-xl px-4 pb-4 space-y-2">
   <InvoiceData
     {src}
     {link}

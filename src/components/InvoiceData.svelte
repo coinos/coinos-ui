@@ -50,15 +50,15 @@
   </div>
 {/if}
 
-{#if !showQr || txt?.length <= 120}
-  <div
+  <button
     data-testid="invoice-text"
-onclick={() => copy(txt)} aria-label="Copy invoice"
-    class="break-all text-center text-secondary text-xl flex gap-1 items-center justify-center"
+    onclick={() => copy(txt)}
+    aria-label="Copy invoice"
+    class="w-full text-center text-secondary text-xl flex gap-1 items-center justify-center cursor-pointer hover:opacity-70"
   >
-    {txt}
-  </div>
-{/if}
+    <span class="truncate">{txt}</span>
+    <iconify-icon noobserver icon="ph:copy-bold" width="32" class="shrink-0"></iconify-icon>
+  </button>
 
 {#each invoice.items as i}
   {@const itemTotal = i.price * i.quantity}
