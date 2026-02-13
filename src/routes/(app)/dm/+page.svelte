@@ -160,7 +160,7 @@
  const selectChatUsername = async (username: string) => {
    const response = await fetch(`/api/users/${username}`);
    if (!response.ok) {
-     alert("Invalid username");
+     alert($t("dm.usernameNotFound"));
      return;
    }
    const coinosUserInfo = await response.json();
@@ -170,7 +170,7 @@
  const selectChatNip05 = async (nip05: string) => {
    const response = await queryProfile(nip05);
    if (response == null) {
-     alert("Invalid nip-05");
+     alert($t("dm.nip05NotFound"));
      return;
    }
    selectChatPubkey(response.pubkey);
