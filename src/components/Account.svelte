@@ -158,7 +158,7 @@
 
   <div class="flex w-full text-xl gap-2">
     <a href={"/invoice"} class="contents" onclick={(e) => setAccount(e, "/invoice")}>
-      <button class="btn !w-auto flex-1 !rounded-none" data-testid="account-receive">
+      <button class="btn !w-auto flex-1" data-testid="account-receive">
         <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
         ></iconify-icon>
         <div class="my-auto hidden sm:block">{$t("user.dashboard.receive")}</div>
@@ -166,7 +166,7 @@
     </a>
 
     <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
-      <button type="button" class="btn btn-accent !w-auto flex-1 !rounded-none">
+      <button type="button" class="btn btn-accent !w-auto flex-1">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
         <div class="my-auto hidden sm:block">{$t("user.dashboard.send")}</div>
       </button>

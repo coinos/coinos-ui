@@ -66,18 +66,7 @@
     </button>
   </div>
 
-  {#if txt?.length > 120}
-    <div class="w-full flex justify-center gap-2 flex-wrap">
-      <button class="btn" onclick={() => (showQr = !showQr)}>
-        {#if showQr}
-          <iconify-icon noobserver icon="ph:text-align-center-bold" width="32"></iconify-icon>
-        {:else}
-          <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
-        {/if}
-        <div class="my-auto">{showQr ? t("payments.showText") : t("payments.showQr")}</div>
-      </button>
-    </div>
-  {/if}
+
 
   <div class="flex gap-2">
     {#if aid === user.id}
