@@ -132,27 +132,33 @@
   onkeydown={(e) => (e.key === "Enter" || e.key === " ") && goPayments(e)}
 >
   <div class="flex items-start justify-between gap-4">
-    <Balance {balance} {user} {rate} {id} />
-    <a
-      href={`/account/${id}`}
-      class="text-lg flex items-center gap-2 shrink-0 text-gray-600"
-      aria-label="Account settings"
-      onclick={goSettings}
-    >
-      {displayName}
-      {#if isArk}
-        <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
-      {:else if seed || (user.seed && fingerprint)}
-        <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
-      {:else}
-        <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
-      {/if}
-    </a>
+    <div>
+      <div class="text-sm text-gray-500">{displayName}</div>
+      <Balance {balance} {user} {rate} {id} />
+    </div>
+    <div class="flex items-center gap-4 shrink-0 text-gray-600">
+      <a
+        href="/payments"
+        class="hover:text-gray-800"
+        aria-label="Payment history"
+        onclick={(e) => setAccount(e, "/payments")}
+      >
+        <iconify-icon noobserver icon="ph:clock-counter-clockwise-bold" width="32"></iconify-icon>
+      </a>
+      <a
+        href={`/account/${id}`}
+        class="hover:text-gray-800"
+        aria-label="Account settings"
+        onclick={goSettings}
+      >
+        <iconify-icon noobserver icon="ph:gear-bold" width="32"></iconify-icon>
+      </a>
+    </div>
   </div>
 
   <div class="flex w-full text-xl gap-2">
     <a href={"/invoice"} class="contents" onclick={(e) => setAccount(e, "/invoice")}>
-      <button class="btn !w-auto flex-1 !bg-base-300" data-testid="account-receive">
+      <button class="btn !w-auto flex-1 !rounded-none" data-testid="account-receive">
         <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
         ></iconify-icon>
         <div class="my-auto hidden sm:block">{$t("user.dashboard.receive")}</div>
@@ -160,7 +166,7 @@
     </a>
 
     <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
-      <button type="button" class="btn !w-auto flex-1 !bg-base-300">
+      <button type="button" class="btn btn-accent !w-auto flex-1 !rounded-none">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
         <div class="my-auto hidden sm:block">{$t("user.dashboard.send")}</div>
       </button>
