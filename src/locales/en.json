@@ -109,6 +109,8 @@
 		"expiry": "Enable message expiry",
 		"cantSendExpiring": "None of [R]'s DM relays support message expiry.  You can't send expiring messages to them.",
 		"fadedWarning": "To avoid metadata leaks, messages expire at a random time up to 2 days after you specify; each message has its own random expiry time.  Messages which appear faded are close to expiring; nearby messages may be missing.",
+		"usernameNotFound": "An account with that username was not found.",
+		"nip05NotFound": "A Nostr account with that NIP-05 was not found.",
 		"days": "days",
 		"relaysNotFound": "Could not find [R]’s DM relays.",
 		"noRelaysSet": "WARNING: You haven't set any preferred relays.  You won't be able to receive any messages or see the messages you've sent.",
