@@ -8,6 +8,7 @@
   let { amount, currency, rate, received, pending, tip, user, id } = $derived(data.invoice);
   let locale = $derived(loc(user));
 
+  let link: HTMLAnchorElement;
   // toast.pop(0);
 </script>
 
@@ -30,7 +31,7 @@
   {/if}
 </div>
 
-<a href={`/${user.username}`} aria-label="Continue">
+<a bind:this={link} href={`/${user.username}`} aria-label="Continue" autofocus>
   <div class="opacity-0 w-screen h-screen fixed top-24 left-0 z-50"></div>
 </a>
 
