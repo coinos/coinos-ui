@@ -163,7 +163,7 @@
         <button type="button" class="btn" onclick={() => (showMax = !showMax)}>
           {$t("payments.advancedSettings")}
         </button>
-        <input name="maxfee" type="hidden" bind:value={maxfee} />
+        <input name="fee" type="hidden" bind:value={maxfee} />
       {/if}
     </form>
   {:else}

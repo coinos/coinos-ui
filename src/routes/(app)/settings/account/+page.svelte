@@ -18,7 +18,7 @@
   let rates = $derived(data.rates);
   let subscriptions = $derived(data.subscriptions);
   let { currency, email, tip, verified } = $state(user);
-  let rate = $derived(() => rates[currency]);
+  let rate = $derived(rates[currency]);
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
   let el: any;
@@ -46,7 +46,7 @@
   };
 
   if (!user.threshold) user.threshold = 1000000;
-  if (!user.reserve) user.reserve = 100000;
+  if (!user.reserve) user.reserve = 0;
   let reserveEl: any = $state(),
     thresholdEl: any = $state();
 
