@@ -146,7 +146,7 @@
         </div>
       {/if}
     </div>
-    <div class="flex items-start gap-4 shrink-0 text-gray-600">
+    <div class="flex items-start gap-4 shrink-0 text-black">
       <div class="flex items-center justify-center w-8 h-8 leading-[0]">
         {#if isArk}
           <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />

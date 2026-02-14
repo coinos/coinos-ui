@@ -30,7 +30,7 @@
   let currency = $state(data.account.currency || data.user.currency);
   let autowithdraw = $state(data.account.autowithdraw || false);
   let threshold = $state(data.account.threshold || data.user.threshold || 1000000);
-  let reserve = $state(data.account.reserve || data.user.reserve || 0);
+  let reserve = $state(data.account.reserve ?? 0);
   let destination = $state(data.account.destination || data.user.destination || "");
 
   let rate = $derived(rates[currency]);
@@ -113,21 +113,19 @@
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">{$t("payments.accountSettings")}</h1>
+  <h1 class="text-center text-3xl font-semibold flex items-center justify-center gap-2">
+    {#if account.type === "ark"}
+      <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
+    {:else if seed}
+      <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+    {:else}
+      <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
+    {/if}
+    {displayType} {$t("payments.accountSettings").toLowerCase()}
+  </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
     <form class="space-y-5 pb-8" method="POST" use:enhance>
-      <div class="flex items-center gap-2 text-lg">
-        <span class="font-bold">{$t("accounts.accountType")}:</span>
-        {#if account.type === "ark"}
-          <img src="/images/ark.png" class="w-6 h-6 rounded-full object-cover" alt="Ark" />
-        {:else if seed}
-          <iconify-icon noobserver icon="cryptocurrency-color:btc" width="24"></iconify-icon>
-        {:else}
-          <img src="/images/icon.png" class="w-6 h-6" alt="Coinos" />
-        {/if}
-        {displayType}
-      </div>
 
       <div class="space-y-1">
         <label for="name" class="font-bold block">{$t("accounts.name")}</label>
@@ -213,7 +211,7 @@
           </button>
         {/if}
 
-        {#if seed}
+        {#if seed || account.type === "ark"}
           <button onclick={del} type="button" class="btn">
             <iconify-icon noobserver icon="ph:trash-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.deleteAccount")}</div>

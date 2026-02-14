@@ -94,7 +94,7 @@
       invoice.address_type = address_type;
       invoice.type = type;
 
-      if (type === "ark") {
+      if (type === "ark" && invoice.aid !== invoice.uid) {
         const wallet = await getWallet();
         invoice.hash = await wallet.getAddress();
       }

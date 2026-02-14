@@ -90,7 +90,7 @@
       </button>
     {/if}
 
-    {#if !account?.seed && !(account?.pubkey && account?.fingerprint)}
+    {#if !account?.seed && !(account?.pubkey && account?.fingerprint) && account?.type !== "ark"}
       <button
         class="btn flex-nowrap !w-auto grow"
         class:bg-base-300={type === types.bitcoin}
