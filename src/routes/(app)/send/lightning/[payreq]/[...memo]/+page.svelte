@@ -65,7 +65,7 @@
       return;
     }
 
-    if (data.account?.seed) {
+    if (data.account?.type === "bitcoin") {
       cancel();
 
       (async () => {

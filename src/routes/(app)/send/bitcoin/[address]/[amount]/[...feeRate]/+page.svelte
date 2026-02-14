@@ -124,7 +124,7 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs } =
+  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs, forward } =
     $derived(data);
 
   let feeRate: any = $state(data.feeRate);
@@ -166,7 +166,14 @@
       <div class="text-red-600">{form?.message || message || error}</div>
     </div>
   {:else}
-    <div class="text-xl text-secondary break-all">{address}</div>
+    {#if forward}
+      <div class="text-xl">
+        <span class="text-secondary">{$t("payments.to")}</span>
+        <span class="font-semibold">{forward.alias}</span>
+      </div>
+    {:else}
+      <div class="text-xl text-secondary break-all">{address}</div>
+    {/if}
 
     <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} />
 
