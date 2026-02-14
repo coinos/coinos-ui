@@ -134,6 +134,16 @@
  let canSendExpiring = $state(false);
  let nostrUserInfo = $state({});
 
+ const selectedChatEmpty = () => !messageRumours || messageRumours.size == 0;
+
+ const removeChat = (pubkey: string) => {
+   for (let i = 0; i < chats.length; i++) {
+     if (chats[i].pubkey === pubkey) {
+       chats.splice(i, 1);
+     }
+   }
+ }
+
  const includesPubkey = (chats: object[], pubkey: string) => {
    for (const c of chats) {
      if (c.pubkey === pubkey) {
@@ -144,6 +154,10 @@
  }
 
  const selectChat = (c: object) => {
+   if (selectedChat && selectedChatEmpty()) {
+     removeChat(selectedChat.pubkey);
+   }
+
    selectedChat = c;
    if (!includesPubkey(chats, c.pubkey)) {
      chats.unshift(c);
@@ -427,7 +441,7 @@
     <div class={"sidebar " + ($theme === "light" ? "light-sidebar" : "dark-sidebar")}>
         <h2 class="text-xl chat-header">
             {creatingNewChat ? $t("dm.newChatHeader") : $t("dm.chatHeader")}
-            <button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectedChat = null}}>+</button>
+            <button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectChat(null)}}>+</button>
         </h2>
         {#if creatingNewChat}
             <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
