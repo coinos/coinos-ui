@@ -8,6 +8,7 @@ export const arkServerUrl = {
   regtest: "http://localhost:7070",
 }[PUBLIC_COINOS_NETWORK || "regtest"];
 export const arkkey = persistLocal("arkkey", "");
+export const arkaid = persistLocal("arkaid", "");
 
 let arkSdkPromise: Promise<typeof import("@arkade-os/sdk")> | undefined;
 const loadArkSdk = () => (arkSdkPromise ||= import("@arkade-os/sdk"));
