@@ -11,5 +11,5 @@ export async function load({ cookies, depends, parent }) {
   if (cookies.get("token")) accounts = await get("/accounts", auth(cookies));
 
   const rates = await getRates();
-  return { accounts, rate: rates[subject.currency] };
+  return { accounts, rates };
 }

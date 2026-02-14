@@ -2,9 +2,8 @@
   import { run } from "svelte/legacy";
   import { theme } from "$lib/store";
 
-  import { onMount, tick } from "svelte";
+  import { onMount } from "svelte";
   import { browser } from "$app/environment";
-  import Numpad from "$comp/Numpad.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import Toggle from "$comp/Toggle.svelte";
   import { locale, t } from "$lib/translations";
@@ -18,37 +17,8 @@
   let rates = $derived(data.rates);
   let subscriptions = $derived(data.subscriptions);
   let { currency, email, tip, verified } = $state(user);
-  let rate = $derived(rates[currency]);
 
   let fiats = Object.keys(rates).sort((a, b) => a.localeCompare(b));
-  let el: any;
-  let keypress = (e: any) => e.key === "Enter" && (e.preventDefault() || el.click());
-
-  let editingReserve = $state(),
-    editingThreshold = $state(),
-    doneReserve = $state(),
-    doneThreshold;
-  let doneEditing = () => {
-    editingReserve = false;
-    editingThreshold = false;
-  };
-
-  let editReserve = async () => {
-    editingReserve = true;
-    await tick();
-    reserveEl.focus();
-  };
-
-  let editThreshold = async () => {
-    editingThreshold = true;
-    await tick();
-    thresholdEl.focus();
-  };
-
-  if (!user.threshold) user.threshold = 1000000;
-  if (!user.reserve) user.reserve = 0;
-  let reserveEl: any = $state(),
-    thresholdEl: any = $state();
 
   let push = $state(),
     pm: any,
@@ -173,88 +143,6 @@
     <input type="text" name="tip" class="clean" bind:value={tip} />
   </label>
 </div>
-
-<div>
-  <div class="flex justify-between items-center">
-    <span class="font-bold">{$t("user.settings.autoWithdraw")}</span>
-    <Toggle id="autowithdraw" bind:value={user.autowithdraw} />
-  </div>
-  <p class="text-secondary mt-1 w-9/12">{$t("user.settings.autoWithdrawDescription")}</p>
-</div>
-
-<div class:hidden={!user.autowithdraw}>
-  <div class="mb-2">
-    <label for="display" class="font-bold mb-1 block">{$t("user.settings.destination")}</label>
-    <textarea
-      name="destination"
-      placeholder={$t("user.settings.destinationPlaceholder")}
-      onkeypress={keypress}
-      class="w-full p-4 border rounded-xl h-48"
-      bind:value={user.destination}
-    ></textarea>
-  </div>
-
-  <div>
-    <label for="display" class="font-bold mb-1 block">{$t("user.settings.threshold")}</label>
-    <button type="button" class="flex w-full" onclick={editThreshold}>
-      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-      </div>
-      <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">
-        {user.threshold}
-      </div>
-      <input type="hidden" name="threshold" bind:value={user.threshold} />
-    </button>
-    <p class="text-secondary mt-1">{$t("user.settings.thresholdDesc")}</p>
-  </div>
-
-  <div>
-    <label for="display" class="font-bold mb-1 block">{$t("user.settings.reserve")}</label>
-    <button type="button" class="flex w-full" onclick={editReserve}>
-      <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-      </div>
-      <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">
-        {user.reserve}
-      </div>
-      <input type="hidden" name="reserve" bind:value={user.reserve} />
-    </button>
-    <p class="text-secondary mt-1">{$t("user.settings.reserveDesc")}</p>
-  </div>
-</div>
-
-{#if editingThreshold}
-  <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto">
-    <div class="relative p-5 border shadow-lg rounded-md bg-base-100 space-y-5">
-      <h1 class="text-center text-2xl font-semibold">{$t("user.settings.threshold")}</h1>
-      <Numpad
-        bind:amount={user.threshold}
-        {currency}
-        bind:rate
-        bind:submit={doneReserve}
-        bind:element={thresholdEl}
-      />
-
-      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">Ok</button>
-    </div>
-  </div>
-{/if}
-
-{#if editingReserve}
-  <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 mx-auto max-w-lg">
-    <div class="relative mx-auto p-5 border shadow-lg rounded-md bg-base-100 space-y-5 text-center">
-      <h1 class="text-2xl font-semibold">{$t("user.settings.reserve")}</h1>
-      <Numpad
-        bind:amount={user.reserve}
-        {currency}
-        bind:rate
-        bind:submit={doneReserve}
-        bind:element={reserveEl}
-      />
-      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">Ok</button>
-    </div>
-  </div>
-{/if}
 
 {#if connect !== "connected"}
   <a href={connect} class="btn flex">

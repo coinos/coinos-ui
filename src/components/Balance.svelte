@@ -6,8 +6,9 @@
   import { t } from "$lib/translations";
 
   let show = $state();
-  let { id, user, rate, balance } = $props();
-  let { currency, locked } = $derived(user);
+  let { id, user, rate, balance, currency: currencyProp = undefined } = $props();
+  let currency = $derived(currencyProp || user.currency);
+  let { locked } = $derived(user);
   let locale = $derived(loc(user));
   let toggleShow = (e) => {
     e.preventDefault();
