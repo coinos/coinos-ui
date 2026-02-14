@@ -19,7 +19,7 @@ let relayListCache = new Map();
 
 import { PUBLIC_DM_RELAYS } from '$env/static/public';
 const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
-const DM_FETCH_LIMIT = 256;
+const DM_FETCH_LIMIT = 65536;
 
 // Ensures we have access to a secret key, triggering the signer modal if needed.
 // Returns the sk as Uint8Array, or null if using NIP-07 extension.
