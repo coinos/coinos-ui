@@ -6,5 +6,5 @@ export async function load({ depends, parent }) {
   const rates = await getRates();
   const { subject } = await parent();
 
-  return { rate: rates[subject.currency] };
+  return { rates };
 }

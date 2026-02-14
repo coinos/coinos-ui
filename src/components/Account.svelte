@@ -12,7 +12,9 @@
   import { arkkey } from "$lib/ark";
   import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
 
-  let { user, rate, account }: any = $props();
+  let { user, rates, account }: any = $props();
+  let currency = $derived(account.currency || user.currency);
+  let rate = $derived(rates[currency]);
   let { name, seed, fingerprint, balance, pending, id, type: accountType, arkAddress } = $derived(account);
 
   let arkBalance = $state(0);
@@ -135,10 +137,10 @@
   <div class="flex items-start justify-between gap-4">
     <div>
       <div class="text-lg text-gray-400">{displayName}</div>
-      <Balance {balance} {user} {rate} {id} />
+      <Balance {balance} {user} {rate} {id} {currency} />
       {#if pending}
         <div class="text-lg text-gray-600">
-          +{$fiat && rate ? f(toFiat(pending, rate), user.currency, loc(user)) : s(pending)} pending
+          +{$fiat && rate ? f(toFiat(pending, rate), currency, loc(user)) : s(pending)} pending
         </div>
       {/if}
     </div>

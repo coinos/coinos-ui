@@ -15,7 +15,7 @@
     preloadData("/send");
   });
 
-  let { accounts, subject, rate, user } = $derived(data as any);
+  let { accounts, subject, rates, user } = $derived(data as any);
   let { locked } = $derived(user);
 
   let install = async () => {
@@ -62,7 +62,7 @@
   {#if user?.id && user.id === subject.id}
     <div class="space-y-10 pb-8" data-sveltekit-preload-data="false">
       {#each accounts as account}
-        <Account {user} {rate} {account} />
+        <Account {user} {rates} {account} />
       {/each}
       <div class="flex justify-end">
         <a href="/account/new" class="contents" aria-label={$t("accounts.addAccount")}>

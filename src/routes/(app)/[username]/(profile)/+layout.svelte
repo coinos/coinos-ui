@@ -10,7 +10,8 @@
 
   let { encode, toWords } = bech32;
 
-  let { rate, user, subject } = $derived(data);
+  let { rates, user, subject } = $derived(data);
+  let rate = $derived(rates[subject.currency]);
   let { events, src, text } = $derived(data as any);
   let satsPerCurrency = $derived((1 * sats) / rate);
 

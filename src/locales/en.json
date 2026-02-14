@@ -70,7 +70,8 @@
     "bitcoin": "Bitcoin",
     "custodial": "Custodial",
     "submit": "Submit",
-    "type": "Type"
+    "type": "Type",
+    "accountType": "Account type"
   },
   "404": {
     "404": "404",

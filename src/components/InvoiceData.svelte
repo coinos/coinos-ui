@@ -19,6 +19,7 @@
   }: any = $props();
 
   let loaded = $state(false);
+  let expanded = $state(false);
   let { memo } = $derived(invoice);
   let load = () => (loaded = true);
 </script>
@@ -52,11 +53,11 @@
 
   <button
     data-testid="invoice-text"
-    onclick={() => copy(txt)}
+    onclick={() => { copy(txt); expanded = !expanded; }}
     aria-label="Copy invoice"
     class="w-full text-center text-secondary text-xl flex gap-1 items-center justify-center cursor-pointer hover:opacity-70"
   >
-    <span class="truncate">{txt}</span>
+    <span class:truncate={!expanded} class="break-all">{txt}</span>
     <iconify-icon noobserver icon="ph:copy-bold" width="32" class="shrink-0"></iconify-icon>
   </button>
 
