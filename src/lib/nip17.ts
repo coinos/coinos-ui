@@ -351,37 +351,32 @@ const publishToPreferred = async (
   }
 };
 
+const createAndPublishMessageEvent = async (sk: Uint8Array | null, message: string, userPK: string, recipientPK: string, eventFor: string, expiryDays?: number) => {
+  let event;
+  if (sk === null) {
+    event = await createNIP17MessageNIP07(message, userPK, recipientPK, eventFor, expiryDays);
+  } else {
+    event = createNIP17MessageSK(message, sk, recipientPK, eventFor, expiryDays);
+  }
+  return publishToPreferred(event, eventFor, expiryDays != null);
+};
+
 // Sends a NIP-17 message from `user` to `recipient`.
 // If expiryDays is set, messages will expire after that many days.
 export const send = async (message: string, user: any, recipient: any, expiryDays?: number) => {
-  let event1, event2;
   const sk = await ensureSigner(user.pubkey);
 
   // Store sk for auth handler
   currentSk = sk;
 
-  if (sk === null) {
-    // Use NIP-07 extension
-    event1 = await createNIP17MessageNIP07(
-      message,
-      user.pubkey,
-      recipient.pubkey,
-      recipient.pubkey,
-      expiryDays,
-    );
-    event2 = await createNIP17MessageNIP07(
-      message,
-      user.pubkey,
-      recipient.pubkey,
-      user.pubkey,
-      expiryDays,
-    );
+  if (user.pubkey === recipient.pubkey) {
+    return createAndPublishMessageEvent(
+      sk, message, user.pubkey, recipient.pubkey, user.pubkey, expiryDays);
   } else {
-    event1 = createNIP17MessageSK(message, sk, recipient.pubkey, recipient.pubkey, expiryDays);
-    event2 = createNIP17MessageSK(message, sk, recipient.pubkey, user.pubkey, expiryDays);
+    const p1 = createAndPublishMessageEvent(
+      sk, message, user.pubkey, recipient.pubkey, recipient.pubkey, expiryDays);
+    const p2 = createAndPublishMessageEvent(
+      sk, message, user.pubkey, recipient.pubkey, user.pubkey, expiryDays);
+    return Promise.all([p1, p2]);
   }
-
-  const p1 = publishToPreferred(event1, recipient.pubkey, expiryDays != null);
-  const p2 = publishToPreferred(event2, user.pubkey, expiryDays != null);
-  return Promise.all([p1, p2]);
 };
