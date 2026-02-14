@@ -8,6 +8,16 @@ export async function load({ params: { address, amount, feeRate }, cookies, pare
   const aid = cookies.get("aid") || user.id;
   const account = await get(`/account/${aid}`, auth(cookies));
 
+  // Check if this is a forward (e.g. bitcoin vault paying a lightning invoice)
+  let forward: any = null;
+  try {
+    const inv = await get(`/invoice/${address}`);
+    if (inv?.forward?.startsWith("ln")) {
+      const parsed = await post("/parse", { payreq: inv.forward }, auth(cookies));
+      forward = { alias: parsed.alias, payreq: inv.forward };
+    }
+  } catch {}
+
   if (account.type === "ark") {
     const serverArkAddress = await get("/ark/address");
     return {
@@ -16,6 +26,7 @@ export async function load({ params: { address, amount, feeRate }, cookies, pare
       address,
       rate: rates[user.currency],
       serverArkAddress,
+      forward,
     };
   }
 
@@ -38,6 +49,7 @@ export async function load({ params: { address, amount, feeRate }, cookies, pare
       subtract,
       hex,
       inputs,
+      forward,
     };
   } catch (e) {
     const { message } = e as Error;

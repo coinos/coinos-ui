@@ -19,6 +19,15 @@ export async function load({ cookies, params, parent }) {
       data.account = account;
       data.serverArkAddress = await get("/ark/address");
     } else if (account.type === "bitcoin") {
+      const amount = data.amount || parseInt(params.payreq.match(/amount=(\d+)/)?.[1] || "0");
+      if (amount) {
+        const inv = await post(
+          "/invoice",
+          { invoice: { type: "bitcoin", amount, forward: params.payreq }, user },
+          auth(cookies),
+        );
+        redirect(307, `/send/bitcoin/${inv.hash}/${amount}`);
+      }
       data.account = account;
     }
   }
