@@ -9,7 +9,7 @@
   import { t } from "$lib/translations";
   import { versions, s, f, loc, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
-  import { arkkey } from "$lib/ark";
+  import { arkkey, arkaid } from "$lib/ark";
   import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
 
   let { user, rates, account }: any = $props();
@@ -51,6 +51,7 @@
       } else {
         return false;
       }
+      $arkaid = id;
       return true;
     } catch (e) {
       forgetWalletPassword();
@@ -94,6 +95,7 @@
       let arkChild = master.derive("m/86'/0'/0'/0/0");
       $arkkey = bytesToHex(arkChild.privateKey!);
     }
+    $arkaid = id;
     passwordPrompt = false;
     if (pendingUrl) {
       goto(pendingUrl);

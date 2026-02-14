@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle, arkkey } from "$lib/ark";
+  import { getWallet, syncTransactions, settle, arkkey, arkaid } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -47,6 +47,7 @@
       preloadData(`/${user.username}/receive`);
       preloadData("/payments");
       preloadData("/send");
+      if ($arkkey) arkSync();
     }
   });
 
@@ -57,7 +58,7 @@
     arkSyncing = true;
 
     try {
-      const aid = getCookie("aid") || user.id;
+      const aid = $arkaid || getCookie("aid") || user.id;
       const result = await syncTransactions(aid);
 
       if (result?.received > 0) {
@@ -68,13 +69,33 @@
         }
       }
 
-      if (result?.synced) invalidate("app:payments");
+      invalidate("app:payments");
     } catch (e) {
       console.error("Ark sync failed:", e);
     } finally {
       arkSyncing = false;
     }
   };
+
+  let arkInitializedKey: string | undefined;
+
+  const initArk = async () => {
+    const key = $arkkey;
+    if (!key || arkInitializedKey === key) return;
+    arkInitializedKey = key;
+
+    const wallet = await getWallet();
+    if (wallet) {
+      localStorage.setItem("arkkey:uid", user.id);
+      wallet.notifyIncomingFunds(arkSync);
+      arkSync();
+      settle().catch((e) => console.error("Ark settle failed:", e));
+    }
+  };
+
+  $effect(() => {
+    if (browser && user && $arkkey) initArk();
+  });
 
   onMount(async () => {
     if (browser) {
@@ -85,17 +106,8 @@
         const storedUid = localStorage.getItem("arkkey:uid");
         if (storedUid && storedUid !== user.id) {
           $arkkey = "";
+          $arkaid = "";
           localStorage.removeItem("arkkey:uid");
-        }
-
-        const wallet = await getWallet();
-        if (wallet) {
-          localStorage.setItem("arkkey:uid", user.id);
-          wallet.notifyIncomingFunds(arkSync);
-
-          arkSync();
-
-          settle().catch((e) => console.error("Ark settle failed:", e));
         }
       }
 
