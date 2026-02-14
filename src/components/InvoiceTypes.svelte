@@ -71,7 +71,7 @@
       }}
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
-        <div class="m-auto">
+        <div class="m-auto mt-1">
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
@@ -86,7 +86,7 @@
       onclick={() => (activeOnly ? toggleType() : setType(types.bolt12))}
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
-        <div class="m-auto">
+        <div class="m-auto mt-1">
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
@@ -110,7 +110,7 @@
       }}
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
-        <div class="m-auto">
+        <div class="m-auto mt-1">
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
           ></iconify-icon>
         </div>
@@ -141,6 +141,17 @@
     >
       <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
       <div class="my-auto text-lg">Liquid</div>
+    </button>
+
+    <button
+      class="btn flex-nowrap !w-auto grow"
+      class:bg-base-300={type === types.ark}
+      class:text-secondary={type === types.ark}
+      class:hidden={activeOnly && type !== types.ark}
+      onclick={() => (activeOnly ? toggleType() : setType("ark"))}
+    >
+      <img src="/images/ark.png" class="w-8 rounded-full" alt="Ark" />
+      <div class="my-auto text-lg">Ark</div>
     </button>
   </div>
 

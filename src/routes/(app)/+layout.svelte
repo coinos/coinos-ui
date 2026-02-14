@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle, arkkey, arkaid } from "$lib/ark";
+  import { getWallet, syncTransactions, settle, arkkey, arkaid, sendArk } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -22,7 +22,7 @@
   import AppHeader from "$comp/AppHeader.svelte";
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
-  import { s, f, toFiat, success, getCookie, warning } from "$lib/utils";
+  import { s, f, toFiat, success, getCookie, warning, post } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
 
@@ -52,6 +52,7 @@
   });
 
   let arkSyncing = false;
+  let arkForwarding = false;
 
   let arkSync = async () => {
     if (arkSyncing) return;
@@ -61,11 +62,23 @@
       const aid = $arkaid || getCookie("aid") || user.id;
       const result = await syncTransactions(aid);
 
-      if (result?.received > 0) {
+      if (result?.forward && !arkForwarding) {
+        arkForwarding = true;
+        try {
+          const { serverArkAddress, amount, iid } = result.forward;
+          const txid = await sendArk(serverArkAddress, amount);
+          await post("/post/ark/vault-send", { hash: txid, amount, aid });
+          await post("/post/ark/receive", { amount, hash: txid, iid });
+        } catch (e) {
+          console.error("Ark custodial forward failed:", e);
+        } finally {
+          arkForwarding = false;
+        }
+      } else if (result?.received > 0) {
         if ($fiat && $rateStore && user?.currency) {
           success(`Received ${f(toFiat(result.received, $rateStore as number), user.currency)}!`);
         } else {
-          success(`Received ⚡️${s(result.received)}!`);
+          success(`Received ${s(result.received)}!`);
         }
       }
 

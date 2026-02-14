@@ -125,7 +125,19 @@ export const sendArk = async (address: string, amount: number) => {
   arkSending = true;
 
   try {
-    const txid = await wallet.sendBitcoin({ address, amount });
+    let txid;
+    try {
+      txid = await wallet.sendBitcoin({ address, amount });
+    } catch (e: any) {
+      if (e?.message?.includes("VTXO_ALREADY_REGISTERED")) {
+        await wallet.settle();
+        const vtxos = await wallet.getVtxos({ spendableOnly: false });
+        if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+        txid = await wallet.sendBitcoin({ address, amount });
+      } else {
+        throw e;
+      }
+    }
 
     // Mark post-send VTXOs as processed so notifyIncomingFunds
     // ignores change VTXOs from this send
