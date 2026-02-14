@@ -139,6 +139,16 @@
   let canSendExpiring = $state(false);
   let nostrUserInfo: any = $state({});
 
+  const selectedChatEmpty = () => !messageRumours || messageRumours.size == 0;
+
+  const removeChat = (pubkey: string) => {
+    for (let i = 0; i < chats.length; i++) {
+      if (chats[i].pubkey === pubkey) {
+        chats.splice(i, 1);
+      }
+    }
+  };
+
   const includesPubkey = (chats: any[], pubkey: string) => {
     for (const c of chats) {
       if (c.pubkey === pubkey) {
@@ -149,6 +159,10 @@
   };
 
   const selectChat = (c: any) => {
+    if (selectedChat && selectedChatEmpty()) {
+      removeChat(selectedChat.pubkey);
+    }
+
     selectedChat = c;
     if (!includesPubkey(chats, c.pubkey)) {
       chats.unshift(c);
