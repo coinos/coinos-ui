@@ -8,7 +8,7 @@ import {
 	signer as $signer,
 } from "$lib/store";
 import { post, wait } from "$lib/utils";
-import { bytesToHex } from "@noble/hashes/utils.js";
+import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import {
 	type EventTemplate,
 	finalizeEvent,
@@ -154,7 +154,8 @@ const signingMethods = {
 			params: [JSON.stringify(event)],
 		};
 
-		const content = await nip04.encrypt(sk, pk, JSON.stringify(signEvent));
+		const skBytes = hexToBytes(sk);
+		const content = await nip04.encrypt(skBytes, pk, JSON.stringify(signEvent));
 
 		const signedSignEvent = finalizeEvent(
 			{
@@ -164,7 +165,7 @@ const signingMethods = {
 				content,
 				tags: [["p", pk]],
 			},
-			sk,
+			skBytes,
 		);
 
 		const relay = await Relay.connect(nostrConnectRelay);
@@ -177,9 +178,9 @@ const signingMethods = {
 					try {
 						let response;
 						try {
-							response = JSON.parse(await nip04.decrypt(sk, pk, event.content));
+							response = JSON.parse(await nip04.decrypt(hexToBytes(sk), pk, event.content));
 						} catch (e) {
-							const ck = await getConversationKey(sk, pk);
+							const ck = await getConversationKey(hexToBytes(sk), pk);
 							response = JSON.parse(await nip44decrypt(event.content, ck));
 						}
 
@@ -193,7 +194,7 @@ const signingMethods = {
 	},
 
 	async nsec(event, { sk }) {
-		return finalizeEvent(event, sk);
+		return finalizeEvent(event, hexToBytes(sk));
 	},
 
 	async extension(event) {
