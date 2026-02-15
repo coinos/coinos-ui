@@ -8,7 +8,7 @@ import {
   signer as $signer,
 } from "$lib/store";
 import { post, wait } from "$lib/utils";
-import { bytesToHex } from "@noble/hashes/utils.js";
+import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import type { EventTemplate } from "nostr-tools";
 import { get } from "svelte/store";
 
@@ -157,7 +157,8 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
     };
 
     const { nip04, finalizeEvent } = await loadNostrTools();
-    const content = await nip04.encrypt(sk, pk, JSON.stringify(signEvent));
+    const skBytes = hexToBytes(sk);
+    const content = await nip04.encrypt(skBytes, pk, JSON.stringify(signEvent));
 
     const signedSignEvent = finalizeEvent(
       {
@@ -166,7 +167,7 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
         content,
         tags: [["p", pk]],
       } as EventTemplate,
-      sk,
+      skBytes,
     );
 
     const { Relay } = await loadRelay();
@@ -181,10 +182,10 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
             let response;
             try {
               const { nip04 } = await loadNostrTools();
-              response = JSON.parse(await nip04.decrypt(sk, pk, event.content));
+              response = JSON.parse(await nip04.decrypt(hexToBytes(sk), pk, event.content));
             } catch {
               const { getConversationKey, decrypt: nip44decrypt } = await loadNip44();
-              const ck = await getConversationKey(sk, pk);
+              const ck = await getConversationKey(hexToBytes(sk), pk);
               response = JSON.parse(await nip44decrypt(event.content, ck));
             }
 
@@ -199,7 +200,7 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
 
   async nsec(event: any, { sk }: any) {
     const { finalizeEvent } = await loadNostrTools();
-    return finalizeEvent(event, sk);
+    return finalizeEvent(event, hexToBytes(sk));
   },
 
   async extension(event: any) {
