@@ -508,29 +508,41 @@ export const register = async (
   };
   if (ip) headers["cf-connecting-ip"] = ip;
 
-  let sk;
+  let sk, token;
   try {
-    ({ sk } = await post("/register", { user }, headers));
+    ({ sk, token } = await post("/register", { user }, headers));
   } catch (e) {
     ({ message: error } = e as Error);
   }
 
-  try {
-    await login(user, cookies, ip, host, extraHeaders);
+  if (user.password) {
+    try {
+      await login(user, cookies, ip, host, extraHeaders);
+      error = null;
+    } catch (e) {
+      const { message } = e as Error;
+      error ||= message;
+    }
+  } else if (token) {
+    const maxAge = 380 * 24 * 60 * 60;
+    const expires = new Date();
+    expires.setSeconds(expires.getSeconds() + maxAge);
+    const opts = { path: "/", expires };
+    cookies.set("username", user.username, opts);
+    cookies.set("token", token, opts);
     error = null;
-  } catch (e) {
-    const { message } = e as Error;
-    error ||= message;
   }
 
   const expires = new Date();
   expires.setSeconds(expires.getSeconds() + 21000000);
-  cookies.set("sk", sk, {
-    path: "/",
-    expires,
-    httpOnly: false,
-    sameSite: "lax",
-  });
+  if (sk) {
+    cookies.set("sk", sk, {
+      path: "/",
+      expires,
+      httpOnly: false,
+      sameSite: "lax",
+    });
+  }
 
   if (error) return svelteFail(400, { error });
   redirect(303, loginRedirect || `/${user.username}`);

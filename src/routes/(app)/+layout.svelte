@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle, refresh, arkkey, arkaid, sendArk } from "$lib/ark";
+  import { getWallet, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -55,7 +55,7 @@
   let arkForwarding = false;
 
   let arkSync = async () => {
-    if (arkSyncing) return;
+    if (arkSyncing || arkSending) return;
     arkSyncing = true;
 
     try {
@@ -75,7 +75,10 @@
           arkForwarding = false;
         }
       } else if (result?.received > 0) {
-        if ($fiat && $rateStore && user?.currency) {
+        const paidPayment = result.payments?.find((p: any) => p.iid && p.amount > 0);
+        if (paidPayment) {
+          goto(`/invoice/${paidPayment.iid}`);
+        } else if ($fiat && $rateStore && user?.currency) {
           success(`Received ${f(toFiat(result.received, $rateStore as number), user.currency)}!`);
         } else {
           success(`Received ${s(result.received)}!`);
@@ -92,6 +95,7 @@
 
   let arkInitializedKey: string | undefined;
   let arkRefreshTimer: ReturnType<typeof setInterval> | undefined;
+  let arkSyncTimer: ReturnType<typeof setInterval> | undefined;
 
   const initArk = async () => {
     const key = $arkkey;
@@ -105,6 +109,10 @@
       arkSync();
       refresh().catch((e) => console.error("Ark refresh failed:", e));
       settle().catch((e) => console.error("Ark settle failed:", e));
+
+      // Poll for incoming ark transactions (fallback for SSE)
+      if (arkSyncTimer) clearInterval(arkSyncTimer);
+      arkSyncTimer = setInterval(() => arkSync(), 15_000);
 
       // Periodically recover expired VTXOs
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
@@ -183,6 +191,7 @@
     if (browser) {
       close();
       clearTimeout(checkTimer);
+      if (arkSyncTimer) clearInterval(arkSyncTimer);
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
     }
   });

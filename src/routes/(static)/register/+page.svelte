@@ -12,13 +12,13 @@
 
   import Pin from "$comp/Pin.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import PasswordInput from "$comp/PasswordInput.svelte";
 
   import { focus, fail } from "$lib/utils";
+  import { registerPasskey } from "$lib/passkey";
   import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
-  import { NumberDictionary, uniqueNamesGenerator, colors, animals } from "unique-names-generator";
+  import { NumberDictionary, uniqueNamesGenerator, animals } from "unique-names-generator";
   import { sign } from "$lib/nostr";
 
   let { form, data }: any = $props();
@@ -48,15 +48,13 @@
 
   let username: string | undefined = $state();
   let index = $state(data.index);
-  let revealPassword = $state(false);
+  let needsPasskey = $state(false);
 
   let cleared;
   let clear = () => {
     if (!cleared) {
       cleared = true;
       username = "";
-      $password = "";
-      revealPassword = false;
     }
   };
 
@@ -69,14 +67,6 @@
       length: 2,
       separator: "",
     });
-
-    $password = uniqueNamesGenerator({
-      dictionaries: [colors, NumberDictionary.generate({ min: 100, max: 999 })],
-      length: 2,
-      separator: "",
-    });
-
-    revealPassword = true;
   };
 
   afterNavigate(async () => {
@@ -160,11 +150,33 @@
 
     const result = deserialize(await response.text());
 
-    if (result.type === "success") {
+    if (result.type === "redirect") {
+      try {
+        await registerPasskey();
+      } catch (e: any) {
+        console.log("passkey creation cancelled or failed", e);
+        needsPasskey = true;
+        loading = false;
+        return;
+      }
+
       await invalidateAll();
     }
 
     applyAction(result);
+    loading = false;
+  }
+
+  let retryPasskey = async () => {
+    loading = true;
+    try {
+      await registerPasskey();
+      needsPasskey = false;
+      await invalidateAll();
+      applyAction({ type: "redirect", status: 303, location: `/${username}` });
+    } catch (e: any) {
+      fail("Passkey creation failed. Please try again.");
+    }
     loading = false;
   }
 
@@ -301,65 +313,72 @@
     <div class="text-red-600 text-center" in:fly>{form?.message}{form?.error}</div>
   {/if}
 
-  <form class="space-y-5" onsubmit={handleSubmit} method="POST">
-    <input
-      type="hidden"
-      name="loginRedirect"
-      value={$loginRedirect || $page.url.searchParams.get("redirect")}
-    />
-    <input type="hidden" name="token" value={token} />
-    <input type="hidden" name="challenge" value={challenge} />
-
-    <label for="username" class="input flex items-center justify-center gap-2 w-full">
-      <input
-        class="clean"
-        use:focus
-        name="username"
-        type="text"
-        required
-        bind:value={username}
-        onfocus={clear}
-        autocapitalize="none"
-        placeholder={$t("login.username")}
-      />
-      <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
-        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
-      </button>
-    </label>
-
-    <PasswordInput
-      bind:value={$password}
-      placeholder={$t("login.password")}
-      bind:show={revealPassword}
-    />
-
-    <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
-      {#if loading}
-        <Spinner />
-      {:else}
-        {$t("login.register")}
-      {/if}
-    </button>
-
-    <button type="button" class="btn" onclick={nostrLogin}>
-      {#if $signer?.ready}
-        <div class="shrink">
+  {#if needsPasskey}
+    <div class="space-y-5 text-center">
+      <p>Account created! You need to set up a passkey to continue.</p>
+      <button class="btn btn-accent" onclick={retryPasskey} disabled={loading}>
+        {#if loading}
           <Spinner />
-        </div>
-      {:else}
-        <img src="/images/nostr.png" class="w-8" alt="Nostr" />
-      {/if}
-      <div class="my-auto">{$t("login.nostr")}</div>
-    </button>
+        {:else}
+          Set up Passkey
+        {/if}
+      </button>
+    </div>
+  {:else}
+    <form class="space-y-5" onsubmit={handleSubmit} method="POST">
+      <input
+        type="hidden"
+        name="loginRedirect"
+        value={$loginRedirect || $page.url.searchParams.get("redirect")}
+      />
+      <input type="hidden" name="token" value={token} />
+      <input type="hidden" name="challenge" value={challenge} />
 
-    <p class="text-secondary text-center font-medium">
-      {$t("login.haveAccount")}
-      <a
-        href={"/login" + $page.url.search}
-        class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
-      >
-        {$t("login.signIn")}
-      </a>
-    </p>
-  </form>
+      <label for="username" class="input flex items-center justify-center gap-2 w-full">
+        <input
+          class="clean"
+          use:focus
+          name="username"
+          type="text"
+          required
+          bind:value={username}
+          onfocus={clear}
+          autocapitalize="none"
+          placeholder={$t("login.username")}
+        />
+        <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
+          <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
+        </button>
+      </label>
+
+      <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
+        {#if loading}
+          <Spinner />
+        {:else}
+          {$t("login.register")}
+        {/if}
+      </button>
+
+      <button type="button" class="btn" onclick={nostrLogin}>
+        {#if $signer?.ready}
+          <div class="shrink">
+            <Spinner />
+          </div>
+        {:else}
+          <img src="/images/nostr.png" class="w-8" alt="Nostr" />
+        {/if}
+        <div class="my-auto">{$t("login.nostr")}</div>
+      </button>
+
+      <p class="text-secondary text-center font-medium">
+        {$t("login.haveAccount")}
+        <a
+          href={"/login" + $page.url.search}
+          class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
+        >
+          {$t("login.signIn")}
+        </a>
+      </p>
+    </form>
+  {/if}
 </div>

@@ -10,6 +10,7 @@
   import PasswordInput from "$comp/PasswordInput.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { focus, fail } from "$lib/utils";
+  import { loginWithPasskey } from "$lib/passkey";
   import { password, signer, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
@@ -105,6 +106,40 @@
 
   let redirect = $derived($loginRedirect || $page.url.searchParams.get("redirect"));
 
+  let passkeyLoading = $state(false);
+
+  let passkeyLogin = async () => {
+    passkeyLoading = true;
+    try {
+      const { credential, challengeId } = await loginWithPasskey();
+
+      const formData = new FormData();
+      formData.append("credential", JSON.stringify(credential));
+      formData.append("challengeId", challengeId);
+      formData.append("loginRedirect", (redirect ?? "") as string);
+
+      const response = await fetch("/login?/passkey", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = deserialize(await response.text());
+
+      if (result.type === "success") {
+        await invalidateAll();
+      }
+
+      applyAction(result);
+    } catch (e: any) {
+      if (e.name === "NotAllowedError") {
+        // user cancelled the browser prompt
+      } else {
+        fail(e.message || "Passkey login failed");
+      }
+    }
+    passkeyLoading = false;
+  };
+
   let nostrLogin = async () => {
     let event = {
       kind: 27235,
@@ -189,6 +224,15 @@
 
     <button type="submit" class="btn btn-accent" bind:this={btn} data-testid="login-submit">
       {$t("login.signIn")}
+    </button>
+
+    <button type="button" class="btn" onclick={passkeyLogin} disabled={passkeyLoading}>
+      {#if passkeyLoading}
+        <Spinner />
+      {:else}
+        <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+      {/if}
+      <div class="my-auto">Sign in with Passkey</div>
     </button>
 
     <button type="button" class="btn" onclick={nostrLogin}>

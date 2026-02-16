@@ -52,9 +52,12 @@ export const getVtxos = async () => {
   return wallet.getVtxos({ spendableOnly: false });
 };
 
-export const syncTransactions = async (aid: string) => {
+const _syncTransactions = async (aid: string) => {
   const wallet = await getWallet();
   if (!wallet) return;
+
+  const walletAddr = await wallet.getAddress();
+  console.log("arkSync: wallet address", walletAddr);
 
   const transactions: any[] = [];
 
@@ -91,9 +94,17 @@ export const syncTransactions = async (aid: string) => {
     });
   }
 
-  if (!transactions.length) return;
+  const bal = await wallet.getBalance();
+  const balance = (bal.available || 0) + (bal.preconfirmed || 0);
 
-  return post("/post/ark/sync", { transactions, aid });
+  return post("/post/ark/sync", { transactions, aid, balance });
+};
+
+export const syncTransactions = async (aid: string) => {
+  if (arkSending) return;
+  const p = _syncTransactions(aid);
+  syncPromise = p;
+  try { return await p; } finally { if (syncPromise === p) syncPromise = null; }
 };
 
 export const vtxoKey = (v: { txid: string; vout: number }) => `${v.txid}:${v.vout}`;
@@ -113,8 +124,9 @@ export const addProcessedVtxos = (keys: string[]) => {
   localStorage.setItem("processedArkVtxos", JSON.stringify(arr));
 };
 
-// Flag to suppress notifyIncomingFunds during sends
+// Flag to suppress sync during sends
 export let arkSending = false;
+let syncPromise: Promise<any> | null = null;
 
 const withTimeout = <T>(promise: Promise<T>, ms: number, label: string) =>
   Promise.race([
@@ -128,23 +140,22 @@ export const sendArk = async (address: string, amount: number) => {
   const wallet = await getWallet();
   if (!wallet) throw new Error("Ark wallet not available");
 
-  // Refresh expired VTXOs before attempting to send
-  const balance = await wallet.getBalance();
-  if (balance.available < amount && balance.recoverable > 0) {
-    console.log("ark send: refreshing expired VTXOs before send");
-    await refresh();
-  }
-
-  const freshBalance = await wallet.getBalance();
-  if (freshBalance.available < amount) {
-    throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}`);
-  }
-
-  // Suppress incoming notifications during send to prevent
-  // change VTXOs from being credited as incoming payments
+  // Suppress sync polling and wait for any in-flight sync to finish
   arkSending = true;
+  if (syncPromise) await syncPromise.catch(() => {});
 
   try {
+    // Refresh expired VTXOs before attempting to send
+    const balance = await wallet.getBalance();
+    if (balance.available < amount && balance.recoverable > 0) {
+      console.log("ark send: refreshing expired VTXOs before send");
+      await refresh();
+    }
+
+    const freshBalance = await wallet.getBalance();
+    if (freshBalance.available < amount) {
+      throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}`);
+    }
     let txid;
     try {
       txid = await withTimeout(

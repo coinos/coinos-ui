@@ -39,6 +39,53 @@ export const actions = {
     redirect(307, loginRedirect || `/${user.username}`);
   },
 
+  passkey: async ({ cookies, fetch, request }) => {
+    const form = await fd(request);
+    let { credential, challengeId, loginRedirect } = form;
+    if (loginRedirect === "null" || loginRedirect === "undefined")
+      loginRedirect = undefined;
+    credential = JSON.parse(credential);
+
+    const maxAge = 380 * 24 * 60 * 60;
+
+    const origin = new URL(request.url).origin;
+    const res = await fetch(`${PUBLIC_COINOS_URL}/passkey/login/verify`, {
+      method: "POST",
+      body: JSON.stringify({ credential, challengeId, origin }),
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+        "cf-connecting-ip": request.headers.get("cf-connecting-ip") ?? "",
+        "x-forwarded-host": request.headers.get("host") ?? "",
+      },
+    });
+
+    const text = await res.text();
+    if (!res.ok) {
+      let message;
+      try {
+        ({ message } = JSON.parse(text));
+      } catch {
+        message = text;
+      }
+      return fail(400, { error: message || "Passkey login failed" });
+    }
+
+    const { user, token } = JSON.parse(text);
+    if (!token) return fail(400, { error: "Login failed" });
+    const { username, language } = user;
+
+    const expires = new Date();
+    expires.setSeconds(expires.getSeconds() + maxAge);
+
+    const opts = { path: "/", expires };
+    if (language) cookies.set("lang", language, opts);
+    cookies.set("username", username, opts);
+    cookies.set("token", token, opts);
+
+    redirect(307, loginRedirect || `/${username}`);
+  },
+
   nostr: async ({ cookies, fetch, request }) => {
     const form = await fd(request);
     let { challenge, event, loginRedirect, recaptcha } = form;

@@ -21,6 +21,7 @@
   "dependencies": {
     "@arkade-os/sdk": "^0.3.12",
     "@capacitor/status-bar": "^8.0.0",
+    "@simplewebauthn/browser": "^13.2.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "canvas": "^3.2.1",

@@ -65,7 +65,7 @@
     document.cookie = `aid=${id}; path=/; max-age=86400`;
     if (isArk) {
       pendingUrl = url;
-      if ($arkkey) {
+      if ($arkkey && $arkaid === id) {
         goto(pendingUrl!);
       } else if (await tryUnlockArk()) {
         goto(pendingUrl!);
