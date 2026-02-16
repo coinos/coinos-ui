@@ -48,7 +48,7 @@
     </button>
 
     <form action={`/send/bitcoin/${address}/${amount}`} class="contents">
-      <button use:focus bind:this={submit} type="submit" class="btn !w-auto grow btn-accent">
+      <button bind:this={submit} type="submit" class="btn !w-auto grow btn-accent">
         {$t("payments.next")}
       </button>
     </form>

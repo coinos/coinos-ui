@@ -48,7 +48,7 @@ export default async (s, host, cookies) => {
   }
 
   const { validate } = await loadValidate();
-  if (validate(t) || isLiquid(t)) {
+  if (validate(t) || isLiquid(t) || t.startsWith("bcrt1")) {
     let r = `/send/bitcoin/${t}`;
     if (amount) r += `/${Math.round(amount * sats)}`;
     redirect(307, r);
@@ -123,10 +123,4 @@ export default async (s, host, cookies) => {
   } catch {}
 
   if (fund) redirect(307, `/send/fund/${t}`);
-
-  try {
-    invoice ||= await get(`/invoice/${t}`);
-  } catch {}
-
-  if (invoice) redirect(307, `/invoice/${invoice.id}`);
 };

@@ -12,7 +12,7 @@ export async function load({ cookies, depends, params: { id }, parent }) {
 
   const trust = await get("/trust", auth(cookies));
   const trusted = trust.includes(invoice.uid);
-  if (trusted && (pin || !user.haspin)) {
+  if (trusted && (pin || !user.haspin) && invoice.amount) {
     let p;
     try {
       if (!invoice.tip && invoice.user.prompt) {
@@ -37,8 +37,12 @@ export async function load({ cookies, depends, params: { id }, parent }) {
   if (invoice.memoPrompt && invoice.memo === null) redirect(307, `/invoice/${id}/memo`);
 
   if (user && invoice.aid === aid) error(500, { message: "Cannot send to self" });
-  else if (user && ![types.lightning, types.bolt12].includes(invoice.type))
-    redirect(307, `/send/${invoice.type === types.ecash ? "ecash" : "bitcoin"}/${invoice.hash}`);
+  else if (user && ![types.lightning, types.bolt12].includes(invoice.type)) {
+    // Don't redirect custodial bitcoin invoices — they should be paid internally
+    const isVault = invoice.account?.pubkey || invoice.account?.seed;
+    if (invoice.type !== types.bitcoin || isVault)
+      redirect(307, `/send/${invoice.type === types.ecash ? "ecash" : "bitcoin"}/${invoice.hash}`);
+  }
 
   if (!user) redirect(307, `/invoice/${id}`);
 

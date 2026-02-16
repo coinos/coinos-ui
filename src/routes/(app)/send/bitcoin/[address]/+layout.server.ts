@@ -15,10 +15,13 @@ export async function load({ cookies, params, parent }) {
   }
 
   if (invoice) {
-    const recipient = await get(`/users/${invoice.uid}`);
-    let r = `/pay/${recipient.username}`;
-    if (amount) r += `/${amount}`;
-    if (recipient?.id !== user.id) redirect(307, r);
+    const isVault = invoice.account?.pubkey || invoice.account?.seed;
+    if (isVault) {
+      // Vault account — stay on /send/bitcoin for on-chain send
+    } else {
+      // Custodial account — send internally via the original invoice
+      if (invoice.uid !== user.id) redirect(307, `/send/invoice/${invoice.id}`);
+    }
   }
 
   return { balance };

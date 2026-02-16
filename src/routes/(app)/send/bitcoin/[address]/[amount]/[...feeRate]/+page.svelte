@@ -74,7 +74,7 @@
       return;
     }
 
-    if ((account.seed || data.user.seed) && !signed) (cancel(), void togglePassword());
+    if ((account.seed || (data.user.seed && account.fingerprint)) && !signed) (cancel(), void togglePassword());
     return async ({ result }) => {
       if (result.type === "redirect") {
         goto(result.location);

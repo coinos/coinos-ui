@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import { untrack } from "svelte";
+  import { tick, untrack } from "svelte";
   import handler from "$lib/handler";
   import { t } from "$lib/translations";
   import { goto, invalidateAll } from "$app/navigation";
@@ -29,14 +29,19 @@
 
   let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
 
-  let a: any = $state(),
-    af: any = $state(),
+  let a: any = $state(0),
+    af: any = $state(0),
     fiat = $state(untrack(() => !amount));
 
   let amountFiat = $state((untrack(() => amount) * untrack(() => rate)) / sats);
-  let setAmount = () => {
+  let formEl: HTMLFormElement | undefined = $state();
+  let setAmount = async () => {
     amount = a;
     amountFiat = af;
+    if (trusted) {
+      await tick();
+      formEl?.querySelector('button[type="submit"]')?.click();
+    }
   };
 
   let submit = $state(),
@@ -142,10 +147,10 @@
       {/each}
     {/if}
   {:else}
-    <Numpad bind:amount={a} bind:amountFiat={af} bind:fiat {currency} {rate} {submit} />
+    <Numpad bind:amount={a} bind:amountFiat={af} bind:fiat {currency} {locale} {rate} {submit} />
   {/if}
 
-  <form method="POST" use:enhance={handler(toggle)} class="space-y-2">
+  <form method="POST" use:enhance={handler(toggle)} class="space-y-2" bind:this={formEl}>
     <input name="address" value={address} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="payreq" value={payreq} type="hidden" />
@@ -180,13 +185,15 @@
         </button>
       {/if}
     </div>
-    <button type="button" class="btn" onclick={external}>{$t("payments.moreOptions")}</button>
+    {#if amount}
+      <button type="button" class="btn" onclick={external}>{$t("payments.moreOptions")}</button>
 
-    {#if !trusted}
-      <button type="button" class="btn" onclick={toggleTrust}>
-        <iconify-icon icon="ph:star-fill" width={32}></iconify-icon>
-        {$t("payments.trustUser")}
-      </button>
+      {#if !trusted}
+        <button type="button" class="btn" onclick={toggleTrust}>
+          <iconify-icon icon="ph:star-fill" width={32}></iconify-icon>
+          {$t("payments.trustUser")}
+        </button>
+      {/if}
     {/if}
   </form>
 </div>
