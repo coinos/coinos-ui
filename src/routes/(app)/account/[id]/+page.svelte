@@ -11,7 +11,8 @@
   import { tick } from "svelte";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
-  import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
+  import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
 
   let { data } = $props();
   let account = $derived(data.account);
@@ -70,6 +71,18 @@
 
   let isCustodial = $derived(!seed && account.type !== "ark");
 
+  let revealWithPrfKey = async () => {
+    const prfKey = getCachedPrfKey();
+    if (!prfKey || !seed || !isPrfEncrypted(seed)) return false;
+    try {
+      const entropy = await prfDecrypt(prfKey, seed);
+      mnemonic = entropyToMnemonic(entropy, wordlist);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   let revealWithCachedPassword = async () => {
     const cached = getRememberedWalletPassword();
     if (!cached) return false;
@@ -86,6 +99,7 @@
   };
 
   let requestMnemonic = async () => {
+    if (await revealWithPrfKey()) return;
     if (await revealWithCachedPassword()) return;
     toggle();
   };

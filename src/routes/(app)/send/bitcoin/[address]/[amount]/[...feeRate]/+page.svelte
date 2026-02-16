@@ -13,7 +13,8 @@
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
-  import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
+  import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
   import { sendArkViaForward } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
@@ -29,6 +30,17 @@
   let error = $state("");
 
   let trySignWithCachedPassword = async () => {
+    let seed = account.seed || data.user.seed;
+    if (seed && isPrfEncrypted(seed)) {
+      const prfKey = getCachedPrfKey();
+      if (!prfKey) return false;
+      try {
+        await signTxWithPrf(prfKey, seed);
+        return true;
+      } catch (e: any) {
+        return false;
+      }
+    }
     const cached = getRememberedWalletPassword();
     if (!cached) return false;
     try {
@@ -83,6 +95,42 @@
         invalidate("app:payments");
       }
     };
+  };
+
+  let signTxWithPrf = async (prfKey: ArrayBuffer, encryptedSeed: string) => {
+    const [{ Transaction }, { HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
+      await Promise.all([
+        import("@scure/btc-signer"),
+        import("@scure/bip32"),
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
+    let entropy = await prfDecrypt(prfKey, encryptedSeed);
+    let mnemonic = entropyToMnemonic(entropy, wordlist);
+    let seed = await mnemonicToSeed(mnemonic);
+    let master = HDKey.fromMasterSeed(seed, network as any);
+    let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
+
+    let raw = decode(hex);
+    let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
+    let tx: any = isPSBT ? Transaction.fromPSBT(raw) : Transaction.fromRaw(raw);
+
+    for (let [i, input] of tx.inputs.entries()) {
+      let { witnessUtxo, path } = inputs[i];
+      if (!isPSBT) {
+        witnessUtxo.amount = BigInt(witnessUtxo.amount);
+        witnessUtxo.script = decode(witnessUtxo.script);
+        tx.updateInput(i, { witnessUtxo });
+      }
+      let key = child.derive(path);
+      tx.signIdx(key.privateKey!, i);
+    }
+
+    tx.finalize();
+    hex = tx.hex;
+    signed = true;
+    await tick();
+    (submit as any).click();
   };
 
   let signTx = async () => {

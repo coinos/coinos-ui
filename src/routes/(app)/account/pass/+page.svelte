@@ -15,7 +15,9 @@
     defaultRememberForMs,
     rememberWalletPassword,
     forgetWalletPassword,
+    getCachedPrfKey,
   } from "$lib/passwordCache";
+  import { isPrfEncrypted, prfEncrypt } from "$lib/crypto";
 
   let { data }: any = $props();
 
@@ -28,8 +30,45 @@
     revealConfirm = $state();
   let rememberForMs = $state(defaultRememberForMs);
 
-  onMount(() => {
-    if (!$mnemonic) goto("/account/new");
+  onMount(async () => {
+    if (!$mnemonic) {
+      goto("/account/new");
+      return;
+    }
+
+    // PRF users: encrypt seed and create account immediately, skip password
+    const prfKey = getCachedPrfKey();
+    if (prfKey) {
+      submitting = true;
+      await tick();
+      try {
+        const entropy = mnemonicToEntropy($mnemonic as string, wordlist);
+        const encryptedSeed = await prfEncrypt(prfKey, entropy);
+        await post("/post/user", { seed: encryptedSeed });
+
+        const master = HDKey.fromMasterSeed(
+          await mnemonicToSeed($mnemonic as string),
+          versions,
+        );
+        const child = master.derive("m/84'/0'/0'");
+        const pubkey = child.publicExtendedKey;
+        const fingerprint = child.fingerprint.toString(16).padStart(8, "0");
+        await post("/account", {
+          fingerprint,
+          pubkey,
+          name: $t("accounts.savings"),
+          type: "bitcoin",
+          accountIndex: 0,
+        });
+
+        $mnemonic = "";
+        goto(`/${user.username}`);
+      } catch (e: any) {
+        console.log(e);
+        fail(e.message);
+      }
+      submitting = false;
+    }
   });
 
   let submit = async () => {

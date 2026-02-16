@@ -2,17 +2,53 @@
   import Mnemonic from "$comp/Mnemonic.svelte";
   import { browser } from "$app/environment";
   import { tick, onMount } from "svelte";
-  import { copy } from "$lib/utils";
+  import { copy, versions, fail, post } from "$lib/utils";
   import { t } from "$lib/translations";
   import { mnemonic } from "$lib/store";
-  import { generateMnemonic } from "@scure/bip39";
+  import { generateMnemonic, mnemonicToSeed, entropyToMnemonic } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
+  import { HDKey } from "@scure/bip32";
+  import { goto } from "$app/navigation";
+  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
+  import { getCachedPrfKey } from "$lib/passwordCache";
+  import Spinner from "$comp/Spinner.svelte";
 
   let { data } = $props();
   let user = $derived(data.user);
+  let creating = $state(false);
 
   onMount(async () => {
     if (!browser) return;
+    if (user.seed && isPrfEncrypted(user.seed)) {
+      const prfKey = getCachedPrfKey();
+      if (prfKey) {
+        creating = true;
+        try {
+          const entropy = await prfDecrypt(prfKey, user.seed);
+          const mn = entropyToMnemonic(entropy, wordlist);
+          const seed = await mnemonicToSeed(mn);
+          const master = HDKey.fromMasterSeed(seed, versions);
+          const child = master.derive("m/84'/0'/0'");
+          const pubkey = child.publicExtendedKey;
+          const fingerprint = child.fingerprint.toString(16).padStart(8, "0");
+          await post("/account", {
+            fingerprint,
+            pubkey,
+            name: $t("accounts.savings"),
+            type: "bitcoin",
+            accountIndex: 0,
+          });
+          goto(`/${user.username}`);
+        } catch (e: any) {
+          console.log(e);
+          fail(e.message);
+          creating = false;
+        }
+      } else {
+        goto(`/${user.username}`);
+      }
+      return;
+    }
     if (!$mnemonic) await generate();
   });
 
@@ -21,6 +57,11 @@
   };
 </script>
 
+{#if creating}
+  <div class="flex justify-center py-20">
+    <Spinner />
+  </div>
+{:else}
 <div class="space-y-5">
   <h1 class="text-center text-3xl font-semibold">{$t("accounts.seedPhrase")}</h1>
 
@@ -44,3 +85,4 @@
     </div>
   </div>
 </div>
+{/if}

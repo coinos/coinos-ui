@@ -17,12 +17,17 @@
     rememberWalletPassword,
     forgetWalletPassword,
     getRememberedWalletPassword,
+    getCachedPrfKey,
+    rememberPrfKey,
   } from "$lib/passwordCache";
+  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
+  import { loginWithPasskey } from "$lib/passkey";
 
   let { data } = $props();
   let user = $derived(data.user);
 
   let hasMasterSeed = $derived(!!user.seed);
+  let hasPrfSeed = $derived(!!user.seed && isPrfEncrypted(user.seed));
 
   let privateKey = $state("");
   let arkAddress = $state("");
@@ -30,6 +35,7 @@
   let showNsec = $state(false);
   let confirmed = $state(false);
   let submitting = $state(false);
+  let needsPasskeyUnlock = $state(false);
 
   let password = $state("");
   let confirm = $state("");
@@ -40,9 +46,51 @@
   let name = "Ark Vault";
   let type = "ark";
 
+  let deriveFromPrfKey = async (prfKey: ArrayBuffer) => {
+    try {
+      const { SingleKey, Wallet } = await import("@arkade-os/sdk");
+      const entropy = await prfDecrypt(prfKey, user.seed);
+      const mnemonic = entropyToMnemonic(entropy, wordlist);
+      const seed = await mnemonicToSeed(mnemonic);
+      const master = HDKey.fromMasterSeed(seed, versions);
+      const arkChild = master.derive("m/86'/0'/0'/0/0");
+      const arkHex = bytesToHex(arkChild.privateKey!);
+      const identity = SingleKey.fromHex(arkHex);
+      const wallet = await Wallet.create({ identity, arkServerUrl });
+      arkAddress = await wallet.getAddress();
+      confirmed = true;
+    } catch (e: any) {
+      console.log("PRF seed derivation failed", e);
+      fail("Failed to decrypt seed");
+    }
+  };
+
+  let unlockWithPasskey = async () => {
+    try {
+      const { prfKey } = await loginWithPasskey();
+      if (prfKey) {
+        rememberPrfKey(prfKey, defaultRememberForMs);
+        await deriveFromPrfKey(prfKey);
+        needsPasskeyUnlock = false;
+      } else {
+        fail("Passkey does not support PRF");
+      }
+    } catch (e: any) {
+      if (e.name !== "NotAllowedError") {
+        fail(e.message || "Passkey unlock failed");
+      }
+    }
+  };
+
   onMount(async () => {
-    if (hasMasterSeed) {
-      // Try cached password first
+    if (hasPrfSeed) {
+      const prfKey = getCachedPrfKey();
+      if (prfKey) {
+        await deriveFromPrfKey(prfKey);
+      } else {
+        needsPasskeyUnlock = true;
+      }
+    } else if (hasMasterSeed) {
       const cached = getRememberedWalletPassword();
       if (cached) {
         password = cached;
@@ -96,6 +144,25 @@
   };
 
   let submit = async () => {
+    if (hasPrfSeed) {
+      submitting = true;
+      await tick();
+      try {
+        if (!arkAddress) {
+          const prfKey = getCachedPrfKey();
+          if (prfKey) await deriveFromPrfKey(prfKey);
+          else throw new Error("PRF key not available");
+        }
+        await post("/account", { name, type, arkAddress });
+        goto(`/${user.username}`);
+      } catch (e: any) {
+        console.log(e);
+        fail(e.message);
+      }
+      submitting = false;
+      return;
+    }
+
     if (hasMasterSeed) {
       if (!password) {
         fail("Password required");
@@ -162,7 +229,37 @@
   </div>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
-    {#if hasMasterSeed}
+    {#if hasPrfSeed}
+      {#if needsPasskeyUnlock}
+        <div class="space-y-5">
+          <p class="text-secondary">
+            Your Ark wallet will be derived from your master seed. Unlock with your passkey to continue.
+          </p>
+          <button type="button" class="btn btn-accent" onclick={unlockWithPasskey}>
+            <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+            Unlock with Passkey
+          </button>
+        </div>
+      {:else}
+        <form onsubmit={preventDefault(submit)} class="space-y-5">
+          <p class="text-secondary">
+            Your Ark wallet will be derived from your passkey-protected master seed.
+          </p>
+          <div class="flex gap-2">
+            <a href={`/${user.username}`} class="contents">
+              <button type="button" class="btn !w-auto grow">Back</button>
+            </a>
+            <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
+              {#if submitting}
+                <Spinner />
+              {:else}
+                Create Wallet
+              {/if}
+            </button>
+          </div>
+        </form>
+      {/if}
+    {:else if hasMasterSeed}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
           Your Ark wallet will be derived from your master seed. Enter your wallet password to continue.

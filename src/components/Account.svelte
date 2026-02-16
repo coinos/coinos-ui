@@ -10,7 +10,8 @@
   import { versions, s, f, loc, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
   import { arkkey, arkaid } from "$lib/ark";
-  import { getRememberedWalletPassword, forgetWalletPassword } from "$lib/passwordCache";
+  import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
 
   let { user, rates, account }: any = $props();
   let currency = $derived(account.currency || user.currency);
@@ -28,6 +29,29 @@
   });
 
   let tryUnlockArk = async () => {
+    // Try PRF key first
+    const prfKey = getCachedPrfKey();
+    if (prfKey && user.seed && isPrfEncrypted(user.seed)) {
+      try {
+        const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+          import("@scure/bip32"),
+          import("@scure/bip39"),
+          import("@scure/bip39/wordlists/english.js"),
+        ]);
+        const entropy = await prfDecrypt(prfKey, user.seed);
+        const mnemonic = entropyToMnemonic(entropy, wordlist);
+        const s = await mnemonicToSeed(mnemonic);
+        const master = HDKey.fromMasterSeed(s, versions);
+        const arkChild = master.derive("m/86'/0'/0'/0/0");
+        $arkkey = bytesToHex(arkChild.privateKey!);
+        $arkaid = id;
+        return true;
+      } catch (e) {
+        console.log("PRF unlock failed", e);
+      }
+    }
+
+    // Then try cached wallet password
     const cached = getRememberedWalletPassword();
     if (!cached) return false;
     try {

@@ -11,6 +11,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { focus, fail } from "$lib/utils";
   import { loginWithPasskey } from "$lib/passkey";
+  import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { password, signer, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
@@ -111,7 +112,7 @@
   let passkeyLogin = async () => {
     passkeyLoading = true;
     try {
-      const { credential, challengeId } = await loginWithPasskey();
+      const { credential, challengeId, prfKey } = await loginWithPasskey();
 
       const formData = new FormData();
       formData.append("credential", JSON.stringify(credential));
@@ -126,6 +127,7 @@
       const result = deserialize(await response.text());
 
       if (result.type === "success") {
+        rememberPrfKey(prfKey, defaultRememberForMs);
         await invalidateAll();
       }
 
