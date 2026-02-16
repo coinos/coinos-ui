@@ -5,7 +5,8 @@ export async function load({ cookies, params, parent }) {
   const { user } = await parent();
   const aid = cookies.get("aid") || user.id;
   const { address, amount } = params;
-  const { balance } = await get(`/account/${aid}`, auth(cookies));
+  const account = await get(`/account/${aid}`, auth(cookies));
+  const senderIsVault = account.pubkey || account.seed;
 
   let invoice;
   try {
@@ -14,7 +15,7 @@ export async function load({ cookies, params, parent }) {
     // invoice not found
   }
 
-  if (invoice) {
+  if (invoice && !senderIsVault) {
     const isVault = invoice.account?.pubkey || invoice.account?.seed;
     if (isVault) {
       // Vault account — stay on /send/bitcoin for on-chain send
@@ -24,5 +25,5 @@ export async function load({ cookies, params, parent }) {
     }
   }
 
-  return { balance };
+  return { balance: account.balance };
 }

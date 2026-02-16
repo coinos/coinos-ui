@@ -116,9 +116,29 @@ export const addProcessedVtxos = (keys: string[]) => {
 // Flag to suppress notifyIncomingFunds during sends
 export let arkSending = false;
 
+const withTimeout = <T>(promise: Promise<T>, ms: number, label: string) =>
+  Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`${label} timed out`)), ms),
+    ),
+  ]);
+
 export const sendArk = async (address: string, amount: number) => {
   const wallet = await getWallet();
   if (!wallet) throw new Error("Ark wallet not available");
+
+  // Refresh expired VTXOs before attempting to send
+  const balance = await wallet.getBalance();
+  if (balance.available < amount && balance.recoverable > 0) {
+    console.log("ark send: refreshing expired VTXOs before send");
+    await refresh();
+  }
+
+  const freshBalance = await wallet.getBalance();
+  if (freshBalance.available < amount) {
+    throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}`);
+  }
 
   // Suppress incoming notifications during send to prevent
   // change VTXOs from being credited as incoming payments
@@ -127,13 +147,21 @@ export const sendArk = async (address: string, amount: number) => {
   try {
     let txid;
     try {
-      txid = await wallet.sendBitcoin({ address, amount });
+      txid = await withTimeout(
+        wallet.sendBitcoin({ address, amount }),
+        45_000,
+        "Ark send",
+      );
     } catch (e: any) {
       if (e?.message?.includes("VTXO_ALREADY_REGISTERED")) {
         await wallet.settle();
         const vtxos = await wallet.getVtxos({ spendableOnly: false });
         if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
-        txid = await wallet.sendBitcoin({ address, amount });
+        txid = await withTimeout(
+          wallet.sendBitcoin({ address, amount }),
+          45_000,
+          "Ark send retry",
+        );
       } else {
         throw e;
       }
@@ -173,6 +201,38 @@ export const sendArkViaForward = async ({
   });
 
   return post("/post/ark/receive", { amount, hash: txid, iid: inv.id });
+};
+
+export const refresh = async () => {
+  const wallet = await getWallet();
+  if (!wallet) return;
+
+  const { VtxoManager } = await loadArkSdk();
+  const balance = await wallet.getBalance();
+  console.log("ark refresh: balance", balance);
+  const manager = new VtxoManager(wallet);
+
+  let acted = false;
+
+  if (balance.recoverable > 0) {
+    console.log("ark refresh: recovering", balance.recoverable, "swept sats");
+    await manager.recoverVtxos();
+    acted = true;
+  }
+
+  const expiring = await manager.getExpiringVtxos();
+  if (expiring.length > 0) {
+    console.log("ark refresh: renewing", expiring.length, "expiring vtxos");
+    await manager.renewVtxos();
+    acted = true;
+  }
+
+  // Mark post-recovery/renewal VTXOs as processed so notifyIncomingFunds
+  // doesn't treat them as new incoming payments
+  if (acted) {
+    const vtxos = await wallet.getVtxos({ spendableOnly: false });
+    if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+  }
 };
 
 export const settle = async () => {

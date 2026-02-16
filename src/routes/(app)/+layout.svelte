@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle, arkkey, arkaid, sendArk } from "$lib/ark";
+  import { getWallet, syncTransactions, settle, refresh, arkkey, arkaid, sendArk } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -91,6 +91,7 @@
   };
 
   let arkInitializedKey: string | undefined;
+  let arkRefreshTimer: ReturnType<typeof setInterval> | undefined;
 
   const initArk = async () => {
     const key = $arkkey;
@@ -102,7 +103,14 @@
       localStorage.setItem("arkkey:uid", user.id);
       wallet.notifyIncomingFunds(arkSync);
       arkSync();
+      refresh().catch((e) => console.error("Ark refresh failed:", e));
       settle().catch((e) => console.error("Ark settle failed:", e));
+
+      // Periodically recover expired VTXOs
+      if (arkRefreshTimer) clearInterval(arkRefreshTimer);
+      arkRefreshTimer = setInterval(() => {
+        refresh().catch((e) => console.error("Ark periodic refresh failed:", e));
+      }, 60_000);
     }
   };
 
@@ -175,6 +183,7 @@
     if (browser) {
       close();
       clearTimeout(checkTimer);
+      if (arkRefreshTimer) clearInterval(arkRefreshTimer);
     }
   });
 </script>
