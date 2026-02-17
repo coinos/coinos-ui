@@ -20,14 +20,13 @@
     getCachedPrfKey,
     rememberPrfKey,
   } from "$lib/passwordCache";
-  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
   import { loginWithPasskey } from "$lib/passkey";
 
   let { data } = $props();
   let user = $derived(data.user);
 
   let hasMasterSeed = $derived(!!user.seed);
-  let hasPrfSeed = $derived(!!user.seed && isPrfEncrypted(user.seed));
+  let hasPrfSeed = $derived(!!getCachedPrfKey());
 
   let privateKey = $state("");
   let arkAddress = $state("");
@@ -43,13 +42,13 @@
   let revealConfirm = $state(false);
   let rememberForMs = $state(defaultRememberForMs);
 
-  let name = "Ark Vault";
+  let name = "Savings";
   let type = "ark";
 
   let deriveFromPrfKey = async (prfKey: ArrayBuffer) => {
     try {
       const { SingleKey, Wallet } = await import("@arkade-os/sdk");
-      const entropy = await prfDecrypt(prfKey, user.seed);
+      const entropy = new Uint8Array(prfKey);
       const mnemonic = entropyToMnemonic(entropy, wordlist);
       const seed = await mnemonicToSeed(mnemonic);
       const master = HDKey.fromMasterSeed(seed, versions);
@@ -225,7 +224,7 @@
 
 <div class="space-y-5">
   <div class="flex items-center justify-center gap-2">
-    <h1 class="text-3xl font-semibold">Create Ark Wallet</h1>
+    <h1 class="text-3xl font-semibold">Create Savings Account</h1>
   </div>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">

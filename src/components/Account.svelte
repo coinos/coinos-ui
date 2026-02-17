@@ -11,7 +11,6 @@
   import { fiat } from "$lib/store";
   import { arkkey, arkaid } from "$lib/ark";
   import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
-  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
 
   let { user, rates, account }: any = $props();
   let currency = $derived(account.currency || user.currency);
@@ -31,14 +30,14 @@
   let tryUnlockArk = async () => {
     // Try PRF key first
     const prfKey = getCachedPrfKey();
-    if (prfKey && user.seed && isPrfEncrypted(user.seed)) {
+    if (prfKey) {
       try {
         const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
           import("@scure/bip32"),
           import("@scure/bip39"),
           import("@scure/bip39/wordlists/english.js"),
         ]);
-        const entropy = await prfDecrypt(prfKey, user.seed);
+        const entropy = new Uint8Array(prfKey);
         const mnemonic = entropyToMnemonic(entropy, wordlist);
         const s = await mnemonicToSeed(mnemonic);
         const master = HDKey.fromMasterSeed(s, versions);
@@ -130,7 +129,7 @@
   let displayType = $derived(
     accountType === "ark"
       ? $t("accounts.ark")
-      : seed || (user.seed && fingerprint)
+      : seed || fingerprint
         ? $t("accounts.bitcoin")
         : $t("accounts.custodial"),
   );
@@ -174,7 +173,7 @@
       <div class="flex items-center justify-center w-8 h-8 leading-[0]">
         {#if isArk}
           <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
-        {:else if seed || (user.seed && fingerprint)}
+        {:else if seed || fingerprint}
           <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
         {:else}
           <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />

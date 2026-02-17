@@ -15,7 +15,6 @@
 
   import { focus, fail, versions, post } from "$lib/utils";
   import { registerPasskey } from "$lib/passkey";
-  import { prfEncrypt, isPrfEncrypted } from "$lib/crypto";
   import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
@@ -53,11 +52,7 @@
   let needsPasskey = $state(false);
 
   // Stored between handleSubmit and retryPasskey
-  let pendingMnemonic: string | undefined;
-  let pendingSkHex: string | undefined;
   let pendingToken: string | undefined;
-  let pendingSk: string | undefined;
-  let pendingLoginRedirect: string | undefined;
 
   let cleared;
   let clear = () => {
@@ -130,31 +125,6 @@
       return;
     }
 
-    // Generate mnemonic and derive Nostr pubkey (NIP-06)
-    const [
-      { generateMnemonic, mnemonicToSeed, mnemonicToEntropy },
-      { wordlist },
-      { HDKey },
-      { getPublicKey },
-      { bytesToHex },
-    ] = await Promise.all([
-      import("@scure/bip39"),
-      import("@scure/bip39/wordlists/english.js"),
-      import("@scure/bip32"),
-      import("nostr-tools"),
-      import("@noble/hashes/utils.js"),
-    ]);
-
-    const mnemonic = await generateMnemonic(wordlist);
-    pendingMnemonic = mnemonic;
-    const seed = await mnemonicToSeed(mnemonic);
-    const master = HDKey.fromMasterSeed(seed, versions);
-    const nostrChild = master.derive("m/44'/1237'/0'/0/0");
-    const sk = nostrChild.privateKey!;
-    const pubkey = getPublicKey(sk);
-    pendingSkHex = bytesToHex(sk);
-    data.set("pubkey", pubkey);
-
     data.set("picture", `${$page.url.origin}/api/public/${punks[index]}.webp`);
     if ($avatar) {
       try {
@@ -186,11 +156,8 @@
 
     if (result.type === "success") {
       // User created but no cookies set yet — must complete passkey first
-      const { token, sk: serverSk } = (result as any).data;
+      const { token } = (result as any).data;
       pendingToken = token;
-      pendingSk = serverSk;
-      pendingLoginRedirect =
-        data.get("loginRedirect") as string || `/${username}`;
 
       let prfKey: ArrayBuffer;
       try {
@@ -211,35 +178,50 @@
   }
 
   async function activateSession(prfKey: ArrayBuffer) {
-    if (!pendingMnemonic) return;
-
-    const { mnemonicToEntropy } = await import("@scure/bip39");
-    const { wordlist } = await import("@scure/bip39/wordlists/english.js");
-    const entropy = mnemonicToEntropy(pendingMnemonic, wordlist);
-    const encryptedSeed = await prfEncrypt(prfKey, entropy);
     rememberPrfKey(prfKey, defaultRememberForMs);
 
-    // Activate session — sets auth cookies server-side
+    // Derive Nostr key from PRF key
+    const [
+      { entropyToMnemonic, mnemonicToSeed },
+      { wordlist },
+      { HDKey },
+      { getPublicKey },
+      { bytesToHex },
+    ] = await Promise.all([
+      import("@scure/bip39"),
+      import("@scure/bip39/wordlists/english.js"),
+      import("@scure/bip32"),
+      import("nostr-tools"),
+      import("@noble/hashes/utils.js"),
+    ]);
+
+    const entropy = new Uint8Array(prfKey);
+    const mnemonic = entropyToMnemonic(entropy, wordlist);
+    const seed = await mnemonicToSeed(mnemonic);
+    const master = HDKey.fromMasterSeed(seed, versions);
+    const nostrChild = master.derive("m/44'/1237'/0'/0/0");
+    const sk = nostrChild.privateKey!;
+    const pubkey = getPublicKey(sk);
+    const skHex = bytesToHex(sk);
+
+    // Activate session — sets auth cookies and updates pubkey server-side
     const activateData = new FormData();
     activateData.set("token", pendingToken!);
     activateData.set("username", username!);
-    if (pendingSk) activateData.set("sk", pendingSkHex || pendingSk);
+    activateData.set("sk", skHex);
+    activateData.set("pubkey", pubkey);
 
     const activateResponse = await fetch("/register?/activate", {
       method: "POST",
       body: activateData,
     });
 
-    // Cookies are now set — save the encrypted seed before navigating
-    await post("/post/user", { seed: encryptedSeed });
-
+    const activateResult = deserialize(await activateResponse.text());
     await invalidateAll();
 
-    const activateResult = deserialize(await activateResponse.text());
     if (activateResult.type === "redirect") {
       applyAction(activateResult);
     } else {
-      // Fallback: navigate manually
       applyAction({ type: "redirect", status: 303, location: `/${username}` });
     }
   }

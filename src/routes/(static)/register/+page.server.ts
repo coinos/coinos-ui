@@ -15,9 +15,9 @@ export const actions = {
   register: async ({ request }) => {
     const ip = request.headers.get("cf-connecting-ip");
     const form = await fd(request);
-    const { picture, username, challenge, recaptcha, pubkey } = form;
+    const { picture, username, challenge, recaptcha } = form;
 
-    const user = { picture, username, challenge, recaptcha, pubkey };
+    const user = { picture, username, challenge, recaptcha };
     const headers: Record<string, string> = {};
     if (ip) headers["cf-connecting-ip"] = ip;
 
@@ -32,7 +32,7 @@ export const actions = {
 
   activate: async ({ cookies, request }) => {
     const form = await fd(request);
-    const { token, username, sk } = form;
+    const { token, username, sk, pubkey } = form;
     let { loginRedirect } = form;
     if (loginRedirect === "undefined") loginRedirect = undefined;
 
@@ -53,6 +53,14 @@ export const actions = {
         httpOnly: false,
         sameSite: "lax",
       });
+    }
+
+    if (pubkey) {
+      try {
+        await post("/user", { pubkey }, { authorization: `Bearer ${token}` });
+      } catch (e) {
+        console.log("Failed to update pubkey:", e);
+      }
     }
 
     redirect(303, loginRedirect || `/${username}`);

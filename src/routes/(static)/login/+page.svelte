@@ -126,7 +126,7 @@
 
       const result = deserialize(await response.text());
 
-      if (result.type === "success") {
+      if (result.type === "success" || result.type === "redirect") {
         rememberPrfKey(prfKey, defaultRememberForMs);
         await invalidateAll();
       }

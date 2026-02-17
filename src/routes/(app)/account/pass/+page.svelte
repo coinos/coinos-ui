@@ -17,7 +17,6 @@
     forgetWalletPassword,
     getCachedPrfKey,
   } from "$lib/passwordCache";
-  import { isPrfEncrypted, prfEncrypt } from "$lib/crypto";
 
   let { data }: any = $props();
 
@@ -36,18 +35,16 @@
       return;
     }
 
-    // PRF users: encrypt seed and create account immediately, skip password
+    // PRF users: derive from PRF key directly, skip password
     const prfKey = getCachedPrfKey();
     if (prfKey) {
       submitting = true;
       await tick();
       try {
-        const entropy = mnemonicToEntropy($mnemonic as string, wordlist);
-        const encryptedSeed = await prfEncrypt(prfKey, entropy);
-        await post("/post/user", { seed: encryptedSeed });
-
+        const entropy = new Uint8Array(prfKey);
+        const mn = entropyToMnemonic(entropy, wordlist);
         const master = HDKey.fromMasterSeed(
-          await mnemonicToSeed($mnemonic as string),
+          await mnemonicToSeed(mn),
           versions,
         );
         const child = master.derive("m/84'/0'/0'");
@@ -56,7 +53,7 @@
         await post("/account", {
           fingerprint,
           pubkey,
-          name: $t("accounts.savings"),
+          name: "Vault",
           type: "bitcoin",
           accountIndex: 0,
         });

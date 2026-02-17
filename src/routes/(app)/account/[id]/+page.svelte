@@ -12,14 +12,13 @@
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
   import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
-  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
 
   let { data } = $props();
   let account = $derived(data.account);
   let user = $derived(data.user);
   let rates = $derived(data.rates);
   let id = $derived(account.id);
-  let seed = $derived(account.seed || (account.fingerprint && user.seed));
+  let seed = $derived(account.seed || account.fingerprint);
   let displayType = $derived(
     account.type === "ark"
       ? $t("accounts.ark")
@@ -73,9 +72,9 @@
 
   let revealWithPrfKey = async () => {
     const prfKey = getCachedPrfKey();
-    if (!prfKey || !seed || !isPrfEncrypted(seed)) return false;
+    if (!prfKey) return false;
     try {
-      const entropy = await prfDecrypt(prfKey, seed);
+      const entropy = new Uint8Array(prfKey);
       mnemonic = entropyToMnemonic(entropy, wordlist);
       return true;
     } catch (e) {

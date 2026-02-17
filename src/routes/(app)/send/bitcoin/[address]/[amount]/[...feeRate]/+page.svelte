@@ -14,7 +14,6 @@
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
   import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
-  import { isPrfEncrypted, prfDecrypt } from "$lib/crypto";
   import { sendArkViaForward } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
@@ -30,12 +29,10 @@
   let error = $state("");
 
   let trySignWithCachedPassword = async () => {
-    let seed = account.seed || data.user.seed;
-    if (seed && isPrfEncrypted(seed)) {
-      const prfKey = getCachedPrfKey();
-      if (!prfKey) return false;
+    const prfKey = getCachedPrfKey();
+    if (prfKey) {
       try {
-        await signTxWithPrf(prfKey, seed);
+        await signTxWithPrf(prfKey);
         return true;
       } catch (e: any) {
         return false;
@@ -86,7 +83,7 @@
       return;
     }
 
-    if ((account.seed || (data.user.seed && account.fingerprint)) && !signed) (cancel(), void togglePassword());
+    if ((account.seed || account.fingerprint) && !signed) (cancel(), void togglePassword());
     return async ({ result }) => {
       if (result.type === "redirect") {
         goto(result.location);
@@ -97,7 +94,7 @@
     };
   };
 
-  let signTxWithPrf = async (prfKey: ArrayBuffer, encryptedSeed: string) => {
+  let signTxWithPrf = async (prfKey: ArrayBuffer) => {
     const [{ Transaction }, { HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
       await Promise.all([
         import("@scure/btc-signer"),
@@ -105,7 +102,7 @@
         import("@scure/bip39"),
         import("@scure/bip39/wordlists/english.js"),
       ]);
-    let entropy = await prfDecrypt(prfKey, encryptedSeed);
+    let entropy = new Uint8Array(prfKey);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
     let seed = await mnemonicToSeed(mnemonic);
     let master = HDKey.fromMasterSeed(seed, network as any);
