@@ -31,6 +31,14 @@
   );
   let name = $state(data.account.name || displayType);
   let currency = $state(data.account.currency || data.user.currency);
+  let userCurrency = $derived(data.user.currency);
+  let currencyChanged = $derived(currency !== userCurrency);
+  let updateUserCurrency = $state(false);
+
+  $effect(() => {
+    updateUserCurrency = currencyChanged;
+  });
+
   let autowithdraw = $state(data.account.autowithdraw || false);
   let threshold = $state(data.account.threshold || data.user.threshold || 1000000);
   let reserve = $state(data.account.reserve ?? 0);
@@ -198,6 +206,12 @@
         </select>
       </div>
 
+      {#if currencyChanged}
+        <div class="flex justify-between items-center">
+          <span>Also update default currency to {currency}</span>
+          <Toggle id="updateUserCurrency" bind:value={updateUserCurrency} />
+        </div>
+      {/if}
 
       {#if isCustodial}
         <div>

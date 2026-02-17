@@ -20,6 +20,9 @@ export const actions = {
 
     try {
       await post(`/account/${id}`, body, auth(cookies));
+      if (body.updateUserCurrency === "on") {
+        await post("/user", { currency: body.currency }, auth(cookies));
+      }
     } catch (e: any) {
       console.log(e);
       error(400, { message: e.message });
