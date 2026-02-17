@@ -48,7 +48,7 @@
         autocapitalize="none"
       ></textarea>
       <div class="flex gap-2">
-        <a href={`/account/bitcoin`} class="contents">
+        <a href={`/account/seed`} class="contents">
           <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
         </a>
         <button bind:this={el} type="submit" class="btn btn-accent !w-auto grow">

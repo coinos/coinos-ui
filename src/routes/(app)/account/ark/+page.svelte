@@ -26,7 +26,8 @@
   let user = $derived(data.user);
 
   let hasMasterSeed = $derived(!!user.seed);
-  let hasPrfSeed = $derived(!!getCachedPrfKey());
+  let hasPrfSeed = $state(!!getCachedPrfKey());
+  let hasSigner = $state(false);
 
   let privateKey = $state("");
   let arkAddress = $state("");
@@ -42,7 +43,7 @@
   let revealConfirm = $state(false);
   let rememberForMs = $state(defaultRememberForMs);
 
-  let name = "Savings";
+  let name = $t("accounts.savings");
   let type = "ark";
 
   let deriveFromPrfKey = async (prfKey: ArrayBuffer) => {
@@ -60,7 +61,19 @@
       confirmed = true;
     } catch (e: any) {
       console.log("PRF seed derivation failed", e);
-      fail("Failed to decrypt seed");
+      fail($t("accounts.failedToDecryptSeed"));
+    }
+  };
+
+  let unlockWithNostr = async () => {
+    try {
+      const { deriveNostrEntropy } = await import("$lib/walletEntropy");
+      const entropy = await deriveNostrEntropy();
+      hasPrfSeed = true;
+      await deriveFromPrfKey(entropy);
+      needsPasskeyUnlock = false;
+    } catch (e: any) {
+      fail(e.message || $t("accounts.passkeyUnlockFailed"));
     }
   };
 
@@ -72,16 +85,29 @@
         await deriveFromPrfKey(prfKey);
         needsPasskeyUnlock = false;
       } else {
-        fail("Passkey does not support PRF");
+        fail($t("accounts.passkeyNoPrf"));
       }
     } catch (e: any) {
       if (e.name !== "NotAllowedError") {
-        fail(e.message || "Passkey unlock failed");
+        fail(e.message || $t("accounts.passkeyUnlockFailed"));
       }
     }
   };
 
   onMount(async () => {
+    hasSigner = !!localStorage.getItem("signer");
+
+    // Try wallet entropy (covers both cached prfKey and silent nsec derivation)
+    if (!hasPrfSeed) {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      const entropy = await getWalletEntropy();
+      if (entropy) {
+        hasPrfSeed = true;
+        await deriveFromPrfKey(entropy);
+        return;
+      }
+    }
+
     if (hasPrfSeed) {
       const prfKey = getCachedPrfKey();
       if (prfKey) {
@@ -117,7 +143,7 @@
       confirmed = true;
     } catch (e: any) {
       console.log("master seed derivation failed", e);
-      fail("Invalid password");
+      fail($t("accounts.invalidPassword"));
     }
   };
 
@@ -164,7 +190,7 @@
 
     if (hasMasterSeed) {
       if (!password) {
-        fail("Password required");
+        fail($t("accounts.passwordRequired"));
         return;
       }
 
@@ -190,7 +216,7 @@
     }
 
     if (!confirmed) {
-      fail("Please backup your key first");
+      fail($t("accounts.pleaseBackupFirst"));
       return;
     }
 
@@ -224,7 +250,7 @@
 
 <div class="space-y-5">
   <div class="flex items-center justify-center gap-2">
-    <h1 class="text-3xl font-semibold">Create Savings Account</h1>
+    <h1 class="text-3xl font-semibold">{$t("accounts.createSavingsAccount")}</h1>
   </div>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
@@ -232,27 +258,33 @@
       {#if needsPasskeyUnlock}
         <div class="space-y-5">
           <p class="text-secondary">
-            Your Ark wallet will be derived from your master seed. Unlock with your passkey to continue.
+            {$t("accounts.arkUnlockWithPasskey")}
           </p>
+          {#if hasSigner}
+            <button type="button" class="btn btn-accent" onclick={unlockWithNostr}>
+              <img src="/images/nostr.png" class="w-6" alt="Nostr" />
+              {$t("accounts.unlockWithNostr")}
+            </button>
+          {/if}
           <button type="button" class="btn btn-accent" onclick={unlockWithPasskey}>
             <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
-            Unlock with Passkey
+            {$t("accounts.unlockWithPasskey")}
           </button>
         </div>
       {:else}
         <form onsubmit={preventDefault(submit)} class="space-y-5">
           <p class="text-secondary">
-            Your Ark wallet will be derived from your passkey-protected master seed.
+            {$t("accounts.arkDerivedFromPasskey")}
           </p>
           <div class="flex gap-2">
             <a href={`/${user.username}`} class="contents">
-              <button type="button" class="btn !w-auto grow">Back</button>
+              <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
             </a>
             <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
               {#if submitting}
                 <Spinner />
               {:else}
-                Create Wallet
+                {$t("accounts.createWallet")}
               {/if}
             </button>
           </div>
@@ -261,7 +293,7 @@
     {:else if hasMasterSeed}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Your Ark wallet will be derived from your master seed. Enter your wallet password to continue.
+          {$t("accounts.arkEnterPassword")}
         </p>
 
         <label for="password" class="input flex items-center justify-center gap-2 w-full">
@@ -273,14 +305,14 @@
               bind:value={password}
               autocapitalize="none"
               class="clean"
-              placeholder="Wallet password"
+              placeholder={$t("payments.enterWalletPass")}
             />
           {:else}
             <input
               use:focus
               name="password"
               type="password"
-              placeholder="Wallet password"
+              placeholder={$t("payments.enterWalletPass")}
               required
               bind:value={password}
               autocapitalize="none"
@@ -303,7 +335,7 @@
         </label>
 
         <div class="space-y-2">
-          <label for="rememberFor" class="text-sm text-secondary">Remember for</label>
+          <label for="rememberFor" class="text-sm text-secondary">{$t("user.settings.rememberFor")}</label>
           <select
             id="rememberFor"
             class="w-full"
@@ -311,7 +343,7 @@
             onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
-              <option value={option.ms}>{option.label}</option>
+              <option value={option.ms}>{$t(option.label)}</option>
             {/each}
           </select>
         </div>
@@ -332,7 +364,7 @@
     {:else if !confirmed}
       <div class="space-y-4">
         <p class="text-secondary">
-          Your Ark wallet is secured by a private key. Please copy it down somewhere safe.
+          {$t("accounts.arkSecuredByKey")}
         </p>
 
         {#if showNsec}
@@ -350,20 +382,20 @@
           <div class="flex gap-2">
             <button type="button" class="btn btn-accent flex-grow" onclick={confirmBackup}>
               <iconify-icon noobserver icon="ph:check-bold" width="24"></iconify-icon>
-              I've backed it up
+              {$t("accounts.backedItUp")}
             </button>
           </div>
         {:else}
           <button type="button" class="btn btn-warning w-full" onclick={revealNsec}>
             <iconify-icon noobserver icon="ph:eye-bold" width="24"></iconify-icon>
-            Reveal backup key
+            {$t("accounts.revealBackupKey")}
           </button>
         {/if}
       </div>
     {:else}
       <form onsubmit={preventDefault(submit)} class="space-y-5">
         <p class="text-secondary">
-          Set a password to encrypt your key. You'll need this password to send funds.
+          {$t("accounts.setPasswordToEncrypt")}
         </p>
 
         <label for="password" class="input flex items-center justify-center gap-2 w-full">
@@ -375,14 +407,14 @@
               bind:value={password}
               autocapitalize="none"
               class="clean"
-              placeholder="Password"
+              placeholder={$t("accounts.password")}
             />
           {:else}
             <input
               use:focus
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder={$t("accounts.password")}
               required
               bind:value={password}
               autocapitalize="none"
@@ -409,7 +441,7 @@
             <input
               name="confirm"
               type="text"
-              placeholder="Confirm password"
+              placeholder={$t("accounts.confirmPassword")}
               required
               bind:value={confirm}
               autocapitalize="none"
@@ -418,7 +450,7 @@
           {:else}
             <input
               type="password"
-              placeholder="Confirm password"
+              placeholder={$t("accounts.confirmPassword")}
               required
               bind:value={confirm}
               autocapitalize="none"
@@ -440,7 +472,7 @@
         </label>
 
         <div class="space-y-2">
-          <label for="rememberFor" class="text-sm text-secondary">Remember for</label>
+          <label for="rememberFor" class="text-sm text-secondary">{$t("user.settings.rememberFor")}</label>
           <select
             id="rememberFor"
             class="w-full"
@@ -448,14 +480,14 @@
             onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
           >
             {#each rememberForOptions as option}
-              <option value={option.ms}>{option.label}</option>
+              <option value={option.ms}>{$t(option.label)}</option>
             {/each}
           </select>
         </div>
 
         <div class="flex gap-2">
           <button type="button" class="btn !w-auto grow" onclick={() => (confirmed = false)}>
-            Back
+            {$t("accounts.back")}
           </button>
           <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
             {#if submitting}

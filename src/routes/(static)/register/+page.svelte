@@ -14,7 +14,7 @@
   import Spinner from "$comp/Spinner.svelte";
 
   import { focus, fail, versions, post } from "$lib/utils";
-  import { registerPasskey } from "$lib/passkey";
+  import { registerPasskey, loginWithPasskey } from "$lib/passkey";
   import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
@@ -171,6 +171,35 @@
 
       await activateSession(prfKey);
     } else {
+      // Registration failed (e.g. username taken) — try passkey sign-in
+      try {
+        const { credential, challengeId, prfKey } = await loginWithPasskey();
+        const loginData = new FormData();
+        loginData.append("credential", JSON.stringify(credential));
+        loginData.append("challengeId", challengeId);
+        loginData.append("loginRedirect", (redirect ?? "") as string);
+
+        const loginResponse = await fetch("/login?/passkey", {
+          method: "POST",
+          body: loginData,
+        });
+
+        const loginResult = deserialize(await loginResponse.text());
+
+        if (loginResult.type === "success" || loginResult.type === "redirect") {
+          rememberPrfKey(prfKey, defaultRememberForMs);
+          await invalidateAll();
+          applyAction(loginResult);
+          loading = false;
+          return;
+        }
+      } catch (e: any) {
+        if (e.name !== "NotAllowedError") {
+          console.log("Passkey login failed", e);
+        }
+      }
+
+      // Passkey cancelled or failed — show original registration error
       applyAction(result);
     }
 
@@ -233,7 +262,7 @@
       needsPasskey = false;
       await activateSession(prfKey);
     } catch (e: any) {
-      fail("Passkey creation failed. Please try again.");
+      fail($t("login.passkeyCreationFailed"));
     }
     loading = false;
   }
@@ -302,7 +331,13 @@
 
       const result = deserialize(await response.text());
 
-      if (result.type === "success") {
+      if (result.type === "success" || result.type === "redirect") {
+        try {
+          const { deriveNostrEntropy } = await import("$lib/walletEntropy");
+          await deriveNostrEntropy();
+        } catch (e) {
+          console.log("Nostr entropy derivation failed", e);
+        }
         await invalidateAll();
       }
 
@@ -329,7 +364,7 @@
 </script>
 
 {#if need2fa}
-  <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
+  <Pin bind:value={token} title={$t("login.enter2faCode")} {cancel} notify={false} />
 {/if}
 
 <div class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 space-y-5 mb-20">
@@ -373,12 +408,12 @@
 
   {#if needsPasskey}
     <div class="space-y-5 text-center">
-      <p>Account created! You need to set up a passkey to continue.</p>
+      <p>{$t("login.accountCreatedNeedsPasskey")}</p>
       <button class="btn btn-accent" onclick={retryPasskey} disabled={loading}>
         {#if loading}
           <Spinner />
         {:else}
-          Set up Passkey
+          {$t("login.setupPasskey")}
         {/if}
       </button>
     </div>

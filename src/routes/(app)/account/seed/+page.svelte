@@ -18,7 +18,8 @@
 
   onMount(async () => {
     if (!browser) return;
-    const prfKey = getCachedPrfKey();
+    const { getWalletEntropy } = await import("$lib/walletEntropy");
+    const prfKey = await getWalletEntropy();
     if (prfKey) {
       creating = true;
       try {
@@ -32,7 +33,7 @@
         await post("/account", {
           fingerprint,
           pubkey,
-          name: "Vault",
+          name: $t("accounts.vault"),
           type: "bitcoin",
           accountIndex: 0,
         });
@@ -70,14 +71,9 @@
       <div class="my-auto">{$t("payments.copy")}</div>
     </button>
 
-    <div class="flex gap-2">
-      <a href={`/account/bitcoin`} class="contents">
-        <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
-      </a>
-      <a href={`/account/pass`} class="contents">
-        <button type="button" class="btn btn-accent !w-auto grow">{$t("accounts.next")}</button>
-      </a>
-    </div>
+    <a href={`/account/pass`} class="contents">
+      <button type="button" class="btn btn-accent w-full">{$t("accounts.next")}</button>
+    </a>
   </div>
 </div>
 {/if}

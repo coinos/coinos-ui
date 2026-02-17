@@ -9,9 +9,12 @@
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
   import { tick } from "svelte";
-  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
+  import { entropyToMnemonic, mnemonicToSeed, validateMnemonic, mnemonicToEntropy } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
+  import { HDKey } from "@scure/bip32";
+  import { versions } from "$lib/utils";
   import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import Spinner from "$comp/Spinner.svelte";
 
   let { data } = $props();
   let account = $derived(data.account);
@@ -70,8 +73,45 @@
 
   let isCustodial = $derived(!seed && account.type !== "ark");
 
+  let importing = $state(false);
+  let importText = $state("");
+  let importSubmitting = $state(false);
+
+  let importSeed = async () => {
+    let text = importText.replace(/,/g, " ").trim();
+    if (!validateMnemonic(text, wordlist)) {
+      fail($t("accounts.invalidSeedPhrase"));
+      return;
+    }
+
+    importSubmitting = true;
+    try {
+      let s = await mnemonicToSeed(text);
+      let master = HDKey.fromMasterSeed(s, versions);
+      let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
+      let pubkey = child.publicExtendedKey;
+      let fp = child.fingerprint.toString(16).padStart(8, "0");
+
+      await post(`/post/account/${id}`, {
+        fingerprint: fp,
+        pubkey,
+      });
+
+      importing = false;
+      importText = "";
+      goto(`/${user.username}`, { invalidateAll: true });
+    } catch (e: any) {
+      fail(e.message || $t("accounts.importFailed"));
+    }
+    importSubmitting = false;
+  };
+
   let revealWithPrfKey = async () => {
-    const prfKey = getCachedPrfKey();
+    let prfKey = getCachedPrfKey();
+    if (!prfKey) {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      prfKey = await getWalletEntropy();
+    }
     if (!prfKey) return false;
     try {
       const entropy = new Uint8Array(prfKey);
@@ -110,7 +150,7 @@
       let entropy = await decrypt(seed, password as string);
       mnemonic = entropyToMnemonic(entropy, wordlist);
     } catch (e: any) {
-      fail("Invalid password, try again");
+      fail($t("accounts.invalidPasswordTryAgain"));
       passwordPrompt = true;
     }
   });
@@ -158,6 +198,7 @@
         </select>
       </div>
 
+
       {#if isCustodial}
         <div>
           <div class="flex justify-between items-center">
@@ -192,22 +233,12 @@
             </button>
             <p class="text-secondary mt-1">{$t("user.settings.thresholdDesc")}</p>
           </div>
-
-          <div>
-            <label for="reserve" class="font-bold mb-1 block">{$t("user.settings.reserve")}</label>
-            <button type="button" class="flex w-full" onclick={editReserve}>
-              <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-                <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-              </div>
-              <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">
-                {reserve}
-              </div>
-              <input type="hidden" name="reserve" bind:value={reserve} />
-            </button>
-            <p class="text-secondary mt-1">{$t("user.settings.reserveDesc")}</p>
-          </div>
         </div>
       {/if}
+
+      <button type="submit" class="btn btn-accent !w-full">
+        <div class="my-auto">{$t("accounts.submit")}</div>
+      </button>
 
       <div class="space-y-2">
         {#if mnemonic}
@@ -224,17 +255,45 @@
           </button>
         {/if}
 
+        {#if account.type === "bitcoin"}
+          {#if importing}
+            <div class="space-y-2">
+              <textarea
+                placeholder={$t("accounts.enterSeed")}
+                class="w-full p-4 border rounded-xl h-36 text-lg"
+                bind:value={importText}
+                autocapitalize="none"
+              ></textarea>
+              <div class="flex gap-2">
+                <button type="button" class="btn !w-auto grow" onclick={() => (importing = false)}>
+                  {$t("accounts.back")}
+                </button>
+                <button type="button" class="btn btn-accent !w-auto grow" onclick={importSeed} disabled={importSubmitting}>
+                  {#if importSubmitting}
+                    <Spinner />
+                  {:else}
+                    {$t("accounts.import")}
+                  {/if}
+                </button>
+              </div>
+            </div>
+          {:else}
+            <button type="button" class="btn" onclick={() => (importing = true)}>
+              <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
+              <div class="my-auto">{$t("accounts.changeSeedPhrase")}</div>
+            </button>
+          {/if}
+        {/if}
+
         {#if seed || account.type === "ark"}
           <button onclick={del} type="button" class="btn">
             <iconify-icon noobserver icon="ph:trash-bold" width="32"></iconify-icon>
             <div class="my-auto">{$t("accounts.deleteAccount")}</div>
           </button>
         {/if}
+
       </div>
 
-      <button type="submit" class="btn btn-accent !w-full">
-        <div class="my-auto">{$t("accounts.submit")}</div>
-      </button>
     </form>
   </div>
 </div>
@@ -254,7 +313,7 @@
         bind:submit={doneReserve}
         bind:element={thresholdEl}
       />
-      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">Ok</button>
+      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">{$t("payments.ok")}</button>
     </div>
   </div>
 {/if}
@@ -270,7 +329,7 @@
         bind:submit={doneReserve}
         bind:element={reserveEl}
       />
-      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">Ok</button>
+      <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">{$t("payments.ok")}</button>
     </div>
   </div>
 {/if}

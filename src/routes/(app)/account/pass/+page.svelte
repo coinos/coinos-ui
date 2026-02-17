@@ -31,12 +31,13 @@
 
   onMount(async () => {
     if (!$mnemonic) {
-      goto("/account/new");
+      goto("/account/seed");
       return;
     }
 
-    // PRF users: derive from PRF key directly, skip password
-    const prfKey = getCachedPrfKey();
+    // PRF/Nostr users: derive from entropy directly, skip password
+    const { getWalletEntropy } = await import("$lib/walletEntropy");
+    const prfKey = await getWalletEntropy();
     if (prfKey) {
       submitting = true;
       await tick();
@@ -53,7 +54,7 @@
         await post("/account", {
           fingerprint,
           pubkey,
-          name: "Vault",
+          name: $t("accounts.vault"),
           type: "bitcoin",
           accountIndex: 0,
         });
@@ -171,7 +172,7 @@
         <input
           name="confirm"
           type="text"
-          placeholder="Confirm password"
+          placeholder={$t("accounts.confirmPassword")}
           required
           bind:value={confirm}
           autocapitalize="none"
@@ -202,7 +203,7 @@
     </label>
 
     <div class="space-y-2">
-      <label for="rememberFor" class="text-sm text-secondary">Remember for</label>
+      <label for="rememberFor" class="text-sm text-secondary">{$t("user.settings.rememberFor")}</label>
       <select
         id="rememberFor"
         class="w-full"
@@ -210,7 +211,7 @@
         onchange={(e) => (rememberForMs = Number((e.target as HTMLSelectElement).value))}
       >
         {#each rememberForOptions as option}
-          <option value={option.ms}>{option.label}</option>
+          <option value={option.ms}>{$t(option.label)}</option>
         {/each}
       </select>
     </div>

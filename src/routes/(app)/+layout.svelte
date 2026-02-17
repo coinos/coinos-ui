@@ -130,7 +130,11 @@
   let autoProvisionAccounts = async () => {
     if (!user) return;
     if (sessionStorage.getItem("accounts:provisioned")) return;
-    const prfKey = getCachedPrfKey();
+    let prfKey = getCachedPrfKey();
+    if (!prfKey) {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      prfKey = await getWalletEntropy();
+    }
     if (!prfKey) return;
 
     sessionStorage.setItem("accounts:provisioned", "1");
@@ -139,9 +143,8 @@
       const res = await fetch("/account", { headers: { accept: "application/json" } });
       const accounts = await res.json();
 
-      const hasBitcoin = accounts.some((a: any) => a.type === "bitcoin");
       const hasArk = accounts.some((a: any) => a.type === "ark");
-      if (hasBitcoin && hasArk) return;
+      if (hasArk) return;
 
       const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
         import("@scure/bip32"),
@@ -154,27 +157,14 @@
       const seed = await mnemonicToSeed(mnemonic);
       const master = HDKey.fromMasterSeed(seed, versions);
 
-      if (!hasArk) {
-        const { SingleKey, Wallet } = await import("@arkade-os/sdk");
-        const { bytesToHex } = await import("@noble/hashes/utils.js");
-        const arkChild = master.derive("m/86'/0'/0'/0/0");
-        const arkHex = bytesToHex(arkChild.privateKey!);
-        const identity = SingleKey.fromHex(arkHex);
-        const wallet = await Wallet.create({ identity, arkServerUrl });
-        const arkAddress = await wallet.getAddress();
-        await post("/account", { name: "Savings", type: "ark", arkAddress });
-      }
-
-      if (!hasBitcoin) {
-        const child = master.derive("m/84'/0'/0'");
-        await post("/account", {
-          fingerprint: child.fingerprint.toString(16).padStart(8, "0"),
-          pubkey: child.publicExtendedKey,
-          name: "Vault",
-          type: "bitcoin",
-          accountIndex: 0,
-        });
-      }
+      const { SingleKey, Wallet } = await import("@arkade-os/sdk");
+      const { bytesToHex } = await import("@noble/hashes/utils.js");
+      const arkChild = master.derive("m/86'/0'/0'/0/0");
+      const arkHex = bytesToHex(arkChild.privateKey!);
+      const identity = SingleKey.fromHex(arkHex);
+      const wallet = await Wallet.create({ identity, arkServerUrl });
+      const arkAddress = await wallet.getAddress();
+      await post("/account", { name: $t("accounts.savings"), type: "ark", arkAddress });
 
       invalidate("app:payments");
     } catch (e) {

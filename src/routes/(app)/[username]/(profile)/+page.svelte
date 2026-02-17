@@ -64,7 +64,7 @@
       {#each accounts as account}
         <Account {user} {rates} {account} />
       {/each}
-      <a href="/account/new" class="contents">
+      <a href="/account/seed" class="contents">
         <button class="btn btn-accent w-full">
           <iconify-icon noobserver icon="ph:plus-bold" width="24"></iconify-icon>
           {$t("accounts.addAccount")}

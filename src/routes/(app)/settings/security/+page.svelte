@@ -215,12 +215,12 @@
   {/if}
 
   {#if confirming2fa || disabling2fa}
-    <Pin bind:value={token} title="Enter 2FA Code" {cancel} notify={false} />
+    <Pin bind:value={token} title={$t("login.enter2faCode")} {cancel} notify={false} />
   {/if}
 </div>
 
 <div>
-  <a href={`/account/new`} class="contents">
+  <a href={`/account/seed`} class="contents">
     <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
       <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"></iconify-icon>
       {$t("accounts.addAccount")}

@@ -50,6 +50,31 @@
       }
     }
 
+    // Try silent Nostr derivation
+    if (!prfKey) {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      const nostrKey = await getWalletEntropy();
+      if (nostrKey) {
+        try {
+          const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+            import("@scure/bip32"),
+            import("@scure/bip39"),
+            import("@scure/bip39/wordlists/english.js"),
+          ]);
+          const entropy = new Uint8Array(nostrKey);
+          const mnemonic = entropyToMnemonic(entropy, wordlist);
+          const s = await mnemonicToSeed(mnemonic);
+          const master = HDKey.fromMasterSeed(s, versions);
+          const arkChild = master.derive("m/86'/0'/0'/0/0");
+          $arkkey = bytesToHex(arkChild.privateKey!);
+          $arkaid = id;
+          return true;
+        } catch (e) {
+          console.log("Nostr entropy unlock failed", e);
+        }
+      }
+    }
+
     // Then try cached wallet password
     const cached = getRememberedWalletPassword();
     if (!cached) return false;
@@ -131,7 +156,7 @@
       ? $t("accounts.ark")
       : seed || fingerprint
         ? $t("accounts.bitcoin")
-        : $t("accounts.custodial"),
+        : $t("accounts.spending"),
   );
   let displayName = $derived(name || displayType);
   let isArk = $derived(accountType === "ark");
@@ -165,20 +190,11 @@
       <Balance {balance} {user} {rate} {id} {currency} />
       {#if pending}
         <div class="text-lg text-gray-600">
-          +{$fiat && rate ? f(toFiat(pending, rate), currency, loc(user)) : s(pending)} pending
+          +{$fiat && rate ? f(toFiat(pending, rate), currency, loc(user)) : s(pending)} {$t("accounts.pending")}
         </div>
       {/if}
     </div>
     <div class="flex items-start gap-4 shrink-0 text-black">
-      <div class="flex items-center justify-center w-8 h-8 leading-[0]">
-        {#if isArk}
-          <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
-        {:else if seed || fingerprint}
-          <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
-        {:else}
-          <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
-        {/if}
-      </div>
       <a
         href="/payments"
         class="hover:text-gray-800"
@@ -189,11 +205,17 @@
       </a>
       <a
         href={`/account/${id}`}
-        class="hover:text-gray-800"
+        class="hover:opacity-80"
         aria-label="Account settings"
         onclick={goSettings}
       >
-        <iconify-icon noobserver icon="ph:gear-bold" width="32"></iconify-icon>
+        {#if isArk}
+          <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
+        {:else if seed || fingerprint}
+          <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+        {:else}
+          <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
+        {/if}
       </a>
     </div>
   </div>

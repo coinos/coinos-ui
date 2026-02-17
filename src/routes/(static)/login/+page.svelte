@@ -173,6 +173,16 @@
 
       const result = deserialize(await response.text());
 
+      if (result.type === "success" || result.type === "redirect") {
+        try {
+          const { deriveNostrEntropy } = await import("$lib/walletEntropy");
+          await deriveNostrEntropy();
+        } catch (e) {
+          console.log("Nostr entropy derivation failed", e);
+        }
+        await invalidateAll();
+      }
+
       applyAction(result);
     } catch (e: any) {
       fail(e.message);

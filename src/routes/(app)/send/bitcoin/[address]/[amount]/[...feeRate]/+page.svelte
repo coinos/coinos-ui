@@ -38,6 +38,17 @@
         return false;
       }
     }
+    // Try silent Nostr derivation
+    const { getWalletEntropy } = await import("$lib/walletEntropy");
+    const entropy = await getWalletEntropy();
+    if (entropy) {
+      try {
+        await signTxWithPrf(entropy);
+        return true;
+      } catch (e: any) {
+        return false;
+      }
+    }
     const cached = getRememberedWalletPassword();
     if (!cached) return false;
     try {
@@ -76,7 +87,7 @@
           goto(`/sent/${p.id}`, { invalidateAll: true });
         } catch (e: any) {
           loading = false;
-          error = e.message || "Failed to send";
+          error = e.message || $t("payments.failedToSend");
         }
       })();
 

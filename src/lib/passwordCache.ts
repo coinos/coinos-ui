@@ -5,12 +5,12 @@ const PASSWORD_KEY = "walletPassword";
 const EXPIRES_KEY = "walletPasswordExpiresAt";
 
 export const rememberForOptions = [
-  { label: "Don't remember", ms: 0 },
-  { label: "8 hours", ms: 8 * 60 * 60 * 1000 },
-  { label: "1 day", ms: 24 * 60 * 60 * 1000 },
-  { label: "1 week", ms: 7 * 24 * 60 * 60 * 1000 },
-  { label: "1 month", ms: 30 * 24 * 60 * 60 * 1000 },
-  { label: "1 year", ms: 365 * 24 * 60 * 60 * 1000 },
+  { label: "user.settings.dontRemember", ms: 0 },
+  { label: "user.settings.8hours", ms: 8 * 60 * 60 * 1000 },
+  { label: "user.settings.1day", ms: 24 * 60 * 60 * 1000 },
+  { label: "user.settings.1week", ms: 7 * 24 * 60 * 60 * 1000 },
+  { label: "user.settings.1month", ms: 30 * 24 * 60 * 60 * 1000 },
+  { label: "user.settings.1year", ms: 365 * 24 * 60 * 60 * 1000 },
 ];
 
 export const defaultRememberForMs = 30 * 24 * 60 * 60 * 1000;
