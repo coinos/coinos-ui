@@ -25,9 +25,10 @@
   });
 
   let generate = async () => {
-    secret = bytesToHex(randomBytes(32));
+    let secretBytes = randomBytes(32);
+    secret = bytesToHex(secretBytes);
     const { getPublicKey } = await import("nostr-tools");
-    pubkey = getPublicKey(secret);
+    pubkey = getPublicKey(secretBytes);
   };
 
   let lud16 = $derived(`${user.username}@${$page.url.host}`);
