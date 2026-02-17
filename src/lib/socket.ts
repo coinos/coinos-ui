@@ -1,7 +1,7 @@
 import { goto, invalidate } from "$app/navigation";
 import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
-import { event, importing, invoice, last, request } from "$lib/store";
+import { event, importing, invoice, last, paymentSignal, request } from "$lib/store";
 import { s, sleep, success, wait } from "$lib/utils";
 import cookies from "js-cookie";
 import { get } from "svelte/store";
@@ -44,6 +44,7 @@ export const messages = (data) => ({
     invalidate("app:user");
     invalidate("app:invoice");
     invalidate("app:payments");
+    paymentSignal.update((n) => n + 1);
 
     if (type === "import" && aid) {
       importing.update((s) => {

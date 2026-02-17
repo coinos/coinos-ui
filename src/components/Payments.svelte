@@ -23,8 +23,8 @@
       tabindex="0"
     >
       <div class="whitespace-nowrap my-auto col-span-3">
-        <div class="font-bold flex items-center">
-          <div class="flex items-center gap-1">
+        <button class="font-bold flex items-center" onclick={(e) => { e.stopPropagation(); $fiat = !$fiat; }}>
+          <div class="flex items-center">
             {#if $fiat}
               <div>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
             {:else}
@@ -33,7 +33,7 @@
               <div>{s(Math.abs(amount), locale)}</div>
             {/if}
           </div>
-        </div>
+        </button>
 
         {#if p.tip}
           <div class="text-secondary flex items-center text-sm">
@@ -106,12 +106,12 @@
 
       <div class="text-secondary text-right text-sm my-auto col-span-3">
         <div>
-          {format(new Date(p.created), "h:mm aaa", {
+          {format(new Date(p.created), "MMM d, yy", {
             locale: locales[language],
           })}
         </div>
         <div>
-          {format(new Date(p.created), "MMM d, yy", {
+          {format(new Date(p.created), "h:mm aaa", {
             locale: locales[language],
           })}
         </div>

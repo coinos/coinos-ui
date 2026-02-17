@@ -97,3 +97,4 @@ export const ndef = writable();
 export const showQr = persistLocal("showQr", true);
 export const save = writable();
 export const importing = writable(new Set<string>());
+export const paymentSignal = writable(0);

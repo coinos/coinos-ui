@@ -81,9 +81,9 @@
       aria-label="Toggle currency display"
     >
       {#if $fiat}
-        <div class="flex items-center gap-1">{f(toFiat(amount, rate), currency, userLocale)}</div>
+        <div class="flex items-center">{f(toFiat(amount, rate), currency, userLocale)}</div>
       {:else}
-        <div class="flex items-center gap-1">
+        <div class="flex items-center">
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {s(amount, userLocale)}
         </div>
@@ -144,7 +144,7 @@
   <div>
     <span class="text-lg text-secondary">{$t("payments.date")}</span>
     <div>
-      {format(new Date(created), "h:mmaaa", { locale })}{format(new Date(created), "MMM d, yyyy", { locale })}
+      {format(new Date(created), "MMM d, yyyy", { locale })} {format(new Date(created), "h:mmaaa", { locale })}
     </div>
   </div>
 
@@ -186,6 +186,17 @@
     <div>
       <span class="text-lg text-secondary">{$t("payments.preimage")}</span>
       <div>{ref}</div>
+    </div>
+  {/if}
+
+  {#if type === types.ark && hash}
+    <div>
+      <span class="text-lg text-secondary">Txid</span>
+      <div class="flex">
+        <div>{hash}</div>
+        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(hash)} aria-label="Copy transaction ID"
+        ></button>
+      </div>
     </div>
   {/if}
 

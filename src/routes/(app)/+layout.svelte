@@ -11,6 +11,7 @@
     passwordPrompt,
     selectSigner,
     password,
+    paymentSignal,
     pin,
     theme as themeStore,
     fiat,
@@ -48,20 +49,25 @@
       preloadData(`/${user.username}/receive`);
       preloadData("/payments");
       preloadData("/send");
-      if ($arkkey) arkSync();
+      if ($arkkey) arkSync("afterNavigate");
     }
   });
 
   let arkSyncing = false;
   let arkForwarding = false;
 
-  let arkSync = async () => {
-    if (arkSyncing || arkSending) return;
+  let arkSync = async (source = "unknown") => {
+    if (arkSyncing || arkSending) {
+      console.log(`[arkSync] SKIPPED (source: ${source}, syncing: ${arkSyncing}, sending: ${arkSending})`);
+      return;
+    }
+    console.log(`[arkSync] START (source: ${source})`);
     arkSyncing = true;
 
     try {
       const aid = $arkaid || getCookie("aid") || user.id;
       const result = await syncTransactions(aid);
+      console.log(`[arkSync] DONE (source: ${source}, received: ${result?.received || 0})`);
 
       if (result?.forward && !arkForwarding) {
         arkForwarding = true;
@@ -96,7 +102,6 @@
 
   let arkInitializedKey: string | undefined;
   let arkRefreshTimer: ReturnType<typeof setInterval> | undefined;
-  let arkSyncTimer: ReturnType<typeof setInterval> | undefined;
 
   const initArk = async () => {
     const key = $arkkey;
@@ -106,14 +111,10 @@
     const wallet = await getWallet();
     if (wallet) {
       localStorage.setItem("arkkey:uid", user.id);
-      wallet.notifyIncomingFunds(arkSync);
-      arkSync();
+      wallet.notifyIncomingFunds(() => arkSync("notifyIncomingFunds"));
+      arkSync("initArk");
       refresh().catch((e) => console.error("Ark refresh failed:", e));
       settle().catch((e) => console.error("Ark settle failed:", e));
-
-      // Poll for incoming ark transactions (fallback for SSE)
-      if (arkSyncTimer) clearInterval(arkSyncTimer);
-      arkSyncTimer = setInterval(() => arkSync(), 15_000);
 
       // Periodically recover expired VTXOs
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
@@ -125,6 +126,10 @@
 
   $effect(() => {
     if (browser && user && $arkkey) initArk();
+  });
+
+  $effect(() => {
+    if ($paymentSignal && $arkkey) arkSync("paymentSignal");
   });
 
 
@@ -194,7 +199,6 @@
     if (browser) {
       close();
       clearTimeout(checkTimer);
-      if (arkSyncTimer) clearInterval(arkSyncTimer);
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
     }
   });
