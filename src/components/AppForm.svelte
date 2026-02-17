@@ -17,17 +17,7 @@
     PUBLIC_COINOS_RELAY as relayUrl,
   } from "$env/static/public";
 
-  let {
-    rate,
-    user,
-    name,
-    max_fee,
-    max_amount,
-    budget_renewal,
-    pubkey,
-    secret,
-    notify,
-  } = $props();
+  let { rate, user, name, max_fee, max_amount, budget_renewal, pubkey, secret, notify } = $props();
   let { currency } = $derived(user);
 
   onMount(() => {
@@ -36,8 +26,9 @@
   });
 
   let generate = () => {
-    secret = bytesToHex(randomBytes(32));
-    pubkey = getPublicKey(secret);
+    let secretBytes = randomBytes(32);
+    secret = bytesToHex(secretBytes);
+    pubkey = getPublicKey(secretBytes);
   };
 
   let lud16 = $derived(`${user.username}@${$page.url.host}`);
@@ -95,9 +86,7 @@
   />
 
   <div>
-    <label for="name" class="font-bold mb-1 block"
-      >{$t("accounts.renewal")}</label
-    >
+    <label for="name" class="font-bold mb-1 block">{$t("accounts.renewal")}</label>
     <select name="budget_renewal" bind:value={budget_renewal}>
       <option value="never" selected>{$t("accounts.never")}</option>
       <option value="daily">{$t("accounts.daily")}</option>
@@ -108,9 +97,7 @@
   </div>
 
   <div>
-    <label for="notify" class="font-bold mb-1 block"
-      >{$t("accounts.notifications")}</label
-    >
+    <label for="notify" class="font-bold mb-1 block">{$t("accounts.notifications")}</label>
     <select name="notify" bind:value={notify}>
       <option value={false} selected>{$t("accounts.off")}</option>
       <option value={true}>{$t("accounts.on")}</option>
@@ -118,22 +105,10 @@
   </div>
 
   <div>
-    <label for="pubkey" class="font-bold mb-1 block"
-      >{$t("accounts.pubkey")}</label
-    >
+    <label for="pubkey" class="font-bold mb-1 block">{$t("accounts.pubkey")}</label>
     <div class="flex gap-1 items-center">
-      <textarea
-        rows={3}
-        name="pubkey"
-        bind:value={pubkey}
-        class="grow"
-        readonly={secret}
-      />
-      <button
-        type="button"
-        onclick={() => copy(pubkey)}
-        class="btn !w-auto shrink"
-      >
+      <textarea rows={3} name="pubkey" bind:value={pubkey} class="grow" readonly={secret} />
+      <button type="button" onclick={() => copy(pubkey)} class="btn !w-auto shrink">
         <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
       </button>
     </div>
@@ -141,16 +116,13 @@
 
   {#if !pubkey || secret}
     <div>
-      <label for="secret" class="font-bold mb-1 block"
-        >{$t("accounts.secret")}</label
-      >
+      <label for="secret" class="font-bold mb-1 block">{$t("accounts.secret")}</label>
       <div class="flex gap-1 items-center">
         <textarea rows={3} name="secret" bind:value={secret} lcass="grow" />
 
         <div class="space-y-2 w-24">
           <button type="button" onclick={generate} class="btn">
-            <iconify-icon noobserver icon="ph:dice-three-bold" width="32"
-            ></iconify-icon>
+            <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
           </button>
           <button type="button" onclick={() => copy(secret)} class="btn">
             <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
@@ -161,13 +133,12 @@
   {/if}
 
   <div class="space-y-2">
-    <button type="submit" class="btn btn-accent">{$t("payments.submit")}</button
-    >
+    <button type="submit" class="btn btn-accent">{$t("payments.submit")}</button>
     {#if pubkey}
       <button type="button" class="btn" onclick={del}>
         <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
-        {$t("accounts.delete")}</button
-      >
+        {$t("accounts.delete")}
+      </button>
     {/if}
   </div>
 </form>
