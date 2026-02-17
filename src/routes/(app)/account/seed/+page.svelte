@@ -14,14 +14,13 @@
 
   let { data } = $props();
   let user = $derived(data.user);
-  let creating = $state(false);
+  let creating = $state(true);
 
   onMount(async () => {
     if (!browser) return;
     const { getWalletEntropy } = await import("$lib/walletEntropy");
     const prfKey = await getWalletEntropy();
     if (prfKey) {
-      creating = true;
       try {
         const entropy = new Uint8Array(prfKey);
         const mn = entropyToMnemonic(entropy, wordlist);
@@ -45,6 +44,7 @@
       }
       return;
     }
+    creating = false;
     if (!$mnemonic) await generate();
   });
 

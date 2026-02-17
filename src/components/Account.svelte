@@ -194,28 +194,36 @@
         </div>
       {/if}
     </div>
-    <div class="flex items-start gap-4 shrink-0 text-black">
+    <div class="flex items-center gap-1 shrink-0 text-black">
       <a
         href="/payments"
-        class="hover:text-gray-800"
+        class="hover:text-gray-800 w-10 h-10 flex items-center justify-center"
         aria-label="Payment history"
         onclick={(e) => setAccount(e, "/payments")}
       >
-        <iconify-icon noobserver icon="ph:clock-counter-clockwise-bold" width="32"></iconify-icon>
+        <iconify-icon noobserver icon="ph:clock-counter-clockwise-bold" width="38"></iconify-icon>
       </a>
       <a
         href={`/account/${id}`}
-        class="hover:opacity-80"
+        class="hover:opacity-80 relative w-10 h-10 flex items-center justify-center"
         aria-label="Account settings"
         onclick={goSettings}
       >
         {#if isArk}
           <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
         {:else if seed || fingerprint}
-          <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+          <div class="w-8 h-8 flex items-center justify-center">
+            <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+          </div>
         {:else}
           <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
         {/if}
+        <iconify-icon
+          noobserver
+          icon="ph:gear-bold"
+          width="20"
+          class="absolute -bottom-1 -right-1 text-black bg-base-100 rounded-full"
+        ></iconify-icon>
       </a>
     </div>
   </div>

@@ -3,10 +3,12 @@
   import { onMount } from "svelte";
   import Account from "$comp/Account.svelte";
   import Balance from "$comp/Balance.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { t } from "$lib/translations";
   import { installPrompt, password } from "$lib/store";
-  import { afterNavigate, preloadData } from "$app/navigation";
+  import { afterNavigate, goto, invalidate, preloadData } from "$app/navigation";
   import { page } from "$app/stores";
+  import { versions, post, fail } from "$lib/utils";
 
   let { data } = $props();
 
@@ -17,6 +19,51 @@
 
   let { accounts, subject, rates, user } = $derived(data as any);
   let { locked } = $derived(user);
+  let hasArk = $derived(accounts.some((a: any) => a.type === "ark"));
+  let adding = $state(false);
+
+  let addAccount = async (e) => {
+    e.preventDefault();
+    if (!hasArk) {
+      goto("/account/new");
+      return;
+    }
+
+    adding = true;
+    try {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      const prfKey = await getWalletEntropy();
+      if (!prfKey) {
+        goto("/account/seed");
+        return;
+      }
+
+      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+        import("@scure/bip32"),
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
+
+      const entropy = new Uint8Array(prfKey);
+      const mn = entropyToMnemonic(entropy, wordlist);
+      const seed = await mnemonicToSeed(mn);
+      const master = HDKey.fromMasterSeed(seed, versions);
+      const child = master.derive("m/84'/0'/0'");
+      const pubkey = child.publicExtendedKey;
+      const fingerprint = child.fingerprint.toString(16).padStart(8, "0");
+      await post("/account", {
+        fingerprint,
+        pubkey,
+        name: $t("accounts.vault"),
+        type: "bitcoin",
+        accountIndex: 0,
+      });
+      invalidate("app:payments");
+    } catch (e: any) {
+      fail(e.message);
+    }
+    adding = false;
+  };
 
   let install = async () => {
     if (!$installPrompt) return;
@@ -64,12 +111,14 @@
       {#each accounts as account}
         <Account {user} {rates} {account} />
       {/each}
-      <a href="/account/seed" class="contents">
-        <button class="btn btn-accent w-full">
+      <button class="btn btn-accent w-full" onclick={addAccount}>
+        {#if adding}
+          <Spinner />
+        {:else}
           <iconify-icon noobserver icon="ph:plus-bold" width="24"></iconify-icon>
           {$t("accounts.addAccount")}
-        </button>
-      </a>
+        {/if}
+      </button>
     </div>
 
     {#if locked}

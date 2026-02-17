@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending, arkServerUrl } from "$lib/ark";
+  import { getWallet, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -22,10 +22,10 @@
   import AppHeader from "$comp/AppHeader.svelte";
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
-  import { s, f, toFiat, success, getCookie, warning, post, versions } from "$lib/utils";
+  import { s, f, toFiat, success, getCookie, warning, post } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
   import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
-  import { getCachedPrfKey } from "$lib/passwordCache";
+
 
   let { data, children } = $props();
 
@@ -127,51 +127,6 @@
     if (browser && user && $arkkey) initArk();
   });
 
-  let autoProvisionAccounts = async () => {
-    if (!user) return;
-    if (sessionStorage.getItem("accounts:provisioned")) return;
-    let prfKey = getCachedPrfKey();
-    if (!prfKey) {
-      const { getWalletEntropy } = await import("$lib/walletEntropy");
-      prfKey = await getWalletEntropy();
-    }
-    if (!prfKey) return;
-
-    sessionStorage.setItem("accounts:provisioned", "1");
-
-    try {
-      const res = await fetch("/account", { headers: { accept: "application/json" } });
-      const accounts = await res.json();
-
-      const hasArk = accounts.some((a: any) => a.type === "ark");
-      if (hasArk) return;
-
-      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
-        import("@scure/bip32"),
-        import("@scure/bip39"),
-        import("@scure/bip39/wordlists/english.js"),
-      ]);
-
-      const entropy = new Uint8Array(prfKey);
-      const mnemonic = entropyToMnemonic(entropy, wordlist);
-      const seed = await mnemonicToSeed(mnemonic);
-      const master = HDKey.fromMasterSeed(seed, versions);
-
-      const { SingleKey, Wallet } = await import("@arkade-os/sdk");
-      const { bytesToHex } = await import("@noble/hashes/utils.js");
-      const arkChild = master.derive("m/86'/0'/0'/0/0");
-      const arkHex = bytesToHex(arkChild.privateKey!);
-      const identity = SingleKey.fromHex(arkHex);
-      const wallet = await Wallet.create({ identity, arkServerUrl });
-      const arkAddress = await wallet.getAddress();
-      await post("/account", { name: $t("accounts.savings"), type: "ark", arkAddress });
-
-      invalidate("app:payments");
-    } catch (e) {
-      console.error("Auto-provision accounts failed:", e);
-      sessionStorage.removeItem("accounts:provisioned");
-    }
-  };
 
   onMount(async () => {
     if (browser) {
@@ -186,7 +141,6 @@
           localStorage.removeItem("arkkey:uid");
         }
 
-        autoProvisionAccounts();
       }
 
       // if (window.NDEFReader) {
