@@ -113,7 +113,7 @@
         import("@scure/bip39"),
         import("@scure/bip39/wordlists/english.js"),
       ]);
-    let entropy = new Uint8Array(prfKey);
+    let entropy = new Uint8Array(prfKey).slice(0, 16);
     let mnemonic = entropyToMnemonic(entropy, wordlist);
     let seed = await mnemonicToSeed(mnemonic);
     let master = HDKey.fromMasterSeed(seed, network as any);

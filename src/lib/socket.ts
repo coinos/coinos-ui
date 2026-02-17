@@ -1,7 +1,7 @@
 import { goto, invalidate } from "$app/navigation";
 import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
-import { event, invoice, last, request } from "$lib/store";
+import { event, importing, invoice, last, request } from "$lib/store";
 import { s, sleep, success, wait } from "$lib/utils";
 import cookies from "js-cookie";
 import { get } from "svelte/store";
@@ -40,10 +40,18 @@ export const messages = (data) => ({
   },
 
   async payment() {
-    const { amount, confirmed, iid } = data;
+    const { amount, confirmed, iid, aid, type } = data;
     invalidate("app:user");
     invalidate("app:invoice");
     invalidate("app:payments");
+
+    if (type === "import" && aid) {
+      importing.update((s) => {
+        s.delete(aid);
+        return new Set(s);
+      });
+      return;
+    }
 
     const {
       url: { pathname },

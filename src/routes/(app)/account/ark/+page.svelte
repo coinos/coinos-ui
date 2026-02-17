@@ -49,7 +49,7 @@
   let deriveFromPrfKey = async (prfKey: ArrayBuffer) => {
     try {
       const { SingleKey, Wallet } = await import("@arkade-os/sdk");
-      const entropy = new Uint8Array(prfKey);
+      const entropy = new Uint8Array(prfKey).slice(0, 16);
       const mnemonic = entropyToMnemonic(entropy, wordlist);
       const seed = await mnemonicToSeed(mnemonic);
       const master = HDKey.fromMasterSeed(seed, versions);

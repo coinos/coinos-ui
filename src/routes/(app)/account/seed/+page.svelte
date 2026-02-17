@@ -22,7 +22,7 @@
     const prfKey = await getWalletEntropy();
     if (prfKey) {
       try {
-        const entropy = new Uint8Array(prfKey);
+        const entropy = new Uint8Array(prfKey).slice(0, 16);
         const mn = entropyToMnemonic(entropy, wordlist);
         const seed = await mnemonicToSeed(mn);
         const master = HDKey.fromMasterSeed(seed, versions);

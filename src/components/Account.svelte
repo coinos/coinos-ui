@@ -8,7 +8,7 @@
   import Balance from "$comp/Balance.svelte";
   import { t } from "$lib/translations";
   import { versions, s, f, loc, toFiat } from "$lib/utils";
-  import { fiat } from "$lib/store";
+  import { fiat, importing } from "$lib/store";
   import { arkkey, arkaid } from "$lib/ark";
   import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
 
@@ -37,7 +37,7 @@
           import("@scure/bip39"),
           import("@scure/bip39/wordlists/english.js"),
         ]);
-        const entropy = new Uint8Array(prfKey);
+        const entropy = new Uint8Array(prfKey).slice(0, 16);
         const mnemonic = entropyToMnemonic(entropy, wordlist);
         const s = await mnemonicToSeed(mnemonic);
         const master = HDKey.fromMasterSeed(s, versions);
@@ -61,7 +61,7 @@
             import("@scure/bip39"),
             import("@scure/bip39/wordlists/english.js"),
           ]);
-          const entropy = new Uint8Array(nostrKey);
+          const entropy = new Uint8Array(nostrKey).slice(0, 16);
           const mnemonic = entropyToMnemonic(entropy, wordlist);
           const s = await mnemonicToSeed(mnemonic);
           const master = HDKey.fromMasterSeed(s, versions);
@@ -187,11 +187,15 @@
   <div class="flex items-start justify-between gap-4">
     <div>
       <div class="text-lg text-gray-400">{displayName}</div>
-      <Balance {balance} {user} {rate} {id} {currency} />
-      {#if pending}
-        <div class="text-lg text-gray-600">
-          +{$fiat && rate ? f(toFiat(pending, rate), currency, loc(user)) : s(pending)} {$t("accounts.pending")}
-        </div>
+      {#if $importing.has(id)}
+        <div class="text-lg text-gray-400">{$t("accounts.importing")}</div>
+      {:else}
+        <Balance {balance} {user} {rate} {id} {currency} />
+        {#if pending}
+          <div class="text-lg text-gray-600">
+            +{$fiat && rate ? f(toFiat(pending, rate), currency, loc(user)) : s(pending)} {$t("accounts.pending")}
+          </div>
+        {/if}
       {/if}
     </div>
     <div class="flex items-center gap-1 shrink-0 text-black">

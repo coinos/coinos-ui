@@ -6,6 +6,7 @@
   import WalletPass from "$comp/WalletPass.svelte";
   import { goto } from "$app/navigation";
   import { copy, fail, focus, post } from "$lib/utils";
+  import { importing } from "$lib/store";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
   import { tick } from "svelte";
@@ -81,7 +82,7 @@
 
   let isCustodial = $derived(!seed && account.type !== "ark");
 
-  let importing = $state(false);
+  let showImport = $state(false);
   let importText = $state("");
   let importSubmitting = $state(false);
 
@@ -105,7 +106,8 @@
         pubkey,
       });
 
-      importing = false;
+      $importing = new Set([...$importing, id]);
+      showImport = false;
       importText = "";
       goto(`/${user.username}`, { invalidateAll: true });
     } catch (e: any) {
@@ -122,7 +124,7 @@
     }
     if (!prfKey) return false;
     try {
-      const entropy = new Uint8Array(prfKey);
+      const entropy = new Uint8Array(prfKey).slice(0, 16);
       mnemonic = entropyToMnemonic(entropy, wordlist);
       return true;
     } catch (e) {
@@ -270,7 +272,7 @@
         {/if}
 
         {#if account.type === "bitcoin"}
-          {#if importing}
+          {#if showImport}
             <div class="space-y-2">
               <textarea
                 placeholder={$t("accounts.enterSeed")}
@@ -279,7 +281,7 @@
                 autocapitalize="none"
               ></textarea>
               <div class="flex gap-2">
-                <button type="button" class="btn !w-auto grow" onclick={() => (importing = false)}>
+                <button type="button" class="btn !w-auto grow" onclick={() => (showImport = false)}>
                   {$t("accounts.back")}
                 </button>
                 <button type="button" class="btn btn-accent !w-auto grow" onclick={importSeed} disabled={importSubmitting}>
@@ -292,7 +294,7 @@
               </div>
             </div>
           {:else}
-            <button type="button" class="btn" onclick={() => (importing = true)}>
+            <button type="button" class="btn" onclick={() => (showImport = true)}>
               <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
               <div class="my-auto">{$t("accounts.changeSeedPhrase")}</div>
             </button>

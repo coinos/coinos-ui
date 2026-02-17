@@ -44,7 +44,7 @@
         import("@scure/bip39/wordlists/english.js"),
       ]);
 
-      const entropy = new Uint8Array(prfKey);
+      const entropy = new Uint8Array(prfKey).slice(0, 16);
       const mn = entropyToMnemonic(entropy, wordlist);
       const seed = await mnemonicToSeed(mn);
       const master = HDKey.fromMasterSeed(seed, versions);

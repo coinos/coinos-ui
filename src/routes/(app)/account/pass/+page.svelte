@@ -42,7 +42,7 @@
       submitting = true;
       await tick();
       try {
-        const entropy = new Uint8Array(prfKey);
+        const entropy = new Uint8Array(prfKey).slice(0, 16);
         const mn = entropyToMnemonic(entropy, wordlist);
         const master = HDKey.fromMasterSeed(
           await mnemonicToSeed(mn),
