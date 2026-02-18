@@ -74,7 +74,7 @@
         {/if}
       </button>
 
-      <button use:focus bind:this={submit} type="submit" class="btn btn-accent !w-auto grow">
+      <button bind:this={submit} type="submit" class="btn btn-accent !w-auto grow" disabled={submitting || !amount}>
         {#if submitting}
           <Spinner />
         {:else}

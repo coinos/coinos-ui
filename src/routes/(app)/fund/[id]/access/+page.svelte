@@ -47,7 +47,7 @@
 
       <form method="post" use:enhance class="space-y-2">
         <input type="hidden" name="id" value={id} />
-        <input use:focus name="username" bind:value={username} placeholder={$t("funds.username")} />
+        <input use:focus name="username" bind:value={username} placeholder={$t("funds.username")} class="input" />
         <button type="submit" class="btn">
           <iconify-icon icon="ph:plus-bold" width="32"></iconify-icon>
           {$t("funds.addManager")}
