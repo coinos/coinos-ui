@@ -159,6 +159,10 @@
    }
 
    selectedChat = c;
+   if (!selectedChat) {
+     return;
+   }
+
    if (!includesPubkey(chats, c.pubkey)) {
      chats.unshift(c);
    }
