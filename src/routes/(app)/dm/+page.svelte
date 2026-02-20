@@ -445,7 +445,7 @@
     <div class={"sidebar " + ($theme === "light" ? "light-sidebar" : "dark-sidebar")}>
         <h2 class="text-xl chat-header">
             {creatingNewChat ? $t("dm.newChatHeader") : $t("dm.chatHeader")}
-            <button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectChat(null)}}>+</button>
+            <button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectChat(null); searchQuery = "";}}>+</button>
         </h2>
         {#if creatingNewChat}
             <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
