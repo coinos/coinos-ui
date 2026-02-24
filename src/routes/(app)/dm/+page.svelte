@@ -269,6 +269,7 @@
  const sendMessage = async (message: string) => {
    const expiry = expiryEnabled ? expiryDays : null;
    await libnip17.send(message, user, selectedChat, expiry);
+   text = "";
    updateEvents();
  }
 
