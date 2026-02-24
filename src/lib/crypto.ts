@@ -2,17 +2,11 @@ export function isPrfEncrypted(value: string): boolean {
   return value.startsWith("{");
 }
 
-async function importPrfKey(
-  prfKey: ArrayBuffer,
-  usages: KeyUsage[],
-): Promise<CryptoKey> {
+async function importPrfKey(prfKey: ArrayBuffer, usages: KeyUsage[]): Promise<CryptoKey> {
   return crypto.subtle.importKey("raw", prfKey, "AES-GCM", false, usages);
 }
 
-export async function prfEncrypt(
-  prfKey: ArrayBuffer,
-  plaintext: Uint8Array,
-): Promise<string> {
+export async function prfEncrypt(prfKey: ArrayBuffer, plaintext: Uint8Array): Promise<string> {
   const key = await importPrfKey(prfKey, ["encrypt"]);
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const ciphertext = new Uint8Array(
@@ -29,10 +23,7 @@ export async function prfEncrypt(
   });
 }
 
-export async function prfDecrypt(
-  prfKey: ArrayBuffer,
-  encrypted: string,
-): Promise<Uint8Array> {
+export async function prfDecrypt(prfKey: ArrayBuffer, encrypted: string): Promise<Uint8Array> {
   const { iv, ct } = JSON.parse(encrypted);
   const key = await importPrfKey(prfKey, ["decrypt"]);
   const ivBytes = fromBase64Url(iv);

@@ -9,9 +9,7 @@ import {
   waitForSentRedirect,
 } from "./helpers";
 
-test("custodial sends to external bitcoin address (bitcoind)", async ({
-  browser,
-}) => {
+test("custodial sends to external bitcoin address (bitcoind)", async ({ browser }) => {
   test.setTimeout(90_000);
 
   // --- Get external bitcoin address from 'external' wallet (NOT 'coinos' hot wallet) ---

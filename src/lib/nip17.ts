@@ -5,18 +5,18 @@ import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { unwrapEvent } from "nostr-tools/nip17";
 
-import { ensureSigner } from '$lib/nip07';
-import { relaysSupporting } from '$lib/nip11';
-import { expired, expiration } from '$lib/nip40';
-import { encrypt, u } from '$lib/nip44';
+import { ensureSigner } from "$lib/nip07";
+import { relaysSupporting } from "$lib/nip11";
+import { expired, expiration } from "$lib/nip40";
+import { encrypt, u } from "$lib/nip44";
 
 const TWO_DAYS = 2 * 24 * 60 * 60;
 const randomTimestamp = () => Math.floor(Date.now() / 1000 - Math.random() * TWO_DAYS);
 const pool = new SimplePool();
 let relayListCache = new Map();
 
-import { PUBLIC_DM_RELAYS } from '$env/static/public';
-const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(',');
+import { PUBLIC_DM_RELAYS } from "$env/static/public";
+const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(",");
 const DM_FETCH_LIMIT = 65536;
 
 // Create a NIP-17 message using a provided sender secret key.
@@ -283,7 +283,14 @@ const publishToPreferred = async (
   }
 };
 
-const createAndPublishMessageEvent = async (sk: Uint8Array | null, message: string, userPK: string, recipientPK: string, eventFor: string, expiryDays?: number) => {
+const createAndPublishMessageEvent = async (
+  sk: Uint8Array | null,
+  message: string,
+  userPK: string,
+  recipientPK: string,
+  eventFor: string,
+  expiryDays?: number,
+) => {
   let event;
   if (sk === null) {
     event = await createNIP17MessageNIP07(message, userPK, recipientPK, eventFor, expiryDays);
@@ -303,12 +310,30 @@ export const send = async (message: string, user: any, recipient: any, expiryDay
 
   if (user.pubkey === recipient.pubkey) {
     return createAndPublishMessageEvent(
-      sk, message, user.pubkey, recipient.pubkey, user.pubkey, expiryDays);
+      sk,
+      message,
+      user.pubkey,
+      recipient.pubkey,
+      user.pubkey,
+      expiryDays,
+    );
   } else {
     const p1 = createAndPublishMessageEvent(
-      sk, message, user.pubkey, recipient.pubkey, recipient.pubkey, expiryDays);
+      sk,
+      message,
+      user.pubkey,
+      recipient.pubkey,
+      recipient.pubkey,
+      expiryDays,
+    );
     const p2 = createAndPublishMessageEvent(
-      sk, message, user.pubkey, recipient.pubkey, user.pubkey, expiryDays);
+      sk,
+      message,
+      user.pubkey,
+      recipient.pubkey,
+      user.pubkey,
+      expiryDays,
+    );
     return Promise.all([p1, p2]);
   }
 };

@@ -10,8 +10,7 @@ const DERIVATION_EVENT = {
 
 async function hashSignature(sig: string): Promise<ArrayBuffer> {
   const sigBytes = new Uint8Array(sig.length / 2);
-  for (let i = 0; i < sig.length; i += 2)
-    sigBytes[i / 2] = parseInt(sig.slice(i, i + 2), 16);
+  for (let i = 0; i < sig.length; i += 2) sigBytes[i / 2] = parseInt(sig.slice(i, i + 2), 16);
   return crypto.subtle.digest("SHA-256", sigBytes);
 }
 

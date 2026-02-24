@@ -10,18 +10,13 @@ import {
   waitForPaidRedirect,
 } from "./helpers";
 
-test("custodial receives external bitcoin payment from bitcoind", async ({
-  page,
-}) => {
+test("custodial receives external bitcoin payment from bitcoind", async ({ page }) => {
   test.setTimeout(120_000);
 
   // --- Alice: log in and create bitcoin invoice ---
   await login(page, aliceUsername, alicePassword);
 
-  const { invoiceId, address } = await createBitcoinInvoiceViaUI(
-    page,
-    aliceUsername,
-  );
+  const { invoiceId, address } = await createBitcoinInvoiceViaUI(page, aliceUsername);
   console.log(`[e2e] Alice bitcoin address: ${address}`);
   console.log(`[e2e] Alice invoice ID: ${invoiceId}`);
 
@@ -40,18 +35,13 @@ test("custodial receives external bitcoin payment from bitcoind", async ({
     interval: 2000,
     maxAttempts: 30,
   });
-  console.log(
-    `[e2e] Invoice paid: received=${status?.received}, pending=${status?.pending}`,
-  );
+  console.log(`[e2e] Invoice paid: received=${status?.received}, pending=${status?.pending}`);
 
   // --- Alice: should be redirected to /paid ---
   await waitForPaidRedirect(page, invoiceId, 30_000);
   console.log(`[e2e] Alice redirected to paid: ${page.url()}`);
 
-  const successText = await page
-    .locator("h1")
-    .first()
-    .innerText({ timeout: 5_000 });
+  const successText = await page.locator("h1").first().innerText({ timeout: 5_000 });
   expect(
     successText.toLowerCase().includes("payment") ||
       successText.toLowerCase().includes("success") ||

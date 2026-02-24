@@ -42,15 +42,11 @@ test("custodial-to-custodial via lightning bolt11 sends internally and notifies 
   expect(invoiceId).toBeTruthy();
 
   // Get the bolt11 payreq
-  const invDetailRes = await alicePage.request.get(
-    `${apiBaseUrl}/invoice/${invoiceId}`,
-  );
+  const invDetailRes = await alicePage.request.get(`${apiBaseUrl}/invoice/${invoiceId}`);
   const invDetail = await invDetailRes.json();
   const bolt11 = invDetail.text;
   expect(bolt11).toBeTruthy();
-  console.log(
-    `[e2e] Alice bolt11 invoice: ${invoiceId}, bolt11: ${bolt11.substring(0, 40)}...`,
-  );
+  console.log(`[e2e] Alice bolt11 invoice: ${invoiceId}, bolt11: ${bolt11.substring(0, 40)}...`);
 
   // Alice navigates to invoice page (subscribes to websocket notifications)
   await alicePage.goto(`/invoice/${invoiceId}`);
@@ -76,10 +72,7 @@ test("custodial-to-custodial via lightning bolt11 sends internally and notifies 
     await noTipButton.click();
 
     // After skipping tip, redirects to /invoice/{id} → then to /send/invoice/{id}
-    await bobPage.waitForURL(
-      (url) => !url.pathname.includes("/tip"),
-      { timeout: 15_000 },
-    );
+    await bobPage.waitForURL((url) => !url.pathname.includes("/tip"), { timeout: 15_000 });
     bobUrl = bobPage.url();
     console.log(`[e2e] After tip skip: ${bobUrl}`);
   }
@@ -114,10 +107,7 @@ test("custodial-to-custodial via lightning bolt11 sends internally and notifies 
   await waitForPaidRedirect(alicePage, invoiceId, 30_000);
   console.log(`[e2e] Alice redirected to: ${alicePage.url()}`);
 
-  const successText = await alicePage
-    .locator("h1")
-    .first()
-    .innerText({ timeout: 5_000 });
+  const successText = await alicePage.locator("h1").first().innerText({ timeout: 5_000 });
   expect(
     successText.toLowerCase().includes("payment") ||
       successText.toLowerCase().includes("success") ||

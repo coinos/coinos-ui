@@ -9,9 +9,7 @@ import {
   waitForSentRedirect,
 } from "./helpers";
 
-test("custodial sends to external lightning node (clb) via bolt11", async ({
-  browser,
-}) => {
+test("custodial sends to external lightning node (clb) via bolt11", async ({ browser }) => {
   test.setTimeout(90_000);
 
   // --- Create bolt11 on external node (clb) ---

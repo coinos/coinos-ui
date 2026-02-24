@@ -24,10 +24,7 @@ test("custodial sends to external ark address", async ({ browser }) => {
     alicePassword,
   );
 
-  const { address: arkAddress } = await createArkInvoiceViaUI(
-    alicePage,
-    alicePassword,
-  );
+  const { address: arkAddress } = await createArkInvoiceViaUI(alicePage, alicePassword);
   console.log(`[e2e] Alice ark address: ${arkAddress}`);
 
   await aliceContext.close();

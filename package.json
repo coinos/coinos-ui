@@ -16,7 +16,8 @@
     "test:e2e:ark:debug": "test/e2e/run.sh debug",
     "lint": "oxlint . && oxfmt --check .",
     "lint:fix": "oxlint --fix . && oxfmt .",
-    "format": "oxfmt ."
+    "format": "oxfmt .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@arkade-os/sdk": "^0.3.12",
@@ -52,8 +53,10 @@
     "daisyui": "^5.5.17",
     "date-fns": "^4.1.0",
     "esptool-js": "^0.5.7",
+    "husky": "^9.1.7",
     "iconify-icon": "^3.0.2",
     "js-cookie": "^3.0.5",
+    "lint-staged": "^16.2.7",
     "nostr-tools": "^2.23.0",
     "oxfmt": "^0.35.0",
     "oxlint": "^1.35.0",

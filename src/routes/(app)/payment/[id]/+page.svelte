@@ -144,7 +144,7 @@
   <div>
     <span class="text-lg text-secondary">{$t("payments.date")}</span>
     <div>
-      {format(new Date(created), "MMM d, yyyy", { locale })} {format(new Date(created), "h:mmaaa", { locale })}
+      {format(new Date(created), "MMM d, yyyy", { locale })}{format(new Date(created), "h:mmaaa", { locale })}
     </div>
   </div>
 
@@ -199,7 +199,10 @@
       <span class="text-lg text-secondary">Txid</span>
       <div class="flex">
         <div>{hash}</div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(hash)} aria-label="Copy transaction ID"
+        <button
+          class="flex font-bold hover:opacity-80 mb-auto my-auto"
+          onclick={() => copy(hash)}
+          aria-label="Copy transaction ID"
         ></button>
       </div>
     </div>
@@ -218,7 +221,10 @@
             {txid}
           </a>
         </div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(txid)} aria-label="Copy transaction ID"
+        <button
+          class="flex font-bold hover:opacity-80 mb-auto my-auto"
+          onclick={() => copy(txid)}
+          aria-label="Copy transaction ID"
         ></button>
       </div>
     </div>
@@ -229,7 +235,10 @@
       <span class="text-lg text-secondary">Path</span>
       <div class="flex">
         <div>{path}</div>
-        <button class="flex font-bold hover:opacity-80 mb-auto my-auto" onclick={() => copy(path)} aria-label="Copy path"
+        <button
+          class="flex font-bold hover:opacity-80 mb-auto my-auto"
+          onclick={() => copy(path)}
+          aria-label="Copy path"
         ></button>
       </div>
     </div>

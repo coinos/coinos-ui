@@ -10,9 +10,7 @@ import {
   setActiveAccount,
 } from "./helpers";
 
-test("bitcoin vault sends to external bitcoin address with PSBT signing", async ({
-  page,
-}) => {
+test("bitcoin vault sends to external bitcoin address with PSBT signing", async ({ page }) => {
   test.setTimeout(120_000);
 
   // Capture console errors for debugging
@@ -30,9 +28,7 @@ test("bitcoin vault sends to external bitcoin address with PSBT signing", async 
   await login(page, aliceUsername, alicePassword);
 
   // --- Find the bitcoin vault account and switch to it ---
-  const vaultCard = page.locator(
-    '[data-testid="account-card"][data-account-type="bitcoin"]',
-  );
+  const vaultCard = page.locator('[data-testid="account-card"][data-account-type="bitcoin"]');
   const vaultCount = await vaultCard.count();
   if (vaultCount === 0) {
     test.skip(true, "No bitcoin vault account found");
@@ -81,9 +77,7 @@ test("bitcoin vault sends to external bitcoin address with PSBT signing", async 
   }
 
   // Click Send — this triggers the WalletPass dialog for vault accounts
-  const sendButton = page.locator(
-    'button[type="submit"]:not([data-testid="walletpass-submit"])',
-  );
+  const sendButton = page.locator('button[type="submit"]:not([data-testid="walletpass-submit"])');
   await expect(sendButton).toBeVisible({ timeout: 5_000 });
   await sendButton.click();
 
@@ -130,16 +124,12 @@ test("bitcoin vault sends to external bitcoin address with PSBT signing", async 
           // Client-side PSBT signing may fail if esplora/PSBT format is not
           // properly configured in the test environment
           const signingError = consoleErrors.some(
-            (e) =>
-              e.includes("invalid tag") ||
-              e.includes("decrypt") ||
-              e.includes("PSBT"),
+            (e) => e.includes("invalid tag") || e.includes("decrypt") || e.includes("PSBT"),
           );
           if (signingError) {
             test.skip(
               true,
-              "PSBT signing failed (likely test env issue): " +
-                consoleErrors.join("; "),
+              "PSBT signing failed (likely test env issue): " + consoleErrors.join("; "),
             );
             return;
           }
@@ -148,9 +138,7 @@ test("bitcoin vault sends to external bitcoin address with PSBT signing", async 
       }
     }
   } else {
-    console.log(
-      "[e2e] No WalletPass (cached password), waiting for redirect...",
-    );
+    console.log("[e2e] No WalletPass (cached password), waiting for redirect...");
     await waitForSentRedirect(page, 30_000);
   }
 

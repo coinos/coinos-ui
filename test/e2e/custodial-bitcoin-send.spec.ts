@@ -21,8 +21,10 @@ test("custodial-to-custodial via bitcoin address sends internally and notifies r
     alicePassword,
   );
 
-  const { invoiceId, address: bitcoinAddress } =
-    await createBitcoinInvoiceViaUI(alicePage, aliceUsername);
+  const { invoiceId, address: bitcoinAddress } = await createBitcoinInvoiceViaUI(
+    alicePage,
+    aliceUsername,
+  );
 
   console.log(`[e2e] Alice custodial bitcoin address: ${bitcoinAddress}`);
   console.log(`[e2e] Alice invoice ID: ${invoiceId}`);
@@ -43,14 +45,8 @@ test("custodial-to-custodial via bitcoin address sends internally and notifies r
   console.log(`[e2e] Bob navigated to: ${bobUrl}`);
 
   // Verify it went to /send/invoice/ (internal send via original invoice)
-  expect(
-    bobUrl,
-    `Expected /send/invoice/ URL but got: ${bobUrl}`,
-  ).toContain("/send/invoice/");
-  expect(
-    bobUrl,
-    `Should NOT redirect to /pay/ but got: ${bobUrl}`,
-  ).not.toContain("/pay/");
+  expect(bobUrl, `Expected /send/invoice/ URL but got: ${bobUrl}`).toContain("/send/invoice/");
+  expect(bobUrl, `Should NOT redirect to /pay/ but got: ${bobUrl}`).not.toContain("/pay/");
 
   // Bob should see the Numpad (no amount set on the invoice)
   const amountInput = bobPage.locator('[aria-label="Amount input"]');
@@ -89,7 +85,9 @@ test("custodial-to-custodial via bitcoin address sends internally and notifies r
   // Verify Alice sees the payment success page
   const successText = await alicePage.locator("h1").first().innerText({ timeout: 5_000 });
   expect(
-    successText.toLowerCase().includes("payment") || successText.toLowerCase().includes("success") || successText.toLowerCase().includes("detected"),
+    successText.toLowerCase().includes("payment") ||
+      successText.toLowerCase().includes("success") ||
+      successText.toLowerCase().includes("detected"),
     `Expected payment success text, got: ${successText}`,
   ).toBeTruthy();
 

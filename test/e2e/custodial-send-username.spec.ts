@@ -54,10 +54,7 @@ test("custodial-to-custodial via username (/pay/) sends and notifies recipient",
 
   // The form creates an invoice. If Alice has tip prompt, we go to /invoice/{id}/tip
   // Otherwise we go to /invoice/{id} which loads the send page
-  await bobPage.waitForURL(
-    (url) => !url.pathname.startsWith("/pay/"),
-    { timeout: 15_000 },
-  );
+  await bobPage.waitForURL((url) => !url.pathname.startsWith("/pay/"), { timeout: 15_000 });
 
   const afterPayUrl = bobPage.url();
   console.log(`[e2e] After /pay/ submit: ${afterPayUrl}`);
@@ -71,10 +68,7 @@ test("custodial-to-custodial via username (/pay/) sends and notifies recipient",
 
     // After skipping tip, we get redirected to /invoice/{id}
     // which should then load as /send/invoice/{id} for the payer
-    await bobPage.waitForURL(
-      (url) => !url.pathname.includes("/tip"),
-      { timeout: 15_000 },
-    );
+    await bobPage.waitForURL((url) => !url.pathname.includes("/tip"), { timeout: 15_000 });
     console.log(`[e2e] After tip skip: ${bobPage.url()}`);
   }
 

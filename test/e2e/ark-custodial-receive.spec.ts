@@ -9,9 +9,7 @@ import {
   sendArkFromTestEndpoint,
 } from "./helpers";
 
-test("custodial account receives ark payment via vault forward", async ({
-  page,
-}) => {
+test("custodial account receives ark payment via vault forward", async ({ page }) => {
   test.setTimeout(120_000);
   test.skip(!testSecret, "E2E_TEST_SECRET is required");
 
@@ -20,9 +18,7 @@ test("custodial account receives ark payment via vault forward", async ({
 
   // 2. Create ark invoice via the vault account (needs wallet unlock)
   const { invoiceId, address } = await createArkInvoiceViaUI(page, bobPassword);
-  console.log(
-    `[e2e] Created ark invoice ${invoiceId} on vault account, address: ${address}`,
-  );
+  console.log(`[e2e] Created ark invoice ${invoiceId} on vault account, address: ${address}`);
 
   // 3. Stay on invoice page (subscribe to websocket notifications)
   await page.goto(`/invoice/${invoiceId}`);
@@ -39,9 +35,7 @@ test("custodial account receives ark payment via vault forward", async ({
   let status: any;
 
   for (let i = 0; i < 60; i++) {
-    const statusResponse = await page.request.get(
-      `${apiBaseUrl}/invoice/${invoiceId}`,
-    );
+    const statusResponse = await page.request.get(`${apiBaseUrl}/invoice/${invoiceId}`);
     if (statusResponse.ok()) {
       status = await statusResponse.json();
       if ((status?.received || 0) >= 1000) {
@@ -52,10 +46,7 @@ test("custodial account receives ark payment via vault forward", async ({
     await page.waitForTimeout(2000);
   }
 
-  expect(
-    paid,
-    `Custodial ark forward did not complete: ${JSON.stringify(status)}`,
-  ).toBeTruthy();
+  expect(paid, `Custodial ark forward did not complete: ${JSON.stringify(status)}`).toBeTruthy();
 
   console.log(
     `[e2e] Custodial ark receive complete: invoice ${invoiceId} received=${status?.received}`,

@@ -8,8 +8,7 @@ export const alicePassword = process.env.E2E_ALICE_PASSWORD || "pw";
 export const bobUsername = process.env.E2E_BOB_USERNAME || "bob";
 export const bobPassword = process.env.E2E_BOB_PASSWORD || "pw";
 export const testSecret = process.env.E2E_TEST_SECRET;
-export const apiBaseUrl =
-  process.env.E2E_API_BASE_URL || "http://localhost:3119";
+export const apiBaseUrl = process.env.E2E_API_BASE_URL || "http://localhost:3119";
 export const pauseAtEnd = process.env.E2E_PAUSE_AT_END === "true";
 
 // --- Login helpers ---
@@ -32,11 +31,7 @@ export async function login(page: Page, username: string, password: string) {
   throw new Error(`Login failed for ${username} after 5 attempts`);
 }
 
-export async function loginNewContext(
-  browser: Browser,
-  username: string,
-  password: string,
-) {
+export async function loginNewContext(browser: Browser, username: string, password: string) {
   const context = await browser.newContext();
   const page = await context.newPage();
   await login(page, username, password);
@@ -66,20 +61,14 @@ export async function apiGetInvoice(page: Page, invoiceId: string) {
 
 // --- Invoice creation via UI ---
 
-export async function createBitcoinInvoiceViaUI(
-  page: Page,
-  username: string,
-) {
+export async function createBitcoinInvoiceViaUI(page: Page, username: string) {
   await page.goto(`/${username}/receive?address_type=bech32`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
   const invoiceId = page.url().match(/\/invoice\/([^/?#]+)/)?.[1];
   expect(invoiceId, "Should have invoice ID in URL").toBeTruthy();
 
-  const invoiceText = await page
-    .getByTestId("invoice-text")
-    .first()
-    .innerText({ timeout: 10_000 });
+  const invoiceText = await page.getByTestId("invoice-text").first().innerText({ timeout: 10_000 });
   const address = invoiceText.trim().replace(/\s+/g, "");
   expect(
     address.startsWith("bcrt1") || address.startsWith("bc1"),
@@ -89,10 +78,7 @@ export async function createBitcoinInvoiceViaUI(
   return { invoiceId: invoiceId!, address };
 }
 
-export async function createLightningInvoiceViaUI(
-  page: Page,
-  username: string,
-) {
+export async function createLightningInvoiceViaUI(page: Page, username: string) {
   await page.goto(`/${username}/receive`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
@@ -118,8 +104,7 @@ export async function createLightningInvoiceViaUI(
   const bolt11 = invoiceText.replace(/\s+/g, "");
 
   expect(
-    bolt11.toLowerCase().startsWith("lnbcrt") ||
-      bolt11.toLowerCase().startsWith("lnbc"),
+    bolt11.toLowerCase().startsWith("lnbcrt") || bolt11.toLowerCase().startsWith("lnbc"),
     `Expected bolt11, got: ${bolt11.substring(0, 30)}`,
   ).toBeTruthy();
 
@@ -127,9 +112,7 @@ export async function createLightningInvoiceViaUI(
 }
 
 export async function createArkInvoiceViaUI(page: Page, password: string) {
-  const arkCard = page.locator(
-    '[data-testid="account-card"][data-account-type="ark"]',
-  );
+  const arkCard = page.locator('[data-testid="account-card"][data-account-type="ark"]');
   await expect(arkCard.first()).toBeVisible({ timeout: 10_000 });
 
   const walletPassInput = page.getByTestId("walletpass-input");
@@ -140,10 +123,7 @@ export async function createArkInvoiceViaUI(page: Page, password: string) {
     const card = arkCard.nth(i);
     await card.scrollIntoViewIfNeeded();
 
-    const accountHref = await card
-      .locator('a[href^="/account/"]')
-      .first()
-      .getAttribute("href");
+    const accountHref = await card.locator('a[href^="/account/"]').first().getAttribute("href");
     const accountId = accountHref?.split("/account/")[1];
 
     await card.locator('a[href="/invoice"]').first().click();
@@ -188,9 +168,7 @@ export async function createArkInvoiceViaUI(page: Page, password: string) {
 
   expect(invoiceOpened).toBeTruthy();
 
-  const invoiceText = (
-    await page.getByTestId("invoice-text").first().innerText()
-  ).trim();
+  const invoiceText = (await page.getByTestId("invoice-text").first().innerText()).trim();
   const addressMatch = invoiceText.match(/t?ark1[a-z0-9]+/i);
   expect(addressMatch).toBeTruthy();
 
@@ -201,18 +179,13 @@ export async function createArkInvoiceViaUI(page: Page, password: string) {
 }
 
 export async function createVaultBitcoinInvoiceViaUI(page: Page) {
-  const vaultCard = page.locator(
-    '[data-testid="account-card"][data-account-type="bitcoin"]',
-  );
+  const vaultCard = page.locator('[data-testid="account-card"][data-account-type="bitcoin"]');
   await expect(vaultCard.first()).toBeVisible({ timeout: 10_000 });
 
   await vaultCard.first().getByTestId("account-receive").click();
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 10_000 });
 
-  const invoiceText = await page
-    .getByTestId("invoice-text")
-    .first()
-    .innerText({ timeout: 10_000 });
+  const invoiceText = await page.getByTestId("invoice-text").first().innerText({ timeout: 10_000 });
   const address = invoiceText.trim().replace(/\s+/g, "");
   expect(
     address.startsWith("bcrt1") || address.startsWith("bc1"),
@@ -237,10 +210,9 @@ export async function pasteAndSend(page: Page, text: string) {
   await page.locator('button[type="submit"]').first().click();
 
   // Wait for navigation away from /send
-  await page.waitForURL(
-    (url) => url.pathname !== "/send" && url.pathname !== "/send/",
-    { timeout: 15_000 },
-  );
+  await page.waitForURL((url) => url.pathname !== "/send" && url.pathname !== "/send/", {
+    timeout: 15_000,
+  });
 }
 
 export async function fillNumpadAmount(page: Page, amount: number) {
@@ -265,15 +237,8 @@ export async function waitForSentRedirect(page: Page, timeout = 15_000) {
   await page.waitForURL(/\/sent\//, { timeout });
 }
 
-export async function waitForPaidRedirect(
-  page: Page,
-  invoiceId: string,
-  timeout = 30_000,
-) {
-  await page.waitForURL(
-    new RegExp(`/invoice/${invoiceId}/paid(?:[/?#]|$)`),
-    { timeout },
-  );
+export async function waitForPaidRedirect(page: Page, invoiceId: string, timeout = 30_000) {
+  await page.waitForURL(new RegExp(`/invoice/${invoiceId}/paid(?:[/?#]|$)`), { timeout });
 }
 
 // --- Docker helpers ---
@@ -290,18 +255,12 @@ export function lightningPay(bolt11: string): string {
 }
 
 export function lightningInvoice(amountMsat: number, label: string): string {
-  const result = dockerExec(
-    "clb",
-    `lightning-cli invoice ${amountMsat} "${label}" "${label}"`,
-  );
+  const result = dockerExec("clb", `lightning-cli invoice ${amountMsat} "${label}" "${label}"`);
   return JSON.parse(result).bolt11 as string;
 }
 
 export function getBitcoinAddress(): string {
-  return dockerExec(
-    "bc",
-    "bitcoin-cli -regtest -rpcwallet=external getnewaddress",
-  );
+  return dockerExec("bc", "bitcoin-cli -regtest -rpcwallet=external getnewaddress");
 }
 
 export function bitcoinSend(address: string, amountBtc: string): string {
@@ -312,14 +271,8 @@ export function bitcoinSend(address: string, amountBtc: string): string {
 }
 
 export function mineBlocks(n: number): void {
-  const minerAddr = dockerExec(
-    "bc",
-    "bitcoin-cli -regtest -rpcwallet=coinos getnewaddress",
-  );
-  dockerExec(
-    "bc",
-    `bitcoin-cli -regtest -rpcwallet=coinos generatetoaddress ${n} "${minerAddr}"`,
-  );
+  const minerAddr = dockerExec("bc", "bitcoin-cli -regtest -rpcwallet=coinos getnewaddress");
+  dockerExec("bc", `bitcoin-cli -regtest -rpcwallet=coinos generatetoaddress ${n} "${minerAddr}"`);
 }
 
 // --- Polling helpers ---
@@ -335,10 +288,7 @@ export async function waitForInvoicePaid(
     const res = await page.request.get(`${apiBaseUrl}/invoice/${invoiceId}`);
     if (res.ok()) {
       status = await res.json();
-      if (
-        (status?.received || 0) >= amount ||
-        (status?.pending || 0) >= amount
-      ) {
+      if ((status?.received || 0) >= amount || (status?.pending || 0) >= amount) {
         return status;
       }
     }

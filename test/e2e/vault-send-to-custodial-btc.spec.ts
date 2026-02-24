@@ -39,9 +39,7 @@ test("vault sending to custodial bitcoin address stays on /send/bitcoin, not /se
   const { id: invoiceId } = await invoiceRes.json();
   expect(invoiceId).toBeTruthy();
 
-  const invDetail = await (
-    await bobPage.request.get(`${apiBaseUrl}/invoice/${invoiceId}`)
-  ).json();
+  const invDetail = await (await bobPage.request.get(`${apiBaseUrl}/invoice/${invoiceId}`)).json();
   const custodialAddress = invDetail.text;
   expect(custodialAddress).toBeTruthy();
   console.log(`[e2e] Bob custodial bitcoin address: ${custodialAddress}`);
@@ -55,9 +53,7 @@ test("vault sending to custodial bitcoin address stays on /send/bitcoin, not /se
   );
 
   // Find the bitcoin vault account and switch to it
-  const vaultCard = alicePage.locator(
-    '[data-testid="account-card"][data-account-type="bitcoin"]',
-  );
+  const vaultCard = alicePage.locator('[data-testid="account-card"][data-account-type="bitcoin"]');
   const vaultCount = await vaultCard.count();
   if (vaultCount === 0) {
     test.skip(true, "No bitcoin vault account found");
@@ -83,14 +79,10 @@ test("vault sending to custodial bitcoin address stays on /send/bitcoin, not /se
   console.log(`[e2e] After paste, Alice navigated to: ${finalUrl}`);
 
   // Should stay on /send/bitcoin (on-chain), NOT redirect to /send/invoice (internal)
-  expect(
-    finalUrl,
-    `Expected /send/bitcoin/ URL but got: ${finalUrl}`,
-  ).toContain("/send/bitcoin/");
-  expect(
-    finalUrl,
-    `Should NOT redirect to /send/invoice/ but got: ${finalUrl}`,
-  ).not.toContain("/send/invoice/");
+  expect(finalUrl, `Expected /send/bitcoin/ URL but got: ${finalUrl}`).toContain("/send/bitcoin/");
+  expect(finalUrl, `Should NOT redirect to /send/invoice/ but got: ${finalUrl}`).not.toContain(
+    "/send/invoice/",
+  );
 
   await aliceContext.close();
 });

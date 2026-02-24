@@ -24,7 +24,9 @@ export const u = {
   },
 
   getConversationKey(privkeyA: string, pubkeyB: string): Uint8Array {
-    const sharedX = secp256k1.getSharedSecret(hexToBytes(privkeyA), hexToBytes("02" + pubkeyB)).subarray(1, 33);
+    const sharedX = secp256k1
+      .getSharedSecret(hexToBytes(privkeyA), hexToBytes("02" + pubkeyB))
+      .subarray(1, 33);
     return hkdf_extract(sha256, sharedX, utf8ToBytes("nip44-v2"));
   },
 

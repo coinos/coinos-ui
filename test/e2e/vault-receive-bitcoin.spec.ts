@@ -10,9 +10,7 @@ import {
   waitForPaidRedirect,
 } from "./helpers";
 
-test("bitcoin vault receives external bitcoin payment from bitcoind", async ({
-  page,
-}) => {
+test("bitcoin vault receives external bitcoin payment from bitcoind", async ({ page }) => {
   test.setTimeout(120_000);
 
   // --- Alice: log in and create vault bitcoin invoice ---
@@ -37,9 +35,7 @@ test("bitcoin vault receives external bitcoin payment from bitcoind", async ({
     interval: 2000,
     maxAttempts: 30,
   });
-  console.log(
-    `[e2e] Vault invoice paid: received=${status?.received}, pending=${status?.pending}`,
-  );
+  console.log(`[e2e] Vault invoice paid: received=${status?.received}, pending=${status?.pending}`);
 
   // --- Alice: should be redirected to /paid ---
   const paidReached = await page
@@ -52,9 +48,7 @@ test("bitcoin vault receives external bitcoin payment from bitcoind", async ({
   if (paidReached) {
     console.log(`[e2e] Alice redirected to paid: ${page.url()}`);
   } else {
-    console.log(
-      `[e2e] No /paid redirect (vault may not auto-redirect), current: ${page.url()}`,
-    );
+    console.log(`[e2e] No /paid redirect (vault may not auto-redirect), current: ${page.url()}`);
   }
 
   // Vault payments may show as pending — verify the invoice API shows received/pending

@@ -42,8 +42,7 @@ export const actions = {
   passkey: async ({ cookies, fetch, request }) => {
     const form = await fd(request);
     let { credential, challengeId, loginRedirect } = form;
-    if (loginRedirect === "null" || loginRedirect === "undefined")
-      loginRedirect = undefined;
+    if (loginRedirect === "null" || loginRedirect === "undefined") loginRedirect = undefined;
     credential = JSON.parse(credential);
 
     const maxAge = 380 * 24 * 60 * 60;

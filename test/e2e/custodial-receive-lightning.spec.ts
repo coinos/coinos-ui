@@ -9,9 +9,7 @@ import {
   waitForPaidRedirect,
 } from "./helpers";
 
-test("custodial receives external lightning payment from clb", async ({
-  page,
-}) => {
+test("custodial receives external lightning payment from clb", async ({ page }) => {
   test.setTimeout(90_000);
 
   // --- Alice: log in and create a lightning invoice with amount via API ---
@@ -35,15 +33,11 @@ test("custodial receives external lightning payment from clb", async ({
   expect(invoiceId).toBeTruthy();
 
   // Get the bolt11 payreq
-  const invDetailRes = await page.request.get(
-    `${apiBaseUrl}/invoice/${invoiceId}`,
-  );
+  const invDetailRes = await page.request.get(`${apiBaseUrl}/invoice/${invoiceId}`);
   const invDetail = await invDetailRes.json();
   const bolt11 = invDetail.text;
   expect(bolt11).toBeTruthy();
-  console.log(
-    `[e2e] Alice lightning invoice: ${invoiceId}, bolt11: ${bolt11.substring(0, 40)}...`,
-  );
+  console.log(`[e2e] Alice lightning invoice: ${invoiceId}, bolt11: ${bolt11.substring(0, 40)}...`);
 
   // Navigate to the invoice page (Alice subscribes to websocket notifications)
   await page.goto(`/invoice/${invoiceId}`);
@@ -62,25 +56,17 @@ test("custodial receives external lightning payment from clb", async ({
     interval: 1000,
     maxAttempts: 15,
   });
-  console.log(
-    `[e2e] Invoice paid: received=${status?.received}, pending=${status?.pending}`,
-  );
+  console.log(`[e2e] Invoice paid: received=${status?.received}, pending=${status?.pending}`);
 
   // --- Alice: wait for redirect to /paid (with fallback) ---
   const paidReached = await page
-    .waitForURL(
-      new RegExp(`/invoice/${invoiceId}/paid(?:[/?#]|$)`),
-      { timeout: 10_000 },
-    )
+    .waitForURL(new RegExp(`/invoice/${invoiceId}/paid(?:[/?#]|$)`), { timeout: 10_000 })
     .then(() => true)
     .catch(() => false);
 
   if (paidReached) {
     console.log(`[e2e] Alice redirected to paid: ${page.url()}`);
-    const successText = await page
-      .locator("h1")
-      .first()
-      .innerText({ timeout: 5_000 });
+    const successText = await page.locator("h1").first().innerText({ timeout: 5_000 });
     expect(
       successText.toLowerCase().includes("payment") ||
         successText.toLowerCase().includes("success") ||

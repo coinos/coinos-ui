@@ -104,7 +104,11 @@ export const syncTransactions = async (aid: string) => {
   if (arkSending) return;
   const p = _syncTransactions(aid);
   syncPromise = p;
-  try { return await p; } finally { if (syncPromise === p) syncPromise = null; }
+  try {
+    return await p;
+  } finally {
+    if (syncPromise === p) syncPromise = null;
+  }
 };
 
 export const vtxoKey = (v: { txid: string; vout: number }) => `${v.txid}:${v.vout}`;
@@ -131,9 +135,7 @@ let syncPromise: Promise<any> | null = null;
 const withTimeout = <T>(promise: Promise<T>, ms: number, label: string) =>
   Promise.race([
     promise,
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error(`${label} timed out`)), ms),
-    ),
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`${label} timed out`)), ms)),
   ]);
 
 export const sendArk = async (address: string, amount: number) => {
@@ -158,21 +160,13 @@ export const sendArk = async (address: string, amount: number) => {
     }
     let txid;
     try {
-      txid = await withTimeout(
-        wallet.sendBitcoin({ address, amount }),
-        45_000,
-        "Ark send",
-      );
+      txid = await withTimeout(wallet.sendBitcoin({ address, amount }), 45_000, "Ark send");
     } catch (e: any) {
       if (e?.message?.includes("VTXO_ALREADY_REGISTERED")) {
         await wallet.settle();
         const vtxos = await wallet.getVtxos({ spendableOnly: false });
         if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
-        txid = await withTimeout(
-          wallet.sendBitcoin({ address, amount }),
-          45_000,
-          "Ark send retry",
-        );
+        txid = await withTimeout(wallet.sendBitcoin({ address, amount }), 45_000, "Ark send retry");
       } else {
         throw e;
       }

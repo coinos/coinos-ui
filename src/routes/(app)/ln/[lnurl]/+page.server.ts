@@ -12,7 +12,9 @@ export async function load({ params, parent }) {
   let data;
   const { lnurl } = params;
 
-  const url = Buffer.from(fromWords(decode(lnurl as `${string}1${string}`, 20000).words)).toString();
+  const url = Buffer.from(
+    fromWords(decode(lnurl as `${string}1${string}`, 20000).words),
+  ).toString();
 
   try {
     data = await get(`/decode?text=${lnurl}`);
