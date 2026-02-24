@@ -126,7 +126,7 @@
   "dm": {
     "chatHeader": "Chats",
     "newChatHeader": "New Chat",
-    "header": "Direct Messages",
+    "header": "Messages",
     "searchPrompt": "username, nip-05 or pubkey",
     "findByUsername": "Find by username",
     "findByNIP05": "Find by NIP-05",
@@ -275,7 +275,7 @@
     "light": "Light",
     "about": "About",
     "docs": "Docs",
-    "dm": "Nostr Messages",
+    "dm": "Messages",
     "messages": "Messages",
     "funds": "Funds",
     "map": "Map",
