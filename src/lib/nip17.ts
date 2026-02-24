@@ -319,7 +319,7 @@ const createAndPublishMessageEvent = async (sk: Uint8Array, message: string, use
         event = await createNIP17MessageNIP07(
             message, userPK, recipientPK, eventFor, expiryDays);
     } else {
-        event1 = createNIP17MessageSK(
+        event = createNIP17MessageSK(
             message, sk, recipientPK, eventFor, expiryDays);
     }
 
@@ -329,7 +329,6 @@ const createAndPublishMessageEvent = async (sk: Uint8Array, message: string, use
 // Sends a NIP-17 message from `user` to `recipient`.
 // If expiryDays is set, messages will expire after that many days.
 export const send = async (message: string, user: object, recipient: object, expiryDays?: number) => {
-    let event1, event2;
     const sk = await ensureSigner(user.pubkey);
 
     // Store sk for auth handler
