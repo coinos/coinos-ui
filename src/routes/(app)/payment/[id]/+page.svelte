@@ -189,6 +189,11 @@
 
   {#if type === types.lightning || type === types.bolt12}
     <div>
+      <span class="text-lg text-secondary">{$t("payments.invoice")}</span>
+      <div>{hash}</div>
+    </div>
+
+    <div>
       <span class="text-lg text-secondary">{$t("payments.preimage")}</span>
       <div>{ref}</div>
     </div>
