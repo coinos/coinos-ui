@@ -164,6 +164,9 @@
     }
 
     selectedChat = c;
+    if (!selectedChat) {
+      return;
+    }
     if (!includesPubkey(chats, c.pubkey)) {
       chats.unshift(c);
     }
@@ -281,6 +284,7 @@
   const sendMessage = async (message: string) => {
     const expiry = expiryEnabled ? expiryDays : undefined;
     await libnip17.send(message, user, selectedChat, expiry);
+    text = "";
     updateEvents();
   };
 
@@ -315,7 +319,8 @@
         (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")}
         onclick={() => {
           creatingNewChat = !creatingNewChat;
-          selectedChat = null;
+          selectChat(null);
+          searchQuery = "";
         }}
       >
         +
