@@ -55,7 +55,7 @@
     "iconify-icon": "^3.0.2",
     "js-cookie": "^3.0.5",
     "nostr-tools": "^2.23.0",
-    "oxfmt": "file:../oxc/npm/oxfmt",
+    "oxfmt": "^0.35.0",
     "oxlint": "^1.35.0",
     "playwright": "^1.58.2",
     "qr-scanner": "^1.4.2",
