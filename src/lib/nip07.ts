@@ -1,4 +1,4 @@
-import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
+import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import { finalizeEvent } from "nostr-tools/pure";
 import * as libnip44 from "$lib/nip44";
 import { u } from "$lib/nip44";

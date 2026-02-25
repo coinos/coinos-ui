@@ -13,4 +13,4 @@ RUN rm -f .env .env.local .env.production .env.production.local && \
 
 ENV NODE_ENV=production
 
-CMD ["bun", "run", "preview", "--host", "--port", "3000"]
+CMD ["bun", "./build/index.js"]
