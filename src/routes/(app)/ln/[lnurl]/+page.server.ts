@@ -46,9 +46,9 @@ export async function load({ params, parent }) {
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
 		redirect(307, path);
-	} else if (callback.includes(PUBLIC_DOMAIN)) {
+	} else if (url.startsWith(`https://${PUBLIC_DOMAIN}/`)) {
 		const username = url.split(`https://${PUBLIC_DOMAIN}/p/`)[1];
-		redirect(307, `/pay/${username}`);
+		if (username) redirect(307, `/pay/${username}`);
 	}
 
 	if (!["payRequest", "withdrawRequest"].includes(data.tag))
