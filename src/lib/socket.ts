@@ -1,7 +1,7 @@
 import { goto, invalidate } from "$app/navigation";
 import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
-import { event, importing, invoice, last, paymentSignal, request } from "$lib/store";
+import { event, importing, invoice, last, lastPayment, paymentSignal, request } from "$lib/store";
 import { s, sleep, success, wait } from "$lib/utils";
 import cookies from "js-cookie";
 import { get } from "svelte/store";
@@ -54,6 +54,8 @@ export const messages = (data) => ({
       return;
     }
 
+    if (amount > 0 && iid) lastPayment.set({ iid, amount, confirmed });
+
     const {
       url: { pathname },
     } = get(page);
@@ -66,7 +68,10 @@ export const messages = (data) => ({
         pathname.includes("/receive") ||
         pathname.includes("/invoice")
       ) {
-        if (!get(navigating)) goto(`/invoice/${iid}`);
+        if (!get(navigating) && iid) {
+          const target = confirmed ? `/invoice/${iid}/paid` : `/invoice/${iid}`;
+          goto(target);
+        }
       } else success(`${confirmed ? "Received" : "Detected"} ⚡️${s(amount)}!`);
     }
   },

@@ -98,3 +98,6 @@ export const showQr = persistLocal("showQr", true);
 export const save = writable();
 export const importing = writable(new Set<string>());
 export const paymentSignal = writable(0);
+export const lastPayment = writable<{ iid: string; amount: number; confirmed: boolean } | null>(
+  null,
+);

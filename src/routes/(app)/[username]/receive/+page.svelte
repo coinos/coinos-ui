@@ -3,7 +3,7 @@
   import { btc, loc, post, copy, fail, f, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { last, showQr, amountPrompt } from "$lib/store";
+  import { last, lastPayment, showQr, amountPrompt } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
   import InvoiceData from "$comp/InvoiceData.svelte";
   import InvoiceActions from "$comp/InvoiceActions.svelte";
@@ -109,9 +109,19 @@
   let txt = $derived([types.bitcoin, types.liquid].includes(type) ? hash : text);
 
   onMount(() => {
+    $lastPayment = null;
     if ($amountPrompt && !amount) toggleAmount();
     let address_type = $page.url.searchParams.get("address_type");
     if (address_type) setType(types.bitcoin, address_type);
+  });
+
+  $effect(() => {
+    if ($lastPayment?.iid) {
+      const { iid, confirmed } = $lastPayment;
+      const target = confirmed ? `/invoice/${iid}/paid` : `/invoice/${iid}`;
+      $lastPayment = null;
+      goto(target);
+    }
   });
 </script>
 
