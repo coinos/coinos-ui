@@ -21,7 +21,7 @@ export default async (s, host, cookies) => {
 	}
 
 	if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
-	if (t.endsWith(`@${PUBLIC_DOMAIN}`)) t = t.split("@")[0];
+	if (t.includes("@") && t.split("@").pop() === PUBLIC_DOMAIN) t = t.split("@")[0];
 	if (t.includes("@") && t.includes(".")) {
 		try {
 			t = await get(`/encode?address=${t}`);
