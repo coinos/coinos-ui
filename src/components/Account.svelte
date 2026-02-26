@@ -214,7 +214,7 @@
         onclick={goSettings}
       >
         {#if isArk}
-          <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
+          <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover bg-neutral" alt="Ark" />
         {:else if seed || fingerprint}
           <div class="w-8 h-8 flex items-center justify-center">
             <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>

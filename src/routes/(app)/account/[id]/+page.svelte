@@ -179,7 +179,7 @@
 <div class="space-y-5">
   <h1 class="text-center text-3xl font-semibold flex items-center justify-center gap-2">
     {#if account.type === "ark"}
-      <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover" alt="Ark" />
+      <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover bg-neutral" alt="Ark" />
     {:else if seed}
       <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
     {:else}
@@ -294,11 +294,6 @@
                 </button>
               </div>
             </div>
-          {:else}
-            <button type="button" class="btn" onclick={() => (showImport = true)}>
-              <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
-              <div class="my-auto">{$t("accounts.changeSeedPhrase")}</div>
-            </button>
           {/if}
         {/if}
 

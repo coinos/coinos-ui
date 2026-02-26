@@ -22,7 +22,7 @@
     {#if !data.hasArk}
       <a href="/account/ark" class="block">
         <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200 gap-4 items-center">
-          <img src="/images/ark.png" class="w-12 h-12 rounded-full object-cover" alt="Ark" />
+          <img src="/images/ark.png" class="w-12 h-12 rounded-full object-cover bg-neutral" alt="Ark" />
           <div>
             <div class="text-xl">Ark (Off-chain)</div>
             <div class="text-secondary">

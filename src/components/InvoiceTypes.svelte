@@ -150,7 +150,7 @@
       class:hidden={activeOnly && type !== types.ark}
       onclick={() => (activeOnly ? toggleType() : setType("ark"))}
     >
-      <img src="/images/ark.png" class="w-8 rounded-full" alt="Ark" />
+      <img src="/images/ark.png" class="w-8 rounded-full bg-neutral" alt="Ark" />
       <div class="my-auto text-lg">Ark</div>
     </button>
   </div>
