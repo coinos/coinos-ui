@@ -186,7 +186,7 @@
 >
   <div class="flex items-start justify-between gap-4 md:p-4">
     <div>
-      <div class="text-lg text-gray-400">{displayName}</div>
+      <div class="text-lg text-gray-400">{displayName} test</div>
       {#if $importing.has(id)}
         <div class="text-lg text-gray-400">{$t("accounts.importing")}</div>
       {:else}
