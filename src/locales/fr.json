@@ -357,7 +357,7 @@
     "nostrPubkey": "Clé publique nostr",
     "details": "Détails",
     "noMessages": "Vous n'avez pas encore envoyé ou reçu de messages",
-    "install": "Installer l'application",
+    "install": "Ajouter à l'écran d'accueil",
     "moreDetails": "Liens et détails",
     "url": "URL publique",
     "nwc": "Connexion au portefeuille Nostr",

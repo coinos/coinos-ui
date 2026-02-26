@@ -126,7 +126,7 @@
 
       {#if $installPrompt}
         <button class="btn btn-accent w-full lg:hidden" onclick={install}>
-          <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+          <iconify-icon noobserver icon="ph:download-bold" width="32"></iconify-icon>
           {$t("user.install")}
         </button>
       {/if}
