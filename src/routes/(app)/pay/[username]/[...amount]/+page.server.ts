@@ -7,7 +7,26 @@ export async function load({ cookies, params, parent }) {
   const { user } = await parent();
   const rates = await getRates();
 
-  if (user?.username === username) redirect(307, `/${username}/receive`);
+  if (user?.username === username) {
+    // Allow vault→custodial self-payment: redirect to send/ark with server address
+    const aid = cookies.get("aid");
+    if (aid && aid !== user.id) {
+      const account = await get(`/account/${aid}`, auth(cookies));
+      if (account?.type === "ark") {
+        const serverAddr = await get("/ark/address");
+        let [amt, cur] = params.amount.split("/");
+        if (amt) {
+          if (cur) {
+            const r = rates[cur.toUpperCase()];
+            if (r) amt = String(Math.round((Number(amt) * sats) / r));
+          }
+          redirect(307, `/send/ark/${serverAddr}/${amt}`);
+        }
+        redirect(307, `/send/ark/${serverAddr}`);
+      }
+    }
+    redirect(307, `/${username}/receive`);
+  }
   const subject = await get(`/users/${username}`);
 
   let [amount, currency] = params.amount.split("/");

@@ -1,16 +1,11 @@
 import { expect, test } from "@playwright/test";
+import { login, bobUsername, bobPassword } from "./helpers";
 
-const username = process.env.E2E_USERNAME || "bob";
-const password = process.env.E2E_PASSWORD || "pw";
+const username = process.env.E2E_USERNAME || bobUsername;
+const password = process.env.E2E_PASSWORD || bobPassword;
 
 test("login and report account balance", async ({ page }) => {
-  await page.goto("/login");
-
-  await page.getByTestId("login-username").fill(username);
-  await page.locator('input[name="password"]').first().fill(password);
-  await page.getByTestId("login-submit").click();
-
-  await expect(page).toHaveURL(new RegExp(`/${username}(?:[/?#]|$)`));
+  await login(page, username, password);
 
   const balances = page.getByTestId("balance-value");
   await expect(balances.first()).toBeVisible();

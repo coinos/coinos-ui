@@ -5,8 +5,9 @@ import {
   bobUsername,
   bobPassword,
   testSecret,
-  apiBaseUrl,
+  arkWalletPassword,
   loginNewContext,
+  ensureArkAccount,
   createArkInvoiceViaUI,
   pasteAndSend,
   fillNumpadAmount,
@@ -17,14 +18,18 @@ test("custodial sends to external ark address", async ({ browser }) => {
   test.setTimeout(120_000);
   test.skip(!testSecret, "E2E_TEST_SECRET is required for ark tests");
 
-  // --- Alice: log in and get her ark vault address ---
+  // --- Alice: log in, ensure ark account, get her ark vault address ---
   const { context: aliceContext, page: alicePage } = await loginNewContext(
     browser,
     aliceUsername,
     alicePassword,
   );
 
-  const { address: arkAddress } = await createArkInvoiceViaUI(alicePage, alicePassword);
+  await ensureArkAccount(alicePage, arkWalletPassword);
+  await alicePage.goto(`/${aliceUsername}`);
+  await alicePage.waitForLoadState("networkidle");
+
+  const { address: arkAddress } = await createArkInvoiceViaUI(alicePage, arkWalletPassword);
   console.log(`[e2e] Alice ark address: ${arkAddress}`);
 
   await aliceContext.close();
@@ -45,7 +50,7 @@ test("custodial sends to external ark address", async ({ browser }) => {
   expect(bobUrl).toContain("/send/ark/");
 
   // Enter amount on numpad
-  await fillNumpadAmount(bobPage, 1000);
+  await fillNumpadAmount(bobPage, 100);
 
   // Now on the confirmation page with Send button
   await bobPage.waitForURL(/\/send\/ark\/[^/]+\/\d+/, { timeout: 10_000 });

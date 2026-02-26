@@ -30,11 +30,11 @@ test("custodial-to-custodial via lightning bolt11 sends internally and notifies 
   });
   const { token } = await tokenRes.json();
 
-  // Create lightning invoice with amount 1000 sats
+  // Create lightning invoice with amount 100 sats
   const invoiceRes = await alicePage.request.post(`${apiBaseUrl}/invoice`, {
     headers: { authorization: `Bearer ${token}` },
     data: {
-      invoice: { type: "lightning", amount: 1000 },
+      invoice: { type: "lightning", amount: 100 },
       user: { username: aliceUsername },
     },
   });

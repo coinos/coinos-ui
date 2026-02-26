@@ -144,7 +144,7 @@
   <div>
     <span class="text-lg text-secondary">{$t("payments.date")}</span>
     <div>
-      {format(new Date(created), "MMM d, yyyy", { locale })}{format(new Date(created), "h:mmaaa", { locale })}
+      {format(new Date(created), "MMM d, yyyy", { locale })} {format(new Date(created), "h:mmaaa", { locale })}
     </div>
   </div>
 

@@ -6,7 +6,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
-  import { toFiat, f, focus, s, sat, closest, network } from "$lib/utils";
+  import { toFiat, f, focus, loc, s, sat, closest, network } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -198,6 +198,7 @@
 
   let balance = $derived(data.user.balance);
   let currency = $derived(data.user.currency);
+  let locale = $derived(loc(data.user));
   let submitting = $state(),
     submit: any = $state(),
     showSettings = $state();
@@ -231,7 +232,7 @@
       <div class="text-xl text-secondary break-all">{address}</div>
     {/if}
 
-    <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} />
+    <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} {locale} />
 
     {#if fees}
       <div class="text-center">
@@ -245,7 +246,7 @@
               </option>
             {/each}
           </select>
-          <Amount amount={fee} rate={$rate} {currency} />
+          <Amount amount={fee} rate={$rate} {currency} {locale} />
         </div>
       </div>
 
@@ -253,7 +254,7 @@
         <div class="text-center">
           <h2 class="text-secondary text-lg">{$t("payments.platformFee")}</h2>
 
-          <Amount amount={ourfee} rate={$rate} {currency} />
+          <Amount amount={ourfee} rate={$rate} {currency} {locale} />
         </div>
       {/if}
     {/if}

@@ -36,6 +36,90 @@ export const getWallet = async () => {
   return walletInstance;
 };
 
+const toHex = (bytes: Uint8Array) =>
+  Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+export const subscribeToAsp = (onEvent: () => void) => {
+  let es: EventSource | null = null;
+  let subId: string | null = null;
+  let stopped = false;
+  let watchdog: ReturnType<typeof setInterval> | undefined;
+
+  const connect = async () => {
+    if (stopped) return;
+    es?.close();
+
+    const wallet = await getWallet();
+    if (!wallet) return;
+
+    const script = toHex(wallet.offchainTapscript.pkScript);
+
+    const res = await fetch(`${arkServerUrl}/v1/indexer/script/subscribe`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scripts: [script] }),
+    });
+
+    if (!res.ok) throw new Error(`ASP subscribe failed: ${res.statusText}`);
+    ({ subscriptionId: subId } = await res.json());
+
+    es = new EventSource(
+      `${arkServerUrl}/v1/indexer/script/subscription/${subId}`,
+    );
+
+    es.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        console.log("[ark] SSE event:", data);
+        if (
+          data.event?.newVtxos?.length > 0 ||
+          data.event?.spentVtxos?.length > 0
+        ) {
+          onEvent();
+        }
+      } catch (e) {
+        console.error("[ark] SSE parse error:", e);
+      }
+    };
+
+    es.onerror = () => {
+      // Native EventSource auto-reconnects on transient errors.
+      // If the subscription expired server-side, the watchdog below
+      // will detect CLOSED state and fully re-subscribe.
+    };
+
+    console.log("[ark] SSE subscribed", subId);
+  };
+
+  connect().catch((e) => {
+    console.error("[ark] SSE initial connect failed:", e);
+  });
+
+  // Watchdog: detect CLOSED state (server rejected reconnect) and re-subscribe
+  watchdog = setInterval(() => {
+    if (stopped) return;
+    if (!es || es.readyState === EventSource.CLOSED) {
+      console.warn("[ark] SSE dead, re-subscribing...");
+      connect().catch((e) => console.error("[ark] SSE reconnect failed:", e));
+    }
+  }, 30_000);
+
+  return () => {
+    stopped = true;
+    if (watchdog) clearInterval(watchdog);
+    es?.close();
+    if (subId) {
+      fetch(`${arkServerUrl}/v1/indexer/script/unsubscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subscriptionId: subId }),
+      }).catch(() => {});
+    }
+  };
+};
+
 export const getAddress = async (): Promise<string> => {
   const wallet = await getWallet();
   return wallet.getAddress();
@@ -155,26 +239,41 @@ export const sendArk = async (address: string, amount: number) => {
     }
 
     const freshBalance = await wallet.getBalance();
+    const preSendTotal = (freshBalance.available || 0) + (freshBalance.preconfirmed || 0);
     if (freshBalance.available < amount) {
       throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}`);
     }
+
     let txid;
+    let sendWallet = wallet;
     try {
       txid = await withTimeout(wallet.sendBitcoin({ address, amount }), 45_000, "Ark send");
     } catch (e: any) {
-      if (e?.message?.includes("VTXO_ALREADY_REGISTERED")) {
-        await wallet.settle();
-        const vtxos = await wallet.getVtxos({ spendableOnly: false });
+      if (e?.message?.includes("VTXO_ALREADY_REGISTERED") || e?.message?.includes("VTXO_ALREADY_SPENT")) {
+        console.log("ark send: stale VTXOs, recreating wallet and retrying");
+        walletInstance = undefined;
+        walletKey = undefined;
+        sendWallet = await getWallet();
+        if (!sendWallet) throw new Error("Ark wallet not available after refresh");
+        const vtxos = await sendWallet.getVtxos({ spendableOnly: false });
         if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
-        txid = await withTimeout(wallet.sendBitcoin({ address, amount }), 45_000, "Ark send retry");
+        txid = await withTimeout(sendWallet.sendBitcoin({ address, amount }), 45_000, "Ark send retry");
       } else {
         throw e;
       }
     }
 
+    // Verify the send actually changed the balance
+    const postBalance = await sendWallet.getBalance();
+    const postSendTotal = (postBalance.available || 0) + (postBalance.preconfirmed || 0);
+    console.log("ark send: pre-balance", preSendTotal, "post-balance", postSendTotal, "amount", amount, "txid", txid);
+    if (postSendTotal >= preSendTotal) {
+      throw new Error("Send failed: balance unchanged after sendBitcoin");
+    }
+
     // Mark post-send VTXOs as processed so notifyIncomingFunds
     // ignores change VTXOs from this send
-    const vtxos = await wallet.getVtxos({ spendableOnly: false });
+    const vtxos = await sendWallet.getVtxos({ spendableOnly: false });
     if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
 
     return txid;
@@ -193,17 +292,17 @@ export const sendArkViaForward = async ({
   serverArkAddress: string;
   amount: number;
   aid: string;
-  forward: string;
+  forward?: string;
   user: any;
 }) => {
   const txid = await sendArk(serverArkAddress, amount);
 
   await post("/post/ark/vault-send", { hash: txid, amount, aid });
 
-  const inv = await post("/post/invoice", {
-    invoice: { type: "ark", amount, forward, aid },
-    user,
-  });
+  const invoice: any = { type: "ark", amount, aid };
+  if (forward) invoice.forward = forward;
+
+  const inv = await post("/post/invoice", { invoice, user });
 
   return post("/post/ark/receive", { amount, hash: txid, iid: inv.id });
 };

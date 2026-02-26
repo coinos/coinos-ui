@@ -39,7 +39,7 @@ test("custodial-to-custodial via username (/pay/) sends and notifies recipient",
 
   console.log(`[e2e] Alice balance before: ${aliceBalanceBefore}`);
 
-  // --- Bob: navigate to /pay/alice and send 1000 sats ---
+  // --- Bob: navigate to /pay/alice and send 100 sats ---
   const { context: bobContext, page: bobPage } = await loginNewContext(
     browser,
     bobUsername,
@@ -50,7 +50,7 @@ test("custodial-to-custodial via username (/pay/) sends and notifies recipient",
   await bobPage.waitForURL(new RegExp(`/pay/${aliceUsername}`));
 
   // Numpad should be visible — type amount and click Next (submits form)
-  await fillNumpadAmount(bobPage, 1000);
+  await fillNumpadAmount(bobPage, 100);
 
   // The form creates an invoice. If Alice has tip prompt, we go to /invoice/{id}/tip
   // Otherwise we go to /invoice/{id} which loads the send page
@@ -102,7 +102,7 @@ test("custodial-to-custodial via username (/pay/) sends and notifies recipient",
   })();
 
   console.log(`[e2e] Alice balance after: ${aliceBalanceAfter}`);
-  expect(aliceBalanceAfter).toBeGreaterThanOrEqual(aliceBalanceBefore + 1000);
+  expect(aliceBalanceAfter).toBeGreaterThanOrEqual(aliceBalanceBefore + 100);
 
   await aliceContext.close();
   await bobContext.close();

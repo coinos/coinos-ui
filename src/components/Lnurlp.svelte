@@ -6,9 +6,11 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
+  import { loc } from "$lib/utils";
 
   let { data, form, send = $bindable(), comment = $bindable() } = $props();
   let currency = $derived(data.user.currency);
+  let locale = $derived(loc(data.user));
   let minSendable = $derived(data.minSendable);
   let maxSendable = $derived(data.maxSendable);
   let commentAllowed = $derived(data.commentAllowed);
@@ -39,7 +41,7 @@
     <div class="text-red-600 text-center mb-5">{form.error}</div>
   {/if}
 
-  <Numpad bind:amount {rate} {currency} bind:submit={send} />
+  <Numpad bind:amount {rate} {currency} {locale} bind:submit={send} />
 
   <form action="?/pay" method="POST" use:enhance onsubmit={submit}>
     <input name="amount" value={amount} type="hidden" />

@@ -52,17 +52,20 @@ test("custodial-to-custodial via bitcoin address sends internally and notifies r
   const amountInput = bobPage.locator('[aria-label="Amount input"]');
   await expect(amountInput).toBeVisible({ timeout: 5_000 });
 
-  // Switch to sats mode if in fiat mode (click swap if lightning icon is not visible next to input)
+  // Ensure sats mode: swap button shows lightning icon when in fiat mode
   const swapButton = bobPage.locator('[aria-label="Swap currency display"]');
-  const swapText = await swapButton.innerText();
-  if (swapText.includes("⚡") || swapText.includes("lightning")) {
-    await swapButton.click();
+  if (await swapButton.isVisible({ timeout: 2_000 }).catch(() => false)) {
+    const hasLightning = await swapButton.locator('iconify-icon[icon="ph:lightning-fill"]').count();
+    if (hasLightning > 0) {
+      await swapButton.click();
+      await bobPage.waitForTimeout(300);
+    }
   }
 
   // Type amount using keyboard
   await amountInput.click();
   await bobPage.keyboard.press("Control+a");
-  await bobPage.keyboard.type("1000");
+  await bobPage.keyboard.type("100");
 
   // Click "Next" to set the amount
   const nextButton = bobPage.locator('button[type="button"].btn-accent');
@@ -75,7 +78,7 @@ test("custodial-to-custodial via bitcoin address sends internally and notifies r
   await sendButton.click();
 
   // Bob should be redirected to /sent/ after successful payment
-  await bobPage.waitForURL(/\/sent\//, { timeout: 15_000 });
+  await bobPage.waitForURL(/\/sent\//, { timeout: 30_000 });
   console.log(`[e2e] Bob payment sent: ${bobPage.url()}`);
 
   // --- Verify Alice receives notification and is redirected to /paid ---

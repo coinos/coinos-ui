@@ -3,6 +3,7 @@ import type { Browser, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 // --- Environment ---
+export const arkWalletPassword = process.env.E2E_ARK_WALLET_PASSWORD || "testpw123";
 export const aliceUsername = process.env.E2E_ALICE_USERNAME || "alice";
 export const alicePassword = process.env.E2E_ALICE_PASSWORD || "pw";
 export const bobUsername = process.env.E2E_BOB_USERNAME || "bob";
@@ -218,6 +219,17 @@ export async function pasteAndSend(page: Page, text: string) {
 export async function fillNumpadAmount(page: Page, amount: number) {
   const amountInput = page.locator('[aria-label="Amount input"]');
   await expect(amountInput).toBeVisible({ timeout: 5_000 });
+
+  // Ensure sats mode: swap button shows lightning icon when in fiat mode
+  const swapButton = page.locator('[aria-label="Swap currency display"]');
+  if (await swapButton.isVisible({ timeout: 2_000 }).catch(() => false)) {
+    const hasLightning = await swapButton.locator('iconify-icon[icon="ph:lightning-fill"]').count();
+    if (hasLightning > 0) {
+      await swapButton.click();
+      await page.waitForTimeout(300);
+    }
+  }
+
   await amountInput.click();
   await page.keyboard.press("Control+a");
   await page.keyboard.type(String(amount));
@@ -311,7 +323,7 @@ export async function sendArkFromTestEndpoint(
     async ({ address, testSecret, amount, iid }) => {
       const body: any = { address, amount };
       if (iid) body.iid = iid;
-      const res = await fetch("/test/ark/send", {
+      const res = await fetch("/api/test/ark/send", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -337,4 +349,49 @@ export async function setActiveAccount(page: Page, accountId: string) {
   await page.evaluate((aid) => {
     document.cookie = `aid=${aid}; path=/; max-age=86400`;
   }, accountId);
+}
+
+export async function ensureArkAccount(page: Page, password: string) {
+  await page.goto("/account/ark");
+  await page.waitForLoadState("networkidle");
+
+  // If redirected to dashboard, user already has an ark account
+  const url = page.url();
+  if (!url.includes("/account/ark")) {
+    console.log("[e2e] Ark account already exists, skipping creation");
+    return;
+  }
+
+  // Check if we're on the creation page (has key generation)
+  const revealButton = page.locator("button.btn-warning");
+  const hasReveal = await revealButton.isVisible({ timeout: 30_000 }).catch(() => false);
+  if (!hasReveal) {
+    console.log("[e2e] Ark account page loaded but no reveal button — account may already exist");
+    return;
+  }
+
+  // Click "Reveal Backup Key"
+  await revealButton.click();
+
+  // Click "I've Backed It Up"
+  const backedUpButton = page.locator("button.btn-accent");
+  await expect(backedUpButton).toBeVisible({ timeout: 5_000 });
+  await backedUpButton.click();
+
+  // Fill password and confirm password
+  const passwordInputs = page.locator('input[type="password"]');
+  await expect(passwordInputs.first()).toBeVisible({ timeout: 5_000 });
+  const count = await passwordInputs.count();
+  for (let i = 0; i < count; i++) {
+    await passwordInputs.nth(i).fill(password);
+  }
+
+  // Click "Create Wallet" submit
+  const submitButton = page.locator('button[type="submit"]');
+  await expect(submitButton).toBeVisible({ timeout: 5_000 });
+  await submitButton.click();
+
+  // Wait for redirect to dashboard (account created)
+  await page.waitForURL((u) => !u.pathname.includes("/account/ark"), { timeout: 30_000 });
+  console.log("[e2e] Ark account created successfully");
 }

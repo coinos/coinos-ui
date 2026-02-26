@@ -2,12 +2,12 @@
   import { t } from "$lib/translations";
   import { enhance } from "$app/forms";
   import Spinner from "$comp/Spinner.svelte";
-  import { focus, s, post } from "$lib/utils";
+  import { focus, loc, s, post } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
   import { applyAction } from "$app/forms";
-  import { sendArk } from "$lib/ark";
+  import { sendArk, sendArkViaForward } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
 
@@ -23,13 +23,24 @@
         submitting = true;
         error = "";
         try {
-          const txid = await sendArk(address, parseInt(amount));
+          let p;
 
-          const p = await post("/post/ark/vault-send", {
-            hash: txid,
-            amount: parseInt(amount),
-            aid: account.id,
-          });
+          if (data.serverArkAddress && (address === data.serverArkAddress || data.isCustodialForward)) {
+            // Vault→custodial: send to server and credit custodial account
+            p = await sendArkViaForward({
+              serverArkAddress: data.serverArkAddress,
+              amount: parseInt(amount),
+              aid: account.id,
+              user: data.user,
+            });
+          } else {
+            const txid = await sendArk(address, parseInt(amount));
+            p = await post("/post/ark/vault-send", {
+              hash: txid,
+              amount: parseInt(amount),
+              aid: account.id,
+            });
+          }
 
           goto(`/sent/${p.id}`, { invalidateAll: true });
         } catch (e: any) {
@@ -65,6 +76,7 @@
 
   let balance = $derived(data.user.balance);
   let currency = $derived(data.user.currency);
+  let locale = $derived(loc(data.user));
   let submitting = $state(false),
     submit = $state();
 </script>
@@ -81,7 +93,7 @@
   {#if !error}
     <div class="text-xl text-secondary break-all">{address}</div>
 
-    <Amount {amount} rate={$rate} {currency} />
+    <Amount {amount} rate={$rate} {currency} {locale} />
 
     <form method="POST" use:enhance={handler}>
       <input name="pin" value={$pin} type="hidden" />

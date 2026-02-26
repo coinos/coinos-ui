@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending } from "$lib/ark";
+  import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -102,6 +102,7 @@
 
   let arkInitializedKey: string | undefined;
   let arkRefreshTimer: ReturnType<typeof setInterval> | undefined;
+  let aspStopFunc: (() => void) | undefined;
 
   const initArk = async () => {
     const key = $arkkey;
@@ -111,7 +112,32 @@
     const wallet = await getWallet();
     if (wallet) {
       localStorage.setItem("arkkey:uid", user.id);
-      wallet.notifyIncomingFunds(() => arkSync("notifyIncomingFunds"));
+
+      // Subscribe directly to ASP event stream (bypasses SDK's fragile wrapper)
+      aspStopFunc?.();
+      aspStopFunc = subscribeToAsp(async () => {
+        // Retry arkSync with backoff — indexer needs time to process the new VTXO
+        for (const delay of [1000, 3000, 8000]) {
+          await new Promise((r) => setTimeout(r, delay));
+          const aid = $arkaid || getCookie("aid") || user.id;
+          const result = await syncTransactions(aid);
+          console.log(`[arkSync] SSE retry (delay: ${delay}ms, received: ${result?.received || 0})`);
+          if (result?.received > 0) {
+            const paidPayment = result.payments?.find((p: any) => p.iid && p.amount > 0);
+            if (paidPayment) {
+              goto(`/invoice/${paidPayment.iid}`);
+            } else if ($fiat && $rateStore && user?.currency) {
+              success(`Received ${f(toFiat(result.received, $rateStore as number), user.currency)}!`);
+            } else {
+              success(`Received ${s(result.received)}!`);
+            }
+            invalidate("app:payments");
+            return;
+          }
+        }
+        invalidate("app:payments");
+      });
+
       arkSync("initArk");
       refresh().catch((e) => console.error("Ark refresh failed:", e));
       settle().catch((e) => console.error("Ark settle failed:", e));
@@ -200,6 +226,7 @@
       close();
       clearTimeout(checkTimer);
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
+      aspStopFunc?.();
     }
   });
 </script>

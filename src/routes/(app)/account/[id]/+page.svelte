@@ -5,7 +5,7 @@
   import Toggle from "$comp/Toggle.svelte";
   import WalletPass from "$comp/WalletPass.svelte";
   import { goto } from "$app/navigation";
-  import { copy, fail, focus, post } from "$lib/utils";
+  import { copy, fail, focus, loc, post } from "$lib/utils";
   import { importing } from "$lib/store";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
@@ -33,6 +33,7 @@
   let name = $state(data.account.name || displayType);
   let currency = $state(data.account.currency || data.user.currency);
   let userCurrency = $derived(data.user.currency);
+  let locale = $derived(loc(data.user));
   let currencyChanged = $derived(currency !== userCurrency);
   let updateUserCurrency = $state(false);
 
@@ -325,6 +326,7 @@
       <Numpad
         bind:amount={threshold}
         {currency}
+        {locale}
         bind:rate
         bind:submit={doneReserve}
         bind:element={thresholdEl}
@@ -341,6 +343,7 @@
       <Numpad
         bind:amount={reserve}
         {currency}
+        {locale}
         bind:rate
         bind:submit={doneReserve}
         bind:element={reserveEl}

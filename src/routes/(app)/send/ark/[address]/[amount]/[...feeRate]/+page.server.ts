@@ -26,12 +26,18 @@ export async function load({ params: { address, amount }, cookies, parent }) {
   }
 
   const rate = rates[user.currency];
+  const serverArkAddress = account.type === "ark" ? await get("/ark/address") : null;
+
+  // Check if destination is the user's own vault address (custodial ark invoice)
+  const isCustodialForward = account.type === "ark" && address === account.arkAddress;
 
   return {
     account,
     amount,
     address,
     rate,
+    serverArkAddress,
+    isCustodialForward,
   };
 }
 
