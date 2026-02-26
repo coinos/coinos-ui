@@ -332,7 +332,8 @@ export const f = (
   maximumFractionDigits = 2,
 ) => {
   const cur = currency || "USD";
-  const l = typeof locale === "function" ? (locale as () => string)() : locale || localeMap[cur] || "en-US";
+  const l =
+    typeof locale === "function" ? (locale as () => string)() : locale || localeMap[cur] || "en-US";
   const region = l.length >= 2 ? l.slice(-2) : "";
   const currencyDisplay = region && cur.startsWith(region) ? "narrowSymbol" : "symbol";
   return new Intl.NumberFormat(l, {

@@ -65,18 +65,13 @@ export const subscribeToAsp = (onEvent: () => void) => {
     if (!res.ok) throw new Error(`ASP subscribe failed: ${res.statusText}`);
     ({ subscriptionId: subId } = await res.json());
 
-    es = new EventSource(
-      `${arkServerUrl}/v1/indexer/script/subscription/${subId}`,
-    );
+    es = new EventSource(`${arkServerUrl}/v1/indexer/script/subscription/${subId}`);
 
     es.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
         console.log("[ark] SSE event:", data);
-        if (
-          data.event?.newVtxos?.length > 0 ||
-          data.event?.spentVtxos?.length > 0
-        ) {
+        if (data.event?.newVtxos?.length > 0 || data.event?.spentVtxos?.length > 0) {
           onEvent();
         }
       } catch (e) {
@@ -249,7 +244,10 @@ export const sendArk = async (address: string, amount: number) => {
     try {
       txid = await withTimeout(wallet.sendBitcoin({ address, amount }), 45_000, "Ark send");
     } catch (e: any) {
-      if (e?.message?.includes("VTXO_ALREADY_REGISTERED") || e?.message?.includes("VTXO_ALREADY_SPENT")) {
+      if (
+        e?.message?.includes("VTXO_ALREADY_REGISTERED") ||
+        e?.message?.includes("VTXO_ALREADY_SPENT")
+      ) {
         console.log("ark send: stale VTXOs, recreating wallet and retrying");
         walletInstance = undefined;
         walletKey = undefined;
@@ -257,7 +255,11 @@ export const sendArk = async (address: string, amount: number) => {
         if (!sendWallet) throw new Error("Ark wallet not available after refresh");
         const vtxos = await sendWallet.getVtxos({ spendableOnly: false });
         if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
-        txid = await withTimeout(sendWallet.sendBitcoin({ address, amount }), 45_000, "Ark send retry");
+        txid = await withTimeout(
+          sendWallet.sendBitcoin({ address, amount }),
+          45_000,
+          "Ark send retry",
+        );
       } else {
         throw e;
       }
@@ -266,7 +268,16 @@ export const sendArk = async (address: string, amount: number) => {
     // Verify the send actually changed the balance
     const postBalance = await sendWallet.getBalance();
     const postSendTotal = (postBalance.available || 0) + (postBalance.preconfirmed || 0);
-    console.log("ark send: pre-balance", preSendTotal, "post-balance", postSendTotal, "amount", amount, "txid", txid);
+    console.log(
+      "ark send: pre-balance",
+      preSendTotal,
+      "post-balance",
+      postSendTotal,
+      "amount",
+      amount,
+      "txid",
+      txid,
+    );
     if (postSendTotal >= preSendTotal) {
       throw new Error("Send failed: balance unchanged after sendBitcoin");
     }
