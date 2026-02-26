@@ -234,7 +234,7 @@
   </div>
 
   <div class="w-full">
-    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0">
+    <div class="mx-auto space-y-5 lg:max-w-xl xl:max-w-2xl lg:pl-10 mt-5 lg:mt-0 pb-12">
       {@render children?.()}
     </div>
   </div>

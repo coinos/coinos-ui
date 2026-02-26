@@ -40,7 +40,10 @@
   onMount(() => {
     if (!browser) return;
 
-    // Handle install prompt
+    // Pick up install prompt captured early in app.html
+    if (window.__installPrompt) {
+      $installPrompt = window.__installPrompt;
+    }
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       $installPrompt = event;

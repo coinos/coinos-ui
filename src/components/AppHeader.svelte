@@ -21,12 +21,18 @@
         : undefined,
   );
 
+  let isHome = $derived($page.url.pathname === `/${user?.username}`);
+
   const links = $derived([
-    {
-      href: `/${user?.username}`,
-      icon: "ph:house-bold",
-      label: "Home",
-    },
+    ...(!isHome
+      ? [
+          {
+            href: `/${user?.username}`,
+            icon: "ph:house-bold",
+            label: "Home",
+          },
+        ]
+      : []),
     // {
     //   href: `/scan`,
     //   icon: "ph:camera-bold",

@@ -107,7 +107,7 @@
     </a>
   {/if}
   {#if user?.id && user.id === subject.id}
-    <div class="space-y-10 pb-8" data-sveltekit-preload-data="false">
+    <div class="space-y-4" data-sveltekit-preload-data="false">
       {#each accounts as account}
         <Account {user} {rates} {account} />
       {/each}
@@ -119,18 +119,18 @@
           {$t("accounts.addAccount")}
         {/if}
       </button>
+
+      {#if locked}
+        <div class="text-sm">{$t("incident")}</div>
+      {/if}
+
+      {#if $installPrompt}
+        <button class="btn btn-accent w-full lg:hidden" onclick={install}>
+          <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+          {$t("user.install")}
+        </button>
+      {/if}
     </div>
-
-    {#if locked}
-      <div class="text-sm">{$t("incident")}</div>
-    {/if}
-
-    {#if $installPrompt}
-      <button class="btn btn-accent lg:hidden" onclick={install}>
-        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
-        {$t("user.install")}
-      </button>
-    {/if}
   {/if}
 </div>
 

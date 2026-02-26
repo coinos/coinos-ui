@@ -175,7 +175,7 @@
 </script>
 
 <div
-  class="space-y-4 p-4 cursor-pointer hover:bg-base-200"
+  class="space-y-4 cursor-pointer hover:bg-base-200"
   aria-label="Payments"
   data-testid="account-card"
   data-account-type={accountType}
@@ -184,7 +184,7 @@
   onclick={goPayments}
   onkeydown={(e) => (e.key === "Enter" || e.key === " ") && goPayments(e)}
 >
-  <div class="flex items-start justify-between gap-4">
+  <div class="flex items-start justify-between gap-4 md:p-4">
     <div>
       <div class="text-lg text-gray-400">{displayName}</div>
       {#if $importing.has(id)}
@@ -198,7 +198,7 @@
         {/if}
       {/if}
     </div>
-    <div class="flex items-center gap-1 shrink-0 text-black">
+    <div class="flex items-center gap-1 shrink-0 text-base-content">
       <a
         href="/payments"
         class="hover:text-gray-800 w-10 h-10 flex items-center justify-center"
@@ -226,7 +226,7 @@
           noobserver
           icon="ph:gear-bold"
           width="20"
-          class="absolute -bottom-1 -right-1 text-black bg-base-100 rounded-full"
+          class="absolute -bottom-1 -right-1 text-base-content bg-base-100 rounded-full"
         ></iconify-icon>
       </a>
     </div>
@@ -237,14 +237,14 @@
       <button class="btn !w-auto flex-1" data-testid="account-receive">
         <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
         ></iconify-icon>
-        <div class="my-auto hidden sm:block">{$t("user.dashboard.receive")}</div>
+        <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
     <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
       <button type="button" class="btn btn-accent !w-auto flex-1">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
-        <div class="my-auto hidden sm:block">{$t("user.dashboard.send")}</div>
+        <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>
     </a>
   </div>
