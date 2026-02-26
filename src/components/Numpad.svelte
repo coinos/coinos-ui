@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import Left from "$comp/Left.svelte";
-  import { f, s, focus, warning, sat, sats } from "$lib/utils";
+  import { f, s, focus, warning, sat, sats, localeMap } from "$lib/utils";
   import { t } from "$lib/translations";
   import { fiat as fiatStore } from "$lib/store";
 
@@ -26,8 +26,8 @@
   let symbol = $state("");
   let position = $state("before");
 
-  function getCurrencyInfo(locale: any = "en-US", currency: string) {
-    const l = typeof locale === "function" ? locale() : locale || "en-US";
+  function getCurrencyInfo(locale: any = "", currency: string) {
+    const l = typeof locale === "function" ? locale() : locale || localeMap[currency] || "en-US";
     const region = l.length >= 2 ? l.slice(-2) : "";
     const currencyDisplay = region && currency.startsWith(region) ? "narrowSymbol" : "symbol";
     const formatter = new Intl.NumberFormat(l, {

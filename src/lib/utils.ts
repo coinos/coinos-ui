@@ -244,7 +244,7 @@ export const fd = async (req: Request): Promise<any> => {
   return obj;
 };
 
-const map = {
+export const localeMap = {
   en: {
     CAD: "en-CA",
     USD: "en-US",
@@ -321,18 +321,18 @@ const map = {
 export const loc = (user) => {
   if (!user) return;
   const { currency: c, language: l } = user;
-  return map[l]?.[c] || map[c];
+  return localeMap[l]?.[c] || localeMap[c];
 };
 
 export const f = (
   s: number,
   currency: string,
-  locale = "en-US",
+  locale = "",
   minimumFractionDigits = 2,
   maximumFractionDigits = 2,
 ) => {
-  const l = typeof locale === "function" ? (locale as () => string)() : locale || "en-US";
   const cur = currency || "USD";
+  const l = typeof locale === "function" ? (locale as () => string)() : locale || localeMap[cur] || "en-US";
   const region = l.length >= 2 ? l.slice(-2) : "";
   const currencyDisplay = region && cur.startsWith(region) ? "narrowSymbol" : "symbol";
   return new Intl.NumberFormat(l, {
