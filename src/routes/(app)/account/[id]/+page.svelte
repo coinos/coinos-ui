@@ -143,7 +143,7 @@
     {:else}
       <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
     {/if}
-    {displayType} {$t("payments.accountSettings").toLowerCase()}
+    {displayType} account
   </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
