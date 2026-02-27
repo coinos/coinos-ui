@@ -13,6 +13,8 @@
   import { sign, send, getPrivateKey } from "$lib/nostr";
   import { invalidateAll } from "$app/navigation";
   import { bytesToHex } from "@noble/hashes/utils.js";
+  import { getCachedPrfKey } from "$lib/passwordCache";
+  import { wrapCanonicalKey, saveEncryptedKeys, passwordMethodId } from "$lib/keyWrapping";
 
   import { SimplePool } from "nostr-tools/pool";
   import { finalizeEvent } from "nostr-tools/pure";
@@ -201,14 +203,21 @@
         }
       }
 
-      // If password is changing, derive new authPubkey
+      // If password is changing, derive new authPubkey and re-wrap canonical key
       const pw = body.get("password") as string;
       const un = (body.get("username") as string) || user.username;
+      let pendingEncryptedKeys: Record<string, string> | null = null;
       if (pw && pw === body.get("confirm")) {
         try {
           const { deriveAuthKeypair } = await import("$lib/deriveAuthKey");
-          const { pubkey: authPubkey } = await deriveAuthKeypair(un, pw);
+          const { sk, pubkey: authPubkey } = await deriveAuthKeypair(un, pw);
           body.set("authPubkey", authPubkey);
+
+          const canonicalKey = getCachedPrfKey();
+          if (canonicalKey) {
+            const wrapped = await wrapCanonicalKey(sk.buffer as ArrayBuffer, canonicalKey);
+            pendingEncryptedKeys = { ...(user.encryptedKeys || {}), [passwordMethodId()]: wrapped };
+          }
         } catch (e) {
           console.log("Failed to derive authPubkey for password change", e);
         }
@@ -222,6 +231,13 @@
       const result = deserialize(await response.text());
 
       if (result.type === "success") {
+        if (pendingEncryptedKeys) {
+          try {
+            await saveEncryptedKeys(pendingEncryptedKeys);
+          } catch (e) {
+            console.log("Failed to save re-wrapped encryptedKeys", e);
+          }
+        }
         await invalidateAll();
         if (pw) $password = pw;
       }

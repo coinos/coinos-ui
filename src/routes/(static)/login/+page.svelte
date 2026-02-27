@@ -11,15 +11,17 @@
   import Spinner from "$comp/Spinner.svelte";
   import { focus, fail } from "$lib/utils";
   import { loginWithPasskey } from "$lib/passkey";
-  import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { password, signer, pin, loginRedirect } from "$lib/store";
+  import {
+    resolveCanonicalKey,
+    passwordMethodId,
+    passkeyMethodId,
+    nostrMethodId,
+  } from "$lib/keyWrapping";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
   import { sign } from "$lib/nostr";
-  import { invalidateAll } from "$app/navigation";
-  import { sha256 } from "@noble/hashes/sha2.js";
-  import { bytesToHex } from "@noble/hashes/utils.js";
-
+  import { goto, invalidateAll } from "$app/navigation";
   let { data, form }: any = $props();
 
   onMount(() => {
@@ -134,18 +136,25 @@
           body: fd,
         });
 
-        const result = deserialize(await response.text());
+        const result: any = deserialize(await response.text());
 
-        if (result.type === "success" || result.type === "redirect") {
+        if (result.type === "success") {
           try {
-            await deriveWalletEntropy(sk);
+            const oldPrfKey = await deriveWalletEntropy(sk);
+            await resolveCanonicalKey(
+              passwordMethodId(),
+              sk.buffer as ArrayBuffer,
+              result.data?.encryptedKeys,
+              oldPrfKey,
+            );
           } catch (e) {
-            console.log("Wallet entropy derivation failed", e);
+            console.log("Canonical key resolution failed", e);
           }
           await invalidateAll();
+          goto(result.data?.redirectUrl || `/${uname}`);
+        } else {
+          applyAction(result);
         }
-
-        applyAction(result);
         return;
       }
 
@@ -153,24 +162,33 @@
       formData.set("authPubkey", pubkey);
 
       return async ({ result }: any) => {
-        if (result.type === "success" || result.type === "redirect") {
+        if (result.type === "success") {
           try {
-            await deriveWalletEntropy(sk);
+            const oldPrfKey = await deriveWalletEntropy(sk);
+            await resolveCanonicalKey(
+              passwordMethodId(),
+              sk.buffer as ArrayBuffer,
+              result.data?.encryptedKeys,
+              oldPrfKey,
+            );
           } catch (e) {
-            console.log("Wallet entropy derivation failed", e);
+            console.log("Canonical key resolution failed", e);
           }
           await invalidateAll();
+          goto(result.data?.redirectUrl || `/${uname}`);
+        } else {
+          applyAction(result);
         }
-        applyAction(result);
       };
     } catch (e: any) {
       console.log("Auth key derivation failed, falling back to legacy login", e);
-      // Fallback: plain password login without migration
       return async ({ result }: any) => {
         if (result.type === "success") {
           await invalidateAll();
+          goto(result.data?.redirectUrl || "/");
+        } else {
+          applyAction(result);
         }
-        applyAction(result);
       };
     }
   };
@@ -201,14 +219,24 @@
         body: formData,
       });
 
-      const result = deserialize(await response.text());
+      const result: any = deserialize(await response.text());
 
-      if (result.type === "success" || result.type === "redirect") {
-        rememberPrfKey(prfKey, defaultRememberForMs);
+      if (result.type === "success") {
+        try {
+          await resolveCanonicalKey(
+            passkeyMethodId(credential.id),
+            prfKey,
+            result.data?.encryptedKeys,
+            prfKey,
+          );
+        } catch (e) {
+          console.log("Canonical key resolution failed", e);
+        }
         await invalidateAll();
+        goto(result.data?.redirectUrl || "/");
+      } else {
+        applyAction(result);
       }
-
-      applyAction(result);
     } catch (e: any) {
       if (e.name === "NotAllowedError") {
         // user cancelled the browser prompt
@@ -248,19 +276,26 @@
         body: formData,
       });
 
-      const result = deserialize(await response.text());
+      const result: any = deserialize(await response.text());
 
-      if (result.type === "success" || result.type === "redirect") {
+      if (result.type === "success") {
         try {
           const { deriveNostrEntropy } = await import("$lib/walletEntropy");
-          await deriveNostrEntropy();
+          const oldPrfKey = await deriveNostrEntropy();
+          await resolveCanonicalKey(
+            nostrMethodId(signedEvent.pubkey),
+            oldPrfKey,
+            result.data?.encryptedKeys,
+            oldPrfKey,
+          );
         } catch (e) {
-          console.log("Nostr entropy derivation failed", e);
+          console.log("Nostr canonical key resolution failed", e);
         }
         await invalidateAll();
+        goto(result.data?.redirectUrl || "/");
+      } else {
+        applyAction(result);
       }
-
-      applyAction(result);
     } catch (e: any) {
       fail(e.message);
     }

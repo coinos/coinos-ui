@@ -26,18 +26,21 @@ export const actions = {
     if (loginRedirect === "undefined") loginRedirect = undefined;
 
     try {
-      await login(
+      const u = await login(
         user,
         cookies,
         request.headers.get("cf-connecting-ip") ?? "",
         request.headers.get("host") ?? "",
       );
+
+      return {
+        encryptedKeys: u?.encryptedKeys || null,
+        redirectUrl: loginRedirect || `/${user.username}`,
+      };
     } catch (e) {
       const { message } = e as Error;
       return fail(400, { error: "Login failed", message, ...form });
     }
-
-    redirect(307, loginRedirect || `/${user.username}`);
   },
 
   passwordAuth: async ({ cookies, fetch, request }) => {
@@ -88,7 +91,10 @@ export const actions = {
     cookies.set("username", uname, opts);
     cookies.set("token", token, opts);
 
-    redirect(307, loginRedirect || `/${uname}`);
+    return {
+      encryptedKeys: user.encryptedKeys || null,
+      redirectUrl: loginRedirect || `/${uname}`,
+    };
   },
 
   passkey: async ({ cookies, fetch, request }) => {
@@ -134,7 +140,10 @@ export const actions = {
     cookies.set("username", username, opts);
     cookies.set("token", token, opts);
 
-    redirect(307, loginRedirect || `/${username}`);
+    return {
+      encryptedKeys: user.encryptedKeys || null,
+      redirectUrl: loginRedirect || `/${username}`,
+    };
   },
 
   nostr: async ({ cookies, fetch, request }) => {
@@ -175,6 +184,9 @@ export const actions = {
     cookies.set("username", username, opts);
     cookies.set("token", token, opts);
 
-    redirect(307, loginRedirect || `/${username}`);
+    return {
+      encryptedKeys: user.encryptedKeys || null,
+      redirectUrl: loginRedirect || `/${username}`,
+    };
   },
 };

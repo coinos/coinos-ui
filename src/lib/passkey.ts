@@ -10,12 +10,15 @@ function authHeader(token: string) {
   return { authorization: `Bearer ${token}` };
 }
 
-export async function registerPasskey(token?: string): Promise<ArrayBuffer> {
+export async function registerPasskey(
+  token?: string,
+): Promise<{ prfKey: ArrayBuffer; credentialId: string }> {
   const headers = token ? authHeader(token) : undefined;
   const options = await post("/passkey/register/options", {}, headers);
   const registration = await startRegistration({ optionsJSON: options });
   await post("/passkey/register/verify", registration, headers);
-  return deriveKey(registration.id);
+  const prfKey = await deriveKey(registration.id);
+  return { prfKey, credentialId: registration.id };
 }
 
 export async function loginWithPasskey(): Promise<{

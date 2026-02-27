@@ -1,7 +1,6 @@
 import { scryptAsync } from "@noble/hashes/scrypt.js";
 import { bytesToHex } from "@noble/hashes/utils.js";
 import { getPublicKey } from "nostr-tools";
-import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
 
 export async function deriveAuthKeypair(username: string, password: string) {
   const salt = `coinos:auth:${username.toLowerCase().replace(/\s/g, "")}`;
@@ -17,7 +16,5 @@ export async function deriveWalletEntropy(sk: Uint8Array): Promise<ArrayBuffer> 
   const sigBytes = new Uint8Array(signed.sig.length / 2);
   for (let i = 0; i < signed.sig.length; i += 2)
     sigBytes[i / 2] = parseInt(signed.sig.slice(i, i + 2), 16);
-  const entropy = await crypto.subtle.digest("SHA-256", sigBytes);
-  rememberPrfKey(entropy, defaultRememberForMs);
-  return entropy;
+  return crypto.subtle.digest("SHA-256", sigBytes);
 }

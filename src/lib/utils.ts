@@ -214,6 +214,8 @@ export const login = async (
       });
     } catch {}
   }
+
+  return u;
 };
 
 export const auth = (cookies) => ({

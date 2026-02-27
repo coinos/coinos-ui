@@ -9,7 +9,12 @@
   import { save, pin as current } from "$lib/store";
   import { getNsec } from "$lib/nostr";
   import { registerPasskey } from "$lib/passkey";
-  import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
+  import { getCachedPrfKey, rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
+  import {
+    wrapCanonicalKey,
+    saveEncryptedKeys,
+    passkeyMethodId,
+  } from "$lib/keyWrapping";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
@@ -155,8 +160,16 @@
   let addPasskey = async () => {
     passkeyLoading = true;
     try {
-      const prfKey = await registerPasskey();
-      rememberPrfKey(prfKey, defaultRememberForMs);
+      const { prfKey, credentialId } = await registerPasskey();
+      const canonicalKey = getCachedPrfKey();
+      if (canonicalKey) {
+        const wrapped = await wrapCanonicalKey(prfKey, canonicalKey);
+        const updated = { ...(user.encryptedKeys || {}), [passkeyMethodId(credentialId)]: wrapped };
+        await saveEncryptedKeys(updated);
+        user.encryptedKeys = updated;
+      } else {
+        rememberPrfKey(prfKey, defaultRememberForMs);
+      }
       success("Passkey added");
     } catch (e: any) {
       if (e.name !== "NotAllowedError") {

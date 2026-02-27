@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { getCachedPrfKey, rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
+import { getCachedPrfKey } from "$lib/passwordCache";
 
 const DERIVATION_EVENT = {
   kind: 1,
@@ -27,9 +27,7 @@ export async function tryDeriveFromNsec(): Promise<ArrayBuffer | null> {
     const { nip19, finalizeEvent } = await import("nostr-tools");
     const sk = nip19.decode(nsec).data as Uint8Array;
     const signed = finalizeEvent({ ...DERIVATION_EVENT } as any, sk);
-    const entropy = await hashSignature(signed.sig);
-    rememberPrfKey(entropy, defaultRememberForMs);
-    return entropy;
+    return await hashSignature(signed.sig);
   } catch (e) {
     console.log("nsec entropy derivation failed", e);
     return null;
@@ -60,7 +58,5 @@ export async function deriveNostrEntropy(): Promise<ArrayBuffer> {
 
   const { sign } = await import("$lib/nostr");
   const signed = await sign({ ...DERIVATION_EVENT });
-  const entropy = await hashSignature(signed.sig);
-  rememberPrfKey(entropy, defaultRememberForMs);
-  return entropy;
+  return hashSignature(signed.sig);
 }

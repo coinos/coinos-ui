@@ -1,57 +1,18 @@
 <script lang="ts">
-  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
-  import { onDestroy, onMount } from "svelte";
-  import { browser } from "$app/environment";
-  import punks from "$lib/punks";
-  import { upload } from "$lib/upload";
-  import { afterNavigate, invalidateAll } from "$app/navigation";
-  import { applyAction, deserialize } from "$app/forms";
-  import { tick } from "svelte";
-  import { fly } from "svelte/transition";
-  import { enhance } from "$app/forms";
-
-  import Pin from "$comp/Pin.svelte";
-  import PasswordInput from "$comp/PasswordInput.svelte";
-  import Spinner from "$comp/Spinner.svelte";
-
-  import { focus, fail, versions, post } from "$lib/utils";
-  import { registerPasskey } from "$lib/passkey";
-  import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
-  import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
-  import { t } from "$lib/translations";
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import punks from "$lib/punks";
+  import { avatar } from "$lib/store";
+  import { focus } from "$lib/utils";
+  import { t } from "$lib/translations";
   import { NumberDictionary, uniqueNamesGenerator, animals } from "unique-names-generator";
-  import { sign } from "$lib/nostr";
 
-  let { form, data }: any = $props();
-  let { challenge } = $derived(data);
-  let recaptchaSiteKey = PUBLIC_RECAPTCHA_SITE_KEY;
-  let isTor = browser && location.hostname.endsWith(".onion");
-
-  onMount(() => {
-    if (!isTor && recaptchaSiteKey) {
-      let s = document.createElement("script");
-      s.src = "https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey;
-      document.head.appendChild(s);
-    }
-  });
-
-  onMount(() => {
-    if (browser) {
-      setTimeout(() => {
-        password.set(undefined);
-        pin.set(undefined);
-        signer.set(undefined);
-        localStorage.clear();
-        sessionStorage.clear();
-      }, 50);
-    }
-  });
+  let { data }: any = $props();
 
   let username: string | undefined = $state();
   let index = $state(data.index);
 
-  let cleared;
+  let cleared: boolean;
   let clear = () => {
     if (!cleared) {
       cleared = true;
@@ -70,197 +31,18 @@
     });
   };
 
-  afterNavigate(async () => {
-    try {
-      await invalidateAll();
-    } catch (e) {
-      console.log(e);
-    }
-  });
-
-  let token: string = $state(""),
-    formElement: any;
-  let redirect: any;
-
-  let cancel: any = () => {
-    need2fa = false;
-  };
-
-  let btn: HTMLButtonElement = $state() as any;
-
-  let loading = $state(false);
-  let passkeyLoading = $state(false);
-
-  const getRecaptchaToken = () =>
-    new Promise((resolve, reject) => {
-      if (isTor) return resolve("");
-      if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
-      grecaptcha.ready(() => {
-        grecaptcha.execute(recaptchaSiteKey, { action: "register" }).then(resolve).catch(reject);
-      });
-    });
-
-  async function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
-
-    loading = true;
-
-    let data = new FormData(e.target as HTMLFormElement);
-    let user: Record<string, any> = Object.fromEntries(data);
-    user.username = (user.username as string).replace(/\s*/g, "");
-
-    if (!user.password) {
-      fail("Password is required");
-      loading = false;
-      return;
-    }
-
-    for (let k in user) {
-      data.set(k, user[k]);
-    }
-
-    try {
-      const recaptcha = await getRecaptchaToken();
-      data.set("recaptcha", recaptcha as string);
-    } catch (err: any) {
-      fail(err.message || "captcha failed");
-      loading = false;
-      return;
-    }
-
-    data.set("picture", `${$page.url.origin}/api/public/${punks[index]}.webp`);
-    if ($avatar) {
-      try {
-        let { hash } = JSON.parse(
-          (await upload(
-            ($avatar as any).file,
-            ($avatar as any).type,
-            ($avatar as any).progress,
-          )) as string,
-        );
-
-        let url = `${$page.url.origin}/api/public/${hash}.webp`;
-        data.set("picture", url);
-        await fetch(url, {
-          cache: "reload",
-          mode: "no-cors",
-        });
-      } catch (e) {
-        console.log("problem uploading avatar", e);
-      }
-    }
-
-    // Derive authPubkey from username + password
-    try {
-      const { deriveAuthKeypair } = await import("$lib/deriveAuthKey");
-      const { pubkey: authPubkey } = await deriveAuthKeypair(user.username, user.password);
-      data.set("authPubkey", authPubkey);
-    } catch (e) {
-      console.log("Failed to derive authPubkey during registration", e);
-    }
-
-    const response = await fetch("/register?/register", {
-      method: "POST",
-      body: data,
-    });
-
-    const result = deserialize(await response.text());
-
-    if (result.type === "success") {
-      // Derive wallet entropy from password
-      try {
-        const { deriveAuthKeypair, deriveWalletEntropy } = await import("$lib/deriveAuthKey");
-        const { sk } = await deriveAuthKeypair(user.username, user.password);
-        await deriveWalletEntropy(sk);
-      } catch (e) {
-        console.log("Wallet entropy derivation failed", e);
-      }
-
-      await invalidateAll();
-    }
-
-    applyAction(result);
-    loading = false;
-  }
-
-  let passkeyRegister = async () => {
-    passkeyLoading = true;
-    try {
-      let name =
-        username ||
-        uniqueNamesGenerator({
-          dictionaries: [animals, NumberDictionary.generate({ min: 10, max: 99 })],
-          length: 2,
-          separator: "",
-        });
-
-      let pw = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) =>
-        b.toString(16).padStart(2, "0"),
-      ).join("");
-
-      const recaptcha = await getRecaptchaToken();
-
-      const formData = new FormData();
-      formData.append("username", name);
-      formData.append("password", pw);
-      formData.append("challenge", challenge);
-      formData.append("recaptcha", recaptcha as string);
-      formData.append("picture", `${$page.url.origin}/api/public/${punks[index]}.webp`);
-
-      const response = await fetch("/register?/passkeyCreate", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result: any = deserialize(await response.text());
-      if (result.type !== "success") {
-        fail(result.data?.error || "Account creation failed");
-        passkeyLoading = false;
-        return;
-      }
-
-      const { token, sk } = result.data;
-      const prfKey = await registerPasskey(token);
-
-      const activateData = new FormData();
-      activateData.append("token", token);
-      activateData.append("username", name);
-      if (sk) activateData.append("sk", sk);
-      activateData.append("loginRedirect", (redirect ?? "") as string);
-
-      const activateResponse = await fetch("/register?/activate", {
-        method: "POST",
-        body: activateData,
-      });
-
-      const activateResult = deserialize(await activateResponse.text());
-
-      if (activateResult.type === "success" || activateResult.type === "redirect") {
-        rememberPrfKey(prfKey, defaultRememberForMs);
-        await invalidateAll();
-      }
-
-      applyAction(activateResult);
-    } catch (e: any) {
-      if (e.name !== "NotAllowedError") {
-        fail(e.message || "Passkey registration failed");
-      }
-    }
-    passkeyLoading = false;
-  };
-
   let avatarInput: HTMLInputElement = $state() as any;
   let decr = () => (index = index <= 0 ? 63 : index - 1);
   let incr = () => (index = index >= 63 ? 0 : index + 1);
   let selectAvatar = () => avatarInput.click();
 
-  let progress;
+  let progress: any;
   let handleFile = async ({ target }: { target: HTMLInputElement }) => {
     let type = "picture";
     let file = target.files![0];
     if (!file) return;
 
-    if (file.size > 10000000) form!.error = "File too large";
+    if (file.size > 10000000) return;
     $avatar = { file, type, progress };
 
     var reader = new FileReader();
@@ -271,87 +53,18 @@
     reader.readAsDataURL(file);
   };
 
-  let need2fa: any = $derived(form?.message === "2fa");
   let src: string = $derived(`/api/public/${punks[index]}.webp`);
 
-  $effect(() => {
-    if (need2fa && form?.token === token) token = "";
-  });
-
-  $effect(() => {
-    token && token.length === 6 && tick().then(() => btn.click());
-  });
-
-  let nostrLogin = async () => {
-    let event = {
-      kind: 27235,
-      created_at: Date.now(),
-      content: "",
-      tags: [
-        ["u", `${$page.url.origin}/api/nostrAuth`],
-        ["method", "POST"],
-        ["challenge", challenge],
-      ],
-    };
-
-    let signedEvent = await sign(event);
-
-    const formData = new FormData();
-
-    try {
-      const recaptcha = await getRecaptchaToken();
-      formData.append("loginRedirect", redirect ?? "");
-      formData.append("token", token ?? "");
-      formData.append("event", JSON.stringify(signedEvent));
-      formData.append("challenge", challenge);
-      formData.append("recaptcha", recaptcha as string);
-
-      let response = await fetch("/login?/nostr", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = deserialize(await response.text());
-
-      if (result.type === "success" || result.type === "redirect") {
-        try {
-          const { deriveNostrEntropy } = await import("$lib/walletEntropy");
-          await deriveNostrEntropy();
-        } catch (e) {
-          console.log("Nostr entropy derivation failed", e);
-        }
-        await invalidateAll();
-      }
-
-      applyAction(result);
-    } catch (e: any) {
-      fail(e.message);
-    }
+  let continueToAuth = () => {
+    let name = (username || "").replace(/\s*/g, "");
+    if (!name) return;
+    goto(`/register/auth?username=${encodeURIComponent(name)}&index=${index}`);
   };
-
-  onDestroy(() => {
-    if (!browser) return;
-    const nodeBadge = document.querySelector(".grecaptcha-badge");
-    if (nodeBadge) {
-      document.body.removeChild(nodeBadge.parentNode!);
-    }
-
-    const scriptSelector =
-      "script[src='https://www.google.com/recaptcha/api.js?render=" + recaptchaSiteKey + "']";
-    const script = document.querySelector(scriptSelector);
-    if (script) {
-      script.remove();
-    }
-  });
 </script>
-
-{#if need2fa}
-  <Pin bind:value={token} title={$t("login.enter2faCode")} {cancel} notify={false} />
-{/if}
 
 <div class="mx-auto md:shadow-xl rounded-3xl max-w-xl w-full md:w-[480px] md:p-8 space-y-5 mb-20">
   <h1 class="text-2xl font-bold text-center">{$t("login.createAccount")}</h1>
-  <input type="file" class="hidden!" bind:this={avatarInput} onchange={(e: any) => handleFile(e)} />
+  <input type="file" accept="image/*" class="hidden!" bind:this={avatarInput} onchange={(e: any) => handleFile(e)} />
 
   <div class="relative">
     <button
@@ -371,8 +84,9 @@
           alt={username}
         />
       </div>
-      <div class="absolute bg-base-100 rounded-full p-2 mx-auto right-0 bottom-0 z-10 w-12">
-        <iconify-icon noobserver icon="ph:upload-simple-bold" width="24"></iconify-icon>
+      <div class="absolute bg-base-100 rounded-full px-3 py-1 mx-auto -right-6 -bottom-2 z-10 flex items-center gap-1 text-base">
+        <iconify-icon noobserver icon="ph:camera-bold" width="24"></iconify-icon>
+        Upload
       </div>
     </button>
     <button
@@ -384,22 +98,10 @@
     </button>
   </div>
 
-  {#if form?.error || form?.message}
-    <div class="text-red-600 text-center" in:fly>{form?.message}{form?.error}</div>
-  {/if}
-
-  <form class="space-y-5" onsubmit={handleSubmit} method="POST">
-    <input
-      type="hidden"
-      name="loginRedirect"
-      value={$loginRedirect || $page.url.searchParams.get("redirect")}
-    />
-    <input type="hidden" name="token" value={token} />
-    <input type="hidden" name="challenge" value={challenge} />
-
-    <label for="username" class="input flex items-center justify-center gap-2 w-full">
+  <div class="space-y-3">
+    <label for="username" class="input flex items-center gap-2 w-full pr-0! overflow-hidden">
       <input
-        class="clean"
+        class="clean min-w-0 shrink"
         use:focus
         name="username"
         type="text"
@@ -408,40 +110,18 @@
         onfocus={clear}
         autocapitalize="none"
         placeholder={$t("login.username")}
+        onkeydown={(e: KeyboardEvent) => e.key === "Enter" && continueToAuth()}
       />
-      <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
-        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
-      </button>
+      <span class="bg-base-300 whitespace-nowrap select-none self-stretch flex items-center px-3">@coinos.io</span>
     </label>
 
-    <PasswordInput bind:value={$password} placeholder={$t("login.password")} />
-
-    <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
-      {#if loading}
-        <Spinner />
-      {:else}
-        {$t("login.register")}
-      {/if}
+    <button type="button" class="btn gap-2" onclick={refresh}>
+      <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
+      Random username
     </button>
 
-    <button type="button" class="btn" onclick={passkeyRegister} disabled={passkeyLoading}>
-      {#if passkeyLoading}
-        <Spinner />
-      {:else}
-        <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
-      {/if}
-      <div class="my-auto">Register with Passkey</div>
-    </button>
-
-    <button type="button" class="btn" onclick={nostrLogin}>
-      {#if $signer?.ready}
-        <div class="shrink">
-          <Spinner />
-        </div>
-      {:else}
-        <img src="/images/nostr.png" class="w-8" alt="Nostr" />
-      {/if}
-      <div class="my-auto">{$t("login.nostr")}</div>
+    <button class="btn btn-accent" onclick={continueToAuth}>
+      Continue
     </button>
 
     <p class="text-secondary text-center font-medium">
@@ -453,5 +133,5 @@
         {$t("login.signIn")}
       </a>
     </p>
-  </form>
+  </div>
 </div>
