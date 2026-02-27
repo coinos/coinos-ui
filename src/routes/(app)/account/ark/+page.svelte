@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { preventDefault } from "svelte/legacy";
-  import { tick, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { t } from "$lib/translations";
   import Spinner from "$comp/Spinner.svelte";
   import { bytesToHex } from "@noble/hashes/utils.js";
@@ -24,13 +23,13 @@
   let hasSigner = $state(false);
 
   let arkAddress = $state("");
-  let submitting = $state(false);
+  let submitting = $state(true);
   let needsPasskeyUnlock = $state(false);
 
   let name = $t("accounts.savings");
   let type = "ark";
 
-  let deriveFromPrfKey = async (prfKey: ArrayBuffer) => {
+  let deriveAndCreate = async (prfKey: ArrayBuffer) => {
     try {
       const { SingleKey, Wallet } = await import("@arkade-os/sdk");
       const entropy = new Uint8Array(prfKey).slice(0, 16);
@@ -42,84 +41,62 @@
       const identity = SingleKey.fromHex(arkHex);
       const wallet = await Wallet.create({ identity, arkServerUrl });
       arkAddress = await wallet.getAddress();
+      await post("/account", { name, type, arkAddress });
+      goto(`/${user.username}`);
     } catch (e: any) {
-      console.log("PRF seed derivation failed", e);
-      fail($t("accounts.failedToDecryptSeed"));
+      console.log("Ark account creation failed", e);
+      fail(e.message || $t("accounts.failedToDecryptSeed"));
+      submitting = false;
     }
   };
 
   let unlockWithNostr = async () => {
     try {
+      submitting = true;
       const { deriveNostrEntropy } = await import("$lib/walletEntropy");
       const entropy = await deriveNostrEntropy();
-      hasPrfSeed = true;
-      await deriveFromPrfKey(entropy);
-      needsPasskeyUnlock = false;
+      await deriveAndCreate(entropy);
     } catch (e: any) {
       fail(e.message || $t("accounts.passkeyUnlockFailed"));
+      submitting = false;
     }
   };
 
   let unlockWithPasskey = async () => {
     try {
+      submitting = true;
       const { prfKey } = await loginWithPasskey();
       if (prfKey) {
         rememberPrfKey(prfKey, defaultRememberForMs);
-        await deriveFromPrfKey(prfKey);
-        needsPasskeyUnlock = false;
+        await deriveAndCreate(prfKey);
       } else {
         fail($t("accounts.passkeyNoPrf"));
+        submitting = false;
       }
     } catch (e: any) {
       if (e.name !== "NotAllowedError") {
         fail(e.message || $t("accounts.passkeyUnlockFailed"));
       }
+      submitting = false;
     }
   };
 
   onMount(async () => {
+    submitting = true;
     hasSigner = !!localStorage.getItem("signer");
 
-    // Try wallet entropy (covers both cached prfKey and silent nsec derivation)
-    if (!hasPrfSeed) {
-      const { getWalletEntropy } = await import("$lib/walletEntropy");
-      const entropy = await getWalletEntropy();
-      if (entropy) {
-        hasPrfSeed = true;
-        await deriveFromPrfKey(entropy);
-        return;
-      }
+    // Try wallet entropy (covers cached prfKey, nsec, and client-side password)
+    const { getWalletEntropy } = await import("$lib/walletEntropy");
+    const entropy = await getWalletEntropy();
+    if (entropy) {
+      await deriveAndCreate(entropy);
+      return;
     }
 
-    if (hasPrfSeed) {
-      const prfKey = getCachedPrfKey();
-      if (prfKey) {
-        await deriveFromPrfKey(prfKey);
-      } else {
-        needsPasskeyUnlock = true;
-      }
-    } else {
-      needsPasskeyUnlock = true;
-    }
-  });
-
-  let submit = async () => {
-    submitting = true;
-    await tick();
-    try {
-      if (!arkAddress) {
-        const prfKey = getCachedPrfKey();
-        if (prfKey) await deriveFromPrfKey(prfKey);
-        else throw new Error("PRF key not available");
-      }
-      await post("/account", { name, type, arkAddress });
-      goto(`/${user.username}`);
-    } catch (e: any) {
-      console.log(e);
-      fail(e.message);
-    }
+    // Need manual unlock
     submitting = false;
-  };
+    needsPasskeyUnlock = true;
+  });
 </script>
 
 <div class="space-y-5">
@@ -128,7 +105,11 @@
   </div>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
-    {#if needsPasskeyUnlock}
+    {#if submitting}
+      <div class="flex justify-center py-8">
+        <Spinner />
+      </div>
+    {:else if needsPasskeyUnlock}
       <div class="space-y-5">
         <p class="text-secondary">
           {$t("accounts.arkUnlockWithPasskey")}
@@ -143,25 +124,10 @@
           <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
           {$t("accounts.unlockWithPasskey")}
         </button>
+        <a href={`/${user.username}`}>
+          <button type="button" class="btn">{$t("accounts.back")}</button>
+        </a>
       </div>
-    {:else}
-      <form onsubmit={preventDefault(submit)} class="space-y-5">
-        <p class="text-secondary">
-          {$t("accounts.arkDerivedFromPasskey")}
-        </p>
-        <div class="flex gap-2">
-          <a href={`/${user.username}`} class="contents">
-            <button type="button" class="btn !w-auto grow">{$t("accounts.back")}</button>
-          </a>
-          <button disabled={submitting} type="submit" class="btn btn-accent !w-auto grow">
-            {#if submitting}
-              <Spinner />
-            {:else}
-              {$t("accounts.createWallet")}
-            {/if}
-          </button>
-        </div>
-      </form>
     {/if}
   </div>
 </div>

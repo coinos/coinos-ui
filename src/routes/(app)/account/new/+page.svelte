@@ -1,7 +1,49 @@
 <script lang="ts">
   import { t } from "$lib/translations";
+  import Spinner from "$comp/Spinner.svelte";
+  import { bytesToHex } from "@noble/hashes/utils.js";
+  import { fail, post, versions } from "$lib/utils";
+  import { goto } from "$app/navigation";
+  import { arkServerUrl } from "$lib/ark";
+  import { HDKey } from "@scure/bip32";
+  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
 
   let { data } = $props();
+  let user = $derived(data.user);
+
+  let creatingArk = $state(false);
+
+  let createArk = async () => {
+    creatingArk = true;
+    try {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      const entropy = await getWalletEntropy();
+      if (!entropy) {
+        fail($t("accounts.failedToDecryptSeed"));
+        creatingArk = false;
+        return;
+      }
+
+      const { SingleKey, Wallet } = await import("@arkade-os/sdk");
+      const ent = new Uint8Array(entropy).slice(0, 16);
+      const mnemonic = entropyToMnemonic(ent, wordlist);
+      const seed = await mnemonicToSeed(mnemonic);
+      const master = HDKey.fromMasterSeed(seed, versions);
+      const arkChild = master.derive("m/86'/0'/0'/0/0");
+      const arkHex = bytesToHex(arkChild.privateKey!);
+      const identity = SingleKey.fromHex(arkHex);
+      const wallet = await Wallet.create({ identity, arkServerUrl });
+      const arkAddress = await wallet.getAddress();
+
+      await post("/account", { name: $t("accounts.savings"), type: "ark", arkAddress });
+      goto(`/${user.username}`);
+    } catch (e: any) {
+      console.log("Ark account creation failed", e);
+      fail(e.message || $t("accounts.failedToDecryptSeed"));
+      creatingArk = false;
+    }
+  };
 </script>
 
 <div class="space-y-5">
@@ -20,9 +62,13 @@
       </div>
     </a>
     {#if !data.hasArk}
-      <a href="/account/ark" class="block">
+      <button type="button" class="block w-full text-left" onclick={createArk} disabled={creatingArk}>
         <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200 gap-4 items-center">
-          <img src="/images/ark.png" class="w-12 h-12 rounded-full object-cover bg-neutral" alt="Ark" />
+          {#if creatingArk}
+            <Spinner />
+          {:else}
+            <img src="/images/ark.png" class="w-12 h-12 rounded-full object-cover bg-neutral" alt="Ark" />
+          {/if}
           <div>
             <div class="text-xl">Ark (Off-chain)</div>
             <div class="text-secondary">
@@ -30,7 +76,7 @@
             </div>
           </div>
         </div>
-      </a>
+      </button>
     {/if}
   </div>
 </div>
