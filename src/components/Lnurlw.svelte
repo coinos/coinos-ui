@@ -48,13 +48,10 @@
 
   {#if minWithdrawable === maxWithdrawable}
     <div class="text-center font-bold text-2xl mb-4">
-      {#if $fiat}
-        <div>{f(amountFiat, currency)}</div>
-      {:else}
-        <div>
-          <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span>
-        </div>
-      {/if}
+      <div class:hidden={!$fiat}>{f(amountFiat, currency)}</div>
+      <div class:hidden={$fiat}>
+        <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span>
+      </div>
     </div>
   {:else}
     <Numpad bind:amount {currency} {rate} {locale} />
@@ -78,11 +75,8 @@
           disabled={submitting}
           onkeydown={setMax}
         >
-          {#if $fiat}
-            Max {f((Math.floor(maxWithdrawable / 1000) * rate) / sats, currency)}
-          {:else}
-            Max ⚡️{s(Math.floor(maxWithdrawable / 1000))}
-          {/if}
+          <span class:hidden={!$fiat}>Max {f((Math.floor(maxWithdrawable / 1000) * rate) / sats, currency)}</span>
+          <span class:hidden={$fiat}>Max ⚡️{s(Math.floor(maxWithdrawable / 1000))}</span>
         </button>
       {/if}
 

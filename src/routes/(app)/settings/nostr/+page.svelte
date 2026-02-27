@@ -70,11 +70,8 @@
                 <div class="flex items-center">
                   <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
                   ></iconify-icon>
-                  {#if $fiat && $rate}
-                    {f((app.spent * ($rate as number)) / sats, user.currency, locale)} / {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}
-                  {:else}
-                    {s(app.spent, locale)} / {s(app.max_amount, locale)}
-                  {/if}
+                  <span class:hidden={!($fiat && $rate)}>{f((app.spent * ($rate as number)) / sats, user.currency, locale)} / {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}</span>
+                  <span class:hidden={$fiat && $rate}>{s(app.spent, locale)} / {s(app.max_amount, locale)}</span>
                 </div>
 
                 {#if app.budget_renewal !== "never"}

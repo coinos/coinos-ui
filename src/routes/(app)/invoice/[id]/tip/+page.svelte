@@ -103,26 +103,22 @@
       <Slider handle={handleSlide} bind:value={tipPercent} />
 
       <div class="flex mb-8 text-lg">
-        {#if $fiat}
-          <div>
-            <span class="mr-1">
-              {f(amountFiat, currency, locale)}
-              <span class="font-semibold">+{f(tipAmount, currency, locale)}</span>
-            </span>
+        <div class:hidden={!$fiat}>
+          <span class="mr-1">
+            {f(amountFiat, currency, locale)}
+            <span class="font-semibold">+{f(tipAmount, currency, locale)}</span>
+          </span>
+        </div>
+        <div class="ml-auto text-lg flex gap-2" class:hidden={$fiat}>
+          <div class="flex items-center">
+            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
+            ></iconify-icon>
+            <div>{s(amount, locale)}</div>
           </div>
-        {:else}
-          <div class="ml-auto text-lg flex gap-2">
-            <div class="flex items-center">
-              <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-              ></iconify-icon>
-              <div>{s(amount, locale)}</div>
-            </div>
-
-            <div class="flex items-center">
-              <div class="font-semibold">+{s(tip, locale)}</div>
-            </div>
+          <div class="flex items-center">
+            <div class="font-semibold">+{s(tip, locale)}</div>
           </div>
-        {/if}
+        </div>
       </div>
 
       <div class="space-y-2">

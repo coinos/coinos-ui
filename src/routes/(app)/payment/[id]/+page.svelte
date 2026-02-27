@@ -82,14 +82,11 @@
       onclick={toggleFiat}
       aria-label="Toggle currency display"
     >
-      {#if $fiat}
-        <div>{f(toFiat(amount, rate), currency, userLocale)}</div>
-      {:else}
-        <div class="flex items-center">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-          {s(amount, userLocale)}
-        </div>
-      {/if}
+      <div class:hidden={!$fiat}>{f(toFiat(amount, rate), currency, userLocale)}</div>
+      <div class="flex items-center" class:hidden={$fiat}>
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+        {s(amount, userLocale)}
+      </div>
     </button>
   </div>
 {/snippet}
@@ -144,14 +141,11 @@
       onclick={toggleFiat}
       aria-label="Toggle currency display"
     >
-      {#if $fiat}
-        {f(toFiat(a, rate), currency, userLocale)}
-      {:else}
-        <span class="flex items-center">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-          {s(a, userLocale)}
-        </span>
-      {/if}
+      <span class:hidden={!$fiat}>{f(toFiat(a, rate), currency, userLocale)}</span>
+      <span class="flex items-center" class:hidden={$fiat}>
+        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+        {s(a, userLocale)}
+      </span>
     </button>
     <div class="text-secondary">
       {format(new Date(created), "MMM d, yyyy", { locale })}<span class="mx-3">{format(new Date(created), "h:mmaaa", { locale })}</span>

@@ -120,11 +120,8 @@
 
         <div class="flex flex-wrap gap-4 justify-center">
           <div class="my-auto">
-            {#if $fiat}
-              <h2 class="text-xl">{f(toFiat(ourfee as number, $rate as number), currency)}</h2>
-            {:else}
-              <h3 class="text-secondary">⚡️{s(ourfee)}</h3>
-            {/if}
+            <h2 class="text-xl" class:hidden={!$fiat}>{f(toFiat(ourfee as number, $rate as number), currency)}</h2>
+            <h3 class="text-secondary" class:hidden={$fiat}>⚡️{s(ourfee)}</h3>
           </div>
         </div>
       </div>

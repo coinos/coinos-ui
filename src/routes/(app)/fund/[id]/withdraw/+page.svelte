@@ -56,11 +56,8 @@
         disabled={submitting}
         onkeydown={setMax}
       >
-        {#if $fiat}
-          Max {f((balance * rate) / sats, currency, locale)}
-        {:else}
-          Max ⚡️{s(balance)}
-        {/if}
+        <span class:hidden={!$fiat}>Max {f((balance * rate) / sats, currency, locale)}</span>
+        <span class:hidden={$fiat}>Max ⚡️{s(balance)}</span>
       </button>
 
       <button bind:this={submit} type="submit" class="btn btn-accent !w-auto grow" disabled={submitting || !amount}>

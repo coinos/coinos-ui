@@ -24,14 +24,11 @@
     >
       <div class="whitespace-nowrap my-auto col-span-3">
         <button class="font-bold flex items-center" onclick={(e) => { e.stopPropagation(); $fiat = !$fiat; }}>
-          <div class="flex items-center">
-            {#if $fiat}
-              <div>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
-            {:else}
-              <iconify-icon noobserver icon="ph:lightning-fill" width="24" class="text-yellow-300"
-              ></iconify-icon>
-              <div>{s(Math.abs(amount), locale)}</div>
-            {/if}
+          <div class:hidden={!$fiat}>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
+          <div class="flex items-center" class:hidden={$fiat}>
+            <iconify-icon noobserver icon="ph:lightning-fill" width="24" class="text-yellow-300"
+            ></iconify-icon>
+            <div>{s(Math.abs(amount), locale)}</div>
           </div>
         </button>
 

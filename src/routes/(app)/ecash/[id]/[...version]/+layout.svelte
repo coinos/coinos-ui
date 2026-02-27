@@ -27,13 +27,10 @@
 
   {#if amount > 0}
     <div class="text-center font-bold text-2xl">
-      {#if $fiat}
-        <div>{f(amountFiat, currency)}</div>
-      {:else}
-        <div>
-          <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span>
-        </div>
-      {/if}
+      <div class:hidden={!$fiat}>{f(amountFiat, currency)}</div>
+      <div class:hidden={$fiat}>
+        <span class="text-secondary font-normal text-xl">⚡️{`${s(amount)}`}</span>
+      </div>
     </div>
   {/if}
 
@@ -44,17 +41,14 @@
 
   {#if spent > 0}
     <div class="text-center font-bold text-2xl">
-      {#if $fiat}
-        <div>
-          {f(spentFiat, currency)}
-          <span class=" text-red-600">{$t("payments.spent")}</span>
-        </div>
-      {:else}
-        <div>
-          <span class="text-secondary font-normal text-xl">⚡️{`${s(spent)}`}</span>
-          <span class=" text-red-600">{$t("payments.spent")}</span>
-        </div>
-      {/if}
+      <div class:hidden={!$fiat}>
+        {f(spentFiat, currency)}
+        <span class=" text-red-600">{$t("payments.spent")}</span>
+      </div>
+      <div class:hidden={$fiat}>
+        <span class="text-secondary font-normal text-xl">⚡️{`${s(spent)}`}</span>
+        <span class=" text-red-600">{$t("payments.spent")}</span>
+      </div>
     </div>
   {/if}
 

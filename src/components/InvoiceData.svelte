@@ -66,11 +66,8 @@
   <div class="grid grid-cols-12 text-xl">
     <div class="col-span-1 my-auto">{i.quantity}</div>
     <div class="mr-auto grow col-span-7 my-auto">{i.name}</div>
-    {#if $fiat}
-      <div class="col-span-4 font-semibold text-right my-auto">{f(itemTotal, currency)}</div>
-    {:else}
-      <div class="col-span-4 font-semibold text-right my-auto">{sat(btc(itemTotal, rate))}</div>
-    {/if}
+    <div class="col-span-4 font-semibold text-right my-auto" class:hidden={!$fiat}>{f(itemTotal, currency)}</div>
+    <div class="col-span-4 font-semibold text-right my-auto" class:hidden={$fiat}>{sat(btc(itemTotal, rate))}</div>
   </div>
 {/each}
 

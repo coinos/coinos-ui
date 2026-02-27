@@ -40,11 +40,8 @@
   <div>
     <span class="text-lg text-secondary">Amount</span>
     <div>
-      {#if $fiat}
-        {f(toFiat(a, rate), currency)}
-      {:else}
-        {s(a)}
-      {/if}
+      <span class:hidden={!$fiat}>{f(toFiat(a, rate), currency)}</span>
+      <span class:hidden={$fiat}>{s(a)}</span>
     </div>
   </div>
 
@@ -52,11 +49,8 @@
     <div>
       <span class="text-lg text-secondary">Tip</span>
       <div>
-        {#if $fiat}
-          {f(toFiat(tip, rate), currency)}
-        {:else}
-          {s(tip)}
-        {/if}
+        <span class:hidden={!$fiat}>{f(toFiat(tip, rate), currency)}</span>
+        <span class:hidden={$fiat}>{s(tip)}</span>
         ({Math.round((tip * 100) / Math.abs(a))}%)
       </div>
     </div>
@@ -64,11 +58,8 @@
     <div>
       <span class="text-lg text-secondary">Total</span>
       <div>
-        {#if $fiat}
-          {f(toFiat(a + (tip || 0), rate), currency)}
-        {:else}
-          {s(a + (tip || 0))}
-        {/if}
+        <span class:hidden={!$fiat}>{f(toFiat(a + (tip || 0), rate), currency)}</span>
+        <span class:hidden={$fiat}>{s(a + (tip || 0))}</span>
       </div>
     </div>
   {/if}

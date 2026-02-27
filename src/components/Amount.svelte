@@ -33,25 +33,17 @@
         onclick={toggleFiat}
         aria-label="Toggle currency display"
       >
-        {#if !canShowFiat}
-          <iconify-icon noobserver {icon} class="text-yellow-300"></iconify-icon>
-        {/if}
-        {#if canShowFiat}
-          {f(toFiat(amount, rate), currency, locale)}
-        {:else}
-          {s(amount, locale)}
-        {/if}
+        <iconify-icon noobserver {icon} class="text-yellow-300" class:hidden={canShowFiat}></iconify-icon>
+        <span class:hidden={!canShowFiat}>{f(toFiat(amount, rate), currency, locale)}</span>
+        <span class:hidden={canShowFiat}>{s(amount, locale)}</span>
       </button>
 
       {#if tip}
         <div class="flex items-center text-lg ml-2">
           <div>+</div>
           <div class="font-semibold">
-            {#if canShowFiat}
-              {f(toFiat(tip, rate), currency, locale)}
-            {:else}
-              {s(tip, locale)}
-            {/if}
+            <span class:hidden={!canShowFiat}>{f(toFiat(tip, rate), currency, locale)}</span>
+            <span class:hidden={canShowFiat}>{s(tip, locale)}</span>
           </div>
         </div>
       {/if}

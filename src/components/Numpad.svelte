@@ -255,12 +255,11 @@
     <div class="text-center">
       <div class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center">
         <div class="my-auto" class:text-5xl={!fiat}>
-          {#if fiat}
+          <span class:hidden={!fiat}>
             {#if position === "before"}{symbol}{/if}
-          {:else}
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-            ></iconify-icon>
-          {/if}
+          </span>
+          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300" class:hidden={fiat}
+          ></iconify-icon>
         </div>
 
         <!-- contenteditable input -->
@@ -302,12 +301,11 @@
           swap();
         }}
       >
-        {#if fiat}
+        <span class="flex items-center" class:hidden={!fiat}>
           <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
           {s(amount, locale)}
-        {:else}
-          {f(amountFiat, currency, locale)}
-        {/if}
+        </span>
+        <span class:hidden={fiat}>{f(amountFiat, currency, locale)}</span>
       </button>
     </div>
 

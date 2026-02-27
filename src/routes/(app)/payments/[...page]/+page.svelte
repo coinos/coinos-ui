@@ -151,11 +151,11 @@
   <h1 class="text-center text-3xl md:text-4xl font-semibold">{$t("payments.header")}</h1>
 
   <div class="container w-full mx-auto text-lg px-2 max-w-xl space-y-2">
-    <div class="mx-auto flex justify-center w-full gap-1">
+    <div class="flex w-full gap-1">
       {#each presets as { start, end, title }, i}
         <a
           href={`/payments/${getUnixTime(start)}/1`}
-          class="btn !w-auto"
+          class="btn !w-auto flex-1"
           class:!btn-active={selection === i}
         >
           {title}
@@ -163,17 +163,17 @@
       {/each}
     </div>
 
-    <div class="join flex flex-wrap justify-center">
+    <div class="join flex flex-wrap w-full">
       {#if pages.length > 1}
         {#each pages as _, i}
           {#if showPage(i)}
-            <a href={`${path}/${i + 1}`}>
-              <div class="join-item btn !btn-sm" class:btn-active={parseInt(p) === i + 1}>
+            <a href={`${path}/${i + 1}`} class="flex-1">
+              <div class="join-item btn !btn-sm w-full" class:btn-active={parseInt(p) === i + 1}>
                 {i + 1}
               </div>
             </a>
           {:else if isEllipsis(i)}
-            <div class="join-item btn !w-auto !btn-sm btn-disabled !bg-base-200">...</div>
+            <div class="join-item btn !w-auto !btn-sm btn-disabled !bg-base-200 flex-1">...</div>
           {/if}
         {/each}
       {/if}
