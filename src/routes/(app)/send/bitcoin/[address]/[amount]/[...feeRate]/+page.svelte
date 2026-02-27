@@ -4,71 +4,51 @@
   import { enhance } from "$app/forms";
   import Toggle from "$comp/Toggle.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import WalletPass from "$comp/WalletPass.svelte";
   import { page } from "$app/stores";
-  import { toFiat, f, focus, loc, s, sat, closest, network } from "$lib/utils";
+  import { toFiat, f, fail, focus, loc, s, sat, closest, network } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
   import * as btc from "@scure/btc-signer";
-  import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import { getCachedPrfKey } from "$lib/passwordCache";
   import { sendArkViaForward } from "$lib/ark";
+  import { prfDecrypt, isPrfEncrypted } from "$lib/crypto";
 
   import Amount from "$comp/Amount.svelte";
 
   let { data, form }: any = $props();
 
   let { encode, decode } = hexUtil;
-  let passwordPrompt = $state();
-  let password: any = $state();
-  let cancel = $state(() => (passwordPrompt = false));
   let signed = $state();
   let loading = $state(false);
   let error = $state("");
 
-  let trySignWithCachedPassword = async () => {
+  let trySign = async () => {
     const prfKey = getCachedPrfKey();
     if (prfKey) {
       try {
         await signTxWithPrf(prfKey);
-        return true;
-      } catch (e: any) {
-        return false;
-      }
+        return;
+      } catch (e: any) {}
     }
-    // Try silent Nostr derivation
-    const { getWalletEntropy } = await import("$lib/walletEntropy");
+    const { getWalletEntropy, deriveNostrEntropy } = await import("$lib/walletEntropy");
     const entropy = await getWalletEntropy();
     if (entropy) {
       try {
         await signTxWithPrf(entropy);
-        return true;
-      } catch (e: any) {
-        return false;
-      }
+        return;
+      } catch (e: any) {}
     }
-    const cached = getRememberedWalletPassword();
-    if (!cached) return false;
     try {
-      password = cached;
-      await signTx();
-      return true;
+      const interactiveEntropy = await deriveNostrEntropy();
+      await signTxWithPrf(interactiveEntropy);
     } catch (e: any) {
-      forgetWalletPassword();
-      return false;
+      error = e.message || $t("payments.failedToSend");
     }
   };
 
-  let togglePassword = async () => {
-    if (passwordPrompt) {
-      passwordPrompt = false;
-      return;
-    }
-    if (await trySignWithCachedPassword()) return;
-    passwordPrompt = true;
-  };
   let handler = ({ cancel }) => {
     if (account.type === "ark") {
       cancel();
@@ -94,7 +74,7 @@
       return;
     }
 
-    if ((account.seed || account.fingerprint) && !signed) (cancel(), void togglePassword());
+    if ((account.seed || account.fingerprint) && !signed) (cancel(), void trySign());
     return async ({ result }) => {
       if (result.type === "redirect") {
         goto(result.location);
@@ -113,46 +93,15 @@
         import("@scure/bip39"),
         import("@scure/bip39/wordlists/english.js"),
       ]);
-    let entropy = new Uint8Array(prfKey).slice(0, 16);
-    let mnemonic = entropyToMnemonic(entropy, wordlist);
-    let seed = await mnemonicToSeed(mnemonic);
-    let master = HDKey.fromMasterSeed(seed, network as any);
-    let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
-
-    let raw = decode(hex);
-    let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;
-    let tx: any = isPSBT ? Transaction.fromPSBT(raw) : Transaction.fromRaw(raw);
-
-    for (let [i, input] of tx.inputs.entries()) {
-      let { witnessUtxo, path } = inputs[i];
-      if (!isPSBT) {
-        witnessUtxo.amount = BigInt(witnessUtxo.amount);
-        witnessUtxo.script = decode(witnessUtxo.script);
-        tx.updateInput(i, { witnessUtxo });
-      }
-      let key = child.derive(path);
-      tx.signIdx(key.privateKey!, i);
+    let mnemonicStr: string;
+    if (account.seed && isPrfEncrypted(account.seed)) {
+      const entropy = await prfDecrypt(prfKey, account.seed);
+      mnemonicStr = entropyToMnemonic(entropy, wordlist);
+    } else {
+      const entropy = new Uint8Array(prfKey).slice(0, 16);
+      mnemonicStr = entropyToMnemonic(entropy, wordlist);
     }
-
-    tx.finalize();
-    hex = tx.hex;
-    signed = true;
-    await tick();
-    (submit as any).click();
-  };
-
-  let signTx = async () => {
-    const { decrypt } = await import("nostr-tools/nip49");
-    const [{ Transaction }, { HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
-      await Promise.all([
-        import("@scure/btc-signer"),
-        import("@scure/bip32"),
-        import("@scure/bip39"),
-        import("@scure/bip39/wordlists/english.js"),
-      ]);
-    let entropy = await decrypt(account.seed || data.user.seed, password as string);
-    let mnemonic = entropyToMnemonic(entropy, wordlist);
-    let seed = await mnemonicToSeed(mnemonic, password as string);
+    let seed = await mnemonicToSeed(mnemonicStr);
     let master = HDKey.fromMasterSeed(seed, network as any);
     let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
 
@@ -284,10 +233,6 @@
     </form>
   {/if}
 </div>
-
-{#if passwordPrompt}
-  <WalletPass bind:password {cancel} submit={signTx} />
-{/if}
 
 <style>
   .no-transition {

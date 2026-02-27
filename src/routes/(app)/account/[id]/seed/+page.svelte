@@ -1,0 +1,82 @@
+<script lang="ts">
+  import { page } from "$app/stores";
+  import Mnemonic from "$comp/Mnemonic.svelte";
+  import { goto } from "$app/navigation";
+  import { copy, fail } from "$lib/utils";
+  import { t } from "$lib/translations";
+  import { entropyToMnemonic } from "@scure/bip39";
+  import { wordlist } from "@scure/bip39/wordlists/english.js";
+  import { getCachedPrfKey } from "$lib/passwordCache";
+  import { prfDecrypt, isPrfEncrypted } from "$lib/crypto";
+
+  let { data } = $props();
+  let account = $derived(data.account);
+  let id = $derived(account.id);
+
+  let mnemonic: string | undefined = $state();
+
+  let derivationPath = $derived(
+    account.type === "ark"
+      ? "m/86'/0'/0'/0/0"
+      : `m/84'/0'/${account.accountIndex ?? 0}'`,
+  );
+
+  let revealWithPrfKey = async () => {
+    let prfKey = getCachedPrfKey();
+    if (!prfKey) {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      prfKey = await getWalletEntropy();
+    }
+    if (!prfKey) return false;
+    try {
+      if (account.seed && isPrfEncrypted(account.seed)) {
+        const entropy = await prfDecrypt(prfKey, account.seed);
+        mnemonic = entropyToMnemonic(entropy, wordlist);
+      } else {
+        const entropy = new Uint8Array(prfKey).slice(0, 16);
+        mnemonic = entropyToMnemonic(entropy, wordlist);
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  let requestMnemonic = async () => {
+    if (await revealWithPrfKey()) return;
+    try {
+      const { deriveNostrEntropy } = await import("$lib/walletEntropy");
+      const entropy = await deriveNostrEntropy();
+      const ent = new Uint8Array(entropy).slice(0, 16);
+      mnemonic = entropyToMnemonic(ent, wordlist);
+    } catch (e) {
+      fail($t("accounts.failedToDecryptSeed"));
+    }
+  };
+
+  requestMnemonic();
+</script>
+
+<div class="space-y-5">
+  <h1 class="text-center text-3xl font-semibold">{$t("accounts.seedPhrase")}</h1>
+
+  <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-4">
+    {#if mnemonic}
+      <p class="text-center text-secondary">
+        Derivation path: <span class="font-mono font-bold">{derivationPath}</span>
+      </p>
+
+      <Mnemonic {mnemonic} />
+
+      <button onclick={() => copy(mnemonic as string)} type="button" class="btn">
+        <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        <div class="my-auto">{$t("accounts.copy")}</div>
+      </button>
+    {/if}
+
+    <button onclick={() => goto(`/account/${id}`)} type="button" class="btn btn-primary">
+      <iconify-icon noobserver icon="ph:arrow-left-bold" width="32"></iconify-icon>
+      <div class="my-auto">{$t("accounts.back")}</div>
+    </button>
+  </div>
+</div>

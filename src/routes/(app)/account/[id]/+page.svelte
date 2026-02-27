@@ -1,20 +1,19 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import Mnemonic from "$comp/Mnemonic.svelte";
   import Numpad from "$comp/Numpad.svelte";
   import Toggle from "$comp/Toggle.svelte";
-  import WalletPass from "$comp/WalletPass.svelte";
   import { goto } from "$app/navigation";
-  import { copy, fail, focus, loc, post } from "$lib/utils";
+  import { fail, focus, loc, post } from "$lib/utils";
   import { importing } from "$lib/store";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
   import { tick } from "svelte";
-  import { entropyToMnemonic, mnemonicToSeed, validateMnemonic, mnemonicToEntropy } from "@scure/bip39";
+  import { mnemonicToSeed, validateMnemonic, mnemonicToEntropy } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
   import { HDKey } from "@scure/bip32";
   import { versions } from "$lib/utils";
-  import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import { getCachedPrfKey } from "$lib/passwordCache";
+  import { prfEncrypt } from "$lib/crypto";
   import Spinner from "$comp/Spinner.svelte";
 
   let { data } = $props();
@@ -48,12 +47,6 @@
 
   let rate = $derived(rates[currency]);
   let fiats = $derived(Object.keys(rates).sort((a, b) => a.localeCompare(b)));
-
-  let mnemonic: string | undefined = $state(),
-    password: string | undefined = $state();
-  let passwordPrompt = $state();
-  let cancel = $state(() => (passwordPrompt = false));
-  let toggle = () => (passwordPrompt = !passwordPrompt);
 
   let editingReserve = $state(false),
     editingThreshold = $state(false),
@@ -96,6 +89,17 @@
 
     importSubmitting = true;
     try {
+      const { getWalletEntropy } = await import("$lib/walletEntropy");
+      let prfKey = getCachedPrfKey() || await getWalletEntropy();
+      if (!prfKey) {
+        fail($t("accounts.failedToDecryptSeed"));
+        importSubmitting = false;
+        return;
+      }
+
+      let entropy = mnemonicToEntropy(text, wordlist);
+      let seed = await prfEncrypt(prfKey, entropy);
+
       let s = await mnemonicToSeed(text);
       let master = HDKey.fromMasterSeed(s, versions);
       let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
@@ -105,6 +109,7 @@
       await post(`/post/account/${id}`, {
         fingerprint: fp,
         pubkey,
+        seed,
       });
 
       $importing = new Set([...$importing, id]);
@@ -117,54 +122,7 @@
     importSubmitting = false;
   };
 
-  let revealWithPrfKey = async () => {
-    let prfKey = getCachedPrfKey();
-    if (!prfKey) {
-      const { getWalletEntropy } = await import("$lib/walletEntropy");
-      prfKey = await getWalletEntropy();
-    }
-    if (!prfKey) return false;
-    try {
-      const entropy = new Uint8Array(prfKey).slice(0, 16);
-      mnemonic = entropyToMnemonic(entropy, wordlist);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  let revealWithCachedPassword = async () => {
-    const cached = getRememberedWalletPassword();
-    if (!cached) return false;
-    try {
-      const { decrypt } = await import("nostr-tools/nip49");
-      let entropy = await decrypt(seed, cached);
-      mnemonic = entropyToMnemonic(entropy, wordlist);
-      password = cached;
-      return true;
-    } catch (e: any) {
-      forgetWalletPassword();
-      return false;
-    }
-  };
-
-  let requestMnemonic = async () => {
-    if (await revealWithPrfKey()) return;
-    if (await revealWithCachedPassword()) return;
-    toggle();
-  };
-
-  let submit = $state(async () => {
-    passwordPrompt = false;
-    try {
-      const { decrypt } = await import("nostr-tools/nip49");
-      let entropy = await decrypt(seed, password as string);
-      mnemonic = entropyToMnemonic(entropy, wordlist);
-    } catch (e: any) {
-      fail($t("accounts.invalidPasswordTryAgain"));
-      passwordPrompt = true;
-    }
-  });
+  let showDeleteConfirm = $state(false);
 
   let del = async () => {
     try {
@@ -258,17 +216,10 @@
       </button>
 
       <div class="space-y-2">
-        {#if mnemonic}
-          <Mnemonic {mnemonic} />
-
-          <button onclick={() => copy(mnemonic as string)} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-            <div class="my-auto">{$t("accounts.copy")}</div>
-          </button>
-        {:else if seed}
-          <button onclick={requestMnemonic} type="button" class="btn">
+        {#if seed || account.type === "ark"}
+          <button onclick={() => goto(`/account/${id}/seed`)} type="button" class="btn">
             <iconify-icon noobserver icon="ph:eye-bold" width="32"></iconify-icon>
-            <div class="my-auto">{$t("accounts.revealMnemonic")}</div>
+            <div class="my-auto">{$t("accounts.viewMnemonic")}</div>
           </button>
         {/if}
 
@@ -298,8 +249,8 @@
         {/if}
 
         {#if seed || account.type === "ark"}
-          <button onclick={del} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:trash-bold" width="32"></iconify-icon>
+          <button onclick={() => (showDeleteConfirm = true)} type="button" class="btn">
+            <iconify-icon noobserver icon="ph:trash-bold" width="32" class="text-error"></iconify-icon>
             <div class="my-auto">{$t("accounts.deleteAccount")}</div>
           </button>
         {/if}
@@ -309,10 +260,6 @@
     </form>
   </div>
 </div>
-
-{#if passwordPrompt}
-  <WalletPass bind:password bind:cancel {submit} />
-{/if}
 
 {#if editingThreshold}
   <div class="fixed bg-base-100/90 inset-0 overflow-y-auto h-full w-full z-50 max-w-lg mx-auto">
@@ -344,6 +291,24 @@
         bind:element={reserveEl}
       />
       <button bind:this={doneReserve} type="button" onclick={doneEditing} class="btn">{$t("payments.ok")}</button>
+    </div>
+  </div>
+{/if}
+
+{#if showDeleteConfirm}
+  <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onclick={() => (showDeleteConfirm = false)}>
+    <div class="bg-base-100 rounded-2xl p-6 max-w-sm w-full space-y-4 text-center" onclick={(e) => e.stopPropagation()}>
+      <iconify-icon noobserver icon="ph:warning-bold" width="48" class="text-error"></iconify-icon>
+      <h2 class="text-xl font-semibold">{$t("accounts.deleteAccount")}</h2>
+      <p class="text-secondary">{$t("accounts.deleteConfirm")}</p>
+      <div class="flex gap-2">
+        <button type="button" class="btn !w-auto grow" onclick={() => (showDeleteConfirm = false)}>
+          {$t("accounts.cancel")}
+        </button>
+        <button type="button" class="btn btn-error !w-auto grow" onclick={del}>
+          {$t("accounts.delete")}
+        </button>
+      </div>
     </div>
   </div>
 {/if}

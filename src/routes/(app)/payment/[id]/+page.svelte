@@ -95,40 +95,41 @@
 {/snippet}
 
 {#snippet copyable(label, value, href)}
-  <div class="flex justify-between items-center gap-4 py-4 border-b border-base-300 min-h-20">
-    <span class="text-secondary shrink-0">{label}</span>
-    <div class="flex items-center gap-2 min-w-0">
-      <button
-        class="font-mono text-sm text-right break-all hover:opacity-80"
-        onclick={() => {
-          if (expanded.has(label)) {
-            expanded.delete(label);
-          } else {
-            expanded.add(label);
-          }
-          expanded = new Set(expanded);
-        }}
-        aria-label={expanded.has(label) ? "Collapse" : "Expand"}
-      >
-        {#if expanded.has(label)}
-          {value}
-        {:else}
-          {value.slice(0, 8)}...{value.slice(-8)}
+  {@const toggle = () => { if (expanded.has(label)) expanded.delete(label); else expanded.add(label); expanded = new Set(expanded); }}
+  <div
+    class="py-4 border-b border-base-300 min-h-20 cursor-pointer"
+    onclick={toggle}
+    role="button"
+    tabindex="0"
+    onkeydown={(e) => e.key === 'Enter' && toggle()}
+  >
+    <div class="flex justify-between items-center gap-4">
+      <span class="text-secondary shrink-0">{label}</span>
+      <div class="flex items-center gap-2 min-w-0">
+        {#if !expanded.has(label)}
+          <span class="text-right break-all">
+            {value.slice(0, 8)}...{value.slice(-8)}
+          </span>
         {/if}
-      </button>
-      <button
-        class="shrink-0 hover:opacity-80"
-        onclick={() => copy(value)}
-        aria-label="Copy {label}"
-      >
-        <iconify-icon noobserver icon="ph:copy-bold" width="20" class="text-secondary"></iconify-icon>
-      </button>
-      {#if href}
-        <a {href} target="_blank" rel="noreferrer" class="shrink-0 hover:opacity-80" aria-label="View in explorer">
-          <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="20" class="text-secondary"></iconify-icon>
-        </a>
-      {/if}
+        <button
+          class="shrink-0 hover:opacity-80"
+          onclick={(e) => { e.stopPropagation(); copy(value); }}
+          aria-label="Copy {label}"
+        >
+          <iconify-icon noobserver icon="ph:copy-bold" width="28" class="text-secondary"></iconify-icon>
+        </button>
+        {#if href}
+          <a {href} target="_blank" rel="noreferrer" class="shrink-0 hover:opacity-80" onclick={(e) => e.stopPropagation()} aria-label="View in explorer">
+            <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="20" class="text-secondary"></iconify-icon>
+          </a>
+        {/if}
+      </div>
     </div>
+    {#if expanded.has(label)}
+      <div class="break-all mt-2">
+        {value}
+      </div>
+    {/if}
   </div>
 {/snippet}
 
@@ -153,7 +154,7 @@
       {/if}
     </button>
     <div class="text-secondary">
-      {format(new Date(created), "MMM d, yyyy", { locale })} &middot; {format(new Date(created), "h:mmaaa", { locale })}
+      {format(new Date(created), "MMM d, yyyy", { locale })}<span class="mx-3">{format(new Date(created), "h:mmaaa", { locale })}</span>
     </div>
   </div>
 
@@ -167,7 +168,7 @@
     </a>
   {/if}
 
-  <div class="mt-2">
+  <div class="mt-2 [&>*:last-child]:border-b-0">
     {#if tip}
       {@render field("payments.amount", a)}
       {@render field("invoice.tip", tip)}
@@ -215,8 +216,8 @@
         </a>
       </div>
     {:else if memo}
-      <div class="flex justify-between items-start gap-4 py-3 border-b border-base-300">
-        <span class="text-sm text-secondary shrink-0">{$t("payments.memo")}</span>
+      <div class="flex justify-between items-center gap-4 py-4 border-b border-base-300 min-h-20">
+        <span class="text-secondary shrink-0">{$t("payments.memo")}</span>
         <div class="text-right break-all">
           {#if memo.includes("text/plain")}
             {JSON.parse(memo)[0][1]}

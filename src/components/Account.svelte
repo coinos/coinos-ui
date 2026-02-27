@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { hex } from "@scure/base";
   import { bytesToHex } from "@noble/hashes/utils.js";
-  import WalletPass from "$comp/WalletPass.svelte";
   import { run } from "svelte/legacy";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
@@ -10,7 +8,7 @@
   import { versions, s, f, loc, toFiat } from "$lib/utils";
   import { fiat, importing } from "$lib/store";
   import { arkkey, arkaid } from "$lib/ark";
-  import { getRememberedWalletPassword, forgetWalletPassword, getCachedPrfKey } from "$lib/passwordCache";
+  import { prfDecrypt, isPrfEncrypted } from "$lib/crypto";
 
   let { user, rates, account }: any = $props();
   let currency = $derived(account.currency || user.currency);
@@ -19,90 +17,48 @@
 
   let arkBalance = $state(0);
   let arkLoading = $state(false);
-  let passwordPrompt = $state(false);
-  let password: string | undefined = $state();
-  let pendingUrl: string | undefined = $state();
-  let cancel = $state(() => {
-    passwordPrompt = false;
-    pendingUrl = undefined;
-  });
 
   let tryUnlockArk = async () => {
-    // Try PRF key first
-    const prfKey = getCachedPrfKey();
-    if (prfKey) {
+    const deriveArkKey = async (key: ArrayBuffer) => {
+      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+        import("@scure/bip32"),
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
+      let mnemonicStr: string;
+      if (account.seed && isPrfEncrypted(account.seed)) {
+        const ent = await prfDecrypt(key, account.seed);
+        mnemonicStr = entropyToMnemonic(ent, wordlist);
+      } else {
+        const entropy = new Uint8Array(key).slice(0, 16);
+        mnemonicStr = entropyToMnemonic(entropy, wordlist);
+      }
+      const s = await mnemonicToSeed(mnemonicStr);
+      const master = HDKey.fromMasterSeed(s, versions);
+      const arkChild = master.derive("m/86'/0'/0'/0/0");
+      $arkkey = bytesToHex(arkChild.privateKey!);
+      $arkaid = id;
+    };
+
+    // Try cached PRF key or silent nsec
+    const { getWalletEntropy, deriveNostrEntropy } = await import("$lib/walletEntropy");
+    const entropy = await getWalletEntropy();
+    if (entropy) {
       try {
-        const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
-          import("@scure/bip32"),
-          import("@scure/bip39"),
-          import("@scure/bip39/wordlists/english.js"),
-        ]);
-        const entropy = new Uint8Array(prfKey).slice(0, 16);
-        const mnemonic = entropyToMnemonic(entropy, wordlist);
-        const s = await mnemonicToSeed(mnemonic);
-        const master = HDKey.fromMasterSeed(s, versions);
-        const arkChild = master.derive("m/86'/0'/0'/0/0");
-        $arkkey = bytesToHex(arkChild.privateKey!);
-        $arkaid = id;
+        await deriveArkKey(entropy);
         return true;
       } catch (e) {
-        console.log("PRF unlock failed", e);
+        console.log("Wallet entropy unlock failed", e);
       }
     }
 
-    // Try silent Nostr derivation
-    if (!prfKey) {
-      const { getWalletEntropy } = await import("$lib/walletEntropy");
-      const nostrKey = await getWalletEntropy();
-      if (nostrKey) {
-        try {
-          const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
-            import("@scure/bip32"),
-            import("@scure/bip39"),
-            import("@scure/bip39/wordlists/english.js"),
-          ]);
-          const entropy = new Uint8Array(nostrKey).slice(0, 16);
-          const mnemonic = entropyToMnemonic(entropy, wordlist);
-          const s = await mnemonicToSeed(mnemonic);
-          const master = HDKey.fromMasterSeed(s, versions);
-          const arkChild = master.derive("m/86'/0'/0'/0/0");
-          $arkkey = bytesToHex(arkChild.privateKey!);
-          $arkaid = id;
-          return true;
-        } catch (e) {
-          console.log("Nostr entropy unlock failed", e);
-        }
-      }
-    }
-
-    // Then try cached wallet password
-    const cached = getRememberedWalletPassword();
-    if (!cached) return false;
+    // Try interactive nostr derivation
     try {
-      const { decrypt } = await import("nostr-tools/nip49");
-      if (seed) {
-        // Legacy: per-account seed is raw hex key
-        $arkkey = hex.encode(decrypt(seed, cached) as Uint8Array);
-      } else if (user.seed) {
-        // Master seed: derive m/86'/0'/0'/0/0
-        const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
-          import("@scure/bip32"),
-          import("@scure/bip39"),
-          import("@scure/bip39/wordlists/english.js"),
-        ]);
-        let entropy = await decrypt(user.seed, cached);
-        let mnemonic = entropyToMnemonic(entropy, wordlist);
-        let s = await mnemonicToSeed(mnemonic, cached);
-        let master = HDKey.fromMasterSeed(s, versions);
-        let arkChild = master.derive("m/86'/0'/0'/0/0");
-        $arkkey = bytesToHex(arkChild.privateKey!);
-      } else {
-        return false;
-      }
-      $arkaid = id;
+      const interactiveEntropy = await deriveNostrEntropy();
+      await deriveArkKey(interactiveEntropy);
       return true;
     } catch (e) {
-      forgetWalletPassword();
+      console.log("Interactive nostr unlock failed", e);
       return false;
     }
   };
@@ -112,42 +68,14 @@
     event.stopPropagation();
     document.cookie = `aid=${id}; path=/; max-age=86400`;
     if (isArk) {
-      pendingUrl = url;
       if ($arkkey && $arkaid === id) {
-        goto(pendingUrl!);
+        goto(url);
       } else if (await tryUnlockArk()) {
-        goto(pendingUrl!);
-      } else {
-        passwordPrompt = true;
+        goto(url);
       }
     } else {
       $arkkey = undefined;
       goto(url);
-    }
-  };
-
-  let submitPassword = async () => {
-    const { decrypt } = await import("nostr-tools/nip49");
-    if (seed) {
-      $arkkey = hex.encode(decrypt(seed, password!) as Uint8Array);
-    } else if (user.seed) {
-      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
-        import("@scure/bip32"),
-        import("@scure/bip39"),
-        import("@scure/bip39/wordlists/english.js"),
-      ]);
-      let entropy = await decrypt(user.seed, password!);
-      let mnemonic = entropyToMnemonic(entropy, wordlist);
-      let s = await mnemonicToSeed(mnemonic, password!);
-      let master = HDKey.fromMasterSeed(s, versions);
-      let arkChild = master.derive("m/86'/0'/0'/0/0");
-      $arkkey = bytesToHex(arkChild.privateKey!);
-    }
-    $arkaid = id;
-    passwordPrompt = false;
-    if (pendingUrl) {
-      goto(pendingUrl);
-      pendingUrl = undefined;
     }
   };
 
@@ -249,7 +177,3 @@
     </a>
   </div>
 </div>
-
-{#if passwordPrompt}
-  <WalletPass bind:password bind:cancel submit={submitPassword} />
-{/if}
