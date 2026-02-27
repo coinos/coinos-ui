@@ -13,8 +13,6 @@
   let search: string = $state("");
   let clearSearch = (e: any) => (search = "");
 
-  let currentIndex = -1;
-  let timeout: any = $state();
 
   let full = () => {
     if (!document.fullscreenElement) {
@@ -56,36 +54,22 @@
   let selected = $state();
   function select(m: any) {
     selected = m;
-    stopFlying();
-    currentIndex = inview.indexOf(m);
-    flyToMarker(m, 500);
-  }
-
-  async function flyToMarker(marker, duration = 1500) {
-    if (!marker) return;
+    if (m.category && !activeFilters.has(m.category)) {
+      activeFilters.add(m.category);
+      activeFilters = new Set(activeFilters);
+    }
     map.flyTo({
       zoom: 12,
-      center: marker.getLngLat(),
+      center: m.getLngLat(),
       essential: true,
-      easing: function (t) {
-        return 1 - Math.pow(1 - t, 3);
-      },
-      duration,
+      duration: 500,
     });
-
-    await new Promise((r) => setTimeout(r, duration));
-    marker.getElement().style.display = "";
-    marker.getElement().click();
-    updateLabelVisibility();
-    await new Promise((r) => setTimeout(r, 2500));
-
-    if (!timeout) return;
+    setTimeout(() => {
+      m.getElement().style.display = "";
+      m.getElement().click();
+      updateLabelVisibility();
+    }, 500);
   }
-
-  let toggle = () => {
-    if (timeout) stopFlying();
-    else startFlying();
-  };
 
   let toggleList = () => {
     showList = !showList;
@@ -93,12 +77,15 @@
     if (showList) scrollToFirstActive();
   };
 
+  function scrollToCategory(el: Element | null) {
+    if (el) el.scrollIntoView({ block: "start" });
+  }
+
   function scrollToFirstActive() {
     tick().then(() => {
       let target = lastToggledOn && activeFilters.has(lastToggledOn) ? lastToggledOn : activeFilters.values().next().value;
       if (!target) return;
-      let el = document.querySelector(`[data-category="${target}"]`);
-      if (el) el.scrollIntoView({ block: "start" });
+      scrollToCategory(document.querySelector(`[data-category="${target}"]`));
     });
   }
   let showList = $state(true);
@@ -146,7 +133,8 @@
     if (turningOn) {
       tick().then(() => {
         let el = document.querySelector(`[data-category="${slug}"]`);
-        if (el) el.scrollIntoView({ block: "start" });
+        if (!el) el = document.querySelector(`[data-category]`);
+        scrollToCategory(el);
       });
     }
   }
@@ -172,17 +160,6 @@
     updateClusterSource();
   });
 
-  let currentPopup;
-  function startFlying() {
-    currentIndex++;
-
-    for (let p in popups) popups[p].remove();
-    if (currentIndex >= inview.length) currentIndex = 0;
-    flyToMarker(inview[currentIndex]);
-
-    timeout = setTimeout(startFlying, 4000);
-  }
-
   function debounce(func: any, delay: any) {
     let timeout: any;
     let immediate = true;
@@ -201,20 +178,6 @@
         immediate = true;
       }, delay);
     };
-  }
-
-  function stopFlying() {
-    updateLabelVisibility();
-    if (!timeout) return;
-    clearTimeout(timeout);
-    timeout = undefined;
-
-    if (currentPopup) {
-      currentPopup.remove();
-    }
-
-    map.jumpTo({ center: map.getCenter(), zoom: map.getZoom() });
-    map.off("moveend");
   }
 
   let inview: any[] = $state([]);
@@ -250,7 +213,7 @@
         marker.getElement().style.display = passesFilter ? "" : "none";
       }
 
-      if (isInView && passesFilter) inview.push(marker);
+      if (isInView) inview.push(marker);
     }
 
     inview = inview.sort((a, b) => a.tags.name.localeCompare(b.tags.name));
@@ -338,7 +301,7 @@
 
       let marker = new maplibre.Marker({ element: createCategoryMarker(tags) })
         .setLngLat([lon, lat])
-        .setPopup(new maplibre.Popup().setDOMContent(popupContainer))
+        .setPopup(new maplibre.Popup({ offset: [0, -46] }).setDOMContent(popupContainer))
         .addTo(map);
 
       marker.id = counter++;
@@ -581,11 +544,6 @@
         map.on("moveend", fetchOnMove);
       });
 
-      map.on("mousedown", stopFlying);
-      map.on("touchstart", stopFlying);
-      map.on("wheel", stopFlying);
-      map.on("dragstart", stopFlying);
-
       let resize = () => map && map.resize();
 
       document.addEventListener("fullscreenchange", resize, false);
@@ -609,7 +567,7 @@
   let categoryLabelMap = Object.fromEntries(categoryLabels.map((c) => [c.slug, c.name]));
 
   let presentCategories = $derived(
-    categoryLabels.filter((c) => markers.some((m) => m.category === c.slug)),
+    categoryLabels.filter((c) => inview.some((m) => m.category === c.slug)),
   );
 
   let allList = $derived(
@@ -647,12 +605,10 @@
   </div>
   <div class="relative">
     {#if showList}
-      <div
-        class="space-y-1 text-sm w-[300px] max-w-[calc(100vw*0.5)] h-[300px] max-h-[calc(100vh*0.4)] overflow-y-scroll p-4 bg-base-100/90 absolute right-4 bottom-8 rounded-2xl shadow text-ellipsis overflow-x-hidden"
-      >
-        <div class="relative mb-4 sticky top-0 bg-base-100/90 z-10">
-          <input bind:value={search} placeholder="Search locations..." class="w-full border border-base-300 rounded-lg pl-3 pr-8 py-2" />
-          <div class="flex items-center absolute right-2 top-1/2 -translate-y-1/2">
+      <div class="flex flex-col w-[300px] max-w-[calc(100vw*0.5)] absolute right-4 bottom-8 bg-base-100/90 rounded-2xl shadow overflow-hidden">
+        <div class="relative p-3">
+          <input bind:value={search} placeholder="Search locations..." class="w-full border border-base-300 rounded-lg pl-3 pr-8 py-2 text-sm" />
+          <div class="flex items-center absolute right-5 top-1/2 -translate-y-1/2">
             {#if search}
               <button type="button" onclick={clearSearch} aria-label="Clear">
                 <iconify-icon noobserver icon="ph:x-bold" width="20"></iconify-icon>
@@ -662,7 +618,7 @@
             {/if}
           </div>
         </div>
-
+        <div class="space-y-1 text-sm h-[250px] max-h-[calc(100vh*0.35)] overflow-y-scroll px-4 pb-4 text-ellipsis overflow-x-hidden">
         {#each groupedList as group}
           {@const active = activeFilters.has(group.slug)}
           <button
@@ -686,12 +642,12 @@
               class:selected={selected === marker}
               class="block whitespace-nowrap text-ellipsis text-left w-full overflow-hidden pl-5 transition-opacity"
               class:opacity-30={!active}
-              disabled={!active}
             >
               {marker.tags.name}
             </button>
           {/each}
         {/each}
+        </div>
       </div>
     {/if}
     {#if showFilters}
@@ -731,29 +687,18 @@
     {/if}
     <div class="absolute flex top-2 right-2 gap-2">
       <button
-        class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
+        class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showFilters ? 'bg-primary text-white' : 'bg-base-100/80'}"
         onclick={toggleFilters}
         aria-label="Filter categories"
       >
         <iconify-icon noobserver icon="ph:funnel-bold" width="24"></iconify-icon>
       </button>
       <button
-        class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
+        class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showList ? 'bg-primary text-white' : 'bg-base-100/80'}"
         onclick={toggleList}
         aria-label="Toggle location list"
       >
         <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
-      </button>
-      <button
-        class="rounded-full border-2 border-primary bg-base-100/80 w-16 h-16 flex items-center justify-center"
-        onclick={toggle}
-        aria-label={timeout ? "Resume map" : "Pause map"}
-      >
-        {#if timeout}
-          <iconify-icon noobserver icon="ph:pause-bold" width="24"></iconify-icon>
-        {:else}
-          <iconify-icon noobserver icon="ph:play-bold" width="24"></iconify-icon>
-        {/if}
       </button>
     </div>
   </div>
