@@ -27,11 +27,11 @@
       {$t("landing.subheader")}
     </h2>
 
-    <div class="flex justify-center">
+    <div>
       <a href="/register">
         <button
           use:focus
-          class="btn !rounded-full bg-primary text-primary-content hover:bg-primary/80"
+          class="btn !rounded-full bg-primary text-primary-content hover:bg-primary/80 w-full text-2xl"
         >
           {$t("nav.startInSeconds")}
         </button>

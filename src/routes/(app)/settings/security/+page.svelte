@@ -4,9 +4,12 @@
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
   import Qr from "$comp/Qr.svelte";
+  import Spinner from "$comp/Spinner.svelte";
   import { copy, post, success, fail } from "$lib/utils";
   import { save, pin as current } from "$lib/store";
   import { getNsec } from "$lib/nostr";
+  import { registerPasskey } from "$lib/passkey";
+  import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
 
@@ -147,6 +150,22 @@
       fail("Failed to disable 2FA, try again");
     }
   };
+  let passkeyLoading = $state(false);
+
+  let addPasskey = async () => {
+    passkeyLoading = true;
+    try {
+      const prfKey = await registerPasskey();
+      rememberPrfKey(prfKey, defaultRememberForMs);
+      success("Passkey added");
+    } catch (e: any) {
+      if (e.name !== "NotAllowedError") {
+        fail(e.message || "Passkey registration failed");
+      }
+    }
+    passkeyLoading = false;
+  };
+
   let verifying = $derived(pin?.length > 5);
 
   $effect(() => {
@@ -220,10 +239,14 @@
 </div>
 
 <div>
-  <a href={`/account/seed`} class="contents">
-    <button class="btn btn-lg w-full rounded-2xl whitespace-nowrap">
-      <iconify-icon noobserver icon="ph:plus-circle-bold" width="32"></iconify-icon>
-      {$t("accounts.addAccount")}
-    </button>
-  </a>
+  <span class="font-bold mb-1">Passkey</span>
+  <p class="text-secondary mb-1">Add a passkey for passwordless sign-in</p>
+  <button type="button" class="btn" onclick={addPasskey} disabled={passkeyLoading}>
+    {#if passkeyLoading}
+      <Spinner />
+    {:else}
+      <iconify-icon noobserver icon="ph:fingerprint-bold" width="32"></iconify-icon>
+    {/if}
+    Add Passkey
+  </button>
 </div>

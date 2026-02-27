@@ -4,11 +4,12 @@
   import Popup from "$comp/Popup.svelte";
   import { back } from "$lib/utils";
 
-  let { locations } = $props();
   let map: any;
+  let maplibreRef: any;
+  let mapReady = $state(false);
   let mapContainer: any = $state(),
     mapWrapper: any = $state();
-  let markers: any[] = [];
+  let markers: any[] = $state([]);
   let search: string = $state("");
   let clearSearch = (e: any) => (search = "");
 
@@ -20,13 +21,10 @@
       if (mapWrapper.requestFullscreen) {
         mapWrapper.requestFullscreen();
       } else if (mapWrapper.mozRequestFullScreen) {
-        /* Firefox */
         mapWrapper.mozRequestFullScreen();
       } else if (mapWrapper.webkitRequestFullscreen) {
-        /* Chrome, Safari & Opera */
         mapWrapper.webkitRequestFullscreen();
       } else if (mapWrapper.msRequestFullscreen) {
-        /* IE/Edge */
         mapWrapper.msRequestFullscreen();
       }
 
@@ -36,13 +34,10 @@
       if (doc.exitFullscreen) {
         doc.exitFullscreen();
       } else if (doc.mozCancelFullScreen) {
-        /* Firefox */
         doc.mozCancelFullScreen();
       } else if (doc.webkitExitFullscreen) {
-        /* Chrome, Safari and Opera */
         doc.webkitExitFullscreen();
       } else if (doc.msExitFullscreen) {
-        /* IE/Edge */
         doc.msExitFullscreen();
       }
     }
@@ -84,16 +79,6 @@
     await new Promise((r) => setTimeout(r, 2500));
 
     if (!timeout) return;
-    //
-    // map.flyTo({
-    //   zoom: 10.5,
-    //   center: marker.getLngLat(),
-    //   essential: true,
-    //   easing: function (t) {
-    //     return 1 - Math.pow(1 - t, 3);
-    //   },
-    //   duration: 1000,
-    // });
   }
 
   let toggle = () => {
@@ -159,8 +144,6 @@
 
     for (let marker of markers) {
       let isInView = bounds.contains(marker.getLngLat());
-      let { tags } = marker;
-
       if (isInView) {
         inview.push(marker);
       }
@@ -170,9 +153,97 @@
   }, 200);
 
   let locationMarkers: any = {};
+  let addedIds = new Set();
   let popups: any = {};
   let counter = 0;
   let maplibrePromise: any;
+
+  function addMarkers(locations: any[]) {
+    let maplibre = maplibreRef;
+    if (!map || !maplibre) return;
+
+    locations.forEach((location) => {
+      if (location["deleted_at"]) return;
+      if (addedIds.has(location.id)) return;
+      addedIds.add(location.id);
+
+      let { lat, lon, tags } = location["osm_json"];
+      if (!(lat && lon)) return;
+
+      let popupContainer = document.createElement("div");
+
+      mount(Popup, {
+        target: popupContainer,
+        props: { tags },
+      });
+
+      let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.65 })
+        .setLngLat([lon, lat])
+        .setPopup(new maplibre.Popup().setDOMContent(popupContainer))
+        .addTo(map);
+
+      marker.id = counter++;
+
+      marker.getElement().addEventListener("click", () => {
+        let p = marker.getPopup();
+        popups[marker.id] = p;
+        p.setDOMContent(popupContainer);
+        setTimeout(() => {
+          selected = marker;
+          setTimeout(scroll, 10);
+        }, 50);
+        p.on("close", () => {
+          selected = undefined;
+          delete popups[marker.id];
+        });
+      });
+
+      marker.tags = tags;
+      locationMarkers[location.id] = marker;
+
+      markers.push(marker);
+    });
+
+    updateLabelVisibility();
+  }
+
+  let fetchController: AbortController | null = null;
+
+  async function fetchNearby(lat: number, lon: number, radius: number) {
+    if (fetchController) fetchController.abort();
+    fetchController = new AbortController();
+
+    try {
+      let params = new URLSearchParams({
+        lat: String(lat),
+        lon: String(lon),
+        radius: String(Math.ceil(radius)),
+        count: "100",
+      });
+      let res = await fetch(`/locations?${params}`, { signal: fetchController.signal });
+      let data = await res.json();
+      if (data.locations) addMarkers(data.locations);
+    } catch (e: any) {
+      if (e.name !== "AbortError") console.log("fetch nearby failed", e);
+    }
+  }
+
+  function getViewportRadius() {
+    let bounds = map.getBounds();
+    let center = map.getCenter();
+    let ne = bounds.getNorthEast();
+
+    let dlat = ne.lat - center.lat;
+    let dlng = ne.lng - center.lng;
+    let km = Math.sqrt(dlat * dlat + dlng * dlng) * 111;
+    return Math.max(km, 10);
+  }
+
+  let fetchOnMove = debounce(() => {
+    if (!map) return;
+    let center = map.getCenter();
+    fetchNearby(center.lat, center.lng, getViewportRadius());
+  }, 500);
 
   const loadMaplibre = async () => {
     if ((window as any).maplibregl) return (window as any).maplibregl;
@@ -210,6 +281,8 @@
       await tick();
       if (!mapContainer) return;
       loadMaplibre().then((maplibre) => {
+        maplibreRef = maplibre;
+
         map = new maplibre.Map({
           container: mapContainer,
           style: "https://tiles.stadiamaps.com/styles/stamen_toner.json",
@@ -217,51 +290,26 @@
           zoom: 10.5,
         });
 
+        map.scrollZoom.setWheelZoomRate(1 / 60);
+        map.scrollZoom.setZoomRate(1 / 30);
+
         map.on("load", () => {
-          locations.forEach((location) => {
-            if (location["deleted_at"]) return;
+          mapReady = true;
 
-            let { lat, lon, tags } = location["osm_json"];
-            if (!(lat && lon)) return;
+          // Initial fetch for default view
+          fetchNearby(49.26, -123.05, 50);
 
-            let element = document.createElement("div");
-            element.className = "marker";
+          // Fetch more on pan/zoom
+          map.on("moveend", fetchOnMove);
 
-            let popupContainer = document.createElement("div");
-
-            mount(Popup, {
-              target: popupContainer,
-              props: { tags },
+          // Center on user if available
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+              let { longitude: lng, latitude: lat } = position.coords;
+              map.flyTo({ center: [lng, lat], zoom: 11, duration: 1000 });
+              fetchNearby(lat, lng, 50);
             });
-
-            let marker = new maplibre.Marker({ color: "#F7931A", scale: 0.65 })
-              .setLngLat([lon, lat])
-              .setPopup(new maplibre.Popup().setDOMContent(popupContainer))
-              .addTo(map);
-
-            marker.id = counter++;
-
-            marker.getElement().addEventListener("click", () => {
-              let p = marker.getPopup();
-              popups[marker.id] = p;
-              p.setDOMContent(popupContainer);
-              setTimeout(() => {
-                selected = marker;
-                setTimeout(scroll, 10);
-              }, 50);
-              p.on("close", () => {
-                selected = undefined;
-                delete popups[marker.id];
-              });
-            });
-
-            marker.tags = tags;
-            locationMarkers[location.id] = marker;
-
-            markers.push(marker);
-          });
-
-          updateLabelVisibility();
+          }
         });
 
         map.on("mousedown", stopFlying);

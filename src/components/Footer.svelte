@@ -9,7 +9,6 @@
       titleID: "nostr",
     },
     { url: "https://t.me/coinoswallet", titleID: "telegram" },
-    { url: "https://linktr.ee/coinos.io", titleID: "linktree" },
   ];
 
   const companyLinks = [
@@ -20,21 +19,18 @@
 
 <footer class="space-y-10 md:space-y-0 text-xl block md:flex justify-around pb-8 px-4">
   <div class="space-y-5">
-    <div class="text-center w-full">
+    <div class="text-center w-full hidden md:block">
       <a href="/" aria-label="Home">
         <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
       </a>
     </div>
-    <div class="flex gap-2 justify-center sm:hidden">
-      <div>
-        <a href="/register">
-          <button class="btn">{$t("nav.startInSeconds")}</button>
-        </a>
-      </div>
+    <div class="w-full sm:hidden">
+      <a href="/register">
+        <button class="btn btn-accent w-full text-2xl">{$t("nav.startInSeconds")}</button>
+      </a>
     </div>
-    <div class="w-full flex flex-wrap sm:flex-nowrap gap-2 justify-center items-center">
+    <div class="w-full hidden sm:flex gap-2 justify-center items-center">
       <DarkToggle />
-      <LocaleSelector />
     </div>
   </div>
 
@@ -62,6 +58,11 @@
     </ul>
   </div>
 
-  <iconify-icon noobserver icon="coinos:shield" class="flex justify-center" width="96"
-  ></iconify-icon>
+  <div class="space-y-5">
+    <div class="flex justify-center">
+      <LocaleSelector />
+    </div>
+    <iconify-icon noobserver icon="coinos:shield" class="flex justify-center" width="96"
+    ></iconify-icon>
+  </div>
 </footer>

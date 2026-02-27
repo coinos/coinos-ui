@@ -57,6 +57,24 @@ export const actions = {
     redirect(303, loginRedirect || `/${username}`);
   },
 
+  passkeyCreate: async ({ request }) => {
+    const ip = request.headers.get("cf-connecting-ip") ?? "";
+    const form = await fd(request);
+    const { username, password, challenge, recaptcha, picture } = form;
+
+    const user = { picture, username, password, challenge, recaptcha };
+    const headers: Record<string, string> = {};
+    if (ip) headers["cf-connecting-ip"] = ip;
+
+    try {
+      const { sk, token } = await post("/register", { user }, headers);
+      return { token, username, sk };
+    } catch (e) {
+      const { message } = e as Error;
+      return fail(400, { error: message });
+    }
+  },
+
   activate: async ({ cookies, request }) => {
     const form = await fd(request);
     const { token, username, sk, pubkey } = form;

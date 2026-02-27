@@ -15,7 +15,7 @@
   import Spinner from "$comp/Spinner.svelte";
 
   import { focus, fail, versions, post } from "$lib/utils";
-  import { registerPasskey, loginWithPasskey } from "$lib/passkey";
+  import { registerPasskey } from "$lib/passkey";
   import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
   import { t } from "$lib/translations";
@@ -186,28 +186,64 @@
   let passkeyRegister = async () => {
     passkeyLoading = true;
     try {
-      const { credential, challengeId, prfKey } = await loginWithPasskey();
-      const loginData = new FormData();
-      loginData.append("credential", JSON.stringify(credential));
-      loginData.append("challengeId", challengeId);
-      loginData.append("loginRedirect", (redirect ?? "") as string);
+      let name =
+        username ||
+        uniqueNamesGenerator({
+          dictionaries: [animals, NumberDictionary.generate({ min: 10, max: 99 })],
+          length: 2,
+          separator: "",
+        });
 
-      const loginResponse = await fetch("/login?/passkey", {
+      let pw = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) =>
+        b.toString(16).padStart(2, "0"),
+      ).join("");
+
+      const recaptcha = await getRecaptchaToken();
+
+      const formData = new FormData();
+      formData.append("username", name);
+      formData.append("password", pw);
+      formData.append("challenge", challenge);
+      formData.append("recaptcha", recaptcha as string);
+      formData.append("picture", `${$page.url.origin}/api/public/${punks[index]}.webp`);
+
+      const response = await fetch("/register?/passkeyCreate", {
         method: "POST",
-        body: loginData,
+        body: formData,
       });
 
-      const loginResult = deserialize(await loginResponse.text());
+      const result: any = deserialize(await response.text());
+      if (result.type !== "success") {
+        fail(result.data?.error || "Account creation failed");
+        passkeyLoading = false;
+        return;
+      }
 
-      if (loginResult.type === "success" || loginResult.type === "redirect") {
+      const { token, sk } = result.data;
+      const prfKey = await registerPasskey(token);
+
+      const activateData = new FormData();
+      activateData.append("token", token);
+      activateData.append("username", name);
+      if (sk) activateData.append("sk", sk);
+      activateData.append("loginRedirect", (redirect ?? "") as string);
+
+      const activateResponse = await fetch("/register?/activate", {
+        method: "POST",
+        body: activateData,
+      });
+
+      const activateResult = deserialize(await activateResponse.text());
+
+      if (activateResult.type === "success" || activateResult.type === "redirect") {
         rememberPrfKey(prfKey, defaultRememberForMs);
         await invalidateAll();
       }
 
-      applyAction(loginResult);
+      applyAction(activateResult);
     } catch (e: any) {
       if (e.name !== "NotAllowedError") {
-        fail(e.message || "Passkey login failed");
+        fail(e.message || "Passkey registration failed");
       }
     }
     passkeyLoading = false;
@@ -394,7 +430,7 @@
       {:else}
         <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
       {/if}
-      <div class="my-auto">Sign in with Passkey</div>
+      <div class="my-auto">Register with Passkey</div>
     </button>
 
     <button type="button" class="btn" onclick={nostrLogin}>
