@@ -8,7 +8,6 @@
     vid = $state(),
     resizing;
   let QrScanner;
-  let BarcodeDetector;
 
   let resize = () => {
     if (resizing) clearTimeout(resizing);
@@ -19,18 +18,13 @@
     if (!QrScanner) {
       ({ default: QrScanner } = await import("qr-scanner"));
     }
-    if (!BarcodeDetector) {
-      ({ BarcodeDetector } = await import("barcode-detector/ponyfill"));
-    }
-    if (scanner) {
-      scanner.stop();
-      await new Promise((r) => setTimeout(r, 1000));
-    }
+    if (scanner) scanner.stop();
 
     let options = {
+      maxScansPerSecond: 100,
       highlightScanRegion: true,
       highlightCodeOutline: true,
-      qrEngine: BarcodeDetector,
+      onDecodeError: () => {},
     };
     let cb = ({ data }) => scanner.stop() || goto(`/send/${encodeURIComponent(data)}`);
     scanner = new QrScanner(vid, cb, options);
