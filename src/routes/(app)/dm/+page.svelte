@@ -292,6 +292,16 @@
    }
    muted = await mutedAccounts(user);
  }
+
+ const searchMatches = (chat: object, query: string) => {
+   const lowerQuery = query.toLowerCase();
+   const chatName = name(chat).toLowerCase();
+   const chatNip05 = chat?.nip05;
+   return chatName.includes(lowerQuery) ||
+          chatNip05 && chatNip05.includes(lowerQuery) ||
+          chat.pubkey.includes(lowerQuery) ||
+          npubEncode(chat.pubkey).includes(lowerQuery);
+ }
 </script>
 
 <style>
@@ -448,12 +458,10 @@
             {creatingNewChat ? $t("dm.newChatHeader") : $t("dm.chatHeader")}
             <button class={"chat-btn push-right " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (creatingNewChat ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() =>  {creatingNewChat = !creatingNewChat; selectChat(null); searchQuery = "";}}>+</button>
         </h2>
-        {#if creatingNewChat}
-            <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
-        {/if}
+        <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
         {#if !creatingNewChat}
             {#each chats as c}
-                {#if (selectedChat && selectedChat.pubkey === c.pubkey) || !(muted && muted.has(c.pubkey))}
+                {#if ((selectedChat && selectedChat.pubkey === c.pubkey) || !(muted && muted.has(c.pubkey))) && (searchQuery === "" || searchMatches(c, searchQuery))}
                     <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
                         <span class="{"text-xl" + (muted && muted.has(c.pubkey) ? " secondary" : "")}">{name(c)}</span> <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
                     </button>
