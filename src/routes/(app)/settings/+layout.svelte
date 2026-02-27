@@ -201,6 +201,19 @@
         }
       }
 
+      // If password is changing, derive new authPubkey
+      const pw = body.get("password") as string;
+      const un = (body.get("username") as string) || user.username;
+      if (pw && pw === body.get("confirm")) {
+        try {
+          const { deriveAuthKeypair } = await import("$lib/deriveAuthKey");
+          const { pubkey: authPubkey } = await deriveAuthKeypair(un, pw);
+          body.set("authPubkey", authPubkey);
+        } catch (e) {
+          console.log("Failed to derive authPubkey for password change", e);
+        }
+      }
+
       const response = await fetch(formElement!.action, {
         method: "POST",
         body,
@@ -210,7 +223,7 @@
 
       if (result.type === "success") {
         await invalidateAll();
-        if (body.get("password")) $password = body.get("password") as string;
+        if (pw) $password = pw;
       }
 
       applyAction(result);

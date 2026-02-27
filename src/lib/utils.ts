@@ -164,6 +164,7 @@ export const login = async (
     token?: string;
     challenge?: string;
     recaptcha?: string;
+    authPubkey?: string;
   },
   cookies,
   ip: string,
@@ -508,6 +509,17 @@ export const register = async (
     ...extraHeaders,
   };
   if (ip) headers["cf-connecting-ip"] = ip;
+
+  // Derive authPubkey if password provided
+  if (user.password && user.username) {
+    try {
+      const { deriveAuthKeypair } = await import("$lib/deriveAuthKey");
+      const { pubkey: authPubkey } = await deriveAuthKeypair(user.username, user.password);
+      user.authPubkey = authPubkey;
+    } catch (e) {
+      console.log("Failed to derive authPubkey during registration", e);
+    }
+  }
 
   let sk, token;
   try {

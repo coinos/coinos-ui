@@ -79,23 +79,100 @@
       });
     });
 
-  const enhanceLogin = async ({ formData, cancel }: any) => {
+  const enhanceLogin = async ({ formData, cancel: cancelForm }: any) => {
+    const uname = formData.get("username");
+    const pw = formData.get("password");
+
+    let recaptcha: string;
     try {
-      const recaptcha = await getRecaptchaToken();
-      formData.set("recaptcha", recaptcha as string);
+      recaptcha = (await getRecaptchaToken()) as string;
+      formData.set("recaptcha", recaptcha);
     } catch (err: any) {
       fail(err.message || "captcha failed");
-      cancel();
+      cancelForm();
       return;
     }
 
-    return async ({ result }: any) => {
-      if (result.type === "success") {
-        await invalidateAll();
+    try {
+      const { deriveAuthKeypair, deriveWalletEntropy } = await import("$lib/deriveAuthKey");
+      const { sk, pubkey } = await deriveAuthKeypair(uname, pw);
+
+      // Fetch challenge with username to check if authPubkey exists
+      const { challenge: ch, hasAuthKey } = await (
+        await fetch(`/api/challenge?username=${encodeURIComponent(uname)}`)
+      ).json();
+
+      if (hasAuthKey) {
+        // Challenge-response path: sign event with derived key, no password sent
+        cancelForm();
+
+        const { finalizeEvent } = await import("nostr-tools");
+        const event = finalizeEvent(
+          {
+            kind: 27235,
+            created_at: Math.floor(Date.now() / 1000),
+            content: "",
+            tags: [
+              ["u", `${window.location.origin}/api/authKeyLogin`],
+              ["method", "POST"],
+              ["challenge", ch],
+            ],
+          } as any,
+          sk,
+        );
+
+        const fd = new FormData();
+        fd.append("event", JSON.stringify(event));
+        fd.append("challenge", ch);
+        fd.append("username", uname);
+        fd.append("loginRedirect", (redirect ?? "") as string);
+        fd.append("recaptcha", recaptcha);
+        fd.append("token", token ?? "");
+
+        const response = await fetch("/login?/passwordAuth", {
+          method: "POST",
+          body: fd,
+        });
+
+        const result = deserialize(await response.text());
+
+        if (result.type === "success" || result.type === "redirect") {
+          try {
+            await deriveWalletEntropy(sk);
+          } catch (e) {
+            console.log("Wallet entropy derivation failed", e);
+          }
+          await invalidateAll();
+        }
+
+        applyAction(result);
+        return;
       }
 
-      applyAction(result);
-    };
+      // Legacy path: send password + authPubkey for migration
+      formData.set("authPubkey", pubkey);
+
+      return async ({ result }: any) => {
+        if (result.type === "success" || result.type === "redirect") {
+          try {
+            await deriveWalletEntropy(sk);
+          } catch (e) {
+            console.log("Wallet entropy derivation failed", e);
+          }
+          await invalidateAll();
+        }
+        applyAction(result);
+      };
+    } catch (e: any) {
+      console.log("Auth key derivation failed, falling back to legacy login", e);
+      // Fallback: plain password login without migration
+      return async ({ result }: any) => {
+        if (result.type === "success") {
+          await invalidateAll();
+        }
+        applyAction(result);
+      };
+    }
   };
 
   $effect(() => {

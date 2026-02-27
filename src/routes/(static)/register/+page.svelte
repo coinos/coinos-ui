@@ -11,6 +11,7 @@
   import { enhance } from "$app/forms";
 
   import Pin from "$comp/Pin.svelte";
+  import PasswordInput from "$comp/PasswordInput.svelte";
   import Spinner from "$comp/Spinner.svelte";
 
   import { focus, fail, versions, post } from "$lib/utils";
@@ -49,10 +50,6 @@
 
   let username: string | undefined = $state();
   let index = $state(data.index);
-  let needsPasskey = $state(false);
-
-  // Stored between handleSubmit and retryPasskey
-  let pendingToken: string | undefined;
 
   let cleared;
   let clear = () => {
@@ -83,17 +80,17 @@
 
   let token: string = $state(""),
     formElement: any;
-  let code: any[] = [];
   let redirect: any;
 
   let cancel: any = () => {
     need2fa = false;
   };
 
-  let email: any,
-    btn: HTMLButtonElement = $state() as any;
+  let btn: HTMLButtonElement = $state() as any;
 
   let loading = $state(false);
+  let passkeyLoading = $state(false);
+
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
       if (isTor) return resolve("");
@@ -111,6 +108,12 @@
     let data = new FormData(e.target as HTMLFormElement);
     let user: Record<string, any> = Object.fromEntries(data);
     user.username = (user.username as string).replace(/\s*/g, "");
+
+    if (!user.password) {
+      fail("Password is required");
+      loading = false;
+      return;
+    }
 
     for (let k in user) {
       data.set(k, user[k]);
@@ -147,6 +150,15 @@
       }
     }
 
+    // Derive authPubkey from username + password
+    try {
+      const { deriveAuthKeypair } = await import("$lib/deriveAuthKey");
+      const { pubkey: authPubkey } = await deriveAuthKeypair(user.username, user.password);
+      data.set("authPubkey", authPubkey);
+    } catch (e) {
+      console.log("Failed to derive authPubkey during registration", e);
+    }
+
     const response = await fetch("/register?/register", {
       method: "POST",
       body: data,
@@ -155,117 +167,51 @@
     const result = deserialize(await response.text());
 
     if (result.type === "success") {
-      // User created but no cookies set yet — must complete passkey first
-      const { token } = (result as any).data;
-      pendingToken = token;
-
-      let prfKey: ArrayBuffer;
+      // Derive wallet entropy from password
       try {
-        prfKey = await registerPasskey(pendingToken);
-      } catch (e: any) {
-        console.log("passkey creation cancelled or failed", e);
-        needsPasskey = true;
-        loading = false;
-        return;
+        const { deriveAuthKeypair, deriveWalletEntropy } = await import("$lib/deriveAuthKey");
+        const { sk } = await deriveAuthKeypair(user.username, user.password);
+        await deriveWalletEntropy(sk);
+      } catch (e) {
+        console.log("Wallet entropy derivation failed", e);
       }
 
-      await activateSession(prfKey);
-    } else {
-      // Registration failed (e.g. username taken) — try passkey sign-in
-      try {
-        const { credential, challengeId, prfKey } = await loginWithPasskey();
-        const loginData = new FormData();
-        loginData.append("credential", JSON.stringify(credential));
-        loginData.append("challengeId", challengeId);
-        loginData.append("loginRedirect", (redirect ?? "") as string);
-
-        const loginResponse = await fetch("/login?/passkey", {
-          method: "POST",
-          body: loginData,
-        });
-
-        const loginResult = deserialize(await loginResponse.text());
-
-        if (loginResult.type === "success" || loginResult.type === "redirect") {
-          rememberPrfKey(prfKey, defaultRememberForMs);
-          await invalidateAll();
-          applyAction(loginResult);
-          loading = false;
-          return;
-        }
-      } catch (e: any) {
-        if (e.name !== "NotAllowedError") {
-          console.log("Passkey login failed", e);
-        }
-      }
-
-      // Passkey cancelled or failed — show original registration error
-      applyAction(result);
+      await invalidateAll();
     }
 
+    applyAction(result);
     loading = false;
   }
 
-  async function activateSession(prfKey: ArrayBuffer) {
-    rememberPrfKey(prfKey, defaultRememberForMs);
-
-    // Derive Nostr key from PRF key
-    const [
-      { entropyToMnemonic, mnemonicToSeed },
-      { wordlist },
-      { HDKey },
-      { getPublicKey },
-      { bytesToHex },
-    ] = await Promise.all([
-      import("@scure/bip39"),
-      import("@scure/bip39/wordlists/english.js"),
-      import("@scure/bip32"),
-      import("nostr-tools"),
-      import("@noble/hashes/utils.js"),
-    ]);
-
-    const entropy = new Uint8Array(prfKey).slice(0, 16);
-    const mnemonic = entropyToMnemonic(entropy, wordlist);
-    const seed = await mnemonicToSeed(mnemonic);
-    const master = HDKey.fromMasterSeed(seed, versions);
-    const nostrChild = master.derive("m/44'/1237'/0'/0/0");
-    const sk = nostrChild.privateKey!;
-    const pubkey = getPublicKey(sk);
-    const skHex = bytesToHex(sk);
-
-    // Activate session — sets auth cookies and updates pubkey server-side
-    const activateData = new FormData();
-    activateData.set("token", pendingToken!);
-    activateData.set("username", username!);
-    activateData.set("sk", skHex);
-    activateData.set("pubkey", pubkey);
-
-    const activateResponse = await fetch("/register?/activate", {
-      method: "POST",
-      body: activateData,
-    });
-
-    const activateResult = deserialize(await activateResponse.text());
-    await invalidateAll();
-
-    if (activateResult.type === "redirect") {
-      applyAction(activateResult);
-    } else {
-      applyAction({ type: "redirect", status: 303, location: `/${username}` });
-    }
-  }
-
-  let retryPasskey = async () => {
-    loading = true;
+  let passkeyRegister = async () => {
+    passkeyLoading = true;
     try {
-      const prfKey = await registerPasskey(pendingToken);
-      needsPasskey = false;
-      await activateSession(prfKey);
+      const { credential, challengeId, prfKey } = await loginWithPasskey();
+      const loginData = new FormData();
+      loginData.append("credential", JSON.stringify(credential));
+      loginData.append("challengeId", challengeId);
+      loginData.append("loginRedirect", (redirect ?? "") as string);
+
+      const loginResponse = await fetch("/login?/passkey", {
+        method: "POST",
+        body: loginData,
+      });
+
+      const loginResult = deserialize(await loginResponse.text());
+
+      if (loginResult.type === "success" || loginResult.type === "redirect") {
+        rememberPrfKey(prfKey, defaultRememberForMs);
+        await invalidateAll();
+      }
+
+      applyAction(loginResult);
     } catch (e: any) {
-      fail($t("login.passkeyCreationFailed"));
+      if (e.name !== "NotAllowedError") {
+        fail(e.message || "Passkey login failed");
+      }
     }
-    loading = false;
-  }
+    passkeyLoading = false;
+  };
 
   let avatarInput: HTMLInputElement = $state() as any;
   let decr = () => (index = index <= 0 ? 63 : index - 1);
@@ -406,72 +352,70 @@
     <div class="text-red-600 text-center" in:fly>{form?.message}{form?.error}</div>
   {/if}
 
-  {#if needsPasskey}
-    <div class="space-y-5 text-center">
-      <p>{$t("login.accountCreatedNeedsPasskey")}</p>
-      <button class="btn btn-accent" onclick={retryPasskey} disabled={loading}>
-        {#if loading}
-          <Spinner />
-        {:else}
-          {$t("login.setupPasskey")}
-        {/if}
-      </button>
-    </div>
-  {:else}
-    <form class="space-y-5" onsubmit={handleSubmit} method="POST">
+  <form class="space-y-5" onsubmit={handleSubmit} method="POST">
+    <input
+      type="hidden"
+      name="loginRedirect"
+      value={$loginRedirect || $page.url.searchParams.get("redirect")}
+    />
+    <input type="hidden" name="token" value={token} />
+    <input type="hidden" name="challenge" value={challenge} />
+
+    <label for="username" class="input flex items-center justify-center gap-2 w-full">
       <input
-        type="hidden"
-        name="loginRedirect"
-        value={$loginRedirect || $page.url.searchParams.get("redirect")}
+        class="clean"
+        use:focus
+        name="username"
+        type="text"
+        required
+        bind:value={username}
+        onfocus={clear}
+        autocapitalize="none"
+        placeholder={$t("login.username")}
       />
-      <input type="hidden" name="token" value={token} />
-      <input type="hidden" name="challenge" value={challenge} />
+      <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
+        <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
+      </button>
+    </label>
 
-      <label for="username" class="input flex items-center justify-center gap-2 w-full">
-        <input
-          class="clean"
-          use:focus
-          name="username"
-          type="text"
-          required
-          bind:value={username}
-          onfocus={clear}
-          autocapitalize="none"
-          placeholder={$t("login.username")}
-        />
-        <button type="button" tabindex="-1" onclick={refresh} aria-label="Randomize" class="contents">
-          <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
-        </button>
-      </label>
+    <PasswordInput bind:value={$password} placeholder={$t("login.password")} />
 
-      <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
-        {#if loading}
+    <button type="submit" class="btn btn-accent" disabled={loading} bind:this={btn}>
+      {#if loading}
+        <Spinner />
+      {:else}
+        {$t("login.register")}
+      {/if}
+    </button>
+
+    <button type="button" class="btn" onclick={passkeyRegister} disabled={passkeyLoading}>
+      {#if passkeyLoading}
+        <Spinner />
+      {:else}
+        <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+      {/if}
+      <div class="my-auto">Sign in with Passkey</div>
+    </button>
+
+    <button type="button" class="btn" onclick={nostrLogin}>
+      {#if $signer?.ready}
+        <div class="shrink">
           <Spinner />
-        {:else}
-          {$t("login.register")}
-        {/if}
-      </button>
+        </div>
+      {:else}
+        <img src="/images/nostr.png" class="w-8" alt="Nostr" />
+      {/if}
+      <div class="my-auto">{$t("login.nostr")}</div>
+    </button>
 
-      <button type="button" class="btn" onclick={nostrLogin}>
-        {#if $signer?.ready}
-          <div class="shrink">
-            <Spinner />
-          </div>
-        {:else}
-          <img src="/images/nostr.png" class="w-8" alt="Nostr" />
-        {/if}
-        <div class="my-auto">{$t("login.nostr")}</div>
-      </button>
-
-      <p class="text-secondary text-center font-medium">
-        {$t("login.haveAccount")}
-        <a
-          href={"/login" + $page.url.search}
-          class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
-        >
-          {$t("login.signIn")}
-        </a>
-      </p>
-    </form>
-  {/if}
+    <p class="text-secondary text-center font-medium">
+      {$t("login.haveAccount")}
+      <a
+        href={"/login" + $page.url.search}
+        class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
+      >
+        {$t("login.signIn")}
+      </a>
+    </p>
+  </form>
 </div>

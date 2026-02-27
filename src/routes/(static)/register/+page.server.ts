@@ -1,4 +1,4 @@
-import { fd, get, post } from "$lib/utils";
+import { fd, get, login, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
 export const load = async ({ parent }) => {
@@ -12,22 +12,49 @@ export const load = async ({ parent }) => {
 };
 
 export const actions = {
-  register: async ({ request }) => {
-    const ip = request.headers.get("cf-connecting-ip");
+  register: async ({ cookies, request }) => {
+    const ip = request.headers.get("cf-connecting-ip") ?? "";
+    const host = request.headers.get("host") ?? "";
     const form = await fd(request);
-    const { picture, username, challenge, recaptcha } = form;
+    const { picture, username, password, challenge, recaptcha, authPubkey } = form;
+    let { loginRedirect } = form;
+    if (loginRedirect === "undefined") loginRedirect = undefined;
 
-    const user = { picture, username, challenge, recaptcha };
+    const user = {
+      picture,
+      username,
+      password,
+      challenge,
+      recaptcha,
+      authPubkey: authPubkey || undefined,
+    };
+
     const headers: Record<string, string> = {};
     if (ip) headers["cf-connecting-ip"] = ip;
 
     try {
       const { sk, token } = await post("/register", { user }, headers);
-      return { token, sk, username };
+
+      // Log the user in and set cookies
+      await login(user, cookies, ip, host);
+
+      // Set sk cookie if server generated one
+      if (sk) {
+        const skExpires = new Date();
+        skExpires.setSeconds(skExpires.getSeconds() + 21000000);
+        cookies.set("sk", sk, {
+          path: "/",
+          expires: skExpires,
+          httpOnly: false,
+          sameSite: "lax",
+        });
+      }
     } catch (e) {
       const { message } = e as Error;
       return fail(400, { error: message });
     }
+
+    redirect(303, loginRedirect || `/${username}`);
   },
 
   activate: async ({ cookies, request }) => {
