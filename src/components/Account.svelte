@@ -18,8 +18,8 @@
   let arkBalance = $state(0);
   let arkLoading = $state(false);
 
-  let tryUnlockArk = async () => {
-    const deriveArkKey = async (key: ArrayBuffer) => {
+  let tryUnlockArk = async (): Promise<string | false> => {
+    const deriveArkKey = async (key: ArrayBuffer): Promise<string> => {
       const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
         import("@scure/bip32"),
         import("@scure/bip39"),
@@ -36,8 +36,7 @@
       const s = await mnemonicToSeed(mnemonicStr);
       const master = HDKey.fromMasterSeed(s, versions);
       const arkChild = master.derive("m/86'/0'/0'/0/0");
-      $arkkey = bytesToHex(arkChild.privateKey!);
-      $arkaid = id;
+      return bytesToHex(arkChild.privateKey!);
     };
 
     // Try cached PRF key or silent nsec
@@ -45,8 +44,7 @@
     const entropy = await getWalletEntropy();
     if (entropy) {
       try {
-        await deriveArkKey(entropy);
-        return true;
+        return await deriveArkKey(entropy);
       } catch (e) {
         console.log("Wallet entropy unlock failed", e);
       }
@@ -55,8 +53,7 @@
     // Try interactive nostr derivation
     try {
       const interactiveEntropy = await deriveNostrEntropy();
-      await deriveArkKey(interactiveEntropy);
-      return true;
+      return await deriveArkKey(interactiveEntropy);
     } catch (e) {
       console.log("Interactive nostr unlock failed", e);
       return false;
@@ -69,9 +66,14 @@
     document.cookie = `aid=${id}; path=/; max-age=86400`;
     if (isArk) {
       if ($arkkey && $arkaid === id) {
-        goto(url);
-      } else if (await tryUnlockArk()) {
-        goto(url);
+        await goto(url);
+      } else {
+        const key = await tryUnlockArk();
+        if (key) {
+          await goto(url);
+          $arkkey = key;
+          $arkaid = id;
+        }
       }
     } else {
       $arkkey = undefined;

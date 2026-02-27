@@ -71,7 +71,7 @@
 
   const getRecaptchaToken = () =>
     new Promise((resolve, reject) => {
-      if (isTor) return resolve("");
+      if (isTor || !recaptchaSiteKey) return resolve("");
       if (!browser || !grecaptcha) return reject(new Error("captcha unavailable"));
       grecaptcha.ready(() => {
         grecaptcha.execute(recaptchaSiteKey, { action: "register" }).then(resolve).catch(reject);
@@ -144,7 +144,7 @@
 
     const result = deserialize(await response.text());
 
-    if (result.type === "success") {
+    if (result.type === "success" || result.type === "redirect") {
       try {
         const { deriveAuthKeypair } = await import("$lib/deriveAuthKey");
         const { sk } = await deriveAuthKeypair(user.username, user.password);

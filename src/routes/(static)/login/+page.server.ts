@@ -97,57 +97,6 @@ export const actions = {
     };
   },
 
-  passwordAuth: async ({ cookies, fetch, request }) => {
-    const form = await fd(request);
-    let { event, challenge, username, loginRedirect, recaptcha, token: twofa } = form;
-    if (loginRedirect === "null" || loginRedirect === "undefined") loginRedirect = undefined;
-    event = JSON.parse(event);
-
-    const maxAge = 380 * 24 * 60 * 60;
-
-    const res = await fetch(`${PUBLIC_COINOS_URL}/authKeyLogin`, {
-      method: "POST",
-      body: JSON.stringify({ event, challenge, username, recaptcha, twofa }),
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-        "cf-connecting-ip": request.headers.get("cf-connecting-ip") ?? "",
-        "x-forwarded-host": request.headers.get("host") ?? "",
-      },
-    });
-
-    const text = await res.text();
-
-    if (res.status === 401) {
-      if (text.startsWith("2fa")) throw new Error("2fa");
-      throw new Error(text);
-    }
-
-    if (!res.ok) {
-      let message;
-      try {
-        ({ message } = JSON.parse(text));
-      } catch {
-        message = text;
-      }
-      return fail(400, { error: message || "Login failed" });
-    }
-
-    const { user, token } = JSON.parse(text);
-    if (!token) return fail(400, { error: "Login failed" });
-    const { username: uname, language } = user;
-
-    const expires = new Date();
-    expires.setSeconds(expires.getSeconds() + maxAge);
-
-    const opts = { path: "/", expires };
-    if (language) cookies.set("lang", language, opts);
-    cookies.set("username", uname, opts);
-    cookies.set("token", token, opts);
-
-    redirect(307, loginRedirect || `/${uname}`);
-  },
-
   passkey: async ({ cookies, fetch, request }) => {
     const form = await fd(request);
     let { credential, challengeId, loginRedirect } = form;
