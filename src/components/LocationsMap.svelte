@@ -255,7 +255,7 @@
     atm: `<path fill="white" d="M152 116h-12V60h4a28 28 0 0 1 28 28a12 12 0 0 0 24 0a52.06 52.06 0 0 0-52-52h-4V24a12 12 0 0 0-24 0v12h-4a52 52 0 0 0 0 104h4v56h-12a28 28 0 0 1-28-28a12 12 0 0 0-24 0a52.06 52.06 0 0 0 52 52h12v12a12 12 0 0 0 24 0v-12h12a52 52 0 0 0 0-104m-40 0a28 28 0 0 1 0-56h4v56Zm40 80h-12v-56h12a28 28 0 0 1 0 56"/>`,
     health: `<path fill="white" d="M216 52h-36v-8a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v8H40a20 20 0 0 0-20 20v128a20 20 0 0 0 20 20h176a20 20 0 0 0 20-20V72a20 20 0 0 0-20-20m-116-8a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v8h-56Zm112 152H44V76h168Zm-48-60a12 12 0 0 1-12 12h-12v12a12 12 0 0 1-24 0v-12h-12a12 12 0 0 1 0-24h12v-12a12 12 0 0 1 24 0v12h12a12 12 0 0 1 12 12"/>`,
     office: `<path fill="white" d="M240 204h-12V96a20 20 0 0 0-20-20h-36V32a20 20 0 0 0-28.45-18.12l-104 48.54A20.06 20.06 0 0 0 28 80.55V204H16a12 12 0 0 0 0 24h224a12 12 0 0 0 0-24m-36-104v104h-32V100ZM52 83.09l96-44.79V204H52ZM132 112v12a12 12 0 0 1-24 0v-12a12 12 0 0 1 24 0m-40 0v12a12 12 0 0 1-24 0v-12a12 12 0 0 1 24 0m0 52v12a12 12 0 0 1-24 0v-12a12 12 0 0 1 24 0m40 0v12a12 12 0 0 1-24 0v-12a12 12 0 0 1 24 0"/>`,
-    default: `<path fill="white" d="M185.08 114.46A48 48 0 0 0 160 37.52V24a12 12 0 0 0-24 0v12h-16V24a12 12 0 0 0-24 0v12H72a12 12 0 0 0 0 24h4v128h-4a12 12 0 0 0 0 24h24v12a12 12 0 0 0 24 0v-12h16v12a12 12 0 0 0 24 0v-12a52 52 0 0 0 25.08-97.54M172 84a24 24 0 0 1-24 24h-48V60h48a24 24 0 0 1 24 24m-12 104h-60v-56h60a28 28 0 0 1 0 56"/>`,
+    default: `<path fill="white" d="M128 16a88.1 88.1 0 0 0-88 88c0 75.3 80 132.17 83.41 134.55a12 12 0 0 0 9.18 0C136 236.17 216 179.3 216 104a88.1 88.1 0 0 0-88-88m0 56a32 32 0 1 1-32 32a32 32 0 0 1 32-32"/>`,
   };
 
   function createCategoryMarker(tags: any): HTMLElement {
@@ -606,17 +606,22 @@
   <div class="relative">
     {#if showList}
       <div class="flex flex-col w-[300px] max-w-[calc(100vw*0.5)] absolute right-4 bottom-8 bg-base-100/90 rounded-2xl shadow overflow-hidden">
-        <div class="relative p-3">
-          <input bind:value={search} placeholder="Search locations..." class="w-full border border-base-300 rounded-lg pl-3 pr-8 py-2 text-sm" />
-          <div class="flex items-center absolute right-5 top-1/2 -translate-y-1/2">
-            {#if search}
-              <button type="button" onclick={clearSearch} aria-label="Clear">
-                <iconify-icon noobserver icon="ph:x-bold" width="20"></iconify-icon>
-              </button>
-            {:else}
-              <iconify-icon noobserver icon="ph:magnifying-glass-bold" width="20" class="opacity-40"></iconify-icon>
-            {/if}
+        <div class="flex items-center gap-2 p-3">
+          <div class="relative flex-1">
+            <input bind:value={search} placeholder="Search locations..." class="w-full border border-base-300 rounded-lg pl-3 pr-8 py-2 text-sm" />
+            <div class="flex items-center absolute right-2 top-1/2 -translate-y-1/2">
+              {#if search}
+                <button type="button" onclick={clearSearch} aria-label="Clear">
+                  <iconify-icon noobserver icon="ph:x-bold" width="20"></iconify-icon>
+                </button>
+              {:else}
+                <iconify-icon noobserver icon="ph:magnifying-glass-bold" width="20" class="opacity-40"></iconify-icon>
+              {/if}
+            </div>
           </div>
+          <button onclick={() => showList = false} aria-label="Close" class="opacity-40 hover:opacity-100">
+            <iconify-icon noobserver icon="ph:x-bold" width="18"></iconify-icon>
+          </button>
         </div>
         <div class="space-y-1 text-sm h-[250px] max-h-[calc(100vh*0.35)] overflow-y-scroll px-4 pb-4 text-ellipsis overflow-x-hidden">
         {#each groupedList as group}
@@ -663,6 +668,9 @@
             onclick={clearAllFilters}
             class="text-xs px-3 py-1 rounded-full border border-primary"
           >None</button>
+          <button onclick={() => showFilters = false} aria-label="Close" class="ml-auto opacity-40 hover:opacity-100">
+            <iconify-icon noobserver icon="ph:x-bold" width="18"></iconify-icon>
+          </button>
         </div>
         <div class="flex flex-wrap gap-2">
           {#each presentCategories as cat}
