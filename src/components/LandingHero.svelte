@@ -8,17 +8,15 @@
 <div class="pt-16 md:mt-0">
   <div class="space-y-5">
     <h1
-      class="text-4xl md:text-6xl lg:text-7xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto"
+      class="relative text-4xl md:text-6xl lg:text-7xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto"
     >
+      <iconify-icon
+        noobserver
+        icon="coinos:rays"
+        class="absolute -top-10 md:-top-16 left-2/3 -translate-x-1/2"
+      ></iconify-icon>
       {$t("landing.header_before_icon")}
-      <span class="relative inline-block">
-        {$t("landing.header_with_icon")}
-        <iconify-icon
-          noobserver
-          icon="coinos:rays"
-          class="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2"
-        ></iconify-icon>
-      </span>
+      {$t("landing.header_with_icon")}
       {$t("landing.header_after_icon")}
     </h1>
     <h2
