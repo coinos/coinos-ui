@@ -700,5 +700,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "Standorte suchen...",
+    "all": "Alle",
+    "none": "Keine",
+    "restaurant": "Restaurant",
+    "cafe": "Café",
+    "bar": "Bar",
+    "fastFood": "Schnellimbiss",
+    "grocery": "Lebensmittel",
+    "hairdresser": "Friseur",
+    "hotel": "Hotel",
+    "shop": "Geschäft",
+    "atm": "Geldautomat",
+    "health": "Gesundheit",
+    "office": "Büro",
+    "other": "Sonstiges"
   }
 }

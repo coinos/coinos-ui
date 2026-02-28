@@ -671,5 +671,22 @@
     "noRelaysSet": "경고: 당신은 어떤 선호한 릴레이를 놓지 않았습니다. 당신은 어떤 메시지를 수신 할 수 없습니다 또는 전송 된 메시지를 볼 수 없습니다.",
     "nostrSettingsLink": "릴레이를 설정하려면 Nostr 설정을 이동합니다.",
     "anonymous": "이름 *"
+  },
+  "map": {
+    "searchLocations": "장소 검색...",
+    "all": "전체",
+    "none": "없음",
+    "restaurant": "레스토랑",
+    "cafe": "카페",
+    "bar": "바",
+    "fastFood": "패스트푸드",
+    "grocery": "식료품점",
+    "hairdresser": "미용실",
+    "hotel": "호텔",
+    "shop": "상점",
+    "atm": "ATM",
+    "health": "건강",
+    "office": "사무실",
+    "other": "기타"
   }
 }

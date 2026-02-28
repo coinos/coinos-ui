@@ -135,6 +135,23 @@
       "description": "Over 500 businesses worldwide are accepting bitcoin with Coinos. We hope that yours will be next!"
     }
   },
+  "map": {
+    "searchLocations": "Search locations...",
+    "all": "All",
+    "none": "None",
+    "restaurant": "Restaurant",
+    "cafe": "Café",
+    "bar": "Bar",
+    "fastFood": "Fast Food",
+    "grocery": "Grocery",
+    "hairdresser": "Hairdresser",
+    "hotel": "Hotel",
+    "shop": "Shop",
+    "atm": "ATM",
+    "health": "Health",
+    "office": "Office",
+    "other": "Other"
+  },
   "mapAdd": {
     "header": "Add your location",
     "description": "Coinos pulls merchant locations from OpenStreetMap. To add your business to our map, follow these steps:",

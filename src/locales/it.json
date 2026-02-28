@@ -671,5 +671,22 @@
     "noRelaysSet": "ATTENZIONE: Non hai impostato alcun relè preferito. Non potrai ricevere messaggi o vedere i messaggi che hai inviato.",
     "nostrSettingsLink": "Vai alle impostazioni Nostr per impostare i relè.",
     "anonymous": "Anonimo"
+  },
+  "map": {
+    "searchLocations": "Cerca luoghi...",
+    "all": "Tutti",
+    "none": "Nessuno",
+    "restaurant": "Ristorante",
+    "cafe": "Caffè",
+    "bar": "Bar",
+    "fastFood": "Fast Food",
+    "grocery": "Alimentari",
+    "hairdresser": "Parrucchiere",
+    "hotel": "Hotel",
+    "shop": "Negozio",
+    "atm": "Bancomat",
+    "health": "Salute",
+    "office": "Ufficio",
+    "other": "Altro"
   }
 }

@@ -102,22 +102,31 @@
     if (showFilters) showList = false;
   };
 
-  const categoryLabels: { slug: string; name: string }[] = [
-    { slug: "restaurant", name: "Restaurant" },
-    { slug: "cafe", name: "Café" },
-    { slug: "bar", name: "Bar" },
-    { slug: "fast-food", name: "Fast Food" },
-    { slug: "grocery", name: "Grocery" },
-    { slug: "hairdresser", name: "Hairdresser" },
-    { slug: "hotel", name: "Hotel" },
-    { slug: "shop", name: "Shop" },
-    { slug: "atm", name: "ATM" },
-    { slug: "health", name: "Health" },
-    { slug: "office", name: "Office" },
-    { slug: "default", name: "Other" },
+  const categorySlugs = [
+    "restaurant", "cafe", "bar", "fast-food", "grocery", "hairdresser",
+    "hotel", "shop", "atm", "health", "office", "default",
   ];
 
-  let activeFilters: Set<string> = $state(new Set(categoryLabels.map((c) => c.slug)));
+  const categoryTranslationKeys: Record<string, string> = {
+    "restaurant": "map.restaurant",
+    "cafe": "map.cafe",
+    "bar": "map.bar",
+    "fast-food": "map.fastFood",
+    "grocery": "map.grocery",
+    "hairdresser": "map.hairdresser",
+    "hotel": "map.hotel",
+    "shop": "map.shop",
+    "atm": "map.atm",
+    "health": "map.health",
+    "office": "map.office",
+    "default": "map.other",
+  };
+
+  let categoryLabels = $derived(
+    categorySlugs.map((slug) => ({ slug, name: $t(categoryTranslationKeys[slug]) }))
+  );
+
+  let activeFilters: Set<string> = $state(new Set(categorySlugs));
 
   let lastToggledOn: string | undefined = $state();
 
@@ -141,7 +150,7 @@
   }
 
   function setAllFilters() {
-    activeFilters = new Set(categoryLabels.map((c) => c.slug));
+    activeFilters = new Set(categorySlugs);
   }
 
   function clearAllFilters() {
@@ -565,7 +574,7 @@
       : inview,
   );
 
-  let categoryLabelMap = Object.fromEntries(categoryLabels.map((c) => [c.slug, c.name]));
+  let categoryLabelMap = $derived(Object.fromEntries(categoryLabels.map((c) => [c.slug, c.name])));
 
   let presentCategories = $derived(
     categoryLabels.filter((c) => inview.some((m) => m.category === c.slug)),
@@ -609,7 +618,7 @@
       <div class="flex flex-col w-[300px] max-w-[calc(100vw*0.5)] absolute right-4 bottom-8 bg-base-100/90 rounded-2xl shadow overflow-hidden">
         <div class="flex items-center gap-2 p-3">
           <div class="relative flex-1">
-            <input bind:value={search} placeholder="Search locations..." class="w-full border border-base-300 rounded-lg pl-3 pr-8 py-2 text-sm" />
+            <input bind:value={search} placeholder={$t("map.searchLocations")} class="w-full border border-base-300 rounded-lg pl-3 pr-8 py-2 text-sm" />
             <div class="flex items-center absolute right-2 top-1/2 -translate-y-1/2">
               {#if search}
                 <button type="button" onclick={clearSearch} aria-label="Clear">
@@ -664,11 +673,11 @@
           <button
             onclick={setAllFilters}
             class="text-xs px-3 py-1 rounded-full border border-primary bg-primary text-white"
-          >All</button>
+          >{$t("map.all")}</button>
           <button
             onclick={clearAllFilters}
             class="text-xs px-3 py-1 rounded-full border border-primary"
-          >None</button>
+          >{$t("map.none")}</button>
           <button onclick={() => showFilters = false} aria-label="Close" class="ml-auto opacity-40 hover:opacity-100">
             <iconify-icon noobserver icon="ph:x-bold" width="18"></iconify-icon>
           </button>

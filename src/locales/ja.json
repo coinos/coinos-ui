@@ -673,5 +673,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "場所を検索...",
+    "all": "すべて",
+    "none": "なし",
+    "restaurant": "レストラン",
+    "cafe": "カフェ",
+    "bar": "バー",
+    "fastFood": "ファストフード",
+    "grocery": "食料品店",
+    "hairdresser": "美容院",
+    "hotel": "ホテル",
+    "shop": "ショップ",
+    "atm": "ATM",
+    "health": "医療",
+    "office": "オフィス",
+    "other": "その他"
   }
 }

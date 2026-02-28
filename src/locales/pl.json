@@ -671,5 +671,22 @@
     "noRelaysSet": "UWAGA: Nie ustawiłeś żadnych preferowanych przekaźników. Nie będziesz w stanie odbierać wiadomości ani widzieć wiadomości, które wysłałeś.",
     "nostrSettingsLink": "Przejdź do ustawień Nostr, aby ustawić przekaźniki.",
     "anonymous": "Anonimowy"
+  },
+  "map": {
+    "searchLocations": "Szukaj lokalizacji...",
+    "all": "Wszystkie",
+    "none": "Żadne",
+    "restaurant": "Restauracja",
+    "cafe": "Kawiarnia",
+    "bar": "Bar",
+    "fastFood": "Fast food",
+    "grocery": "Sklep spożywczy",
+    "hairdresser": "Fryzjer",
+    "hotel": "Hotel",
+    "shop": "Sklep",
+    "atm": "Bankomat",
+    "health": "Zdrowie",
+    "office": "Biuro",
+    "other": "Inne"
   }
 }

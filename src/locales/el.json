@@ -691,5 +691,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "Αναζήτηση τοποθεσιών...",
+    "all": "Όλα",
+    "none": "Κανένα",
+    "restaurant": "Εστιατόριο",
+    "cafe": "Καφετέρια",
+    "bar": "Μπαρ",
+    "fastFood": "Φαστ Φουντ",
+    "grocery": "Παντοπωλείο",
+    "hairdresser": "Κομμωτήριο",
+    "hotel": "Ξενοδοχείο",
+    "shop": "Κατάστημα",
+    "atm": "ATM",
+    "health": "Υγεία",
+    "office": "Γραφείο",
+    "other": "Άλλο"
   }
 }

@@ -671,5 +671,22 @@
     "noRelaysSet": "WARNING: Herhangi bir tercih edilen röle ayarlamadın. Herhangi bir mesaj alabilir veya gönderdiğiniz mesajları göremezsiniz.",
     "nostrSettingsLink": "Rölelerinizi ayarlamak için Nostr ayarlarınıza gidin.",
     "anonymous": "Anonim"
+  },
+  "map": {
+    "searchLocations": "Konum ara...",
+    "all": "Tümü",
+    "none": "Hiçbiri",
+    "restaurant": "Restoran",
+    "cafe": "Kafe",
+    "bar": "Bar",
+    "fastFood": "Fast Food",
+    "grocery": "Market",
+    "hairdresser": "Kuaför",
+    "hotel": "Otel",
+    "shop": "Mağaza",
+    "atm": "ATM",
+    "health": "Sağlık",
+    "office": "Ofis",
+    "other": "Diğer"
   }
 }

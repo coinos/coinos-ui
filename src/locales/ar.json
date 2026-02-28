@@ -671,5 +671,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "البحث عن مواقع...",
+    "all": "الكل",
+    "none": "لا شيء",
+    "restaurant": "مطعم",
+    "cafe": "مقهى",
+    "bar": "بار",
+    "fastFood": "وجبات سريعة",
+    "grocery": "بقالة",
+    "hairdresser": "حلاق",
+    "hotel": "فندق",
+    "shop": "متجر",
+    "atm": "صراف آلي",
+    "health": "صحة",
+    "office": "مكتب",
+    "other": "أخرى"
   }
 }

@@ -51,8 +51,14 @@
         pin.set(undefined);
         signer.set(undefined);
         const installDismissed = localStorage.getItem("installDismissed");
+        const snapshots: [string, string][] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i)!;
+          if (k.startsWith("arkVaultSnapshot:")) snapshots.push([k, localStorage.getItem(k)!]);
+        }
         localStorage.clear();
         if (installDismissed) localStorage.setItem("installDismissed", installDismissed);
+        for (const [k, v] of snapshots) localStorage.setItem(k, v);
         sessionStorage.clear();
       }, 50);
     }

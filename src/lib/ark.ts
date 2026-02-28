@@ -10,6 +10,34 @@ export const arkServerUrl = {
 export const arkkey = persistLocal("arkkey", "");
 export const arkaid = persistLocal("arkaid", "");
 
+interface SerializedVtxo {
+  txid: string;
+  vout: number;
+  value: number;
+  status: { confirmed: boolean; isLeaf?: boolean };
+  virtualStatus: {
+    state: "preconfirmed" | "settled" | "swept" | "spent";
+    commitmentTxIds?: string[];
+    batchExpiry?: number;
+  };
+  spentBy?: string;
+  settledBy?: string;
+  arkTxId?: string;
+  createdAt: string;
+  isUnrolled: boolean;
+  isSpent?: boolean;
+}
+
+interface ArkVaultSnapshot {
+  version: 1;
+  cachedAt: string;
+  arkServerUrl: string;
+  arkInfoRaw: Record<string, any>;
+  vtxos: SerializedVtxo[];
+  vtxoChains: Record<string, { chain: any[] }>;
+  virtualTxs: Record<string, string>;
+}
+
 let arkSdkPromise: Promise<typeof import("@arkade-os/sdk")> | undefined;
 const loadArkSdk = () => (arkSdkPromise ||= import("@arkade-os/sdk"));
 
@@ -40,6 +68,85 @@ const toHex = (bytes: Uint8Array) =>
   Array.from(bytes)
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
+
+export async function cacheVaultSnapshot() {
+  try {
+    const wallet = await getWallet();
+    if (!wallet) return;
+
+    const infoRes = await fetch(`${arkServerUrl}/v1/info`);
+    if (!infoRes.ok) return;
+    const arkInfoRaw = await infoRes.json();
+
+    const script = toHex(wallet.offchainTapscript.pkScript);
+    const vtxosResponse = await wallet.indexerProvider.getVtxos({ scripts: [script] });
+    const vtxos = vtxosResponse.vtxos;
+
+    const spendable = vtxos.filter(
+      (v: any) => !v.isSpent && v.virtualStatus.state !== "spent",
+    );
+
+    const vtxoChains: Record<string, { chain: any[] }> = {};
+    const allNonCommitmentTxids = new Set<string>();
+
+    for (const vtxo of spendable) {
+      const key = `${vtxo.txid}:${vtxo.vout}`;
+      const chainData = await wallet.indexerProvider.getVtxoChain({
+        txid: vtxo.txid,
+        vout: vtxo.vout,
+      });
+      vtxoChains[key] = { chain: chainData.chain };
+
+      for (const tx of chainData.chain) {
+        if (
+          tx.type !== "INDEXER_CHAINED_TX_TYPE_COMMITMENT" &&
+          tx.type !== "INDEXER_CHAINED_TX_TYPE_UNSPECIFIED"
+        ) {
+          allNonCommitmentTxids.add(tx.txid);
+        }
+      }
+    }
+
+    const virtualTxs: Record<string, string> = {};
+    const txidArray = Array.from(allNonCommitmentTxids);
+    if (txidArray.length > 0) {
+      const result = await wallet.indexerProvider.getVirtualTxs(txidArray);
+      for (let i = 0; i < txidArray.length; i++) {
+        virtualTxs[txidArray[i]] = result.txs[i];
+      }
+    }
+
+    const serializedVtxos: SerializedVtxo[] = vtxos.map((v: any) => ({
+      txid: v.txid,
+      vout: v.vout,
+      value: v.value,
+      status: v.status,
+      virtualStatus: v.virtualStatus,
+      spentBy: v.spentBy,
+      settledBy: v.settledBy,
+      arkTxId: v.arkTxId,
+      createdAt: v.createdAt instanceof Date ? v.createdAt.toISOString() : String(v.createdAt),
+      isUnrolled: v.isUnrolled,
+      isSpent: v.isSpent,
+    }));
+
+    const snapshot: ArkVaultSnapshot = {
+      version: 1,
+      cachedAt: new Date().toISOString(),
+      arkServerUrl: arkServerUrl!,
+      arkInfoRaw,
+      vtxos: serializedVtxos,
+      vtxoChains,
+      virtualTxs,
+    };
+
+    const uid = localStorage.getItem("arkkey:uid");
+    const key = uid ? `arkVaultSnapshot:${uid}` : "arkVaultSnapshot";
+    localStorage.setItem(key, JSON.stringify(snapshot));
+  } catch (e) {
+    console.error("[ark] snapshot cache failed:", e);
+  }
+}
 
 export const subscribeToAsp = (onEvent: () => void) => {
   let es: EventSource | null = null;
@@ -171,7 +278,9 @@ const _syncTransactions = async (aid: string) => {
   const bal = await wallet.getBalance();
   const balance = (bal.available || 0) + (bal.preconfirmed || 0);
 
-  return post("/post/ark/sync", { transactions, aid, balance });
+  const result = await post("/post/ark/sync", { transactions, aid, balance });
+  cacheVaultSnapshot(); // fire-and-forget
+  return result;
 };
 
 export const syncTransactions = async (aid: string) => {

@@ -671,5 +671,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "অবস্থান অনুসন্ধান করুন...",
+    "all": "সব",
+    "none": "কিছুই না",
+    "restaurant": "রেস্তোরাঁ",
+    "cafe": "ক্যাফে",
+    "bar": "বার",
+    "fastFood": "ফাস্ট ফুড",
+    "grocery": "মুদি দোকান",
+    "hairdresser": "নাপিত",
+    "hotel": "হোটেল",
+    "shop": "দোকান",
+    "atm": "এটিএম",
+    "health": "স্বাস্থ্য",
+    "office": "অফিস",
+    "other": "অন্যান্য"
   }
 }

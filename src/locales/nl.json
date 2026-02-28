@@ -671,5 +671,22 @@
     "noRelaysSet": "WAARSCHUWING: U heeft geen voorkeursrelais ingesteld. U kunt geen berichten ontvangen of de berichten zien die u hebt verzonden.",
     "nostrSettingsLink": "Ga naar uw Nostr instellingen om uw relais in te stellen.",
     "anonymous": "Anoniem"
+  },
+  "map": {
+    "searchLocations": "Locaties zoeken...",
+    "all": "Alle",
+    "none": "Geen",
+    "restaurant": "Restaurant",
+    "cafe": "Café",
+    "bar": "Bar",
+    "fastFood": "Fastfood",
+    "grocery": "Supermarkt",
+    "hairdresser": "Kapper",
+    "hotel": "Hotel",
+    "shop": "Winkel",
+    "atm": "Geldautomaat",
+    "health": "Gezondheid",
+    "office": "Kantoor",
+    "other": "Overig"
   }
 }

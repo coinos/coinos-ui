@@ -673,5 +673,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "Поиск мест...",
+    "all": "Все",
+    "none": "Ничего",
+    "restaurant": "Ресторан",
+    "cafe": "Кафе",
+    "bar": "Бар",
+    "fastFood": "Фастфуд",
+    "grocery": "Продукты",
+    "hairdresser": "Парикмахерская",
+    "hotel": "Отель",
+    "shop": "Магазин",
+    "atm": "Банкомат",
+    "health": "Здоровье",
+    "office": "Офис",
+    "other": "Другое"
   }
 }

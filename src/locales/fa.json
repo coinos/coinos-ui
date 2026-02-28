@@ -673,5 +673,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "جستجوی مکان‌ها...",
+    "all": "همه",
+    "none": "هیچ",
+    "restaurant": "رستوران",
+    "cafe": "کافه",
+    "bar": "بار",
+    "fastFood": "فست فود",
+    "grocery": "سوپرمارکت",
+    "hairdresser": "آرایشگاه",
+    "hotel": "هتل",
+    "shop": "فروشگاه",
+    "atm": "خودپرداز",
+    "health": "سلامت",
+    "office": "دفتر",
+    "other": "سایر"
   }
 }

@@ -673,5 +673,22 @@
     "nl": "Nederlands",
     "th": "ไทย",
     "pl": "Polski"
+  },
+  "map": {
+    "searchLocations": "搜索位置...",
+    "all": "全部",
+    "none": "无",
+    "restaurant": "餐厅",
+    "cafe": "咖啡馆",
+    "bar": "酒吧",
+    "fastFood": "快餐",
+    "grocery": "杂货店",
+    "hairdresser": "理发店",
+    "hotel": "酒店",
+    "shop": "商店",
+    "atm": "ATM",
+    "health": "医疗",
+    "office": "办公室",
+    "other": "其他"
   }
 }
