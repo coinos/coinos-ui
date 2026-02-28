@@ -24,13 +24,10 @@
         <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
       </a>
     </div>
-    <div class="w-full sm:hidden">
+    <div class="sm:hidden flex justify-center">
       <a href="/register">
-        <button class="btn btn-accent w-full text-2xl">{$t("nav.startInSeconds")}</button>
+        <button class="btn btn-accent !w-auto text-xl !rounded-full px-10">{$t("nav.enterApp")}</button>
       </a>
-    </div>
-    <div class="w-full hidden sm:flex gap-2 justify-center items-center">
-      <DarkToggle />
     </div>
   </div>
 
@@ -59,10 +56,9 @@
   </div>
 
   <div class="space-y-5">
-    <div class="flex justify-center">
+    <div class="flex justify-center items-center gap-4">
+      <DarkToggle />
       <LocaleSelector />
     </div>
-    <iconify-icon noobserver icon="coinos:shield" class="flex justify-center" width="96"
-    ></iconify-icon>
   </div>
 </footer>

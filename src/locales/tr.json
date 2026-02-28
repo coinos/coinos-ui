@@ -22,6 +22,11 @@
     "importSeed": "Mevcut bir tohum cümlesi girin",
     "passwordWarning": "Bu şifreyi kaybederseniz, hesaptan para çekebilir veya tohum cümlenizi geri yükleyebilirsiniz. Bunu sizin için kurtaramayız.",
     "savings": "Tasarruf Tasarrufları",
+    "chooseAccountType": "Hesap türünü seçin",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "12 kelimelik tohum cümlesiyle korunan kendi kendine saklanan Bitcoin cüzdanı",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Düşük ücretler ve hızlı uzlaşma sunan deneysel katman 2 cüzdanı",
     "password": "Şifre",
     "confirmPassword": "Şifreyi Onaylayın",
     "per": "yüzde başına",
@@ -55,8 +60,41 @@
     "copyNwc": "Kopya NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "Saklama",
+    "submit": "Gönder",
+    "viewMnemonic": "Tohum cümlesini görüntüle",
+    "hideMnemonic": "Tohum cümlesini gizle",
+    "deleteConfirm": "Bu hesabı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+    "cancel": "İptal",
+    "spending": "Harcama",
+    "vault": "Kasa",
+    "pending": "beklemede",
+    "importing": "İçe aktarılıyor...",
+    "accountTitle": "{{type}} hesabı",
+    "updateCurrency": "Varsayılan para birimini de {{currency}} olarak güncelle",
+    "changeSeedPhrase": "Tohum cümlesi",
+    "invalidSeedPhrase": "Invalid tohum cümlesi",
+    "importFailed": "İthalat başarısız oldu",
+    "invalidPassword": "Invalid password",
+    "invalidPasswordTryAgain": "Invalid password, tekrar deneyin",
+    "passwordRequired": "Gerekli Şifre Gerekli",
+    "failedToDecryptSeed": "Bölünmeye Başarısız",
+    "passkeyNoPrf": "Passkey PRF'yi desteklemiyor",
+    "passkeyUnlockFailed": "Passkey, başarısız oldu",
+    "pleaseBackupFirst": "Lütfen anahtarınızı ilk önce yedekleyin",
+    "createSavingsAccount": "Tasarruf Hesapları Oluşturun",
+    "createWallet": "Create Wallet",
+    "unlockWithPasskey": "Unlock with Passkey",
+    "unlockWithNostr": "Nostr",
+    "arkDerivedFromPasskey": "Ark cüzdanınız geçişli usta tohumlarınızdan elde edilecek.",
+    "arkUnlockWithPasskey": "Ark cüzdanınız usta tohumlarınızdan elde edilecek. Kaynar ile devam etmek için.",
+    "arkEnterPassword": "Ark cüzdanınız usta tohumlarınızdan elde edilecek. Cüzdan parolanızı devam etmek için girin.",
+    "arkSecuredByKey": "Ark cüzdanınız özel bir anahtar tarafından garanti edilir. Lütfen güvenli bir yere kopyalayın.",
+    "setPasswordToEncrypt": "Anahtarınızı şifrelemek için bir şifre ayarlayın. Bu şifreye para göndermek için ihtiyacınız olacak.",
+    "backedItUp": "Onu destekledim",
+    "revealBackupKey": "Yedek anahtar anahtarı açın",
+    "type": "Tipi",
+    "accountType": "Hesap türü"
   },
   "404": {
     "404": "404",
@@ -67,14 +105,14 @@
     "team": {
       "header": "Takım",
       "adam": {
-        "name": "Adam Soltys",
-        "position": "Kurucu ve CTO",
-        "bio": "Adam, ses parasının benimsenmesinin küresel refahı sağlayacağına inanan bir yazılım mühendisidir. Kuzey Vancouver'da eşi, kızı ve oğluyla yaşıyor."
+        "name": "Adam",
+        "position": "Kurucu",
+        "bio": "2012 yılından bu yana Coinos'un kurucusu. Bitcoin'i herkes için erişilebilir hale getirmek hakkında tutkulu."
       },
       "cole": {
         "name": "Cole",
         "position": "İş Geliştirme",
-        "bio": "Cole, 2015 yılından beri Bitcoin tarafından motive edilen bir bireydir. Görevi, Bitcoin'in benimsenmesini ve küresel olarak çeşitli topluluklardaki Lightning Network'ü yaymaktır."
+        "bio": "2015 yılından bu yana tüccarlara ve topluluklara yardımcı olmak."
       }
     },
     "locations": {
@@ -93,23 +131,23 @@
     "header": "SSS",
     "cost": {
       "question": "Maliyet nedir?",
-      "answer": "Hesabınıza ödeme yapmak ücretsizdir. Dış cüzdanlara geri dönmek, ağ koşullarına bağlı olarak değişen küçük bir ücret alır."
+      "answer": "Coinos kullanıcıları arasında göndermek ve almak ücretsizdir. Dış cüzdanlara geri dönüşler aynı ağda ücretsizdir, aksi takdirde Lightning/Liquid için Bitcoin veya% 0.1% için% 0."
     },
     "compatibility": {
-      "question": "Özel bir cihaz veya yazılıma ihtiyacım var mı?",
-      "answer": "Hayır, Coinos internete sahip her yerde çalışır. Tüccarlar bunu bir tablet üzerinde kullanabilir veya müşterilerin telefonlarıyla taramasını sağlamak için bir QR kodu koyabilirler."
+      "question": "Özel donanıma ihtiyacım var mı?",
+      "answer": "Hayır - sadece bir telefon, tablet veya bir web tarayıcısı ile bilgisayar. Ödeme bildirimleri e-posta yoluyla veya bildirimle alın."
     },
     "safety": {
       "question": "Paralarım ne zaman yerleşti?",
       "answer": "Lightning ödemeleri anında yapılır. Dengenizi saniye içinde başka bir cüzdana geri çekebilirsiniz. On-chain depozitoları ortalamayı doğrulamak için 5-10 dakika sürer."
     },
     "pos": {
-      "question": "Coinos mevcut PoS ile bütünleştirebilir mi?",
-      "answer": "Mevcut PoS'ye nakit işlemleri olarak satışlarınızı yapmanızı öneririz."
+      "question": "Benim nokta satış sistemi ile çalışabilir mi?",
+      "answer": "Doğrudan Square ile entegre ediyoruz. Diğer sistemler için, Bitcoin satışlarını nakit olarak kaydedebilirsiniz."
     },
     "bitcoin": {
       "question": "Bitcoin ile ne yapabilirim?",
-      "answer": "Bunu diğer tüccarlarda geçirin veya personelinizi, tedarikçilerinizi ve ev sahibilerinizi alarak harcamanız."
+      "answer": "Bunu diğer tüccarlarda, personel veya tedarikçilerde geçirin veya tasarruf olarak tutun."
     }
   },
   "footer": {
@@ -135,8 +173,8 @@
       "description": "Normal olarak aynı, ancak bitcoin ile."
     },
     "step3": {
-      "header": "3. Hepsi bu!",
-      "description": "Paranızı hemen ya da değerde büyütün."
+      "header": "3. Hepiniz setsiniz!",
+      "description": "Gönder ve anında bitcoin alın - ücret yok, fus yok."
     }
   },
   "invoice": {
@@ -160,12 +198,12 @@
     "pitch3": "Bir etki yapabileceğinizi düşünüyorsanız, sizden duymak isteriz. Bize özgeçmişinizi gönderin"
   },
   "landing": {
-    "header_before_icon": "The",
-    "header_with_icon": "en kolay",
-    "header_after_icon": "bitcoin ile başlamanın yolu.",
-    "subheader": "Herkes için ücretsiz bir web cüzdanı ve ödeme sayfası.",
+    "header_before_icon": "Bitcoin yaptı",
+    "header_with_icon": "kolay",
+    "header_after_icon": "",
+    "subheader": "Tüccarlar ve günlük kullanıcılar için cüzdan ve ödeme sayfası",
     "info1": {
-      "title": "Lightning ile Anında ödeme",
+      "title": "Anında ödeme",
       "description": "Satıcıların perakende ödemelerini almak için kolay hale getiriyoruz. Banka yerleşimlerini beklemeyin veya geri ödeme konusunda endişe etmeyin. Anında yerleşim, saniyede. Devedaya% 3 kart ücretlerine söyle."
     },
     "info2": {
@@ -202,11 +240,45 @@
     "signUp": "Kayıt Ol",
     "failed": "Giriş başarısız oldu",
     "nostr": "Nostr ile oturum açın",
-    "nostrConnect": "Nostr bağlantı"
+    "nostrConnect": "Nostr bağlantı",
+    "accountCreatedNeedsPasskey": "Hesap oluşturuldu! Devam etmek için bir passkey kurmak zorundasınız.",
+    "setupPasskey": "Set up Passkey",
+    "passkeyCreationFailed": "Paskey yaratımı başarısız oldu. Lütfen tekrar deneyin.",
+    "enter2faCode": "2FA Code"
+  },
+  "mapAdd": {
+    "header": "Konumunuzu ekleyin",
+    "description": "Coinos, satıcı konumlarını OpenStreetMap'ten alır. İşletmenizi haritamıza eklemek için şu adımları izleyin:",
+    "step1": {
+      "header": "Bir OpenStreetMap hesabı oluşturun",
+      "before": "Henüz bir hesabınız yoksa",
+      "linkText": "openstreetmap.org",
+      "after": "adresine gidin ve ücretsiz bir hesap oluşturun."
+    },
+    "step2": {
+      "header": "Adresinize bir nokta ekleyin",
+      "before": "Haritada işletmenizin konumuna gidin,",
+      "edit": "Düzenle",
+      "middle": "'ye tıklayın, ardından",
+      "point": "Nokta",
+      "after": "'ya tıklayın ve adresinize yerleştirin."
+    },
+    "step3": {
+      "header": "Gerekli etiketleri ekleyin",
+      "description": "Noktanın etiket düzenleyicisinde şu iki etiketi ekleyin:"
+    },
+    "step4": {
+      "header": "Değişikliklerinizi kaydedin",
+      "before": "",
+      "save": "Kaydet",
+      "after": "'e tıklayın; OpenStreetMap güncellemeyi işledikten sonra konumunuz haritamızda görünecektir."
+    },
+    "backToMap": "Haritaya dön",
+    "addLocation": "Konum ekle"
   },
   "nav": {
-    "dark": "Dark",
-    "light": "Işık Işığı",
+    "dark": "Karanlık mod",
+    "light": "Aydınlık mod",
     "about": "About",
     "docs": "Docs",
     "messages": "Mesajlar",
@@ -217,12 +289,14 @@
     "register": "Register",
     "account": "Hesap Hesabı",
     "startInSeconds": "İkincilere başlayın",
+    "enterApp": "Uygulamaya Gir",
     "signIn": "Sign In Sign In",
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "settings": "Ayarlar",
     "support": "Destek Desteği Destek Desteği",
-    "home": "Home"
+    "home": "Home",
+    "dm": "Mesajlar"
   },
   "news": {
     "header": "Haberler",
@@ -269,7 +343,8 @@
       "receive": "Kabul Kabul Al",
       "withdraw": "Send Send Send Gönder",
       "deposit": "Deposit",
-      "voucher": "Voucher"
+      "voucher": "Voucher",
+      "history": "Tarih Tarihi"
     },
     "receive": {
       "lessThan1BTCWarning": "Lütfen 1 bitcoin'den daha az bir miktar girin.",
@@ -382,7 +457,17 @@
       "yourUsername": "Kullanıcınız Kullanıcınızdır",
       "yourPassword": "ve şifreniziz",
       "welcome": "Hoşgeldiniz!",
-      "clickBelow": "Hesabınızı kurmak için aşağıda tıklayın"
+      "clickBelow": "Hesabınızı kurmak için aşağıda tıklayın",
+      "dontRemember": "Unutma",
+      "8hours": "8 saat 8",
+      "1day": "1 gün",
+      "1week": "1 hafta",
+      "1month": "1 ay",
+      "1year": "1 yıl",
+      "preferredDM": "Tercih edilen DM Relays",
+      "preferredDMDescription": "Doğrudan Mesajlar bu rölelere yayınlanmanız anlamına geliyordu. DM'leri birden fazla röleğe almak için, her röle URL'yi kendi çizgisine koyun.",
+      "noDMURLsWarning": "Herhangi bir geçerli röle URL ayarlamadınız. DM'leri kullanabileceksiniz.",
+      "continueSettingUp": "Hesap kurulumu"
     },
     "support": {
       "header": "Destek Desteği Destek Desteği",
@@ -514,7 +599,8 @@
     "gift": "Hediye tüm fonlar",
     "giftLink": "Hediye linki",
     "giftDesc1": "Aşağıdaki bağlantıyı açan herkes mevcut tüm fonları alacak.",
-    "giftDesc2": "Eğer giriş yapılırsa, fonlar hesabına gidecek, aksi takdirde yeni bir hesap oluşturulacaktır."
+    "giftDesc2": "Eğer giriş yapılırsa, fonlar hesabına gidecek, aksi takdirde yeni bir hesap oluşturulacaktır.",
+    "failedToSend": "Göndermek için başarısız oldu"
   },
   "items": {
     "add": "Ekle item",
@@ -557,5 +643,30 @@
     "withdrawAccess": "Withdraw access",
     "username": "Username",
     "returnToFund": "Geri finanse etmek için"
+  },
+  "dm": {
+    "chatHeader": "Chats",
+    "newChatHeader": "Yeni Sohbet",
+    "header": "Mesajlar",
+    "searchPrompt": "kullanıcı adı, nip-05 veya pubkey",
+    "findByUsername": "Find by name",
+    "findByNIP05": "NIP-05 tarafından bulun",
+    "findByPubkey": "Pubkey",
+    "noChats": "Henüz sohbetleriniz yok.",
+    "selectChat": "Listeden sola bir sohbet seçin.",
+    "recipientMsg": "Hayırlı mesajlar gönderiyorsunuz [R].",
+    "sendMessage": "Mesaj Gönder",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "expiry": "Enable message expiry",
+    "cantSendExpiring": "Hiçbiri [R] DM röleleri mesajı destekliyor. Onlara mesajlar gönderemezsiniz.",
+    "fadedWarning": "Metadata sızıntılarından kaçınmak için, mesajlar belirtdiğinizde 2 güne kadar rastgele bir süre boyunca sona erer; her mesajın kendi rastgele expiry zamanı vardır. Kaybolan görünen mesajlar, genişleyene yakın; yakındaki mesajlar eksik olabilir.",
+    "usernameNotFound": "Bu kullanıcı ile bir hesap bulunamadı.",
+    "nip05NotFound": "NIP-05 ile Nostr hesabı bulunamadı.",
+    "days": "günler",
+    "relaysNotFound": "[R] DM rölelerini bulamaz.",
+    "noRelaysSet": "WARNING: Herhangi bir tercih edilen röle ayarlamadın. Herhangi bir mesaj alabilir veya gönderdiğiniz mesajları göremezsiniz.",
+    "nostrSettingsLink": "Rölelerinizi ayarlamak için Nostr ayarlarınıza gidin.",
+    "anonymous": "Anonim"
   }
 }

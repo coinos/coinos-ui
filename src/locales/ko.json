@@ -22,6 +22,11 @@
     "importSeed": "종자 구문을 입력",
     "passwordWarning": "이 암호를 잃으면 계정에서 자금을 인출하거나 씨앗 구문을 복원 할 수 없습니다. 우리는 당신을 위해 그것을 재기할 수 없습니다.",
     "savings": "제품정보",
+    "chooseAccountType": "계정 유형 선택",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "12단어 시드 구문으로 보호되는 셀프 커스터디 Bitcoin 지갑",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "낮은 수수료와 빠른 결제를 제공하는 실험적 레이어 2 지갑",
     "password": "비밀번호",
     "confirmPassword": "비밀번호",
     "per": "으로",
@@ -55,8 +60,41 @@
     "copyNwc": "복사 NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "수탁",
+    "spending": "지출",
+    "vault": "금고",
+    "pending": "대기 중",
+    "importing": "가져오는 중...",
+    "viewMnemonic": "시드 구문 보기",
+    "hideMnemonic": "시드 구문 숨기기",
+    "deleteConfirm": "이 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+    "cancel": "취소",
+    "submit": "제출",
+    "accountTitle": "{{type}} 계정",
+    "updateCurrency": "기본 통화도 {{currency}}(으)로 변경",
+    "changeSeedPhrase": "종자 구문",
+    "invalidSeedPhrase": "잘못된 종자 구문",
+    "importFailed": "수입 실패",
+    "invalidPassword": "잘못된 비밀번호",
+    "invalidPasswordTryAgain": "잘못된 비밀번호, 다시 시도",
+    "passwordRequired": "비밀번호필수",
+    "failedToDecryptSeed": "파종을 해독",
+    "passkeyNoPrf": "Passkey는 PRF를 지원하지 않습니다",
+    "passkeyUnlockFailed": "Passkey 잠금 해제",
+    "pleaseBackupFirst": "당신의 열쇠를 첫째로 백업하십시오",
+    "createSavingsAccount": "저축 계정 만들기",
+    "createWallet": "지갑 만들기",
+    "unlockWithPasskey": "Passkey로 잠금 해제",
+    "unlockWithNostr": "Nostr로 잠금 해제",
+    "arkDerivedFromPasskey": "Ark 지갑은 패스키 보호 마스터 씨앗에서 파생됩니다.",
+    "arkUnlockWithPasskey": "Ark 지갑은 마스터 씨앗에서 파생됩니다. 계속하기 위해 패스키로 잠금 해제.",
+    "arkEnterPassword": "Ark 지갑은 마스터 씨앗에서 파생됩니다. 지갑 암호를 계속 입력하세요.",
+    "arkSecuredByKey": "Ark 지갑은 개인 키에 의해 보호됩니다. 자주 묻는 질문.",
+    "setPasswordToEncrypt": "암호를 설정하여 키를 암호화합니다. 이 암호가 필요합니다.",
+    "backedItUp": "나는 그것을 백업",
+    "revealBackupKey": "백업 키",
+    "type": "제품정보",
+    "accountType": "계정 유형"
   },
   "404": {
     "404": "404명",
@@ -67,14 +105,14 @@
     "team": {
       "header": "이 팀",
       "adam": {
-        "name": "아담 Soltys",
-        "position": "설립자 및 CTO",
-        "bio": "Adam은 건강한 돈의 채택이 글로벌 번영을 구동 할 것이라고 믿는 소프트웨어 엔지니어입니다. 그는 그의 아내, 딸, 아들과 함께 노스 밴쿠버에 살고있다."
+        "name": "아드리아",
+        "position": "회사연혁",
+        "bio": "2012년부터 Coinos의 제작자 모든 사람에게 비트 코인을 만드는 열정."
       },
       "cole": {
         "name": "한국어",
         "position": "사업영역",
-        "bio": "Cole은 2015년부터 비트코인에 의해 활성화된 자유의 열정과 함께 구동되는 개인입니다. 그의 임무는 Bitcoin과 Lightning Network의 채택을 전 세계적으로 확산시키는 것입니다."
+        "bio": "상인과 지역 사회가 2015 년부터 비트 코인을 채택하는 데 도움이됩니다."
       }
     },
     "locations": {
@@ -82,6 +120,36 @@
       "header": "회사연혁",
       "description": "전세계 500 개 이상의 기업은 Coinos와 Bitcoin을 수용하고 있습니다. 우리는 당신의 다음이 될 희망!"
     }
+  },
+  "mapAdd": {
+    "header": "내 위치 추가",
+    "description": "Coinos는 OpenStreetMap에서 가맹점 위치를 가져옵니다. 지도에 비즈니스를 추가하려면 다음 단계를 따르세요:",
+    "step1": {
+      "header": "OpenStreetMap 계정 만들기",
+      "before": "",
+      "linkText": "openstreetmap.org",
+      "after": "에 접속하여 계정이 없으면 무료 계정을 만드세요."
+    },
+    "step2": {
+      "header": "주소에 포인트 추가",
+      "before": "지도에서 비즈니스 위치로 이동한 후",
+      "edit": "편집",
+      "middle": "을 클릭하고",
+      "point": "포인트",
+      "after": "를 클릭하여 주소에 배치하세요."
+    },
+    "step3": {
+      "header": "필수 태그 추가",
+      "description": "포인트의 태그 편집기에서 다음 두 개의 태그를 추가하세요:"
+    },
+    "step4": {
+      "header": "변경 사항 저장",
+      "before": "",
+      "save": "저장",
+      "after": "을 클릭하면 OpenStreetMap이 업데이트를 처리한 후 지도에 위치가 표시됩니다."
+    },
+    "backToMap": "지도로 돌아가기",
+    "addLocation": "위치 추가"
   },
   "error": {
     "header": "계정 정보",
@@ -93,23 +161,23 @@
     "header": "제품 정보",
     "cost": {
       "question": "어떤 비용?",
-      "answer": "귀하의 계정에 지불을 수신하는 것은 무료입니다. 외부 지갑에 출금은 네트워크 상태에 따라 달라지는 작은 수수료입니다."
+      "answer": "Coinos 사용자간에 전송 및 수신은 무료입니다. 외부 지갑에 인출은 동일한 네트워크에 자유롭습니다, 그렇지 않으면 Lightning/Liquid를 위해 Bitcoin 또는 0.1%를 위해 0.4%."
     },
     "compatibility": {
-      "question": "특별한 장치 또는 소프트웨어가 필요합니까?",
-      "answer": "아니요, Coinos는 인터넷을 가지고 있습니다. 상인은 정제에 그것을 사용하거나 그들의 전화로 검사하기 위하여 고객을 위한 QR 부호를 끼워넣을지도 모릅니다."
+      "question": "특별한 하드웨어가 필요합니까?",
+      "answer": "아니요 - 웹 브라우저가있는 전화, 태블릿 또는 컴퓨터. 이메일, 푸시 알림으로 결제 알림을 받으세요."
     },
     "safety": {
       "question": "내 자금이 정착 할 때?",
       "answer": "번개 지불은 즉시 해결됩니다. 몇 초 안에 다른 지갑에 잔액을 인출할 수 있습니다. 사슬 예금은 5-10 분을 평균에 확인합니다."
     },
     "pos": {
-      "question": "Coinos가 기존 PoS와 통합할 수 있나요?",
-      "answer": "기존 PoS에서 현금 거래로 판매하는 것이 좋습니다."
+      "question": "그것은 나의 점의 판매 체계로 작동할 수 있습니까?",
+      "answer": "우리는 광장과 직접 통합합니다. 다른 시스템을 위해 비트 코인 판매를 현금으로 기록 할 수 있습니다."
     },
     "bitcoin": {
-      "question": "Bitcoin으로 무엇을 할 수 있습니까?",
-      "answer": "다른 상인에 지출하거나 당신의 직원, 공급 업체 및 상주를 얻기 위해 비용을 지불."
+      "question": "비트 코인으로 무엇을 할 수 있습니까?",
+      "answer": "다른 상인, 급여 직원 또는 공급 업체에 지출, 또는 저축으로 보유."
     }
   },
   "footer": {
@@ -135,8 +203,8 @@
       "description": "당신은 일반적으로,하지만 비트 코인과 동일."
     },
     "step3": {
-      "header": "3. 명세 그게 다야!",
-      "description": "즉시 동전을 보내거나 가치를 키우십시오."
+      "header": "3. 명세 모든 설정입니다!",
+      "description": "즉시 비트 코인을 수신 - 수수료 없음, fuss."
     }
   },
   "invoice": {
@@ -160,12 +228,12 @@
     "pitch3": "당신은 충격을 만들 수 있다고 생각하면, 우리는 당신을 듣고 사랑합니다. 자주 묻는 질문"
   },
   "landing": {
-    "header_before_icon": "가장",
-    "header_with_icon": "쉬운",
-    "header_after_icon": "방법, 비트코인으로 시작하기.",
-    "subheader": "모든 사람에게 무료 웹 지갑 및 지불 페이지.",
+    "header_before_icon": "비트코인",
+    "header_with_icon": "뚱 베어",
+    "header_after_icon": "",
+    "subheader": "상인과 매일 사용자를 위한 지갑과 지불 페이지",
     "info1": {
-      "title": "Lightning을 통해 즉시 지불",
+      "title": "즉시 결제",
       "description": "우리는 소매 지불을받을 상인을위한 쉬운. 은행 결제를 기다리거나 충전에 대해 걱정할 필요가 없습니다. 즉시 결제, 초. 3 %의 카드 수수료로 Goodbye를 말하십시오."
     },
     "info2": {
@@ -202,11 +270,15 @@
     "signUp": "로그인",
     "failed": "로그인 실패",
     "nostr": "Nostr로 로그인",
-    "nostrConnect": "Nostr 연결"
+    "nostrConnect": "Nostr 연결",
+    "accountCreatedNeedsPasskey": "계정 생성! 패스키를 계속 설정해야 합니다.",
+    "setupPasskey": "Passkey 설정",
+    "passkeyCreationFailed": "Passkey 생성 실패. 다시 시도하십시오.",
+    "enter2faCode": "2FA 코드 입력"
   },
   "nav": {
-    "dark": "한국어",
-    "light": "제품 정보",
+    "dark": "다크 모드",
+    "light": "라이트 모드",
     "about": "제품정보",
     "docs": "사이트맵",
     "messages": "이름 *",
@@ -217,12 +289,14 @@
     "register": "계정 만들기",
     "account": "계좌정보",
     "startInSeconds": "두 번째로 시작",
+    "enterApp": "앱 시작",
     "signIn": "이름 *",
     "signOut": "이름 *",
     "dashboard": "대시보드",
     "settings": "계정 설정",
     "support": "지원하다",
-    "home": "(주)"
+    "home": "(주)",
+    "dm": "이름 *"
   },
   "news": {
     "header": "(주)",
@@ -269,7 +343,8 @@
       "receive": "이름 *",
       "withdraw": "지원하다",
       "deposit": "계좌정보",
-      "voucher": "옵션 정보"
+      "voucher": "옵션 정보",
+      "history": "- 연혁"
     },
     "receive": {
       "lessThan1BTCWarning": "1 비트 코인보다 적은 금액을 입력하십시오.",
@@ -382,7 +457,17 @@
       "yourUsername": "사용자 이름",
       "yourPassword": "비밀번호",
       "welcome": "제품 정보!",
-      "clickBelow": "계정 설정하기"
+      "clickBelow": "계정 설정하기",
+      "dontRemember": "기억하지 마십시오",
+      "8hours": "8시간",
+      "1day": "1 일",
+      "1week": "1 주일",
+      "1month": "1 개월",
+      "1year": "1 년",
+      "preferredDM": "선호하는 DM 연락처",
+      "preferredDMDescription": "직접 메시지는이 릴레이에 게시됩니다. 여러 개의 릴레이에 DM을 얻으려면 각 릴레이 URL을 자체 라인에 넣어.",
+      "noDMURLsWarning": "유효한 릴레이 URL을 설정하지 않았습니다. DM을 사용할 수 없습니다.",
+      "continueSettingUp": "계정 설정"
     },
     "support": {
       "header": "지원하다",
@@ -514,7 +599,8 @@
     "gift": "모든 자금",
     "giftLink": "선물 링크",
     "giftDesc1": "아래 링크를 열면 모든 가능한 자금을 받게됩니다.",
-    "giftDesc2": "그들이 로그인한 경우, 자금은 계정으로 갈 것입니다. 그렇지 않으면 새로운 계정이 생성됩니다."
+    "giftDesc2": "그들이 로그인한 경우, 자금은 계정으로 갈 것입니다. 그렇지 않으면 새로운 계정이 생성됩니다.",
+    "failedToSend": "전송 실패"
   },
   "items": {
     "add": "더 보기",
@@ -557,5 +643,30 @@
     "withdrawAccess": "비밀번호",
     "username": "사용자 이름",
     "returnToFund": "자금 지원"
+  },
+  "dm": {
+    "chatHeader": "이름 *",
+    "newChatHeader": "새로운 채팅",
+    "header": "이름 *",
+    "searchPrompt": "사용자 이름, nip-05 또는 pubkey",
+    "findByUsername": "사용자 이름",
+    "findByNIP05": "NIP-05에 의해 찾기",
+    "findByPubkey": "Pubkey에 의해 찾기",
+    "noChats": "아직 채팅이 없습니다.",
+    "selectChat": "목록에서 왼쪽으로 채팅을 선택합니다.",
+    "recipientMsg": "Nostr 메시지를 [R]로 전송합니다.",
+    "sendMessage": "공지사항",
+    "mute": "이름 *",
+    "unmute": "뚱 베어",
+    "expiry": "메시지 만료 가능",
+    "cantSendExpiring": "[R]의 DM 릴레이 지원 메시지 expiry. 메시지를 전달할 수 없습니다.",
+    "fadedWarning": "메타데이터 누출을 방지하기 위해, 메시지는 지정한 후 최대 2 일 동안 임의 시간에 만료됩니다. 각 메시지는 자신의 임의 만료 시간이 있습니다. 퇴색된 메시지는 만료가 닫힙니다. 인근 메시지가 누락될 수 있습니다.",
+    "usernameNotFound": "사용자 이름과 계정이 발견되지 않았습니다.",
+    "nip05NotFound": "NIP-05가 발견되지 않은 Nostr 계정.",
+    "days": "일 시",
+    "relaysNotFound": "[R]의 DM 릴레이를 찾을 수 없습니다.",
+    "noRelaysSet": "경고: 당신은 어떤 선호한 릴레이를 놓지 않았습니다. 당신은 어떤 메시지를 수신 할 수 없습니다 또는 전송 된 메시지를 볼 수 없습니다.",
+    "nostrSettingsLink": "릴레이를 설정하려면 Nostr 설정을 이동합니다.",
+    "anonymous": "이름 *"
   }
 }

@@ -4,21 +4,7 @@
   import { t } from "$lib/translations";
 
   let team = [
-    {
-      name: "adam",
-      socials: [
-        {
-          alt: "Nostr",
-          src: "/images/nostr.svg",
-          url: "https://coinos.io/98ae4da926c471c23fd12d1ebdd5839ba82917baa618e184e0c9916d93dcf4f7",
-        },
-        {
-          alt: "Github",
-          src: "/images/github.svg",
-          url: "https://github.com/asoltys",
-        },
-      ],
-    },
+    { name: "adam", socials: [] },
     { name: "cole", socials: [] },
   ];
 </script>
@@ -66,17 +52,10 @@
     {@html $t("about.locations.description")}
   </p>
 
-  <div class="relative">
-    <a href="/map" class="contents">
-      <img src="/map.webp" class="mx-auto" alt="Map" />
-    </a>
-
-    <a href="/map" class="contents">
-      <button
-        class="bg-black text-white border border-4 rounded-full px-6 py-2 font-bold hover:bg-secondary absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl"
-      >
-        {$t("about.locations.viewMap")}
-      </button>
+  <div class="flex justify-center">
+    <a href="/map" class="btn btn-accent !w-auto !rounded-full px-10 text-xl gap-2">
+      <iconify-icon noobserver icon="ph:map-trifold-bold" width="28"></iconify-icon>
+      {$t("about.locations.viewMap")}
     </a>
   </div>
 </div>

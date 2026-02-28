@@ -3,6 +3,7 @@
   import { browser } from "$app/environment";
   import Popup from "$comp/Popup.svelte";
   import { back } from "$lib/utils";
+  import { t } from "$lib/translations";
 
   let map: any;
   let maplibreRef: any;
@@ -693,21 +694,27 @@
         </div>
       </div>
     {/if}
-    <div class="absolute flex top-2 right-2 gap-2">
-      <button
-        class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showFilters ? 'bg-primary text-white' : 'bg-base-100/80'}"
-        onclick={toggleFilters}
-        aria-label="Filter categories"
-      >
-        <iconify-icon noobserver icon="ph:funnel-bold" width="24"></iconify-icon>
-      </button>
-      <button
-        class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showList ? 'bg-primary text-white' : 'bg-base-100/80'}"
-        onclick={toggleList}
-        aria-label="Toggle location list"
-      >
-        <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
-      </button>
+    <div class="absolute flex flex-col top-2 right-2 gap-2">
+      <div class="flex gap-2">
+        <button
+          class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showFilters ? 'bg-primary text-white' : 'bg-base-100/80'}"
+          onclick={toggleFilters}
+          aria-label="Filter categories"
+        >
+          <iconify-icon noobserver icon="ph:funnel-bold" width="24"></iconify-icon>
+        </button>
+        <button
+          class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showList ? 'bg-primary text-white' : 'bg-base-100/80'}"
+          onclick={toggleList}
+          aria-label="Toggle location list"
+        >
+          <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
+        </button>
+      </div>
+      <a href="/map/add" class="whitespace-nowrap rounded-full bg-black text-white h-12 flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:opacity-80 transition-opacity">
+        <iconify-icon noobserver icon="ph:plus-bold" width="20"></iconify-icon>
+        {$t("mapAdd.addLocation")}
+      </a>
     </div>
   </div>
 </div>

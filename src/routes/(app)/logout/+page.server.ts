@@ -15,5 +15,5 @@ export async function load({ cookies }) {
   cookies.set("sk", "", opts);
   cookies.set("theme", "", opts);
   cookies.set("sid", "", opts);
-  redirect(307, `/login?lang=${lang}`);
+  redirect(307, lang ? `/login?lang=${lang}` : "/login");
 }

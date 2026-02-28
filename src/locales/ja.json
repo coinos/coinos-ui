@@ -8,14 +8,14 @@
     "team": {
       "header": "チーム",
       "adam": {
-        "name": "アダム・ソルティス",
-        "position": "創設者兼CTO",
-        "bio": "アダムはソフトウェア エンジニアで、健全なお金の導入が世界の繁栄につながると信じています。彼は妻、娘、息子とともにノースバンクーバーに住んでいます。"
+        "name": "アダム",
+        "position": "創設者",
+        "bio": "2012年以来のCoinosのビルダー。 ビットコインを誰もが利用できるようにするための情熱."
       },
       "cole": {
         "name": "コール",
         "position": "事業開発",
-        "bio": "コールは、自由への情熱を持った意欲的な人物です。彼は 2016 年にビットコインに出会い、それを徹底的に研究しました。現在、彼はライトニング ネットワークをできるだけ多くのユーザーに紹介したいと考えています。"
+        "bio": "2015年以降、商人やコミュニティがビットコインを採用するのを支援."
       }
     },
     "locations": {
@@ -23,6 +23,36 @@
       "description": "Coinosでビットコインを受け入れている企業をいくつか紹介します。次はあなたのものになることを願っています!",
       "viewMap": "地図を見る"
     }
+  },
+  "mapAdd": {
+    "header": "あなたの場所を追加",
+    "description": "CoinosはOpenStreetMapから店舗の位置情報を取得しています。あなたのビジネスを地図に追加するには、以下の手順に従ってください：",
+    "step1": {
+      "header": "OpenStreetMapアカウントを作成する",
+      "before": "",
+      "linkText": "openstreetmap.org",
+      "after": "にアクセスし、アカウントをお持ちでない場合は無料アカウントに登録してください。"
+    },
+    "step2": {
+      "header": "住所にポイントを追加する",
+      "before": "地図上であなたのビジネスの場所に移動し、",
+      "edit": "編集",
+      "middle": "をクリックしてから、",
+      "point": "ポイント",
+      "after": "をクリックして住所に配置してください。"
+    },
+    "step3": {
+      "header": "必要なタグを追加する",
+      "description": "ポイントのタグエディタで、以下の2つのタグを追加してください："
+    },
+    "step4": {
+      "header": "変更を保存する",
+      "before": "",
+      "save": "保存",
+      "after": "をクリックすると、OpenStreetMapが更新を処理した後、あなたの場所が地図に表示されます。"
+    },
+    "backToMap": "地図に戻る",
+    "addLocation": "場所を追加"
   },
   "error": {
     "header": "エラー",
@@ -34,23 +64,23 @@
     "header": "よくある質問",
     "cost": {
       "question": "どれくらいかかるか？",
-      "answer": "アカウントへの支払いの受け取りは無料です。外部ウォレットへの出金には、ネットワークの状況によって異なる少額の手数料がかかります。"
+      "answer": "Coinosユーザー間での送信と受信は無料です。 外部ウォレットへの引き出しは、同じネットワークで自由です。それ以外の場合は、BitcoinまたはLightning/Liquidの0.1%の0.4%です."
     },
     "compatibility": {
-      "question": "特別なデバイスやソフトウェアが必要ですか?",
-      "answer": "いいえ、Coinos はインターネットがあればどこでも動作します。販売業者はタブレットでそれを使用したり、顧客が携帯電話でスキャンできるように QR コードを表示したりする可能性があります。"
+      "question": "特別なハードウェアが必要ですか?",
+      "answer": "いいえ。Webブラウザで電話、タブレット、またはコンピュータだけ。 電子メールで、または通知を押すと、アプリ内の支払い通知を取得します."
     },
     "safety": {
       "question": "私の資金はいつ決済されますか?",
       "answer": "ライトニングの支払いは即座に決済されます。数秒以内に残高を別のウォレットに引き出すことができます。オンチェーンデポジットの確認には平均して 5 ～ 10 分かかります。"
     },
     "pos": {
-      "question": "Coinos は既存の PoS と統合できますか?",
-      "answer": "既存の PoS に売上を現金取引として入力することをお勧めします。"
+      "question": "POSシステムと連携できますか?",
+      "answer": "スクエアと直接連携 他のシステムでは、ビットコインの売上を現金として記録することができます."
     },
     "bitcoin": {
-      "question": "ビットコインで何ができるの?",
-      "answer": "他の加盟店で使ったり、スタッフ、サプライヤー、家主に受け取ってもらって経費を支払ったりできます。"
+      "question": "ビットコインでできること?",
+      "answer": "他の商店、支払スタッフまたは製造者でそれを保って下さい、または節約としてそれを保持して下さい."
     }
   },
   "footer": {
@@ -76,8 +106,8 @@
       "description": "通常と同じですが、ビットコインを使用します。"
     },
     "step3": {
-      "header": "3. 以上です！",
-      "description": "コインをすぐに使うか、コインの価値が上がるのを観察してください。"
+      "header": "3。 お問い合わせ!",
+      "description": "ビットコインを即座に送受信 — 手数料なし、手数料なし."
     }
   },
   "invoice": {
@@ -101,12 +131,12 @@
     "pitch3": "影響を与えることができると思われる場合は、ぜひご連絡ください。履歴書を下記までお送りください"
   },
   "landing": {
-    "header_before_icon": "最も",
-    "header_with_icon": "簡単な",
-    "header_after_icon": "ビットコインの始め方。",
-    "subheader": "誰でも使える無料のウェブウォレットと支払いページ。",
+    "header_before_icon": "ビットコイン製",
+    "header_with_icon": "簡単操作",
+    "header_after_icon": "",
+    "subheader": "商人や日常的なユーザーのためのウォレットとペイメントページ",
     "info1": {
-      "title": "ライトニングによる即時支払い",
+      "title": "即時支払い",
       "description": "販売者が小売店での支払いを簡単に受け取れるようにします。銀行決済を待ったり、チャージバックを心配したりする必要はありません。数秒で即時決済。 3% のカード手数料に別れを告げましょう。"
     },
     "info2": {
@@ -143,7 +173,11 @@
     "continue": "お問い合わせ",
     "resetDesc": "追加して確認したメールが届かない場合は、リセットリンクを送信できます",
     "nostr": "Nostrでサインイン",
-    "nostrConnect": "ノスト接続"
+    "nostrConnect": "ノスト接続",
+    "accountCreatedNeedsPasskey": "アカウント作成 続けてパスキーを設定する必要があります.",
+    "setupPasskey": "パスキーの設定",
+    "passkeyCreationFailed": "パッキー作成が失敗しました。 お問い合わせ.",
+    "enter2faCode": "2FAコードを入力してください"
   },
   "nav": {
     "about": "About",
@@ -154,16 +188,18 @@
     "merch": "みやげ品",
     "profile": "プロフィール",
     "startInSeconds": "数秒で開始",
+    "enterApp": "アプリに入る",
     "account": "アカウント",
     "signIn": "サインイン",
     "signOut": "サインアウト",
     "dashboard": "ダッシュボード",
     "settings": "設定",
     "support": "サポート",
-    "dark": "ダーク",
-    "light": "ライトライト",
+    "dark": "ダークモード",
+    "light": "ライトモード",
     "register": "会員登録",
-    "home": "ホーム >"
+    "home": "ホーム >",
+    "dm": "メッセージ"
   },
   "news": {
     "header": "ニュース",
@@ -204,7 +240,8 @@
       "voucher": "バウチャー",
       "checkout": "チェックアウト",
       "payNow": "今払う",
-      "setup": "自己管理の設定"
+      "setup": "自己管理の設定",
+      "history": "プロフィール"
     },
     "receive": {
       "lessThan1BTCWarning": "1 ビットコイン未満の金額を入力してください。",
@@ -317,7 +354,17 @@
       "yourUsername": "あなたのユーザー名は",
       "yourPassword": "パスワードは",
       "welcome": "お問い合わせ!",
-      "clickBelow": "アカウントの設定を完了するには、下記をクリックしてください"
+      "clickBelow": "アカウントの設定を完了するには、下記をクリックしてください",
+      "dontRemember": "覚えていない",
+      "8hours": "8時間",
+      "1day": "1 日",
+      "1week": "1週間",
+      "1month": "1ヶ月",
+      "1year": "1 年",
+      "preferredDM": "推奨DM リレー",
+      "preferredDMDescription": "これらのリレーに公開されるダイレクトメッセージ。 複数のリレーでDMを取得するには、各リレーURLを各行に置きます.",
+      "noDMURLsWarning": "有効なリレー URL を設定していません。 DMは使用できません.",
+      "continueSettingUp": "アカウント設定"
     },
     "support": {
       "header": "サポート",
@@ -457,7 +504,8 @@
     "gift": "すべての資金をギフト",
     "giftLink": "ギフトリンク",
     "giftDesc1": "下記のリンクを開いたら、利用可能なすべての資金を受け取ることになります.",
-    "giftDesc2": "彼らがログインしている場合, 資金は、自分のアカウントに行きます, それ以外の場合は、新しいアカウントが生成されます."
+    "giftDesc2": "彼らがログインしている場合, 資金は、自分のアカウントに行きます, それ以外の場合は、新しいアカウントが生成されます.",
+    "failedToSend": "送信失敗"
   },
   "items": {
     "add": "アイテムの追加",
@@ -487,6 +535,11 @@
     "importSeed": "既存のシードフレーズを入力してください",
     "passwordWarning": "このパスワードを紛失した場合、アカウントから資金を引き出したり、シードフレーズを復元したりできなくなります。弊社では回復することはできません。",
     "savings": "貯蓄",
+    "chooseAccountType": "アカウントの種類を選択",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "12語のシードフレーズで保護されたセルフカストディのBitcoinウォレット",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "低手数料と高速決済を提供する実験的なレイヤー2ウォレット",
     "password": "パスワード",
     "confirmPassword": "パスワードを認証する",
     "finish": "仕上げる",
@@ -523,8 +576,41 @@
     "copyNwc": "コピー NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "カストディアル",
+    "spending": "支出",
+    "vault": "金庫",
+    "pending": "保留中",
+    "importing": "インポート中...",
+    "viewMnemonic": "シードフレーズを表示",
+    "hideMnemonic": "シードフレーズを非表示",
+    "deleteConfirm": "このアカウントを削除してもよろしいですか？この操作は元に戻せません。",
+    "cancel": "キャンセル",
+    "submit": "送信",
+    "accountTitle": "{{type}}アカウント",
+    "updateCurrency": "デフォルト通貨も{{currency}}に更新する",
+    "changeSeedPhrase": "シードフレーズの変更",
+    "invalidSeedPhrase": "無効なシードフレーズ",
+    "importFailed": "インポート失敗",
+    "invalidPassword": "パスワード無効",
+    "invalidPasswordTryAgain": "無効なパスワード、もう一度お試しください",
+    "passwordRequired": "パスワード必須",
+    "failedToDecryptSeed": "シードを解読できない",
+    "passkeyNoPrf": "パッキーはPRFをサポートしていません",
+    "passkeyUnlockFailed": "パッキーロックが失敗しました",
+    "pleaseBackupFirst": "まずはキーをバックアップしてください",
+    "createSavingsAccount": "保存アカウントの作成",
+    "createWallet": "ウォレットの作成",
+    "unlockWithPasskey": "パッキーでロック解除",
+    "unlockWithNostr": "Nostrでロック解除",
+    "arkDerivedFromPasskey": "Arkウォレットは、パスキー保護されたマスターシードから取得されます.",
+    "arkUnlockWithPasskey": "Arkウォレットはマスターシードから取得されます。 パスキーでロック解除して続行します.",
+    "arkEnterPassword": "Arkウォレットはマスターシードから取得されます。 ウォレットパスワードを入力して続行します.",
+    "arkSecuredByKey": "Arkウォレットは秘密鍵によって保護されます。 安全にコピーしてください.",
+    "setPasswordToEncrypt": "鍵を暗号化するパスワードを設定します。 資金を送金するには、このパスワードが必要です.",
+    "backedItUp": "私はそれをバックアップしました",
+    "revealBackupKey": "バックアップキーの回復",
+    "type": "タイプ:",
+    "accountType": "口座タイプ"
   },
   "notes": {
     "contents": "コンテンツ",
@@ -538,5 +624,51 @@
     "withdrawAccess": "アクセスを撤退",
     "username": "ユーザ名",
     "returnToFund": "資金を調達する"
+  },
+  "dm": {
+    "chatHeader": "チャット",
+    "newChatHeader": "新しいチャット",
+    "header": "メッセージ",
+    "searchPrompt": "ユーザー名、 nip-05 または pubkey",
+    "findByUsername": "ユーザー名で検索",
+    "findByNIP05": "NIP-05で探す",
+    "findByPubkey": "パブキーで探す",
+    "noChats": "まだチャットはありません.",
+    "selectChat": "リストから左側のチャットを選択します.",
+    "recipientMsg": "Nostr メッセージを [R] に送信します.",
+    "sendMessage": "送信メッセージ",
+    "mute": "ミュート",
+    "unmute": "ミュート",
+    "expiry": "メッセージの有効期限を有効にする",
+    "cantSendExpiring": "[R] の DM リレー サポート メッセージの expiry のどれも。 既存のメッセージを送信することはできません.",
+    "fadedWarning": "メタデータ漏洩を避けるため、指定した後最大2日以内にメッセージがランダムに期限切れになります。各メッセージには独自のランダムな有効期限があります。 断面するメッセージは、予見に近いです。近くのメッセージは欠落することがあります.",
+    "usernameNotFound": "そのユーザー名のアカウントが見つかりませんでした.",
+    "nip05NotFound": "NIP-05 が見つかりませんでした.",
+    "days": "生年月日",
+    "relaysNotFound": "[R] の DM リレーが見つかりませんでした.",
+    "noRelaysSet": "警告: 好みのリレーは置かれません。 メッセージを受信したり、送信したメッセージが表示されたりすることはできません.",
+    "nostrSettingsLink": "リレーを設定するには、Nostr設定に移動します.",
+    "anonymous": "ログイン"
+  },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "bn": "বাংলা",
+    "tr": "Türkçe",
+    "ko": "한국어",
+    "it": "Italiano",
+    "nl": "Nederlands",
+    "th": "ไทย",
+    "pl": "Polski"
   }
 }

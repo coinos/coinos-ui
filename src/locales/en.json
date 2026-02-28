@@ -70,6 +70,11 @@
     "importSeed": "Enter an existing seed phrase",
     "passwordWarning": "If you lose this password you won't be able to withdraw funds from the account or restore your seed phrase. We can't recover it for you.",
     "savings": "Savings",
+    "chooseAccountType": "Choose account type",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "Self-custodial Bitcoin wallet secured by a 12-word seed phrase",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Experimental layer 2 wallet offering low fees and fast settlement",
     "password": "Password",
     "confirmPassword": "Confirm password",
     "ark": "Ark",
@@ -101,7 +106,9 @@
     "revealBackupKey": "Reveal backup key",
     "submit": "Submit",
     "type": "Type",
-    "accountType": "Account type"
+    "accountType": "Account type",
+    "accountTitle": "{{type}} account",
+    "updateCurrency": "Also update default currency to {{currency}}"
   },
   "404": {
     "404": "404",
@@ -112,14 +119,14 @@
     "team": {
       "header": "The Team",
       "adam": {
-        "name": "Adam Soltys",
-        "position": "Founder and CTO",
-        "bio": "Adam is a software engineer who believes that the adoption of sound money will drive global prosperity. He lives in North Vancouver with his wife, daughter, and son."
+        "name": "Adam",
+        "position": "Founder",
+        "bio": "Builder of Coinos since 2012. Passionate about making bitcoin accessible to everyone."
       },
       "cole": {
         "name": "Cole",
         "position": "Business Development",
-        "bio": "Cole is a driven individual with a passion for freedom, captivated by Bitcoin since 2015. His mission is to spread the adoption of Bitcoin and the Lightning Network across diverse communities globally."
+        "bio": "Helping merchants and communities adopt bitcoin since 2015."
       }
     },
     "locations": {
@@ -127,6 +134,36 @@
       "header": "Locations",
       "description": "Over 500 businesses worldwide are accepting bitcoin with Coinos. We hope that yours will be next!"
     }
+  },
+  "mapAdd": {
+    "header": "Add your location",
+    "description": "Coinos pulls merchant locations from OpenStreetMap. To add your business to our map, follow these steps:",
+    "step1": {
+      "header": "Create an OpenStreetMap account",
+      "before": "Go to",
+      "linkText": "openstreetmap.org",
+      "after": "and sign up for a free account if you don't have one."
+    },
+    "step2": {
+      "header": "Add a point at your address",
+      "before": "Navigate to your business location on the map, click",
+      "edit": "Edit",
+      "middle": "then click",
+      "point": "Point",
+      "after": "and place it at your address."
+    },
+    "step3": {
+      "header": "Add the required tags",
+      "description": "In the point's tag editor, add these two tags:"
+    },
+    "step4": {
+      "header": "Save your changes",
+      "before": "Click",
+      "save": "Save",
+      "after": "and your location will appear on our map once OpenStreetMap processes the update."
+    },
+    "backToMap": "Back to map",
+    "addLocation": "Add location"
   },
   "dm": {
     "chatHeader": "Chats",
@@ -163,19 +200,19 @@
     "header": "FAQ",
     "cost": {
       "question": "What does it cost?",
-      "answer": "Receiving payments is free. Sending to other Coinos accounts is free. Withdrawals to external wallets are free if you use the same network you received on, otherwise there's a 0.4% fee for Bitcoin or 0.1% for Lightning or Liquid."
+      "answer": "Sending and receiving between Coinos users is free. Withdrawals to external wallets are free on the same network, otherwise 0.4% for Bitcoin or 0.1% for Lightning/Liquid."
     },
     "compatibility": {
-      "question": "Do I need any special device or software?",
-      "answer": "Coinos works on any device that has Internet and a web browser. You can receive payment notifications within the app, via email or push notification. We do have PoS terminals and receipt printers available for those who prefer physical notifications."
+      "question": "Do I need special hardware?",
+      "answer": "No — just a phone, tablet, or computer with a web browser. Get payment notifications in-app, by email, or push notification."
     },
     "pos": {
-      "question": "Can Coinos integrate with my existing PoS?",
-      "answer": "We can log sales into Square automatically. On other systems you might choose to record Bitcoin sales under \"cash\"."
+      "question": "Can it work with my point-of-sale system?",
+      "answer": "We integrate directly with Square. For other systems, you can record bitcoin sales as cash."
     },
     "bitcoin": {
-      "question": "What can I do with Bitcoin?",
-      "answer": "Spend it at other merchants, convince your staff, landlord or suppliers to let you pay your expenses with it, or hold it as an investment."
+      "question": "What can I do with bitcoin?",
+      "answer": "Spend it at other merchants, pay staff or suppliers, or hold it as savings."
     }
   },
   "footer": {
@@ -201,8 +238,8 @@
       "description": "The same as you normally would, but with bitcoin."
     },
     "step3": {
-      "header": "3. That's all!",
-      "description": "Easy, right? Tell us when you're ready for us to promote your business to the Bitcoin community!"
+      "header": "3. You're all set!",
+      "description": "Send and receive bitcoin instantly — no fees, no fuss."
     }
   },
   "invoice": {
@@ -226,12 +263,12 @@
     "pitch3": "If you think you can make an impact, we'd love to hear from you. Send us your resume to"
   },
   "landing": {
-    "header_before_icon": "The",
-    "header_with_icon": "easiest",
-    "header_after_icon": "way to get started with bitcoin.",
-    "subheader": "A free web wallet and payment page for everyone.",
+    "header_before_icon": "Bitcoin made",
+    "header_with_icon": "easy",
+    "header_after_icon": "",
+    "subheader": "A wallet and payment page for merchants and everyday users",
     "info1": {
-      "title": "Instant payments via Lightning",
+      "title": "Instant payments",
       "description": "We make it easy for merchants to receive retail payments. No waiting for bank settlements or worrying about chargebacks. Instant settlement, in seconds. Say goodbye to 3% card fees."
     },
     "info2": {
@@ -276,8 +313,8 @@
   },
   "nav": {
     "home": "Home",
-    "dark": "Dark",
-    "light": "Light",
+    "dark": "Dark mode",
+    "light": "Light mode",
     "about": "About",
     "docs": "Docs",
     "dm": "Messages",
@@ -289,6 +326,7 @@
     "register": "Register",
     "account": "Account",
     "startInSeconds": "Start Now",
+    "enterApp": "Enter App",
     "signIn": "Sign In",
     "signOut": "Sign out",
     "dashboard": "Dashboard",

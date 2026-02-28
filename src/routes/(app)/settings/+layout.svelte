@@ -5,7 +5,7 @@
   import { applyAction, deserialize } from "$app/forms";
   import Spinner from "$comp/Spinner.svelte";
   import Pin from "$comp/Pin.svelte";
-  import { loading, t } from "$lib/translations";
+  import { loading, locale, setLocale, t } from "$lib/translations";
   import { fd, fail, auth, post, sleep, warning, success } from "$lib/utils";
   import { avatar, banner, signer, password, pin, save } from "$lib/store";
   import { upload } from "$lib/upload";
@@ -238,7 +238,9 @@
             console.log("Failed to save re-wrapped encryptedKeys", e);
           }
         }
+        const currentLocale = $locale;
         await invalidateAll();
+        if (currentLocale !== $locale) await setLocale(currentLocale);
         if (pw) $password = pw;
       }
 

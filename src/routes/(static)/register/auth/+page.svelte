@@ -50,7 +50,9 @@
         password.set(undefined);
         pin.set(undefined);
         signer.set(undefined);
+        const installDismissed = localStorage.getItem("installDismissed");
         localStorage.clear();
+        if (installDismissed) localStorage.setItem("installDismissed", installDismissed);
         sessionStorage.clear();
       }, 50);
     }
@@ -322,7 +324,7 @@
     <div class="w-24 h-24 rounded-full overflow-hidden">
       <img {src} class="w-full h-full object-cover" alt={username} />
     </div>
-    <span class="text-xl font-medium">{username}</span>
+    <span class="text-xl font-bold">{username}</span>
   </div>
 
   {#if form?.error || form?.message}

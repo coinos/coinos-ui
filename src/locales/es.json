@@ -8,14 +8,14 @@
     "team": {
       "header": "El Equipo",
       "adam": {
-        "name": "Adam Soltys",
-        "position": "Fundador y CTO",
-        "bio": "Adam es un ingeniero de software que cree que la adopción de un dinero sólido impulsará la prosperidad mundial. Vive en North Vancouver con su esposa, hija e hijo."
+        "name": "Adam",
+        "position": "Founder",
+        "bio": "Constructor de Coinos desde 2012. Pasionado por hacer el bitcoin accesible para todos."
       },
       "cole": {
         "name": "Cole",
         "position": "Desarrollo de Negocios",
-        "bio": "Cole es un individuo motivado con pasión por la libertad. Descubrió bitcoin en 2016 y lo estudió a fondo. Ahora quiere introducir la red Lightning a tantos usuarios como sea posible."
+        "bio": "Ayudar a los comerciantes y comunidades a adoptar bitcoin desde 2015."
       }
     },
     "locations": {
@@ -23,6 +23,36 @@
       "description": "Aquí hay algunos negocios que aceptan bitcoin con Coinos. ¡Esperamos que el tuyo sea el siguiente!",
       "viewMap": "Ver mapa"
     }
+  },
+  "mapAdd": {
+    "header": "Añade tu ubicación",
+    "description": "Coinos obtiene las ubicaciones de comercios de OpenStreetMap. Para añadir tu negocio a nuestro mapa, sigue estos pasos:",
+    "step1": {
+      "header": "Crea una cuenta en OpenStreetMap",
+      "before": "Ve a",
+      "linkText": "openstreetmap.org",
+      "after": "y regístrate para una cuenta gratuita si no tienes una."
+    },
+    "step2": {
+      "header": "Añade un punto en tu dirección",
+      "before": "Navega hasta la ubicación de tu negocio en el mapa, haz clic en",
+      "edit": "Editar",
+      "middle": "luego haz clic en",
+      "point": "Punto",
+      "after": "y colócalo en tu dirección."
+    },
+    "step3": {
+      "header": "Añade las etiquetas requeridas",
+      "description": "En el editor de etiquetas del punto, añade estas dos etiquetas:"
+    },
+    "step4": {
+      "header": "Guarda tus cambios",
+      "before": "Haz clic en",
+      "save": "Guardar",
+      "after": "y tu ubicación aparecerá en nuestro mapa una vez que OpenStreetMap procese la actualización."
+    },
+    "backToMap": "Volver al mapa",
+    "addLocation": "Añadir ubicación"
   },
   "error": {
     "header": "Error",
@@ -34,23 +64,23 @@
     "header": "Preguntas Frecuentes",
     "cost": {
       "question": "¿Cuál es el costo?",
-      "answer": "Recibir pagos en tu cuenta es gratuito. Las retiradas a carteras externas tienen una pequeña tarifa que varía según las condiciones de la red."
+      "answer": "Enviar y recibir entre los usuarios de Coinos es gratis. Los retiros a las carteras externas son gratuitos en la misma red, de lo contrario 0,4% para Bitcoin o 0,1% para Lightning/Liquid."
     },
     "compatibility": {
-      "question": "¿Necesito algún dispositivo o software especial?",
-      "answer": "No, Coinos funciona en cualquier lugar que tenga Internet. Los comerciantes pueden usarlo en una tableta o colocar un código QR para que los clientes lo escaneen con su teléfono."
+      "question": "¿Necesito hardware especial?",
+      "answer": "No — sólo un teléfono, tableta o computadora con un navegador web. Obtenga notificaciones de pago en la aplicación, por correo electrónico o la notificación de empuje."
     },
     "safety": {
       "question": "¿Cuándo se liquidan mis fondos?",
       "answer": "Los pagos de Lightning se liquidan instantáneamente. Puedes retirar tu saldo a otra cartera en segundos. Los depósitos en cadena tardan de 5 a 10 minutos en confirmarse en promedio."
     },
     "pos": {
-      "question": "¿Puede Coinos integrarse con mi PoS existente?",
-      "answer": "Recomendamos registrar las ventas en tu PoS existente como transacciones en efectivo."
+      "question": "¿Puede funcionar con mi sistema de ventas?",
+      "answer": "Nos integramos directamente con Square. Para otros sistemas, puede registrar ventas de bitcoin como efectivo."
     },
     "bitcoin": {
       "question": "¿Qué puedo hacer con Bitcoin?",
-      "answer": "Gastarlo en otros comerciantes o pagar tus gastos con él consiguiendo que tu personal, proveedores y arrendador lo acepten."
+      "answer": "Pasarlo en otros comerciantes, pagar personal o proveedores, o mantenerlo como ahorro."
     }
   },
   "footer": {
@@ -76,8 +106,8 @@
       "description": "Igual que lo haces normalmente, pero con bitcoin."
     },
     "step3": {
-      "header": "3. ¡Eso es todo!",
-      "description": "Gasta tu moneda inmediatamente o mírala aumentar de valor."
+      "header": "3. ¡Estás listo!",
+      "description": "Envía y recibe bitcoin al instante — sin cargos, sin fusibles."
     }
   },
   "invoice": {
@@ -101,12 +131,12 @@
     "pitch3": "Si crees que puedes tener un impacto, nos encantaría saber de ti. Envíanos tu currículum a"
   },
   "landing": {
-    "header_before_icon": "La",
-    "header_with_icon": "manera más fácil",
-    "header_after_icon": "de empezar con bitcoin.",
-    "subheader": "Una billetera web gratuita y página de pago para todos.",
+    "header_before_icon": "Bitcoin hecho",
+    "header_with_icon": "fácil",
+    "header_after_icon": "",
+    "subheader": "Una billetera y página de pago para comerciantes y usuarios diarios",
     "info1": {
-      "title": "Pagos instantáneos a través de Lightning",
+      "title": "Pagos instantáneos",
       "description": "Facilitamos que los comerciantes reciban pagos al por menor. Sin esperar liquidaciones bancarias o preocuparse por contracargos. Liquidación instantánea, en segundos. Adiós a las tarifas del 3% de las tarjetas."
     },
     "info2": {
@@ -143,7 +173,11 @@
     "continue": "Continuar",
     "resetDesc": "Podemos enviar un enlace de reajuste si usted agregó y verificó su correo electrónico de otra manera por favor contacte a",
     "nostr": "Iniciar sesión con Nostr",
-    "nostrConnect": "Nostr connect"
+    "nostrConnect": "Nostr connect",
+    "accountCreatedNeedsPasskey": "¡Cuenta creada! Necesitas establecer un passkey para continuar.",
+    "setupPasskey": "Configuración de Passkey",
+    "passkeyCreationFailed": "La creación de Passkey falló. Por favor, inténtalo de nuevo.",
+    "enter2faCode": "Código 2FA"
   },
   "nav": {
     "about": "Acerca de",
@@ -154,16 +188,18 @@
     "merch": "Mercancía",
     "profile": "Perfil",
     "startInSeconds": "Comienza en segundos",
+    "enterApp": "Entrar a la app",
     "account": "Cuenta",
     "signIn": "Iniciar Sesión",
     "signOut": "Cerrar sesión",
     "dashboard": "Tablero",
     "settings": "Configuraciones",
     "support": "Soporte",
-    "dark": "Oscuro",
-    "light": "Luz",
+    "dark": "Modo oscuro",
+    "light": "Modo claro",
     "register": "Registro",
-    "home": "Home"
+    "home": "Home",
+    "dm": "Mensajes"
   },
   "news": {
     "header": "Noticias",
@@ -204,7 +240,8 @@
       "dashboard": "Panel",
       "checkout": "Verificar",
       "payNow": "Pagar ahora",
-      "setup": "Configurar la autocustodia"
+      "setup": "Configurar la autocustodia",
+      "history": "Historia"
     },
     "receive": {
       "lessThan1BTCWarning": "Por favor, introduzca una cantidad menor a 1 bitcoin.",
@@ -317,7 +354,17 @@
       "yourUsername": "Tu nombre de usuario es",
       "yourPassword": "y su contraseña es",
       "welcome": "¡Bienvenido!",
-      "clickBelow": "Haga clic a continuación para terminar de configurar su cuenta"
+      "clickBelow": "Haga clic a continuación para terminar de configurar su cuenta",
+      "dontRemember": "No lo recuerdo",
+      "8hours": "8 horas",
+      "1day": "1 día",
+      "1week": "1 semana",
+      "1month": "1 mes",
+      "1year": "1 año",
+      "preferredDM": "Preferentes DM Relays",
+      "preferredDMDescription": "Mensajes directos destinados a usted serán publicados a estos relés. Para obtener DMs en múltiples relés, ponga cada URL de relé en su propia línea.",
+      "noDMURLsWarning": "No has establecido ninguna URL válida de relé. No podrás usar DMs.",
+      "continueSettingUp": "Configuración de la cuenta"
     },
     "support": {
       "header": "Soporte",
@@ -457,7 +504,8 @@
     "gift": "Donar todos los fondos",
     "giftLink": "Enlace de regalo",
     "giftDesc1": "Quien abra el enlace de abajo recibirá todos los fondos disponibles.",
-    "giftDesc2": "Si se registran, los fondos irán a su cuenta, de lo contrario se generará una nueva cuenta."
+    "giftDesc2": "Si se registran, los fondos irán a su cuenta, de lo contrario se generará una nueva cuenta.",
+    "failedToSend": "Failed to send"
   },
   "items": {
     "add": "Añadir artículo",
@@ -487,6 +535,11 @@
     "importSeed": "Introduzca una frase semilla existente",
     "passwordWarning": "Si pierde esta contraseña, no podrá retirar fondos de la cuenta ni recuperar su frase inicial. No podemos recuperarla por usted.",
     "savings": "Ahorros",
+    "chooseAccountType": "Elegir tipo de cuenta",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "Billetera Bitcoin de autocustodia protegida por una frase semilla de 12 palabras",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Billetera experimental de capa 2 que ofrece comisiones bajas y liquidación rápida",
     "password": "Contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "finish": "Finalizar",
@@ -523,8 +576,41 @@
     "copyNwc": "Copiado NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "Custodia",
+    "spending": "Gasto",
+    "vault": "Bóveda",
+    "pending": "pendiente",
+    "importing": "Importando...",
+    "viewMnemonic": "Ver frase semilla",
+    "hideMnemonic": "Ocultar frase semilla",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar esta cuenta? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "submit": "Enviar",
+    "accountTitle": "Cuenta {{type}}",
+    "updateCurrency": "También actualizar la moneda predeterminada a {{currency}}",
+    "changeSeedPhrase": "Cambiar frase de semilla",
+    "invalidSeedPhrase": "Semilla inválida",
+    "importFailed": "La importación falló",
+    "invalidPassword": "Contraseña inválida",
+    "invalidPasswordTryAgain": "Contraseña inválida, intente de nuevo",
+    "passwordRequired": "Contraseña requerida",
+    "failedToDecryptSeed": "Failed to decrypt seed",
+    "passkeyNoPrf": "Passkey no soporta PRF",
+    "passkeyUnlockFailed": "El reloj de paso falló",
+    "pleaseBackupFirst": "Por favor, copia la llave primero",
+    "createSavingsAccount": "Crear cuenta de ahorros",
+    "createWallet": "Crear Wallet",
+    "unlockWithPasskey": "Desbloquear con Passkey",
+    "unlockWithNostr": "Desbloquear con Nostr",
+    "arkDerivedFromPasskey": "Tu billetera Ark se derivará de tu semilla maestra protegida por Passkey.",
+    "arkUnlockWithPasskey": "Tu billetera Ark se derivará de tu semilla maestra. Desbloquea con tu contraseña para continuar.",
+    "arkEnterPassword": "Tu billetera Ark se derivará de tu semilla maestra. Introduzca su contraseña de la cartera para continuar.",
+    "arkSecuredByKey": "Su billetera Ark está asegurada por una llave privada. Por favor, copiarlo en algún lugar seguro.",
+    "setPasswordToEncrypt": "Establecer una contraseña para cifrar tu clave. Necesitarás esta contraseña para enviar fondos.",
+    "backedItUp": "Lo he respaldado",
+    "revealBackupKey": "Reveal backup key",
+    "type": "Tipo",
+    "accountType": "Tipo de cuenta"
   },
   "notes": {
     "contents": "Contenido de la nota",
@@ -538,5 +624,51 @@
     "withdrawAccess": "Acceso retirado",
     "username": "Nombre de usuario",
     "returnToFund": "Regreso al fondo"
+  },
+  "dm": {
+    "chatHeader": "Chats",
+    "newChatHeader": "Nueva charla",
+    "header": "Mensajes",
+    "searchPrompt": "nombre de usuario, nip-05 o pubkey",
+    "findByUsername": "Encontrar por nombre de usuario",
+    "findByNIP05": "Encontrar por NIP-05",
+    "findByPubkey": "Encontrar por pubkey",
+    "noChats": "Aún no tienes charlas.",
+    "selectChat": "Seleccione un chat de la lista a la izquierda.",
+    "recipientMsg": "Estás enviando mensajes de la nariz a [R].",
+    "sendMessage": "Mensaje",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "expiry": "Permitir la expiración del mensaje",
+    "cantSendExpiring": "Ninguno de los relés de DM soporta la expiración del mensaje. No puedes enviar mensajes de expiración a ellos.",
+    "fadedWarning": "Para evitar las filtraciones de metadatos, los mensajes caducan aleatoriamente hasta 2 días después de especificar; cada mensaje tiene su propio tiempo de caducidad aleatorio. Los mensajes que aparecen apagados están cerca de expirar; los mensajes cercanos pueden faltar.",
+    "usernameNotFound": "No se encontró una cuenta con ese nombre de usuario.",
+    "nip05NotFound": "No se encontró una cuenta Nostr con ese NIP-05.",
+    "days": "días",
+    "relaysNotFound": "No pude encontrar los relés de DM.",
+    "noRelaysSet": "No has fijado ningún relé preferido. No podrás recibir ningún mensaje ni ver los mensajes que has enviado.",
+    "nostrSettingsLink": "Vaya a la configuración de Nostr para configurar sus relés.",
+    "anonymous": "Anónimo"
+  },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "bn": "বাংলা",
+    "tr": "Türkçe",
+    "ko": "한국어",
+    "it": "Italiano",
+    "nl": "Nederlands",
+    "th": "ไทย",
+    "pl": "Polski"
   }
 }

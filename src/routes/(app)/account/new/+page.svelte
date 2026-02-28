@@ -20,7 +20,7 @@
       const { getWalletEntropy } = await import("$lib/walletEntropy");
       const entropy = await getWalletEntropy();
       if (!entropy) {
-        fail($t("accounts.failedToDecryptSeed"));
+        fail($t("accounts.failedToDecryptSeed") as string);
         creatingArk = false;
         return;
       }
@@ -40,23 +40,23 @@
       goto(`/${user.username}`);
     } catch (e: any) {
       console.log("Ark account creation failed", e);
-      fail(e.message || $t("accounts.failedToDecryptSeed"));
+      fail(e.message || ($t("accounts.failedToDecryptSeed") as string));
       creatingArk = false;
     }
   };
 </script>
 
 <div class="space-y-5">
-  <h1 class="text-center text-3xl font-semibold">Choose account type</h1>
+  <h1 class="text-center text-3xl font-semibold">{$t("accounts.chooseAccountType")}</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
     <a href="/account/bitcoin" class="block">
       <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200 gap-4 items-center">
         <iconify-icon noobserver icon="logos:bitcoin" width={48}></iconify-icon>
         <div>
-          <div class="text-xl">Bitcoin (On-chain)</div>
+          <div class="text-xl">{$t("accounts.bitcoinOnChain")}</div>
           <div class="text-secondary">
-            Self-custodial Bitcoin wallet secured by a 12-word seed phrase
+            {$t("accounts.bitcoinOnChainDesc")}
           </div>
         </div>
       </div>
@@ -70,9 +70,9 @@
             <img src="/images/ark.png" class="w-12 h-12 rounded-full object-cover bg-neutral" alt="Ark" />
           {/if}
           <div>
-            <div class="text-xl">Ark (Off-chain)</div>
+            <div class="text-xl">{$t("accounts.arkOffChain")}</div>
             <div class="text-secondary">
-              Experimental layer 2 wallet offering low fees and fast settlement
+              {$t("accounts.arkOffChainDesc")}
             </div>
           </div>
         </div>

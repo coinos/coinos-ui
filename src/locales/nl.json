@@ -22,6 +22,11 @@
     "importSeed": "Voer een bestaande herstelzin in",
     "passwordWarning": "Als je dit wachtwoord verliest, kun je geen geld van het account opnemen of jouw herstelzin herstellen. Wij kunnen dit niet voor je herstellen.",
     "savings": "Besparingen",
+    "chooseAccountType": "Kies accounttype",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "Zelfbeheerd Bitcoin-wallet beveiligd met een 12-woorden herstelzin",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Experimentele laag 2-wallet met lage kosten en snelle afwikkeling",
     "password": "Wachtwoord",
     "confirmPassword": "Wachtwoord bevestigen",
     "per": "per",
@@ -55,8 +60,41 @@
     "copyNwc": "NWC kopiëren",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "Bewaard",
+    "spending": "Uitgaven",
+    "vault": "Kluis",
+    "pending": "in behandeling",
+    "importing": "Importeren...",
+    "viewMnemonic": "Herstelzin bekijken",
+    "hideMnemonic": "Herstelzin verbergen",
+    "deleteConfirm": "Weet u zeker dat u dit account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
+    "cancel": "Annuleren",
+    "submit": "Verzenden",
+    "accountTitle": "{{type}} account",
+    "updateCurrency": "Standaardvaluta ook bijwerken naar {{currency}}",
+    "changeSeedPhrase": "Zetzin wijzigen",
+    "invalidSeedPhrase": "Ongeldige zaadzin",
+    "importFailed": "Importeren mislukt",
+    "invalidPassword": "Ongeldig wachtwoord",
+    "invalidPasswordTryAgain": "Ongeldig wachtwoord, probeer het opnieuw",
+    "passwordRequired": "Wachtwoord vereist",
+    "failedToDecryptSeed": "Kon zaad niet ontcijferen",
+    "passkeyNoPrf": "Wachtwoord ondersteunt PRF niet",
+    "passkeyUnlockFailed": "Wachtwoord ontgrendelen mislukt",
+    "pleaseBackupFirst": "Gelieve eerst een reservekopie te maken van uw sleutel",
+    "createSavingsAccount": "Spaarrekening aanmaken",
+    "createWallet": "Portemonnee maken",
+    "unlockWithPasskey": "Ontgrendelen met Passkey",
+    "unlockWithNostr": "Ontgrendelen met Nostr",
+    "arkDerivedFromPasskey": "Uw Ark portemonnee zal worden afgeleid van uw wachtwoord beschermde meester zaad.",
+    "arkUnlockWithPasskey": "Uw Ark portemonnee zal worden afgeleid van uw meester zaad. Ontgrendelen met uw wachtwoord om verder te gaan.",
+    "arkEnterPassword": "Uw Ark portemonnee zal worden afgeleid van uw meester zaad. Voer uw portefeuillewachtwoord in om door te gaan.",
+    "arkSecuredByKey": "Uw Ark portemonnee is beveiligd met een privésleutel. Kopieer het naar een veilige plek.",
+    "setPasswordToEncrypt": "Stel een wachtwoord in om uw sleutel te versleutelen. Je hebt dit wachtwoord nodig om geld te sturen.",
+    "backedItUp": "Ik heb het gesteund",
+    "revealBackupKey": "Back-upsleutel tonen",
+    "type": "Type",
+    "accountType": "Accounttype"
   },
   "404": {
     "404": "404",
@@ -67,14 +105,14 @@
     "team": {
       "header": "Het team",
       "adam": {
-        "name": "Adam Soltys",
-        "position": "Oprichter en CTO",
-        "bio": "Adam is een software-ingenieur die gelooft dat de adoptie van gezond geld de wereldwijde welvaart zal stimuleren. Hij woont in Noord Vancouver (Canada) met zijn vrouw, dochter en zoon."
+        "name": "Adam",
+        "position": "Oprichter",
+        "bio": "Bouwer van Coinos sinds 2012. Gepassioneerd over het maken van Bitcoin toegankelijk voor iedereen."
       },
       "cole": {
         "name": "Cole",
         "position": "Bedrijfsontwikkeling",
-        "bio": "Cole is een gedreven individu met een passie voor vrijheid, sinds 2015 geboeid door Bitcoin. Zijn missie is wereldwijde adoptie van Bitcoin en het Lightning Netwerk verspreid over diverse gemeenschappen."
+        "bio": "Helpen handelaren en gemeenschappen aannemen Bitcoin sinds 2015."
       }
     },
     "locations": {
@@ -82,6 +120,36 @@
       "header": "Locaties",
       "description": "Meer dan 500 bedrijven wereldwijd accepteren Bitcoin met Coinos. We hopen dat de jouwe de volgende zal zijn!"
     }
+  },
+  "mapAdd": {
+    "header": "Voeg je locatie toe",
+    "description": "Coinos haalt handelslocaties op van OpenStreetMap. Volg deze stappen om je bedrijf aan onze kaart toe te voegen:",
+    "step1": {
+      "header": "Maak een OpenStreetMap-account aan",
+      "before": "Ga naar",
+      "linkText": "openstreetmap.org",
+      "after": "en maak een gratis account aan als je er nog geen hebt."
+    },
+    "step2": {
+      "header": "Voeg een punt toe op je adres",
+      "before": "Navigeer naar je bedrijfslocatie op de kaart, klik op",
+      "edit": "Bewerken",
+      "middle": "klik vervolgens op",
+      "point": "Punt",
+      "after": "en plaats het op je adres."
+    },
+    "step3": {
+      "header": "Voeg de vereiste tags toe",
+      "description": "Voeg in de tag-editor van het punt deze twee tags toe:"
+    },
+    "step4": {
+      "header": "Sla je wijzigingen op",
+      "before": "Klik op",
+      "save": "Opslaan",
+      "after": "en je locatie verschijnt op onze kaart zodra OpenStreetMap de update heeft verwerkt."
+    },
+    "backToMap": "Terug naar kaart",
+    "addLocation": "Locatie toevoegen"
   },
   "error": {
     "header": "Fout",
@@ -93,23 +161,23 @@
     "header": "Veelgestelde vragen",
     "cost": {
       "question": "Wat kost het?",
-      "answer": "Het ontvangen van betalingen op jouw rekening is gratis. Verzenden naar andere Coinos is gratis. Verzendingen naar externe portemonnees zijn gratis als je hetzelfde netwerk gebruikt waar je van ontvangen hebt. In andere gevallen is er een vergoeding van 0,4% voor Bitcoin en 0,1 voor Lightning of Liquid."
+      "answer": "Het verzenden en ontvangen tussen Coinos-gebruikers is gratis. Terugnames naar externe portefeuilles zijn gratis op hetzelfde netwerk, anders 0,4% voor Bitcoin of 0,1% voor Lightning / Liquid."
     },
     "compatibility": {
-      "question": "Heb ik een speciaal apparaat of software nodig?",
-      "answer": "Nee, Coinos werkt overal met internet. Handelaars kunnen het gebruiken op een smartphone of tablet. Ook kun je een QR-code printen die klanten met hun telefoon kunnen scannen."
+      "question": "Heb ik speciale hardware nodig?",
+      "answer": "Nee, alleen een telefoon, tablet of computer met een webbrowser. Krijg betalingsmeldingen in-app, per e-mail, of push notificatie."
     },
     "safety": {
       "question": "Wanneer is mijn transactie geregeld?",
       "answer": "Coinos werkt op elk apparaat met Internet en een webbrowser. Je ontvangt notificaties van binnenkomende betalingen in de app, via e-mail en push notificaties. We hebben een PoS terminal en bonnen printer beschikbaar voor diegenen die een fysieke notificatie willen ontvangen."
     },
     "pos": {
-      "question": "Kan ik Coinos combineren met mijn bestaande kassasysteem?",
-      "answer": "We kunnen verkopen automatisch in Square vastleggen. Als je een ander kassasysteem gebruikt, raden we aan Bitcoin als cash in jouw bestaande kassasysteem aan te slaan."
+      "question": "Kan het werken met mijn verkooppunt systeem?",
+      "answer": "We integreren direct met Square. Voor andere systemen, kunt u Bitcoin verkoop opnemen als contant geld."
     },
     "bitcoin": {
       "question": "Wat kan ik doen met Bitcoin?",
-      "answer": "Geef het door aan andere handelaren of betaal je kosten ermee door je personeel, leveranciers en verhuurder te vragen Bitcoin aan te nemen. Of spaar het voor de lange termijn."
+      "answer": "Geef het door aan andere handelaren, betaal personeel of leveranciers, of houd het als spaargeld."
     }
   },
   "footer": {
@@ -135,8 +203,8 @@
       "description": "Hetzelfde als je normaal zou doen, maar dan met Bitcoin."
     },
     "step3": {
-      "header": "3. Dat is alles!",
-      "description": "Makkelijk toch?! Laat het ons weten wanneer je er klaar voor bent jouw bedrijf te promoten bij de Bitcoin community."
+      "header": "3. Je bent klaar!",
+      "description": "Stuur en ontvang Bitcoin direct Geen kosten, geen gedoe."
     }
   },
   "invoice": {
@@ -160,12 +228,12 @@
     "pitch3": "Als je denkt een impact te kunnen maken, horen we graag van je. Stuur ons je CV naar"
   },
   "landing": {
-    "header_before_icon": "De",
-    "header_with_icon": "makkelijkste",
-    "header_after_icon": "manier om met Bitcoin te beginnen.",
-    "subheader": "Een gratis web portemonnee en betaalpagina voor iedereen.",
+    "header_before_icon": "Bitcoin gemaakt",
+    "header_with_icon": "gemakkelijk",
+    "header_after_icon": "",
+    "subheader": "Een portemonnee en betaalpagina voor handelaren en alledaagse gebruikers",
     "info1": {
-      "title": "Onmiddellijke betalingen via Lightning",
+      "title": "Onmiddellijke betalingen",
       "description": "Wij maken het voor handelaren gemakkelijk om betalingen te ontvangen. Je hoeft niet te wachten op bankafwikkelingen of zorgen te maken over een storno. Binnen enkele seconden heb je de betaling binnen. Neem afscheid van hoge transactiekosten."
     },
     "info2": {
@@ -202,11 +270,15 @@
     "signUp": "Aanmelden",
     "failed": "Aanmelden mislukt",
     "nostr": "Aanmelden met Nostr",
-    "nostrConnect": "Nostr aanmelding"
+    "nostrConnect": "Nostr aanmelding",
+    "accountCreatedNeedsPasskey": "Account aangemaakt! Je moet een wachtwoord instellen om door te gaan.",
+    "setupPasskey": "Wachtwoord instellen",
+    "passkeyCreationFailed": "Aanmaken van wachtwoord is mislukt. Probeer het nog eens.",
+    "enter2faCode": "Code 2FA"
   },
   "nav": {
-    "dark": "Donker",
-    "light": "Licht",
+    "dark": "Donkere modus",
+    "light": "Lichte modus",
     "about": "Info",
     "docs": "Documenten",
     "messages": "Berichten",
@@ -217,12 +289,14 @@
     "register": "Registeren",
     "account": "Account",
     "startInSeconds": "Start je account binnen enkele seconden",
+    "enterApp": "Naar de app",
     "signIn": "Aanmelden",
     "signOut": "Afmelden",
     "dashboard": "Dashboard",
     "settings": "Instellingen",
     "support": "Ondersteuning",
-    "home": "Begin"
+    "home": "Begin",
+    "dm": "Berichten"
   },
   "news": {
     "header": "Nieuws",
@@ -269,7 +343,8 @@
       "receive": "Ontvangen",
       "withdraw": "Verzenden",
       "deposit": "Deposito",
-      "voucher": "Voucher"
+      "voucher": "Voucher",
+      "history": "Historie"
     },
     "receive": {
       "lessThan1BTCWarning": "Voer een bedrag minder dan 1 Bitcoin in.",
@@ -382,7 +457,17 @@
       "yourUsername": "Uw gebruikersnaam is:",
       "yourPassword": "Uw wachtwoord is:",
       "welcome": "Welkom!",
-      "clickBelow": "Klik hieronder om het aanmaken van uw account af te ronden"
+      "clickBelow": "Klik hieronder om het aanmaken van uw account af te ronden",
+      "dontRemember": "Ik weet het niet meer",
+      "8hours": "8 uur",
+      "1day": "1 dag",
+      "1week": "1 week",
+      "1month": "1 maand",
+      "1year": "1 jaar",
+      "preferredDM": "Voorkeur DM Relais",
+      "preferredDMDescription": "Directe berichten bedoeld voor u zullen worden gepubliceerd naar deze relais. Om DM's te krijgen op meerdere relais, zet elke relais URL op zijn eigen lijn.",
+      "noDMURLsWarning": "U heeft geen geldige relais-URL's ingesteld. U kunt geen DM's gebruiken.",
+      "continueSettingUp": "Accountinstellingen"
     },
     "support": {
       "header": "Ondersteuning",
@@ -514,7 +599,8 @@
     "gift": "Alle fondsen cadeau",
     "giftLink": "Kadokoppeling",
     "giftDesc1": "Wie de onderstaande link opent, ontvangt alle beschikbare fondsen.",
-    "giftDesc2": "Als ze ingelogd zijn, gaan de fondsen naar hun account, anders wordt er een nieuwe account gegenereerd."
+    "giftDesc2": "Als ze ingelogd zijn, gaan de fondsen naar hun account, anders wordt er een nieuwe account gegenereerd.",
+    "failedToSend": "Versturen mislukt"
   },
   "items": {
     "add": "Item toevoegen",
@@ -557,5 +643,30 @@
     "withdrawAccess": "Toegang intrekken",
     "username": "Gebruikersnaam",
     "returnToFund": "Terug naar financiering"
+  },
+  "dm": {
+    "chatHeader": "Gesprekken",
+    "newChatHeader": "Nieuw gesprek",
+    "header": "Berichten",
+    "searchPrompt": "gebruikersnaam, nip-05 of pubkey",
+    "findByUsername": "Zoeken op gebruikersnaam",
+    "findByNIP05": "Zoeken op NIP-05",
+    "findByPubkey": "Zoek op pubkey",
+    "noChats": "Je hebt nog geen praatjes.",
+    "selectChat": "Selecteer een gesprek uit de lijst naar links.",
+    "recipientMsg": "U stuurt nostr-berichten naar [R].",
+    "sendMessage": "Bericht versturen",
+    "mute": "Dempen",
+    "unmute": "Unmute",
+    "expiry": "Verlopen van bericht inschakelen",
+    "cantSendExpiring": "Geen van [R]'s DM relais ondersteuning bericht vervallen. Je kunt ze geen expirerende berichten sturen.",
+    "fadedWarning": "Om metadatalekken te voorkomen, verlopen berichten op een willekeurige tijd tot 2 dagen nadat u heeft opgegeven; elk bericht heeft zijn eigen willekeurige vervaldatum. Berichten die vervaagd verschijnen zijn bijna verlopen; nabijgelegen berichten kunnen ontbreken.",
+    "usernameNotFound": "Een account met die gebruikersnaam is niet gevonden.",
+    "nip05NotFound": "Een Nostr-account met die NIP-05 werd niet gevonden.",
+    "days": "dagen",
+    "relaysNotFound": "Kon [R]'s DM relais niet vinden.",
+    "noRelaysSet": "WAARSCHUWING: U heeft geen voorkeursrelais ingesteld. U kunt geen berichten ontvangen of de berichten zien die u hebt verzonden.",
+    "nostrSettingsLink": "Ga naar uw Nostr instellingen om uw relais in te stellen.",
+    "anonymous": "Anoniem"
   }
 }

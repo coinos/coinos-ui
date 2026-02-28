@@ -8,14 +8,14 @@
     "team": {
       "header": "团队",
       "adam": {
-        "name": "亚当·索尔蒂斯",
-        "position": "创始人兼首席技术官",
-        "bio": "亚当是一名软件工程师，他相信人们使用稳健的虚拟货币将推动全球繁荣。他与妻子、女儿和儿子住在北温哥华。"
+        "name": "亚当",
+        "position": "创建者",
+        "bio": "2012年起成为科伊诺斯的建设者. 关于让比特币为所有人所利用的激情."
       },
       "cole": {
         "name": "科尔",
         "position": "商务拓展",
-        "bio": "科尔是一个充满动力、热爱自由的人。他在2016年接触到了比特币并对其进行了深入研究，现在他想把比特币闪电网络介绍给尽可能多的用户。"
+        "bio": "帮助商人和社区自2015年起采用比特币."
       }
     },
     "locations": {
@@ -23,6 +23,36 @@
       "description": "以下是一些接受 Coinos 比特币支付平台的企业，希望您的公司可以加入我们！",
       "viewMap": "查看地图"
     }
+  },
+  "mapAdd": {
+    "header": "添加您的位置",
+    "description": "Coinos 从 OpenStreetMap 获取商户位置。要将您的商家添加到我们的地图，请按以下步骤操作：",
+    "step1": {
+      "header": "创建 OpenStreetMap 账户",
+      "before": "前往",
+      "linkText": "openstreetmap.org",
+      "after": "，如果您还没有账户，请注册一个免费账户。"
+    },
+    "step2": {
+      "header": "在您的地址添加一个点",
+      "before": "在地图上导航到您的商家位置，点击",
+      "edit": "编辑",
+      "middle": "，然后点击",
+      "point": "点",
+      "after": "并将其放置在您的地址上。"
+    },
+    "step3": {
+      "header": "添加必要的标签",
+      "description": "在该点的标签编辑器中，添加以下两个标签："
+    },
+    "step4": {
+      "header": "保存更改",
+      "before": "点击",
+      "save": "保存",
+      "after": "，OpenStreetMap 处理更新后，您的位置将显示在我们的地图上。"
+    },
+    "backToMap": "返回地图",
+    "addLocation": "添加位置"
   },
   "error": {
     "header": "错误",
@@ -34,23 +64,23 @@
     "header": "常见问题",
     "cost": {
       "question": "费用是多少？",
-      "answer": "接收付款到您的账户是免费的。提现到外部钱包会产生小额费用，该费用会根据网络状况而有所变化。"
+      "answer": "Coinos用户之间的发送和接收是免费的. 提取到外部钱包在同一网络上是免费的,否则比特币为0.4%,闪电/Liquid为0.1%."
     },
     "compatibility": {
-      "question": "我需要特殊的设备或软件吗？",
-      "answer": "不需要。Coinos 在任何有互联网的地方都可以使用。商家可以在平板上操作，或者展示二维码供顾客用手机扫描。"
+      "question": "我需要特别的硬件吗?",
+      "answer": "不——只有手机,平板电脑,或者有网页浏览器的电脑. 通过电子邮件获取支付通知,或按下通知."
     },
     "safety": {
       "question": "我的资金什么时候结算？",
       "answer": "闪电支付会立即结算。您可以在几秒内将余额提现到其他钱包。链上存款平均需要 5-10 分钟确认。"
     },
     "pos": {
-      "question": "Coinos 可以与我现有的 PoS 集成吗？",
-      "answer": "我们建议将销售额作为现金交易输入到您现有的 PoS 中。"
+      "question": "能用我的点售系统吗?",
+      "answer": "我们直接融入广场 对于其他系统,可以将比特币销售额记录为现金."
     },
     "bitcoin": {
-      "question": "我可以用比特币做什么？",
-      "answer": "您可以用比特币在其他商家消费，或者支付开支，比如让您的员工、供应商和房东接受比特币支付。"
+      "question": "比特币怎么办?",
+      "answer": "花在其他商家,支付员工或供应商,或作为储蓄持有."
     }
   },
   "footer": {
@@ -76,8 +106,8 @@
       "description": "和平时付款一样，但使用比特币支付。"
     },
     "step3": {
-      "header": "3. 就是这样！",
-      "description": "立刻花掉您的比特币，或看着它升值。"
+      "header": "3个 你们都准备好了!",
+      "description": "立即发送和接收比特币——不收费,不大惊小怪."
     }
   },
   "invoice": {
@@ -101,12 +131,12 @@
     "pitch3": "如果您认为自己可以产生影响，我们很乐意听取您的意见。将您的简历发送至"
   },
   "landing": {
-    "header_before_icon": "最",
+    "header_before_icon": "比特币制作",
     "header_with_icon": "简单",
-    "header_after_icon": "的开始使用比特币的方式。",
-    "subheader": "为每个人提供免费的网页钱包和支付页面。",
+    "header_after_icon": "",
+    "subheader": "商人和日常用户的钱包和支付页面",
     "info1": {
-      "title": "通过闪电网络即时付款",
+      "title": "即时付款",
       "description": "我们让商家可以轻松接收零售付款。无需等待银行结算或担心退款。即时结算，秒级。告别 3% 的卡费。"
     },
     "info2": {
@@ -143,7 +173,11 @@
     "continue": "继续",
     "resetDesc": "我们可以发送一个重设链接 如果你添加和校验您的电子邮件 否则请联系",
     "nostr": "与鼻孔签名",
-    "nostrConnect": "鼻孔连接"
+    "nostrConnect": "鼻孔连接",
+    "accountCreatedNeedsPasskey": "账户创建! 你需要设置一个密码继续.",
+    "setupPasskey": "设置密码",
+    "passkeyCreationFailed": "Passkey 创建失败 。 请再试一次.",
+    "enter2faCode": "输入 2FA 代码"
   },
   "nav": {
     "about": "关于",
@@ -154,16 +188,18 @@
     "merch": "商店",
     "profile": "个人资料",
     "startInSeconds": "立即开始",
+    "enterApp": "进入应用",
     "account": "帐户",
     "signIn": "登录",
     "signOut": "登出",
     "dashboard": "仪表板",
     "settings": "设置",
     "support": "支持",
-    "dark": "深色",
-    "light": "浅色",
+    "dark": "深色模式",
+    "light": "浅色模式",
     "register": "注册",
-    "home": "内容"
+    "home": "内容",
+    "dm": "信件"
   },
   "news": {
     "header": "消息",
@@ -204,7 +240,8 @@
       "voucher": "代金券",
       "checkout": "查看",
       "payNow": "现在付款",
-      "setup": "设置自托管"
+      "setup": "设置自托管",
+      "history": "历史"
     },
     "receive": {
       "lessThan1BTCWarning": "请输入小于 1 比特币的金额。",
@@ -317,7 +354,17 @@
       "yourUsername": "您的用户名是",
       "yourPassword": "而您的密码是",
       "welcome": "欢迎光临!",
-      "clickBelow": "点击下面完成您的账户设置"
+      "clickBelow": "点击下面完成您的账户设置",
+      "dontRemember": "不记得了",
+      "8hours": "8小时",
+      "1day": "1天(以千美元计)",
+      "1week": "1个星期",
+      "1month": "1个月",
+      "1year": "1 岁",
+      "preferredDM": "首选管理部 中继",
+      "preferredDMDescription": "给您的直接信件将被发布到这些转发中 。 为了让DMs在多个中继器上,将每个中继URL放入自己的线路.",
+      "noDMURLsWarning": "您尚未设置任何有效的中继 URL 。 你将无法使用DMs.",
+      "continueSettingUp": "账户设置"
     },
     "support": {
       "header": "支持",
@@ -457,7 +504,8 @@
     "gift": "赠与所有基金",
     "giftLink": "礼品链接",
     "giftDesc1": "任何人打开以下链接,都将获得所有可用资金.",
-    "giftDesc2": "如果登录,资金将存入其账户,否则将产生一个新的账户."
+    "giftDesc2": "如果登录,资金将存入其账户,否则将产生一个新的账户.",
+    "failedToSend": "发送失败"
   },
   "items": {
     "add": "新增项目",
@@ -487,6 +535,11 @@
     "importSeed": "输入现有的种子短语",
     "passwordWarning": "如果您丢失了此密码，您将无法从账户中提取资金或恢复您的种子短语。我们无法为您恢复它。",
     "savings": "储蓄",
+    "chooseAccountType": "选择账户类型",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "由12个助记词保护的自托管Bitcoin钱包",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "提供低费用和快速结算的实验性二层钱包",
     "password": "密码",
     "confirmPassword": "确认密码",
     "finish": "结束",
@@ -523,8 +576,41 @@
     "copyNwc": "复制 NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "托管",
+    "spending": "支出",
+    "vault": "金库",
+    "pending": "待处理",
+    "importing": "导入中...",
+    "viewMnemonic": "查看助记词",
+    "hideMnemonic": "隐藏助记词",
+    "deleteConfirm": "确定要删除此账户吗？此操作无法撤销。",
+    "cancel": "取消",
+    "submit": "提交",
+    "accountTitle": "{{type}}账户",
+    "updateCurrency": "同时将默认货币更新为{{currency}}",
+    "changeSeedPhrase": "更改种子短语",
+    "invalidSeedPhrase": "无效的种子短语",
+    "importFailed": "导入失败",
+    "invalidPassword": "无效的密码",
+    "invalidPasswordTryAgain": "无效的密码, 再试一次",
+    "passwordRequired": "需要密码",
+    "failedToDecryptSeed": "解密种子失败",
+    "passkeyNoPrf": "密码不支持 PRF",
+    "passkeyUnlockFailed": "密码解锁失败",
+    "pleaseBackupFirst": "请先备份您的密钥",
+    "createSavingsAccount": "创建储蓄账户",
+    "createWallet": "创建钱包",
+    "unlockWithPasskey": "用密码解锁",
+    "unlockWithNostr": "与鼻孔解锁",
+    "arkDerivedFromPasskey": "您的方舟钱包将来自您的密码保护主种子.",
+    "arkUnlockWithPasskey": "您的方舟钱包将来自您的主种子。 解锁您的密码继续.",
+    "arkEnterPassword": "您的方舟钱包将来自您的主种子。 输入钱包密码以继续 .",
+    "arkSecuredByKey": "你的\"方舟\"钱包是用私人钥匙保护的 请在安全的地方复制.",
+    "setPasswordToEncrypt": "设置加密密钥的密码 。 你需要这个密码才能寄钱.",
+    "backedItUp": "我挺过来了",
+    "revealBackupKey": "曝光备份密钥",
+    "type": "类型",
+    "accountType": "账户类型"
   },
   "notes": {
     "contents": "说明内容",
@@ -538,5 +624,51 @@
     "withdrawAccess": "撤销访问",
     "username": "用户名",
     "returnToFund": "回到资金"
+  },
+  "dm": {
+    "chatHeader": "聊天",
+    "newChatHeader": "新建聊天",
+    "header": "信件",
+    "searchPrompt": "用户名, nip-05 或 pubkey",
+    "findByUsername": "按用户名查找",
+    "findByNIP05": "NIP-05搜索结果",
+    "findByPubkey": "通过pubkey查找",
+    "noChats": "你还没闲聊呢.",
+    "selectChat": "从列表到左边选择聊天.",
+    "recipientMsg": "您要向 [R] 发送节点消息 .",
+    "sendMessage": "发送信件",
+    "mute": "静音",
+    "unmute": "释出",
+    "expiry": "启用信件过期",
+    "cantSendExpiring": "没有[R]的DM中继支持消息过期. 你不能给他们发送过期的消息.",
+    "fadedWarning": "为了避免元数据泄露,消息在指定后最多2天的随机时间会过期;每个消息都有自己的随机过期时间. 似乎已淡出的信件已接近过期;附近的信件可能已丢失.",
+    "usernameNotFound": "找不到该用户名的账户 .",
+    "nip05NotFound": "没有找到NIP-05的诺斯特账户.",
+    "days": "天数",
+    "relaysNotFound": "找不到 [R] 的 DM 中继器 .",
+    "noRelaysSet": "你没有设置任何首选接力 你将无法收到任何信息 或看到你已经发送的信息.",
+    "nostrSettingsLink": "到您的鼻孔设置来设置接力 .",
+    "anonymous": "无名"
+  },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "bn": "বাংলা",
+    "tr": "Türkçe",
+    "ko": "한국어",
+    "it": "Italiano",
+    "nl": "Nederlands",
+    "th": "ไทย",
+    "pl": "Polski"
   }
 }

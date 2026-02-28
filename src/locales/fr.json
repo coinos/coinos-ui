@@ -13,16 +13,46 @@
     "team": {
       "header": "L'Équipe",
       "adam": {
-        "name": "Adam Soltys",
-        "position": "Fondateur et directeur technique",
-        "bio": "Adam est un ingénieur en informatique qui croit en l'adoption d'une monnaie saine comme moteur de la prospérité mondiale. Il vit à North Vancouver avec sa femme, sa fille et son fils."
+        "name": "Adam",
+        "position": "Fondateur",
+        "bio": "Constructeur de Coinos depuis 2012. Passionné de rendre Bitcoin accessible à tout le monde."
       },
       "cole": {
         "name": "Cole Goodwin",
         "position": "Développement commercial",
-        "bio": "Cole est quelqu'un motivé et passionné par les libertés. Il a découvert le bitcoin en 2016 et l'a étudié en profondeur. Aujourd'hui, il souhaite faire découvrir le réseau Lightning au plus grand nombre d'utilisateurs possible."
+        "bio": "Aider les marchands et les communautés à adopter le Bitcoin depuis 2015."
       }
     }
+  },
+  "mapAdd": {
+    "header": "Ajoutez votre emplacement",
+    "description": "Coinos récupère les emplacements des commerces depuis OpenStreetMap. Pour ajouter votre commerce à notre carte, suivez ces étapes :",
+    "step1": {
+      "header": "Créez un compte OpenStreetMap",
+      "before": "Rendez-vous sur",
+      "linkText": "openstreetmap.org",
+      "after": "et inscrivez-vous pour un compte gratuit si vous n'en avez pas."
+    },
+    "step2": {
+      "header": "Ajoutez un point à votre adresse",
+      "before": "Naviguez jusqu'à l'emplacement de votre commerce sur la carte, cliquez sur",
+      "edit": "Modifier",
+      "middle": "puis cliquez sur",
+      "point": "Point",
+      "after": "et placez-le à votre adresse."
+    },
+    "step3": {
+      "header": "Ajoutez les étiquettes requises",
+      "description": "Dans l'éditeur d'étiquettes du point, ajoutez ces deux étiquettes :"
+    },
+    "step4": {
+      "header": "Enregistrez vos modifications",
+      "before": "Cliquez sur",
+      "save": "Enregistrer",
+      "after": "et votre emplacement apparaîtra sur notre carte une fois qu'OpenStreetMap aura traité la mise à jour."
+    },
+    "backToMap": "Retour à la carte",
+    "addLocation": "Ajouter un emplacement"
   },
   "dm": {
     "chatHeader": "Discussions",
@@ -59,23 +89,23 @@
     "header": "FAQ",
     "cost": {
       "question": "Combien cela coûte ?",
-      "answer": "Recevoir des paiements sur votre compte est gratuit. Les retraits vers des portefeuilles externes entraînent des frais minimes qui varient en fonction des conditions du réseau. Nous facturons 0,1% de conversion entre le réseau lightning et le réseau on-chain. L'envoie à d'autres comptes Coinos est gratuit."
+      "answer": "L'envoi et la réception entre les utilisateurs de Coinos sont gratuits. Les retraits vers des portefeuilles externes sont gratuits sur le même réseau, sinon 0,4% pour Bitcoin ou 0,1% pour Lightning/Liquid."
     },
     "compatibility": {
-      "question": "Ai-je besoin d'un appareil ou d'un logiciel spécial?",
-      "answer": "Non, Coinos est une application sur navigateur web qui fonctionne partout où il y a Internet. Les commerçants peuvent l'utiliser sur une tablette et afficher un QR code pour que les clients puissent le scanner avec leur téléphone."
+      "question": "Ai-je besoin de matériel spécial ?",
+      "answer": "Non — seulement un téléphone, une tablette ou un ordinateur avec un navigateur Web. Obtenir des notifications de paiement dans l'application, par courriel, ou la notification push."
     },
     "safety": {
       "question": "Quand mes fonds seront-ils versés ?",
       "answer": "Les paiements lightning sont réglés instantanément. Vous pouvez retirer votre solde vers un autre portefeuille en quelques secondes. Les dépôts on-chain prennent en moyenne 5-10 minutes pour être confirmés."
     },
     "pos": {
-      "question": "Coinos peut-il s'intégrer à mon point de vente existant?",
-      "answer": "Nous recommandons d'entrer les ventes dans votre appareil de point de vente existant comme des transactions en espèces."
+      "question": "Ça peut marcher avec mon système de point de vente ?",
+      "answer": "Nous nous intégrons directement à Square. Pour d'autres systèmes, vous pouvez enregistrer les ventes de Bitcoin en espèces."
     },
     "bitcoin": {
-      "question": "Que puis-je faire avec le Bitcoin?",
-      "answer": "Dépensez-le chez d'autres commerçants ou payez vos dépenses avec en proposant à votre personnel, vos fournisseurs et votre propriétaire de l'accepter aussi."
+      "question": "Que puis-je faire avec Bitcoin ?",
+      "answer": "Dépensez-le à d'autres marchands, payez du personnel ou des fournisseurs, ou gardez-le comme épargne."
     }
   },
   "footer": {
@@ -101,17 +131,17 @@
       "description": "Comme vous faisiez normalement, mais avec bitcoin."
     },
     "step3": {
-      "header": "3. C'est tout!",
-      "description": "Vous pouvez convertir en monnaie locale n'importe quand."
+      "header": "3. Vous êtes prêts !",
+      "description": "Envoyer et recevoir Bitcoin instantanément — pas de frais, pas d'agitation."
     }
   },
   "landing": {
-    "header_before_icon": "Le",
-    "header_with_icon": "moyen",
-    "header_after_icon": "le plus simple de commencer à utiliser bitcoin.",
-    "subheader": "Un portefeuille web gratuit et un moyen de paiement pour tous.",
+    "header_before_icon": "Bitcoin fait",
+    "header_with_icon": "facile",
+    "header_after_icon": "",
+    "subheader": "Un porte-monnaie et une page de paiement pour les marchands et les utilisateurs quotidiens",
     "info1": {
-      "title": "Paiements instantanés avec Lightning",
+      "title": "Paiements instantanés",
       "description": "Nous facilitons la réception des paiements pour les commerçants. Vous n'aurez plus à attendre les délais des banques ou vous inquiéter pour des rejets de paiements. C'est instantané, en quelques secondes. Dites au revoir aux frais de transactions de 3% des cartes de crédit."
     },
     "info2": {
@@ -148,10 +178,15 @@
     "continue": "Continuer",
     "resetDesc": "Nous pouvons envoyer un lien de réinitialisation si vous avez ajouté et vérifié votre e-mail sinon veuillez contacter",
     "nostr": "Connexion avec nostra",
-    "nostrConnect": "Connecter nostra"
+    "nostrConnect": "Connecter nostra",
+    "accountCreatedNeedsPasskey": "Compte créé ! Vous devez installer une clé de passe pour continuer.",
+    "setupPasskey": "Configurer Passkey",
+    "passkeyCreationFailed": "La création de Passkey a échoué. Veuillez réessayer.",
+    "enter2faCode": "Entrez le code 2FA"
   },
   "nav": {
     "startInSeconds": "Commencer en quelques secondes",
+    "enterApp": "Accéder à l'application",
     "account": "Compte",
     "signIn": "Connexion",
     "signOut": "Déconnexion",
@@ -166,8 +201,8 @@
     "dm": "Messages Nostr",
     "messages": "Messages",
     "funds": "Fonds",
-    "dark": "Sombre",
-    "light": "Clair",
+    "dark": "Mode sombre",
+    "light": "Mode clair",
     "register": "S'enregistrer",
     "home": "Sommaire"
   },
@@ -208,7 +243,8 @@
       "voucher": "Code promo",
       "checkout": "Encaisser",
       "payNow": "Payez maintenant",
-      "setup": "Configuration"
+      "setup": "Configuration",
+      "history": "Historique"
     },
     "receive": {
       "lessThan1BTCWarning": "S'il vous plaît utilisez moins d'un bitcoin.",
@@ -316,7 +352,14 @@
       "yourUsername": "Votre nom d'utilisateur",
       "yourPassword": "et votre mot de passe est",
       "welcome": "Bienvenue !",
-      "clickBelow": "Cliquez ci-dessous pour terminer la configuration de votre compte"
+      "clickBelow": "Cliquez ci-dessous pour terminer la configuration de votre compte",
+      "dontRemember": "Je ne me souviens pas",
+      "8hours": "8 heures",
+      "1day": "1 jour",
+      "1week": "1 semaine",
+      "1month": "1 mois",
+      "1year": "1 an",
+      "continueSettingUp": "Configuration du compte"
     },
     "support": {
       "header": "Assistance",
@@ -486,7 +529,8 @@
     "gift": "Donner tous les fonds",
     "giftLink": "Lien cadeau",
     "giftDesc1": "Quiconque ouvre le lien ci-dessous recevra tous les fonds disponibles.",
-    "giftDesc2": "S'ils sont connectés, les fonds vont à leur compte, sinon un nouveau compte sera généré."
+    "giftDesc2": "S'ils sont connectés, les fonds vont à leur compte, sinon un nouveau compte sera généré.",
+    "failedToSend": "Échec de l'envoi"
   },
   "items": {
     "add": "Ajouter un article",
@@ -516,6 +560,11 @@
     "importSeed": "Importer une phrase de sauvegarde existante",
     "passwordWarning": "Si vous perdez ce mot de passe, vous ne pourrez pas retirer les fonds du compte ni restaurer votre phrase de sauvegarde. Nous ne pouvons pas la récupérer pour vous.",
     "savings": "Économies",
+    "chooseAccountType": "Choisir le type de compte",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "Portefeuille Bitcoin en autocustodie sécurisé par une phrase de sauvegarde de 12 mots",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Portefeuille expérimental de couche 2 offrant des frais réduits et un règlement rapide",
     "password": "Mot de passe",
     "confirmPassword": "Confirmez le mot de passe",
     "finish": "Terminer",
@@ -552,8 +601,41 @@
     "copyNwc": "Copier NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "Dépositaire",
+    "spending": "Dépenses",
+    "vault": "Coffre",
+    "pending": "en attente",
+    "importing": "Importation...",
+    "viewMnemonic": "Voir la phrase de récupération",
+    "hideMnemonic": "Masquer la phrase de récupération",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette action est irréversible.",
+    "cancel": "Annuler",
+    "submit": "Envoyer",
+    "accountTitle": "Compte {{type}}",
+    "updateCurrency": "Mettre également à jour la devise par défaut à {{currency}}",
+    "changeSeedPhrase": "Changer la phrase de départ",
+    "invalidSeedPhrase": "Phrase de semence non valide",
+    "importFailed": "L'importation a échoué",
+    "invalidPassword": "Mot de passe non valide",
+    "invalidPasswordTryAgain": "Mot de passe non valide, réessayer",
+    "passwordRequired": "Mot de passe requis",
+    "failedToDecryptSeed": "Échec du décryptage des semences",
+    "passkeyNoPrf": "Passkey ne supporte pas PRF",
+    "passkeyUnlockFailed": "Le déverrouillage de Passkey a échoué",
+    "pleaseBackupFirst": "S'il vous plaît sauvegarder votre clé d'abord",
+    "createSavingsAccount": "Créer un compte d'épargne",
+    "createWallet": "Créer un portefeuille",
+    "unlockWithPasskey": "Déverrouillage avec Passkey",
+    "unlockWithNostr": "Déverrouillage avec nostra",
+    "arkDerivedFromPasskey": "Votre portefeuille Ark sera dérivé de votre graine maître protégé par clé de passe.",
+    "arkUnlockWithPasskey": "Votre portefeuille Ark sera dérivé de votre graine principale. Débloquez avec votre clé de passe pour continuer.",
+    "arkEnterPassword": "Votre portefeuille Ark sera dérivé de votre graine principale. Saisissez votre mot de passe portefeuille pour continuer.",
+    "arkSecuredByKey": "Votre portefeuille Ark est sécurisé par une clé privée. Recopiez-le en lieu sûr.",
+    "setPasswordToEncrypt": "Définir un mot de passe pour chiffrer votre clé. Vous aurez besoin de ce mot de passe pour envoyer des fonds.",
+    "backedItUp": "Je l'ai soutenu",
+    "revealBackupKey": "Revoir la clé de sauvegarde",
+    "type": "Type",
+    "accountType": "Type de compte"
   },
   "notes": {
     "contents": "Table des matières",
@@ -567,5 +649,26 @@
     "withdrawAccess": "Retrait de l'accès",
     "username": "Nom d'utilisateur",
     "returnToFund": "Retour au fonds"
+  },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "bn": "বাংলা",
+    "tr": "Türkçe",
+    "ko": "한국어",
+    "it": "Italiano",
+    "nl": "Nederlands",
+    "th": "ไทย",
+    "pl": "Polski"
   }
 }

@@ -8,7 +8,7 @@
   import { installPrompt, password } from "$lib/store";
   import { afterNavigate, goto, invalidate, preloadData } from "$app/navigation";
   import { page } from "$app/stores";
-  import { versions, post, fail } from "$lib/utils";
+  import { versions, post, fail, getCookie } from "$lib/utils";
 
   let { data } = $props();
 
@@ -65,10 +65,19 @@
     adding = false;
   };
 
+  let installDismissed = $state(browser && localStorage.getItem("installDismissed") === "1");
+  let showInstall = $derived($installPrompt && !installDismissed);
+
   let install = async () => {
     if (!$installPrompt) return;
     await $installPrompt.prompt();
     $installPrompt = null;
+    dismissInstall();
+  };
+
+  let dismissInstall = () => {
+    installDismissed = true;
+    localStorage.setItem("installDismissed", "1");
   };
 
   let pubkey = $state();
@@ -124,17 +133,23 @@
         <div class="text-sm">{$t("incident")}</div>
       {/if}
 
-      {#if $installPrompt}
-        <button class="btn btn-accent w-full lg:hidden" onclick={install}>
-          <iconify-icon noobserver icon="ph:download-bold" width="32"></iconify-icon>
-          {$t("user.install")}
-        </button>
-      {/if}
     </div>
   {/if}
 </div>
 
 <!-- <a href="/funder" class="btn">Funder</a> -->
+
+{#if showInstall}
+  <div class="fixed inset-x-0 bottom-0 z-[100] p-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] bg-base-100 border-t border-base-300 shadow-lg lg:hidden">
+    <div class="max-w-xl mx-auto flex items-center gap-3">
+      <div class="flex-1">
+        <p class="font-semibold">Add Coinos to homescreen?</p>
+      </div>
+      <button class="btn btn-accent !w-auto px-6" onclick={install}>Yes</button>
+      <button class="btn !w-auto px-6" onclick={dismissInstall}>No</button>
+    </div>
+  </div>
+{/if}
 
 <div class="fixed inset-x-0 mx-auto flex bottom-16 px-4">
   {#if user?.username !== subject.username && (!subject.anon || subject.lud16)}

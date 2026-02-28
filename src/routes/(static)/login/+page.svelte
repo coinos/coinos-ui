@@ -30,7 +30,9 @@
         password.set(undefined);
         pin?.set(undefined);
         signer.set(undefined);
+        const installDismissed = localStorage.getItem("installDismissed");
         localStorage.clear();
+        if (installDismissed) localStorage.setItem("installDismissed", installDismissed);
         sessionStorage.clear();
       }, 50);
     }

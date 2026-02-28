@@ -22,6 +22,11 @@
     "importSeed": "Wprowadź istniejący zwrot nasion",
     "passwordWarning": "Jeśli stracisz to hasło, nie będziesz w stanie wypłacić środków z konta ani przywrócić hasła. Nie możemy jej odzyskać.",
     "savings": "Oszczędności",
+    "chooseAccountType": "Wybierz typ konta",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "Samodzielnie przechowywany portfel Bitcoin zabezpieczony frazą z 12 słów",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Eksperymentalny portfel warstwy 2 oferujący niskie opłaty i szybkie rozliczenia",
     "password": "Hasło",
     "confirmPassword": "Potwierdź hasło",
     "per": "na",
@@ -55,8 +60,41 @@
     "copyNwc": "Kopiuj NWC",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "Powierniczy",
+    "submit": "Wyślij",
+    "viewMnemonic": "Pokaż frazę seed",
+    "hideMnemonic": "Ukryj frazę seed",
+    "deleteConfirm": "Czy na pewno chcesz usunąć to konto? Tej operacji nie można cofnąć.",
+    "cancel": "Anuluj",
+    "spending": "Wydatki",
+    "vault": "Sejf",
+    "pending": "oczekujące",
+    "importing": "Importowanie...",
+    "accountTitle": "Konto {{type}}",
+    "updateCurrency": "Zaktualizuj również domyślną walutę na {{currency}}",
+    "changeSeedPhrase": "Zmiana frazy nasion",
+    "invalidSeedPhrase": "Nieprawidłowa frakcja nasion",
+    "importFailed": "Importuj nieudany",
+    "invalidPassword": "Nieprawidłowe hasło",
+    "invalidPasswordTryAgain": "Nieprawidłowe hasło, spróbuj ponownie",
+    "passwordRequired": "Wymagane hasło",
+    "failedToDecryptSeed": "Nie można odszyfrować nasion",
+    "passkeyNoPrf": "Passkey nie obsługuje PRF",
+    "passkeyUnlockFailed": "Odblokowanie hasła nie powiodło się",
+    "pleaseBackupFirst": "Proszę najpierw utworzyć kopię zapasową swojego klucza",
+    "createSavingsAccount": "Utwórz konto oszczędzania",
+    "createWallet": "Utwórz portfel",
+    "unlockWithPasskey": "Odblokuj za pomocą hasła",
+    "unlockWithNostr": "Odblokuj Nostr",
+    "arkDerivedFromPasskey": "Portfel Arki pochodzi z chronionego hasłem nasion.",
+    "arkUnlockWithPasskey": "Portfel Arki pochodzi z twojego nasienia. Odblokuj klucz, aby kontynuować.",
+    "arkEnterPassword": "Portfel Arki pochodzi z twojego nasienia. Wprowadź hasło portfela, aby kontynuować.",
+    "arkSecuredByKey": "Portfel Arki jest zabezpieczony prywatnym kluczem. Proszę skopiować w bezpiecznym miejscu.",
+    "setPasswordToEncrypt": "Ustaw hasło do szyfrowania klucza. Będziesz potrzebował tego hasła do wysyłania funduszy.",
+    "backedItUp": "Poparłem to",
+    "revealBackupKey": "Pokaż klucz zapasowy",
+    "type": "Rodzaj",
+    "accountType": "Rodzaj rachunku"
   },
   "404": {
     "404": "404",
@@ -67,14 +105,14 @@
     "team": {
       "header": "Drużyna",
       "adam": {
-        "name": "Przewodniczący",
-        "position": "Założyciel i CTO",
-        "bio": "Adam jest inżynierem oprogramowania, który wierzy, że przyjęcie dźwiękowych pieniędzy będzie napędzać globalny dobrobyt. Mieszka w North Vancouver z żoną, córką i synem."
+        "name": "Adam",
+        "position": "Założyciel",
+        "bio": "Budowniczy Coinos od 2012 roku. Pasywny w sprawianiu, by bitmonety były dostępne dla wszystkich."
       },
       "cole": {
         "name": "Cole",
         "position": "Rozwój biznesu",
-        "bio": "Cole jest napędzanym indywidualistą z pasją do wolności, oczarowany przez Bitcoin od 2015 roku. Jego misją jest rozprzestrzenianie adopcji Bitcoin i Lightning Network w różnych społecznościach na całym świecie."
+        "bio": "Pomaganie kupcom i społecznościom w przyjmowaniu bitcoinów od 2015 roku."
       }
     },
     "locations": {
@@ -93,23 +131,23 @@
     "header": "FAQ",
     "cost": {
       "question": "Ile to kosztuje?",
-      "answer": "Przyjmowanie płatności na konto jest bezpłatne. Wycofanie się do portfeli zewnętrznych wiąże się z niewielką opłatą, która różni się w zależności od warunków sieciowych."
+      "answer": "Wysyłanie i odbieranie pomiędzy użytkownikami Coinos jest bezpłatne. Wycofanie do zewnętrznych portfeli jest bezpłatne w tej samej sieci, w przeciwnym razie 0,4% dla Bitcoin lub 0,1% dla Lightning / Liquid."
     },
     "compatibility": {
-      "question": "Potrzebuję jakiegoś specjalnego urządzenia lub oprogramowania?",
-      "answer": "Nie, Coinos pracuje wszędzie, gdzie ma Internet. Kupcy mogą używać go na tablecie lub umieścić kod QR dla klientów do skanowania za pomocą telefonu."
+      "question": "Potrzebuję specjalnego sprzętu?",
+      "answer": "Nie - tylko telefon, tablet lub komputer z przeglądarką internetową. Uzyskaj powiadomienia o płatnościach w aplikacji, e-mailem lub wciśnij powiadomienie."
     },
     "safety": {
       "question": "Kiedy moje fundusze ustaną?",
       "answer": "Płatności błyskawiczne są rozliczane natychmiast. Możesz wycofać swoje saldo do innego portfela w ciągu kilku sekund. Złoża łańcuchowe wymagają średnio 5- 10 minut, aby je potwierdzić."
     },
     "pos": {
-      "question": "Czy Coinos może integrować się z moim istniejącym PoS?",
-      "answer": "Zalecamy wprowadzenie sprzedaży do istniejącego PoS jako transakcji gotówkowych."
+      "question": "Czy to zadziała z moim systemem sprzedaży?",
+      "answer": "Zintegrowaliśmy się bezpośrednio z Placem. Dla innych systemów można zapisać sprzedaż bitcoinów jako gotówkę."
     },
     "bitcoin": {
-      "question": "Co mogę zrobić z Bitcoinem?",
-      "answer": "Spędź je u innych kupców lub zapłać za nie swoimi wydatkami, zdobywając personel, dostawców i właściciela."
+      "question": "Co mogę zrobić z bitcoinami?",
+      "answer": "Spędź je na innych kupcach, płać pracownikom lub dostawcom lub trzymaj jako oszczędności."
     }
   },
   "footer": {
@@ -135,8 +173,8 @@
       "description": "Tak jak zwykle, ale z bitcoinem."
     },
     "step3": {
-      "header": "3. To wszystko!",
-      "description": "Wydaj natychmiast swoją monetę lub patrz jak rośnie wartość."
+      "header": "3. Wszystko gotowe!",
+      "description": "Wyślij i odbieraj bitcoin natychmiast - bez opłat, bez zamieszania."
     }
   },
   "invoice": {
@@ -160,12 +198,12 @@
     "pitch3": "Jeśli myślisz, że możesz coś zrobić, chętnie się odezwiemy. Wyślij nam swoje CV do"
   },
   "landing": {
-    "header_before_icon": "W",
-    "header_with_icon": "najłatwiejszy",
-    "header_after_icon": "sposób na rozpoczęcie z bitcoinem.",
-    "subheader": "Darmowy portfel internetowy i strona płatności dla wszystkich.",
+    "header_before_icon": "Bitcoin made",
+    "header_with_icon": "łatwe",
+    "header_after_icon": "",
+    "subheader": "Portfel i strona płatności dla kupców i użytkowników codziennych",
     "info1": {
-      "title": "Szybkie płatności za pośrednictwem błyskawicy",
+      "title": "Płatności natychmiastowe",
       "description": "Ułatwiamy kupcom otrzymywanie płatności detalicznych. Żadnego czekania na ugody bankowe czy martwienia się o zasiłki. Natychmiastowa ugoda, w kilka sekund. Pożegnaj się z 3% kartami."
     },
     "info2": {
@@ -202,11 +240,45 @@
     "signUp": "Podpisz",
     "failed": "Logowanie nie powiodło się",
     "nostr": "Zaloguj się do Nostr",
-    "nostrConnect": "Połączenie Nostr"
+    "nostrConnect": "Połączenie Nostr",
+    "accountCreatedNeedsPasskey": "Konto utworzone! Musisz ustawić klucz, żeby kontynuować.",
+    "setupPasskey": "Ustaw hasło",
+    "passkeyCreationFailed": "Tworzenie hasła nie powiodło się. Proszę spróbować jeszcze raz.",
+    "enter2faCode": "Wprowadź kod 2FA"
+  },
+  "mapAdd": {
+    "header": "Dodaj swoją lokalizację",
+    "description": "Coinos pobiera lokalizacje sprzedawców z OpenStreetMap. Aby dodać swoją firmę na naszą mapę, wykonaj następujące kroki:",
+    "step1": {
+      "header": "Utwórz konto OpenStreetMap",
+      "before": "Przejdź na",
+      "linkText": "openstreetmap.org",
+      "after": "i załóż darmowe konto, jeśli jeszcze go nie masz."
+    },
+    "step2": {
+      "header": "Dodaj punkt pod swoim adresem",
+      "before": "Znajdź lokalizację swojej firmy na mapie, kliknij",
+      "edit": "Edytuj",
+      "middle": "a następnie kliknij",
+      "point": "Punkt",
+      "after": "i umieść go pod swoim adresem."
+    },
+    "step3": {
+      "header": "Dodaj wymagane tagi",
+      "description": "W edytorze tagów punktu dodaj te dwa tagi:"
+    },
+    "step4": {
+      "header": "Zapisz zmiany",
+      "before": "Kliknij",
+      "save": "Zapisz",
+      "after": ", a Twoja lokalizacja pojawi się na naszej mapie po przetworzeniu aktualizacji przez OpenStreetMap."
+    },
+    "backToMap": "Powrót do mapy",
+    "addLocation": "Dodaj lokalizację"
   },
   "nav": {
-    "dark": "Ciemny",
-    "light": "Światło",
+    "dark": "Tryb ciemny",
+    "light": "Tryb jasny",
     "about": "O",
     "docs": "Dokumenty",
     "messages": "Wiadomości",
@@ -217,12 +289,14 @@
     "register": "Rejestr",
     "account": "Konto",
     "startInSeconds": "Start w sekundach",
+    "enterApp": "Wejdź do aplikacji",
     "signIn": "Wpisz",
     "signOut": "Podpisz",
     "dashboard": "Deska rozdzielcza",
     "settings": "Ustawienia",
     "support": "Wsparcie",
-    "home": "Spis treści"
+    "home": "Spis treści",
+    "dm": "Wiadomości"
   },
   "news": {
     "header": "Aktualności",
@@ -269,7 +343,8 @@
       "receive": "Przyjmować",
       "withdraw": "Wyślij",
       "deposit": "Depozyt",
-      "voucher": "Voucher Przewodniczący"
+      "voucher": "Voucher Przewodniczący",
+      "history": "Historia"
     },
     "receive": {
       "lessThan1BTCWarning": "Proszę podać kwotę mniejszą niż 1 bitcoin.",
@@ -382,7 +457,17 @@
       "yourUsername": "Twoja nazwa użytkownika jest",
       "yourPassword": "twoje hasło jest",
       "welcome": "Witamy!",
-      "clickBelow": "Kliknij poniżej, aby skonfigurować konto"
+      "clickBelow": "Kliknij poniżej, aby skonfigurować konto",
+      "dontRemember": "Nie pamiętam",
+      "8hours": "8 godzin",
+      "1day": "1 dzień",
+      "1week": "1 tydzień",
+      "1month": "1 miesiąc",
+      "1year": "1 rok",
+      "preferredDM": "Preferowany DM Przekaźniki",
+      "preferredDMDescription": "Bezpośrednie wiadomości przeznaczone dla Ciebie zostaną opublikowane do tych przekaźników. Aby uzyskać DM na wielu przekaźników, umieścić każdy przekaźnik URL na własnej linii.",
+      "noDMURLsWarning": "Nie ustawiłeś żadnych poprawnych adresów przekaźnikowych. Nie będziesz mógł używać DM.",
+      "continueSettingUp": "Konfiguracja konta"
     },
     "support": {
       "header": "Wsparcie",
@@ -514,7 +599,8 @@
     "gift": "Dawać wszystkie fundusze",
     "giftLink": "Link prezent",
     "giftDesc1": "Ktokolwiek otworzy poniższy link otrzyma wszystkie dostępne fundusze.",
-    "giftDesc2": "Jeśli są one zalogowane, fundusze trafią na ich konto, w przeciwnym razie powstanie nowe konto."
+    "giftDesc2": "Jeśli są one zalogowane, fundusze trafią na ich konto, w przeciwnym razie powstanie nowe konto.",
+    "failedToSend": "Nie udało się wysłać"
   },
   "items": {
     "add": "Dodaj element",
@@ -557,5 +643,30 @@
     "withdrawAccess": "Wycofanie dostępu",
     "username": "Nazwa użytkownika",
     "returnToFund": "Powrót do funduszu"
+  },
+  "dm": {
+    "chatHeader": "Czaty",
+    "newChatHeader": "Nowa rozmowa",
+    "header": "Wiadomości",
+    "searchPrompt": "nazwa użytkownika, nip- 05 lub pubkey",
+    "findByUsername": "Znajdź po nazwie użytkownika",
+    "findByNIP05": "Znajdź przez NIP- 05",
+    "findByPubkey": "Znajdź przez pubkey",
+    "noChats": "Nie masz jeszcze żadnych rozmów.",
+    "selectChat": "Wybierz czat z listy po lewej.",
+    "recipientMsg": "Wysyłasz wiadomości nostr do [R].",
+    "sendMessage": "Wyślij wiadomość",
+    "mute": "Mute",
+    "unmute": "Niegłuchy",
+    "expiry": "Włącz wygaśnięcie wiadomości",
+    "cantSendExpiring": "Żaden z komunikatów [R] DM nie przekaże informacji o wygaśnięciu komunikatu. Nie możesz wysyłać im wiadomości.",
+    "fadedWarning": "Aby uniknąć wycieków metadanych, wiadomości wygasają w losowym czasie do 2 dni po określeniu; każda wiadomość ma swój losowy czas ważności. Wiadomości, które pojawiają się wyblakłe, są bliskie upływu; w pobliżu wiadomości mogą być brakujące.",
+    "usernameNotFound": "Konto z tą nazwą użytkownika nie zostało znalezione.",
+    "nip05NotFound": "Nie znaleziono konta Nostr z NIP- 05.",
+    "days": "dni",
+    "relaysNotFound": "Nie można znaleźć przekaźników DM [R].",
+    "noRelaysSet": "UWAGA: Nie ustawiłeś żadnych preferowanych przekaźników. Nie będziesz w stanie odbierać wiadomości ani widzieć wiadomości, które wysłałeś.",
+    "nostrSettingsLink": "Przejdź do ustawień Nostr, aby ustawić przekaźniki.",
+    "anonymous": "Anonimowy"
   }
 }

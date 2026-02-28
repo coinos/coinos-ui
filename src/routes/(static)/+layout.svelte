@@ -4,6 +4,7 @@
   import Footer from "$comp/Footer.svelte";
   import LandingHeader from "$comp/LandingHeader.svelte";
   import { theme as themeStore } from "$lib/store";
+  import { page } from "$app/stores";
 
   let { data, children } = $props();
   let user = $derived(data.user);
@@ -11,6 +12,8 @@
   $effect(() => {
     theme = $themeStore;
   });
+
+  let hideFooter = $derived($page.url.pathname.startsWith("/login") || $page.url.pathname.startsWith("/register"));
 </script>
 
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
@@ -19,4 +22,6 @@
 <main class="container flex px-4 md:px-40 mx-auto min-h-[600px]" data-theme={theme}>
   {@render children?.()}
 </main>
-<Footer />
+{#if !hideFooter}
+  <Footer />
+{/if}

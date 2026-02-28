@@ -8,14 +8,14 @@
     "team": {
       "header": "Das Team",
       "adam": {
-        "name": "Adam Soltys",
-        "position": "Chief Technical Officer",
-        "bio": "Adam ist ein Webentwickler und Bitcoin-Enthusiast, der davon überzeugt ist, dass hartes Geld der Schlüssel zur Steigerung des globalen Wohlstands ist. Er lebt mit seiner Frau Chelsea und seinen zwei Kindern in North Vancouver."
+        "name": "Adam",
+        "position": "Gründer",
+        "bio": "Baumeister von Coinos seit 2012. Leidenschaftlich darüber, Bitcoin für jeden zugänglich zu machen."
       },
       "cole": {
         "name": "Cole",
         "position": "Bitcoin Experte",
-        "bio": "Als zertifizierter Bitcoin-Experte ist Cole ein engagierter Mensch mit großer Leidenschaft für Freiheit. Er entdeckte Bitcoin im Jahr 2016 und beschäftigte sich eingehend damit. Jetzt möchte er das Lightning-Netzwerk so vielen Nutzern wie möglich näherbringen."
+        "bio": "Unterstützung von Händlern und Gemeinschaften, die seit 2015 Bitcoin verabschieden."
       }
     },
     "locations": {
@@ -23,6 +23,36 @@
       "description": "Hier finden Sie einige Unternehmen, welche bereits Zahlungen mit Bitcoin über Coinos akzeptieren. Wir hoffen, dass Ihr Unternehmen das nächste sein wird!",
       "viewMap": "Karte anzeigen"
     }
+  },
+  "mapAdd": {
+    "header": "Standort hinzufügen",
+    "description": "Coinos bezieht Händlerstandorte von OpenStreetMap. Um Ihr Unternehmen auf unserer Karte einzutragen, folgen Sie diesen Schritten:",
+    "step1": {
+      "header": "OpenStreetMap-Konto erstellen",
+      "before": "Gehen Sie zu",
+      "linkText": "openstreetmap.org",
+      "after": "und erstellen Sie ein kostenloses Konto, falls Sie noch keines haben."
+    },
+    "step2": {
+      "header": "Einen Punkt an Ihrer Adresse hinzufügen",
+      "before": "Navigieren Sie auf der Karte zu Ihrem Unternehmensstandort, klicken Sie auf",
+      "edit": "Bearbeiten",
+      "middle": "dann auf",
+      "point": "Punkt",
+      "after": "und platzieren Sie ihn an Ihrer Adresse."
+    },
+    "step3": {
+      "header": "Die erforderlichen Tags hinzufügen",
+      "description": "Fügen Sie im Tag-Editor des Punktes diese beiden Tags hinzu:"
+    },
+    "step4": {
+      "header": "Änderungen speichern",
+      "before": "Klicken Sie auf",
+      "save": "Speichern",
+      "after": "und Ihr Standort wird auf unserer Karte erscheinen, sobald OpenStreetMap die Aktualisierung verarbeitet hat."
+    },
+    "backToMap": "Zurück zur Karte",
+    "addLocation": "Standort hinzufügen"
   },
   "error": {
     "header": "Error",
@@ -38,23 +68,23 @@
     },
     "cost": {
       "question": "Was kostet das?",
-      "answer": "Zahlungen auf Ihr Konto zu erhalten ist kostenlos. Auszahlungen an externe Wallets verursachen eine geringe Gebühr, die je nach Netzwerkbedingungen variiert. Wir berechnen 0,1% für die Umwandlung zwischen Lightning und On-Chain Bitcoin. Das Senden zu anderen Coinos-Konten ist kostenlos."
+      "answer": "Das Senden und Empfangen zwischen Coinos-Nutzern ist kostenlos. Die Auszahlungen an externe Geldbörsen sind auf demselben Netzwerk kostenlos, sonst 0,4% für Bitcoin oder 0,1% für Lightning/Liquid."
     },
     "individuals": {
       "question": "Wer kann es nutzen?",
       "answer": "Jeder, überall auf der Welt. Coinos ist sowohl für Einzelpersonen als auch für Unternehmen geeignet."
     },
     "compatibility": {
-      "question": "Benötige ich ein spezielles Gerät oder eine spezielle Software?",
-      "answer": "Nein, Coinos ist eine Web-App, die überall funktioniert, wo es Internet gibt. Händler könnten es auf einem Tablet verwenden oder einen QR-Code anbieten, den Kunden mit ihrem Handy scannen können."
+      "question": "Brauche ich spezielle Hardware?",
+      "answer": "Kein Ã1⁄4ber nur ein Telefon, Tablet oder Computer mit einem Web-Browser. Erhalten Sie Zahlungsmeldungen in-app, per E-Mail oder Push-Benachrichtigung."
     },
     "safety": {
       "question": "Wann wird mein Guthaben beglichen?",
       "answer": "Lightning-Zahlungen werden sofort beglichen. Sie können Ihr Guthaben innerhalb von Sekunden auf eine andere Wallet übertragen. On-Chain Einzahlungen dauern im Durchschnitt 5-10 Minuten zur Bestätigung."
     },
     "pos": {
-      "question": "Kann Coinos mit meinem vorhandenen PoS integriert werden?",
-      "answer": "Wir empfehlen, Verkäufe in Ihrem vorhandenen PoS als Bartransaktionen einzugeben."
+      "question": "Kann es mit meinem Point-of-Sale-System funktionieren?",
+      "answer": "Wir integrieren direkt mit Square. Für andere Systeme können Sie Bitcoin-Verkäufe als Bargeld aufnehmen."
     },
     "accounting": {
       "question": "Was ist mit der Buchhaltung?",
@@ -66,7 +96,7 @@
     },
     "bitcoin": {
       "question": "Was kann ich mit Bitcoin machen?",
-      "answer": "Geben Sie es bei anderen Händlern aus oder decken Sie damit Ihre Ausgaben, indem Sie Ihr Personal, Ihre Lieferanten und Ihren Vermieter dazu bringen, es zu akzeptieren."
+      "answer": "Verbringen Sie es bei anderen Händlern, zahlen Personal oder Lieferanten, oder halten Sie es als Einsparungen."
     }
   },
   "footer": {
@@ -93,8 +123,8 @@
       "description": "Ganz gleich, wie Sie es normalerweise machen würden, allerdings mit Bitcoin."
     },
     "step3": {
-      "header": "3. Das war's!",
-      "description": "Bezahlen Sie mit Ihrem Bitcoin-Bestand bei anderen Händlern oder sparen Sie diese für schlechtere Zeiten - Sie allein haben die Wahl."
+      "header": "3. Ihr seid bereit!",
+      "description": "Senden und erhalten Bitcoin sofort keine Gebühren, kein Aufheben."
     }
   },
   "invoice": {
@@ -118,12 +148,12 @@
     "pitch3": "Wenn wir Ihr Interesse geweckt haben, würden wir uns freuen, von Ihnen zu hören. Schicken Sie uns gerne Ihren Lebenslauf an"
   },
   "landing": {
-    "header_before_icon": "Der",
-    "header_with_icon": "einfachste",
-    "header_after_icon": "Weg um Bitcoin in Ihrem Unternehmen zu akzeptieren.",
-    "subheader": "Erweitern Sie Ihren Kundenstamm und Ihren Umsatz, indem Sie Bitcoin mit einer einfach zu bedienenden Web-App akzeptieren. Keine Software oder Hardware ist dafür erforderlich.",
+    "header_before_icon": "Bitcoin hergestellt",
+    "header_with_icon": "leicht",
+    "header_after_icon": "",
+    "subheader": "Eine Portemonnaie und Zahlungsseite für Händler und alltägliche Nutzer",
     "info1": {
-      "title": "Sofortzahlungen über Lightning",
+      "title": "Sofortzahlungen",
       "description": "Unmittelbar nachdem die Zahlung von Ihrem Kunden abgeschlossen wurde, ist diese auch bei Ihnen ersichtlich. Sie müssen sich weder um Rücklastschriften kümmern, noch auf Banküberweisungen warten. Sekundenschnelle Abrechnung - und das Beste daran: Es fallen keine 3% Kreditkartenbearbeitungsgebühren an."
     },
     "info2": {
@@ -160,11 +190,16 @@
     "continue": "Weiter",
     "resetDesc": "Wir können einen Reset Link senden, wenn Sie Ihre E-Mail hinzugefügt und verifiziert haben",
     "nostr": "Einloggen mit Nostr",
-    "nostrConnect": "Nostr-Verbindung"
+    "nostrConnect": "Nostr-Verbindung",
+    "accountCreatedNeedsPasskey": "Konto erstellt! Du musst einen Passkey einrichten, um weiterzumachen.",
+    "setupPasskey": "Passkey einrichten",
+    "passkeyCreationFailed": "Passkey-Erstellung fehlgeschlagen. Bitte versuchen Sie es noch einmal.",
+    "enter2faCode": "Geben Sie 2FA-Code ein"
   },
   "nav": {
     "profile": "Profil",
     "startInSeconds": "Jetzt loslegen",
+    "enterApp": "App öffnen",
     "account": "Konto",
     "signIn": "Einloggen",
     "signOut": "Ausloggen",
@@ -177,10 +212,11 @@
     "funds": "Mittel",
     "map": "Karte",
     "merch": "Beute",
-    "dark": "Dunkel",
-    "light": "Licht",
+    "dark": "Dunkelmodus",
+    "light": "Hellmodus",
     "register": "Register",
-    "home": "Zum Anfang"
+    "home": "Zum Anfang",
+    "dm": "Nachrichten"
   },
   "newSiteHeader": "Kommen Sie zu unserer <a href=\"/launch\" class=\"underline underline-offset-4 text-black hover:opacity-80\">Eröffnungsfeier</a> in Vancouver am 26. Oktober! Auf der Suche nach der alten Coinos-Version? Besuchen Sie <a href=\"https://classic.coinos.io\" class=\"underline underline-offset-4 text-black hover:opacity-80\">classic.coinos.io</a>",
   "news": {
@@ -215,7 +251,8 @@
       "voucher": "Beleg",
       "checkout": "Kasse",
       "payNow": "Zahlen Sie jetzt",
-      "setup": "Selbstverwahrung einrichten"
+      "setup": "Selbstverwahrung einrichten",
+      "history": "Geschichte"
     },
     "receive": {
       "lessThan1BTCWarning": "Bitte geben Sie einen Betrag unter 1 Bitcoin ein.",
@@ -329,7 +366,17 @@
       "yourUsername": "Ihr Benutzername ist",
       "yourPassword": "und ihr passwort ist",
       "welcome": "Willkommen!",
-      "clickBelow": "Klicken Sie unten, um die Einrichtung Ihres Kontos abzuschließen"
+      "clickBelow": "Klicken Sie unten, um die Einrichtung Ihres Kontos abzuschließen",
+      "dontRemember": "Erinnere dich nicht",
+      "8hours": "8 stunden",
+      "1day": "1 tag",
+      "1week": "1 woche",
+      "1month": "1 monat",
+      "1year": "1 jahr",
+      "preferredDM": "Bevorzugte DM Verzögerungen",
+      "preferredDMDescription": "Direkte Nachrichten für Sie werden in diesen Relais veröffentlicht. Um DMs auf mehrere Relais zu bekommen, setzen Sie jede Relais-URL auf ihre eigene Linie.",
+      "noDMURLsWarning": "Sie haben keine gültigen Relais-URLs eingestellt. Sie können DMs nicht verwenden.",
+      "continueSettingUp": "Konto einrichten"
     },
     "support": {
       "header": "Support",
@@ -484,7 +531,8 @@
     "gift": "Alle Fonds einschenken",
     "giftLink": "Giftlink",
     "giftDesc1": "Wer den Link unten öffnet, erhält alle verfügbaren Mittel.",
-    "giftDesc2": "Wenn sie eingeloggt sind, gehen die Fonds auf ihr Konto, ansonsten wird ein neues Konto generiert."
+    "giftDesc2": "Wenn sie eingeloggt sind, gehen die Fonds auf ihr Konto, ansonsten wird ein neues Konto generiert.",
+    "failedToSend": "Versenden fehlgeschlagen"
   },
   "items": {
     "add": "Artikel hinzufügen",
@@ -514,6 +562,11 @@
     "importSeed": "Geben Sie eine vorhandene Seed-Phrase ein",
     "passwordWarning": "Wenn Sie dieses Passwort verlieren, können Sie weder Geld vom Konto abheben noch Ihre Seed-Phrase wiederherstellen. Wir können es nicht für Sie wiederherstellen.",
     "savings": "Ersparnisse",
+    "chooseAccountType": "Kontotyp wählen",
+    "bitcoinOnChain": "Bitcoin (On-chain)",
+    "bitcoinOnChainDesc": "Selbstverwaltetes Bitcoin-Wallet, gesichert durch eine 12-Wörter-Seed-Phrase",
+    "arkOffChain": "Ark (Off-chain)",
+    "arkOffChainDesc": "Experimentelles Layer-2-Wallet mit niedrigen Gebühren und schneller Abwicklung",
     "password": "Passwort",
     "confirmPassword": "Passwort bestätigen",
     "finish": "Beenden",
@@ -550,8 +603,41 @@
     "copyNwc": "NWC kopieren",
     "ark": "Ark",
     "bitcoin": "Bitcoin",
-    "custodial": "Custodial",
-    "submit": "Submit"
+    "custodial": "Verwahrt",
+    "spending": "Ausgaben",
+    "vault": "Tresor",
+    "pending": "ausstehend",
+    "importing": "Importieren...",
+    "viewMnemonic": "Seed-Phrase anzeigen",
+    "hideMnemonic": "Seed-Phrase verbergen",
+    "deleteConfirm": "Sind Sie sicher, dass Sie dieses Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "submit": "Absenden",
+    "accountTitle": "{{type}}-Konto",
+    "updateCurrency": "Auch Standardwährung auf {{currency}} aktualisieren",
+    "changeSeedPhrase": "Setzwort ändern",
+    "invalidSeedPhrase": "Ungültiger Samensatz",
+    "importFailed": "Import fehlgeschlagen",
+    "invalidPassword": "Ungültiges Passwort",
+    "invalidPasswordTryAgain": "Ungültiges Passwort, versuchen Sie es erneut",
+    "passwordRequired": "Passwort erforderlich",
+    "failedToDecryptSeed": "Same konnte nicht entschlüsselt werden",
+    "passkeyNoPrf": "Passkey unterstützt PRF nicht",
+    "passkeyUnlockFailed": "Passkey-Entsperrung fehlgeschlagen",
+    "pleaseBackupFirst": "Bitte sichern Sie zuerst Ihren Schlüssel",
+    "createSavingsAccount": "Sparkonto erstellen",
+    "createWallet": "Wallet erstellen",
+    "unlockWithPasskey": "Mit Passkey entsperren",
+    "unlockWithNostr": "Entsperren mit Nostr",
+    "arkDerivedFromPasskey": "Deine Arche Brieftasche wird von deinem Passkey-geschützten Meistersamen abgeleitet.",
+    "arkUnlockWithPasskey": "Ihre Arche Brieftasche wird von Ihrem Stammstamm abgeleitet. Entsperren Sie mit Ihrem Passkey weiter.",
+    "arkEnterPassword": "Ihre Arche Brieftasche wird von Ihrem Stammstamm abgeleitet. Geben Sie Ihr Portemonnaie-Passwort ein, um fortzufahren.",
+    "arkSecuredByKey": "Ihre Ark Brieftasche ist durch einen privaten Schlüssel gesichert. Bitte kopieren Sie es irgendwo sicher.",
+    "setPasswordToEncrypt": "Setzen Sie ein Passwort, um Ihren Schlüssel zu verschlüsseln. Du brauchst dieses Passwort, um Geld zu schicken.",
+    "backedItUp": "Ich habe es unterstützt",
+    "revealBackupKey": "Sicherungsschlüssel öffnen",
+    "type": "Typ",
+    "accountType": "Kontotyp"
   },
   "notes": {
     "contents": "Inhalt",
@@ -565,5 +651,51 @@
     "withdrawAccess": "Zugriff aufheben",
     "username": "Benutzername",
     "returnToFund": "Zurück zum Fonds"
+  },
+  "dm": {
+    "chatHeader": "Chats",
+    "newChatHeader": "Neues Chat",
+    "header": "Nachrichten",
+    "searchPrompt": "benutzername, nip-05 oder pubkey",
+    "findByUsername": "Nach Benutzernamen suchen",
+    "findByNIP05": "Suche nach NIP-05",
+    "findByPubkey": "Suche nach Pubkey",
+    "noChats": "Du hast noch keine Unterhaltung.",
+    "selectChat": "Wählen Sie einen Chat aus der Liste nach links.",
+    "recipientMsg": "Sie senden nostr-Nachrichten an [R].",
+    "sendMessage": "Nachricht senden",
+    "mute": "Stumm",
+    "unmute": "Unberührt",
+    "expiry": "Ablauf der Nachricht aktivieren",
+    "cantSendExpiring": "Keiner von [R]s DM-Relais-Support-Nachrichten läuft aus. Du kannst ihnen keine vollständigen Nachrichten senden.",
+    "fadedWarning": "Um Metadatenlecks zu vermeiden, verfallen Nachrichten zu einer zufälligen Zeit bis zu 2 Tage nach der Angabe; jede Nachricht hat eine eigene zufällige Ablaufzeit. Nachrichten, die verblasst erscheinen, sind nahe am Ablauf; in der Nähe Nachrichten können fehlen.",
+    "usernameNotFound": "Ein Konto mit diesem Benutzernamen wurde nicht gefunden.",
+    "nip05NotFound": "Ein Nostr-Konto mit diesem NIP-05 wurde nicht gefunden.",
+    "days": "tage",
+    "relaysNotFound": "Die DM Relais von [R] konnten nicht gefunden werden.",
+    "noRelaysSet": "WARNUNG: Sie haben keine bevorzugten Relais eingestellt. Sie können keine Nachrichten empfangen oder die von Ihnen gesendeten Nachrichten sehen.",
+    "nostrSettingsLink": "Gehen Sie zu Ihren Nostr Einstellungen, um Ihre Relais einzustellen.",
+    "anonymous": "Anonym"
+  },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "ru": "Русский",
+    "pt": "Português",
+    "zh": "中文",
+    "fa": "فارسی ",
+    "el": "Ελληνικά",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "bn": "বাংলা",
+    "tr": "Türkçe",
+    "ko": "한국어",
+    "it": "Italiano",
+    "nl": "Nederlands",
+    "th": "ไทย",
+    "pl": "Polski"
   }
 }
