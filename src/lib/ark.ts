@@ -70,7 +70,6 @@ export const subscribeToAsp = (onEvent: () => void) => {
     es.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        console.log("[ark] SSE event:", data);
         if (data.event?.newVtxos?.length > 0 || data.event?.spentVtxos?.length > 0) {
           onEvent();
         }
@@ -85,7 +84,6 @@ export const subscribeToAsp = (onEvent: () => void) => {
       // will detect CLOSED state and fully re-subscribe.
     };
 
-    console.log("[ark] SSE subscribed", subId);
   };
 
   connect().catch((e) => {
@@ -136,13 +134,11 @@ const _syncTransactions = async (aid: string) => {
   if (!wallet) return;
 
   const walletAddr = await wallet.getAddress();
-  console.log("arkSync: wallet address", walletAddr);
 
   const transactions: any[] = [];
 
   const history = await wallet.getTransactionHistory();
   const historyTxids = new Set<string>();
-  console.log("arkSync: history", history.length, history);
 
   for (const tx of history) {
     if (tx.key.arkTxid) historyTxids.add(tx.key.arkTxid);
@@ -158,7 +154,6 @@ const _syncTransactions = async (aid: string) => {
 
   // Include preconfirmed VTXOs not yet in transaction history
   const vtxos = await wallet.getVtxos({ spendableOnly: false });
-  console.log("arkSync: vtxos", vtxos.length, vtxos);
   for (const v of vtxos) {
     if (v.virtualStatus?.state !== "preconfirmed") continue;
     const id = v.arkTxId || v.txid;
@@ -229,7 +224,6 @@ export const sendArk = async (address: string, amount: number) => {
     // Refresh expired VTXOs before attempting to send
     const balance = await wallet.getBalance();
     if (balance.available < amount && balance.recoverable > 0) {
-      console.log("ark send: refreshing expired VTXOs before send");
       await refresh();
     }
 
@@ -248,7 +242,6 @@ export const sendArk = async (address: string, amount: number) => {
         e?.message?.includes("VTXO_ALREADY_REGISTERED") ||
         e?.message?.includes("VTXO_ALREADY_SPENT")
       ) {
-        console.log("ark send: stale VTXOs, recreating wallet and retrying");
         walletInstance = undefined;
         walletKey = undefined;
         sendWallet = await getWallet();
@@ -324,20 +317,17 @@ export const refresh = async () => {
 
   const { VtxoManager } = await loadArkSdk();
   const balance = await wallet.getBalance();
-  console.log("ark refresh: balance", balance);
   const manager = new VtxoManager(wallet);
 
   let acted = false;
 
   if (balance.recoverable > 0) {
-    console.log("ark refresh: recovering", balance.recoverable, "swept sats");
     await manager.recoverVtxos();
     acted = true;
   }
 
   const expiring = await manager.getExpiringVtxos();
   if (expiring.length > 0) {
-    console.log("ark refresh: renewing", expiring.length, "expiring vtxos");
     await manager.renewVtxos();
     acted = true;
   }

@@ -58,17 +58,13 @@
 
   let arkSync = async (source = "unknown") => {
     if (arkSyncing || arkSending) {
-      console.log(`[arkSync] SKIPPED (source: ${source}, syncing: ${arkSyncing}, sending: ${arkSending})`);
       return;
     }
-    console.log(`[arkSync] START (source: ${source})`);
     arkSyncing = true;
 
     try {
       const aid = $arkaid || getCookie("aid") || user.id;
       const result = await syncTransactions(aid);
-      console.log(`[arkSync] DONE (source: ${source}, received: ${result?.received || 0})`);
-
       if (result?.forward && !arkForwarding) {
         arkForwarding = true;
         try {
@@ -121,7 +117,6 @@
           await new Promise((r) => setTimeout(r, delay));
           const aid = $arkaid || getCookie("aid") || user.id;
           const result = await syncTransactions(aid);
-          console.log(`[arkSync] SSE retry (delay: ${delay}ms, received: ${result?.received || 0})`);
           if (result?.received > 0) {
             const paidPayment = result.payments?.find((p: any) => p.iid && p.amount > 0);
             if (paidPayment) {
