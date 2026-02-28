@@ -132,7 +132,7 @@
   let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs, forward } =
     $derived(data);
 
-  let feeRate: any = $state(data.feeRate);
+  let feeRate: any = $state((() => data.feeRate)());
 
   $effect(() => {
     if (fees) {

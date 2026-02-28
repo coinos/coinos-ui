@@ -9,13 +9,13 @@
 
   let { data }: any = $props();
 
-  let messages: any = $state(data.messages);
-  let notes: any = $state(data.notes);
-  let invoices: any = $state(data.invoices);
-  let sent: any = $state(data.sent);
-  let received: any = $state(data.received);
-  let subject: any = $state(data.subject);
-  let user: any = $state(data.user);
+  let messages: any = $state((() => data.messages)());
+  let notes: any = $state((() => data.notes)());
+  let invoices: any = $state((() => data.invoices)());
+  let sent: any = $state((() => data.sent)());
+  let received: any = $state((() => data.received)());
+  let subject: any = $state((() => data.subject)());
+  let user: any = $state((() => data.user)());
   let refresh = (d: any) => ({ messages, notes, invoices, sent, received, subject, user } = d);
 
   let keys = new Set();

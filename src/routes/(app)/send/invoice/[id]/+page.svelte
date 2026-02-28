@@ -25,7 +25,7 @@
   let tip = $derived(data.invoice.tip);
   let currency = $derived(user.currency);
   let locale = $derived(loc(user));
-  let amount = $state(form?.amount ?? data.invoice.amount);
+  let amount = $state((() => form?.amount ?? data.invoice.amount)());
 
   let rate = $derived(invoice.rate * (data.rate / data.invoiceRate));
 
@@ -40,7 +40,7 @@
     amountFiat = af;
     if (trusted) {
       await tick();
-      formEl?.querySelector('button[type="submit"]')?.click();
+      (formEl?.querySelector('button[type="submit"]') as HTMLElement)?.click();
     }
   };
 

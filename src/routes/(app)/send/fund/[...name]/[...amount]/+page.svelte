@@ -11,7 +11,7 @@
   import { invalidateAll } from "$app/navigation";
 
   let { data, form } = $props();
-  let amount = $state(data.amount);
+  let amount = $state((() => data.amount)());
   let user = $derived(data.user);
   let balance = $derived(user.balance);
   let currency = $derived(user.currency);

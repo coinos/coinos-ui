@@ -18,7 +18,7 @@
   let metadata = $derived(data.metadata);
   let rate = $derived(data.rate);
 
-  let amount = $state(Math.round(minSendable / 1000)),
+  let amount = $state((() => Math.round(data.minSendable / 1000))()),
     loading = $state();
   let submit = () => (loading = true);
 </script>

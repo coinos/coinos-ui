@@ -17,9 +17,11 @@
   let { data } = $props();
   const user = $derived(data.user);
 
-  if (!user) {
-    window.location.replace("/login");
-  }
+  (() => {
+    if (!data.user) {
+      window.location.replace("/login");
+    }
+  })();
 
   /// chat selection
   const usernameFromPubkey = async (pubkey: string): Promise<string | null> => {
@@ -121,7 +123,7 @@
   let messageSenders: any[] = $state([]);
   let messageRecipients: any[] = $state([]);
   let chats: any[] = $state([]);
-  getMessageRumours(user).then(updateSendersRecipients);
+  (() => getMessageRumours(data.user).then(updateSendersRecipients))();
 
   let selectedChat: any = $state(null);
   let creatingNewChat = $state(false);
@@ -288,16 +290,16 @@
     updateEvents();
   };
 
-  libnip17.getPreferredRelays(user.pubkey).then((relays) => {
+  (() => libnip17.getPreferredRelays(data.user.pubkey).then((relays) => {
     if (!relays || relays.length == 0) {
       relayWarningShown = true;
       return;
     }
     relayWarningShown = false;
-  });
+  }))();
 
   let muted = $state(new Set<string>());
-  mutedAccounts(user).then((m) => (muted = m));
+  (() => mutedAccounts(data.user).then((m) => (muted = m)))();
 
   const toggleMute = async (pubkey: string) => {
     if (muted && muted.has(pubkey)) {

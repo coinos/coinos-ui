@@ -91,7 +91,7 @@
   </div>
 {/snippet}
 
-{#snippet copyable(label, value, href)}
+{#snippet copyable(label, value, href = "")}
   {@const toggle = () => { if (expanded.has(label)) expanded.delete(label); else expanded.add(label); expanded = new Set(expanded); }}
   <div
     class="py-4 border-b border-base-300 min-h-20 cursor-pointer"

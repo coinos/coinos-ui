@@ -70,12 +70,12 @@
   let received = $derived(invoice.received);
   let prompt = $derived(invoice.prompt);
   let text = $derived(invoice.text);
-  let tip = $state(data.invoice.tip);
+  let tip = $state((() => data.invoice.tip)());
   let username = $derived(invoice.user?.username);
   let locale = $derived(loc(user));
 
   let qr;
-  let tipPercent = $state(data.invoice.amount > 0 && data.invoice.tip > 0 ? (data.invoice.tip / data.invoice.amount) * 100 : 0);
+  let tipPercent = $state((() => data.invoice.amount > 0 && data.invoice.tip > 0 ? (data.invoice.tip / data.invoice.amount) * 100 : 0)());
 
   let fullscreen;
 

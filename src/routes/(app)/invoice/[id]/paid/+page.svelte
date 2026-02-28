@@ -31,6 +31,7 @@
   {/if}
 </div>
 
+<!-- svelte-ignore a11y_autofocus -->
 <a bind:this={link} href={`/${user.username}`} aria-label="Continue" autofocus>
   <div class="opacity-0 w-screen h-screen fixed top-24 left-0 z-50"></div>
 </a>

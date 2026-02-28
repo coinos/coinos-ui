@@ -68,7 +68,7 @@
 
   let { account, amount, address, message } = $derived(data as any);
 
-  let feeRate = $state((data as any).feeRate);
+  let feeRate = $state((() => (data as any).feeRate)());
 
   $effect(() => {
     if (!$rate) $rate = data.rate;

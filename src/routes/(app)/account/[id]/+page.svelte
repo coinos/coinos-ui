@@ -29,8 +29,8 @@
         ? $t("accounts.bitcoin")
         : $t("accounts.custodial"),
   );
-  let name = $state(data.account.name || displayType);
-  let currency = $state(data.account.currency || data.user.currency);
+  let name = $state((() => data.account.name || displayType)());
+  let currency = $state((() => data.account.currency || data.user.currency)());
   let userCurrency = $derived(data.user.currency);
   let locale = $derived(loc(data.user));
   let currencyChanged = $derived(currency !== userCurrency);
@@ -40,10 +40,10 @@
     updateUserCurrency = currencyChanged;
   });
 
-  let autowithdraw = $state(data.account.autowithdraw || false);
-  let threshold = $state(data.account.threshold || data.user.threshold || 1000000);
-  let reserve = $state(data.account.reserve ?? 0);
-  let destination = $state(data.account.destination || data.user.destination || "");
+  let autowithdraw = $state((() => data.account.autowithdraw || false)());
+  let threshold = $state((() => data.account.threshold || data.user.threshold || 1000000)());
+  let reserve = $state((() => data.account.reserve ?? 0)());
+  let destination = $state((() => data.account.destination || data.user.destination || "")());
 
   let rate = $derived(rates[currency]);
   let fiats = $derived(Object.keys(rates).sort((a, b) => a.localeCompare(b)));
@@ -296,8 +296,14 @@
 {/if}
 
 {#if showDeleteConfirm}
-  <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onclick={() => (showDeleteConfirm = false)}>
-    <div class="bg-base-100 rounded-2xl p-6 max-w-sm w-full space-y-4 text-center" onclick={(e) => e.stopPropagation()}>
+  <div
+    class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+    role="button"
+    tabindex="0"
+    onclick={() => (showDeleteConfirm = false)}
+    onkeydown={(e) => e.key === "Escape" && (showDeleteConfirm = false)}
+  >
+    <div class="bg-base-100 rounded-2xl p-6 max-w-sm w-full space-y-4 text-center" role="none" onclick={(e) => e.stopPropagation()}>
       <iconify-icon noobserver icon="ph:warning-bold" width="48" class="text-error"></iconify-icon>
       <h2 class="text-xl font-semibold">{$t("accounts.deleteAccount")}</h2>
       <p class="text-secondary">{$t("accounts.deleteConfirm")}</p>

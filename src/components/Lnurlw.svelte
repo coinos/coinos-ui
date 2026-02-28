@@ -20,7 +20,7 @@
   let callback = $derived(data.callback);
   let rate = $derived(data.rate);
 
-  let amount = $state(Math.round(minWithdrawable / 1000));
+  let amount = $state((() => Math.round(data.minWithdrawable / 1000))());
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
 
   let submit: HTMLButtonElement | undefined = $state();

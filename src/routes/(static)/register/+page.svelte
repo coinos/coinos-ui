@@ -10,7 +10,7 @@
   let { data }: any = $props();
 
   let username: string | undefined = $state();
-  let index = $state(data.index);
+  let index = $state((() => data.index)());
 
   let cleared: boolean;
   let clear = () => {

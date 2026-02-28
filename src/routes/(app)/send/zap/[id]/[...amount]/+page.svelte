@@ -15,7 +15,7 @@
   let { data, form }: any = $props();
 
   let { id, request, user } = $derived({ ...data, ...form });
-  let a = $state(data.amount);
+  let a = $state((() => data.amount)());
   let { currency } = $derived(user);
   let locale = $derived(loc(user));
   let event = $state();

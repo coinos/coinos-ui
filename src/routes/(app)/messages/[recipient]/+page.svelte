@@ -33,9 +33,9 @@
     };
   }
 
-  let messages: any = $state(data.messages);
-  let recipient: any = $state(data.recipient);
-  let user: any = $state(data.user);
+  let messages: any = $state((() => data.messages)());
+  let recipient: any = $state((() => data.recipient)());
+  let user: any = $state((() => data.user)());
   let input: any,
     pane: any = $state();
 

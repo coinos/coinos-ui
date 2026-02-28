@@ -41,8 +41,8 @@
     if (!browser) return;
 
     // Pick up install prompt captured early in app.html
-    if (window.__installPrompt) {
-      $installPrompt = window.__installPrompt;
+    if ((window as any).__installPrompt) {
+      $installPrompt = (window as any).__installPrompt;
     }
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
