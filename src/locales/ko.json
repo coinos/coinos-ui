@@ -250,7 +250,7 @@
   "login": {
     "forgot": "비밀번호를 잊으셨나요?",
     "resetSent": "비밀번호 재설정 링크가 이메일로 전송됩니다.",
-    "continue": "계속하기",
+    "continue": "계속",
     "reset": "비밀번호 재설정",
     "resetDesc": "우리는 당신이 추가하고 확인하면 재설정 링크를 보낼 수 있습니다",
     "optional": "옵션 정보",
@@ -274,7 +274,10 @@
     "accountCreatedNeedsPasskey": "계정 생성! 패스키를 계속 설정해야 합니다.",
     "setupPasskey": "Passkey 설정",
     "passkeyCreationFailed": "Passkey 생성 실패. 다시 시도하십시오.",
-    "enter2faCode": "2FA 코드 입력"
+    "enter2faCode": "2FA 코드 입력",
+    "usernamePlaceholder": "사용자 이름",
+    "registerPasskey": "패스키로 등록",
+    "registerNostr": "Nostr로 등록"
   },
   "nav": {
     "dark": "다크 모드",

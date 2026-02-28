@@ -244,7 +244,10 @@
     "accountCreatedNeedsPasskey": "Konto utworzone! Musisz ustawić klucz, żeby kontynuować.",
     "setupPasskey": "Ustaw hasło",
     "passkeyCreationFailed": "Tworzenie hasła nie powiodło się. Proszę spróbować jeszcze raz.",
-    "enter2faCode": "Wprowadź kod 2FA"
+    "enter2faCode": "Wprowadź kod 2FA",
+    "usernamePlaceholder": "Twoja nazwa użytkownika",
+    "registerPasskey": "Zarejestruj się z Passkey",
+    "registerNostr": "Zarejestruj się z Nostr"
   },
   "mapAdd": {
     "header": "Dodaj swoją lokalizację",

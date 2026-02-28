@@ -146,7 +146,7 @@
 
 {#if connect !== "connected"}
   <a href={connect} class="btn flex">
-    <img src="/images/square.svg" class="w-12" alt="Square" />
+    <img src="/images/square.svg" class="w-12" class:invert={$theme === "dark"} alt="Square" />
     <div>{$t("user.settings.connectSquare")}</div>
   </a>
 {:else}

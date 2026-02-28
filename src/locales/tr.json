@@ -220,7 +220,7 @@
   "login": {
     "forgot": "Şifreyi mi unuttunuz?",
     "resetSent": "Bir parola sıfırlama linki, dosya üzerinde varsa e-postanıza gönderilir.",
-    "continue": "Devam etmeye devam et",
+    "continue": "Devam et",
     "reset": "Şifre sıfırlama",
     "resetDesc": "E-postanızı ekledikten ve doğrulayan bir sıfırlama linkini gönderebiliriz, aksi takdirde lütfen e-postanızı onaylayın",
     "optional": "Seçmeli",
@@ -244,7 +244,10 @@
     "accountCreatedNeedsPasskey": "Hesap oluşturuldu! Devam etmek için bir passkey kurmak zorundasınız.",
     "setupPasskey": "Set up Passkey",
     "passkeyCreationFailed": "Paskey yaratımı başarısız oldu. Lütfen tekrar deneyin.",
-    "enter2faCode": "2FA Code"
+    "enter2faCode": "2FA Code",
+    "usernamePlaceholder": "Kullanıcı adınız",
+    "registerPasskey": "Passkey ile kayıt ol",
+    "registerNostr": "Nostr ile kayıt ol"
   },
   "mapAdd": {
     "header": "Konumunuzu ekleyin",

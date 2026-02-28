@@ -115,14 +115,14 @@
         bind:value={username}
         onfocus={clear}
         autocapitalize="none"
-        placeholder="Your username"
+        placeholder={$t("login.usernamePlaceholder")}
         onkeydown={(e: KeyboardEvent) => e.key === "Enter" && continueToAuth()}
       />
       <span class="at-suffix font-bold whitespace-nowrap select-none self-stretch flex items-center px-3">@coinos.io</span>
     </label>
 
     <button class="btn btn-accent" onclick={continueToAuth}>
-      Continue
+      {$t("login.continue")}
     </button>
 
     <p class="text-secondary text-center font-medium">

@@ -170,14 +170,17 @@
     "createAccount": "アカウントを作成する",
     "signUp": "サインアップ",
     "resetSent": "パスワードリセットリンクは、ファイルにインストールしている場合は、メールに送信されます.",
-    "continue": "お問い合わせ",
+    "continue": "続ける",
     "resetDesc": "追加して確認したメールが届かない場合は、リセットリンクを送信できます",
     "nostr": "Nostrでサインイン",
     "nostrConnect": "ノスト接続",
     "accountCreatedNeedsPasskey": "アカウント作成 続けてパスキーを設定する必要があります.",
     "setupPasskey": "パスキーの設定",
     "passkeyCreationFailed": "パッキー作成が失敗しました。 お問い合わせ.",
-    "enter2faCode": "2FAコードを入力してください"
+    "enter2faCode": "2FAコードを入力してください",
+    "usernamePlaceholder": "ユーザー名",
+    "registerPasskey": "パスキーで登録",
+    "registerNostr": "Nostrで登録"
   },
   "nav": {
     "about": "About",

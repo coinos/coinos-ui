@@ -177,7 +177,10 @@
     "accountCreatedNeedsPasskey": "¡Cuenta creada! Necesitas establecer un passkey para continuar.",
     "setupPasskey": "Configuración de Passkey",
     "passkeyCreationFailed": "La creación de Passkey falló. Por favor, inténtalo de nuevo.",
-    "enter2faCode": "Código 2FA"
+    "enter2faCode": "Código 2FA",
+    "usernamePlaceholder": "Tu nombre de usuario",
+    "registerPasskey": "Registrarse con Passkey",
+    "registerNostr": "Registrarse con Nostr"
   },
   "nav": {
     "about": "Acerca de",

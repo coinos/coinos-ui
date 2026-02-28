@@ -177,7 +177,10 @@
     "accountCreatedNeedsPasskey": "账户创建! 你需要设置一个密码继续.",
     "setupPasskey": "设置密码",
     "passkeyCreationFailed": "Passkey 创建失败 。 请再试一次.",
-    "enter2faCode": "输入 2FA 代码"
+    "enter2faCode": "输入 2FA 代码",
+    "usernamePlaceholder": "您的用户名",
+    "registerPasskey": "使用 Passkey 注册",
+    "registerNostr": "使用 Nostr 注册"
   },
   "nav": {
     "about": "关于",

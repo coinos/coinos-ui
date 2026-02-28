@@ -274,7 +274,10 @@
     "accountCreatedNeedsPasskey": "Account aangemaakt! Je moet een wachtwoord instellen om door te gaan.",
     "setupPasskey": "Wachtwoord instellen",
     "passkeyCreationFailed": "Aanmaken van wachtwoord is mislukt. Probeer het nog eens.",
-    "enter2faCode": "Code 2FA"
+    "enter2faCode": "Code 2FA",
+    "usernamePlaceholder": "Je gebruikersnaam",
+    "registerPasskey": "Registreren met Passkey",
+    "registerNostr": "Registreren met Nostr"
   },
   "nav": {
     "dark": "Donkere modus",

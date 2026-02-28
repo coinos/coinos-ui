@@ -363,7 +363,7 @@
       {:else}
         <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
       {/if}
-      <div class="my-auto">Register with Passkey</div>
+      <div class="my-auto">{$t("login.registerPasskey")}</div>
     </button>
 
     <button type="button" class="btn" onclick={nostrLogin}>
@@ -374,7 +374,7 @@
       {:else}
         <img src="/images/nostr.png" class="w-8" alt="Nostr" />
       {/if}
-      <div class="my-auto">Register with Nostr</div>
+      <div class="my-auto">{$t("login.registerNostr")}</div>
     </button>
 
     <p class="text-secondary text-center font-medium">

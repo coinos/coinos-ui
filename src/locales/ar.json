@@ -250,7 +250,7 @@
   "login": {
     "forgot": "نسيت كلمة السر؟?",
     "resetSent": "وصلة إعادة صياغة كلمة السر سوف ترسل إلى بريدك الإلكتروني إذا كان لدينا على ملف.",
-    "continue": "استمر",
+    "continue": "متابعة",
     "reset": "إعادة صياغة كلمة السر",
     "resetDesc": "يمكننا إرسال وصلة إعادة إذا أضفت وتحققت من بريدك الإليكتروني",
     "optional": "الاختياري",
@@ -274,7 +274,10 @@
     "accountCreatedNeedsPasskey": "! يجب أن تجهزي مفتاح المرور لتكمليه.",
     "setupPasskey": "جهزوا جواز السفر",
     "passkeyCreationFailed": "فشل صنع (باسكي) أرجوك حاول مرة أخرى.",
-    "enter2faCode": "Enter 2FA Code"
+    "enter2faCode": "Enter 2FA Code",
+    "usernamePlaceholder": "اسم المستخدم الخاص بك",
+    "registerPasskey": "التسجيل باستخدام مفتاح المرور",
+    "registerNostr": "التسجيل باستخدام Nostr"
   },
   "nav": {
     "dark": "الوضع الداكن",

@@ -182,7 +182,10 @@
     "accountCreatedNeedsPasskey": "Compte créé ! Vous devez installer une clé de passe pour continuer.",
     "setupPasskey": "Configurer Passkey",
     "passkeyCreationFailed": "La création de Passkey a échoué. Veuillez réessayer.",
-    "enter2faCode": "Entrez le code 2FA"
+    "enter2faCode": "Entrez le code 2FA",
+    "usernamePlaceholder": "Votre nom d'utilisateur",
+    "registerPasskey": "S'inscrire avec Passkey",
+    "registerNostr": "S'inscrire avec Nostr"
   },
   "nav": {
     "startInSeconds": "Commencer en quelques secondes",

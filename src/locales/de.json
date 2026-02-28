@@ -194,7 +194,10 @@
     "accountCreatedNeedsPasskey": "Konto erstellt! Du musst einen Passkey einrichten, um weiterzumachen.",
     "setupPasskey": "Passkey einrichten",
     "passkeyCreationFailed": "Passkey-Erstellung fehlgeschlagen. Bitte versuchen Sie es noch einmal.",
-    "enter2faCode": "Geben Sie 2FA-Code ein"
+    "enter2faCode": "Geben Sie 2FA-Code ein",
+    "usernamePlaceholder": "Dein Benutzername",
+    "registerPasskey": "Mit Passkey registrieren",
+    "registerNostr": "Mit Nostr registrieren"
   },
   "nav": {
     "profile": "Profil",

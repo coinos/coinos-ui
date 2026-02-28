@@ -8,7 +8,7 @@
   let showMenu = $state(false);
 
   let menuButtons = [
-    { key: "nav.settings", icon: "ph:gear-bold", href: `/settings` },
+    { key: "nav.settings", icon: "ph:faders-bold", href: `/settings` },
     { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
     { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
     // {

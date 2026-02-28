@@ -1,6 +1,7 @@
 <script>
   import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
+  import { t } from "$lib/translations";
   import { bech32 } from "@scure/base";
   import { page } from "$app/stores";
   import { PUBLIC_DOMAIN } from "$env/static/public";
@@ -21,7 +22,7 @@
 </script>
 
 <div class="px-2">
-  <div class="border-8 border-black p-8 max-w-[580px] mx-auto mt-20 space-y-2 rounded-3xl relative">
+  <div class="border-8 border-black bg-white text-black p-8 max-w-[580px] mx-auto mt-20 space-y-2 rounded-3xl relative">
     <div class="flex gap-2 mx-auto justify-center">
       <!-- <img src="/images/bitcoin.png" class="w-16 h-16 my-auto" /> -->
       <img src="/images/bitcoin-logo.png" class="my-auto w-[400px]" alt="Bitcoin" />
@@ -43,6 +44,6 @@
 
   <button onclick={() => copy(lnurl)} class="flex gap-1 m-auto my-8">
     <iconify-icon icon="ph:copy-bold" width={32}></iconify-icon>
-    LNURL
+    {$t("user.copyLnurl")}
   </button>
 </div>

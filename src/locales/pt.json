@@ -186,14 +186,17 @@
     "createAccount": "Criar uma conta",
     "signUp": "Inscrever-se",
     "resetSent": "Um link de redefinição de senha será enviado para o seu e-mail se o tivermos no arquivo.",
-    "continue": "Continue",
+    "continue": "Continuar",
     "resetDesc": "Podemos enviar um link de reset se você adicionou e verificou seu e-mail caso contrário, por favor, acesse para",
     "nostr": "Entrar com Nostr",
     "nostrConnect": "Nostr conectar",
     "accountCreatedNeedsPasskey": "Conta criada! Tens de configurar uma chave de acesso para continuar.",
     "setupPasskey": "Configurar senha",
     "passkeyCreationFailed": "A criação da chave de passagem falhou. Por favor, tente novamente.",
-    "enter2faCode": "Digite o código 2FA"
+    "enter2faCode": "Digite o código 2FA",
+    "usernamePlaceholder": "Seu nome de usuário",
+    "registerPasskey": "Registrar com Passkey",
+    "registerNostr": "Registrar com Nostr"
   },
   "nav": {
     "about": "Sobre",

@@ -1,28 +1,18 @@
 <script lang="ts">
-  import { copy, f, loc, post, s, sats, success, fail } from "$lib/utils";
-  import { fiat } from "$lib/store";
-  import { t } from "$lib/translations";
-  import { bech32 } from "@scure/base";
-  import { page } from "$app/stores";
-  import { PUBLIC_DOMAIN } from "$env/static/public";
+  import { f, loc, post, s, sats, success, fail } from "$lib/utils";
 
   let { data, children } = $props();
-
-  let { encode, toWords } = bech32;
 
   let { rates, user, subject } = $derived(data);
   let rate = $derived(rates[subject.currency]);
   let { events, src, text } = $derived(data as any);
   let satsPerCurrency = $derived((1 * sats) / rate);
 
-  let { currency, npub, username: n, display } = $derived(subject);
+  let { currency, username: n, display } = $derived(subject);
   let locale = $derived(loc(user));
 
   let showBio = $state();
   let toggleBio = () => (showBio = !showBio);
-
-  let showDetails = $state();
-  let toggleDetails = () => (showDetails = !showDetails);
 
   let password = $state();
 
@@ -38,33 +28,19 @@
 
   let stripped = $derived(n.replace(/\s/g, ""));
   let username = $derived(n.length > 60 ? n.substr(0, 6) : display || stripped);
-  let lnaddr = $derived(subject?.anon ? subject.lud16 || undefined : `${stripped}@${$page.url.host}`);
-  let profile = $derived(`${$page.url.host}/${subject.anon ? npub : stripped}`);
-  let lnurl = $derived(
-    encode(
-      "lnurl",
-      toWords(
-        new TextEncoder().encode(`https://${PUBLIC_DOMAIN}/p/${subject.anon ? npub : stripped}`),
-      ),
-      20000,
-    ),
-  );
 </script>
 
 <div class="container mx-auto w-full px-4 flex flex-wrap lg:flex-nowrap">
   <div class="hidden lg:block lg:w-[280px] xl:w-[360px]"></div>
   <div class="w-full lg:w-[280px] xl:w-[360px] lg:absolute space-y-2 left-20 mx-auto">
-    <div class="flex text-3xl font-bold text-center mx-auto justify-center gap-1 items-center">
-      <button class="flex gap-1 items-center" onclick={toggleDetails}>
-        <div class="break-words">{display || username}</div>
-        <iconify-icon noobserver icon="ph:list-bold" width="32"></iconify-icon>
-      </button>
+    <div class="flex text-3xl font-bold text-center mx-auto justify-center gap-3 items-center">
+      <div class="break-words">{display || username}</div>
       {#if subject.id === user?.id}
-        <a href="/settings/profile" class="btn contents" aria-label="Edit profile">
-          <iconify-icon noobserver icon="ph:pencil-bold" width="32"></iconify-icon>
+        <a href="/settings/profile" class="flex items-center" aria-label="Profile settings">
+          <iconify-icon noobserver icon="ph:faders-bold" width="32"></iconify-icon>
         </a>
       {:else}
-        <a href="/dm?username={subject.username}" class="btn contents" aria-label="Direct Message">
+        <a href="/dm?username={subject.username}" aria-label="Direct Message">
           <iconify-icon noobserver icon="ph:chat-bold" width="32"></iconify-icon>
         </a>
       {/if}
@@ -89,100 +65,6 @@
             <a href={subject.website} class="underline">{subject.website}</a>
           </div>
         {/if}
-      </div>
-    {/if}
-
-    {#if showDetails}
-      <div class="space-y-5">
-        {#if lnaddr}
-          <div>
-            <div class="text-secondary">{$t("user.lightningAddress")}</div>
-            <div class="flex gap-4">
-              <div class="break-all grow text-xl">{lnaddr}</div>
-              <div class="flex mb-auto gap-1">
-                <button
-                  type="button"
-                  class="my-auto"
-                  aria-label="Copy lightning address"
-                  onclick={() => copy(lnaddr)}
-                >
-                    <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-                </button>
-                <a
-                  href={`/qr/${encodeURIComponent(lnaddr)}`}
-                  class="my-auto"
-                  aria-label="Show lightning address QR"
-                >
-                  <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
-                </a>
-              </div>
-            </div>
-          </div>
-        {/if}
-        <div>
-          <div class="text-secondary">{$t("user.url")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-xl">{profile}</div>
-            <div class="flex mb-auto gap-1">
-              <button
-                type="button"
-                class="my-auto"
-                aria-label="Copy profile URL"
-                onclick={() => copy(profile)}
-              >
-                <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-              </button>
-              <a
-                href={`/qr/${encodeURIComponent(`${$page.url.protocol}//${profile}`)}`}
-                class="my-auto"
-                aria-label="Show profile URL QR"
-              >
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="text-secondary">{$t("user.lnurl")}</div>
-          <div class="flex gap-4">
-            <div class="break-all grow text-xl">{lnurl}</div>
-            <div class="flex mb-auto gap-1">
-              <button
-                type="button"
-                class="my-auto"
-                aria-label="Copy LNURL"
-                onclick={() => copy(`lightning:${lnurl}`)}
-              >
-                <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
-              </button>
-              <a
-                href={`/${n}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
-                class="my-auto"
-                aria-label="Show LNURL QR"
-              >
-                <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- <div> -->
-        <!--   <div class="text-secondary">{$t("user.nostrPubkey")}</div> -->
-        <!--   <div class="flex gap-4"> -->
-        <!--     <div class="break-all grow text-xl"> -->
-        <!--       {npub} -->
-        <!--     </div> -->
-        <!--     <div class="flex my-auto gap-1"> -->
-        <!--       <button class="my-auto" onclick={() => copy(npub)} -->
-        <!--         ><iconify-icon noobserver icon="ph:copy-bold" width="32" -->
-        <!--         ></iconify-icon></button -->
-        <!--       > -->
-        <!--       <a href={`/qr/${encodeURIComponent(npub)}`} class="my-auto"> -->
-        <!--         <iconify-icon noobserver icon="ph:qr-code-bold" width="32" -->
-        <!--         ></iconify-icon> -->
-        <!--       </a> -->
-        <!--     </div> -->
-        <!--   </div> -->
-        <!-- </div> -->
       </div>
     {/if}
 

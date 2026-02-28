@@ -3,6 +3,9 @@
   import { avatar, banner as bannerStore } from "$lib/store";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
+  import { copy } from "$lib/utils";
+  import { bech32 } from "@scure/base";
+  import { PUBLIC_DOMAIN } from "$env/static/public";
   import PasswordInput from "$comp/PasswordInput.svelte";
 
   let { data } = $props();
@@ -59,6 +62,20 @@
   let url = $derived(`${$page.url.host}/${username}`);
   let full = $derived(`${$page.url.protocol}//${url}`);
   let addr = $derived(`${username}@${$page.url.host}`);
+
+  let { encode, toWords } = bech32;
+  let stripped = $derived((username as string)?.replace(/\s/g, ""));
+  let lnurl = $derived(
+    stripped
+      ? encode(
+          "lnurl",
+          toWords(
+            new TextEncoder().encode(`https://${PUBLIC_DOMAIN}/p/${user?.anon ? user.npub : stripped}`),
+          ),
+          20000,
+        )
+      : "",
+  );
 
   $effect(() => {
     if (!user) return;
@@ -179,3 +196,29 @@
   <textarea name="about" bind:value={about} placeholder={$t("user.settings.aboutPlaceholder")}
   ></textarea>
 </div>
+
+{#if lnurl}
+  <div>
+    <span class="font-bold">{$t("user.paymentCode")}</span>
+    <div class="flex gap-4">
+      <div class="break-all grow text-xl">{lnurl}</div>
+      <div class="flex mb-auto gap-1">
+        <button
+          type="button"
+          class="my-auto"
+          aria-label="Copy payment code"
+          onclick={() => copy(`lightning:${lnurl}`)}
+        >
+          <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        </button>
+        <a
+          href={`/${username}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
+          class="my-auto"
+          aria-label="Show payment code QR"
+        >
+          <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+{/if}

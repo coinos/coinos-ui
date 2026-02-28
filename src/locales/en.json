@@ -309,7 +309,10 @@
     "accountCreatedNeedsPasskey": "Account created! You need to set up a passkey to continue.",
     "setupPasskey": "Set up Passkey",
     "passkeyCreationFailed": "Passkey creation failed. Please try again.",
-    "enter2faCode": "Enter 2FA Code"
+    "enter2faCode": "Enter 2FA Code",
+    "usernamePlaceholder": "Your username",
+    "registerPasskey": "Register with Passkey",
+    "registerNostr": "Register with Nostr"
   },
   "nav": {
     "home": "Home",
@@ -341,6 +344,7 @@
     "loadMore": "Load more",
     "url": "Public URL",
     "lnurl": "Payment code",
+    "copyLnurl": "Copy LNURL",
     "install": "Add to homescreen",
     "moreDetails": "Profile details",
     "noMessages": "You have not sent or received any messages",
@@ -365,6 +369,7 @@
     "pay": "Pay",
     "scanToPayBTC": "Scan to pay with bitcoin",
     "this": "This",
+    "paymentCode": "Payment code",
     "lightningAddress": "Lightning address",
     "dashboard": {
       "setup": "Setup self-custody",

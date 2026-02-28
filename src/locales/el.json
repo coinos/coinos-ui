@@ -163,7 +163,10 @@
     "accountCreatedNeedsPasskey": "Ο λογαριασμός δημιουργήθηκε! Πρέπει να στήσεις ένα κλειδί για να συνεχίσεις.",
     "setupPasskey": "Set κλειδιού πρόσβασης",
     "passkeyCreationFailed": "Η δημιουργία passkey απέτυχε. Παρακαλώ προσπαθήστε ξανά.",
-    "enter2faCode": "Εισάγετε τον κωδικό 2FA"
+    "enter2faCode": "Εισάγετε τον κωδικό 2FA",
+    "usernamePlaceholder": "Το όνομα χρήστη σου",
+    "registerPasskey": "Εγγραφή με Passkey",
+    "registerNostr": "Εγγραφή με Nostr"
   },
   "nav": {
     "profile": "Προφίλ",

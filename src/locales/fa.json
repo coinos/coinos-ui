@@ -177,7 +177,10 @@
     "accountCreatedNeedsPasskey": "حساب ایجاد شده! شما باید یک کلید برای ادامه دادن تنظیم کنید.",
     "setupPasskey": "راه اندازی Passkey",
     "passkeyCreationFailed": "آفرینش کلید شکست خورد. لطفا دوباره امتحان کنید.",
-    "enter2faCode": "کد 2FA"
+    "enter2faCode": "کد 2FA",
+    "usernamePlaceholder": "نام کاربری شما",
+    "registerPasskey": "ثبت‌نام با کلید عبور",
+    "registerNostr": "ثبت‌نام با Nostr"
   },
   "nav": {
     "about": "در باره",
