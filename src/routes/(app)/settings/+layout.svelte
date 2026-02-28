@@ -265,7 +265,7 @@
   });
 </script>
 
-{#if user?.haspin && $pin?.length !== 6}
+{#if user?.haspin && !$pin}
   <Pin />
 {/if}
 

@@ -5,7 +5,7 @@
   import Pin from "$comp/Pin.svelte";
   import Qr from "$comp/Qr.svelte";
   import Spinner from "$comp/Spinner.svelte";
-  import { copy, post, success, fail } from "$lib/utils";
+  import { copy, post, success, fail, hashPin } from "$lib/utils";
   import { save, pin as current } from "$lib/store";
   import { getNsec } from "$lib/nostr";
   import { registerPasskey } from "$lib/passkey";
@@ -63,7 +63,7 @@
   let checkPin = async (_?: any) => {
     try {
       if (pin && pin.length > 5 && pin === verify) {
-        $current = pin;
+        $current = hashPin(pin);
         pin = "";
         verify = "";
         ($save as any).click();
@@ -192,7 +192,7 @@
   });
 </script>
 
-<input type="hidden" name="newpin" value={disablingPin ? "delete" : pin} />
+<input type="hidden" name="newpin" value={disablingPin ? "delete" : pin ? hashPin(pin) : ""} />
 
 <div>
   <span class="font-bold mb-1">

@@ -2,7 +2,8 @@ import { browser } from "$app/environment";
 import { goto } from "$app/navigation";
 import { page } from "$app/stores";
 import { PUBLIC_COINOS_NETWORK, PUBLIC_COINOS_URL } from "$env/static/public";
-import { bytesToHex } from "@noble/hashes/utils.js";
+import { sha256 } from "@noble/hashes/sha2.js";
+import { bytesToHex, utf8ToBytes } from "@noble/hashes/utils.js";
 import { fail as svelteFail, redirect } from "@sveltejs/kit";
 import { toast } from "@zerodevx/svelte-toast";
 import {
@@ -30,6 +31,8 @@ const ipHeaders = (): Record<string, string> => {
   const ip = getIp?.();
   return ip ? { "cf-connecting-ip": ip } : {};
 };
+
+export const hashPin = (pin: string) => bytesToHex(sha256(utf8ToBytes(pin)));
 
 export const punk = (k: string) => `${Math.floor((parseInt(k.slice(-2), 16) / 256) * 64) + 1}.webp`;
 

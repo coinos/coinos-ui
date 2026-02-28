@@ -1,6 +1,6 @@
 <script lang="ts">
   import { t } from "$lib/translations";
-  import { post, success, fail, focus, setCookie } from "$lib/utils";
+  import { post, success, fail, focus, setCookie, hashPin } from "$lib/utils";
   import Pinpad from "$comp/Pinpad.svelte";
   import { pin } from "$lib/store";
   import { onMount } from "svelte";
@@ -27,18 +27,19 @@
     if (p?.length !== 6) return;
     let result;
     try {
-      result = await post("/pin", { pin: p });
+      result = await post("/pin", { pin: hashPin(p) });
     } catch (e) {
       console.log("Pin check failed", e);
     }
 
     if (result) {
       if (notify) success("Pin confirmed");
+      const hashed = hashPin(p);
       if (locktime) {
-        setCookie("pin", p, locktime);
+        setCookie("pin", hashed, locktime);
         setTimeout(() => ($pin = undefined), locktime * 1000);
       }
-      $pin = p;
+      $pin = hashed;
     } else {
       fail("Invalid pin");
       value = "";
