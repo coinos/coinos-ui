@@ -156,7 +156,7 @@
     <a href={`/${p.with.username}`} class="flex items-center gap-3 py-3 border-b border-base-300">
       <span class="text-secondary">{direction}</span>
       <div class="flex items-center gap-2 ml-auto">
-        <Avatar user={p.with} size={20} disabled={true} />
+        <Avatar user={p.with} size={12} disabled={true} />
         <span>{p.with.username}</span>
       </div>
     </a>

@@ -161,7 +161,7 @@
     >
       <button class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto">
         <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
-        <div>{$t("user.pay")}{subject.username}</div>
+        <div>{$t("user.pay")} {subject.username}</div>
       </button>
     </a>
   {/if}
