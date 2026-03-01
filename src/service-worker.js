@@ -1,6 +1,19 @@
-self.addEventListener("install", () => {});
-self.addEventListener("activate", () => {});
+import { Worker } from "@arkade-os/sdk";
+
+const worker = new Worker();
+// Only add message listener - we handle install/activate ourselves
+worker.start(false).catch(console.error);
+
+self.addEventListener("install", () => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
 self.addEventListener("fetch", () => {});
+
 self.addEventListener("push", (event) => {
   const { title, body, url } = event.data.json();
   const icon = "/images/icon.png";

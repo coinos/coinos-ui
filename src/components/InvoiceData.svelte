@@ -29,9 +29,7 @@
     <a href={link}>
       <img
         src={`/qr/${encodeURIComponent(invoice.text)}/raw`}
-        class="z-10 border-4 border-white opacity-0 transition-opacity duration-300"
-        class:opacity-100={loaded}
-        onload={load}
+        class="z-10 border-4 border-white"
         alt={txt}
       />
     </a>

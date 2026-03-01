@@ -1,6 +1,6 @@
 import { PUBLIC_COINOS_NETWORK } from "$env/static/public";
 import { persistLocal } from "$lib/store";
-import { post } from "$lib/utils";
+import { post, versions } from "$lib/utils";
 import { get } from "svelte/store";
 
 export const arkServerUrl = {
@@ -63,6 +63,31 @@ export const getWallet = async () => {
   walletKey = key;
   return walletInstance;
 };
+
+export const autoUnlockArk = async () => {
+  if (get(arkkey)) return;
+  const { getWalletEntropy } = await import("$lib/walletEntropy");
+  const entropy = await getWalletEntropy();
+  if (!entropy) return;
+  try {
+    const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+      import("@scure/bip32"),
+      import("@scure/bip39"),
+      import("@scure/bip39/wordlists/english.js"),
+    ]);
+    const { bytesToHex } = await import("@noble/hashes/utils.js");
+    const ent = new Uint8Array(entropy).slice(0, 16);
+    const mnemonic = entropyToMnemonic(ent, wordlist);
+    const seed = await mnemonicToSeed(mnemonic);
+    const master = HDKey.fromMasterSeed(seed, versions);
+    const child = master.derive("m/86'/0'/0'/0/0");
+    const key = bytesToHex(child.privateKey!);
+    arkkey.set(key);
+  } catch (e) {
+    console.error("Ark auto-unlock failed:", e);
+  }
+};
+
 
 const toHex = (bytes: Uint8Array) =>
   Array.from(bytes)
@@ -339,7 +364,7 @@ export const sendArk = async (address: string, amount: number) => {
     const freshBalance = await wallet.getBalance();
     const preSendTotal = (freshBalance.available || 0) + (freshBalance.preconfirmed || 0);
     if (freshBalance.available < amount) {
-      throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}`);
+      throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}\nLocked balance: ${freshBalance.boarding || 0} boarding, ${freshBalance.preconfirmed || 0} preconfirmed, ${freshBalance.recoverable || 0} recoverable`);
     }
 
     let txid;
@@ -462,4 +487,39 @@ export const settle = async () => {
   // ignores renewed VTXOs (they get new txids after an Ark round)
   const vtxos = await wallet.getVtxos({ spendableOnly: false });
   if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+};
+
+// Service Worker wallet for background fund notifications
+let swWallet: any;
+let swWalletKey: string | undefined;
+
+export const getServiceWorkerWallet = async () => {
+  const key = get(arkkey);
+  if (!key) {
+    await cleanupServiceWorkerWallet();
+    return;
+  }
+  if (swWallet && swWalletKey === key) return swWallet;
+  if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
+
+  try {
+    const { ServiceWorkerWallet, SingleKey } = await loadArkSdk();
+    swWallet = await ServiceWorkerWallet.setup({
+      serviceWorkerPath: "/service-worker.js",
+      arkServerUrl: arkServerUrl!,
+      identity: SingleKey.fromHex(key),
+    });
+    swWalletKey = key;
+    return swWallet;
+  } catch (e) {
+    console.error("[ark] Service worker wallet init failed:", e);
+  }
+};
+
+export const cleanupServiceWorkerWallet = async () => {
+  if (swWallet) {
+    try { await swWallet.clear(); } catch {}
+  }
+  swWallet = undefined;
+  swWalletKey = undefined;
 };

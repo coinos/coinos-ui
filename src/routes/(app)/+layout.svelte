@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending } from "$lib/ark";
+  import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending, autoUnlockArk, getServiceWorkerWallet, cleanupServiceWorkerWallet } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -137,6 +137,18 @@
       refresh().catch((e) => console.error("Ark refresh failed:", e));
       settle().catch((e) => console.error("Ark settle failed:", e));
 
+      // Init service worker wallet for background fund notifications
+      getServiceWorkerWallet().catch((e) => console.error("SW wallet init:", e));
+
+      // Listen for VTXO/UTXO updates from the service worker
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.addEventListener("message", (event) => {
+          if (event.data?.type === "VTXO_UPDATE" || event.data?.type === "UTXO_UPDATE") {
+            arkSync("serviceWorker");
+          }
+        });
+      }
+
       // Periodically recover expired VTXOs
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
       arkRefreshTimer = setInterval(() => {
@@ -167,6 +179,8 @@
           localStorage.removeItem("arkkey:uid");
         }
 
+        // Auto-unlock ark wallet if silent entropy is available
+        if (!$arkkey) autoUnlockArk();
       }
 
       // if (window.NDEFReader) {
@@ -222,6 +236,7 @@
       clearTimeout(checkTimer);
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
       aspStopFunc?.();
+      cleanupServiceWorkerWallet();
     }
   });
 </script>
