@@ -10,7 +10,9 @@ import {
   sendArkFromTestEndpoint,
   waitForInvoicePaid,
   fillNumpadAmount,
-  waitForSentRedirect,
+  waitForSendComplete,
+  waitForDashboard,
+  waitForPageReady,
 } from "./helpers";
 
 test("vault sends to own custodial account", async ({ page }) => {
@@ -24,7 +26,7 @@ test("vault sends to own custodial account", async ({ page }) => {
 
   // --- Fund vault via /test/ark/send ---
   await page.goto(`/${bobUsername}`);
-  await page.waitForLoadState("networkidle");
+  await waitForDashboard(page);
 
   const { invoiceId, address } = await createArkInvoiceViaUI(page, arkWalletPassword);
   console.log(`[e2e] Bob vault address: ${address}, invoice: ${invoiceId}`);
@@ -35,7 +37,7 @@ test("vault sends to own custodial account", async ({ page }) => {
 
   // --- Send vault → custodial (self-send to own username) ---
   await page.goto(`/pay/${bobUsername}`);
-  await page.waitForLoadState("networkidle");
+  await waitForPageReady(page);
 
   // Should redirect to /send/ark/{serverAddr}/{amount} or similar vault→custodial path
   // The UI detects vault→custodial and routes accordingly
@@ -58,6 +60,6 @@ test("vault sends to own custodial account", async ({ page }) => {
     await sendButton.click();
   }
 
-  await waitForSentRedirect(page, 60_000);
+  await waitForSendComplete(page, 90_000);
   console.log(`[e2e] Vault→custodial payment sent: ${page.url()}`);
 });

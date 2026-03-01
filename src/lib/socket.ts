@@ -1,6 +1,7 @@
 import { goto, invalidate } from "$app/navigation";
 import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
+import { vaultForwarding } from "$lib/ark";
 import { event, importing, invoice, last, lastPayment, paymentSignal, request } from "$lib/store";
 import { s, sleep, success, wait } from "$lib/utils";
 import cookies from "js-cookie";
@@ -62,7 +63,7 @@ export const messages = (data) => ({
 
     const username = cookies.get("username");
 
-    if (amount > 0) {
+    if (amount > 0 && !vaultForwarding) {
       if (
         pathname.includes(`/${username}`) ||
         pathname.includes("/receive") ||

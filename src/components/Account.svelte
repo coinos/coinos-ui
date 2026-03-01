@@ -129,14 +129,14 @@
       {/if}
     </div>
     <div class="flex items-center gap-1 shrink-0 text-base-content">
-      <a
-        href="/payments"
-        class="hover:text-gray-800 w-10 h-10 flex items-center justify-center"
-        aria-label="Payment history"
-        onclick={(e) => setAccount(e, "/payments")}
-      >
-        <iconify-icon noobserver icon="ph:clock-counter-clockwise-bold" width="38"></iconify-icon>
-      </a>
+      <!-- <a -->
+      <!--   href="/payments" -->
+      <!--   class="hover:text-gray-800 w-10 h-10 flex items-center justify-center" -->
+      <!--   aria-label="Payment history" -->
+      <!--   onclick={(e) => setAccount(e, "/payments")} -->
+      <!-- > -->
+      <!--   <iconify-icon noobserver icon="ph:clock-counter-clockwise-bold" width="38"></iconify-icon> -->
+      <!-- </a> -->
       <a
         href={`/account/${id}`}
         class="hover:opacity-80 relative w-10 h-10 flex items-center justify-center"
@@ -152,12 +152,12 @@
         {:else}
           <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
         {/if}
-        <iconify-icon
-          noobserver
-          icon="ph:gear-bold"
-          width="20"
-          class="absolute -bottom-1 -right-1 text-base-content bg-base-100 rounded-full"
-        ></iconify-icon>
+        <!-- <iconify-icon -->
+        <!--   noobserver -->
+        <!--   icon="ph:faders-bold" -->
+        <!--   width="20" -->
+        <!--   class="absolute -bottom-1 -right-1 text-base-content bg-base-100 rounded-full" -->
+        <!-- ></iconify-icon> -->
       </a>
     </div>
   </div>
@@ -172,7 +172,7 @@
     </a>
 
     <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
-      <button type="button" class="btn btn-accent !w-auto flex-1">
+      <button type="button" class="btn !w-auto flex-1">
         <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
         <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>

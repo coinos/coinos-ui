@@ -120,7 +120,7 @@
       {#each accounts as account}
         <Account {user} {rates} {account} />
       {/each}
-      <button class="btn btn-accent w-full" onclick={addAccount}>
+      <button class="btn w-full" onclick={addAccount}>
         {#if adding}
           <Spinner />
         {:else}

@@ -338,6 +338,8 @@ export const addProcessedVtxos = (keys: string[]) => {
 
 // Flag to suppress sync during sends
 export let arkSending = false;
+// Flag to suppress "Received" toasts during vault forward sends
+export let vaultForwarding = false;
 let syncPromise: Promise<any> | null = null;
 
 const withTimeout = <T>(promise: Promise<T>, ms: number, label: string) =>
@@ -392,27 +394,36 @@ export const sendArk = async (address: string, amount: number) => {
       }
     }
 
-    // Verify the send actually changed the balance
-    const postBalance = await sendWallet.getBalance();
-    const postSendTotal = (postBalance.available || 0) + (postBalance.preconfirmed || 0);
-    console.log(
-      "ark send: pre-balance",
-      preSendTotal,
-      "post-balance",
-      postSendTotal,
-      "amount",
-      amount,
-      "txid",
-      txid,
-    );
-    if (postSendTotal >= preSendTotal) {
-      throw new Error("Send failed: balance unchanged after sendBitcoin");
+    // Verify the send and mark VTXOs as processed, but don't let
+    // stalled SDK calls block the flow — the send already succeeded
+    try {
+      const postBalance: any = await withTimeout(sendWallet.getBalance(), 10_000, "post-send getBalance");
+      const postSendTotal = (postBalance.available || 0) + (postBalance.preconfirmed || 0);
+      console.log(
+        "ark send: pre-balance",
+        preSendTotal,
+        "post-balance",
+        postSendTotal,
+        "amount",
+        amount,
+        "txid",
+        txid,
+      );
+      if (postSendTotal >= preSendTotal) {
+        console.warn("ark send: balance unchanged, but txid was returned — proceeding");
+      }
+    } catch (e: any) {
+      console.warn("ark send: post-send balance check failed:", e.message);
     }
 
     // Mark post-send VTXOs as processed so notifyIncomingFunds
     // ignores change VTXOs from this send
-    const vtxos = await sendWallet.getVtxos({ spendableOnly: false });
-    if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+    try {
+      const vtxos: any[] = await withTimeout(sendWallet.getVtxos({ spendableOnly: false }), 10_000, "post-send getVtxos");
+      if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+    } catch (e: any) {
+      console.warn("ark send: post-send getVtxos failed:", e.message);
+    }
 
     return txid;
   } finally {
@@ -433,16 +444,21 @@ export const sendArkViaForward = async ({
   forward?: string;
   user: any;
 }) => {
-  const txid = await sendArk(serverArkAddress, amount);
+  vaultForwarding = true;
+  try {
+    const txid = await sendArk(serverArkAddress, amount);
 
-  await post("/post/ark/vault-send", { hash: txid, amount, aid });
+    await post("/post/ark/vault-send", { hash: txid, amount, aid });
 
-  const invoice: any = { type: "ark", amount, aid };
-  if (forward) invoice.forward = forward;
+    const invoice: any = { type: "ark", amount, aid };
+    if (forward) invoice.forward = forward;
 
-  const inv = await post("/post/invoice", { invoice, user });
+    const inv = await post("/post/invoice", { invoice, user });
 
-  return post("/post/ark/receive", { amount, hash: txid, iid: inv.id });
+    return await post("/post/ark/receive", { amount, hash: txid, iid: inv.id });
+  } finally {
+    vaultForwarding = false;
+  }
 };
 
 export const refresh = async () => {

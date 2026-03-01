@@ -161,7 +161,31 @@
           await invalidateAll();
           goto(result.data?.redirectUrl || `/${uname}`);
         } else {
-          applyAction(result);
+          // Challenge-response failed — fall back to password-based login
+          console.log("Auth key login failed, falling back to password login");
+          formData.set("authPubkey", pubkey);
+          const fallbackRes = await fetch("/login?/login", {
+            method: "POST",
+            body: formData,
+          });
+          const fallbackResult: any = deserialize(await fallbackRes.text());
+          if (fallbackResult.type === "success") {
+            try {
+              const oldPrfKey = await deriveWalletEntropy(sk);
+              await resolveCanonicalKey(
+                passwordMethodId(),
+                sk.buffer as ArrayBuffer,
+                fallbackResult.data?.encryptedKeys,
+                oldPrfKey,
+              );
+            } catch (e) {
+              console.log("Canonical key resolution failed", e);
+            }
+            await invalidateAll();
+            goto(fallbackResult.data?.redirectUrl || `/${uname}`);
+          } else {
+            applyAction(fallbackResult);
+          }
         }
         return;
       }

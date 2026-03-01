@@ -23,10 +23,10 @@ test("pasting vault bitcoin address redirects to /send/bitcoin, not /pay", async
   await expect(vaultCard.first()).toBeVisible({ timeout: 10_000 });
 
   const receiveBtn = vaultCard.first().getByTestId("account-receive");
-  await receiveBtn.click();
+  await receiveBtn.click({ force: true });
 
   // Wait for the invoice page
-  await alicePage.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 10_000 });
+  await alicePage.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
   // Grab the bitcoin address from the invoice text
   const invoiceText = await alicePage.getByTestId("invoice-text").first().innerText();

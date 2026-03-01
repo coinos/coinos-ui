@@ -9,6 +9,7 @@ import {
   createArkInvoiceViaUI,
   sendArkFromTestEndpoint,
   waitForInvoicePaid,
+  waitForDashboard,
 } from "./helpers";
 
 test("bob receives 100 sats in ark vault after server wallet send", async ({ page }) => {
@@ -20,7 +21,7 @@ test("bob receives 100 sats in ark vault after server wallet send", async ({ pag
 
   // Navigate back to dashboard after account setup
   await page.goto(`/${bobUsername}`);
-  await page.waitForLoadState("networkidle");
+  await waitForDashboard(page);
 
   const { invoiceId, address } = await createArkInvoiceViaUI(page, arkWalletPassword);
   console.log(`[e2e] Bob ark address: ${address}, invoice: ${invoiceId}`);

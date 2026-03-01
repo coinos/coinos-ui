@@ -66,7 +66,7 @@ export const actions = {
 
     if (res.status === 401) {
       if (text.startsWith("2fa")) throw new Error("2fa");
-      throw new Error(text);
+      return fail(400, { error: "Login failed" });
     }
 
     if (!res.ok) {

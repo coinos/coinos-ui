@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending, autoUnlockArk, getServiceWorkerWallet, cleanupServiceWorkerWallet } from "$lib/ark";
+  import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending, vaultForwarding, autoUnlockArk, getServiceWorkerWallet, cleanupServiceWorkerWallet } from "$lib/ark";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -77,7 +77,7 @@
         } finally {
           arkForwarding = false;
         }
-      } else if (result?.received > 0) {
+      } else if (result?.received > 0 && !vaultForwarding) {
         const paidPayment = result.payments?.find((p: any) => p.iid && p.amount > 0);
         if (paidPayment) {
           goto(`/invoice/${paidPayment.iid}`);
@@ -117,7 +117,7 @@
           await new Promise((r) => setTimeout(r, delay));
           const aid = $arkaid || getCookie("aid") || user.id;
           const result = await syncTransactions(aid);
-          if (result?.received > 0) {
+          if (result?.received > 0 && !vaultForwarding) {
             const paidPayment = result.payments?.find((p: any) => p.iid && p.amount > 0);
             if (paidPayment) {
               goto(`/invoice/${paidPayment.iid}`);

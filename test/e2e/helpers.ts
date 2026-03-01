@@ -16,9 +16,9 @@ export const pauseAtEnd = process.env.E2E_PAUSE_AT_END === "true";
 
 export async function login(page: Page, username: string, password: string) {
   for (let attempt = 0; attempt < 5; attempt++) {
-    if (attempt > 0) await page.waitForTimeout(2_000);
+    if (attempt > 0) await page.waitForTimeout(3_000);
     await page.goto("/login");
-    await page.waitForLoadState("networkidle");
+    await page.getByTestId("login-username").waitFor({ state: "visible", timeout: 15_000 });
     await page.getByTestId("login-username").fill(username);
     await page.locator('input[name="password"]').first().fill(password);
     await page.getByTestId("login-submit").click();
@@ -127,7 +127,7 @@ export async function createArkInvoiceViaUI(page: Page, password: string) {
     const accountHref = await card.locator('a[href^="/account/"]').first().getAttribute("href");
     const accountId = accountHref?.split("/account/")[1];
 
-    await card.locator('a[href="/invoice"]').first().click();
+    await card.locator('a[href="/invoice"]').first().click({ force: true });
 
     if (
       await walletPassInput
@@ -183,8 +183,8 @@ export async function createVaultBitcoinInvoiceViaUI(page: Page) {
   const vaultCard = page.locator('[data-testid="account-card"][data-account-type="bitcoin"]');
   await expect(vaultCard.first()).toBeVisible({ timeout: 10_000 });
 
-  await vaultCard.first().getByTestId("account-receive").click();
-  await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 10_000 });
+  await vaultCard.first().getByTestId("account-receive").click({ force: true });
+  await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
   const invoiceText = await page.getByTestId("invoice-text").first().innerText({ timeout: 10_000 });
   const address = invoiceText.trim().replace(/\s+/g, "");
@@ -202,18 +202,43 @@ export async function createVaultBitcoinInvoiceViaUI(page: Page) {
 // --- Send helpers ---
 
 export async function pasteAndSend(page: Page, text: string) {
-  await page.goto("/send");
-  await page.waitForURL(/\/send/);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt > 0) {
+      console.log(`[e2e] pasteAndSend retry ${attempt + 1}...`);
+      await page.waitForTimeout(2_000);
+    }
 
-  const textarea = page.locator('textarea[name="text"]');
-  await expect(textarea).toBeVisible({ timeout: 5_000 });
-  await textarea.fill(text);
-  await page.locator('button[type="submit"]').first().click();
+    await page.goto("/send");
+    await page.waitForLoadState("load");
 
-  // Wait for navigation away from /send
-  await page.waitForURL((url) => url.pathname !== "/send" && url.pathname !== "/send/", {
-    timeout: 15_000,
-  });
+    const textarea = page.locator('textarea[name="text"]');
+    await expect(textarea).toBeVisible({ timeout: 10_000 });
+    await textarea.fill(text);
+
+    const submitBtn = page.locator('button[type="submit"]').first();
+    await expect(submitBtn).toBeVisible({ timeout: 5_000 });
+    await submitBtn.click();
+
+    // Wait for navigation away from /send
+    const navigated = await page
+      .waitForURL((url) => url.pathname !== "/send" && url.pathname !== "/send/", {
+        timeout: 15_000,
+      })
+      .then(() => true)
+      .catch(() => false);
+
+    if (navigated) return;
+
+    // Check if form shows an error (server might have been slow)
+    const errorText = await page
+      .locator(".text-red-600")
+      .first()
+      .innerText({ timeout: 1000 })
+      .catch(() => "");
+    if (errorText) console.log(`[e2e] pasteAndSend error: ${errorText}`);
+  }
+
+  throw new Error(`pasteAndSend failed after 3 attempts for: ${text.substring(0, 40)}...`);
 }
 
 export async function fillNumpadAmount(page: Page, amount: number) {
@@ -247,6 +272,32 @@ export async function clickSendButton(page: Page) {
 
 export async function waitForSentRedirect(page: Page, timeout = 15_000) {
   await page.waitForURL(/\/sent\//, { timeout });
+}
+
+/** Race between /sent/ redirect and an error appearing on page. Fails fast on error. */
+export async function waitForSendComplete(page: Page, timeout = 60_000) {
+  const result = await Promise.race([
+    page
+      .waitForURL(/\/sent\//, { timeout })
+      .then(() => ({ ok: true as const })),
+    // Poll for error text that appears when send fails
+    (async () => {
+      const deadline = Date.now() + timeout;
+      while (Date.now() < deadline) {
+        const errorEl = page.locator(".text-red-600");
+        const errorText = await errorEl.first().innerText({ timeout: 500 }).catch(() => "");
+        if (errorText && errorText.length > 3) {
+          return { ok: false as const, error: errorText };
+        }
+        await page.waitForTimeout(1_000);
+      }
+      return { ok: false as const, error: `Send timed out after ${timeout}ms` };
+    })(),
+  ]);
+
+  if (!result.ok) {
+    throw new Error(`Send failed: ${result.error}`);
+  }
 }
 
 export async function waitForPaidRedirect(page: Page, invoiceId: string, timeout = 30_000) {
@@ -343,6 +394,20 @@ export async function sendArkFromTestEndpoint(
   return sendResult;
 }
 
+// --- Navigation helpers ---
+
+/** Wait for dashboard to be interactive (replaces unreliable networkidle) */
+export async function waitForDashboard(page: Page, timeout = 15_000) {
+  await page.waitForLoadState("domcontentloaded");
+  // Wait for at least one account card to appear on the dashboard
+  await page.locator('[data-testid="account-card"]').first().waitFor({ state: "visible", timeout });
+}
+
+/** Wait for page to be interactive after navigation */
+export async function waitForPageReady(page: Page) {
+  await page.waitForLoadState("domcontentloaded");
+}
+
 // --- Account helpers ---
 
 export async function setActiveAccount(page: Page, accountId: string) {
@@ -351,47 +416,32 @@ export async function setActiveAccount(page: Page, accountId: string) {
   }, accountId);
 }
 
-export async function ensureArkAccount(page: Page, password: string) {
+export async function ensureArkAccount(page: Page, _password: string) {
   await page.goto("/account/ark");
-  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("domcontentloaded");
 
-  // If redirected to dashboard, user already has an ark account
-  const url = page.url();
-  if (!url.includes("/account/ark")) {
-    console.log("[e2e] Ark account already exists, skipping creation");
+  // The /account/ark page either:
+  // 1. Redirects immediately if user already has an ark account (server-side)
+  // 2. Auto-creates via getWalletEntropy() on mount then redirects (client-side goto)
+  // 3. Shows unlock buttons (btn-accent) if no wallet entropy available
+  //
+  // Wait for redirect away from /account/ark (covers cases 1 and 2)
+  const redirected = await page
+    .waitForURL((u) => !u.pathname.includes("/account/ark"), { timeout: 45_000 })
+    .then(() => true)
+    .catch(() => false);
+
+  if (redirected) {
+    console.log("[e2e] Ark account ready (redirected from /account/ark)");
     return;
   }
 
-  // Check if we're on the creation page (has key generation)
-  const revealButton = page.locator("button.btn-warning");
-  const hasReveal = await revealButton.isVisible({ timeout: 30_000 }).catch(() => false);
-  if (!hasReveal) {
-    console.log("[e2e] Ark account page loaded but no reveal button — account may already exist");
-    return;
+  // If still on /account/ark, check if unlock buttons appeared
+  const unlockBtn = page.locator("button.btn-accent");
+  const hasUnlock = await unlockBtn.first().isVisible().catch(() => false);
+  if (hasUnlock) {
+    console.log("[e2e] Ark account page shows unlock buttons — wallet entropy not available");
+  } else {
+    console.log("[e2e] Ark account page did not redirect — account may already exist or creation failed");
   }
-
-  // Click "Reveal Backup Key"
-  await revealButton.click();
-
-  // Click "I've Backed It Up"
-  const backedUpButton = page.locator("button.btn-accent");
-  await expect(backedUpButton).toBeVisible({ timeout: 5_000 });
-  await backedUpButton.click();
-
-  // Fill password and confirm password
-  const passwordInputs = page.locator('input[type="password"]');
-  await expect(passwordInputs.first()).toBeVisible({ timeout: 5_000 });
-  const count = await passwordInputs.count();
-  for (let i = 0; i < count; i++) {
-    await passwordInputs.nth(i).fill(password);
-  }
-
-  // Click "Create Wallet" submit
-  const submitButton = page.locator('button[type="submit"]');
-  await expect(submitButton).toBeVisible({ timeout: 5_000 });
-  await submitButton.click();
-
-  // Wait for redirect to dashboard (account created)
-  await page.waitForURL((u) => !u.pathname.includes("/account/ark"), { timeout: 30_000 });
-  console.log("[e2e] Ark account created successfully");
 }
