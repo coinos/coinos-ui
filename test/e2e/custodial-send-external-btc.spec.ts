@@ -6,7 +6,7 @@ import {
   getBitcoinAddress,
   pasteAndSend,
   fillNumpadAmount,
-  waitForSentRedirect,
+  waitForSendComplete,
 } from "./helpers";
 
 test("custodial sends to external bitcoin address (bitcoind)", async ({ browser }) => {
@@ -54,7 +54,7 @@ test("custodial sends to external bitcoin address (bitcoind)", async ({ browser 
   await expect(sendButton).toBeVisible({ timeout: 5_000 });
   await sendButton.click();
 
-  await waitForSentRedirect(bobPage, 30_000);
+  await waitForSendComplete(bobPage, 30_000);
   console.log(`[e2e] Bob external BTC payment sent: ${bobPage.url()}`);
 
   await bobContext.close();

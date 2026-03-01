@@ -29,11 +29,14 @@ test("bitcoin vault receives external bitcoin payment from bitcoind", async ({ p
 
   console.log("[e2e] Mining 1 block...");
   mineBlocks(1);
+  // Give nbxplorer time to index then mine another to trigger webhook
+  await page.waitForTimeout(3_000);
+  mineBlocks(1);
 
   // --- Wait for invoice to be paid ---
   const status = await waitForInvoicePaid(page, invoiceId, 1000, {
     interval: 2000,
-    maxAttempts: 30,
+    maxAttempts: 45,
   });
   console.log(`[e2e] Vault invoice paid: received=${status?.received}, pending=${status?.pending}`);
 
