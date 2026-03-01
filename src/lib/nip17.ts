@@ -3,12 +3,10 @@ import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import { finalizeEvent, getEventHash, generateSecretKey, getPublicKey } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
-import { unwrapEvent } from "nostr-tools/nip17";
-
 import { ensureSigner } from "$lib/nip07";
 import { relaysSupporting } from "$lib/nip11";
 import { expired, expiration } from "$lib/nip40";
-import { encrypt, u } from "$lib/nip44";
+import { encrypt, decrypt as nip44Decrypt, u } from "$lib/nip44";
 
 const TWO_DAYS = 2 * 24 * 60 * 60;
 const randomTimestamp = () => Math.floor(Date.now() / 1000 - Math.random() * TWO_DAYS);
@@ -156,7 +154,11 @@ export const decrypt = async (wrapped: any, user: any): Promise<any> => {
   if (sk === null) {
     return decryptNIP17MessageNIP07(wrapped);
   } else {
-    return unwrapEvent(wrapped, sk);
+    const skHex = bytesToHex(sk);
+    const sealedText = nip44Decrypt(wrapped.content, u.getConversationKey(skHex, wrapped.pubkey));
+    const sealed = JSON.parse(sealedText);
+    const rumourText = nip44Decrypt(sealed.content, u.getConversationKey(skHex, sealed.pubkey));
+    return JSON.parse(rumourText);
   }
 };
 

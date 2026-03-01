@@ -283,11 +283,19 @@
     return expiration <= Date.now() / 1000 + 2 * 86400;
   };
 
+  let sendError = $state("");
+
   const sendMessage = async (message: string) => {
-    const expiry = expiryEnabled ? expiryDays : undefined;
-    await libnip17.send(message, user, selectedChat, expiry);
-    text = "";
-    updateEvents();
+    sendError = "";
+    try {
+      const expiry = expiryEnabled ? expiryDays : undefined;
+      await libnip17.send(message, user, selectedChat, expiry);
+      text = "";
+      updateEvents();
+    } catch (e: any) {
+      console.error("Failed to send message:", e);
+      sendError = $t("dm.sendFailed");
+    }
   };
 
   (() => libnip17.getPreferredRelays(data.user.pubkey).then((relays) => {
@@ -459,6 +467,9 @@
           : $t("dm.relaysNotFound").replace("[R]", name(selectedChat))}
           onclick={async () => sendMessage(text)}
         />
+        {#if sendError}
+          <p class="warning"><em>{sendError}</em></p>
+        {/if}
       {/if}
 
       {#if !(muted && muted.has(selectedChat.pubkey))}

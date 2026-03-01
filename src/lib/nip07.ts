@@ -1,10 +1,33 @@
 import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
-import { finalizeEvent } from "nostr-tools/pure";
+import { finalizeEvent, getPublicKey } from "nostr-tools/pure";
 import * as libnip44 from "$lib/nip44";
 import { u } from "$lib/nip44";
 
 import { eventToSign, signer } from "$lib/store";
 import { get } from "svelte/store";
+
+// Try to load sk from localStorage nsec and populate the signer store.
+const tryNsecFromStorage = async (): Promise<Uint8Array | null> => {
+  const nsec = localStorage.getItem("nsec");
+  if (!nsec) return null;
+
+  try {
+    const { nip19 } = await import("nostr-tools");
+    const { type, data } = nip19.decode(nsec);
+    if (type !== "nsec" || !(data instanceof Uint8Array)) return null;
+
+    const sk = data;
+    const pk = getPublicKey(sk);
+    signer.set({
+      method: "nsec",
+      params: { sk: bytesToHex(sk), pk },
+      ready: true,
+    });
+    return sk;
+  } catch {
+    return null;
+  }
+};
 
 // Ensures we have access to a secret key, triggering the signer modal if needed.
 // Returns the sk as Uint8Array, or null if using NIP-07 extension.
@@ -26,6 +49,10 @@ export const ensureSigner = async (userPubkey: string): Promise<Uint8Array | nul
   if (currentSigner?.ready && currentSigner?.params?.sk && currentSigner.params.sk.length === 64) {
     return hexToBytes(currentSigner.params.sk);
   }
+
+  // Try to load from localStorage nsec before triggering the modal
+  const skFromStorage = await tryNsecFromStorage();
+  if (skFromStorage) return skFromStorage;
 
   // Clear invalid signer state before triggering modal
   if (
