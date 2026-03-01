@@ -303,7 +303,7 @@ const _syncTransactions = async (aid: string) => {
   const bal = await wallet.getBalance();
   const balance = (bal.available || 0) + (bal.preconfirmed || 0);
 
-  const result = await post("/post/ark/sync", { transactions, aid, balance });
+  const result = await post("/post/ark/sync", { transactions, aid, balance, arkAddress: walletAddr });
   cacheVaultSnapshot(); // fire-and-forget
   return result;
 };
@@ -364,7 +364,7 @@ export const sendArk = async (address: string, amount: number) => {
     const freshBalance = await wallet.getBalance();
     const preSendTotal = (freshBalance.available || 0) + (freshBalance.preconfirmed || 0);
     if (freshBalance.available < amount) {
-      throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}\nLocked balance: ${freshBalance.boarding || 0} boarding, ${freshBalance.preconfirmed || 0} preconfirmed, ${freshBalance.recoverable || 0} recoverable`);
+      throw new Error(`Insufficient funds: ${freshBalance.available} available, need ${amount}\nLocked balance: ${freshBalance.boarding?.total || 0} boarding, ${freshBalance.preconfirmed || 0} preconfirmed, ${freshBalance.recoverable || 0} recoverable`);
     }
 
     let txid;
