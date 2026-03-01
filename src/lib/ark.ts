@@ -354,7 +354,7 @@ export const sendArk = async (address: string, amount: number) => {
 
   // Suppress sync polling and wait for any in-flight sync to finish
   arkSending = true;
-  if (syncPromise) await syncPromise.catch(() => {});
+  if (syncPromise) await Promise.race([syncPromise.catch(() => {}), new Promise((r) => setTimeout(r, 3_000))]);
 
   try {
     // Refresh expired VTXOs before attempting to send
@@ -371,28 +371,36 @@ export const sendArk = async (address: string, amount: number) => {
 
     let txid;
     let sendWallet = wallet;
-    try {
-      txid = await withTimeout(wallet.sendBitcoin({ address, amount }), 45_000, "Ark send");
-    } catch (e: any) {
-      if (
-        e?.message?.includes("VTXO_ALREADY_REGISTERED") ||
-        e?.message?.includes("VTXO_ALREADY_SPENT")
-      ) {
-        walletInstance = undefined;
-        walletKey = undefined;
-        sendWallet = await getWallet();
-        if (!sendWallet) throw new Error("Ark wallet not available after refresh");
-        const vtxos = await sendWallet.getVtxos({ spendableOnly: false });
-        if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+    // Retry loop for VTXO_ALREADY_REGISTERED — settle() may have registered VTXOs in a
+    // pending round. Wait for the round to abort (~5s) so VTXOs become unregistered.
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
         txid = await withTimeout(
           sendWallet.sendBitcoin({ address, amount }),
           45_000,
-          "Ark send retry",
+          "Ark send",
         );
-      } else {
-        throw e;
+        break;
+      } catch (e: any) {
+        if (
+          e?.message?.includes("VTXO_ALREADY_REGISTERED") ||
+          e?.message?.includes("VTXO_ALREADY_SPENT")
+        ) {
+          console.log(`ark send attempt ${attempt + 1} failed:`, e.message, "— retrying");
+          walletInstance = undefined;
+          walletKey = undefined;
+          sendWallet = await getWallet();
+          if (!sendWallet) throw new Error("Ark wallet not available after refresh");
+          const vtxos = await sendWallet.getVtxos({ spendableOnly: false });
+          if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+          // Wait for the current round to abort before retrying
+          if (attempt < 2) await new Promise((r) => setTimeout(r, 6_000));
+        } else {
+          throw e;
+        }
       }
     }
+    if (!txid) throw new Error("Ark send failed after retries");
 
     // Verify the send and mark VTXOs as processed, but don't let
     // stalled SDK calls block the flow — the send already succeeded

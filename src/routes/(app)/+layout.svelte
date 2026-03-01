@@ -134,8 +134,10 @@
       });
 
       arkSync("initArk");
-      refresh().catch((e) => console.error("Ark refresh failed:", e));
-      settle().catch((e) => console.error("Ark settle failed:", e));
+      if (!localStorage.getItem("ark:skipSettle")) {
+        refresh().catch((e) => console.error("Ark refresh failed:", e));
+        settle().catch((e) => console.error("Ark settle failed:", e));
+      }
 
       // Init service worker wallet for background fund notifications
       getServiceWorkerWallet().catch((e) => console.error("SW wallet init:", e));
@@ -150,10 +152,12 @@
       }
 
       // Periodically recover expired VTXOs
-      if (arkRefreshTimer) clearInterval(arkRefreshTimer);
-      arkRefreshTimer = setInterval(() => {
-        refresh().catch((e) => console.error("Ark periodic refresh failed:", e));
-      }, 60_000);
+      if (!localStorage.getItem("ark:skipSettle") && arkRefreshTimer) clearInterval(arkRefreshTimer);
+      if (!localStorage.getItem("ark:skipSettle")) {
+        arkRefreshTimer = setInterval(() => {
+          refresh().catch((e) => console.error("Ark periodic refresh failed:", e));
+        }, 60_000);
+      }
     }
   };
 

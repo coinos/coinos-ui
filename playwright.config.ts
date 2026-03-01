@@ -25,6 +25,14 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      testIgnore: /ark/,
+    },
+    {
+      // Ark tests share the server wallet and must run serially
+      name: "chromium-ark",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: /ark/,
+      fullyParallel: false,
     },
   ],
   webServer: process.env.E2E_SKIP_WEBSERVER
