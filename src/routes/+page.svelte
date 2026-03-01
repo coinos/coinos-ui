@@ -19,7 +19,7 @@
 
   const howItWorksSteps = [
     { image: "coinos:hand", stepID: "step1" },
-    { image: "coinos:bolt", stepID: "step2" },
+    { image: "coinos:bolt", stepID: "step2", size: 100 },
     { image: "coinos:smile", stepID: "step3" },
   ];
 </script>
@@ -58,7 +58,7 @@
     <h3 class="text-5xl font-medium mb-10 text-center">{$t("howItWorks.header")}</h3>
     <div class="grid lg:grid-cols-3 space-y-10 lg:space-y-0 text-center">
       {#each howItWorksSteps as step}
-        <HowItWorksCard image={step.image} stepID={step.stepID} />
+        <HowItWorksCard image={step.image} stepID={step.stepID} size={step.size} />
       {/each}
     </div>
     <div bind:this={faq}></div>
@@ -74,7 +74,9 @@
     <div bind:this={about}></div>
   </div>
 
-  <About />
+  <div class="mb-40 md:mb-80">
+    <About />
+  </div>
 </main>
 
 <Footer />

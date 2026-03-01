@@ -8,7 +8,7 @@
 <div class="pt-20 md:mt-0">
   <div class="space-y-5">
     <h1
-      class="relative text-4xl md:text-6xl lg:text-7xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto"
+      class="relative text-5xl md:text-6xl lg:text-7xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto"
     >
       <iconify-icon
         noobserver
