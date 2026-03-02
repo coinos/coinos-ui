@@ -226,6 +226,7 @@
     </a>
 
     <div id="messages">
+      <div class="spacer"></div>
       {#each dates as day}
         <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
         {@const dayMessages = messageRumours.get(day) ?? []}
@@ -400,7 +401,10 @@
     padding-right: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+  }
+
+  .spacer {
+    flex: 1;
   }
 
   @media (min-width: 36rem) {
