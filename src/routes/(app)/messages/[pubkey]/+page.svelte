@@ -398,6 +398,9 @@
     scrollbar-width: thin;
     margin-right: -1rem;
     padding-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
   @media (min-width: 36rem) {
