@@ -200,17 +200,16 @@
         (rumour.pubkey === pubkey && pTagKeys(rumour).includes(user.pubkey))
       ) {
         const dayKey = Math.floor(rumour.created_at / 86400);
-        if (messageRumours.has(dayKey)) {
-          const dayMsgs = messageRumours.get(dayKey)!;
-          if (!dayMsgs.find((r: any) => r.id === rumour.id)) {
-            dayMsgs.push(rumour);
-            dayMsgs.sort((a: any, b: any) => a.created_at - b.created_at);
+        const existing = messageRumours.get(dayKey);
+        if (existing) {
+          if (!existing.find((r: any) => r.id === rumour.id)) {
+            const updated = [...existing, rumour].sort((a: any, b: any) => a.created_at - b.created_at);
+            messageRumours = new Map(messageRumours).set(dayKey, updated);
           }
         } else {
-          messageRumours.set(dayKey, [rumour]);
+          messageRumours = new Map(messageRumours).set(dayKey, [rumour]);
         }
         dates = Array.from(messageRumours.keys()).sort((a: number, b: number) => a - b);
-        messageRumours = new Map(messageRumours);
 
         await tick();
         scrollChat();
@@ -234,11 +233,10 @@
     <div id="messages">
       {#each dates as day}
         <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
+        {@const dayMessages = messageRumours.get(day) ?? []}
         <ul>
-          {#each messageRumours.get(day) ?? [] as rumour, i}
-            {@const dayMessages = messageRumours.get(day) ?? []}
-            {@const next = dayMessages[i + 1]}
-            {@const isLastInRun = !next || next.pubkey !== rumour.pubkey}
+          {#each dayMessages as rumour, i (rumour.id)}
+            {@const isLastInRun = i === dayMessages.length - 1 || dayMessages[i + 1]?.pubkey !== rumour.pubkey}
             {#if rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(selectedChat.pubkey)}
               <li class="message-row by-user">
                 <div
