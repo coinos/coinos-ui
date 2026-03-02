@@ -307,6 +307,7 @@ const publishToPreferred = async (
   if (expiryEnabled) {
     preferredRelays = await relaysSupporting(preferredRelays, [40]);
   }
+  console.log("[nip17] publishing to relays for", pubkey, ":", preferredRelays);
   if (preferredRelays.length === 0) {
     throw new Error("No relays available to publish to");
   }

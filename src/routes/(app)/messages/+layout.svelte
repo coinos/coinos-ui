@@ -28,27 +28,37 @@
 
 <svelte:window bind:innerWidth={w} />
 
-<nav class="flex items-center p-4 gap-4">
-  {#if isDetail}
-    <a href="/messages" class="btn-menu" aria-label="Back">
-      <iconify-icon noobserver icon="ph:arrow-left-bold" width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
-    </a>
-  {/if}
+<div class="messages-layout">
+  <nav class="flex items-center p-4 gap-4 shrink-0">
+    {#if isDetail}
+      <a href="/messages" class="btn-menu" aria-label="Back">
+        <iconify-icon noobserver icon="ph:arrow-left-bold" width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
+      </a>
+    {/if}
 
-  <div class="ml-auto flex items-center gap-4">
-    <a href="/{user?.username}" data-sveltekit-preload-code="eager" aria-label="Home">
-      <button class="btn-menu" aria-label="Home">
-        <iconify-icon noobserver icon="ph:house-bold" width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
-      </button>
-    </a>
-    <Menu {opacity} {user} t={$t} {w} />
+    <div class="ml-auto flex items-center gap-4">
+      <a href="/{user?.username}" data-sveltekit-preload-code="eager" aria-label="Home">
+        <button class="btn-menu" aria-label="Home">
+          <iconify-icon noobserver icon="ph:house-bold" width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
+        </button>
+      </a>
+      <Menu {opacity} {user} t={$t} {w} />
+    </div>
+  </nav>
+
+  <div class="flex-1 min-h-0">
+    {@render children?.()}
   </div>
-</nav>
-
-{@render children?.()}
+</div>
 
 <style>
   @reference "../../../app.css";
+
+  .messages-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+  }
 
   .btn-menu {
     @apply flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl;

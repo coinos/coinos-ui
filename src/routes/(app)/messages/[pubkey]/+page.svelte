@@ -143,9 +143,11 @@
     try {
       await libnip17.send(message, user, selectedChat);
       text = "";
+      const ta = document.getElementById("message-contents") as HTMLTextAreaElement;
+      if (ta) ta.style.height = "auto";
       updateEvents();
       await tick();
-      document.getElementById("message-contents")?.focus();
+      ta?.focus();
     } catch (e: any) {
       console.error("Failed to send message:", e);
       sendError = $t("dm.sendFailed");
@@ -170,6 +172,20 @@
   }))();
 
   let closeSub: (() => void) | undefined;
+
+  // Keep input visible when mobile keyboard opens
+  onMount(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const onResize = () => {
+      const active = document.activeElement;
+      if (active?.id === "message-contents") {
+        active.scrollIntoView({ block: "nearest" });
+      }
+    };
+    vv.addEventListener("resize", onResize);
+    return () => vv.removeEventListener("resize", onResize);
+  });
 
   onMount(() => {
     libnip17.subscribeToMessages(user, async (rumour) => {
@@ -204,10 +220,10 @@
   onDestroy(() => closeSub?.());
 </script>
 
-<div class="container mx-auto max-w-xl px-4 space-y-2">
+<div class="chat-container">
   {#if selectedChat}
     {@const chatProfile = selectedChat.coinosUsername ? `/${selectedChat.coinosUsername}` : null}
-    <a href={chatProfile} class="flex items-center gap-3 mb-2 hover:opacity-80">
+    <a href={chatProfile} class="chat-header">
       {#if selectedChat.picture}
         <img src={selectedChat.picture} alt={name(selectedChat)} class="w-10 h-10 rounded-full object-cover" />
       {/if}
@@ -262,27 +278,35 @@
     </div>
 
     <div class="input-bar">
-      <textarea
-        id="message-contents"
-        bind:value={text}
-        use:focus
-        onkeydown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            if (canSend && text.trim()) sendMessage(text);
-          }
-        }}
-      ></textarea>
-      <input
-        id="send-message"
-        type="button"
-        class="btn btn-accent"
-        disabled={!canSend}
-        value={canSend
-        ? $t("dm.sendMessage")
-        : $t("dm.relaysNotFound").replace("[R]", selectedChat ? name(selectedChat) : "")}
-        onclick={async () => sendMessage(text)}
-      />
+      <div class="input-row">
+        <textarea
+          id="message-contents"
+          bind:value={text}
+          use:focus
+          rows="1"
+          placeholder={canSend ? "" : $t("dm.relaysNotFound").replace("[R]", selectedChat ? name(selectedChat) : "")}
+          disabled={!canSend}
+          oninput={(e) => {
+            const el = e.currentTarget;
+            el.style.height = "auto";
+            el.style.height = Math.min(el.scrollHeight, 120) + "px";
+          }}
+          onkeydown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              if (canSend && text.trim()) sendMessage(text);
+            }
+          }}
+        ></textarea>
+        <button
+          class="send-btn"
+          disabled={!canSend || !text.trim()}
+          onclick={() => sendMessage(text)}
+          aria-label="Send"
+        >
+          <iconify-icon noobserver icon="ph:paper-plane-right-fill" width="22"></iconify-icon>
+        </button>
+      </div>
       {#if sendError}
         <p class="warning"><em>{sendError}</em></p>
       {/if}
@@ -300,6 +324,27 @@
 </div>
 
 <style>
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    flex-shrink: 0;
+  }
+
+  .chat-header:hover {
+    opacity: 0.8;
+  }
+
   .warning {
     color: #ff7f00;
   }
@@ -352,9 +397,18 @@
   }
 
   #messages {
+    flex: 1;
     overflow-y: auto;
-    max-height: 50vh;
     scrollbar-width: thin;
+    margin-right: -1rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 36rem) {
+    #messages {
+      margin-right: 0;
+      padding-right: 0.5rem;
+    }
   }
 
   #messages::-webkit-scrollbar {
@@ -386,9 +440,51 @@
   }
 
   .input-bar {
+    flex-shrink: 0;
     padding: 0.5rem 0;
+  }
+
+  .input-row {
     display: flex;
-    flex-direction: column;
+    align-items: flex-end;
     gap: 0.5rem;
+  }
+
+  .input-row textarea {
+    flex: 1;
+    resize: none;
+    overflow-y: auto;
+    line-height: 1.4;
+    padding: 0.5rem 0.75rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    min-height: unset;
+  }
+
+  .input-row textarea:focus {
+    outline: none;
+    border-color: rgba(128, 128, 128, 0.6);
+  }
+
+  .send-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: var(--accent, #6366f1);
+    color: white;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .send-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
   }
 </style>
