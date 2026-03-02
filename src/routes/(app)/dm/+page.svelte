@@ -197,6 +197,7 @@
  const selectChatPubkey = async (pubkey: string) => {
    selectChat(await userInfo(pubkey));
    creatingNewChat = false;
+   searchQuery = "";
  }
 
  onMount(() => {
