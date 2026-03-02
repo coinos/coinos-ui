@@ -140,14 +140,15 @@
 
   const sendMessage = async (message: string) => {
     sendError = "";
+    text = "";
+    const ta = document.getElementById("message-contents") as HTMLTextAreaElement;
+    if (ta) {
+      ta.style.height = "auto";
+      ta.focus();
+    }
     try {
       await libnip17.send(message, user, selectedChat);
-      text = "";
-      const ta = document.getElementById("message-contents") as HTMLTextAreaElement;
-      if (ta) ta.style.height = "auto";
       updateEvents();
-      await tick();
-      ta?.focus();
     } catch (e: any) {
       console.error("Failed to send message:", e);
       sendError = $t("dm.sendFailed");
@@ -301,6 +302,8 @@
         <button
           class="send-btn"
           disabled={!canSend || !text.trim()}
+          onmousedown={(e) => e.preventDefault()}
+          ontouchstart={(e) => e.preventDefault()}
           onclick={() => sendMessage(text)}
           aria-label="Send"
         >
