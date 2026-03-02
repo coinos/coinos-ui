@@ -32,18 +32,6 @@ const tryNsecFromStorage = async (): Promise<Uint8Array | null> => {
 // Ensures we have access to a secret key, triggering the signer modal if needed.
 // Returns the sk as Uint8Array, or null if using NIP-07 extension.
 export const ensureSigner = async (userPubkey: string): Promise<Uint8Array | null> => {
-  // Check if NIP-07 extension is available and matches user
-  if (window.nostr) {
-    try {
-      const extPubkey = await window.nostr.getPublicKey();
-      if (extPubkey === userPubkey) {
-        return null; // Use NIP-07
-      }
-    } catch (e) {
-      // Extension didn't work, fall through to signer
-    }
-  }
-
   // Check if signer already has a valid sk (64 hex chars = 32 bytes)
   const currentSigner = get(signer);
   if (currentSigner?.ready && currentSigner?.params?.sk && currentSigner.params.sk.length === 64) {
@@ -53,6 +41,18 @@ export const ensureSigner = async (userPubkey: string): Promise<Uint8Array | nul
   // Try to load from localStorage nsec before triggering the modal
   const skFromStorage = await tryNsecFromStorage();
   if (skFromStorage) return skFromStorage;
+
+  // Fall back to NIP-07 extension if available and matches user
+  if (window.nostr) {
+    try {
+      const extPubkey = await window.nostr.getPublicKey();
+      if (extPubkey === userPubkey) {
+        return null; // Use NIP-07
+      }
+    } catch (e) {
+      // Extension didn't work, fall through to signer modal
+    }
+  }
 
   // Clear invalid signer state before triggering modal
   if (
