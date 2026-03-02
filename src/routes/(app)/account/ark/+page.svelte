@@ -107,7 +107,7 @@
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
     {#if submitting}
       <div class="flex justify-center py-8">
-        <Spinner />
+        <Spinner class="text-gray-400" />
       </div>
     {:else if needsPasskeyUnlock}
       <div class="space-y-5">

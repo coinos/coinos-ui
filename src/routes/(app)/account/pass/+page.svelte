@@ -53,7 +53,7 @@
       });
 
       $mnemonic = "";
-      goto(`/${user.username}`);
+      await goto(`/${user.username}`);
     } catch (e: any) {
       console.log(e);
       fail(e.message);
@@ -64,6 +64,6 @@
 
 {#if submitting}
   <div class="flex justify-center py-20">
-    <Spinner />
+    <Spinner class="text-gray-400" />
   </div>
 {/if}

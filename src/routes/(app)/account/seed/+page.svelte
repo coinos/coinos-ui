@@ -36,7 +36,7 @@
           type: "bitcoin",
           accountIndex: 0,
         });
-        goto(`/${user.username}`);
+        await goto(`/${user.username}`);
       } catch (e: any) {
         console.log(e);
         fail(e.message);
@@ -55,7 +55,7 @@
 
 {#if creating}
   <div class="flex justify-center py-20">
-    <Spinner />
+    <Spinner class="text-gray-400" />
   </div>
 {:else}
 <div class="space-y-5">
