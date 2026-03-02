@@ -24,7 +24,7 @@
   </button>
 {/snippet}
 
-<div class="space-y-8 lg:text-xl mt-20 pt-20 md:pt-0 w-full max-w-full">
+<div class="space-y-8 lg:text-xl mt-5 md:mt-20 w-full max-w-full">
   <h1 class="text-4xl">Documentation</h1>
 
   <p class="text-secondary">

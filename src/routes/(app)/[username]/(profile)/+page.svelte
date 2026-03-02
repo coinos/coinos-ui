@@ -140,14 +140,12 @@
 <!-- <a href="/funder" class="btn">Funder</a> -->
 
 {#if showInstall}
-  <div class="fixed inset-x-0 bottom-0 z-[100] p-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] bg-base-100 border-t border-base-300 shadow-lg lg:hidden">
-    <div class="max-w-xl mx-auto flex items-center gap-3">
-      <div class="flex-1">
-        <p class="font-semibold">Add Coinos to homescreen?</p>
-      </div>
-      <button class="btn btn-accent !w-auto px-6" onclick={install}>Yes</button>
-      <button class="btn !w-auto px-6" onclick={dismissInstall}>No</button>
+  <div class="max-w-xl mx-auto flex items-center gap-3 p-4 rounded-2xl bg-base-200 lg:hidden">
+    <div class="flex-1">
+      <p class="font-semibold">Add Coinos to homescreen?</p>
     </div>
+    <button class="btn btn-accent !w-auto px-6" onclick={install}>Yes</button>
+    <button class="btn !w-auto px-6" onclick={dismissInstall}>No</button>
   </div>
 {/if}
 
