@@ -461,7 +461,7 @@
         <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
         {#if !creatingNewChat}
             {#each chats as c}
-                {#if ((selectedChat && selectedChat.pubkey === c.pubkey) || !(muted && muted.has(c.pubkey))) && (searchQuery === "" || searchMatches(c, searchQuery))}
+                {#if ((selectedChat && selectedChat.pubkey === c.pubkey) || !(searchQuery === "" && muted && muted.has(c.pubkey))) && (searchQuery === "" || searchMatches(c, searchQuery))}
                     <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
                         <span class="{"text-xl" + (muted && muted.has(c.pubkey) ? " secondary" : "")}">{name(c)}</span> <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
                     </button>
