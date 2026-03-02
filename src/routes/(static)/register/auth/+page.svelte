@@ -416,8 +416,8 @@
         <Spinner />
       {:else}
         <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+        <div class="my-auto">{$t("login.registerPasskey")}</div>
       {/if}
-      <div class="my-auto">{$t("login.registerPasskey")}</div>
     </button>
 
     <button type="button" class="btn" onclick={nostrLogin}>
