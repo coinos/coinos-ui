@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick, onMount } from "svelte";
+  import { tick, onMount, onDestroy } from "svelte";
 
   import { isValid, queryProfile } from "nostr-tools/nip05";
   import * as toolsnip17 from "nostr-tools/nip17";
@@ -9,10 +9,22 @@
   import { getMessageRumours } from "$lib/nip17";
   import * as libnip17 from "$lib/nip17";
   import { npubEncode, decode } from "nostr-tools/nip19";
-  import { mute, unmute, mutedAccounts } from "$lib/nip51";
+  // import { mute, unmute, mutedAccounts } from "$lib/nip51";
   import { sign, getPrivateKey, pTagKeys } from "$lib/nostr";
   import { t } from "$lib/translations";
   import { theme } from "$lib/store";
+
+  const focus = (el: HTMLElement) => el.focus();
+
+  const scrollChat = () => {
+    const doScroll = () => {
+      const el = document.getElementById("messages");
+      if (el) el.scrollTop = el.scrollHeight;
+      document.getElementById("messages-end")?.scrollIntoView({ block: "nearest" });
+    };
+    doScroll();
+    setTimeout(doScroll, 200);
+  };
 
   let { data } = $props();
   const user = $derived(data.user);
@@ -24,14 +36,13 @@
   })();
 
   /// chat selection
-  const usernameFromPubkey = async (pubkey: string): Promise<string | null> => {
+  const coinosUserFromPubkey = async (pubkey: string): Promise<any> => {
     const response = await fetch(`/api/users/${pubkey}`);
     if (response.ok) {
-      const userInfo = await response.json();
-      return userInfo.anon ? null : userInfo.username;
-    } else {
-      return null;
+      const info = await response.json();
+      return info.anon ? null : info;
     }
+    return null;
   };
 
   const userInfo = async (pubkey: string) => {
@@ -41,9 +52,10 @@
 
     const nostrUserInfo = (await getNostrUserInfo(pubkey)) || {};
     const valid = "nip05" in nostrUserInfo && (await isValid(pubkey, nostrUserInfo.nip05));
-    const username = await usernameFromPubkey(pubkey);
+    const coinosUser = await coinosUserFromPubkey(pubkey);
     return {
-      coinosUsername: username,
+      coinosUsername: coinosUser?.username || null,
+      picture: coinosUser?.picture || nostrUserInfo?.picture || null,
       nostrName: nostrUserInfo?.name,
       nip05: nostrUserInfo?.nip05,
       nip05Valid: valid,
@@ -53,18 +65,6 @@
 
   const name = (userInfo: any): string => {
     return userInfo.coinosUsername || userInfo.nostrName || $t("dm.anonymous");
-  };
-
-  const id = (userInfo: any): string => {
-    if (userInfo.nip05 && userInfo.nip05.slice(0, 2) == "_@") {
-      return userInfo.nip05.slice(2);
-    }
-
-    return userInfo.nip05 || npubEncode(userInfo.pubkey).slice(0, 16) + "...";
-  };
-
-  const idValid = (userInfo: any): boolean => {
-    return !userInfo.nip05 || userInfo.nip05Valid;
   };
 
   const rumourInvolves = (rumour: any, pubkey: string) => {
@@ -135,10 +135,7 @@
   let messageRumours: any = $state([]);
   let dates: any[] = $state([]);
   let relayWarningShown = $state(false);
-  let expiryEnabled = $state(false);
-  let expiryDays = $state(7);
   let canSend = $state(false);
-  let canSendExpiring = $state(false);
   let nostrUserInfo: any = $state({});
 
   const selectedChatEmpty = () => !messageRumours || messageRumours.size == 0;
@@ -175,7 +172,6 @@
     userInfo(selectedChat.pubkey).then((info) => (nostrUserInfo = info));
     libnip17.getPreferredRelays(selectedChat.pubkey).then((relays) => {
       canSend = relays && relays.length > 0;
-      relaysSupporting(relays, [40]).then((supporting) => (canSendExpiring = supporting.length > 0));
     });
     updateEvents();
   };
@@ -248,10 +244,7 @@
     dates.sort((d1, d2) => d1 - d2);
 
     await tick();
-    const messages = document.getElementById("messages");
-    if (messages) {
-      messages.scrollTop = messages.scrollHeight;
-    }
+    scrollChat();
   };
 
   const TIME = new Intl.DateTimeFormat(undefined, {
@@ -279,19 +272,16 @@
     }
   };
 
-  const expirationClose = (expiration: number) => {
-    return expiration <= Date.now() / 1000 + 2 * 86400;
-  };
-
   let sendError = $state("");
 
   const sendMessage = async (message: string) => {
     sendError = "";
     try {
-      const expiry = expiryEnabled ? expiryDays : undefined;
-      await libnip17.send(message, user, selectedChat, expiry);
+      await libnip17.send(message, user, selectedChat);
       text = "";
       updateEvents();
+      await tick();
+      document.getElementById("message-contents")?.focus();
     } catch (e: any) {
       console.error("Failed to send message:", e);
       sendError = $t("dm.sendFailed");
@@ -306,17 +296,55 @@
     relayWarningShown = false;
   }))();
 
-  let muted = $state(new Set<string>());
-  (() => mutedAccounts(data.user).then((m) => (muted = m)))();
+  let closeSub: (() => void) | undefined;
 
-  const toggleMute = async (pubkey: string) => {
-    if (muted && muted.has(pubkey)) {
-      await unmute(user, pubkey);
-    } else {
-      await mute(user, pubkey, true);
-    }
-    muted = await mutedAccounts(user);
-  };
+  onMount(() => {
+    libnip17.subscribeToMessages(user, async (rumour) => {
+      // Add rumour to the full list if not already present
+      if (!allRumours.find((r) => r.id === rumour.id)) {
+        allRumours = [...allRumours, rumour];
+        await updateSendersRecipients(allRumours);
+      }
+
+      // If this rumour belongs to the current chat, add it to the display
+      if (
+        selectedChat &&
+        ((rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(selectedChat.pubkey)) ||
+          (rumour.pubkey === selectedChat.pubkey && pTagKeys(rumour).includes(user.pubkey)))
+      ) {
+        const dayKey = Math.floor(rumour.created_at / 86400);
+        if (messageRumours.has(dayKey)) {
+          const dayMsgs = messageRumours.get(dayKey);
+          if (!dayMsgs.find((r: any) => r.id === rumour.id)) {
+            dayMsgs.push(rumour);
+            dayMsgs.sort((a: any, b: any) => a.created_at - b.created_at);
+          }
+        } else {
+          messageRumours.set(dayKey, [rumour]);
+        }
+        dates = Array.from(messageRumours.keys()).sort((a, b) => a - b);
+        // Force reactivity
+        messageRumours = new Map(messageRumours);
+
+        await tick();
+        scrollChat();
+      }
+    }).then((close) => (closeSub = close));
+  });
+
+  onDestroy(() => closeSub?.());
+
+  // let muted = $state(new Set<string>());
+  // (() => mutedAccounts(data.user).then((m) => (muted = m)))();
+
+  // const toggleMute = async (pubkey: string) => {
+  //   if (muted && muted.has(pubkey)) {
+  //     await unmute(user, pubkey);
+  //   } else {
+  //     await mute(user, pubkey, true);
+  //   }
+  //   muted = await mutedAccounts(user);
+  // };
 </script>
 
 <div class="super-container">
@@ -346,23 +374,21 @@
     {/if}
     {#if !creatingNewChat}
       {#each chats as c}
-        {#if (selectedChat && selectedChat.pubkey === c.pubkey) || !(muted && muted.has(c.pubkey))}
-          <button
-            class={"chat-btn tall-btn " +
-            ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") +
-            (selectedChat && selectedChat.pubkey == c.pubkey
-              ? $theme === "light"
-                ? " light-selected"
-                : " dark-selected"
-              : "")}
-            onclick={() => selectChat(c)}
-          >
-            <span class={"text-xl" + (muted && muted.has(c.pubkey) ? " secondary" : "")}>
-              {name(c)}
-            </span>
-            <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
-          </button>
-        {/if}
+        <button
+          class={"chat-btn tall-btn " +
+          ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") +
+          (selectedChat && selectedChat.pubkey == c.pubkey
+            ? $theme === "light"
+              ? " light-selected"
+              : " dark-selected"
+            : "")}
+          onclick={() => selectChat(c)}
+        >
+          {#if c.picture}
+            <img src={c.picture} alt={name(c)} class="sidebar-avatar" />
+          {/if}
+          <span class="text-xl">{name(c)}</span>
+        </button>
       {/each}
     {:else if searchQuery !== ""}
       <button
@@ -397,66 +423,65 @@
     </h1>
 
     {#if selectedChat}
-      <h1>
-        {#if selectedChat.coinosUsername}
-          <a class="text-3xl" href="/{selectedChat.coinosUsername}">{name(selectedChat)}</a>
-        {:else}
-          <span class="text-3xl">{name(selectedChat)}</span>
-        {/if}
-        <span
-          class={"secondary timestamp text-small" + (idValid(selectedChat) ? "" : " invalid")}
-          title={npubEncode(selectedChat.pubkey)}
-        >
-          {id(selectedChat)}
-        </span>
-        <button
-          class={"small-btn push-right " +
-          ($theme === "light" ? "light-chat-btn" : "dark-chat-btn")}
-          onclick={() => toggleMute(selectedChat.pubkey)}
-        >
-          {$t(muted && muted.has(selectedChat.pubkey) ? "dm.unmute" : "dm.mute")}
-        </button>
-      </h1>
-
-      {#if !(muted && muted.has(selectedChat.pubkey))}
-        <div id="messages" style="overflow-y: scroll; max-height: 600px;">
-          {#each dates as day}
-            <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
-            <ul>
-              {#each messageRumours.get(day) as rumour}
-                {#if rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(selectedChat.pubkey)}
-                  <li
-                    class={(rumour.expiration && expirationClose(rumour.expiration)
-                    ? "secondary "
-                    : "") +
-                    ($theme === "light" ? "light-message " : "dark-message ") +
-                    "message by-user"}
+      <div id="messages">
+        {#each dates as day}
+          <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
+          <ul>
+            {#each messageRumours.get(day) as rumour, i}
+              {@const dayMessages = messageRumours.get(day)}
+              {@const next = dayMessages[i + 1]}
+              {@const isLastInRun = !next || next.pubkey !== rumour.pubkey}
+              {#if rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(selectedChat.pubkey)}
+                <li class="message-row by-user">
+                  <div
+                    class={($theme === "light" ? "light-message " : "dark-message ") + "message"}
                   >
                     {rumour.content}
                     <span class="timestamp secondary text-xs">
                       {TIME.format(new Date(rumour.created_at * 1000))}
                     </span>
-                  </li>
-                {:else if rumour.pubkey === selectedChat.pubkey && pTagKeys(rumour).includes(user.pubkey)}
-                  <li
-                    class={(rumour.expiration && expirationClose(rumour.expiration)
-                    ? "secondary "
-                    : "") +
-                    ($theme === "light" ? "light-message " : "dark-message ") +
-                    "message by-other"}
+                  </div>
+                  {#if isLastInRun && user.picture}
+                    <img src={user.picture} alt={user.username} class="msg-avatar" />
+                  {:else}
+                    <div class="msg-avatar-placeholder"></div>
+                  {/if}
+                </li>
+              {:else if rumour.pubkey === selectedChat.pubkey && pTagKeys(rumour).includes(user.pubkey)}
+                <li class="message-row by-other">
+                  {#if isLastInRun && selectedChat.picture}
+                    <img src={selectedChat.picture} alt={name(selectedChat)} class="msg-avatar" />
+                  {:else}
+                    <div class="msg-avatar-placeholder"></div>
+                  {/if}
+                  <div
+                    class={($theme === "light" ? "light-message " : "dark-message ") + "message"}
                   >
                     {rumour.content}
                     <span class="timestamp secondary text-xs">
                       {TIME.format(new Date(rumour.created_at * 1000))}
                     </span>
-                  </li>
-                {/if}
-              {/each}
-            </ul>
-          {/each}
-        </div>
+                  </div>
+                </li>
+              {/if}
+            {/each}
+          </ul>
+        {/each}
+        <div id="messages-end"></div>
+      </div>
 
-        <textarea id="message-contents" bind:value={text}></textarea>
+      <div class="input-bar">
+        <textarea
+          id="message-contents"
+          bind:value={text}
+          use:focus
+          onkeydown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              if (canSend && text.trim()) sendMessage(text);
+            }
+          }}
+        ></textarea>
         <input
           id="send-message"
           type="button"
@@ -470,36 +495,7 @@
         {#if sendError}
           <p class="warning"><em>{sendError}</em></p>
         {/if}
-      {/if}
-
-      {#if !(muted && muted.has(selectedChat.pubkey))}
-        <input
-          type="checkbox"
-          id="expiryCheckbox"
-          class="tiny"
-          bind:checked={expiryEnabled}
-          disabled={!canSendExpiring}
-        />
-        <label for="expiryCheckbox">{$t("dm.expiry")}</label>
-        :
-        <input
-          type="number"
-          class="short small-width vcenter"
-          bind:value={expiryDays}
-          disabled={!expiryEnabled}
-          min="1"
-          step="1"
-          max="99999"
-        />
-        <label for="expiryCheckbox">{$t("dm.days")}</label>
-        .
-        <p class="secondary">{$t("dm.fadedWarning")}</p>
-        {#if canSend && !canSendExpiring}
-          <p class="warning">
-            <em>{$t("dm.cantSendExpiring").replace("[R]", name(selectedChat))}</em>
-          </p>
-        {/if}
-      {/if}
+      </div>
     {:else if chats.length == 0}
       <p>{$t("dm.noChats")}</p>
     {:else}
@@ -529,25 +525,9 @@
     text-decoration-line: underline;
   }
 
-  .inline {
-    white-space: nowrap;
-  }
-
   .short {
     height: 1.5em;
     margin-bottom: 10px;
-  }
-
-  .small-width {
-    width: 6em;
-  }
-
-  .tiny {
-    width: 2em;
-  }
-
-  .invalid {
-    text-decoration: line-through;
   }
 
   .super-container {
@@ -581,12 +561,17 @@
   .tall-btn {
     min-height: 3em;
     width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .small-btn {
-    padding: 0 15px;
-    border-radius: 5px;
-    text-align: left;
+  .sidebar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    object-fit: cover;
+    flex-shrink: 0;
   }
 
   .push-right {
@@ -595,6 +580,35 @@
 
   .chat-header {
     margin: 1em 15px 0.5em;
+  }
+
+  .message-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin: 3px 0;
+  }
+
+  .message-row.by-user {
+    justify-content: flex-end;
+  }
+
+  .message-row.by-other {
+    justify-content: flex-start;
+  }
+
+  .msg-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .msg-avatar-placeholder {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
   }
 
   .light-chat-btn {
@@ -636,6 +650,25 @@
     text-align: right;
   }
 
+  #messages {
+    overflow-y: auto;
+    max-height: 50vh;
+    scrollbar-width: thin;
+  }
+
+  #messages::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #messages::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 3px;
+  }
+
+  #messages::-webkit-scrollbar-button {
+    display: none;
+  }
+
   .message {
     padding: 0.25em 0.75em;
     width: fit-content;
@@ -651,15 +684,11 @@
     background-color: #222;
   }
 
-  .by-user {
-    margin: 3px 0px 3px auto;
+  .input-bar {
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .by-other {
-    margin: 3px auto 3px 0px;
-  }
-
-  .vcenter {
-    margin: auto 0px;
-  }
 </style>

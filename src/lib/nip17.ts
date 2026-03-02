@@ -302,6 +302,58 @@ const createAndPublishMessageEvent = async (
   return publishToPreferred(event, eventFor, expiryDays != null);
 };
 
+// Subscribes to new incoming gift wraps for the user.
+// Decrypts new events and passes the rumour to onNewRumour().
+// Returns a close function to stop the subscription.
+// Uses Relay directly instead of SimplePool.subscribeMany to avoid
+// a filter double-nesting bug in nostr-tools v2.23.0.
+export const subscribeToMessages = async (
+  user: any,
+  onNewRumour: (rumour: any) => void,
+): Promise<() => void> => {
+  const preferredRelays = await getPreferredRelays(user.pubkey);
+  const relayUrls = Array.from(new Set([...preferredRelays, ...DM_RELAYS_LIST]));
+  const since = Math.floor(Date.now() / 1000) - TWO_DAYS;
+  const seen = new Set<string>();
+  let eoseCount = 0;
+
+  const closers: (() => void)[] = [];
+
+  for (const url of relayUrls) {
+    try {
+      const relay = await Relay.connect(url);
+      const sub = relay.subscribe(
+        [{ kinds: [1059], "#p": [user.pubkey], since }],
+        {
+          onevent: async (event) => {
+            if (seen.has(event.id)) return;
+            seen.add(event.id);
+            if (eoseCount < relayUrls.length) return;
+            if (expired(event)) return;
+            try {
+              const rumour: any = await decrypt(event, user);
+              const expires = expiration(event);
+              if (expires) rumour.expiration = expires;
+              onNewRumour(rumour);
+            } catch (e) {
+              console.error("Failed to decrypt subscription event:", event.id, e);
+            }
+          },
+          oneose: () => {
+            eoseCount++;
+          },
+        },
+      );
+      closers.push(() => sub.close());
+    } catch (e) {
+      console.error("Failed to connect to relay for subscription:", url, e);
+      eoseCount++;
+    }
+  }
+
+  return () => closers.forEach((close) => close());
+};
+
 // Sends a NIP-17 message from `user` to `recipient`.
 // If expiryDays is set, messages will expire after that many days.
 export const send = async (message: string, user: any, recipient: any, expiryDays?: number) => {

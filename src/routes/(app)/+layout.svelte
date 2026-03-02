@@ -185,6 +185,9 @@
 
         // Auto-unlock ark wallet if silent entropy is available
         if (!$arkkey) autoUnlockArk();
+
+        // Auto-unlock nostr key if silent entropy is available
+        import("$lib/seed").then(({ autoUnlockNostr }) => autoUnlockNostr(user.pubkey));
       }
 
       // if (window.NDEFReader) {

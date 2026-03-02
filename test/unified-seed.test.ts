@@ -10,6 +10,8 @@ import {
 import { wordlist } from "@scure/bip39/wordlists/english.js";
 import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import { encrypt, decrypt } from "nostr-tools/nip49";
+import { privateKeyFromSeedWords } from "nostr-tools/nip06";
+import { getPublicKey } from "nostr-tools";
 
 const versions = {
   private: 0x04358394,
@@ -215,5 +217,44 @@ describe("backward compatibility", () => {
     const encrypted = await encrypt(entropy, password);
 
     expect(() => decrypt(encrypted, "wrongpassword")).toThrow();
+  });
+});
+
+describe("NIP-06 nostr key derivation", () => {
+  const mnemonic = generateMnemonic(wordlist);
+
+  it("derives a deterministic nostr key from mnemonic via NIP-06 path", () => {
+    const sk = privateKeyFromSeedWords(mnemonic);
+    const pubkey = getPublicKey(sk);
+
+    expect(sk).toBeInstanceOf(Uint8Array);
+    expect(sk.length).toBe(32);
+    expect(pubkey).toMatch(/^[0-9a-f]{64}$/);
+
+    // Same mnemonic produces same key
+    const sk2 = privateKeyFromSeedWords(mnemonic);
+    expect(bytesToHex(sk2)).toBe(bytesToHex(sk));
+  });
+
+  it("derives nostr key from entropy round-trip", () => {
+    const entropy = mnemonicToEntropy(mnemonic, wordlist);
+    const recovered = entropyToMnemonic(entropy, wordlist);
+    expect(recovered).toBe(mnemonic);
+
+    const sk = privateKeyFromSeedWords(mnemonic);
+    const skRecovered = privateKeyFromSeedWords(recovered);
+    expect(bytesToHex(skRecovered)).toBe(bytesToHex(sk));
+  });
+
+  it("nostr NIP-06 key differs from Bitcoin and Ark keys", async () => {
+    const seed = await mnemonicToSeed(mnemonic, password);
+    const master = HDKey.fromMasterSeed(seed, versions);
+
+    const btcKey = bytesToHex(master.derive("m/84'/0'/0'").privateKey!);
+    const arkKey = bytesToHex(master.derive("m/86'/0'/0'/0/0").privateKey!);
+    const nostrKey = bytesToHex(privateKeyFromSeedWords(mnemonic));
+
+    expect(nostrKey).not.toBe(btcKey);
+    expect(nostrKey).not.toBe(arkKey);
   });
 });

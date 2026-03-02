@@ -13,7 +13,7 @@
   import PasswordInput from "$comp/PasswordInput.svelte";
   import Spinner from "$comp/Spinner.svelte";
 
-  import { fail, focus } from "$lib/utils";
+  import { fail, focus, post } from "$lib/utils";
   import { registerPasskey } from "$lib/passkey";
   import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
   import { avatar, signer, password, pin, loginRedirect } from "$lib/store";
@@ -158,8 +158,21 @@
         const { sk } = await deriveAuthKeypair(user.username, user.password);
         const canonicalKey = generateCanonicalKey();
         const wrapped = await wrapCanonicalKey(sk.buffer as ArrayBuffer, canonicalKey);
-        await saveEncryptedKeys({ [passwordMethodId()]: wrapped });
         rememberPrfKey(canonicalKey, defaultRememberForMs);
+
+        const encryptedKeys = { [passwordMethodId()]: wrapped };
+        let nostrPubkey: string | undefined;
+        try {
+          const { deriveNostrKey } = await import("$lib/seed");
+          const { nip19 } = await import("nostr-tools");
+          const nostr = await deriveNostrKey(canonicalKey);
+          localStorage.setItem("nsec", nip19.nsecEncode(nostr.sk));
+          nostrPubkey = nostr.pubkey;
+        } catch (e) {
+          console.log("Nostr key derivation failed", e);
+        }
+
+        await post("/post/user", nostrPubkey ? { encryptedKeys, pubkey: nostrPubkey } : { encryptedKeys });
       } catch (e) {
         console.log("Canonical key generation failed", e);
       }
@@ -202,10 +215,25 @@
       const { token, sk } = result.data;
       const { prfKey, credentialId } = await registerPasskey(token);
 
+      // Generate canonical key and derive nostr key before activate
+      // so we can pass the pubkey to the server-side activate action
+      const canonicalKey = generateCanonicalKey();
+      let nostrPubkey: string | undefined;
+      let nostrSk: Uint8Array | undefined;
+      try {
+        const { deriveNostrKey } = await import("$lib/seed");
+        const nostr = await deriveNostrKey(canonicalKey);
+        nostrPubkey = nostr.pubkey;
+        nostrSk = nostr.sk;
+      } catch (e) {
+        console.log("Nostr key derivation failed", e);
+      }
+
       const activateData = new FormData();
       activateData.append("token", token);
       activateData.append("username", username);
       if (sk) activateData.append("sk", sk);
+      if (nostrPubkey) activateData.append("pubkey", nostrPubkey);
       activateData.append("loginRedirect", (redirect ?? "") as string);
 
       const activateResponse = await fetch("/register/auth?/activate", {
@@ -217,10 +245,14 @@
 
       if (activateResult.type === "success" || activateResult.type === "redirect") {
         try {
-          const canonicalKey = generateCanonicalKey();
           const wrapped = await wrapCanonicalKey(prfKey, canonicalKey);
           await saveEncryptedKeys({ [passkeyMethodId(credentialId)]: wrapped });
           rememberPrfKey(canonicalKey, defaultRememberForMs);
+
+          if (nostrSk) {
+            const { nip19 } = await import("nostr-tools");
+            localStorage.setItem("nsec", nip19.nsecEncode(nostrSk));
+          }
         } catch (e) {
           console.log("Canonical key generation failed", e);
         }
