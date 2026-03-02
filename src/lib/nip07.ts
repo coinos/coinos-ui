@@ -42,6 +42,14 @@ export const ensureSigner = async (userPubkey: string): Promise<Uint8Array | nul
   const skFromStorage = await tryNsecFromStorage();
   if (skFromStorage) return skFromStorage;
 
+  // Try to derive nostr key from cached canonical key (e.g. passkey accounts)
+  try {
+    const { autoUnlockNostr } = await import("$lib/seed");
+    await autoUnlockNostr(userPubkey);
+    const skFromDerived = await tryNsecFromStorage();
+    if (skFromDerived) return skFromDerived;
+  } catch {}
+
   // Fall back to NIP-07 extension if available and matches user
   if (window.nostr) {
     try {
