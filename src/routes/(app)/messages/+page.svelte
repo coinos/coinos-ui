@@ -85,10 +85,14 @@
     return latest?.content || "";
   };
 
-  // Initialize from cache immediately
+  // Restore from localStorage on hard refresh, or in-memory cache on SPA nav
+  const storageKey = `chatList:${data.user?.pubkey}`;
   const cachedList = getCachedChatList(data.user?.pubkey);
-  let chats: any[] = $state(cachedList?.chats ?? []);
-  let allRumours: any[] = $state(cachedList?.rumours ?? []);
+  let stored: any = null;
+  try { stored = JSON.parse(localStorage.getItem(storageKey) || "null"); } catch {}
+  let chats: any[] = $state(cachedList?.chats ?? stored?.chats ?? []);
+  let allRumours: any[] = $state(cachedList?.rumours ?? stored?.rumours ?? []);
+  let loaded = $state(chats.length > 0);
 
   const updateSendersRecipients = async (rumours: any[]) => {
     allRumours = rumours;
@@ -114,9 +118,10 @@
         (mostRecentCommunication(rumours, a.pubkey) ?? 0),
     );
     setCachedChatList(user.pubkey, chats, allRumours);
+    try { localStorage.setItem(storageKey, JSON.stringify({ chats, rumours })); } catch {}
   };
 
-  (() => getMessageRumours(data.user).then(updateSendersRecipients))();
+  (() => getMessageRumours(data.user).then(updateSendersRecipients).then(() => (loaded = true)))();
 
   let closeSub: (() => void) | undefined;
 
@@ -134,7 +139,9 @@
 </script>
 
 <div class="container mx-auto max-w-xl px-4 space-y-4">
-  {#if chats.length === 0}
+  {#if !loaded}
+    <div class="flex justify-center py-8"><div class="loading loading-spinner"></div></div>
+  {:else if chats.length === 0}
     <p class="text-center text-secondary">{$t("dm.noChats")}</p>
   {:else}
     {#each chats as c}
