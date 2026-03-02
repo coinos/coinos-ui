@@ -162,10 +162,10 @@ export const decrypt = async (wrapped: any, user: any): Promise<any> => {
   }
 };
 
-// Returns the rumours of the messages the provided user has sent or received.
-// If the events have an expiration timestamp,
-// that timestamp is added to its rumour object as the property `expiration`.
-export const getMessageRumours = async (user: any): Promise<any[]> => {
+// In-memory cache for rumours, keyed by pubkey
+let rumourCache = new Map<string, any[]>();
+
+const fetchMessageRumours = async (user: any): Promise<any[]> => {
   const preferredRelays = await getPreferredRelays(user.pubkey);
   // Always include default relays to catch messages that might be there
   const relays = Array.from(new Set([...preferredRelays, ...DM_RELAYS_LIST]));
@@ -197,7 +197,43 @@ export const getMessageRumours = async (user: any): Promise<any[]> => {
     }
   }
 
+  rumourCache.set(user.pubkey, rumours);
   return rumours;
+};
+
+// Returns the rumours of the messages the provided user has sent or received.
+// If the events have an expiration timestamp,
+// that timestamp is added to its rumour object as the property `expiration`.
+// Returns cached results immediately if available, and refreshes in the background.
+export const getMessageRumours = async (user: any): Promise<any[]> => {
+  const cached = rumourCache.get(user.pubkey);
+  if (cached) {
+    fetchMessageRumours(user);
+    return cached;
+  }
+  return fetchMessageRumours(user);
+};
+
+// Cache for computed chat lists and user info
+let chatListCache = new Map<string, { chats: any[]; rumours: any[] }>();
+let userInfoCache = new Map<string, any>();
+
+export const getCachedChatList = (userPubkey: string) => chatListCache.get(userPubkey);
+export const setCachedChatList = (userPubkey: string, chats: any[], rumours: any[]) => {
+  chatListCache.set(userPubkey, { chats, rumours });
+};
+
+export const getCachedUserInfo = (pubkey: string) => userInfoCache.get(pubkey);
+export const setCachedUserInfo = (pubkey: string, info: any) => {
+  userInfoCache.set(pubkey, info);
+};
+
+// Add a rumour to the cache (used by subscription handlers)
+export const cacheRumour = (userPubkey: string, rumour: any) => {
+  const cached = rumourCache.get(userPubkey);
+  if (cached && !cached.find((r: any) => r.id === rumour.id)) {
+    cached.push(rumour);
+  }
 };
 
 // Returns the preferred relays of the user with the provided pubkey,

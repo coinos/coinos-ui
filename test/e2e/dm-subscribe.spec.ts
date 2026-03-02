@@ -1,13 +1,21 @@
 import { expect, test } from "@playwright/test";
-import { login, bobUsername, bobPassword, aliceUsername, alicePassword } from "./helpers";
+import { login, bobUsername, bobPassword, aliceUsername, alicePassword, apiBaseUrl } from "./helpers";
 
 test("recipient receives DM via relay subscription in real-time", async ({ browser }) => {
   test.setTimeout(60_000);
 
-  // --- Set up Alice (recipient) ---
+  // --- Resolve pubkeys from usernames ---
   const aliceContext = await browser.newContext();
   const alicePage = await aliceContext.newPage();
 
+  const [aliceRes, bobRes] = await Promise.all([
+    alicePage.request.get(`${apiBaseUrl}/users/${aliceUsername}`),
+    alicePage.request.get(`${apiBaseUrl}/users/${bobUsername}`),
+  ]);
+  const alicePubkey = (await aliceRes.json()).pubkey;
+  const bobPubkey = (await bobRes.json()).pubkey;
+
+  // --- Set up Alice (recipient) ---
   const aliceConsole: string[] = [];
   alicePage.on("console", (msg) => aliceConsole.push(`[${msg.type()}] ${msg.text()}`));
 
@@ -25,7 +33,7 @@ test("recipient receives DM via relay subscription in real-time", async ({ brows
   });
 
   await login(alicePage, aliceUsername, alicePassword);
-  await alicePage.goto(`/dm?username=${bobUsername}`);
+  await alicePage.goto(`/messages/${bobPubkey}`);
   await alicePage.waitForLoadState("domcontentloaded");
 
   const aliceTextarea = alicePage.locator("#message-contents");
@@ -70,7 +78,7 @@ test("recipient receives DM via relay subscription in real-time", async ({ brows
   });
 
   await login(bobPage, bobUsername, bobPassword);
-  await bobPage.goto(`/dm?username=${aliceUsername}`);
+  await bobPage.goto(`/messages/${alicePubkey}`);
   await bobPage.waitForLoadState("domcontentloaded");
 
   const bobTextarea = bobPage.locator("#message-contents");

@@ -186,6 +186,7 @@
 
   let passkeyRegister = async () => {
     passkeyLoading = true;
+    let passkeyToken: string | null = null;
     try {
       let pw = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) =>
         b.toString(16).padStart(2, "0"),
@@ -212,8 +213,10 @@
         return;
       }
 
-      const { token, sk } = result.data;
-      const { prfKey, credentialId } = await registerPasskey(token);
+      passkeyToken = result.data.token;
+      const passkeySk = result.data.sk;
+
+      const { prfKey, credentialId } = await registerPasskey(passkeyToken!);
 
       // Generate canonical key and derive nostr key before activate
       // so we can pass the pubkey to the server-side activate action
@@ -230,9 +233,9 @@
       }
 
       const activateData = new FormData();
-      activateData.append("token", token);
+      activateData.append("token", passkeyToken!);
       activateData.append("username", username);
-      if (sk) activateData.append("sk", sk);
+      if (passkeySk) activateData.append("sk", passkeySk);
       if (nostrPubkey) activateData.append("pubkey", nostrPubkey);
       activateData.append("loginRedirect", (redirect ?? "") as string);
 
@@ -261,6 +264,19 @@
 
       applyAction(activateResult);
     } catch (e: any) {
+      // Clean up the account created by passkeyCreate if passkey registration failed
+      if (passkeyToken) {
+        try {
+          await fetch("/post/user/delete", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${passkeyToken}`,
+            },
+            body: JSON.stringify({}),
+          });
+        } catch {}
+      }
       if (e.name !== "NotAllowedError") {
         fail(e.message || "Passkey registration failed");
       }

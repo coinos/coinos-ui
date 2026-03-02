@@ -40,7 +40,7 @@
           <iconify-icon noobserver icon="ph:faders-bold" width="32"></iconify-icon>
         </a>
       {:else}
-        <a href="/dm?username={subject.username}" aria-label="Direct Message">
+        <a href="/messages/{subject.pubkey}" aria-label="Direct Message">
           <iconify-icon noobserver icon="ph:chat-bold" width="32"></iconify-icon>
         </a>
       {/if}

@@ -1,94 +1,154 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
+  import { onMount, onDestroy } from "svelte";
+  import { isValid } from "nostr-tools/nip05";
+  import { decode } from "nostr-tools/nip19";
 
+  import { getNostrUserInfo } from "$lib/nip01";
+  import {
+    getMessageRumours, subscribeToMessages, cacheRumour,
+    getCachedChatList, setCachedChatList,
+    getCachedUserInfo, setCachedUserInfo,
+  } from "$lib/nip17";
+  import { pTagKeys } from "$lib/nostr";
   import { t } from "$lib/translations";
-  import Avatar from "$comp/Avatar.svelte";
-  import { event as e, password } from "$lib/store";
-  import { browser } from "$app/environment";
-  import { decrypt } from "$lib/nostr";
 
-  let { data }: any = $props();
+  let { data } = $props();
+  const user = $derived(data.user);
 
-  let messages: any = $state((() => data.messages)());
-  let notes: any = $state((() => data.notes)());
-  let invoices: any = $state((() => data.invoices)());
-  let sent: any = $state((() => data.sent)());
-  let received: any = $state((() => data.received)());
-  let subject: any = $state((() => data.subject)());
-  let user: any = $state((() => data.user)());
-  let refresh = (d: any) => ({ messages, notes, invoices, sent, received, subject, user } = d);
-
-  let keys = new Set();
-  let latest: any[] = $state([]);
-  let ready: any;
-
-  e.subscribe(async (event: any) => {
-    if (!(browser && event && ready)) return;
-    if (event.recipient?.id === user.id && !~latest.findIndex((m: any) => m.id === event.id)) {
-      event.content = await decrypt({ event, user });
-
-      let i = latest.findIndex((m: any) => m.pubkey === event.pubkey);
-      let popped;
-      if (~i) popped = latest.splice(i, 1);
-      else popped = latest.pop();
-
-      latest.unshift(event);
-      latest = latest;
+  (() => {
+    if (!data.user) {
+      window.location.replace("/login");
     }
-  });
+  })();
 
-  let initialize = async (p: any) => {
-    let i = 0;
-    ready = false;
-    if (!(browser && user)) return;
-    while (i < messages.length) {
-      let event = messages[i];
-      i++;
+  const coinosUserFromPubkey = async (pubkey: string): Promise<any> => {
+    const response = await fetch(`/api/users/${pubkey}`);
+    if (response.ok) {
+      const info = await response.json();
+      return info.anon ? null : info;
+    }
+    return null;
+  };
 
-      if (!(event.author && event.recipient)) continue;
+  const userInfo = async (pubkey: string) => {
+    if (pubkey.slice(0, 4) === "npub") {
+      return userInfo(decode(pubkey).data as string);
+    }
 
-      let k = event.author.id === user.id ? event.recipient?.pubkey : event.author.pubkey;
+    const cached = getCachedUserInfo(pubkey);
+    if (cached) return cached;
 
-      if (!keys.has(k)) {
-        keys.add(k);
-        event.content = await decrypt({ event, user });
-        if (event.content) latest.push(event);
+    const nostrUserInfo = (await getNostrUserInfo(pubkey)) || {};
+    const valid = "nip05" in nostrUserInfo && (await isValid(pubkey, nostrUserInfo.nip05));
+    const coinosUser = await coinosUserFromPubkey(pubkey);
+    const info = {
+      coinosUsername: coinosUser?.username || null,
+      picture: coinosUser?.picture || nostrUserInfo?.picture || null,
+      nostrName: nostrUserInfo?.name,
+      nip05: nostrUserInfo?.nip05,
+      nip05Valid: valid,
+      pubkey,
+    };
+    setCachedUserInfo(pubkey, info);
+    return info;
+  };
+
+  const name = (info: any): string => {
+    return info.coinosUsername || info.nostrName || $t("dm.anonymous");
+  };
+
+  const rumourInvolves = (rumour: any, pubkey: string) => {
+    if (rumour.pubkey === pubkey) return true;
+    for (const tagPK of pTagKeys(rumour)) {
+      if (tagPK === pubkey) return true;
+    }
+    return false;
+  };
+
+  const mostRecentCommunication = (rumours: any[], pubkey: string) => {
+    let mostRecentTime = null;
+    for (const rumour of rumours.filter((r) => rumourInvolves(r, pubkey))) {
+      if (!mostRecentTime || rumour.created_at > mostRecentTime) {
+        mostRecentTime = rumour.created_at;
+      }
+    }
+    return mostRecentTime;
+  };
+
+  const lastMessage = (rumours: any[], pubkey: string) => {
+    let latest: any = null;
+    for (const rumour of rumours.filter((r) => rumourInvolves(r, pubkey))) {
+      if (!latest || rumour.created_at > latest.created_at) {
+        latest = rumour;
+      }
+    }
+    return latest?.content || "";
+  };
+
+  // Initialize from cache immediately
+  const cachedList = getCachedChatList(data.user?.pubkey);
+  let chats: any[] = $state(cachedList?.chats ?? []);
+  let allRumours: any[] = $state(cachedList?.rumours ?? []);
+
+  const updateSendersRecipients = async (rumours: any[]) => {
+    allRumours = rumours;
+    const senders = new Set<any>();
+    const recipients = new Set<any>();
+    for (const rumour of rumours) {
+      if (rumour.pubkey !== user.pubkey) {
+        senders.add(await userInfo(rumour.pubkey));
+      } else {
+        for (const pubkey of pTagKeys(rumour)) {
+          recipients.add(await userInfo(pubkey));
+        }
       }
     }
 
-    latest = latest;
-    ready = true;
+    const chatMap = new Map<string, any>();
+    for (const sender of senders) chatMap.set(sender.pubkey, sender);
+    for (const recipient of recipients) chatMap.set(recipient.pubkey, recipient);
+    chats = Array.from(chatMap.values());
+    chats.sort(
+      (a, b) =>
+        (mostRecentCommunication(rumours, b.pubkey) ?? 0) -
+        (mostRecentCommunication(rumours, a.pubkey) ?? 0),
+    );
+    setCachedChatList(user.pubkey, chats, allRumours);
   };
-  run(() => {
-    refresh(data);
+
+  (() => getMessageRumours(data.user).then(updateSendersRecipients))();
+
+  let closeSub: (() => void) | undefined;
+
+  onMount(() => {
+    subscribeToMessages(user, async (rumour) => {
+      if (!allRumours.find((r) => r.id === rumour.id)) {
+        cacheRumour(user.pubkey, rumour);
+        allRumours = [...allRumours, rumour];
+        await updateSendersRecipients(allRumours);
+      }
+    }).then((close) => (closeSub = close));
   });
-  run(() => {
-    initialize($password);
-  });
+
+  onDestroy(() => closeSub?.());
 </script>
 
-<div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
-  <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold mb-10">
-    {$t("user.messages")}
-  </h1>
-  {#if latest.length && user?.id === subject.id}
-    <div class="relative">
-      {#each latest as { content, pubkey, author, recipient }}
-        {@const u = author.id === user.id ? recipient : author}
-        <a href={`/messages/${u.username}`}>
-          <div class="flex hover:bg-gray-100 p-4 rounded-2xl">
-            <div class="my-auto">
-              <Avatar user={u} size={20} disabled={true} />
-            </div>
-            <div class="my-auto truncate">
-              <div class="my-auto ml-1 text-lg font-bold">{u.username}</div>
-              <div class="my-auto ml-1 text-secondary text-lg truncate">{content}</div>
-            </div>
-          </div>
-        </a>
-      {/each}
-    </div>
+<div class="container mx-auto max-w-xl px-4 space-y-4">
+  {#if chats.length === 0}
+    <p class="text-center text-secondary">{$t("dm.noChats")}</p>
   {:else}
-    <div class="text-center">{$t("user.noMessages")}</div>
+    {#each chats as c}
+      <a href="/messages/{c.pubkey}" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-base-200">
+        {#if c.picture}
+          <img src={c.picture} alt={name(c)} class="w-12 h-12 rounded-full object-cover shrink-0" />
+        {:else}
+          <div class="w-12 h-12 rounded-full bg-base-300 shrink-0"></div>
+        {/if}
+        <div class="min-w-0">
+          <div class="font-semibold text-lg">{name(c)}</div>
+          <div class="text-secondary text-sm truncate">{lastMessage(allRumours, c.pubkey)}</div>
+        </div>
+      </a>
+    {/each}
   {/if}
 </div>
