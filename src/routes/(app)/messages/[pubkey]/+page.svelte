@@ -174,16 +174,11 @@
 
   let closeSub: (() => void) | undefined;
 
-  // Keep input visible when mobile keyboard opens
+  // Scroll messages to bottom when mobile keyboard opens/closes
   onMount(() => {
     const vv = window.visualViewport;
     if (!vv) return;
-    const onResize = () => {
-      const active = document.activeElement;
-      if (active?.id === "message-contents") {
-        active.scrollIntoView({ block: "nearest" });
-      }
-    };
+    const onResize = () => scrollChat();
     vv.addEventListener("resize", onResize);
     return () => vv.removeEventListener("resize", onResize);
   });
