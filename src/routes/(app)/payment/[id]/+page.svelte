@@ -125,7 +125,7 @@
     >
       <div class:hidden={!$fiat}>{f(toFiat(amount, rate), currency, userLocale)}</div>
       <div class="flex items-center" class:hidden={$fiat}>
-        <PhLightningFill class="text-yellow-300" />
+        <PhLightningFill width="20" class="text-yellow-300" />
         {s(amount, userLocale)}
       </div>
     </button>
@@ -184,7 +184,7 @@
     >
       <span class:hidden={!$fiat}>{f(toFiat(a, rate), currency, userLocale)}</span>
       <span class="flex items-center" class:hidden={$fiat}>
-        <PhLightningFill class="text-yellow-300" />
+        <PhLightningFill width="20" class="text-yellow-300" />
         {s(a, userLocale)}
       </span>
     </button>
@@ -237,7 +237,7 @@
     {:else if type === types.fund}
       <div class="pt-4">
         <a href={`/fund/${memo}`} class="btn btn-accent w-full">
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="20" class="text-yellow-300" />
           {$t("payments.viewFund")}
         </a>
       </div>
@@ -246,7 +246,7 @@
       <div class="pt-4">
         <a href={`/e/${eid}`} class="btn btn-accent w-full">
           <img src="/images/nostr.png" class="w-6" alt="Nostr" />
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="20" class="text-yellow-300" />
           {$t("payments.zappedEvent")}
         </a>
       </div>

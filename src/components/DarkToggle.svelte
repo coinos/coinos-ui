@@ -11,9 +11,9 @@
 
 <button class="flex justify-center items-center hover:opacity-80 gap-2 font-bold whitespace-nowrap" onclick={dark}>
   {#if $theme === "dark"}
-    <PhSunBold width="36" />
+    <PhSunBold width="32" />
   {:else}
-    <PhMoonStarsBold width="36" />
+    <PhMoonStarsBold width="32" />
   {/if}
 
   {$t(`nav.${$theme === "dark" ? "light" : "dark"}`)}

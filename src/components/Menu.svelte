@@ -58,7 +58,7 @@
               <button
                 class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
               >
-                <Icon width="36" />
+                <Icon width="32" />
                 {t(key)}
               </button>
             </a>

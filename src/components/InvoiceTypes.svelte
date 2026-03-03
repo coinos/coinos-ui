@@ -74,7 +74,7 @@
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto mt-1">
-          <PhLightningFill class="text-yellow-300 text-2xl" />
+          <PhLightningFill width="24" class="text-yellow-300" />
         </div>
       </div>
       <div class="my-auto text-lg">LNURL</div>
@@ -88,7 +88,7 @@
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto mt-1">
-          <PhLightningFill class="text-yellow-300 text-2xl" />
+          <PhLightningFill width="24" class="text-yellow-300" />
         </div>
       </div>
       <div class="my-auto text-lg">Bolt 12</div>
@@ -111,7 +111,7 @@
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto mt-1">
-          <PhLightningFill class="text-yellow-300 text-2xl" />
+          <PhLightningFill width="24" class="text-yellow-300" />
         </div>
       </div>
       <div class="my-auto text-lg">Bolt 11</div>

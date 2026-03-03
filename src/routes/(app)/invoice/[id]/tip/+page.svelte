@@ -112,7 +112,7 @@
         </div>
         <div class="ml-auto text-lg flex gap-2" class:hidden={$fiat}>
           <div class="flex items-center">
-            <PhLightningFill class="text-yellow-300" />
+            <PhLightningFill width="20" class="text-yellow-300" />
             <div>{s(amount, locale)}</div>
           </div>
           <div class="flex items-center">

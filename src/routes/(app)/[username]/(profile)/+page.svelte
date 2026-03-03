@@ -162,7 +162,7 @@
       class="contents"
     >
       <button class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto">
-        <PhLightningFill class="text-yellow-300" />
+        <PhLightningFill width="20" class="text-yellow-300" />
         <div>{$t("user.pay")} {subject.username}</div>
       </button>
     </a>

@@ -50,7 +50,7 @@
           {:else}
             <a href={`/fund/${p.memo}`}>
               <div class="text-secondary flex">
-                <PhLightningFill class="text-yellow-300 text-3xl" />
+                <PhLightningFill width="30" class="text-yellow-300" />
 
                 <div class="my-auto">{$t("payments.fund")}</div>
               </div>
@@ -66,11 +66,11 @@
         {:else}
           <div class="text-secondary flex items-center gap-1">
             {#if p.type === types.lightning || p.type === types.bolt12}
-              <PhLightningFill class="text-yellow-300 text-3xl" />
+              <PhLightningFill width="30" class="text-yellow-300" />
             {:else if p.type === types.ecash}
               <img src="/images/cash.png" class="w-12" alt="Ecash" />
             {:else if p.type === types.bitcoin}
-              <LogosBitcoin class="text-3xl" />
+              <LogosBitcoin width="30" />
             {:else if p.type === types.liquid}
               <div class="my-auto">
                 <img

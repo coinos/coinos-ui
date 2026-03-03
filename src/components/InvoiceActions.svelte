@@ -86,7 +86,7 @@
       >
         <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
           <div class="m-auto">
-            <PhLightningFill class="text-yellow-300 text-2xl" />
+            <PhLightningFill width="24" class="text-yellow-300" />
           </div>
         </div>
         <div class="my-auto text-lg">Lightning</div>

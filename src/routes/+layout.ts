@@ -24,4 +24,6 @@ export const load = async ({ data }) => {
       if (theme === "dark") setTimeout(() => themeStore.set(theme), 100);
     }
   }
+
+  return data;
 };

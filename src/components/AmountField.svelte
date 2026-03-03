@@ -39,7 +39,7 @@
 
   <button type="button" class="flex w-full" onclick={startSetting}>
     <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-      <PhLightningFill class="text-yellow-300" />
+      <PhLightningFill width="20" class="text-yellow-300" />
     </div>
 
     <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">

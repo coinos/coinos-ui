@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       Icons({
         compiler: "svelte",
+        scale: 0,
         customCollections: {
           coinos: FileSystemIconLoader("./src/icons"),
         },

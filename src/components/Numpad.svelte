@@ -259,7 +259,7 @@
           <span class:hidden={!fiat}>
             {#if position === "before"}{symbol}{/if}
           </span>
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="48" class="text-yellow-300" />
         </div>
 
         <!-- contenteditable input -->
@@ -302,7 +302,7 @@
         }}
       >
         <span class="flex items-center" class:hidden={!fiat}>
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="48" class="text-yellow-300" />
           {s(amount, locale)}
         </span>
         <span class:hidden={fiat}>{f(amountFiat, currency, locale)}</span>

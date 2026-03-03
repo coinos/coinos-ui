@@ -42,7 +42,7 @@
       <div class="flex max-w-xs sm:max-w-xl">
         <div>First {b}</div>
 
-        <PhLightningFill class="text-yellow-300 ml-auto" />
+        <PhLightningFill width="20" class="text-yellow-300 ml-auto" />
         {s(100000, "en-CA")}
       </div>
     {/each}
@@ -55,7 +55,7 @@
       <div class="flex max-w-xs sm:max-w-xl">
         <div>{b.type}</div>
 
-        <PhLightningFill class="text-yellow-300 ml-auto" />
+        <PhLightningFill width="20" class="text-yellow-300 ml-auto" />
         {s(b.amount, "en-CA")}
       </div>
     {/each}
@@ -100,7 +100,7 @@
           </div>
 
           <div class="ml-auto flex shrink-0 items-center gap-1 whitespace">
-            <PhLightningFill class="text-yellow-300" />
+            <PhLightningFill width="20" class="text-yellow-300" />
             <span class="text-sm font-semibold tabular-nums">{s(amount, "en-CA")}</span>
           </div>
         </div>

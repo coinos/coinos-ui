@@ -44,7 +44,7 @@
       </div>
       {#if author.lud16}
         <div class="flex items-center">
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="20" class="text-yellow-300" />
           {author.lud16}
         </div>
       {/if}

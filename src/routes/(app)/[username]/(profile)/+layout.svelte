@@ -142,12 +142,12 @@
       {#if satsPerCurrency >= 1}
         <div>{f(1, currency, locale)} &#61;</div>
         <div class="flex items-center">
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="20" class="text-yellow-300" />
           {s(satsPerCurrency)}
         </div>
       {:else}
         <div class="flex items-center">
-          <PhLightningFill class="text-yellow-300" />
+          <PhLightningFill width="20" class="text-yellow-300" />
           1
         </div>
         <div>&#61; {f(1 / satsPerCurrency, currency, locale)}</div>

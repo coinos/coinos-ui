@@ -10,7 +10,7 @@
       <CoinosLogo width="224" class="mx-auto" />
     </a>
 
-    <PhQuestionBold class="mx-auto w-56" />
+    <PhQuestionBold width="224" class="mx-auto" />
 
     <h1 class="font-bold text-5xl">{$t("404.404")}</h1>
     <p>{$t("404.pageNotFound")}</p>

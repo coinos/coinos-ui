@@ -36,9 +36,9 @@
       >
         {#if !canShowFiat}
           {#if locked}
-            <PhLockFill class="text-yellow-300" />
+            <PhLockFill width="20" class="text-yellow-300" />
           {:else}
-            <PhLightningFill class="text-yellow-300" />
+            <PhLightningFill width="20" class="text-yellow-300" />
           {/if}
         {/if}
         <span class:hidden={!canShowFiat}>{f(toFiat(amount, rate), currency, locale)}</span>

@@ -11,7 +11,7 @@
 
 <div class="text-center mt-20 md:mt-0">
   <div class="flex w-full max-w-[200px] mx-auto py-20" in:scale={{ start: 0.5 }}>
-    <PhCheckBold class="mx-auto w-full text-[#7ACC8F]" />
+    <PhCheckBold width="96" class="mx-auto text-[#7ACC8F]" />
   </div>
   <h1 class="text-3xl md:text-4xl font-bold mb-6">Request Sent!</h1>
 </div>

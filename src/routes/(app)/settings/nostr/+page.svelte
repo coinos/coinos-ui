@@ -77,7 +77,7 @@
             {#if app.max_amount > 0}
               <div class="flex gap-1 text-base">
                 <div class="flex items-center">
-                  <PhLightningFill class="text-yellow-300" />
+                  <PhLightningFill width="20" class="text-yellow-300" />
                   <span class:hidden={!($fiat && $rate)}>{f((app.spent * ($rate as number)) / sats, user.currency, locale)} / {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}</span>
                   <span class:hidden={$fiat && $rate}>{s(app.spent, locale)} / {s(app.max_amount, locale)}</span>
                 </div>

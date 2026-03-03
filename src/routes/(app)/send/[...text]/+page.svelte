@@ -122,7 +122,7 @@
 
     <a href="/send/fund" class="block">
       <button type="button" class="btn">
-        <PhLightningFill class="text-yellow-300 text-2xl" />
+        <PhLightningFill width="24" class="text-yellow-300" />
         <div class="my-auto">{$t("payments.createFund")}</div>
       </button>
     </a>
