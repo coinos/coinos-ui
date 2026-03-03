@@ -1,34 +1,12 @@
-import { auth, get, isInvalidTokenError, sleep } from "$lib/utils";
+import { get } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, request, url, params }) {
+export async function load({ cookies, request, url, params, parent }) {
   const { pathname } = url;
   const { id, username } = params;
   const token = cookies.get("token");
 
-  let user;
-  if (token) {
-    try {
-      user = await get("/me", auth(cookies));
-    } catch (e) {
-      const { message } = e as Error;
-      if (message.startsWith("Rate")) {
-        await sleep(3000);
-        try {
-          user = await get("/me", auth(cookies));
-        } catch (retryError) {
-          if (isInvalidTokenError(retryError) && pathname !== "/logout") {
-            redirect(307, "/logout");
-          }
-          throw retryError;
-        }
-      } else if (isInvalidTokenError(e) && pathname !== "/logout") {
-        redirect(307, "/logout");
-      } else {
-        throw e;
-      }
-    }
-  }
+  const { user } = await parent();
 
   let subject;
 

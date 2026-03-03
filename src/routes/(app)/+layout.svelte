@@ -28,7 +28,7 @@
   import Password from "$comp/Password.svelte";
   import { s, f, toFiat, success, getCookie, warning, post } from "$lib/utils";
   import { t, locale, loading } from "$lib/translations";
-  import { goto, invalidate, afterNavigate, preloadData } from "$app/navigation";
+  import { goto, invalidate, afterNavigate } from "$app/navigation";
 
 
   let { data, children } = $props();
@@ -50,13 +50,7 @@
 
   afterNavigate(() => {
     document.cookie = `pathname=${$page.url.pathname}; path=/; max-age=86400`;
-    if (user) {
-      preloadData(`/${user.username}`);
-      preloadData(`/${user.username}/receive`);
-      preloadData("/payments");
-      preloadData("/send");
-      if ($arkkey) arkSync("afterNavigate");
-    }
+    if (user && $arkkey) arkSync("afterNavigate");
   });
 
   let arkSyncing = false;

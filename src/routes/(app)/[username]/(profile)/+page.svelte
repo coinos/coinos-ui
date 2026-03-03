@@ -9,16 +9,11 @@
   import Spinner from "$comp/Spinner.svelte";
   import { t } from "$lib/translations";
   import { installPrompt, password, cachedAccounts, cachedRates } from "$lib/store";
-  import { afterNavigate, goto, invalidate, preloadData } from "$app/navigation";
+  import { goto, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { versions, post, fail, getCookie } from "$lib/utils";
 
   let { data } = $props();
-
-  afterNavigate(() => {
-    if (user) preloadData(`/${user.username}/receive`);
-    preloadData("/send");
-  });
 
   let { accounts, subject, rates, user } = $derived(data as any);
   let { locked } = $derived(user);

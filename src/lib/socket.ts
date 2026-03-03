@@ -41,7 +41,6 @@ export const messages = (data) => ({
 
   async payment() {
     const { amount, confirmed, iid, aid, type } = data;
-    invalidate("app:user");
     invalidate("app:invoice");
     invalidate("app:payments");
     paymentSignal.update((n) => n + 1);
