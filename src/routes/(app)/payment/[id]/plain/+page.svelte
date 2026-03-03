@@ -3,10 +3,9 @@
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
-  import { back, copy, f, s, toFiat, post, sats, success, types } from "$lib/utils";
+  import { back, copy, f, s, toFiat, post, sats, success, types, formatDate } from "$lib/utils";
   import { fiat } from "$lib/store";
   import Avatar from "$comp/Avatar.svelte";
-  import { format } from "date-fns";
   import { PUBLIC_EXPLORER as expl } from "$env/static/public";
 
   let { data } = $props();
@@ -66,7 +65,7 @@
 
   <div>
     <span class="text-lg text-secondary">Date</span>
-    <div>{format(new Date(created), "MMMM d")}, {format(new Date(created), "h:mm aaa")}</div>
+    <div>{formatDate(new Date(created), "en", { month: "long", day: "numeric" })}, {formatDate(new Date(created), "en", { hour: "numeric", minute: "2-digit" })}</div>
   </div>
 
   {#if type === "bitcoin"}

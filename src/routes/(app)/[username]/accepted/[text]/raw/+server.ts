@@ -1,15 +1,13 @@
-import Qr from "qrcode-base64";
+import QRCode from "qrcode";
 
 export async function GET({ params }) {
   const { text } = params;
 
-  const dataUri = Qr.drawImg(text, { size: 600 });
-  const base64Data = dataUri.split(",")[1];
-  const binaryData = Buffer.from(base64Data, "base64");
+  const buffer = await QRCode.toBuffer(text, { width: 600, type: "png" });
 
-  return new Response(binaryData, {
+  return new Response(buffer, {
     headers: {
-      "Content-Type": "image/gif",
+      "Content-Type": "image/png",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });

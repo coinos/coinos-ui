@@ -1,14 +1,9 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { browser } from "$app/environment";
   let { icon = "", text }: any = $props();
   let qr = $state();
-  let screenfull;
 
-  onMount(async () => {
-    if (!browser) return;
-    screenfull = (await import("screenfull")).default;
-  });
+  const toggleFullscreen = (el) =>
+    document.fullscreenElement ? document.exitFullscreen() : el.requestFullscreen();
 
   let src = $derived.by(() => {
     let url = `/qr/${encodeURIComponent(text)}`;
@@ -21,8 +16,8 @@
 <div
   class="w-72 sm:w-80 mx-auto cursor-pointer"
   bind:this={qr}
-  onclick={() => screenfull?.toggle?.(qr)}
-  onkeydown={(e) => (e.key === "Enter" || e.key === " ") && screenfull?.toggle?.(qr)}
+  onclick={() => toggleFullscreen(qr)}
+  onkeydown={(e) => (e.key === "Enter" || e.key === " ") && toggleFullscreen(qr)}
   role="button"
   tabindex="0"
   aria-label="Toggle fullscreen QR"

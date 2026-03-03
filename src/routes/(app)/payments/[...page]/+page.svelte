@@ -3,12 +3,10 @@
   import Avatar from "$comp/Avatar.svelte";
   import Payments from "$comp/Payments.svelte";
   import { onMount } from "svelte";
-  import { format } from "date-fns";
   import { newPayment, cachedPayments } from "$lib/store";
   import { t } from "$lib/translations";
   import { get, f, s, si, sat, loc, sats, types } from "$lib/utils";
   import { page } from "$app/stores";
-  import { differenceInDays, getUnixTime, sub } from "date-fns";
   import { goto, invalidate } from "$app/navigation";
 
   let { data } = $props();
@@ -26,28 +24,28 @@
   let presets = $derived([
     {
       title: $t("payments.day"),
-      start: sub(new Date(), { days: 1 }),
+      start: new Date(Date.now() - 86400000),
       end: null,
     },
     {
       title: $t("payments.week"),
-      start: sub(new Date(), { days: 7 }),
+      start: new Date(Date.now() - 7 * 86400000),
       end: null,
     },
     {
       title: $t("payments.month"),
-      start: sub(new Date(), { months: 1 }),
+      start: new Date(Date.now() - 30 * 86400000),
       end: null,
     },
     {
       title: $t("payments.all"),
-      start: sub(new Date(), { years: 5 }),
+      start: new Date(Date.now() - 5 * 365 * 86400000),
       end: null,
     },
   ]);
 
   let selection = $derived(
-    presets.findIndex((p) => Math.abs(differenceInDays(new Date(start * 1000), p.start)) < 1),
+    presets.findIndex((p) => Math.abs(new Date(start * 1000).getTime() - p.start.getTime()) < 86400000),
   );
 
   $effect(() => {
@@ -158,7 +156,7 @@
     <div class="flex w-full gap-1">
       {#each presets as { start, end, title }, i}
         <a
-          href={`/payments/${getUnixTime(start)}/1`}
+          href={`/payments/${Math.floor(start.getTime() / 1000)}/1`}
           class="btn !w-auto flex-1"
           class:!btn-active={selection === i}
         >

@@ -1,11 +1,7 @@
 import { browser } from "$app/environment";
 import { theme as themeStore } from "$lib/store";
 import { addTranslations, setLocale, setRoute } from "$lib/translations/index";
-import cookies from "js-cookie";
-
-const expires = new Date();
-expires.setSeconds(expires.getSeconds() + 21000000);
-const opts = { path: "/", expires };
+import { getCookie, setCookie } from "$lib/utils";
 
 /** @type {import('@sveltejs/kit').Load} */
 export const load = async ({ data }) => {
@@ -18,12 +14,12 @@ export const load = async ({ data }) => {
   await setLocale(locale);
 
   if (browser) {
-    let theme = cookies.get("theme");
+    let theme = getCookie("theme");
 
     if (!theme) {
       theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
-      cookies.set("theme", theme, opts);
+      setCookie("theme", theme, 21000000);
 
       if (theme === "dark") setTimeout(() => themeStore.set(theme), 100);
     }

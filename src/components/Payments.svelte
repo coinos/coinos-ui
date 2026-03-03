@@ -3,10 +3,8 @@
   import LogosBitcoin from "virtual:icons/logos/bitcoin";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
-  import { get, f, s, si, sat, loc, sats, types } from "$lib/utils";
-  import { format } from "date-fns";
+  import { get, f, s, si, sat, loc, sats, types, formatDate } from "$lib/utils";
   import { t } from "$lib/translations";
-  import locales from "$lib/locales";
   import { fiat } from "$lib/store";
   const { fund = undefined, locale, user, payments }: any = $props();
   const language = $derived(user?.language || "en");
@@ -102,14 +100,10 @@
 
       <div class="text-secondary text-right text-sm my-auto col-span-3">
         <div>
-          {format(new Date(p.created), "MMM d, yy", {
-            locale: locales[language],
-          })}
+          {formatDate(new Date(p.created), language, { month: "short", day: "numeric", year: "2-digit" })}
         </div>
         <div>
-          {format(new Date(p.created), "h:mm aaa", {
-            locale: locales[language],
-          })}
+          {formatDate(new Date(p.created), language, { hour: "numeric", minute: "2-digit" })}
         </div>
       </div>
     </div>

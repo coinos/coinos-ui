@@ -5,7 +5,7 @@
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";
-  import { copy, f, s, loc, toFiat, post, sats, fail, success, types } from "$lib/utils";
+  import { copy, f, s, loc, toFiat, post, sats, fail, success, types, formatDate } from "$lib/utils";
   import { fiat } from "$lib/store";
 
   const toggleFiat = (e) => {
@@ -14,9 +14,7 @@
     $fiat = !$fiat;
   };
   import Avatar from "$comp/Avatar.svelte";
-  import { format } from "date-fns";
   import { PUBLIC_EXPLORER, PUBLIC_LIQUID_EXPLORER } from "$env/static/public";
-  import locales from "$lib/locales";
   import { goto } from "$app/navigation";
 
   let expanded: Set<string> = $state(new Set());
@@ -24,7 +22,6 @@
   let { data } = $props();
   let user = $derived(data.user);
   let p = $derived(data.payment);
-  let locale = $derived(user ? locales[user.language] : locales["en"]);
   let userLocale = $derived(loc(user));
 
   let {
@@ -192,7 +189,7 @@
       </span>
     </button>
     <div class="text-secondary">
-      {format(new Date(created), "MMM d, yyyy", { locale })}<span class="mx-3">{format(new Date(created), "h:mmaaa", { locale })}</span>
+      {formatDate(new Date(created), user?.language, { month: "short", day: "numeric", year: "numeric" })}<span class="mx-3">{formatDate(new Date(created), user?.language, { hour: "numeric", minute: "2-digit" })}</span>
     </div>
   </div>
 

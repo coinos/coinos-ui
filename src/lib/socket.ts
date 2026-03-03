@@ -3,8 +3,7 @@ import { navigating, page } from "$app/stores";
 import { PUBLIC_SOCKET } from "$env/static/public";
 import { vaultForwarding } from "$lib/ark";
 import { event, importing, invoice, last, lastPayment, paymentSignal, request } from "$lib/store";
-import { s, sleep, success, wait } from "$lib/utils";
-import cookies from "js-cookie";
+import { getCookie, s, sleep, success, wait } from "$lib/utils";
 import { get } from "svelte/store";
 
 export let socket;
@@ -61,7 +60,7 @@ export const messages = (data) => ({
       url: { pathname },
     } = get(page);
 
-    const username = cookies.get("username");
+    const username = getCookie("username");
 
     if (amount > 0 && !vaultForwarding) {
       if (

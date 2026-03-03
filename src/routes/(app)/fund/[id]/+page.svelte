@@ -7,7 +7,6 @@
   import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import Amount from "$comp/Amount.svelte";
   import Payments from "$comp/Payments.svelte";
-  import { format } from "date-fns";
   import { enhance } from "$app/forms";
   import { page } from "$app/stores";
   import Avatar from "$comp/Avatar.svelte";

@@ -6,12 +6,7 @@ import { sha256 } from "@noble/hashes/sha2.js";
 import { bytesToHex, utf8ToBytes } from "@noble/hashes/utils.js";
 import { fail as svelteFail, redirect } from "@sveltejs/kit";
 import { toast } from "@zerodevx/svelte-toast";
-import {
-  differenceInDays,
-  differenceInHours,
-  differenceInMinutes,
-  differenceInSeconds,
-} from "date-fns";
+
 import { get as getStore } from "svelte/store";
 
 export function scroll(section: any) {
@@ -484,20 +479,23 @@ export const versions = {
 
 export const str = (s) => s.toString();
 
+const localeTagMap: Record<string, string> = {
+  en: "en-US",
+  fa: "fa-IR",
+  zh: "zh-CN",
+  ar: "ar-SA",
+};
+export const toLocaleTag = (lang = "en") => localeTagMap[lang] || lang;
+
+export const formatDate = (date: Date, lang = "en", opts: Intl.DateTimeFormatOptions = {}) =>
+  new Intl.DateTimeFormat(toLocaleTag(lang), opts).format(date);
+
 export const ago = (t) => {
-  const now = new Date();
-  const date = new Date(t * 1000);
-  const seconds = differenceInSeconds(now, date);
-  if (seconds < 60) return `${seconds}s`;
-
-  const minutes = differenceInMinutes(now, date);
-  if (minutes < 60) return `${minutes}m`;
-
-  const hours = differenceInHours(now, date);
-  if (hours < 24) return `${hours}h`;
-
-  const days = differenceInDays(now, date);
-  return `${days}d`;
+  const diff = Math.floor((Date.now() - t * 1000) / 1000);
+  if (diff < 60) return `${diff}s`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
+  return `${Math.floor(diff / 86400)}d`;
 };
 
 export const register = async (
