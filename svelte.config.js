@@ -14,7 +14,7 @@ const config = {
     },
     prerender: {
       crawl: false,
-      entries: [],
+      entries: ["/privacy", "/removal"],
     },
   },
   onwarn: (warning, handler) => {
