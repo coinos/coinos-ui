@@ -58,12 +58,53 @@
     success("Printing!");
   };
 
-  let bump = async () => {
+  let showBump = $state(false);
+  let bumpLoading = $state(false);
+  let bumpEstimate: any = $state(null);
+  let bumpTargetRate = $state(0);
+  let bumpError = $state("");
+
+  let canBump = $derived(
+    type === "bitcoin" && !confirmed && amount < 0 && p.bumpReserve > 0 && !p.childTxid,
+  );
+
+  let fetchEstimate = async (targetRate: number) => {
+    bumpTargetRate = targetRate;
+    bumpError = "";
     try {
-      await post(`/payment/${id}/bump`, { id });
+      bumpEstimate = await post(`/payment/${id}/bump-estimate`, { id, targetFeeRate: targetRate });
     } catch (e: any) {
-      fail(e.message);
+      bumpError = e.message;
     }
+  };
+
+  let openBump = async () => {
+    showBump = true;
+    bumpEstimate = null;
+    bumpError = "";
+    try {
+      const est = await post(`/payment/${id}/bump-estimate`, { id, targetFeeRate: 10 });
+      bumpEstimate = est;
+      bumpTargetRate = est.fees?.fastestFee || 10;
+      await fetchEstimate(bumpTargetRate);
+    } catch (e: any) {
+      bumpError = e.message;
+    }
+  };
+
+  let bump = async () => {
+    bumpLoading = true;
+    bumpError = "";
+    try {
+      const res = await post(`/payment/${id}/bump`, { id, targetFeeRate: bumpTargetRate });
+      p.childTxid = res.txid;
+      p.bumpedFee = res.childFee;
+      showBump = false;
+      success("Transaction bumped!");
+    } catch (e: any) {
+      bumpError = e.message;
+    }
+    bumpLoading = false;
   };
 
   let direction = $state("");
@@ -222,6 +263,74 @@
             {memo}
           {/if}
         </div>
+      </div>
+    {/if}
+
+    {#if !confirmed && p.bumpReserve > 0}
+      {@render field("Bump Reserve (refundable)", p.bumpReserve)}
+    {/if}
+
+    {#if p.childTxid}
+      {@render copyable("Child Txid", p.childTxid, `${expl}/tx/${p.childTxid}`)}
+    {/if}
+
+    {#if canBump}
+      <div class="py-4 border-b border-base-300">
+        {#if !showBump}
+          <button type="button" class="btn btn-accent w-full" onclick={openBump}>
+            Speed up
+          </button>
+        {:else}
+          <div class="space-y-3">
+            <h3 class="font-semibold">Speed up transaction</h3>
+
+            {#if bumpEstimate?.fees}
+              <div class="flex flex-wrap gap-2 justify-center">
+                <button
+                  type="button"
+                  class="btn btn-sm"
+                  class:btn-accent={bumpTargetRate === bumpEstimate.fees.halfHourFee}
+                  onclick={() => fetchEstimate(bumpEstimate.fees.halfHourFee)}
+                >
+                  Fast ({bumpEstimate.fees.halfHourFee})
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm"
+                  class:btn-accent={bumpTargetRate === bumpEstimate.fees.fastestFee}
+                  onclick={() => fetchEstimate(bumpEstimate.fees.fastestFee)}
+                >
+                  Fastest ({bumpEstimate.fees.fastestFee})
+                </button>
+              </div>
+
+              {#if bumpEstimate.cost !== undefined}
+                <div class="text-center text-sm">
+                  <span class="text-secondary">Cost:</span>
+                  {bumpEstimate.cost} sats from your {p.bumpReserve} sat reserve
+                </div>
+              {/if}
+            {/if}
+
+            {#if bumpError}
+              <div class="text-red-600 text-sm text-center">{bumpError}</div>
+            {/if}
+
+            <div class="flex gap-2 justify-center">
+              <button type="button" class="btn btn-sm" onclick={() => (showBump = false)}>
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-accent"
+                onclick={bump}
+                disabled={bumpLoading || !bumpEstimate || bumpEstimate.cost > p.bumpReserve}
+              >
+                {bumpLoading ? "Bumping..." : "Confirm bump"}
+              </button>
+            </div>
+          </div>
+        {/if}
       </div>
     {/if}
 

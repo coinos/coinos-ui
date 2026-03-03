@@ -4,7 +4,7 @@ import { json, error } from "@sveltejs/kit";
 export async function POST({ cookies, request }) {
   const body = await request.json();
   try {
-    const res = await post("/bump", body, auth(cookies));
+    const res = await post("/bump/estimate", body, auth(cookies));
     return json(res);
   } catch (e: any) {
     error(400, e.message);

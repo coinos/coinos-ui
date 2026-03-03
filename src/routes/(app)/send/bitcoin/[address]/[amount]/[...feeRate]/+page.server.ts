@@ -31,7 +31,7 @@ export async function load({ params: { address, amount, feeRate }, cookies, pare
   }
 
   try {
-    const { fee, fees, inputs, ourfee, hex, subtract } = await post(
+    const { fee, fees, inputs, ourfee, hex, subtract, bumpReserve } = await post(
       "/bitcoin/fee",
       { address, amount, feeRate, aid },
       auth(cookies),
@@ -50,6 +50,7 @@ export async function load({ params: { address, amount, feeRate }, cookies, pare
       hex,
       inputs,
       forward,
+      bumpReserve,
     };
   } catch (e) {
     const { message } = e as Error;

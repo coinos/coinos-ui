@@ -129,7 +129,7 @@
 
   let toggle = () => (submitting = !submitting);
 
-  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs, forward } =
+  let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs, forward, bumpReserve } =
     $derived(data);
 
   let feeRate: any = $state((() => data.feeRate)());
@@ -152,16 +152,34 @@
     submit: any = $state(),
     showSettings = $state();
 
-  let feeNames = {
-    fastestFee: $t("payments.fastest"),
-    halfHourFee: $t("payments.fast"),
-    hourFee: $t("payments.medium"),
-  };
+  let customRate = $state("");
+  let showCustom = $state(false);
+
+  let presets = $derived(fees ? [
+    { label: $t("payments.economy"), rate: 0.1 },
+    { label: $t("payments.medium"), rate: fees.hourFee },
+    { label: $t("payments.fast"), rate: fees.halfHourFee },
+    { label: $t("payments.fastest"), rate: fees.fastestFee },
+  ] : []);
 
   let toggleSettings = () => (showSettings = !showSettings);
 
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
   let goBack = () => goto(`/send/bitcoin/${address}`);
+
+  let pickRate = (r: number) => {
+    feeRate = r;
+    showCustom = false;
+    setFee();
+  };
+
+  let applyCustom = () => {
+    const r = parseFloat(customRate);
+    if (r >= 0.1) {
+      feeRate = r;
+      setFee();
+    }
+  };
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition">
@@ -187,17 +205,52 @@
       <div class="text-center">
         <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
 
-        <div class="flex flex-wrap gap-4 justify-center">
-          <select bind:value={feeRate} onchange={setFee}>
-            {#each Object.keys(feeNames) as feeName}
-              <option value={fees[feeName]}>
-                {feeNames[feeName]} &mdash; {fees[feeName]} sats/vb
-              </option>
-            {/each}
-          </select>
-          <Amount amount={fee} rate={$rate} {currency} {locale} />
+        <div class="flex flex-wrap gap-2 justify-center mb-2">
+          {#each presets as preset}
+            <button
+              type="button"
+              class="btn btn-sm"
+              class:btn-accent={feeRate == preset.rate && !showCustom}
+              onclick={() => pickRate(preset.rate)}
+            >
+              {preset.label} ({preset.rate})
+            </button>
+          {/each}
+          <button
+            type="button"
+            class="btn btn-sm"
+            class:btn-accent={showCustom}
+            onclick={() => { showCustom = true; customRate = String(feeRate); }}
+          >
+            Custom
+          </button>
         </div>
+
+        {#if showCustom}
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <input
+              type="number"
+              min="0.1"
+              step="0.1"
+              class="input input-bordered w-24 text-center"
+              bind:value={customRate}
+              onblur={applyCustom}
+              onkeydown={(e) => e.key === 'Enter' && applyCustom()}
+            />
+            <span class="text-secondary text-sm">sat/vB</span>
+          </div>
+        {/if}
+
+        <Amount amount={fee} rate={$rate} {currency} {locale} />
       </div>
+
+      {#if bumpReserve > 0}
+        <div class="text-center">
+          <h2 class="text-secondary text-lg">Bump Reserve</h2>
+          <div class="text-sm text-secondary">Refundable on confirmation</div>
+          <Amount amount={bumpReserve} rate={$rate} {currency} {locale} />
+        </div>
+      {/if}
 
       {#if ourfee}
         <div class="text-center">
