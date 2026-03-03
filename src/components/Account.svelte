@@ -86,6 +86,8 @@
     }
   };
 
+  let receiveUrl = $derived(id === user.id ? `/${user.username}/receive` : "/invoice");
+
   let displayType = $derived(
     accountType === "ark"
       ? $t("accounts.ark")
@@ -163,14 +165,14 @@
   </div>
 
   <div class="flex w-full text-xl gap-2">
-    <a href={"/invoice"} class="contents" onclick={(e) => setAccount(e, "/invoice")}>
+    <a href={receiveUrl} class="contents" data-sveltekit-preload-data="tap" onclick={(e) => setAccount(e, receiveUrl)}>
       <button class="btn !w-auto flex-1" data-testid="account-receive">
         <PhHandCoinsBold width="32" style="transform: scaleX(-1)" />
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
-    <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
+    <a href={`/send`} class="contents" data-sveltekit-preload-data="tap" onclick={(e) => setAccount(e, "/send")}>
       <button type="button" class="btn !w-auto flex-1">
         <PhPaperPlaneRightBold width="32" />
         <div class="my-auto">{$t("user.dashboard.send")}</div>

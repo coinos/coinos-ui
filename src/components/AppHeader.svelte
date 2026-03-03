@@ -77,7 +77,7 @@
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
         {#each links as { href, icon: Icon, label }}
-          <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
+          <a {href} data-sveltekit-preload-data="tap" aria-label={label}>
             <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity(href)}" aria-label={label}>
               <Icon width={(w ?? 0) > 640 ? 32 : 24} />
             </button>

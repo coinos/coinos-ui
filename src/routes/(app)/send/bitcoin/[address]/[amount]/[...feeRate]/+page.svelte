@@ -31,7 +31,9 @@
       try {
         await signTxWithPrf(prfKey);
         return;
-      } catch (e: any) {}
+      } catch (e: any) {
+        console.log("Signing with cached PRF key failed:", e.message);
+      }
     }
     const { getWalletEntropy, deriveNostrEntropy } = await import("$lib/walletEntropy");
     const entropy = await getWalletEntropy();
@@ -39,12 +41,15 @@
       try {
         await signTxWithPrf(entropy);
         return;
-      } catch (e: any) {}
+      } catch (e: any) {
+        console.log("Signing with wallet entropy failed:", e.message);
+      }
     }
     try {
       const interactiveEntropy = await deriveNostrEntropy();
       await signTxWithPrf(interactiveEntropy);
     } catch (e: any) {
+      console.log("Signing with interactive entropy failed:", e.message);
       error = e.message || $t("payments.failedToSend");
     }
   };
@@ -104,6 +109,10 @@
     let seed = await mnemonicToSeed(mnemonicStr);
     let master = HDKey.fromMasterSeed(seed, network as any);
     let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
+
+    if (account.pubkey && child.publicExtendedKey !== account.pubkey) {
+      throw new Error("Derived key does not match account — try logging in again");
+    }
 
     let raw = decode(hex);
     let isPSBT = raw[0] === 0x70 && raw[1] === 0x73 && raw[2] === 0x62 && raw[3] === 0x74;

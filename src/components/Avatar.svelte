@@ -38,7 +38,7 @@
 {#if disabled}
   {@render body()}
 {:else if link}
-  <a href={link} class:pointer-events-none={disabled}>
+  <a href={link} data-sveltekit-preload-data="tap" class:pointer-events-none={disabled}>
     {@render body()}
   </a>
 {:else}
