@@ -25,8 +25,15 @@
 
   let qrSrc = $derived(`/qr/${encodeURIComponent(invoice.text)}/raw`);
   let visibleSrc = $state("");
+  let first = true;
+
   $effect(() => {
     const next = qrSrc;
+    if (first) {
+      first = false;
+      visibleSrc = next;
+      return;
+    }
     const img = new Image();
     img.onload = () => (visibleSrc = next);
     img.src = next;
@@ -34,7 +41,7 @@
 </script>
 
 {#if showQr}
-  <div class="max-w-[280px] mx-auto min-h-[280px]">
+  <div class="max-w-[280px] w-full mx-auto min-h-[280px]">
     <a href={link}>
       <img
         src={visibleSrc}
