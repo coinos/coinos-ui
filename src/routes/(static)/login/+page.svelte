@@ -384,11 +384,13 @@
     </button>
 
     <button type="button" class="btn" onclick={passkeyLogin} disabled={passkeyLoading}>
-      {#if passkeyLoading}
-        <Spinner />
-      {:else}
-        <PhFingerprintBold width="24" />
-      {/if}
+      <div class="w-8 flex items-center justify-center">
+        {#if passkeyLoading}
+          <Spinner />
+        {:else}
+          <PhFingerprintBold width="24" />
+        {/if}
+      </div>
       <div class="my-auto">Sign in with Passkey</div>
     </button>
 
