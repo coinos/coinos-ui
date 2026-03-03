@@ -3,7 +3,7 @@ import { auth, get, isInvalidTokenError, sleep } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, request, url }) => {
-  const { host, pathname } = url;
+  const { pathname } = url;
   let user;
   const token = cookies.get("token");
   if (token) {
@@ -53,7 +53,6 @@ export const load = async ({ cookies, request, url }) => {
 
   return {
     theme,
-    host,
     pathname,
     i18n: { locale, route: pathname },
     user,
