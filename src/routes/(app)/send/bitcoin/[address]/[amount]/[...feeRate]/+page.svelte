@@ -152,14 +152,10 @@
     submit: any = $state(),
     showSettings = $state();
 
-  let customRate = $state("");
-  let showCustom = $state(false);
-
   let presets = $derived(fees ? [
-    { label: $t("payments.economy"), rate: 0.1 },
+    { label: $t("payments.low"), rate: 0.1 },
     { label: $t("payments.medium"), rate: fees.hourFee },
-    { label: $t("payments.fast"), rate: fees.halfHourFee },
-    { label: $t("payments.fastest"), rate: fees.fastestFee },
+    { label: $t("payments.high"), rate: fees.fastestFee },
   ] : []);
 
   let toggleSettings = () => (showSettings = !showSettings);
@@ -169,12 +165,11 @@
 
   let pickRate = (r: number) => {
     feeRate = r;
-    showCustom = false;
     setFee();
   };
 
   let applyCustom = () => {
-    const r = parseFloat(customRate);
+    const r = parseFloat(String(feeRate));
     if (r >= 0.1) {
       feeRate = r;
       setFee();
@@ -203,43 +198,35 @@
 
     {#if fees}
       <div class="text-center">
-        <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
-
-        <div class="flex flex-wrap gap-2 justify-center mb-2">
+        <h2 class="text-secondary text-lg">{$t("payments.priority")}</h2>
+        <div class="flex gap-2 justify-center mb-2">
           {#each presets as preset}
             <button
               type="button"
-              class="btn btn-sm"
-              class:btn-accent={feeRate == preset.rate && !showCustom}
+              class="btn btn-sm !w-auto"
+              class:btn-accent={feeRate == preset.rate}
               onclick={() => pickRate(preset.rate)}
             >
-              {preset.label} ({preset.rate})
+              {preset.label}
             </button>
           {/each}
-          <button
-            type="button"
-            class="btn btn-sm"
-            class:btn-accent={showCustom}
-            onclick={() => { showCustom = true; customRate = String(feeRate); }}
-          >
-            Custom
-          </button>
         </div>
 
-        {#if showCustom}
-          <div class="flex items-center justify-center gap-2 mb-2">
-            <input
-              type="number"
-              min="0.1"
-              step="0.1"
-              class="input input-bordered w-24 text-center"
-              bind:value={customRate}
-              onblur={applyCustom}
-              onkeydown={(e) => e.key === 'Enter' && applyCustom()}
-            />
-            <span class="text-secondary text-sm">sat/vB</span>
-          </div>
-        {/if}
+        <div class="flex items-center justify-center gap-2 mb-2">
+          <input
+            type="number"
+            min="0.1"
+            step="0.1"
+            class="input input-bordered w-24 text-center"
+            value={feeRate}
+            oninput={(e) => {
+              const r = parseFloat(e.currentTarget.value);
+              if (r >= 0.1) { feeRate = r; setFee(); }
+            }}
+            onkeydown={(e) => e.key === 'Enter' && applyCustom()}
+          />
+          <span class="text-secondary text-sm">sat/vB</span>
+        </div>
 
         <Amount amount={fee} rate={$rate} {currency} {locale} />
       </div>

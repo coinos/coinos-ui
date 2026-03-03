@@ -15,7 +15,7 @@
 
 <div class="container px-4 text-center mx-auto">
   {#if pending}
-    <PhClockBold width="160" class="text-warning" />
+    <PhClockBold width="160" class="text-warning mx-auto" />
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
 

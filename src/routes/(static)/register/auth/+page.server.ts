@@ -1,9 +1,10 @@
 import { fd, get, login, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
-export const load = async ({ parent, url }) => {
-  const { user } = await parent();
-  if (user) redirect(307, `/${user.username}`);
+export const load = async ({ cookies, url }) => {
+  const token = cookies.get("token");
+  const cookieUser = cookies.get("username");
+  if (token && cookieUser) redirect(307, `/${cookieUser}`);
 
   const username = url.searchParams.get("username");
   if (!username) redirect(307, "/register");

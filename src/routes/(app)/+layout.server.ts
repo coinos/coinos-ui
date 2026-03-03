@@ -1,18 +1,38 @@
-import { auth, get } from "$lib/utils";
+import { auth, get, isInvalidTokenError, sleep } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, request, url, params, parent }) {
+export async function load({ cookies, url, params }) {
   const { pathname } = url;
   const { id, username } = params;
   const token = cookies.get("token");
 
-  const { user } = await parent();
-  const hasArk = token
-    ? (await get("/accounts", auth(cookies))).some((a: any) => a.type === "ark")
-    : false;
+  if (!token) redirect(307, "/login");
+
+  let user;
+  try {
+    user = await get("/me", auth(cookies));
+  } catch (e) {
+    const { message } = e as Error;
+    if (message.startsWith("Rate")) {
+      await sleep(3000);
+      try {
+        user = await get("/me", auth(cookies));
+      } catch (retryError) {
+        if (isInvalidTokenError(retryError) && pathname !== "/logout") {
+          redirect(307, "/logout");
+        }
+        throw retryError;
+      }
+    } else if (isInvalidTokenError(e) && pathname !== "/logout") {
+      redirect(307, "/logout");
+    } else {
+      throw e;
+    }
+  }
+
+  const hasArk = (await get("/accounts", auth(cookies))).some((a: any) => a.type === "ark");
 
   let subject;
-
   if (url.pathname.includes("/invoice") && id) {
     try {
       ({ user: subject } = await get(`/invoice/${id}`));
@@ -29,10 +49,6 @@ export async function load({ cookies, request, url, params, parent }) {
 
   if (user?.needsMigration) {
     redirect(307, "/migrate");
-  }
-
-  if (user && ["/login", "/register"].includes(pathname) && request.method === "GET") {
-    redirect(307, `/${user.username}`);
   }
 
   const theme = cookies.get("theme") || "light";

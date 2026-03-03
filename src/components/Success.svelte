@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <PhCheckFatFill width="160" class="text-green-400" />
+    <PhCheckFatFill width="160" class="text-green-400 mx-auto" />
   {/if}
   <h1 class="text-3xl md:text-4xl font-bold mb-6">{title}</h1>
   <Amount {amount} {tip} {rate} {currency} {locale} />
