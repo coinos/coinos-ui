@@ -11,7 +11,7 @@
   import { t } from "$lib/translations";
 
   let { data } = $props();
-  let { faqs, locations, user } = $derived(data as any);
+  let { faqs, locations } = $derived(data as any);
 
   let howItWorks = $state();
   let faq = $state();
@@ -28,7 +28,7 @@
   <link rel="preload" href="/images/hero-image.webp" as="image" type="image/webp" />
 </svelte:head>
 
-<LandingHeader {howItWorks} {faq} {about} {user} />
+<LandingHeader {howItWorks} {faq} {about} />
 
 <main class="space-y-20 md:space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0 pt-20">
   <LandingHero />

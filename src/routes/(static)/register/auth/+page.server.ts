@@ -88,7 +88,7 @@ export const actions = {
     expires.setSeconds(expires.getSeconds() + maxAge);
     const opts = { path: "/", expires };
 
-    cookies.set("username", username, opts);
+    cookies.set("username", username, { ...opts, httpOnly: false });
     cookies.set("token", token, opts);
 
     if (sk) {

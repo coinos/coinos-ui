@@ -200,7 +200,7 @@ export const login = async (
 
   const opts = { path: "/", expires };
   if (u.language) cookies.set("lang", u.language, opts);
-  cookies.set("username", user.username, opts);
+  cookies.set("username", user.username, { ...opts, httpOnly: false });
   cookies.set("token", token, opts);
   if (u.nsec) {
     try {
@@ -544,7 +544,7 @@ export const register = async (
     const expires = new Date();
     expires.setSeconds(expires.getSeconds() + maxAge);
     const opts = { path: "/", expires };
-    cookies.set("username", user.username, opts);
+    cookies.set("username", user.username, { ...opts, httpOnly: false });
     cookies.set("token", token, opts);
     error = null;
   }

@@ -9,8 +9,12 @@
     howItWorks = undefined,
     faq = undefined,
     about = undefined,
-    user = undefined,
   }: any = $props();
+
+  function startNow() {
+    const match = document.cookie.match(/(?:^|;\s*)username=([^;]*)/);
+    goto(match ? `/${decodeURIComponent(match[1])}` : "/login");
+  }
 
   let header = $state();
 </script>
@@ -32,21 +36,9 @@
         <button class="hover:opacity-80" onclick={() => scroll(faq)}>{$t("faq.header")}</button>
         <button class="hover:opacity-80" onclick={() => scroll(about)}>{$t("about.header")}</button>
       {/if}
-      {#if user}
-        <button class="btn !w-auto !rounded-full" onclick={() => goto(`/${user.username}`)}>
-          {$t("nav.home")}
-        </button>
-        <button class="btn !w-auto !rounded-full" onclick={() => goto("/logout")}>
-          {$t("nav.signOut")}
-        </button>
-      {:else}
-        <button class="btn btn-accent !w-auto !rounded-full" onclick={() => goto("/register")}>
-          {$t("nav.register")}
-        </button>
-        <button class="btn !w-auto !rounded-full" onclick={() => goto("/login")}>
-          {$t("nav.signIn")}
-        </button>
-      {/if}
+      <button class="btn btn-accent !w-auto !rounded-full" onclick={startNow}>
+        {$t("nav.startInSeconds")}
+      </button>
     </div>
 
   </nav>
