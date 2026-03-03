@@ -51,8 +51,7 @@
           {:else}
             <a
               {href}
-              data-sveltekit-preload-code="eager"
-              data-sveltekit-preload-data="false"
+              data-sveltekit-preload-data="tap"
               onclick={hideMenu}
             >
               <button

@@ -525,6 +525,7 @@ export const getServiceWorkerWallet = async () => {
   }
   if (swWallet && swWalletKey === key) return swWallet;
   if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
+  if (import.meta.env.DEV) return;
 
   try {
     const { ServiceWorkerWallet, SingleKey } = await loadArkSdk();
