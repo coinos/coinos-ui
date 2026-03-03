@@ -3,7 +3,7 @@
   import Payments from "$comp/Payments.svelte";
   import { onMount } from "svelte";
   import { format } from "date-fns";
-  import { newPayment } from "$lib/store";
+  import { newPayment, cachedPayments } from "$lib/store";
   import { t } from "$lib/translations";
   import { get, f, s, si, sat, loc, sats, types } from "$lib/utils";
   import { page } from "$app/stores";
@@ -54,6 +54,9 @@
       $newPayment = false;
       invalidate(`/users/${user.username}`);
     }
+  });
+  $effect(() => {
+    if (payments?.length && (!p || p === "1")) $cachedPayments = payments;
   });
 
   let path = $derived(

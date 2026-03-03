@@ -16,11 +16,14 @@
     theme as themeStore,
     fiat,
     rate as rateStore,
+    cachedUser,
+    offline,
   } from "$lib/store";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
   import LoadingSplash from "$comp/LoadingSplash.svelte";
   import AppHeader from "$comp/AppHeader.svelte";
+  import OfflineBanner from "$comp/OfflineBanner.svelte";
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
   import { s, f, toFiat, success, getCookie, warning, post } from "$lib/utils";
@@ -40,6 +43,9 @@
   });
   $effect(() => {
     theme = $themeStore;
+  });
+  $effect(() => {
+    if (user) $cachedUser = user;
   });
 
   afterNavigate(() => {
@@ -172,6 +178,12 @@
 
   onMount(async () => {
     if (browser) {
+      $offline = !navigator.onLine;
+      const goOnline = () => ($offline = false);
+      const goOffline = () => ($offline = true);
+      window.addEventListener("online", goOnline);
+      window.addEventListener("offline", goOffline);
+
       checkSocket();
       $pin = getCookie("pin");
 
@@ -274,6 +286,7 @@
 <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 
 <main class="pb-4 min-h-dvh" data-theme={theme}>
+  <OfflineBanner />
   <AppHeader {user} {subject} />
   {#if !$loading}
     {@render children?.()}

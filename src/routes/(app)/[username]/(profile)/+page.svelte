@@ -5,7 +5,7 @@
   import Balance from "$comp/Balance.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { t } from "$lib/translations";
-  import { installPrompt, password } from "$lib/store";
+  import { installPrompt, password, cachedAccounts, cachedRates } from "$lib/store";
   import { afterNavigate, goto, invalidate, preloadData } from "$app/navigation";
   import { page } from "$app/stores";
   import { versions, post, fail, getCookie } from "$lib/utils";
@@ -83,6 +83,12 @@
   let pubkey = $state();
   $effect(() => {
     if (user) user.savings = 0;
+  });
+  $effect(() => {
+    if (accounts?.length) $cachedAccounts = accounts;
+  });
+  $effect(() => {
+    if (rates) $cachedRates = rates;
   });
   let { host } = $derived($page.url);
 </script>

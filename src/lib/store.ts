@@ -101,3 +101,8 @@ export const paymentSignal = writable(0);
 export const lastPayment = writable<{ iid: string; amount: number; confirmed: boolean } | null>(
   null,
 );
+export const cachedUser = persistLocal("cachedUser");
+export const cachedAccounts = persistLocal("cachedAccounts", []);
+export const cachedPayments = persistLocal("cachedPayments", []);
+export const cachedRates = persistLocal("cachedRates");
+export const offline = writable(false);
