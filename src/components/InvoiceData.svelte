@@ -20,17 +20,24 @@
     t,
   }: any = $props();
 
-  let loaded = $state(false);
   let expanded = $state(false);
   let { memo } = $derived(invoice);
-  let load = () => (loaded = true);
+
+  let qrSrc = $derived(`/qr/${encodeURIComponent(invoice.text)}/raw`);
+  let visibleSrc = $state("");
+  $effect(() => {
+    const next = qrSrc;
+    const img = new Image();
+    img.onload = () => (visibleSrc = next);
+    img.src = next;
+  });
 </script>
 
 {#if showQr}
   <div class="max-w-[280px] mx-auto min-h-[280px]">
     <a href={link}>
       <img
-        src={`/qr/${encodeURIComponent(invoice.text)}/raw`}
+        src={visibleSrc}
         class="z-10 border-4 border-white"
         alt={txt}
       />
