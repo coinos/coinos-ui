@@ -77,7 +77,7 @@
       {#if user}
         {#each links as { href, icon, label }}
           <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
-            <button class="btn-menu {opacity(href)}" aria-label={label}>
+            <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity(href)}" aria-label={label}>
               <iconify-icon noobserver {icon} width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
             </button>
           </a>
@@ -100,12 +100,6 @@
 {/if}
 
 <style>
-  @reference "../app.css";
-
-  .btn-menu {
-    @apply flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl;
-  }
-
   header {
     z-index: 50;
     view-transition-name: header;

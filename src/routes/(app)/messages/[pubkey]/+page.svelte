@@ -69,6 +69,7 @@
     return info.coinosUsername || info.nostrName || $t("dm.anonymous");
   };
 
+  // svelte-ignore state_referenced_locally
   let selectedChat: any = $state(libnip17.getCachedUserInfo(pubkey) ?? { pubkey });
   let text = $state("");
   let allRumours: any[] = $state([]);

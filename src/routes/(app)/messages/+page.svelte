@@ -86,12 +86,15 @@
   };
 
   // Restore from localStorage on hard refresh, or in-memory cache on SPA nav
-  const storageKey = `chatList:${data.user?.pubkey}`;
-  const cachedList = getCachedChatList(data.user?.pubkey);
+  // svelte-ignore state_referenced_locally
+  const userPubkey = data.user?.pubkey;
+  const storageKey = `chatList:${userPubkey}`;
+  const cachedList = getCachedChatList(userPubkey);
   let stored: any = null;
   try { stored = JSON.parse(localStorage.getItem(storageKey) || "null"); } catch {}
   let chats: any[] = $state(cachedList?.chats ?? stored?.chats ?? []);
   let allRumours: any[] = $state(cachedList?.rumours ?? stored?.rumours ?? []);
+  // svelte-ignore state_referenced_locally
   let loaded = $state(chats.length > 0);
 
   const updateSendersRecipients = async (rumours: any[]) => {

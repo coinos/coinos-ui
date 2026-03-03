@@ -21,7 +21,6 @@ const config = {
     if (
       warning.code.includes("caption") ||
       warning.filename.includes("Toast") ||
-      warning.code === "css_unknown_at_rule" ||
       warning.code === "state_referenced_locally"
     )
       return;

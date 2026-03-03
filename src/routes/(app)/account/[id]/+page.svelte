@@ -143,7 +143,7 @@
     {:else}
       <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
     {/if}
-    {$t("accounts.accountTitle", { type: displayType })}
+    {$t("accounts.accountTitle", { type: displayType } as any)}
   </h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
@@ -169,7 +169,7 @@
 
       {#if currencyChanged}
         <div class="flex justify-between items-center">
-          <span>{$t("accounts.updateCurrency", { currency })}</span>
+          <span>{$t("accounts.updateCurrency", { currency } as any)}</span>
           <Toggle id="updateUserCurrency" bind:value={updateUserCurrency} />
         </div>
       {/if}

@@ -27,7 +27,7 @@
 
 <div>
   <OutClick onOutClick={hideMenu}>
-    <button class="btn-menu {opacity('/support')}" onclick={toggleMenu} aria-label="Open menu">
+    <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity('/support')}" onclick={toggleMenu} aria-label="Open menu">
       <iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}></iconify-icon>
     </button>
 
@@ -67,10 +67,3 @@
   </OutClick>
 </div>
 
-<style>
-  @reference "../app.css";
-
-  .btn-menu {
-    @apply flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl;
-  }
-</style>

@@ -150,7 +150,7 @@
 
   {#if !connected}
     <div class="text-center">
-      <button class="btn" onclick={connect}>Connect</button>
+      <button class="px-4 py-2 rounded-2xl shadow" onclick={connect}>Connect</button>
       <div class="text-sm mt-2 opacity-70">{portInfo}</div>
     </div>
   {/if}
@@ -158,10 +158,10 @@
   {#if connected}
     <!-- Tabs -->
     <div class="flex gap-2 justify-center">
-      <button class="btn" class:btn-neutral={tab === "config"} onclick={() => (tab = "config")}>
+      <button class="px-4 py-2 rounded-2xl shadow" class:bg-gray-200={tab === "config"} onclick={() => (tab = "config")}>
         Flash config
       </button>
-      <button class="btn" class:btn-neutral={tab === "firmware"} onclick={() => (tab = "firmware")}>
+      <button class="px-4 py-2 rounded-2xl shadow" class:bg-gray-200={tab === "firmware"} onclick={() => (tab = "firmware")}>
         Flash firmware
       </button>
     </div>
@@ -177,15 +177,15 @@
             <b>{bytes.length} bytes</b>
             )
           </div>
-          <label class="label mt-2" for="littlefs-address">LittleFS address (hex)</label>
+          <label class="text-sm opacity-70 mt-2" for="littlefs-address">LittleFS address (hex)</label>
           <input
             id="littlefs-address"
-            class="input"
+            class="w-full px-3 py-2 border rounded-xl"
             bind:value={littlefsAddress}
             onchange={(e) => (littlefsAddress = Number((e.target as HTMLInputElement).value))}
           />
           <div class="mt-3">
-            <button class="btn" onclick={flashConfig}>Flash config</button>
+            <button class="px-4 py-2 rounded-2xl shadow" onclick={flashConfig}>Flash config</button>
           </div>
           {#if configProgress > 0}
             <div class="mt-2">Progress: {configProgress}%</div>
@@ -193,28 +193,28 @@
         {/if}
       {:else}
         <form method="POST" use:enhance class="space-y-2">
-          <input name="ssid" placeholder="Wifi SSID" class="input" />
-          <input name="key" placeholder="Wifi password" class="input" />
-          <input name="token" bind:value={token} placeholder="Coinos API token" class="input" />
-          <button type="submit" class="btn">Generate Config</button>
+          <input name="ssid" placeholder="Wifi SSID" class="w-full px-3 py-2 border rounded-xl" />
+          <input name="key" placeholder="Wifi password" class="w-full px-3 py-2 border rounded-xl" />
+          <input name="token" bind:value={token} placeholder="Coinos API token" class="w-full px-3 py-2 border rounded-xl" />
+          <button type="submit" class="px-4 py-2 rounded-2xl shadow">Generate Config</button>
         </form>
       {/if}
     {:else}
       <!-- NEW FIRMWARE FLOW -->
       <div class="space-y-3">
-        <label class="label" for="firmware-file">Select .ino.bin (firmware)</label>
+        <label class="text-sm opacity-70" for="firmware-file">Select .ino.bin (firmware)</label>
         <input
           id="firmware-file"
           type="file"
           accept=".bin,application/octet-stream"
-          class="input"
+          class="w-full px-3 py-2 border rounded-xl"
           onchange={onPickFw}
         />
 
-        <label class="label" for="firmware-address">Firmware address (hex, default 0x10000)</label>
+        <label class="text-sm opacity-70" for="firmware-address">Firmware address (hex, default 0x10000)</label>
         <input
           id="firmware-address"
-          class="input"
+          class="w-full px-3 py-2 border rounded-xl"
           bind:value={fwAddress}
           onchange={(e) => (fwAddress = Number((e.target as HTMLInputElement).value))}
         />
@@ -225,7 +225,7 @@
         </label>
 
         <div class="mt-3">
-          <button class="btn" disabled={!fwBytes} onclick={flashFirmware}>Flash firmware</button>
+          <button class="px-4 py-2 rounded-2xl shadow" disabled={!fwBytes} onclick={flashFirmware}>Flash firmware</button>
         </div>
 
         {#if fwProgress > 0 && !fwDone}
@@ -241,20 +241,3 @@
     {/if}
   {/if}
 </div>
-
-<style>
-  @reference "../../../app.css";
-
-  .btn {
-    @apply px-4 py-2 rounded-2xl shadow;
-  }
-  .btn-neutral {
-    @apply bg-gray-200;
-  }
-  .input {
-    @apply w-full px-3 py-2 border rounded-xl;
-  }
-  .label {
-    @apply text-sm opacity-70;
-  }
-</style>
