@@ -294,15 +294,26 @@
    muted = await mutedAccounts(user);
  }
 
- const searchMatches = (chat: object, query: string) => {
+ const nameMatches = (chat: object, query: string) => {
    const lowerQuery = query.toLowerCase();
    const chatName = name(chat).toLowerCase();
+   return chatName.includes(lowerQuery);
+ }
+
+ const nip05Matches = (chat: object, query: string) => {
+   const lowerQuery = query.toLowerCase();
    const chatNip05 = chat?.nip05;
-   return chatName.includes(lowerQuery) ||
-          chatNip05 && chatNip05.includes(lowerQuery) ||
-          chat.pubkey.includes(lowerQuery) ||
+   return chatNip05 && chatNip05.includes(lowerQuery);
+ }
+
+ const pubkeyMatches = (chat: object, query: string) => {
+   const lowerQuery = query.toLowerCase();
+   return chat.pubkey.includes(lowerQuery) ||
           npubEncode(chat.pubkey).includes(lowerQuery);
  }
+
+ const searchMatches = (chat: object, query: string) =>
+   nameMatches(chat, query) || nip05Matches(chat, query) || pubkeyMatches(chat, query);
 </script>
 
 <style>
