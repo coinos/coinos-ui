@@ -39,7 +39,7 @@
 @font-face {
   font-family: "PublicSans";
   src: url("/fonts/Public_Sans/static/PublicSans-Regular.woff2") format("woff2");
-  font-display: swap;
+  font-display: optional;
 }
 
 :root {

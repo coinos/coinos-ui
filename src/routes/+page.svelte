@@ -37,11 +37,11 @@
     title={$t("landing.info1.title")}
     description={$t("landing.info1.description")}
     loading="lazy"
-    width={640}
-    height={653}
+    width={400}
+    height={409}
   />
 
-  <LandingInfoCard image="phone-checkout" title={$t("landing.info2.title")} order="reverse" loading="lazy" width={480} height={621}>
+  <LandingInfoCard image="phone-checkout" title={$t("landing.info2.title")} order="reverse" loading="lazy" width={400} height={518}>
     {$t("landing.info2.description1")}
     <br />
     <br />
@@ -57,8 +57,8 @@
       title={$t("landing.info3.title")}
       description={$t("landing.info3.description")}
       loading="lazy"
-      width={640}
-      height={640}
+      width={400}
+      height={400}
     />
     <div bind:this={howItWorks}></div>
     <div id="about"></div>

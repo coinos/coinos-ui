@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <Image image="hero-image" style="w-full h-auto md:w-2/3 max-w-5xl mx-auto mt-20 aspect-[768/743]" width={768} height={743} fetchpriority="high" />
+  <Image image="hero-image" style="w-full h-auto md:w-2/3 max-w-5xl mx-auto mt-20 aspect-[600/581]" width={600} height={581} fetchpriority="high" />
 </div>
 
 <style>
