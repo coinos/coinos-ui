@@ -41,7 +41,7 @@
 </script>
 
 {#if showQr}
-  <div class="max-w-[280px] w-full mx-auto min-h-[280px]">
+  <div class="max-w-[280px] w-full mx-auto">
     <a href={link}>
       <img
         src={visibleSrc}
