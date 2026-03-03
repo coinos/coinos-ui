@@ -9,6 +9,7 @@
   import { pTagKeys } from "$lib/nostr";
   import { t } from "$lib/translations";
   import { theme } from "$lib/store";
+  import ChatMessage from "$comp/ChatMessage.svelte";
 
   const focus = (el: HTMLElement) => el.focus();
 
@@ -238,7 +239,7 @@
                 <div
                   class={($theme === "light" ? "light-message " : "dark-message ") + "message"}
                 >
-                  {rumour.content}
+                  <ChatMessage content={rumour.content} tags={rumour.tags} />
                   <span class="timestamp secondary text-xs">
                     {TIME.format(new Date(rumour.created_at * 1000))}
                   </span>
@@ -259,7 +260,7 @@
                 <div
                   class={($theme === "light" ? "light-message " : "dark-message ") + "message"}
                 >
-                  {rumour.content}
+                  <ChatMessage content={rumour.content} tags={rumour.tags} />
                   <span class="timestamp secondary text-xs">
                     {TIME.format(new Date(rumour.created_at * 1000))}
                   </span>
@@ -432,6 +433,8 @@
     width: fit-content;
     max-width: 75%;
     border-radius: 10px;
+    overflow: hidden;
+    word-break: break-word;
   }
 
   .light-message {

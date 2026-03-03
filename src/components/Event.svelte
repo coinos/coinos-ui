@@ -70,6 +70,8 @@
         {value}
       {:else if type === "link"}
         <Media {value} {minimal} />
+      {:else if type === "topic"}
+        <a href={`/tag/${encodeURIComponent(value)}`} class="font-bold text-accent">#{value}</a>
       {:else if type.match(/^nostr:np(rofile|ub)$/)}
         <a href={`/${value.pubkey}`} class="font-bold">@{names[value.pubkey]}</a>
       {/if}
