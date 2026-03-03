@@ -13,7 +13,7 @@
   };
 </script>
 
-<select name="language" bind:value={l} onchange={handleChange}>
+<select name="language" aria-label="Language" bind:value={l} onchange={handleChange}>
   {#each $locales as locale}
     <option value={locale}>{$t(`lang.${locale}`)}</option>
   {/each}

@@ -2,12 +2,15 @@
   import Image from "./Image.svelte";
 
   import type { Snippet } from "svelte";
-  let { image, title, description = undefined, order = undefined, children = undefined }: { image: string; title: string; description?: string; order?: string; children?: Snippet } = $props();
+  let { image, title, description = undefined, order = undefined, loading = undefined, width = undefined, height = undefined, children = undefined }: { image: string; title: string; description?: string; order?: string; loading?: "lazy" | "eager"; width?: number; height?: number; children?: Snippet } = $props();
 </script>
 
 <div class="flex flex-col-reverse lg:flex-row justify-center lg:gap-20 items-center">
   <Image
     {image}
+    {loading}
+    {width}
+    {height}
     style="w-2/3 md:w-5/12 lg:w-2/5 xl:w-1/3 2xl:w-1/4 max-w-xl mx-auto lg:mx-0 mt-10 lg:mt-0 shrink-0 {order ===
     'reverse' && 'lg:order-last'}"
   />

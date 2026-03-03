@@ -24,6 +24,10 @@
   ];
 </script>
 
+<svelte:head>
+  <link rel="preload" href="/images/hero-image.webp" as="image" type="image/webp" />
+</svelte:head>
+
 <LandingHeader {howItWorks} {faq} {about} {user} />
 
 <main class="space-y-20 md:space-y-40 py-20 md:py-32 lg:py-36 xl:py-40 px-5 md:px-0 pt-20">
@@ -32,9 +36,12 @@
     image="lightning-qr"
     title={$t("landing.info1.title")}
     description={$t("landing.info1.description")}
+    loading="lazy"
+    width={640}
+    height={653}
   />
 
-  <LandingInfoCard image="phone-checkout" title={$t("landing.info2.title")} order="reverse">
+  <LandingInfoCard image="phone-checkout" title={$t("landing.info2.title")} order="reverse" loading="lazy" width={480} height={621}>
     {$t("landing.info2.description1")}
     <br />
     <br />
@@ -49,6 +56,9 @@
       image="customize"
       title={$t("landing.info3.title")}
       description={$t("landing.info3.description")}
+      loading="lazy"
+      width={640}
+      height={640}
     />
     <div bind:this={howItWorks}></div>
     <div id="about"></div>
