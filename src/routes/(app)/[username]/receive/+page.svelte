@@ -19,7 +19,7 @@
   let showOptions;
 
   let id = $state();
-  let { rate, subject, user, text } = $derived(data);
+  let { rate, subject, user, text, hasArk } = $derived(data);
   let locale = $derived(loc(user));
 
   let { currency, username } = $derived(subject);
@@ -176,6 +176,7 @@
   {aid}
   {invoice}
   {user}
+  {hasArk}
   {type}
   {settingType}
   {setType}

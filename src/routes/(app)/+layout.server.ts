@@ -1,4 +1,4 @@
-import { get } from "$lib/utils";
+import { auth, get } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, request, url, params, parent }) {
@@ -7,6 +7,9 @@ export async function load({ cookies, request, url, params, parent }) {
   const token = cookies.get("token");
 
   const { user } = await parent();
+  const hasArk = token
+    ? (await get("/accounts", auth(cookies))).some((a: any) => a.type === "ark")
+    : false;
 
   let subject;
 
@@ -34,5 +37,5 @@ export async function load({ cookies, request, url, params, parent }) {
 
   const theme = cookies.get("theme") || "light";
 
-  return { user, token, subject, theme };
+  return { user, token, subject, theme, hasArk };
 }

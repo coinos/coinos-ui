@@ -8,6 +8,7 @@
     newAmount = $bindable(),
     invoice,
     user,
+    hasArk = false,
     t,
     toggleType,
     setAmount,
@@ -142,16 +143,18 @@
       <div class="my-auto text-lg">Liquid</div>
     </button>
 
-    <button
-      class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.ark}
-      class:text-secondary={type === types.ark}
-      class:hidden={activeOnly && type !== types.ark}
-      onclick={() => (activeOnly ? toggleType() : setType("ark"))}
-    >
-      <img src="/images/ark.png" class="w-8 rounded-full bg-neutral" alt="Ark" />
-      <div class="my-auto text-lg">Ark</div>
-    </button>
+    {#if hasArk}
+      <button
+        class="btn flex-nowrap !w-auto grow"
+        class:bg-base-300={type === types.ark}
+        class:text-secondary={type === types.ark}
+        class:hidden={activeOnly && type !== types.ark}
+        onclick={() => (activeOnly ? toggleType() : setType("ark"))}
+      >
+        <img src="/images/ark.png" class="w-8 rounded-full bg-neutral" alt="Ark" />
+        <div class="my-auto text-lg">Ark</div>
+      </button>
+    {/if}
   </div>
 
   <div></div>

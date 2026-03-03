@@ -29,6 +29,7 @@
   let id = $derived(data.id);
   let subject = $derived(data.subject);
   let user = $derived(data.user);
+  let hasArk = $derived(data.hasArk);
   let invoice = $derived(data.invoice);
   let src = $derived(data.src);
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
@@ -194,6 +195,7 @@
   {setAmount}
   {invoice}
   {user}
+  {hasArk}
   {type}
   {settingType}
   {setType}
