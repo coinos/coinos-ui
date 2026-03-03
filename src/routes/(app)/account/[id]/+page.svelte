@@ -1,4 +1,9 @@
 <script lang="ts">
+  import CryptocurrencyColorBtc from "virtual:icons/cryptocurrency-color/btc";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import PhEyeBold from "virtual:icons/ph/eye-bold";
+  import PhTrashBold from "virtual:icons/ph/trash-bold";
+  import PhWarningBold from "virtual:icons/ph/warning-bold";
   import { page } from "$app/stores";
   import Numpad from "$comp/Numpad.svelte";
   import Toggle from "$comp/Toggle.svelte";
@@ -139,7 +144,7 @@
     {#if account.type === "ark"}
       <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover bg-neutral" alt="Ark" />
     {:else if seed}
-      <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+      <CryptocurrencyColorBtc width="32" />
     {:else}
       <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
     {/if}
@@ -199,7 +204,7 @@
             <label for="threshold" class="font-bold mb-1 block">{$t("user.settings.threshold")}</label>
             <button type="button" class="flex w-full" onclick={editThreshold}>
               <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-                <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+                <PhLightningFill class="text-yellow-300" />
               </div>
               <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">
                 {threshold}
@@ -218,7 +223,7 @@
       <div class="space-y-2">
         {#if seed || account.type === "ark"}
           <button onclick={() => goto(`/account/${id}/seed`)} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:eye-bold" width="32"></iconify-icon>
+            <PhEyeBold width="32" />
             <div class="my-auto">{$t("accounts.viewMnemonic")}</div>
           </button>
         {/if}
@@ -250,7 +255,7 @@
 
         {#if seed || account.type === "ark"}
           <button onclick={() => (showDeleteConfirm = true)} type="button" class="btn">
-            <iconify-icon noobserver icon="ph:trash-bold" width="32" class="text-error"></iconify-icon>
+            <PhTrashBold width="32" class="text-error" />
             <div class="my-auto">{$t("accounts.deleteAccount")}</div>
           </button>
         {/if}
@@ -304,7 +309,7 @@
     onkeydown={(e) => e.key === "Escape" && (showDeleteConfirm = false)}
   >
     <div class="bg-base-100 rounded-2xl p-6 max-w-sm w-full space-y-4 text-center" role="none" onclick={(e) => e.stopPropagation()}>
-      <iconify-icon noobserver icon="ph:warning-bold" width="48" class="text-error"></iconify-icon>
+      <PhWarningBold width="48" class="text-error" />
       <h2 class="text-xl font-semibold">{$t("accounts.deleteAccount")}</h2>
       <p class="text-secondary">{$t("accounts.deleteConfirm")}</p>
       <div class="flex gap-2">

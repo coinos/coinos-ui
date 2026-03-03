@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhFingerprintBold from "virtual:icons/ph/fingerprint-bold";
+  import PhArrowLeftBold from "virtual:icons/ph/arrow-left-bold";
   import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
@@ -415,7 +417,7 @@
       {#if passkeyLoading}
         <Spinner />
       {:else}
-        <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+        <PhFingerprintBold width="24" />
         <div class="my-auto">{$t("login.registerPasskey")}</div>
       {/if}
     </button>
@@ -442,7 +444,7 @@
     </p>
 
     <a href="/register" class="btn btn-ghost gap-2">
-      <iconify-icon noobserver icon="ph:arrow-left-bold" width="20"></iconify-icon>
+      <PhArrowLeftBold width="20" />
       Back
     </a>
   </form>

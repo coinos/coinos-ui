@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhFingerprintBold from "virtual:icons/ph/fingerprint-bold";
   import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
   import handler from "$lib/handler";
@@ -386,7 +387,7 @@
       {#if passkeyLoading}
         <Spinner />
       {:else}
-        <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+        <PhFingerprintBold width="24" />
       {/if}
       <div class="my-auto">Sign in with Passkey</div>
     </button>

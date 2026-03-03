@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { onMount } from "svelte";
   import Left from "$comp/Left.svelte";
   import { f, s, focus, warning, sat, sats, localeMap } from "$lib/utils";
@@ -258,8 +259,7 @@
           <span class:hidden={!fiat}>
             {#if position === "before"}{symbol}{/if}
           </span>
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300" class:hidden={fiat}
-          ></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
         </div>
 
         <!-- contenteditable input -->
@@ -302,7 +302,7 @@
         }}
       >
         <span class="flex items-center" class:hidden={!fiat}>
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
           {s(amount, locale)}
         </span>
         <span class:hidden={fiat}>{f(amountFiat, currency, locale)}</span>

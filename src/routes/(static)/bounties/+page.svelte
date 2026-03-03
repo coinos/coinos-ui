@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import Avatar from "$comp/Avatar.svelte";
   import { s } from "$lib/utils";
   import Amount from "$comp/Amount.svelte";
@@ -41,8 +42,7 @@
       <div class="flex max-w-xs sm:max-w-xl">
         <div>First {b}</div>
 
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 ml-auto"
-        ></iconify-icon>
+        <PhLightningFill class="text-yellow-300 ml-auto" />
         {s(100000, "en-CA")}
       </div>
     {/each}
@@ -55,8 +55,7 @@
       <div class="flex max-w-xs sm:max-w-xl">
         <div>{b.type}</div>
 
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 ml-auto"
-        ></iconify-icon>
+        <PhLightningFill class="text-yellow-300 ml-auto" />
         {s(b.amount, "en-CA")}
       </div>
     {/each}
@@ -101,8 +100,7 @@
           </div>
 
           <div class="ml-auto flex shrink-0 items-center gap-1 whitespace">
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-            ></iconify-icon>
+            <PhLightningFill class="text-yellow-300" />
             <span class="text-sm font-semibold tabular-nums">{s(amount, "en-CA")}</span>
           </div>
         </div>

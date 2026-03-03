@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhFloppyDiskBold from "virtual:icons/ph/floppy-disk-bold";
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
@@ -307,7 +308,7 @@
       {#if submitting}
         <Spinner />
       {:else}
-        <iconify-icon icon="ph:floppy-disk-bold" width={32}></iconify-icon>
+        <PhFloppyDiskBold width={32} />
         <div class="my-auto">{$t("user.settings.saveSettings")}</div>
       {/if}
     </button>

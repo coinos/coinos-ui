@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhArrowLeftBold from "virtual:icons/ph/arrow-left-bold";
   import { t } from "$lib/translations";
 </script>
 
@@ -57,7 +58,7 @@
 
   <div class="mt-10 flex justify-center">
     <a href="/map" class="btn btn-primary !w-auto !rounded-full px-8">
-      <iconify-icon noobserver icon="ph:arrow-left-bold" width="20"></iconify-icon>
+      <PhArrowLeftBold width="20" />
       {$t("mapAdd.backToMap")}
     </a>
   </div>

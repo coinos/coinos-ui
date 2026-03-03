@@ -1,4 +1,7 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhDiceThreeBold from "virtual:icons/ph/dice-three-bold";
+  import PhTrashBold from "virtual:icons/ph/trash-bold";
   import { browser } from "$app/environment";
   import { applyAction, deserialize } from "$app/forms";
   import { page } from "$app/stores";
@@ -115,7 +118,7 @@
         class="btn !w-auto shrink"
         aria-label="Copy public key"
       >
-        <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+        <PhCopyBold width="32" />
       </button>
     </div>
   </div>
@@ -128,10 +131,10 @@
 
         <div class="space-y-2 w-24">
           <button type="button" onclick={generate} class="btn" aria-label="Generate secret">
-            <iconify-icon noobserver icon="ph:dice-three-bold" width="32"></iconify-icon>
+            <PhDiceThreeBold width="32" />
           </button>
           <button type="button" onclick={() => copy(secret)} class="btn" aria-label="Copy secret">
-            <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+            <PhCopyBold width="32" />
           </button>
         </div>
       </div>
@@ -142,7 +145,7 @@
     <button type="submit" class="btn btn-accent">{$t("payments.submit")}</button>
     {#if pubkey}
       <button type="button" class="btn" onclick={del}>
-        <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
+        <PhTrashBold width="32" />
         {$t("accounts.delete")}
       </button>
     {/if}

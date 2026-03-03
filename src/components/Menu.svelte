@@ -1,4 +1,12 @@
 <script lang="ts">
+  import PhListBold from "virtual:icons/ph/list-bold";
+  import PhFadersBold from "virtual:icons/ph/faders-bold";
+  import PhLifebuoyBold from "virtual:icons/ph/lifebuoy-bold";
+  import PhMapTrifoldBold from "virtual:icons/ph/map-trifold-bold";
+  import PhChatBold from "virtual:icons/ph/chat-bold";
+  import PhMoonStarsBold from "virtual:icons/ph/moon-stars-bold";
+  import PhSignOutBold from "virtual:icons/ph/sign-out-bold";
+  import CoinosLogo from "virtual:icons/coinos/logo";
   import { theme } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
   import { OutClick } from "svelte-outclick";
@@ -8,17 +16,12 @@
   let showMenu = $state(false);
 
   let menuButtons = [
-    { key: "nav.settings", icon: "ph:faders-bold", href: `/settings` },
-    { key: "nav.support", icon: "ph:lifebuoy-bold", href: `/support` },
-    { key: "nav.map", icon: "ph:map-trifold-bold", href: `/map` },
-    // {
-    //   key: "nav.merch",
-    //   icon: "ph:storefront-bold",
-    //   href: `https://coinosmerch.com`,
-    // },
-    { key: "nav.dm", icon: "ph:chat-bold", href: `/messages` },
-    { key: "nav.dark", icon: "ph:moon-stars-bold", href: `/dark` },
-    { key: "nav.signOut", icon: "ph:sign-out-bold", href: `/logout` },
+    { key: "nav.settings", icon: PhFadersBold, href: `/settings` },
+    { key: "nav.support", icon: PhLifebuoyBold, href: `/support` },
+    { key: "nav.map", icon: PhMapTrifoldBold, href: `/map` },
+    { key: "nav.dm", icon: PhChatBold, href: `/messages` },
+    { key: "nav.dark", icon: PhMoonStarsBold, href: `/dark` },
+    { key: "nav.signOut", icon: PhSignOutBold, href: `/logout` },
   ];
 
   let hideMenu = () => (showMenu = false);
@@ -28,7 +31,7 @@
 <div>
   <OutClick onOutClick={hideMenu}>
     <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity('/support')}" onclick={toggleMenu} aria-label="Open menu">
-      <iconify-icon noobserver icon="ph:list-bold" width={w > 640 ? 32 : 24}></iconify-icon>
+      <PhListBold width={w > 640 ? 32 : 24} />
     </button>
 
     <div
@@ -37,7 +40,7 @@
       class:block={showMenu}
     >
       <ul class="space-y-5 w-48">
-        {#each menuButtons as { href, icon, key }}
+        {#each menuButtons as { href, icon: Icon, key }}
           <li>
             {#if key.includes("dark")}
               <DarkToggle />
@@ -51,7 +54,7 @@
                 <button
                   class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
                 >
-                  <iconify-icon noobserver {icon} width="32"></iconify-icon>
+                  <Icon width="32" />
                   {t(key)}
                 </button>
               </a>
@@ -61,7 +64,7 @@
       </ul>
       <hr class="my-4" />
       <a href="/?stay=true" aria-label="Coinos home">
-        <iconify-icon noobserver icon="coinos:logo" width="160"></iconify-icon>
+        <CoinosLogo width="160" />
       </a>
     </div>
   </OutClick>

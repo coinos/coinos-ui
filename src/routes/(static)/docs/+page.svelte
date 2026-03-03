@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import { copyNoNewlines as copy } from "$lib/utils";
   import { PUBLIC_DOMAIN, PUBLIC_COINOS_URL } from "$env/static/public";
 
@@ -20,7 +21,7 @@
 
 {#snippet cp(something)}
   <button type="button" class="ml-auto" onclick={() => copy(something)} aria-label="Copy value">
-    <iconify-icon noobserver icon="ph:copy-bold" width="42"></iconify-icon>
+    <PhCopyBold width="42" />
   </button>
 {/snippet}
 

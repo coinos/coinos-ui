@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhWarningBold from "virtual:icons/ph/warning-bold";
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import Amount from "$comp/Amount.svelte";
 
   import { btc, copy, f, sat, sats, types } from "$lib/utils";
@@ -38,7 +40,7 @@
 
 {#if invoice.type === types.liquid}
   <div class="flex justify-center p-4 shadow items-center gap-2">
-    <iconify-icon noobserver icon="ph:warning-bold" width="48" class="text-warning"></iconify-icon>
+    <PhWarningBold width="48" class="text-warning" />
     <div>
       <div class="my-auto text-xl text-center text-secondary">
         {t("payments.onlyLbtc")}
@@ -56,7 +58,7 @@
     class="w-full text-center text-secondary text-xl flex gap-1 items-center justify-center cursor-pointer hover:opacity-70"
   >
     <span class:truncate={!expanded} class="break-all">{txt}</span>
-    <iconify-icon noobserver icon="ph:copy-bold" width="32" class="shrink-0"></iconify-icon>
+    <PhCopyBold width="32" class="shrink-0" />
   </button>
 
 {#each invoice.items as i}

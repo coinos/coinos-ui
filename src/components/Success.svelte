@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhCheckFatFill from "virtual:icons/ph/check-fat-fill";
   import { browser } from "$app/environment";
   import { scale } from "svelte/transition";
   import Amount from "$comp/Amount.svelte";
@@ -57,13 +58,7 @@
       </div>
     </div>
 
-    <iconify-icon
-      noobserver
-      icon="ph:check-fat-fill"
-      class="text-green-400"
-      width="160"
-      in:scale={{ start: 0.2, duration: 500 }}
-    ></iconify-icon>
+    <PhCheckFatFill width="160" class="text-green-400" />
   {/if}
   <h1 class="text-3xl md:text-4xl font-bold mb-6">{title}</h1>
   <Amount {amount} {tip} {rate} {currency} {locale} />

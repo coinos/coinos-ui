@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhMapTrifoldBold from "virtual:icons/ph/map-trifold-bold";
   import { onMount } from "svelte";
   import Image from "$comp/Image.svelte";
   import { t } from "$lib/translations";
@@ -54,7 +55,7 @@
 
   <div class="flex justify-center">
     <a href="/map" class="btn btn-accent !w-auto !rounded-full px-10 text-xl gap-2">
-      <iconify-icon noobserver icon="ph:map-trifold-bold" width="28"></iconify-icon>
+      <PhMapTrifoldBold width="28" />
       {$t("about.locations.viewMap")}
     </a>
   </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import { copy, focus } from "$lib/utils";
   import { enhance } from "$app/forms";
 
@@ -17,7 +18,7 @@
     <div class="text-2xl break-all">{signature}</div>
 
     <button onclick={() => copy(signature)} type="button" class="btn grow">
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+      <PhCopyBold width="32" />
       <div class="my-auto">Copy</div>
     </button>
   {:else}

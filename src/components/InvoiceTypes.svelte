@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import PhXBold from "virtual:icons/ph/x-bold";
   import { types } from "$lib/utils";
   import { page } from "$app/stores";
   import { amountPrompt } from "$lib/store";
@@ -72,8 +74,7 @@
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto mt-1">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
-          ></iconify-icon>
+          <PhLightningFill class="text-yellow-300 text-2xl" />
         </div>
       </div>
       <div class="my-auto text-lg">LNURL</div>
@@ -87,8 +88,7 @@
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto mt-1">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
-          ></iconify-icon>
+          <PhLightningFill class="text-yellow-300 text-2xl" />
         </div>
       </div>
       <div class="my-auto text-lg">Bolt 12</div>
@@ -111,8 +111,7 @@
     >
       <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
         <div class="m-auto mt-1">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
-          ></iconify-icon>
+          <PhLightningFill class="text-yellow-300 text-2xl" />
         </div>
       </div>
       <div class="my-auto text-lg">Bolt 11</div>
@@ -157,7 +156,7 @@
 
   <div></div>
   <button type="button" class="btn" onclick={toggleType}>
-    <iconify-icon noobserver icon="ph:x-bold" width="32"></iconify-icon>
+    <PhXBold width="32" />
     <div class="my-auto">{t("payments.cancel")}</div>
   </button>
 {/if}

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhArrowLeftBold from "virtual:icons/ph/arrow-left-bold";
+  import PhHouseBold from "virtual:icons/ph/house-bold";
   import { onMount, onDestroy } from "svelte";
   import Menu from "$comp/Menu.svelte";
   import { t } from "$lib/translations";
@@ -32,14 +34,14 @@
   <nav class="flex items-center p-4 gap-4 shrink-0">
     {#if isDetail}
       <a href="/messages" class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl" aria-label="Back">
-        <iconify-icon noobserver icon="ph:arrow-left-bold" width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
+        <PhArrowLeftBold width={(w ?? 0) > 640 ? 32 : 24} />
       </a>
     {/if}
 
     <div class="ml-auto flex items-center gap-4">
       <a href="/{user?.username}" data-sveltekit-preload-code="eager" aria-label="Home">
         <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl" aria-label="Home">
-          <iconify-icon noobserver icon="ph:house-bold" width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
+          <PhHouseBold width={(w ?? 0) > 640 ? 32 : 24} />
         </button>
       </a>
       <Menu {opacity} {user} t={$t} {w} />

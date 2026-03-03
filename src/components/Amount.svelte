@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhLockFill from "virtual:icons/ph/lock-fill";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { copy, s, f, toFiat } from "$lib/utils";
   import { fiat } from "$lib/store";
   const {
@@ -11,7 +13,6 @@
     locked = false,
   }: any = $props();
 
-  const icon = $derived(locked ? "ph:lock-fill" : "ph:lightning-fill");
   const canShowFiat = $derived($fiat && rate && currency);
 
   const toggleFiat = (e) => {
@@ -33,7 +34,13 @@
         onclick={toggleFiat}
         aria-label="Toggle currency display"
       >
-        <iconify-icon noobserver {icon} class="text-yellow-300" class:hidden={canShowFiat}></iconify-icon>
+        {#if !canShowFiat}
+          {#if locked}
+            <PhLockFill class="text-yellow-300" />
+          {:else}
+            <PhLightningFill class="text-yellow-300" />
+          {/if}
+        {/if}
         <span class:hidden={!canShowFiat}>{f(toFiat(amount, rate), currency, locale)}</span>
         <span class:hidden={canShowFiat}>{s(amount, locale)}</span>
       </button>

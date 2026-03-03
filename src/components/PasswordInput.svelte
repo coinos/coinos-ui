@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhEyeBold from "virtual:icons/ph/eye-bold";
+  import PhEyeSlashBold from "virtual:icons/ph/eye-slash-bold";
   let {
     name = $bindable("password"),
     show = $bindable(),
@@ -11,8 +13,6 @@
     e?.preventDefault();
     show = !show;
   };
-
-  let icon = $derived(show ? "ph:eye-bold" : "ph:eye-slash-bold");
 </script>
 
 <label for="password" class="input flex items-center justify-center gap-2 w-full">
@@ -22,6 +22,10 @@
     <input {name} type="password" bind:value class="clean" use:focus {placeholder} />
   {/if}
   <button type="button" aria-label="Toggle" onclick={toggle} class="contents">
-    <iconify-icon noobserver {icon} width="32"></iconify-icon>
+    {#if show}
+      <PhEyeBold width="32" />
+    {:else}
+      <PhEyeSlashBold width="32" />
+    {/if}
   </button>
 </label>

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhEyeBold from "virtual:icons/ph/eye-bold";
+  import PhEyeSlashBold from "virtual:icons/ph/eye-slash-bold";
   import { preventDefault } from "svelte/legacy";
 
   import { focus } from "$lib/utils";
@@ -55,11 +57,11 @@
           class="absolute right-5 top-1/2"
           aria-label={revealPassword ? "Hide password" : "Show password"}
         >
-          <iconify-icon
-            noobserver
-            icon={revealPassword ? "ph:eye-bold" : "ph:eye-slash-bold"}
-            width="32"
-          ></iconify-icon>
+          {#if revealPassword}
+    <PhEyeBold width="32" />
+  {:else}
+    <PhEyeSlashBold width="32" />
+  {/if}
         </button>
       </div>
       <div class="mb-5 space-y-2">

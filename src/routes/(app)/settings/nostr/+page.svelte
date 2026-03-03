@@ -1,4 +1,13 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import PhGearBold from "virtual:icons/ph/gear-bold";
+  import PhClockBold from "virtual:icons/ph/clock-bold";
+  import PhQrCodeBold from "virtual:icons/ph/qr-code-bold";
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhArrowSquareOutBold from "virtual:icons/ph/arrow-square-out-bold";
+  import PhPlusBold from "virtual:icons/ph/plus-bold";
+  import PhEyeSlashBold from "virtual:icons/ph/eye-slash-bold";
+  import PhWarningBold from "virtual:icons/ph/warning-bold";
   import { untrack } from "svelte";
   import { browser } from "$app/environment";
   import { getNsec } from "$lib/nostr";
@@ -68,8 +77,7 @@
             {#if app.max_amount > 0}
               <div class="flex gap-1 text-base">
                 <div class="flex items-center">
-                  <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-                  ></iconify-icon>
+                  <PhLightningFill class="text-yellow-300" />
                   <span class:hidden={!($fiat && $rate)}>{f((app.spent * ($rate as number)) / sats, user.currency, locale)} / {f((app.max_amount * ($rate as number)) / sats, user.currency, locale)}</span>
                   <span class:hidden={$fiat && $rate}>{s(app.spent, locale)} / {s(app.max_amount, locale)}</span>
                 </div>
@@ -86,7 +94,7 @@
             aria-label={$t("accounts.edit")}
             title={$t("accounts.edit")}
           >
-            <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+            <PhGearBold width="32" />
           </a>
 
           <a
@@ -95,7 +103,7 @@
             class:btn-disabled={!app.secret}
             title={$t("accounts.payments")}
           >
-            <iconify-icon icon="ph:clock-bold" width="32"></iconify-icon>
+            <PhClockBold width="32" />
           </a>
 
           <a
@@ -104,7 +112,7 @@
             class:btn-disabled={!app.secret}
             title={$t("user.receive.showQR")}
           >
-            <iconify-icon icon="ph:qr-code-bold" width="32"></iconify-icon>
+            <PhQrCodeBold width="32" />
           </a>
         </div>
 
@@ -119,7 +127,7 @@
             class:btn-disabled={!app.secret}
             title={$t("accounts.copy")}
           >
-            <iconify-icon icon="ph:copy-bold" width="32"></iconify-icon>
+            <PhCopyBold width="32" />
             <div>{$t("accounts.copyNwc")}</div>
           </button>
           <a
@@ -128,7 +136,7 @@
             class:btn-disabled={!app.secret}
             aria-label="Open nostr"
           >
-            <iconify-icon icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
+            <PhArrowSquareOutBold width="32" />
             <div>{$t("accounts.connect")}</div>
           </a>
         </div>
@@ -136,7 +144,7 @@
     {/each}
 
     <a href="/apps/new" class="btn">
-      <iconify-icon icon="ph:plus-bold" width="32"></iconify-icon>
+      <PhPlusBold width="32" />
       {$t("accounts.newConection")}
     </a>
   </div>
@@ -146,11 +154,11 @@
   <div class="break-all grow">{nwc}</div>
   <div class="flex flex-wrap gap-2">
     <button onclick={() => copy(nwc)} type="button" class="btn grow">
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+      <PhCopyBold width="32" />
       <div class="my-auto">{$t("accounts.copy")}</div>
     </button>
     <a href={`/qr/${encodeURIComponent(nwc)}`} class="btn grow">
-      <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+      <PhQrCodeBold width="32" />
       <div class="my-auto">{$t("user.receive.showQR")}</div>
     </a>
   </div>
@@ -167,7 +175,7 @@
         onclick={() => copy(npub)}
         aria-label="Copy"
       >
-        <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        <PhCopyBold width="32" />
         {$t("accounts.copy")}
       </button>
 
@@ -176,7 +184,7 @@
         class="my-auto btn btn-circle !w-auto grow"
         aria-label="QR"
       >
-        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+        <PhQrCodeBold width="32" />
         {$t("accounts.qr")}
       </a>
     </div>
@@ -199,10 +207,10 @@
     <div class="flex flex-wrap sm:flex-nowrap gap-2">
       <button type="button" class="btn !w-auto flex-grow" onclick={toggleNsec}>
         {#if revealNsec}
-          <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
+          <PhEyeSlashBold width="32" />
           {$t("user.settings.hideNsec")}
         {:else}
-          <iconify-icon noobserver icon="ph:warning-bold" width="32"></iconify-icon>
+          <PhWarningBold width="32" />
           {$t("user.settings.revealNsec")}
         {/if}
       </button>
@@ -216,7 +224,7 @@
       >
         <div>{nsec}</div>
 
-        <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        <PhCopyBold width="32" />
       </button>
     {/if}
   </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhClockBold from "virtual:icons/ph/clock-bold";
   import Amount from "$comp/Amount.svelte";
   import Success from "$comp/Success.svelte";
   import { t } from "$lib/translations";
@@ -14,7 +15,7 @@
 
 <div class="container px-4 text-center mx-auto">
   {#if pending}
-    <iconify-icon noobserver icon="ph:clock-bold" class="text-warning" width="160"></iconify-icon>
+    <PhClockBold width="160" class="text-warning" />
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Payment detected</h1>
 

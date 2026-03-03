@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CoinosLogo from "virtual:icons/coinos/logo";
   import DarkToggle from "$comp/DarkToggle.svelte";
   import LocaleSelector from "$comp/LocaleSelector.svelte";
   import { t } from "$lib/translations";
@@ -21,7 +22,7 @@
   <div class="space-y-5">
     <div class="text-center w-full hidden md:block">
       <a href="/" aria-label="Home">
-        <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
+        <CoinosLogo width="224" />
       </a>
     </div>
     <div class="sm:hidden flex justify-center">

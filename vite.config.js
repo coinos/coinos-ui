@@ -1,12 +1,23 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
+import Icons from "unplugin-icons/vite";
+import { FileSystemIconLoader } from "unplugin-icons/loaders";
 import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    plugins: [tailwindcss({ optimize: false }), sveltekit()],
+    plugins: [
+      Icons({
+        compiler: "svelte",
+        customCollections: {
+          coinos: FileSystemIconLoader("./src/icons"),
+        },
+      }),
+      tailwindcss({ optimize: false }),
+      sveltekit(),
+    ],
     preview: {
       allowedHosts: [
         process.env.PUBLIC_DOMAIN || env.PUBLIC_DOMAIN || "coinos.io",

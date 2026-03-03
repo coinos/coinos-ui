@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhEyeSlashBold from "virtual:icons/ph/eye-slash-bold";
+  import PhEyeBold from "virtual:icons/ph/eye-bold";
   import Left from "$comp/Left.svelte";
   import { focus, post, warning } from "$lib/utils";
   import { t } from "$lib/translations";
@@ -67,8 +69,11 @@
     onclick={toggle}
     aria-label={hide ? "Show PIN" : "Hide PIN"}
   >
-    <iconify-icon noobserver icon={hide ? "ph:eye-slash-bold" : "ph:eye-bold"} width="32"
-    ></iconify-icon>
+    {#if hide}
+    <PhEyeSlashBold width="32" />
+  {:else}
+    <PhEyeBold width="32" />
+  {/if}
   </button>
 </label>
 

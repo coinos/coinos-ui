@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LogosBitcoin from "virtual:icons/logos/bitcoin";
   import { t } from "$lib/translations";
   import Spinner from "$comp/Spinner.svelte";
   import { bytesToHex } from "@noble/hashes/utils.js";
@@ -52,7 +53,7 @@
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-5">
     <a href="/account/bitcoin" class="block">
       <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200 gap-4 items-center">
-        <iconify-icon noobserver icon="logos:bitcoin" width={48}></iconify-icon>
+        <LogosBitcoin width={48} />
         <div>
           <div class="text-xl">{$t("accounts.bitcoinOnChain")}</div>
           <div class="text-secondary">

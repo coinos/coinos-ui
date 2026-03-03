@@ -267,7 +267,7 @@ export async function fillNumpadAmount(page: Page, amount: number) {
   // Ensure sats mode: when in fiat mode, the lightning icon span is visible
   const swapButton = page.locator('[aria-label="Swap currency display"]');
   if (await swapButton.isVisible({ timeout: 2_000 }).catch(() => false)) {
-    const lightningSpan = swapButton.locator('iconify-icon[icon="ph:lightning-fill"]').first();
+    const lightningSpan = swapButton.locator('svg').first();
     const isInFiatMode = await lightningSpan.isVisible({ timeout: 1_000 }).catch(() => false);
     if (isInFiatMode) {
       await swapButton.click();

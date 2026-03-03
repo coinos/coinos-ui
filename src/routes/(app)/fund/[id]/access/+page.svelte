@@ -1,4 +1,7 @@
 <script lang="ts">
+  import PhTrashBold from "virtual:icons/ph/trash-bold";
+  import PhPlusBold from "virtual:icons/ph/plus-bold";
+  import PhArrowLeftBold from "virtual:icons/ph/arrow-left-bold";
   import { focus, fail, post } from "$lib/utils";
   import { enhance } from "$app/forms";
   import { t } from "$lib/translations";
@@ -39,7 +42,7 @@
               class="ml-auto"
               aria-label={`Remove ${c.username}`}
             >
-              <iconify-icon icon="ph:trash-bold" width="32"></iconify-icon>
+              <PhTrashBold width="32" />
             </button>
           </div>
         </a>
@@ -49,13 +52,13 @@
         <input type="hidden" name="id" value={id} />
         <input use:focus name="username" bind:value={username} placeholder={$t("funds.username")} class="input" />
         <button type="submit" class="btn">
-          <iconify-icon icon="ph:plus-bold" width="32"></iconify-icon>
+          <PhPlusBold width="32" />
           {$t("funds.addManager")}
         </button>
       </form>
 
       <a href={`/fund/${id}`} class="btn">
-        <iconify-icon icon="ph:arrow-left-bold" width={32}></iconify-icon>
+        <PhArrowLeftBold width={32} />
         {$t("funds.returnToFund")}
       </a>
     </div>

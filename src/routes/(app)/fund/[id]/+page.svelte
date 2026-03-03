@@ -1,4 +1,10 @@
 <script lang="ts">
+  import PhGearBold from "virtual:icons/ph/gear-bold";
+  import PhPlusBold from "virtual:icons/ph/plus-bold";
+  import PhHandCoinsBold from "virtual:icons/ph/hand-coins-bold";
+  import PhLinkBold from "virtual:icons/ph/link-bold";
+  import PhGiftBold from "virtual:icons/ph/gift-bold";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import Amount from "$comp/Amount.svelte";
   import Payments from "$comp/Payments.svelte";
   import { format } from "date-fns";
@@ -71,7 +77,7 @@
 
         {#if (user && !managers.length) || managers.some((m) => m.id === user?.id)}
           <a href={`/fund/${id}/access`} class="btn !w-auto ml-auto text-secondary grow">
-            <iconify-icon icon="ph:gear-bold" width={32}></iconify-icon>
+            <PhGearBold width={32} />
             {$t("funds.manage")}
           </a>
         {/if}
@@ -80,7 +86,7 @@
         <div class="grow">
           <a href={`/send/fund/${id}`}>
             <button class="btn">
-              <iconify-icon noobserver icon="ph:plus-bold" width="32"></iconify-icon>
+              <PhPlusBold width="32" />
               {$t("payments.addFunds")}
             </button>
           </a>
@@ -89,8 +95,7 @@
           <div class="grow">
             <a href={`/fund/${id}/withdraw`}>
               <button class="btn">
-                <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
-                ></iconify-icon>
+                <PhHandCoinsBold width="32" style="transform: scaleX(-1)" />
                 {$t("payments.takeFunds")}
               </button>
             </a>
@@ -99,20 +104,15 @@
       </div>
       <div class="flex gap-2" data-sveltekit-prefetch="off">
         <a href={`/qr/${href}`} class="btn !w-auto grow">
-          <iconify-icon noobserver icon="ph:link-bold" width="32"></iconify-icon>
+          <PhLinkBold width="32" />
           <div class="my-auto">{$t("payments.shareLink")}</div>
         </a>
         <a href={`${$page.url.pathname}/gift`} class="btn !w-auto grow">
-          <iconify-icon noobserver icon="ph:gift-bold" width="32"></iconify-icon>
+          <PhGiftBold width="32" />
           <div class="my-auto">{$t("payments.giftLink")}</div>
         </a>
         <!-- <a href={`/qr/${lnurlw}`} class="btn !w-auto grow"> -->
-        <!--   <iconify-icon -->
-        <!--     noobserver -->
-        <!--     icon="ph:lightning-fill" -->
-        <!--     width="24" -->
-        <!--     class="text-yellow-300" -->
-        <!--   ></iconify-icon> -->
+        <!--   <PhLightningFill width="24" class="text-yellow-300" /> -->
         <!--   {$t("payments.lnurlw")} -->
         <!-- </a> -->
       </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import Avatar from "$comp/Avatar.svelte";
   import Media from "$comp/Media.svelte";
   import { goto } from "$app/navigation";
@@ -43,7 +44,7 @@
       </div>
       {#if author.lud16}
         <div class="flex items-center">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
           {author.lud16}
         </div>
       {/if}
@@ -96,8 +97,7 @@
   <div class="justify-center flex">
     <button type="button" onclick={zap} class="btn btn-accent items-center">
       <div class="flex gap-1 items-center">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300" width={32}
-        ></iconify-icon>
+        <PhLightningFill width={32} class="text-yellow-300" />
         <div>Zap</div>
       </div>
     </button>

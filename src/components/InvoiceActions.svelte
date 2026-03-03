@@ -1,4 +1,8 @@
 <script lang="ts">
+  import PhPencilSimpleBold from "virtual:icons/ph/pencil-simple-bold";
+  import PhArrowSquareOutBold from "virtual:icons/ph/arrow-square-out-bold";
+  import PhChatCenteredTextBold from "virtual:icons/ph/chat-centered-text-bold";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { amountPrompt } from "$lib/store";
   import { types } from "$lib/utils";
   import { page } from "$app/stores";
@@ -48,20 +52,20 @@
   <div class="flex flex-wrap gap-2 justify-around text-secondary w-full">
     {#if user?.id === invoice?.user?.id}
       <button class="btn grow !w-auto" onclick={toggleAmount}>
-        <iconify-icon noobserver icon="ph:pencil-simple-bold" width="32"></iconify-icon>
+        <PhPencilSimpleBold width="32" />
         <div class="my-auto">{t("payments.setAmount")}</div>
       </button>
     {:else}
       <a href={link} class="block">
         <button class="btn grow !w-auto">
-          <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
+          <PhArrowSquareOutBold width="32" />
           <div class="my-auto">{t("payments.openLink")}</div>
         </button>
       </a>
     {/if}
 
     <button class="btn grow !w-auto" onclick={toggleMemo}>
-      <iconify-icon noobserver icon="ph:chat-centered-text-bold" width="32"></iconify-icon>
+      <PhChatCenteredTextBold width="32" />
       <div class="my-auto">{t("invoice.setMemo")}</div>
     </button>
   </div>
@@ -82,8 +86,7 @@
       >
         <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
           <div class="m-auto">
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
-            ></iconify-icon>
+            <PhLightningFill class="text-yellow-300 text-2xl" />
           </div>
         </div>
         <div class="my-auto text-lg">Lightning</div>

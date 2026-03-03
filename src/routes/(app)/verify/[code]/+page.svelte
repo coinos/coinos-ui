@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhCheckBold from "virtual:icons/ph/check-bold";
   import { scale } from "svelte/transition";
   import { t } from "$lib/translations";
 
@@ -12,8 +13,7 @@
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Email verification failed</h1>
   {:else if user.verified}
     <div class="flex w-full py-5 max-w-[200px] mx-auto" in:scale={{ start: 0.5 }}>
-      <iconify-icon noobserver icon="ph:check-bold" class="mx-auto w-full text-[#7ACC8F]"
-      ></iconify-icon>
+      <PhCheckBold class="mx-auto w-full text-[#7ACC8F]" />
     </div>
 
     <h1 class="text-3xl md:text-4xl font-bold mb-6">Email verified successfully!</h1>

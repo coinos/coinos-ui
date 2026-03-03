@@ -1,4 +1,10 @@
 <script lang="ts">
+  import PhArrowSquareOutBold from "virtual:icons/ph/arrow-square-out-bold";
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
+  import LucideLabBee from "virtual:icons/lucide-lab/bee";
+  import PhKeyBold from "virtual:icons/ph/key-bold";
+  import PhXBold from "virtual:icons/ph/x-bold";
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { t } from "$lib/translations";
@@ -133,11 +139,11 @@
               <div class="break-all">{connectUrl}</div>
             </a>
             <a href={connectUrl} class="btn">
-              <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="32"></iconify-icon>
+              <PhArrowSquareOutBold width="32" />
               {$t("payments.openLink")}
             </a>
             <button class="btn" onclick={() => copy(connectUrl!)}>
-              <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+              <PhCopyBold width="32" />
               {$t("payments.copy")}
             </button>
           </div>
@@ -145,7 +151,7 @@
           {#if $signer?.method === "nsec"}
             <input bind:value={nsec} placeholder="nsec..." />
             <button type="button" class="btn btn-accent" onclick={nsecSign}>
-              <iconify-icon icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
+              <PhPaperPlaneRightBold width="32" />
               <div class="my-auto">Submit</div>
             </button>
           {/if}
@@ -153,8 +159,7 @@
           {#if !$signer}
             {#if extensionAvailable}
               <button type="button" class="btn" onclick={extensionSign}>
-                <iconify-icon icon="lucide-lab:bee" width="32" class="text-yellow-400"
-                ></iconify-icon>
+                <LucideLabBee width="32" class="text-yellow-400" />
                 <div class="my-auto">Browser extension</div>
               </button>
             {/if}
@@ -165,14 +170,14 @@
             </button>
 
             <button type="button" class="btn" onclick={toggleNsec}>
-              <iconify-icon icon="ph:key-bold" width="32"></iconify-icon>
+              <PhKeyBold width="32" />
               <div class="my-auto">Secret key</div>
             </button>
           {/if}
         {/if}
 
         <button type="button" class="btn" onclick={cancel}>
-          <iconify-icon icon="ph:x-bold" width="32"></iconify-icon>
+          <PhXBold width="32" />
           <div class="my-auto">Cancel</div>
         </button>
       {/if}

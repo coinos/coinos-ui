@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhHouseBold from "virtual:icons/ph/house-bold";
   import { banner, theme, newPayment } from "$lib/store";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
@@ -28,7 +29,7 @@
       ? [
           {
             href: `/${user?.username}`,
-            icon: "ph:house-bold",
+            icon: PhHouseBold,
             label: "Home",
           },
         ]
@@ -75,10 +76,10 @@
   >
     <nav class="flex justify-end items-center space-x-4 p-5">
       {#if user}
-        {#each links as { href, icon, label }}
+        {#each links as { href, icon: Icon, label }}
           <a {href} data-sveltekit-preload-code="eager" aria-label={label}>
             <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity(href)}" aria-label={label}>
-              <iconify-icon noobserver {icon} width={(w ?? 0) > 640 ? 32 : 24}></iconify-icon>
+              <Icon width={(w ?? 0) > 640 ? 32 : 24} />
             </button>
           </a>
         {/each}

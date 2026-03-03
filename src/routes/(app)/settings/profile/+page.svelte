@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhQrCodeBold from "virtual:icons/ph/qr-code-bold";
   import { tick } from "svelte";
   import { avatar, banner as bannerStore } from "$lib/store";
   import { t } from "$lib/translations";
@@ -209,14 +211,14 @@
           aria-label="Copy payment code"
           onclick={() => copy(`lightning:${lnurl}`)}
         >
-          <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+          <PhCopyBold width="32" />
         </button>
         <a
           href={`/${username}/accepted/${encodeURIComponent(`lightning:${lnurl}`)}`}
           class="my-auto"
           aria-label="Show payment code QR"
         >
-          <iconify-icon noobserver icon="ph:qr-code-bold" width="32"></iconify-icon>
+          <PhQrCodeBold width="32" />
         </a>
       </div>
     </div>

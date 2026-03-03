@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CoinosLogo from "virtual:icons/coinos/logo";
   import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
   import { browser } from "$app/environment";
   import { onDestroy, onMount, tick } from "svelte";
@@ -65,7 +66,7 @@
 <div class="pt-10">
   <div class="w-[243px] mx-auto mb-10">
     <a href="/" aria-label="Go to homepage">
-      <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
+      <CoinosLogo width="224" />
     </a>
   </div>
 

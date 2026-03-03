@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhCheckBold from "virtual:icons/ph/check-bold";
+  import PhClockBold from "virtual:icons/ph/clock-bold";
   import { run } from "svelte/legacy";
   import { theme } from "$lib/store";
 
@@ -94,11 +96,9 @@
   <label class="input input-bordered border-primary input-lg rounded-2xl flex items-center gap-2">
     <input type="text" name="email" class="clean" bind:value={email} />
     {#if verified}
-      <iconify-icon noobserver icon="ph:check-bold" class="text-success ml-auto" width="32"
-      ></iconify-icon>
+      <PhCheckBold width="32" class="text-success ml-auto" />
     {:else if email}
-      <iconify-icon noobserver icon="ph:clock-bold" class="text-warning ml-auto" width="32"
-      ></iconify-icon>
+      <PhClockBold width="32" class="text-warning ml-auto" />
     {/if}
   </label>
 </div>

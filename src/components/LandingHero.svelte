@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CoinosRays from "virtual:icons/coinos/rays";
   import { focus } from "$lib/utils";
   import { goto } from "$app/navigation";
   import Image from "$comp/Image.svelte";
@@ -10,11 +11,7 @@
     <h1
       class="relative text-5xl md:text-6xl lg:text-7xl font-medium text-center w-full md:w-3/4 lg:w-1/2 max-w-7xl mx-auto"
     >
-      <iconify-icon
-        noobserver
-        icon="coinos:rays"
-        class="absolute -top-14 md:-top-20 left-2/3 -translate-x-1/2"
-      ></iconify-icon>
+      <CoinosRays class="absolute -top-14 md:-top-20 left-2/3 -translate-x-1/2" />
       {$t("landing.header_before_icon")}
       {$t("landing.header_with_icon")}
       {$t("landing.header_after_icon")}

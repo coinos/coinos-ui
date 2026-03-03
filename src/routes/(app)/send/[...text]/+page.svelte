@@ -1,4 +1,12 @@
 <script lang="ts">
+  import PhCameraBold from "virtual:icons/ph/camera-bold";
+  import PhClipboardTextBold from "virtual:icons/ph/clipboard-text-bold";
+  import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import PhPushPinFill from "virtual:icons/ph/push-pin-fill";
+  import PhPushPinBold from "virtual:icons/ph/push-pin-bold";
+  import PhStarFill from "virtual:icons/ph/star-fill";
+  import PhStarBold from "virtual:icons/ph/star-bold";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
@@ -85,13 +93,13 @@
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
+          <PhCameraBold width="32" />
           {$t("user.send.scan")}
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+        <PhClipboardTextBold width="32" />
         {$t("user.send.paste")}
       </button>
     </div>
@@ -108,14 +116,13 @@
     ></textarea>
 
     <button bind:this={el} type="submit" class="btn btn-accent">
-      <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
+      <PhPaperPlaneRightBold width="32" />
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 
     <a href="/send/fund" class="block">
       <button type="button" class="btn">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-2xl"
-        ></iconify-icon>
+        <PhLightningFill class="text-yellow-300 text-2xl" />
         <div class="my-auto">{$t("payments.createFund")}</div>
       </button>
     </a>
@@ -138,10 +145,11 @@
                   onclick={(e) => pin(e, c)}
                   aria-label={c.pinned ? "Unpin contact" : "Pin contact"}
                 >
-                  <iconify-icon
-                    icon={c.pinned ? "ph:push-pin-fill" : "ph:push-pin-bold"}
-                    width={32}
-                  ></iconify-icon>
+                  {#if c.pinned}
+    <PhPushPinFill width={32} />
+  {:else}
+    <PhPushPinBold width={32} />
+  {/if}
                 </button>
                 <button
                   type="button"
@@ -149,8 +157,11 @@
                   onclick={(e) => trust(e, c)}
                   aria-label={c.trusted ? "Untrust contact" : "Trust contact"}
                 >
-                  <iconify-icon icon={c.trusted ? "ph:star-fill" : "ph:star-bold"} width={32}
-                  ></iconify-icon>
+                  {#if c.trusted}
+    <PhStarFill width={32} />
+  {:else}
+    <PhStarBold width={32} />
+  {/if}
                 </button>
               </div>
             </div>

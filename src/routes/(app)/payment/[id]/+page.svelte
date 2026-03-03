@@ -1,4 +1,7 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhArrowSquareOutBold from "virtual:icons/ph/arrow-square-out-bold";
   import { browser } from "$app/environment";
   import { onMount, tick } from "svelte";
   import { t, loading } from "$lib/translations";
@@ -84,7 +87,7 @@
     >
       <div class:hidden={!$fiat}>{f(toFiat(amount, rate), currency, userLocale)}</div>
       <div class="flex items-center" class:hidden={$fiat}>
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+        <PhLightningFill class="text-yellow-300" />
         {s(amount, userLocale)}
       </div>
     </button>
@@ -113,11 +116,11 @@
           onclick={(e) => { e.stopPropagation(); copy(value); }}
           aria-label="Copy {label}"
         >
-          <iconify-icon noobserver icon="ph:copy-bold" width="28" class="text-secondary"></iconify-icon>
+          <PhCopyBold width="28" class="text-secondary" />
         </button>
         {#if href}
           <a {href} target="_blank" rel="noreferrer" class="shrink-0 hover:opacity-80" onclick={(e) => e.stopPropagation()} aria-label="View in explorer">
-            <iconify-icon noobserver icon="ph:arrow-square-out-bold" width="20" class="text-secondary"></iconify-icon>
+            <PhArrowSquareOutBold width="20" class="text-secondary" />
           </a>
         {/if}
       </div>
@@ -143,7 +146,7 @@
     >
       <span class:hidden={!$fiat}>{f(toFiat(a, rate), currency, userLocale)}</span>
       <span class="flex items-center" class:hidden={$fiat}>
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+        <PhLightningFill class="text-yellow-300" />
         {s(a, userLocale)}
       </span>
     </button>
@@ -196,7 +199,7 @@
     {:else if type === types.fund}
       <div class="pt-4">
         <a href={`/fund/${memo}`} class="btn btn-accent w-full">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
           {$t("payments.viewFund")}
         </a>
       </div>
@@ -205,7 +208,7 @@
       <div class="pt-4">
         <a href={`/e/${eid}`} class="btn btn-accent w-full">
           <img src="/images/nostr.png" class="w-6" alt="Nostr" />
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
           {$t("payments.zappedEvent")}
         </a>
       </div>

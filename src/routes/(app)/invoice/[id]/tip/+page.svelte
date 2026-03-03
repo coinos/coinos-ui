@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { fiat, invoice as inv, request } from "$lib/store";
   import { loc, copy, focus, f, sat, get, s, sats } from "$lib/utils";
   import Slider from "$comp/Slider.svelte";
@@ -111,8 +112,7 @@
         </div>
         <div class="ml-auto text-lg flex gap-2" class:hidden={$fiat}>
           <div class="flex items-center">
-            <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"
-            ></iconify-icon>
+            <PhLightningFill class="text-yellow-300" />
             <div>{s(amount, locale)}</div>
           </div>
           <div class="flex items-center">

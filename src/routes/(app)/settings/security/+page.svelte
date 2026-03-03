@@ -1,4 +1,9 @@
 <script lang="ts">
+  import PhLockKeyOpenBold from "virtual:icons/ph/lock-key-open-bold";
+  import PhLockKeyBold from "virtual:icons/ph/lock-key-bold";
+  import PhNumpadBold from "virtual:icons/ph/numpad-bold";
+  import PhDeviceMobileBold from "virtual:icons/ph/device-mobile-bold";
+  import PhFingerprintBold from "virtual:icons/ph/fingerprint-bold";
   import { getContext } from "svelte";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
@@ -205,11 +210,11 @@
     <Pin bind:value={pin} title={$t("user.settings.setPIN")} {cancel} notify={false} />
   {:else}
     <button type="button" class="btn" onclick={togglePin}>
-      <iconify-icon
-        noobserver
-        icon={haspin ? "ph:lock-key-open-bold" : "ph:lock-key-bold"}
-        width="32"
-      ></iconify-icon>
+      {#if haspin}
+    <PhLockKeyOpenBold width="32" />
+  {:else}
+    <PhLockKeyBold width="32" />
+  {/if}
       {haspin ? $t("user.settings.disablePIN") : $t("user.settings.enablePIN")}
     </button>
   {/if}
@@ -231,17 +236,17 @@
     </div>
 
     <button type="button" class="btn" onclick={startConfirming2fa}>
-      <iconify-icon noobserver icon="ph:numpad-bold" width="32"></iconify-icon>
+      <PhNumpadBold width="32" />
       <div class="my-auto">Confirm</div>
     </button>
   {:else if user.twofa}
     <button type="button" class="btn" onclick={startDisabling2fa}>
-      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
+      <PhDeviceMobileBold width="32" />
       <div class="my-auto">{$t("user.settings.twofaDisable")}</div>
     </button>
   {:else}
     <button type="button" class="btn" onclick={startEnabling2fa}>
-      <iconify-icon noobserver icon="ph:device-mobile-bold" width="32"></iconify-icon>
+      <PhDeviceMobileBold width="32" />
       <div class="my-auto">{$t("user.settings.twofaSetup")}</div>
     </button>
   {/if}
@@ -258,7 +263,7 @@
     {#if passkeyLoading}
       <Spinner />
     {:else}
-      <iconify-icon noobserver icon="ph:fingerprint-bold" width="32"></iconify-icon>
+      <PhFingerprintBold width="32" />
     {/if}
     Add Passkey
   </button>

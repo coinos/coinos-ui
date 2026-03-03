@@ -1,4 +1,5 @@
 <script>
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
   import { t } from "$lib/translations";
@@ -43,7 +44,7 @@
   </div>
 
   <button onclick={() => copy(lnurl)} class="flex gap-1 m-auto my-8">
-    <iconify-icon icon="ph:copy-bold" width={32}></iconify-icon>
+    <PhCopyBold width={32} />
     {$t("user.copyLnurl")}
   </button>
 </div>

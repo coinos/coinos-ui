@@ -1,4 +1,9 @@
 <script lang="ts">
+  import PhClockCounterClockwiseBold from "virtual:icons/ph/clock-counter-clockwise-bold";
+  import CryptocurrencyColorBtc from "virtual:icons/cryptocurrency-color/btc";
+  import PhFadersBold from "virtual:icons/ph/faders-bold";
+  import PhHandCoinsBold from "virtual:icons/ph/hand-coins-bold";
+  import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
   import { bytesToHex } from "@noble/hashes/utils.js";
   import { run } from "svelte/legacy";
   import { onMount } from "svelte";
@@ -135,7 +140,7 @@
       <!--   aria-label="Payment history" -->
       <!--   onclick={(e) => setAccount(e, "/payments")} -->
       <!-- > -->
-      <!--   <iconify-icon noobserver icon="ph:clock-counter-clockwise-bold" width="38"></iconify-icon> -->
+      <!--   <PhClockCounterClockwiseBold width="38" /> -->
       <!-- </a> -->
       <a
         href={`/account/${id}`}
@@ -147,17 +152,12 @@
           <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover bg-neutral" alt="Ark" />
         {:else if seed || fingerprint}
           <div class="w-8 h-8 flex items-center justify-center">
-            <iconify-icon noobserver icon="cryptocurrency-color:btc" width="32"></iconify-icon>
+            <CryptocurrencyColorBtc width="32" />
           </div>
         {:else}
           <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
         {/if}
-        <!-- <iconify-icon -->
-        <!--   noobserver -->
-        <!--   icon="ph:faders-bold" -->
-        <!--   width="20" -->
-        <!--   class="absolute -bottom-1 -right-1 text-base-content bg-base-100 rounded-full" -->
-        <!-- ></iconify-icon> -->
+        <!-- <PhFadersBold width="20" class="absolute -bottom-1 -right-1 text-base-content bg-base-100 rounded-full" /> -->
       </a>
     </div>
   </div>
@@ -165,15 +165,14 @@
   <div class="flex w-full text-xl gap-2">
     <a href={"/invoice"} class="contents" onclick={(e) => setAccount(e, "/invoice")}>
       <button class="btn !w-auto flex-1" data-testid="account-receive">
-        <iconify-icon noobserver icon="ph:hand-coins-bold" width="32" flip="horizontal"
-        ></iconify-icon>
+        <PhHandCoinsBold width="32" style="transform: scaleX(-1)" />
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
     <a href={`/send`} class="contents" onclick={(e) => setAccount(e, "/send")}>
       <button type="button" class="btn !w-auto flex-1">
-        <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32"></iconify-icon>
+        <PhPaperPlaneRightBold width="32" />
         <div class="my-auto">{$t("user.dashboard.send")}</div>
       </button>
     </a>

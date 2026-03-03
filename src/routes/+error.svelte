@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CoinosLogo from "virtual:icons/coinos/logo";
   import { page } from "$app/stores";
 
   let { data } = $props();
@@ -9,7 +10,7 @@
 <div class="container px-4 max-w-xl mx-auto mt-10 space-y-5">
   <div class="w-full flex">
     <a href="/" class="mx-auto" aria-label="Go to homepage">
-      <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
+      <CoinosLogo width="224" />
     </a>
   </div>
 

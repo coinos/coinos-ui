@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { t } from "$lib/translations";
   import { tick } from "svelte";
   import Numpad from "$comp/Numpad.svelte";
@@ -38,7 +39,7 @@
 
   <button type="button" class="flex w-full" onclick={startSetting}>
     <div class="p-4 border rounded-2xl rounded-r-none border-r-0 bg-base-200">
-      <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+      <PhLightningFill class="text-yellow-300" />
     </div>
 
     <div class="border-l-0 rounded-l-none pl-2 w-full p-4 border rounded-2xl text-left">

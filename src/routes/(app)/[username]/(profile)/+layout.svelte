@@ -1,4 +1,10 @@
 <script lang="ts">
+  import PhFadersBold from "virtual:icons/ph/faders-bold";
+  import PhChatBold from "virtual:icons/ph/chat-bold";
+  import PhNoteBold from "virtual:icons/ph/note-bold";
+  import PhUserBold from "virtual:icons/ph/user-bold";
+  import PhClock from "virtual:icons/ph/clock";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { f, loc, post, s, sats, success, fail } from "$lib/utils";
 
   let { data, children } = $props();
@@ -37,15 +43,15 @@
       <div class="break-words">{display || username}</div>
       {#if subject.id === user?.id}
         <a href="/settings/profile" class="flex items-center" aria-label="Profile settings">
-          <iconify-icon noobserver icon="ph:faders-bold" width="32"></iconify-icon>
+          <PhFadersBold width="32" />
         </a>
       {:else}
         <a href="/messages/{subject.pubkey}" aria-label="Direct Message">
-          <iconify-icon noobserver icon="ph:chat-bold" width="32"></iconify-icon>
+          <PhChatBold width="32" />
         </a>
       {/if}
       <!-- <a href={`/${subject.pubkey}/notes`}> -->
-      <!--   <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon> -->
+      <!--   <PhNoteBold width="32" /> -->
       <!-- </a> -->
     </div>
 
@@ -72,14 +78,12 @@
       <!-- {#if user &#38;&#38; user.username !== subject.username &#38;&#38; subject.pubkey} -->
       <!--   {#if following} -->
       <!--     <button class="btn" onclick={unfollow}> -->
-      <!--       <iconify-icon noobserver icon="ph:user-bold" width="32" -->
-      <!--       ></iconify-icon> -->
+      <!--       <PhUserBold width="32" /> -->
       <!--       <div class="my-auto">{$t("user.unfollow")}</div> -->
       <!--     </button> -->
       <!--   {:else} -->
       <!--     <button class="btn" onclick={follow}> -->
-      <!--       <iconify-icon noobserver icon="ph:user-bold" width="32" -->
-      <!--       ></iconify-icon> -->
+      <!--       <PhUserBold width="32" /> -->
       <!--       <div class="my-auto">{$t("user.follow")}</div> -->
       <!--     </button> -->
       <!--   {/if} -->
@@ -107,7 +111,7 @@
             aria-label="Reset password"
           >
             <div class="mx-auto flex">
-              <iconify-icon noobserver icon="ph:clock" width="32"></iconify-icon>
+              <PhClock width="32" />
             </div>
           </button>
         </form>
@@ -138,12 +142,12 @@
       {#if satsPerCurrency >= 1}
         <div>{f(1, currency, locale)} &#61;</div>
         <div class="flex items-center">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
           {s(satsPerCurrency)}
         </div>
       {:else}
         <div class="flex items-center">
-          <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+          <PhLightningFill class="text-yellow-300" />
           1
         </div>
         <div>&#61; {f(1 / satsPerCurrency, currency, locale)}</div>

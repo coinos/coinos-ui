@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhCameraBold from "virtual:icons/ph/camera-bold";
+  import PhClipboardTextBold from "virtual:icons/ph/clipboard-text-bold";
   import { run } from "svelte/legacy";
 
   import { page } from "$app/stores";
@@ -64,13 +66,13 @@
     <div class="flex gap-2">
       <a href="/scan" class="contents">
         <button type="button" class="btn !w-auto flex-grow">
-          <iconify-icon noobserver icon="ph:camera-bold" width="32"></iconify-icon>
+          <PhCameraBold width="32" />
           <div class="my-auto">{$t("user.send.scan")}</div>
         </button>
       </a>
 
       <button type="button" class="btn !w-auto flex-grow" onclick={paste}>
-        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32"></iconify-icon>
+        <PhClipboardTextBold width="32" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
     </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhPaperPlaneRightFill from "virtual:icons/ph/paper-plane-right-fill";
   import { tick, onMount, onDestroy } from "svelte";
   import { page } from "$app/state";
   import { decode } from "nostr-tools/nip19";
@@ -303,7 +304,7 @@
           onclick={() => sendMessage(text)}
           aria-label="Send"
         >
-          <iconify-icon noobserver icon="ph:paper-plane-right-fill" width="22"></iconify-icon>
+          <PhPaperPlaneRightFill width="22" />
         </button>
       </div>
       {#if sendError}

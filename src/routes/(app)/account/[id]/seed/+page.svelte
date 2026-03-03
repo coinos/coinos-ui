@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhArrowLeftBold from "virtual:icons/ph/arrow-left-bold";
   import { page } from "$app/stores";
   import Mnemonic from "$comp/Mnemonic.svelte";
   import { goto } from "$app/navigation";
@@ -69,13 +71,13 @@
       <Mnemonic {mnemonic} />
 
       <button onclick={() => copy(mnemonic as string)} type="button" class="btn">
-        <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+        <PhCopyBold width="32" />
         <div class="my-auto">{$t("accounts.copy")}</div>
       </button>
     {/if}
 
     <button onclick={() => goto(`/account/${id}`)} type="button" class="btn btn-primary">
-      <iconify-icon noobserver icon="ph:arrow-left-bold" width="32"></iconify-icon>
+      <PhArrowLeftBold width="32" />
       <div class="my-auto">{$t("accounts.back")}</div>
     </button>
   </div>

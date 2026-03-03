@@ -1,4 +1,5 @@
 <script>
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import Qr from "$comp/Qr.svelte";
   import { back, copy } from "$lib/utils";
   let { data } = $props();
@@ -13,7 +14,7 @@
     class="btn break-all !h-auto flex-nowrap p-4 font-normal leading-normal"
     onclick={() => copy(text)}
   >
-    <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+    <PhCopyBold width="32" />
     <div class="my-auto">{text}</div>
   </button>
 </div>

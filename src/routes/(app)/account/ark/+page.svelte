@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhFingerprintBold from "virtual:icons/ph/fingerprint-bold";
   import { onMount } from "svelte";
   import { t } from "$lib/translations";
   import Spinner from "$comp/Spinner.svelte";
@@ -121,7 +122,7 @@
           </button>
         {/if}
         <button type="button" class="btn btn-accent" onclick={unlockWithPasskey}>
-          <iconify-icon noobserver icon="ph:fingerprint-bold" width="24"></iconify-icon>
+          <PhFingerprintBold width="24" />
           {$t("accounts.unlockWithPasskey")}
         </button>
         <a href={`/${user.username}`}>

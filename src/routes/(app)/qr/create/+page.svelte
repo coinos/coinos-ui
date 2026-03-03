@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhClipboardTextBold from "virtual:icons/ph/clipboard-text-bold";
+  import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
   import { run, preventDefault } from "svelte/legacy";
 
   import { goto } from "$app/navigation";
@@ -46,8 +48,7 @@
         class="flex border rounded-2xl px-6 py-5 font-bold hover:opacity-80 w-full bg-primary justify-center gap-2"
         onclick={paste}
       >
-        <iconify-icon noobserver icon="ph:clipboard-text-bold" width="32" class="my-auto"
-        ></iconify-icon>
+        <PhClipboardTextBold width="32" class="my-auto" />
         <div class="my-auto">{$t("user.send.paste")}</div>
       </button>
 
@@ -56,8 +57,7 @@
         type="submit"
         class="flex bg-black text-white border rounded-2xl px-6 py-5 w-full font-bold gap-2 justify-center"
       >
-        <iconify-icon noobserver icon="ph:paper-plane-right-bold" width="32" class="my-auto invert"
-        ></iconify-icon>
+        <PhPaperPlaneRightBold width="32" class="my-auto invert" />
         <div class="my-auto">{$t("user.dashboard.go")}</div>
       </button>
     </div>

@@ -1,4 +1,10 @@
 <script lang="ts">
+  import PhArrowLeftBold from "virtual:icons/ph/arrow-left-bold";
+  import PhXBold from "virtual:icons/ph/x-bold";
+  import PhMagnifyingGlassBold from "virtual:icons/ph/magnifying-glass-bold";
+  import PhFunnelBold from "virtual:icons/ph/funnel-bold";
+  import PhListBold from "virtual:icons/ph/list-bold";
+  import PhPlusBold from "virtual:icons/ph/plus-bold";
   import { tick, onMount, onDestroy, mount } from "svelte";
   import { browser } from "$app/environment";
   import Popup from "$comp/Popup.svelte";
@@ -610,7 +616,7 @@
       class="rounded-full border-2 border-black bg-base-100/80 w-16 h-16 flex items-center justify-center"
       onclick={back}
     >
-      <iconify-icon noobserver icon="ph:arrow-left-bold" width="24"></iconify-icon>
+      <PhArrowLeftBold width="24" />
     </button>
   </div>
   <div class="relative">
@@ -622,15 +628,15 @@
             <div class="flex items-center absolute right-2 top-1/2 -translate-y-1/2">
               {#if search}
                 <button type="button" onclick={clearSearch} aria-label="Clear">
-                  <iconify-icon noobserver icon="ph:x-bold" width="20"></iconify-icon>
+                  <PhXBold width="20" />
                 </button>
               {:else}
-                <iconify-icon noobserver icon="ph:magnifying-glass-bold" width="20" class="opacity-40"></iconify-icon>
+                <PhMagnifyingGlassBold width="20" class="opacity-40" />
               {/if}
             </div>
           </div>
           <button onclick={() => showList = false} aria-label="Close" class="opacity-40 hover:opacity-100">
-            <iconify-icon noobserver icon="ph:x-bold" width="18"></iconify-icon>
+            <PhXBold width="18" />
           </button>
         </div>
         <div class="space-y-1 text-sm h-[250px] max-h-[calc(100vh*0.35)] overflow-y-scroll px-4 pb-4 text-ellipsis overflow-x-hidden">
@@ -679,7 +685,7 @@
             class="text-xs px-3 py-1 rounded-full border border-primary"
           >{$t("map.none")}</button>
           <button onclick={() => showFilters = false} aria-label="Close" class="ml-auto opacity-40 hover:opacity-100">
-            <iconify-icon noobserver icon="ph:x-bold" width="18"></iconify-icon>
+            <PhXBold width="18" />
           </button>
         </div>
         <div class="flex flex-wrap gap-2">
@@ -710,18 +716,18 @@
           onclick={toggleFilters}
           aria-label="Filter categories"
         >
-          <iconify-icon noobserver icon="ph:funnel-bold" width="24"></iconify-icon>
+          <PhFunnelBold width="24" />
         </button>
         <button
           class="rounded-full border-2 border-primary w-16 h-16 flex items-center justify-center {showList ? 'bg-primary text-white' : 'bg-base-100/80'}"
           onclick={toggleList}
           aria-label="Toggle location list"
         >
-          <iconify-icon noobserver icon="ph:list-bold" width="24"></iconify-icon>
+          <PhListBold width="24" />
         </button>
       </div>
       <a href="/map/add" class="whitespace-nowrap rounded-full bg-black text-white h-12 flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:opacity-80 transition-opacity">
-        <iconify-icon noobserver icon="ph:plus-bold" width="20"></iconify-icon>
+        <PhPlusBold width="20" />
         {$t("mapAdd.addLocation")}
       </a>
     </div>

@@ -55,7 +55,7 @@ test("custodial-to-custodial via bitcoin address sends internally and notifies r
   // Ensure sats mode: swap button shows lightning icon when in fiat mode
   const swapButton = bobPage.locator('[aria-label="Swap currency display"]');
   if (await swapButton.isVisible({ timeout: 2_000 }).catch(() => false)) {
-    const hasLightning = await swapButton.locator('iconify-icon[icon="ph:lightning-fill"]').count();
+    const hasLightning = await swapButton.locator('svg').count();
     if (hasLightning > 0) {
       await swapButton.click();
       await bobPage.waitForTimeout(300);

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhFloppyDiskBold from "virtual:icons/ph/floppy-disk-bold";
   import Avatar from "$comp/Avatar.svelte";
   import Payments from "$comp/Payments.svelte";
   import { onMount } from "svelte";
@@ -231,7 +232,7 @@
   {#if payments.length}
     <div class="flex justify-center">
       <button class="btn !w-auto" onclick={csv}>
-        <iconify-icon noobserver icon="ph:floppy-disk-bold" width="32"></iconify-icon>
+        <PhFloppyDiskBold width="32" />
         <div class="my-auto">{$t("payments.export")}</div>
       </button>
     </div>

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import LogosBitcoin from "virtual:icons/logos/bitcoin";
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
   import { get, f, s, si, sat, loc, sats, types } from "$lib/utils";
@@ -26,8 +28,7 @@
         <button class="font-bold flex items-center" onclick={(e) => { e.stopPropagation(); $fiat = !$fiat; }}>
           <div class:hidden={!$fiat}>{f(Math.abs(amount) * (p.rate / sats), p.currency, locale)}</div>
           <div class="flex items-center" class:hidden={$fiat}>
-            <iconify-icon noobserver icon="ph:lightning-fill" width="24" class="text-yellow-300"
-            ></iconify-icon>
+            <PhLightningFill width="24" class="text-yellow-300" />
             <div>{s(Math.abs(amount), locale)}</div>
           </div>
         </button>
@@ -51,8 +52,7 @@
           {:else}
             <a href={`/fund/${p.memo}`}>
               <div class="text-secondary flex">
-                <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-3xl"
-                ></iconify-icon>
+                <PhLightningFill class="text-yellow-300 text-3xl" />
 
                 <div class="my-auto">{$t("payments.fund")}</div>
               </div>
@@ -68,12 +68,11 @@
         {:else}
           <div class="text-secondary flex items-center gap-1">
             {#if p.type === types.lightning || p.type === types.bolt12}
-              <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300 text-3xl"
-              ></iconify-icon>
+              <PhLightningFill class="text-yellow-300 text-3xl" />
             {:else if p.type === types.ecash}
               <img src="/images/cash.png" class="w-12" alt="Ecash" />
             {:else if p.type === types.bitcoin}
-              <iconify-icon noobserver icon="logos:bitcoin" class="text-3xl"></iconify-icon>
+              <LogosBitcoin class="text-3xl" />
             {:else if p.type === types.liquid}
               <div class="my-auto">
                 <img

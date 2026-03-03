@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhStarFill from "virtual:icons/ph/star-fill";
   import { invalidate } from "$app/navigation";
   import { tick, untrack } from "svelte";
   import handler from "$lib/handler";
@@ -190,7 +191,7 @@
 
       {#if !trusted}
         <button type="button" class="btn" onclick={toggleTrust}>
-          <iconify-icon icon="ph:star-fill" width={32}></iconify-icon>
+          <PhStarFill width={32} />
           {$t("payments.trustUser")}
         </button>
       {/if}

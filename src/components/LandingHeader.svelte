@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CoinosLogo from "virtual:icons/coinos/logo";
   import { goto } from "$app/navigation";
   import { scroll } from "$lib/utils";
   import { t } from "$lib/translations";
@@ -18,7 +19,7 @@
   <nav class="block lg:flex justify-between items-center">
     <div class="flex justify-start lg:justify-center items-center lg:space-x-5">
       <a href="/" onclick={() => scroll(header)} aria-label="Home">
-        <iconify-icon noobserver icon="coinos:logo" width="224"></iconify-icon>
+        <CoinosLogo width="224" />
       </a>
     </div>
 

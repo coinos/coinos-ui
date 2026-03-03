@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhFilePlusBold from "virtual:icons/ph/file-plus-bold";
+  import PhFolderOpenBold from "virtual:icons/ph/folder-open-bold";
   import { t } from "$lib/translations";
 </script>
 
@@ -9,7 +11,7 @@
     <a href="/account/seed" class="block">
       <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200">
         <figure class="w-20 flex items-center justify-center">
-          <iconify-icon noobserver icon="ph:file-plus-bold" width="64"></iconify-icon>
+          <PhFilePlusBold width="64" />
         </figure>
         <div>
           <div class="text-xl">{$t("accounts.create")}</div>
@@ -20,7 +22,7 @@
     <a href="/account/import" class="block">
       <div class="card card-side shadow shadow-base-300 p-8 hover:bg-base-200">
         <figure class="w-20 flex items-center justify-center">
-          <iconify-icon noobserver icon="ph:folder-open-bold" width="64"></iconify-icon>
+          <PhFolderOpenBold width="64" />
         </figure>
         <div>
           <div class="text-xl">{$t("accounts.import")}</div>

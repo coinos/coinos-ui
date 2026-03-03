@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhQrCodeBold from "virtual:icons/ph/qr-code-bold";
   import Amount from "$comp/Amount.svelte";
   import { t } from "$lib/translations";
   import { page } from "$app/stores";
@@ -28,12 +30,12 @@
       class="btn break-all !h-auto flex-nowrap p-4 font-normal shrink !w-auto max-w-full"
       onclick={() => copy(text)}
     >
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+      <PhCopyBold width="32" />
       <div class="my-auto break-all min-w-0 !w-auto max-w-full">{text}</div>
     </button>
 
     <a href={`/qr/${encodeURIComponent(text)}`} class="btn !w-auto" aria-label="Show gift QR">
-      <iconify-icon icon="ph:qr-code-bold" width={32}></iconify-icon>
+      <PhQrCodeBold width={32} />
     </a>
   </div>
 </div>

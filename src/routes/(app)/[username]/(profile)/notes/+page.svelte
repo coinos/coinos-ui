@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhNoteBold from "virtual:icons/ph/note-bold";
   import { t } from "$lib/translations";
   import Event from "$comp/Event.svelte";
   import { post } from "$lib/utils";
@@ -16,7 +17,7 @@
 
   {#if user?.id === subject.id}
     <a href={`/${user.username}/notes/new`} class="btn">
-      <iconify-icon noobserver icon="ph:note-bold" width="32"></iconify-icon>
+      <PhNoteBold width="32" />
       <div>Post a note</div>
     </a>
   {/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhEyeSlashBold from "virtual:icons/ph/eye-slash-bold";
   import Amount from "$comp/Amount.svelte";
   import Pin from "$comp/Pin.svelte";
   import { loc, f, toFiat, s, si, sat, sats } from "$lib/utils";
@@ -29,7 +30,7 @@
 <div>
   {#if user.haspin && !$pin}
     <button onclick={toggleShow} class="flex gap-2 text-xl" data-testid="balance-show">
-      <iconify-icon noobserver icon="ph:eye-slash-bold" width="32"></iconify-icon>
+      <PhEyeSlashBold width="32" />
       <div class="my-auto">{$t("user.showBalance")}</div>
     </button>
   {:else if !isNaN(rate)}

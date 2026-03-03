@@ -1,4 +1,7 @@
 <script lang="ts">
+  import PhGearBold from "virtual:icons/ph/gear-bold";
+  import PhPlusBold from "virtual:icons/ph/plus-bold";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
   import Account from "$comp/Account.svelte";
@@ -100,7 +103,7 @@
       <div>{$t("user.settings.confirmAutoWithdrawalDesc")}</div>
 
       <a href="/settings/account" class="btn">
-        <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+        <PhGearBold width="32" />
         Settings
       </a>
     </div>
@@ -117,7 +120,7 @@
     </div>
 
     <a href="/settings/profile" class="btn">
-      <iconify-icon icon="ph:gear-bold" width="32"></iconify-icon>
+      <PhGearBold width="32" />
       {$t("user.settings.continueSettingUp")}
     </a>
   {/if}
@@ -130,7 +133,7 @@
         {#if adding}
           <Spinner />
         {:else}
-          <iconify-icon noobserver icon="ph:plus-bold" width="24"></iconify-icon>
+          <PhPlusBold width="24" />
           {$t("accounts.addAccount")}
         {/if}
       </button>
@@ -164,7 +167,7 @@
       class="contents"
     >
       <button class="btn btn-accent !text-2xl items-center !w-full sm:!max-w-[400px] mx-auto">
-        <iconify-icon noobserver icon="ph:lightning-fill" class="text-yellow-300"></iconify-icon>
+        <PhLightningFill class="text-yellow-300" />
         <div>{$t("user.pay")} {subject.username}</div>
       </button>
     </a>

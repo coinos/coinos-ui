@@ -1,4 +1,9 @@
 <script lang="ts">
+  import PhCaretLeftBold from "virtual:icons/ph/caret-left-bold";
+  import PhFolderBold from "virtual:icons/ph/folder-bold";
+  import PhCaretRightBold from "virtual:icons/ph/caret-right-bold";
+  import PhCameraBold from "virtual:icons/ph/camera-bold";
+  import PhImagesBold from "virtual:icons/ph/images-bold";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { browser } from "$app/environment";
@@ -75,7 +80,7 @@
       onclick={decr}
       aria-label="Previous"
     >
-      <iconify-icon noobserver icon="ph:caret-left-bold" width="32"></iconify-icon>
+      <PhCaretLeftBold width="32" />
     </button>
     <button class="block relative w-32 mx-auto" onclick={() => isMobile ? (showUploadModal = true) : galleryInput.click()}>
       <div
@@ -88,7 +93,7 @@
         />
       </div>
       <div class="absolute bg-base-100 rounded-full p-2 -right-2 -bottom-2 z-10">
-        <iconify-icon noobserver icon="ph:folder-bold" width="24"></iconify-icon>
+        <PhFolderBold width="24" />
       </div>
     </button>
     <button
@@ -96,7 +101,7 @@
       onclick={incr}
       aria-label="Next"
     >
-      <iconify-icon noobserver icon="ph:caret-right-bold" width="32"></iconify-icon>
+      <PhCaretRightBold width="32" />
     </button>
   </div>
 
@@ -150,12 +155,12 @@
       <h2 class="text-lg font-semibold text-center">Upload photo</h2>
       {#if isMobile}
         <button class="btn w-full gap-2" onclick={() => cameraInput.click()}>
-          <iconify-icon noobserver icon="ph:camera-bold" width="24"></iconify-icon>
+          <PhCameraBold width="24" />
           Take photo
         </button>
       {/if}
       <button class="btn w-full gap-2" onclick={() => galleryInput.click()}>
-        <iconify-icon noobserver icon="ph:images-bold" width="24"></iconify-icon>
+        <PhImagesBold width="24" />
         Choose from gallery
       </button>
       <button class="btn w-full" onclick={() => (showUploadModal = false)}>

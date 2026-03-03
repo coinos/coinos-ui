@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import Mnemonic from "$comp/Mnemonic.svelte";
   import { browser } from "$app/environment";
   import { tick, onMount } from "svelte";
@@ -67,7 +68,7 @@
     {/if}
 
     <button type="button" class="btn" onclick={() => copy($mnemonic)}>
-      <iconify-icon noobserver icon="ph:copy-bold" width="32"></iconify-icon>
+      <PhCopyBold width="32" />
       <div class="my-auto">{$t("payments.copy")}</div>
     </button>
 
