@@ -3,16 +3,20 @@ import type { Invoice } from "$lib/types";
 import { auth, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
-export const load = async ({ cookies, parent }) => {
+export const load = async ({ cookies, parent, url }) => {
   const aid = cookies.get("aid");
   let { subject, user } = await parent();
 
   const rates = await getRates();
-  if (aid === user.id) redirect(307, `/${user.username}/receive`);
+
+  const type = url.searchParams.get("type") || undefined;
+  const address_type = url.searchParams.get("address_type") || undefined;
 
   let invoice: Invoice = {
     aid: aid || "",
     rate: rates[user?.currency || subject?.currency],
+    ...(type && { type }),
+    ...(address_type && { address_type }),
   };
 
   if (!user) user = subject;
@@ -26,7 +30,9 @@ export const load = async ({ cookies, parent }) => {
 
   const { id } = invoice;
 
+  const lnurl = url.searchParams.has("lnurl");
+
   if (invoice.memoPrompt && !invoice.memo) {
     redirect(307, `/invoice/${id}/memo`);
-  } else redirect(307, `/invoice/${id}`);
+  } else redirect(307, `/invoice/${id}${lnurl ? "?lnurl=true" : ""}`);
 };

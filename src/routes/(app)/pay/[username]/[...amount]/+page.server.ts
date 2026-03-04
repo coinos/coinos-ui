@@ -25,7 +25,7 @@ export async function load({ cookies, params, parent }) {
         redirect(307, `/send/ark/${serverAddr}`);
       }
     }
-    redirect(307, `/${username}/receive`);
+    redirect(307, `/invoice`);
   }
   const subject = await get(`/users/${username}`);
 
@@ -84,7 +84,7 @@ export const actions = {
     }
 
     if (parseInt(amount) > 0 && prompt) redirect(307, `/invoice/${id}/tip`);
-    else if (parseInt(amount) <= 0) redirect(307, `/${username}/receive`);
+    else if (parseInt(amount) <= 0) redirect(307, `/invoice/${id}`);
     redirect(307, `/invoice/${id}`);
   },
 };

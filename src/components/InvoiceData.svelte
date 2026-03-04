@@ -24,31 +24,34 @@
   let { memo } = $derived(invoice);
 
   let qrSrc = $derived(`/qr/${encodeURIComponent(invoice.text)}/raw`);
-  let visibleSrc = $state("");
-  let first = true;
+  let srcs: string[] = $state([]);
 
   $effect(() => {
     const next = qrSrc;
-    if (first) {
-      first = false;
-      visibleSrc = next;
-      return;
+    if (!srcs.length) {
+      srcs = [next];
+    } else if (next !== srcs[srcs.length - 1]) {
+      srcs = [...srcs, next];
     }
-    const img = new Image();
-    img.onload = () => (visibleSrc = next);
-    img.src = next;
   });
+
+  let onLoaded = (src: string) => {
+    const idx = srcs.indexOf(src);
+    if (idx > 0) srcs = srcs.slice(idx);
+  };
 </script>
 
 {#if showQr}
-  <div class="max-w-[280px] w-full mx-auto">
-    <a href={link}>
-      <img
-        src={visibleSrc}
-        class="z-10 border-4 border-white"
-        alt={txt}
-      />
-    </a>
+  <div class="max-w-[280px] w-full mx-auto aspect-square relative">
+    {#each srcs as src, i (src)}
+      <a href={link} class="absolute inset-0" style:z-index={i}>
+        <img
+          {src}
+          alt={txt}
+          onload={srcs.length > 1 ? () => onLoaded(src) : undefined}
+        />
+      </a>
+    {/each}
   </div>
 {/if}
 
@@ -92,3 +95,4 @@
 {#if memo}
   <div class="text-xl text-center">{memo}</div>
 {/if}
+

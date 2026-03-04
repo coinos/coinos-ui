@@ -64,7 +64,6 @@ export const messages = (data) => ({
     if (amount > 0 && !vaultForwarding) {
       if (
         pathname.includes(`/${username}`) ||
-        pathname.includes("/receive") ||
         pathname.includes("/invoice")
       ) {
         if (!get(navigating) && iid) {

@@ -172,6 +172,11 @@
 
   onMount(async () => {
     if (browser) {
+      if (import.meta.env.DEV && navigator.serviceWorker) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        for (const reg of regs) reg.unregister();
+      }
+
       $offline = !navigator.onLine;
       const goOnline = () => ($offline = false);
       const goOffline = () => ($offline = true);

@@ -21,7 +21,7 @@ export const load = async ({ data }) => {
 
       setCookie("theme", theme, 21000000);
 
-      if (theme === "dark") setTimeout(() => themeStore.set(theme), 100);
+      if (theme === "dark") setTimeout(() => themeStore.set(theme!), 100);
     }
   }
 

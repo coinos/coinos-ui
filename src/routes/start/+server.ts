@@ -5,7 +5,7 @@ export async function GET({ cookies }) {
   const username = cookies.get("username");
   if (username) {
     if (pathname) redirect(307, pathname);
-    else redirect(307, `/${username}/receive`);
+    else redirect(307, `/${username}`);
   }
 
   redirect(307, "/");

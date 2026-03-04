@@ -5,7 +5,8 @@
   import { btc, loc, post, copy, f, fail, success, get, types, sat, s, sats } from "$lib/utils";
   import { tick, onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { last, showQr, amountPrompt } from "$lib/store";
+  import { last, lastPayment, showQr, amountPrompt } from "$lib/store";
+  import { page } from "$app/stores";
   import Avatar from "$comp/Avatar.svelte";
   import InvoiceData from "$comp/InvoiceData.svelte";
   import InvoiceActions from "$comp/InvoiceActions.svelte";
@@ -37,6 +38,18 @@
   let { username, currency } = $derived(invoice.user);
   let locale = $derived(loc(user));
 
+  let lnurlMode = $state(false);
+  let lnAddress = $derived(`${username}@${$page.url.host}`);
+
+  $effect(() => {
+    if ($page.url.searchParams.has("lnurl")) {
+      lnurlMode = true;
+      $showQr = true;
+    } else {
+      lnurlMode = false;
+    }
+  });
+
   let tipPercent = $derived(tip ? (tip / amount) * 100 : 0);
 
   $effect(() => {
@@ -67,14 +80,14 @@
     if ($amountPrompt && !amount) toggleAmount();
   });
 
-  let update = async () => {
+  let update = async (changes: any = {}) => {
     try {
-      ({ id } = await post(`/invoice`, {
-        invoice,
+      const result = await post(`/invoice`, {
+        invoice: { ...$state.snapshot(invoice), ...changes },
         user: { username, currency },
-      }));
+      });
 
-      let url = `/invoice/${id}`;
+      let url = `/invoice/${result.id}`;
       if (subject?.prompt) url += "/tip";
       else url += "?options=true";
 
@@ -88,20 +101,21 @@
   let toggleType = () => (settingType = !settingType);
   let setType = async (type, address_type) => {
     $showQr = true;
-    if (type === types.lightning && !amount && typeof newAmount === "undefined")
-      goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
-    else {
-      if (typeof newAmount !== "undefined") invoice.amount = newAmount;
-      invoice.address_type = address_type;
-      invoice.type = type;
-
-      if (type === "ark" && invoice.aid !== invoice.uid) {
-        const wallet = await getWallet();
-        invoice.hash = await wallet.getAddress();
-      }
-
-      await update();
+    if (type === types.lightning && !amount && typeof newAmount === "undefined") {
+      lnurlMode = true;
+      settingType = false;
+      return;
     }
+
+    const changes: any = { type, address_type };
+    if (typeof newAmount !== "undefined") changes.amount = newAmount;
+
+    if (type === "ark" && invoice.aid !== invoice.uid) {
+      const wallet = await getWallet();
+      changes.hash = await wallet.getAddress();
+    }
+
+    await update(changes);
     settingType = false;
   };
 
@@ -116,10 +130,10 @@
     settingAmount = false;
 
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
-    invoice.amount = newAmount;
-    invoice.tip = 0;
+    const changes: any = { amount: newAmount, tip: 0 };
+    if (lnurlMode) changes.type = types.lightning;
 
-    await update();
+    await update(changes);
   };
 
   let setMemo = async (e) => {
@@ -127,8 +141,7 @@
     e.stopPropagation();
 
     settingMemo = false;
-    invoice.memo = memo;
-    await update();
+    await update({ memo });
   };
 
   let settingMemo = $state();
@@ -137,9 +150,37 @@
   let fiat = $state(true);
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   let tipAmount = $derived(((tip * rate) / sats).toFixed(2));
-  let link = $derived([types.bitcoin, types.liquid].includes(type) ? text : `lightning:${text}`);
 
-  let txt = $derived([types.bitcoin, types.liquid].includes(type) ? hash : text);
+  let displayInvoice = $derived(
+    lnurlMode
+      ? { ...invoice, text: lnAddress, type: types.lightning, items: [] }
+      : invoice,
+  );
+
+  let link = $derived(
+    lnurlMode
+      ? `lightning:${lnAddress}`
+      : [types.bitcoin, types.liquid].includes(type)
+        ? text
+        : `lightning:${text}`,
+  );
+
+  let txt = $derived(
+    lnurlMode
+      ? lnAddress
+      : [types.bitcoin, types.liquid].includes(type)
+        ? hash
+        : text,
+  );
+
+  $effect(() => {
+    if (lnurlMode && $lastPayment?.iid) {
+      const { iid, confirmed } = $lastPayment;
+      const target = confirmed ? `/invoice/${iid}/paid` : `/invoice/${iid}`;
+      $lastPayment = null;
+      goto(target);
+    }
+  });
 </script>
 
 <div class="invoice container mx-auto max-w-xl px-4 pb-4 space-y-2">
@@ -147,7 +188,7 @@
     {src}
     {link}
     {txt}
-    {invoice}
+    invoice={displayInvoice}
     {amount}
     {amountFiat}
     {currency}
@@ -166,7 +207,7 @@
     {toggleAmount}
     {toggleMemo}
     {user}
-    {invoice}
+    invoice={displayInvoice}
     {copy}
     {link}
     {txt}
@@ -200,5 +241,6 @@
   {settingType}
   {setType}
   {toggleType}
+  {lnurlMode}
   t={$t}
 />

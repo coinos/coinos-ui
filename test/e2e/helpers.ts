@@ -82,7 +82,7 @@ export async function apiGetInvoice(page: Page, invoiceId: string) {
 // --- Invoice creation via UI ---
 
 export async function createBitcoinInvoiceViaUI(page: Page, username: string) {
-  await page.goto(`/${username}/receive?address_type=bech32`);
+  await page.goto(`/invoice?address_type=bech32`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
   const invoiceId = page.url().match(/\/invoice\/([^/?#]+)/)?.[1];
@@ -99,7 +99,7 @@ export async function createBitcoinInvoiceViaUI(page: Page, username: string) {
 }
 
 export async function createLightningInvoiceViaUI(page: Page, username: string) {
-  await page.goto(`/${username}/receive`);
+  await page.goto(`/invoice`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
   // Click "More options" then "Bolt 11" to switch invoice type

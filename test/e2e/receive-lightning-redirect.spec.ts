@@ -1,21 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { apiBaseUrl, bobUsername, bobPassword, login, lightningPay, waitForPageReady } from "./helpers";
 
-test("redirects from /receive to /paid when lightning address payment arrives", async ({
+test("redirects from /invoice to /paid when lightning address payment arrives", async ({
   page,
 }) => {
   test.setTimeout(90_000);
 
-  // --- Bob: log in and navigate to receive page ---
+  // --- Bob: log in and navigate to invoice page ---
   await login(page, bobUsername, bobPassword);
-  await page.goto(`/${bobUsername}/receive`);
+  await page.goto(`/invoice`);
+  await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
   await waitForPageReady(page);
-  // Wait for the receive page to settle and websocket to connect
+  // Wait for the page to settle and websocket to connect
   await page.waitForTimeout(3000);
-  console.log(`[e2e] Bob on receive page: ${page.url()}`);
+  console.log(`[e2e] Bob on invoice page: ${page.url()}`);
 
-  // Ensure we're on the receive page (not redirected to an invoice)
-  expect(page.url()).toContain(`/${bobUsername}/receive`);
+  // Ensure we're on the invoice page
+  expect(page.url()).toContain(`/invoice/`);
 
   // --- External: create and pay LNURL invoice ---
   // Step 1: Fetch LNURL pay request

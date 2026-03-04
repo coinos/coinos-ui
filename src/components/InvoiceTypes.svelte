@@ -2,7 +2,6 @@
   import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import PhXBold from "virtual:icons/ph/x-bold";
   import { types } from "$lib/utils";
-  import { page } from "$app/stores";
   import { amountPrompt } from "$lib/store";
   let {
     newAmount = $bindable(),
@@ -14,6 +13,7 @@
     setAmount,
     setType,
     activeOnly = false,
+    lnurlMode = false,
   } = $props();
 
   let { aid, address_type, type } = $derived(invoice);
@@ -60,10 +60,9 @@
   <div class="flex flex-wrap gap-2">
     <button
       class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.lightning && $page.url.pathname.includes("/receive")}
-      class:text-secondary={type === types.lightning && $page.url.pathname.includes("/receive")}
-      class:hidden={activeOnly &&
-      (type !== types.lightning || !$page.url.pathname.includes("/receive"))}
+      class:bg-base-300={lnurlMode}
+      class:text-secondary={lnurlMode}
+      class:hidden={activeOnly && !lnurlMode}
       onclick={() => {
         if (activeOnly) toggleType();
         else {
@@ -97,10 +96,9 @@
 
     <button
       class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.lightning && !$page.url.pathname.includes("/receive")}
-      class:text-secondary={type === types.lightning && !$page.url.pathname.includes("/receive")}
-      class:hidden={activeOnly &&
-      (type !== types.lightning || $page.url.pathname.includes("/receive"))}
+      class:bg-base-300={type === types.lightning && !lnurlMode}
+      class:text-secondary={type === types.lightning && !lnurlMode}
+      class:hidden={activeOnly && !(type === types.lightning && !lnurlMode)}
       onclick={() => {
         if (activeOnly) toggleType();
         else {
