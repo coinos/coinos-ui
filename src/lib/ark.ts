@@ -303,7 +303,7 @@ const _syncTransactions = async (aid: string) => {
   const bal = await wallet.getBalance();
   const balance = (bal.available || 0) + (bal.preconfirmed || 0);
 
-  const result = await post("/post/ark/sync", { transactions, aid, balance, arkAddress: walletAddr });
+  const result = await post("/api/ark/sync", { transactions, aid, balance, arkAddress: walletAddr });
   cacheVaultSnapshot(); // fire-and-forget
   return result;
 };
@@ -456,14 +456,14 @@ export const sendArkViaForward = async ({
   try {
     const txid = await sendArk(serverArkAddress, amount);
 
-    await post("/post/ark/vault-send", { hash: txid, amount, aid });
+    await post("/api/ark/vault-send", { hash: txid, amount, aid });
 
     const invoice: any = { type: "ark", amount, aid };
     if (forward) invoice.forward = forward;
 
-    const inv = await post("/post/invoice", { invoice, user });
+    const inv = await post("/api/invoice", { invoice, user });
 
-    return await post("/post/ark/receive", { amount, hash: txid, iid: inv.id });
+    return await post("/api/ark/receive", { amount, hash: txid, iid: inv.id });
   } finally {
     vaultForwarding = false;
   }

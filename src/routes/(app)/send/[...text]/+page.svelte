@@ -27,7 +27,7 @@
   let loaded = $state();
   let loadMore = async () => {
     loaded = true;
-    all = await get("/contacts");
+    all = await fetch("/api/contacts").then((r) => r.json());
   };
 
   let el: any = $state(),
@@ -48,12 +48,12 @@
     e.stopPropagation();
 
     if (pinned) {
-      await post("/post/pins/delete", { id });
+      await post("/api/pins/delete", { id });
     } else {
-      await post("/post/pins", { id });
+      await post("/api/pins", { id });
     }
 
-    if (all) all = await get("/contacts");
+    if (all) all = await fetch("/api/contacts").then((r) => r.json());
     invalidate("app:contacts");
   };
 
@@ -62,12 +62,12 @@
     e.stopPropagation();
 
     if (trusted) {
-      await post("/post/trust/delete", { id });
+      await post("/api/trust/delete", { id });
     } else {
-      await post("/post/trust", { id });
+      await post("/api/trust", { id });
     }
 
-    if (all) all = await get("/contacts");
+    if (all) all = await fetch("/api/contacts").then((r) => r.json());
     invalidate("app:contacts");
   };
 

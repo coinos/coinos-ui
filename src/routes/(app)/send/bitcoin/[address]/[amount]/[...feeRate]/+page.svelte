@@ -5,7 +5,7 @@
   import Toggle from "$comp/Toggle.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { toFiat, f, fail, focus, loc, s, sat, closest, network, versions } from "$lib/utils";
+  import { toFiat, f, fail, focus, loc, s, sat, network, versions } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -17,6 +17,7 @@
   import { prfDecrypt, isPrfEncrypted } from "$lib/crypto";
 
   import Amount from "$comp/Amount.svelte";
+  import Slider from "$comp/Slider.svelte";
 
   let { data, form }: any = $props();
 
@@ -141,12 +142,16 @@
   let { account, amount, address, message, fee, fees, subtract, ourfee, hex, inputs, forward, bumpReserve } =
     $derived(data);
 
-  let feeRate: any = $state((() => data.feeRate)());
+  let feeRate: any = $state((() => {
+    if (data.feeRate) return data.feeRate;
+    if (data.fees) return data.fees.halfHourFee;
+    return 1;
+  })());
 
   $effect(() => {
     if (fees) {
       delete fees.minimumFee;
-      feeRate = feeRate ? closest(Object.values(fees), feeRate) : fees.halfHourFee;
+      feeLoading = false;
     }
   });
 
@@ -161,29 +166,46 @@
     submit: any = $state(),
     showSettings = $state();
 
-  let presets = $derived(fees ? [
-    { label: $t("payments.low"), rate: 0.1 },
-    { label: $t("payments.medium"), rate: fees.hourFee },
-    { label: $t("payments.high"), rate: fees.fastestFee },
-  ] : []);
+  let lowRate = $derived(fees ? 0.1 : 0.1);
+  let midRate = $derived(fees ? fees.hourFee : 1);
+  let highRate = $derived(fees ? Math.max(fees.fastestFee, 8) : 10);
+  let maxRate = $derived(Math.max(highRate * 2, 16));
 
-  let toggleSettings = () => (showSettings = !showSettings);
+  let sliderValue = $state(50);
+
+  // Map slider (0-100) to fee rate: 0=low, 50=mid, 100=max
+  let sliderToRate = (v: number) => {
+    if (v <= 50) return lowRate + (midRate - lowRate) * (v / 50);
+    return midRate + (maxRate - midRate) * ((v - 50) / 50);
+  };
+
+  let rateToSlider = (r: number) => {
+    if (r <= midRate) return Math.round(((r - lowRate) / (midRate - lowRate)) * 50);
+    return Math.round(50 + ((r - midRate) / (maxRate - midRate)) * 50);
+  };
+
+  // Init slider from feeRate
+  $effect(() => {
+    if (fees) {
+      delete fees.minimumFee;
+      sliderValue = rateToSlider(feeRate);
+    }
+  });
 
   let setFee = () => goto(`/send/bitcoin/${address}/${amount}/${feeRate}`);
-  let goBack = () => goto(`/send/bitcoin/${address}`);
 
-  let pickRate = (r: number) => {
-    feeRate = r;
-    setFee();
+  let slideTimer: ReturnType<typeof setTimeout> | undefined;
+  let feeLoading = $state(false);
+  let handleSlide = () => {
+    const r = Math.round(sliderToRate(sliderValue) * 10) / 10;
+    feeRate = Math.max(0.1, r);
+    feeLoading = true;
+    clearTimeout(slideTimer);
+    slideTimer = setTimeout(setFee, 500);
   };
 
-  let applyCustom = () => {
-    const r = parseFloat(String(feeRate));
-    if (r >= 0.1) {
-      feeRate = r;
-      setFee();
-    }
-  };
+  let midSlider = $derived(rateToSlider(midRate));
+  let highSlider = $derived(rateToSlider(highRate));
 </script>
 
 <div class="container px-4 max-w-xl mx-auto space-y-5 text-center no-transition">
@@ -206,38 +228,24 @@
     <Amount amount={subtract ? amount - fee - ourfee : amount} rate={$rate} {currency} {locale} />
 
     {#if fees}
-      <div class="text-center">
-        <h2 class="text-secondary text-lg">{$t("payments.priority")}</h2>
-        <div class="flex gap-2 justify-center mb-2">
-          {#each presets as preset}
-            <button
-              type="button"
-              class="btn btn-sm !w-auto"
-              class:btn-accent={feeRate == preset.rate}
-              onclick={() => pickRate(preset.rate)}
-            >
-              {preset.label}
-            </button>
-          {/each}
+      <div class="text-center space-y-2">
+        <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
+
+        <div class="px-2">
+          <Slider bind:value={sliderValue} handle={handleSlide} min={0} max={100} />
+          <div class="flex justify-between text-secondary mt-1 px-1">
+            <span>{lowRate} sat/vB</span>
+            <span>{midRate} sat/vB</span>
+            <span>{highRate} sat/vB</span>
+          </div>
         </div>
 
-        <div class="flex items-center justify-center gap-2 mb-2">
-          <input
-            type="number"
-            min="0.1"
-            step="0.1"
-            class="input input-bordered w-24 text-center"
-            value={feeRate}
-            oninput={(e) => {
-              const r = parseFloat(e.currentTarget.value);
-              if (r >= 0.1) { feeRate = r; setFee(); }
-            }}
-            onkeydown={(e) => e.key === 'Enter' && applyCustom()}
-          />
-          <span class="text-secondary text-sm">sat/vB</span>
-        </div>
-
-        <Amount amount={fee} rate={$rate} {currency} {locale} />
+        <div class="text-lg">{feeRate} sat/vB</div>
+        {#if feeLoading}
+          <Spinner class="text-secondary" />
+        {:else}
+          <Amount amount={fee} rate={$rate} {currency} {locale} />
+        {/if}
       </div>
 
       {#if bumpReserve > 0}

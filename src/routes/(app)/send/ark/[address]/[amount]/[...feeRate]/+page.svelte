@@ -35,7 +35,7 @@
             });
           } else {
             const txid = await sendArk(address, parseInt(amount));
-            p = await post("/post/ark/vault-send", {
+            p = await post("/api/ark/vault-send", {
               hash: txid,
               amount: parseInt(amount),
               aid: account.id,

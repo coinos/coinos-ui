@@ -70,9 +70,9 @@
     e.stopPropagation();
 
     if (trusted) {
-      await post("/post/trust/delete", { id: recipient.id });
+      await post("/api/trust/delete", { id: recipient.id });
     } else {
-      await post("/post/trust", { id: recipient.id });
+      await post("/api/trust", { id: recipient.id });
     }
 
     invalidate("app:trust");

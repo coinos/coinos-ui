@@ -57,7 +57,7 @@
 
   let del = async () => {
     try {
-      await post(`/post/apps/delete`, { pubkey });
+      await post(`/api/apps/delete`, { pubkey });
       goto("/settings/nostr");
     } catch (e: any) {
       fail(e.message);

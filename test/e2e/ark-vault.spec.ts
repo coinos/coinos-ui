@@ -186,18 +186,18 @@ test.describe.serial("ark vault tests", () => {
     expect(txid).toBeTruthy();
 
     const frontendBase = "http://127.0.0.1:4173";
-    const vaultSendRes = await page.request.post(`${frontendBase}/post/ark/vault-send`, {
+    const vaultSendRes = await page.request.post(`${frontendBase}/api/ark/vault-send`, {
       data: { hash: txid, amount: sendAmount, aid: arkAccount.id },
     });
     expect(vaultSendRes.ok(), `vault-send: ${await vaultSendRes.text()}`).toBeTruthy();
 
-    const invoiceRes = await page.request.post(`${frontendBase}/post/invoice`, {
+    const invoiceRes = await page.request.post(`${frontendBase}/api/invoice`, {
       data: { invoice: { type: "ark", amount: sendAmount, aid: arkAccount.id } },
     });
     expect(invoiceRes.ok(), `invoice: ${await invoiceRes.text()}`).toBeTruthy();
     const inv = await invoiceRes.json();
 
-    const receiveRes = await page.request.post(`${frontendBase}/post/ark/receive`, {
+    const receiveRes = await page.request.post(`${frontendBase}/api/ark/receive`, {
       data: { amount: sendAmount, hash: txid, iid: inv.id },
     });
     expect(receiveRes.ok(), `receive: ${await receiveRes.text()}`).toBeTruthy();
@@ -261,12 +261,12 @@ test.describe.serial("ark vault tests", () => {
     expect(txid).toBeTruthy();
 
     const frontendBase = "http://127.0.0.1:4173";
-    const vaultSendRes = await page.request.post(`${frontendBase}/post/ark/vault-send`, {
+    const vaultSendRes = await page.request.post(`${frontendBase}/api/ark/vault-send`, {
       data: { hash: txid, amount: sendAmount, aid: arkAccount.id },
     });
     expect(vaultSendRes.ok(), `vault-send: ${await vaultSendRes.text()}`).toBeTruthy();
 
-    const invoiceRes = await page.request.post(`${frontendBase}/post/invoice`, {
+    const invoiceRes = await page.request.post(`${frontendBase}/api/invoice`, {
       data: {
         invoice: { type: "ark", amount: sendAmount, aid: arkAccount.id, forward: liquidAddress },
       },
@@ -274,7 +274,7 @@ test.describe.serial("ark vault tests", () => {
     expect(invoiceRes.ok(), `invoice: ${await invoiceRes.text()}`).toBeTruthy();
     const inv = await invoiceRes.json();
 
-    const receiveRes = await page.request.post(`${frontendBase}/post/ark/receive`, {
+    const receiveRes = await page.request.post(`${frontendBase}/api/ark/receive`, {
       data: { amount: sendAmount, hash: txid, iid: inv.id },
     });
     expect(receiveRes.ok(), `receive: ${await receiveRes.text()}`).toBeTruthy();

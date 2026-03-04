@@ -27,7 +27,7 @@
     if (p?.length !== 6) return;
     let result;
     try {
-      result = await post("/pin", { pin: hashPin(p) });
+      result = await post("/api/pin", { pin: hashPin(p) });
     } catch (e) {
       console.log("Pin check failed", e);
     }

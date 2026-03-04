@@ -58,7 +58,7 @@
     }
 
     if (subscription) {
-      await post("/subscription", { subscription });
+      await post("/api/subscription", { subscription });
     }
   };
   run(() => {

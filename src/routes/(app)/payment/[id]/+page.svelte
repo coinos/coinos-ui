@@ -146,7 +146,11 @@
       <div class="flex items-center gap-2 min-w-0">
         {#if !expanded.has(label)}
           <span class="text-right break-all">
-            {value.slice(0, 8)}...{value.slice(-8)}
+            {#if value.length > 20}
+              {value.slice(0, 8)}...{value.slice(-8)}
+            {:else}
+              {value}
+            {/if}
           </span>
         {/if}
         <button
@@ -342,6 +346,10 @@
 
     {#if type === "bitcoin" || type === "liquid"}
       {@render copyable("Txid", txid, `${expl}/tx/${txid}${vout ? "#vout=" + vout : ""}`)}
+    {/if}
+
+    {#if (type === "bitcoin" || type === "liquid") && amount > 0 && hash}
+      {@render copyable("Address", hash, `${expl}/address/${hash}`)}
     {/if}
 
     {#if path}

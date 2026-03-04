@@ -27,7 +27,7 @@
       async onevent(event: any) {
         if (paused) return;
         if (events.find((e) => e.id === event.id)) return;
-        const { parts, names } = await post("/post/parseEvent", { event });
+        const { parts, names } = await post("/api/parseEvent", { event });
         event.author = await get(`/api/users/${event.pubkey}`);
         event.parts = parts;
         event.names = names;

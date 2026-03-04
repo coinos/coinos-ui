@@ -23,7 +23,7 @@
     const subscription = relay.subscribe([{ kinds: [1], limit: 20 }], {
       async onevent(event: any) {
         if (paused) return;
-        const { parts, names } = await post("/post/parseEvent", { event });
+        const { parts, names } = await post("/api/parseEvent", { event });
         event.author = await get(`/api/users/${event.pubkey}`);
         event.parts = parts;
         event.names = names;

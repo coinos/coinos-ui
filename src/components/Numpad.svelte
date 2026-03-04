@@ -255,12 +255,19 @@
   <div class="space-y-5 w-full">
     <div class="text-center">
       <div class="text-5xl md:text-6xl font-semibold tracking-widest flex justify-center">
-        <div class="my-auto" class:text-5xl={!fiat}>
-          <span class:hidden={!fiat}>
+        <button
+          type="button"
+          class="my-auto cursor-pointer select-none"
+          class:text-5xl={!fiat}
+          aria-label="Swap currency display"
+          onclick={(e) => { e.preventDefault(); e.stopPropagation(); swap(); }}
+        >
+          {#if fiat}
             {#if position === "before"}{symbol}{/if}
-          </span>
-          <PhLightningFill width="48" class="text-yellow-300" />
-        </div>
+          {:else}
+            <PhLightningFill width="48" class="text-yellow-300" />
+          {/if}
+        </button>
 
         <!-- contenteditable input -->
         <div
@@ -287,26 +294,15 @@
           bind:this={element}
         ></div>
 
-        {#if fiat && position === "after"}{symbol}{/if}
+        {#if fiat && position === "after"}
+          <button
+            type="button"
+            class="cursor-pointer select-none"
+            aria-label="Swap currency display"
+            onclick={(e) => { e.preventDefault(); e.stopPropagation(); swap(); }}
+          >{symbol}</button>
+        {/if}
       </div>
-
-      <!-- swap button -->
-      <button
-        type="button"
-        class="flex items-center justify-center text-2xl cursor-pointer mx-auto select-none"
-        aria-label="Swap currency display"
-        onclick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          swap();
-        }}
-      >
-        <span class="flex items-center" class:hidden={!fiat}>
-          <PhLightningFill width="48" class="text-yellow-300" />
-          {s(amount, locale)}
-        </span>
-        <span class:hidden={fiat}>{f(amountFiat, currency, locale)}</span>
-      </button>
     </div>
 
     <div class="grid grid-cols-3 gap-2 w-full mx-auto">

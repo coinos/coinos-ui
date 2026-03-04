@@ -136,7 +136,7 @@
   let enable2fa = async (twoFa?: any) => {
     try {
       if (setting2fa && token && token.length === 6) {
-        await post("/enable2fa", { token });
+        await post("/api/2fa", { token });
         success("2FA enabled");
         user.twofa = 1;
         cancel();
@@ -150,7 +150,7 @@
   let disable2fa = async (_?: any) => {
     try {
       if (disabling2fa && token && token.length === 6) {
-        await post("/disable2fa", { token });
+        await post("/api/disable2fa", { token });
         success("2FA disabled");
         delete user.twofa;
         disabling2fa = false;

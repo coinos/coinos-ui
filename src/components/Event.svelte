@@ -21,11 +21,11 @@
       const body = new FormData();
 
       if (!user) return goto(`/register?redirect=${$page.url.pathname}`);
-      let request = await post("/post/zapRequest", { amount, id });
-      let { pr: payreq } = await post("/post/zap", {
+      let request = await post("/api/zapRequest", { amount, id });
+      let { pr: payreq } = await post("/api/zap", {
         event: await sign(request),
       });
-      await post("/post/payments", { amount, payreq });
+      await post("/api/payments", { amount, payreq });
     } catch (e: any) {
       console.log(e);
       fail(e.message);

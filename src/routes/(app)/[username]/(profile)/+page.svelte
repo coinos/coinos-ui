@@ -46,15 +46,19 @@
       const mn = entropyToMnemonic(entropy, wordlist);
       const seed = await mnemonicToSeed(mn);
       const master = HDKey.fromMasterSeed(seed, versions);
-      const child = master.derive("m/84'/0'/0'");
+      const existing = await fetch("/api/accounts").then((r) => r.json());
+      const nextIdx = existing
+        .filter((a: any) => a.pubkey && a.fingerprint)
+        .reduce((max: number, a: any) => Math.max(max, (a.accountIndex ?? 0) + 1), 0);
+      const child = master.derive(`m/84'/0'/${nextIdx}'`);
       const pubkey = child.publicExtendedKey;
       const fingerprint = child.fingerprint.toString(16).padStart(8, "0");
-      await post("/account", {
+      await post("/api/accounts", {
         fingerprint,
         pubkey,
         name: $t("accounts.vault"),
         type: "bitcoin",
-        accountIndex: 0,
+        accountIndex: nextIdx,
       });
       invalidate("app:payments");
     } catch (e: any) {

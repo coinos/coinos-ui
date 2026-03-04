@@ -13,7 +13,7 @@
   let submit = async (e) => {
     e.preventDefault();
     try {
-      let res = await post("/password", { password });
+      let res = await post("/api/password", { password });
       $passwordPrompt = false;
       $pw = password;
     } catch (e) {

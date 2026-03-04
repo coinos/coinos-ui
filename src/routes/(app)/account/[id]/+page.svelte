@@ -111,7 +111,7 @@
       let pubkey = child.publicExtendedKey;
       let fp = child.fingerprint.toString(16).padStart(8, "0");
 
-      await post(`/post/account/${id}`, {
+      await post(`/api/account/${id}`, {
         fingerprint: fp,
         pubkey,
         seed,
@@ -131,7 +131,7 @@
 
   let del = async () => {
     try {
-      await post("/post/account/delete", { id });
+      await post("/api/account/delete", { id });
       goto(`/${user.username}`);
     } catch (e: any) {
       fail(e.message);

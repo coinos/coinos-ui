@@ -15,7 +15,7 @@
   let del = async (e, user) => {
     e.preventDefault();
     try {
-      m = await post(`/post/fund/${id}/managers/delete`, {
+      m = await post(`/api/fund/${id}/managers/delete`, {
         id: user.id,
       });
     } catch (e: any) {

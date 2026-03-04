@@ -37,7 +37,7 @@
       const wallet = await Wallet.create({ identity, arkServerUrl });
       const arkAddress = await wallet.getAddress();
 
-      await post("/account", { name: $t("accounts.savings"), type: "ark", arkAddress });
+      await post("/api/accounts", { name: $t("accounts.savings"), type: "ark", arkAddress });
       goto(`/${user.username}`);
     } catch (e: any) {
       console.log("Ark account creation failed", e);
