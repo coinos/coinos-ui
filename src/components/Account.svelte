@@ -1,7 +1,7 @@
 <script lang="ts">
   import PhClockCounterClockwiseBold from "virtual:icons/ph/clock-counter-clockwise-bold";
   import CryptocurrencyColorBtc from "virtual:icons/cryptocurrency-color/btc";
-  import PhFadersBold from "virtual:icons/ph/faders-bold";
+  import PhGearBold from "virtual:icons/ph/gear-bold";
   import PhHandCoinsBold from "virtual:icons/ph/hand-coins-bold";
   import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
   import { bytesToHex } from "@noble/hashes/utils.js";
@@ -146,20 +146,20 @@
       <!-- </a> -->
       <a
         href={`/account/${id}`}
-        class="hover:opacity-80 relative w-10 h-10 flex items-center justify-center"
+        class="hover:opacity-80 relative w-12 h-12 flex items-center justify-center"
         aria-label="Account settings"
         onclick={goSettings}
       >
-        {#if isArk}
-          <img src="/images/ark.png" class="w-8 h-8 rounded-full object-cover bg-neutral" alt="Ark" />
-        {:else if seed || fingerprint}
-          <div class="w-8 h-8 flex items-center justify-center">
-            <CryptocurrencyColorBtc width="32" />
-          </div>
-        {:else}
-          <img src="/images/icon.png" class="w-8 h-8" alt="Coinos" />
-        {/if}
-        <!-- <PhFadersBold width="20" class="absolute -bottom-1 -right-1 text-base-content bg-base-100 rounded-full" /> -->
+        <PhGearBold width="32" />
+        <div class="absolute bottom-0 right-0 bg-base-100 rounded-full p-0.5">
+          {#if isArk}
+            <img src="/images/ark.png" class="w-4 h-4 rounded-full object-cover bg-neutral" alt="Ark" />
+          {:else if seed || fingerprint}
+            <CryptocurrencyColorBtc width="16" />
+          {:else}
+            <img src="/images/icon.png" class="w-4 h-4" alt="Coinos" />
+          {/if}
+        </div>
       </a>
     </div>
   </div>
