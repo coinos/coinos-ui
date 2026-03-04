@@ -135,6 +135,14 @@
   <p class="text-secondary mt-1 w-9/12">{$t("user.settings.tipPromptDescription")}</p>
 </div>
 
+<div>
+  <div class="flex justify-between items-center">
+    <span class="font-bold">{$t("user.settings.bip353")}</span>
+    <Toggle id="bip353" bind:value={user.bip353} />
+  </div>
+  <p class="text-secondary mt-1 w-9/12">{$t("user.settings.bip353Description")}</p>
+</div>
+
 <div class="space-y-1 relative">
   <label for="tip" class="font-bold block">{$t("user.settings.tip")}</label>
   <p class="text-secondary">{$t("user.settings.tipDesc")}</p>

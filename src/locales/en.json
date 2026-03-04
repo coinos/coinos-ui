@@ -501,6 +501,8 @@
       "theme": "Color Theme",
       "tipPrompt": "Prompt for tips",
       "tipPromptDescription": "Ask people if they want to add a tip before paying their invoices",
+      "bip353": "BIP 353 DNS payment",
+      "bip353Description": "Make your address discoverable as ₿username@coinos.io so any BIP 353 compatible wallet can pay you",
       "displayName": "Display name",
       "themeDescription": "Select from the default color themes.",
       "localCurrency": "Currency",

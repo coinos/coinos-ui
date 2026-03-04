@@ -1,8 +1,11 @@
 import { execSync } from "child_process";
-import { scryptSync } from "crypto";
+import { createHash, scryptSync } from "crypto";
 import type { Browser, Page } from "@playwright/test";
 import { expect, test } from "@playwright/test";
-import { nip19 } from "nostr-tools";
+import { finalizeEvent, nip19 } from "nostr-tools";
+import { HDKey } from "@scure/bip32";
+import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
+import { wordlist } from "@scure/bip39/wordlists/english.js";
 
 // --- Environment ---
 export const arkWalletPassword = process.env.E2E_ARK_WALLET_PASSWORD || "testpw123";
@@ -517,4 +520,150 @@ export async function ensureArkAccount(page: Page, _password: string) {
     console.log(`[e2e] Account creation attempt ${attempt + 1} failed, retrying...`);
     await page.waitForTimeout(1_000);
   }
+}
+
+// --- Bitcoin vault helpers ---
+
+const REGTEST_VERSIONS = { private: 0x04358394, public: 0x043587cf };
+
+/**
+ * Derive the bitcoin vault pubkey and fingerprint from a username+password,
+ * using the same derivation path as the app:
+ *   scrypt(password, salt) → nsec → sign fixed nostr event → SHA-256(sig) → entropy
+ *   → first 16 bytes → mnemonic → seed → HDKey → m/84'/0'/0' → publicExtendedKey
+ */
+export async function deriveVaultCredentials(username: string, password: string) {
+  const salt = `coinos:auth:${username.toLowerCase().replace(/\s/g, "")}`;
+  const sk = scryptSync(password, salt, 32, { N: 65536, r: 8, p: 1, maxmem: 256 * 1024 * 1024 });
+
+  const signed = finalizeEvent(
+    { kind: 1, created_at: 0, content: "coinos-wallet-key-derivation", tags: [] } as any,
+    new Uint8Array(sk),
+  );
+
+  const sigBytes = Buffer.from(signed.sig, "hex");
+  const entropy = createHash("sha256").update(sigBytes).digest();
+
+  const mnemonic = entropyToMnemonic(new Uint8Array(entropy.slice(0, 16)), wordlist);
+  const seed = await mnemonicToSeed(mnemonic);
+  const master = HDKey.fromMasterSeed(seed, REGTEST_VERSIONS);
+  const child = master.derive("m/84'/0'/0'");
+
+  return {
+    pubkey: child.publicExtendedKey,
+    fingerprint: master.fingerprint.toString(16).padStart(8, "0"),
+  };
+}
+
+/**
+ * Find or create a bitcoin vault account for the given user whose keys match
+ * the test-derived credentials. Returns the account object.
+ */
+export async function ensureVaultAccount(
+  page: Page,
+  token: string,
+  username: string,
+  password: string,
+) {
+  const { pubkey, fingerprint } = await deriveVaultCredentials(username, password);
+
+  const accountsRes = await page.request.get(`${apiBaseUrl}/accounts`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+  expect(accountsRes.ok()).toBeTruthy();
+  const accounts = await accountsRes.json();
+
+  // Check for existing matching vault
+  const existing = accounts.find(
+    (a: any) => a.type === "bitcoin" && a.pubkey === pubkey,
+  );
+  if (existing) {
+    console.log(`[e2e] Found existing vault account: ${existing.id}`);
+    return existing;
+  }
+
+  // Create new vault account
+  const createRes = await page.request.post(`${apiBaseUrl}/accounts`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    data: {
+      name: "Test BTC Vault",
+      type: "bitcoin",
+      pubkey,
+      fingerprint,
+    },
+  });
+  expect(createRes.ok(), `Vault creation failed: ${await createRes.text()}`).toBeTruthy();
+  const account = await createRes.json();
+  console.log(`[e2e] Created vault account: ${account.id}, pubkey: ${pubkey.slice(0, 20)}...`);
+  return account;
+}
+
+/**
+ * Fund a vault account by creating an invoice, sending from bitcoind, and mining.
+ * Returns when the vault has at least `minBalance` sats.
+ */
+export async function fundVaultAccount(
+  page: Page,
+  token: string,
+  accountId: string,
+  username: string,
+  minBalance = 10_000,
+) {
+  // Check current balance
+  const balRes = await page.request.get(`${apiBaseUrl}/account/${accountId}`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+  const acct = await balRes.json();
+  if ((acct.balance || 0) >= minBalance) {
+    console.log(`[e2e] Vault already funded: ${acct.balance} sats`);
+    return acct.balance;
+  }
+
+  // Create invoice to get a receive address
+  const invoiceRes = await page.request.post(`${apiBaseUrl}/invoice`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    data: {
+      invoice: { aid: accountId, type: "bitcoin", address_type: "bech32", amount: 0 },
+      user: { username, currency: "USD" },
+    },
+  });
+  expect(invoiceRes.ok(), `Invoice creation failed: ${await invoiceRes.text()}`).toBeTruthy();
+  const invoice = await invoiceRes.json();
+  const address = invoice.hash;
+  console.log(`[e2e] Vault receive address: ${address}`);
+
+  // Send from bitcoind (use external wallet, not the coinos hot wallet)
+  const btcAmount = (minBalance / 1e8).toFixed(8);
+  const txid = dockerExec(
+    "bc",
+    `bitcoin-cli -regtest -rpcwallet=external sendtoaddress "${address}" ${btcAmount}`,
+  );
+  console.log(`[e2e] Funded vault: txid=${txid}`);
+
+  // Mine blocks and wait for esplora/server to index
+  mineBlocks(1);
+  await page.waitForTimeout(5_000);
+  mineBlocks(1);
+  await page.waitForTimeout(5_000);
+
+  // Poll for balance
+  for (let i = 0; i < 45; i++) {
+    const res = await page.request.get(`${apiBaseUrl}/account/${accountId}`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if ((data.balance || 0) >= minBalance) {
+      console.log(`[e2e] Vault balance: ${data.balance} sats`);
+      return data.balance;
+    }
+    await page.waitForTimeout(2_000);
+  }
+
+  throw new Error(`Vault balance did not reach ${minBalance} after funding`);
 }

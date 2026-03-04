@@ -14,6 +14,7 @@ export default async ({ cookies, request }) => {
     form.nip5 = form.nip5 === "on";
     form.prompt = form.prompt === "on";
     form.autowithdraw = form.autowithdraw === "on";
+    form.bip353 = form.bip353 === "on";
   }
 
   try {

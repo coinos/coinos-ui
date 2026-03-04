@@ -5,7 +5,7 @@
   import Toggle from "$comp/Toggle.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { page } from "$app/stores";
-  import { toFiat, f, fail, focus, loc, s, sat, closest, network } from "$lib/utils";
+  import { toFiat, f, fail, focus, loc, s, sat, closest, network, versions } from "$lib/utils";
   import { pin } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
@@ -107,7 +107,7 @@
       mnemonicStr = entropyToMnemonic(entropy, wordlist);
     }
     let seed = await mnemonicToSeed(mnemonicStr);
-    let master = HDKey.fromMasterSeed(seed, network as any);
+    let master = HDKey.fromMasterSeed(seed, versions as any);
     let child = master.derive(`m/84'/0'/${account.accountIndex ?? 0}'`);
 
     if (account.pubkey && child.publicExtendedKey !== account.pubkey) {
@@ -263,6 +263,7 @@
       <input name="rate" value={$rate} type="hidden" />
       <input name="aid" value={account.id} type="hidden" />
       <input name="signed" value={signed} type="hidden" />
+      <input name="feeRate" value={feeRate} type="hidden" />
 
       <div class="flex justify-center gap-2">
         <button
