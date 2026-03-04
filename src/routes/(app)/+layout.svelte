@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending, vaultForwarding, autoUnlockArk, getServiceWorkerWallet, cleanupServiceWorkerWallet } from "$lib/ark";
+  import { syncBitcoinVault } from "$lib/bitcoinSync";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -17,6 +18,7 @@
     fiat,
     rate as rateStore,
     cachedUser,
+    cachedAccounts,
     offline,
   } from "$lib/store";
   import { page } from "$app/stores";
@@ -48,9 +50,41 @@
     if (user) $cachedUser = user;
   });
 
+  const getBtcVaultAid = () => {
+    const accounts = $cachedAccounts;
+    if (!accounts?.length) return null;
+    const aid = getCookie("aid") || user?.id;
+    const active = accounts.find((a: any) => a.id === aid);
+    if (active?.pubkey && active?.fingerprint && active?.type !== "ark") return active.id;
+    return null;
+  };
+
+  let btcSyncTimer: ReturnType<typeof setInterval> | undefined;
+
+  const btcSync = async () => {
+    const aid = getBtcVaultAid();
+    if (!aid) return;
+    const result = await syncBitcoinVault(aid);
+    if (!result) return;
+
+    if (result.received > 0) {
+      const paidPayment = result.payments?.find((p: any) => p.iid && p.amount > 0);
+      if (paidPayment) {
+        goto(`/invoice/${paidPayment.iid}`);
+      } else if ($fiat && $rateStore && user?.currency) {
+        success(`Received ${f(toFiat(result.received, $rateStore as number), user.currency)}!`);
+      } else {
+        success(`Received ${s(result.received)}!`);
+      }
+    }
+
+    invalidate("app:payments");
+  };
+
   afterNavigate(() => {
     document.cookie = `pathname=${$page.url.pathname}; path=/; max-age=86400`;
     if (user && $arkkey) arkSync("afterNavigate");
+    if (user) btcSync();
   });
 
   let arkSyncing = false;
@@ -167,6 +201,16 @@
 
   $effect(() => {
     if ($paymentSignal && $arkkey) arkSync("paymentSignal");
+    if ($paymentSignal) btcSync();
+  });
+
+  $effect(() => {
+    if (browser && user && getBtcVaultAid()) {
+      btcSyncTimer = setInterval(btcSync, 30_000);
+      return () => {
+        if (btcSyncTimer) clearInterval(btcSyncTimer);
+      };
+    }
   });
 
 
@@ -253,6 +297,7 @@
       close();
       clearTimeout(checkTimer);
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
+      if (btcSyncTimer) clearInterval(btcSyncTimer);
       aspStopFunc?.();
       cleanupServiceWorkerWallet();
     }
