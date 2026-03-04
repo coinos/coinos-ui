@@ -16,11 +16,11 @@
   let showMenu = $state(false);
 
   let menuButtons = [
-    { key: "nav.funds", icon: PhLightningFill, href: `/funds` },
     { key: "nav.settings", icon: PhFadersBold, href: `/settings` },
     { key: "nav.support", icon: PhLifebuoyBold, href: `/support` },
     { key: "nav.map", icon: PhMapTrifoldBold, href: `/map` },
     { key: "nav.dm", icon: PhChatBold, href: `/messages` },
+    { key: "nav.funds", icon: PhLightningFill, href: `/funds` },
     { key: "nav.dark", icon: PhMoonStarsBold, href: `/dark` },
     { key: "nav.signOut", icon: PhSignOutBold, href: `/logout` },
   ];

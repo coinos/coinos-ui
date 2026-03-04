@@ -6,7 +6,12 @@
     "manage": "Manage",
     "withdrawAccess": "Withdraw access",
     "username": "Username",
-    "returnToFund": "Back to fund"
+    "returnToFund": "Back to fund",
+    "authorizations": "Authorizations",
+    "immediateContribution": "Immediate contribution",
+    "fiatAuthorization": "Fiat authorization",
+    "authorizeDesc": "Authorize a fiat amount that someone can claim later at the current exchange rate",
+    "contributeDesc": "Send sats to the fund immediately from your balance"
   },
   "notes": {
     "contents": "Note contents",
@@ -546,6 +551,10 @@
     "custom": "Custom",
     "trustUser": "Send and enable auto-pay",
     "gift": "Gift all funds",
+    "entireBalance": "Entire balance",
+    "shareSetAmount": "Share set amount",
+    "shareEntireBalance": "Share entire balance",
+    "denominateIn": "Denominate in",
     "giftLink": "Gift link",
     "giftDesc1": "Whoever opens the link below will receive all the available funds.",
     "giftDesc2": "If they are logged in, the funds will go to their account, otherwise a new account will be generated.",
@@ -632,6 +641,7 @@
     "empty": "No transactions yet.",
     "send": "Send",
     "next": "Next",
+    "authorize": "Authorize",
     "sendTo": "Send to",
     "to": "to",
     "for": "for",

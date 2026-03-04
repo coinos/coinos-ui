@@ -6,6 +6,7 @@
   import { page } from "$app/stores";
   import { fiat as fiatStore, pin } from "$lib/store";
   import handler from "$lib/handler";
+  import Toggle from "$comp/Toggle.svelte";
   import { loc, focus, s, f, sats } from "$lib/utils";
   import { applyAction, deserialize } from "$app/forms";
   import { invalidateAll } from "$app/navigation";
@@ -21,6 +22,7 @@
   let fiat = $state();
   let locale = $derived(loc(user));
 
+  let authorize = $state(false);
   let submit = $state();
   let submitting: boolean = $state(false);
   let toggle = () => (submitting = !submitting);
@@ -58,29 +60,48 @@
     <input name="fund" value={name} type="hidden" />
     <input name="amount" value={amount} type="hidden" />
     <input name="pin" value={$pin} type="hidden" />
+    <input name="authorize" value={authorize} type="hidden" />
+    <input name="currency" value={currency} type="hidden" />
+    <input name="rate" value={rate} type="hidden" />
+
+    <div class="flex items-center justify-center gap-3 mt-4">
+      <span class="text-sm" class:opacity-40={authorize}>{$t("funds.immediateContribution")}</span>
+      <Toggle id="authorizeToggle" bind:value={authorize} />
+      <span class="text-sm" class:opacity-40={!authorize}>{$t("funds.fiatAuthorization")}</span>
+    </div>
+    <p class="text-center text-sm opacity-60 mt-2">
+      {#if authorize}
+        {$t("funds.authorizeDesc")}
+      {:else}
+        {$t("funds.contributeDesc")}
+      {/if}
+    </p>
 
     <div class="flex gap-2">
-      <button
-        type="button"
-        class="btn !w-auto grow"
-        onclick={setMax}
-        disabled={submitting}
-        onkeydown={setMax}
-      >
-        {#if $fiatStore}
-          Max {f((balance * rate) / sats, currency, locale)}
-        {:else}
-          Max ⚡️{s(balance)}
-        {/if}
-      </button>
+      {#if !authorize}
+        <button
+          type="button"
+          class="btn !w-auto grow"
+          onclick={setMax}
+          disabled={submitting}
+          onkeydown={setMax}
+        >
+          {#if $fiatStore}
+            Max {f((balance * rate) / sats, currency, locale)}
+          {:else}
+            Max ⚡️{s(balance)}
+          {/if}
+        </button>
+      {/if}
 
       <button bind:this={submit} type="submit" class="btn btn-accent !w-auto grow" disabled={submitting || !amount}>
         {#if submitting}
           <Spinner />
         {:else}
-          <div class="my-auto">{$t("payments.next")}</div>
+          <div class="my-auto">{authorize ? $t("payments.authorize") : $t("payments.next")}</div>
         {/if}
       </button>
     </div>
   </form>
+
 </div>

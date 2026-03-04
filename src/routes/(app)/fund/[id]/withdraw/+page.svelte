@@ -40,7 +40,7 @@
   <div class="text-red-600 text-center">{form.message}</div>
 {/if}
 
-<div class="container px-4 mt-20 max-w-xl mx-auto">
+<div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
   <Numpad bind:amount {currency} {fiat} {rate} {submit} {locale} />
 
   <form use:enhance={handler(toggle)} method="POST" class="space-y-5">
@@ -69,4 +69,5 @@
       </button>
     </div>
   </form>
+
 </div>

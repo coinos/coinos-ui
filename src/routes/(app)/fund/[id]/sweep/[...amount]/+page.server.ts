@@ -7,7 +7,20 @@ import { env } from "$env/dynamic/private";
 export async function load({ cookies, request, params, parent }) {
   let { user } = await parent();
   const { id } = params;
-  let [amount, currency] = params.amount.split("/");
+  const parts = params.amount.split("/");
+
+  let amount: string | undefined;
+  let currency: string | undefined;
+  let authId: string | undefined;
+
+  let urlHasCurrency = false;
+  if (parts[0] === "auth") {
+    authId = parts[1];
+  } else {
+    amount = parts[0];
+    currency = parts[1];
+    if (currency) urlHasCurrency = true;
+  }
 
   if (!currency) currency = user?.currency;
   if (currency) currency = currency.toUpperCase();
@@ -17,8 +30,17 @@ export async function load({ cookies, request, params, parent }) {
 
   if (!amount) {
     const balance = await get(`/fund/${id}`);
-    amount = balance.authorization || balance.amount;
-  } else if (currency) {
+    if (authId) {
+      const a = balance.authorizations?.find((a: any) => a.authId === authId);
+      if (a) amount = a.amount;
+    }
+    if (!amount && balance.authorizations?.length) {
+      const a = balance.authorizations[0];
+      authId = a.authId;
+      amount = a.amount;
+    }
+    if (!amount) amount = balance.amount;
+  } else if (urlHasCurrency) {
     amount = String(Math.round((Number(amount) * sats) / rate));
   }
 
@@ -45,7 +67,7 @@ export async function load({ cookies, request, params, parent }) {
   }
 
   try {
-    ({ amount } = await post("/take", { amount, id }, auth(cookies)));
+    ({ amount } = await post("/take", { amount, id, authId }, auth(cookies)));
   } catch {
     redirect(307, `/fund/${id}`);
   }

@@ -2,55 +2,51 @@
   import PhGearBold from "virtual:icons/ph/gear-bold";
   import PhPlusBold from "virtual:icons/ph/plus-bold";
   import PhHandCoinsBold from "virtual:icons/ph/hand-coins-bold";
-  import PhLinkBold from "virtual:icons/ph/link-bold";
-  import PhGiftBold from "virtual:icons/ph/gift-bold";
-  import PhLightningFill from "virtual:icons/ph/lightning-fill";
+  import PhShareNetworkBold from "virtual:icons/ph/share-network-bold";
+  import PhTrashBold from "virtual:icons/ph/trash-bold";
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
   import Amount from "$comp/Amount.svelte";
   import Payments from "$comp/Payments.svelte";
-  import { enhance } from "$app/forms";
+  import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import Avatar from "$comp/Avatar.svelte";
   import { toast } from "@zerodevx/svelte-toast";
   import { t } from "$lib/translations";
-  import { types, copy, f, s, sat, sats, loc } from "$lib/utils";
+  import { copy, sats, loc, post } from "$lib/utils";
   import { loginRedirect } from "$lib/store";
-  import { bech32 } from "@scure/base";
-  const encoder = new TextEncoder();
 
   let { data }: any = $props();
 
   let amount = $derived(data.amount);
   let payments = $derived(data.payments);
   let managers = $derived(data.managers);
+  let authorizations = $derived(data.authorizations || []);
   let rate = $derived(data.rate);
   let user = $derived(data.user);
   let { id } = $page.params;
   let locale = $derived(loc(user));
 
   let currency = $derived(user ? user.currency : "CAD");
+  let isManager = $derived(!managers.length || managers.some((m) => m.id === user?.id));
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
   $effect(() => {
     $loginRedirect = $page.url.pathname;
   });
 
-  let show = $state();
-  let toggle = () => (show = !show);
-  let href = $derived(encodeURIComponent($page.url.href));
-  // let withdrawUrl = encoder.encode(
-  //   `${$page.url.origin}/api/fund/${id}/withdraw`,
-  // );
-  // let lnurlw = bech32.encode("lnurl", bech32.toWords(withdrawUrl), 20000);
+  async function deleteAuth(authId: string) {
+    try {
+      await post(`/fund/${id}/authorization/${authId}/delete`, {});
+      invalidate("app:payments");
+    } catch (e: any) {
+      toast.push(e.message);
+    }
+  }
 </script>
 
 <div class="container px-4 max-w-4xl mx-auto mt-10 space-y-5">
   <div class="flex justify-center items-center">
     <div class="md:shadow-xl rounded-3xl md:px-10 pt-5 pb-10 space-y-5 w-full md:mx-5">
-      {#if show}
-        <div class="max-w-[360px] mx-auto">
-          <img src={`/qr/${href}/raw`} class="z-10 border-4 border-white w-" alt="URL" />
-        </div>
-      {/if}
       <div class="flex justify-center gap-4">
         <Amount {amount} {currency} {rate} {locale} />
       </div>
@@ -74,7 +70,7 @@
           {/if}
         </div>
 
-        {#if (user && !managers.length) || managers.some((m) => m.id === user?.id)}
+        {#if user && isManager}
           <a href={`/fund/${id}/access`} class="btn !w-auto ml-auto text-secondary grow">
             <PhGearBold width={32} />
             {$t("funds.manage")}
@@ -90,7 +86,7 @@
             </button>
           </a>
         </div>
-        {#if !managers.length || managers.some((m) => m.id === user?.id)}
+        {#if isManager}
           <div class="grow">
             <a href={`/fund/${id}/withdraw`}>
               <button class="btn">
@@ -102,19 +98,32 @@
         {/if}
       </div>
       <div class="flex gap-2" data-sveltekit-prefetch="off">
-        <a href={`/qr/${href}`} class="btn !w-auto grow">
-          <PhLinkBold width="32" />
+        <a href={`/fund/${id}/share`} class="btn grow">
+          <PhShareNetworkBold width="32" />
           <div class="my-auto">{$t("payments.shareLink")}</div>
         </a>
-        <a href={`${$page.url.pathname}/gift`} class="btn !w-auto grow">
-          <PhGiftBold width="32" />
-          <div class="my-auto">{$t("payments.giftLink")}</div>
-        </a>
-        <!-- <a href={`/qr/${lnurlw}`} class="btn !w-auto grow"> -->
-        <!--   <PhLightningFill width="24" class="text-yellow-300" /> -->
-        <!--   {$t("payments.lnurlw")} -->
-        <!-- </a> -->
       </div>
+      {#if isManager && authorizations.length}
+        <div class="space-y-2">
+          <div class="font-bold text-lg">{$t("funds.authorizations")}</div>
+          {#each authorizations as auth}
+            <div class="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3">
+              <div>
+                <span class="font-semibold">{auth.fiat} {auth.currency}</span>
+                <span class="text-sm opacity-60 ml-2">{new Date(auth.created).toLocaleDateString(locale)}</span>
+              </div>
+              <div class="flex gap-2">
+                <button onclick={() => { copy(`${$page.url.origin}/fund/${id}/sweep/auth/${auth.authId}`); }} class="opacity-60 hover:opacity-100">
+                  <PhCopyBold width={20} />
+                </button>
+                <button onclick={() => deleteAuth(auth.authId)} class="text-red-500 hover:text-red-400">
+                  <PhTrashBold width={20} />
+                </button>
+              </div>
+            </div>
+          {/each}
+        </div>
+      {/if}
       <Payments {payments} fund={true} {locale} {user} />
     </div>
   </div>
