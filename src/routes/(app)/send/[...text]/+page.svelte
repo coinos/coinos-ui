@@ -2,7 +2,6 @@
   import PhCameraBold from "virtual:icons/ph/camera-bold";
   import PhClipboardTextBold from "virtual:icons/ph/clipboard-text-bold";
   import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
-  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import PhPushPinFill from "virtual:icons/ph/push-pin-fill";
   import PhPushPinBold from "virtual:icons/ph/push-pin-bold";
   import PhStarFill from "virtual:icons/ph/star-fill";
@@ -27,7 +26,7 @@
   let loaded = $state();
   let loadMore = async () => {
     loaded = true;
-    all = await fetch("/api/contacts").then((r) => r.json());
+    all = await get("/contacts");
   };
 
   let el: any = $state(),
@@ -48,12 +47,12 @@
     e.stopPropagation();
 
     if (pinned) {
-      await post("/api/pins/delete", { id });
+      await post("/pins/delete", { id });
     } else {
-      await post("/api/pins", { id });
+      await post("/pins", { id });
     }
 
-    if (all) all = await fetch("/api/contacts").then((r) => r.json());
+    if (all) all = await get("/contacts");
     invalidate("app:contacts");
   };
 
@@ -62,12 +61,12 @@
     e.stopPropagation();
 
     if (trusted) {
-      await post("/api/trust/delete", { id });
+      await post("/trust/delete", { id });
     } else {
-      await post("/api/trust", { id });
+      await post("/trust", { id });
     }
 
-    if (all) all = await fetch("/api/contacts").then((r) => r.json());
+    if (all) all = await get("/contacts");
     invalidate("app:contacts");
   };
 
@@ -120,12 +119,6 @@
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 
-    <a href="/send/fund" class="block">
-      <button type="button" class="btn">
-        <PhLightningFill width="24" class="text-yellow-300" />
-        <div class="my-auto">{$t("payments.createFund")}</div>
-      </button>
-    </a>
   </form>
 
   {#if contacts.length}

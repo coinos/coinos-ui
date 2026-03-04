@@ -195,7 +195,7 @@
 
           user.verified = false;
 
-          await post("/api/request", { email });
+          await post("/request", { email });
 
           warning($t("user.settings.verifying"), false);
         } catch (e: any) {

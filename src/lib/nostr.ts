@@ -136,7 +136,7 @@ export const sign = async (event: any, user?: any) => {
 };
 
 export const send = (event: EventTemplate) => {
-  return post("/api/event", { event });
+  return post("/event", { event });
 };
 
 const getPassword = async (): Promise<string> => {

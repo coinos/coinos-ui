@@ -11,7 +11,7 @@
   import { installPrompt, password, cachedAccounts, cachedRates } from "$lib/store";
   import { goto, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
-  import { versions, post, fail, getCookie } from "$lib/utils";
+  import { get, versions, post, fail, getCookie } from "$lib/utils";
 
   let { data } = $props();
 
@@ -46,14 +46,14 @@
       const mn = entropyToMnemonic(entropy, wordlist);
       const seed = await mnemonicToSeed(mn);
       const master = HDKey.fromMasterSeed(seed, versions);
-      const existing = await fetch("/api/accounts").then((r) => r.json());
+      const existing = await get("/accounts");
       const nextIdx = existing
         .filter((a: any) => a.pubkey && a.fingerprint)
         .reduce((max: number, a: any) => Math.max(max, (a.accountIndex ?? 0) + 1), 0);
       const child = master.derive(`m/84'/0'/${nextIdx}'`);
       const pubkey = child.publicExtendedKey;
       const fingerprint = child.fingerprint.toString(16).padStart(8, "0");
-      await post("/api/accounts", {
+      await post("/accounts", {
         fingerprint,
         pubkey,
         name: $t("accounts.vault"),

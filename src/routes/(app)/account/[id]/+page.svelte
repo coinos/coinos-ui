@@ -131,7 +131,7 @@
 
   let del = async () => {
     try {
-      await post("/api/account/delete", { id });
+      await post("/account/delete", { id });
       goto(`/${user.username}`);
     } catch (e: any) {
       fail(e.message);

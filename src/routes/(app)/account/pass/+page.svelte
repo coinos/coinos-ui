@@ -5,7 +5,7 @@
   import Spinner from "$comp/Spinner.svelte";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
-  import { versions, fail, post } from "$lib/utils";
+  import { get, versions, fail, post } from "$lib/utils";
   import { goto } from "$app/navigation";
   import { HDKey } from "@scure/bip32";
 
@@ -41,14 +41,14 @@
         await mnemonicToSeed(mn),
         versions,
       );
-      const accounts = await fetch("/api/accounts").then((r) => r.json());
+      const accounts = await get("/accounts");
       const nextIdx = (accounts || [])
         .filter((a: any) => a.pubkey && a.fingerprint && a.type !== "ark")
         .reduce((max: number, a: any) => Math.max(max, (a.accountIndex ?? 0) + 1), 0);
       const child = master.derive(`m/84'/0'/${nextIdx}'`);
       const pubkey = child.publicExtendedKey;
       const fingerprint = child.fingerprint.toString(16).padStart(8, "0");
-      await post("/api/accounts", {
+      await post("/accounts", {
         fingerprint,
         pubkey,
         name: $t("accounts.vault"),

@@ -4,6 +4,7 @@
   import PhLifebuoyBold from "virtual:icons/ph/lifebuoy-bold";
   import PhMapTrifoldBold from "virtual:icons/ph/map-trifold-bold";
   import PhChatBold from "virtual:icons/ph/chat-bold";
+  import PhLightningFill from "virtual:icons/ph/lightning-fill";
   import PhMoonStarsBold from "virtual:icons/ph/moon-stars-bold";
   import PhSignOutBold from "virtual:icons/ph/sign-out-bold";
   import CoinosLogo from "virtual:icons/coinos/logo";
@@ -15,6 +16,7 @@
   let showMenu = $state(false);
 
   let menuButtons = [
+    { key: "nav.funds", icon: PhLightningFill, href: `/funds` },
     { key: "nav.settings", icon: PhFadersBold, href: `/settings` },
     { key: "nav.support", icon: PhLifebuoyBold, href: `/support` },
     { key: "nav.map", icon: PhMapTrifoldBold, href: `/map` },

@@ -70,7 +70,7 @@
 
       (async () => {
         try {
-          const inv = await post("/api/invoice", {
+          const inv = await post("/invoice", {
             invoice: {
               type: "bitcoin",
               amount: parseInt(amount),

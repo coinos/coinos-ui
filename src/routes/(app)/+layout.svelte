@@ -104,8 +104,8 @@
         try {
           const { serverArkAddress, amount, iid } = result.forward;
           const txid = await sendArk(serverArkAddress, amount);
-          await post("/api/ark/vault-send", { hash: txid, amount, aid });
-          await post("/api/ark/receive", { amount, hash: txid, iid });
+          await post("/ark/vault-send", { hash: txid, amount, aid });
+          await post("/ark/receive", { amount, hash: txid, iid });
         } catch (e) {
           console.error("Ark custodial forward failed:", e);
         } finally {

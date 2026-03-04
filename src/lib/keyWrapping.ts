@@ -45,7 +45,7 @@ export async function resolveCanonicalKey(
 export async function saveEncryptedKeys(
   encryptedKeys: Record<string, string>,
 ): Promise<void> {
-  await post("/api/user", { encryptedKeys });
+  await post("/user", { encryptedKeys });
 }
 
 export function passwordMethodId(): string {

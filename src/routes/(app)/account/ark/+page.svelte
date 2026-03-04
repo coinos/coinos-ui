@@ -42,7 +42,7 @@
       const identity = SingleKey.fromHex(arkHex);
       const wallet = await Wallet.create({ identity, arkServerUrl });
       arkAddress = await wallet.getAddress();
-      await post("/api/accounts", { name, type, arkAddress });
+      await post("/accounts", { name, type, arkAddress });
       goto(`/${user.username}`);
     } catch (e: any) {
       console.log("Ark account creation failed", e);

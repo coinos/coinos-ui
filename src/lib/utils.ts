@@ -14,7 +14,7 @@ export function scroll(section: any) {
   setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 500);
 }
 
-const base = browser ? "" : PUBLIC_COINOS_URL;
+const base = browser ? "/api" : PUBLIC_COINOS_URL;
 
 let getIp: (() => string | undefined) | undefined;
 

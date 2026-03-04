@@ -174,7 +174,7 @@
           console.log("Nostr key derivation failed", e);
         }
 
-        await post("/api/user", nostrPubkey ? { encryptedKeys, pubkey: nostrPubkey } : { encryptedKeys });
+        await post("/user", nostrPubkey ? { encryptedKeys, pubkey: nostrPubkey } : { encryptedKeys });
       } catch (e) {
         console.log("Canonical key generation failed", e);
       }
@@ -269,14 +269,7 @@
       // Clean up the account created by passkeyCreate if passkey registration failed
       if (passkeyToken) {
         try {
-          await fetch("/api/user/delete", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${passkeyToken}`,
-            },
-            body: JSON.stringify({}),
-          });
+          await post("/user/delete", {}, { authorization: `Bearer ${passkeyToken}` });
         } catch {}
       }
       if (e.name !== "NotAllowedError") {

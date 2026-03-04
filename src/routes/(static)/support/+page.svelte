@@ -31,7 +31,7 @@
   let submit = (e: any) => {
     e.preventDefault();
     if (isTor) {
-      post("/api/email", {
+      post("/email", {
         username: user?.username || `${username} (unverified)`,
         email,
         message,
@@ -43,7 +43,7 @@
     }
     grecaptcha.ready(() => {
       grecaptcha.execute(recaptchaSiteKey, { action: "submit" }).then((token) =>
-        post("/api/email", {
+        post("/email", {
           username: user?.username || `${username} (unverified)`,
           email,
           message,

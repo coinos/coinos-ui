@@ -29,8 +29,8 @@
         try {
           loading = false;
           event = await sign(request);
-          let { pr: payreq } = await post("/api/zap", { event });
-          await post("/api/payments", { amount, payreq, pin: $pin });
+          let { pr: payreq } = await post("/zap", { event });
+          await post("/payments", { amount, payreq, pin: $pin });
           goto(`/e/${id}`);
         } catch (e: any) {
           console.log(e);
