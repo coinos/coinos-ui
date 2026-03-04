@@ -35,10 +35,10 @@
         </button>
         <button class="hover:opacity-80" onclick={() => scroll(faq)}>{$t("faq.header")}</button>
         <button class="hover:opacity-80" onclick={() => scroll(about)}>{$t("about.header")}</button>
+        <button class="btn btn-accent !w-auto !rounded-full" onclick={startNow}>
+          {$t("nav.startInSeconds")}
+        </button>
       {/if}
-      <button class="btn btn-accent !w-auto !rounded-full" onclick={startNow}>
-        {$t("nav.startInSeconds")}
-      </button>
     </div>
 
   </nav>
