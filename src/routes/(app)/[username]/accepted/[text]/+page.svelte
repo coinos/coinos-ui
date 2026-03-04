@@ -4,6 +4,7 @@
   import { back, copy } from "$lib/utils";
   import { t } from "$lib/translations";
   import { bech32 } from "@scure/base";
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { PUBLIC_DOMAIN } from "$env/static/public";
 
@@ -11,6 +12,13 @@
   let { data } = $props();
   let { nfc, text } = $derived(data);
   let { username } = $derived(data.subject);
+
+  let toggleNfc = () => {
+    const url = new URL($page.url);
+    if (nfc) url.searchParams.delete("nfc");
+    else url.searchParams.set("nfc", "true");
+    goto(url.pathname + url.search, { invalidateAll: true });
+  };
   let url = $derived(() => `https://coinos.io/p/${username.toLowerCase()}`);
 
   let lnurl = $derived(
@@ -43,8 +51,16 @@
     <div class="text-center text-4xl font-bold break-all">coinos.io/{username.toLowerCase()}</div>
   </div>
 
-  <button onclick={() => copy(lnurl)} class="flex gap-1 m-auto my-8">
-    <PhCopyBold width={32} />
-    {$t("user.copyLnurl")}
-  </button>
+  <div class="flex items-center justify-center gap-4 my-8">
+    <button onclick={() => copy(lnurl)} class="flex gap-1">
+      <PhCopyBold width={32} />
+      {$t("user.copyLnurl")}
+    </button>
+    <button onclick={toggleNfc} class="flex items-center gap-2">
+      <span class="font-semibold">NFC</span>
+      <div class="w-11 h-6 rounded-full relative {nfc ? 'bg-green-500' : 'bg-gray-400'}">
+        <div class="absolute top-0.5 left-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-all {nfc ? 'translate-x-full' : ''}"></div>
+      </div>
+    </button>
+  </div>
 </div>

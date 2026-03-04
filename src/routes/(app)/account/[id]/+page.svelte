@@ -309,8 +309,10 @@
     onkeydown={(e) => e.key === "Escape" && (showDeleteConfirm = false)}
   >
     <div class="bg-base-100 rounded-2xl p-6 max-w-sm w-full space-y-4 text-center" role="none" onclick={(e) => e.stopPropagation()}>
-      <PhWarningBold width="48" class="text-error" />
-      <h2 class="text-xl font-semibold">{$t("accounts.deleteAccount")}</h2>
+      <h2 class="text-xl font-semibold flex items-center justify-center gap-2">
+        <PhWarningBold width="32" class="text-error" />
+        {$t("accounts.deleteAccount")}
+      </h2>
       <p class="text-secondary">{$t("accounts.deleteConfirm")}</p>
       <div class="flex gap-2">
         <button type="button" class="btn !w-auto grow" onclick={() => (showDeleteConfirm = false)}>

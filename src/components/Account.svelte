@@ -86,7 +86,7 @@
     }
   };
 
-  let receiveUrl = $derived(id === user.id ? "/invoice?lnurl=true" : "/invoice");
+  let receiveUrl = $derived(id === user.id ? `/invoice/lnurl` : `/invoice?aid=${id}`);
 
   let displayType = $derived(
     accountType === "ark"

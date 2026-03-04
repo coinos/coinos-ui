@@ -56,7 +56,7 @@
         <div class="my-auto">{t("payments.setAmount")}</div>
       </button>
     {:else}
-      <a href={link} class="block">
+      <a href={link} class="contents">
         <button class="btn grow !w-auto">
           <PhArrowSquareOutBold width="32" />
           <div class="my-auto">{t("payments.openLink")}</div>
@@ -73,25 +73,23 @@
 
 
   <div class="flex gap-2">
-    {#if aid === user.id}
-      <button
-        class="btn flex-nowrap !w-auto grow"
-        class:bg-base-300={type === types.lightning}
-        class:text-secondary={type === types.lightning}
-        onclick={() => {
-          $amountPrompt = false;
-          newAmount = undefined;
-          setType(types.lightning);
-        }}
-      >
-        <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
-          <div class="m-auto">
-            <PhLightningFill width="24" class="text-yellow-300" />
-          </div>
+    <button
+      class="btn flex-nowrap !w-auto grow"
+      class:bg-base-300={type === types.lightning}
+      class:text-secondary={type === types.lightning}
+      onclick={() => {
+        $amountPrompt = false;
+        newAmount = undefined;
+        setType(types.lightning);
+      }}
+    >
+      <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
+        <div class="m-auto">
+          <PhLightningFill width="24" class="text-yellow-300" />
         </div>
-        <div class="my-auto text-lg">Lightning</div>
-      </button>
-    {/if}
+      </div>
+      <div class="my-auto text-lg">Lightning</div>
+    </button>
 
     {#if !account?.seed && !(account?.pubkey && account?.fingerprint) && account?.type !== "ark"}
       <button
@@ -106,11 +104,9 @@
     {/if}
   </div>
 
-  {#if aid === user.id}
-    <button type="button" class="btn" onclick={toggleType}>
-      <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
-      <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
-      <div class="my-auto">{t("payments.moreOptions")}</div>
-    </button>
-  {/if}
+  <button type="button" class="btn" onclick={toggleType}>
+    <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
+    <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
+    <div class="my-auto">{t("payments.moreOptions")}</div>
+  </button>
 </div>

@@ -13,7 +13,7 @@
 
   function startNow() {
     const match = document.cookie.match(/(?:^|;\s*)username=([^;]*)/);
-    goto(match ? `/${decodeURIComponent(match[1])}` : "/login");
+    goto(match ? `/${decodeURIComponent(match[1])}` : "/register");
   }
 
   let header = $state();

@@ -38,11 +38,11 @@
   let { username, currency } = $derived(invoice.user);
   let locale = $derived(loc(user));
 
-  let lnurlMode = $state(false);
+  let lnurlMode = $state($page.params.id === "lnurl" || $page.url.searchParams.has("lnurl"));
   let lnAddress = $derived(`${username}@${$page.url.host}`);
 
   $effect(() => {
-    if ($page.url.searchParams.has("lnurl")) {
+    if ($page.params.id === "lnurl" || $page.url.searchParams.has("lnurl")) {
       lnurlMode = true;
       $showQr = true;
     } else {

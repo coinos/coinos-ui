@@ -4,8 +4,14 @@ import { auth, post } from "$lib/utils";
 import { error, redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, parent, url }) => {
-  const aid = cookies.get("aid");
+  const aid = url.searchParams.get("aid") || cookies.get("aid");
+  if (aid) cookies.set("aid", aid, { path: "/", maxAge: 86400 });
   let { subject, user } = await parent();
+
+  const lnurl = url.searchParams.has("lnurl");
+  if (lnurl) {
+    redirect(307, `/invoice/lnurl`);
+  }
 
   const rates = await getRates();
 
@@ -30,9 +36,7 @@ export const load = async ({ cookies, parent, url }) => {
 
   const { id } = invoice;
 
-  const lnurl = url.searchParams.has("lnurl");
-
   if (invoice.memoPrompt && !invoice.memo) {
     redirect(307, `/invoice/${id}/memo`);
-  } else redirect(307, `/invoice/${id}${lnurl ? "?lnurl=true" : ""}`);
+  } else redirect(307, `/invoice/${id}`);
 };

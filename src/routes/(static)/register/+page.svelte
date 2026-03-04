@@ -130,15 +130,15 @@
       {$t("login.continue")}
     </button>
 
-    <p class="text-secondary text-center font-medium">
-      {$t("login.haveAccount")}
-      <a
-        href={"/login" + $page.url.search}
-        class="block md:inline text-secondary underline underline-offset-4 hover:opacity-80"
-      >
-        {$t("login.signIn")}
-      </a>
-    </p>
+    <div class="flex items-center gap-4">
+      <hr class="flex-1" />
+      <span class="text-secondary text-sm">{$t("login.or")}</span>
+      <hr class="flex-1" />
+    </div>
+
+    <a href={"/login" + $page.url.search} class="btn">
+      {$t("login.haveAccount")} {$t("login.signIn")}
+    </a>
   </div>
 </div>
 

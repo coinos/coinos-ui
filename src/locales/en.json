@@ -326,6 +326,7 @@
     "createAccount": "Create account",
     "signIn": "Sign In",
     "signUp": "Sign Up",
+    "or": "or",
     "failed": "Login failed",
     "nostr": "Sign in with Nostr",
     "nostrConnect": "Nostr connect",

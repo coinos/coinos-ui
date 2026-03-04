@@ -1,3 +1,4 @@
+import getRates from "$lib/rates";
 import { get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
@@ -9,7 +10,24 @@ export async function load({ cookies, depends, params, url, parent }) {
   const { id } = params;
   let invoice;
 
-  if (id) {
+  if (id === "lnurl") {
+    const rates = await getRates();
+    invoice = {
+      aid: user.id,
+      uid: user.id,
+      amount: 0,
+      tip: 0,
+      rate: rates[user?.currency || "USD"],
+      text: "",
+      hash: "",
+      type: "lightning",
+      items: [],
+      memo: "",
+      pending: 0,
+      received: 0,
+      user: { id: user.id, username: user.username, currency: user.currency },
+    };
+  } else if (id) {
     invoice = await get(`/invoice/${id}`);
     const options = !!url.searchParams.get("options");
     let { amount, pending, received } = invoice;
