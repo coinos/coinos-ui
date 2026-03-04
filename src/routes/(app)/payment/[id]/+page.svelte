@@ -162,7 +162,7 @@
         </button>
         {#if href}
           <a {href} target="_blank" rel="noreferrer" class="shrink-0 hover:opacity-80" onclick={(e) => e.stopPropagation()} aria-label="View in explorer">
-            <PhArrowSquareOutBold width="20" class="text-secondary" />
+            <PhArrowSquareOutBold width="28" class="text-secondary" />
           </a>
         {/if}
       </div>
@@ -214,7 +214,9 @@
       {@render field("payments.total", a + (tip || 0))}
     {/if}
 
-    {@render field("payments.networkFee", fee)}
+    {#if fee > 0}
+      {@render field("payments.networkFee", fee)}
+    {/if}
 
     {#if ourfee > 0}
       {@render field("payments.platformFee", ourfee)}
