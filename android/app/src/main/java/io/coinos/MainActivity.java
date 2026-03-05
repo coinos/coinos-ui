@@ -24,6 +24,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import io.coinos.nfcwriter.NfcWriterPlugin;
+import io.coinos.hce.HcePlugin;
 
 public class MainActivity extends BridgeActivity {
     private NfcAdapter nfcAdapter;
@@ -33,6 +34,7 @@ public class MainActivity extends BridgeActivity {
         // ✅ Let Capacitor inflate its layout and wire everything
         super.onCreate(savedInstanceState);
         registerPlugin(NfcWriterPlugin.class);
+        registerPlugin(HcePlugin.class);
 
         WebView webView = bridge.getWebView(); // This works *after* super.onCreate()
 

@@ -3,6 +3,9 @@ import {
   aliceUsername,
   alicePassword,
   login,
+  apiLogin,
+  ensureVaultAccount,
+  setActiveAccount,
   createVaultBitcoinInvoiceViaUI,
   bitcoinSend,
   mineBlocks,
@@ -13,8 +16,12 @@ import {
 test("bitcoin vault receives external bitcoin payment from bitcoind", async ({ page }) => {
   test.setTimeout(120_000);
 
-  // --- Alice: log in and create vault bitcoin invoice ---
+  // --- Alice: log in and ensure vault account exists ---
   await login(page, aliceUsername, alicePassword);
+  const token = await apiLogin(page, aliceUsername, alicePassword);
+  const vaultAccount = await ensureVaultAccount(page, token, aliceUsername, alicePassword);
+  await setActiveAccount(page, vaultAccount.id);
+  await page.goto(`/${aliceUsername}`);
 
   const { invoiceId, address } = await createVaultBitcoinInvoiceViaUI(page);
   console.log(`[e2e] Alice vault bitcoin address: ${address}`);

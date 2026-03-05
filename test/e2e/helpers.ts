@@ -85,7 +85,7 @@ export async function apiGetInvoice(page: Page, invoiceId: string) {
 // --- Invoice creation via UI ---
 
 export async function createBitcoinInvoiceViaUI(page: Page, username: string) {
-  await page.goto(`/invoice?address_type=bech32`);
+  await page.goto(`/invoice?type=bitcoin&address_type=bech32`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
   const invoiceId = page.url().match(/\/invoice\/([^/?#]+)/)?.[1];
@@ -454,7 +454,7 @@ export async function setActiveAccount(page: Page, accountId: string) {
   }, accountId);
 }
 
-export async function ensureArkAccount(page: Page, _password: string) {
+export async function ensureArkAccount(page: Page, _password: string, token?: string) {
   // Wait for autoUnlockArk() to derive the arkkey and write it to localStorage.
   // This happens in onMount of the app layout after login() navigates to the dashboard.
   // IMPORTANT: We must use THIS key (not re-derive) because Schnorr signing uses random
@@ -487,9 +487,16 @@ export async function ensureArkAccount(page: Page, _password: string) {
 
   console.log(`[e2e] Client ark address: ...${clientAddress.slice(-30)}`);
 
+  // Get auth token from page cookies if not provided
+  if (!token) {
+    const cookies = await page.context().cookies();
+    token = cookies.find((c) => c.name === "token")?.value;
+  }
+  const authHeaders = token ? { authorization: `Bearer ${token}` } : {};
+
   // Check/create ark account — retry to handle race conditions with parallel tests
   for (let attempt = 0; attempt < 3; attempt++) {
-    const accountsRes = await page.request.get(`${apiBaseUrl}/accounts`);
+    const accountsRes = await page.request.get(`${apiBaseUrl}/accounts`, { headers: authHeaders });
     if (accountsRes.ok()) {
       const accounts = await accountsRes.json();
       const arkAccount = accounts.find((a: any) => a.type === "ark");
@@ -503,12 +510,14 @@ export async function ensureArkAccount(page: Page, _password: string) {
         console.log(`[e2e] Ark address mismatch, deleting stale account`);
         await page.request.post(`${apiBaseUrl}/account/delete`, {
           data: { id: arkAccount.id },
+          headers: authHeaders,
         });
       }
     }
 
     const createRes = await page.request.post(`${apiBaseUrl}/accounts`, {
       data: { name: "ark", type: "ark", arkAddress: clientAddress },
+      headers: authHeaders,
     });
 
     if (createRes.ok()) {
@@ -517,7 +526,8 @@ export async function ensureArkAccount(page: Page, _password: string) {
     }
 
     // "Already have an Ark vault" means another test created one — retry to check/update
-    console.log(`[e2e] Account creation attempt ${attempt + 1} failed, retrying...`);
+    const errText = await createRes.text().catch(() => "");
+    console.log(`[e2e] Account creation attempt ${attempt + 1} failed (${createRes.status()}): ${errText}`);
     await page.waitForTimeout(1_000);
   }
 }

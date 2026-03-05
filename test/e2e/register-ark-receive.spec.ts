@@ -9,21 +9,36 @@ import { ensureArkAccount } from "./helpers";
 test("register new user, create ark vault, click Receive", async ({ page }) => {
   test.setTimeout(90_000);
 
+  page.on("console", (msg) => {
+    if (msg.type() === "error" || msg.text().includes("fail") || msg.text().includes("Fail"))
+      console.log(`[page] ${msg.text()}`);
+  });
+  page.on("pageerror", (err) => console.log(`[page-error] ${err.message}`));
+
   const username = `test${Date.now()}`;
   const password = "testpass123";
+  console.log(`[e2e] Registering user: ${username}`);
 
   // ── Step 1: /register — pick username ──
   await page.goto("/register");
-  await page.waitForLoadState("domcontentloaded");
+  await page.waitForLoadState("load");
 
   const usernameInput = page.locator('input[name="username"]');
   await expect(usernameInput).toBeVisible({ timeout: 5_000 });
   await usernameInput.fill(username);
 
+  // Click Continue — retry once if hydration wasn't ready
   const continueBtn = page.locator("button.btn-accent", { hasText: "Continue" });
   await continueBtn.click();
-
-  await page.waitForURL(/\/register\/auth\?/, { timeout: 10_000 });
+  const navigated = await page
+    .waitForURL(/\/register\/auth\?/, { timeout: 5_000 })
+    .then(() => true)
+    .catch(() => false);
+  if (!navigated) {
+    // Hydration may not have been ready — retry
+    await continueBtn.click();
+    await page.waitForURL(/\/register\/auth\?/, { timeout: 10_000 });
+  }
 
   // ── Step 2: /register/auth — register with password ──
   const passwordInput = page.locator('input[name="password"]');
@@ -40,6 +55,7 @@ test("register new user, create ark vault, click Receive", async ({ page }) => {
     .catch(() => false);
 
   if (!registered) {
+    console.log(`[e2e] Registration didn't redirect, current URL: ${page.url()}`);
     // Check if there's a form error message
     const errorText = await page
       .locator(".text-red-600")
@@ -47,6 +63,7 @@ test("register new user, create ark vault, click Receive", async ({ page }) => {
       .innerText({ timeout: 1000 })
       .catch(() => "");
     if (errorText) {
+      console.log(`[e2e] Registration error: ${errorText}`);
       test.skip(true, `Registration failed: ${errorText}`);
       return;
     }
@@ -54,6 +71,7 @@ test("register new user, create ark vault, click Receive", async ({ page }) => {
     test.skip(true, `Registration redirect timed out (still on ${page.url()})`);
     return;
   }
+  console.log(`[e2e] Registration successful, now on: ${page.url()}`);
 
   // ── Step 3: Create Ark vault using the standard helper ──
   await ensureArkAccount(page, password);

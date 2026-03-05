@@ -3,6 +3,8 @@ import {
   bobUsername,
   bobPassword,
   loginNewContext,
+  apiLogin,
+  apiGetBalance,
   getBitcoinAddress,
   pasteAndSend,
   fillNumpadAmount,
@@ -11,6 +13,16 @@ import {
 
 test("custodial sends to external bitcoin address (bitcoind)", async ({ browser }) => {
   test.setTimeout(90_000);
+
+  // Pre-check Bob's balance — external BTC sends need ~15k sats with fees
+  const { context: checkCtx, page: checkPage } = await loginNewContext(browser, bobUsername, bobPassword);
+  const checkToken = await apiLogin(checkPage, bobUsername, bobPassword);
+  const balance = await apiGetBalance(checkPage, checkToken);
+  await checkCtx.close();
+  if (balance < 20_000) {
+    test.skip(true, `Bob's balance too low for external BTC send: ${balance}`);
+    return;
+  }
 
   // --- Get external bitcoin address from 'external' wallet (NOT 'coinos' hot wallet) ---
   const externalAddress = getBitcoinAddress();

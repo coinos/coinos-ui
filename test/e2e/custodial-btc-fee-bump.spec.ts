@@ -24,7 +24,7 @@ test("custodial bitcoin send with low fee shows bump reserve and supports CPFP b
     headers: { authorization: `Bearer ${token}` },
   });
   const me = await meRes.json();
-  if (!me.balance || me.balance < 5000) {
+  if (!me.balance || me.balance < 35000) {
     test.skip(true, `Custodial balance too low: ${me.balance}`);
     return;
   }

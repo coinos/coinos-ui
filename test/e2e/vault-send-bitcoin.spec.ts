@@ -5,6 +5,9 @@ import {
   bobUsername,
   bobPassword,
   loginNewContext,
+  apiLogin,
+  ensureVaultAccount,
+  setActiveAccount,
   pasteAndSend,
 } from "./helpers";
 
@@ -17,6 +20,12 @@ test("pasting vault bitcoin address redirects to /send/bitcoin, not /pay", async
     aliceUsername,
     alicePassword,
   );
+
+  // Ensure vault account exists
+  const aliceToken = await apiLogin(alicePage, aliceUsername, alicePassword);
+  const vaultAccount = await ensureVaultAccount(alicePage, aliceToken, aliceUsername, alicePassword);
+  await setActiveAccount(alicePage, vaultAccount.id);
+  await alicePage.goto(`/${aliceUsername}`);
 
   // Find the bitcoin vault account card and click Receive
   const vaultCard = alicePage.locator('[data-testid="account-card"][data-account-type="bitcoin"]');

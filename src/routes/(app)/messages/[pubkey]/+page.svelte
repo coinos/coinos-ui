@@ -158,9 +158,8 @@
     }
   };
 
-  updateEvents();
-
   onMount(() => {
+    updateEvents();
     userInfo(pubkey).then((info) => (selectedChat = info));
     libnip17.getPreferredRelays(pubkey).then((relays) => {
       canSend = relays && relays.length > 0;

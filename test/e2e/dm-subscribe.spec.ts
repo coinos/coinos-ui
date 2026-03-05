@@ -81,22 +81,27 @@ test("recipient receives DM via relay subscription in real-time", async ({ brows
   await bobPage.goto(`/messages/${alicePubkey}`);
   await bobPage.waitForLoadState("domcontentloaded");
 
+  // Wait for textarea to become enabled (canSend=true after relay query)
   const bobTextarea = bobPage.locator("#message-contents");
-  await expect(bobTextarea).toBeVisible({ timeout: 15_000 });
+  await expect(bobTextarea).toBeEnabled({ timeout: 15_000 });
 
-  const sendButton = bobPage.locator("#send-message");
-  await expect(sendButton).toBeEnabled({ timeout: 5_000 });
-
-  // --- Bob sends a message ---
+  // --- Bob sends a message (fill text first, then button enables) ---
   const testMessage = `realtime-test-${Date.now()}`;
   console.log(`[bob] Sending: ${testMessage}`);
   await bobTextarea.fill(testMessage);
+  const sendButton = bobPage.locator('button[aria-label="Send"]');
+  await expect(sendButton).toBeEnabled({ timeout: 5_000 });
   await sendButton.click();
   await expect(bobTextarea).toHaveValue("", { timeout: 15_000 });
-  console.log("[bob] Message sent");
+  console.log("[bob] Message sent (textarea cleared)");
 
-  // Verify Bob's relay accepted the events
-  const bobAccepts = bobWsFrames.filter((m) => m.includes('"OK"') && m.includes(",true,"));
+  // Wait for relay to accept events (publish is async after textarea clears)
+  let bobAccepts: string[] = [];
+  for (let i = 0; i < 30; i++) {
+    bobAccepts = bobWsFrames.filter((m) => m.includes('"OK"') && m.includes(",true,"));
+    if (bobAccepts.length > 0) break;
+    await bobPage.waitForTimeout(500);
+  }
   console.log(`[bob] Relay accepted ${bobAccepts.length} events`);
   expect(bobAccepts.length, "Relay should accept at least 1 event").toBeGreaterThanOrEqual(1);
 

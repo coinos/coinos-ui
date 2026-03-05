@@ -4,4 +4,6 @@
     <string name="title_activity_main">coinos</string>
     <string name="package_name">io.coinos</string>
     <string name="custom_url_scheme">io.coinos</string>
+    <string name="hce_service_description">Coinos NFC Payment</string>
+    <string name="hce_aid_group_description">Coinos NDEF Tag Emulation</string>
 </resources>
