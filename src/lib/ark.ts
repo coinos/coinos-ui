@@ -528,9 +528,11 @@ export const getServiceWorkerWallet = async () => {
   if (import.meta.env.DEV) return;
 
   try {
+    const reg = await navigator.serviceWorker.ready;
+    if (!reg.active) return;
     const { ServiceWorkerWallet, SingleKey } = await loadArkSdk();
-    swWallet = await ServiceWorkerWallet.setup({
-      serviceWorkerPath: "/service-worker.js",
+    swWallet = await ServiceWorkerWallet.create({
+      serviceWorker: reg.active,
       arkServerUrl: arkServerUrl!,
       identity: SingleKey.fromHex(key),
     });
