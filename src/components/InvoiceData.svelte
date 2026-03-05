@@ -17,6 +17,7 @@
     tip,
     rate,
     align = "",
+    qrDataUrl,
     t,
   }: any = $props();
 
@@ -24,9 +25,17 @@
   let { memo } = $derived(invoice);
 
   let qrSrc = $derived(`/qr/${encodeURIComponent(invoice.text)}/raw`);
-  let srcs: string[] = $state([]);
+  let srcs: string[] = $state(qrDataUrl ? [qrDataUrl] : []);
+  let lastDataUrl = qrDataUrl;
 
   $effect(() => {
+    // Update if the server-provided data URL changed (e.g. new invoice)
+    if (qrDataUrl && qrDataUrl !== lastDataUrl) {
+      lastDataUrl = qrDataUrl;
+      srcs = [qrDataUrl];
+      return;
+    }
+    if (qrDataUrl && srcs.length) return;
     const next = qrSrc;
     if (!srcs.length) {
       srcs = [next];

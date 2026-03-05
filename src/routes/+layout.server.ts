@@ -1,8 +1,6 @@
 import { defaultLocale, loadTranslations, locales } from "$lib/translations/index";
 
-export const load = async ({ cookies, request, url }) => {
-  const { pathname } = url;
-
+export const load = async ({ cookies, request }) => {
   // Try to get the locale from cookie
   let locale = (cookies.get("lang") || "").toLowerCase();
 
@@ -21,13 +19,12 @@ export const load = async ({ cookies, request, url }) => {
     locale = defaultLocale;
   }
 
-  await loadTranslations(locale, pathname); // keep this just before the `return`
+  await loadTranslations(locale, "/");
 
   const theme = cookies.get("theme") || "light";
 
   return {
     theme,
-    pathname,
-    i18n: { locale, route: pathname },
+    i18n: { locale, route: "/" },
   };
 };

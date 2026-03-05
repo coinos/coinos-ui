@@ -5,7 +5,7 @@ import { error, redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, parent, url }) => {
   const aid = url.searchParams.get("aid") || cookies.get("aid");
-  if (aid) cookies.set("aid", aid, { path: "/", maxAge: 86400 });
+  if (aid) cookies.set("aid", aid, { path: "/", maxAge: 86400, httpOnly: false });
   let { subject, user } = await parent();
 
   const lnurl = url.searchParams.has("lnurl");

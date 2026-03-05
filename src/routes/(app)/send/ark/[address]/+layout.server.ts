@@ -1,11 +1,18 @@
 import { auth, get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, params, parent }) {
+export async function load({ cookies, params, parent, url }) {
   const { user } = await parent();
-  const aid = cookies.get("aid") || user.id;
+  let aid = url.searchParams.get("aid") || cookies.get("aid") || user.id;
   const { address, amount } = params;
-  const { balance } = await get(`/account/${aid}`, auth(cookies));
+  let account = await get(`/account/${aid}`, auth(cookies));
+
+  // Fall back to custodial if cookie points to ark account
+  if (account.type === "ark" && aid !== user.id) {
+    aid = user.id;
+    account = await get(`/account/${aid}`, auth(cookies));
+    cookies.set("aid", aid, { path: "/", maxAge: 86400, httpOnly: false });
+  }
 
   let invoice;
   try {
@@ -21,5 +28,5 @@ export async function load({ cookies, params, parent }) {
     if (recipient?.id !== user.id && recipient.id === invoice.aid) redirect(307, r);
   }
 
-  return { balance };
+  return { balance: account.balance };
 }

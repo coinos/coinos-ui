@@ -3,9 +3,10 @@
   import { t } from "$lib/translations";
   import Spinner from "$comp/Spinner.svelte";
   import { bytesToHex } from "@noble/hashes/utils.js";
-  import { fail, post, versions } from "$lib/utils";
+  import { fail, post, versions, wait } from "$lib/utils";
   import { goto } from "$app/navigation";
   import { arkServerUrl } from "$lib/ark";
+  import { password as pw, passwordPrompt } from "$lib/store";
   import { HDKey } from "@scure/bip32";
   import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
@@ -19,11 +20,16 @@
     creatingArk = true;
     try {
       const { getWalletEntropy } = await import("$lib/walletEntropy");
-      const entropy = await getWalletEntropy();
+      let entropy = await getWalletEntropy();
+
       if (!entropy) {
-        fail($t("accounts.failedToDecryptSeed") as string);
-        creatingArk = false;
-        return;
+        if (!$pw) $passwordPrompt = true;
+        await wait(() => !!$pw);
+        const { deriveAuthKeypair, deriveWalletEntropy } = await import("$lib/deriveAuthKey");
+        const { sk } = await deriveAuthKeypair(user.username, $pw!);
+        entropy = await deriveWalletEntropy(sk);
+        const { rememberPrfKey, defaultRememberForMs } = await import("$lib/passwordCache");
+        rememberPrfKey(entropy, defaultRememberForMs);
       }
 
       const { SingleKey, Wallet } = await import("@arkade-os/sdk");

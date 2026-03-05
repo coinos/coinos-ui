@@ -4,7 +4,7 @@
   import Numpad from "$comp/Numpad.svelte";
   import { page } from "$app/stores";
   import { fiat as fiatStore, rate } from "$lib/store";
-  import { loc, fail, s, f, sats } from "$lib/utils";
+  import { loc, s, f, sats } from "$lib/utils";
   let { data } = $props();
 
   let balance = $derived(data.balance);
@@ -47,7 +47,7 @@
       {/if}
     </button>
 
-    <form action={`/send/ark/${address}/${amount}`} class="contents">
+    <form action={`/send/ark/${address}/${amount}${$page.url.search}`} class="contents">
       <button bind:this={submit} type="submit" class="btn !w-auto grow btn-accent">
         {$t("payments.next")}
       </button>

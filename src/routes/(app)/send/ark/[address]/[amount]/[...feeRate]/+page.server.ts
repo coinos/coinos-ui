@@ -2,12 +2,20 @@ import getRates from "$lib/rates";
 import { auth, fd, get, post } from "$lib/utils";
 import { fail, redirect } from "@sveltejs/kit";
 
-export async function load({ params: { address, amount }, cookies, parent }) {
+export async function load({ params: { address, amount }, cookies, parent, url }) {
   const rates = await getRates();
   const { user } = await parent();
-  const aid = cookies.get("aid") || user.id;
+  let aid = url.searchParams.get("aid") || cookies.get("aid") || user.id;
 
-  const account = await get(`/account/${aid}`, auth(cookies));
+  let account = await get(`/account/${aid}`, auth(cookies));
+
+  // If cookie points to an ark account but user is sending TO an ark address,
+  // fall back to custodial account — ark-to-ark sends use client-side wallet
+  if (account.type === "ark" && aid !== user.id) {
+    aid = user.id;
+    account = await get(`/account/${aid}`, auth(cookies));
+    cookies.set("aid", aid, { path: "/", maxAge: 86400, httpOnly: false });
+  }
 
   if (account.type === "bitcoin") {
     const inv = await post(

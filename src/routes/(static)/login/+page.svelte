@@ -217,6 +217,19 @@
       console.log("Auth key derivation failed, falling back to legacy login", e);
       return async ({ result }: any) => {
         if (result.type === "success") {
+          try {
+            const { deriveAuthKeypair, deriveWalletEntropy } = await import("$lib/deriveAuthKey");
+            const { sk } = await deriveAuthKeypair(uname, pw);
+            const oldPrfKey = await deriveWalletEntropy(sk);
+            await resolveCanonicalKey(
+              passwordMethodId(),
+              sk.buffer as ArrayBuffer,
+              result.data?.encryptedKeys,
+              oldPrfKey,
+            );
+          } catch (e2) {
+            console.log("PRF key caching in legacy fallback failed", e2);
+          }
           await invalidateAll();
           goto(result.data?.redirectUrl || "/");
         } else {

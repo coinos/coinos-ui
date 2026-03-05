@@ -3,14 +3,15 @@
   import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";
-  import { loading, t } from "$lib/translations";
+  import { t } from "$lib/translations";
   import { onMount } from "svelte";
   import { installPrompt, theme as themeStore } from "$lib/store";
+  import { page } from "$app/stores";
 
   const map = { light: "lofi", dark: "black", system: "system" };
 
   let { data, children } = $props<any>();
-  let pathname = $derived(data.pathname);
+  let pathname = $derived($page.url.pathname);
   let theme = $derived(data.theme);
   $effect(() => {
     $themeStore = theme;
@@ -94,11 +95,9 @@
   <meta name="twitter:creator" content="@coinoswallet" />
 </svelte:head>
 
-{#if !$loading}
-  <main>
-    {@render children?.()}
-  </main>
-{/if}
+<main>
+  {@render children?.()}
+</main>
 
 <style>
   :global(:root) {

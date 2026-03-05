@@ -12,8 +12,9 @@ export default async (s, host, cookies) => {
   let amount;
   let invoice;
   let user;
+  const aid = cookies.get("aid");
 
-  if (t.startsWith("ark") || t.startsWith("tark")) redirect(307, `/send/ark/${t}`);
+  if (t.startsWith("ark") || t.startsWith("tark")) redirect(307, `/send/ark/${t}${aid ? `?aid=${aid}` : ""}`);
 
   if (t.startsWith("http")) redirect(307, t);
   if (t.startsWith(host)) redirect(307, `http://${t}`);

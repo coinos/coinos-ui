@@ -124,7 +124,7 @@
     </a>
   {/if}
   {#if user?.id && user.id === subject.id}
-    <div class="space-y-4" data-sveltekit-preload-data="false">
+    <div class="space-y-4">
       {#each accounts as account}
         <Account {user} {rates} {account} />
       {/each}

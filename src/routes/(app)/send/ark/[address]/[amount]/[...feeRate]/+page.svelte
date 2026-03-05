@@ -7,7 +7,7 @@
   import { goto, invalidate } from "$app/navigation";
   import { rate } from "$lib/store";
   import { applyAction } from "$app/forms";
-  import { sendArk, sendArkViaForward } from "$lib/ark";
+  import { sendArk, sendArkViaForward, arkkey } from "$lib/ark";
 
   import Amount from "$comp/Amount.svelte";
 
@@ -16,7 +16,7 @@
   let error = $state("");
 
   let handler = ({ cancel }) => {
-    if (account.type === "ark") {
+    if (account.type === "ark" && $arkkey) {
       cancel();
 
       (async () => {

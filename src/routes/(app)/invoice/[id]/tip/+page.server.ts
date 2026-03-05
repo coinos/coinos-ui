@@ -4,8 +4,9 @@ import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params, parent }) {
   const { id } = params;
-  const rates = await getRates();
-  let { invoice, subject, user } = await parent();
+  const [rates, { user }] = await Promise.all([getRates(), parent()]);
+  let invoice = await get(`/invoice/${id}`, auth(cookies));
+  const subject = invoice.user;
   if (!invoice.amount) redirect(307, `/invoice/${invoice.id}`);
   const pin = cookies.get("pin");
 

@@ -23,27 +23,27 @@
   let arkBalance = $state(0);
   let arkLoading = $state(false);
 
-  let tryUnlockArk = async (): Promise<string | false> => {
-    const deriveArkKey = async (key: ArrayBuffer): Promise<string> => {
-      const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
-        import("@scure/bip32"),
-        import("@scure/bip39"),
-        import("@scure/bip39/wordlists/english.js"),
-      ]);
-      let mnemonicStr: string;
-      if (account.seed && isPrfEncrypted(account.seed)) {
-        const ent = await prfDecrypt(key, account.seed);
-        mnemonicStr = entropyToMnemonic(ent, wordlist);
-      } else {
-        const entropy = new Uint8Array(key).slice(0, 16);
-        mnemonicStr = entropyToMnemonic(entropy, wordlist);
-      }
-      const s = await mnemonicToSeed(mnemonicStr);
-      const master = HDKey.fromMasterSeed(s, versions);
-      const arkChild = master.derive("m/86'/0'/0'/0/0");
-      return bytesToHex(arkChild.privateKey!);
-    };
+  let deriveArkKey = async (key: ArrayBuffer): Promise<string> => {
+    const [{ HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] = await Promise.all([
+      import("@scure/bip32"),
+      import("@scure/bip39"),
+      import("@scure/bip39/wordlists/english.js"),
+    ]);
+    let mnemonicStr: string;
+    if (account.seed && isPrfEncrypted(account.seed)) {
+      const ent = await prfDecrypt(key, account.seed);
+      mnemonicStr = entropyToMnemonic(ent, wordlist);
+    } else {
+      const entropy = new Uint8Array(key).slice(0, 16);
+      mnemonicStr = entropyToMnemonic(entropy, wordlist);
+    }
+    const s = await mnemonicToSeed(mnemonicStr);
+    const master = HDKey.fromMasterSeed(s, versions);
+    const arkChild = master.derive("m/86'/0'/0'/0/0");
+    return bytesToHex(arkChild.privateKey!);
+  };
 
+  let tryUnlockArk = async (): Promise<string | false> => {
     // Try cached PRF key or silent nsec
     const { getWalletEntropy, deriveNostrEntropy } = await import("$lib/walletEntropy");
     const entropy = await getWalletEntropy();
@@ -65,24 +65,38 @@
     }
   };
 
-  let setAccount = async (event, url) => {
+  let aidParam = $derived(`aid=${id}`);
+  let withAid = (url: string) => url + (url.includes("?") ? "&" : "?") + aidParam;
+
+  let setAccount = async (event, url, requireKey = false) => {
     event.preventDefault();
     event.stopPropagation();
-    document.cookie = `aid=${id}; path=/; max-age=86400`;
     if (isArk) {
       if ($arkkey && $arkaid === id) {
-        await goto(url);
-      } else {
+        await goto(withAid(url));
+      } else if (requireKey) {
         const key = await tryUnlockArk();
         if (key) {
-          await goto(url);
+          await goto(withAid(url));
           $arkkey = key;
           $arkaid = id;
         }
+      } else {
+        // Try silent unlock only, navigate regardless
+        const { getWalletEntropy } = await import("$lib/walletEntropy");
+        const entropy = await getWalletEntropy();
+        if (entropy) {
+          try {
+            const key = await deriveArkKey(entropy);
+            $arkkey = key;
+            $arkaid = id;
+          } catch {}
+        }
+        goto(withAid(url));
       }
     } else {
       $arkkey = undefined;
-      goto(url);
+      goto(withAid(url));
     }
   };
 
@@ -106,8 +120,7 @@
   let goSettings = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    document.cookie = `aid=${id}; path=/; max-age=86400`;
-    goto(`/account/${id}`);
+    goto(`/account/${id}?${aidParam}`);
   };
 </script>
 
@@ -145,7 +158,7 @@
       <!--   <PhClockCounterClockwiseBold width="38" /> -->
       <!-- </a> -->
       <a
-        href={`/account/${id}`}
+        href={`/account/${id}?${aidParam}`}
         class="hover:opacity-80 relative w-12 h-12 flex items-center justify-center"
         aria-label="Account settings"
         onclick={goSettings}
@@ -165,14 +178,14 @@
   </div>
 
   <div class="flex w-full text-xl gap-2">
-    <a href={receiveUrl} class="contents" data-sveltekit-preload-data="tap" onclick={(e) => setAccount(e, receiveUrl)}>
+    <a href={receiveUrl} class="contents" onclick={(e) => e.stopPropagation()}>
       <button class="btn !w-auto flex-1" data-testid="account-receive">
         <PhHandCoinsBold width="32" style="transform: scaleX(-1)" />
         <div class="my-auto">{$t("user.dashboard.receive")}</div>
       </button>
     </a>
 
-    <a href={`/send`} class="contents" data-sveltekit-preload-data="tap" onclick={(e) => setAccount(e, "/send")}>
+    <a href={withAid("/send")} class="contents" onclick={(e) => setAccount(e, "/send")}>
       <button type="button" class="btn !w-auto flex-1">
         <PhPaperPlaneRightBold width="32" />
         <div class="my-auto">{$t("user.dashboard.send")}</div>

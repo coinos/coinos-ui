@@ -46,7 +46,8 @@ export const get = (url: string, headers = {}) => {
   return fetch(base + url, { headers: { ...ipHeaders(), ...headers } })
     .then(async (r) => {
       if (r.ok) return r.text();
-      throw new Error(await r.text());
+      const text = await r.text();
+      throw new Error(text.replace(/^"|"$/g, ""));
     })
     .then((body) => {
       try {
@@ -84,7 +85,7 @@ export const post = async (
       } catch {}
 
       if (message) throw new Error(message);
-      throw new Error(text);
+      throw new Error(text.replace(/^"|"$/g, ""));
     })
     .then((body) => {
       let json;

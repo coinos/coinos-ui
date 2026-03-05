@@ -4,12 +4,12 @@
   import { goto } from "$app/navigation";
   import Avatar from "$comp/Avatar.svelte";
   import Menu from "$comp/Menu.svelte";
-  import { loading, t } from "$lib/translations";
+  import { t } from "$lib/translations";
   import { page } from "$app/stores";
 
   let { user, subject = $bindable() } = $props();
 
-  let w: number | undefined = $state();
+  let w: number = $state(globalThis.innerWidth || 1024);
   $effect(() => (subject = subject || user));
 
   let bg = $derived(
@@ -69,7 +69,6 @@
 
 <svelte:window bind:innerWidth={w} />
 
-{#if !$loading}
   <header
     class="bg-gradient-to-r bg-primary bg-accent h-[175px] w-full relative bg-cover mb-20 !z-30"
     style:background-image={bg}
@@ -79,7 +78,7 @@
         {#each links as { href, icon: Icon, label }}
           <a {href} data-sveltekit-preload-data="tap" aria-label={label}>
             <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity(href)}" aria-label={label}>
-              <Icon width={(w ?? 0) > 640 ? 32 : 24} />
+              <Icon width={w > 640 ? 32 : 24} />
             </button>
           </a>
         {/each}
@@ -90,15 +89,14 @@
         </a>
       {/if}
     </nav>
-    {#if subject}
+    {#if subject || user}
       <div
         class="absolute md:w-[64px] md:mx-auto lg:left-[154px] xl:left-[194px] left-[calc(50vw-64px)] -bottom-[64px] z-30"
       >
-        <Avatar user={subject} />
+        <Avatar user={subject || user} />
       </div>
     {/if}
   </header>
-{/if}
 
 <style>
   header {

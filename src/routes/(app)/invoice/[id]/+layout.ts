@@ -1,24 +1,23 @@
-import getRates from "$lib/rates";
 import { get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, depends, params, url, parent }) {
+export async function load({ params, url, parent, depends }) {
   depends("app:invoice");
 
-  const token = cookies.get("token");
-  let { subject, user } = await parent();
+  const { user, token, theme } = await parent();
   const { id } = params;
   let invoice;
+  let subject;
 
   if (id === "lnurl") {
-    const rates = await getRates();
+    subject = user;
     invoice = {
       aid: user.id,
       uid: user.id,
       amount: 0,
       tip: 0,
-      rate: rates[user?.currency || "USD"],
-      text: "",
+      rate: 0,
+      text: `${user.username}@${url.host}`,
       hash: "",
       type: "lightning",
       items: [],
@@ -42,7 +41,6 @@ export async function load({ cookies, depends, params, url, parent }) {
 
     subject = invoice.user;
 
-    const aid = cookies.get("aid") || user?.id;
     if (
       user &&
       invoice.uid !== user?.id &&
@@ -56,6 +54,13 @@ export async function load({ cookies, depends, params, url, parent }) {
     }
   }
 
-  const theme = cookies.get("theme") || "light";
-  return { id, invoice, subject, user, token, theme };
+  let qrDataUrl: string | undefined;
+  if (invoice?.text) {
+    try {
+      const QRCode = await import("qrcode");
+      qrDataUrl = await QRCode.toDataURL(invoice.text, { width: 600, margin: 1 });
+    } catch {}
+  }
+
+  return { id, invoice, subject, user, token, theme, qrDataUrl };
 }

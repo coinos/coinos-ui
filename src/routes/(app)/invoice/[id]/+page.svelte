@@ -32,7 +32,7 @@
   let user = $derived(data.user);
   let hasArk = $derived(data.hasArk);
   let invoice = $derived(data.invoice);
-  let src = $derived(data.src);
+  let qrDataUrl = $derived(data.qrDataUrl);
   let { aid, amount, rate, tip, hash, text, type } = $derived(invoice);
   let memo = $state();
   let { username, currency } = $derived(invoice.user);
@@ -185,7 +185,7 @@
 
 <div class="invoice container mx-auto max-w-xl px-4 pb-4 space-y-2">
   <InvoiceData
-    {src}
+    {qrDataUrl}
     {link}
     {txt}
     invoice={displayInvoice}

@@ -1,54 +1,45 @@
 import { auth, get, isInvalidTokenError, sleep } from "$lib/utils";
-import { error, redirect } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, url, params }) {
-  const { pathname } = url;
-  const { id, username } = params;
+export async function load({ cookies, depends }) {
+  depends("app:user");
+
   const token = cookies.get("token");
-
-  const isSweep = pathname.match(/^\/fund\/[^/]+\/sweep/);
-  if (!token && !isSweep) redirect(307, "/login");
 
   let user;
   let hasArk = false;
   if (token) {
-    try {
-      user = await get("/me", auth(cookies));
-    } catch (e) {
+    const authHeaders = auth(cookies);
+
+    // Fetch user and accounts in parallel
+    const [userResult, accounts] = await Promise.all([
+      get("/me", authHeaders).catch((e) => ({ _error: e })),
+      get("/accounts", authHeaders).catch(() => []),
+    ]);
+
+    if (userResult?._error) {
+      const e = userResult._error;
       const { message } = e as Error;
       if (message.startsWith("Rate")) {
         await sleep(3000);
         try {
-          user = await get("/me", auth(cookies));
+          user = await get("/me", authHeaders);
         } catch (retryError) {
-          if (isInvalidTokenError(retryError) && pathname !== "/logout") {
+          if (isInvalidTokenError(retryError)) {
             redirect(307, "/logout");
           }
           throw retryError;
         }
-      } else if (isInvalidTokenError(e) && pathname !== "/logout") {
+      } else if (isInvalidTokenError(e)) {
         redirect(307, "/logout");
       } else {
         throw e;
       }
+    } else {
+      user = userResult;
     }
 
-    hasArk = (await get("/accounts", auth(cookies))).some((a: any) => a.type === "ark");
-  }
-
-  let subject;
-  if (url.pathname.includes("/invoice") && id) {
-    try {
-      ({ user: subject } = await get(`/invoice/${id}`));
-    } catch (e) {
-      console.log("unable to fetch invoice", id, e);
-    }
-  } else if (username) {
-    try {
-      subject = await get(`/users/${username}`);
-    } catch {
-      error(500, "Unable to retrieve user account data");
-    }
+    hasArk = accounts.some((a: any) => a.type === "ark");
   }
 
   if (user?.needsMigration) {
@@ -57,5 +48,5 @@ export async function load({ cookies, url, params }) {
 
   const theme = cookies.get("theme") || "light";
 
-  return { user, token, subject, theme, hasArk };
+  return { user, token, theme, hasArk };
 }

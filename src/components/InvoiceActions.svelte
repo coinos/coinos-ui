@@ -24,6 +24,9 @@
   } = $props();
 
   let { aid, account, address_type, type } = $derived(invoice);
+  let isOwn = $derived(user?.id === invoice?.user?.id);
+  let isCustodial = $derived(aid === user?.id);
+  let showTypeSwitch = $derived(isCustodial);
 </script>
 
 <div class="text-secondary space-y-2 text-xl pt-2">
@@ -50,7 +53,7 @@
   </button>
 
   <div class="flex flex-wrap gap-2 justify-around text-secondary w-full">
-    {#if user?.id === invoice?.user?.id}
+    {#if isOwn}
       <button class="btn grow !w-auto" onclick={toggleAmount}>
         <PhPencilSimpleBold width="32" />
         <div class="my-auto">{t("payments.setAmount")}</div>
@@ -70,43 +73,43 @@
     </button>
   </div>
 
-
-
-  <div class="flex gap-2">
-    <button
-      class="btn flex-nowrap !w-auto grow"
-      class:bg-base-300={type === types.lightning}
-      class:text-secondary={type === types.lightning}
-      onclick={() => {
-        $amountPrompt = false;
-        newAmount = undefined;
-        setType(types.lightning);
-      }}
-    >
-      <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
-        <div class="m-auto">
-          <PhLightningFill width="24" class="text-yellow-300" />
-        </div>
-      </div>
-      <div class="my-auto text-lg">Lightning</div>
-    </button>
-
-    {#if !account?.seed && !(account?.pubkey && account?.fingerprint) && account?.type !== "ark"}
+  {#if showTypeSwitch}
+    <div class="flex gap-2">
       <button
         class="btn flex-nowrap !w-auto grow"
-        class:bg-base-300={type === types.bitcoin}
-        class:text-secondary={type === types.bitcoin}
-        onclick={() => setType(types.bitcoin)}
+        class:bg-base-300={type === types.lightning}
+        class:text-secondary={type === types.lightning}
+        onclick={() => {
+          $amountPrompt = false;
+          newAmount = undefined;
+          setType(types.lightning);
+        }}
       >
-        <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
-        <div class="my-auto text-lg">Bitcoin</div>
+        <div class="bg-black rounded-full w-8 h-8 items-center justify-center flex">
+          <div class="m-auto">
+            <PhLightningFill width="24" class="text-yellow-300" />
+          </div>
+        </div>
+        <div class="my-auto text-lg">Lightning</div>
       </button>
-    {/if}
-  </div>
 
-  <button type="button" class="btn" onclick={toggleType}>
-    <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
-    <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
-    <div class="my-auto">{t("payments.moreOptions")}</div>
-  </button>
+      {#if !account?.seed && !(account?.pubkey && account?.fingerprint) && account?.type !== "ark"}
+        <button
+          class="btn flex-nowrap !w-auto grow"
+          class:bg-base-300={type === types.bitcoin}
+          class:text-secondary={type === types.bitcoin}
+          onclick={() => setType(types.bitcoin)}
+        >
+          <img src="/images/bitcoin.svg" class="w-8" alt="Bitcoin" />
+          <div class="my-auto text-lg">Bitcoin</div>
+        </button>
+      {/if}
+    </div>
+
+    <button type="button" class="btn" onclick={toggleType}>
+      <img src="/images/liquid.svg" class="w-8" alt="Liquid" />
+      <img src="/images/cash.png" class="w-8 my-auto" alt="Ecash" />
+      <div class="my-auto">{t("payments.moreOptions")}</div>
+    </button>
+  {/if}
 </div>

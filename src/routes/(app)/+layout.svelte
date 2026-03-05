@@ -29,14 +29,14 @@
   import Nostr from "$comp/Nostr.svelte";
   import Password from "$comp/Password.svelte";
   import { s, f, toFiat, success, getCookie, warning, post } from "$lib/utils";
-  import { t, locale, loading } from "$lib/translations";
+  import { t, locale } from "$lib/translations";
   import { goto, invalidate, afterNavigate } from "$app/navigation";
 
 
   let { data, children } = $props();
 
   let user = $derived(data.user);
-  let subject = $derived(data.subject);
+  let subject = $derived(($page.data as any).subject);
   let token = $derived(data.token);
   let theme = $derived(data.theme);
 
@@ -332,7 +332,5 @@
 <main class="pb-4 min-h-dvh" data-theme={theme}>
   <OfflineBanner />
   <AppHeader {user} {subject} />
-  {#if !$loading}
-    {@render children?.()}
-  {/if}
+  {@render children?.()}
 </main>
