@@ -14,9 +14,10 @@ export async function registerPasskey(
   token?: string,
 ): Promise<{ prfKey: ArrayBuffer; credentialId: string }> {
   const headers = token ? authHeader(token) : undefined;
-  const options = await post("/passkey/register/options", {}, headers);
+  const origin = window.location.origin;
+  const options = await post("/passkey/register/options", { origin }, headers);
   const registration = await startRegistration({ optionsJSON: options });
-  await post("/passkey/register/verify", registration, headers);
+  await post("/passkey/register/verify", { ...registration, origin }, headers);
   const prfKey = await deriveKey(registration.id);
   return { prfKey, credentialId: registration.id };
 }
@@ -26,7 +27,8 @@ export async function loginWithPasskey(): Promise<{
   challengeId: string;
   prfKey: ArrayBuffer;
 }> {
-  const { challengeId, ...options } = await post("/passkey/login/options", {});
+  const origin = window.location.origin;
+  const { challengeId, ...options } = await post("/passkey/login/options", { origin });
   const authentication = await startAuthentication({ optionsJSON: options });
   const prfKey = await deriveKey(authentication.id);
   return { credential: authentication, challengeId, prfKey };
