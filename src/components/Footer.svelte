@@ -34,7 +34,7 @@
 
   <div class="text-center md:text-left">
     <p class="font-semibold">{$t("footer.followUs")}</p>
-    <ul class="mt-5 text-secondary space-y-3 font-medium">
+    <ul class="mt-5 text-secondary space-y-3">
       {#each followLinks as link}
         <li>
           <a href={link.url} target="_blank" rel="noreferrer" class="hover:opacity-80">
