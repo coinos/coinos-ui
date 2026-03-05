@@ -42,10 +42,16 @@ export default async (s, host, cookies) => {
 
   // bitcoin
   if (t.toLowerCase().startsWith("bitcoin:") || t.toLowerCase().startsWith("liquidnetwork:")) {
-    ({
-      address: t,
-      options: { amount },
-    } = decode(t));
+    const { address: addr, options } = decode(t);
+    amount = options.amount;
+
+    if (options.ark) {
+      let r = `/send/ark/${options.ark}`;
+      if (amount) r += `/${Math.round(Number(amount) * sats)}`;
+      redirect(307, r);
+    }
+
+    t = addr;
   }
 
   const { validate } = await loadValidate();
