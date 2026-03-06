@@ -213,9 +213,11 @@
         allRumours = [...allRumours, rumour];
       }
 
+      // Skip self-sent messages — already shown via optimistic UI
+      if (rumour.pubkey === user.pubkey) return;
+
       if (
-        (rumour.pubkey === user.pubkey && pTagKeys(rumour).includes(pubkey)) ||
-        (rumour.pubkey === pubkey && pTagKeys(rumour).includes(user.pubkey))
+        rumour.pubkey === pubkey && pTagKeys(rumour).includes(user.pubkey)
       ) {
         const dayKey = Math.floor(rumour.created_at / 86400);
         const existing = messageRumours.get(dayKey);

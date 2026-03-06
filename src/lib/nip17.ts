@@ -190,6 +190,9 @@ const fetchMessageRumours = async (user: any): Promise<any[]> => {
     try {
       const rumour: any = await decrypt(event, user);
 
+      // Skip non-DM rumours (e.g. MLS welcomes that share kind 1059 gift wraps)
+      if (rumour.kind && rumour.kind !== 14) continue;
+
       const expires = expiration(event);
       if (expires) {
         rumour.expiration = expires;
@@ -373,15 +376,19 @@ export const subscribeToMessages = async (
             if (expired(event)) return;
             try {
               const rumour: any = await decrypt(event, user);
+              // Skip non-DM rumours (e.g. MLS welcomes that share kind 1059 gift wraps)
+              if (rumour.kind && rumour.kind !== 14) return;
               const expires = expiration(event);
               if (expires) rumour.expiration = expires;
+              console.log("[nip17] new rumour from", rumour.pubkey?.slice(0, 12) + "…:", rumour.content?.slice(0, 40));
               onNewRumour(rumour);
             } catch (e) {
-              console.error("Failed to decrypt subscription event:", event.id, e);
+              console.error("[nip17] Failed to decrypt subscription event:", event.id, e);
             }
           },
           oneose: () => {
             eoseCount++;
+            console.log("[nip17] EOSE", eoseCount + "/" + relayUrls.length, "from", url);
           },
         },
       );

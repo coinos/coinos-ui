@@ -33,22 +33,27 @@ async function checkMlsSupport(pubkey: string): Promise<boolean> {
   if (mlsSupportCache.has(pubkey)) return mlsSupportCache.get(pubkey)!;
   try {
     const supported = await recipientSupportsMls(pubkey);
+    console.log("[messaging] MLS support for", pubkey.slice(0, 12) + "…:", supported);
     mlsSupportCache.set(pubkey, supported);
     return supported;
-  } catch {
+  } catch (e) {
+    console.warn("[messaging] MLS support check failed:", e);
     return false;
   }
 }
 
 /** Send a message — MLS if both parties support it, NIP-17 otherwise. */
 export const send = async (message: string, user: any, recipient: any, expiryDays?: number) => {
+  console.log("[messaging] send to", recipient.pubkey?.slice(0, 12) + "…", { self: user.pubkey === recipient.pubkey, expiry: !!expiryDays });
   if (user.pubkey !== recipient.pubkey && !expiryDays) {
     try {
       const peerSupports = await checkMlsSupport(recipient.pubkey);
       if (peerSupports) {
+        console.log("[messaging] → MLS path");
         await sendMlsMessage(user, recipient.pubkey, message);
         return;
       }
+      console.log("[messaging] → NIP-17 fallback (no MLS support)");
     } catch (e) {
       console.warn("[messaging] MLS send failed, falling back to NIP-17:", e);
     }

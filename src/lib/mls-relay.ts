@@ -20,27 +20,33 @@ const groupPeerMap = new Map<string, string>(); // mlsGroupIdHex -> pubkey
 const nostrIdToMlsId = new Map<string, string>(); // nostrGroupIdHex -> mlsGroupIdHex
 let mlsRumourCache: any[] = [];
 const processedEventIds = new Set<string>();
+let _cacheUserPubkey: string | null = null;
 
-/** Load cached rumours and processed event IDs from localStorage */
-function loadLocalCache(): void {
+/** Load cached rumours and processed event IDs from localStorage (per-user) */
+function loadLocalCache(userPubkey?: string): void {
+  if (userPubkey) _cacheUserPubkey = userPubkey;
+  const pk = _cacheUserPubkey;
+  if (!pk) return;
   try {
-    const cached = localStorage.getItem("mls:rumours");
+    const cached = localStorage.getItem(`mls:rumours:${pk}`);
     if (cached) {
       const arr = JSON.parse(cached);
       if (Array.isArray(arr)) mlsRumourCache = arr;
     }
-    const ids = localStorage.getItem("mls:processedEvents");
+    const ids = localStorage.getItem(`mls:processedEvents:${pk}`);
     if (ids) {
       for (const id of JSON.parse(ids)) processedEventIds.add(id);
     }
   } catch {}
 }
 
-/** Save rumour cache and processed event IDs to localStorage */
+/** Save rumour cache and processed event IDs to localStorage (per-user) */
 function saveLocalCache(): void {
+  const pk = _cacheUserPubkey;
+  if (!pk) return;
   try {
-    localStorage.setItem("mls:rumours", JSON.stringify(mlsRumourCache));
-    localStorage.setItem("mls:processedEvents", JSON.stringify([...processedEventIds]));
+    localStorage.setItem(`mls:rumours:${pk}`, JSON.stringify(mlsRumourCache));
+    localStorage.setItem(`mls:processedEvents:${pk}`, JSON.stringify([...processedEventIds]));
   } catch {}
 }
 
@@ -76,6 +82,7 @@ let _activeSub: {
 
 /** Publish our MLS key package to relays so others can invite us to groups. */
 export async function publishKeyPackage(user: any, relays: string[] = DM_RELAYS): Promise<void> {
+  console.log("[mls] publishKeyPackage to", relays);
   const client = getMarmotClient(user.pubkey);
   await client.keyPackages.create({ relays, client: "coinos/marmot-ts" });
 }
@@ -125,6 +132,7 @@ export async function startMlsConversation(
   // Use relays from the key package event so the recipient can see our commits/welcomes
   const kpRelaysTag = kpEvent.tags.find((t: string[]) => t[0] === "relays");
   const groupRelays = kpRelaysTag ? kpRelaysTag.slice(1) : relays;
+  console.log("[mls] startConversation with", recipientPubkey.slice(0, 12) + "…", "relays:", groupRelays);
 
   // Create group and invite recipient
   const client = getMarmotClient(user.pubkey);
@@ -136,6 +144,8 @@ export async function startMlsConversation(
   // Register IDs and store peer mapping
   registerGroupIds(group);
   const mlsGroupIdHex = bytesToHex(group.id);
+  const nostrGroupIdHex = getNostrGroupId(group);
+  console.log("[mls] created group mls:", mlsGroupIdHex.slice(0, 16), "nostr:", nostrGroupIdHex.slice(0, 16));
   storePeerGroupMapping(recipientPubkey, mlsGroupIdHex);
 
   // Subscribe to this new group's messages using nostr group ID
@@ -164,6 +174,7 @@ export async function sendMlsMessage(
 
   const client = getMarmotClient(user.pubkey);
   const group = await client.getGroup(mlsGroupIdHex!);
+  console.log("[mls] sendChatMessage to group", mlsGroupIdHex!.slice(0, 16));
   await group.sendChatMessage(message);
 
   // Add to local cache as a rumour-like object
@@ -184,6 +195,7 @@ function subscribeToGroup(nostrGroupIdHex: string): void {
   _activeSub.subscribedGroups.add(nostrGroupIdHex);
   const { seen, onNewRumour, closers, connectedRelays, user } = _activeSub;
   const client = getMarmotClient(user.pubkey);
+  console.log("[mls] subscribeToGroup", nostrGroupIdHex.slice(0, 16), "on", connectedRelays.length, "relays");
 
   for (const relay of connectedRelays) {
     try {
@@ -224,8 +236,14 @@ export async function subscribeToMlsMessages(
   // Set up active subscription state for dynamic group adds
   _activeSub = { user, relays, seen, onNewRumour, subscribedGroups, closers, connectedRelays };
 
+  // Initialize per-user caches
+  _cacheUserPubkey = user.pubkey;
+  restorePeerMappings(user.pubkey);
+  loadLocalCache(user.pubkey);
+
   // Load all known groups and register their ID mappings
   await client.loadAllGroups();
+  console.log("[mls] subscribe: loaded", client.groups.length, "groups, relays:", relays);
   const allRelayUrls = new Set(relays);
   for (const g of client.groups) {
     registerGroupIds(g);
@@ -235,16 +253,18 @@ export async function subscribeToMlsMessages(
 
   // Listen for new invites (welcomes via NIP-59)
   inviteReader.on("newInvite", async (invite) => {
+    console.log("[mls] received welcome from", invite.pubkey?.slice(0, 12) + "…");
     try {
       const { group } = await client.joinGroupFromWelcome({ welcomeRumor: invite });
       registerGroupIds(group);
       const mlsGroupIdHex = bytesToHex(group.id);
       const senderPubkey = invite.pubkey;
+      console.log("[mls] joined group", mlsGroupIdHex.slice(0, 16), "from", senderPubkey.slice(0, 12));
       storePeerGroupMapping(senderPubkey, mlsGroupIdHex);
       // Subscribe to this newly joined group's messages
       subscribeToGroup(getNostrGroupId(group));
     } catch (e) {
-      console.error("[mls-relay] Failed to join from welcome:", e);
+      console.error("[mls] Failed to join from welcome:", e);
     }
   });
 
@@ -324,7 +344,10 @@ async function handleGroupMessageEvent(
 
     // Resolve nostr group ID to MLS group ID for client.getGroup()
     const mlsGroupIdHex = nostrIdToMlsId.get(nostrGroupIdHex);
-    if (!mlsGroupIdHex) return null;
+    if (!mlsGroupIdHex) {
+      console.warn("[mls] unknown nostr group ID:", nostrGroupIdHex.slice(0, 16));
+      return null;
+    }
 
     let group;
     try {
@@ -335,6 +358,7 @@ async function handleGroupMessageEvent(
 
     // Use MarmotGroup.ingest to process the event
     for await (const result of group.ingest([event])) {
+      console.log("[mls] ingest result:", result.kind, result.result?.kind ?? "");
       if (result.kind === "processed" && result.result.kind === "applicationMessage") {
         const raw = new TextDecoder().decode(result.result.message);
         let content: string;
@@ -386,8 +410,8 @@ async function handleGroupMessageEvent(
 
 /** Fetch MLS messages the user has received. Returns rumour-like objects. */
 export async function getMlsMessageRumours(user: any, relays: string[] = DM_RELAYS): Promise<any[]> {
-  // Load from localStorage on first call
-  if (mlsRumourCache.length === 0) loadLocalCache();
+  // Load from localStorage on first call (per-user)
+  if (mlsRumourCache.length === 0) loadLocalCache(user.pubkey);
   if (mlsRumourCache.length > 0) return mlsRumourCache;
 
   const client = getMarmotClient(user.pubkey);
@@ -434,34 +458,34 @@ export async function getMlsMessageRumours(user: any, relays: string[] = DM_RELA
 function storePeerGroupMapping(peerPubkey: string, mlsGroupId: string): void {
   peerGroupMap.set(peerPubkey, mlsGroupId);
   groupPeerMap.set(mlsGroupId, peerPubkey);
+  const pk = _cacheUserPubkey;
+  if (!pk) return;
   try {
-    const key = "mls:peer2group";
+    const key = `mls:peer2group:${pk}`;
     const map = JSON.parse(localStorage.getItem(key) || "{}");
     map[peerPubkey] = mlsGroupId;
     localStorage.setItem(key, JSON.stringify(map));
 
-    const rkey = "mls:group2peer";
+    const rkey = `mls:group2peer:${pk}`;
     const rmap = JSON.parse(localStorage.getItem(rkey) || "{}");
     rmap[mlsGroupId] = peerPubkey;
     localStorage.setItem(rkey, JSON.stringify(rmap));
   } catch {}
 }
 
-// Restore peer mappings from localStorage on load
-function restorePeerMappings(): void {
+// Restore peer mappings from localStorage (per-user, called when user is known)
+function restorePeerMappings(userPubkey: string): void {
   try {
-    const map = JSON.parse(localStorage.getItem("mls:peer2group") || "{}");
+    const map = JSON.parse(localStorage.getItem(`mls:peer2group:${userPubkey}`) || "{}");
     for (const [k, v] of Object.entries(map)) {
       peerGroupMap.set(k, v as string);
     }
-    const rmap = JSON.parse(localStorage.getItem("mls:group2peer") || "{}");
+    const rmap = JSON.parse(localStorage.getItem(`mls:group2peer:${userPubkey}`) || "{}");
     for (const [k, v] of Object.entries(rmap)) {
       groupPeerMap.set(k, v as string);
     }
   } catch {}
 }
-restorePeerMappings();
-loadLocalCache();
 
 // ---------------------------------------------------------------------------
 // Helpers

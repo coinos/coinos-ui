@@ -32,15 +32,23 @@ const tryNsecFromStorage = async (): Promise<Uint8Array | null> => {
 // Ensures we have access to a secret key, triggering the signer modal if needed.
 // Returns the sk as Uint8Array, or null if using NIP-07 extension.
 export const ensureSigner = async (userPubkey: string): Promise<Uint8Array | null> => {
-  // Check if signer already has a valid sk (64 hex chars = 32 bytes)
+  // Check if signer already has a valid sk that matches the user's pubkey
   const currentSigner = get(signer);
   if (currentSigner?.ready && currentSigner?.params?.sk && currentSigner.params.sk.length === 64) {
-    return hexToBytes(currentSigner.params.sk);
+    const sk = hexToBytes(currentSigner.params.sk);
+    if (getPublicKey(sk) === userPubkey) return sk;
+    // Stale signer — clear it so we re-derive below
+    signer.set(undefined);
   }
 
   // Try to load from localStorage nsec before triggering the modal
   const skFromStorage = await tryNsecFromStorage();
-  if (skFromStorage) return skFromStorage;
+  if (skFromStorage) {
+    if (getPublicKey(skFromStorage) === userPubkey) return skFromStorage;
+    // localStorage nsec doesn't match — clear it
+    localStorage.removeItem("nsec");
+    signer.set(undefined);
+  }
 
   // Try to derive nostr key from cached canonical key (e.g. passkey accounts)
   try {
