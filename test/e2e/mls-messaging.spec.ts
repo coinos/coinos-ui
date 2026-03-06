@@ -1,235 +1,129 @@
-import { expect, test } from "@playwright/test";
-import { login, bobUsername, bobPassword, aliceUsername, alicePassword, apiBaseUrl } from "./helpers";
+import { expect, test, type Browser } from "@playwright/test";
+import { aliceUsername, alicePassword, bobUsername, bobPassword, apiBaseUrl } from "./helpers";
+import { decrypt as nip49decrypt } from "nostr-tools/nip49";
+import { nip19 } from "nostr-tools";
 
-test("MLS key package generation and group lifecycle in browser", async ({ browser }) => {
-  test.setTimeout(60_000);
+test.describe("MLS messaging", () => {
+  test.setTimeout(120_000);
 
-  const bobContext = await browser.newContext();
-  const bobPage = await bobContext.newPage();
+  /** Login and store the correct nsec (decrypted from server ncryptsec) in localStorage. */
+  async function loginWithNsec(browser: Browser, username: string, password: string) {
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
-  const consoleLogs: string[] = [];
-  bobPage.on("console", (msg) => consoleLogs.push(`[${msg.type()}] ${msg.text()}`));
-  const pageErrors: string[] = [];
-  bobPage.on("pageerror", (err) => pageErrors.push(err.message));
+    // API login
+    const res = await page.request.post(`${apiBaseUrl}/login`, {
+      data: { username, password },
+    });
+    if (!res.ok()) throw new Error(`Login failed for ${username}: ${res.status()}`);
+    const { token, user } = await res.json();
 
-  await login(bobPage, bobUsername, bobPassword);
+    // Set auth cookies
+    await page.context().addCookies([
+      { name: "token", value: token, domain: "127.0.0.1", path: "/" },
+      { name: "username", value: username, domain: "127.0.0.1", path: "/" },
+    ]);
 
-  // Resolve pubkeys
-  const [bobRes, aliceRes] = await Promise.all([
-    bobPage.request.get(`${apiBaseUrl}/users/${bobUsername}`),
-    bobPage.request.get(`${apiBaseUrl}/users/${aliceUsername}`),
-  ]);
-  const bobPubkey = (await bobRes.json()).pubkey;
-  const alicePubkey = (await aliceRes.json()).pubkey;
-  expect(bobPubkey).toBeTruthy();
-  expect(alicePubkey).toBeTruthy();
+    // Decrypt the server's ncryptsec to get the real nsec
+    const sk = nip49decrypt(user.nsec, password);
+    const nsec = nip19.nsecEncode(sk);
 
-  // Navigate to any page so we have a DOM context for browser APIs
-  await bobPage.goto(`/messages/${alicePubkey}`);
-  await bobPage.waitForLoadState("domcontentloaded");
+    await page.addInitScript((ns) => {
+      localStorage.setItem("nsec", ns);
+    }, nsec);
 
-  // Test 1: ts-mls loads and ciphersuite initializes in browser
-  const csTest = await bobPage.evaluate(async () => {
-    try {
-      const { getCS } = await import("/src/lib/mls.ts");
-      const cs = await getCS();
-      return {
-        ok: true,
-        hasHash: !!cs.hash,
-        hasHpke: !!cs.hpke,
-        hasSignature: !!cs.signature,
-        hasKdf: !!cs.kdf,
-      };
-    } catch (e: any) {
-      return { ok: false, error: e.message, stack: e.stack };
-    }
+    // Navigate to confirm login
+    await page.goto(`/${username}`);
+    await page.waitForURL(new RegExp(`/${username}(?:[/?#]|$)`), { timeout: 15_000 });
+
+    return { context, page, pubkey: user.pubkey };
+  }
+
+  test("Alice and Bob exchange messages in real time", async ({ browser }) => {
+    const { context: aliceCtx, page: alicePage, pubkey: alicePubkey } = await loginWithNsec(browser, aliceUsername, alicePassword);
+    const { context: bobCtx, page: bobPage, pubkey: bobPubkey } = await loginWithNsec(browser, bobUsername, bobPassword);
+
+    expect(alicePubkey).toBeTruthy();
+    expect(bobPubkey).toBeTruthy();
+
+    // Both navigate to each other's DM page
+    await Promise.all([
+      alicePage.goto(`/messages/${bobPubkey}`),
+      bobPage.goto(`/messages/${alicePubkey}`),
+    ]);
+
+    // Wait for textareas to be enabled (canSend = true)
+    const aliceTextarea = alicePage.locator("#message-contents");
+    const bobTextarea = bobPage.locator("#message-contents");
+    await expect(aliceTextarea).toBeEnabled({ timeout: 20_000 });
+    await expect(bobTextarea).toBeEnabled({ timeout: 20_000 });
+
+    // Give subscriptions time to reach EOSE
+    await alicePage.waitForTimeout(5000);
+
+    // --- Alice sends a message to Bob ---
+    const aliceMsg = `Hello Bob! ${Date.now()}`;
+    await aliceTextarea.fill(aliceMsg);
+    await alicePage.keyboard.press("Enter");
+
+    // Alice sees her message immediately (optimistic UI)
+    const aliceSentBubble = alicePage.locator(".message-row.by-user .message").filter({ hasText: aliceMsg });
+    await expect(aliceSentBubble).toBeVisible({ timeout: 5_000 });
+
+    // Bob receives Alice's message
+    const bobReceivedBubble = bobPage.locator(".message-row.by-other .message").filter({ hasText: aliceMsg });
+    await expect(bobReceivedBubble).toBeVisible({ timeout: 30_000 });
+
+    // --- Bob replies ---
+    const bobMsg = `Hey Alice! ${Date.now()}`;
+    await bobTextarea.fill(bobMsg);
+    await bobPage.keyboard.press("Enter");
+
+    // Bob sees his reply immediately
+    const bobSentBubble = bobPage.locator(".message-row.by-user .message").filter({ hasText: bobMsg });
+    await expect(bobSentBubble).toBeVisible({ timeout: 5_000 });
+
+    // Alice receives Bob's reply
+    const aliceReceivedBubble = alicePage.locator(".message-row.by-other .message").filter({ hasText: bobMsg });
+    await expect(aliceReceivedBubble).toBeVisible({ timeout: 30_000 });
+
+    // --- Messages persist after reload ---
+    await alicePage.reload();
+    const aliceSentAfterReload = alicePage.locator(".message").filter({ hasText: aliceMsg });
+    await expect(aliceSentAfterReload).toBeVisible({ timeout: 15_000 });
+    const bobMsgAfterReload = alicePage.locator(".message").filter({ hasText: bobMsg });
+    await expect(bobMsgAfterReload).toBeVisible({ timeout: 15_000 });
+
+    await aliceCtx.close();
+    await bobCtx.close();
   });
 
-  console.log("[e2e] Ciphersuite init:", JSON.stringify(csTest));
-  expect(csTest.ok, `Ciphersuite init failed: ${(csTest as any).error}`).toBe(true);
-  expect((csTest as any).hasHash).toBe(true);
-  expect((csTest as any).hasHpke).toBe(true);
-  expect((csTest as any).hasSignature).toBe(true);
+  test("Messages appear in the chat list on /messages", async ({ browser }) => {
+    const { context: aliceCtx, page: alicePage, pubkey: alicePubkey } = await loginWithNsec(browser, aliceUsername, alicePassword);
 
-  // Test 2: Generate key package with nostr pubkey credential
-  const kpTest = await bobPage.evaluate(async (pubkey) => {
-    try {
-      const { generateMlsKeyPackage } = await import("/src/lib/mls.ts");
-      const kp = await generateMlsKeyPackage(pubkey);
-      return {
-        ok: true,
-        hasPublic: !!kp.publicPackage,
-        hasPrivate: !!kp.privatePackage,
-        version: kp.publicPackage.version,
-        ciphersuite: kp.publicPackage.cipherSuite,
-        credentialType: kp.publicPackage.leafNode.credential.credentialType,
-        identityLength: kp.publicPackage.leafNode.credential.identity?.length,
-      };
-    } catch (e: any) {
-      return { ok: false, error: e.message, stack: e.stack };
-    }
-  }, bobPubkey);
+    const bobRes = await alicePage.request.get(`${apiBaseUrl}/users/${bobUsername}`);
+    const bobPubkey = (await bobRes.json()).pubkey;
 
-  console.log("[e2e] Key package generation:", JSON.stringify(kpTest));
-  expect(kpTest.ok, `Key package generation failed: ${(kpTest as any).error}`).toBe(true);
-  expect((kpTest as any).hasPublic).toBe(true);
-  expect((kpTest as any).hasPrivate).toBe(true);
-  expect((kpTest as any).credentialType).toBe("basic");
-  expect((kpTest as any).identityLength).toBe(32);
+    await alicePage.goto(`/messages/${bobPubkey}`);
+    const textarea = alicePage.locator("#message-contents");
+    await expect(textarea).toBeEnabled({ timeout: 20_000 });
 
-  // Test 3: Create group, add member, send and decrypt message — full lifecycle
-  const lifecycleTest = await bobPage.evaluate(async ({ bobPubkey, alicePubkey }) => {
-    try {
-      const {
-        generateMlsKeyPackage,
-        createMlsGroup,
-        addMember,
-        joinMlsGroup,
-        encryptMessage,
-        decryptMessage,
-        mip03Encrypt,
-        mip03Decrypt,
-      } = await import("/src/lib/mls.ts");
+    const msg = `Chat list test ${Date.now()}`;
+    await textarea.fill(msg);
+    await alicePage.keyboard.press("Enter");
 
-      // Generate key packages for both
-      const bobKP = await generateMlsKeyPackage(bobPubkey);
-      const aliceKP = await generateMlsKeyPackage(alicePubkey);
+    const sentBubble = alicePage.locator(".message-row.by-user .message").filter({ hasText: msg });
+    await expect(sentBubble).toBeVisible({ timeout: 5_000 });
+    await alicePage.waitForTimeout(3000);
 
-      // Bob creates group
-      const group = await createMlsGroup(bobPubkey, {
-        name: "e2e-test",
-        description: "E2E test group",
-        relays: ["ws://localhost:7777"],
-        adminPubkeys: [bobPubkey],
-      });
+    await alicePage.goto("/messages");
 
-      // Bob adds Alice
-      const { welcome, group: updatedGroup } = await addMember(group, aliceKP.publicPackage);
+    const chatLink = alicePage.locator(`a[href="/messages/${bobPubkey}"]`);
+    await expect(chatLink).toBeVisible({ timeout: 15_000 });
 
-      // Alice joins via welcome
-      const aliceGroup = await joinMlsGroup(welcome, aliceKP.publicPackage, aliceKP.privatePackage);
+    const preview = chatLink.locator(".truncate");
+    await expect(preview).toContainText(msg, { timeout: 10_000 });
 
-      // Verify both are in same group
-      const sameGroup = updatedGroup.groupId === aliceGroup.groupId;
-
-      // Bob sends a message
-      const testMsg = "Hello from MLS e2e test!";
-      const { mlsBytes, group: bobAfterSend } = await encryptMessage(updatedGroup, testMsg, bobPubkey);
-
-      // Alice decrypts it
-      const { plaintext, group: aliceAfterRecv } = await decryptMessage(aliceGroup, mlsBytes);
-
-      // Test MIP-03 wrapping (ChaCha20-Poly1305)
-      // Use the marmotKey from the group (already derived), or derive from state
-      const marmotKey = updatedGroup.marmotKey;
-      const wrapped = mip03Encrypt(mlsBytes, marmotKey);
-      const unwrapped = mip03Decrypt(wrapped, marmotKey);
-      const mip03Match = unwrapped.length === mlsBytes.length &&
-        unwrapped.every((b: number, i: number) => b === mlsBytes[i]);
-
-      return {
-        ok: true,
-        groupId: updatedGroup.groupId,
-        sameGroup,
-        plaintext,
-        messageMatch: plaintext === testMsg,
-        mip03Match,
-        marmotKeyLength: marmotKey.length,
-        groupIdLength: updatedGroup.groupId.length,
-      };
-    } catch (e: any) {
-      return { ok: false, error: e.message, stack: e.stack };
-    }
-  }, { bobPubkey, alicePubkey });
-
-  console.log("[e2e] Full lifecycle:", JSON.stringify(lifecycleTest));
-  expect(lifecycleTest.ok, `Lifecycle failed: ${(lifecycleTest as any).error}\n${(lifecycleTest as any).stack}`).toBe(true);
-  expect((lifecycleTest as any).sameGroup).toBe(true);
-  expect((lifecycleTest as any).messageMatch).toBe(true);
-  expect((lifecycleTest as any).mip03Match).toBe(true);
-  expect((lifecycleTest as any).marmotKeyLength).toBe(32);
-
-  // Test 4: IndexedDB persistence — save and reload group
-  const persistTest = await bobPage.evaluate(async (groupId) => {
-    try {
-      const { loadGroup, listGroups } = await import("/src/lib/mls.ts");
-      const groups = await listGroups();
-      const hasGroup = groups.includes(groupId);
-      const loaded = await loadGroup(groupId);
-      return {
-        ok: true,
-        groupCount: groups.length,
-        hasGroup,
-        loadedOk: loaded !== null,
-        loadedGroupId: loaded?.groupId,
-      };
-    } catch (e: any) {
-      return { ok: false, error: e.message, stack: e.stack };
-    }
-  }, (lifecycleTest as any).groupId);
-
-  console.log("[e2e] IndexedDB persistence:", JSON.stringify(persistTest));
-  expect(persistTest.ok, `Persistence failed: ${(persistTest as any).error}`).toBe(true);
-  expect((persistTest as any).hasGroup).toBe(true);
-  expect((persistTest as any).loadedOk).toBe(true);
-
-  // Test 5: Nostr event building (kind 443, 444, 445)
-  const eventTest = await bobPage.evaluate(async ({ bobPubkey, alicePubkey }) => {
-    try {
-      const {
-        generateMlsKeyPackage,
-        createMlsGroup,
-        addMember,
-        encryptMessage,
-        buildKeyPackageEvent,
-        buildWelcomeEvent,
-        buildGroupMessageEvent,
-      } = await import("/src/lib/mls.ts");
-
-      const bobKP = await generateMlsKeyPackage(bobPubkey);
-      const aliceKP = await generateMlsKeyPackage(alicePubkey);
-      const group = await createMlsGroup(bobPubkey);
-      const { welcome, group: g2 } = await addMember(group, aliceKP.publicPackage);
-      const { mlsBytes } = await encryptMessage(g2, "event test", bobPubkey);
-
-      // Build kind 443
-      const kpEvent = buildKeyPackageEvent(bobKP.publicPackage, bobPubkey, ["ws://localhost:7777"]);
-
-      // Build kind 444
-      const welcomeEvent = buildWelcomeEvent(welcome, "deadbeef".repeat(8), bobPubkey, ["ws://localhost:7777"]);
-
-      // Build kind 445 (self-signing with ephemeral key)
-      const msgEvent = buildGroupMessageEvent(mlsBytes, g2.marmotKey, g2.groupId);
-
-      return {
-        ok: true,
-        kp443: { kind: kpEvent.kind, hasContent: !!kpEvent.content, hasTags: kpEvent.tags.length > 0 },
-        welcome444: { kind: welcomeEvent.kind, hasContent: !!welcomeEvent.content, hasE: welcomeEvent.tags.some((t: any) => t[0] === "e") },
-        msg445: { kind: msgEvent.kind, hasContent: !!msgEvent.content, hasH: msgEvent.tags.some((t: any) => t[0] === "h"), hasSig: !!msgEvent.sig },
-      };
-    } catch (e: any) {
-      return { ok: false, error: e.message, stack: e.stack };
-    }
-  }, { bobPubkey, alicePubkey });
-
-  console.log("[e2e] Event building:", JSON.stringify(eventTest));
-  expect(eventTest.ok, `Event building failed: ${(eventTest as any).error}`).toBe(true);
-  expect((eventTest as any).kp443.kind).toBe(443);
-  expect((eventTest as any).welcome444.kind).toBe(444);
-  expect((eventTest as any).welcome444.hasE).toBe(true);
-  expect((eventTest as any).msg445.kind).toBe(445);
-  expect((eventTest as any).msg445.hasH).toBe(true);
-  expect((eventTest as any).msg445.hasSig).toBe(true);
-
-  // Report any page errors
-  if (pageErrors.length) {
-    console.log("[e2e] Page errors:", pageErrors);
-  }
-
-  const errors = consoleLogs.filter((l) => /error|fail/i.test(l));
-  if (errors.length) {
-    console.log("[e2e] Console errors:\n  " + errors.join("\n  "));
-  }
-
-  await bobContext.close();
+    await aliceCtx.close();
+  });
 });
