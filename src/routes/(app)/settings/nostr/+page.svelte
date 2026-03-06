@@ -51,13 +51,16 @@
     ($save as any).click();
   };
 
+  import { onMount } from "svelte";
   import { PUBLIC_DM_RELAYS } from "$env/static/public";
   const DM_RELAYS_LIST = PUBLIC_DM_RELAYS.split(",");
   const pool = new SimplePool();
-  (() => getPreferredRelays(data.user.pubkey).then((relays) => {
-    const relayEntry = document.getElementById("dmRelays") as HTMLTextAreaElement | null;
-    if (relayEntry) relayEntry.value = relays.join("\n");
-  }))();
+  onMount(() => {
+    getPreferredRelays(data.user.pubkey).then((relays) => {
+      const relayEntry = document.getElementById("dmRelays") as HTMLTextAreaElement | null;
+      if (relayEntry) relayEntry.value = relays.join("\n");
+    });
+  });
 </script>
 
 <input type="hidden" name="challenge" value={challenge} />

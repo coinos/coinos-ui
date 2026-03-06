@@ -6,7 +6,7 @@
   import { isValid } from "nostr-tools/nip05";
 
   import { getNostrUserInfo } from "$lib/nip01";
-  import * as libnip17 from "$lib/nip17";
+  import * as libnip17 from "$lib/messaging";
   import { pTagKeys } from "$lib/nostr";
   import { t } from "$lib/translations";
   import { theme } from "$lib/store";
@@ -149,9 +149,30 @@
       ta.style.height = "auto";
       ta.focus();
     }
+
+    // Optimistic UI: show message immediately
+    const optimistic = {
+      id: crypto.randomUUID(),
+      kind: 14,
+      created_at: Math.floor(Date.now() / 1000),
+      pubkey: user.pubkey,
+      content: message,
+      tags: [["p", pubkey]],
+    };
+    allRumours = [...allRumours, optimistic];
+    const dayKey = Math.floor(optimistic.created_at / 86400);
+    const existing = messageRumours.get(dayKey);
+    if (existing) {
+      messageRumours = new Map(messageRumours).set(dayKey, [...existing, optimistic]);
+    } else {
+      messageRumours = new Map(messageRumours).set(dayKey, [optimistic]);
+    }
+    dates = Array.from(messageRumours.keys()).sort((a: number, b: number) => a - b);
+    await tick();
+    scrollChat();
+
     try {
       await libnip17.send(message, user, selectedChat);
-      updateEvents();
     } catch (e: any) {
       console.error("Failed to send message:", e);
       sendError = $t("dm.sendFailed");

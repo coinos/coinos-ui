@@ -8,7 +8,7 @@
     getMessageRumours, subscribeToMessages, cacheRumour,
     getCachedChatList, setCachedChatList,
     getCachedUserInfo, setCachedUserInfo,
-  } from "$lib/nip17";
+  } from "$lib/messaging";
   import { pTagKeys } from "$lib/nostr";
   import { t } from "$lib/translations";
 
