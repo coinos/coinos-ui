@@ -1,10 +1,9 @@
 import getRates from "$lib/rates";
 
-export async function load({ depends, parent }) {
+export async function load({ depends }) {
   depends("app:user");
 
   const rates = await getRates();
-  const { subject } = await parent();
 
   return { rates };
 }

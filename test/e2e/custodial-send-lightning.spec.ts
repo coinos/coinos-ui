@@ -7,7 +7,6 @@ import {
   apiBaseUrl,
   loginNewContext,
   pasteAndSend,
-  clickSendButton,
   waitForSentRedirect,
   waitForPaidRedirect,
 } from "./helpers";

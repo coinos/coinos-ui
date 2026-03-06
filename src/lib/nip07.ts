@@ -65,7 +65,7 @@ export const ensureSigner = async (userPubkey: string): Promise<Uint8Array | nul
       if (extPubkey === userPubkey) {
         return null; // Use NIP-07
       }
-    } catch (e) {
+    } catch {
       // Extension didn't work, fall through to signer modal
     }
   }

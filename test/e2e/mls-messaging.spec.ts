@@ -99,7 +99,7 @@ test.describe("MLS messaging", () => {
   });
 
   test("Messages appear in the chat list on /messages", async ({ browser }) => {
-    const { context: aliceCtx, page: alicePage, pubkey: alicePubkey } = await loginWithNsec(browser, aliceUsername, alicePassword);
+    const { context: aliceCtx, page: alicePage } = await loginWithNsec(browser, aliceUsername, alicePassword);
 
     const bobRes = await alicePage.request.get(`${apiBaseUrl}/users/${bobUsername}`);
     const bobPubkey = (await bobRes.json()).pubkey;

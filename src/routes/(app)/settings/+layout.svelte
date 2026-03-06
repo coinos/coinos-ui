@@ -217,7 +217,7 @@
           const canonicalKey = getCachedPrfKey();
           if (canonicalKey) {
             const wrapped = await wrapCanonicalKey(sk.buffer as ArrayBuffer, canonicalKey);
-            pendingEncryptedKeys = { ...(user.encryptedKeys || {}), [passwordMethodId()]: wrapped };
+            pendingEncryptedKeys = { ...user.encryptedKeys, [passwordMethodId()]: wrapped };
           }
         } catch (e) {
           console.log("Failed to derive authPubkey for password change", e);

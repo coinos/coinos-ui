@@ -10,7 +10,6 @@ import {
   bitcoinSend,
   mineBlocks,
   waitForInvoicePaid,
-  waitForPaidRedirect,
 } from "./helpers";
 
 test("bitcoin vault receives external bitcoin payment from bitcoind", async ({ page }) => {

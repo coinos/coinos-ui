@@ -84,7 +84,7 @@ export async function apiGetInvoice(page: Page, invoiceId: string) {
 
 // --- Invoice creation via UI ---
 
-export async function createBitcoinInvoiceViaUI(page: Page, username: string) {
+export async function createBitcoinInvoiceViaUI(page: Page, _username: string) {
   await page.goto(`/invoice?type=bitcoin&address_type=bech32`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 
@@ -101,7 +101,7 @@ export async function createBitcoinInvoiceViaUI(page: Page, username: string) {
   return { invoiceId: invoiceId!, address };
 }
 
-export async function createLightningInvoiceViaUI(page: Page, username: string) {
+export async function createLightningInvoiceViaUI(page: Page, _username: string) {
   await page.goto(`/invoice`);
   await page.waitForURL(/\/invoice\/[^/?#]+/, { timeout: 15_000 });
 

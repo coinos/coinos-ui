@@ -169,7 +169,7 @@
       const canonicalKey = getCachedPrfKey();
       if (canonicalKey) {
         const wrapped = await wrapCanonicalKey(prfKey, canonicalKey);
-        const updated = { ...(user.encryptedKeys || {}), [passkeyMethodId(credentialId)]: wrapped };
+        const updated = { ...user.encryptedKeys, [passkeyMethodId(credentialId)]: wrapped };
         await saveEncryptedKeys(updated);
         user.encryptedKeys = updated;
       } else {

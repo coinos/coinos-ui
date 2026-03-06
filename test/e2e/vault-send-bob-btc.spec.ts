@@ -7,7 +7,6 @@ import {
   fillNumpadAmount,
   waitForSendComplete,
   setActiveAccount,
-  apiBaseUrl,
   apiLogin,
   ensureVaultAccount,
   fundVaultAccount,

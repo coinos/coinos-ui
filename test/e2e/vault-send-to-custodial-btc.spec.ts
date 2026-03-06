@@ -5,10 +5,8 @@ import {
   bobUsername,
   bobPassword,
   apiBaseUrl,
-  login,
   loginNewContext,
   setActiveAccount,
-  createBitcoinInvoiceViaUI,
   pasteAndSend,
 } from "./helpers";
 

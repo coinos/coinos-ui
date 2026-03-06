@@ -4,7 +4,7 @@ import { redirect } from "@sveltejs/kit";
 export async function load({ cookies, params, parent }) {
   const { user } = await parent();
   const aid = cookies.get("aid") || user.id;
-  const { address, amount } = params;
+  const { address } = params;
   const account = await get(`/account/${aid}`, auth(cookies));
   const senderIsVault = account.pubkey || account.seed;
 

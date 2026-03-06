@@ -1,5 +1,5 @@
 import { prfEncrypt, prfDecrypt } from "$lib/crypto";
-import { rememberPrfKey, defaultRememberForMs, getCachedPrfKey } from "$lib/passwordCache";
+import { rememberPrfKey, defaultRememberForMs } from "$lib/passwordCache";
 import { post } from "$lib/utils";
 
 export function generateCanonicalKey(): ArrayBuffer {
@@ -36,7 +36,7 @@ export async function resolveCanonicalKey(
   // Migration: old PRF key becomes canonical key
   const canonicalKey = oldPrfKey;
   const wrapped = await wrapCanonicalKey(wrappingKey, canonicalKey);
-  const updated = { ...(encryptedKeys || {}), [methodId]: wrapped };
+  const updated = { ...encryptedKeys, [methodId]: wrapped };
   await saveEncryptedKeys(updated);
   rememberPrfKey(canonicalKey, defaultRememberForMs);
   return { canonicalKey, encryptedKeys: updated };

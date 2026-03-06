@@ -1,7 +1,7 @@
 import { auth, get } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
-export async function load({ cookies, params, parent, url }) {
+export async function load({ cookies, parent, url }) {
   const { user } = await parent();
   if (!user) redirect(307, `/register?redirect=${url.pathname}`);
   const tab = url.pathname.split("/").filter(Boolean).pop();

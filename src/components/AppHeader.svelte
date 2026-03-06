@@ -24,16 +24,15 @@
 
   let isHome = $derived($page.url.pathname === `/${user?.username}`);
 
-  const links = $derived([
-    ...(!isHome
-      ? [
-          {
-            href: `/${user?.username}`,
-            icon: PhHouseBold,
-            label: "Home",
-          },
-        ]
-      : []),
+  const links = $derived(!isHome
+    ? [
+        {
+          href: `/${user?.username}`,
+          icon: PhHouseBold,
+          label: "Home",
+        },
+      ]
+    : [
     // {
     //   href: `/scan`,
     //   icon: "ph:camera-bold",

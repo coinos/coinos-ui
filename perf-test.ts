@@ -7,9 +7,6 @@ const BASE = "http://localhost:5173";
   const context = await browser.newContext();
   const page = await context.newPage();
 
-  // Collect all network requests during navigation
-  const requests: { url: string; duration: number; size: number }[] = [];
-
   // Login as bob
   console.log("=== Logging in as bob ===");
   await page.goto(`${BASE}/login`);

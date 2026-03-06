@@ -36,7 +36,7 @@ export const actions = {
     if (ip) headers["cf-connecting-ip"] = ip;
 
     try {
-      const { sk, token } = await post("/register", { user }, headers);
+      const { sk } = await post("/register", { user }, headers);
 
       // Log the user in and set cookies
       await login(user, cookies, ip, host);

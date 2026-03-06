@@ -5,7 +5,6 @@ import {
   loginNewContext,
   lightningInvoice,
   pasteAndSend,
-  clickSendButton,
   waitForSentRedirect,
 } from "./helpers";
 

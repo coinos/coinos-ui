@@ -6,7 +6,6 @@ import {
   login,
   lightningPay,
   waitForInvoicePaid,
-  waitForPaidRedirect,
 } from "./helpers";
 
 test("custodial receives external lightning payment from clb", async ({ page }) => {
