@@ -121,8 +121,33 @@ export async function publishKeyPackage(user: any, relays: string[] = DM_RELAYS)
   await client.keyPackages.create({ relays, client: "coinos/marmot-ts" });
 }
 
+const DISCOVERY_RELAYS = [
+  ...DM_RELAYS,
+  "wss://relay.damus.io",
+  "wss://relay.primal.net",
+  "wss://nos.lol",
+  "wss://purplepag.es",
+];
+
+async function getInboxRelays(pubkey: string): Promise<string[]> {
+  const events = await pool.querySync(DISCOVERY_RELAYS, {
+    kinds: [10050],
+    authors: [pubkey],
+    limit: 1,
+  });
+  if (events.length > 0) {
+    const relays = events[0].tags
+      .filter((t: string[]) => t[0] === "relay")
+      .map((t: string[]) => t[1]);
+    if (relays.length > 0) return relays;
+  }
+  return [];
+}
+
 export async function fetchKeyPackage(pubkey: string, relays: string[] = DM_RELAYS): Promise<NostrEvent | null> {
-  const events = await pool.querySync(relays, {
+  const inboxRelays = await getInboxRelays(pubkey);
+  const allRelays = [...new Set([...inboxRelays, ...relays, ...DISCOVERY_RELAYS])];
+  const events = await pool.querySync(allRelays, {
     kinds: [443],
     authors: [pubkey],
     limit: 1,

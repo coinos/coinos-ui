@@ -97,6 +97,7 @@ class CoinosNostrNetwork implements NostrNetworkInterface {
         try {
           const relay = await Relay.connect(url);
           await relay.publish(event);
+          relay.close();
           results[url] = { from: url, ok: true };
         } catch (e: any) {
           results[url] = { from: url, ok: false, message: e?.message };
@@ -142,9 +143,16 @@ class CoinosNostrNetwork implements NostrNetworkInterface {
   }
 
   async getUserInboxRelays(pubkey: string): Promise<string[]> {
-    // Fetch kind 10050 (NIP-17 inbox relays) or fall back to DM_RELAYS
+    // Fetch kind 10050 (NIP-17 inbox relays) from discovery relays, fall back to DM_RELAYS
+    const discoveryRelays = [
+      ...DM_RELAYS,
+      "wss://relay.damus.io",
+      "wss://relay.primal.net",
+      "wss://nos.lol",
+      "wss://purplepag.es",
+    ];
     try {
-      const events = await pool.querySync(DM_RELAYS, {
+      const events = await pool.querySync(discoveryRelays, {
         kinds: [10050],
         authors: [pubkey],
         limit: 1,
