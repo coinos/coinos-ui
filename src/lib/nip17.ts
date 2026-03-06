@@ -402,6 +402,17 @@ export const subscribeToMessages = async (
   return () => closers.forEach((close) => close());
 };
 
+// Lightweight count of new gift wraps since a timestamp (no decryption needed).
+export const countNewGiftWraps = async (pubkey: string, since: number): Promise<number> => {
+  const events = await pool.querySync(DM_RELAYS_LIST, {
+    kinds: [1059],
+    "#p": [pubkey],
+    since,
+    limit: 100,
+  });
+  return events.length;
+};
+
 // Sends a NIP-17 message from `user` to `recipient`.
 // If expiryDays is set, messages will expire after that many days.
 export const send = async (message: string, user: any, recipient: any, expiryDays?: number) => {

@@ -243,6 +243,8 @@
 
         // Auto-unlock nostr key if silent entropy is available
         import("$lib/seed").then(({ autoUnlockNostr }) => autoUnlockNostr(user.pubkey));
+
+        // TODO: unread DM badge via MLS
       }
 
       // if (window.NDEFReader) {

@@ -8,7 +8,7 @@
   import PhMoonStarsBold from "virtual:icons/ph/moon-stars-bold";
   import PhSignOutBold from "virtual:icons/ph/sign-out-bold";
   import CoinosLogo from "virtual:icons/coinos/logo";
-  import { theme } from "$lib/store";
+  import { theme, unreadDMs } from "$lib/store";
   import DarkToggle from "$comp/DarkToggle.svelte";
   let { t, user, w, opacity } = $props();
 
@@ -36,8 +36,11 @@
 </script>
 
 <div use:clickOutside={hideMenu}>
-  <button class="flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity('/support')}" onclick={toggleMenu} aria-label="Open menu">
+  <button class="relative flex justify-center items-center bg-base-100 p-2 rounded-full w-12 h-12 sm:w-16 sm:h-16 drop-shadow-xl {opacity('/support')}" onclick={toggleMenu} aria-label="Open menu">
     <PhListBold width={w > 640 ? 32 : 24} />
+    {#if $unreadDMs > 0}
+      <span class="badge-dot">{$unreadDMs > 99 ? "99+" : $unreadDMs}</span>
+    {/if}
   </button>
 
   <div
@@ -57,10 +60,13 @@
               onclick={hideMenu}
             >
               <button
-                class="flex justify-center items-center font-semibold hover:opacity-80 gap-2"
+                class="relative flex justify-center items-center font-semibold hover:opacity-80 gap-2"
               >
                 <Icon width="32" />
                 {t(key)}
+                {#if key === "nav.dm" && $unreadDMs > 0}
+                  <span class="badge-dot">{$unreadDMs > 99 ? "99+" : $unreadDMs}</span>
+                {/if}
               </button>
             </a>
           {/if}
@@ -73,3 +79,21 @@
     </a>
   </div>
 </div>
+
+<style>
+  .badge-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: #f97316;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+  }
+</style>

@@ -106,3 +106,4 @@ export const cachedAccounts = persistLocal("cachedAccounts", []);
 export const cachedPayments = persistLocal("cachedPayments", []);
 export const cachedRates = persistLocal("cachedRates");
 export const offline = writable(false);
+export const unreadDMs = writable(0);

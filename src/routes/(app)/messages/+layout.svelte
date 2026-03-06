@@ -10,7 +10,7 @@
   let user = $derived(data.user);
 
   let w: number | undefined = $state();
-  let isDetail = $derived($page.params.pubkey);
+  let isDetail = $derived($page.params.id);
 
   let opacity = $derived((href: string) =>
     $page.url.pathname === href ? "opacity-100" : "opacity-90 hover:opacity-none",
