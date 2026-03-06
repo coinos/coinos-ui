@@ -6,6 +6,7 @@
 
 export {
   publishKeyPackage,
+  fetchKeyPackage,
   getGroups,
   getGroupRumours,
   sendGroupMessage,

@@ -244,7 +244,15 @@
         // Auto-unlock nostr key if silent entropy is available
         import("$lib/seed").then(({ autoUnlockNostr }) => autoUnlockNostr(user.pubkey));
 
-        // TODO: unread DM badge via MLS
+        // Ensure MLS key package is published (once per session)
+        if (user.pubkey && !sessionStorage.getItem("kp-checked")) {
+          sessionStorage.setItem("kp-checked", "1");
+          import("$lib/messaging").then(({ fetchKeyPackage, publishKeyPackage }) => {
+            fetchKeyPackage(user.pubkey).then((kp) => {
+              if (!kp) publishKeyPackage(user).catch(() => {});
+            }).catch(() => {});
+          });
+        }
       }
 
       // if (window.NDEFReader) {
