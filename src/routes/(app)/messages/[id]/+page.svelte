@@ -14,6 +14,7 @@
   import { t } from "$lib/translations";
   import { theme } from "$lib/store";
   import ChatMessage from "$comp/ChatMessage.svelte";
+  import Avatar from "$comp/Avatar.svelte";
 
   const focus = (el: HTMLElement) => el.focus();
 
@@ -48,12 +49,22 @@
   const groupDisplayName = (g: GroupInfo | undefined): string => {
     if (!g) return "…";
     if (g.name) return g.name;
-    const otherMembers = g.members.filter((pk) => pk !== user.pubkey);
-    const names = otherMembers.map((pk) => {
+    // Use group members, or fall back to unique sender pubkeys from messages
+    let otherPks = g.members.filter((pk) => pk !== user.pubkey);
+    if (otherPks.length === 0) {
+      const senderPks = new Set<string>();
+      for (const [, dayRumours] of messageRumours) {
+        for (const r of dayRumours) {
+          if (r.pubkey && r.pubkey !== user.pubkey) senderPks.add(r.pubkey);
+        }
+      }
+      otherPks = Array.from(senderPks);
+    }
+    const names = otherPks.map((pk) => {
       const info = senderInfos.get(pk);
-      return info ? displayName(info) : pk.slice(0, 8) + "…";
+      return info ? displayName(info) : "…";
     });
-    return names.join(", ") || "Group";
+    return names.join(", ") || "…";
   };
 
   const dateMap = (rumours: any[]): Map<number, any[]> => {
@@ -67,6 +78,22 @@
       dayRumours.sort((a: any, b: any) => a.created_at - b.created_at);
     }
     return m;
+  };
+
+  type SenderRun = { pubkey: string; messages: any[] };
+
+  /** Group a flat list of rumours into consecutive sender runs. */
+  const senderRuns = (rumours: any[]): SenderRun[] => {
+    const runs: SenderRun[] = [];
+    for (const r of rumours) {
+      const last = runs[runs.length - 1];
+      if (last && last.pubkey === r.pubkey) {
+        last.messages.push(r);
+      } else {
+        runs.push({ pubkey: r.pubkey, messages: [r] });
+      }
+    }
+    return runs;
   };
 
   const updateMessages = () => {
@@ -101,14 +128,21 @@
     groupInfo = found;
     updateMessages();
 
+    // Resolve names for group members AND rumour senders
+    const pubkeysToResolve = new Set<string>();
     if (groupInfo) {
-      for (const pk of groupInfo.members) {
-        if (!senderInfos.has(pk)) {
-          resolveUser(pk).then((info) => {
-            senderInfos = new Map(senderInfos).set(pk, info);
-          });
-        }
+      for (const pk of groupInfo.members) pubkeysToResolve.add(pk);
+    }
+    for (const [, dayRumours] of messageRumours) {
+      for (const r of dayRumours) {
+        if (r.pubkey) pubkeysToResolve.add(r.pubkey);
       }
+    }
+    for (const pk of pubkeysToResolve) {
+      if (pk === user.pubkey || senderInfos.has(pk)) continue;
+      resolveUser(pk).then((info) => {
+        senderInfos = new Map(senderInfos).set(pk, info);
+      });
     }
 
     await tick();
@@ -118,7 +152,13 @@
   const senderName = (pubkey: string): string => {
     if (pubkey === user.pubkey) return user.username || "You";
     const info = senderInfos.get(pubkey);
-    return info ? displayName(info) : pubkey.slice(0, 8) + "…";
+    return info ? displayName(info) : "…";
+  };
+
+  const senderUser = (pubkey: string): any => {
+    if (pubkey === user.pubkey) return user;
+    const info = senderInfos.get(pubkey);
+    return { pubkey, username: info?.coinosUsername, picture: info?.picture };
   };
 
   const TIME = new Intl.DateTimeFormat(undefined, {
@@ -229,21 +269,25 @@
       <p class="date-header secondary">{formatDate(new Date(day * 86400 * 1000))}</p>
       {@const dayMessages = messageRumours.get(day) ?? []}
       <ul>
-        {#each dayMessages as rumour, i (rumour.id)}
-          {@const showName = i === 0 || dayMessages[i - 1]?.pubkey !== rumour.pubkey}
-          <li class="message-row">
-            <div class="message-content">
-              {#if showName}
-                <div class="sender-name">{senderName(rumour.pubkey)}</div>
-              {/if}
-              <div
-                class={($theme === "light" ? "light-message " : "dark-message ") + "message"}
-              >
-                <ChatMessage content={rumour.content} tags={rumour.tags} />
-                <span class="timestamp secondary text-xs">
-                  {TIME.format(new Date(rumour.created_at * 1000))}
-                </span>
-              </div>
+        {#each senderRuns(dayMessages) as run}
+          <li class="sender-run">
+            <div class="run-avatar">
+              <Avatar user={senderUser(run.pubkey)} size={16} disabled />
+            </div>
+            <div class="run-messages">
+              {#each run.messages as rumour, j (rumour.id)}
+                <div
+                  class={(j === run.messages.length - 1 ? "bubble-tail " : "") + (j === 0 ? "bubble-first " : "") + ($theme === "light" ? "light-message " : "dark-message ") + "message"}
+                >
+                  {#if j === 0}
+                    <div class="sender-name">{senderName(run.pubkey)}</div>
+                  {/if}
+                  <ChatMessage content={rumour.content} tags={rumour.tags} />
+                  <span class="timestamp secondary text-xs">
+                    {TIME.format(new Date(rumour.created_at * 1000))}
+                  </span>
+                </div>
+              {/each}
             </div>
           </li>
         {/each}
@@ -314,24 +358,34 @@
     color: #7f7f7f;
   }
 
-  .message-row {
+  .sender-run {
     display: flex;
     align-items: flex-end;
     gap: 0.5rem;
-    margin: 1px 0;
+    margin-top: 0.5rem;
   }
 
-  .message-content {
-    max-width: 85%;
+  .run-avatar {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: -6px;
+  }
+
+  .run-messages {
+    max-width: calc(85% - 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .sender-name {
     font-size: 0.75rem;
-    font-weight: 600;
-    color: #7f7f7f;
-    margin-top: 0.5rem;
+    font-weight: 700;
+    color: var(--accent, #6366f1);
     margin-bottom: 1px;
-    margin-left: 0.75rem;
   }
 
   .date-header {
@@ -379,20 +433,43 @@
   }
 
   .message {
-    padding: 0.25em 0.75em;
+    padding: 0.35em 0.75em;
     width: fit-content;
     max-width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 12px;
+    overflow: visible;
     word-break: break-word;
+    position: relative;
+  }
+
+  .bubble-tail {
+    border-bottom-left-radius: 4px;
+  }
+
+  .bubble-tail::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 10px;
+    height: 16px;
+    clip-path: path('M10 0 C10 7 2 13 0 16 L10 16 Z');
   }
 
   .light-message {
-    background-color: #ddd;
+    background-color: #e4e4e4;
+  }
+
+  .light-message.bubble-tail::before {
+    background: #e4e4e4;
   }
 
   .dark-message {
-    background-color: #222;
+    background-color: #2a2a2a;
+  }
+
+  .dark-message.bubble-tail::before {
+    background: #2a2a2a;
   }
 
   .input-bar {

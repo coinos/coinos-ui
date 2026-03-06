@@ -11,22 +11,19 @@ import { getMarmotClient, getInviteReader, DM_RELAYS } from "$lib/marmot";
 
 const pool = new SimplePool();
 
-/** Extract member pubkeys from an MLS group's ratchet tree. */
-function getGroupMembers(group: any): string[] {
-  const state = group.state;
+/** Extract member pubkeys from an MLS group's ratchet tree (pass group.state). */
+function getGroupMembers(state: any): string[] {
   if (!state?.ratchetTree) return [];
   const pubkeys = new Set<string>();
   for (const node of state.ratchetTree) {
-    if (node?.nodeType === 1 && node.leaf?.credential?.credentialType === 0) {
-      // Basic credential: identity is the pubkey bytes
-      const identity = node.leaf.credential.identity;
-      if (identity) {
-        const hex = typeof identity === "string"
-          ? identity
-          : bytesToHex(new Uint8Array(identity));
-        if (hex.length === 64) pubkeys.add(hex);
-      }
-    }
+    if (!node?.leaf?.credential?.identity) continue;
+    const identity = node.leaf.credential.identity;
+    const hex = identity instanceof Uint8Array
+      ? bytesToHex(identity)
+      : typeof identity === "string" ? identity
+      : bytesToHex(new Uint8Array(identity));
+    // identity may be 32 raw bytes (-> 64 hex) or already 64 hex chars
+    if (hex.length === 64) pubkeys.add(hex);
   }
   return Array.from(pubkeys);
 }
@@ -307,6 +304,30 @@ export async function subscribeToMessages(
     }
   });
 
+  // Fetch historical welcomes so we join groups created while we were offline
+  try {
+    const historicalWraps = await pool.querySync(relays, {
+      kinds: [1059],
+      "#p": [user.pubkey],
+      limit: 100,
+    });
+    for (const event of historicalWraps) {
+      try {
+        const ingested = await inviteReader.ingestEvent(event as NostrEvent);
+        if (ingested) await inviteReader.decryptGiftWraps();
+      } catch {}
+    }
+    // Re-load groups after processing welcomes
+    await client.loadAllGroups();
+    for (const g of client.groups) {
+      registerGroupIds(g);
+      const r = g.relays;
+      if (r) r.forEach((url: string) => allRelayUrls.add(url));
+    }
+  } catch (e) {
+    console.error("[mls] Failed to fetch historical welcomes:", e);
+  }
+
   for (const url of allRelayUrls) {
     try {
       const relay = await Relay.connect(url);
@@ -444,6 +465,25 @@ async function handleGroupMessageEvent(
 
 export async function fetchGroupHistory(user: any, relays: string[] = DM_RELAYS): Promise<void> {
   const client = getMarmotClient(user.pubkey);
+  const inviteReader = getInviteReader(user.pubkey);
+
+  // Process any pending welcomes first so we know about all our groups
+  try {
+    const wraps = await pool.querySync(relays, {
+      kinds: [1059],
+      "#p": [user.pubkey],
+      limit: 100,
+    });
+    for (const event of wraps) {
+      try {
+        const ingested = await inviteReader.ingestEvent(event as NostrEvent);
+        if (ingested) await inviteReader.decryptGiftWraps();
+      } catch {}
+    }
+  } catch (e) {
+    console.error("[mls] Failed to fetch welcomes in history:", e);
+  }
+
   await client.loadAllGroups();
 
   const groups = client.groups;

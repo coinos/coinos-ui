@@ -7,6 +7,7 @@
   } from "$lib/messaging";
   import type { GroupInfo } from "$lib/messaging";
   import { t } from "$lib/translations";
+  import Avatar from "$comp/Avatar.svelte";
 
   let { data } = $props();
   const user = $derived(data.user);
@@ -19,40 +20,41 @@
 
   let groups: GroupInfo[] = $state([]);
   let loaded = $state(false);
-  let memberNames = $state(new Map<string, Map<string, string>>());
+  let memberInfos = $state(new Map<string, any>());
+
+  const otherMembers = (g: GroupInfo) => g.members.filter((pk) => pk !== user.pubkey);
 
   const groupDisplayName = (g: GroupInfo): string => {
     if (g.name) return g.name;
-    const names = memberNames.get(g.groupId);
-    if (!names) return "…";
-    const otherNames = g.members
-      .filter((pk) => pk !== user.pubkey)
-      .map((pk) => names.get(pk) || shortPk(pk));
-    return otherNames.join(", ") || "Empty group";
+    const names = otherMembers(g)
+      .map((pk) => { const i = memberInfos.get(pk); return i ? displayName(i) : "…"; });
+    return names.join(", ") || "…";
   };
 
-  const shortPk = (pk: string) => pk.slice(0, 8) + "…";
+  const peerUser = (g: GroupInfo): any | null => {
+    if (g.members.length !== 2) return null;
+    const peer = otherMembers(g)[0];
+    if (!peer) return null;
+    const info = memberInfos.get(peer);
+    return { pubkey: peer, username: info?.coinosUsername, picture: info?.picture };
+  };
 
-  const resolveMemberNames = async (groups: GroupInfo[]) => {
-    const updated = new Map(memberNames);
+  const resolveMembers = async (groups: GroupInfo[]) => {
     for (const g of groups) {
-      if (!updated.has(g.groupId)) updated.set(g.groupId, new Map());
-      const gMap = updated.get(g.groupId)!;
       for (const pk of g.members) {
-        if (pk === user.pubkey || gMap.has(pk)) continue;
+        if (pk === user.pubkey || memberInfos.has(pk)) continue;
         resolveUser(pk).then((info) => {
-          gMap.set(pk, displayName(info));
-          memberNames = new Map(updated);
+          memberInfos = new Map(memberInfos).set(pk, info);
         });
       }
     }
-    memberNames = updated;
   };
 
   const loadGroups = async () => {
     await fetchGroupHistory(user);
-    groups = await getGroups(user);
-    resolveMemberNames(groups);
+    const allGroups = await getGroups(user);
+    groups = allGroups.filter((g) => g.members.includes(user.pubkey));
+    resolveMembers(groups);
     loaded = true;
   };
 
@@ -61,8 +63,9 @@
   onMount(() => {
     loadGroups();
     subscribeToMessages(user, async () => {
-      groups = await getGroups(user);
-      resolveMemberNames(groups);
+      const allGroups = await getGroups(user);
+      groups = allGroups.filter((g) => g.members.includes(user.pubkey));
+      resolveMembers(groups);
     }).then((close) => (closeSub = close));
   });
 
@@ -77,9 +80,15 @@
   {:else}
     {#each groups as g}
       <a href="/messages/{g.groupId}" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-base-200">
-        <div class="w-12 h-12 rounded-full bg-base-300 shrink-0 flex items-center justify-center text-lg font-bold text-base-content/40">
-          {g.members.length}
-        </div>
+        {#if peerUser(g)}
+          <div class="shrink-0">
+            <Avatar user={peerUser(g)} size={12} disabled />
+          </div>
+        {:else}
+          <div class="w-12 h-12 rounded-full bg-base-300 shrink-0 flex items-center justify-center text-lg font-bold text-base-content/40">
+            {g.members.length}
+          </div>
+        {/if}
         <div class="min-w-0 flex-1">
           <div class="font-semibold text-lg truncate">{groupDisplayName(g)}</div>
           {#if g.lastMessage}

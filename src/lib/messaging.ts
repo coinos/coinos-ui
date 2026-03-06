@@ -68,10 +68,5 @@ export async function resolveUser(pubkey: string): Promise<any> {
 
 /** Get a display name for a user info object. */
 export function displayName(info: any): string {
-  return info?.coinosUsername || info?.nostrName || shortPubkey(info?.pubkey || "");
-}
-
-function shortPubkey(pk: string): string {
-  if (pk.length <= 16) return pk;
-  return pk.slice(0, 8) + "…" + pk.slice(-4);
+  return info?.coinosUsername || info?.nostrName || "Anonymous";
 }

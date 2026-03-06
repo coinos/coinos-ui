@@ -164,31 +164,30 @@ class CoinosNostrNetwork implements NostrNetworkInterface {
 // IndexedDB-backed KeyValueStoreBackend
 // ---------------------------------------------------------------------------
 
-const IDB_NAME = "coinos-marmot";
 const IDB_VERSION = 1;
+const STORE_NAMES = ["group-state", "key-packages", "invites-received", "invites-unread", "invites-seen"];
 
-function openMarmotDb(): Promise<IDBDatabase> {
+let _idbPubkey: string | null = null;
+let _idbCache: IDBDatabase | null = null;
+
+function openMarmotDb(pubkey?: string): Promise<IDBDatabase> {
+  const pk = pubkey || _idbPubkey || "default";
+  if (_idbCache && _idbPubkey === pk) return Promise.resolve(_idbCache);
+
   return new Promise((resolve, reject) => {
-    const req = indexedDB.open(IDB_NAME, IDB_VERSION);
+    const dbName = `coinos-marmot-${pk.slice(0, 16)}`;
+    const req = indexedDB.open(dbName, IDB_VERSION);
     req.onupgradeneeded = () => {
       const db = req.result;
-      if (!db.objectStoreNames.contains("group-state")) {
-        db.createObjectStore("group-state");
-      }
-      if (!db.objectStoreNames.contains("key-packages")) {
-        db.createObjectStore("key-packages");
-      }
-      if (!db.objectStoreNames.contains("invites-received")) {
-        db.createObjectStore("invites-received");
-      }
-      if (!db.objectStoreNames.contains("invites-unread")) {
-        db.createObjectStore("invites-unread");
-      }
-      if (!db.objectStoreNames.contains("invites-seen")) {
-        db.createObjectStore("invites-seen");
+      for (const name of STORE_NAMES) {
+        if (!db.objectStoreNames.contains(name)) db.createObjectStore(name);
       }
     };
-    req.onsuccess = () => resolve(req.result);
+    req.onsuccess = () => {
+      _idbPubkey = pk;
+      _idbCache = req.result;
+      resolve(req.result);
+    };
     req.onerror = () => reject(req.error);
   });
 }
@@ -316,6 +315,8 @@ export function getMarmotClient(pubkey: string): MarmotClient {
   _client = null;
   _inviteReader = null;
   _currentPubkey = pubkey;
+  _idbPubkey = pubkey;
+  _idbCache = null;
 
   const signer = new CoinosEventSigner(pubkey);
   const groupStateBackend = new IDBGroupStateBackend();
