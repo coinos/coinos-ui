@@ -155,6 +155,10 @@ export const decrypt = async (wrapped: any, user: any): Promise<any> => {
     return decryptNIP17MessageNIP07(wrapped);
   } else {
     const skHex = bytesToHex(sk);
+    const derivedPK = getPublicKey(sk);
+    if (derivedPK !== user.pubkey) {
+      console.error("[nip17] KEY MISMATCH: sk derives", derivedPK, "but user.pubkey is", user.pubkey);
+    }
     const sealedText = nip44Decrypt(wrapped.content, u.getConversationKey(skHex, wrapped.pubkey));
     const sealed = JSON.parse(sealedText);
     const rumourText = nip44Decrypt(sealed.content, u.getConversationKey(skHex, sealed.pubkey));
