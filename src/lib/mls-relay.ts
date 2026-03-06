@@ -308,7 +308,7 @@ export async function subscribeToMessages(
   loadLocalCache(user.pubkey);
 
   await client.loadAllGroups();
-  const allRelayUrls = new Set(relays);
+  const allRelayUrls = new Set([...relays, ...DISCOVERY_RELAYS]);
   for (const g of client.groups) {
     registerGroupIds(g);
     const r = g.relays;
