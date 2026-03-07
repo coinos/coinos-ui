@@ -3,20 +3,13 @@
 
   let { content, tags = [] }: { content: string; tags?: any[] } = $props();
 
-  // Extract media from imeta tags (NIP-92)
-  let imetaMedia = $derived(
+  // Extract image URLs from imeta tags (NIP-92)
+  let imageUrls: string[] = $derived(
     tags
-      .filter((t) => t[0] === "imeta")
-      .map((t) => ({
-        url: t.find((v) => v.startsWith("url "))?.slice(4) || "",
-        mime: t.find((v) => v.startsWith("m "))?.slice(2) || "",
-      }))
-      .filter((m) => m.url),
+      .filter((t: string[]) => t[0] === "imeta" && t.some((v) => v.startsWith("m image/")))
+      .map((t: string[]) => t.find((v) => v.startsWith("url "))?.slice(4))
+      .filter((url): url is string => !!url),
   );
-
-  $effect(() => {
-    console.log("[ChatMessage]", { content, tags: JSON.stringify(tags), imetaMedia: JSON.stringify(imetaMedia) });
-  });
 
   let parts = $derived(parseContent({ content, tags }));
 
@@ -37,17 +30,10 @@
   };
 </script>
 
-{#each imetaMedia as media}
-  {#if media.mime.startsWith("image/")}
-    <a href={media.url} target="_blank" rel="noopener noreferrer">
-      <img src={media.url} alt="" class="chat-img" />
-    </a>
-  {:else if media.mime.startsWith("video/")}
-    <!-- svelte-ignore a11y_media_has_caption -->
-    <video src={media.url} controls class="chat-video"></video>
-  {:else}
-    <a href={media.url} target="_blank" rel="noopener noreferrer" class="chat-link">{truncUrl(media.url)}</a>
-  {/if}
+{#each imageUrls as url}
+  <a href={url} target="_blank" rel="noopener noreferrer">
+    <img src={url} alt="" class="chat-img" />
+  </a>
 {/each}
 
 {#each parts as { type, value }}
