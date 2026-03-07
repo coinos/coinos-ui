@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
-
   import { t, locale, locales } from "$lib/translations";
   let { style = "" }: any = $props();
   let l = $state($locale);

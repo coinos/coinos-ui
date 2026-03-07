@@ -1,8 +1,6 @@
 <script lang="ts">
   import PhCameraBold from "virtual:icons/ph/camera-bold";
   import PhClipboardTextBold from "virtual:icons/ph/clipboard-text-bold";
-  import { run } from "svelte/legacy";
-
   import { page } from "$app/stores";
   import { fly } from "svelte/transition";
   import { enhance } from "$app/forms";
@@ -29,7 +27,7 @@
     text = await navigator.clipboard.readText();
   };
 
-  run(() => {
+  $effect(() => {
     if (browser && pasted && text) { (el as HTMLElement).click(); pasted = false; }
   });
 </script>

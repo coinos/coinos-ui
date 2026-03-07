@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { preventDefault } from "svelte/legacy";
-
   import { t } from "$lib/translations";
   import { upload } from "$lib/upload";
   import { fail } from "$lib/utils";
@@ -72,7 +70,7 @@
 <form
   method="POST"
   class="space-y-5"
-  onsubmit={preventDefault(handleSubmit)}
+  onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}
   bind:this={formElement}
 >
   <input type="hidden" name="id" bind:value={item.id} />

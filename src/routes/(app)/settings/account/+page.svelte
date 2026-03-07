@@ -1,7 +1,6 @@
 <script lang="ts">
   import PhCheckBold from "virtual:icons/ph/check-bold";
   import PhClockBold from "virtual:icons/ph/clock-bold";
-  import { run } from "svelte/legacy";
   import { theme } from "$lib/store";
 
   import { onMount } from "svelte";
@@ -86,7 +85,7 @@
     togglePush(val);
   });
 
-  run(() => {
+  $effect(() => {
     user.language = $locale;
   });
 

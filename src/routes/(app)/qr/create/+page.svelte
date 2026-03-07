@@ -1,7 +1,6 @@
 <script lang="ts">
   import PhClipboardTextBold from "virtual:icons/ph/clipboard-text-bold";
   import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
-  import { run, preventDefault } from "svelte/legacy";
 
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
@@ -20,7 +19,7 @@
 
   let submit = () => goto(`/qr/${encodeURIComponent(text as string)}`);
 
-  run(() => {
+  $effect(() => {
     if (browser && pasted && text) { (el as HTMLElement).click(); pasted = false; }
   });
 </script>
@@ -28,7 +27,7 @@
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
   <h1 class="px-3 md:px-0 text-center text-3xl md:text-4xl font-semibold">Create QR</h1>
 
-  <form onsubmit={preventDefault(submit)} class="space-y-2 text-xl">
+  <form onsubmit={(e) => { e.preventDefault(); submit(); }} class="space-y-2 text-xl">
     <div class="mb-2">
       <textarea
         use:focus

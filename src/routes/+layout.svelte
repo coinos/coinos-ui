@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
   import { browser } from "$app/environment";
   import { PUBLIC_DOMAIN } from "$env/static/public";
   import "../app.css";

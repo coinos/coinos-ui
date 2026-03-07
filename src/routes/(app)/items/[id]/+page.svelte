@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
-
   import { t } from "$lib/translations";
   import ItemForm from "$comp/ItemForm.svelte";
   import { fail } from "$lib/utils";
 
   let { data, form } = $props();
 
-  run(() => {
+  $effect(() => {
     form?.message && fail(form.message);
   });
   let item = $derived(data.item);

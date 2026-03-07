@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { run, preventDefault } from "svelte/legacy";
 
   import { goto } from "$app/navigation";
   import { mnemonic } from "$lib/store";
@@ -29,7 +28,7 @@
     }
   };
 
-  run(() => {
+  $effect(() => {
     if (browser && pasted && text) el?.click() && (pasted = false);
   });
 </script>
@@ -38,7 +37,7 @@
   <h1 class="text-center text-3xl font-semibold">{$t("accounts.import")}</h1>
 
   <div class="container w-full mx-auto text-lg px-4 max-w-xl space-y-2">
-    <form onsubmit={preventDefault(submit)} class="space-y-2">
+    <form onsubmit={(e) => { e.preventDefault(); submit(); }} class="space-y-2">
       <textarea
         use:focus
         name="text"

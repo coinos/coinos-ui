@@ -5,7 +5,6 @@
   import PhHandCoinsBold from "virtual:icons/ph/hand-coins-bold";
   import PhPaperPlaneRightBold from "virtual:icons/ph/paper-plane-right-bold";
   import { bytesToHex } from "@noble/hashes/utils.js";
-  import { run } from "svelte/legacy";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import Balance from "$comp/Balance.svelte";
