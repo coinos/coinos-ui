@@ -314,6 +314,40 @@
 
  const searchMatches = (chat: object, query: string) =>
    nameMatches(chat, query) || nip05Matches(chat, query) || pubkeyMatches(chat, query);
+
+ const searchSort = (chats: object[], query: string) => {
+   if (query === "")
+     return chats;
+   return chats.toSorted(searchCompare(query));
+ }
+
+ // Generates and returns a comparator based on a search query
+ const searchCompare = (query: string) =>
+   (a, b) => {
+     const aNameMatches = nameMatches(a, query);
+     const bNameMatches = nameMatches(b, query);
+     if (aNameMatches && !bNameMatches) {
+       return -1;
+     } else if (!aNameMatches && bNameMatches) {
+       return 1;
+     }
+
+     const aNip05Matches = nip05Matches(a, query);
+     const bNip05Matches = nip05Matches(b, query);
+     if (aNip05Matches && !bNip05Matches) {
+       return -1;
+     } else if (!aNip05Matches && bNip05Matches) {
+       return 1;
+     }
+
+     const aPubkeyMatches = pubkeyMatches(a, query);
+     const bPubkeyMatches = pubkeyMatches(b, query);
+     if (aPubkeyMatches && !bPubkeyMatches) {
+       return -1;
+     } else if (!aPubkeyMatches && bPubkeyMatches) {
+       return 1;
+     }
+   }
 </script>
 
 <style>
@@ -472,7 +506,7 @@
         </h2>
         <input type="text" class="short" bind:value={searchQuery} placeholder="{$t("dm.searchPrompt")}">
         {#if !creatingNewChat}
-            {#each chats as c}
+            {#each searchSort(chats, searchQuery) as c}
                 {#if ((selectedChat && selectedChat.pubkey === c.pubkey) || !(searchQuery === "" && muted && muted.has(c.pubkey))) && (searchQuery === "" || searchMatches(c, searchQuery))}
                     <button class={"chat-btn tall-btn " + ($theme === "light" ? "light-chat-btn" : "dark-chat-btn") + (selectedChat && selectedChat.pubkey == c.pubkey ? ($theme === "light" ? " light-selected" : " dark-selected") : "")} on:click={() => selectChat(c)}>
                         <span class="{"text-xl" + (muted && muted.has(c.pubkey) ? " secondary" : "")}">{name(c)}</span> <span class={(idValid(c) ? "" : "invalid ") + "secondary text-xs"}>{id(c)}</span>
