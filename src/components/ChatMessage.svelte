@@ -18,12 +18,8 @@
   // URLs from imeta not already in content
   let imetaUrls = $derived(imeta.filter((m) => !content.includes(m.url!)).map((m) => m.url));
 
-  // Set of URLs that imeta says are images (by MIME type or blossom-style hash URLs)
-  let imetaImageUrls = $derived(new Set(imeta.filter((m) => m.mime.startsWith("image/")).map((m) => m.url)));
-
-  $effect(() => {
-    if (tags.length) console.log("[ChatMessage] content:", JSON.stringify(content), "tags:", JSON.stringify(tags), "imetaUrls:", imetaUrls, "parts:", JSON.stringify(parts));
-  });
+  // Check if a URL is an image according to imeta MIME types
+  const isImetaImage = (url: string) => imeta.some((m) => m.url === url && m.mime.startsWith("image/"));
 
   let parts = $derived(parseContent({ content: [content, ...imetaUrls].join("\n"), tags }));
 
@@ -50,7 +46,7 @@
   {:else if type === "newline"}
     <br />
   {:else if type === "link"}
-    {#if isImage(value.url) || imetaImageUrls.has(value.url)}
+    {#if isImage(value.url) || isImetaImage(value.url)}
       <a href={value.url} target="_blank" rel="noopener noreferrer">
         <img src={value.url} alt="" class="chat-img" />
       </a>
