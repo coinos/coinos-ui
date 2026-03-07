@@ -9,6 +9,7 @@ import { nip19 } from "nostr-tools";
 import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { getMarmotClient, getInviteReader, DM_RELAYS } from "$lib/marmot";
+import { parseMediaImetaTag } from "@internet-privacy/marmot-ts";
 import { post } from "$lib/utils";
 
 const pool = new SimplePool();
@@ -53,11 +54,21 @@ export interface GroupInfo {
 // LocalStorage cache (per-user)
 // ---------------------------------------------------------------------------
 
+const CACHE_VERSION = 2; // bump to clear stale caches (v1 lacked tags)
+
 function loadLocalCache(userPubkey?: string): void {
   if (userPubkey) _cacheUserPubkey = userPubkey;
   const pk = _cacheUserPubkey;
   if (!pk) return;
   try {
+    const ver = localStorage.getItem(`mls:cacheVersion:${pk}`);
+    if (ver !== String(CACHE_VERSION)) {
+      // Stale cache — clear it so messages are re-fetched with current code
+      localStorage.removeItem(`mls:groupRumours:${pk}`);
+      localStorage.removeItem(`mls:processedEvents:${pk}`);
+      localStorage.setItem(`mls:cacheVersion:${pk}`, String(CACHE_VERSION));
+      return;
+    }
     const cached = localStorage.getItem(`mls:groupRumours:${pk}`);
     if (cached) {
       const obj = JSON.parse(cached);
@@ -598,6 +609,7 @@ async function handleGroupMessageEvent(
           content = rumor.content ?? raw;
           senderPubkey = rumor.pubkey ?? event.pubkey;
           if (Array.isArray(rumor.tags)) tags = rumor.tags;
+          console.log("[mls] decoded rumor:", { content: content?.slice(0, 100), tags, keys: Object.keys(rumor) });
         } catch {
           content = raw;
           senderPubkey = event.pubkey;
@@ -707,4 +719,67 @@ function cacheGroupRumour(groupId: string, rumour: any): void {
   existing.push(rumour);
   groupRumourCache.set(groupId, existing);
   saveLocalCache();
+}
+
+// ---------------------------------------------------------------------------
+// MIP-04 media decryption
+// ---------------------------------------------------------------------------
+
+const MEDIA_CACHE_NAME = "coinos-media-v1";
+const _mediaBlobCache = new Map<string, string>(); // sha256 → blob URL (in-memory)
+
+async function getCachedMedia(sha256: string, mime: string): Promise<string | null> {
+  if (_mediaBlobCache.has(sha256)) return _mediaBlobCache.get(sha256)!;
+  try {
+    const cache = await caches.open(MEDIA_CACHE_NAME);
+    const resp = await cache.match(`/media/${sha256}`);
+    if (!resp) return null;
+    const blob = await resp.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    _mediaBlobCache.set(sha256, blobUrl);
+    return blobUrl;
+  } catch {
+    return null;
+  }
+}
+
+async function putCachedMedia(sha256: string, data: BlobPart, mime: string): Promise<string> {
+  const blob = new Blob([data], { type: mime });
+  const blobUrl = URL.createObjectURL(blob);
+  _mediaBlobCache.set(sha256, blobUrl);
+  try {
+    const cache = await caches.open(MEDIA_CACHE_NAME);
+    await cache.put(`/media/${sha256}`, new Response(blob.slice()));
+  } catch {}
+  return blobUrl;
+}
+
+/**
+ * Decrypt a MIP-04 encrypted media attachment and return a blob URL.
+ * Results are cached in the Cache API (persists across page loads).
+ */
+export async function decryptMediaUrl(groupId: string, tag: string[]): Promise<string> {
+  const attachment = parseMediaImetaTag(tag);
+  if (!attachment) throw new Error("Invalid MIP-04 imeta tag");
+
+  const cached = await getCachedMedia(attachment.sha256, attachment.type);
+  if (cached) return cached;
+
+  const userPubkey = _cacheUserPubkey;
+  if (!userPubkey) throw new Error("No user pubkey");
+
+  const client = getMarmotClient(userPubkey);
+  const group = await client.getGroup(groupId);
+
+  // Fetch encrypted blob from blossom
+  const url = attachment.url;
+  if (!url) throw new Error("No URL in attachment");
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`Fetch failed: ${resp.status}`);
+  const encryptedBytes = new Uint8Array(await resp.arrayBuffer());
+
+  // Decrypt using group's MLS epoch key
+  const { data } = await group.decryptMedia(encryptedBytes, attachment);
+
+  return putCachedMedia(attachment.sha256, data as BlobPart, attachment.type);
 }

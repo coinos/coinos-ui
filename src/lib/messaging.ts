@@ -15,6 +15,7 @@ export {
   findOrCreateDmGroup,
   subscribeToMessages,
   fetchGroupHistory,
+  decryptMediaUrl,
 } from "$lib/mls-relay";
 
 export type { GroupInfo } from "$lib/mls-relay";

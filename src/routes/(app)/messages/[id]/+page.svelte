@@ -9,6 +9,7 @@
     subscribeToMessages, fetchGroupHistory,
     findOrCreateDmGroup,
     resolveUser, displayName,
+    decryptMediaUrl,
   } from "$lib/messaging";
   import type { GroupInfo } from "$lib/messaging";
   import { t } from "$lib/translations";
@@ -282,7 +283,7 @@
                   {#if j === 0}
                     <div class="sender-name">{senderName(run.pubkey)}</div>
                   {/if}
-                  <ChatMessage content={rumour.content} tags={rumour.tags} />
+                  <ChatMessage content={rumour.content} tags={rumour.tags} decryptMedia={(tag) => decryptMediaUrl(groupId, tag)} />
                   <span class="timestamp secondary text-xs">
                     {TIME.format(new Date(rumour.created_at * 1000))}
                   </span>
