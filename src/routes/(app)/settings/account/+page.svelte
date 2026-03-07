@@ -47,10 +47,7 @@
       pm = reg?.pushManager;
       if (!pm) { pmReady = true; return; }
 
-      permission = await pm.permissionState({
-        userVisibleOnly: true,
-        applicationServerKey: PUBLIC_VAPID_PUBKEY,
-      });
+      permission = Notification?.permission || "default";
 
       if (permission === "granted") {
         subscription = await pm.getSubscription();
