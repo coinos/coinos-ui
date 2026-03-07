@@ -131,10 +131,12 @@ self.addEventListener("notificationclick", (event) => {
   const target = new URL(path, self.location.origin).href;
 
   event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+    clients.matchAll({ type: "window" }).then((clientList) => {
       for (const client of clientList) {
-        if (new URL(client.url).origin === self.location.origin && "focus" in client) {
-          client.navigate(target);
+        if ("navigate" in client) {
+          return client.navigate(target).then(() => client.focus());
+        }
+        if ("focus" in client) {
           return client.focus();
         }
       }
