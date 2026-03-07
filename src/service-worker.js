@@ -114,14 +114,22 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("push", (event) => {
   const { title, body, url } = event.data.json();
-  const icon = "/images/icon.png";
-  const badge = "/images/badge.png";
-  self.registration.showNotification(title, {
-    body,
-    icon,
-    badge,
-    data: { url },
-  });
+
+  event.waitUntil(
+    clients.matchAll({ type: "window" }).then((clientList) => {
+      const onPage = clientList.some(
+        (c) => c.visibilityState === "visible" && new URL(c.url).pathname.startsWith(url),
+      );
+      if (onPage) return;
+
+      return self.registration.showNotification(title, {
+        body,
+        icon: "/images/icon.png",
+        badge: "/images/badge.png",
+        data: { url },
+      });
+    }),
+  );
 });
 
 self.addEventListener("notificationclick", (event) => {
