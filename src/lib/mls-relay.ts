@@ -10,7 +10,11 @@ import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { getMarmotClient, getInviteReader, DM_RELAYS } from "$lib/marmot";
 import { parseMediaImetaTag } from "@internet-privacy/marmot-ts";
+import { BlossomClient } from "nostr-tools/nipb7";
+import { ensureSigner } from "$lib/nip07";
 import { post } from "$lib/utils";
+
+const BLOSSOM_SERVER = "https://blossom.primal.net";
 
 const pool = new SimplePool();
 
@@ -409,6 +413,62 @@ export async function sendGroupMessage(
   await group.sendChatMessage(message);
 
   const rumour = makeRumour(message, user.pubkey, groupId);
+  cacheGroupRumour(groupId, rumour);
+}
+
+/** Send a media message (image/video/audio) to a group. */
+export async function sendGroupMediaMessage(
+  user: any,
+  groupId: string,
+  file: File | Blob,
+): Promise<void> {
+  const client = getMarmotClient(user.pubkey);
+  const group = await client.getGroup(groupId);
+
+  const mime = file.type || "application/octet-stream";
+  const filename = file instanceof File ? file.name : "file";
+
+  // Encrypt with MLS group key
+  const { encrypted, attachment } = await group.encryptMedia(file, {
+    type: mime,
+    filename,
+  });
+
+  // Upload encrypted blob to blossom
+  const sk = await ensureSigner(user.pubkey);
+  const signer = sk
+    ? {
+        getPublicKey: () => user.pubkey,
+        signEvent: async (draft: any) => {
+          const { finalizeEvent } = await import("nostr-tools/pure");
+          return finalizeEvent(draft, sk);
+        },
+      }
+    : (window as any).nostr;
+
+  const blossom = new BlossomClient(BLOSSOM_SERVER, signer);
+  const encryptedBlob = new Blob([encrypted as BlobPart], { type: "application/octet-stream" });
+  const desc = await blossom.uploadBlob(encryptedBlob);
+
+  // Build imeta tag with the upload URL and MIP-04 fields
+  const imetaTag = [
+    "imeta",
+    `url ${desc.url}`,
+    `m ${attachment.type}`,
+    `x ${attachment.sha256}`,
+    `filename ${attachment.filename}`,
+    `n ${attachment.nonce}`,
+    `v ${attachment.version}`,
+  ];
+  if (attachment.size) imetaTag.push(`size ${attachment.size}`);
+
+  // Pre-cache plaintext so the image renders instantly for us
+  await putCachedMedia(attachment.sha256, file, mime);
+
+  // Send as chat message with the imeta tag
+  await group.sendChatMessage("", [imetaTag]);
+
+  const rumour = makeRumour("", user.pubkey, groupId, [imetaTag]);
   cacheGroupRumour(groupId, rumour);
 }
 

@@ -12,6 +12,7 @@ export {
   getGroups,
   getGroupRumours,
   sendGroupMessage,
+  sendGroupMediaMessage,
   findOrCreateDmGroup,
   subscribeToMessages,
   fetchGroupHistory,

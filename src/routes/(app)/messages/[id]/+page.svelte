@@ -1,11 +1,13 @@
 <script lang="ts">
   import PhPaperPlaneRightFill from "virtual:icons/ph/paper-plane-right-fill";
+  import PhPlusBold from "virtual:icons/ph/plus-bold";
   import { tick, onMount, onDestroy } from "svelte";
   import { page } from "$app/state";
   import { goto } from "$app/navigation";
 
   import {
     getGroups, getGroupRumours, sendGroupMessage,
+    sendGroupMediaMessage,
     subscribeToMessages, fetchGroupHistory,
     findOrCreateDmGroup,
     resolveUser, displayName,
@@ -45,6 +47,7 @@
   let messageRumours: Map<number, any[]> = $state(new Map());
   let dates: number[] = $state([]);
   let sendError = $state("");
+  let uploading = $state(false);
   let senderInfos = $state(new Map<string, any>());
 
   const groupDisplayName = (g: GroupInfo | undefined): string => {
@@ -223,6 +226,22 @@
     }
   };
 
+  const sendMedia = async (file: File) => {
+    sendError = "";
+    uploading = true;
+    try {
+      await sendGroupMediaMessage(user, groupId, file);
+      updateMessages();
+      await tick();
+      scrollChat();
+    } catch (e: any) {
+      console.error("Failed to send media:", e);
+      sendError = e.message || "Failed to send media";
+    } finally {
+      uploading = false;
+    }
+  };
+
   let closeSub: (() => void) | undefined;
 
   onMount(() => {
@@ -297,8 +316,32 @@
     <div id="messages-end"></div>
   </div>
 
+  <input
+    type="file"
+    accept="image/*,video/*,audio/*"
+    id="media-upload"
+    hidden
+    onchange={(e) => {
+      const file = (e.currentTarget as HTMLInputElement).files?.[0];
+      if (file) sendMedia(file);
+      (e.currentTarget as HTMLInputElement).value = "";
+    }}
+  />
+
   <div class="input-bar">
     <div class="input-row">
+      <button
+        class="attach-btn"
+        disabled={uploading || !groupId}
+        onclick={() => document.getElementById("media-upload")?.click()}
+        aria-label="Attach media"
+      >
+        {#if uploading}
+          <span class="spinner"></span>
+        {:else}
+          <PhPlusBold width="20" />
+        {/if}
+      </button>
       <textarea
         id="message-contents"
         bind:value={text}
@@ -520,5 +563,42 @@
   .send-btn:disabled {
     opacity: 0.35;
     cursor: default;
+  }
+
+  .attach-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: transparent;
+    color: inherit;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    cursor: pointer;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .attach-btn:hover {
+    opacity: 1;
+  }
+
+  .attach-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(128, 128, 128, 0.3);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
   }
 </style>
