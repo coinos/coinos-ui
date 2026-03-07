@@ -3,7 +3,15 @@
 
   let { content, tags = [] }: { content: string; tags?: any[] } = $props();
 
-  let parts = $derived(parseContent({ content, tags }));
+  // Extract image URLs from imeta tags not already in content
+  let imetaUrls = $derived(
+    tags
+      .filter((t) => t[0] === "imeta")
+      .map((t) => t.find((v) => v.startsWith("url "))?.slice(4))
+      .filter((url): url is string => !!url && !content.includes(url)),
+  );
+
+  let parts = $derived(parseContent({ content: [content, ...imetaUrls].join("\n"), tags }));
 
   const truncUrl = (url: string) => {
     const short = url.replace(/^https?:\/\/(www\.)?/, "");

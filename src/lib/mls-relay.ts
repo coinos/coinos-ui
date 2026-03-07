@@ -592,10 +592,12 @@ async function handleGroupMessageEvent(
         const raw = new TextDecoder().decode(result.result.message);
         let content: string;
         let senderPubkey: string;
+        let tags: string[][] = [];
         try {
           const rumor = JSON.parse(raw);
           content = rumor.content ?? raw;
           senderPubkey = rumor.pubkey ?? event.pubkey;
+          if (Array.isArray(rumor.tags)) tags = rumor.tags;
         } catch {
           content = raw;
           senderPubkey = event.pubkey;
@@ -609,7 +611,7 @@ async function handleGroupMessageEvent(
           return null;
         }
 
-        const rumour = makeRumour(content, senderPubkey, mlsGroupIdHex);
+        const rumour = makeRumour(content, senderPubkey, mlsGroupIdHex, tags);
         cacheGroupRumour(mlsGroupIdHex, rumour);
         processedEventIds.add(event.id);
         saveLocalCache();
@@ -688,14 +690,14 @@ export async function fetchGroupHistory(user: any, relays: string[] = DM_RELAYS)
 // Helpers
 // ---------------------------------------------------------------------------
 
-function makeRumour(content: string, senderPubkey: string, groupId: string): any {
+function makeRumour(content: string, senderPubkey: string, groupId: string, tags: string[][] = []): any {
   return {
     id: bytesToHex(crypto.getRandomValues(new Uint8Array(32))),
     kind: 14,
     created_at: Math.floor(Date.now() / 1000),
     pubkey: senderPubkey,
     content,
-    tags: [],
+    tags,
     _groupId: groupId,
   };
 }
