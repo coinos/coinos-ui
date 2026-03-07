@@ -3,25 +3,18 @@
 
   let { content, tags = [] }: { content: string; tags?: any[] } = $props();
 
-  // Parse imeta tags for URLs and MIME types
-  let imeta = $derived(
+  // Extract media from imeta tags (NIP-92)
+  let imetaMedia = $derived(
     tags
       .filter((t) => t[0] === "imeta")
-      .map((t) => {
-        const url = t.find((v) => v.startsWith("url "))?.slice(4);
-        const mime = t.find((v) => v.startsWith("m "))?.slice(2) || "";
-        return { url, mime };
-      })
-      .filter((m): m is { url: string; mime: string } => !!m.url),
+      .map((t) => ({
+        url: t.find((v) => v.startsWith("url "))?.slice(4) || "",
+        mime: t.find((v) => v.startsWith("m "))?.slice(2) || "",
+      }))
+      .filter((m) => m.url),
   );
 
-  // URLs from imeta not already in content
-  let imetaUrls = $derived(imeta.filter((m) => !content.includes(m.url!)).map((m) => m.url));
-
-  // Check if a URL is an image according to imeta MIME types
-  const isImetaImage = (url: string) => imeta.some((m) => m.url === url && m.mime.startsWith("image/"));
-
-  let parts = $derived(parseContent({ content: [content, ...imetaUrls].join("\n"), tags }));
+  let parts = $derived(parseContent({ content, tags }));
 
   const truncUrl = (url: string) => {
     const short = url.replace(/^https?:\/\/(www\.)?/, "");
@@ -40,13 +33,26 @@
   };
 </script>
 
+{#each imetaMedia as media}
+  {#if media.mime.startsWith("image/")}
+    <a href={media.url} target="_blank" rel="noopener noreferrer">
+      <img src={media.url} alt="" class="chat-img" />
+    </a>
+  {:else if media.mime.startsWith("video/")}
+    <!-- svelte-ignore a11y_media_has_caption -->
+    <video src={media.url} controls class="chat-video"></video>
+  {:else}
+    <a href={media.url} target="_blank" rel="noopener noreferrer" class="chat-link">{truncUrl(media.url)}</a>
+  {/if}
+{/each}
+
 {#each parts as { type, value }}
   {#if type === "text"}
     {value}
   {:else if type === "newline"}
     <br />
   {:else if type === "link"}
-    {#if isImage(value.url) || isImetaImage(value.url)}
+    {#if isImage(value.url)}
       <a href={value.url} target="_blank" rel="noopener noreferrer">
         <img src={value.url} alt="" class="chat-img" />
       </a>
