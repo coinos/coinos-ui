@@ -21,6 +21,10 @@
   // Set of URLs that imeta says are images (by MIME type or blossom-style hash URLs)
   let imetaImageUrls = $derived(new Set(imeta.filter((m) => m.mime.startsWith("image/")).map((m) => m.url)));
 
+  $effect(() => {
+    if (tags.length) console.log("[ChatMessage] content:", JSON.stringify(content), "tags:", JSON.stringify(tags));
+  });
+
   let parts = $derived(parseContent({ content: [content, ...imetaUrls].join("\n"), tags }));
 
   const truncUrl = (url: string) => {
