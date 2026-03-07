@@ -22,7 +22,7 @@
   let fiats = $derived(Object.keys(rates).sort((a, b) => a.localeCompare(b)));
 
   let push = $state(),
-    pm: any,
+    pm: any = $state(),
     subscription: any;
 
   let permission = $state();
