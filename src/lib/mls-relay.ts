@@ -129,6 +129,90 @@ let _activeSub: {
 } | null = null;
 
 // ---------------------------------------------------------------------------
+// Connection status tracking
+// ---------------------------------------------------------------------------
+
+let _connectionListeners: ((connected: boolean) => void)[] = [];
+let _isConnected = false;
+
+export function isConnected(): boolean {
+  return _isConnected;
+}
+
+export function onConnectionChange(cb: (connected: boolean) => void): () => void {
+  _connectionListeners.push(cb);
+  return () => {
+    _connectionListeners = _connectionListeners.filter((l) => l !== cb);
+  };
+}
+
+function _updateConnectionStatus(): void {
+  if (!_activeSub) {
+    if (_isConnected) {
+      _isConnected = false;
+      _connectionListeners.forEach((cb) => cb(false));
+    }
+    return;
+  }
+  const connected = _activeSub.connectedRelays.some((r: any) => r.connected);
+  if (connected !== _isConnected) {
+    _isConnected = connected;
+    _connectionListeners.forEach((cb) => cb(connected));
+  }
+}
+
+/** Fetch recent messages to catch up after disconnect or background period. */
+export async function catchUpMessages(): Promise<void> {
+  if (!_activeSub) return;
+  const { user, seen, onNewRumour } = _activeSub;
+  const client = getMarmotClient(user.pubkey);
+
+  try {
+    await client.loadAllGroups();
+    const groups = client.groups;
+    if (groups.length === 0) return;
+
+    const hTags: string[] = [];
+    const catchUpRelays = new Set(_activeSub.relays);
+    for (const g of groups) {
+      registerGroupIds(g);
+      hTags.push(getNostrGroupId(g));
+      const r = g.relays;
+      if (r) r.forEach((url: string) => catchUpRelays.add(url));
+    }
+
+    const since = Math.floor(Date.now() / 1000) - 300;
+    const events = await pool.querySync([...catchUpRelays], {
+      kinds: [445],
+      "#h": hTags,
+      since,
+      limit: 200,
+    });
+
+    events.sort((a, b) => a.created_at - b.created_at);
+
+    let newCount = 0;
+    for (const event of events) {
+      if (seen.has(event.id)) continue;
+      seen.add(event.id);
+      const rumour = await handleGroupMessageEvent(
+        event as NostrEvent,
+        user,
+        client,
+      );
+      if (rumour) {
+        onNewRumour(rumour);
+        newCount++;
+      }
+    }
+    if (newCount > 0)
+      console.log(`[mls] caught up ${newCount} missed messages`);
+  } catch (e) {
+    console.error("[mls] catch-up failed:", e);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Key package management (kind 443)
 // ---------------------------------------------------------------------------
 
@@ -569,9 +653,22 @@ export async function subscribeToMessages(
     console.error("[mls] Failed to fetch historical welcomes:", e);
   }
 
-  for (const url of allRelayUrls) {
+  // Pre-compute group subscription filters
+  const groups = client.groups;
+  const hTags: string[] = [];
+  for (const g of groups) {
+    const nostrId = getNostrGroupId(g);
+    subscribedGroups.add(nostrId);
+    hTags.push(nostrId);
+  }
+
+  // Connect to relays in parallel with auto-reconnect
+  const setupRelay = async (url: string) => {
     try {
-      const relay = await Relay.connect(url);
+      const relay = await Relay.connect(url, {
+        enableReconnect: true,
+        timeout: 5000,
+      });
       connectedRelays.push(relay);
 
       const welcomeSub = relay.subscribe(
@@ -591,14 +688,7 @@ export async function subscribeToMessages(
       );
       closers.push(() => welcomeSub.close());
 
-      const groups = client.groups;
-      if (groups.length > 0) {
-        const hTags: string[] = [];
-        for (const g of groups) {
-          const nostrId = getNostrGroupId(g);
-          subscribedGroups.add(nostrId);
-          hTags.push(nostrId);
-        }
+      if (hTags.length > 0) {
         const msgSub = relay.subscribe(
           [{ kinds: [445], "#h": hTags }],
           {
@@ -613,8 +703,47 @@ export async function subscribeToMessages(
         closers.push(() => msgSub.close());
       }
     } catch (e) {
-      console.error("[mls-relay] Failed to connect:", url, e);
+      console.warn("[mls-relay] Failed to connect:", url);
     }
+  };
+
+  await Promise.allSettled([...allRelayUrls].map(setupRelay));
+  _updateConnectionStatus();
+
+  // Catch up on missed messages when tab becomes visible again
+  const handleVisibility = () => {
+    if (document.visibilityState === "visible") {
+      _updateConnectionStatus();
+      catchUpMessages();
+    }
+  };
+  document.addEventListener("visibilitychange", handleVisibility);
+  closers.push(() =>
+    document.removeEventListener("visibilitychange", handleVisibility),
+  );
+
+  // Listen for push-delivered events from service worker
+  if (typeof navigator !== "undefined" && navigator.serviceWorker) {
+    const handleSWMessage = async (evt: MessageEvent) => {
+      if (evt.data?.type !== "mls-event") return;
+      try {
+        const event = JSON.parse(evt.data.event);
+        if (seen.has(event.id)) return;
+        seen.add(event.id);
+        const rumour = await handleGroupMessageEvent(
+          event as NostrEvent,
+          user,
+          client,
+        );
+        if (rumour) onNewRumour(rumour);
+      } catch (e) {
+        console.error("[mls] Failed to process push event:", e);
+      }
+    };
+    navigator.serviceWorker.addEventListener("message", handleSWMessage);
+    closers.push(() =>
+      navigator.serviceWorker.removeEventListener("message", handleSWMessage),
+    );
   }
 
   // Publish key package
@@ -624,6 +753,7 @@ export async function subscribeToMessages(
 
   return () => {
     _activeSub = null;
+    _updateConnectionStatus();
     inviteReader.removeAllListeners("newInvite");
     closers.forEach((c) => c());
   };

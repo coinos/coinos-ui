@@ -113,10 +113,18 @@ self.addEventListener("fetch", (event) => {
 });
 
 self.addEventListener("push", (event) => {
-  const { title, body, url } = event.data.json();
+  const data = event.data.json();
+  const { title, body, url } = data;
 
   event.waitUntil(
     clients.matchAll({ type: "window" }).then((clientList) => {
+      // Forward raw event to all open clients for instant processing
+      if (data.event) {
+        for (const client of clientList) {
+          client.postMessage({ type: "mls-event", event: data.event });
+        }
+      }
+
       const onPage = clientList.some(
         (c) => c.visibilityState === "visible" && new URL(c.url).pathname.startsWith(url),
       );

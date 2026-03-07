@@ -17,6 +17,9 @@ export {
   subscribeToMessages,
   fetchGroupHistory,
   decryptMediaUrl,
+  isConnected,
+  onConnectionChange,
+  catchUpMessages,
 } from "$lib/mls-relay";
 
 export type { GroupInfo } from "$lib/mls-relay";

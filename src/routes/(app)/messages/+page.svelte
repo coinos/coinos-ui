@@ -4,6 +4,7 @@
   import {
     getGroups, subscribeToMessages, fetchGroupHistory,
     searchMlsUsers, preloadMlsUsers, resolveUser, displayName,
+    isConnected, onConnectionChange,
   } from "$lib/messaging";
   import type { GroupInfo } from "$lib/messaging";
   import { t } from "$lib/translations";
@@ -22,6 +23,7 @@
 
   let groups: GroupInfo[] = $state([]);
   let loaded = $state(false);
+  let connected = $state(isConnected());
   let memberInfos = $state(new Map<string, any>());
 
   // Search state
@@ -68,8 +70,10 @@
   };
 
   let closeSub: (() => void) | undefined;
+  let closeConnectionListener: (() => void) | undefined;
 
   onMount(() => {
+    closeConnectionListener = onConnectionChange((c) => (connected = c));
     // Show cached groups immediately, then fetch history in background
     refreshGroups().then(() => { loaded = true; });
     fetchGroupHistory(user).then(refreshGroups);
@@ -77,8 +81,15 @@
     subscribeToMessages(user, refreshGroups).then((close) => (closeSub = close));
   });
 
-  onDestroy(() => closeSub?.());
+  onDestroy(() => {
+    closeSub?.();
+    closeConnectionListener?.();
+  });
 </script>
+
+{#if !connected}
+  <div class="reconnecting-banner">Reconnecting...</div>
+{/if}
 
 <div class="container mx-auto max-w-xl px-4 space-y-1">
   <input
@@ -134,3 +145,18 @@
     {/each}
   {/if}
 </div>
+
+<style>
+  .reconnecting-banner {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #f59e0b;
+    padding: 0.25rem;
+    animation: pulse-text 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-text {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+</style>
