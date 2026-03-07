@@ -35,6 +35,15 @@
       if (!navigator?.serviceWorker) { pmReady = true; return; }
       let reg = await navigator.serviceWorker.getRegistration();
       if (!reg) reg = await navigator.serviceWorker.register("/service-worker.js");
+      if (reg && !reg.active) {
+        await new Promise<void>((resolve) => {
+          const sw = reg.installing || reg.waiting;
+          if (!sw) { resolve(); return; }
+          sw.addEventListener("statechange", () => {
+            if (sw.state === "activated") resolve();
+          });
+        });
+      }
       pm = reg?.pushManager;
       if (!pm) { pmReady = true; return; }
 
