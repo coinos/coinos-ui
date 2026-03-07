@@ -127,17 +127,19 @@ self.addEventListener("push", (event) => {
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  const url = event.notification.data.url || "/";
+  const path = event.notification.data.url || "/";
+  const target = new URL(path, self.location.origin).href;
 
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
-        if (client.url === url && "focus" in client) {
+        if (new URL(client.url).origin === self.location.origin && "focus" in client) {
+          client.navigate(target);
           return client.focus();
         }
       }
       if (clients.openWindow) {
-        return clients.openWindow(url);
+        return clients.openWindow(target);
       }
     }),
   );
