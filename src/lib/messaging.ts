@@ -7,6 +7,8 @@
 export {
   publishKeyPackage,
   fetchKeyPackage,
+  searchMlsUsers,
+  preloadMlsUsers,
   getGroups,
   getGroupRumours,
   sendGroupMessage,

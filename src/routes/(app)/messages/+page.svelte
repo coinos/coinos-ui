@@ -3,11 +3,13 @@
 
   import {
     getGroups, subscribeToMessages, fetchGroupHistory,
-    resolveUser, displayName,
+    searchMlsUsers, preloadMlsUsers, resolveUser, displayName,
   } from "$lib/messaging";
   import type { GroupInfo } from "$lib/messaging";
   import { t } from "$lib/translations";
   import Avatar from "$comp/Avatar.svelte";
+
+  const focus = (el: HTMLElement) => el.focus();
 
   let { data } = $props();
   const user = $derived(data.user);
@@ -21,6 +23,15 @@
   let groups: GroupInfo[] = $state([]);
   let loaded = $state(false);
   let memberInfos = $state(new Map<string, any>());
+
+  // Search state
+  let query = $state("");
+  let searchResults: any[] = $state([]);
+
+  const onSearchInput = async () => {
+    if (!query.trim()) { searchResults = []; return; }
+    searchResults = (await searchMlsUsers(query)).filter((u) => u.pubkey !== user.pubkey);
+  };
 
   const otherMembers = (g: GroupInfo) => g.members.filter((pk) => pk !== user.pubkey);
 
@@ -50,30 +61,54 @@
     }
   };
 
-  const loadGroups = async () => {
-    await fetchGroupHistory(user);
+  const refreshGroups = async () => {
     const allGroups = await getGroups(user);
     groups = allGroups.filter((g) => g.members.includes(user.pubkey));
     resolveMembers(groups);
-    loaded = true;
   };
 
   let closeSub: (() => void) | undefined;
 
   onMount(() => {
-    loadGroups();
-    subscribeToMessages(user, async () => {
-      const allGroups = await getGroups(user);
-      groups = allGroups.filter((g) => g.members.includes(user.pubkey));
-      resolveMembers(groups);
-    }).then((close) => (closeSub = close));
+    // Show cached groups immediately, then fetch history in background
+    refreshGroups().then(() => { loaded = true; });
+    fetchGroupHistory(user).then(refreshGroups);
+    preloadMlsUsers();
+    subscribeToMessages(user, refreshGroups).then((close) => (closeSub = close));
   });
 
   onDestroy(() => closeSub?.());
 </script>
 
 <div class="container mx-auto max-w-xl px-4 space-y-1">
-  {#if !loaded}
+  <input
+    use:focus
+    type="text"
+    bind:value={query}
+    oninput={onSearchInput}
+    placeholder={$t("dm.searchMls")}
+    class="w-full px-4 py-2 rounded-full border border-base-300 bg-base-100 text-base-content focus:outline-none focus:border-base-content/30 mb-2"
+  />
+
+  {#if query.trim()}
+    {#if searchResults.length === 0}
+      <p class="text-center text-secondary py-4">{$t("dm.noResults")}</p>
+    {:else}
+      {#each searchResults as u}
+        <a href="/messages/{u.pubkey}" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-base-200">
+          <div class="shrink-0">
+            <Avatar user={{ pubkey: u.pubkey, username: u.name, picture: u.picture }} size={12} disabled />
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="font-semibold text-lg truncate">{u.name || u.pubkey.slice(0, 12) + "…"}</div>
+            {#if u.nip05}
+              <div class="text-secondary text-sm truncate">{u.nip05}</div>
+            {/if}
+          </div>
+        </a>
+      {/each}
+    {/if}
+  {:else if !loaded}
     <div class="flex justify-center py-8"><div class="loading loading-spinner"></div></div>
   {:else if groups.length === 0}
     <p class="text-center text-secondary">{$t("dm.noChats")}</p>

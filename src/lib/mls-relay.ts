@@ -5,6 +5,7 @@
 
 import type { NostrEvent } from "nostr-tools/pure";
 import { bytesToHex } from "@noble/hashes/utils.js";
+import { nip19 } from "nostr-tools";
 import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { getMarmotClient, getInviteReader, DM_RELAYS } from "$lib/marmot";
@@ -142,6 +143,227 @@ async function getInboxRelays(pubkey: string): Promise<string[]> {
     if (relays.length > 0) return relays;
   }
   return [];
+}
+
+// ---------------------------------------------------------------------------
+// MLS user directory — IndexedDB-cached profiles of kind 443 authors
+// ---------------------------------------------------------------------------
+
+interface MlsUserProfile {
+  pubkey: string;
+  name?: string;
+  picture?: string;
+  nip05?: string;
+}
+
+const MLS_DB_NAME = "coinos-mls-directory";
+const MLS_DB_VERSION = 1;
+const MLS_STORE = "profiles";
+let _mlsDb: IDBDatabase | null = null;
+let _mlsLoading: Promise<void> | null = null;
+
+function openMlsDb(): Promise<IDBDatabase> {
+  if (_mlsDb) return Promise.resolve(_mlsDb);
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(MLS_DB_NAME, MLS_DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(MLS_STORE)) {
+        const store = db.createObjectStore(MLS_STORE, { keyPath: "pubkey" });
+        store.createIndex("name", "name");
+      }
+    };
+    req.onsuccess = () => { _mlsDb = req.result; resolve(_mlsDb); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+const MAX_DB_BYTES = 1_000_000; // 1 MB cap
+
+async function getMeta(db: IDBDatabase): Promise<any> {
+  return new Promise((resolve) => {
+    const tx = db.transaction(MLS_STORE, "readonly");
+    const req = tx.objectStore(MLS_STORE).get("__meta__");
+    req.onsuccess = () => resolve(req.result || {});
+    req.onerror = () => resolve({});
+  });
+}
+
+async function putProfiles(db: IDBDatabase, profiles: MlsUserProfile[], meta: any): Promise<void> {
+  const tx = db.transaction(MLS_STORE, "readwrite");
+  const store = tx.objectStore(MLS_STORE);
+  for (const p of profiles) store.put(p);
+  store.put({ pubkey: "__meta__", ...meta });
+  await new Promise<void>((resolve) => { tx.oncomplete = () => resolve(); });
+}
+
+async function enforceSize(db: IDBDatabase): Promise<void> {
+  const all: MlsUserProfile[] = await new Promise((resolve) => {
+    const tx = db.transaction(MLS_STORE, "readonly");
+    const req = tx.objectStore(MLS_STORE).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => resolve([]);
+  });
+
+  const size = new Blob([JSON.stringify(all)]).size;
+  if (size <= MAX_DB_BYTES) return;
+
+  const entries = all.filter((u) => u.pubkey !== "__meta__");
+  entries.sort((a, b) => (a.name || "").length - (b.name || "").length);
+
+  const tx = db.transaction(MLS_STORE, "readwrite");
+  const store = tx.objectStore(MLS_STORE);
+  let currentSize = size;
+  for (const entry of entries) {
+    if (currentSize <= MAX_DB_BYTES) break;
+    currentSize -= new Blob([JSON.stringify(entry)]).size;
+    store.delete(entry.pubkey);
+  }
+  await new Promise<void>((resolve) => { tx.oncomplete = () => resolve(); });
+}
+
+async function resolveProfiles(authors: string[], knownPubkeys: Set<string>): Promise<MlsUserProfile[]> {
+  const newAuthors = authors.filter((pk) => !knownPubkeys.has(pk));
+  if (newAuthors.length === 0) return [];
+
+  const profiles: MlsUserProfile[] = [];
+  for (let i = 0; i < newAuthors.length; i += 50) {
+    const chunk = newAuthors.slice(i, i + 50);
+    const events = await pool.querySync(DISCOVERY_RELAYS, { kinds: [0], authors: chunk, limit: 50 });
+    for (const e of events) {
+      try {
+        const p = JSON.parse(e.content);
+        profiles.push({
+          pubkey: e.pubkey,
+          name: p.display_name || p.name || undefined,
+          picture: p.picture || undefined,
+          nip05: p.nip05 || undefined,
+        });
+      } catch {}
+    }
+  }
+  return profiles;
+}
+
+/** Preload MLS user profiles into IndexedDB. Background refresh every hour. */
+export function preloadMlsUsers(): Promise<void> {
+  if (_mlsLoading) return _mlsLoading;
+  _mlsLoading = (async () => {
+    const db = await openMlsDb();
+    const meta = await getMeta(db);
+
+    // Skip if refreshed within the last hour
+    if (meta.lastFetch && Date.now() - meta.lastFetch < 60 * 60 * 1000) return;
+
+    // Get existing pubkeys so we can merge
+    const existing: MlsUserProfile[] = await new Promise((resolve) => {
+      const tx = db.transaction(MLS_STORE, "readonly");
+      const req = tx.objectStore(MLS_STORE).getAll();
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve([]);
+    });
+    const knownPubkeys = new Set(existing.filter((u) => u.pubkey !== "__meta__").map((u) => u.pubkey));
+
+    // First pass — get immediate results for search
+    const events = await pool.querySync(DISCOVERY_RELAYS, { kinds: [443], limit: 500 });
+    for (const e of events) knownPubkeys.add(e.pubkey); // track for dedup
+    const firstAuthors = [...new Set(events.map((e) => e.pubkey))];
+    const profiles = await resolveProfiles(firstAuthors, new Set(existing.filter((u) => u.pubkey !== "__meta__").map((u) => u.pubkey)));
+    const oldest = events.length ? Math.min(...events.map((e) => e.created_at)) : 0;
+    await putProfiles(db, profiles, { pubkey: "__meta__", lastFetch: Date.now() });
+
+    // Background: paginate back 3 weeks to find all MLS users
+    const threeWeeksAgo = Math.floor(Date.now() / 1000) - 21 * 24 * 60 * 60;
+    if (oldest > threeWeeksAgo) {
+      backgroundPaginate(db, oldest, threeWeeksAgo, knownPubkeys);
+    }
+  })();
+  return _mlsLoading;
+}
+
+async function backgroundPaginate(db: IDBDatabase, until: number, earliest: number, knownPubkeys: Set<string>): Promise<void> {
+  let cursor = until;
+  while (cursor > earliest) {
+    try {
+      const events = await pool.querySync(DISCOVERY_RELAYS, { kinds: [443], limit: 500, until: cursor });
+      if (events.length === 0) break;
+      const newAuthors = [...new Set(events.map((e) => e.pubkey))].filter((pk) => !knownPubkeys.has(pk));
+      if (newAuthors.length > 0) {
+        const profiles = await resolveProfiles(newAuthors, knownPubkeys);
+        for (const pk of newAuthors) knownPubkeys.add(pk);
+        if (profiles.length) {
+          await putProfiles(db, profiles, { pubkey: "__meta__", lastFetch: Date.now() });
+          await enforceSize(db);
+        }
+      }
+      cursor = Math.min(...events.map((e) => e.created_at));
+    } catch {
+      break;
+    }
+  }
+}
+
+/** Resolve a hex pubkey to an MLS profile if they have a key package. */
+async function lookupMlsUser(pubkey: string): Promise<MlsUserProfile | null> {
+  const kp = await fetchKeyPackage(pubkey);
+  if (!kp) return null;
+  const profiles = await pool.querySync(DISCOVERY_RELAYS, { kinds: [0], authors: [pubkey], limit: 1 });
+  let name: string | undefined, picture: string | undefined, nip05Val: string | undefined;
+  if (profiles.length) {
+    try {
+      const p = JSON.parse(profiles[0].content);
+      name = p.display_name || p.name;
+      picture = p.picture;
+      nip05Val = p.nip05;
+    } catch {}
+  }
+  const profile: MlsUserProfile = { pubkey, name, picture, nip05: nip05Val };
+
+  // Cache in IndexedDB for future searches
+  try {
+    const db = await openMlsDb();
+    const tx = db.transaction(MLS_STORE, "readwrite");
+    tx.objectStore(MLS_STORE).put(profile);
+  } catch {}
+
+  return profile;
+}
+
+/** Search MLS users from local IndexedDB. Falls back to relay lookup for npub/pubkey. */
+export async function searchMlsUsers(query: string): Promise<MlsUserProfile[]> {
+  if (!query.trim()) return [];
+  const q = query.trim().toLowerCase();
+
+  // If query looks like an npub or hex pubkey, do a direct lookup
+  let directPubkey: string | null = null;
+  if (q.startsWith("npub1")) {
+    try { directPubkey = nip19.decode(q).data as string; } catch {}
+  } else if (/^[0-9a-f]{64}$/.test(q)) {
+    directPubkey = q;
+  }
+
+  const db = await openMlsDb();
+  const all: MlsUserProfile[] = await new Promise((resolve, reject) => {
+    const tx = db.transaction(MLS_STORE, "readonly");
+    const req = tx.objectStore(MLS_STORE).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+
+  const results = all.filter((u) => {
+    if (u.pubkey === "__meta__") return false;
+    const name = (u.name || "").toLowerCase();
+    const nip05 = (u.nip05 || "").toLowerCase();
+    return name.includes(q) || nip05.includes(q) || u.pubkey.startsWith(q);
+  }).slice(0, 20);
+
+  // If no local results and we have a direct pubkey, check relays
+  if (results.length === 0 && directPubkey) {
+    const profile = await lookupMlsUser(directPubkey);
+    if (profile) return [profile];
+  }
+
+  return results;
 }
 
 export async function fetchKeyPackage(pubkey: string, relays: string[] = DM_RELAYS): Promise<NostrEvent | null> {
