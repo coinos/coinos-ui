@@ -130,5 +130,12 @@ self.addEventListener("notificationclick", (event) => {
   const path = event.notification.data.url || "/";
   const target = new URL(path, self.location.origin).href;
 
-  event.waitUntil(clients.openWindow(target));
+  event.waitUntil(
+    clients.matchAll({ type: "window" }).then((clientList) => {
+      for (const client of clientList) {
+        return client.navigate(target).then(() => client.focus());
+      }
+      return clients.openWindow(target);
+    }),
+  );
 });
