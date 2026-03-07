@@ -26,46 +26,68 @@
     pm: any,
     subscription: any;
 
+  let permission = $state();
+  let pmReady = $state(false);
+
   onMount(async () => {
     if (!browser) return;
 
-    pm = navigator?.serviceWorker && (await navigator.serviceWorker.getRegistration())?.pushManager;
+    try {
+      pm = navigator?.serviceWorker && (await navigator.serviceWorker.getRegistration())?.pushManager;
+      if (!pm) { pmReady = true; return; }
 
-    permission = await pm.permissionState({
-      userVisibleOnly: true,
-      applicationServerKey: PUBLIC_VAPID_PUBKEY,
-    });
-
-    if (permission === "granted") {
-      subscription = await pm.getSubscription();
-      if (subscriptions.includes(JSON.stringify(subscription))) push = true;
-    }
-  });
-
-  let permission = $state();
-  let updateNotifications = async (push) => {
-    if (!browser || !pm) return (push = false);
-
-    if (subscription && !push) {
-      return post("/subscription/delete", { subscription });
-    }
-
-    if (push && permission !== "denied") {
-      subscription = await pm.subscribe({
+      permission = await pm.permissionState({
         userVisibleOnly: true,
         applicationServerKey: PUBLIC_VAPID_PUBKEY,
       });
+
+      if (permission === "granted") {
+        subscription = await pm.getSubscription();
+        if (subscriptions.includes(JSON.stringify(subscription))) push = true;
+      }
+    } catch (e) {
+      console.error("push init failed", e);
     }
 
-    if (subscription) {
-      await post("/subscription", { subscription });
+    pmReady = true;
+  });
+
+  const togglePush = async (on: boolean) => {
+    if (!pm) return;
+    try {
+      if (subscription && !on) {
+        await post("/subscription/delete", { subscription });
+        return;
+      }
+
+      if (on && permission !== "denied") {
+        subscription = await pm.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: PUBLIC_VAPID_PUBKEY,
+        });
+      }
+
+      if (subscription) {
+        await post("/subscription", { subscription });
+      }
+    } catch (e) {
+      console.error("push toggle failed", e);
+      push = false;
     }
   };
+
+  let pushInitialized = false;
+  $effect(() => {
+    // Track push so this effect re-runs when it changes
+    const val = push;
+    if (!pmReady) return;
+    // Skip the first run after pmReady (initial state from onMount)
+    if (!pushInitialized) { pushInitialized = true; return; }
+    togglePush(val);
+  });
+
   run(() => {
     user.language = $locale;
-  });
-  run(() => {
-    updateNotifications(push);
   });
 
   $effect(() => {
@@ -111,6 +133,7 @@
   <p class="text-secondary mt-1 w-9/12">{$t("user.settings.notificationsDesc")}</p>
 </div>
 
+{#if pm}
 <div>
   <div class="flex justify-between items-center">
     <span class="font-bold">{$t("user.settings.pushNotifications")}</span>
@@ -126,6 +149,7 @@
     {/if}
   </p>
 </div>
+{/if}
 
 <div>
   <div class="flex justify-between items-center">
