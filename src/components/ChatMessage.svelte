@@ -22,7 +22,7 @@
   let imetaImageUrls = $derived(new Set(imeta.filter((m) => m.mime.startsWith("image/")).map((m) => m.url)));
 
   $effect(() => {
-    if (tags.length) console.log("[ChatMessage] content:", JSON.stringify(content), "tags:", JSON.stringify(tags));
+    if (tags.length) console.log("[ChatMessage] content:", JSON.stringify(content), "tags:", JSON.stringify(tags), "imetaUrls:", imetaUrls, "parts:", JSON.stringify(parts));
   });
 
   let parts = $derived(parseContent({ content: [content, ...imetaUrls].join("\n"), tags }));
