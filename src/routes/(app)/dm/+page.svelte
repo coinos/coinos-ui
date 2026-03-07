@@ -300,16 +300,34 @@
    return chatName.includes(lowerQuery);
  }
 
+ const nameStartsWith = (chat: object, query: string) => {
+   const lowerQuery = query.toLowerCase();
+   const chatName = name(chat).toLowerCase();
+   return chatName.startsWith(lowerQuery);
+ }
+
  const nip05Matches = (chat: object, query: string) => {
    const lowerQuery = query.toLowerCase();
    const chatNip05 = chat?.nip05;
    return chatNip05 && chatNip05.includes(lowerQuery);
  }
 
+ const nip05StartsWith = (chat: object, query: string) => {
+   const lowerQuery = query.toLowerCase();
+   const chatNip05 = chat?.nip05;
+   return chatNip05 && chatNip05.startsWith(lowerQuery);
+ }
+
  const pubkeyMatches = (chat: object, query: string) => {
    const lowerQuery = query.toLowerCase();
    return chat.pubkey.includes(lowerQuery) ||
           npubEncode(chat.pubkey).includes(lowerQuery);
+ }
+
+ const pubkeyStartsWith = (chat: object, query: string) => {
+   const lowerQuery = query.toLowerCase();
+   return chat.pubkey.startsWith(lowerQuery) ||
+          npubEncode(chat.pubkey).startsWith(lowerQuery);
  }
 
  const searchMatches = (chat: object, query: string) =>
@@ -324,6 +342,14 @@
  // Generates and returns a comparator based on a search query
  const searchCompare = (query: string) =>
    (a, b) => {
+     const aNameStartsWith = nameStartsWith(a, query);
+     const bNameStartsWith = nameStartsWith(b, query);
+     if (aNameStartsWith && !bNameStartsWith) {
+       return -1;
+     } else if (!aNameStartsWith && bNameStartsWith) {
+       return 1;
+     }
+
      const aNameMatches = nameMatches(a, query);
      const bNameMatches = nameMatches(b, query);
      if (aNameMatches && !bNameMatches) {
@@ -332,11 +358,27 @@
        return 1;
      }
 
+     const aNip05StartsWith = nip05StartsWith(a, query);
+     const bNip05StartsWith = nip05StartsWith(b, query);
+     if (aNip05StartsWith && !bNip05StartsWith) {
+       return -1;
+     } else if (!aNip05StartsWith && bNip05StartsWith) {
+       return 1;
+     }
+
      const aNip05Matches = nip05Matches(a, query);
      const bNip05Matches = nip05Matches(b, query);
      if (aNip05Matches && !bNip05Matches) {
        return -1;
      } else if (!aNip05Matches && bNip05Matches) {
+       return 1;
+     }
+
+     const aPubkeyStartsWith = pubkeyStartsWith(a, query);
+     const bPubkeyStartsWith = pubkeyStartsWith(b, query);
+     if (aPubkeyStartsWith && !bPubkeyStartsWith) {
+       return -1;
+     } else if (!aPubkeyStartsWith && bPubkeyStartsWith) {
        return 1;
      }
 
