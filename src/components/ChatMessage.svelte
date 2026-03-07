@@ -3,13 +3,23 @@
 
   let { content, tags = [] }: { content: string; tags?: any[] } = $props();
 
-  // Extract image URLs from imeta tags not already in content
-  let imetaUrls = $derived(
+  // Parse imeta tags for URLs and MIME types
+  let imeta = $derived(
     tags
       .filter((t) => t[0] === "imeta")
-      .map((t) => t.find((v) => v.startsWith("url "))?.slice(4))
-      .filter((url): url is string => !!url && !content.includes(url)),
+      .map((t) => {
+        const url = t.find((v) => v.startsWith("url "))?.slice(4);
+        const mime = t.find((v) => v.startsWith("m "))?.slice(2) || "";
+        return { url, mime };
+      })
+      .filter((m): m is { url: string; mime: string } => !!m.url),
   );
+
+  // URLs from imeta not already in content
+  let imetaUrls = $derived(imeta.filter((m) => !content.includes(m.url!)).map((m) => m.url));
+
+  // Set of URLs that imeta says are images (by MIME type or blossom-style hash URLs)
+  let imetaImageUrls = $derived(new Set(imeta.filter((m) => m.mime.startsWith("image/")).map((m) => m.url)));
 
   let parts = $derived(parseContent({ content: [content, ...imetaUrls].join("\n"), tags }));
 
@@ -36,7 +46,7 @@
   {:else if type === "newline"}
     <br />
   {:else if type === "link"}
-    {#if isImage(value.url)}
+    {#if isImage(value.url) || imetaImageUrls.has(value.url)}
       <a href={value.url} target="_blank" rel="noopener noreferrer">
         <img src={value.url} alt="" class="chat-img" />
       </a>
