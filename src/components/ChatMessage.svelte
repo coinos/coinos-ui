@@ -14,6 +14,10 @@
       .filter((m) => m.url),
   );
 
+  $effect(() => {
+    console.log("[ChatMessage]", { content, tags: JSON.stringify(tags), imetaMedia: JSON.stringify(imetaMedia) });
+  });
+
   let parts = $derived(parseContent({ content, tags }));
 
   const truncUrl = (url: string) => {
