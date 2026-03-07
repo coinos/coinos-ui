@@ -9,6 +9,7 @@ import { nip19 } from "nostr-tools";
 import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { getMarmotClient, getInviteReader, DM_RELAYS } from "$lib/marmot";
+import { post } from "$lib/utils";
 
 const pool = new SimplePool();
 
@@ -288,6 +289,12 @@ export async function fetchKeyPackage(pubkey: string, relays: string[] = DM_RELA
 // Group listing
 // ---------------------------------------------------------------------------
 
+/** Sync group metadata to the server so it can send push notifications for kind 445 events. */
+function syncGroupsToServer(groups: { nostrGroupId: string; members: string[]; relays: string[] }[]): void {
+  if (!groups.length) return;
+  post("/groups/sync", { groups }).catch(() => {});
+}
+
 /** Load all groups and return metadata for the chat list. */
 export async function getGroups(user: any): Promise<GroupInfo[]> {
   const client = getMarmotClient(user.pubkey);
@@ -297,11 +304,15 @@ export async function getGroups(user: any): Promise<GroupInfo[]> {
   if (!_cacheUserPubkey) loadLocalCache(user.pubkey);
 
   const infos: GroupInfo[] = [];
+  const syncPayload: { nostrGroupId: string; members: string[]; relays: string[] }[] = [];
+
   for (const g of client.groups) {
     registerGroupIds(g);
     const groupId = bytesToHex(g.id);
+    const nostrGroupId = getNostrGroupId(g);
     const data = g.groupData;
     const members = getGroupMembers(g.state);
+    const relays = data?.relays || g.relays || [];
     const rumours = groupRumourCache.get(groupId) || [];
     const last = rumours.length > 0 ? rumours[rumours.length - 1] : null;
 
@@ -310,14 +321,20 @@ export async function getGroups(user: any): Promise<GroupInfo[]> {
       name: data?.name || "",
       members,
       adminPubkeys: data?.adminPubkeys || [],
-      relays: data?.relays || g.relays || [],
+      relays,
       lastMessage: last?.content,
       lastMessageAt: last?.created_at,
     });
+
+    syncPayload.push({ nostrGroupId, members, relays });
   }
 
   // Sort by most recent message
   infos.sort((a, b) => (b.lastMessageAt ?? 0) - (a.lastMessageAt ?? 0));
+
+  // Sync group registry to server for push notifications
+  syncGroupsToServer(syncPayload);
+
   return infos;
 }
 
