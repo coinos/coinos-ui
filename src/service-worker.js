@@ -22,7 +22,13 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(CACHE_BUILD)
-      .then((cache) => cache.addAll([...build, ...ESSENTIAL_STATIC]))
+      .then((cache) =>
+        Promise.allSettled(
+          [...build, ...ESSENTIAL_STATIC].map((url) =>
+            cache.add(url).catch(() => {}),
+          ),
+        ),
+      )
       .then(() => self.skipWaiting()),
   );
 });
