@@ -32,7 +32,10 @@
     if (!browser) return;
 
     try {
-      pm = navigator?.serviceWorker && (await navigator.serviceWorker.getRegistration())?.pushManager;
+      if (!navigator?.serviceWorker) { pmReady = true; return; }
+      let reg = await navigator.serviceWorker.getRegistration();
+      if (!reg) reg = await navigator.serviceWorker.register("/service-worker.js");
+      pm = reg?.pushManager;
       if (!pm) { pmReady = true; return; }
 
       permission = await pm.permissionState({
