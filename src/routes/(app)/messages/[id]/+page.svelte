@@ -12,7 +12,6 @@
     findOrCreateDmGroup,
     resolveUser, displayName,
     decryptMediaUrl,
-    isConnected, onConnectionChange,
   } from "$lib/messaging";
   import type { GroupInfo } from "$lib/messaging";
   import { t } from "$lib/translations";
@@ -49,7 +48,6 @@
   let dates: number[] = $state([]);
   let sendError = $state("");
   let uploading = $state(false);
-  let connected = $state(isConnected());
   let senderInfos = $state(new Map<string, any>());
 
   const groupDisplayName = (g: GroupInfo | undefined): string => {
@@ -245,10 +243,7 @@
   };
 
   let closeSub: (() => void) | undefined;
-  let closeConnectionListener: (() => void) | undefined;
-
   onMount(() => {
-    closeConnectionListener = onConnectionChange((c) => (connected = c));
     loadGroup();
 
     const vv = window.visualViewport;
@@ -276,10 +271,7 @@
     }).then((close) => (closeSub = close));
   });
 
-  onDestroy(() => {
-    closeSub?.();
-    closeConnectionListener?.();
-  });
+  onDestroy(() => closeSub?.());
 </script>
 
 <div class="chat-container">
@@ -287,9 +279,6 @@
     <h2 class="text-xl font-semibold">{groupDisplayName(groupInfo)}</h2>
     {#if groupInfo && groupInfo.members.length > 2}
       <span class="text-secondary text-sm">{groupInfo.members.length} members</span>
-    {/if}
-    {#if !connected}
-      <span class="connection-status">reconnecting...</span>
     {/if}
   </div>
 
@@ -402,17 +391,6 @@
     gap: 0.75rem;
     padding: 0.5rem 0;
     flex-shrink: 0;
-  }
-
-  .connection-status {
-    font-size: 0.75rem;
-    color: #f59e0b;
-    animation: pulse-text 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse-text {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
   }
 
   .warning {
