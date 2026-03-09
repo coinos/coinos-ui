@@ -15,6 +15,9 @@
   import { t } from "$lib/translations";
   import { copy, sats, loc, post } from "$lib/utils";
   import { loginRedirect } from "$lib/store";
+  import { registerPlugin } from "@capacitor/core";
+
+  const Hce = (window as any).Capacitor ? registerPlugin("Hce") : null;
 
   let { data }: any = $props();
 
@@ -33,7 +36,6 @@
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
 
   let hceActive = $state(false);
-  const Hce = (window as any).Capacitor?.Plugins?.Hce;
 
   $effect(() => {
     $loginRedirect = $page.url.pathname;
