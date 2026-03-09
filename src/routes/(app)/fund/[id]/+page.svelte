@@ -5,6 +5,7 @@
   import PhShareNetworkBold from "virtual:icons/ph/share-network-bold";
   import PhTrashBold from "virtual:icons/ph/trash-bold";
   import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhWifiBold from "virtual:icons/ph/wifi-high-bold";
   import Amount from "$comp/Amount.svelte";
   import Payments from "$comp/Payments.svelte";
   import { invalidate } from "$app/navigation";
@@ -30,9 +31,27 @@
   let isManager = $derived(!managers.length || managers.some((m) => m.id === user?.id));
 
   let amountFiat = $derived(parseFloat(((amount * rate) / sats).toFixed(2)));
+
+  let hceActive = $state(false);
+  const Hce = (window as any).Capacitor?.Plugins?.Hce;
+
   $effect(() => {
     $loginRedirect = $page.url.pathname;
   });
+
+  function enableHce() {
+    if (!Hce) return;
+    const url = `${$page.url.origin}/api/lnurlw/${id}`;
+    Hce.setUrl({ url });
+    hceActive = true;
+    toast.push("NFC armed — ready to tap");
+  }
+
+  function disableHce() {
+    if (!Hce) return;
+    Hce.setUrl({ url: "https://coinos.io" });
+    hceActive = false;
+  }
 
   async function deleteAuth(authId: string) {
     try {
@@ -103,6 +122,19 @@
           <div class="my-auto">{$t("payments.shareLink")}</div>
         </a>
       </div>
+      {#if Hce && amount > 0}
+        <div class="flex gap-2">
+          <button
+            class="btn grow"
+            class:!bg-green-600={hceActive}
+            class:!text-white={hceActive}
+            onclick={() => hceActive ? disableHce() : enableHce()}
+          >
+            <PhWifiBold width="32" />
+            <div class="my-auto">{hceActive ? "NFC Active — Ready to Tap" : "Enable NFC Tap to Pay"}</div>
+          </button>
+        </div>
+      {/if}
       {#if isManager && authorizations.length}
         <div class="space-y-2">
           <div class="font-bold text-lg">{$t("funds.authorizations")}</div>
