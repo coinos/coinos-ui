@@ -16,7 +16,7 @@
   import { copy, sats, loc, post } from "$lib/utils";
   import { loginRedirect } from "$lib/store";
 
-  const Hce = (window as any).Capacitor?.registerPlugin?.("Hce");
+  const Hce = (window as any).CoinosHce;
 
   let { data }: any = $props();
 
@@ -43,14 +43,14 @@
   function enableHce() {
     if (!Hce) return;
     const url = `${$page.url.origin}/api/lnurlw/${id}`;
-    Hce.setUrl({ url });
+    Hce.setUrl(url);
     hceActive = true;
     toast.push("NFC armed — ready to tap");
   }
 
   function disableHce() {
     if (!Hce) return;
-    Hce.setUrl({ url: "https://coinos.io" });
+    Hce.setUrl("https://coinos.io");
     hceActive = false;
   }
 

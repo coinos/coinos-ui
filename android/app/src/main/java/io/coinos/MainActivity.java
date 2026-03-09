@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 import androidx.core.view.ViewCompat;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Bridge;
@@ -25,6 +27,8 @@ import java.util.Arrays;
 
 import io.coinos.nfcwriter.NfcWriterPlugin;
 import io.coinos.hce.HcePlugin;
+import io.coinos.hce.HceApduService;
+import android.webkit.JavascriptInterface;
 
 public class MainActivity extends BridgeActivity {
     private NfcAdapter nfcAdapter;
@@ -51,6 +55,22 @@ public class MainActivity extends BridgeActivity {
                 return insets.consumeSystemWindowInsets();
             });
         }
+
+        // Enable WebAuthn/passkey support in WebView
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.WEB_AUTHENTICATION)) {
+            WebSettingsCompat.setWebAuthenticationSupport(
+                webView.getSettings(),
+                WebSettingsCompat.WEB_AUTHENTICATION_SUPPORT_FOR_APP
+            );
+        }
+
+        // Expose HCE control to JavaScript
+        webView.addJavascriptInterface(new Object() {
+            @JavascriptInterface
+            public void setUrl(String url) { HceApduService.setUrl(url); }
+            @JavascriptInterface
+            public String getUrl() { return HceApduService.getUrl(); }
+        }, "CoinosHce");
 
         // Other app setup
         CookieManager cookieManager = CookieManager.getInstance();
