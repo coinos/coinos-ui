@@ -15,9 +15,8 @@
   import { t } from "$lib/translations";
   import { copy, sats, loc, post } from "$lib/utils";
   import { loginRedirect } from "$lib/store";
-  import { registerPlugin } from "@capacitor/core";
 
-  const Hce = (window as any).Capacitor ? registerPlugin("Hce") : null;
+  const Hce = (window as any).Capacitor?.registerPlugin?.("Hce");
 
   let { data }: any = $props();
 
