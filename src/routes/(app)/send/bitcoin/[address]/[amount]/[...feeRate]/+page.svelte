@@ -169,7 +169,7 @@
   let lowRate = $derived(fees ? 0.1 : 0.1);
   let midRate = $derived(fees ? fees.hourFee : 1);
   let highRate = $derived(fees ? Math.max(fees.fastestFee, 8) : 10);
-  let maxRate = $derived(Math.max(highRate * 2, 16));
+  let maxRate = $derived(highRate);
 
   let sliderValue = $state(50);
 
@@ -229,18 +229,26 @@
 
     {#if fees}
       <div class="text-center space-y-2">
-        <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
+        <h2 class="text-secondary text-lg">{$t("payments.feeRate")}</h2>
 
         <div class="px-2">
-          <Slider bind:value={sliderValue} handle={handleSlide} min={0} max={100} />
+          <div class="relative">
+            <Slider bind:value={sliderValue} handle={handleSlide} min={0} max={100} />
+            <div class="absolute inset-0 pointer-events-none">
+              <span
+                class="absolute top-1/2 -translate-y-1/2 text-sm font-semibold whitespace-nowrap"
+                style="left: calc({sliderValue}% + 20px)"
+              >{feeRate} sat/vB</span>
+            </div>
+          </div>
           <div class="flex justify-between text-secondary mt-1 px-1">
-            <span>{lowRate} sat/vB</span>
-            <span>{midRate} sat/vB</span>
-            <span>{highRate} sat/vB</span>
+            <span>{$t("payments.slow")}</span>
+            <span>{$t("payments.medium")}</span>
+            <span>{$t("payments.fast")}</span>
           </div>
         </div>
 
-        <div class="text-lg">{feeRate} sat/vB</div>
+        <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
         {#if feeLoading}
           <Spinner class="text-secondary" />
         {:else}

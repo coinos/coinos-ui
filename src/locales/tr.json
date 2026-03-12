@@ -609,7 +609,8 @@
 		"low": "Low",
 		"high": "Yüksek",
 		"priority": "Öncelik",
-		"authorize": "Authorize"
+		"authorize": "Authorize",
+		"feeRate": "Ücret oranı"
 	},
 	"items": {
 		"add": "Ekle item",
@@ -682,7 +683,9 @@
 		"noRelaysSet": "WARNING: Herhangi bir tercih edilen röle ayarlamadın. Herhangi bir mesaj alabilir veya gönderdiğiniz mesajları göremezsiniz.",
 		"nostrSettingsLink": "Rölelerinizi ayarlamak için Nostr ayarlarınıza gidin.",
 		"anonymous": "Anonim",
-		"sendFailed": "Mesaj göndermeye başarısız oldu. röle mevcut olabilir."
+		"sendFailed": "Mesaj göndermeye başarısız oldu. röle mevcut olabilir.",
+		"searchMls": "Arama MLS kullanıcıları...",
+		"noResults": "No MLS kullanıcıları bulundu."
 	},
 	"map": {
 		"searchLocations": "Konum ara...",

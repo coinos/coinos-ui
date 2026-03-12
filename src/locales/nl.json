@@ -609,7 +609,8 @@
 		"low": "Laag",
 		"high": "Hoog",
 		"priority": "Prioriteit",
-		"authorize": "Machtiging"
+		"authorize": "Machtiging",
+		"feeRate": "Vergoeding"
 	},
 	"items": {
 		"add": "Item toevoegen",
@@ -682,7 +683,9 @@
 		"noRelaysSet": "WAARSCHUWING: U heeft geen voorkeursrelais ingesteld. U kunt geen berichten ontvangen of de berichten zien die u hebt verzonden.",
 		"nostrSettingsLink": "Ga naar uw Nostr instellingen om uw relais in te stellen.",
 		"anonymous": "Anoniem",
-		"sendFailed": "Kon bericht niet versturen. Het relais kan niet beschikbaar zijn."
+		"sendFailed": "Kon bericht niet versturen. Het relais kan niet beschikbaar zijn.",
+		"searchMls": "MLS-gebruikers zoeken...",
+		"noResults": "Geen MLS-gebruikers gevonden."
 	},
 	"map": {
 		"searchLocations": "Locaties zoeken...",

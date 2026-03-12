@@ -514,7 +514,8 @@
 		"low": "Baja",
 		"high": "Alto",
 		"priority": "Prioridad",
-		"authorize": "Autorizar"
+		"authorize": "Autorizar",
+		"feeRate": "Tasa de alimentación"
 	},
 	"items": {
 		"add": "Añadir artículo",
@@ -663,7 +664,9 @@
 		"noRelaysSet": "No has fijado ningún relé preferido. No podrás recibir ningún mensaje ni ver los mensajes que has enviado.",
 		"nostrSettingsLink": "Vaya a la configuración de Nostr para configurar sus relés.",
 		"anonymous": "Anónimo",
-		"sendFailed": "Failed to send message. El relé puede no estar disponible."
+		"sendFailed": "Failed to send message. El relé puede no estar disponible.",
+		"searchMls": "Buscar usuarios MLS...",
+		"noResults": "No se han encontrado usuarios de MLS."
 	},
 	"lang": {
 		"en": "English",

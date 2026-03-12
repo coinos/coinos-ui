@@ -541,7 +541,8 @@
 		"low": "Niedrig",
 		"high": "Hoch",
 		"priority": "Priorität",
-		"authorize": "Autorisieren"
+		"authorize": "Autorisieren",
+		"feeRate": "Gebührensatz"
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
@@ -690,7 +691,9 @@
 		"noRelaysSet": "WARNUNG: Sie haben keine bevorzugten Relais eingestellt. Sie können keine Nachrichten empfangen oder die von Ihnen gesendeten Nachrichten sehen.",
 		"nostrSettingsLink": "Gehen Sie zu Ihren Nostr Einstellungen, um Ihre Relais einzustellen.",
 		"anonymous": "Anonym",
-		"sendFailed": "Es ist fehlgeschlagen, eine Nachricht zu senden. Das Relais kann nicht verfügbar sein."
+		"sendFailed": "Es ist fehlgeschlagen, eine Nachricht zu senden. Das Relais kann nicht verfügbar sein.",
+		"searchMls": "Suche MLS-Benutzer...",
+		"noResults": "Keine MLS-Nutzer gefunden."
 	},
 	"lang": {
 		"en": "English",

@@ -514,7 +514,8 @@
 		"low": "低级",
 		"high": "高级",
 		"priority": "优先权",
-		"authorize": "授权"
+		"authorize": "授权",
+		"feeRate": "收费率"
 	},
 	"items": {
 		"add": "新增项目",
@@ -663,7 +664,9 @@
 		"noRelaysSet": "你没有设置任何首选接力 你将无法收到任何信息 或看到你已经发送的信息.",
 		"nostrSettingsLink": "到您的鼻孔设置来设置接力 .",
 		"anonymous": "无名",
-		"sendFailed": "发送消息失败 。 中继器可能无法使用 ."
+		"sendFailed": "发送消息失败 。 中继器可能无法使用 .",
+		"searchMls": "搜索 MLS 用户...",
+		"noResults": "未找到 MLS 用户 ."
 	},
 	"lang": {
 		"en": "English",

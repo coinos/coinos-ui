@@ -514,7 +514,8 @@
 		"low": "低い",
 		"high": "高い",
 		"priority": "優先順位",
-		"authorize": "認証"
+		"authorize": "認証",
+		"feeRate": "手数料料金"
 	},
 	"items": {
 		"add": "アイテムの追加",
@@ -663,7 +664,9 @@
 		"noRelaysSet": "警告: 好みのリレーは置かれません。 メッセージを受信したり、送信したメッセージが表示されたりすることはできません.",
 		"nostrSettingsLink": "リレーを設定するには、Nostr設定に移動します.",
 		"anonymous": "ログイン",
-		"sendFailed": "メッセージを送信できなかった リレーは利用できません."
+		"sendFailed": "メッセージを送信できなかった リレーは利用できません.",
+		"searchMls": "MLSユーザーを検索...",
+		"noResults": "MLSユーザーが見つかりません."
 	},
 	"lang": {
 		"en": "English",

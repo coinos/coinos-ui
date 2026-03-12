@@ -609,7 +609,8 @@
 		"low": "Basso",
 		"high": "Alto",
 		"priority": "Priorità",
-		"authorize": "Autorizzazione"
+		"authorize": "Autorizzazione",
+		"feeRate": "Tassi di tariffa"
 	},
 	"items": {
 		"add": "Aggiungi articolo",
@@ -682,7 +683,9 @@
 		"noRelaysSet": "ATTENZIONE: Non hai impostato alcun relè preferito. Non potrai ricevere messaggi o vedere i messaggi che hai inviato.",
 		"nostrSettingsLink": "Vai alle impostazioni Nostr per impostare i relè.",
 		"anonymous": "Anonimo",
-		"sendFailed": "Non ho mandato un messaggio. Il relè potrebbe non essere disponibile."
+		"sendFailed": "Non ho mandato un messaggio. Il relè potrebbe non essere disponibile.",
+		"searchMls": "Cerca utenti MLS...",
+		"noResults": "Nessun utente MLS trovato."
 	},
 	"map": {
 		"searchLocations": "Cerca luoghi...",

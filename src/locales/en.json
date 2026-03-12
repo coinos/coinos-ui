@@ -588,6 +588,7 @@
     "options": "options",
     "bump": "Bump fee",
     "networkFee": "Network fee",
+    "feeRate": "Fee rate",
     "platformFee": "Platform fee",
     "fastest": "Fastest",
     "fundingAmount": "Funding amount",

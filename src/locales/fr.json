@@ -78,7 +78,9 @@
 		"noRelaysSet": "AVERTISSEMENT: Vous n'avez pas specifié vos relais préferés pour messages directs.  Vous ne pouvez pas reçevoir des messages ou voir les messages que vous avez envoyé.",
 		"nostrSettingsLink": "Spécifiez vos relais en vos préférences Nostr.",
 		"anonymous": "Anonyme",
-		"sendFailed": "Impossible d'envoyer un message. Le relais peut ne pas être disponible."
+		"sendFailed": "Impossible d'envoyer un message. Le relais peut ne pas être disponible.",
+		"searchMls": "Rechercher les utilisateurs de MLS...",
+		"noResults": "Aucun utilisateur MLS trouvé."
 	},
 	"error": {
 		"header": "Erreur",
@@ -540,7 +542,8 @@
 		"low": "Faible",
 		"high": "Haut",
 		"priority": "Priorité",
-		"authorize": "Autoriser"
+		"authorize": "Autoriser",
+		"feeRate": "Taux"
 	},
 	"items": {
 		"add": "Ajouter un article",

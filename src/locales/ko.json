@@ -609,7 +609,8 @@
 		"low": "이름 *",
 		"high": "주요 특징",
 		"priority": "회사연혁",
-		"authorize": "이름 *"
+		"authorize": "이름 *",
+		"feeRate": "수수료율"
 	},
 	"items": {
 		"add": "더 보기",
@@ -682,7 +683,9 @@
 		"noRelaysSet": "경고: 당신은 어떤 선호한 릴레이를 놓지 않았습니다. 당신은 어떤 메시지를 수신 할 수 없습니다 또는 전송 된 메시지를 볼 수 없습니다.",
 		"nostrSettingsLink": "릴레이를 설정하려면 Nostr 설정을 이동합니다.",
 		"anonymous": "이름 *",
-		"sendFailed": "메시지를 보낼 실패. 릴레이는 사용할 수 없습니다."
+		"sendFailed": "메시지를 보낼 실패. 릴레이는 사용할 수 없습니다.",
+		"searchMls": "MLS 사용자를 검색 ...",
+		"noResults": "MLS 사용자가 찾을 수 없습니다."
 	},
 	"map": {
 		"searchLocations": "장소 검색...",

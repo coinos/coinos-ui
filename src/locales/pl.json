@@ -609,7 +609,8 @@
 		"low": "Niski",
 		"high": "Wysoki",
 		"priority": "Priorytet",
-		"authorize": "Autoryzacja"
+		"authorize": "Autoryzacja",
+		"feeRate": "Stawka opłat"
 	},
 	"items": {
 		"add": "Dodaj element",
@@ -682,7 +683,9 @@
 		"noRelaysSet": "UWAGA: Nie ustawiłeś żadnych preferowanych przekaźników. Nie będziesz w stanie odbierać wiadomości ani widzieć wiadomości, które wysłałeś.",
 		"nostrSettingsLink": "Przejdź do ustawień Nostr, aby ustawić przekaźniki.",
 		"anonymous": "Anonimowy",
-		"sendFailed": "Nie udało się wysłać wiadomości. Przekaźnik może być niedostępny."
+		"sendFailed": "Nie udało się wysłać wiadomości. Przekaźnik może być niedostępny.",
+		"searchMls": "Szukaj użytkowników MLS...",
+		"noResults": "Nie znaleziono żadnych użytkowników MLS."
 	},
 	"map": {
 		"searchLocations": "Szukaj lokalizacji...",

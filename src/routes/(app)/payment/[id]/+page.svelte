@@ -69,7 +69,7 @@
     bumpTargetRate = targetRate;
     bumpError = "";
     try {
-      bumpEstimate = await post(`/payment/${id}/bump-estimate`, { id, targetFeeRate: targetRate });
+      bumpEstimate = await post("/bump/estimate", { id, targetFeeRate: targetRate });
     } catch (e: any) {
       bumpError = e.message;
     }
@@ -80,7 +80,7 @@
     bumpEstimate = null;
     bumpError = "";
     try {
-      const est = await post(`/payment/${id}/bump-estimate`, { id, targetFeeRate: 10 });
+      const est = await post("/bump/estimate", { id, targetFeeRate: 10 });
       bumpEstimate = est;
       bumpTargetRate = est.fees?.fastestFee || 10;
       await fetchEstimate(bumpTargetRate);
@@ -93,7 +93,7 @@
     bumpLoading = true;
     bumpError = "";
     try {
-      const res = await post(`/payment/${id}/bump`, { id, targetFeeRate: bumpTargetRate });
+      const res = await post("/bump", { id, targetFeeRate: bumpTargetRate });
       p.childTxid = res.txid;
       p.bumpedFee = res.childFee;
       showBump = false;
