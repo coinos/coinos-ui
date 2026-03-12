@@ -57,18 +57,18 @@
 
   let bumpLoading = $state(false);
   let bumpError = $state("");
+  let bumped = $state(false);
 
   let canBump = $derived(
-    type === "bitcoin" && !confirmed && amount < 0 && p.bumpReserve > 0 && !p.childTxid,
+    type === "bitcoin" && !confirmed && amount < 0 && p.bumpReserve > 0 && !bumped,
   );
 
   let bump = async () => {
     bumpLoading = true;
     bumpError = "";
     try {
-      const res = await post("/bump", { id });
-      p.childTxid = res.txid;
-      p.bumpedFee = res.childFee;
+      await post("/bump", { id });
+      bumped = true;
       success("Transaction bumped!");
     } catch (e: any) {
       bumpError = e.message;
@@ -242,7 +242,7 @@
     {/if}
 
     {#if !confirmed && p.bumpReserve > 0}
-      {@render field("Bump Reserve (refundable)", p.bumpReserve)}
+      {@render field("Bump Reserve (refundable)", p.bumpReserve - (p.bumpedFee || 0))}
     {/if}
 
     {#if p.childTxid}
