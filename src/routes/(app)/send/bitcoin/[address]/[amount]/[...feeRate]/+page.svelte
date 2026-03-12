@@ -230,41 +230,45 @@
     {#if fees}
       <div class="text-center space-y-2">
         {#if !subtract}
-          <h2 class="text-secondary text-lg">{$t("payments.feeRate")}</h2>
+          <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
 
           <div class="px-2">
             <div class="relative">
               <Slider bind:value={sliderValue} handle={handleSlide} min={0} max={100} />
               <div class="absolute inset-0 pointer-events-none">
                 <span
-                  class="absolute top-1/2 -translate-y-1/2 text-sm font-semibold whitespace-nowrap"
-                  style="left: calc({sliderValue}% + 20px)"
+                  class="absolute top-1/2 -translate-y-1/2 text-sm font-semibold whitespace-nowrap {sliderValue >= 50 ? 'text-white dark:text-black' : 'text-black dark:text-white'}"
+                  style={sliderValue >= 50
+                    ? `right: calc(${100 - sliderValue}% + 28px); text-align: right`
+                    : `left: calc(${sliderValue}% + 28px); text-align: left`}
                 >{feeRate} sat/vB</span>
               </div>
             </div>
             <div class="flex justify-between text-secondary mt-1 px-1">
               <span>{$t("payments.slow")}</span>
-              <span>{$t("payments.medium")}</span>
               <span>{$t("payments.fast")}</span>
             </div>
           </div>
         {/if}
 
-        <h2 class="text-secondary text-lg">{$t("payments.networkFee")}</h2>
         {#if feeLoading}
           <Spinner class="text-secondary" />
         {:else}
-          <Amount amount={fee} rate={$rate} {currency} {locale} />
+          <div class="flex justify-center gap-6">
+            <div class="text-center">
+              <Amount amount={fee} rate={$rate} {currency} {locale} />
+              <div class="text-sm text-secondary -mt-1">Paid now</div>
+            </div>
+
+            {#if bumpReserve > 0}
+              <div class="text-center">
+                <Amount amount={bumpReserve} rate={$rate} {currency} {locale} />
+                <div class="text-sm text-secondary -mt-1">Refundable reserve</div>
+              </div>
+            {/if}
+          </div>
         {/if}
       </div>
-
-      {#if bumpReserve > 0}
-        <div class="text-center">
-          <h2 class="text-secondary text-lg">Bump Reserve</h2>
-          <div class="text-sm text-secondary">Refundable on confirmation</div>
-          <Amount amount={bumpReserve} rate={$rate} {currency} {locale} />
-        </div>
-      {/if}
 
       {#if ourfee}
         <div class="text-center">

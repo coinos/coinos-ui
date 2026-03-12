@@ -11,6 +11,7 @@
     rate,
     currency,
     locked = false,
+    small = false,
   }: any = $props();
 
   const canShowFiat = $derived($fiat && rate && currency);
@@ -25,7 +26,7 @@
 {#if typeof amount !== "undefined"}
   <div>
     <h2
-      class="text-2xl md:text-3xl font-semibold flex items-end"
+      class="{small ? 'text-base' : 'text-2xl md:text-3xl'} font-semibold flex items-end"
       class:justify-center={align !== "left"}
     >
       <button
@@ -38,7 +39,7 @@
           {#if locked}
             <PhLockFill width="20" class="text-yellow-300" />
           {:else}
-            <PhLightningFill width="20" class="text-yellow-300" />
+            <PhLightningFill width={small ? 14 : 20} class="text-yellow-300" />
           {/if}
         {/if}
         <span class:hidden={!canShowFiat}>{f(toFiat(amount, rate), currency, locale)}</span>
