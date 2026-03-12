@@ -282,6 +282,8 @@
       <input name="aid" value={account.id} type="hidden" />
       <input name="signed" value={signed} type="hidden" />
       <input name="feeRate" value={feeRate} type="hidden" />
+      <input name="bumpReserve" value={bumpReserve} type="hidden" />
+      <input name="parentVsize" value={data.parentVsize || 0} type="hidden" />
 
       <div class="flex justify-center gap-2">
         <button
