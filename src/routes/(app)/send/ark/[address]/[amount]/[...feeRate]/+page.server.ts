@@ -9,14 +9,6 @@ export async function load({ params: { address, amount }, cookies, parent, url }
 
   let account = await get(`/account/${aid}`, auth(cookies));
 
-  // If cookie points to an ark account but user is sending TO an ark address,
-  // fall back to custodial account — ark-to-ark sends use client-side wallet
-  if (account.type === "ark" && aid !== user.id) {
-    aid = user.id;
-    account = await get(`/account/${aid}`, auth(cookies));
-    cookies.set("aid", aid, { path: "/", maxAge: 86400, httpOnly: false });
-  }
-
   if (account.type === "bitcoin") {
     const inv = await post(
       "/invoice",

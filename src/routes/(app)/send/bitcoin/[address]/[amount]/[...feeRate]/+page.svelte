@@ -281,6 +281,7 @@
 
     <form method="POST" use:enhance={handler}>
       <input name="pin" value={$pin} type="hidden" />
+      <input name="address" value={address} type="hidden" />
       <input name="hex" value={hex} type="hidden" />
       <input name="rate" value={$rate} type="hidden" />
       <input name="aid" value={account.id} type="hidden" />

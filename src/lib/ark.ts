@@ -7,6 +7,8 @@ export const arkServerUrl = {
   bitcoin: "https://arkade.computer",
   regtest: "http://localhost:7070",
 }[PUBLIC_COINOS_NETWORK || "regtest"];
+// Delegator runs on the coinos server, accessed via /api proxy
+const delegatorUrl = "/api";
 export const arkkey = persistLocal("arkkey", "");
 export const arkaid = persistLocal("arkaid", "");
 
@@ -53,12 +55,14 @@ export const getWallet = async () => {
   }
   if (walletInstance && walletKey === key) return walletInstance;
 
-  const { SingleKey, Wallet } = await loadArkSdk();
+  const { SingleKey, Wallet, RestDelegatorProvider } = await loadArkSdk();
   const identity = SingleKey.fromHex(key);
+  const delegatorProvider = new RestDelegatorProvider(delegatorUrl);
 
   walletInstance = await Wallet.create({
     identity,
     arkServerUrl,
+    delegatorProvider,
   });
   walletKey = key;
   return walletInstance;
@@ -305,6 +309,7 @@ const _syncTransactions = async (aid: string) => {
 
   const result = await post("/ark/sync", { transactions, aid, balance, arkAddress: walletAddr });
   cacheVaultSnapshot(); // fire-and-forget
+  delegateVtxos(); // fire-and-forget
   return result;
 };
 
@@ -496,6 +501,8 @@ export const refresh = async () => {
     const vtxos = await wallet.getVtxos({ spendableOnly: false });
     if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
   }
+
+  delegateVtxos(); // fire-and-forget
 };
 
 export const settle = async () => {
@@ -511,6 +518,31 @@ export const settle = async () => {
   // ignores renewed VTXOs (they get new txids after an Ark round)
   const vtxos = await wallet.getVtxos({ spendableOnly: false });
   if (vtxos?.length) addProcessedVtxos(vtxos.map(vtxoKey));
+
+  delegateVtxos(); // fire-and-forget
+};
+
+export const delegateVtxos = async () => {
+  try {
+    const wallet = await getWallet();
+    if (!wallet) return;
+    if (!wallet.delegatorManager) return;
+
+    const vtxos = await wallet.getVtxos({ spendableOnly: true });
+    if (!vtxos?.length) return;
+
+    const address = await wallet.getAddress();
+    const { delegated, failed } = await wallet.delegatorManager.delegate(vtxos, address);
+
+    if (delegated.length > 0) {
+      console.log("[ark] delegated", delegated.length, "vtxos for renewal");
+    }
+    if (failed.length > 0) {
+      console.warn("[ark] delegation failed for", failed.length, "groups");
+    }
+  } catch (e: any) {
+    console.warn("[ark] delegation failed:", e.message);
+  }
 };
 
 // Service Worker wallet for background fund notifications

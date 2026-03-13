@@ -7,13 +7,6 @@ export async function load({ cookies, params, parent, url }) {
   const { address, amount } = params;
   let account = await get(`/account/${aid}`, auth(cookies));
 
-  // Fall back to custodial if cookie points to ark account
-  if (account.type === "ark" && aid !== user.id) {
-    aid = user.id;
-    account = await get(`/account/${aid}`, auth(cookies));
-    cookies.set("aid", aid, { path: "/", maxAge: 86400, httpOnly: false });
-  }
-
   let invoice;
   try {
     invoice = await get(`/invoice/${address}`);

@@ -249,17 +249,6 @@
       {@render copyable("Child Txid", p.childTxid, `${expl}/tx/${p.childTxid}`)}
     {/if}
 
-    {#if canBump}
-      <div class="py-4 border-b border-base-300 space-y-2">
-        <button type="button" class="btn btn-accent w-full" onclick={bump} disabled={bumpLoading}>
-          {bumpLoading ? "Bumping..." : "Speed up"}
-        </button>
-        {#if bumpError}
-          <div class="text-red-600 text-sm text-center">{bumpError}</div>
-        {/if}
-      </div>
-    {/if}
-
     {#if type === types.lightning || type === types.bolt12}
       {@render copyable($t("payments.invoice"), hash)}
       {@render copyable($t("payments.preimage"), ref)}
@@ -277,8 +266,23 @@
       {@render copyable("Address", hash, `${expl}/address/${hash}`)}
     {/if}
 
+    {#if (type === "bitcoin" || type === "liquid") && amount < 0 && p.address}
+      {@render copyable("Address", p.address, `${expl}/address/${p.address}`)}
+    {/if}
+
     {#if path}
       {@render copyable("Path", path)}
+    {/if}
+
+    {#if canBump}
+      <div class="py-4 space-y-2">
+        <button type="button" class="btn btn-accent w-full" onclick={bump} disabled={bumpLoading}>
+          {bumpLoading ? "Bumping..." : "Speed up"}
+        </button>
+        {#if bumpError}
+          <div class="text-red-600 text-sm text-center">{bumpError}</div>
+        {/if}
+      </div>
     {/if}
   </div>
 </div>
