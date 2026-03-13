@@ -25,8 +25,8 @@
   let { memo } = $derived(invoice);
 
   let qrSrc = $derived(`/qr/${encodeURIComponent(invoice.text)}/raw`);
-  let srcs: string[] = $state(qrDataUrl ? [qrDataUrl] : []);
-  let lastDataUrl = qrDataUrl;
+  let srcs: string[] = $state([]);
+  let lastDataUrl: string | undefined;
 
   $effect(() => {
     // Update if the server-provided data URL changed (e.g. new invoice)

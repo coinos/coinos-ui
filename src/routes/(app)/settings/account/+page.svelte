@@ -21,7 +21,7 @@
 
   let fiats = $derived(Object.keys(rates).sort((a, b) => a.localeCompare(b)));
 
-  let push = $state(),
+  let push: boolean = $state(false),
     pm: any = $state(),
     subscription: any;
 

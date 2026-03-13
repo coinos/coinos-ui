@@ -667,7 +667,6 @@ export async function subscribeToMessages(
     try {
       const relay = await Relay.connect(url, {
         enableReconnect: true,
-        timeout: 5000,
       });
       connectedRelays.push(relay);
 
