@@ -21,7 +21,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@arkade-os/sdk": "0.3.13",
+    "@arkade-os/sdk": "^0.4.6",
     "@capacitor/status-bar": "^8.0.0",
     "@internet-privacy/marmot-ts": "^0.3.0",
     "@simplewebauthn/browser": "^13.2.2",

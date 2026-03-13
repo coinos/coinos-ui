@@ -526,13 +526,15 @@ export const delegateVtxos = async () => {
   try {
     const wallet = await getWallet();
     if (!wallet) return;
-    if (!wallet.delegatorManager) return;
+
+    const manager = await wallet.getDelegatorManager();
+    if (!manager) return;
 
     const vtxos = await wallet.getVtxos({ spendableOnly: true });
     if (!vtxos?.length) return;
 
     const address = await wallet.getAddress();
-    const { delegated, failed } = await wallet.delegatorManager.delegate(vtxos, address);
+    const { delegated, failed } = await manager.delegate(vtxos, address);
 
     if (delegated.length > 0) {
       console.log("[ark] delegated", delegated.length, "vtxos for renewal");
