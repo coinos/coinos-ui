@@ -1,3 +1,4 @@
+import path from "path";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import Icons from "unplugin-icons/vite";
@@ -40,11 +41,11 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        "@arkade-os/sdk/wallet": "./node_modules/@arkade-os/sdk/dist/esm/wallet",
-        "@arkade-os/sdk/identity": "./node_modules/@arkade-os/sdk/dist/esm/identity",
-        "@arkade-os/sdk/providers": "./node_modules/@arkade-os/sdk/dist/esm/providers",
-        "@arkade-os/sdk/worker": "./node_modules/@arkade-os/sdk/dist/esm/worker",
-        "@internet-privacy/marmot-ts/media": "./node_modules/@internet-privacy/marmot-ts/dist/core/media.js",
+        "@arkade-os/sdk/wallet": path.resolve("node_modules/@arkade-os/sdk/dist/esm/wallet"),
+        "@arkade-os/sdk/identity": path.resolve("node_modules/@arkade-os/sdk/dist/esm/identity"),
+        "@arkade-os/sdk/providers": path.resolve("node_modules/@arkade-os/sdk/dist/esm/providers"),
+        "@arkade-os/sdk/worker": path.resolve("node_modules/@arkade-os/sdk/dist/esm/worker"),
+        "@internet-privacy/marmot-ts/media": path.resolve("node_modules/@internet-privacy/marmot-ts/dist/core/media.js"),
       },
     },
     build: {
