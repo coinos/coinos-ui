@@ -7,7 +7,7 @@ export async function deriveNostrKey(entropy: ArrayBuffer) {
       import("@scure/bip39"),
       import("@scure/bip39/wordlists/english.js"),
       import("nostr-tools/nip06"),
-      import("nostr-tools"),
+      import("nostr-tools/pure"),
     ]);
 
   const ent = new Uint8Array(entropy).slice(0, 16);
@@ -27,7 +27,7 @@ export async function autoUnlockNostr(userPubkey: string) {
     const { sk, pubkey } = await deriveNostrKey(entropy);
     if (pubkey !== userPubkey) return;
 
-    const { nip19 } = await import("nostr-tools");
+    const nip19 = await import("nostr-tools/nip19");
     const { bytesToHex } = await import("@noble/hashes/utils.js");
     localStorage.setItem("nsec", nip19.nsecEncode(sk));
     signer.set({

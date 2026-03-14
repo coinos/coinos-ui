@@ -30,7 +30,7 @@
   let generate = async () => {
     let secretBytes = randomBytes(32);
     secret = bytesToHex(secretBytes);
-    const { getPublicKey } = await import("nostr-tools");
+    const { getPublicKey } = await import("nostr-tools/pure");
     pubkey = getPublicKey(secretBytes);
   };
 

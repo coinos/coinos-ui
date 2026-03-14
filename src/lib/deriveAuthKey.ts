@@ -1,6 +1,6 @@
 import { scryptAsync } from "@noble/hashes/scrypt.js";
 import { bytesToHex } from "@noble/hashes/utils.js";
-import { getPublicKey } from "nostr-tools";
+import { getPublicKey } from "nostr-tools/pure";
 
 export async function deriveAuthKeypair(username: string, password: string) {
   const salt = `coinos:auth:${username.toLowerCase().replace(/\s/g, "")}`;
@@ -10,7 +10,7 @@ export async function deriveAuthKeypair(username: string, password: string) {
 }
 
 export async function deriveWalletEntropy(sk: Uint8Array): Promise<ArrayBuffer> {
-  const { finalizeEvent } = await import("nostr-tools");
+  const { finalizeEvent } = await import("nostr-tools/pure");
   const event = { kind: 1, created_at: 0, content: "coinos-wallet-key-derivation", tags: [] };
   const signed = finalizeEvent(event as any, sk);
   const sigBytes = new Uint8Array(signed.sig.length / 2);

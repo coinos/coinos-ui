@@ -38,8 +38,17 @@ export default defineConfig(({ mode }) => {
             }
           : undefined,
     },
+    resolve: {
+      alias: {
+        "@arkade-os/sdk/wallet": "./node_modules/@arkade-os/sdk/dist/esm/wallet",
+        "@arkade-os/sdk/identity": "./node_modules/@arkade-os/sdk/dist/esm/identity",
+        "@arkade-os/sdk/providers": "./node_modules/@arkade-os/sdk/dist/esm/providers",
+        "@arkade-os/sdk/worker": "./node_modules/@arkade-os/sdk/dist/esm/worker",
+        "@internet-privacy/marmot-ts/media": "./node_modules/@internet-privacy/marmot-ts/dist/core/media.js",
+      },
+    },
     build: {
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 1100,
       reportCompressedSize: false,
       cssMinify: "lightningcss",
     },

@@ -13,9 +13,9 @@ import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import {
   MarmotClient,
-  KeyPackageStore,
   InviteReader,
-} from "@internet-privacy/marmot-ts";
+} from "@internet-privacy/marmot-ts/client";
+import { KeyPackageStore } from "@internet-privacy/marmot-ts/store";
 import type {
   NostrNetworkInterface,
   PublishResponse,

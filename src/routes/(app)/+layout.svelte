@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { getWallet, subscribeToAsp, syncTransactions, settle, refresh, arkkey, arkaid, sendArk, arkSending, vaultForwarding, autoUnlockArk, getServiceWorkerWallet, cleanupServiceWorkerWallet } from "$lib/ark";
+  import { arkkey, arkaid } from "$lib/ark";
   import { syncBitcoinVault } from "$lib/bitcoinSync";
+
+  const ark = () => import("$lib/ark");
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { close, connect, send, socket } from "$lib/socket";
@@ -91,6 +93,7 @@
   let arkForwarding = false;
 
   let arkSync = async (source = "unknown") => {
+    const { syncTransactions, sendArk, arkSending, vaultForwarding } = await ark();
     if (arkSyncing || arkSending) {
       return;
     }
@@ -139,6 +142,7 @@
     if (!key || arkInitializedKey === key) return;
     arkInitializedKey = key;
 
+    const { getWallet, subscribeToAsp, syncTransactions, settle, refresh, vaultForwarding, getServiceWorkerWallet } = await ark();
     const wallet = await getWallet();
     if (wallet) {
       localStorage.setItem("arkkey:uid", user.id);
@@ -239,7 +243,7 @@
         }
 
         // Auto-unlock ark wallet if silent entropy is available
-        if (!$arkkey) autoUnlockArk();
+        if (!$arkkey) ark().then(({ autoUnlockArk }) => autoUnlockArk());
 
         // Auto-unlock nostr key if silent entropy is available
         import("$lib/seed").then(({ autoUnlockNostr }) => autoUnlockNostr(user.pubkey));
@@ -309,7 +313,7 @@
       if (arkRefreshTimer) clearInterval(arkRefreshTimer);
       if (btcSyncTimer) clearInterval(btcSyncTimer);
       aspStopFunc?.();
-      cleanupServiceWorkerWallet();
+      ark().then(({ cleanupServiceWorkerWallet }) => cleanupServiceWorkerWallet());
     }
   });
 </script>

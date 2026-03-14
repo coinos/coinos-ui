@@ -11,9 +11,7 @@
   import { rate } from "$lib/store";
   import { applyAction } from "$app/forms";
   import { hex as hexUtil } from "@scure/base";
-  import * as btc from "@scure/btc-signer";
   import { getCachedPrfKey } from "$lib/passwordCache";
-  import { sendArkViaForward } from "$lib/ark";
   import { prfDecrypt, isPrfEncrypted } from "$lib/crypto";
 
   import Amount from "$comp/Amount.svelte";
@@ -63,6 +61,7 @@
         loading = true;
         error = "";
         try {
+          const { sendArkViaForward } = await import("$lib/ark");
           const p = await sendArkViaForward({
             serverArkAddress: data.serverArkAddress,
             amount: parseInt(amount),
@@ -94,7 +93,7 @@
   let signTxWithPrf = async (prfKey: ArrayBuffer) => {
     const [{ Transaction }, { HDKey }, { entropyToMnemonic, mnemonicToSeed }, { wordlist }] =
       await Promise.all([
-        import("@scure/btc-signer"),
+        import("@scure/btc-signer/transaction.js"),
         import("@scure/bip32"),
         import("@scure/bip39"),
         import("@scure/bip39/wordlists/english.js"),

@@ -32,7 +32,10 @@
 
   let deriveAndCreate = async (prfKey: ArrayBuffer) => {
     try {
-      const { SingleKey, Wallet } = await import("@arkade-os/sdk");
+      const [{ SingleKey }, { Wallet }] = await Promise.all([
+        import("@arkade-os/sdk/identity/singleKey.js"),
+        import("@arkade-os/sdk/wallet/wallet.js"),
+      ]);
       const entropy = new Uint8Array(prfKey).slice(0, 16);
       const mnemonic = entropyToMnemonic(entropy, wordlist);
       const seed = await mnemonicToSeed(mnemonic);

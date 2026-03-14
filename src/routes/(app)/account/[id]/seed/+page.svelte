@@ -46,9 +46,9 @@
   };
 
   let deriveNsec = async (m: string) => {
-    const [{ HDKey }, { nip19 }] = await Promise.all([
+    const [{ HDKey }, nip19] = await Promise.all([
       import("@scure/bip32"),
-      import("nostr-tools"),
+      import("nostr-tools/nip19"),
     ]);
     const { versions } = await import("$lib/utils");
     const seed = await mnemonicToSeed(m);

@@ -12,7 +12,7 @@ const tryNsecFromStorage = async (): Promise<Uint8Array | null> => {
   if (!nsec) return null;
 
   try {
-    const { nip19 } = await import("nostr-tools");
+    const nip19 = await import("nostr-tools/nip19");
     const { type, data } = nip19.decode(nsec);
     if (type !== "nsec" || !(data instanceof Uint8Array)) return null;
 

@@ -5,11 +5,11 @@
 
 import type { NostrEvent } from "nostr-tools/pure";
 import { bytesToHex } from "@noble/hashes/utils.js";
-import { nip19 } from "nostr-tools";
+import * as nip19 from "nostr-tools/nip19";
 import { SimplePool } from "nostr-tools/pool";
 import { Relay } from "nostr-tools/relay";
 import { getMarmotClient, getInviteReader, DM_RELAYS } from "$lib/marmot";
-import { parseMediaImetaTag } from "@internet-privacy/marmot-ts";
+import { parseMediaImetaTag } from "@internet-privacy/marmot-ts/media";
 import { BlossomClient } from "nostr-tools/nipb7";
 import { ensureSigner } from "$lib/nip07";
 import { post } from "$lib/utils";

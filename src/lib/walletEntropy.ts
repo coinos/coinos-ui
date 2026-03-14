@@ -24,7 +24,10 @@ export async function tryDeriveFromNsec(): Promise<ArrayBuffer | null> {
   if (!nsec) return null;
 
   try {
-    const { nip19, finalizeEvent } = await import("nostr-tools");
+    const [nip19, { finalizeEvent }] = await Promise.all([
+      import("nostr-tools/nip19"),
+      import("nostr-tools/pure"),
+    ]);
     const sk = nip19.decode(nsec).data as Uint8Array;
     const signed = finalizeEvent({ ...DERIVATION_EVENT } as any, sk);
     return await hashSignature(signed.sig);

@@ -166,7 +166,7 @@
         let nostrPubkey: string | undefined;
         try {
           const { deriveNostrKey } = await import("$lib/seed");
-          const { nip19 } = await import("nostr-tools");
+          const nip19 = await import("nostr-tools/nip19");
           const nostr = await deriveNostrKey(canonicalKey);
           localStorage.setItem("nsec", nip19.nsecEncode(nostr.sk));
           nostrPubkey = nostr.pubkey;
@@ -255,7 +255,7 @@
           rememberPrfKey(canonicalKey, defaultRememberForMs);
 
           if (nostrSk) {
-            const { nip19 } = await import("nostr-tools");
+            const nip19 = await import("nostr-tools/nip19");
             localStorage.setItem("nsec", nip19.nsecEncode(nostrSk));
           }
         } catch (e) {

@@ -40,8 +40,11 @@ interface ArkVaultSnapshot {
   virtualTxs: Record<string, string>;
 }
 
-let arkSdkPromise: Promise<typeof import("@arkade-os/sdk")> | undefined;
-const loadArkSdk = () => (arkSdkPromise ||= import("@arkade-os/sdk"));
+const loadSingleKey = () => import("@arkade-os/sdk/identity/singleKey.js");
+const loadWallet = () => import("@arkade-os/sdk/wallet/wallet.js");
+const loadDelegator = () => import("@arkade-os/sdk/providers/delegator.js");
+const loadVtxoManager = () => import("@arkade-os/sdk/wallet/vtxo-manager.js");
+const loadSwWallet = () => import("@arkade-os/sdk/wallet/serviceWorker/wallet.js");
 
 let walletInstance: any;
 let walletKey: string | undefined;
@@ -55,7 +58,9 @@ export const getWallet = async () => {
   }
   if (walletInstance && walletKey === key) return walletInstance;
 
-  const { SingleKey, Wallet, RestDelegatorProvider } = await loadArkSdk();
+  const [{ SingleKey }, { Wallet }, { RestDelegatorProvider }] = await Promise.all([
+    loadSingleKey(), loadWallet(), loadDelegator(),
+  ]);
   const identity = SingleKey.fromHex(key);
   const delegatorProvider = new RestDelegatorProvider(delegatorUrl);
 
@@ -478,7 +483,7 @@ export const refresh = async () => {
   const wallet = await getWallet();
   if (!wallet) return;
 
-  const { VtxoManager } = await loadArkSdk();
+  const { VtxoManager } = await loadVtxoManager();
   const balance = await wallet.getBalance();
   const manager = new VtxoManager(wallet);
 
@@ -564,7 +569,9 @@ export const getServiceWorkerWallet = async () => {
   try {
     const reg = await navigator.serviceWorker.ready;
     if (!reg.active) return;
-    const { ServiceWorkerWallet, SingleKey } = await loadArkSdk();
+    const [{ ServiceWorkerWallet }, { SingleKey }] = await Promise.all([
+      loadSwWallet(), loadSingleKey(),
+    ]);
     swWallet = await ServiceWorkerWallet.create({
       serviceWorker: reg.active,
       arkServerUrl: arkServerUrl!,

@@ -117,7 +117,7 @@
         // Challenge-response path: sign event with derived key, no password sent
         cancelForm();
 
-        const { finalizeEvent } = await import("nostr-tools");
+        const { finalizeEvent } = await import("nostr-tools/pure");
         const event = finalizeEvent(
           {
             kind: 27235,

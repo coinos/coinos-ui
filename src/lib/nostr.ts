@@ -12,12 +12,16 @@ import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import type { EventTemplate } from "nostr-tools";
 import { get } from "svelte/store";
 
-let nostrToolsPromise: Promise<typeof import("nostr-tools")> | undefined;
+let nip04Promise: Promise<typeof import("nostr-tools/nip04")> | undefined;
+let nip19Promise: Promise<typeof import("nostr-tools/nip19")> | undefined;
+let purePromise: Promise<typeof import("nostr-tools/pure")> | undefined;
 let nip44Promise: Promise<typeof import("nostr-tools/nip44")> | undefined;
 let relayPromise: Promise<typeof import("nostr-tools/relay")> | undefined;
 let nip49Promise: Promise<typeof import("nostr-tools/nip49")> | undefined;
 
-const loadNostrTools = () => (nostrToolsPromise ||= import("nostr-tools"));
+const loadNip04 = () => (nip04Promise ||= import("nostr-tools/nip04"));
+const loadNip19 = () => (nip19Promise ||= import("nostr-tools/nip19"));
+const loadPure = () => (purePromise ||= import("nostr-tools/pure"));
 const loadNip44 = () => (nip44Promise ||= import("nostr-tools/nip44"));
 const loadRelay = () => (relayPromise ||= import("nostr-tools/relay"));
 const loadNip49 = () => (nip49Promise ||= import("nostr-tools/nip49"));
@@ -34,7 +38,7 @@ type EncryptParams = {
 
 export const encrypt = async ({ message, recipient, user }: EncryptParams) => {
   const sk = await getPrivateKey(user);
-  const { nip04 } = await loadNostrTools();
+  const nip04 = await loadNip04();
   return nip04.encrypt(sk, recipient, message);
 };
 
@@ -45,7 +49,7 @@ export const decrypt = async ({ event, user }: { event: any; user: any }) => {
     if (cache[id]) return cache[id];
     if (pubkey === user.pubkey) pubkey = event.tags[0][1];
 
-    const { nip04 } = await loadNostrTools();
+    const nip04 = await loadNip04();
     const message = await nip04.decrypt(await getPrivateKey(user), pubkey, content);
 
     cache[id] = Buffer.from(message).toString("utf8");
@@ -62,7 +66,7 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
   if (browser) {
     k = localStorage.getItem("nsec");
     if (k) {
-      const { nip19 } = await loadNostrTools();
+      const nip19 = await loadNip19();
       return nip19.decode(k).data as unknown as Uint8Array;
     }
   }
@@ -76,25 +80,25 @@ export const getPrivateKey = async (user: User): Promise<Uint8Array> => {
     throw new Error("nsec not available");
   }
 
-  const { nip19 } = await loadNostrTools();
+  const nip19 = await loadNip19();
   localStorage.setItem("nsec", nip19.nsecEncode(k));
   return k;
 };
 
 const decodeNsec = async (nsec: string): Promise<Uint8Array> => {
-  const { nip19 } = await loadNostrTools();
+  const nip19 = await loadNip19();
   const { type, data } = nip19.decode(nsec);
   if (type === "nsec" && data instanceof Uint8Array) return data;
   throw new Error("invalid nsec");
 };
 
 export const getNsec = async (user: User) => {
-  const { nip19 } = await loadNostrTools();
+  const nip19 = await loadNip19();
   return nip19.nsecEncode(await getPrivateKey(user));
 };
 
 export const setNsec = async (user: User, nsec: string) => {
-  const { getPublicKey } = await loadNostrTools();
+  const { getPublicKey } = await loadPure();
   user.pubkey = getPublicKey(await decodeNsec(nsec));
   user.nsec = await encryptNsec(nsec);
 };
@@ -108,7 +112,7 @@ export const encryptNsec = async (nsec: string) => {
 export const sign = async (event: any, user?: any) => {
   if (user?.nsec && !get($signer)?.ready) {
     const sk = await getPrivateKey(user);
-    const { getPublicKey } = await loadNostrTools();
+    const { getPublicKey } = await loadPure();
 
     $signer.set({
       method: "nsec",
@@ -156,7 +160,7 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
       params: [JSON.stringify(event)],
     };
 
-    const { nip04, finalizeEvent } = await loadNostrTools();
+    const [nip04, { finalizeEvent }] = await Promise.all([loadNip04(), loadPure()]);
     const skBytes = hexToBytes(sk);
     const content = await nip04.encrypt(skBytes, pk, JSON.stringify(signEvent));
 
@@ -181,7 +185,7 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
           try {
             let response;
             try {
-              const { nip04 } = await loadNostrTools();
+              const nip04 = await loadNip04();
               response = JSON.parse(await nip04.decrypt(hexToBytes(sk), pk, event.content));
             } catch {
               const { getConversationKey, decrypt: nip44decrypt } = await loadNip44();
@@ -199,7 +203,7 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
   },
 
   async nsec(event: any, { sk }: any) {
-    const { finalizeEvent } = await loadNostrTools();
+    const { finalizeEvent } = await loadPure();
     return finalizeEvent(event, hexToBytes(sk));
   },
 
@@ -209,7 +213,7 @@ const signingMethods: Record<string, (event: any, params: any) => Promise<any>> 
 
   async signer(event: any, { pubkey, sig }: any) {
     event.pubkey = pubkey;
-    const { getEventHash } = await loadNostrTools();
+    const { getEventHash } = await loadPure();
     const signedEvent = {
       ...event,
       id: getEventHash(event),
