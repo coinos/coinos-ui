@@ -21,7 +21,7 @@ export async function load({ cookies, params, parent }) {
       // Vault account — stay on /send/bitcoin for on-chain send
     } else {
       // Custodial account — send internally via the original invoice
-      if (invoice.uid !== user.id) redirect(307, `/send/invoice/${invoice.id}`);
+      if (invoice.uid !== user.id) redirect(303, `/send/invoice/${invoice.id}`);
     }
   }
 

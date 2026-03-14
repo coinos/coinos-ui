@@ -14,10 +14,10 @@ export default async (s, host, cookies) => {
   let user;
   const aid = cookies.get("aid");
 
-  if (t.startsWith("ark") || t.startsWith("tark")) redirect(307, `/send/ark/${t}${aid ? `?aid=${aid}` : ""}`);
+  if (t.startsWith("ark") || t.startsWith("tark")) redirect(303, `/send/ark/${t}${aid ? `?aid=${aid}` : ""}`);
 
-  if (t.startsWith("http")) redirect(307, t);
-  if (t.startsWith(host)) redirect(307, `http://${t}`);
+  if (t.startsWith("http")) redirect(303, t);
+  if (t.startsWith(host)) redirect(303, `http://${t}`);
 
   if (t.includes("lightning=")) {
     const url = new URL(t);
@@ -37,8 +37,8 @@ export default async (s, host, cookies) => {
     t = t.split(":")[1];
   }
 
-  if (["note", "nevent"].some((p) => t.startsWith(p))) redirect(307, `/e/${t}`);
-  if (["nprofile", "npub"].some((p) => t.startsWith(p))) redirect(307, `/${t}`);
+  if (["note", "nevent"].some((p) => t.startsWith(p))) redirect(303, `/e/${t}`);
+  if (["nprofile", "npub"].some((p) => t.startsWith(p))) redirect(303, `/${t}`);
 
   // bitcoin
   if (t.toLowerCase().startsWith("bitcoin:") || t.toLowerCase().startsWith("liquidnetwork:")) {
@@ -48,7 +48,7 @@ export default async (s, host, cookies) => {
     if (options.ark) {
       let r = `/send/ark/${options.ark}`;
       if (amount) r += `/${Math.round(Number(amount) * sats)}`;
-      redirect(307, r);
+      redirect(303, r);
     }
 
     t = addr;
@@ -58,12 +58,12 @@ export default async (s, host, cookies) => {
   if (validate(t) || isLiquid(t) || t.startsWith("bcrt1")) {
     let r = `/send/bitcoin/${t}`;
     if (amount) r += `/${Math.round(amount * sats)}`;
-    redirect(307, r);
+    redirect(303, r);
   }
 
   // lightning
   if (t.toLowerCase().startsWith("lightning:")) t = t.toLowerCase().replace("lightning:", "");
-  if (t.toLowerCase().startsWith("lnurl")) redirect(307, `/ln/${t}`);
+  if (t.toLowerCase().startsWith("lnurl")) redirect(303, `/ln/${t}`);
   if (t.includes(":")) t = t.split(":")[1];
 
   if (t.toLowerCase().startsWith("lnr")) {
@@ -80,11 +80,11 @@ export default async (s, host, cookies) => {
         const { offer_amount_msat: a } = await get(`/decode/${t}`);
         if (a) ({ invoice: t } = await post("/fetchinvoice", { offer: t }));
       }
-      redirect(307, `/send/lightning/${t}`);
+      redirect(303, `/send/lightning/${t}`);
     }
   }
 
-  if (invoice) redirect(307, `/invoice/${invoice.id}`);
+  if (invoice) redirect(303, `/invoice/${invoice.id}`);
 
   if (t.match(/^🥜([\uFE00-\uFE0F]|[\uE0100-\uE01EF]+)$/)) {
     t = (Array.from(t) as string[])
@@ -109,10 +109,10 @@ export default async (s, host, cookies) => {
 
   if (t.startsWith("cashu")) {
     const { id } = await post("/cash", { token: t });
-    redirect(307, `/ecash/${id}`);
+    redirect(303, `/ecash/${id}`);
   }
 
-  if (t.startsWith("creq")) redirect(307, `/send/ecash/${t}`);
+  if (t.startsWith("creq")) redirect(303, `/send/ecash/${t}`);
 
   // user
   try {
@@ -120,14 +120,14 @@ export default async (s, host, cookies) => {
     if (user.anon) user = null;
   } catch {}
 
-  if (user) redirect(307, `/pay/${t}`);
+  if (user) redirect(303, `/pay/${t}`);
 
   let fund;
-  if (t.includes("/fund")) redirect(307, t.substring(t.indexOf("/fund")));
+  if (t.includes("/fund")) redirect(303, t.substring(t.indexOf("/fund")));
 
   try {
     fund = await get(`/fund/${t}`);
   } catch {}
 
-  if (fund) redirect(307, `/send/fund/${t}`);
+  if (fund) redirect(303, `/send/fund/${t}`);
 };
