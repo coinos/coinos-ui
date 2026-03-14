@@ -6,7 +6,7 @@
   import { goto } from "$app/navigation";
   import { copy, fail } from "$lib/utils";
   import { t } from "$lib/translations";
-  import { entropyToMnemonic } from "@scure/bip39";
+  import { entropyToMnemonic, mnemonicToSeed } from "@scure/bip39";
   import { wordlist } from "@scure/bip39/wordlists/english.js";
   import { getCachedPrfKey } from "$lib/passwordCache";
   import { prfDecrypt, isPrfEncrypted } from "$lib/crypto";
@@ -16,6 +16,7 @@
   let id = $derived(account.id);
 
   let mnemonic: string | undefined = $state();
+  let nsec: string | undefined = $state();
 
   let derivationPath = $derived(
     account.type === "ark"
@@ -44,6 +45,17 @@
     }
   };
 
+  let deriveNsec = async (m: string) => {
+    const [{ HDKey }, { nip19 }] = await Promise.all([
+      import("@scure/bip32"),
+      import("nostr-tools"),
+    ]);
+    const { versions } = await import("$lib/utils");
+    const seed = await mnemonicToSeed(m);
+    const child = HDKey.fromMasterSeed(seed, versions).derive("m/86'/0'/0'/0/0");
+    nsec = nip19.nsecEncode(child.privateKey!);
+  };
+
   let requestMnemonic = async () => {
     if (await revealWithPrfKey()) return;
     try {
@@ -57,6 +69,10 @@
   };
 
   requestMnemonic();
+
+  $effect(() => {
+    if (mnemonic && account.type === "ark") deriveNsec(mnemonic);
+  });
 </script>
 
 <div class="space-y-5">
@@ -74,6 +90,15 @@
         <PhCopyBold width="32" />
         <div class="my-auto">{$t("accounts.copy")}</div>
       </button>
+
+      {#if nsec}
+        <h2 class="text-center text-2xl font-semibold pt-4">Nsec</h2>
+        <p class="text-center text-secondary break-all font-mono text-sm">{nsec}</p>
+        <button onclick={() => copy(nsec as string)} type="button" class="btn">
+          <PhCopyBold width="32" />
+          <div class="my-auto">{$t("accounts.copy")}</div>
+        </button>
+      {/if}
     {/if}
 
     <button onclick={() => goto(`/account/${id}`)} type="button" class="btn btn-primary">

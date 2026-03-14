@@ -9,7 +9,7 @@
 
   const map = { light: "lofi", dark: "black", system: "system" };
 
-  let { data, children } = $props<any>();
+  let { data, children } = $props();
   let pathname = $derived($page.url.pathname);
   let theme = $derived(data.theme);
   $effect(() => {
