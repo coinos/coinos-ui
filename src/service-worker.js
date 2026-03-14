@@ -1,8 +1,7 @@
 import { build, files, version } from "$service-worker";
-import { Worker } from "@arkade-os/sdk";
+import { setupServiceWorker } from "@arkade-os/sdk";
 
-const worker = new Worker();
-worker.start(false).catch(console.error);
+setupServiceWorker(false).catch(console.error);
 
 const CACHE_BUILD = `coinos-build-${version}`;
 const CACHE_PAGES = `coinos-pages-${version}`;
