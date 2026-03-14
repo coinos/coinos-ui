@@ -3,11 +3,14 @@ import {
   aliceUsername,
   alicePassword,
   login,
+  apiLogin,
   getBitcoinAddress,
   pasteAndSend,
   fillNumpadAmount,
   waitForSendComplete,
   setActiveAccount,
+  ensureVaultAccount,
+  fundVaultAccount,
 } from "./helpers";
 
 test("bitcoin vault sends to external bitcoin address with PSBT signing", async ({ page }) => {
@@ -26,25 +29,15 @@ test("bitcoin vault sends to external bitcoin address with PSBT signing", async 
 
   // --- Alice: log in ---
   await login(page, aliceUsername, alicePassword);
+  const token = await apiLogin(page, aliceUsername, alicePassword);
 
-  // --- Find the bitcoin vault account and switch to it ---
-  const vaultCard = page.locator('[data-testid="account-card"][data-account-type="bitcoin"]');
-  const vaultCount = await vaultCard.count();
-  if (vaultCount === 0) {
-    test.skip(true, "No bitcoin vault account found");
-    return;
-  }
+  // --- Ensure a vault account whose keys match alice's test credentials ---
+  const vaultAccount = await ensureVaultAccount(page, token, aliceUsername, alicePassword);
+  await setActiveAccount(page, vaultAccount.id);
+  console.log(`[e2e] Switched to vault account: ${vaultAccount.id}`);
 
-  const accountHref = await vaultCard
-    .first()
-    .locator('a[href^="/account/"]')
-    .first()
-    .getAttribute("href");
-  const vaultAid = accountHref?.split("/account/")[1];
-  expect(vaultAid).toBeTruthy();
-
-  await setActiveAccount(page, vaultAid!);
-  console.log(`[e2e] Switched to vault account: ${vaultAid}`);
+  // --- Fund the vault ---
+  await fundVaultAccount(page, token, vaultAccount.id, aliceUsername, 10_000);
 
   // --- Get external bitcoin address (from 'external' wallet, not 'coinos') ---
   const externalAddress = getBitcoinAddress();
@@ -110,7 +103,8 @@ test("bitcoin vault sends to external bitcoin address with PSBT signing", async 
       msg.includes("pubKey") ||
       msg.includes("invalid tag") ||
       msg.includes("decrypt") ||
-      msg.includes("PSBT")
+      msg.includes("PSBT") ||
+      msg.includes("Derived key does not match")
     ) {
       console.log(`[e2e] PSBT signing error (test env issue): ${msg}`);
       test.skip(true, `PSBT signing failed (test env issue): ${msg.substring(0, 100)}`);

@@ -267,30 +267,61 @@ export async function fillNumpadAmount(page: Page, amount: number) {
   const amountInput = page.locator('[aria-label="Amount input"]');
   await expect(amountInput).toBeVisible({ timeout: 5_000 });
 
-  // Ensure sats mode: when in fiat mode, the lightning icon span is visible
+  // Ensure sats mode: lightning SVG icon is visible in sats mode, currency symbol in fiat mode.
+  // If we don't see the lightning icon, we're in fiat mode and need to swap to sats.
   const swapButton = page.locator('[aria-label="Swap currency display"]');
   if (await swapButton.isVisible({ timeout: 2_000 }).catch(() => false)) {
-    const lightningSpan = swapButton.locator('svg').first();
-    const isInFiatMode = await lightningSpan.isVisible({ timeout: 1_000 }).catch(() => false);
-    if (isInFiatMode) {
+    const lightningIcon = swapButton.locator('svg').first();
+    const isInSatsMode = await lightningIcon.isVisible({ timeout: 1_000 }).catch(() => false);
+    if (!isInSatsMode) {
       await swapButton.click();
       await page.waitForTimeout(300);
     }
   }
 
-  await amountInput.click();
-  await page.keyboard.press("Control+a");
-  await page.keyboard.type(String(amount));
+  // Enter amount via keyboard with retry — contenteditable can be flaky
+  for (let attempt = 0; attempt < 3; attempt++) {
+    await amountInput.click();
+    await page.waitForTimeout(200);
+    await page.keyboard.press("Control+a");
+    await page.waitForTimeout(100);
+    await page.keyboard.type(String(amount));
+    await page.waitForTimeout(300);
+
+    const enteredText = (await amountInput.textContent())?.replace(/[^\d]/g, "") || "0";
+    if (enteredText === String(amount)) break;
+    console.log(`[e2e:fillNumpadAmount] retry ${attempt + 1}: got="${enteredText}" want="${amount}"`);
+    // Clear and retry
+    await amountInput.click();
+    await page.keyboard.press("Control+a");
+    await page.keyboard.press("Backspace");
+    await page.waitForTimeout(200);
+  }
 
   const nextButton = page.locator("button.btn-accent");
   await expect(nextButton).toBeVisible({ timeout: 5_000 });
   await nextButton.click();
+  await page.waitForTimeout(500);
 }
 
 export async function clickSendButton(page: Page) {
+  // Try btn-primary first (internal invoice send page), then btn-accent (fee page),
+  // then generic submit button as fallback
+  const primary = page.locator('button[type="submit"].btn-primary');
+  const accent = page.locator('button[type="submit"].btn-accent');
+  const generic = page.locator('form button[type="submit"]');
+
+  for (const btn of [primary, accent, generic]) {
+    if (await btn.first().isVisible({ timeout: 2_000 }).catch(() => false)) {
+      await btn.first().click();
+      return;
+    }
+  }
+
+  // Fallback: wait for any submit button
   const sendButton = page.locator('button[type="submit"]');
-  await expect(sendButton).toBeVisible({ timeout: 5_000 });
-  await sendButton.click();
+  await expect(sendButton.first()).toBeVisible({ timeout: 5_000 });
+  await sendButton.first().click();
 }
 
 export async function waitForSentRedirect(page: Page, timeout = 15_000) {

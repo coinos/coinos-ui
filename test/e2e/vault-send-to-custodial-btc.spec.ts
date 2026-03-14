@@ -6,6 +6,8 @@ import {
   bobPassword,
   apiBaseUrl,
   loginNewContext,
+  apiLogin,
+  ensureVaultAccount,
   setActiveAccount,
   pasteAndSend,
 } from "./helpers";
@@ -22,10 +24,7 @@ test("vault sending to custodial bitcoin address stays on /send/bitcoin, not /se
     bobPassword,
   );
 
-  const tokenRes = await bobPage.request.post(`${apiBaseUrl}/login`, {
-    data: { username: bobUsername, password: bobPassword },
-  });
-  const { token } = await tokenRes.json();
+  const token = await apiLogin(bobPage, bobUsername, bobPassword);
 
   const invoiceRes = await bobPage.request.post(`${apiBaseUrl}/invoice`, {
     headers: { authorization: `Bearer ${token}` },
@@ -43,32 +42,17 @@ test("vault sending to custodial bitcoin address stays on /send/bitcoin, not /se
   console.log(`[e2e] Bob custodial bitcoin address: ${custodialAddress}`);
   await bobContext.close();
 
-  // --- Alice: switch to vault account and paste Bob's custodial address ---
+  // --- Alice: ensure vault account and paste Bob's custodial address ---
   const { context: aliceContext, page: alicePage } = await loginNewContext(
     browser,
     aliceUsername,
     alicePassword,
   );
 
-  // Find the bitcoin vault account and switch to it
-  const vaultCard = alicePage.locator('[data-testid="account-card"][data-account-type="bitcoin"]');
-  const vaultCount = await vaultCard.count();
-  if (vaultCount === 0) {
-    test.skip(true, "No bitcoin vault account found");
-    await aliceContext.close();
-    return;
-  }
-
-  const accountHref = await vaultCard
-    .first()
-    .locator('a[href^="/account/"]')
-    .first()
-    .getAttribute("href");
-  const vaultAid = accountHref?.split("/account/")[1];
-  expect(vaultAid).toBeTruthy();
-
-  await setActiveAccount(alicePage, vaultAid!);
-  console.log(`[e2e] Alice switched to vault account: ${vaultAid}`);
+  const aliceToken = await apiLogin(alicePage, aliceUsername, alicePassword);
+  const vaultAccount = await ensureVaultAccount(alicePage, aliceToken, aliceUsername, alicePassword);
+  await setActiveAccount(alicePage, vaultAccount.id);
+  console.log(`[e2e] Alice switched to vault account: ${vaultAccount.id}`);
 
   // Paste Bob's custodial bitcoin address
   await pasteAndSend(alicePage, custodialAddress);
