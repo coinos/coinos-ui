@@ -20,20 +20,13 @@
   let fiat = $state(!initialAmount);
   let formElement = $state();
 
-  let setMax = async (e) => {
+  let setMax = (e) => {
     e.preventDefault();
-    let body = new FormData(formElement);
-    body.set("fiat", false);
-    body.set("amount", user.balance);
-
-    const response = await fetch(formElement.action, {
-      method: "POST",
-      body,
-    });
-
-    const result = deserialize(await response.text());
-    if (result.type === "success") await invalidateAll();
-    applyAction(result);
+    fiat = false;
+    const bal = user.balance;
+    const maxfee = Math.max(5, Math.round(bal * 0.02));
+    const platformFee = Math.round(bal * 0.001);
+    amount = Math.max(0, bal - maxfee - platformFee);
   };
 </script>
 
@@ -62,7 +55,7 @@
         type="button"
         class="btn !w-auto grow"
         onclick={setMax}
-        onkeydown={setMax}>Max ⚡️{s(user.balance)}</button
+        onkeydown={setMax}>Max</button
       >
     {/if}
 
