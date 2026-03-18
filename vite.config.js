@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
         process.env.NODE_ENV === "development"
           ? {
               "/api/": {
-                target: "http://localhost:3119",
+                target: process.env.API_URL || "http://localhost:3119",
                 rewrite: (path) => path.replace(/^\/api\//, ""),
               },
             }
