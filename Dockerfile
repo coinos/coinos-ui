@@ -1,4 +1,4 @@
-FROM oven/bun
+FROM ghcr.io/coinos/base
 
 WORKDIR /app
 
