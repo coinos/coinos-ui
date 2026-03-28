@@ -76,8 +76,10 @@ export const actions = {
 			error = `Amount must be at most ${maxSendable} sats`;
 		if (error) return fail(400, { error });
 
-		let url = `${callback}?amount=${amount * 1000}`;
-		if (comment) url += `&comment=${comment}`;
+		const urlObj = new URL(callback);
+		urlObj.searchParams.set("amount", (amount * 1000).toString());
+		if (comment) urlObj.searchParams.set("comment", comment);
+		const url = urlObj.toString();
 
 		const { pr } = await lnurlFetch(url);
 
