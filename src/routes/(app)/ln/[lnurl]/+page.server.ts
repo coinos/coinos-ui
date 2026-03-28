@@ -72,10 +72,11 @@ export const actions = {
     if (amount > maxSendable) error = `Amount must be at most ${maxSendable} sats`;
     if (error) return fail(400, { error });
 
-    let url = `${callback}?amount=${amount * 1000}`;
-    if (comment) url += `&comment=${comment}`;
+    const urlObj = new URL(callback);
+    urlObj.searchParams.set("amount", (amount * 1000).toString());
+    if (comment) urlObj.searchParams.set("comment", comment);
 
-    const { pr } = await fetch(url).then((r) => r.json());
+    const { pr } = await fetch(urlObj.toString()).then((r) => r.json());
 
     let path = `/send/lightning/${pr}`;
     if (comment) path += `/${encodeURIComponent(comment)}`;
