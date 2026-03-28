@@ -5,6 +5,9 @@ import { bech32 } from "@scure/base";
 import { error, fail, redirect } from "@sveltejs/kit";
 const { decode, fromWords } = bech32;
 
+const lnurlFetch = async (url: string) =>
+	get(`/lnurl/proxy?url=${encodeURIComponent(url)}`);
+
 export async function load({ params, parent }) {
 	const { user } = await parent();
 	const rates = await getRates();
@@ -34,7 +37,7 @@ export async function load({ params, parent }) {
 		}
 		const url = urlObj.toString();
 
-		const { pr } = await fetch(url).then((r) => (r as Response).json());
+		const { pr } = await lnurlFetch(url);
 
 		let invoice;
 		try {
@@ -76,7 +79,7 @@ export const actions = {
 		let url = `${callback}?amount=${amount * 1000}`;
 		if (comment) url += `&comment=${comment}`;
 
-		const { pr } = await fetch(url).then((r) => r.json());
+		const { pr } = await lnurlFetch(url);
 
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;
@@ -118,7 +121,7 @@ export const actions = {
 		url.searchParams.append("k1", k1);
 		url.searchParams.append("pr", pr);
 
-		await fetch(url.toString());
+		await lnurlFetch(url.toString());
 
 		redirect(307, "/payments");
 	},
