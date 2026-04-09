@@ -4,10 +4,14 @@
   import PhNumpadBold from "virtual:icons/ph/numpad-bold";
   import PhDeviceMobileBold from "virtual:icons/ph/device-mobile-bold";
   import PhFingerprintBold from "virtual:icons/ph/fingerprint-bold";
+  import PhCopyBold from "virtual:icons/ph/copy-bold";
+  import PhEyeBold from "virtual:icons/ph/eye-bold";
+  import PhEyeSlashBold from "virtual:icons/ph/eye-slash-bold";
   import { getContext } from "svelte";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
   import Pin from "$comp/Pin.svelte";
+  import Mnemonic from "$comp/Mnemonic.svelte";
   import Qr from "$comp/Qr.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { copy, post, success, fail, hashPin } from "$lib/utils";
@@ -35,7 +39,8 @@
     nsec = $state(),
     otp: any = $state(),
     pin: any = $state(""),
-    revealSeed,
+    recoveryMnemonic: string | undefined = $state(),
+    revealSeed = $state(false),
     revealNsec = $state(),
     token: any = $state(""),
     setting2fa = $state(),
@@ -58,10 +63,30 @@
   };
 
   let toggleSeed = async () => {
+    if (revealSeed) {
+      revealSeed = false;
+      recoveryMnemonic = undefined;
+      return;
+    }
     try {
-      revealSeed = !revealSeed;
+      let prfKey = getCachedPrfKey();
+      if (!prfKey) {
+        const { getWalletEntropy } = await import("$lib/walletEntropy");
+        prfKey = await getWalletEntropy();
+      }
+      if (!prfKey) {
+        fail($t("accounts.failedToDecryptSeed"));
+        return;
+      }
+      const [{ entropyToMnemonic }, { wordlist }] = await Promise.all([
+        import("@scure/bip39"),
+        import("@scure/bip39/wordlists/english.js"),
+      ]);
+      recoveryMnemonic = entropyToMnemonic(new Uint8Array(prfKey).slice(0, 16), wordlist);
+      revealSeed = true;
     } catch (e) {
       console.log(e);
+      fail($t("accounts.failedToDecryptSeed"));
     }
   };
 
@@ -267,4 +292,28 @@
     {/if}
     Add Passkey
   </button>
+</div>
+
+<div>
+  <span class="font-bold mb-1">{$t("user.settings.recoveryPhrase")}</span>
+  <p class="text-secondary mb-1">{$t("user.settings.recoveryPhraseDescription")}</p>
+  <button type="button" class="btn" onclick={toggleSeed}>
+    {#if revealSeed}
+      <PhEyeSlashBold width="32" />
+      {$t("user.settings.hideRecoveryPhrase")}
+    {:else}
+      <PhEyeBold width="32" />
+      {$t("user.settings.showRecoveryPhrase")}
+    {/if}
+  </button>
+
+  {#if revealSeed && recoveryMnemonic}
+    <div class="mt-4 space-y-4">
+      <Mnemonic mnemonic={recoveryMnemonic} />
+      <button onclick={() => copy(recoveryMnemonic as string)} type="button" class="btn">
+        <PhCopyBold width="32" />
+        <div class="my-auto">{$t("accounts.copy")}</div>
+      </button>
+    </div>
+  {/if}
 </div>

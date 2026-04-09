@@ -253,7 +253,7 @@
   let passkeyLogin = async () => {
     passkeyLoading = true;
     try {
-      const { credential, challengeId, prfKey } = await loginWithPasskey();
+      const { credential, challengeId, prfKey, legacyKey } = await loginWithPasskey();
 
       const formData = new FormData();
       formData.append("credential", JSON.stringify(credential));
@@ -273,7 +273,7 @@
             passkeyMethodId(credential.id),
             prfKey,
             result.data?.encryptedKeys,
-            prfKey,
+            legacyKey,
           );
         } catch (e) {
           console.log("Canonical key resolution failed", e);
