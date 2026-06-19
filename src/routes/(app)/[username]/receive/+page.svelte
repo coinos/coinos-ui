@@ -53,10 +53,10 @@
     amountFiat,
     tip;
 
-  let update = async () => {
+  let update = async (body) => {
     try {
       ({ id } = await post(`/invoice`, {
-        invoice,
+        invoice: body,
         user: { username, currency },
       }));
 
@@ -77,10 +77,12 @@
     if (type === types.lightning && !amount && typeof newAmount === "undefined")
       goto(`/${username}/receive`, { invalidateAll: true, noScroll: true });
     else {
-      if (typeof newAmount !== "undefined") invoice.amount = newAmount;
-      invoice.address_type = address_type;
-      invoice.type = type;
-      await update();
+      // Build the POST body from a snapshot + explicit changes. Mutating the
+      // $derived `invoice` proxy and POSTing it serializes unreliably, leaking
+      // stale type/amount from a prior interaction (see funk POS bug).
+      const body = { ...$state.snapshot(invoice), type, address_type };
+      if (typeof newAmount !== "undefined") body.amount = newAmount;
+      await update(body);
     }
     settingType = false;
   };
@@ -93,10 +95,9 @@
 
     if (typeof $amountPrompt === "undefined") $amountPrompt = true;
     amount = newAmount;
-    invoice.amount = newAmount;
-    invoice.tip = null;
+    const body = { ...$state.snapshot(invoice), amount: newAmount, tip: null };
 
-    await update();
+    await update(body);
   };
 
   let newAmount = $state(0);
@@ -109,8 +110,8 @@
     e.stopPropagation();
 
     settingMemo = false;
-    invoice.memo = memo;
-    await update();
+    const body = { ...$state.snapshot(invoice), memo };
+    await update(body);
   };
 
   let memo = $state();
