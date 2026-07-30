@@ -319,7 +319,13 @@
 			"yourUsername": "あなたのユーザー名は",
 			"yourPassword": "パスワードは",
 			"welcome": "お問い合わせ!",
-			"clickBelow": "アカウントの設定を完了するには、下記をクリックしてください"
+			"clickBelow": "アカウントの設定を完了するには、下記をクリックしてください",
+			"bolt12Offer": "避雷器(BOLT12)",
+			"bolt12OfferDescription": "落雷支払いとBOLT12 zapsを受信するための再利用可能な支払いコード。 BOLT12 上で zapped を取得するために nostr クライアントのオファーリストに追加します.",
+			"continueSettingUp": "アカウント設定",
+			"publishOffer": "Nostr に公開",
+			"offerPublished": "掲載情報!",
+			"offerPublishFailed": "オファーを公開できなかった"
 		},
 		"support": {
 			"header": "サポート",

@@ -1,7 +1,7 @@
 <script>
   import { untrack } from "svelte";
   import { browser } from "$app/environment";
-  import { getNsec } from "$lib/nostr";
+  import { getNsec, send, sign } from "$lib/nostr";
   import { page } from "$app/stores";
   import { tick } from "svelte";
   import { t } from "$lib/translations";
@@ -13,7 +13,7 @@
   import { signer, save } from "$lib/store";
 
   let { data } = $props();
-  let { apps, challenge, user } = $derived(data);
+  let { apps, challenge, offer, user } = $derived(data);
   let npub = $state(untrack(() => user.npub));
   let extensionAvailable = $derived(browser && window.nostr);
   let { locale } = $derived(user);
@@ -40,6 +40,33 @@
     npub = await window.nostr.getPublicKey();
     await tick();
     $save.click();
+  };
+
+  let publishing = $state(),
+    published = $state();
+
+  // Kind 10058 is the NIP-177 BOLT12 offer list — publishing it lets nostr
+  // clients (Amethyst v1.13+) zap this user over BOLT12. Replaceable event,
+  // so republishing just updates it.
+  let publishOffer = async () => {
+    try {
+      publishing = true;
+      let event = {
+        kind: 10058,
+        content: "",
+        created_at: Math.round(Date.now() / 1000),
+        tags: [["offer", offer]],
+      };
+
+      event = await sign(event, user);
+      await send(event);
+      published = true;
+    } catch (e) {
+      console.log(e);
+      fail($t("user.settings.offerPublishFailed"));
+    } finally {
+      publishing = false;
+    }
   };
 </script>
 
@@ -144,6 +171,53 @@
     </a>
   </div>
 </div>
+
+{#if offer}
+  <div class="space-y-2">
+    <h2 class="text-2xl font-bold mb-2">
+      {$t("user.settings.bolt12Offer")}
+    </h2>
+    <p class="text-secondary mb-4">
+      {$t("user.settings.bolt12OfferDescription")}
+    </p>
+
+    <div class="break-all text-secondary">{offer}</div>
+
+    <div class="flex my-auto gap-1">
+      <button
+        type="button"
+        class="my-auto btn btn-circle !w-auto grow"
+        onclick={() => copy(offer)}
+        aria-label="Copy"
+        ><iconify-icon noobserver icon="ph:copy-bold" width="32"
+        ></iconify-icon> {$t("accounts.copy")}</button
+      >
+
+      <a
+        href={`/qr/${encodeURIComponent(offer)}`}
+        class="my-auto btn btn-circle !w-auto grow"
+        aria-label="QR"
+      >
+        <iconify-icon noobserver icon="ph:qr-code-bold" width="32"
+        ></iconify-icon>
+        {$t("accounts.qr")}
+      </a>
+
+      <button
+        type="button"
+        class="my-auto btn btn-circle !w-auto grow"
+        onclick={publishOffer}
+        disabled={publishing}
+        aria-label="Publish"
+        ><iconify-icon noobserver icon="ph:megaphone-bold" width="32"
+        ></iconify-icon>
+        {published
+          ? $t("user.settings.offerPublished")
+          : $t("user.settings.publishOffer")}</button
+      >
+    </div>
+  </div>
+{/if}
 
 {#if revealNwc}
   <div class="break-all grow">

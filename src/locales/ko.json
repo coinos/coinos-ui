@@ -380,7 +380,13 @@
 			"yourUsername": "사용자 이름",
 			"yourPassword": "비밀번호",
 			"welcome": "제품 정보!",
-			"clickBelow": "계정 설정하기"
+			"clickBelow": "계정 설정하기",
+			"bolt12Offer": "번개 제안 (BOLT12)",
+			"bolt12OfferDescription": "번개 결제 및 BOLT12 zaps를 수신하기위한 재사용 가능한 지불 코드. nostr 클라이언트의 제안 목록에 추가하여 BOLT12를 통해 zapped를 얻을 수 있습니다.",
+			"continueSettingUp": "계정 설정",
+			"publishOffer": "Nostr에 게시",
+			"offerPublished": "이름 *!",
+			"offerPublishFailed": "게시 제안에 실패"
 		},
 		"support": {
 			"header": "지원하다",

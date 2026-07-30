@@ -319,7 +319,13 @@
 			"yourUsername": "نام کاربری شما",
 			"yourPassword": "و رمز عبور شما",
 			"welcome": "خوش آمدید!",
-			"clickBelow": "در زیر کلیک کنید تا حساب خود را تنظیم کنید"
+			"clickBelow": "در زیر کلیک کنید تا حساب خود را تنظیم کنید",
+			"bolt12Offer": "پیشنهاد رعد و برق (BOLT12)",
+			"bolt12OfferDescription": "یک کد پرداخت مجدد برای دریافت پرداخت رعد و برق و BOLT12 zaps آن را به لیست پیشنهادی مشتری نو رشته خود اضافه کنید تا در BOLT12 گرفتار شوید.",
+			"continueSettingUp": "تنظیم حساب",
+			"publishOffer": "انتشار به Nostr",
+			"offerPublished": "منتشر شده!",
+			"offerPublishFailed": "شکست در انتشار پیشنهاد"
 		},
 		"support": {
 			"header": "حمایت کردن",

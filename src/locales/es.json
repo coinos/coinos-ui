@@ -319,7 +319,13 @@
 			"yourUsername": "Tu nombre de usuario es",
 			"yourPassword": "y su contraseña es",
 			"welcome": "¡Bienvenido!",
-			"clickBelow": "Haga clic a continuación para terminar de configurar su cuenta"
+			"clickBelow": "Haga clic a continuación para terminar de configurar su cuenta",
+			"bolt12Offer": "Oferta de relámpago (BOLT12)",
+			"bolt12OfferDescription": "Un código de pago reutilizable para recibir pagos de rayos y BOLT12 zaps. Añádelo a la lista de ofertas de tu cliente de la nariz para que te den una paliza.",
+			"continueSettingUp": "Configuración de la cuenta",
+			"publishOffer": "Publish to nostr",
+			"offerPublished": "¡Publicado!",
+			"offerPublishFailed": "Failed to publish offer"
 		},
 		"support": {
 			"header": "Soporte",

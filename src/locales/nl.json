@@ -89,7 +89,7 @@
 		"header": "Veelgestelde vragen",
 		"cost": {
 			"question": "Wat kost het?",
-			"answer": "Het ontvangen van betalingen op jouw rekening is gratis. Verzenden naar andere Coinos is gratis. Verzendingen naar externe portemonnees zijn gratis als je hetzelfde netwerk gebruikt waar je van ontvangen hebt. In andere gevallen is er een vergoeding van 0,4% voor Bitcoin en 0,1 voor Lightning of Liquid."			
+			"answer": "Het ontvangen van betalingen op jouw rekening is gratis. Verzenden naar andere Coinos is gratis. Verzendingen naar externe portemonnees zijn gratis als je hetzelfde netwerk gebruikt waar je van ontvangen hebt. In andere gevallen is er een vergoeding van 0,4% voor Bitcoin en 0,1 voor Lightning of Liquid."
 		},
 		"compatibility": {
 			"question": "Heb ik een speciaal apparaat of software nodig?",
@@ -380,7 +380,13 @@
 			"yourUsername": "Uw gebruikersnaam is:",
 			"yourPassword": "Uw wachtwoord is:",
 			"welcome": "Welkom!",
-			"clickBelow": "Klik hieronder om het aanmaken van uw account af te ronden"
+			"clickBelow": "Klik hieronder om het aanmaken van uw account af te ronden",
+			"bolt12Offer": "Bliksemaanbieding (BOLT12)",
+			"bolt12OfferDescription": "Een herbruikbare betaalcode voor het ontvangen van bliksem betalingen en BOLT12 zaps. Voeg het toe aan de aanbiedingenlijst van uw nostr-cliënt om over BOLT12 te worden gezapt.",
+			"continueSettingUp": "Accountinstellingen",
+			"publishOffer": "Publiceren naar nostr",
+			"offerPublished": "Gepubliceerd!",
+			"offerPublishFailed": "Kon aanbod niet publiceren"
 		},
 		"support": {
 			"header": "Ondersteuning",

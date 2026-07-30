@@ -380,7 +380,13 @@
 			"yourUsername": "Twoja nazwa użytkownika jest",
 			"yourPassword": "twoje hasło jest",
 			"welcome": "Witamy!",
-			"clickBelow": "Kliknij poniżej, aby skonfigurować konto"
+			"clickBelow": "Kliknij poniżej, aby skonfigurować konto",
+			"bolt12Offer": "Oferta błyskawicy (BOLT12)",
+			"bolt12OfferDescription": "Kod płatności wielokrotnego użytku do otrzymywania płatności błyskawicznych i BOLT12 zaps. Dodaj go do listy ofert klienta nostr, aby dostać zapped nad BOLT12.",
+			"continueSettingUp": "Konfiguracja konta",
+			"publishOffer": "Publikuj do nostr",
+			"offerPublished": "Opublikowane!",
+			"offerPublishFailed": "Nie udało się opublikować oferty"
 		},
 		"support": {
 			"header": "Wsparcie",

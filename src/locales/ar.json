@@ -380,7 +380,13 @@
 			"yourUsername": "إسمك المستخدم",
 			"yourPassword": "وكلمة السر الخاصة بك",
 			"welcome": "مرحباً!",
-			"clickBelow": "انقروا من هنا لينهيوا حسابكم"
+			"clickBelow": "انقروا من هنا لينهيوا حسابكم",
+			"bolt12Offer": "عرض البرق (BOLT12)",
+			"bolt12OfferDescription": "A reusable payment code for receiving lightning payments and BOLT12 zaps. أضفها إلى قائمة عرض زبونك لـ (بولت 12).",
+			"continueSettingUp": "إنشاء حساب",
+			"publishOffer": "النشر إلى نوستر",
+			"offerPublished": "نُشرت!",
+			"offerPublishFailed": "عدم نشر العرض"
 		},
 		"support": {
 			"header": "الدعم",

@@ -288,7 +288,13 @@
 			"yourUsername": "Votre nom d'utilisateur",
 			"yourPassword": "et votre mot de passe est",
 			"welcome": "Bienvenue !",
-			"clickBelow": "Cliquez ci-dessous pour terminer la configuration de votre compte"
+			"clickBelow": "Cliquez ci-dessous pour terminer la configuration de votre compte",
+			"bolt12Offer": "Offre de foudre (BOLT12)",
+			"bolt12OfferDescription": "Un code de paiement réutilisable pour recevoir les paiements par foudre et BOLT12 zaps. Ajoutez-le à la liste d'offres de votre client nostra pour vous faire zapper sur BOLT12.",
+			"continueSettingUp": "Configuration du compte",
+			"publishOffer": "Publier sur nosr",
+			"offerPublished": "Publié !",
+			"offerPublishFailed": "Échec de la publication de l'offre"
 		},
 		"support": {
 			"header": "Assistance",

@@ -330,7 +330,13 @@
 			"yourUsername": "Ihr Benutzername ist",
 			"yourPassword": "und ihr passwort ist",
 			"welcome": "Willkommen!",
-			"clickBelow": "Klicken Sie unten, um die Einrichtung Ihres Kontos abzuschließen"
+			"clickBelow": "Klicken Sie unten, um die Einrichtung Ihres Kontos abzuschließen",
+			"bolt12Offer": "Blitzangebot (BOLT12)",
+			"bolt12OfferDescription": "Ein wiederverwendbarer Zahlungscode für den Empfang von Blitzzahlungen und BOLT12 Zaps. Fügen Sie es zu der Liste Ihres nostr-Clients hinzu, um über BOLT12 gezappt zu werden.",
+			"continueSettingUp": "Konto einrichten",
+			"publishOffer": "Veröffentlichen an nostr",
+			"offerPublished": "Veröffentlicht!",
+			"offerPublishFailed": "Das Angebot konnte nicht veröffentlicht werden"
 		},
 		"support": {
 			"header": "Support",

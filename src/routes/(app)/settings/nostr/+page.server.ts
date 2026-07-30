@@ -4,7 +4,13 @@ import { auth, get } from "$lib/utils";
 export const load = async ({ cookies }) => {
 	const { challenge } = await get("/challenge");
 	const apps = await get("/apps", auth(cookies));
-	return { apps, challenge };
+
+	let offer;
+	try {
+		({ hash: offer } = await get("/offer", auth(cookies)));
+	} catch (e) {}
+
+	return { apps, challenge, offer };
 };
 
 export const actions = {

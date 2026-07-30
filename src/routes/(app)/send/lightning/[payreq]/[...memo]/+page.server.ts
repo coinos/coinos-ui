@@ -6,9 +6,7 @@ export async function load({ cookies, params, parent }) {
 	const { user } = await parent();
 	let data = { ...params };
 	const rates = await getRates();
-	if (!params.payreq.startsWith("lno")) {
-		data = { ...data, ...(await post("/parse", params, auth(cookies))) };
-	}
+	data = { ...data, ...(await post("/parse", params, auth(cookies))) };
 
 	data.rate = rates[user.currency];
 	return data;

@@ -319,7 +319,13 @@
 			"yourUsername": "您的用户名是",
 			"yourPassword": "而您的密码是",
 			"welcome": "欢迎光临!",
-			"clickBelow": "点击下面完成您的账户设置"
+			"clickBelow": "点击下面完成您的账户设置",
+			"bolt12Offer": "闪电报价(BOLT12)",
+			"bolt12OfferDescription": "用于接收闪电支付和BOLT12 zaps的可再用支付代码. 把它添加到你的鼻孔客户端的要约列表里 以获得被ZALT12.",
+			"continueSettingUp": "账户设置",
+			"publishOffer": "发布到节点",
+			"offerPublished": "发表!",
+			"offerPublishFailed": "发布要约失败"
 		},
 		"support": {
 			"header": "支持",

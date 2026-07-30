@@ -338,7 +338,13 @@
 			"yourUsername": "Seu nome de usuário é",
 			"yourPassword": "e sua senha é",
 			"welcome": "Bem-vindos!",
-			"clickBelow": "Clique abaixo para terminar de configurar sua conta"
+			"clickBelow": "Clique abaixo para terminar de configurar sua conta",
+			"bolt12Offer": "Oferta relâmpago (BOLT12)",
+			"bolt12OfferDescription": "Um código de pagamento reutilizável para receber pagamentos relâmpagos e BOLT12 zaps. Adicione-o à lista de ofertas do seu cliente nostr para ser zapped sobre BOLT12.",
+			"continueSettingUp": "Configuração da conta",
+			"publishOffer": "Publicar em nostr",
+			"offerPublished": "Publicado!",
+			"offerPublishFailed": "Falha ao publicar a oferta"
 		},
 		"support": {
 			"header": "Suporte",

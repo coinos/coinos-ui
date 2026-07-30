@@ -380,7 +380,13 @@
 			"yourUsername": "Il tuo nome utente è",
 			"yourPassword": "e la tua password è",
 			"welcome": "Benvenuto!",
-			"clickBelow": "Clicca qui sotto per completare l'impostazione del tuo account"
+			"clickBelow": "Clicca qui sotto per completare l'impostazione del tuo account",
+			"bolt12Offer": "Offerta fulmine (BOLT12)",
+			"bolt12OfferDescription": "Un codice di pagamento riutilizzabile per ricevere pagamenti fulmini e zaps BOLT12. Aggiungilo alla lista di offerta del tuo cliente nostr per ottenere zapped oltre BOLT12.",
+			"continueSettingUp": "Configurazione account",
+			"publishOffer": "Pubblica a nostr",
+			"offerPublished": "Pubblicato!",
+			"offerPublishFailed": "Non pubblicare l'offerta"
 		},
 		"support": {
 			"header": "Supporto",

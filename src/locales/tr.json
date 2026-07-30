@@ -380,7 +380,13 @@
 			"yourUsername": "Kullanıcınız Kullanıcınızdır",
 			"yourPassword": "ve şifreniziz",
 			"welcome": "Hoşgeldiniz!",
-			"clickBelow": "Hesabınızı kurmak için aşağıda tıklayın"
+			"clickBelow": "Hesabınızı kurmak için aşağıda tıklayın",
+			"bolt12Offer": "Lightning teklifi (BOLT12)",
+			"bolt12OfferDescription": "Yıldırım ödemeleri ve BOLT12 zaps almak için yeniden kullanılabilir bir ödeme kodu. BOLT12 üzerinden zapt edilmek için Nostr müşterinizin teklif listesine ekleyin.",
+			"continueSettingUp": "Hesap kurulumu",
+			"publishOffer": "Nostr",
+			"offerPublished": "Yayınlanmış!",
+			"offerPublishFailed": "Yayımlama teklifinde başarısız oldu"
 		},
 		"support": {
 			"header": "Destek Desteği Destek Desteği",

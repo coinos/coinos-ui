@@ -14,10 +14,10 @@ export default async (s, host, cookies) => {
 	if (t.startsWith("http")) redirect(307, t);
 	if (t.startsWith(host)) redirect(307, `http://${t}`);
 
-	if (t.includes("lightning=")) {
+	if (t.includes("lightning=") || t.includes("lno=")) {
 		const url = new URL(t);
 		const params = new URLSearchParams(url.search);
-		t = params.get("lightning");
+		t = params.get("lightning") || params.get("lno");
 	}
 
 	if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
