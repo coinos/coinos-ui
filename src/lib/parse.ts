@@ -21,7 +21,16 @@ export default async (s, host, cookies) => {
 	}
 
 	if (t.startsWith("lightning:")) t = t.replace("lightning:", "");
-	if (t.includes("@") && t.split("@").pop() === PUBLIC_DOMAIN) t = t.split("@")[0];
+	// Our own domain is no longer only ours: coinos v3 payment addresses live
+	// here too and are paid over lightning like anyone else's. Only strip the
+	// domain (and pay internally) when the name really is a local account.
+	if (t.includes("@") && t.split("@").pop() === PUBLIC_DOMAIN) {
+		const name = t.split("@")[0];
+		try {
+			const u = await get(`/users/${name}`);
+			if (u && !u.anon) t = name;
+		} catch (e) {}
+	}
 	if (t.includes("@") && t.includes(".")) {
 		try {
 			t = await get(`/encode?address=${t}`);
