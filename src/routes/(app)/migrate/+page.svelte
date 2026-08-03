@@ -48,11 +48,8 @@
       you just receive on coinos v3.
     </p>
 
-    <div class="rounded-xl border p-3 space-y-1">
+    <div class="rounded-xl border p-3">
       <div class="flex justify-between"><span>Balance</span><strong>{balance.toLocaleString()} sats</strong></div>
-      <!-- The destination is v3's temporary npub-shaped address; showing it
-           would just confuse someone who is about to keep their real name. -->
-      <div class="flex justify-between"><span>Moving to</span><span>your coinos v3 wallet</span></div>
     </div>
 
     {#if form?.error}<p class="text-red-600">{form.error}</p>{/if}
@@ -76,7 +73,7 @@
           name="pin" placeholder="Your PIN" />
       {/if}
       <button class="btn btn-primary w-full" disabled={working}>
-        {#if working}Moving…{:else}Move my balance and address to coinos v3{/if}
+        {#if working}Migrating…{:else}Migrate{/if}
       </button>
     </form>
 
