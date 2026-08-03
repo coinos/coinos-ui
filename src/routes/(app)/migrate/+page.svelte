@@ -9,7 +9,7 @@
   import { enhance } from "$app/forms";
 
   let { data, form } = $props();
-  let { user, to, back, newName } = $derived(data);
+  let { user, to, back } = $derived(data);
 
   let working = $state(false);
   let balance = $derived(user?.balance || 0);
@@ -36,16 +36,16 @@
         <p>{form.sent.toLocaleString()} sats are on their way to your new wallet.</p>
       {/if}
       <p>
-        Your username was released, so <strong>{form.released}</strong> can be yours again on
-        coinos v3.
+        <strong>{form.released}@coinos.io</strong> now receives into your coinos v3 wallet.
       </p>
       <a class="btn btn-primary w-full" href={backUrl}>Back to coinos v3</a>
     </div>
   {:else}
     <p>
-      This sends your balance to your new wallet and frees up your username so you can keep
-      it there. Your old account stays, renamed to <strong>{newName}</strong>, and stops
-      receiving payments.
+      This sends your balance to your new wallet and points
+      <strong>{user.username}@coinos.io</strong> at it, so payments to your address arrive
+      there from now on. This account stays exactly as it is — same name, same history —
+      you just receive on coinos v3.
     </p>
 
     <div class="rounded-xl border p-3 space-y-1">
@@ -76,7 +76,7 @@
           name="pin" placeholder="Your PIN" />
       {/if}
       <button class="btn btn-primary w-full" disabled={working}>
-        {#if working}Moving…{:else}Move {balance.toLocaleString()} sats and release {user.username}{/if}
+        {#if working}Moving…{:else}Move my balance and address to coinos v3{/if}
       </button>
     </form>
 
