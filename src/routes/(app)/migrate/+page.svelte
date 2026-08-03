@@ -2,117 +2,83 @@
   // Migrate a legacy coinos account to coinos v3.
   //
   // v3 sends the user here with ?to=<their new payment address>&back=<url>.
-  // They are already signed in on this site, so nothing has to handle their
-  // password: we sweep the balance over Lightning to the new wallet and then
-  // release the username, which lets v3 claim it on the new registrar.
-  import { post, success } from "$lib/utils";
-  import { goto } from "$app/navigation";
+  // They're already signed in here, so no password or key has to travel:
+  // the form action (server side, with their session cookie) sweeps the
+  // balance over Lightning and then releases the username, which is what
+  // lets v3's registrar hand it to them.
+  import { enhance } from "$app/forms";
 
-  let { data } = $props();
+  let { data, form } = $props();
   let { user, to, back } = $derived(data);
 
-  let step = $state("intro"); // intro | working | done | error
-  let note = $state("");
-  let error = $state("");
-  let pin = $state("");
-  let sent = $state(0);
-
+  let working = $state(false);
   let balance = $derived(user?.balance || 0);
-  // Lightning routing takes a cut on the way out; leave a little behind so
-  // the sweep can't fail for being a few sats over.
-  let reserve = $derived(Math.max(10, Math.ceil(balance * 0.005)));
-  let amount = $derived(Math.max(0, balance - reserve));
   let newName = $derived(`${user?.username}_v2`);
-
-  // Ask the v3 registrar for an invoice for this amount (LNURL-pay against
-  // the destination address). The registrar is CORS-open.
-  async function invoiceFor(address, sats) {
-    const [name, domain] = String(address).split("@");
-    if (!name || !domain) throw new Error("bad destination address");
-    const base = "https://names.coinos.io";
-    const p = await fetch(`${base}/.well-known/lnurlp/${name}?domain=${domain}`).then((r) => r.json());
-    if (!p?.callback) throw new Error(p?.reason || "destination not found");
-    const msat = sats * 1000;
-    if (msat < p.minSendable || msat > p.maxSendable) throw new Error("amount out of range for the destination");
-    const inv = await fetch(`${p.callback}${p.callback.includes("?") ? "&" : "?"}amount=${msat}`).then((r) => r.json());
-    if (!inv?.pr) throw new Error(inv?.reason || "could not get an invoice");
-    return inv.pr;
-  }
-
-  async function migrate() {
-    error = "";
-    step = "working";
+  let backUrl = $derived.by(() => {
     try {
-      if (amount > 0) {
-        note = "Getting an invoice from your new wallet…";
-        const payreq = await invoiceFor(to, amount);
-        note = `Sending ${amount.toLocaleString()} sats…`;
-        await post("/payments", { payreq, ...(pin ? { pin } : {}) });
-        sent = amount;
-      }
-      note = "Releasing your username…";
-      await post("/user", { username: newName, ...(pin ? { pin } : {}) });
-      step = "done";
-      success("Migrated");
-    } catch (e) {
-      error = e && typeof e === "object" && "message" in e ? String(e.message) : String(e);
-      step = "error";
+      const u = new URL(back || "https://v3.coinos.io/");
+      u.searchParams.set("migrated", user.username);
+      return u.toString();
+    } catch {
+      return "https://v3.coinos.io/";
     }
-  }
-
-  function goBack() {
-    const url = new URL(back || "https://v3.coinos.io/");
-    url.searchParams.set("migrated", user.username);
-    goto(url.toString(), { replaceState: true });
-  }
+  });
 </script>
 
 <div class="max-w-md mx-auto p-4 space-y-5">
   <h1 class="text-2xl font-bold">Move your account to coinos v3</h1>
 
   {#if !to}
-    <p class="text-red-600">
-      This page needs a destination. Start the migration from coinos v3.
-    </p>
-  {:else if step === "done"}
+    <p class="text-red-600">This page needs a destination — start the move from coinos v3.</p>
+  {:else if form?.ok}
     <div class="space-y-3">
       <p class="text-xl">✓ All done!</p>
-      {#if sent}
-        <p>{sent.toLocaleString()} sats are on their way to your new wallet.</p>
+      {#if form.sent}
+        <p>{form.sent.toLocaleString()} sats are on their way to your new wallet.</p>
       {/if}
       <p>
-        Your old username was released, so <strong>{user.username}</strong> can now be
-        yours on coinos v3.
+        Your username was released, so <strong>{form.released}</strong> can be yours again on
+        coinos v3.
       </p>
-      <button class="btn btn-primary w-full" onclick={goBack}>Back to coinos v3</button>
+      <a class="btn btn-primary w-full" href={backUrl}>Back to coinos v3</a>
     </div>
-  {:else if step === "working"}
-    <p>{note}</p>
-    <progress class="progress w-full"></progress>
   {:else}
-    <div class="space-y-3">
-      <p>
-        This moves your balance to your new wallet and frees up your username so you can
-        keep it there. Your old account stays, renamed to
-        <strong>{newName}</strong>, and stops receiving payments.
-      </p>
-      <div class="rounded-xl border p-3 space-y-1">
-        <div class="flex justify-between"><span>Balance</span><strong>{balance.toLocaleString()} sats</strong></div>
-        <div class="flex justify-between"><span>Sending</span><strong>{amount.toLocaleString()} sats</strong></div>
-        <div class="flex justify-between text-sm opacity-60"><span>Left for routing</span><span>{reserve.toLocaleString()} sats</span></div>
-        <div class="flex justify-between break-all gap-2"><span>To</span><span>{to}</span></div>
-      </div>
+    <p>
+      This sends your balance to your new wallet and frees up your username so you can keep
+      it there. Your old account stays, renamed to <strong>{newName}</strong>, and stops
+      receiving payments.
+    </p>
+
+    <div class="rounded-xl border p-3 space-y-1">
+      <div class="flex justify-between"><span>Balance</span><strong>{balance.toLocaleString()} sats</strong></div>
+      <div class="flex justify-between gap-3 break-all"><span>To</span><span>{to}</span></div>
+    </div>
+
+    {#if form?.error}<p class="text-red-600">{form.error}</p>{/if}
+
+    <form
+      method="POST"
+      use:enhance={() => {
+        working = true;
+        return async ({ update }) => {
+          await update({ reset: false });
+          working = false;
+        };
+      }}
+      class="space-y-3"
+    >
+      <input type="hidden" name="to" value={to} />
+      <input type="hidden" name="balance" value={balance} />
+      <input type="hidden" name="username" value={user.username} />
       {#if user?.haspin}
         <input class="input input-bordered w-full" type="password" inputmode="numeric"
-          placeholder="Your PIN" bind:value={pin} />
+          name="pin" placeholder="Your PIN" />
       {/if}
-      {#if error}<p class="text-red-600">{error}</p>{/if}
-      <button class="btn btn-primary w-full" onclick={migrate} disabled={!to}>
-        Move {amount.toLocaleString()} sats and release {user.username}
+      <button class="btn btn-primary w-full" disabled={working}>
+        {#if working}Moving…{:else}Move {balance.toLocaleString()} sats and release {user.username}{/if}
       </button>
-      <p class="text-sm opacity-60">
-        You can also do nothing — your old account keeps working as it is.
-      </p>
-    </div>
+    </form>
+
+    <p class="text-sm opacity-60">You can also do nothing — your old account keeps working as it is.</p>
   {/if}
 </div>
