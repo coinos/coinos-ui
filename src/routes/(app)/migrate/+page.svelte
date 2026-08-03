@@ -51,7 +51,9 @@
 
     <div class="rounded-xl border p-3 space-y-1">
       <div class="flex justify-between"><span>Balance</span><strong>{balance.toLocaleString()} sats</strong></div>
-      <div class="flex justify-between gap-3 break-all"><span>To</span><span>{to}</span></div>
+      <!-- The destination is v3's temporary npub-shaped address; showing it
+           would just confuse someone who is about to keep their real name. -->
+      <div class="flex justify-between"><span>Moving to</span><span>your coinos v3 wallet</span></div>
     </div>
 
     {#if form?.error}<p class="text-red-600">{form.error}</p>{/if}
