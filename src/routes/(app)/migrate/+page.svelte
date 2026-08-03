@@ -9,11 +9,10 @@
   import { enhance } from "$app/forms";
 
   let { data, form } = $props();
-  let { user, to, back } = $derived(data);
+  let { user, to, back, newName } = $derived(data);
 
   let working = $state(false);
   let balance = $derived(user?.balance || 0);
-  let newName = $derived(`${user?.username}_v2`);
   let backUrl = $derived.by(() => {
     try {
       const u = new URL(back || "https://v3.coinos.io/");

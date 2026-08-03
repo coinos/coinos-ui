@@ -20,12 +20,26 @@ async function invoiceFor(address: string, sats: number) {
 	return inv.pr as string;
 }
 
+// The server only accepts letters and numbers, 2–24 of them, so the retired
+// name can't carry a separator. Candidates are <name>v2, <name>v3, … each
+// trimmed to fit, so a long username still lands inside the limit.
+function retiredNames(username: string) {
+	const base = String(username).replace(/[^\p{L}\p{N}]/gu, "");
+	const out: string[] = [];
+	for (let n = 2; n <= 9; n++) {
+		const suffix = `v${n}`;
+		out.push(base.slice(0, 24 - suffix.length) + suffix);
+	}
+	return out;
+}
+
 export async function load({ parent, url }) {
 	const { user } = await parent();
 	if (!user) redirect(307, `/login?redirect=${encodeURIComponent(url.pathname + url.search)}`);
 	return {
 		to: url.searchParams.get("to") || "",
 		back: url.searchParams.get("back") || "",
+		newName: retiredNames(user.username)[0],
 	};
 }
 
@@ -62,13 +76,23 @@ export const actions = {
 				}
 				if (!sent) throw lastErr;
 			}
-			// Releasing the username is what lets them keep it on v3.
-			await post(
-				"/user",
-				{ username: `${username}_v2`, ...(pin ? { pin } : {}) },
-				auth(cookies),
-			);
-			return { ok: true, sent, released: username };
+			// Releasing the username is what lets them keep it on v3. If the
+			// retired name is itself taken, step to the next candidate.
+			let renamed = "";
+			let renameErr;
+			for (const candidate of retiredNames(username)) {
+				try {
+					await post("/user", { username: candidate, ...(pin ? { pin } : {}) }, auth(cookies));
+					renamed = candidate;
+					break;
+				} catch (e) {
+					renameErr = e;
+					const msg = String((e as any)?.message || e);
+					if (!/taken/i.test(msg)) throw e;
+				}
+			}
+			if (!renamed) throw renameErr;
+			return { ok: true, sent, released: username, renamed };
 		} catch (e) {
 			const msg = e && typeof e === "object" && "message" in e ? String(e.message) : String(e);
 			return { error: msg, sent };
