@@ -55,7 +55,7 @@
       step = "done";
       success("Migrated");
     } catch (e) {
-      error = String(e && e.message ? e.message : e);
+      error = e && typeof e === "object" && "message" in e ? String(e.message) : String(e);
       step = "error";
     }
   }
