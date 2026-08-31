@@ -1,7 +1,32 @@
 import { auth, post } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
+import { env } from "$env/dynamic/private";
 
 const REGISTRAR = "https://names.coinos.io";
+
+// Tell the v3 registrar who may claim the released name. This session — the
+// old account's authenticated login — is the proof of ownership; the
+// registrar's own claim guard otherwise only accepts a claim signed by the
+// old account's nostr key, which a v3 wallet never has.
+async function grantMigration(username: string, to: string) {
+	if (!env.MIGRATE_TOKEN) throw new Error("migration hand-off isn't configured");
+	let lastErr;
+	for (let i = 0; i < 3; i++) {
+		try {
+			const r = await fetch(`${REGISTRAR}/migrate-grant`, {
+				method: "POST",
+				headers: { "content-type": "application/json", authorization: `Bearer ${env.MIGRATE_TOKEN}` },
+				body: JSON.stringify({ name: username, to }),
+			});
+			if (r.ok) return;
+			lastErr = new Error((await r.json().catch(() => null))?.error || `registrar said ${r.status}`);
+		} catch (e) {
+			lastErr = e;
+		}
+		await new Promise((res) => setTimeout(res, 1500));
+	}
+	throw lastErr;
+}
 
 // An invoice from the v3 registrar for this address and amount (LNURL-pay).
 async function invoiceFor(address: string, sats: number) {
@@ -66,6 +91,9 @@ export const actions = {
 			// as it is — same username, same history, still usable here; the
 			// registrar just becomes the answer for incoming payments.
 			await post("/user", { migrated: true, ...(pin ? { pin } : {}) }, auth(cookies));
+			// …and tell the registrar which v3 identity the name now belongs
+			// to, or their claim over there can never pass the squat guard.
+			await grantMigration(username, to);
 			return { ok: true, sent, released: username };
 		} catch (e) {
 			const msg = e && typeof e === "object" && "message" in e ? String(e.message) : String(e);
