@@ -30,7 +30,11 @@
   let portInfo = $state("");
 
   // --- Existing config path (generated server-side to hex in form.bytes) ---
-  let bytes = $derived(form ? hex.decode(form.bytes) : undefined);
+  let bytes = $derived(form?.bytes ? hex.decode(form.bytes) : undefined);
+  let configError = $state("");
+  $effect(() => {
+    configError = form?.error || "";
+  });
   let littlefsAddress = $state(LITTLEFS_ADDRESS_DEFAULT);
   let configProgress = $state(0);
   let configDone = $state(false);
@@ -68,6 +72,10 @@
 
   let flashConfig = async () => {
     if (!esploader || !bytes) return;
+    if (bytes.length !== 0x20000) {
+      configError = `Refusing to flash: image is ${bytes.length} bytes, expected ${0x20000}`;
+      return;
+    }
     configDone = false;
     configProgress = 0;
 
@@ -175,6 +183,9 @@
           {#if configProgress > 0}<div class="mt-2">Progress: {configProgress}%</div>{/if}
         {/if}
       {:else}
+        {#if configError}
+          <div class="text-red-600 mb-2">{configError}</div>
+        {/if}
         <form method="POST" use:enhance class="space-y-2">
           <input name="ssid" placeholder="Wifi SSID" class="input" />
           <input name="key" placeholder="Wifi password" class="input" />
