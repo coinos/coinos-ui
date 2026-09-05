@@ -70,6 +70,27 @@
     }
   };
 
+  // Pulse RTS to hard-reset the chip out of the ROM bootloader so it boots
+  // the app with the new flash contents. Same sequence esptool.py uses
+  // ("Hard resetting via RTS pin"); on the C3's USB-JTAG-serial port RTS
+  // drives EN, so the device re-enumerates and must be reconnected.
+  let resetDevice = async () => {
+    try {
+      await transport.setDTR(false);
+      await transport.setRTS(true);
+      await new Promise((r) => setTimeout(r, 100));
+      await transport.setRTS(false);
+    } catch (e) {
+      console.warn("reset failed", e);
+    }
+    try {
+      await transport.disconnect();
+    } catch (e) {}
+    esploader = undefined;
+    connected = false;
+    portInfo = "Device reset. Reconnect to flash again.";
+  };
+
   let flashConfig = async () => {
     if (!esploader || !bytes) return;
     if (bytes.length !== 0x20000) {
@@ -92,6 +113,7 @@
     });
 
     configDone = true;
+    await resetDevice();
   };
 
   function onPickFw(e) {
@@ -142,6 +164,7 @@
       });
 
       fwDone = true;
+      await resetDevice();
     } catch (e) {
       console.error(e);
       fwError = e?.message || "Flash failed.";
@@ -156,6 +179,11 @@
 
   {#if !connected}
   <div class="text-center">
+    {#if configDone}
+      <div class="text-2xl mb-3">Config written ✔ Device restarted</div>
+    {:else if fwDone}
+      <div class="text-2xl mb-3">Firmware written ✔ Device restarted</div>
+    {/if}
     <button class="btn" onclick={connect}>Connect</button>
     <div class="text-sm mt-2 opacity-70">{portInfo}</div>
   </div>
