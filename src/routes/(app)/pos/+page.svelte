@@ -1,5 +1,6 @@
 <script>
   import { enhance } from "$app/forms";
+  import { onDestroy } from "svelte";
   import { ESPLoader, Transport } from "esptool-js";
   import { hex } from "@scure/base";
 
@@ -77,8 +78,22 @@
       portInfo = (await device.getInfo?.()) ? JSON.stringify(await device.getInfo()) : "Connected";
     } catch (e) {
       console.log(e);
-      connected = false;
+      // A failed connect must not leave the port claimed: the browser keeps
+      // it open until someone calls close(), and the chip may already be
+      // sitting in the ROM download mode.
+      await resetDevice();
     }
+  };
+
+  // Close the serial port and forget it. The browser holds a port open until
+  // it is explicitly closed — navigating away does not release it.
+  let releasePort = async () => {
+    try {
+      await transport?.disconnect();
+    } catch (e) {}
+    transport = undefined;
+    esploader = undefined;
+    connected = false;
   };
 
   // Pulse RTS to hard-reset the chip out of the ROM bootloader so it boots
@@ -86,6 +101,7 @@
   // ("Hard resetting via RTS pin"); on the C3's USB-JTAG-serial port RTS
   // drives EN, so the device re-enumerates and must be reconnected.
   let resetDevice = async () => {
+    if (!transport) return;
     try {
       await transport.setDTR(false);
       await transport.setRTS(true);
@@ -94,13 +110,24 @@
     } catch (e) {
       console.warn("reset failed", e);
     }
-    try {
-      await transport.disconnect();
-    } catch (e) {}
-    esploader = undefined;
-    connected = false;
+    await releasePort();
     portInfo = "Device reset. Reconnect to flash again.";
   };
+
+  // Connecting parks the chip in the ROM download mode (esptool stub loaded,
+  // app not running). Until it is hard-reset the OLED keeps whatever the app
+  // last drew and the keypad is dead, so it looks frozen rather than
+  // "in flashing mode". Leaving the page — SPA navigation, reload, or tab
+  // close — must therefore reset the device and release the port; neither
+  // happens on its own.
+  onDestroy(() => {
+    resetDevice();
+  });
+  $effect(() => {
+    const onHide = () => resetDevice();
+    window.addEventListener("pagehide", onHide);
+    return () => window.removeEventListener("pagehide", onHide);
+  });
 
   let flashConfig = async () => {
     if (!esploader || !bytes) return;
@@ -253,6 +280,7 @@
     <div class="flex gap-2 justify-center">
       <button class="btn" class:btn-neutral={tab === "config"} onclick={() => (tab = "config")}>Flash config</button>
       <button class="btn" class:btn-neutral={tab === "firmware"} onclick={() => (tab = "firmware")}>Flash firmware</button>
+      <button class="btn" onclick={resetDevice} title="Reset the device into its app and release the serial port">Disconnect</button>
     </div>
 
     {#if tab === "config"}
