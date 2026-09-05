@@ -48,6 +48,17 @@
   let fwDone = $state(false);
   let fwError = $state("");
 
+  // --- Latest published release (see coinos-pos/publish.sh) ---
+  /** @type {any} */
+  let release = $state(null);        // manifest.json contents
+  let releaseError = $state("");
+  $effect(() => {
+    fetch("/firmware/manifest.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then((m) => (release = m))
+      .catch((e) => (releaseError = `No published release: ${e.message}`));
+  });
+
   // Simple tab toggle
   let tab = $state("config"); // "config" | "firmware"
 
@@ -170,6 +181,54 @@
       fwError = e?.message || "Flash failed.";
     }
   };
+
+  // Flash every part of the published release at its offset (bootloader,
+  // partition table, OTA data, app). The LittleFS config partition is not
+  // part of the manifest, so device credentials survive.
+  let flashRelease = async () => {
+    if (!esploader) {
+      fwError = "Not connected.";
+      return;
+    }
+    if (!release?.parts?.length) {
+      fwError = "No release available.";
+      return;
+    }
+    fwError = "";
+    fwDone = false;
+    fwProgress = 0;
+
+    try {
+      const fileArray = [];
+      for (const part of release.parts) {
+        const r = await fetch(`${part.path}?v=${encodeURIComponent(release.version)}`, { cache: "no-store" });
+        if (!r.ok) throw new Error(`Download failed: ${part.path} (HTTP ${r.status})`);
+        const buf = new Uint8Array(await r.arrayBuffer());
+        if (part.size && buf.length !== part.size)
+          throw new Error(`Size mismatch for ${part.path}: got ${buf.length}, expected ${part.size}`);
+        fileArray.push({ data: bs(buf), address: Number(part.address) });
+      }
+
+      const totals = fileArray.map((f) => f.data.length);
+      const grand = totals.reduce((a, b) => a + b, 0);
+      await esploader.writeFlash({
+        fileArray,
+        flashSize: "keep",
+        eraseAll: false,
+        compress: true,
+        reportProgress: (fileIndex, written, total) => {
+          const before = totals.slice(0, fileIndex).reduce((a, b) => a + b, 0);
+          fwProgress = Math.floor(((before + (written / total) * totals[fileIndex]) / grand) * 100);
+        },
+      });
+
+      fwDone = true;
+      await resetDevice();
+    } catch (e) {
+      console.error(e);
+      fwError = e?.message || "Flash failed.";
+    }
+  };
 </script>
 
 <div class="container px-4 max-w-lg mx-auto space-y-5 mt-20">
@@ -224,7 +283,17 @@
     {:else}
       <!-- NEW FIRMWARE FLOW -->
       <div class="space-y-3">
-        <label class="label">Select .ino.bin (firmware)</label>
+        {#if release}
+          <div class="p-3 rounded-lg border border-current/20 space-y-2">
+            <div class="font-semibold">Latest release: {release.version}</div>
+            <div class="text-sm opacity-70">Built {release.built} · flashes bootloader, partitions and app; keeps your wifi/token config</div>
+            <button class="btn" onclick={flashRelease}>Flash latest release</button>
+          </div>
+        {:else if releaseError}
+          <div class="text-sm opacity-70">{releaseError}</div>
+        {/if}
+
+        <label class="label">Or select a .ino.bin (firmware)</label>
         <input type="file" accept=".bin,application/octet-stream" class="input" onchange={onPickFw} />
 
         <label class="label">Firmware address (hex, default 0x10000)</label>

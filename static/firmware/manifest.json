@@ -1,0 +1,12 @@
+{
+  "version": "2026.09.04-0ec9bae",
+  "commit": "0ec9bae",
+  "built": "2026-09-05T02:51:16Z",
+  "chip": "ESP32-C3",
+  "parts": [
+    { "path": "/firmware/bootloader.bin", "address": 0,       "size": 18688 },
+    { "path": "/firmware/partitions.bin", "address": 32768,   "size": 3072 },
+    { "path": "/firmware/boot_app0.bin",  "address": 57344,   "size": 8192 },
+    { "path": "/firmware/coinos-pos.bin", "address": 65536,   "size": 1298928 }
+  ]
+}
