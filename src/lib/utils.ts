@@ -172,8 +172,6 @@ export const login = async (
 	host?: string,
 	extraHeaders?: Record<string, string>,
 ) => {
-	const maxAge = 380 * 24 * 60 * 60;
-
 	const headers: Record<string, string> = {
 		"content-type": "application/json",
 		accept: "application/json",
@@ -198,6 +196,18 @@ export const login = async (
 	const { user: u, token } = JSON.parse(text);
 	if (!token) throw new Error("Login failed");
 
+	setSession(cookies, user, u, token);
+};
+
+// Session cookies for a freshly issued JWT — shared by login and register,
+// which both get a token back from the server.
+const setSession = (
+	cookies,
+	user: { username: string; password: string },
+	u: { language?: string; nsec?: string },
+	token: string,
+) => {
+	const maxAge = 380 * 24 * 60 * 60;
 	const expires = new Date();
 	expires.setSeconds(expires.getSeconds() + maxAge);
 
@@ -507,19 +517,30 @@ export const register = async (user, ip, cookies, loginRedirect, host?, extraHea
 	};
 	if (ip) headers["cf-connecting-ip"] = ip;
 
-	let sk;
+	let sk, token, u;
 	try {
-		({ sk } = await post("/register", { user }, headers));
+		({ sk, token, ...u } = await post("/register", { user }, headers));
 	} catch (e) {
 		({ message: error } = e as Error);
 	}
 
-	try {
-		await login(user, cookies, ip, host, extraHeaders);
+	// /register verifies the recaptcha token itself now, and Google tokens
+	// are single-use: a follow-up /login carrying the same token comes back
+	// "failed captcha" for an account that was just created. The register
+	// response already includes the JWT, so start the session from it and
+	// only fall back to /login when registration failed (e.g. the username
+	// already exists and this is really a login).
+	if (token) {
+		setSession(cookies, user, u, token);
 		error = null;
-	} catch (e) {
-		const { message } = e as Error;
-		error ||= message;
+	} else {
+		try {
+			await login(user, cookies, ip, host, extraHeaders);
+			error = null;
+		} catch (e) {
+			const { message } = e as Error;
+			error ||= message;
+		}
 	}
 
 	const expires = new Date();
