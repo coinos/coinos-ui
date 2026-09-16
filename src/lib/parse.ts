@@ -73,7 +73,6 @@ export default async (s, host, cookies) => {
 	} else if (t.toLowerCase().startsWith("ln")) {
 		try {
 			invoice = await get(`/invoice/${t}`);
-			if (invoice.user.username === "mint") throw new Error("mint payment");
 		} catch (e) {
 			if (t.toLowerCase().startsWith("lno")) {
 				const { offer_amount_msat: a } = await get(`/decode/${t}`);
