@@ -8,7 +8,7 @@ const { decode, fromWords } = bech32;
 const lnurlFetch = async (url: string) =>
 	get(`/lnurl/proxy?url=${encodeURIComponent(url)}`);
 
-export async function load({ params, parent }) {
+export async function load({ cookies, params, parent }) {
 	const { user } = await parent();
 	const rates = await getRates();
 
@@ -58,6 +58,12 @@ export async function load({ params, parent }) {
 		error(500, "We only support LNURLp and LNURLw at this time");
 
 	data.rate = rates[user?.currency || "USD"];
+	// Lightning sends draw on the main account; the Max button needs its balance
+	if (user && data.tag === "payRequest") {
+		try {
+			({ balance: data.balance } = await get(`/account/${user.id}`, auth(cookies)));
+		} catch (e) {}
+	}
 	return data;
 }
 
@@ -82,6 +88,53 @@ export const actions = {
 		const url = urlObj.toString();
 
 		const { pr } = await lnurlFetch(url);
+
+		let path = `/send/lightning/${pr}`;
+		if (comment) path += `/${encodeURIComponent(comment)}`;
+		redirect(307, path);
+	},
+
+	// Send everything to an LNURL-pay endpoint. The routing cost depends on the
+	// amount and the amount on the routing cost, and the invoice only exists
+	// once we name an amount — so fetch a probe invoice at the most we could
+	// possibly send (its destination and route hints are what the quote needs),
+	// let the server solve for the amount that lands the balance on zero, then
+	// fetch the real invoice for exactly that amount.
+	max: async ({ cookies, request }) => {
+		let { callback, minSendable, maxSendable, comment } = await fd(request);
+		minSendable = Math.round(minSendable / 1000);
+		maxSendable = Math.round(maxSendable / 1000);
+
+		const user = await get("/me", auth(cookies));
+		const { balance } = await get(`/account/${user.id}`, auth(cookies));
+		const ceiling = Math.min(balance, maxSendable);
+		if (ceiling < minSendable)
+			return fail(400, { error: `Amount must be at least ${minSendable} sats` });
+
+		const invoiceFor = async (amount: number) => {
+			const urlObj = new URL(callback);
+			urlObj.searchParams.set("amount", (amount * 1000).toString());
+			if (comment) urlObj.searchParams.set("comment", comment);
+			const { pr, reason } = await lnurlFetch(urlObj.toString());
+			if (!pr) throw new Error(reason || "Could not fetch invoice");
+			return pr;
+		};
+
+		let pr;
+		try {
+			const probe = await invoiceFor(ceiling);
+			const { amount } = await post(
+				"/lightning/quote",
+				{ payreq: probe, max: true, ceiling },
+				auth(cookies),
+			);
+			if (amount < minSendable)
+				return fail(400, { error: `Amount must be at least ${minSendable} sats` });
+			pr = await invoiceFor(amount);
+		} catch (e) {
+			const { error } = e as Error & { error?: string };
+			return fail(400, { error: (e as Error).message || error });
+		}
 
 		let path = `/send/lightning/${pr}`;
 		if (comment) path += `/${encodeURIComponent(comment)}`;

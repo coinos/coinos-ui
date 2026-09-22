@@ -6,11 +6,13 @@
   import Numpad from "$comp/Numpad.svelte";
   import Spinner from "$comp/Spinner.svelte";
   import { pin } from "$lib/store";
+  import { s } from "$lib/utils";
 
   let { data, form, send = $bindable(), comment = $bindable() } = $props();
   let { currency } = data.user;
-  let { minSendable, maxSendable, commentAllowed, callback, metadata, rate } =
+  let { minSendable, maxSendable, commentAllowed, callback, metadata, rate, balance } =
     data;
+  let max = $derived(Math.min(balance || 0, Math.floor(maxSendable / 1000)));
 
   let amount = $state(Math.round(minSendable / 1000)),
     loading = $state();
@@ -56,8 +58,17 @@
       ></textarea>
     {/if}
 
-    <div class="flex w-full">
-      <button bind:this={send} type="submit" class="btn">
+    <div class="flex w-full gap-2">
+      {#if max >= Math.round(minSendable / 1000)}
+        <button
+          type="submit"
+          class="btn !w-auto grow"
+          formaction="?/max"
+          disabled={loading}
+          onclick={submit}>Max ⚡️{s(max)}</button
+        >
+      {/if}
+      <button bind:this={send} type="submit" class="btn btn-accent !w-auto grow">
         {#if loading}
           <Spinner />
         {:else}

@@ -162,8 +162,23 @@
   </p>
   <Code sample="fetchInvoice" />
 
+  <h2 class="text-2xl">POST /lightning/quote</h2>
+  <p class="text-secondary">
+    Find out what a lightning payment will cost before sending it. The routing
+    fee comes from querying the route ahead of time and is exact; pass it as
+    <b>fee</b> to POST /payments. Pass <b>amount</b> for an amountless invoice,
+    or <b>max</b> to solve for the largest amount whose amount + fees uses the
+    whole balance.
+  </p>
+  <Code sample="quote" />
+  <p>Sample response</p>
+  <Code sample="quoteResponse" />
+
   <h2 class="text-2xl">POST /payments</h2>
-  <p class="text-secondary">Send a lightning payment</p>
+  <p class="text-secondary">
+    Send a lightning payment. <b>fee</b> caps the routing fee; if omitted, the
+    route is quoted and the exact fee used.
+  </p>
   <Code sample="lightning" />
 
   <p class="text-secondary">Send an internal payment to another user</p>

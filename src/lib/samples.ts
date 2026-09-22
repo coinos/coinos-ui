@@ -29,6 +29,20 @@ export default {
   -d '{
     "payreq": "lnbc1pj94d8fsp5n77k340ps4m9jn7kp8he8yynpddvurv6mcsrrqpnq5l2jxdxzlwqpp5m96pqhc5nrlk8cqsu9ufdxxa43sarp8vwf9egvm2pg9nl0zu9r8qdq2vdhkjmn0wvxqztgcqpjrzjqwhmav82kntsppmkp8jp4vg4h9nns78tsy8mg7ve4lq5txrkp0h56zlarvqqdtcqqsqqqqqqqqqqp6cq9q9qyysgqzxlypywzphyujm3ga5j5csfcmqvlnae0fgnvymkaaw94eeg7py5rqzysyjkr3ev2snq63qpsc69vf54adkd0szvmvwt5cuadjnuy95sq4xfa40"
 }'`,
+	quote: `curl "${api}/lightning/quote" 
+  -H "content-type: application/json" 
+  -H "Authorization: Bearer $token"
+  -d '{
+    "payreq": "lnbc1pj94d8fsp5n77k340ps4m9jn7kp8he8yynpddvurv6mcsrrqpnq5l2jxdxzlwqpp5m96pqhc5nrlk8cqsu9ufdxxa43sarp8vwf9egvm2pg9nl0zu9r8qdq2vdhkjmn0wvxqztgcqpjrzjqwhmav82kntsppmkp8jp4vg4h9nns78tsy8mg7ve4lq5txrkp0h56zlarvqqdtcqqsqqqqqqqqqqp6cq9q9qyysgqzxlypywzphyujm3ga5j5csfcmqvlnae0fgnvymkaaw94eeg7py5rqzysyjkr3ev2snq63qpsc69vf54adkd0szvmvwt5cuadjnuy95sq4xfa40",
+    "max": true
+}'`,
+	quoteResponse: `{
+  "amount": 99899,
+  "fee": 1,
+  "ourfee": 100,
+  "total": 100000,
+  "balance": 100000
+}`,
 	bitcoin: `curl "${api}/bitcoin/send" 
   -H "content-type: application/json" 
   -H "Authorization: Bearer $token"
