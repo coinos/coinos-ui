@@ -121,16 +121,6 @@
       <div class="my-auto">{$t("user.send.next")}</div>
     </button>
 
-    <a href="/send/fund" class="block">
-      <button type="button" class="btn">
-        <iconify-icon
-          noobserver
-          icon="ph:lightning-fill"
-          class="text-yellow-300 text-2xl"
-        ></iconify-icon>
-        <div class="my-auto">{$t("payments.createFund")}</div>
-      </button>
-    </a>
   </form>
 
   {#if contacts.length}
