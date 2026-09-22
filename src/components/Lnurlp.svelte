@@ -17,6 +17,8 @@
   let amount = $state(Math.round(minSendable / 1000)),
     loading = $state();
   let submit = () => (loading = true);
+  // An action result (an error, since success redirects) ends the wait
+  $effect(() => form && (loading = false));
 </script>
 
 <div class="container px-4 mt-20 max-w-xl mx-auto space-y-2">
@@ -60,12 +62,15 @@
 
     <div class="flex w-full gap-2">
       {#if max >= Math.round(minSendable / 1000)}
+        <!-- loading is set by the form's onsubmit, not here: flipping
+             `disabled` from a click handler lands in the DOM before the
+             browser's submit activation runs, and a disabled button submits
+             nothing (the page just sat on a spinner). -->
         <button
           type="submit"
           class="btn !w-auto grow"
           formaction="?/max"
-          disabled={loading}
-          onclick={submit}>Max ⚡️{s(max)}</button
+          disabled={loading}>Max ⚡️{s(max)}</button
         >
       {/if}
       <button bind:this={send} type="submit" class="btn btn-accent !w-auto grow">

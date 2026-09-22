@@ -174,7 +174,13 @@
       {/if}
     </form>
   {:else}
-    <form method="POST" action="?/setAmount" class="space-y-2" use:enhance>
+    <form
+      method="POST"
+      action="?/setAmount"
+      class="space-y-2"
+      use:enhance
+      onsubmit={submit}
+    >
       <input type="hidden" value={a} name="amount" />
       <input name="rate" value={$rate} type="hidden" />
 
@@ -187,12 +193,13 @@
       />
 
       <div class="flex justify-center gap-2">
+        <!-- no onclick: see Lnurlp.svelte — disabling from the click
+             handler cancels the submit; the form's onsubmit sets loading -->
         <button
           type="submit"
           class="btn !w-auto grow"
           formaction="?/max"
           disabled={loading}
-          onclick={submit}
         >
           {#if loading}
             <Spinner />
