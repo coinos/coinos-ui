@@ -57,7 +57,12 @@ export const messages = (data) => ({
 				pathname.includes("/receive") ||
 				pathname.includes("/invoice")
 			) {
-				if (!get(navigating)) goto(`/invoice/${iid}`);
+				// `paid=<amount>` marks this as a payment that arrived just now, and
+				// carries the amount of THIS payment. A reusable bolt12 offer needs
+				// both: its `received` is a lifetime total, so the invoice layout
+				// can't tell a live payment from an old one, and the success screen
+				// would otherwise show the accumulated figure.
+				if (!get(navigating)) goto(`/invoice/${iid}?paid=${amount}`);
 			} else success(`${confirmed ? "Received" : "Detected"} ⚡️${s(amount)}!`);
 		}
 	},
