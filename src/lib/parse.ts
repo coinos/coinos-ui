@@ -105,10 +105,8 @@ export default async (s, host, cookies) => {
 			.join("");
 	}
 
-	if (t.startsWith("cashu")) {
-		const { id } = await post("/cash", { token: t });
-		redirect(307, `/ecash/${id}`);
-	}
+	// The token rides in the URL; the ecash page asks the server for its status.
+	if (t.startsWith("cashu")) redirect(307, `/ecash/${encodeURIComponent(t)}`);
 
 	if (t.startsWith("creq")) redirect(307, `/send/ecash/${t}`);
 
