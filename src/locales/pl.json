@@ -518,7 +518,9 @@
 		"gift": "Dawać wszystkie fundusze",
 		"giftLink": "Link prezent",
 		"giftDesc1": "Ktokolwiek otworzy poniższy link otrzyma wszystkie dostępne fundusze.",
-		"giftDesc2": "Jeśli są one zalogowane, fundusze trafią na ich konto, w przeciwnym razie powstanie nowe konto."
+		"giftDesc2": "Jeśli są one zalogowane, fundusze trafią na ich konto, w przeciwnym razie powstanie nowe konto.",
+		"routingFee": "Opłata za trasy",
+		"noQuote": "Nie mogłem wcześniej sprawdzić opłat za routing. Maksymalna opłata za routing poniżej jest rezerwą; niewykorzystana część jest zapisywana z powrotem."
 	},
 	"items": {
 		"add": "Dodaj element",
@@ -561,5 +563,7 @@
 		"withdrawAccess": "Wycofanie dostępu",
 		"username": "Nazwa użytkownika",
 		"returnToFund": "Powrót do funduszu"
-	}
+	},
+	"v3Banner": "Wypróbuj nową wersję Coinos na v3.coinos.io!",
+	"dismiss": "Rozejść się"
 }

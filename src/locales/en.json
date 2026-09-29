@@ -559,5 +559,7 @@
 		"nl": "Nederlands",
 		"th": "ไทย",
 		"pl": "Polski"
-	}
+	},
+	"v3Banner": "Try out the new version of Coinos at v3.coinos.io!",
+	"dismiss": "Dismiss"
 }

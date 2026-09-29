@@ -518,7 +518,9 @@
 		"gift": "Alle fondsen cadeau",
 		"giftLink": "Kadokoppeling",
 		"giftDesc1": "Wie de onderstaande link opent, ontvangt alle beschikbare fondsen.",
-		"giftDesc2": "Als ze ingelogd zijn, gaan de fondsen naar hun account, anders wordt er een nieuwe account gegenereerd."
+		"giftDesc2": "Als ze ingelogd zijn, gaan de fondsen naar hun account, anders wordt er een nieuwe account gegenereerd.",
+		"routingFee": "Routingvergoeding",
+		"noQuote": "Kon de routekosten niet vooraf opzoeken. De maximale routing fee hieronder is een reserve; eventuele ongebruikte gedeelte wordt terug gecrediteerd."
 	},
 	"items": {
 		"add": "Item toevoegen",
@@ -561,5 +563,7 @@
 		"withdrawAccess": "Toegang intrekken",
 		"username": "Gebruikersnaam",
 		"returnToFund": "Terug naar financiering"
-	}
+	},
+	"v3Banner": "Probeer de nieuwe versie van Coinos op v3.coinos.io!",
+	"dismiss": "Ingetrokken"
 }

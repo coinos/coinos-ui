@@ -5,6 +5,7 @@
   import "../app.css";
   import { loading, t } from "$lib/translations";
   import { onMount } from "svelte";
+  import V3Banner from "$comp/V3Banner.svelte";
   import { installPrompt, theme as themeStore } from "$lib/store";
 
 
@@ -96,6 +97,7 @@ $effect(() => {
 
 {#if !$loading}
   <main>
+    <V3Banner />
     {@render children?.()}
   </main>
 {/if}

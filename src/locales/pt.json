@@ -487,7 +487,9 @@
 		"gift": "Dar todos os fundos",
 		"giftLink": "Ligação do presente",
 		"giftDesc1": "Quem abrir o link abaixo receberá todos os fundos disponíveis.",
-		"giftDesc2": "Se eles estiverem conectados, os fundos irão para sua conta, caso contrário uma nova conta será gerada."
+		"giftDesc2": "Se eles estiverem conectados, os fundos irão para sua conta, caso contrário uma nova conta será gerada.",
+		"routingFee": "Taxa de encaminhamento",
+		"noQuote": "Não consegui ver a taxa de roteamento antes. A taxa de roteamento máxima abaixo é uma reserva; qualquer porção não utilizada é creditada de volta."
 	},
 	"items": {
 		"add": "Adicionar item",
@@ -564,5 +566,7 @@
 		"withdrawAccess": "Retirar o acesso",
 		"username": "Utilizador",
 		"returnToFund": "Voltar ao fundo"
-	}
+	},
+	"v3Banner": "Experimente a nova versão do Coinos no v3.coinos.io!",
+	"dismiss": "Licenciamento"
 }

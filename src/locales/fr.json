@@ -465,7 +465,9 @@
 		"gift": "Donner tous les fonds",
 		"giftLink": "Lien cadeau",
 		"giftDesc1": "Quiconque ouvre le lien ci-dessous recevra tous les fonds disponibles.",
-		"giftDesc2": "S'ils sont connectés, les fonds vont à leur compte, sinon un nouveau compte sera généré."
+		"giftDesc2": "S'ils sont connectés, les fonds vont à leur compte, sinon un nouveau compte sera généré.",
+		"routingFee": "Frais d'expédition",
+		"noQuote": "Je ne pouvais pas regarder les frais d'acheminement à l'avance. Les frais d'acheminement maximum ci-dessous sont une réserve; toute partie inutilisée est remboursée."
 	},
 	"items": {
 		"add": "Ajouter un article",
@@ -542,5 +544,7 @@
 		"withdrawAccess": "Retrait de l'accès",
 		"username": "Nom d'utilisateur",
 		"returnToFund": "Retour au fonds"
-	}
+	},
+	"v3Banner": "Essayez la nouvelle version de Coinos à v3.coinos.io!",
+	"dismiss": "Rejet"
 }

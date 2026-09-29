@@ -518,7 +518,9 @@
 		"gift": "Hediye tüm fonlar",
 		"giftLink": "Hediye linki",
 		"giftDesc1": "Aşağıdaki bağlantıyı açan herkes mevcut tüm fonları alacak.",
-		"giftDesc2": "Eğer giriş yapılırsa, fonlar hesabına gidecek, aksi takdirde yeni bir hesap oluşturulacaktır."
+		"giftDesc2": "Eğer giriş yapılırsa, fonlar hesabına gidecek, aksi takdirde yeni bir hesap oluşturulacaktır.",
+		"routingFee": "Routing ücretleri",
+		"noQuote": "Zaman öncesindeki routing ücretini göz ardı edemezdi. Aşağıdaki maksimum routing ücreti bir rezervdir; herhangi bir kullanılmayan kısım geri ödenir."
 	},
 	"items": {
 		"add": "Ekle item",
@@ -561,5 +563,7 @@
 		"withdrawAccess": "Withdraw access",
 		"username": "Username",
 		"returnToFund": "Geri finanse etmek için"
-	}
+	},
+	"v3Banner": "V3.coinos.io'daki Coinos'un yeni versiyonunu deneyin!",
+	"dismiss": "Başarısızlık"
 }

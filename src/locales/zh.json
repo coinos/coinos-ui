@@ -465,7 +465,9 @@
 		"gift": "赠与所有基金",
 		"giftLink": "礼品链接",
 		"giftDesc1": "任何人打开以下链接,都将获得所有可用资金.",
-		"giftDesc2": "如果登录,资金将存入其账户,否则将产生一个新的账户."
+		"giftDesc2": "如果登录,资金将存入其账户,否则将产生一个新的账户.",
+		"routingFee": "骑行费",
+		"noQuote": "无法提前查清路由费 以下最大路由费为准备金;任何未用部分将贷记回账."
 	},
 	"items": {
 		"add": "新增项目",
@@ -542,5 +544,7 @@
 		"withdrawAccess": "撤销访问",
 		"username": "用户名",
 		"returnToFund": "回到资金"
-	}
+	},
+	"v3Banner": "在v3.coinos.io试出Coinos的新版本!",
+	"dismiss": "开除"
 }

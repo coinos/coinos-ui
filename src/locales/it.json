@@ -518,7 +518,9 @@
 		"gift": "Regalare tutti i fondi",
 		"giftLink": "Link regalo",
 		"giftDesc1": "Chi apre il link qui sotto riceverà tutti i fondi disponibili.",
-		"giftDesc2": "Se sono connessi, i fondi andranno al loro account, altrimenti verrà generato un nuovo account."
+		"giftDesc2": "Se sono connessi, i fondi andranno al loro account, altrimenti verrà generato un nuovo account.",
+		"routingFee": "Tassa di routing",
+		"noQuote": "Non ho potuto controllare la tassa di routing prima del tempo. La quota massima di routing di seguito è una riserva; qualsiasi parte non utilizzata è accreditata indietro."
 	},
 	"items": {
 		"add": "Aggiungi articolo",
@@ -561,5 +563,7 @@
 		"withdrawAccess": "Ritiro l'accesso",
 		"username": "Nome utente",
 		"returnToFund": "Torna a fondo"
-	}
+	},
+	"v3Banner": "Prova la nuova versione di Coinos a v3.coinos.io!",
+	"dismiss": "Oggetto"
 }

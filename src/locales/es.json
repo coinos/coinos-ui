@@ -465,7 +465,9 @@
 		"gift": "Donar todos los fondos",
 		"giftLink": "Enlace de regalo",
 		"giftDesc1": "Quien abra el enlace de abajo recibirá todos los fondos disponibles.",
-		"giftDesc2": "Si se registran, los fondos irán a su cuenta, de lo contrario se generará una nueva cuenta."
+		"giftDesc2": "Si se registran, los fondos irán a su cuenta, de lo contrario se generará una nueva cuenta.",
+		"routingFee": "Tasa de rotación",
+		"noQuote": "No podía mirar la tarifa de enrutamiento por delante del tiempo. La tarifa máxima de enrutamiento a continuación es una reserva; cualquier porción no utilizada se acredita de nuevo."
 	},
 	"items": {
 		"add": "Añadir artículo",
@@ -542,5 +544,7 @@
 		"withdrawAccess": "Acceso retirado",
 		"username": "Nombre de usuario",
 		"returnToFund": "Regreso al fondo"
-	}
+	},
+	"v3Banner": "Pruebe la nueva versión de Coinos en v3.coinos.io!",
+	"dismiss": "Retírense"
 }

@@ -492,7 +492,9 @@
 		"gift": "Alle Fonds einschenken",
 		"giftLink": "Giftlink",
 		"giftDesc1": "Wer den Link unten öffnet, erhält alle verfügbaren Mittel.",
-		"giftDesc2": "Wenn sie eingeloggt sind, gehen die Fonds auf ihr Konto, ansonsten wird ein neues Konto generiert."
+		"giftDesc2": "Wenn sie eingeloggt sind, gehen die Fonds auf ihr Konto, ansonsten wird ein neues Konto generiert.",
+		"routingFee": "Routinegebühr",
+		"noQuote": "Ich konnte die Routing-Gebühren nicht rechtzeitig nachschlagen. Die maximale Routing-Gebühr ist eine Reserve; jeder ungenutzte Teil wird zurück gutgeschrieben."
 	},
 	"items": {
 		"add": "Artikel hinzufügen",
@@ -569,5 +571,7 @@
 		"withdrawAccess": "Zugriff aufheben",
 		"username": "Benutzername",
 		"returnToFund": "Zurück zum Fonds"
-	}
+	},
+	"v3Banner": "Probieren Sie die neue Version von Coinos bei v3.coinos.io aus!",
+	"dismiss": "Abtreten"
 }
